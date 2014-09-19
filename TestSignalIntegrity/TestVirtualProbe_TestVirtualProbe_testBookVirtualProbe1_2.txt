@@ -1,0 +1,1 @@
+\left[ \left(\begin{array}{cccc} 0 & 0 & 1 & 1 \end{array}\right) \cdot \left(\begin{array}{c} Si_{11} \\ Si_{21} \\ Si_{31} \\ Si_{41} \end{array}\right) \right]\left[ \left(\begin{array}{cccc} 1 & 1 & 0 & 0 \end{array}\right) \cdot \left(\begin{array}{c} Si_{11} \\ Si_{21} \\ Si_{31} \\ Si_{41} \end{array}\right) \right]^{-1}

@@ -1,0 +1,1 @@
+\left[ \identity - \left(\begin{array}{cccc} 0 & T & 0 & 0 \\ C_{11} & 0 & 0 & C_{12} \\ C_{21} & 0 & 0 & C_{22} \\ 0 & 0 & R & 0 \end{array}\right)\right]\left(\begin{array}{cccc} n1 & n2 & n3 & n4 \end{array}\right)^T = \left(\begin{array}{cccc} m1 & 0 & 0 & 0 \end{array}\right)^T

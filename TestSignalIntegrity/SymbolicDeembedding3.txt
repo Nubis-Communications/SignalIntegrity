@@ -1,0 +1,4 @@
+device L 2
+device ? 2
+port 1 L 1 2 ? 2
+connect L 2 ? 1
