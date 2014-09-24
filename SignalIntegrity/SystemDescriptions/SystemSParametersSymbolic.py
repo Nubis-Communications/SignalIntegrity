@@ -37,6 +37,24 @@ class SystemSParametersSymbolic(SystemSParameters,Symbolic):
                 B[r][c]=SCI[n.index(BN[r])][n.index(AN[c])]
         self.AddLine(self.BeginEq() + '\\mathbf{S} = ' + Matrix2LaTeX(B,self.SmallMatrix()) + self.EndEq())
         return self
+    def LaTeXBigSolution(self):
+        AN=self.PortBNames()
+        BN=self.PortANames()
+        XN=self.OtherNames(AN+BN)
+        Wba=self.WeightsMatrix(BN,AN)
+        Wbx=self.WeightsMatrix(BN,XN)
+        Wxa=self.WeightsMatrix(XN,AN)
+        Wxx=self.WeightsMatrix(XN,XN)
+        #I=matrix(identity(len(Wxx)))
+        if len(Wxx)==0:
+            self.AddLine(self.BeginEq() + '\\mathbf{S} = ' + Matrix2LaTeX(Wba,self.SmallMatrix()) + self.EndEq())
+        else:
+            self.AddLine(self.BeginEq() + '\\mathbf{Si} = ' + ' \\left[ ' + self.Identity() +\
+                ' - ' + Matrix2LaTeX(Wxx,self.SmallMatrix()) +' \\right]^{-1} ' + self.EndEq())
+            self.AddLine(self.BeginEq() + '\\mathbf{S} = ' + Matrix2LaTeX(Wba,self.SmallMatrix())+ ' + ' +\
+                Matrix2LaTeX(Wbx,self.SmallMatrix()) + ' \\cdot \\mathbf{Si} \\cdot' +\
+                Matrix2LaTeX(Wxa,self.SmallMatrix()) + self.EndEq())
+        return self
     def LaTeXSolution(self):
         AN=self.PortBNames()
         BN=self.PortANames()
