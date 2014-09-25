@@ -1,0 +1,15 @@
+import SignalIntegrity as si
+
+sd=si.sd.SystemDescription()
+sd.AddDevice('D1',2)
+sd.AddDevice('D2',2)
+sd.AddDevice('D3',2)
+sd.AddDevice('?',2)
+sd.AddPort('D1',1,1)
+sd.AddPort('D2',1,2)
+sd.ConnectDevicePort('D1',2,'?',1)
+sd.ConnectDevicePort('D2',2,'D3',1)
+sd.ConnectDevicePort('D3',2,'?',2)
+spc = si.sd.Deembedder(sd)
+symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+symbolic.SymbolicSolution().Emit()

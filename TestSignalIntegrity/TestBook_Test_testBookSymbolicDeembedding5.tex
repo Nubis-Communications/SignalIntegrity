@@ -1,8 +1,0 @@
-\[ \mathbf{Gi_{33}} = \left[\mathbf{I} -\left(\begin{smallmatrix} 0 & D3_{11} \\ D2_{22} & 0 \end{smallmatrix}\right)\right]^{-1} \]
-\[ \mathbf{F_{11}} = \left(\begin{smallmatrix} 0 & 0 \\ D2_{12} & 0 \end{smallmatrix}\right) \cdot\mathbf{Gi_{33}}\cdot \left(\begin{smallmatrix} 0 & 0 \\ 0 & D2_{21} \end{smallmatrix}\right) + \left(\begin{smallmatrix} D1_{11} & 0 \\ 0 & D2_{11} \end{smallmatrix}\right) \]
-\[ \mathbf{F_{12}} = \left(\begin{smallmatrix} 0 & 0 \\ D2_{12} & 0 \end{smallmatrix}\right) \cdot\mathbf{Gi_{33}}\cdot \left(\begin{smallmatrix} 0 & D3_{12} \\ 0 & 0 \end{smallmatrix}\right) + \left(\begin{smallmatrix} D1_{12} & 0 \\ 0 & 0 \end{smallmatrix}\right) \]
-\[ \mathbf{F_{21}} = \left(\begin{smallmatrix} 0 & 0 \\ 0 & D3_{21} \end{smallmatrix}\right) \cdot\mathbf{Gi_{33}}\cdot \left(\begin{smallmatrix} 0 & 0 \\ 0 & D2_{21} \end{smallmatrix}\right) + \left(\begin{smallmatrix} D1_{21} & 0 \\ 0 & 0 \end{smallmatrix}\right) \]
-\[ \mathbf{F_{22}} = \left(\begin{smallmatrix} 0 & 0 \\ 0 & D3_{21} \end{smallmatrix}\right) \cdot\mathbf{Gi_{33}}\cdot \left(\begin{smallmatrix} 0 & D3_{12} \\ 0 & 0 \end{smallmatrix}\right) + \left(\begin{smallmatrix} D1_{22} & 0 \\ 0 & D3_{22} \end{smallmatrix}\right) \]
-\[ \mathbf{B}=\mathbf{F_{12}}^{-1}\cdot\left[\mathbf{Sk}-\mathbf{F_{11}}\right] \]
-\[ \mathbf{A}=\mathbf{F_{21}}+\mathbf{F_{22}}\cdot\mathbf{B} \]
-\[ \mathbf{Su}=\mathbf{B}\cdot\mathbf{A}^{-1} \]

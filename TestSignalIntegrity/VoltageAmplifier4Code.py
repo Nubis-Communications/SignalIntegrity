@@ -1,4 +1,4 @@
-from SignalIntegrity import si
+import SignalIntegrity as si
 
 sdp=si.p.SystemDescriptionParser()
 sdp.AddLines(['device DV 4',
@@ -24,5 +24,5 @@ sd.AssignSParameters('ZO',
     [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
     ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
 ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-ssps=si.sd.SystemSParametersSymbolic(ssp,False,True)
+ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
 ssps.LaTeXBigSolution().Emit()

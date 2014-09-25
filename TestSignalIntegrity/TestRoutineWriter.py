@@ -7,11 +7,10 @@ import SignalIntegrity as si
 
 class TestRoutineWriter(unittest.TestCase):
     def __init__(self, methodName='runTest'):
-        self.standardHeader = ['from SignalIntegrity import si\n','\n']
+        self.standardHeader = ['import SignalIntegrity as si\n','\n']
         unittest.TestCase.__init__(self,methodName)
-    def CheckResult(self,selfid,sourceCode,Text):
+    def CheckResult(self,fileName,sourceCode,Text):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        fileName = ('_'.join(selfid.split('.')[2:])).replace('test','') + '.py'
         if not os.path.exists(fileName):
             sourceCodeFile=open(fileName,'w')
             for line in sourceCode:
@@ -51,11 +50,55 @@ class TestRoutineWriter(unittest.TestCase):
                             sourceCode.append(line[4:])
                         else:
                             sourceCode.append(line[8:])
-        self.CheckResult(self.id(),sourceCode,Routine + ' source code')
-    def testVoltageAmplifier2Code(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifier2Full(self)',self.standardHeader)
+        scriptName = Routine.replace('test','').replace('(self)','')
+        scriptFileName=scriptName + 'Code.py'
+        self.CheckResult(scriptFileName,sourceCode,Routine + ' source code')
+        old_stdout = sys.stdout
+        sys.stdout = mystdout = StringIO()
+        execfile(scriptFileName)
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sys.stdout = old_stdout
+        outputFileName = scriptName + '.out'
+        if not os.path.exists(outputFileName):
+            resultFile = open(outputFileName, 'w')
+            resultFile.write(mystdout.getvalue())
+            resultFile.close()
+            self.assertTrue(False, outputFileName + ' not found')
+        regressionFile = open(outputFileName, 'r')
+        regression = regressionFile.read()
+        regressionFile.close()
+        self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
+    def testVoltageAmplifier2(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifier2(self)',self.standardHeader)
+    def testVoltageAmplifier3Code(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifier3(self)',self.standardHeader)
     def testVoltageAmplifier4Code(self):
         self.WriteCode('TestSources.py','testVoltageAmplifier4(self)',self.standardHeader)
-
+    def testSymbolicSolutionExample1Code(self):
+        self.WriteCode('TestBook.py','testSymbolicSolutionExample1(self)',self.standardHeader)
+    def testSymbolicSolutionParserExample2Code(self):
+        self.WriteCode('TestBook.py','testSymbolicSolutionParserExample2(self)',self.standardHeader)
+    def testSymbolicSolutionParserFileExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicSolutionParserFileExample3(self)',self.standardHeader)
+    def testSystemDescriptionExampleCode(self):
+        self.WriteCode('TestBook.py','testSystemDescriptionExample(self)',self.standardHeader)
+    def testSymbolicDeembeddingExample1Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingExample1(self)',self.standardHeader)
+    def testSymbolicDeembeddingParserExample2Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingParserExample2(self)',self.standardHeader)
+    def testSymbolicDeembeddingParserFileExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingParserFileExample3(self)',self.standardHeader)
+    def testSymbolicDeembeddingExample4Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingExample4(self)',self.standardHeader)
+    def testSymbolicDeembeddingExample5Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingExample5(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample1Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample1(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample2Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample2(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample3(self)',self.standardHeader)
+    def testSymbolicVirtualProbeParserFileExample4(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeParserFileExample4(self)',self.standardHeader)
 if __name__ == '__main__':
     unittest.main()

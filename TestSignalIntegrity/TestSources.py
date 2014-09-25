@@ -47,7 +47,7 @@ class TestSources(unittest.TestCase):
             [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
             ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
         ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,False,True)
+        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 4')
@@ -78,29 +78,11 @@ class TestSources(unittest.TestCase):
             [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
             ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
         ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,False,True)
-        ssps.LaTeXBigSolution()
+        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps.LaTeXBigSolution().Emit()
+        # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
-    def testVoltageAmplifier2Raw(self):
-        sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device DV 4',
-            'device ZI 2',
-            'device ZO 2',
-            'device G 1 ground',
-            'port 1 ZI 1',
-            'port 2 ZO 2',
-            'connect ZI 1 DV 2',
-            'connect ZI 2 G 1',
-            'connect DV 1 G 1',
-            'connect ZO 1 DV 4',
-            'connect DV 3 G 1'])
-        sdp.WriteToFile('VoltageAmplifier2Raw.txt',False)
-        sd = sdp.SystemDescription()
-        ssp=si.sd.SystemSParameters(sd)
-        ssps=si.sd.SystemSParametersSymbolic(ssp,False,True)
-        ssps.LaTeXBigSolution()
-        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 2 Raw')
-    def testVoltageAmplifier2Full(self):
+    def testVoltageAmplifier2(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4',
             'device ZI 2',
@@ -129,7 +111,7 @@ class TestSources(unittest.TestCase):
             [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
             ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
         ssp=si.sd.SystemSParameters(sd)
-        ssps=si.sd.SystemSParametersSymbolic(ssp,False,True)
+        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 2 Full')
