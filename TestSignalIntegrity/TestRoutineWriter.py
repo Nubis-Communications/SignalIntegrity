@@ -98,7 +98,11 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample2(self)',self.standardHeader)
     def testSymbolicVirtualProbeExample3Code(self):
         self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample3(self)',self.standardHeader)
-    def testSymbolicVirtualProbeParserFileExample4(self):
+    def testSymbolicVirtualProbeParserFileExample4Code(self):
         self.WriteCode('TestBook.py','testSymbolicVirtualProbeParserFileExample4(self)',self.standardHeader)
+    def testSymbolicTransistorSimpleCode(self):
+        self.WriteCode('TestSources.py','testSymbolicTransistorSimple(self)',self.standardHeader)
+    def testSymbolicTransistorZoCode(self):
+        self.WriteCode('TestSources.py','testSymbolicTransistorZO(self)',self.standardHeader)
 if __name__ == '__main__':
     unittest.main()
