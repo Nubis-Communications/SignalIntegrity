@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
             symbolic.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
         regression=''
-        with open(fileName, 'r') as regressionFile:
+        with open(fileName, 'rU') as regressionFile:
             for line in regressionFile:
                 regression = regression + line
         comparison = symbolic.Get()
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
             resultFile.write(mystdout.getvalue())
             resultFile.close()
             self.assertTrue(False, fileName + ' not found')
-        regressionFile = open(fileName, 'r')
+        regressionFile = open(fileName, 'rU')
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), 'Book Example 1 incorrect')
@@ -94,7 +94,7 @@ class Test(unittest.TestCase):
             resultFile.write(mystdout.getvalue())
             resultFile.close()
             self.assertTrue(False, fileName + ' not found')
-        regressionFile = open(fileName, 'r')
+        regressionFile = open(fileName, 'rU')
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), 'Book Example System Description incorrect')

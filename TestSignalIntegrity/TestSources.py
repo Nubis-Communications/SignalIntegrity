@@ -14,7 +14,7 @@ class TestSources(unittest.TestCase):
             symbolic.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
         regression=''
-        with open(fileName, 'r') as regressionFile:
+        with open(fileName, 'rU') as regressionFile:
             for line in regressionFile:
                 regression = regression + line
         comparison = symbolic.Get()

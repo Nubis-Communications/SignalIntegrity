@@ -18,7 +18,7 @@ class File(SParameters):
         self.m_f=[]
         self.m_d=[]
         numbersList=[]
-        spfile=open(name,'r')
+        spfile=open(name,'rU')
         for line in spfile:
             #list of tokens separated by ' ' before the first, if any '!'
             lineList = string.lower(line).split('!')[0].split()

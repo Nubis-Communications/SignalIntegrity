@@ -2,7 +2,7 @@ import os
 
 class ParserFile():
     def File(self,name):
-        spfile=open(name,'r')
+        spfile=open(name,'rU')
         for line in spfile:
             self.AddLine(line)
         return self

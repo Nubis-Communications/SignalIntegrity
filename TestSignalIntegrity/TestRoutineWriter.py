@@ -18,7 +18,7 @@ class TestRoutineWriter(unittest.TestCase):
             sourceCodeFile.close()
             self.assertTrue(False, fileName + ' not found')
         regression=[]
-        with open(fileName, 'r') as regressionFile:
+        with open(fileName, 'rU') as regressionFile:
             for line in regressionFile:
                 regression.append(line)
         self.assertTrue(regression == sourceCode,Text + ' incorrect')
@@ -27,7 +27,7 @@ class TestRoutineWriter(unittest.TestCase):
         sourceCode = []
         sourceCode.extend(headerLines)
         addingLines = False
-        with open(fileName, 'r') as inputFile:
+        with open(fileName, 'rU') as inputFile:
             for line in inputFile:
                 if 'def' in line:
                     addingLines = False
@@ -58,13 +58,13 @@ class TestRoutineWriter(unittest.TestCase):
         execfile(scriptFileName)
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sys.stdout = old_stdout
-        outputFileName = scriptName + '.out'
+        outputFileName = scriptName + '.po'
         if not os.path.exists(outputFileName):
             resultFile = open(outputFileName, 'w')
             resultFile.write(mystdout.getvalue())
             resultFile.close()
             self.assertTrue(False, outputFileName + ' not found')
-        regressionFile = open(outputFileName, 'r')
+        regressionFile = open(outputFileName, 'rU')
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
