@@ -104,5 +104,7 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testSymbolicTransistorSimple(self)',self.standardHeader)
     def testSymbolicTransistorZoCode(self):
         self.WriteCode('TestSources.py','testSymbolicTransistorZO(self)',self.standardHeader)
+    def testOpAmpNoZD(self):
+        self.WriteCode('TestSources.py','testOperationalAmplifierNoZD(self)',self.standardHeader)
 if __name__ == '__main__':
     unittest.main()
