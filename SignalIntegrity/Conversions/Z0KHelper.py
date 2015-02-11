@@ -17,4 +17,3 @@ def Z0KHelper(Z0K,P):
     elif isinstance(K,float) or isinstance(K,int):
         K=matrix(diag([float(K.real)+float(K.imag)*1j]*P))
     return (Z0,K)
-

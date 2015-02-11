@@ -87,6 +87,85 @@ class TestConversions(unittest.TestCase):
         Z0=[25+1j*34,95.-1j*91]
         difference = linalg.norm(si.dev.ShuntZ(R,Z0)-array(si.cvt.Z2S(Z,Z0)))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
+    def testSw2SpDefault(self):
+        Sw=[[1,2],[3,4]]
+        Sp=si.cvt.Sw2Sp(Sw)
+        difference = linalg.norm(array(Sw)-array(Sp))
+        self.assertTrue(difference<0.0001,'Sw2Sp incorrect with default')
+    def testSp2SwDefault(self):
+        Sp=[[1,2],[3,4]]
+        Sw=si.cvt.Sp2Sw(Sp)
+        difference = linalg.norm(array(Sw)-array(Sp))
+        self.assertTrue(difference<0.0001,'Sp2Sw incorrect with default')
+    def testSw2SpComplexSameZ0wZ0pDefaultKpKw(self):
+        Sw=[[0.3+0.06*1j,0.811+0.268*1j],[0.325-0.693*1j,-0.967+0.278*1j]]
+        Sp=[[0.308+0.108*1j,0.672-0.106*1j],[-0.022-0.61*1j,0.34+1.078*1j]]
+        Z0=[0.567+0.04*1j,0.752+0.912*1j]
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.005,'Sw2Sp incorrect with same Z0 default Kp Kw')
+    def testSp2SwComplexSameZ0wZ0pDefaultKpKw(self):
+        Sw=[[0.3+0.06*1j,0.811+0.268*1j],[0.325-0.693*1j,-0.967+0.278*1j]]
+        Sp=[[0.308+0.108*1j,0.672-0.106*1j],[-0.022-0.61*1j,0.34+1.078*1j]]
+        Z0=[0.567+0.04*1j,0.752+0.912*1j]
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.005,'Sp2Sw incorrect with same Z0 default Kp Kw')
+    def testSw2SpComplexDifferentZ0wZ0pDefaultKpKw(self):
+        Sw=[[-0.13-0.459*1j,0.935+0.614*1j],[0.646-0.767*1j,-0.888+0.555*1j]]
+        Sp=[[0.308+0.108*1j,0.672-0.106*1j],[-0.022-0.61*1j,0.34+1.078*1j]]
+        Z0w=[0.724+0.559*1j,0.994+0.223*1j]
+        Z0p=[0.567+0.04*1j,0.752+0.912*1j]
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.005,'Sw2Sp incorrect with different Z0 default Kp Kw')
+    def testSp2SwComplexDifferentZ0wZ0pDefaultKpKw(self):
+        Sw=[[-0.13-0.459*1j,0.935+0.614*1j],[0.646-0.767*1j,-0.888+0.555*1j]]
+        Sp=[[0.308+0.108*1j,0.672-0.106*1j],[-0.022-0.61*1j,0.34+1.078*1j]]
+        Z0w=[0.724+0.559*1j,0.994+0.223*1j]
+        Z0p=[0.567+0.04*1j,0.752+0.912*1j]
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.005,'Sp2Sw incorrect with different Z0 default Kp Kw')
+    def testSw2SpComplexDifferentZ0wZ0pKwDefaultKp(self):
+        Sw=[[-0.13-0.459*1j,0.039-0.487*1j],[0.827+2.14*1j,-0.888+0.555*1j]]
+        Sp=[[0.308+0.108*1j,0.672-0.106*1j],[-0.022-0.61*1j,0.34+1.078*1j]]
+        Z0w=[0.724+0.559*1j,0.994+0.223*1j]
+        Z0p=[0.567+0.04*1j,0.752+0.912*1j]
+        Kw=[0.354-0.982*1j,-0.448+0.176*1j]
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.006,'Sw2Sp incorrect with different Z0, Kw specified, default Kp')
+    def testSp2SwComplexDifferentZ0wZ0pKwDefaultKpKw(self):
+        Sw=[[-0.13-0.459*1j,0.039-0.487*1j],[0.827+2.14*1j,-0.888+0.555*1j]]
+        Sp=[[0.308+0.108*1j,0.672-0.106*1j],[-0.022-0.61*1j,0.34+1.078*1j]]
+        Z0w=[0.724+0.559*1j,0.994+0.223*1j]
+        Z0p=[0.567+0.04*1j,0.752+0.912*1j]
+        Kw=[0.354-0.982*1j,-0.448+0.176*1j]
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.006,'Sp2Sw incorrect with different Z0, Kw specified, default Kp')
+    def testSw2SpComplexDifferentZ0wZ0pKwKp(self):
+        Sw=[[-0.13-0.459*1j,0.039-0.487*1j],[0.827+2.14*1j,-0.888+0.555*1j]]
+        Sp=[[0.308+0.108*1j,0.074-0.012*1j],[-0.205-5.548*1j,0.34+1.078*1j]]
+        Z0w=[0.724+0.559*1j,0.994+0.223*1j]
+        Z0p=[0.567+0.04*1j,0.752+0.912*1j]
+        Kw=[0.354-0.982*1j,-0.448+0.176*1j]
+        Kp=[0.451,0.057]
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw,Kp)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.008,'Sw2Sp incorrect with different Z0, Kw, Kp specified')
+    def testSp2SwComplexDifferentZ0wZ0pKwKpKw(self):
+        Sw=[[-0.13-0.459*1j,0.039-0.487*1j],[0.827+2.14*1j,-0.888+0.555*1j]]
+        Sp=[[0.308+0.108*1j,0.074-0.012*1j],[-0.205-5.548*1j,0.34+1.078*1j]]
+        Z0w=[0.724+0.559*1j,0.994+0.223*1j]
+        Z0p=[0.567+0.04*1j,0.752+0.912*1j]
+        Kw=[0.354-0.982*1j,-0.448+0.176*1j]
+        Kp=[0.451,0.057]
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw,Kp)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        print difference
+        self.assertTrue(difference<0.008,'Sp2Sw incorrect with different Z0, Kw, Kp specified')
 
 if __name__ == '__main__':
     unittest.main()
