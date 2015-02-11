@@ -164,8 +164,77 @@ class TestConversions(unittest.TestCase):
         Kp=[0.451,0.057]
         Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw,Kp)
         difference = linalg.norm(array(Swcalc)-array(Sw))
-        print difference
         self.assertTrue(difference<0.008,'Sp2Sw incorrect with different Z0, Kw, Kp specified')
+    def testSw2SpComplexSingleZ0SameZ0wZ0pDefaultKpKw(self):
+        Sw=[[-0.296-0.173*1j,1.251+0.89*1j],[0.926-1.018*1j,-1.401+0.604*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0=0.567+0.04*1j
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.005,'Sw2Sp incorrect with same single Z0 default Kp Kw')
+    def testSp2SwComplexSingleZ0SameZ0wZ0pDefaultKpKw(self):
+        Sw=[[-0.296-0.173*1j,1.251+0.89*1j],[0.926-1.018*1j,-1.401+0.604*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0=0.567+0.04*1j
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.005,'Sp2Sw incorrect with same single Z0 default Kp Kw')
+    def testSw2SpComplexSingleDifferentZ0wZ0pDefaultKpKw(self):
+        Sw=[[0.692-0.523*1j,1.011+0.399*1j],[0.464-0.857*1j,0.064+0.198*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0p=0.567+0.04*1j
+        Z0w=-0.468+0.68*1j
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.005,'Sw2Sp incorrect with different single Z0w, Z0p default Kp Kw')
+    def testSp2SwComplexSingleDifferentZ0wZ0pDefaultKpKw(self):
+        Sw=[[0.692-0.523*1j,1.011+0.399*1j],[0.464-0.857*1j,0.064+0.198*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0p=0.567+0.04*1j
+        Z0w=-0.468+0.68*1j
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.005,'Sp2Sw incorrect with different single Z0w, Z0p default Kp Kw')
+    def testSw2SpComplexSingleDifferentZ0wZ0pKwDefaultKp(self):
+        Sw=[[0.692-0.523*1j,1.011+0.399*1j],[0.464-0.857*1j,0.064+0.198*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0p=0.567+0.04*1j
+        Z0w=-0.468+0.68*1j
+        Kw=0.423+0.804*1j
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.005,'Sw2Sp incorrect with different single Z0w, Z0p, Kw default Kp')
+    def testSp2SwComplexSingleDifferentZ0wZ0pKwDefaultKp(self):
+        Sw=[[0.692-0.523*1j,1.011+0.399*1j],[0.464-0.857*1j,0.064+0.198*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0p=0.567+0.04*1j
+        Z0w=-0.468+0.68*1j
+        Kw=0.423+0.804*1j
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.005,'Sp2Sw incorrect with different single Z0w, Z0p, Kw default Kp ')
+    def testSw2SpComplexSingleDifferentZ0wZ0pKwKp(self):
+        Sw=[[0.692-0.523*1j,1.011+0.399*1j],[0.464-0.857*1j,0.064+0.198*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0p=0.567+0.04*1j
+        Z0w=-0.468+0.68*1j
+        Kw=0.423+0.804*1j
+        Kp=0.753
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw,Kp)
+        difference = linalg.norm(array(Spcalc)-array(Sp))
+        self.assertTrue(difference<0.005,'Sw2Sp incorrect with different single Z0w, Z0p, Kw default Kp')
+    def testSp2SwComplexSingleDifferentZ0wZ0pKwKp(self):
+        Sw=[[0.692-0.523*1j,1.011+0.399*1j],[0.464-0.857*1j,0.064+0.198*1j]]
+        Sp=[[-0.302-0.082*1j,1.307+0.799*1j],[0.851-1.078*1j,-1.348+0.768*1j]]
+        Z0p=0.567+0.04*1j
+        Z0w=-0.468+0.68*1j
+        Kw=0.423+0.804*1j
+        Kp=0.753
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw,Kp)
+        difference = linalg.norm(array(Swcalc)-array(Sw))
+        self.assertTrue(difference<0.005,'Sp2Sw incorrect with different single Z0w, Z0p, Kw default Kp ')
+
+
 
 if __name__ == '__main__':
     unittest.main()
