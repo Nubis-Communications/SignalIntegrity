@@ -4,7 +4,7 @@ import math
 import os
 
 class TestSParameterFile(unittest.TestCase):
-    def testIt(self):
+    def testSParameterFileFourPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.spf.File('TestDut.s4p')
         f=sf.f()
@@ -18,6 +18,112 @@ class TestSParameterFile(unittest.TestCase):
                 plt.plot(f,y)
         plt.show()
         """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p')
+        sf2=si.spf.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortHzMA(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.spf.File('TestDut.s4p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p','Hz MA')
+        sf2=si.spf.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortKHzRI(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.spf.File('TestDut.s4p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p','KHz RI')
+        sf2=si.spf.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortMHzDB(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.spf.File('TestDut.s4p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p','MHz DB')
+        sf2=si.spf.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortGHzMA(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.spf.File('TestDut.s4p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p','GHz MA')
+        sf2=si.spf.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileTwoPort(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.spf.File('cable.s2p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('cableCmp.s2p')
+        sf2=si.spf.File('cableCmp.s2p')
+        os.remove('cableCmp.s2p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testRLC(self):
         L1=1e-15
         C1=1e-9

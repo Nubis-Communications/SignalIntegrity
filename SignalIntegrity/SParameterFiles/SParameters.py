@@ -2,6 +2,7 @@ from numpy import empty
 from numpy import array
 import cmath
 import math
+import string
 
 class SParameters():
     def __init__(self,f,data,Z0=50.0):
@@ -42,21 +43,56 @@ class SParameters():
         self.m_d=resd
         self.m_f=f
         return self
-    def WriteToFile(self,name):
+    def WriteToFile(self,name,formatString=None):
+        freqMul = 1e6
+        freqToken = 'MHz'
+        complexType = 'MA'
+        Z0 = 50.0
+        #list of tokens separated by ' ' before the first, if any '!'
+        if not formatString is None:
+            lineList = string.lower(formatString).split('!')[0].split()
+            if len(lineList)>0:
+                if 'hz' in lineList:
+                    freqToken = 'Hz'
+                    freqMul = 1.0
+                if 'khz' in lineList:
+                    freqToken = 'KHz'
+                    freqMul = 1e3
+                if 'mhz' in lineList:
+                    freqToken = 'MHz'
+                    freqMul = 1e6
+                if 'ghz' in lineList:
+                    freqToken = 'GHz'
+                    freqMul = 1e9
+                if 'ma' in lineList:
+                    complexType = 'MA'
+                if 'ri' in lineList:
+                    complexType = 'RI'
+                if 'db' in lineList:
+                    complexType = 'DB'
+                if 'r' in lineList:
+                    Z0=float(lineList[lineList.index('r')+1])
         spfile=open(name,'w')
-        spfile.write('# MHz MA S R 50\n')
+        spfile.write('# '+freqToken+' '+complexType+' S R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
-            line=[str(self.m_f[n]/1e6)]
+            line=[str(self.m_f[n]/freqMul)]
             mat=self.m_d[n]
+            if Z0 != self.m_Z0:
+                mat=ReferenceImpedance(mat,Z0,self.m_Z0)
             if self.m_P == 2:
                 mat=array(mat).transpose().tolist()
             for r in range(self.m_P):
                 for c in range(self.m_P):
                     val = mat[r][c]
-                    mag = abs(val)
-                    ang = cmath.phase(val)*180./math.pi
-                    line.append(str(mag))
-                    line.append(str(ang))
+                    if complexType == 'MA':
+                        line.append(str(abs(val)))
+                        line.append(str(cmath.phase(val)*180./math.pi))
+                    elif complexType == 'RI':
+                        line.append(str(val.real))
+                        line.append(str(val.imag))
+                    elif complexType == 'DB':
+                        line.append(str(20*math.log10(abs(val))))
+                        line.append(str(cmath.phase(val)*180./math.pi))
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()
