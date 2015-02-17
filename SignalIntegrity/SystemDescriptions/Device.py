@@ -1,6 +1,6 @@
 from Port import Port
 
-class Device:
+class Device(object):
     def __init__(self,Name,Ports):
         self.m_Name = Name
         self.m_Ports = [Port() for p in range(Ports)]
