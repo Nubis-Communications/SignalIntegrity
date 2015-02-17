@@ -8,6 +8,8 @@ import copy
 import math
 import os
 
+##import matplotlib.pyplot as plt
+
 class TestVirtualProbe(unittest.TestCase):
     def testVirtualProbeOneMeasOneOut(self):
         D=si.sd.SystemDescription()
@@ -278,5 +280,43 @@ class TestVirtualProbe(unittest.TestCase):
         regressionLine2 = regressionFile2.read()
         regressionFile2.close()
         self.assertTrue(regressionLine2==line2,'Virtual Probe Example 3 line 2 in book incorrect')
+    def testVirtualProbeBalun(self):
+        f=[float(i)/200*3e9 for i in range(200)]
+        vpp=si.p.VirtualProbeNumericParser(f)
+        vpp.AddLine('device D1 3 file BAL-0003.s3p')
+        vpp.AddLine('device D2 4 mixedmode')
+        vpp.AddLine('connect D1 1 D2 1')
+        vpp.AddLine('connect D1 2 D2 2')
+        vpp.AddLine('device D3 1 termination')
+        vpp.AddLine('device D4 1 termination')
+        vpp.AddLine('device D5 1 termination')
+        vpp.AddLine('connect D3 1 D1 3')
+        vpp.AddLine('connect D4 1 D2 3')
+        vpp.AddLine('connect D5 1 D2 4')
+        # just to enhance test coverage by utilizing an open
+        vpp.AddLine('device D6 1 open')
+        vpp.AddLine('connect D6 1 D5 1')
+        vpp.AddLine('stim m1 D3 1')
+        vpp.AddLine('meas D1 3')
+        vpp.AddLine('output D4 1')
+        vpp.AddLine('output D5 1')
+        vpp.m_ml = None
+        vpp.m_ol = None
+        vpp.m_D = None
+        result = vpp.TransferFunctions()
+        ml = vpp.m_ml
+        o1mag = [20.*math.log10(abs(result[n][1][0][0])) for n in range(len(f))]
+        o2mag = [20.*math.log10(abs(result[n][1][1][0])) for n in range(len(f))]
+        fp = [ele/1.e9 for ele in f]
+        labels=[]
+        labels.append(str(vpp.SystemDescription().pOutputList[0]) + ' due to ' + str(vpp.SystemDescription().pMeasurementList[0]))
+        labels.append(str(vpp.SystemDescription().pOutputList[1]) + ' due to ' + str(vpp.SystemDescription().pMeasurementList[0]))
+##        plt.xlabel('frequency (GHz)')
+##        plt.ylabel('magnitude (dB)')
+##        plt.plot(fp,o1mag,label=labels[0])
+##        plt.plot(fp,o2mag,label=labels[1])
+##        plt.legend(loc='upper left')
+##        plt.show()
+
 if __name__ == '__main__':
     unittest.main()
