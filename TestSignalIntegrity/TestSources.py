@@ -4,6 +4,8 @@ import os
 from cStringIO import StringIO
 import sys
 import SignalIntegrity as si
+from numpy import linalg
+from numpy import matrix
 
 class TestSources(unittest.TestCase):
     def CheckSymbolicResult(self,selfid,symbolic,Text):
@@ -177,23 +179,11 @@ class TestSources(unittest.TestCase):
             'connect ZD 2 ZI2 1',
             'connect ZO 1 DV 4'])
         sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',
-            [['1','0','0','0'],
-            ['0','1','0','0'],
-            ['\\alpha','-\\alpha','0','1'],
-            ['-\\alpha','\\alpha','1','0']])
-        sd.AssignSParameters('ZI1',
-            [['\\frac{Z_i}{Z_i+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}','\\frac{Z_i}{Z_i+2\\cdot Z0}']])
-        sd.AssignSParameters('ZI2',
-            [['\\frac{Z_i}{Z_i+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}','\\frac{Z_i}{Z_i+2\\cdot Z0}']])
-        sd.AssignSParameters('ZD',
-            [['\\frac{Z_d}{Z_d+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_d+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_d+2\\cdot Z0}','\\frac{Z_d}{Z_d+2\\cdot Z0}']])
-        sd.AssignSParameters('ZO',
-            [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
+        sd.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        sd.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
+        sd.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
+        sd.AssignSParameters('ZD',si.sy.SeriesZ('Z_d'))
+        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssp=si.sd.SystemSParameters(sdp.SystemDescription())
         ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
         ssps.LaTeXBigSolution().Emit()
@@ -216,20 +206,10 @@ class TestSources(unittest.TestCase):
             'connect ZI2 2 G 1',
             'connect ZO 1 DV 4'])
         sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',
-            [['1','0','0','0'],
-            ['0','1','0','0'],
-            ['\\alpha','-\\alpha','0','1'],
-            ['-\\alpha','\\alpha','1','0']])
-        sd.AssignSParameters('ZI1',
-            [['\\frac{Z_i}{Z_i+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}','\\frac{Z_i}{Z_i+2\\cdot Z0}']])
-        sd.AssignSParameters('ZI2',
-            [['\\frac{Z_i}{Z_i+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}','\\frac{Z_i}{Z_i+2\\cdot Z0}']])
-        sd.AssignSParameters('ZO',
-            [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
+        sd.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        sd.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
+        sd.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
+        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssp=si.sd.SystemSParameters(sdp.SystemDescription())
         ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
         ssps.LaTeXBigSolution().Emit()
@@ -250,16 +230,69 @@ class TestSources(unittest.TestCase):
             'connect ZI1 2 G 1',
             'connect ZI2 2 G 1'])
         sd = sdp.SystemDescription()
-        sd.AssignSParameters('VA',si.sd.Device.SymbolicMatrix('VA',4))
-        sd.AssignSParameters('ZI1',si.sd.Device.SymbolicMatrix('ZI1',2))
-        sd.AssignSParameters('ZI2',si.sd.Device.SymbolicMatrix('ZI2',2))
         ssp=si.sd.SystemSParameters(sdp.SystemDescription())
         ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
-        print '\[ ZI1 = ZI2 = '+ si.helper.Matrix2LaTeX(si.sy.SeriesZ('Z_i')) + ' \]'
-        print '\[ VA = ' + si.helper.Matrix2LaTeX(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o')) + ' \]'
+        si.sy.SymbolicMatrix(si.sy.SeriesZ('Z_i'),'ZI1 = ZI2',True).Emit()
+        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o'),'VA',True).Emit()
+        # exclude
+        #print '\[ ZI1 = ZI2 = '+ si.helper.Matrix2LaTeX(si.sy.SeriesZ('Z_i')) + ' \]'
+        #print '\[ VA = ' + si.helper.Matrix2LaTeX(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o')) + ' \]'
+        # include
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Again')
+    def testIdealTransformerSymbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DV 4',
+            'device DC 4',
+            'port 1 DC 4',
+            'port 2 DC 3',
+            'port 3 DC 1',
+            'port 4 DV 3',
+            'connect DC 2 DV 4',
+            'connect DC 4 DV 2',
+            'connect DC 3 DV 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('a'))
+        ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('a'))
+        ssps.LaTeXBigSolution().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Ideal Transformer')
+    def testIdealTransformerSymbolic2(self):
+        sm = si.sy.SymbolicMatrix(si.sy.IdealTransformer('a'))
+        self.CheckSymbolicResult(self.id(),sm,'Ideal Transformer')
+    def testIdealTransformerNumeric(self):
+        sdp=si.p.SystemDescriptionParser()
+        a=10 #turns ratio for ideal transformer
+        sdp.AddLines(['device DV 4 voltagecontrolledvoltagesource '+str(a),
+            'device DC 4 currentcontrolledcurrentsource '+str(a),
+            'port 1 DC 4',
+            'port 2 DC 3',
+            'port 3 DC 1',
+            'port 4 DV 3',
+            'connect DC 2 DV 4',
+            'connect DC 4 DV 2',
+            'connect DC 3 DV 1'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.IdealTransformer(a)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Ideal Transformer incorrect')
+        pass
+    def testIdealTransformerNumeric2(self):
+        sdp=si.p.SystemDescriptionParser()
+        a=10 #turns ratio for ideal transformer
+        sdp.AddLines(['device D 4 idealtransformer '+str(a),
+            'port 1 D 1',
+            'port 2 D 2',
+            'port 3 D 3',
+            'port 4 D 4'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.IdealTransformer(a)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Ideal Transformer incorrect')
+        pass
 
 if __name__ == '__main__':
     unittest.main()

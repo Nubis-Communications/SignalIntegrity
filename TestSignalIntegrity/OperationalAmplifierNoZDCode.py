@@ -16,20 +16,10 @@ sdp.AddLines(['device DV 4',
     'connect ZI2 2 G 1',
     'connect ZO 1 DV 4'])
 sd = sdp.SystemDescription()
-sd.AssignSParameters('DV',
-    [['1','0','0','0'],
-    ['0','1','0','0'],
-    ['\\alpha','-\\alpha','0','1'],
-    ['-\\alpha','\\alpha','1','0']])
-sd.AssignSParameters('ZI1',
-    [['\\frac{Z_i}{Z_i+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}'],
-    ['\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}','\\frac{Z_i}{Z_i+2\\cdot Z0}']])
-sd.AssignSParameters('ZI2',
-    [['\\frac{Z_i}{Z_i+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}'],
-    ['\\frac{2\\cdot Z0}{Z_i+2\\cdot Z0}','\\frac{Z_i}{Z_i+2\\cdot Z0}']])
-sd.AssignSParameters('ZO',
-    [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
-    ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
+sd.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+sd.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
+sd.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
+sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
 ssp=si.sd.SystemSParameters(sdp.SystemDescription())
 ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
 ssps.LaTeXBigSolution().Emit()

@@ -9,3 +9,6 @@ from Tee import *
 from Thru import *
 from TerminationZ import *
 from Open import *
+from IdealTransformer import *
+from CurrentControlledCurrentSource import *
+from VoltageControlledVoltageSource import *

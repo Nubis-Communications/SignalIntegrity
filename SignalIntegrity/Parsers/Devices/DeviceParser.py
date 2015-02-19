@@ -4,6 +4,9 @@ from SignalIntegrity.Devices import Open
 from SignalIntegrity.Devices import Ground
 from SignalIntegrity.Devices import SeriesZ
 from SignalIntegrity.Devices import MixedModeConverter
+from SignalIntegrity.Devices import IdealTransformer
+from SignalIntegrity.Devices import CurrentControlledCurrentSource
+from SignalIntegrity.Devices import VoltageControlledVoltageSource
 import math
 from FrequencyDependent import SeriesLf
 from FrequencyDependent import SeriesCf
@@ -39,3 +42,9 @@ class DeviceParser():
                 ' '.join([argsList[i] for i in range(2,len(argsList))]))
         elif argsList[0] == 'mixedmode':
             self.m_sp=MixedModeConverter()
+        elif argsList[0] == 'idealtransformer':
+            self.m_sp=IdealTransformer(float(argsList[1]))
+        elif argsList[0] == 'voltagecontrolledvoltagesource':
+            self.m_sp=VoltageControlledVoltageSource(float(argsList[1]))
+        elif argsList[0] == 'currentcontrolledcurrentsource':
+            self.m_sp=CurrentControlledCurrentSource(float(argsList[1]))
