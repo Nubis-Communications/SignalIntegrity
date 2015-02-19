@@ -13,11 +13,8 @@ sdp.AddLines(['device DV 4',
     'connect ZI 2 DV 1',
     'connect ZO 1 DV 4'])
 sdp.WriteToFile('VoltageAmplifier3.txt',False)
-sd = sdp.SystemDescription()
-sd.AssignSParameters('DV',
-    si.sy.VoltageControlledVoltageSource('\\alpha'))
-sd.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
-sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
 ssps.LaTeXBigSolution().Emit()

@@ -9,18 +9,8 @@ sdp.AddLines(['device DC 4',
     'connect DC 2 DC 4',
     'connect ZO 1 DC 3',
     'connect ZO 2 DC 4'])
-sd = sdp.SystemDescription()
-sd.AssignSParameters('DC',
-    [['0','1','0','0'],
-    ['1','0','0','0'],
-    ['-\\beta','\\beta','1','0'],
-    ['\\beta','-\\beta','0','1']])
-sd.AssignSParameters('HIE',
-    [['\\frac{Z_{\pi}}{Z_{\pi}+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_{\pi}+2\\cdot Z0}'],
-    ['\\frac{2\\cdot Z0}{Z_{\pi}+2\\cdot Z0}','\\frac{Z_{\pi}}{Z_{\pi}+2\\cdot Z0}']])
-sd.AssignSParameters('ZO',
-    [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
-    ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
-ssp=si.sd.SystemSParameters(sd)
-ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
+ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
+ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
 ssps.LaTeXBigSolution().Emit()

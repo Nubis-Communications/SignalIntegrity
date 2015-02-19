@@ -12,11 +12,8 @@ sdp.AddLines(['device DV 4',
     'connect DV 1 G 1',
     'connect ZO 1 DV 4',
     'connect DV 3 G 1'])
-sd = sdp.SystemDescription()
-sd.AssignSParameters('DV',
-    si.sy.VoltageControlledVoltageSource('\\alpha'))
-sd.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
-sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-ssp=si.sd.SystemSParameters(sd)
-ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
 ssps.LaTeXBigSolution().Emit()

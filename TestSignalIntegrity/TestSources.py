@@ -33,13 +33,10 @@ class TestSources(unittest.TestCase):
             'connect ZI 1 DV 2',
             'connect ZI 2 DV 1',
             'connect ZO 1 DV 4'])
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',
-            si.sy.VoltageControlledVoltageSource('\\alpha'))
-        sd.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 4')
@@ -50,11 +47,8 @@ class TestSources(unittest.TestCase):
             'port 2 DV 2',
             'port 3 DV 3',
             'port 4 DV 4'])
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',
-            si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
-        ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 4 Symbolic')
@@ -72,13 +66,10 @@ class TestSources(unittest.TestCase):
             'connect ZI 2 DV 1',
             'connect ZO 1 DV 4'])
         sdp.WriteToFile('VoltageAmplifier3.txt',False)
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',
-            si.sy.VoltageControlledVoltageSource('\\alpha'))
-        sd.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
@@ -95,13 +86,10 @@ class TestSources(unittest.TestCase):
             'connect DV 1 G 1',
             'connect ZO 1 DV 4',
             'connect DV 3 G 1'])
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',
-            si.sy.VoltageControlledVoltageSource('\\alpha'))
-        sd.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssp=si.sd.SystemSParameters(sd)
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 2 Full')
@@ -115,17 +103,9 @@ class TestSources(unittest.TestCase):
         # exclude
         # sdp.WriteToFile('TransistorSimpleNetList.txt',False)
         # include
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DC',
-            [['0','1','0','0'],
-            ['1','0','0','0'],
-            ['-\\beta','\\beta','1','0'],
-            ['\\beta','-\\beta','0','1']])
-        sd.AssignSParameters('HIE',
-            [['\\frac{h_{ie}}{h_{ie}+2\\cdot Z0}','\\frac{2\\cdot Z0}{h_{ie}+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{h_{ie}+2\\cdot Z0}','\\frac{h_{ie}}{h_{ie}+2\\cdot Z0}']])
-        ssp=si.sd.SystemSParameters(sd)
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
+        ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor')
@@ -142,20 +122,10 @@ class TestSources(unittest.TestCase):
         # exclude
         # sdp.WriteToFile('TransistorSimpleNetList.txt',False)
         # include
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DC',
-            [['0','1','0','0'],
-            ['1','0','0','0'],
-            ['-\\beta','\\beta','1','0'],
-            ['\\beta','-\\beta','0','1']])
-        sd.AssignSParameters('HIE',
-            [['\\frac{Z_{\pi}}{Z_{\pi}+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_{\pi}+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_{\pi}+2\\cdot Z0}','\\frac{Z_{\pi}}{Z_{\pi}+2\\cdot Z0}']])
-        sd.AssignSParameters('ZO',
-            [['\\frac{Z_o}{Z_o+2\\cdot Z0}','\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{Z_o+2\\cdot Z0}','\\frac{Z_o}{Z_o+2\\cdot Z0}']])
-        ssp=si.sd.SystemSParameters(sd)
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
+        ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor Zo')
@@ -178,14 +148,12 @@ class TestSources(unittest.TestCase):
             'connect ZD 1 ZI1 1',
             'connect ZD 2 ZI2 1',
             'connect ZO 1 DV 4'])
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
-        sd.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZD',si.sy.SeriesZ('Z_d'))
-        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZD',si.sy.SeriesZ('Z_d'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
@@ -205,13 +173,11 @@ class TestSources(unittest.TestCase):
             'connect ZI1 2 G 1',
             'connect ZI2 2 G 1',
             'connect ZO 1 DV 4'])
-        sd = sdp.SystemDescription()
-        sd.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
-        sd.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
-        sd.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
@@ -229,15 +195,9 @@ class TestSources(unittest.TestCase):
             'connect ZI2 1 VA 2',
             'connect ZI1 2 G 1',
             'connect ZI2 2 G 1'])
-        sd = sdp.SystemDescription()
-        ssp=si.sd.SystemSParameters(sdp.SystemDescription())
-        ssps=si.sd.SystemSParametersSymbolic(ssp,True,True)
         si.sy.SymbolicMatrix(si.sy.SeriesZ('Z_i'),'ZI1 = ZI2',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o'),'VA',True).Emit()
-        # exclude
-        #print '\[ ZI1 = ZI2 = '+ si.helper.Matrix2LaTeX(si.sy.SeriesZ('Z_i')) + ' \]'
-        #print '\[ VA = ' + si.helper.Matrix2LaTeX(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o')) + ' \]'
-        # include
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.LaTeXBigSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Again')
