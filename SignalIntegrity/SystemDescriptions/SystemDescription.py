@@ -23,7 +23,7 @@ class SystemDescription:
         return [self[d].pName for d in range(len(self))]
     def IndexOfDevice(self,DeviceName):
         return self.DeviceNames().index(DeviceName)
-    def InsertNodeName(self,DeviceName,Port,AName,BName):
+    def _InsertNodeName(self,DeviceName,Port,AName,BName):
         di = self.IndexOfDevice(DeviceName)
         self[di][Port-1].pA = AName
         self[di][Port-1].pB = BName
@@ -37,16 +37,16 @@ class SystemDescription:
         if not self[dfi][FromP-1].IsConnected():
             if not self[dti][ToP-1].IsConnected():
                 uN1,uN2 = (self.m_UniqueNode.Name(),self.m_UniqueNode.Name())
-                self.InsertNodeName(FromN,FromP,uN2,uN1)
-                self.InsertNodeName(ToN,ToP,uN1,uN2)
+                self._InsertNodeName(FromN,FromP,uN2,uN1)
+                self._InsertNodeName(ToN,ToP,uN1,uN2)
             else:
                 self.ConnectDevicePort(ToN,ToP,FromN,FromP)
         else:
             TeeN = self.m_UniqueDevice.Name()
             self.AddDevice(TeeN,3)
             self.AssignSParameters(TeeN,Tee())
-            self.InsertNodeName(TeeN,1,self[dfi][FromP-1].pA,self[dfi][FromP-1].pB)
-            self.InsertNodeName(FromN,FromP,'','')
+            self._InsertNodeName(TeeN,1,self[dfi][FromP-1].pA,self[dfi][FromP-1].pB)
+            self._InsertNodeName(FromN,FromP,'','')
             self.ConnectDevicePort(FromN,FromP,TeeN,2)
             self.ConnectDevicePort(TeeN,3,ToN,ToP)
     def AddPort(self,DeviceName,DevicePort,SystemPort,AddThru=False):
@@ -70,5 +70,5 @@ class SystemDescription:
         for d in range(len(self)):
             print repr(d+1).rjust(6),
             self[d].Print(1)
-            
+
 

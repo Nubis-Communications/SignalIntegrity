@@ -1,6 +1,4 @@
-from SignalIntegrity.SystemDescriptions import DeembedderNumeric
 from SignalIntegrity.Parsers import SystemDescriptionParser
-from SignalIntegrity.SParameterFiles import SParameters
 from Devices.DeviceParser import DeviceParser
 import copy
 

@@ -15,12 +15,15 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
             self._ProcessLines()
         return self.m_sd
     def SetFrequencies(self,f):
+        self.m_sd = None
         self.m_f=f
     def AddLine(self,line):
+        self.m_sd = None
         if len(line) == 0:
             return
         self.m_lines.append(line)
     def AddLines(self,lines):
+        self.m_sd = None
         for line in lines:
             self.AddLine(line)
         return self

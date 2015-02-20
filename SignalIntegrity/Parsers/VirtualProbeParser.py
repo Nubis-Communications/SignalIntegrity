@@ -5,7 +5,7 @@ import copy
 class VirtualProbeParser(SystemDescriptionParser):
     def __init__(self, f=None, args=None):
         SystemDescriptionParser.__init__(self, f, args)
-    def ProcessVirtualProbeLine(self,line):
+    def _ProcessVirtualProbeLine(self,line):
         lineList=self.ReplaceArgs(line.split())
         if len(lineList) == 0:
             return
@@ -34,5 +34,5 @@ class VirtualProbeParser(SystemDescriptionParser):
         lines=copy.deepcopy(self.m_ul)
         self.m_ul=[]
         for line in lines:
-            self.ProcessVirtualProbeLine(line)
+            self._ProcessVirtualProbeLine(line)
         return self
