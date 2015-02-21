@@ -5,7 +5,7 @@ class Symbolic():
         self.m_docEnd = '\\end{document}'
         self.m_eqPrefix='\\[ '
         self.m_eqSuffix=' \\]'
-        self.m_identity = '\\mathbf{I} '
+        self.m_identity = '\\mathbb{I} '
         self.m_eqEnvironment = equationEnvironment
         self.m_small=small
     @staticmethod

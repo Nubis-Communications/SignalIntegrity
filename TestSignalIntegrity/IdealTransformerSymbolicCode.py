@@ -13,4 +13,4 @@ sdp.AddLines(['device DV 4',
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('a'))
 ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('a'))
-ssps.LaTeXBigSolution().Emit()
+ssps.LaTeXBlockSolutionBig().Emit()

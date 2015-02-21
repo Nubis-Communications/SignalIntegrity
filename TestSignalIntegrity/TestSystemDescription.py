@@ -50,6 +50,7 @@ class TestSystemDescription(unittest.TestCase):
         regressionFile.close()
         self.assertTrue(regression==mystdout.getvalue(),'System Description incorrect')
     def testExample(self):
+        from numpy import array
         D=si.sd.SystemDescription()
         D.AddDevice('D1',2)
         D.AddDevice('D2',2)
@@ -60,8 +61,10 @@ class TestSystemDescription(unittest.TestCase):
         n=SC.NodeVector()
         W=SC.WeightsMatrix()
         m=SC.StimulusVector()
+        # exclude
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
+        # include
         print 'node vector:'
         print(n)
         print 'weights matrix:'
@@ -87,6 +90,7 @@ class TestSystemDescription(unittest.TestCase):
         print(Wxa)
         print 'Wxx'
         print(Wxx)
+        # exclude
         sys.stdout = old_stdout
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         fileName='_'.join(self.id().split('.'))+'.txt'

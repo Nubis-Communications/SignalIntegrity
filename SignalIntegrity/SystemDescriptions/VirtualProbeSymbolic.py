@@ -106,6 +106,6 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         return self
     def LaTeXEquations(self):
         self.LaTeXSystemEquation()
-        self.LaTeXSi1()
+        self.LaTeXSi()
         self.LaTeXTransferFunctions()
         return self

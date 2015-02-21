@@ -20,7 +20,7 @@ class TestSources(unittest.TestCase):
             for line in regressionFile:
                 regression = regression + line
         comparison = symbolic.Get()
-        self.assertTrue(regression == comparison,Text + ' incorrect')
+        self.assertTrue(regression == comparison,Text + ' incorrect with ' + fileName)
     def testVoltageAmplifier4(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4',
@@ -37,7 +37,7 @@ class TestSources(unittest.TestCase):
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 4')
     def testVoltageAmplifier4Symbolic(self):
@@ -49,7 +49,7 @@ class TestSources(unittest.TestCase):
             'port 4 DV 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
-        ssps.LaTeXSolution().Emit()
+        ssps.LaTeXBlockSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 4 Symbolic')
     def testVoltageAmplifier3(self):
@@ -70,7 +70,7 @@ class TestSources(unittest.TestCase):
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
     def testVoltageAmplifier2(self):
@@ -90,7 +90,7 @@ class TestSources(unittest.TestCase):
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 2 Full')
     def testSymbolicTransistorSimple(self):
@@ -106,7 +106,7 @@ class TestSources(unittest.TestCase):
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor')
     def testSymbolicTransistorZO(self):
@@ -126,7 +126,7 @@ class TestSources(unittest.TestCase):
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor Zo')
     def testOperationalAmplifier(self):
@@ -154,7 +154,7 @@ class TestSources(unittest.TestCase):
         ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZD',si.sy.SeriesZ('Z_d'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
     def testOperationalAmplifierNoZD(self):
@@ -178,7 +178,7 @@ class TestSources(unittest.TestCase):
         ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
     def testOperationalAmplifierAgain(self):
@@ -198,7 +198,7 @@ class TestSources(unittest.TestCase):
         si.sy.SymbolicMatrix(si.sy.SeriesZ('Z_i'),'ZI1 = ZI2',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o'),'VA',True).Emit()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Again')
     def testIdealTransformerSymbolic(self):
@@ -215,7 +215,7 @@ class TestSources(unittest.TestCase):
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('a'))
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('a'))
-        ssps.LaTeXBigSolution().Emit()
+        ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Ideal Transformer')
     def testIdealTransformerSymbolic2(self):

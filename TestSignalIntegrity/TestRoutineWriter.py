@@ -74,6 +74,8 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testVoltageAmplifier3(self)',self.standardHeader)
     def testVoltageAmplifier4Code(self):
         self.WriteCode('TestSources.py','testVoltageAmplifier4(self)',self.standardHeader)
+    def testExampleCode(self):
+        self.WriteCode('TestSystemDescription.py','testExample(self)',self.standardHeader)
     def testSymbolicSolutionExample1Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionExample1(self)',self.standardHeader)
     def testSymbolicSolutionParserExample2Code(self):
