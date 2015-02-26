@@ -264,12 +264,44 @@ class TestSources(unittest.TestCase):
                       'connect V 3 F 1',
                       'connect V 4 G 1',
                       'connect F 2 G 1'])
-        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_i','Z_o'),'V',True).Emit()
-        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('GF','Z_{if}','Z_{of}'),'F',True).Emit()
+        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o'),'\\mathbf{V}',True).Emit()
+        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.LaTeXBlockSolutionBig().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Voltage Series Feedback')
+    def testCurrentAmplifier4(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DC 4',
+            'device ZI 2',
+            'device ZO 2',
+            'port 1 ZI 1',
+            'port 2 DC 2',
+            'port 3 DC 4',
+            'port 4 DC 3',
+            'connect ZI 2 DC 1',
+            'connect ZO 1 DC 4',
+            'connect ZO 2 DC 3'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
+        ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
+        ssps.LaTeXBlockSolutionBig().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier 4')
+    def testCurrentAmplifier4Symbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DC 4',
+            'port 1 DC 1',
+            'port 2 DC 2',
+            'port 3 DC 3',
+            'port 4 DC 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DC',si.sy.CurrentAmplifierFourPort('\\beta','Z_i','Z_o'))
+        ssps.LaTeXBlockSolution().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier 4 Symbolic')
+
 if __name__ == '__main__':
     unittest.main()
 

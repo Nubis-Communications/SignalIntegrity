@@ -114,6 +114,8 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testIdealTransformerSymbolic(self)',self.standardHeader)
     def testVoltageAmplifierVoltageSeriesFeedbackCode(self):
         self.WriteCode('TestSources.py','testVoltageAmplifierVoltageSeriesFeedback(self)',self.standardHeader)
+    def testCurrentAmplifier4Code(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifier4(self)',self.standardHeader)
 
 if __name__ == '__main__':
     unittest.main()

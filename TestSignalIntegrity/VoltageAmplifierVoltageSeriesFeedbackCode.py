@@ -10,7 +10,7 @@ sdp.AddLines(['device V 4',
               'connect V 3 F 1',
               'connect V 4 G 1',
               'connect F 2 G 1'])
-si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_i','Z_o'),'V',True).Emit()
-si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('GF','Z_{if}','Z_{of}'),'F',True).Emit()
+si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o'),'\\mathbf{V}',True).Emit()
+si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 ssps.LaTeXBlockSolutionBig().Emit()
