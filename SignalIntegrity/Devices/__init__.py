@@ -12,3 +12,5 @@ from Open import *
 from IdealTransformer import *
 from CurrentControlledCurrentSource import *
 from VoltageControlledVoltageSource import *
+from IdealTransmissionLine import *
+from VoltageAmplifier import *
