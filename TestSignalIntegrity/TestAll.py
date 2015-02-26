@@ -21,6 +21,7 @@ from TestBook import *
 from TestSources import *
 from TestRoutineWriter import *
 from TestRefImp import *
+from TestImpedanceProfile import *
 
 if __name__ == '__main__':
     unittest.main()

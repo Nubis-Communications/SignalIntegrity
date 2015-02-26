@@ -75,7 +75,7 @@ class TestRoutineWriter(unittest.TestCase):
     def testVoltageAmplifier4Code(self):
         self.WriteCode('TestSources.py','testVoltageAmplifier4(self)',self.standardHeader)
     def testExampleCode(self):
-        self.WriteCode('TestSystemDescription.py','testExample(self)',self.standardHeader)
+        self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
     def testSymbolicSolutionExample1Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionExample1(self)',self.standardHeader)
     def testSymbolicSolutionParserExample2Code(self):
@@ -112,5 +112,8 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testOperationalAmplifierAgain(self)',self.standardHeader)
     def testIdealTransformerSymbolic(self):
         self.WriteCode('TestSources.py','testIdealTransformerSymbolic(self)',self.standardHeader)
+    def testVoltageAmplifierVoltageSeriesFeedbackCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierVoltageSeriesFeedback(self)',self.standardHeader)
+
 if __name__ == '__main__':
     unittest.main()

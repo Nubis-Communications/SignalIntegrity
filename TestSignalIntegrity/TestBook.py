@@ -98,6 +98,26 @@ class Test(unittest.TestCase):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), 'Book Example System Description incorrect')
+    def testSymbolicMethods(self):
+        sdp = si.p.SystemDescriptionParser()
+        sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground','port 1 L 1 2 R 2',
+            'connect L 2 R 1 M 1','connect G 1 M 2'])
+        spc = si.sd.SystemSParameters(sdp.SystemDescription())
+        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
+        symbolic.Clear().LaTeXSystemEquation()
+        self.CheckSymbolicResult('LaTeXSystemEquation',symbolic,'LaTeXSystemEquation')
+        symbolic.Clear().LaTeXSi()
+        self.CheckSymbolicResult('LaTeXSi',symbolic,'LaTeXSi')
+        symbolic.Clear().LaTeXDirectSolution()
+        self.CheckSymbolicResult('LaTeXDirectSolution',symbolic,'LaTeXDirectSolution')
+        symbolic.Clear().LaTeXBlockSolutionBig()
+        self.CheckSymbolicResult('LaTeXBlockSolutionBig',symbolic,'LaTeXBlockSolutionBig')
+        symbolic.Clear().LaTeXBlockSolutionBiggest()
+        self.CheckSymbolicResult('LaTeXBlockSolutionBiggest',symbolic,'LaTeXBlockSolutionBiggest')
+        symbolic.Clear().LaTeXBlockSolution()
+        self.CheckSymbolicResult('LaTeXBlockSolution',symbolic,'LaTeXBlockSolution')
+        symbolic.Clear().LaTeXEquations()
+        self.CheckSymbolicResult('LaTeXEquations',symbolic,'LaTeXEquations')
     def testSymbolicSolutionExample1(self):
         sd = si.sd.SystemDescription()
         sd.AddDevice('S', 2)  # add two-port left device

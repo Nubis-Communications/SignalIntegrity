@@ -49,7 +49,7 @@ class TestSystemDescription(unittest.TestCase):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression==mystdout.getvalue(),'System Description incorrect')
-    def testExample(self):
+    def testSystemDescriptionExampleBlock(self):
         from numpy import array
         D=si.sd.SystemDescription()
         D.AddDevice('D1',2)
