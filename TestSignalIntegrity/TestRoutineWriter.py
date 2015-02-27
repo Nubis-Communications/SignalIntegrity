@@ -68,12 +68,12 @@ class TestRoutineWriter(unittest.TestCase):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
-    def testVoltageAmplifier2(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifier2(self)',self.standardHeader)
+    def testVoltageAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierFourPort(self)',self.standardHeader)
+    def testVoltageAmplifierTwoPortCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPort(self)',self.standardHeader)
     def testVoltageAmplifier3Code(self):
         self.WriteCode('TestSources.py','testVoltageAmplifier3(self)',self.standardHeader)
-    def testVoltageAmplifier4Code(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifier4(self)',self.standardHeader)
     def testExampleCode(self):
         self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
     def testSymbolicSolutionExample1Code(self):
@@ -114,8 +114,10 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testIdealTransformerSymbolic(self)',self.standardHeader)
     def testVoltageAmplifierVoltageSeriesFeedbackCode(self):
         self.WriteCode('TestSources.py','testVoltageAmplifierVoltageSeriesFeedback(self)',self.standardHeader)
-    def testCurrentAmplifier4Code(self):
-        self.WriteCode('TestSources.py','testCurrentAmplifier4(self)',self.standardHeader)
+    def testCurrentAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifierFourPort(self)',self.standardHeader)
+    def testTransconductanceAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testTransconductanceAmplifierFourPort(self)',self.standardHeader)
 
 if __name__ == '__main__':
     unittest.main()

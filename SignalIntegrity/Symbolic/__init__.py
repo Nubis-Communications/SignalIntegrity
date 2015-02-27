@@ -2,8 +2,9 @@ from SymbolicMatrix import *
 from SeriesZ import *
 from VoltageAmplifier import *
 from CurrentAmplifier import *
+from TransconductanceAmplifier import *
 from VoltageControlledVoltageSource import *
-from VoltageControlledVoltageSource import *
+from VoltageControlledCurrentSource import *
 from CurrentControlledCurrentSource import *
 from CurrentControlledVoltageSource import *
 from IdealTransformer import *
