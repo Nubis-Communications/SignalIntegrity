@@ -15,7 +15,7 @@ from FrequencyDependent import SeriesCf
 from FrequencyDependent import Mutualf
 
 class DeviceParser():
-    def __init__(self,f,argsList):
+    def __init__(self,f,ports,argsList):
         self.m_f=f
         self.m_sp=None
         self.m_spf=None
@@ -71,10 +71,10 @@ class DeviceParser():
         if argsList[0] == 'voltageamplifier':
             v=dict([('zo',0),('zi',1e8),('z0',50.)]) # defaults
             v.update(a)
-            self.m_sp=VoltageAmplifier(v['gain'],v['zi'],v['zo'])
+            self.m_sp=VoltageAmplifier(ports,v['gain'],v['zi'],v['zo'])
             return
         elif argsList[0] == 'currentamplifier':
-            v=dict([('zo',1e8),('zi',0),('z0',50.)]) # defaults
+            v=dict([('zo',1e8),('zi',0),('z0',50.),('ports',ports)]) # defaults
             v.update(a)
             self.m_sp=CurrentAmplifier(v['gain'],v['zi'],v['zo'])
             return

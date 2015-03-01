@@ -72,8 +72,12 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testVoltageAmplifierFourPort(self)',self.standardHeader)
     def testVoltageAmplifierTwoPortCode(self):
         self.WriteCode('TestSources.py','testVoltageAmplifierTwoPort(self)',self.standardHeader)
-    def testVoltageAmplifier3Code(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifier3(self)',self.standardHeader)
+    def testVoltageAmplifierTwoPortAlternateCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPortAlternate(self)',self.standardHeader)
+    def testVoltageAmplifierThreePortCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierThreePort(self)',self.standardHeader)
+    def testVoltageAmplifierThreePortAlternateCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierThreePortAlternate(self)',self.standardHeader)
     def testExampleCode(self):
         self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
     def testSymbolicSolutionExample1Code(self):

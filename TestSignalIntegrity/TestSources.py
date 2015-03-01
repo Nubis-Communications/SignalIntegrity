@@ -56,7 +56,7 @@ class TestSources(unittest.TestCase):
             'connect ZI 1 DV 2','connect ZI 2 DV 1','connect ZO 1 DV 4'])
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
-        rescorrect=si.dev.VoltageAmplifier(G,ZI,ZO)
+        rescorrect=si.dev.VoltageAmplifier(4,G,ZI,ZO)
         difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Four Port incorrect')
     def testVoltageAmplifierFourPortNumeric2(self):
@@ -74,7 +74,7 @@ class TestSources(unittest.TestCase):
         sspn.AssignSParameters('ZI',si.dev.SeriesZ(ZI))
         sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
         rescalc=sspn.SParameters()
-        rescorrect=si.dev.VoltageAmplifier(G,ZI,ZO)
+        rescorrect=si.dev.VoltageAmplifier(4,G,ZI,ZO)
         difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Four Port incorrect')
     def testVoltageAmplifierFourPortNumeric3(self):
@@ -86,30 +86,98 @@ class TestSources(unittest.TestCase):
             'port 1 D 1 2 D 2 3 D 3 4 D 4'])
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
-        rescorrect=si.dev.VoltageAmplifier(G,ZI,ZO)
+        rescorrect=si.dev.VoltageAmplifier(4,G,ZI,ZO)
         difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Four Port incorrect')
-    def testVoltageAmplifier3(self):
+    def testVoltageAmplifierThreePort(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4',
-            'device ZI 2',
-            'device ZO 2',
-            'device G 1 ground',
-            'port 1 ZI 1',
-            'port 2 ZI 2',
-            'port 3 ZO 2',
-            'connect DV 3 G 1',
-            'connect ZI 1 DV 2',
-            'connect ZI 2 DV 1',
-            'connect ZO 1 DV 4'])
-        sdp.WriteToFile('VoltageAmplifier3.txt',False)
+            'port 1 DV 1 2 DV 3 3 DV 2',
+            'connect DV 2 DV 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
+        ssps.LaTeXBlockSolutionBiggest().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port')
+    def testVoltageAmplifierThreePortAlternate(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
+            'port 1 ZI 1 3 ZI 2 2 ZO 2',
+            'connect ZI 1 DV 2','connect ZI 2 DV 1','connect ZO 1 DV 4','connect DV 3 DV 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.LaTeXBlockSolutionBiggest().Emit()
         # exclude
-        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
+        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port')
+    def testVoltageAmplifierThreePortSymbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DV 3',
+            'port 1 DV 1 2 DV 2 3 DV 3'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.m_eqPrefix='\\begin{equation} '
+        ssps.m_eqSuffix=' \\end{equation}'
+        ssps.AssignSParameters('DV',si.sy.VoltageAmplifierThreePort('\\alpha','Z_i','Z_o'))
+        ssps.LaTeXBlockSolution().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port Symbolic')
+    def testVoltageAmplifierThreePortNumeric(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device DV 4 voltageamplifier gain '+str(G)+' zi '+str(ZI)+' zo '+str(ZO),
+            'port 1 DV 1 2 DV 3 3 DV 2',
+            'connect DV 2 DV 4'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifierThreePort(G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port incorrect')
+    def testVoltageAmplifierThreePortNumeric2(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device DV 4',
+            'port 1 DV 1 2 DV 3 3 DV 2',
+            'connect DV 2 DV 4'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        sspn.AssignSParameters('DV',si.dev.VoltageAmplifierFourPort(G,ZI,ZO))
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifierThreePort(G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port incorrect')
+    def testVoltageAmplifierThreePortNumeric3(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device D 3 voltageamplifier gain '+str(G)+' zi '+str(ZI)+' zo '+str(ZO),
+            'port 1 D 1 2 D 2 3 D 3'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifier(3,G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port incorrect')
+    def testVoltageAmplifierThreePortAlternateNumeric(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
+            'port 1 ZI 1 3 ZI 2 2 ZO 2',
+            'connect ZI 1 DV 2','connect ZI 2 DV 1','connect ZO 1 DV 4','connect DV 3 DV 1'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        sspn.AssignSParameters('DV',si.dev.VoltageControlledVoltageSource(G))
+        sspn.AssignSParameters('ZI',si.dev.SeriesZ(ZI))
+        sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifier(3,G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port Alternate incorrect')
     def testVoltageAmplifier2(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4',
@@ -136,11 +204,22 @@ class TestSources(unittest.TestCase):
             'port 1 DV 1 2 DV 3',
             'connect DV 2 G 1','connect DV 4 G 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        DV=si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o')
+        DV=si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
         ssps.LaTeXBlockSolutionBiggest().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Full')
+    def testVoltageAmplifierTwoPortAlternate(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DV 3','device G 1 ground',
+            'port 1 DV 1 2 DV 2',
+            'connect DV 3 G 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        DV=si.sy.VoltageAmplifier(3,'\\alpha','Z_i','Z_o')
+        ssps.AssignSParameters('DV',DV)
+        ssps.LaTeXBlockSolutionBiggest().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Alternate')
     def testVoltageAmplifierTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 2',
@@ -153,6 +232,63 @@ class TestSources(unittest.TestCase):
         ssps.LaTeXBlockSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Symbolic')
+
+    
+    def testVoltageAmplifierTwoPortNumeric(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device DV 4 voltageamplifier gain '+str(G)+' zi '+str(ZI)+' zo '+str(ZO),
+            'device G 1 ground',
+            'port 1 DV 1 2 DV 3',
+            'connect DV 2 DV 4 G 1'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port incorrect')
+    def testVoltageAmplifierTwoPortNumeric2(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device DV 4',
+            'device G 1 ground',
+            'port 1 DV 1 2 DV 3',
+            'connect DV 2 DV 4 G 1'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        sspn.AssignSParameters('DV',si.dev.VoltageAmplifier(4,G,ZI,ZO))
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port incorrect')
+    def testVoltageAmplifierTwoPortNumeric3(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device D 2 voltageamplifier gain '+str(G)+' zi '+str(ZI)+' zo '+str(ZO),
+            'port 1 D 1 2 D 2'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port incorrect')
+    def testVoltageAmplifierTwoPortAlternateNumeric(self):
+        sdp=si.p.SystemDescriptionParser()
+        G=10. # gain
+        ZI=1000. # Zin
+        ZO=1.4 # Zout
+        sdp.AddLines(['device DV 3 voltageamplifier gain '+str(G)+' zi '+str(ZI)+' zo '+str(ZO),
+            'device G 1 ground',
+            'port 1 DV 1 2 DV 2',
+            'connect DV 3 G 1'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        rescalc=sspn.SParameters()
+        rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port Alternate incorrect')
     def testSymbolicTransistorSimple(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DC 4',
@@ -413,6 +549,49 @@ class TestSources(unittest.TestCase):
         ssps.LaTeXBlockSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port Symbolic')
+    def testVoltageAmplifierVoltageSeriesFeedbackConjecture(self):
+        sdp=si.p.SystemDescriptionParser()
+        alpha=100. # gain
+        Zi=2000. # Zin
+        Zo=2. # Zout
+        beta=0.
+        Zif=1000.
+        Zof=1.
+        sdp.AddLines(['device D 4 voltageamplifier gain '+str(alpha)+' zi '+str(Zi)+' zo '+str(Zo),
+            'device DF 2 voltageamplifier gain '+str(beta)+' zi '+str(Zif)+' zo '+str(Zof),
+            'device G 1 ground',
+            'port 1 D 1 2 D 3',
+            'connect D 2 DF 2','connect D 3 DF 1','connect D 4 G 1'])
+        rescalc=si.sd.SystemSParametersNumeric(sdp.SystemDescription()).SParameters()
+        rescorrect=si.dev.VoltageAmplifier(2,alpha*Zif/(Zo+Zif)*Zi/(Zi+Zof),Zi+Zof,Zo*Zif/(Zo+Zif))
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Feedback incorrect')
+    def testVoltageAmplifierVoltageSeriesFeedbackConjecture2(self):
+        sdp=si.p.SystemDescriptionParser()
+        alpha=10000. # gain
+        Zi=2000. # Zin
+        Zo=2. # Zout
+        beta=0.1
+        Zif=1000.
+        Zof=1.
+        sdp.AddLines(['device D 4 voltageamplifier gain '+str(alpha)+' zi '+str(Zi)+' zo '+str(Zo),
+            'device DF 2 voltageamplifier gain '+str(beta)+' zi '+str(Zif)+' zo '+str(Zof),
+            'device G 1 ground',
+            'port 1 D 1 2 D 3',
+            'connect D 2 DF 2','connect D 3 DF 1','connect D 4 G 1'])
+        AV=alpha*Zif/(Zo+Zif)*Zi/(Zi+Zof) # amplifier gain taking feedback network loading into account
+        Ziff=Zi+Zof # input impedance taking feedback network into account
+        Zoff=Zo*Zif/(Zo+Zif) # output impedance taking feedback network into account
+        # now account for effects of feedback
+        D=(1.+beta*AV)
+        Zoff=Zoff/D # output impedance lowered
+        Ziff=Ziff*D # input impedance raised
+        A=AV/D # gain desensitized
+        rescalc=si.sd.SystemSParametersNumeric(sdp.SystemDescription()).SParameters()
+        rescorrect=si.dev.VoltageAmplifier(2,A,Ziff,Zoff)
+        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        self.assertTrue(difference<1e-10,'Voltage Amplifier Feedback incorrect')
+
 
 if __name__ == '__main__':
     unittest.main()

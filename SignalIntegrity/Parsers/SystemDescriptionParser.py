@@ -34,7 +34,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         if self.ProcessVariables(lineList):
             pass
         elif lineList[0] == 'device':
-            dev=DeviceParser(self.m_f,[lineList[i] for i in range(3,len(lineList))])
+            dev=DeviceParser(self.m_f,int(lineList[2]),[lineList[i] for i in range(3,len(lineList))])
             self.m_sd.AddDevice(lineList[1],int(lineList[2]),dev.m_sp)
             if not dev.m_spf is None:
                 self.m_spc.append((lineList[1],dev.m_spf))
