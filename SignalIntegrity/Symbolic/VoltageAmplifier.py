@@ -34,4 +34,4 @@ def VoltageAmplifierThreePort(G,Zi,Zo):
 
 def VoltageAmplifierTwoPort(G,Zi,Zo):
     return [['\\frac{'+Zi+' - Z0}{'+Zi+' + Z0}','0'],
-            ['\\frac{2\\cdot '+G+' \\cdot '+Zi+' \\cdot Z0}{\\left( '+Zi+' +Z0\\right)\\cdot\\left( '+Zo+' + Z0\\right)}','\\frac{'+Zi+' - Z0}{'+Zi+' + Z0}']]
+            ['\\frac{2\\cdot '+G+' \\cdot '+Zi+' \\cdot Z0}{\\left( '+Zi+' +Z0\\right)\\cdot\\left( '+Zo+' + Z0\\right)}','\\frac{'+Zo+' - Z0}{'+Zo+' + Z0}']]

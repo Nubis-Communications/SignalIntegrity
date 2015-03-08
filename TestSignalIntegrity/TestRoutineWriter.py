@@ -116,8 +116,12 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testOperationalAmplifierAgain(self)',self.standardHeader)
     def testIdealTransformerSymbolic(self):
         self.WriteCode('TestSources.py','testIdealTransformerSymbolic(self)',self.standardHeader)
-    def testVoltageAmplifierVoltageSeriesFeedbackCode(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifierVoltageSeriesFeedback(self)',self.standardHeader)
+    def testVoltageAmplifierTwoPortVoltageSeriesFeedbackCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPortVoltageSeriesFeedback(self)',self.standardHeader)
+    def testVoltageAmplifierFourPortVoltageSeriesFeedbackCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierFourPortVoltageSeriesFeedback(self)',self.standardHeader)
+    def testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternateCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternate(self)',self.standardHeader)
     def testCurrentAmplifierFourPortCode(self):
         self.WriteCode('TestSources.py','testCurrentAmplifierFourPort(self)',self.standardHeader)
     def testTransconductanceAmplifierFourPortCode(self):
