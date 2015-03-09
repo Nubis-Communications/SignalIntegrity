@@ -126,6 +126,8 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testCurrentAmplifierFourPort(self)',self.standardHeader)
     def testTransconductanceAmplifierFourPortCode(self):
         self.WriteCode('TestSources.py','testTransconductanceAmplifierFourPort(self)',self.standardHeader)
+    def testTransresistanceAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testTransresistanceAmplifierFourPort(self)',self.standardHeader)
 
 if __name__ == '__main__':
     unittest.main()

@@ -3,6 +3,7 @@ from SeriesZ import *
 from VoltageAmplifier import *
 from CurrentAmplifier import *
 from TransconductanceAmplifier import *
+from TransresistanceAmplifier import *
 from VoltageControlledVoltageSource import *
 from VoltageControlledCurrentSource import *
 from CurrentControlledCurrentSource import *

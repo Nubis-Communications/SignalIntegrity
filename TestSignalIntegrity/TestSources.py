@@ -646,6 +646,28 @@ class TestSources(unittest.TestCase):
         ssps.LaTeXBlockSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port Symbolic')
+    def testTransresistanceAmplifierFourPort(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D 4','device ZI 2','device ZO 2',
+            'port 1 ZI 1 2 D 2 3 ZO 2 4 D 3',
+            'connect ZI 2 D 1','connect ZO 1 D 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps.AssignSParameters('D',si.sy.CurrentControlledVoltageSource('\\gamma'))
+        ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
+        ssps.LaTeXBlockSolutionBig().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Four Port')
+    def testTransresistanceAmplifierFourPortSymbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D 4','port 1 D 1 2 D 2 3 D 3 4 D 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
+        ssps.m_eqPrefix='\\begin{equation} '
+        ssps.m_eqSuffix=' \\end{equation}'
+        ssps.AssignSParameters('D',si.sy.TransresistanceAmplifierFourPort('\\gamma','Z_i','Z_o'))
+        ssps.LaTeXBlockSolution().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Four Port Symbolic')
     def testVoltageAmplifierVoltageSeriesFeedbackConjecture(self):
         sdp=si.p.SystemDescriptionParser()
         alpha=100. # gain
