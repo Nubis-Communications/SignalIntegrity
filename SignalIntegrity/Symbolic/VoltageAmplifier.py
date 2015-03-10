@@ -6,7 +6,6 @@ def VoltageAmplifier(P,G,Zi,Zo):
     elif P==4:
         return VoltageAmplifierFourPort(G,Zi,Zo)
 
-
 def VoltageAmplifierFourPort(G,Zi,Zo):
     return [['\\frac{'+Zi+'}{'+Zi+'+2\\cdot Z0}','\\frac{2\\cdot Z0}{'+Zi+'+2\\cdot Z0}','0','0'],
             ['\\frac{2\\cdot Z0}{'+Zi+'+2\\cdot Z0}','\\frac{'+Zi+'}{'+Zi+'+2\\cdot Z0}','0','0'],

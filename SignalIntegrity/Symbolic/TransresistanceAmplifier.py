@@ -1,3 +1,11 @@
+def TransresistanceAmplifier(P,G,Zi,Zo):
+    if P==2:
+        return TransresistanceAmplifierTwoPort(G,Zi,Zo)
+    elif P==3:
+        return TransresistanceAmplifierThreePort(G,Zi,Zo)
+    elif P==4:
+        return TransresistanceAmplifierFourPort(G,Zi,Zo)
+
 def TransresistanceAmplifierFourPort(G,Zi,Zo):
     D11='\\frac{'+Zi+'}{'+Zi+'+2\\cdot Z0}'
     D12='\\frac{2\\cdot Z0}{'+Zi+'+2\\cdot Z0}'

@@ -7,8 +7,12 @@ from SignalIntegrity.Devices import MixedModeConverter
 from SignalIntegrity.Devices import IdealTransformer
 from SignalIntegrity.Devices import CurrentControlledCurrentSource
 from SignalIntegrity.Devices import VoltageControlledVoltageSource
+from SignalIntegrity.Devices import CurrentControlledVoltageSource
+from SignalIntegrity.Devices import VoltageControlledCurrentSource
 from SignalIntegrity.Devices import VoltageAmplifier
 from SignalIntegrity.Devices import CurrentAmplifier
+from SignalIntegrity.Devices import TransresistanceAmplifier
+from SignalIntegrity.Devices import TransconductanceAmplifier
 import math
 from FrequencyDependent import SeriesLf
 from FrequencyDependent import SeriesCf
@@ -63,6 +67,12 @@ class DeviceParser():
         elif argsList[0] == 'currentcontrolledcurrentsource':
             self.m_sp=CurrentControlledCurrentSource(float(argsList[1]))
             return
+        elif argsList[0] == 'currentcontrolledvoltagesource':
+            self.m_sp=CurrentControlledVoltageSource(float(argsList[1]))
+            return
+        elif argsList[0] == 'voltagecontrolledcurrentsource':
+            self.m_sp=VoltageControlledCurrentSource(float(argsList[1]))
+            return
 
         # multi argument tag/key functions
         if len(argsList) > 2:
@@ -74,7 +84,17 @@ class DeviceParser():
             self.m_sp=VoltageAmplifier(ports,v['gain'],v['zi'],v['zo'])
             return
         elif argsList[0] == 'currentamplifier':
-            v=dict([('zo',1e8),('zi',0),('z0',50.),('ports',ports)]) # defaults
+            v=dict([('zo',1e8),('zi',0),('z0',50.)]) # defaults
             v.update(a)
-            self.m_sp=CurrentAmplifier(v['gain'],v['zi'],v['zo'])
+            self.m_sp=CurrentAmplifier(ports,v['gain'],v['zi'],v['zo'])
+            return
+        elif argsList[0] == 'transresistanceamplifier':
+            v=dict([('zo',0.),('zi',0.),('z0',50.)]) # defaults
+            v.update(a)
+            self.m_sp=TransresistanceAmplifier(ports,v['gain'],v['zi'],v['zo'])
+            return
+        elif argsList[0] == 'transconductanceamplifier':
+            v=dict([('zo',1e8),('zi',1e8),('z0',50.)]) # defaults
+            v.update(a)
+            self.m_sp=TransconductanceAmplifier(ports,v['gain'],v['zi'],v['zo'])
             return

@@ -11,8 +11,11 @@ from TerminationZ import *
 from Open import *
 from IdealTransformer import *
 from CurrentControlledCurrentSource import *
+from CurrentControlledVoltageSource import *
 from VoltageControlledVoltageSource import *
 from VoltageControlledCurrentSource import *
 from IdealTransmissionLine import *
 from VoltageAmplifier import *
 from CurrentAmplifier import *
+from TransresistanceAmplifier import *
+from TransconductanceAmplifier import *

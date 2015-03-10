@@ -70,14 +70,50 @@ class TestRoutineWriter(unittest.TestCase):
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
     def testVoltageAmplifierFourPortCode(self):
         self.WriteCode('TestSources.py','testVoltageAmplifierFourPort(self)',self.standardHeader)
-    def testVoltageAmplifierTwoPortCode(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPort(self)',self.standardHeader)
-    def testVoltageAmplifierTwoPortAlternateCode(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPortAlternate(self)',self.standardHeader)
     def testVoltageAmplifierThreePortCode(self):
         self.WriteCode('TestSources.py','testVoltageAmplifierThreePort(self)',self.standardHeader)
     def testVoltageAmplifierThreePortAlternateCode(self):
         self.WriteCode('TestSources.py','testVoltageAmplifierThreePortAlternate(self)',self.standardHeader)
+    def testVoltageAmplifierTwoPortCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPort(self)',self.standardHeader)
+    def testVoltageAmplifierTwoPortAlternateCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPortAlternate(self)',self.standardHeader)
+    def testCurrentAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifierFourPort(self)',self.standardHeader)
+    def testCurrentAmplifierThreePortCode(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifierThreePort(self)',self.standardHeader)
+    def testCurrentAmplifierThreePortAlternateCode(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifierThreePortAlternate(self)',self.standardHeader)
+    def testCurrentAmplifierTwoPortCode(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifierTwoPort(self)',self.standardHeader)
+    def testCurrentAmplifierTwoPortAlternateCode(self):
+        self.WriteCode('TestSources.py','testCurrentAmplifierTwoPortAlternate(self)',self.standardHeader)
+    def testTransconductanceAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testTransconductanceAmplifierFourPort(self)',self.standardHeader)
+    def testTransconductanceAmplifierThreePortCode(self):
+        self.WriteCode('TestSources.py','testTransconductanceAmplifierThreePort(self)',self.standardHeader)
+    def testTransconductanceAmplifierThreePortAlternateCode(self):
+        self.WriteCode('TestSources.py','testTransconductanceAmplifierThreePortAlternate(self)',self.standardHeader)
+    def testTransconductanceAmplifierTwoPortCode(self):
+        self.WriteCode('TestSources.py','testTransconductanceAmplifierTwoPort(self)',self.standardHeader)
+    def testTransconductanceAmplifierTwoPortAlternateCode(self):
+        self.WriteCode('TestSources.py','testTransconductanceAmplifierTwoPortAlternate(self)',self.standardHeader)
+    def testTransresistanceAmplifierFourPortCode(self):
+        self.WriteCode('TestSources.py','testTransresistanceAmplifierFourPort(self)',self.standardHeader)
+    def testTransresistanceAmplifierThreePortCode(self):
+        self.WriteCode('TestSources.py','testTransresistanceAmplifierThreePort(self)',self.standardHeader)
+    def testTransresistanceAmplifierThreePortAlternateCode(self):
+        self.WriteCode('TestSources.py','testTransresistanceAmplifierThreePortAlternate(self)',self.standardHeader)
+    def testTransresistanceAmplifierTwoPortCode(self):
+        self.WriteCode('TestSources.py','testTransresistanceAmplifierTwoPort(self)',self.standardHeader)
+    def testTransresistanceAmplifierTwoPortAlternateCode(self):
+        self.WriteCode('TestSources.py','testTransresistanceAmplifierTwoPortAlternate(self)',self.standardHeader)
+    def testVoltageAmplifierFourPortVoltageSeriesFeedbackCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierFourPortVoltageSeriesFeedback(self)',self.standardHeader)
+    def testVoltageAmplifierTwoPortVoltageSeriesFeedbackCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPortVoltageSeriesFeedback(self)',self.standardHeader)
+    def testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternateCode(self):
+        self.WriteCode('TestSources.py','testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternate(self)',self.standardHeader)
     def testExampleCode(self):
         self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
     def testSymbolicSolutionExample1Code(self):
@@ -116,18 +152,6 @@ class TestRoutineWriter(unittest.TestCase):
         self.WriteCode('TestSources.py','testOperationalAmplifierAgain(self)',self.standardHeader)
     def testIdealTransformerSymbolic(self):
         self.WriteCode('TestSources.py','testIdealTransformerSymbolic(self)',self.standardHeader)
-    def testVoltageAmplifierTwoPortVoltageSeriesFeedbackCode(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifierTwoPortVoltageSeriesFeedback(self)',self.standardHeader)
-    def testVoltageAmplifierFourPortVoltageSeriesFeedbackCode(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifierFourPortVoltageSeriesFeedback(self)',self.standardHeader)
-    def testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternateCode(self):
-        self.WriteCode('TestSources.py','testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternate(self)',self.standardHeader)
-    def testCurrentAmplifierFourPortCode(self):
-        self.WriteCode('TestSources.py','testCurrentAmplifierFourPort(self)',self.standardHeader)
-    def testTransconductanceAmplifierFourPortCode(self):
-        self.WriteCode('TestSources.py','testTransconductanceAmplifierFourPort(self)',self.standardHeader)
-    def testTransresistanceAmplifierFourPortCode(self):
-        self.WriteCode('TestSources.py','testTransresistanceAmplifierFourPort(self)',self.standardHeader)
 
 if __name__ == '__main__':
     unittest.main()
