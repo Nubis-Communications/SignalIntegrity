@@ -29,8 +29,20 @@ def TransresistanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
             [S41,S42,S43,S44]]
 
 def TransresistanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
-    return None
+    D=3.*Z0*Z0+(2.*Zo+2.*Zi-G)*Z0+Zo*Zi
+    S11=(Zo*Zi+Z0*(2.*Zi-G)-Z0*Z0)/D
+    S12=(2.*Z0*Z0)/D
+    S13=(2.*Z0*Z0+2.*Zo*Z0)/D
+    S21=(2.*Z0*Z0+2.*G*Z0)/D
+    S22=(Zo*Zi+Z0*(2.*Zo-G)-Z0*Z0)/D
+    S23=(2.*Z0*Z0+Z0*(2.*Zi-2.*G))/D
+    S31=(2.*Z0*Z0+Z0*(2.*Zo-2.*G))/D
+    S32=(2.*Z0*Z0+2.*Zi*Z0)/D
+    S33=(Zo*Zi-Z0*Z0+G*Z0)/D
+    return [[S11,S12,S13],
+            [S21,S22,S23],
+            [S31,S32,S33]]
+
 
 def TransresistanceAmplifierTwoPort(G,Zi,Zo,Z0=50.):
-    return None
-
+    return [[(Zi-Z0)/(Zi+Z0),0.],[2.*G*Z0/((Zi+Z0)*(Zo+Z0)),(Zo-Z0)/(Zo+Z0)]]
