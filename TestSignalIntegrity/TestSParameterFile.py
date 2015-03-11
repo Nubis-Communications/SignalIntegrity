@@ -7,6 +7,9 @@ class TestSParameterFile(unittest.TestCase):
     def testSParameterFileFourPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.spf.File('TestDut.s4p')
+        #f=[i*100e6 for i in range(201)]
+        #sf.Resample(f)
+        #sf.WriteToFile('TestDut.s4p')
         f=sf.f()
         """
         import matplotlib.pyplot as plt
@@ -108,6 +111,10 @@ class TestSParameterFile(unittest.TestCase):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.spf.File('cable.s2p')
         f=sf.f()
+        #f=[i*100e6 for i in range(201)]
+        #sf2=sf
+        #sf2.Resample(f)
+        #sf2.WriteToFile('cable2.s2p')
         """
         import matplotlib.pyplot as plt
         for r in range(4):
@@ -458,7 +465,7 @@ class TestSParameterFile(unittest.TestCase):
         self.assertTrue(firstFileRead.AreEqual(secondFileRead,0.001),'same file read is not equal')
     def testDeembed(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        freq=[0.1e9*i for i in range(400)]
+        freq=[0.1e9*i for i in range(201)]
         parser=si.p.SystemSParametersNumericParser(freq)
         parser.AddLine('device D1 2 file cable.s2p')
         parser.AddLine('device D2 2 file cable.s2p')
@@ -476,10 +483,11 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
         de=si.spf.SParameters(freq,parser.Deembed())
+        os.remove(systemSParametersFileName)
         self.assertTrue(de.AreEqual(si.spf.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
     def testDeembed2(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        freq=[0.1e9*i for i in range(400)]
+        freq=[0.1e9*i for i in range(201)]
         parser=si.p.SystemSParametersNumericParser(freq)
         parser.AddLine('device D1 2 file cable.s2p')
         parser.AddLine('device D2 2 file cable.s2p')
@@ -498,6 +506,7 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('system file '+systemSParametersFileName)
         de=si.spf.SParameters(freq,parser.Deembed(system))
         self.assertTrue(de.AreEqual(si.spf.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
+        os.remove(systemSParametersFileName)
 
 if __name__ == '__main__':
     unittest.main()
