@@ -3,8 +3,12 @@ import os
 from cStringIO import StringIO
 import sys
 import SignalIntegrity as si
+from TestHelpers import *
 
-class Test(unittest.TestCase):
+class Test(unittest.TestCase,RoutineWriterTesterHelper):
+    def __init__(self, methodName='runTest'):
+        RoutineWriterTesterHelper.__init__(self)
+        unittest.TestCase.__init__(self,methodName)
     def CheckSymbolicResult(self,selfid,symbolic,Text):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         fileName = '_'.join(selfid.split('.')) + '.tex'
@@ -98,10 +102,22 @@ class Test(unittest.TestCase):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), 'Book Example System Description incorrect')
+    def testSystemDescriptionSymbolicExample(self):
+        sd = si.sd.SystemDescription()
+        sd.AddDevice('L', 2)  # add two-port left device
+        sd.AddDevice('R', 2)  # add two-port right device
+        sd.AddPort('L', 1, 1)  # add a port at port 1 of left device
+        sd.AddPort('R', 2, 2)  # add a port at port 2 of right device
+        sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
+        ssps = si.sd.SystemSParametersSymbolic(sd,True)
+        ssps.LaTeXSystemEquation().Emit()
+    # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Book Example System Description Symbolic')
     def testSymbolicMethods(self):
         sdp = si.p.SystemDescriptionParser()
-        sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground','port 1 L 1 2 R 2',
-            'connect L 2 R 1 M 1','connect G 1 M 2'])
+        #sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground','port 1 L 1 2 R 2',
+        #   'connect L 2 R 1 M 1','connect G 1 M 2'])
+        sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
         symbolic.Clear().LaTeXSystemEquation()
@@ -529,5 +545,34 @@ class Test(unittest.TestCase):
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser File')
+    def testSymbolicSolutionExample1Code(self):
+        self.WriteCode('TestBook.py','testSymbolicSolutionExample1(self)',self.standardHeader)
+    def testSymbolicSolutionParserExample2Code(self):
+        self.WriteCode('TestBook.py','testSymbolicSolutionParserExample2(self)',self.standardHeader)
+    def testSymbolicSolutionParserFileExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicSolutionParserFileExample3(self)',self.standardHeader)
+    def testSystemDescriptionExampleCode(self):
+        self.WriteCode('TestBook.py','testSystemDescriptionExample(self)',self.standardHeader)
+    def testSystemDescriptionExampleSymbolicCode(self):
+        self.WriteCode('TestBook.py','testSystemDescriptionSymbolicExample(self)',self.standardHeader)
+    def testSymbolicDeembeddingExample1Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingExample1(self)',self.standardHeader)
+    def testSymbolicDeembeddingParserExample2Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingParserExample2(self)',self.standardHeader)
+    def testSymbolicDeembeddingParserFileExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingParserFileExample3(self)',self.standardHeader)
+    def testSymbolicDeembeddingExample4Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingExample4(self)',self.standardHeader)
+    def testSymbolicDeembeddingExample5Code(self):
+        self.WriteCode('TestBook.py','testSymbolicDeembeddingExample5(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample1Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample1(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample2Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample2(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample3(self)',self.standardHeader)
+    def testSymbolicVirtualProbeParserFileExample4Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeParserFileExample4(self)',self.standardHeader)
+
 if __name__ == "__main__":
     unittest.main()
