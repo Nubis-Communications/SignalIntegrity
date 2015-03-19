@@ -44,73 +44,73 @@ class TestConversions(unittest.TestCase):
         R=29
         ABCD=[[1,-R],[0,1]]
         Z0=[45.,45.]
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<1e-10,'29 Ohm ABCD not equal S with  Z0=list same, default K')
     def testS2ABCDZ0ListConstant(self):
         R=29
         ABCD=[[1,-R],[0,1]]
         Z0=[45.,45.]
-        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
+        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<1e-10,'29 Ohm ABCD not equal S with  Z0=list same, default K')
     def testABCD2SZ0ListDifferent(self):
         R=134
         ABCD=[[1,-R],[0,1]]
         Z0=[25.,95.]
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<1e-10,'134 Ohm ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDZ0ListDifferent(self):
         R=134
         ABCD=[[1,-R],[0,1]]
         Z0=[25.,95.]
-        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
+        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<1e-10,'134 Ohm ABCD not equal S with  Z0=list different, default K')
     def testABCD2SComplexZ(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=[25.,95.]
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDComplexZ(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=[25.,95.]
-        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
+        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testABCD2SComplexZComplexZ0List(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=[25+1j*34,95.-1j*91]
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDComplexZComplexZ0List(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=[25+1j*34,95.-1j*91]
-        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
+        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testABCD2SComplexZComplexZ0array(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDComplexZComplexZ0array(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
+        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testABCD2SComplexZComplexZ0matrix(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDComplexZComplexZ0matrix(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
         Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
+        difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testShuntZ(self):
         """
@@ -132,49 +132,49 @@ class TestConversions(unittest.TestCase):
         R=23+1j*134
         Z=[[R,R],[R,R]]
         Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.dev.ShuntZ(R,Z0)-array(si.cvt.Z2S(Z,Z0)))
+        difference = linalg.norm(si.dev.ShuntZZ0K(R,Z0)-array(si.cvt.Z2S(Z,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testS2ZComplexZComplexZ0matrix(self):
         R=23+1j*134
         Z=[[R,R],[R,R]]
         Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.cvt.S2Z(si.dev.ShuntZ(R,Z0),Z0)-array(Z))
+        difference = linalg.norm(si.cvt.S2Z(si.dev.ShuntZZ0K(R,Z0),Z0)-array(Z))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testZ2SComplexZComplexZ0List(self):
         R=23+1j*134
         Z=[[R,R],[R,R]]
         Z0=[25+1j*34,95.-1j*91]
-        difference = linalg.norm(si.dev.ShuntZ(R,Z0)-array(si.cvt.Z2S(Z,Z0)))
+        difference = linalg.norm(si.dev.ShuntZZ0K(R,Z0)-array(si.cvt.Z2S(Z,Z0)))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2ZComplexZComplexZ0List(self):
         R=23+1j*134
         Z=[[R,R],[R,R]]
         Z0=[25+1j*34,95.-1j*91]
-        difference = linalg.norm(si.cvt.S2Z(si.dev.ShuntZ(R,Z0),Z0)-array(Z))
+        difference = linalg.norm(si.cvt.S2Z(si.dev.ShuntZZ0K(R,Z0),Z0)-array(Z))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testY2SComplexZComplexZ0matrix(self):
         R=23+1j*134
         Y=[[1./R,-1./R],[-1./R,1./R]]
         Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.Y2S(Y,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.Y2S(Y,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testS2YComplexZComplexZ0matrix(self):
         R=23+1j*134
         Y=[[1./R,-1./R],[-1./R,1./R]]
         Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
-        difference = linalg.norm(si.cvt.S2Y(si.dev.SeriesZ(R,Z0),Z0)-array(Y))
+        difference = linalg.norm(si.cvt.S2Y(si.dev.SeriesZZ0K(R,Z0),Z0)-array(Y))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testY2SComplexZComplexZ0List(self):
         R=23+1j*134
         Y=[[1./R,-1./R],[-1./R,1./R]]
         Z0=[25+1j*34,95.-1j*91]
-        difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.Y2S(Y,Z0)))
+        difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.Y2S(Y,Z0)))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2YComplexZComplexZ0List(self):
         R=23+1j*134
         Y=[[1./R,-1./R],[-1./R,1./R]]
         Z0=[25+1j*34,95.-1j*91]
-        difference = linalg.norm(si.cvt.S2Y(si.dev.SeriesZ(R,Z0),Z0)-array(Y))
+        difference = linalg.norm(si.cvt.S2Y(si.dev.SeriesZZ0K(R,Z0),Z0)-array(Y))
         self.assertTrue(difference<0.0001,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testSw2SpDefault(self):
         Sw=[[1,2],[3,4]]

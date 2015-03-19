@@ -48,7 +48,7 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         oneElementVemsi = False
         if len(vemsi) == 1:
             if len(vemsi[0]) == 1:
-                oneElementVemsi = True            
+                oneElementVemsi = True
         vemsi = Matrix2LaTeX(vemsi, self.SmallMatrix())
         veosi = self.MatrixMultiply(self.VoltageExtractionMatrix(self.pOutputList), self.SIPrime(True))
         oneElementVeosi = False
@@ -68,9 +68,9 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
                     line = '\\left( ' + veosi + '\\right)\\cdot ' + vemsi + '^{-1}'
                 else:  # (veosi)*(vemsi)^-1
                     line = veosi + '\\cdot ' + vemsi + '^{-1}'
-        else:            
+        else:
             D = Matrix2LaTeX(self.pStimDef, self.SmallMatrix())
-            
+
             if oneElementVemsi:
                 if oneElementVeosi:  # (veosi*D)*(vemsi*D)^-1
                     line = '\\left[\\left( ' + veosi + '\\right)\\cdot ' + D + ' \\right]\\cdot' + \
@@ -90,7 +90,7 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         else:
             H = '\\mathbf{H}'
         self.AddLine(self.BeginEq() + H + ' = ' + line + self.EndEq())
-        return self                        
+        return self
     def LaTeXTransferFunctions2(self):
         sipr = Matrix2LaTeX(self.SIPrime(True), self.SmallMatrix())
         vem = Matrix2LaTeX(self.VoltageExtractionMatrix(self.pMeasurementList), self.SmallMatrix())
@@ -98,7 +98,7 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         if self.pStimDef is None:
             line = self.BeginEq() + '\\left[ ' + veo + ' \\cdot ' + sipr + ' \\right]' + \
                 ' \\left[ ' + vem + ' \\cdot ' + sipr + ' \\right]^{-1}' + self.EndEq()
-        else:            
+        else:
             D = Matrix2LaTeX(self.pStimDef, self.SmallMatrix())
             line = self.BeginEq() + '\\left[ ' + veo + ' \\cdot ' + sipr + ' \\cdot ' + D + ' \\right]' + \
                 '\\left[ ' + vem + ' \\cdot ' + sipr + ' \\cdot ' + D + ' \\right]^{-1}' + self.EndEq()
@@ -106,6 +106,6 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         return self
     def LaTeXEquations(self):
         self.LaTeXSystemEquation()
-        self.LaTeXSi()
+        self._LaTeXSi()
         self.LaTeXTransferFunctions()
         return self

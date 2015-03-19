@@ -2,7 +2,9 @@ from SignalIntegrity.SParameterFiles import File
 from SignalIntegrity.SubCircuits import SubCircuit
 from SignalIntegrity.Devices import Open
 from SignalIntegrity.Devices import Ground
+from SignalIntegrity.Devices import Thru
 from SignalIntegrity.Devices import SeriesZ
+from SignalIntegrity.Devices import Tee
 from SignalIntegrity.Devices import MixedModeConverter
 from SignalIntegrity.Devices import IdealTransformer
 from SignalIntegrity.Devices import CurrentControlledCurrentSource
@@ -48,8 +50,14 @@ class DeviceParser():
         elif argsList[0] == 'open':
             self.m_sp=Open()
             return
+        elif argsList[0] == 'thru':
+            self.m_sp=Thru()
+            return
         elif argsList[0] == 'termination':
             self.m_sp=[[0]]
+            return
+        elif argsList[0] == 'tee':
+            self.m_sp=Tee(ports)
             return
         elif argsList[0] == 'subcircuit':
             self.m_spf=SubCircuit(self.m_f,argsList[1],

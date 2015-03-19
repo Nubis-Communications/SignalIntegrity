@@ -7,4 +7,4 @@ sdp.AddLines(['device DV 3','device G 1 ground',
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 DV=si.sy.VoltageAmplifier(3,'\\alpha','Z_i','Z_o')
 ssps.AssignSParameters('DV',DV)
-ssps.LaTeXBlockSolutionBiggest().Emit()
+ssps.LaTeXSolution(size='biggest').Emit()

@@ -22,7 +22,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor')
     def testSymbolicTransistorZO(self):
@@ -42,7 +42,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor Zo')
     def testSymbolicTransistorSimpleCode(self):

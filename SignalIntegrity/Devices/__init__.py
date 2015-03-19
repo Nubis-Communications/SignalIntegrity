@@ -5,6 +5,7 @@ from Mutual import *
 from ReferenceImpedanceTransformer import *
 from SeriesZ import *
 from ShuntZ import *
+from ShuntDevice import *
 from Tee import *
 from Thru import *
 from TerminationZ import *

@@ -9,4 +9,4 @@ sdp.AddLines(['device DC 4',
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
 ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
-ssps.LaTeXBlockSolutionBig().Emit()
+ssps.LaTeXSolution(size='big').Emit()

@@ -106,15 +106,13 @@ class Test(unittest.TestCase):
         symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
         symbolic.Clear().LaTeXSystemEquation()
         self.CheckSymbolicResult('LaTeXSystemEquation',symbolic,'LaTeXSystemEquation')
-        symbolic.Clear().LaTeXSi()
-        self.CheckSymbolicResult('LaTeXSi',symbolic,'LaTeXSi')
-        symbolic.Clear().LaTeXDirectSolution()
+        symbolic.Clear().LaTeXSolution(type='direct')
         self.CheckSymbolicResult('LaTeXDirectSolution',symbolic,'LaTeXDirectSolution')
-        symbolic.Clear().LaTeXBlockSolutionBig()
+        symbolic.Clear().LaTeXSolution(size='big')
         self.CheckSymbolicResult('LaTeXBlockSolutionBig',symbolic,'LaTeXBlockSolutionBig')
-        symbolic.Clear().LaTeXBlockSolutionBiggest()
+        symbolic.Clear().LaTeXSolution(size='biggest')
         self.CheckSymbolicResult('LaTeXBlockSolutionBiggest',symbolic,'LaTeXBlockSolutionBiggest')
-        symbolic.Clear().LaTeXBlockSolution()
+        symbolic.Clear().LaTeXSolution()
         self.CheckSymbolicResult('LaTeXBlockSolution',symbolic,'LaTeXBlockSolution')
         symbolic.Clear().LaTeXEquations()
         self.CheckSymbolicResult('LaTeXEquations',symbolic,'LaTeXEquations')
@@ -186,7 +184,7 @@ class Test(unittest.TestCase):
         sd.ConnectDevicePort('G', 1, 'M', 2)
         spc = si.sd.SystemSParameters(sd)
         symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXBlockSolution().Emit()
+        symbolic.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3')
     def testSymbolicSolutionParserExample3(self):
@@ -196,14 +194,14 @@ class Test(unittest.TestCase):
         sdp.WriteToFile('SymbolicSolution3.txt',False)
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXBlockSolution().Emit()
+        symbolic.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser')
     def testSymbolicSolutionParserFileExample3(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution3.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXBlockSolution().Emit()
+        symbolic.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser File')
     def testSymbolicDeembeddingExample1(self):

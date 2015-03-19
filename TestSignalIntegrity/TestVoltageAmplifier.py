@@ -18,7 +18,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port')
     def testVoltageAmplifierFourPortSymbolic(self):
@@ -29,7 +29,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.m_eqPrefix='\\begin{equation} '
         ssps.m_eqSuffix=' \\end{equation}'
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
-        ssps.LaTeXBlockSolution().Emit()
+        ssps.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port Symbolic')
     def testVoltageAmplifierFourPortNumeric(self):
@@ -84,7 +84,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'connect DV 2 DV 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port')
     def testVoltageAmplifierThreePortAlternate(self):
@@ -97,7 +97,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port')
     def testVoltageAmplifierThreePortSymbolic(self):
@@ -108,7 +108,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.m_eqPrefix='\\begin{equation} '
         ssps.m_eqSuffix=' \\end{equation}'
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierThreePort('\\alpha','Z_i','Z_o'))
-        ssps.LaTeXBlockSolution().Emit()
+        ssps.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port Symbolic')
     def testVoltageAmplifierThreePortNumeric(self):
@@ -183,7 +183,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 2 Full')
     def testVoltageAmplifierTwoPort(self):
@@ -194,7 +194,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         DV=si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Full')
     def testVoltageAmplifierTwoPortAlternate(self):
@@ -205,7 +205,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         DV=si.sy.VoltageAmplifier(3,'\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Alternate')
     def testVoltageAmplifierTwoPortSymbolic(self):
@@ -217,7 +217,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.m_eqSuffix=' \\end{equation}'
         DV=si.sy.VoltageAmplifierTwoPort('\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
-        ssps.LaTeXBlockSolution().Emit()
+        ssps.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Symbolic')
     def testVoltageAmplifierTwoPortNumeric(self):
@@ -284,7 +284,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o'),'\\mathbf{V}',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Voltage Series Feedback')
     def testVoltageAmplifierTwoPortVoltageSeriesFeedback(self):
@@ -295,7 +295,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('D',si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o'))
         ssps.AssignSParameters('F',si.sy.VoltageAmplifier(2,'\\beta','Z_{if}','Z_{of}'))
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Voltage Series Feedback')
     def testVoltageAmplifierFourPortVoltageSeriesFeedback(self):
@@ -332,7 +332,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{F}',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'),'\\mathbf{D}',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port Voltage Series Feedback')
     def testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternate(self):
@@ -383,7 +383,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         # exclude
         # si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{F}',True).Emit()
         # include
-        ssps.LaTeXBlockSolutionBiggest().Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port Voltage Series Feedback')
     def testVoltageAmplifierVoltageSeriesFeedbackConjecture(self):

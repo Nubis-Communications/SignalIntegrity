@@ -1,3 +1,6 @@
+from SignalIntegrity.Symbolic import TeeThreePortSafe
+from SignalIntegrity.Helpers import Matrix2LaTeX
+
 class Symbolic():
     def __init__(self,equationEnvironment=False,small=False):
         self.m_lines=[]
@@ -70,4 +73,14 @@ class Symbolic():
         for line in self.m_lines:
             lineBuffer=lineBuffer+line+'\n'
         return lineBuffer
+    def InstallSafeTees(self,Z='\\varepsilon'):
+        for d in range(len(self)):
+            if '#' in self[d].pName:
+                self[d].pSParameters = TeeThreePortSafe(Z)
+    def _AddEq(self,text):
+        self.AddLine(self.BeginEq() + text + self.EndEq())
+    def _LaTeXMatrix(self,matrix):
+        return Matrix2LaTeX(matrix,self.SmallMatrix())
+
+
 

@@ -20,8 +20,9 @@ from TestVirtualProbe import *
 from TestBook import *
 from TestSources import *
 from TestRoutineWriter import *
-from TestRefImp import *
 from TestImpedanceProfile import *
+from TestCommonElements import *
+from TestTeeProblem import *
 
 if __name__ == '__main__':
     unittest.main()

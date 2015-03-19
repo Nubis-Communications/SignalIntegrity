@@ -6,4 +6,4 @@ sdp.AddLines(['device D 4',
     'connect D 2 D 4'])
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 ssps.AssignSParameters('D',si.sy.TransconductanceAmplifier(4,'\\delta','Z_i','Z_o'))
-ssps.LaTeXBlockSolutionBiggest().Emit()
+ssps.LaTeXSolution(size='biggest').Emit()

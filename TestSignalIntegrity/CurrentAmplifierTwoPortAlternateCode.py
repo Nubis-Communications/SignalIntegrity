@@ -7,4 +7,4 @@ sdp.AddLines(['device D 3','device G 1 ground',
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 D=si.sy.CurrentAmplifier(3,'\\beta','Z_i','Z_o')
 ssps.AssignSParameters('D',D)
-ssps.LaTeXBlockSolutionBiggest().Emit()
+ssps.LaTeXSolution(size='biggest').Emit()

@@ -23,7 +23,7 @@ class TestIdealTransformer(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('a'))
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('a'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Ideal Transformer')
     def testIdealTransformerSymbolic2(self):

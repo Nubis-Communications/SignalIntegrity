@@ -6,4 +6,4 @@ sdp.AddLines(['device DV 4',
     'connect DV 2 DV 4'])
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
 ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
-ssps.LaTeXBlockSolutionBiggest().Emit()
+ssps.LaTeXSolution(size='biggest').Emit()

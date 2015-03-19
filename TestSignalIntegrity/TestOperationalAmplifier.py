@@ -34,7 +34,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
         ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZD',si.sy.SeriesZ('Z_d'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
     def testOperationalAmplifierNoZD(self):
@@ -58,7 +58,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
         ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 3')
     def testOperationalAmplifierAgain(self):
@@ -78,7 +78,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
         si.sy.SymbolicMatrix(si.sy.SeriesZ('Z_i'),'ZI1 = ZI2',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o'),'VA',True).Emit()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        ssps.LaTeXBlockSolutionBig().Emit()
+        ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Again')
     def testOpAmpNoZD(self):

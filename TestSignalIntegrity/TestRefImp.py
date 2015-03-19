@@ -4,7 +4,7 @@ import SignalIntegrity as si
 from numpy import linalg
 from numpy import array
 
-class TestReferenceImpedanceTransformation(unittest.TestCase):            
+class TestReferenceImpedanceTransformation(unittest.TestCase):
     def testBasic(self):
         """
         This test tests the s-parameters of the shunt z by building a circuit using the
@@ -14,7 +14,7 @@ class TestReferenceImpedanceTransformation(unittest.TestCase):
         Z=23+43*1j
         Z01=92-18*1j
         Z02=698+18*1j
-        normalResult = array(si.cvt.ReferenceImpedance(si.dev.ShuntZ(Z),[Z01,Z02]))     
+        normalResult = array(si.cvt.ReferenceImpedance(si.dev.ShuntZ(Z),[Z01,Z02]))
         D=si.sd.SystemDescription()
         D.AddDevice('D1',2,si.dev.ShuntZ(Z))
         D.AddDevice('R1',2,si.dev.ReferenceImpedanceTransformer(Z01))
@@ -23,7 +23,7 @@ class TestReferenceImpedanceTransformation(unittest.TestCase):
         D.ConnectDevicePort('D1',2,'R2',1)
         D.AddPort('R1',2,1)
         D.AddPort('R2',2,2)
-        theRealResult=array(si.sd.SystemSParametersNumeric(D).SParametersDirect())
+        theRealResult=array(si.sd.SystemSParametersNumeric(D).SParameters(type='direct'))
         difference = linalg.norm(normalResult-theRealResult)
         self.assertTrue(difference<1e-10,'Reference Impedance Transformation incorrect')
         #now let's convert it back to 50 Ohms
