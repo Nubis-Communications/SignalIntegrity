@@ -1,2 +1,14 @@
-\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{array}{cccc} 0 & \frac{Z}{Z+2\cdot Z0} & 0 & \frac{2\cdot Z0}{Z+2\cdot Z0} \\ -\frac{1}{3} & 0 & 0 & 0 \\ 0 & \frac{2\cdot Z0}{Z+2\cdot Z0} & 0 & \frac{Z}{Z+2\cdot Z0} \\ 0 & 0 & -\frac{1}{3} & 0 \end{array}\right) \right]^{-1}  \]
-\[ \mathbf{S} = \left(\begin{array}{cccc} -\frac{1}{3} & 0 & \frac{2}{3} & 0 \\ 0 & -\frac{1}{3} & 0 & \frac{2}{3} \\ \frac{2}{3} & 0 & -\frac{1}{3} & 0 \\ 0 & \frac{2}{3} & 0 & -\frac{1}{3} \end{array}\right) + \left(\begin{array}{cccc} 0 & 0 & \frac{2}{3} & 0 \\ \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & \frac{2}{3} & 0 \\ \frac{2}{3} & 0 & 0 & 0 \end{array}\right) \cdot \mathbf{Wi} \cdot\left(\begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & \frac{2}{3} & 0 & \frac{2}{3} \\ 0 & 0 & 0 & 0 \\ \frac{2}{3} & 0 & \frac{2}{3} & 0 \end{array}\right) \]
+\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{array}{cccc} 0 &
+\frac{Z}{Z+2\cdot Z0} & 0 & \frac{2\cdot Z0}{Z+2\cdot Z0} \\
+-\frac{1}{3} & 0 & 0 & 0 \\ 0 & \frac{2\cdot Z0}{Z+2\cdot Z0} & 0 &
+\frac{Z}{Z+2\cdot Z0} \\ 0 & 0 & -\frac{1}{3} & 0 \end{array}\right)
+\right]^{-1}  \]
+\[ \mathbf{S} = \left(\begin{array}{cccc} -\frac{1}{3} & 0 &
+\frac{2}{3} & 0 \\ 0 & -\frac{1}{3} & 0 & \frac{2}{3} \\ \frac{2}{3} &
+0 & -\frac{1}{3} & 0 \\ 0 & \frac{2}{3} & 0 & -\frac{1}{3}
+\end{array}\right) + \left(\begin{array}{cccc} 0 & 0 & \frac{2}{3} & 0
+\\ \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & \frac{2}{3} & 0 \\ \frac{2}{3} &
+0 & 0 & 0 \end{array}\right) \cdot \mathbf{Wi}
+\cdot\left(\begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & \frac{2}{3} & 0 &
+\frac{2}{3} \\ 0 & 0 & 0 & 0 \\ \frac{2}{3} & 0 & \frac{2}{3} & 0
+\end{array}\right) \]

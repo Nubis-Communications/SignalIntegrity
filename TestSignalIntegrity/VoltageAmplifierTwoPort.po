@@ -1,5 +1,24 @@
-\[ \mathbf{W_{ba}} = \left(\begin{smallmatrix} \frac{Z_i}{Z_i+2\cdot Z0} & 0 \\ \frac{2\cdot Z_i\cdot Z0\cdot \alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{Z_o}{Z_o+2\cdot Z0} \end{smallmatrix}\right) \]
-\[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & 0 & 0 & 0 & \frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 & \frac{2\cdot Z0}{Z_o+2\cdot Z0} & 0 & -\frac{2\cdot Z_i\cdot Z0\cdot \alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & 0 \end{smallmatrix}\right) \]
-\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} -\frac{2\cdot Z_i\cdot Z0\cdot \alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{2\cdot Z0}{Z_o+2\cdot Z0} \\ 0 & 0 \\ 0 & 0 \\ \frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 \\ 0 & 0 \end{smallmatrix}\right) \]
-\[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & 0 & \frac{Z_o}{Z_o+2\cdot Z0} & 0 & \frac{2\cdot Z_i\cdot Z0\cdot \alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & 0 \\ \frac{2}{3} & 0 & 0 & \frac{2}{3} & 0 & -\frac{1}{3} \\ -\frac{1}{3} & 0 & 0 & \frac{2}{3} & 0 & \frac{2}{3} \\ 0 & 0 & 0 & 0 & \frac{Z_i}{Z_i+2\cdot Z0} & 0 \\ \frac{2}{3} & 0 & 0 & -\frac{1}{3} & 0 & \frac{2}{3} \\ 0 & -1 & 0 & 0 & 0 & 0 \end{smallmatrix}\right) \]
-\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}  -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]
+\[ \mathbf{W_{ba}} = \left(\begin{smallmatrix} \frac{Z_i}{Z_i+2\cdot
+Z0} & 0 \\ \frac{2\cdot Z_i\cdot Z0\cdot \alpha}{\left(Z_i+2\cdot
+Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{Z_o}{Z_o+2\cdot Z0}
+\end{smallmatrix}\right) \]
+\[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & 0 & 0 & 0 &
+\frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 & \frac{2\cdot
+Z0}{Z_o+2\cdot Z0} & 0 & -\frac{2\cdot Z_i\cdot Z0\cdot
+\alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & 0
+\end{smallmatrix}\right) \]
+\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} -\frac{2\cdot Z_i\cdot
+Z0\cdot \alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot
+Z0\right)} & \frac{2\cdot Z0}{Z_o+2\cdot Z0} \\ 0 & 0 \\ 0 & 0 \\
+\frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 \\ 0 & 0
+\end{smallmatrix}\right) \]
+\[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & 0 &
+\frac{Z_o}{Z_o+2\cdot Z0} & 0 & \frac{2\cdot Z_i\cdot Z0\cdot
+\alpha}{\left(Z_i+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & 0
+\\ \frac{2}{3} & 0 & 0 & \frac{2}{3} & 0 & -\frac{1}{3} \\
+-\frac{1}{3} & 0 & 0 & \frac{2}{3} & 0 & \frac{2}{3} \\ 0 & 0 & 0 & 0
+& \frac{Z_i}{Z_i+2\cdot Z0} & 0 \\ \frac{2}{3} & 0 & 0 & -\frac{1}{3}
+& 0 & \frac{2}{3} \\ 0 & -1 & 0 & 0 & 0 & 0 \end{smallmatrix}\right)
+\]
+\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
+-\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]

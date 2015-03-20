@@ -1,2 +1,20 @@
-\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 0 & 0 & -\frac{1}{3} & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 \\ 0 & a & 0 & 0 & 0 & -a & 0 & 0 & 0 & 0 \\ 1 & 0 & -a & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\frac{1}{3} & \frac{2}{3} & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & -\frac{1}{3} & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & a & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \end{smallmatrix}\right) \right]^{-1}  \]
-\[ \mathbf{S} = \left(\begin{smallmatrix} -\frac{1}{3} & 0 & 0 & 0 \\ 0 & -\frac{1}{3} & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{smallmatrix}\right) + \left(\begin{smallmatrix} 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & \frac{2}{3} & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & -a & 0 & 0 & 0 & a & 0 & 0 & 0 & 1 \end{smallmatrix}\right) \cdot \mathbf{Wi} \cdot\left(\begin{smallmatrix} \frac{2}{3} & 0 & 0 & 0 \\ \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & a & 0 \\ 0 & \frac{2}{3} & 0 & 0 \\ 0 & \frac{2}{3} & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & -a & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{smallmatrix}\right) \]
+\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 0
+& 0 & -\frac{1}{3} & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & 0 &
+\frac{2}{3} & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 \\ 0 & a & 0 & 0 & 0 &
+-a & 0 & 0 & 0 & 0 \\ 1 & 0 & -a & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0
+& 0 & 0 & 0 & 0 & 0 & -\frac{1}{3} & \frac{2}{3} & 0 \\ 0 & 0 & 0 & 0
+& 0 & 0 & 0 & \frac{2}{3} & -\frac{1}{3} & 0 \\ 0 & 1 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 \\ 0 & 0 & a & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0
+& 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{smallmatrix}\right) \right]^{-1}  \]
+\[ \mathbf{S} = \left(\begin{smallmatrix} -\frac{1}{3} & 0 & 0 & 0 \\
+0 & -\frac{1}{3} & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0
+\end{smallmatrix}\right) + \left(\begin{smallmatrix} 0 & 0 & 0 &
+\frac{2}{3} & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0
+& 0 & \frac{2}{3} & \frac{2}{3} & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 &
+0 & 0 \\ 0 & -a & 0 & 0 & 0 & a & 0 & 0 & 0 & 1
+\end{smallmatrix}\right) \cdot \mathbf{Wi}
+\cdot\left(\begin{smallmatrix} \frac{2}{3} & 0 & 0 & 0 \\ \frac{2}{3}
+& 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & a & 0 \\ 0 & \frac{2}{3} & 0 &
+0 \\ 0 & \frac{2}{3} & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & -a & 0 \\ 0 &
+0 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{smallmatrix}\right) \]

@@ -1,2 +1,11 @@
-\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{array}{cc} 0 & \frac{2\cdot Z-Z0}{2\cdot Z+3\cdot Z0} \\ -1 & 0 \end{array}\right) \right]^{-1}  \]
-\[ \mathbf{S} = \left(\begin{array}{cc} \frac{-Z0}{2\cdot Z+3\cdot Z0} & \frac{2\cdot Z+2\cdot Z0}{2\cdot Z+3\cdot Z0} \\ \frac{2\cdot Z+2\cdot Z0}{2\cdot Z+3\cdot Z0} & \frac{-Z0}{2\cdot Z+3\cdot Z0} \end{array}\right) + \left(\begin{array}{cc} 0 & \frac{2\cdot Z0}{2\cdot Z+3\cdot Z0} \\ 0 & \frac{2\cdot Z0}{2\cdot Z+3\cdot Z0} \end{array}\right) \cdot \mathbf{Wi} \cdot\left(\begin{array}{cc} \frac{2\cdot Z0}{2\cdot Z+3\cdot Z0} & \frac{2\cdot Z0}{2\cdot Z+3\cdot Z0} \\ 0 & 0 \end{array}\right) \]
+\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{array}{cc} 0 &
+\frac{2\cdot Z-Z0}{2\cdot Z+3\cdot Z0} \\ -1 & 0 \end{array}\right)
+\right]^{-1}  \]
+\[ \mathbf{S} = \left(\begin{array}{cc} \frac{-Z0}{2\cdot Z+3\cdot Z0}
+& \frac{2\cdot Z+2\cdot Z0}{2\cdot Z+3\cdot Z0} \\ \frac{2\cdot
+Z+2\cdot Z0}{2\cdot Z+3\cdot Z0} & \frac{-Z0}{2\cdot Z+3\cdot Z0}
+\end{array}\right) + \left(\begin{array}{cc} 0 & \frac{2\cdot
+Z0}{2\cdot Z+3\cdot Z0} \\ 0 & \frac{2\cdot Z0}{2\cdot Z+3\cdot Z0}
+\end{array}\right) \cdot \mathbf{Wi} \cdot\left(\begin{array}{cc}
+\frac{2\cdot Z0}{2\cdot Z+3\cdot Z0} & \frac{2\cdot Z0}{2\cdot
+Z+3\cdot Z0} \\ 0 & 0 \end{array}\right) \]

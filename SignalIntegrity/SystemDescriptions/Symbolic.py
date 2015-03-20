@@ -1,5 +1,6 @@
 from SignalIntegrity.Symbolic import TeeThreePortSafe
 from SignalIntegrity.Helpers import Matrix2LaTeX
+from textwrap import *
 
 class Symbolic():
     def __init__(self,equationEnvironment=False,small=False):
@@ -53,7 +54,9 @@ class Symbolic():
     def AddLine(self,line):
         if len(line) == 0:
             return
-        self.m_lines.append(line)
+        wlinelist=wrap(line)
+        for wline in wlinelist:
+            self.m_lines.append(wline)
         return self
     def AddLines(self,lines):
         for line in lines:
