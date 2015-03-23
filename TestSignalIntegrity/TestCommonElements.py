@@ -15,7 +15,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2',
             'port 1 D 1 2 D 2 3 D 1 4 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
@@ -59,7 +59,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 ',
             'port 1 D 1 2 D 2 3 D 1 4 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
@@ -68,7 +68,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 ',
             'port 1 D 1 2 D 2 3 D 1 4 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.InstallSafeTees()
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -77,9 +77,9 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testZShuntFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 4','port 1 D 1 2 D 2 3 D 3 4 D 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(
+            sdp.SystemDescription(),eqprefix='\\begin{equation} ',
+            eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
         ssps.LaTeXSolution().Emit()
         # exclude
@@ -99,7 +99,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2',
             'port 1 D 1 2 D 1 3 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
@@ -109,7 +109,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 4','device O 1 open',
             'port 1 D 1 2 D 3 3 D 2',
             'connect D 4 O 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
@@ -119,7 +119,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 4','device Z 2',
             'port 1 D 1 2 D 3 3 D 2',
             'connect D 2 Z 2','connect Z 1 D 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
         ssps.AssignSParameters('Z',si.sy.SeriesZ('\\varepsilon'))
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -128,9 +128,8 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testZShuntThreePortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3','port 1 D 1 2 D 2 3 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.ShuntZThreePort('Z'))
         ssps.LaTeXSolution().Emit()
         # exclude
@@ -201,8 +200,8 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         sspn.InstallSafeTees()
-        rescalc1=sspn.SParameters()
-        rescalc2=sspn.SParametersDirect()
+        rescalc1=sspn.SParameters(type='block')
+        rescalc2=sspn.SParameters(type='direct')
         rescorrect=si.dev.Tee()
         difference = linalg.norm(matrix(rescalc1)-matrix(rescorrect))
         self.assertTrue(difference<1e-6,'Tee Numeric incorrect')
@@ -210,7 +209,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2','device G 1 ground',
             'port 1 D 1 2 D 1','connect D 2 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
@@ -219,7 +218,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3','device G 1 ground',
             'port 1 D 1 2 D 2','connect D 3 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.ShuntZThreePort('Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
@@ -227,9 +226,8 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testZShuntTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.ShuntZTwoPort('Z'))
         ssps.LaTeXSolution().Emit()
         # exclude

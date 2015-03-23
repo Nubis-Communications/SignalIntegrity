@@ -14,7 +14,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 2 ZI 2 3 ZO 2 4 DV 3',
             'connect ZI 1 DV 2','connect ZI 2 DV 1','connect ZO 1 DV 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
@@ -25,9 +25,8 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4',
             'port 1 DV 1 2 DV 2 3 DV 3 4 DV 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # exclude
@@ -82,7 +81,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device DV 4',
             'port 1 DV 1 2 DV 3 3 DV 2',
             'connect DV 2 DV 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
@@ -92,11 +91,11 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 3 ZI 2 2 ZO 2',
             'connect ZI 1 DV 2','connect ZI 2 DV 1','connect ZO 1 DV 4','connect DV 3 DV 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port')
@@ -104,9 +103,8 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 3',
             'port 1 DV 1 2 DV 2 3 DV 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small',
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifierThreePort('\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # exclude
@@ -179,7 +177,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'connect DV 1 G 1',
             'connect ZO 1 DV 4',
             'connect DV 3 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
@@ -191,7 +189,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device DV 4','device G 1 ground',
             'port 1 DV 1 2 DV 3',
             'connect DV 2 G 1','connect DV 4 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         DV=si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -202,7 +200,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device DV 3','device G 1 ground',
             'port 1 DV 1 2 DV 2',
             'connect DV 3 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         DV=si.sy.VoltageAmplifier(3,'\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -212,9 +210,8 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 2',
             'port 1 DV 1 2 DV 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         DV=si.sy.VoltageAmplifierTwoPort('\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
         ssps.LaTeXSolution().Emit()
@@ -283,7 +280,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
                       'connect V 4 G 1','connect F 2 G 1'])
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o'),'\\mathbf{V}',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Voltage Series Feedback')
@@ -292,7 +289,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device D 4','device F 2','device G 1 ground',
             'port 1 D 1 2 D 3',
             'connect D 2 F 2','connect D 3 F 1','connect D 4 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o'))
         ssps.AssignSParameters('F',si.sy.VoltageAmplifier(2,'\\beta','Z_{if}','Z_{of}'))
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -303,7 +300,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device D 4','device F 4',
             'port 1 D 1 2 F 4 3 D 3 4 F 2',
             'connect D 2 F 3','connect D 3 F 1','connect D 4 F 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         DSp=ssps[ssps.IndexOfDevice('D')].pSParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]
@@ -340,7 +337,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device D 4','device F 4',
             'port 1 D 1 2 F 4 3 D 3 4 F 2',
             'connect D 2 F 3','connect D 3 F 1','connect D 4 F 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         DSp=ssps[ssps.IndexOfDevice('D')].pSParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]

@@ -20,7 +20,7 @@ class TestIdealTransformer(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'connect DC 2 DV 4',
             'connect DC 4 DV 2',
             'connect DC 3 DV 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('a'))
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('a'))
         ssps.LaTeXSolution(size='big').Emit()

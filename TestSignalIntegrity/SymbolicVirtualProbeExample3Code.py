@@ -14,5 +14,5 @@ vp=si.sd.VirtualProbe(sd)
 vp.pMeasurementList = [('T',1),('T',2)]
 vp.pOutputList = [('R',1),('R',2)]
 vp.pStimDef = [[1],[-1]]
-svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+svp=si.sd.VirtualProbeSymbolic(vp,size='small')
 svp.LaTeXEquations().Emit()

@@ -3,8 +3,8 @@ from SystemDescriptionSymbolic import SystemDescriptionSymbolic
 from Device import Device
 
 class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
-    def __init__(self,sd,equationEnvironment=False,small=False):
-        SystemDescriptionSymbolic.__init__(self, sd, equationEnvironment, small)
+    def __init__(self,sd,**args):
+        SystemDescriptionSymbolic.__init__(self,sd,**args)
     def _LaTeXSi(self):
         sW=self._LaTeXMatrix(self.WeightsMatrix())
         self._AddEq('\mathbf{Si} = \\left[ '+self.Identity()+\
@@ -59,9 +59,4 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
         else:
             self._AddEq('\\mathbf{S} = '+sWba+' + '+sWbx+' \\cdot \\left[ '+\
             self.Identity()+' - '+sWxx+' \\right]^{-1} \\cdot'+sWxa)
-        return self
-    def LaTeXEquations(self):
-        self.LaTeXSystemEquation()
-        self.LaTeXSolution(type='direct')
-        self.LaTeXSolution()
         return self

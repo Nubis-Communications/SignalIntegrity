@@ -140,3 +140,46 @@ def Matrix2LaTeXOld(M,small=False):
         else:
             line = line + ' \\end{array}\\right)'
     return line
+
+def MatrixMultiply(ML, MR):
+    ML = Matrix2Text(ML)
+    MR = Matrix2Text(MR)
+    rowsResult = len(ML)
+    colsResult = len(MR[0])
+    Result = empty(shape=(rowsResult, colsResult)).tolist()
+    for r in range(rowsResult):
+        for c in range(colsResult):
+            # result[r][c] = ML[r][i]*MR[i][c] for all i in cols of ML (rows of MR)
+            cell = ''
+            for i in range(len(MR)):
+                prod = ''
+                if ML[r][i] == '0' or MR[i][c] == '0':
+                    prod = ''
+                else:
+                    if ML[r][i] == '1':
+                        if MR[i][c] == '1':
+                            prod = '1'
+                        else:
+                            prod = MR[i][c]
+                    elif MR[i][c] == '1':
+                        prod = ML[r][i]
+                    else:
+                        prod = ML[r][i] + ' \\cdot ' + MR[i][c]
+                if cell == '':
+                    cell = prod
+                else:
+                    if prod != '':
+                        cell = cell + ' + ' + prod
+            if cell == '':
+                cell = '0'
+            Result[r][c] = cell
+    return Result
+
+def SubscriptedVector(v):
+    lv=[]
+    for node in v:
+        if isinstance(node,str):
+            if len(node)>1: lv.append(node[0]+'_'+node[1:])
+            else: lv.append(node)
+        else: lv.append(node)
+    return [[i] for i in lv]

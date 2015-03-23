@@ -9,7 +9,7 @@ sdp.AddLines(['device DC 4',
     'connect DC 2 DC 4',
     'connect ZO 1 DC 3',
     'connect ZO 2 DC 4'])
-ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
 ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
 ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
 ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))

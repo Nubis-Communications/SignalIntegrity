@@ -13,5 +13,5 @@ sd.AssignM('T',2,'m2')
 vp=si.sd.VirtualProbe(sd)
 vp.pMeasurementList = [('T',1),('T',2)]
 vp.pOutputList = [('R',1),('R',2)]
-svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+svp=si.sd.VirtualProbeSymbolic(vp,size='small')
 svp.LaTeXEquations().Emit()

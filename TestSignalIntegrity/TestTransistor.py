@@ -19,7 +19,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         # exclude
         # sdp.WriteToFile('TransistorSimpleNetList.txt',False)
         # include
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
         ssps.LaTeXSolution(size='big').Emit()
@@ -38,7 +38,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         # exclude
         # sdp.WriteToFile('TransistorSimpleNetList.txt',False)
         # include
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))

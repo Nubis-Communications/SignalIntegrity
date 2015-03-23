@@ -15,7 +15,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
             'port 1 ZI 1 2 ZI 2 3 ZO 1 4 ZO 2',
             'connect ZI 1 D 2','connect ZI 2 D 1',
             'connect ZO 1 D 4','connect ZO 2 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.VoltageControlledCurrentSource('\\delta'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
@@ -25,9 +25,8 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
     def testTransconductanceAmplifierFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 4','port 1 D 1 2 D 2 3 D 3 4 D 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.TransconductanceAmplifierFourPort('\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # exclude
@@ -82,7 +81,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         sdp.AddLines(['device D 4',
             'port 1 D 1 2 D 3 3 D 2',
             'connect D 2 D 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.TransconductanceAmplifier(4,'\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
@@ -90,9 +89,8 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
     def testTransconductanceAmplifierThreePortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3','port 1 D 1 2 D 2 3 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small',
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.TransconductanceAmplifier(3,'\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # exclude
@@ -141,7 +139,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         sdp.AddLines(['device D 4','device G1 1 ground','device G2 1 ground',
             'port 1 D 1 2 D 3',
             'connect D 2 G1 1','connect D 4 G2 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         D=si.sy.TransconductanceAmplifier(4,'\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -152,7 +150,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         sdp.AddLines(['device D 3','device G 1 ground',
             'port 1 D 1 2 D 2',
             'connect D 3 G 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         D=si.sy.TransconductanceAmplifier(3,'\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -162,9 +160,8 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2',
             'port 1 D 1 2 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,False)
-        ssps.m_eqPrefix='\\begin{equation} '
-        ssps.m_eqSuffix=' \\end{equation}'
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         D=si.sy.TransconductanceAmplifierTwoPort('\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()

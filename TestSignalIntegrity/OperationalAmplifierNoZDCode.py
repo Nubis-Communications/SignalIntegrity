@@ -15,7 +15,7 @@ sdp.AddLines(['device DV 4',
     'connect ZI1 2 G 1',
     'connect ZI2 2 G 1',
     'connect ZO 1 DV 4'])
-ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
 ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
 ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
 ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))

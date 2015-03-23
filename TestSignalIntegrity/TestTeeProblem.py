@@ -7,7 +7,7 @@ from numpy import matrix
 from numpy import identity
 from TestHelpers import *
 
-class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
+class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -32,14 +32,14 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testTeeBlockSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
     def testTeeDirectSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(type='direct').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
@@ -74,7 +74,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testTeeSimplerBlockSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
         ssps.LaTeXSolution(size='biggest').Emit()
@@ -83,7 +83,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testTeeSimplerDirectSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
         ssps.LaTeXSolution(type='direct').Emit()
@@ -92,7 +92,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testTeeSimplerSystemEquation(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
         ssps.LaTeXSystemEquation().Emit()
@@ -112,7 +112,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3','device Z 2',
             'port 1 D 1 2 D 2 3 Z 2','connect D 3 Z 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.AssignSParameters('Z',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution().Emit()
@@ -122,7 +122,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3','device Z1 2','device Z2 2','device Z3 2',
             'port 1 Z1 1 2 Z2 1 3 Z3 1','connect Z1 2 D 1','connect Z2 2 D 2','connect Z3 2 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.AssignSParameters('Z1',si.sy.SeriesZ('Z_1'))
         ssps.AssignSParameters('Z2',si.sy.SeriesZ('Z_2'))
@@ -133,7 +133,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testTeeSimplerSystemEquationWithZ2(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.TeeWithZ2('Z'))
         ssps.LaTeXSystemEquation().Emit()
         # exclude

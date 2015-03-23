@@ -15,5 +15,5 @@ sdp.AddLines(['device VA 4',
     'connect ZI2 2 G 1'])
 si.sy.SymbolicMatrix(si.sy.SeriesZ('Z_i'),'ZI1 = ZI2',True).Emit()
 si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o'),'VA',True).Emit()
-ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
 ssps.LaTeXSolution(size='big').Emit()

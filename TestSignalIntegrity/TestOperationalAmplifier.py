@@ -28,7 +28,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
             'connect ZD 1 ZI1 1',
             'connect ZD 2 ZI2 1',
             'connect ZO 1 DV 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
@@ -53,7 +53,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
             'connect ZI1 2 G 1',
             'connect ZI2 2 G 1',
             'connect ZO 1 DV 4'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
         ssps.AssignSParameters('ZI1',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZI2',si.sy.SeriesZ('Z_i'))
@@ -77,7 +77,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
             'connect ZI2 2 G 1'])
         si.sy.SymbolicMatrix(si.sy.SeriesZ('Z_i'),'ZI1 = ZI2',True).Emit()
         si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o'),'VA',True).Emit()
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),True,True)
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Again')

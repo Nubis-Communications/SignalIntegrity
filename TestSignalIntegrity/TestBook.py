@@ -109,7 +109,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('L', 1, 1)  # add a port at port 1 of left device
         sd.AddPort('R', 2, 2)  # add a port at port 2 of right device
         sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
-        ssps = si.sd.SystemSParametersSymbolic(sd,True)
+        ssps = si.sd.SystemSParametersSymbolic(sd)
         ssps.LaTeXSystemEquation().Emit()
     # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example System Description Symbolic')
@@ -119,7 +119,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         #   'connect L 2 R 1 M 1','connect G 1 M 2'])
         sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.Clear().LaTeXSystemEquation()
         self.CheckSymbolicResult('LaTeXSystemEquation',symbolic,'LaTeXSystemEquation')
         symbolic.Clear().LaTeXSolution(type='direct')
@@ -130,8 +130,6 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         self.CheckSymbolicResult('LaTeXBlockSolutionBiggest',symbolic,'LaTeXBlockSolutionBiggest')
         symbolic.Clear().LaTeXSolution()
         self.CheckSymbolicResult('LaTeXBlockSolution',symbolic,'LaTeXBlockSolution')
-        symbolic.Clear().LaTeXEquations()
-        self.CheckSymbolicResult('LaTeXEquations',symbolic,'LaTeXEquations')
     def testSymbolicSolutionExample1(self):
         sd = si.sd.SystemDescription()
         sd.AddDevice('S', 2)  # add two-port left device
@@ -139,8 +137,10 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('S', 1, 1)  # add a port at port 1 of left device
         sd.ConnectDevicePort('S', 2, '\\Gamma t', 1)  # connect the other ports
         spc = si.sd.SystemSParameters(sd)
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXEquations().Emit()
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic.LaTeXSystemEquation()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1')
     def testSymbolicSolutionParserExample1(self):
@@ -148,15 +148,19 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sdp.AddLines(['device S 2','device \\{\\Gamma\\}t 1','port 1 S 1','connect S 2 \\{\\Gamma\\}t 1'])
         sdp.WriteToFile('SymbolicSolution1.txt',False)
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXEquations().Emit()
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic.LaTeXSystemEquation()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1 Parser')
     def testSymbolicSolutionParserFileExample1(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution1.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXEquations().Emit()
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic.LaTeXSystemEquation()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1 Parser File')
     def testSymbolicSolutionExample2(self):
@@ -167,8 +171,10 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('R', 2, 2)  # add a port at port 2 of right device
         sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
         spc = si.sd.SystemSParameters(sd)
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXEquations().Emit()
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic.LaTeXSystemEquation()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2')
     def testSymbolicSolutionParserExample2(self):
@@ -176,15 +182,19 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
         sdp.WriteToFile('SymbolicSolution2.txt',False)
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXEquations().Emit()
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic.LaTeXSystemEquation()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser')
     def testSymbolicSolutionParserFileExample2(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution2.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
-        symbolic.LaTeXEquations().Emit()
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic.LaTeXSystemEquation()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser File')
     def testSymbolicSolutionExample3(self):
@@ -199,7 +209,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('L', 2, 'M', 1)
         sd.ConnectDevicePort('G', 1, 'M', 2)
         spc = si.sd.SystemSParameters(sd)
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3')
@@ -209,14 +219,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'connect L 2 R 1 M 1','connect G 1 M 2'])
         sdp.WriteToFile('SymbolicSolution3.txt',False)
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser')
     def testSymbolicSolutionParserFileExample3(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution3.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,True,True)
+        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser File')
@@ -227,7 +237,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('D',2,'?',1)
         sd.AddPort('D',1,1)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1')
@@ -238,7 +248,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('D',2,'?',1)
         sd.AddPort('D',1,1,True)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Thru')
@@ -247,14 +257,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         dp.AddLines(['device D 2','device ? 1','port 1 D 1','connect D 2 ? 1'])
         dp.WriteToFile('SymbolicDeembedding1.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Parser')
     def testSymbolicDeembeddingParserFileExample1(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding1.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Parser File')
@@ -268,25 +278,26 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('L',2,'?',1)
         sd.ConnectDevicePort('R',2,'?',2)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2')
     def testSymbolicDeembeddingParserExample2(self):
         dp=si.p.DeembedderParser()
-        dp.AddLines(['device L 2','device ? 2','device R 2','port 1 L 1 2 R 1','connect L 2 ? 1','connect R 2 ? 2'])
+        dp.AddLines(['device L 2','device ? 2','device R 2',
+            'port 1 L 1 2 R 1','connect L 2 ? 1','connect R 2 ? 2'])
         # exclude
         dp.WriteToFile('SymbolicDeembedding2.txt',False)
         # include
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2 Parser')
     def testSymbolicDeembeddingParserFileExample2(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding2.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2 Parser File')
@@ -298,7 +309,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('?',2,2,True)
         sd.ConnectDevicePort('L',2,'?',1)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 3')
@@ -310,7 +321,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('?',2,2,True)
         sd.ConnectDevicePort('L',2,'?',1)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding 3 Thru incorrect')
@@ -319,14 +330,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         dp.AddLines(['device L 2','device ? 2','port 1 L 1 2 ? 2','connect L 2 ? 1'])
         dp.WriteToFile('SymbolicDeembedding3.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 3 Parser')
     def testSymbolicDeembeddingParserFileExample3(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding3.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 3 Parser File')
@@ -340,7 +351,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('F',3,'?1',1)
         sd.ConnectDevicePort('F',4,'?2',1)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4')
@@ -350,14 +361,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'connect F 3 ?1 1','connect F 4 ?2 1'])
         dp.WriteToFile('SymbolicDeembedding4.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4 Parser')
     def testSymbolicDeembeddingParserFileExample4(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding4.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4 Parser File')
@@ -373,7 +384,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('D2',2,'D3',1)
         sd.ConnectDevicePort('D3',2,'?',2)
         spc = si.sd.Deembedder(sd)
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5')
@@ -385,14 +396,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'connect D3 2 ? 2'])
         dp.WriteToFile('SymbolicDeembedding5.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5 Parser')
     def testSymbolicDeembeddingParserFileExample5(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding5.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
-        symbolic=si.sd.DeembedderSymbolic(spc,True,True)
+        symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5 Parser File')
@@ -407,7 +418,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vp=si.sd.VirtualProbe(sd)
         vp.pMeasurementList = [('T',1)]
         vp.pOutputList = [('R',1)]
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 1')
@@ -417,14 +428,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'stim m1 T 1','meas T 1','output R 1'])
         vpp.WriteToFile('VirtualProbe1.txt',False)
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 1 Parser')
     def testSymbolicVirtualProbeParserFileExample1(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe1.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 1 Parser File')
@@ -442,7 +453,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vp=si.sd.VirtualProbe(sd)
         vp.pMeasurementList = [('T',1),('T',2)]
         vp.pOutputList = [('R',1),('R',2)]
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 2')
@@ -452,14 +463,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'connect C 3 R 1','connect C 4 R 2','stim m1 T 1','stim m2 T 2','meas T 1 T 2','output R 1 R 2'])
         vpp.WriteToFile('VirtualProbe2.txt',False)
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 2 Parser')
     def testSymbolicVirtualProbeParserFileExample2(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe2.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 2 Parser File')
@@ -478,7 +489,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vp.pMeasurementList = [('T',1),('T',2)]
         vp.pOutputList = [('R',1),('R',2)]
         vp.pStimDef = [[1],[-1]]
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3')
@@ -489,14 +500,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'stimdef [[1],[-1]]'])
         vpp.WriteToFile('VirtualProbe3.txt',False)
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3 Parser')
     def testSymbolicVirtualProbeParserFileExample3(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe3.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3 Parser File')
@@ -521,28 +532,28 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vp.pMeasurementList = [('MM1',3)]
         vp.pOutputList = [('R',1),('R',2)]
         vp.pStimDef = [[1],[-1]]
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
-        svp.LaTeXEquations().Emit()
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
+        svp.LaTeXTransferFunctions().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4')
     def testSymbolicVirtualProbeParserExample4(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines(['device T 2','device MM1 4 mixedmode','device MM2 4 mixedmode','device C 4',
             'device R 2','connect T 1 MM1 1','connect T 2 MM1 2','connect MM1 3 MM2 3','connect MM1 4 MM2 4',
-            'device MM2 1 C 1','device MM2 2 C 2',
+            'connect MM2 1 C 1','connect MM2 2 C 2',
             'connect C 3 R 1','connect C 4 R 2','stim m1 T 1 m2 T 2','meas MM1 3','output R 1 R 2',
             'stimdef [[1],[-1]]'])
         vpp.WriteToFile('VirtualProbe4.txt',False)
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
-        svp.LaTeXEquations().Emit()
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
+        svp.LaTeXTransferFunctions().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser')
     def testSymbolicVirtualProbeParserFileExample4(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe4.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
-        svp=si.sd.VirtualProbeSymbolic(vp,True,True)
-        svp.LaTeXEquations().Emit()
+        svp=si.sd.VirtualProbeSymbolic(vp,size='small')
+        svp.LaTeXTransferFunctions().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser File')
     def testSymbolicSolutionExample1Code(self):
