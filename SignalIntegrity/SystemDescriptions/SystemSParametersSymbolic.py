@@ -7,7 +7,7 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
         SystemDescriptionSymbolic.__init__(self,sd,**args)
     def _LaTeXSi(self):
         sW=self._LaTeXMatrix(self.WeightsMatrix())
-        self._AddEq('\mathbf{Si} = \\left[ '+self.Identity()+\
+        self._AddEq('\mathbf{Si} = \\left[ '+self._Identity()+\
             ' - '+sW+' \\right]^{-1}')
         return self
     def LaTeXSolution(self,**args):
@@ -49,14 +49,14 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
             if len(Wxx) != 0:
                 self._AddEq('\\mathbf{W_{xx}} = '+sWxx)
             self._AddEq('\\mathbf{S}=\\mathbf{W_{ba}}+\\mathbf{W_{bx}}\\cdot'+\
-                '\\left[ '+self.Identity()+\
+                '\\left[ '+self._Identity()+\
                 ' -\\mathbf{W_{xx}}\\right]^{-1}\\cdot\\mathbf{W_{xa}}')
         elif size=='big':
-            self._AddEq('\\mathbf{Wi} = '+' \\left[ '+self.Identity()+\
+            self._AddEq('\\mathbf{Wi} = '+' \\left[ '+self._Identity()+\
                 ' - '+sWxx+' \\right]^{-1} ')
             self._AddEq('\\mathbf{S} = '+sWba+' + '+sWbx+\
                 ' \\cdot \\mathbf{Wi} \\cdot' +sWxa)
         else:
             self._AddEq('\\mathbf{S} = '+sWba+' + '+sWbx+' \\cdot \\left[ '+\
-            self.Identity()+' - '+sWxx+' \\right]^{-1} \\cdot'+sWxa)
+            self._Identity()+' - '+sWxx+' \\right]^{-1} \\cdot'+sWxa)
         return self

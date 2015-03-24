@@ -22,38 +22,35 @@ class Symbolic():
     def Emit(self):
         for line in self.m_lines: print line
         return self
-    def SymbolicMatrices(self):
-        for i in range(len(self)):
-            self[i].m_S=Device.SymbolicMatrix(self[i].pName,len(self[i]))
     def DocStart(self):
-        self.AddLine(self.m_docStart)
+        self._AddLine(self.m_docStart)
         return self
     def DocEnd(self):
-        self.AddLine(self.m_docEnd)
+        self._AddLine(self.m_docEnd)
         return self
-    def BeginEq(self):
+    def _BeginEq(self):
         if self.m_eqEnvironment:
             return self.m_eqPrefix
         else: return ''
-    def EndEq(self):
+    def _EndEq(self):
         if self.m_eqEnvironment:
             return self.m_eqSuffix
         else: return ''
-    def AddLine(self,line):
+    def _AddLine(self,line):
         if len(line) == 0: return
         wlinelist=wrap(line)
         for wline in wlinelist: self.m_lines.append(wline)
         return self
-    def AddLines(self,lines):
-        for line in lines: self.AddLine(line)
+    def _AddLines(self,lines):
+        for line in lines: self._AddLine(line)
         return self
     def WriteToFile(self,name):
         equationFile=open(name,'w')
         for line in self.m_lines: equationFile.write(line+'\n')
         equationFile.close()
-    def SmallMatrix(self):
+    def _SmallMatrix(self):
         return self.m_small
-    def Identity(self):
+    def _Identity(self):
         return self.m_identity
     def Get(self):
         lineBuffer=''
@@ -65,6 +62,6 @@ class Symbolic():
             if '#' in self[d].pName:
                 self[d].pSParameters = TeeThreePortSafe(Z)
     def _AddEq(self,text):
-        self.AddLine(self.BeginEq() + text + self.EndEq())
+        self._AddLine(self._BeginEq() + text + self._EndEq())
     def _LaTeXMatrix(self,matrix):
-        return Matrix2LaTeX(matrix,self.SmallMatrix())
+        return Matrix2LaTeX(matrix,self._SmallMatrix())

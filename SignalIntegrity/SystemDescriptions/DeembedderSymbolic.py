@@ -23,7 +23,7 @@ class DeembedderSymbolic(Deembedder,Symbolic):
             snG34=self._LaTeXMatrix(self.WeightsMatrix(Internals,Amsd))
             snG35=self._LaTeXMatrix(self.WeightsMatrix(Internals,Bdut))
             snG33=self._LaTeXMatrix(self.WeightsMatrix(Internals,Internals))
-            sGi33='\\left['+self.Identity()+'-'+snG33+'\\right]^{-1}'
+            sGi33='\\left['+self._Identity()+'-'+snG33+'\\right]^{-1}'
             self._AddEq('\\mathbf{Gi_{33}} = '+sGi33)
             sGi33=' \\cdot\\mathbf{Gi_{33}}\\cdot '
             sF11=snG13+sGi33+snG34+((' + '+snG14) if snG14!='0' else '')

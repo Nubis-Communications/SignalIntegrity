@@ -1,5 +1,18 @@
-\[ ZI1 = ZI2 = \left(\begin{array}{cc} \frac{Z_i}{Z_i+2\cdot Z0} & \frac{2\cdot Z0}{Z_i+2\cdot Z0} \\ \frac{2\cdot Z0}{Z_i+2\cdot Z0} & \frac{Z_i}{Z_i+2\cdot Z0} \end{array}\right) \]
-\[ VA = \left(\begin{array}{cccc} \frac{Z_d}{Z_d+2\cdot Z0} & \frac{2\cdot Z0}{Z_d+2\cdot Z0} & 0 & 0 \\ \frac{2\cdot Z0}{Z_d+2\cdot Z0} & \frac{Z_d}{Z_d+2\cdot Z0} & 0 & 0 \\ \frac{2\cdot Z_d\cdot Z0\cdot G}{\left(Z_d+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & -\frac{2\cdot Z_d\cdot Z0\cdot G}{\left(Z_d+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{Z_o}{Z_o+2\cdot Z0} & \frac{2\cdot Z0}{Z_o+2\cdot Z0} \\ -\frac{2\cdot Z_d\cdot Z0\cdot G}{\left(Z_d+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{2\cdot Z_d\cdot Z0\cdot G}{\left(Z_d+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{2\cdot Z0}{Z_o+2\cdot Z0} & \frac{Z_o}{Z_o+2\cdot Z0} \end{array}\right) \]
+\[ ZI1=ZI2=\left(\begin{smallmatrix} \frac{Z_i}{Z_i+2\cdot Z0} &
+\frac{2\cdot Z0}{Z_i+2\cdot Z0} \\ \frac{2\cdot Z0}{Z_i+2\cdot Z0} &
+\frac{Z_i}{Z_i+2\cdot Z0} \end{smallmatrix}\right) \]
+\[ VA=\left(\begin{smallmatrix} \frac{Z_d}{Z_d+2\cdot Z0} &
+\frac{2\cdot Z0}{Z_d+2\cdot Z0} & 0 & 0 \\ \frac{2\cdot Z0}{Z_d+2\cdot
+Z0} & \frac{Z_d}{Z_d+2\cdot Z0} & 0 & 0 \\ \frac{2\cdot Z_d\cdot
+Z0\cdot G}{\left(Z_d+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)}
+& -\frac{2\cdot Z_d\cdot Z0\cdot G}{\left(Z_d+2\cdot
+Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{Z_o}{Z_o+2\cdot Z0}
+& \frac{2\cdot Z0}{Z_o+2\cdot Z0} \\ -\frac{2\cdot Z_d\cdot Z0\cdot
+G}{\left(Z_d+2\cdot Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} &
+\frac{2\cdot Z_d\cdot Z0\cdot G}{\left(Z_d+2\cdot
+Z0\right)\cdot\left(Z_o+2\cdot Z0\right)} & \frac{2\cdot
+Z0}{Z_o+2\cdot Z0} & \frac{Z_o}{Z_o+2\cdot Z0}
+\end{smallmatrix}\right) \]
 \[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 0
 & 0 & VA_{11} & 0 & 0 & 0 & VA_{12} & 0 & 0 & VA_{14} & 0 & 0 & 0 & 0
 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & ZI2_{11} & 0 & 0 & 0 & 0 & 0 &

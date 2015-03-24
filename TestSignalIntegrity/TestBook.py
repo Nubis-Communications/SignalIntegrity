@@ -119,7 +119,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         #   'connect L 2 R 1 M 1','connect G 1 M 2'])
         sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.Clear().LaTeXSystemEquation()
         self.CheckSymbolicResult('LaTeXSystemEquation',symbolic,'LaTeXSystemEquation')
         symbolic.Clear().LaTeXSolution(type='direct')
@@ -137,7 +137,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('S', 1, 1)  # add a port at port 1 of left device
         sd.ConnectDevicePort('S', 2, '\\Gamma t', 1)  # connect the other ports
         spc = si.sd.SystemSParameters(sd)
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(type='direct')
         symbolic.LaTeXSolution(type='block').Emit()
@@ -148,7 +148,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sdp.AddLines(['device S 2','device \\{\\Gamma\\}t 1','port 1 S 1','connect S 2 \\{\\Gamma\\}t 1'])
         sdp.WriteToFile('SymbolicSolution1.txt',False)
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(type='direct')
         symbolic.LaTeXSolution(type='block').Emit()
@@ -157,7 +157,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
     def testSymbolicSolutionParserFileExample1(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution1.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(type='direct')
         symbolic.LaTeXSolution(type='block').Emit()
@@ -171,7 +171,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.AddPort('R', 2, 2)  # add a port at port 2 of right device
         sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
         spc = si.sd.SystemSParameters(sd)
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(type='direct')
         symbolic.LaTeXSolution(type='block').Emit()
@@ -182,7 +182,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
         sdp.WriteToFile('SymbolicSolution2.txt',False)
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(type='direct')
         symbolic.LaTeXSolution(type='block').Emit()
@@ -191,7 +191,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
     def testSymbolicSolutionParserFileExample2(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution2.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
-        symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
+        symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(type='direct')
         symbolic.LaTeXSolution(type='block').Emit()

@@ -16,14 +16,14 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         if len(vemsi) == 1:
             if len(vemsi[0]) == 1:
                 oneElementVemsi = True
-        vemsi = Matrix2LaTeX(vemsi, self.SmallMatrix())
+        vemsi = Matrix2LaTeX(vemsi, self._SmallMatrix())
         veosi = MatrixMultiply(
             self.VoltageExtractionMatrix(self.pOutputList), self.SIPrime(True))
         oneElementVeosi = False
         if len(veosi) == 1:
             if len(veosi[0]) == 1:
                 oneElementVeosi = True
-        veosi = Matrix2LaTeX(veosi, self.SmallMatrix())
+        veosi = Matrix2LaTeX(veosi, self._SmallMatrix())
         line = ''
         if self.pStimDef is None:
             if oneElementVemsi:
@@ -37,7 +37,7 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
                 else:  # (veosi)*(vemsi)^-1
                     line = veosi+'\\cdot '+vemsi+'^{-1}'
         else:
-            D = Matrix2LaTeX(self.pStimDef, self.SmallMatrix())
+            D = Matrix2LaTeX(self.pStimDef, self._SmallMatrix())
 
             if oneElementVemsi:
                 if oneElementVeosi:  # (veosi*D)*(vemsi*D)^-1
@@ -57,23 +57,23 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
             H = 'H'
         else:
             H = '\\mathbf{H}'
-        self.AddLine(self.BeginEq()+H+' = '+line+self.EndEq())
+        self._AddEq(H+' = '+line)
         return self
     def LaTeXTransferFunctions2(self):
         self._LaTeXSi()
-        sipr = Matrix2LaTeX(self.SIPrime(True), self.SmallMatrix())
+        sipr = Matrix2LaTeX(self.SIPrime(True), self._SmallMatrix())
         vem = Matrix2LaTeX(
-            self.VoltageExtractionMatrix(self.pMeasurementList), self.SmallMatrix())
+            self.VoltageExtractionMatrix(self.pMeasurementList), self._SmallMatrix())
         veo = Matrix2LaTeX(
-            self.VoltageExtractionMatrix(self.pOutputList), self.SmallMatrix())
+            self.VoltageExtractionMatrix(self.pOutputList), self._SmallMatrix())
         if self.pStimDef is None:
-            line = self.BeginEq()+'\\left[ '+veo+' \\cdot '+sipr+' \\right]'+\
-                ' \\left[ '+vem+' \\cdot '+sipr+' \\right]^{-1}'+self.EndEq()
+            line = '\\left[ '+veo+' \\cdot '+sipr+' \\right]'+\
+                ' \\left[ '+vem+' \\cdot '+sipr+' \\right]^{-1}'
         else:
-            D = Matrix2LaTeX(self.pStimDef, self.SmallMatrix())
-            line = self.BeginEq()+'\\left[ '+veo+' \\cdot '+sipr+' \\cdot '+D+' \\right]'+\
-                '\\left[ '+vem+' \\cdot '+sipr+' \\cdot '+D+' \\right]^{-1}'+self.EndEq()
-        self.AddLine(line)
+            D = Matrix2LaTeX(self.pStimDef, self._SmallMatrix())
+            line = '\\left[ '+veo+' \\cdot '+sipr+' \\cdot '+D+' \\right]'+\
+                '\\left[ '+vem+' \\cdot '+sipr+' \\cdot '+D+' \\right]^{-1}'
+        self._AddEq(line)
         return self
     def LaTeXEquations(self):
         self.LaTeXSystemEquation()

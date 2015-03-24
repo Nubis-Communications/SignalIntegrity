@@ -11,7 +11,7 @@ class SystemDescriptionSymbolic(SystemDescription,Symbolic):
         sW=self._LaTeXMatrix(self.WeightsMatrix())
         sn=self._LaTeXMatrix(SubscriptedVector(self.NodeVector()))
         sm=self._LaTeXMatrix(SubscriptedVector(self.StimulusVector()))
-        self._AddEq('\\left[ '+self.Identity()+' - '+sW+'\\right] \\cdot '+\
+        self._AddEq('\\left[ '+self._Identity()+' - '+sW+'\\right] \\cdot '+\
             sn+' = '+sm)
         return self
 

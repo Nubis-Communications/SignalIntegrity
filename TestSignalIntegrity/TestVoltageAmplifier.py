@@ -278,9 +278,9 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
                       'port 1 V 1 2 V 3',
                       'connect V 2 F 3','connect F 4 G 1','connect V 3 F 1',
                       'connect V 4 G 1','connect F 2 G 1'])
-        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o'),'\\mathbf{V}',True).Emit()
-        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps._AddEq('\\mathbf{V}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o')))
+        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}')))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Voltage Series Feedback')
@@ -313,7 +313,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][1]=DSp[2][0]
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
-        si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{D}',True).Emit()
+        ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.helper.Matrix2Text(DSp)))
         DSp=ssps[ssps.IndexOfDevice('F')].pSParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]
@@ -326,9 +326,9 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][1]=DSp[2][0]
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
-        si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{F}',True).Emit()
-        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'),'\\mathbf{D}',True).Emit()
-        si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
+        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.helper.Matrix2Text(DSp)))
+        ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o')))
+        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}')))
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port Voltage Series Feedback')
@@ -351,11 +351,11 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
         DS=si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o')
-        si.sy.SymbolicMatrix([DS[0][0]],'D_{11}',True).Emit()
-        si.sy.SymbolicMatrix([DS[0][1]],'D_{12}',True).Emit()
-        si.sy.SymbolicMatrix([DS[2][0]],'D_{31}',True).Emit()
-        si.sy.SymbolicMatrix([DS[2][2]],'D_{33}',True).Emit()
-        si.sy.SymbolicMatrix([DS[2][3]],'D_{34}',True).Emit()
+        ssps._AddEq('D_{11}='+DS[0][0])
+        ssps._AddEq('D_{12}='+DS[0][1])
+        ssps._AddEq('D_{31}='+DS[2][0])
+        ssps._AddEq('D_{33}='+DS[2][2])
+        ssps._AddEq('D_{34}='+DS[2][3])
         # exclude
         #si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{D}',True).Emit()
         # include
@@ -372,11 +372,11 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
         FS=si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}')
-        si.sy.SymbolicMatrix([FS[0][0]],'F_{11}',True).Emit()
-        si.sy.SymbolicMatrix([FS[0][1]],'F_{12}',True).Emit()
-        si.sy.SymbolicMatrix([FS[2][0]],'F_{31}',True).Emit()
-        si.sy.SymbolicMatrix([FS[2][2]],'F_{33}',True).Emit()
-        si.sy.SymbolicMatrix([FS[2][3]],'F_{34}',True).Emit()
+        ssps._AddEq('F_{11}='+FS[0][0])
+        ssps._AddEq('F_{12}='+FS[0][1])
+        ssps._AddEq('F_{31}='+FS[2][0])
+        ssps._AddEq('F_{33}='+FS[2][2])
+        ssps._AddEq('F_{34}='+FS[2][3])
         # exclude
         # si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{F}',True).Emit()
         # include

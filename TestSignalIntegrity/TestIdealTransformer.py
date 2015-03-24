@@ -27,7 +27,8 @@ class TestIdealTransformer(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Ideal Transformer')
     def testIdealTransformerSymbolic2(self):
-        sm = si.sy.SymbolicMatrix(si.sy.IdealTransformer('a'))
+        sm = si.sd.Symbolic()
+        sm._AddEq(sm._LaTeXMatrix(si.sy.IdealTransformer('a')))
         self.CheckSymbolicResult(self.id(),sm,'Ideal Transformer')
     def testIdealTransformerNumeric(self):
         sdp=si.p.SystemDescriptionParser()

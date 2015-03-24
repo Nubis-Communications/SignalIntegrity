@@ -17,7 +17,7 @@ DSp[3][0]='-'+DSp[2][0]
 DSp[3][1]=DSp[2][0]
 DSp[3][2]=DSp[2][3]
 DSp[3][3]=DSp[2][2]
-si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{D}',True).Emit()
+ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.helper.Matrix2Text(DSp)))
 DSp=ssps[ssps.IndexOfDevice('F')].pSParameters
 DSp[1][1]=DSp[0][0]
 DSp[1][0]=DSp[0][1]
@@ -30,7 +30,7 @@ DSp[3][0]='-'+DSp[2][0]
 DSp[3][1]=DSp[2][0]
 DSp[3][2]=DSp[2][3]
 DSp[3][3]=DSp[2][2]
-si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{F}',True).Emit()
-si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'),'\\mathbf{D}',True).Emit()
-si.sy.SymbolicMatrix(si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}'),'\\mathbf{F}',True).Emit()
+ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.helper.Matrix2Text(DSp)))
+ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o')))
+ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}')))
 ssps.LaTeXSolution(size='biggest').Emit()
