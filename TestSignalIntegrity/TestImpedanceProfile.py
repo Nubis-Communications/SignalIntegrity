@@ -9,7 +9,7 @@ import os
 
 class TestImpedanceProfile(unittest.TestCase):
     def testImpedanceProfileCable(self):
-        sp = si.spf.File('cable.s2p')
+        sp = si.sp.File('cable.s2p')
         ip = si.ip.ImpedanceProfile(sp,100,2)
         Z0 = 50.
         Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
@@ -35,7 +35,7 @@ class TestImpedanceProfile(unittest.TestCase):
                 tacc=tacc*matrix(T[m])
             G=si.cvt.T2S(tacc.tolist())
             Gsp.append(G)
-        sp = si.spf.SParameters(f,Gsp,Z0)
+        sp = si.sp.SParameters(f,Gsp,Z0)
         ip = si.ip.ImpedanceProfile(sp,len(Zc),1)
         Zc2 = [-Z0*(rho+1.)/(rho-1) for rho in ip]
         """
@@ -47,7 +47,7 @@ class TestImpedanceProfile(unittest.TestCase):
         difference = linalg.norm(array(Zc2)-array(Zc))
         self.assertTrue(difference<1e-4,'contrived impedance profile incorrect')
     def testCableDeembed(self):
-        sp = si.spf.File('cable.s2p')
+        sp = si.sp.File('cable.s2p')
         ip = si.ip.ImpedanceProfile(sp,6,1)
         Z0 = 50.
         Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
@@ -80,7 +80,7 @@ class TestImpedanceProfile(unittest.TestCase):
         if not os.path.exists(fileName):
             cd.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(cd.AreEqual(regression,0.001),self.id()+'result not same')
 if __name__ == "__main__":
     unittest.main()

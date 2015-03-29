@@ -6,7 +6,7 @@ import os
 class TestSParameterFile(unittest.TestCase):
     def testSParameterFileFourPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.spf.File('TestDut.s4p')
+        sf=si.sp.File('TestDut.s4p')
         #f=[i*100e6 for i in range(201)]
         #sf.Resample(f)
         #sf.WriteToFile('TestDut.s4p')
@@ -24,12 +24,12 @@ class TestSParameterFile(unittest.TestCase):
         # this is to test reading and writing, but also to ensure that
         # WriteToFile is always executed and covered
         sf.WriteToFile('TestDutCmp.s4p')
-        sf2=si.spf.File('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p')
         os.remove('TestDutCmp.s4p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testSParameterFileFourPortHzMA(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.spf.File('TestDut.s4p')
+        sf=si.sp.File('TestDut.s4p')
         f=sf.f()
         """
         import matplotlib.pyplot as plt
@@ -44,12 +44,12 @@ class TestSParameterFile(unittest.TestCase):
         # this is to test reading and writing, but also to ensure that
         # WriteToFile is always executed and covered
         sf.WriteToFile('TestDutCmp.s4p','Hz MA')
-        sf2=si.spf.File('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p')
         os.remove('TestDutCmp.s4p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testSParameterFileFourPortKHzRI(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.spf.File('TestDut.s4p')
+        sf=si.sp.File('TestDut.s4p')
         f=sf.f()
         """
         import matplotlib.pyplot as plt
@@ -64,12 +64,12 @@ class TestSParameterFile(unittest.TestCase):
         # this is to test reading and writing, but also to ensure that
         # WriteToFile is always executed and covered
         sf.WriteToFile('TestDutCmp.s4p','KHz RI')
-        sf2=si.spf.File('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p')
         os.remove('TestDutCmp.s4p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testSParameterFileFourPortMHzDB(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.spf.File('TestDut.s4p')
+        sf=si.sp.File('TestDut.s4p')
         f=sf.f()
         """
         import matplotlib.pyplot as plt
@@ -84,12 +84,12 @@ class TestSParameterFile(unittest.TestCase):
         # this is to test reading and writing, but also to ensure that
         # WriteToFile is always executed and covered
         sf.WriteToFile('TestDutCmp.s4p','MHz DB')
-        sf2=si.spf.File('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p')
         os.remove('TestDutCmp.s4p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testSParameterFileFourPortGHzMA(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.spf.File('TestDut.s4p')
+        sf=si.sp.File('TestDut.s4p')
         f=sf.f()
         """
         import matplotlib.pyplot as plt
@@ -104,12 +104,12 @@ class TestSParameterFile(unittest.TestCase):
         # this is to test reading and writing, but also to ensure that
         # WriteToFile is always executed and covered
         sf.WriteToFile('TestDutCmp.s4p','GHz MA')
-        sf2=si.spf.File('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p')
         os.remove('TestDutCmp.s4p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testSParameterFileTwoPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.spf.File('cable.s2p')
+        sf=si.sp.File('cable.s2p')
         f=sf.f()
         #f=[i*100e6 for i in range(201)]
         #sf2=sf
@@ -128,7 +128,7 @@ class TestSParameterFile(unittest.TestCase):
         # this is to test reading and writing, but also to ensure that
         # WriteToFile is always executed and covered
         sf.WriteToFile('cableCmp.s2p')
-        sf2=si.spf.File('cableCmp.s2p')
+        sf2=si.sp.File('cableCmp.s2p')
         os.remove('cableCmp.s2p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
     def testRLC(self):
@@ -155,12 +155,12 @@ class TestSParameterFile(unittest.TestCase):
             for d in range(len(spc)):
                 SD[SD.IndexOfDevice(spc[d][0])].pSParameters=spc[d][1][n]
             result.append(si.sd.SystemSParametersNumeric(SD).SParameters())
-        sf=si.spf.SParameters(freq,result)
+        sf=si.sp.SParameters(freq,result)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -197,12 +197,12 @@ class TestSParameterFile(unittest.TestCase):
             for d in range(len(spc)):
                 SD[SD.IndexOfDevice(spc[d][0])].pSParameters=spc[d][1][n]
             result.append(si.sd.SystemSParametersNumeric(SD).SParameters())
-        sf=si.spf.SParameters(freq,result)
+        sf=si.sp.SParameters(freq,result)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -218,17 +218,17 @@ class TestSParameterFile(unittest.TestCase):
     def testRes(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=[100e6*n for n in range(100)]
-        sf=si.spf.File('TestDut.s4p').Resample([1e9*n for n in range(10)])
-        sf2=si.spf.File('TestDut.s4p').Resample([1e9*n for n in range(10)]).Resample(newf)
+        sf=si.sp.File('TestDut.s4p').Resample([1e9*n for n in range(10)])
+        sf2=si.sp.File('TestDut.s4p').Resample([1e9*n for n in range(10)]).Resample(newf)
         if not os.path.exists('Test1.s4p'):
             sf.WriteToFile('Test1.s4p')
             self.assertTrue(False,'Test1.s4p' + ' does not exist')
         if not os.path.exists('Test2.s4p'):
             sf2.WriteToFile('Test2.s4p')
             self.assertTrue(False,'Test2.s4p' + ' does not exist')
-        regression = si.spf.File('Test1.s4p')
+        regression = si.sp.File('Test1.s4p')
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'first result not same')
-        regression = si.spf.File('Test2.s4p')
+        regression = si.sp.File('Test2.s4p')
         self.assertTrue(sf2.AreEqual(regression,0.001),self.id()+'second result not same')
         """
         import matplotlib.pyplot as plt
@@ -255,7 +255,7 @@ class TestSParameterFile(unittest.TestCase):
         spc.append(('L1',si.p.dev.SeriesLf(freq,L1)))
         spc.append(('C1',si.p.dev.SeriesCf(freq,C1)))
         spc.append(('L2',si.p.dev.SeriesLf(freq,L2)))
-        spc.append(('D1',si.spf.File('TestDut.s4p').Resample(freq)))
+        spc.append(('D1',si.sp.File('TestDut.s4p').Resample(freq)))
         SD=si.sd.SystemDescription()
         SD.AddDevice('D1',4)
         SD.AddDevice('L1',2)
@@ -275,12 +275,12 @@ class TestSParameterFile(unittest.TestCase):
             for d in range(len(spc)):
                 SD[SD.IndexOfDevice(spc[d][0])].pSParameters=spc[d][1][n]
             result.append(si.sd.SystemSParametersNumeric(SD).SParameters())
-        sf=si.spf.SParameters(freq,result)
+        sf=si.sp.SParameters(freq,result)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -309,13 +309,13 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('connect C1 2 G 1')
         parser.AddLine('connect D1 4 L1 1')
         #parser.AddLine('port 4 L2 2')
-        sf=si.spf.SParameters(freq,parser.SParameters())
+        sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
-        regression = si.spf.File('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
+        regression = si.sp.File(fileName)
+        regression = si.sp.File('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -345,12 +345,12 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('connect C1 2 G 1')
         parser.AddLine('connect D1 4 L1 1')
         #parser.AddLine('port 4 L2 2')
-        sf=si.spf.SParameters(freq,parser.SParameters())
+        sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -392,12 +392,12 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('connect D1 4 R1 1')
         parser.AddLine('connect R1 2 RLC 1')
         #parser.AddLine('port 4 L2 2')
-        sf=si.spf.SParameters(freq,parser.SParameters())
+        sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -416,12 +416,12 @@ class TestSParameterFile(unittest.TestCase):
         parser=si.p.SystemSParametersNumericParser(freq)
         parser.AddLine('device R1 2 R 0.001')
         parser.AddLine('port 1 R1 1 2 R1 2')
-        sf=si.spf.SParameters(freq,parser.SParameters())
+        sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -440,12 +440,12 @@ class TestSParameterFile(unittest.TestCase):
         parser=si.p.SystemSParametersNumericParser(freq)
         parser.AddLine('device D1 2 file cable.s2p')
         parser.AddLine('port 1 D1 1 2 D1 2')
-        sf=si.spf.SParameters(freq,parser.SParameters())
+        sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -460,8 +460,8 @@ class TestSParameterFile(unittest.TestCase):
         """
     def testAreEqual(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        firstFileRead = si.spf.File('TestDut.s4p')
-        secondFileRead = si.spf.File('TestDut.s4p')
+        firstFileRead = si.sp.File('TestDut.s4p')
+        secondFileRead = si.sp.File('TestDut.s4p')
         self.assertTrue(firstFileRead.AreEqual(secondFileRead,0.001),'same file read is not equal')
     def testDeembed(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -471,7 +471,7 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('device D2 2 file cable.s2p')
         parser.AddLine('port 1 D1 1 2 D2 2')
         parser.AddLine('connect D1 2 D2 1')
-        system=si.spf.SParameters(freq,parser.SParameters())
+        system=si.sp.SParameters(freq,parser.SParameters())
         systemSParametersFileName='_'.join(self.id().split('.'))+'.s'+str(system.m_P)+'p'
         if not os.path.exists(systemSParametersFileName):
             system.WriteToFile(systemSParametersFileName)
@@ -482,9 +482,9 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
-        de=si.spf.SParameters(freq,parser.Deembed())
+        de=si.sp.SParameters(freq,parser.Deembed())
         os.remove(systemSParametersFileName)
-        self.assertTrue(de.AreEqual(si.spf.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
+        self.assertTrue(de.AreEqual(si.sp.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
     def testDeembed2(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         freq=[0.1e9*i for i in range(201)]
@@ -493,7 +493,7 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('device D2 2 file cable.s2p')
         parser.AddLine('port 1 D1 1 2 D2 2')
         parser.AddLine('connect D1 2 D2 1')
-        system=si.spf.SParameters(freq,parser.SParameters())
+        system=si.sp.SParameters(freq,parser.SParameters())
         systemSParametersFileName='_'.join(self.id().split('.'))+'.s'+str(system.m_P)+'p'
         if not os.path.exists(systemSParametersFileName):
             system.WriteToFile(systemSParametersFileName)
@@ -504,8 +504,8 @@ class TestSParameterFile(unittest.TestCase):
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
-        de=si.spf.SParameters(freq,parser.Deembed(system))
-        self.assertTrue(de.AreEqual(si.spf.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
+        de=si.sp.SParameters(freq,parser.Deembed(system))
+        self.assertTrue(de.AreEqual(si.sp.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
         os.remove(systemSParametersFileName)
 
 if __name__ == '__main__':

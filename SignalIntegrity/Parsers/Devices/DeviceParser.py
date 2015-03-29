@@ -1,4 +1,4 @@
-from SignalIntegrity.SParameterFiles import File
+from SignalIntegrity.SParameters import File
 from SignalIntegrity.SubCircuits import SubCircuit
 from SignalIntegrity.Devices import Open
 from SignalIntegrity.Devices import Ground

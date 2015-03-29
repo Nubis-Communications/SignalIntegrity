@@ -14,12 +14,12 @@ class TestTline(unittest.TestCase):
                 10.,5.85e-8,2e-11,0.01,
                 10.,5.85e-8,2e-11,0.01,
                 1.35e-8,1.111e-12,1e-30,50,100)
-        sf=si.spf.SParameters(f,SP)
+        sf=si.sp.SParameters(f,SP)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.spf.File(fileName)
+        regression = si.sp.File(fileName)
         self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt

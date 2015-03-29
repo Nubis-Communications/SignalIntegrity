@@ -3,7 +3,7 @@ from numpy import array
 import cmath
 import math
 import string
-from SignalIntegrity.SParameterFiles.SParameters import SParameters
+from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Conversions import ReferenceImpedance
 
 class File(SParameters):

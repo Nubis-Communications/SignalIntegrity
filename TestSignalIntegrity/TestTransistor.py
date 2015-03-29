@@ -9,7 +9,14 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-    def testSymbolicTransistorSimple(self):
+    def testTransistorSimpleSymbolic(self):
+        symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{equation}',eqsuffix='\\end{equation}')
+        symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
+        symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
+        symbolic.Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),symbolic,'Simple Transistor')    
+    def testTransistorSimpleSymbolic2(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DC 4',
             'device HIE 2',
@@ -24,8 +31,17 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
-        self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor')
-    def testSymbolicTransistorZO(self):
+        self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor 2')
+    def testTransistorSymbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 3','device rb 2','device Cm 2','device Cp 2','device rx 2','device rc 2','device Cc 2',
+                      'port 1 rb 1 2 rc 2 3 rx 2 4 Cc 2','connect rb 2 Cp 1 Cm 1 T 1','connect T 2 rc 1 Cm 2 Cc 1',
+                      'connect Cp 2 T 3 rx 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.LaTeXSolution(size='biggest').Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Transistor')
+    def testTransistorSymbolicZO(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DC 4',
             'device HIE 2',
@@ -45,10 +61,12 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor Zo')
-    def testSymbolicTransistorSimpleCode(self):
-        self.WriteCode('TestTransistor.py','testSymbolicTransistorSimple(self)',self.standardHeader)
-    def testSymbolicTransistorZoCode(self):
-        self.WriteCode('TestTransistor.py','testSymbolicTransistorZO(self)',self.standardHeader)
+    def testTransistorSimpleSymbolicCode(self):
+        self.WriteCode('TestTransistor.py','testTransistorSimpleSymbolic2(self)',self.standardHeader)
+    def testTransistorZoSymbolicCode(self):
+        self.WriteCode('TestTransistor.py','testTransistorZOSymbolic(self)',self.standardHeader)
+    def testTransistorSymbolicCode(self):
+        self.WriteCode('TestTransistor.py','testTransistorSymbolic(self)',self.standardHeader)
 
 if __name__ == '__main__':
     unittest.main()

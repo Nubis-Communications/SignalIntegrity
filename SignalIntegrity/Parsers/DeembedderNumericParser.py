@@ -1,6 +1,6 @@
 from SignalIntegrity.Parsers import DeembedderParser
 from SignalIntegrity.SystemDescriptions import DeembedderNumeric
-from SignalIntegrity.SParameterFiles import SParameters
+from SignalIntegrity.SParameters import SParameters
 
 class DeembedderNumericParser(DeembedderParser):
     def __init__(self, f=None, args=None):

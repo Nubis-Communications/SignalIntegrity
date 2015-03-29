@@ -1,6 +1,6 @@
 from SignalIntegrity.SystemDescriptions import SystemSParametersNumeric
 from SignalIntegrity.Parsers import SystemDescriptionParser
-from SignalIntegrity.SParameterFiles import SParameters
+from SignalIntegrity.SParameters import SParameters
 
 class SystemSParametersNumericParser(SystemDescriptionParser):
     def __init__(self, f=None, args=None):

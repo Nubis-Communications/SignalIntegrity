@@ -1,4 +1,4 @@
-from SignalIntegrity.SParameterFiles import SParameters
+from SignalIntegrity.SParameters import SParameters
 import math
 import cmath
 from SignalIntegrity.Devices import IdealTransmissionLine

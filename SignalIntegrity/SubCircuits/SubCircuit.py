@@ -1,4 +1,4 @@
-from SignalIntegrity.SParameterFiles import SParameters
+from SignalIntegrity.SParameters import SParameters
 
 class SubCircuit(SParameters):
     def __init__(self,f,fileName,args):
