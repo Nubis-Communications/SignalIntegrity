@@ -34,10 +34,32 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor 2')
     def testTransistorSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device T 3','device rb 2','device Cm 2','device Cp 2','device rx 2','device rc 2','device Cc 2',
-                      'port 1 rb 1 2 rc 2 3 rx 2 4 Cc 2','connect rb 2 Cp 1 Cm 1 T 1','connect T 2 rc 1 Cm 2 Cc 1',
+        sdp.AddLines(['device T 3','device rb 2','device Cm 2','device Cp 2','device rx 2',
+                      'device rc 2','device Cc 2',
+                      'port 1 rb 1 2 rc 2 3 rx 2 4 Cc 2',
+                      'connect rb 2 Cp 1 Cm 1 T 1','connect T 2 rc 1 Cm 2 Cc 1',
                       'connect Cp 2 T 3 rx 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.LaTeXSolution(size='biggest').Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Transistor')
+    def testTransistorWithShuntsSymbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 3','device rb 2','device Cms 4','device Cps 4','device rx 2',
+                      'device rc 2','device Ccs 3',
+                      'port 1 rb 1 2 rc 2 3 rx 2 4 Ccs 3',
+                      'connect rb 2 Cms 1','connect Cms 3 Cps 1','connect Cps 3 T 1',
+                      'connect T 3 Cps 4','connect Cps 2 rx 1','connect T 2 Ccs 1',
+                      'connect Ccs 2 Cms 4','connect Cms 2 rc 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps._AddEq('\\mathbf{rb}='+ssps._LaTeXMatrix(si.sy.SeriesZ('r_b')))
+        ssps._AddEq('\\mathbf{rc}='+ssps._LaTeXMatrix(si.sy.SeriesZ('r_c')))
+        ssps._AddEq('\\mathbf{rx}='+ssps._LaTeXMatrix(si.sy.SeriesZ('r_ex')))
+        ssps._AddEq('\\mathbf{Cms}='+ssps._LaTeXMatrix(si.sy.ShuntZ(4,'\\frac{1}{C_{\\mu}\\cdot s}')))
+        ssps._AddEq('\\mathbf{Ccs}='+ssps._LaTeXMatrix(si.sy.ShuntZ(3,'\\frac{1}{C_{cs}\\cdot s}')))
+        ssps._AddEq('\\mathbf{Cps}='+ssps._LaTeXMatrix(si.sy.ShuntZ(4,'\\frac{1}{C_{\\pi}\\cdot s}')))
+        ssps._AddEq('\\mathbf{T}='+ssps._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
+        ssps.m_lines = [line.replace('--','+') for line in ssps.m_lines]
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor')
@@ -67,6 +89,8 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         self.WriteCode('TestTransistor.py','testTransistorZOSymbolic(self)',self.standardHeader)
     def testTransistorSymbolicCode(self):
         self.WriteCode('TestTransistor.py','testTransistorSymbolic(self)',self.standardHeader)
+    def testTransistorWithShuntsSymbolicCode(self):
+        self.WriteCode('TestTransistor.py','testTransistorWithShuntsSymbolic(self)',self.standardHeader)
 
 if __name__ == '__main__':
     unittest.main()
