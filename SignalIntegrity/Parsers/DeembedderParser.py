@@ -7,7 +7,7 @@ class DeembedderParser(SystemDescriptionParser):
         SystemDescriptionParser.__init__(self, f, args)
     def _ProcessDeembedderLine(self,line):
         lineList=self.ReplaceArgs(line.split())
-        if len(lineList) == 0:
+        if len(lineList) == 0: # pragma: no cover
             return
         if lineList[0] == 'system':
             dev=DeviceParser(self.m_f,None,[lineList[i] for i in range(1,len(lineList))])

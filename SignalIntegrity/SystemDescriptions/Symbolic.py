@@ -45,9 +45,8 @@ class Symbolic():
         for line in lines: self._AddLine(line)
         return self
     def WriteToFile(self,name):
-        equationFile=open(name,'w')
-        for line in self.m_lines: equationFile.write(line+'\n')
-        equationFile.close()
+        with open(name,'w') as equationFile:
+            for line in self.m_lines: equationFile.write(line+'\n')
     def _SmallMatrix(self):
         return self.m_small
     def _Identity(self):

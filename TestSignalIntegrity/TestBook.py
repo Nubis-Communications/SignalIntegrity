@@ -102,6 +102,17 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), 'Book Example System Description incorrect')
+    def testSymbolicExample(self):
+        symbolic = si.sd.Symbolic()
+        symbolic.DocStart()
+        symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.SeriesZ('Z')))
+        symbolic.DocEnd()
+        symbolic.WriteToFile('Symbolic.tex')
+        # exclude
+        symbolic.Clear()
+        symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.SeriesZ('Z')))
+        symbolic.Emit()
+        self.CheckSymbolicResult(self.id(),symbolic,'Symbolic Example')
     def testSystemDescriptionSymbolicExample(self):
         sd = si.sd.SystemDescription()
         sd.AddDevice('L', 2)  # add two-port left device
@@ -111,7 +122,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
         ssps = si.sd.SystemSParametersSymbolic(sd)
         ssps.LaTeXSystemEquation().Emit()
-    # exclude
+        # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example System Description Symbolic')
     def testSymbolicMethods(self):
         sdp = si.p.SystemDescriptionParser()
@@ -564,6 +575,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         self.WriteCode('TestBook.py','testSymbolicSolutionParserFileExample3(self)',self.standardHeader)
     def testSystemDescriptionExampleCode(self):
         self.WriteCode('TestBook.py','testSystemDescriptionExample(self)',self.standardHeader)
+    def testSymbolicExampleCode(self):
+        self.WriteCode('TestBook.py','testSymbolicExample(self)',self.standardHeader)
     def testSystemDescriptionExampleSymbolicCode(self):
         self.WriteCode('TestBook.py','testSystemDescriptionSymbolicExample(self)',self.standardHeader)
     def testSymbolicDeembeddingExample1Code(self):

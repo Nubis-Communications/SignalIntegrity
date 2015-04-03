@@ -15,7 +15,6 @@ from SignalIntegrity.Devices import VoltageAmplifier
 from SignalIntegrity.Devices import CurrentAmplifier
 from SignalIntegrity.Devices import TransresistanceAmplifier
 from SignalIntegrity.Devices import TransconductanceAmplifier
-import math
 from FrequencyDependent import SeriesLf
 from FrequencyDependent import SeriesCf
 from FrequencyDependent import Mutualf
