@@ -238,12 +238,15 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         self.WriteCode('TestCommonElements.py','testZShuntFourPort(self)',self.standardHeader)
     def testZShuntFourPortSafeTeeCode(self):
         self.WriteCode('TestCommonElements.py','testZShuntFourPortSafeTee(self)',self.standardHeader)
-    def testZShuntThreePortCode(self):
+    def testZShuntThreePortPossibility1Code(self):
+        self.WriteCode('TestCommonElements.py','testZShuntThreePortPossibility1(self)',self.standardHeader)
+    def testZShuntThreePortPossibility2Code(self):
         self.WriteCode('TestCommonElements.py','testZShuntThreePortPossibility2(self)',self.standardHeader)
-    def testZShuntTwoPortCode(self):
-        self.WriteCode('TestCommonElements.py','testZShuntTwoPortPossibility2(self)',self.standardHeader)
     def testZShuntThreePortPossibility3Code(self):
         self.WriteCode('TestCommonElements.py','testZShuntThreePortPossibility3(self)',self.standardHeader)
+    def testZShuntTwoPortCode(self):
+        self.WriteCode('TestCommonElements.py','testZShuntTwoPortPossibility2(self)',self.standardHeader)
+
 
 if __name__ == '__main__':
     unittest.main()
