@@ -21,6 +21,18 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port')
+    def testVoltageAmplifierFourPortShunt(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DV 4','device ZI 4','device ZO 2',
+            'port 1 ZI 1 2 ZI 2 3 ZO 2 4 DV 3',
+            'connect ZI 3 DV 2','connect ZI 4 DV 1','connect ZO 1 DV 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.AssignSParameters('DV',si.sy.VoltageControlledVoltageSource('\\alpha'))
+        ssps.AssignSParameters('ZI',si.sy.ShuntZ(4,'Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
+        ssps.LaTeXSolution(size='big').Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port')
     def testVoltageAmplifierFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4',
@@ -427,6 +439,8 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         self.assertTrue(difference<1e-4,'Voltage Amplifier Feedback incorrect')
     def testVoltageAmplifierFourPortCode(self):
         self.WriteCode('TestVoltageAmplifier.py','testVoltageAmplifierFourPort(self)',self.standardHeader)
+    def testVoltageAmplifierFourPortShuntCode(self):
+        self.WriteCode('TestVoltageAmplifier.py','testVoltageAmplifierFourPortShunt(self)',self.standardHeader)
     def testVoltageAmplifierThreePortCode(self):
         self.WriteCode('TestVoltageAmplifier.py','testVoltageAmplifierThreePort(self)',self.standardHeader)
     def testVoltageAmplifierThreePortAlternateCode(self):

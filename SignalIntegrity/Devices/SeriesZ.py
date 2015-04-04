@@ -1,5 +1,3 @@
-from numpy import array
-
 from SignalIntegrity.Conversions import Z0KHelper
 
 def SeriesZZ0K(Z,Z0=None,K=None):
@@ -8,7 +6,12 @@ def SeriesZZ0K(Z,Z0=None,K=None):
     Z02=Z0.item(1,1)
     K1=K.item(0,0)
     K2=K.item(1,1)
-    return (array([[Z+Z02-Z01,2.*K2/K1*Z01],[2*K1/K2*Z02,Z+Z01-Z02]])*1./(Z+Z01+Z02)).tolist()
+    D=Z+Z01+Z02
+    S11=(Z+Z02-Z01)/D
+    S12=(2.*K2/K1*Z01)/D
+    S21=(2.*K1/K2*Z02)/D
+    S22=(Z+Z01-Z02)/D
+    return [[S11,S12],[S21,S22]]
 
 def SeriesZ(Z,Z0=50.):
     return [[Z/(Z+2.*Z0),2.*Z0/(Z+2.*Z0)],[2*Z0/(Z+2.*Z0),Z/(Z+2.*Z0)]]

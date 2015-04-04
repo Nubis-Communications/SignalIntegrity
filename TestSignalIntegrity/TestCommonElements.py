@@ -13,8 +13,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         unittest.TestCase.__init__(self,methodName)
     def testDeviceShuntFourPort(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 2',
-            'port 1 D 1 2 D 2 3 D 1 4 D 2'])
+        sdp.AddLines(['device D 2','port 1 D 1 2 D 2 3 D 1 4 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(size='big').Emit()
         # exclude
@@ -57,8 +56,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         self.assertTrue(difference<1e-10,'Z Shunt Four Port derivation different than device')
     def testZShuntFourPort(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 2 ',
-            'port 1 D 1 2 D 2 3 D 1 4 D 2'])
+        sdp.AddLines(['device D 2 ','port 1 D 1 2 D 2 3 D 1 4 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
@@ -97,8 +95,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         self.assertTrue(difference<1e-10,'Z Shunt Four Port Numeric incorrect')
     def testZShuntThreePortPossibility1(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 2',
-            'port 1 D 1 2 D 1 3 D 2'])
+        sdp.AddLines(['device D 2','port 1 D 1 2 D 1 3 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
@@ -106,8 +103,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
     def testZShuntThreePortPossibility2(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 4','device O 1 open',
-            'port 1 D 1 2 D 3 3 D 2',
+        sdp.AddLines(['device D 4','device O 1 open','port 1 D 1 2 D 3 3 D 2',
             'connect D 4 O 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
@@ -116,8 +112,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
     def testZShuntThreePortPossibility3(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 4','device Z 2',
-            'port 1 D 1 2 D 3 3 D 2',
+        sdp.AddLines(['device D 4','device Z 2','port 1 D 1 2 D 3 3 D 2',
             'connect D 2 Z 2','connect Z 1 D 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
@@ -137,8 +132,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
     def testZShuntThreePortPossibility1Numeric(self):
         Z=-34.45+1j*24.98
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 2',
-            'port 1 D 1 2 D 1 3 D 2'])
+        sdp.AddLines(['device D 2','port 1 D 1 2 D 1 3 D 2'])
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         sspn.AssignSParameters('D',si.dev.SeriesZ(Z))
         rescalc=sspn.SParameters()
