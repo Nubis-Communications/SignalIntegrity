@@ -107,6 +107,58 @@ class TestSParameterFile(unittest.TestCase):
         sf2=si.sp.File('TestDutCmp.s4p')
         os.remove('TestDutCmp.s4p')
         self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortNon50Write(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.File('TestDut.s4p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p','r 40')
+        sf2=si.sp.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortNon50Read(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.File('TestDut.s4p',Z0=40)
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p',Z0=40)
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(sf2.AreEqual(sf,0.001),self.id()+'result not same')
+    def testSParameterFileFourPortNoSRead(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.File('TestDut.s4p')
+        sf.m_sToken='Z' #switch the internal token to Z parameters to make them faulty
+        sf.WriteToFile('TestDutCmp.s4p')
+        sf2=si.sp.File('TestDutCmp.s4p')
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(len(sf2)==0,self.id()+'result not same')
+    def testSParameterFileFourPortNonExistant(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.File('TestDutcmp.s4p')
+        self.assertTrue(len(sf)==0,self.id()+'result not same')
     def testSParameterFileTwoPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.File('cable.s2p')

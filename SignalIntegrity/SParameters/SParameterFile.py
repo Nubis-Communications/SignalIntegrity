@@ -8,19 +8,21 @@ from SignalIntegrity.Conversions import ReferenceImpedance
 
 class File(SParameters):
     def __init__(self,name,Z0=50.0):
-        # number of ports is the number between the 's' and the 'p'
-        # after the last '.'
+        self.m_sToken='S'
+        self.m_Z0=Z0
         self.m_P = int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
         freqMul = 1e6
         complexType = 'MA'
+        Z0=50.
         sp=True
-        self.m_Z0=50.0
         self.m_f=[]
         self.m_d=[]
         numbersList=[]
-        spfile=open(name,'rU')
+        try:
+            spfile=open(name,'rU')
+        except IOError:
+            return
         for line in spfile:
-            #list of tokens separated by ' ' before the first, if any '!'
             lineList = string.lower(line).split('!')[0].split()
             if len(lineList)>0:
                 if lineList[0] == '#':
@@ -39,8 +41,8 @@ class File(SParameters):
                     if 'db' in lineList:
                         complexType = 'DB'
                     if 'r' in lineList:
-                        self.m_Z0=float(lineList[lineList.index('r')+1])
-                    if not 's' in lineList:
+                        Z0=float(lineList[lineList.index('r')+1])
+                    if not self.m_sToken.lower() in lineList:
                         sp=False
                 else:
                     numbersList = numbersList + lineList
@@ -65,8 +67,6 @@ class File(SParameters):
                         elif complexType == 'DB':
                             self.m_d[fi][r][c]=math.pow(10.,n1/20)*expangle
             if P == 2:
-                # handle the weirdity that 2 ports are read in a different order
                 self.m_d[fi]=array(self.m_d[fi]).transpose().tolist()
             if Z0 != self.m_Z0:
-                self.m_d[fi]=ReferenceImpedance(self.m_d[fi],Z0,self.m_Z0)
-
+                self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
