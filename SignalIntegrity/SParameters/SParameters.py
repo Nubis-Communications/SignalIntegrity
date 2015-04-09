@@ -8,27 +8,17 @@ from SignalIntegrity.Conversions import ReferenceImpedance
 
 class SParameters():
     def __init__(self,f,data,Z0=50.0):
-        self.m_sToken='S'
-        self.m_f=f
-        self.m_d=data
-        self.m_Z0=Z0
+        self.m_sToken='S'; self.m_f=f; self.m_d=data; self.m_Z0=Z0
         if not data is None:
-            if len(data)>0:
-                self.m_P=len(data[0])
-    def __getitem__(self,item):
-        return self.m_d[item]
-    def __len__(self):
-        return len(self.m_f)
-    def f(self):
-        return self.m_f
-    def Data(self):
-        return self.m_d
-    def Response(self,ToP,FromP):
-        return [mat[ToP-1][FromP-1] for mat in self.m_d]
+            if len(data)>0: self.m_P=len(data[0])
+    def __getitem__(self,item): return self.m_d[item]
+    def __len__(self): return len(self.m_f)
+    def f(self): return self.m_f
+    def Data(self): return self.m_d
+    def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self.m_d]
     def Resample(self,f):
         from SignalIntegrity.Splines import Spline
-        res=[]
-        x=self.m_f
+        res=[]; x=self.m_f
         for r in range(self.m_P):
             resr=[]
             for c in range(self.m_P):
@@ -43,37 +33,21 @@ class SParameters():
                 for c in range(self.m_P):
                     mat[r][c]=res[r][c][n]
             resd.append(mat)
-        self.m_d=resd
-        self.m_f=f
+        self.m_d=resd; self.m_f=f
         return self
     def WriteToFile(self,name,formatString=None):
-        freqMul = 1e6
-        freqToken = 'MHz'
-        cpxType = 'MA'
-        Z0 = 50.0
+        freqMul = 1e6; freqToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
             lineList = string.lower(formatString).split('!')[0].split()
             if len(lineList)>0:
-                if 'hz' in lineList:
-                    freqToken = 'Hz'
-                    freqMul = 1.0
-                if 'khz' in lineList:
-                    freqToken = 'KHz'
-                    freqMul = 1e3
-                if 'mhz' in lineList:
-                    freqToken = 'MHz'
-                    freqMul = 1e6
-                if 'ghz' in lineList:
-                    freqToken = 'GHz'
-                    freqMul = 1e9
-                if 'ma' in lineList:
-                    cpxType = 'MA'
-                if 'ri' in lineList:
-                    cpxType = 'RI'
-                if 'db' in lineList:
-                    cpxType = 'DB'
-                if 'r' in lineList:
-                    Z0=float(lineList[lineList.index('r')+1])
+                if 'hz' in lineList: freqToken = 'Hz'; freqMul = 1.0
+                if 'khz' in lineList: freqToken = 'KHz'; freqMul = 1e3
+                if 'mhz' in lineList: freqToken = 'MHz'; freqMul = 1e6
+                if 'ghz' in lineList: freqToken = 'GHz'; freqMul = 1e9
+                if 'ma' in lineList: cpxType = 'MA'
+                if 'ri' in lineList: cpxType = 'RI'
+                if 'db' in lineList: cpxType = 'DB'
+                if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
         spfile=open(name,'w')
         spfile.write('# '+freqToken+' '+cpxType+' '+self.m_sToken+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):

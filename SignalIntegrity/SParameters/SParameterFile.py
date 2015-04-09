@@ -26,29 +26,20 @@ class File(SParameters):
             lineList = string.lower(line).split('!')[0].split()
             if len(lineList)>0:
                 if lineList[0] == '#':
-                    if 'hz' in lineList:
-                        freqMul = 1.0
-                    if 'khz' in lineList:
-                        freqMul = 1e3
-                    if 'mhz' in lineList:
-                        freqMul = 1e6
-                    if 'ghz' in lineList:
-                        freqMul = 1e9
-                    if 'ma' in lineList:
-                        complexType = 'MA'
-                    if 'ri' in lineList:
-                        complexType = 'RI'
-                    if 'db' in lineList:
-                        complexType = 'DB'
+                    if 'hz' in lineList: freqMul = 1.0
+                    if 'khz' in lineList: freqMul = 1e3
+                    if 'mhz' in lineList: freqMul = 1e6
+                    if 'ghz' in lineList: freqMul = 1e9
+                    if 'ma' in lineList: complexType = 'MA'
+                    if 'ri' in lineList: complexType = 'RI'
+                    if 'db' in lineList: complexType = 'DB'
                     if 'r' in lineList:
                         Z0=float(lineList[lineList.index('r')+1])
                     if not self.m_sToken.lower() in lineList:
                         sp=False
-                else:
-                    numbersList = numbersList + lineList
+                else: numbersList = numbersList + lineList
         spfile.close()
-        if not sp:
-            return
+        if not sp: return
         frequencies = len(numbersList)/(1+self.m_P*self.m_P*2)
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]
