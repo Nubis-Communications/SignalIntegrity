@@ -3,8 +3,9 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
+from TestHelpers import *
 
-class TestTline(unittest.TestCase):
+class TestTline(unittest.TestCase,SParameterCompareHelper):
     def testTline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*20e6 for n in range(100)]
@@ -20,7 +21,7 @@ class TestTline(unittest.TestCase):
             sf.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.File(fileName)
-        self.assertTrue(sf.AreEqual(regression,0.001),self.id()+'result not same')
+        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
         for r in range(4):

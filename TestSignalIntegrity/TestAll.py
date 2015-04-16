@@ -23,6 +23,7 @@ from TestRoutineWriter import *
 from TestImpedanceProfile import *
 from TestCommonElements import *
 from TestTeeProblem import *
+from TestChirpZTransform import *
 
 if __name__ == '__main__':
     unittest.main()

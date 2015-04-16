@@ -6,8 +6,9 @@ import cmath
 from numpy import linalg
 from numpy import array
 import os
+from TestHelpers import *
 
-class TestImpedanceProfile(unittest.TestCase):
+class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
     def testImpedanceProfileCable(self):
         sp = si.sp.File('cable.s2p')
         ip = si.ip.ImpedanceProfile(sp,100,2)
@@ -81,6 +82,6 @@ class TestImpedanceProfile(unittest.TestCase):
             cd.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.File(fileName)
-        self.assertTrue(cd.AreEqual(regression,0.001),self.id()+'result not same')
+        self.assertTrue(self.SParametersAreEqual(cd,regression,0.001),self.id()+'result not same')
 if __name__ == "__main__":
     unittest.main()

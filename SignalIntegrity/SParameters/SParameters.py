@@ -70,13 +70,3 @@ class SParameters():
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()
-    def AreEqual(self,sp,epsilon):
-        if len(self) != len(sp): return False
-        if len(self.m_d) != len(sp.m_d): return False
-        for n in range(len(self.Data())):
-            if abs(self.m_f[n] - sp.m_f[n]) > epsilon: return False
-            for r in range(self.m_P):
-                for c in range(self.m_P):
-                    if abs(self.m_d[n][r][c] - sp.m_d[n][r][c]) > epsilon:
-                        return False
-        return True
