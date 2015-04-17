@@ -5,6 +5,7 @@ import math
 import string
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Conversions import ReferenceImpedance
+from SignalIntegrity.SParameters.FrequencyList import FrequencyList
 
 class File(SParameters):
     def __init__(self,name,Z0=50.0):
@@ -15,7 +16,7 @@ class File(SParameters):
         complexType = 'MA'
         Z0=50.
         sp=True
-        self.m_f=[]
+        f=[]
         self.m_d=[]
         numbersList=[]
         try:
@@ -44,7 +45,7 @@ class File(SParameters):
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]
         for fi in range(frequencies):
-            self.m_f.append(float(numbersList[(1+P*P*2)*fi])*freqMul)
+            f.append(float(numbersList[(1+P*P*2)*fi])*freqMul)
             for r in range(P):
                 for c in range(P):
                     n1=float(numbersList[(1+P*P*2)*fi+1+(r*P+c)*2])
@@ -61,3 +62,4 @@ class File(SParameters):
                 self.m_d[fi]=array(self.m_d[fi]).transpose().tolist()
             if Z0 != self.m_Z0:
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
+        self.m_f=FrequencyList().SetList(f)

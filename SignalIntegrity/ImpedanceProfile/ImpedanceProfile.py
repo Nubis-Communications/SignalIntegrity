@@ -41,6 +41,3 @@ class ImpedanceProfile(object):
             Gsp.append(G)
         sp = SParameters(f,Gsp,self.m_Z0)
         return sp
-  
-            
-        

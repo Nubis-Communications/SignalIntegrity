@@ -32,8 +32,8 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.File('TestDut.s4p')
         f2=[Fe/Np*n for n in range(Np+1)]
-        sf2=si.sp.SParameters(sf.f(),sf.Data(),sf.m_Z0).Resample(f2)
-        sf3=si.sp.ResampledSParameters(sf,Fe,Np,method='spline')
+        sf2=si.sp.ResampledSParameters(sf,f2)
+        sf3=si.sp.ResampledSParameters(sf,si.sp.FrequencyList().SetEvenlySpaced(Fe,Np),method='spline')
         #sf2.WriteToFile('TestDutCmp2.s4p')
         #sf3.WriteToFile('TestDutCmp3.s4p')
         self.assertTrue(self.SParametersAreEqual(sf2,sf3,0.001),self.id()+'result not same')
@@ -44,7 +44,7 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         sf=si.sp.File('TestDut.s4p')
         f2=[Fe/Np*n for n in range(Np+1)]
         sf2=si.czt.CZTResample(sf,Fe,Np)
-        sf3=si.sp.ResampledSParameters(sf,Fe,Np,method='czt')
+        sf3=si.sp.ResampledSParameters(sf,si.sp.FrequencyList().SetEvenlySpaced(Fe,Np),method='czt')
         #sf2.WriteToFile('TestDutCmp2.s4p')
         #sf3.WriteToFile('TestDutCmp3.s4p')
         self.assertTrue(self.SParametersAreEqual(sf2,sf3,0.001),self.id()+'result not same')
@@ -55,7 +55,7 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         sf=si.sp.File('TestDut.s4p')
         f2=[Fe/Np*n for n in range(Np+1)]
         sf2=si.czt.CZTResample(sf,Fe,Np)
-        sf3=si.sp.ResampledSParameters(sf,Fe,Np,method='czt',speed='slow')
+        sf3=si.sp.ResampledSParameters(sf,si.sp.FrequencyList().SetEvenlySpaced(Fe,Np),method='czt',speed='slow')
         #sf2.WriteToFile('TestDutCmp2.s4p')
         #sf3.WriteToFile('TestDutCmp3.s4p')
         self.assertTrue(self.SParametersAreEqual(sf2,sf3,0.001),self.id()+'result not same')
@@ -66,7 +66,7 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         sf=si.sp.File('TestDut.s4p')
         f2=[Fe/Np*n for n in range(Np+1)]
         sf2=si.czt.CZTResample(sf,Fe,Np,imposeRealness=True)
-        sf3=si.sp.ResampledSParameters(sf,Fe,Np,method='czt',enforceReal='true')
+        sf3=si.sp.ResampledSParameters(sf,si.sp.FrequencyList().SetEvenlySpaced(Fe,Np),method='czt',enforceReal=True)
         #sf2.WriteToFile('TestDutCmp2.s4p')
         #sf3.WriteToFile('TestDutCmp3.s4p')
         self.assertTrue(self.SParametersAreEqual(sf2,sf3,0.001),self.id()+'result not same')

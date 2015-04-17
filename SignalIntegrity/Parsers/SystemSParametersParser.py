@@ -3,8 +3,8 @@ from SignalIntegrity.Parsers import SystemDescriptionParser
 from SignalIntegrity.SParameters import SParameters
 
 class SystemSParametersNumericParser(SystemDescriptionParser):
-    def __init__(self, f=None, args=None):
-        SystemDescriptionParser.__init__(self, f, args)
+    def __init__(self,f=None,args=None):
+        SystemDescriptionParser.__init__(self,f,args)
     def SParameters(self):
         self.SystemDescription()
         if not self.m_sd.CheckConnections():

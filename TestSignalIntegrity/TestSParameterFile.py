@@ -271,8 +271,8 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
     def testRes(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=[100e6*n for n in range(100)]
-        sf=si.sp.File('TestDut.s4p').Resample([1e9*n for n in range(10)])
-        sf2=si.sp.File('TestDut.s4p').Resample([1e9*n for n in range(10)]).Resample(newf)
+        sf=si.sp.ResampledSParameters(si.sp.File('TestDut.s4p'),[1e9*n for n in range(10)])
+        sf2=si.sp.ResampledSParameters(si.sp.ResampledSParameters(si.sp.File('TestDut.s4p'),[1e9*n for n in range(10)]),newf,truncate=False)
         if not os.path.exists('Test1.s4p'):
             sf.WriteToFile('Test1.s4p')
             self.assertTrue(False,'Test1.s4p' + ' does not exist')
@@ -308,7 +308,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         spc.append(('L1',si.p.dev.SeriesLf(freq,L1)))
         spc.append(('C1',si.p.dev.SeriesCf(freq,C1)))
         spc.append(('L2',si.p.dev.SeriesLf(freq,L2)))
-        spc.append(('D1',si.sp.File('TestDut.s4p').Resample(freq)))
+        spc.append(('D1',si.sp.ResampledSParameters(si.sp.File('TestDut.s4p'),freq)))
         SD=si.sd.SystemDescription()
         SD.AddDevice('D1',4)
         SD.AddDevice('L1',2)
@@ -489,7 +489,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         """
     def testS2P(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        freq=[0.1e9*i for i in range(400)]
+        freq=[0.1e9*i for i in range(201)]
         parser=si.p.SystemSParametersNumericParser(freq)
         parser.AddLine('device D1 2 file cable.s2p')
         parser.AddLine('port 1 D1 1 2 D1 2')
@@ -537,7 +537,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         parser.AddLine('system file '+systemSParametersFileName)
         de=si.sp.SParameters(freq,parser.Deembed())
         os.remove(systemSParametersFileName)
-        self.assertTrue(self.SParametersAreEqual(de,si.sp.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
+        self.assertTrue(self.SParametersAreEqual(de,si.sp.ResampledSParameters(si.sp.File('cable.s2p'),freq),0.00001),self.id()+'result not same')
     def testDeembed2(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         freq=[0.1e9*i for i in range(201)]
@@ -558,7 +558,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
         de=si.sp.SParameters(freq,parser.Deembed(system))
-        self.assertTrue(self.SParametersAreEqual(de,si.sp.File('cable.s2p').Resample(freq),0.00001),self.id()+'result not same')
+        self.assertTrue(self.SParametersAreEqual(de,si.sp.ResampledSParameters(si.sp.File('cable.s2p'),freq),0.00001),self.id()+'result not same')
         os.remove(systemSParametersFileName)
 
 if __name__ == '__main__':

@@ -5,36 +5,21 @@ import math
 import string
 
 from SignalIntegrity.Conversions import ReferenceImpedance
+from SignalIntegrity.SParameters.FrequencyList import FrequencyList
 
 class SParameters():
     def __init__(self,f,data,Z0=50.0):
-        self.m_sToken='S'; self.m_f=f; self.m_d=data; self.m_Z0=Z0
+        self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
+        if isinstance(f,FrequencyList): self.m_f=f
+        elif isinstance(f,list): self.m_f=FrequencyList().SetList(f)
+        else: self.m_f=f
         if not data is None:
             if len(data)>0: self.m_P=len(data[0])
     def __getitem__(self,item): return self.m_d[item]
-    def __len__(self): return len(self.m_f)
+    def __len__(self): return len(self.m_d)
     def f(self): return self.m_f
     def Data(self): return self.m_d
     def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self.m_d]
-    def Resample(self,f):
-        from SignalIntegrity.Splines import Spline
-        res=[]; x=self.m_f
-        for r in range(self.m_P):
-            resr=[]
-            for c in range(self.m_P):
-                y=self.Response(r+1,c+1)
-                P=Spline(x,y)
-                resr.append([P.Evaluate(fi) for fi in f])
-            res.append(resr)
-        resd = []
-        for n in range(len(f)):
-            mat=empty(shape=(self.m_P,self.m_P)).tolist()
-            for r in range(self.m_P):
-                for c in range(self.m_P):
-                    mat[r][c]=res[r][c][n]
-            resd.append(mat)
-        self.m_d=resd; self.m_f=f
-        return self
     def WriteToFile(self,name,formatString=None):
         freqMul = 1e6; freqToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
@@ -70,3 +55,4 @@ class SParameters():
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()
+        return self
