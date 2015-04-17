@@ -23,9 +23,10 @@ def CZT(x,Fs,fs,fe,M,highSpeed=True):
         P=fft.ifft(P)
         X = [P[m]/v[m] for m in range(M+1)]
     else:
+        Zeta=[A*pow(W,m) for m in range(M+1)]
         X=[]
         for m in range(M+1):
             Xm=0.
-            for k in range(K): Xm=Xm+x[k]*pow(A*pow(W,m),-k)
+            for k in range(K): Xm=Xm+x[k]*pow(Zeta[m],-k)
             X.append(Xm)
     return X
