@@ -1,3 +1,5 @@
+from numpy import zeros
+
 from SignalIntegrity.SParameters import File
 from SignalIntegrity.SParameters.ResampledSParameters import ResampledSParameters
 from SignalIntegrity.SubCircuits import SubCircuit
@@ -30,7 +32,7 @@ class DeviceParser():
         if len(argsList) == 0:
             return
         if argsList[0] == 'file':
-            self.m_spf=ResampledSParameters(File(argsList[1]),self.m_f)
+            self.m_spf=ResampledSParameters(File(argsList[1]),self.m_f,method='czt')
             return
         elif argsList[0] == 'C':
             self.m_spf=SeriesCf(self.m_f,float(argsList[1]))
@@ -54,7 +56,7 @@ class DeviceParser():
             self.m_sp=Thru()
             return
         elif argsList[0] == 'termination':
-            self.m_sp=[[0]]
+            self.m_sp=zeros(shape=(ports,ports)).tolist()
             return
         elif argsList[0] == 'tee':
             self.m_sp=Tee(ports)

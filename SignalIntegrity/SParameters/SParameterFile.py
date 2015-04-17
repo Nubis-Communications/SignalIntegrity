@@ -5,7 +5,7 @@ import math
 import string
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Conversions import ReferenceImpedance
-from SignalIntegrity.SParameters.FrequencyList import FrequencyList
+from SignalIntegrity.SParameters.FrequencyList import *
 
 class File(SParameters):
     def __init__(self,name,Z0=50.0):
@@ -62,4 +62,4 @@ class File(SParameters):
                 self.m_d[fi]=array(self.m_d[fi]).transpose().tolist()
             if Z0 != self.m_Z0:
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
-        self.m_f=FrequencyList().SetList(f)
+        self.m_f=GenericFrequencyList(f)

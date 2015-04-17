@@ -27,6 +27,15 @@ class FrequencyList(object):
     def __getitem__(self,item): return self.m_fl[item]
     def __len__(self): return len(self.m_fl)
 
+class EvenlySpacedFrequencyList(FrequencyList):
+    def __init__(self,Fe,Np):
+        self.SetEvenlySpaced(Fe,Np)
+
+class GenericFrequencyList(FrequencyList):
+    def __init__(self,fl):
+        self.SetList(fl)
+
+
 
 
 

@@ -5,13 +5,13 @@ import math
 import string
 
 from SignalIntegrity.Conversions import ReferenceImpedance
-from SignalIntegrity.SParameters.FrequencyList import FrequencyList
+from SignalIntegrity.SParameters.FrequencyList import *
 
 class SParameters():
     def __init__(self,f,data,Z0=50.0):
         self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
         if isinstance(f,FrequencyList): self.m_f=f
-        elif isinstance(f,list): self.m_f=FrequencyList().SetList(f)
+        elif isinstance(f,list): self.m_f=GenericFrequencyList(f)
         else: self.m_f=f
         if not data is None:
             if len(data)>0: self.m_P=len(data[0])
