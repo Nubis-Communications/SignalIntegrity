@@ -1,0 +1,97 @@
+device D1 2 termination
+device D2 2 termination
+device D3 1 file st20.s1p
+device D4 1 file st20.s1p
+device D5 4 mixedmode
+device D6 4 mixedmode
+device D7 2 file atten6db1.s2p
+device D8 2 file atten6db2.s2p
+device D9 2 file cable1.s2p
+device D10 2 file cable1.s2p
+device D11 2 file cable1.s2p
+device D12 2 file cable1.s2p
+device D13 2 file cable1.s2p
+device D14 2 file cable1.s2p
+device D15 1 file st20.s1p
+device D16 1 file st20.s1p
+device D17 2 file atten6db1.s2p
+device D18 2 file atten6db2.s2p
+device D19 2 termination
+device D20 2 file cable1.s2p
+device D21 2 file cable1.s2p
+device D22 2 file cable1.s2p
+device D23 2 file cable1.s2p
+device D24 1 file st20.s1p
+device D25 1 file st20.s1p
+device D26 2 file atten6db1.s2p
+device D27 2 file atten6db2.s2p
+device D28 4 file XRAY041.s4p
+device D30 2 termination
+device D31 4 mixedmode
+device D32 2 file atten6db1.s2p
+device D33 2 file atten6db2.s2p
+device R1 2 R 50
+device R2 2 R 50
+device D34 1 ground
+device D35 4 mixedmode
+device D36 4 file XRAYmmde.s4p
+device D51 2 file l24cc.s2p
+device D50 2 file l24dd.s2p
+connect D1 1 D17 2
+connect D1 2 D18 2
+connect D2 1 D7 2
+connect D2 2 D8 2
+connect D5 3 D50 1
+connect D5 4 D51 1
+connect D6 1 D11 1
+connect D6 2 D12 1
+connect D7 1 D9 1
+connect D8 1 D10 1
+connect D9 2 D3 1
+meas D9 2
+connect D10 2 D4 1
+meas D10 2
+connect D11 2 D15 1
+output D11 2
+connect D12 2 D16 1
+output D12 2
+connect D13 2 D5 1
+connect D14 2 D5 2
+connect D17 1 D13 1
+connect D18 1 D14 1
+connect D19 1 D26 2
+connect D19 2 D27 2
+connect D20 2 D24 1
+output D20 2
+connect D21 2 D25 1
+output D21 2
+connect D22 2 D28 1
+connect D23 2 D28 2
+connect D26 1 D22 1
+connect D27 1 D23 1
+connect D28 3 D20 1
+connect D28 4 D21 1
+connect D30 1 D32 2
+connect D30 2 D33 2
+connect R1 1 D31 1
+output R1 1
+connect R2 2 D31 2
+output R2 2
+connect D32 1 D35 1
+connect D33 1 D35 2
+connect R1 2 R2 1 D34 1
+connect D36 1 D35 3
+connect D36 2 D31 3
+connect D36 3 D35 4
+connect D36 4 D31 4
+connect D51 2 D6 4
+connect D50 2 D6 3
+stim m1 D19 1
+stim m2 D19 2
+stim m3 D1 1
+stim m4 D1 2
+stim m5 D30 1
+stim m6 D30 2
+stim m7 D2 1
+stim m8 D2 2
+stimdef [[1,0],[0,1],[1,0],[0,1],[1,0],[0,1],[1,0],[0,1]]

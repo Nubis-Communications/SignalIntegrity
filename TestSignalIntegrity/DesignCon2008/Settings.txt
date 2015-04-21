@@ -1,0 +1,27 @@
+MinSampleRate = 20000000000
+MaxSampleRate = 100000000000
+LengthTime = 40e-9
+DieDownAmount = 0.000
+MeasurementBandwidth = 10e9
+MeasurementFilterOrder = 20
+CompiledSystemDescriptionFileRead = False
+CompiledSystemDescriptionFileWrite = False
+CompiledSystemDescriptionFileOverwrite = False
+MaxSamples = 4000
+AllowIndexPredictionOptimization = False
+AllowInputBufferCaching = False
+ForceInputFilterBufferAlignment = False
+FilterCoefficientType = "Float"
+FilterDirectType = "Normal"
+FilterLibrarySpecified = "IPP"
+OptimizeCombination = True
+OptimizeUpsampler = True
+UpsampleFactor = 1
+UpsamplerFilterType = "Polyphase"
+UpsamplerSampleDistance = 10
+UpsamplerFractionOfNyquist = 1
+UpsamplerCoefficientType = "Float"
+UpsamplerDirectType = "Normal"
+UpsamplerLibrarySpecified = "IPP"
+
+
