@@ -54,6 +54,5 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.m_spc=[]
         self.m_ul=[]
         for line in self.m_lines:
-            print 'processing line: '+line
             self._ProcessLine(line)
         return self

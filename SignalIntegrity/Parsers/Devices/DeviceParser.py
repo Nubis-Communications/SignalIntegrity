@@ -32,7 +32,7 @@ class DeviceParser():
         if len(argsList) == 0:
             return
         if argsList[0] == 'file':
-            self.m_spf=ResampledSParameters(File(argsList[1]),self.m_f,method='czt')
+            self.m_spf=ResampledSParameters(File(argsList[1]),self.m_f)
             return
         elif argsList[0] == 'C':
             self.m_spf=SeriesCf(self.m_f,float(argsList[1]))

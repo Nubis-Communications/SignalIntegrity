@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 class TestVirtualProbeNumeric(unittest.TestCase):
     def testVirtualProbeDC2008(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        os.chdir('.\\DesignCon2008\\')
+        os.chdir('.//DesignCon2008//')
         f=si.sp.EvenlySpacedFrequencyList(10.0e9,400)
 ##        si.sp.ResampledSParameters(si.sp.File('XRAY041.s4p'),si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
@@ -35,10 +35,11 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
         for o in range(len(ol)):
-           for m in range(len(ml)):
+            for m in range(len(ml)):
                 plt.plot(fp,tf[o][m],label=tfl[o][m])
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
+        #plt.savefig('vp.png')
 
 if __name__ == '__main__':
     unittest.main()

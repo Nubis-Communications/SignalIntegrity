@@ -34,9 +34,9 @@ device R1 2 R 50
 device R2 2 R 50
 device D34 1 ground
 device D35 4 mixedmode
-device D36 4 file XRAYmmde.s4p
-device D51 2 file l24cc.s2p
-device D50 2 file l24dd.s2p
+device D36 4 file xraymmde.s4p
+device D51 2 file L24cc.s2p
+device D50 2 file L24dd.s2p
 connect D1 1 D17 2
 connect D1 2 D18 2
 connect D2 1 D7 2
