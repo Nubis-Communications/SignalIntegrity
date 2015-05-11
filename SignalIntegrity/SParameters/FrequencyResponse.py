@@ -11,6 +11,12 @@ class FrequencyResponse(object):
         self.m_resp=resp
     def Frequency(self):
         return self.m_f
+    def GHz(self):
+        return [self.m_f[n]/1.e9 for n in range(len(self.m_f))]
+    def MHz(self):
+        return [self.m_f[n]/1.e6 for n in range(len(self.m_f))]
+    def KHz(self):
+        return [self.m_f[n]/1.e3 for n in range(len(self.m_f))]
     def Response(self):
         return self.m_resp
     def dB(self):
@@ -19,6 +25,8 @@ class FrequencyResponse(object):
         return [abs(self.m_resp[n]) for n in range(len(self.m_f))]
     def Radians(self):
         return [cmath.phase(self.m_resp[n]) for n in range(len(self.m_f))]
+    def Degrees(self):
+        return [cmath.phase(self.m_resp[n])*180./math.pi for n in range(len(self.m_f))]
     def Real(self):
         return [self.m_resp[n].real for n in range(len(self.m_f))]
     def Imag(self):
@@ -46,6 +54,14 @@ class ImpulseResponse(object):
         self.m_td=td
     def Time(self):
         return self.m_t
+    def ps(self):
+        return [self.m_t[k]/1.e-12 for k in range(len(self.m_t))]
+    def ns(self):
+        return [self.m_t[k]/1.e-9 for k in range(len(self.m_t))]
+    def us(self):
+        return [self.m_t[k]/1.e-6 for k in range(len(self.m_t))]
+    def ms(self):
+        return [self.m_t[k]/1.e-3 for k in range(len(self.m_t))]
     def Response(self):
         return self.m_td
     def FrequencyResponse(self):

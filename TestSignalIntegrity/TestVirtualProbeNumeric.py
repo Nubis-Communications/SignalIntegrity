@@ -18,32 +18,31 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         Fs=20.e9
         Fe=Fs/2
         N=400
-        f=si.sp.EvenlySpacedFrequencyList(Fe,N)
 ##        si.sp.ResampledSParameters(si.sp.File('XRAY041.s4p'),si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
-        vpp=si.p.VirtualProbeNumericParser(f).File('comparison.txt')
+        vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         result = vpp.TransferMatrices()
+        result.WriteToFile('vptm.s6p')
         fr=vpp.FrequencyResponses()
         ir=vpp.ImpulseResponses()
         ml = vpp.SystemDescription().pMeasurementList
         ol = vpp.SystemDescription().pOutputList
-        tfl=[[str(ol[o])+' due to '+str(ml[m])
-            for m in range(len(ml))] for o in range(len(ol))]
-        fp = [ele/1.e9 for ele in f]
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
         for o in range(len(ol)):
             for m in range(len(ml)):
-                plt.plot(fp,fr[o][m].dB(),label=tfl[o][m])
+                plt.plot(fr[o][m].GHz(),fr[o][m].dB(),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
-        #plt.show()
+        plt.show()
         #plt.savefig('vp.png')
         plt.clf()
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
         for o in range(len(ol)):
             for m in range(len(ml)):
-                plt.plot(ir[o][m].Time(),ir[o][m].Response(),label=tfl[o][m])
+                plt.plot(ir[o][m].ns(),ir[o][m].Response(),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
-        #plt.show()
+        plt.show()
         #plt.savefig('vptd.png')
 if __name__ == '__main__':
     unittest.main()
