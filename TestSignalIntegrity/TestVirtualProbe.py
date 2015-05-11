@@ -23,7 +23,7 @@ class TestVirtualProbe(unittest.TestCase):
         vp = si.sd.VirtualProbeNumeric(D)
         vp.pMeasurementList = [('T',1)]
         vp.pOutputList = [('R',1)]
-        H=vp.TransferFunctions()
+        H=vp.TransferMatrix()
         #print "H", H
         SC=D[D.DeviceNames().index('C')].pSParameters
         SC21=SC[2-1][1-1]
@@ -83,11 +83,11 @@ class TestVirtualProbe(unittest.TestCase):
         vp=si.sd.VirtualProbeNumeric(D)
         vp.pMeasurementList = [('T',1),('T',2)]
         vp.pOutputList = [('R',1),('R',2)]
-        H=vp.TransferFunctions()
+        H=vp.TransferMatrix()
         #print "H", H
         #This result was the result of a prior run - it's a regression test
         H2=[[0.3858829,0.13673016],[0.19142223,0.35129134]]
-        difference = linalg.norm(H-H2)
+        difference = linalg.norm(matrix(H)-H2)
         #print difference
         self.assertTrue(difference<1e-8,'Virtual Probe Two Input, Two Output incorrect')
     def testVirtualProbeOneMeasTwoOut(self):
@@ -144,11 +144,11 @@ class TestVirtualProbe(unittest.TestCase):
         vp.pMeasurementList = [('MM1',3)]
         vp.pOutputList = [('R',1),('R',2)]
         vp.pStimDef = array([[1],[-1]])
-        H=vp.TransferFunctions()
+        H=vp.TransferMatrix()
         #print "H", H
         #This result was the result of a prior run - it's a regression test
         H2=[[0.20965471848736478],[-0.07827982596732863]]
-        difference = linalg.norm(H-H2)
+        difference = linalg.norm(matrix(H)-H2)
         #print difference
         self.assertTrue(difference<1e-8,'Virtual Probe Two Input, Two Output incorrect')
     def testBookVirtualProbe1(self):
@@ -303,10 +303,10 @@ class TestVirtualProbe(unittest.TestCase):
         vpp.m_ml = None
         vpp.m_ol = None
         vpp.m_D = None
-        result = vpp.TransferFunctions()
+        result = vpp.TransferMatrices()
         ml = vpp.m_ml
-        o1mag = [20.*math.log10(abs(result[n][1][0][0])) for n in range(len(f))]
-        o2mag = [20.*math.log10(abs(result[n][1][1][0])) for n in range(len(f))]
+        o1mag = [20.*math.log10(abs(result[n][0][0])) for n in range(len(f))]
+        o2mag = [20.*math.log10(abs(result[n][1][0])) for n in range(len(f))]
         fp = [ele/1.e9 for ele in f]
         labels=[]
         labels.append(str(vpp.SystemDescription().pOutputList[0]) + ' due to ' + str(vpp.SystemDescription().pMeasurementList[0]))

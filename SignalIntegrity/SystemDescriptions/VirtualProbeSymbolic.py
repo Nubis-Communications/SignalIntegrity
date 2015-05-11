@@ -8,7 +8,7 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         # self.Data=sd
         SystemSParametersSymbolic.__init__(self,sd,**args)
         VirtualProbe.__init__(self, sd)
-    def LaTeXTransferFunctions(self):
+    def LaTeXTransferMatrix(self):
         self._LaTeXSi()
         vemsi = MatrixMultiply(
             self.VoltageExtractionMatrix(self.pMeasurementList), self.SIPrime(True))
@@ -59,7 +59,7 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
             H = '\\mathbf{H}'
         self._AddEq(H+' = '+line)
         return self
-    def LaTeXTransferFunctions2(self):
+    def LaTeXTransferMatrix2(self):
         self._LaTeXSi()
         sipr = Matrix2LaTeX(self.SIPrime(True), self._SmallMatrix())
         vem = Matrix2LaTeX(
@@ -77,5 +77,5 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
         return self
     def LaTeXEquations(self):
         self.LaTeXSystemEquation()
-        self.LaTeXTransferFunctions()
+        self.LaTeXTransferMatrix()
         return self

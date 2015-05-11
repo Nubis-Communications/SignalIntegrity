@@ -544,7 +544,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vp.pOutputList = [('R',1),('R',2)]
         vp.pStimDef = [[1],[-1]]
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
-        svp.LaTeXTransferFunctions().Emit()
+        svp.LaTeXTransferMatrix().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4')
     def testSymbolicVirtualProbeParserExample4(self):
@@ -557,14 +557,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vpp.WriteToFile('VirtualProbe4.txt',False)
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
-        svp.LaTeXTransferFunctions().Emit()
+        svp.LaTeXTransferMatrix().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser')
     def testSymbolicVirtualProbeParserFileExample4(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe4.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
-        svp.LaTeXTransferFunctions().Emit()
+        svp.LaTeXTransferMatrix().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser File')
     def testSymbolicSolutionExample1Code(self):

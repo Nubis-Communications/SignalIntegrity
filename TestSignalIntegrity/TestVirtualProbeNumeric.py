@@ -22,7 +22,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
 ##        si.sp.ResampledSParameters(si.sp.File('XRAY041.s4p'),si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
         vpp=si.p.VirtualProbeNumericParser(f).File('comparison.txt')
-        result = vpp.TransferFunctions()
+        result = vpp.TransferMatrices()
         ml = vpp.SystemDescription().pMeasurementList
         ol = vpp.SystemDescription().pOutputList
         tf=[]
@@ -31,7 +31,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
             tfo=[]
             tfol=[]
             for m in range(len(ml)):
-                tfo.append([20.*math.log10(abs(result[n][1].tolist()[o][m])) for n in range(len(f))])
+                tfo.append([20.*math.log10(abs(result[n][o][m])) for n in range(len(f))])
                 tfol.append(str(vpp.SystemDescription().pOutputList[o]) + ' due to ' + str(vpp.SystemDescription().pMeasurementList[m]))
             tf.append(tfo)
             tfl.append(tfol)
@@ -51,18 +51,18 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         for o in range(len(ol)):
             tfoc=[]
             for m in range(len(ml)):
-                yfp=[result[n][1].tolist()[o][m] for n in range(len(f))]
-                ynp=[result[N-nn][1].tolist()[o][m].conjugate() for nn in range(1,len(f)-1)]
+                yfp=[result[n][o][m] for n in range(len(f))]
+                ynp=[result[N-nn][o][m].conjugate() for nn in range(1,len(f)-1)]
                 y=yfp+ynp
                 td=fft.ifft(y)
-                tp=[td[k] for k in range(K/2)]
-                tn=[td[k] for k in range(K/2,K)]
+                tp=[td[k].real for k in range(K/2)]
+                tn=[td[k].real for k in range(K/2,K)]
                 td=tn+tp
                 plt.plot(t,td,label=tfl[o][m])
                 tfoc.append(td)
             tf.append(tfoc)
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
         #plt.savefig('vptd.png')
 if __name__ == '__main__':
     unittest.main()
