@@ -1,14 +1,16 @@
 from numpy import fft
 import math
+import cmath
 
 from SignalIntegrity.SParameters.FrequencyList import *
+from SignalIntegrity.SParameters.ImpulseResponse import *
 
 class FrequencyResponse(object):
     def __init__(self,f,resp):
-        if isinstance(f,FrequencyList): self.m_f=f
-        elif isinstance(f,list): self.m_f=GenericFrequencyList(f)
-        else: self.m_f=f
+        self.m_f=FrequencyList(f)
         self.m_resp=resp
+    def __getitem__(self,item): return self.m_resp[item]
+    def __len__(self): return len(self.m_resp)
     def Frequency(self):
         return self.m_f
     def GHz(self):
@@ -47,30 +49,7 @@ class FrequencyResponse(object):
         tn=[td[k].real for k in range(K/2,K)]
         td=tn+tp
         return ImpulseResponse(t,td)
-
-class ImpulseResponse(object):
-    def __init__(self,t,td):
-        self.m_t=t
-        self.m_td=td
-    def Time(self):
-        return self.m_t
-    def ps(self):
-        return [self.m_t[k]/1.e-12 for k in range(len(self.m_t))]
-    def ns(self):
-        return [self.m_t[k]/1.e-9 for k in range(len(self.m_t))]
-    def us(self):
-        return [self.m_t[k]/1.e-6 for k in range(len(self.m_t))]
-    def ms(self):
-        return [self.m_t[k]/1.e-3 for k in range(len(self.m_t))]
-    def Response(self):
-        return self.m_td
-    def FrequencyResponse(self):
-        K=len(self.m_t)
-        tp=[self.m_td[k].real for k in range(K/2)]
-        tn=[self.m_td[k].real for k in range(K/2,K)]
-        y=tp+tn
-        Y=fft.fft(y)
-        Fs=1./self.m_t[1]-self.m_t[0]
-        N=K/2
-        f=EvenlySpacedFrequencyList(Fs/2.,N)
-        return FrequencyResponse(f,[Y[n] for n in range(N+1)])
+    def Resample(self,fl,**args):
+        from SignalIntegrity.SParameters.ResampledFrequencyResponse import *
+        self = ResampledFrequencyResponse(self,fl,**args)
+        return self

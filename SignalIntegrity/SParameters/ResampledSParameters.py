@@ -10,7 +10,7 @@ from numpy import empty
 
 class ResampledSParameters(SParameters):
     def __init__(self,S,fl,**args):
-        if isinstance(fl,list): fl=GenericFrequencyList(fl)
+        fl=FrequencyList(fl)
         method = args['method'] if 'method' in args else 'spline'
         truncate = args['truncate'] if 'truncate' in args else True
         if method == 'czt' and not S.f().CheckEvenlySpaced():

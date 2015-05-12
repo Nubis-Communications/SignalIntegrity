@@ -25,6 +25,7 @@ from TestCommonElements import *
 from TestTeeProblem import *
 from TestChirpZTransform import *
 from TestVirtualProbeNumeric import *
+from TestResponse import *
 
 if __name__ == '__main__':
     unittest.main()

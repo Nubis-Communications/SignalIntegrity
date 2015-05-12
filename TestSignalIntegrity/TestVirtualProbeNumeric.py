@@ -23,6 +23,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         result = vpp.TransferMatrices()
         result.WriteToFile('vptm.s6p')
+        os.remove('vptm.s6p')
         fr=vpp.FrequencyResponses()
         ir=vpp.ImpulseResponses()
         ml = vpp.SystemDescription().pMeasurementList
@@ -33,7 +34,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
             for m in range(len(ml)):
                 plt.plot(fr[o][m].GHz(),fr[o][m].dB(),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
         #plt.savefig('vp.png')
         plt.clf()
         plt.xlabel('time (ns)')
@@ -42,7 +43,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
             for m in range(len(ml)):
                 plt.plot(ir[o][m].ns(),ir[o][m].Response(),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
         #plt.savefig('vptd.png')
 if __name__ == '__main__':
     unittest.main()

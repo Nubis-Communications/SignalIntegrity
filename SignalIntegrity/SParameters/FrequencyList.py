@@ -1,4 +1,11 @@
 class FrequencyList(object):
+    def __init__(self,f=None):
+        if isinstance(f,FrequencyList):
+            self.m_fl=f.m_fl
+            self.m_Np=f.m_Np
+            self.m_Fe=f.m_Fe
+            self.m_EvenlySpaced=f.m_EvenlySpaced
+        elif isinstance(f,list): self.SetList(f)
     def SetEvenlySpaced(self,Fe,Np):
         self.m_Fe=Fe
         self.m_Np=Np
@@ -29,10 +36,12 @@ class FrequencyList(object):
 
 class EvenlySpacedFrequencyList(FrequencyList):
     def __init__(self,Fe,Np):
+        FrequencyList.__init__(self)
         self.SetEvenlySpaced(Fe,Np)
 
 class GenericFrequencyList(FrequencyList):
     def __init__(self,fl):
+        FrequencyList.__init__(self)
         self.SetList(fl)
 
 
