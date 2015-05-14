@@ -42,14 +42,14 @@ class SParameters():
                 for c in range(self.m_P):
                     val = mat[r][c]
                     if cpxType == 'MA':
-                        line.append(str(abs(val)))
-                        line.append(str(cmath.phase(val)*180./math.pi))
+                        line.append(str(round(abs(val),6)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,6)))
                     elif cpxType == 'RI':
-                        line.append(str(val.real))
-                        line.append(str(val.imag))
+                        line.append(str(round(val.real,6)))
+                        line.append(str(round(val.imag,6)))
                     elif cpxType == 'DB':
-                        line.append(str(20*math.log10(abs(val))))
-                        line.append(str(cmath.phase(val)*180./math.pi))
+                        line.append(str(round(20*math.log10(abs(val)),6)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,6)))
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()

@@ -28,17 +28,17 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
 
 ##        tdspres1.WriteToFile('tdspres1spline.s4p')
 ##        tdspres2.WriteToFile('tdspres2spline.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'first result not same')
+        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
     def testResampleResponseCompareCZT(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf,method='czt')
+        tdspres1=si.sp.ResampledSParameters(tdsp,newf,method='czt',adjustDelay=False)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
         tdrespf = tdsp.f()
 
-        tdrespres = [[si.sp.ResampledFrequencyResponse(si.sp.FrequencyResponse(tdrespf,tdresp[o][i]),newf,method='czt')
+        tdrespres = [[si.sp.ResampledFrequencyResponse(si.sp.FrequencyResponse(tdrespf,tdresp[o][i]),newf,method='czt',adjustDelay=True)
             for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
 
         tddres2=[empty((tdsp.m_P,tdsp.m_P)).tolist() for np in range(len(newf))]
@@ -51,7 +51,7 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
 
 ##        tdspres1.WriteToFile('tdspres1czt.s4p')
 ##        tdspres2.WriteToFile('tdspres2czt.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'first result not same')
+        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
     def testResampleResponseCompareCZT2(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
@@ -74,7 +74,7 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
 
 ##        tdspres1.WriteToFile('tdspres1czt2.s4p')
 ##        tdspres2.WriteToFile('tdspres2czt2.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'first result not same')
+        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
     def testArrayOfMatrices(self):
         data=si.sp.ArrayOfMatrices([[[1,2],[3,4]],[[5,6],[7,8]],[[9,10],[11,12]]])
         data2=si.sp.MatrixOfArrays(data)
@@ -87,7 +87,7 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf)
+        tdspres1=si.sp.ResampledSParameters(tdsp,newf,way='newway')
 
         tdresp = si.sp.ArrayOfMatrices(tdsp.Data()).MatrixOfArrays()
         tdrespf = tdsp.f()
@@ -102,7 +102,7 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
 
 ##        tdspres1.WriteToFile('tdspres1spline2.s4p')
 ##        tdspres2.WriteToFile('tdspres2spline2.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'first result not same')
+        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
 
     def testResampleResponseCompareSpline3(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -123,8 +123,16 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
 
 ##        tdspres1.WriteToFile('tdspres1spline3.s4p')
 ##        tdspres2.WriteToFile('tdspres2spline3.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'first result not same')
-
+        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
+    def testResampleResponseFilter(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        filtersp=si.sp.File('filter.s2p')
+        filtersp=si.sp.ResampledSParameters(filtersp,si.sp.EvenlySpacedFrequencyList(2e9,200),method='spline')
+        filterres=si.sp.ResampledSParameters(filtersp,si.sp.EvenlySpacedFrequencyList(2e9,4000),method='czt')
+        if not os.path.exists('filterres.s2p'):
+            filterres.WriteToFile('filterres.s2p')
+        regression=si.sp.File('filterres.s2p')
+        self.assertTrue(self.SParametersAreEqual(filterres,regression,0.001),self.id()+'result not same')
 
 if __name__ == '__main__':
     unittest.main()
