@@ -2,6 +2,9 @@ from numpy import fft
 
 from SignalIntegrity.SParameters.FrequencyList import *
 from SignalIntegrity.SParameters.FrequencyResponse import *
+from SignalIntegrity.Waveform.TimeDescriptor import *
+from SignalIntegrity.Filters.FilterDescriptor import FilterDescriptor
+from SignalIntegrity.Filters.FirFilter import FirFilter
 
 class ImpulseResponse(object):
     def __init__(self,t,td):
@@ -9,8 +12,10 @@ class ImpulseResponse(object):
         self.m_td=td
     def __getitem__(self,item): return self.m_td[item]
     def __len__(self): return len(self.m_td)
-    def Time(self):
+    def TimeDescriptor(self):
         return self.m_t
+    def Time(self):
+        return self.m_t.Time()
     def ps(self):
         return [self.m_t[k]/1.e-12 for k in range(len(self.m_t))]
     def ns(self):
@@ -31,3 +36,6 @@ class ImpulseResponse(object):
         N=K/2
         f=EvenlySpacedFrequencyList(Fs/2.,N)
         return FrequencyResponse(f,[Y[n] for n in range(N+1)])
+    def FirFilter(self):
+        K=len(self.m_td)
+        return FirFilter(FilterDescriptor(1,K/2,K-1),self.m_td)

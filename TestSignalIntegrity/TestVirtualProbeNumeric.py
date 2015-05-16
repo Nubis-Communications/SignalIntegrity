@@ -18,7 +18,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         os.chdir('.//DesignCon2008//')
         Fs=20.e9
         Fe=Fs/2
-        N=400
+        N=200
 ##        si.sp.ResampledSParameters(si.sp.File('XRAY041.s4p'),si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
         vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
@@ -44,44 +44,34 @@ class TestVirtualProbeNumeric(unittest.TestCase):
             for m in range(len(ml)):
                 plt.plot(ir[o][m].ns(),ir[o][m].Response(),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
-        #plt.show()
+        plt.show()
         #plt.savefig('vptd.png')
-        with open('CableTxP.txt','rb') as f:
-            CableTxP = [float(line) for line in f]
-        CableTxPt = [k/40. for k in range(len(CableTxP))]
-        with open('CableTxM.txt','rb') as f:
-            CableTxM = [float(line) for line in f]
-        CableTxMt = [k/40. for k in range(len(CableTxM))]
+        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,2000,40.))
+        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,2000,40.))
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
-        plt.plot(CableTxPt,CableTxP,label='CableTxP')
-        plt.plot(CableTxMt,CableTxM,label='CableTxM')
+        plt.plot(CableTxPWf.Times(),CableTxPWf.Values(),label='CableTxP')
+        plt.plot(CableTxMWf.Times(),CableTxMWf.Values(),label='CableTxM')
         plt.legend(loc='upper right')
         #plt.show()
-        CableTx=[CableTxP[k]-CableTxM[k] for k in range(max(len(CableTxP),len(CableTxM)))]
-        CableTxt=[k/40.-2.3 for k in range(len(CableTx))]
-        D20_2DueToD9_2=convolve(ir[2][0].Response(),CableTxP,'same')
-        D20_2DueToD10_2=convolve(ir[2][1].Response(),CableTxM,'same')
-        D21_2DueToD9_2=convolve(ir[3][0].Response(),CableTxP,'same')
-        D21_2DueToD10_2=convolve(ir[3][1].Response(),CableTxM,'same')
-        D20_2=[D20_2DueToD9_2[k]+D20_2DueToD10_2[k] for k in range(max(len(D20_2DueToD9_2),len(D20_2DueToD10_2)))]
-        D21_2=[D21_2DueToD9_2[k]+D21_2DueToD10_2[k] for k in range(max(len(D21_2DueToD9_2),len(D21_2DueToD10_2)))]
-        D20_2t=[k/40.-2.3 for k in range(len(D20_2))]
-        D21_2t=[k/40.-2.3 for k in range(len(D21_2))]
-        D20_2_D21_2Diff = [D20_2[k]-D21_2[k] for k in range(max(len(D20_2),len(D21_2)))]
-        D20_2_D21_2Difft=[k/40.-2.3+7.65-len(ir[2][0].Response())/2./40. for k in range(len(D20_2_D21_2Diff))]
+        CableTxWf=CableTxPWf-CableTxMWf
+        D20_2DueToD9_2=ir[2][0].FirFilter().FilterWaveform(CableTxPWf)
+        D20_2DueToD10_2=ir[2][1].FirFilter().FilterWaveform(CableTxMWf)
+        D21_2DueToD9_2=ir[3][0].FirFilter().FilterWaveform(CableTxPWf)
+        D21_2DueToD10_2=ir[3][1].FirFilter().FilterWaveform(CableTxMWf)
+        D20_2=D20_2DueToD9_2+D20_2DueToD10_2
+        D21_2=D21_2DueToD9_2+D21_2DueToD10_2
+        D20_2_D21_2Diff = (D20_2-D21_2).OffsetBy(0).DelayBy(-2.3)
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
-        #plt.plot(D20_2t,D20_2,label='D20_2')
-        #plt.plot(D21_2t,D21_2,label='D21_2')
-        plt.plot(CableTxt,CableTx,label='DiffIn')
-        plt.plot(D20_2_D21_2Difft,D20_2_D21_2Diff,label='DiffOut')
+        #plt.plot(D20_2.Times(),D20_2.Values(),label='D20_2')
+        #plt.plot(D21_2.Times(),D21_2.Values(),label='D21_2')
+        plt.plot(CableTxWf.Times(),CableTxWf.Values(),label='DiffIn')
+        plt.plot(D20_2_D21_2Diff.Times(),D20_2_D21_2Diff.Values(),label='DiffOut')
         plt.legend(loc='upper right')
-        #plt.show()
-
-
+        plt.show()
 
 if __name__ == '__main__':
     unittest.main()

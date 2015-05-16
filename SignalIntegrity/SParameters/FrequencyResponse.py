@@ -2,8 +2,9 @@ from numpy import fft
 import math
 import cmath
 
-from SignalIntegrity.SParameters.FrequencyList import *
-from SignalIntegrity.SParameters.ImpulseResponse import *
+from SignalIntegrity.SParameters.FrequencyList import FrequencyList
+from SignalIntegrity.SParameters.ImpulseResponse import ImpulseResponse
+from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
 
 class FrequencyResponse(object):
     def __init__(self,f,resp):
@@ -37,8 +38,7 @@ class FrequencyResponse(object):
         N=len(self.m_f)-1
         Fs=2.*self.m_f[N]
         K=2*N
-        t=[(k-K/2)*1./Fs for k in range(K)]
-        tf=[]
+        t=TimeDescriptor(-K/2./Fs,K,Fs)
         yfp=[self.m_resp[n] for n in range(len(self.m_f))]
         ynp=[self.m_resp[N-nn].conjugate() for nn in range(1,N)]
         y=yfp+ynp
@@ -50,6 +50,6 @@ class FrequencyResponse(object):
         td=tn+tp
         return ImpulseResponse(t,td)
     def Resample(self,fl,**args):
-        from SignalIntegrity.SParameters.ResampledFrequencyResponse import *
+        from SignalIntegrity.SParameters.ResampledFrequencyResponse import ResampledFrequencyResponse
         self = ResampledFrequencyResponse(self,fl,**args)
         return self

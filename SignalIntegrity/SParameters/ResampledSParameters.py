@@ -2,7 +2,7 @@ from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Splines import Spline
 from SignalIntegrity.ChirpZTransform import CZT
 from SignalIntegrity.SParameters.FrequencyList import *
-from SignalIntegrity.SParameters.FrequencyResponse import *
+from SignalIntegrity.SParameters.FrequencyResponse import FrequencyResponse
 
 from numpy import fft
 import cmath
