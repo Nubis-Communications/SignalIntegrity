@@ -9,6 +9,7 @@ from SignalIntegrity.Devices import Thru
 from SignalIntegrity.Devices import SeriesZ
 from SignalIntegrity.Devices import Tee
 from SignalIntegrity.Devices import MixedModeConverter
+from SignalIntegrity.Devices import MixedModeConverterVoltage
 from SignalIntegrity.Devices import IdealTransformer
 from SignalIntegrity.Devices import CurrentControlledCurrentSource
 from SignalIntegrity.Devices import VoltageControlledVoltageSource
@@ -66,7 +67,11 @@ class DeviceParser():
                 ' '.join([argsList[i] for i in range(2,len(argsList))]))
             return
         elif argsList[0] == 'mixedmode':
-            self.m_sp=MixedModeConverter()
+            if len(argsList) > 1:
+                if argsList[1] == 'voltage':
+                    self.m_sp=MixedModeConverterVoltage()
+            else:
+                self.m_sp=MixedModeConverter()
             return
         elif argsList[0] == 'idealtransformer':
             self.m_sp=IdealTransformer(float(argsList[1]))

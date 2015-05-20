@@ -18,8 +18,8 @@ class Waveform(object):
         return len(self.m_y)
     def __getitem__(self,item):
         return self.m_y[item]
-    def Times(self):
-        return self.m_t.Times()
+    def Times(self,unit=None):
+        return self.m_t.Times(unit)
     def TimeDescriptor(self):
         return self.m_t
     def Values(self):

@@ -1,41 +1,28 @@
 from numpy import fft
 
-from SignalIntegrity.SParameters.FrequencyList import *
-from SignalIntegrity.SParameters.FrequencyResponse import *
-from SignalIntegrity.Waveform.TimeDescriptor import *
+from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
+from SignalIntegrity.Waveform.Waveform import Waveform
 from SignalIntegrity.Filters.FilterDescriptor import FilterDescriptor
 from SignalIntegrity.Filters.FirFilter import FirFilter
 
-class ImpulseResponse(object):
+class ImpulseResponse(Waveform):
     def __init__(self,t,td):
-        self.m_t=t
-        self.m_td=td
-    def __getitem__(self,item): return self.m_td[item]
-    def __len__(self): return len(self.m_td)
-    def TimeDescriptor(self):
-        return self.m_t
-    def Time(self):
-        return self.m_t.Time()
-    def ps(self):
-        return [self.m_t[k]/1.e-12 for k in range(len(self.m_t))]
-    def ns(self):
-        return [self.m_t[k]/1.e-9 for k in range(len(self.m_t))]
-    def us(self):
-        return [self.m_t[k]/1.e-6 for k in range(len(self.m_t))]
-    def ms(self):
-        return [self.m_t[k]/1.e-3 for k in range(len(self.m_t))]
-    def Response(self):
-        return self.m_td
+        Waveform.__init__(self,t,td)
     def FrequencyResponse(self):
-        K=len(self.m_t)
-        tp=[self.m_td[k].real for k in range(K/2)]
-        tn=[self.m_td[k].real for k in range(K/2,K)]
+        from SignalIntegrity.SParameters.FrequencyList import EvenlySpacedFrequencyList
+        from SignalIntegrity.SParameters.FrequencyResponse import FrequencyResponse
+        td=self.TimeDescriptor()
+        v=self.Values()
+        K=td.N
+        tp=[v[k].real for k in range(K/2)]
+        tn=[v[k].real for k in range(K/2,K)]
         y=tp+tn
         Y=fft.fft(y)
-        Fs=1./self.m_t[1]-self.m_t[0]
+        Fs=td.Fs
         N=K/2
         f=EvenlySpacedFrequencyList(Fs/2.,N)
         return FrequencyResponse(f,[Y[n] for n in range(N+1)])
     def FirFilter(self):
-        K=len(self.m_td)
-        return FirFilter(FilterDescriptor(1,K/2,K-1),self.m_td)
+        K=len(self)
+        td=self.TimeDescriptor()
+        return FirFilter(FilterDescriptor(1,-td.H*td.Fs,K-1),self.Values())

@@ -38,9 +38,9 @@ class VirtualProbeNumericParser(VirtualProbeParser):
         ol = self.SystemDescription().pOutputList
         return [[FrequencyResponse(self.m_f,tm.Response(o+1,m+1))
             for m in range(len(ml))] for o in range(len(ol))]
-    def ImpulseResponses(self):
+    def ImpulseResponses(self,td=None,**args):
         fr = self.FrequencyResponses()
         ml = self.SystemDescription().pMeasurementList
         ol = self.SystemDescription().pOutputList
-        return [[fr[o][m].ImpulseResponse()
+        return [[fr[o][m].ImpulseResponse(td,**args)
             for m in range(len(ml))] for o in range(len(ol))]

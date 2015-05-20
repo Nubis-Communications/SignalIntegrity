@@ -26,28 +26,28 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         result.WriteToFile('vptm.s6p')
         os.remove('vptm.s6p')
         fr=vpp.FrequencyResponses()
-        ir=vpp.ImpulseResponses()
+        ir=vpp.ImpulseResponses(method='czt',adjustDelay=True)
         ml = vpp.SystemDescription().pMeasurementList
         ol = vpp.SystemDescription().pOutputList
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
         for o in range(len(ol)):
             for m in range(len(ml)):
-                plt.plot(fr[o][m].GHz(),fr[o][m].dB(),label=str(ol[o])+' due to '+str(ml[m]))
+                plt.plot(fr[o][m].Frequencies('GHz'),fr[o][m].Response('dB'),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
-        #plt.show()
+        plt.show()
         #plt.savefig('vp.png')
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
         for o in range(len(ol)):
             for m in range(len(ml)):
-                plt.plot(ir[o][m].ns(),ir[o][m].Response(),label=str(ol[o])+' due to '+str(ml[m]))
+                plt.plot(ir[o][m].Times('ns'),ir[o][m].Values(),label=str(ol[o])+' due to '+str(ml[m]))
         plt.legend(loc='upper right')
         plt.show()
         #plt.savefig('vptd.png')
-        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,2000,40.))
-        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,2000,40.))
+        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,2000,20.))
+        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,2000,20.))
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
@@ -56,13 +56,13 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         plt.legend(loc='upper right')
         #plt.show()
         CableTxWf=CableTxPWf-CableTxMWf
-        D20_2DueToD9_2=ir[2][0].FirFilter().FilterWaveform(CableTxPWf)
-        D20_2DueToD10_2=ir[2][1].FirFilter().FilterWaveform(CableTxMWf)
-        D21_2DueToD9_2=ir[3][0].FirFilter().FilterWaveform(CableTxPWf)
-        D21_2DueToD10_2=ir[3][1].FirFilter().FilterWaveform(CableTxMWf)
+        D20_2DueToD9_2=ir[ol.index(('D20',2))][ml.index(('D9',2))].FirFilter().FilterWaveform(CableTxPWf)
+        D20_2DueToD10_2=ir[ol.index(('D20',2))][ml.index(('D10',2))].FirFilter().FilterWaveform(CableTxMWf)
+        D21_2DueToD9_2=ir[ol.index(('D21',2))][ml.index(('D9',2))].FirFilter().FilterWaveform(CableTxPWf)
+        D21_2DueToD10_2=ir[ol.index(('D21',2))][ml.index(('D10',2))].FirFilter().FilterWaveform(CableTxMWf)
         D20_2=D20_2DueToD9_2+D20_2DueToD10_2
         D21_2=D21_2DueToD9_2+D21_2DueToD10_2
-        D20_2_D21_2Diff = (D20_2-D21_2).OffsetBy(0).DelayBy(-2.3)
+        D20_2_D21_2Diff = (D20_2-D21_2).OffsetBy(0).DelayBy(-4.7)
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')

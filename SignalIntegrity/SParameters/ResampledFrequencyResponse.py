@@ -12,7 +12,7 @@ class ResampledFrequencyResponse(FrequencyResponse):
         fl=FrequencyList(fl)
         method = args['method'] if 'method' in args else 'spline'
         truncate = args['truncate'] if 'truncate' in args else True
-        frf=fr.Frequency()
+        frf=fr.FrequencyList()
         if method == 'czt' and not frf.CheckEvenlySpaced():
                 method = 'spline'
         highSpeed = args['speed']=='high' if 'speed' in args else True
@@ -25,8 +25,8 @@ class ResampledFrequencyResponse(FrequencyResponse):
         elif method == 'czt':
             TD = cmath.phase(fr[-1])/(2.*math.pi*frf[-1]) if adjustDelay else 0.
             frd=FrequencyResponse(frf,[fr.Response()[n]*cmath.exp(-1j*2.*math.pi*frf[n]*TD) for n in range(len(fr))])
-            SppPrime=CZT(frd.ImpulseResponse(),frf[-1]*2.,0.,fl.m_Fe,fl.m_Np,highSpeed)
-            SppPrime = [SppPrime[np]*cmath.exp(1j*2.*math.pi*fl[np]*(TD+frf.m_Np/(frf[-1]*2.)))
-                if fl[np] <= frf[-1] or not truncate else 0.001
-                    for np in range(fl.m_Np+1)]
+            SppPrime=CZT(frd.ImpulseResponse(),frf[-1]*2.,0.,fl.Fe,fl.N,highSpeed)
+            SppPrime = [SppPrime[n]*cmath.exp(1j*2.*math.pi*fl[n]*(TD+frf.N/(frf[-1]*2.)))
+                if fl[n] <= frf[-1] or not truncate else 0.001
+                    for n in range(fl.N+1)]
         FrequencyResponse.__init__(self,fl,SppPrime)

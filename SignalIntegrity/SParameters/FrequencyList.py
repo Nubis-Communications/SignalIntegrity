@@ -1,38 +1,58 @@
 class FrequencyList(object):
     def __init__(self,f=None):
         if isinstance(f,FrequencyList):
-            self.m_fl=f.m_fl
-            self.m_Np=f.m_Np
-            self.m_Fe=f.m_Fe
+            self.List=f.List
+            self.N=f.N
+            self.Fe=f.Fe
             self.m_EvenlySpaced=f.m_EvenlySpaced
         elif isinstance(f,list): self.SetList(f)
-    def SetEvenlySpaced(self,Fe,Np):
-        self.m_Fe=Fe
-        self.m_Np=Np
-        self.m_fl=[Fe/Np*n for n in range(Np+1)]
+    def SetEvenlySpaced(self,Fe,N):
+        self.Fe=Fe
+        self.N=N
+        self.List=[Fe/N*n for n in range(N+1)]
         self.m_EvenlySpaced=True
         return self
     def SetList(self,fl):
-        self.m_fl=fl
-        self.m_Np=len(fl)-1
-        self.m_Fe=fl[-1]
+        self.List=fl
+        self.N=len(fl)-1
+        self.Fe=fl[-1]
         self.m_EvenlySpaced=False
         return self
     def EvenlySpaced(self):
         return self.m_EvenlySpaced
-    def List(self):
-        return self.m_fl
+    def Frequencies(self,unit=None):
+        if unit == None:
+            return self.List
+        elif isinstance(unit,float):
+            return (self/unit).Frequencies()
+        elif unit == 'GHz':
+            return (self/1.e9).Frequencies()
+        elif unit == 'MHz':
+            return (self/1.e6).Frequencies()
+        elif unit == 'KHz':
+            return (self/1.e3).Frequencies()
     def CheckEvenlySpaced(self,epsilon=0.001):
         if self.m_EvenlySpaced:
             return True
-        for n in range(self.m_Np+1):
-            if abs(self.m_fl[n]-self.m_Fe/self.m_Np*n) > epsilon:
+        for n in range(self.N+1):
+            if abs(self.List[n]-self.Fe/self.N*n) > epsilon:
                 self.m_EvenlySpaced=False
                 return False
-        self.SetEvenlySpaced(self.m_Fe,self.m_Np)
+        self.SetEvenlySpaced(self.Fe,self.N)
         return True
-    def __getitem__(self,item): return self.m_fl[item]
-    def __len__(self): return len(self.m_fl)
+    def __getitem__(self,item): return self.List[item]
+    def __len__(self): return len(self.List)
+    def __div__(self,d):
+        if self.EvenlySpaced():
+            return EvenlySpacedFrequencyList(self.Fe/d,self.N)
+        else:
+            return GenericFrequencyList([v/d for v in self.List])
+    def TimeDescriptor(self):
+        from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
+        N=self.N
+        Fs=2.*self.Fe
+        K=2*N
+        return TimeDescriptor(-K/2./Fs,K,Fs)
 
 class EvenlySpacedFrequencyList(FrequencyList):
     def __init__(self,Fe,Np):
@@ -43,9 +63,3 @@ class GenericFrequencyList(FrequencyList):
     def __init__(self,fl):
         FrequencyList.__init__(self)
         self.SetList(fl)
-
-
-
-
-
-
