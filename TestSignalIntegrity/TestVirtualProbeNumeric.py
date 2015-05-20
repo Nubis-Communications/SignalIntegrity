@@ -46,8 +46,8 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         plt.legend(loc='upper right')
         plt.show()
         #plt.savefig('vptd.png')
-        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,2000,20.))
-        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,2000,20.))
+        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,20000,20.))
+        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,20000,20.))
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
@@ -63,13 +63,26 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         D20_2=D20_2DueToD9_2+D20_2DueToD10_2
         D21_2=D21_2DueToD9_2+D21_2DueToD10_2
         D20_2_D21_2Diff = (D20_2-D21_2).OffsetBy(0).DelayBy(-4.7)
+        Results=si.wf.AdaptedWaveforms([CableTxWf,D20_2_D21_2Diff])
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
-        #plt.plot(D20_2.Times(),D20_2.Values(),label='D20_2')
-        #plt.plot(D21_2.Times(),D21_2.Values(),label='D21_2')
-        plt.plot(CableTxWf.Times(),CableTxWf.Values(),label='DiffIn')
-        plt.plot(D20_2_D21_2Diff.Times(),D20_2_D21_2Diff.Values(),label='DiffOut')
+        plt.plot(Results[0].Times(),Results[0].Values(),label='DiffIn')
+        plt.plot(Results[1].Times(),Results[1].Values(),label='DiffOut')
+        plt.legend(loc='upper right')
+        plt.show()
+        inputWf=[CableTxPWf,CableTxMWf]
+        outputWf=vpp.ProcessWaveforms(inputWf)
+        DiffIn=(inputWf[0]-inputWf[1])
+        DiffOut=(outputWf[ol.index(('D20',2))]-outputWf[ol.index(('D21',2))]).DelayBy(-4.7)
+        Results=si.wf.AdaptedWaveforms([DiffIn,DiffOut])
+        DiffIn=Results[0]
+        DiffOut=Results[1]
+        plt.clf()
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.plot(DiffIn.Times(),DiffIn.Values(),label='DiffIn')
+        plt.plot(DiffOut.Times(),DiffOut.Values(),label='DiffOut')
         plt.legend(loc='upper right')
         plt.show()
 

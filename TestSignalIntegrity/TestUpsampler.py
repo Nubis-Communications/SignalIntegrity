@@ -101,7 +101,6 @@ class TestUpsampler(unittest.TestCase):
         os.chdir('.//DesignCon2008//')
         CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,50,20.))
         CableTxPWfUpsampled=si.f.UpsamplerLinear(10,0.3).FilterWaveform(CableTxPWf)
-        si.f.UpsamplerLinear(10,0.3).Print()
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')

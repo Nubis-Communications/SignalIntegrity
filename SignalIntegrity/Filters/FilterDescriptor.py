@@ -22,7 +22,3 @@ class FilterDescriptor(object):
         print 'TrimLeft:       '+str(self.TrimLeft())
         print 'TrimRight:      '+str(self.TrimRight())
         print 'TrimTotal:      '+str(self.TrimTotal())
-
-class WaveformTrimmer(FilterDescriptor):
-    def __init__(self,TrimLeft,TrimRight):
-        FilterDescriptor.__init__(self,1,TrimRight,TrimLeft+TrimRight)

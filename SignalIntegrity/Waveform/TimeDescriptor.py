@@ -34,9 +34,8 @@ class TimeDescriptor(object):
             HorOffset=self.H+(F.S-F.D)/self.Fs,
             NumPts=(self.N-F.S)*F.U,
             SampleRate=self.Fs*F.U)
-        return self
     def __mul__(self,F):
-        return ApplyFilter(self,F)
+        return self.ApplyFilter(F)
     def __div__(self,other):
         if isinstance(other,FilterDescriptor):
             return TimeDescriptor(
@@ -63,3 +62,5 @@ class TimeDescriptor(object):
             HorOffset=max(self.H,other.H),
             NumPts=max(0,min(self.TimeOfPoint(self.N),other.TimeOfPoint(other.N))-max(self.H,other.H))*self.Fs,
             SampleRate=self.Fs)
+    def TimeOfPoint(self,k):
+        return self.H+float(k)/self.Fs

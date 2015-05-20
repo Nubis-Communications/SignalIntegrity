@@ -40,7 +40,9 @@ class VirtualProbeNumericParser(VirtualProbeParser):
             for m in range(len(ml))] for o in range(len(ol))]
     def ImpulseResponses(self,td=None,**args):
         fr = self.FrequencyResponses()
-        ml = self.SystemDescription().pMeasurementList
-        ol = self.SystemDescription().pOutputList
-        return [[fr[o][m].ImpulseResponse(td,**args)
-            for m in range(len(ml))] for o in range(len(ol))]
+        return [[fro_m.ImpulseResponse(td,**args) for fro_m in fro]
+            for fro in fr]
+    def ProcessWaveforms(self,wfl,td=None,**args):
+        ir = self.ImpulseResponses(td,**args)
+        return [sum([iro[m].FirFilter().FilterWaveform(wfl[m])
+            for m in range(len(iro))]) for iro in ir]

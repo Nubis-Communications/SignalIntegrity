@@ -1,4 +1,5 @@
 from TimeDescriptor import TimeDescriptor
+from AdaptedWaveforms import AdaptedWaveforms
 
 class Waveform(object):
     def __init__(self,x=None,y=None):
@@ -33,9 +34,28 @@ class Waveform(object):
     def __add__(self,other):
         if self.TimeDescriptor() == other.TimeDescriptor():
             return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
+        else:
+            awf=AdaptedWaveforms([self,other])
+            return awf[0]+awf[1]
     def __sub__(self,other):
         if self.TimeDescriptor() == other.TimeDescriptor():
             return Waveform(self.TimeDescriptor(),[self[k]-other[k] for k in range(len(self))])
+        else:
+            awf=AdaptedWaveforms([self,other])
+            return awf[0]-awf[1]
+    def __radd__(self, other):
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
+    def __mul__(self,other):
+        from SignalIntegrity.Filters.FirFilter import FirFilter
+        from SignalIntegrity.Filters.WaveformTrimmer import WaveformTrimmer
+        if isinstance(other,FirFilter):
+            return other.FilterWaveform(self)
+        elif isinstance(other,WaveformTrimmer):
+            return other.TrimWaveform(self)
+
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):
