@@ -7,7 +7,7 @@ from SignalIntegrity.SParameters.ImpulseResponse import ImpulseResponse
 from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
 
 class FrequencyResponse(object):
-    def __init__(self,f,resp):
+    def __init__(self,f=None,resp=None):
         self.m_f=FrequencyList(f)
         self.m_resp=resp
     def __getitem__(self,item): return self.m_resp[item]
@@ -57,4 +57,32 @@ class FrequencyResponse(object):
     def Resample(self,fl,**args):
         from SignalIntegrity.SParameters.ResampledFrequencyResponse import ResampledFrequencyResponse
         self = ResampledFrequencyResponse(self,fl,**args)
+        return self
+    def ReadFromFile(self,fileName):
+        with open(fileName,"rU") as f:
+            data=f.readlines()
+        if data[0]=='EvenlySpaced':
+            N = int(str(data[1]))
+            Fe = float(str(data[2]))
+            resp=[complex(v) for v in data[3:]]
+            self.m_f=EvenlySpacedFrequencyList(Fe,N)
+            self.m_resp=resp
+        else:
+            frl=[line.split(' ') for line in data[0:]]
+            f=[float(fr[0]) for fr in frl]
+            resp=[complex(fr[1] for fr in frl)]
+            self.m_f=GenericFrequencyList(f)
+        return self
+    def WriteToFile(self,fileName):
+        fl=self.FrequencyList()
+        with open(fileName,"w") as f:
+            if fl.CheckEvenlySpaced():
+                f.write('EvenlySpaced\n')
+                f.write(str(fl.N)+'\n')
+                f.write(str(fl.Fe)+'\n')
+                for v in self.Response():
+                    f.write(str(v)+'\n')
+            else:
+                for n in len(fl):
+                    f.write(str(fl[n])+' '+str(self.Response()[n])+'\n')
         return self

@@ -24,7 +24,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         result = vpp.TransferMatrices()
         result.WriteToFile('vptm.s6p')
-        os.remove('vptm.s6p')
+        #os.remove('vptm.s6p')
         fr=vpp.FrequencyResponses()
         ir=vpp.ImpulseResponses(method='czt',adjustDelay=True)
         ml = vpp.SystemDescription().pMeasurementList
@@ -34,6 +34,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         for o in range(len(ol)):
             for m in range(len(ml)):
                 plt.plot(fr[o][m].Frequencies('GHz'),fr[o][m].Response('dB'),label=str(ol[o])+' due to '+str(ml[m]))
+                fr[o][m].WriteToFile(str(ol[o])+'_due_to_'+str(ml[m])+'.txt')
         plt.legend(loc='upper right')
         plt.show()
         #plt.savefig('vp.png')
@@ -46,45 +47,42 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         plt.legend(loc='upper right')
         plt.show()
         #plt.savefig('vptd.png')
-        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,20000,20.))
-        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,20000,20.))
-        plt.clf()
-        plt.xlabel('time (ns)')
-        plt.ylabel('amplitude')
-        plt.plot(CableTxPWf.Times(),CableTxPWf.Values(),label='CableTxP')
-        plt.plot(CableTxMWf.Times(),CableTxMWf.Values(),label='CableTxM')
-        plt.legend(loc='upper right')
-        #plt.show()
-        CableTxWf=CableTxPWf-CableTxMWf
-        D20_2DueToD9_2=ir[ol.index(('D20',2))][ml.index(('D9',2))].FirFilter().FilterWaveform(CableTxPWf)
-        D20_2DueToD10_2=ir[ol.index(('D20',2))][ml.index(('D10',2))].FirFilter().FilterWaveform(CableTxMWf)
-        D21_2DueToD9_2=ir[ol.index(('D21',2))][ml.index(('D9',2))].FirFilter().FilterWaveform(CableTxPWf)
-        D21_2DueToD10_2=ir[ol.index(('D21',2))][ml.index(('D10',2))].FirFilter().FilterWaveform(CableTxMWf)
-        D20_2=D20_2DueToD9_2+D20_2DueToD10_2
-        D21_2=D21_2DueToD9_2+D21_2DueToD10_2
-        D20_2_D21_2Diff = (D20_2-D21_2).OffsetBy(0).DelayBy(-4.7)
-        Results=si.wf.AdaptedWaveforms([CableTxWf,D20_2_D21_2Diff])
-        plt.clf()
-        plt.xlabel('time (ns)')
-        plt.ylabel('amplitude')
-        plt.plot(Results[0].Times(),Results[0].Values(),label='DiffIn')
-        plt.plot(Results[1].Times(),Results[1].Values(),label='DiffOut')
-        plt.legend(loc='upper right')
-        plt.show()
-        inputWf=[CableTxPWf,CableTxMWf]
+##        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,2000,20.e9))
+##        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,2000,20.e9))
+##        CableTxPWf.WriteToFile('CableTxPWf.txt')
+##        CableTxMWf.WriteToFile('CableTxMWf.txt')
+        ThruBackplaneP=si.wf.WaveformFileAmplitudeOnly('ThruBackplaneP.txt',si.wf.TimeDescriptor(0,2000,20.e9))
+        ThruBackplaneM=si.wf.WaveformFileAmplitudeOnly('ThruBackplaneM.txt',si.wf.TimeDescriptor(0,2000,20.e9))
+        ThruBackplaneDiff=ThruBackplaneP-ThruBackplaneM
+        inputWf=[si.wf.Waveform().ReadFromFile(fileName) for fileName in ['CableTxPWf.txt','CableTxMWf.txt']]
         outputWf=vpp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
-        DiffOut=(outputWf[ol.index(('D20',2))]-outputWf[ol.index(('D21',2))]).DelayBy(-4.7)
-        Results=si.wf.AdaptedWaveforms([DiffIn,DiffOut])
-        DiffIn=Results[0]
-        DiffOut=Results[1]
+        DiffOutTop=(outputWf[ol.index(('D20',2))]-outputWf[ol.index(('D21',2))]).DelayBy(-4.7e-9)
+        DiffOutMid=(outputWf[ol.index(('D11',2))]-outputWf[ol.index(('D12',2))]).DelayBy(-4.7e-9)
+        DiffOutBot=(outputWf[ol.index(('R1',1))]-outputWf[ol.index(('R2',2))]).DelayBy(-2.325e-9)
+        ThruBackplaneDiff.DelayBy(-4.7e-9)
+        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.wf.AdaptedWaveforms([DiffIn*si.f.Upsampler(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
-        plt.plot(DiffIn.Times(),DiffIn.Values(),label='DiffIn')
-        plt.plot(DiffOut.Times(),DiffOut.Values(),label='DiffOut')
+        plt.plot(DiffIn.Times('ns'),DiffIn.Values(),label='DiffIn')
+        plt.plot(DiffOutTop.Times('ns'),DiffOutTop.Values(),label='DiffOutTop')
+        plt.plot(DiffOutMid.Times('ns'),DiffOutMid.Values(),label='DiffOutMid')
+        plt.plot(DiffOutBot.Times('ns'),DiffOutBot.Values(),label='DiffOutBot')
         plt.legend(loc='upper right')
         plt.show()
+##        plt.clf()
+##        plt.xlabel('time (ns)')
+##        plt.ylabel('amplitude')
+##        fb=2.501234
+##        plt.scatter([(t-0.11) % (1./fb) for t in DiffIn.Times('ns')],DiffIn.Values(),label='DiffIn')
+##        plt.scatter([(t-0.11) % (1./fb) for t in DiffOutTop.Times('ns')],DiffOutTop.Values(),label='DiffOutTop')
+##        #plt.plot([t % 1./fb for t in DiffOutMid.Times('ns')],DiffOutMid.Values(),label='DiffOutMid')
+##        #plt.plot([t % 1./fb for t in DiffOutBot.Times('ns')],DiffOutBot.Values(),label='DiffOutBot')
+##        plt.legend(loc='upper right')
+##        plt.show()
+
+
 
 if __name__ == '__main__':
     unittest.main()

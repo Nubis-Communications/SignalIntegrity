@@ -64,3 +64,7 @@ class TimeDescriptor(object):
             SampleRate=self.Fs)
     def TimeOfPoint(self,k):
         return self.H+float(k)/self.Fs
+    def Print(self):
+        print 'HorOffset:  '+str(self.H)
+        print 'NumPts:     '+str(self.N)
+        print 'SampleRate: '+str(self.Fs)

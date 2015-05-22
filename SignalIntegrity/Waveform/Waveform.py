@@ -55,7 +55,25 @@ class Waveform(object):
             return other.FilterWaveform(self)
         elif isinstance(other,WaveformTrimmer):
             return other.TrimWaveform(self)
-
+    def ReadFromFile(self,fileName):
+        with open(fileName,"rU") as f:
+            data=f.readlines()
+            HorOffset=float(data[0])
+            NumPts=int(data[1])
+            SampleRate=float(data[2])
+            Values=[float(v) for v in data[3:]]
+        self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)
+        self.m_y=Values
+        return self
+    def WriteToFile(self,fileName):
+        with open(fileName,"w") as f:
+            td=self.TimeDescriptor()
+            f.write(str(td.H)+'\n')
+            f.write(str(td.N)+'\n')
+            f.write(str(td.Fs)+'\n')
+            for v in self.Values():
+                f.write(str(v)+'\n')
+        return self
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):
