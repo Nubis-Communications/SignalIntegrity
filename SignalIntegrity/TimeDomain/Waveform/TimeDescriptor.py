@@ -1,4 +1,4 @@
-from SignalIntegrity.Filters.FilterDescriptor import FilterDescriptor
+from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 
 class TimeDescriptor(object):
     def __init__(self,HorOffset,NumPts,SampleRate):
@@ -10,9 +10,9 @@ class TimeDescriptor(object):
     def __getitem__(self,item):
         return item/self.Fs+self.H
     def __eq__(self,other):
-        if self.H != other.H: return False
+        if abs(self.H - other.H) > 1e-15: return False
         if self.N != other.N: return False
-        if self.Fs != other.Fs: return False
+        if abs(self.Fs - other.Fs) > 1e-15: return False
         return True
     def __ne__(self,other):
         return not self == other

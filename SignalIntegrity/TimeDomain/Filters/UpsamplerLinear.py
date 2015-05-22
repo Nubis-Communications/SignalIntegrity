@@ -14,8 +14,8 @@ class Upsampler(FirFilter):
             [float(u+1)/float(U) for u in range(U)]+
             [1-float(u+1)/float(U) for u in range(U)])
     def FilterWaveform(self,wf):
-        from SignalIntegrity.Waveform.Waveform import Waveform
-        from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
+        from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
+        from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
         fd=self.FilterDescriptor()
         us=[0. for k in range(len(wf)*fd.U+fd.U-1)]
         for k in range(len(wf)):

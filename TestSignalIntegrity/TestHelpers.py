@@ -12,6 +12,7 @@
 import os
 import sys
 from cStringIO import StringIO
+import SignalIntegrity as si
 
 class SParameterCompareHelper(object):
     def SParametersAreEqual(self,lhs,rhs,epsilon):
@@ -24,6 +25,36 @@ class SParameterCompareHelper(object):
                     if abs(lhs.m_d[n][r][c] - rhs.m_d[n][r][c]) > epsilon:
                         return False
         return True
+
+
+class ResponseTesterHelper(SParameterCompareHelper):
+    def CheckFrequencyResponseResult(self,fr,fileName,text):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        if not os.path.exists(fileName):
+            fr.WriteToFile(fileName)
+            self.assertTrue(False, fileName + ' not found')
+        regression=si.sp.FrequencyResponse().ReadFromFile(fileName)
+        os.chdir(path)
+        self.assertTrue(regression == fr,text + ' incorrect')
+    def CheckWaveformResult(self,wf,fileName,text):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        if not os.path.exists(fileName):
+            wf.WriteToFile(fileName)
+            self.assertTrue(False, fileName + ' not found')
+        regression=si.td.wf.Waveform().ReadFromFile(fileName)
+        os.chdir(path)
+        self.assertTrue(regression == wf,text + ' incorrect')
+    def CheckSParametersResult(self,sp,fileName,text):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        if not os.path.exists(fileName):
+            sp.WriteToFile(fileName)
+            self.assertTrue(False, fileName + ' not found')
+        regression=si.sp.File(fileName)
+        os.chdir(path)
+        self.assertTrue(self.SParametersAreEqual(sp,regression,0.00001),text + ' incorrect')
 
 class SourcesTesterHelper(object):
     def CheckSymbolicResult(self,selfid,symbolic,Text):

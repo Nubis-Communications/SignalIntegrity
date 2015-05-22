@@ -1,6 +1,5 @@
 import unittest
 import SignalIntegrity as si
-import math
 from numpy import empty
 import os
 from TestHelpers import *

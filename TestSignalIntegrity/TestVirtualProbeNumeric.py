@@ -1,19 +1,16 @@
 import unittest
 
 import SignalIntegrity as si
-from numpy import linalg
-from numpy import array
-from numpy import matrix
-from numpy import fft
-from numpy import convolve
-import copy
-import math
 import os
 
 import matplotlib.pyplot as plt
 
-class TestVirtualProbeNumeric(unittest.TestCase):
+from TestHelpers import *
+from pickle import mloads
+
+class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
     def testVirtualProbeDC2008(self):
+        fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         os.chdir('.//DesignCon2008//')
         Fs=20.e9
@@ -23,20 +20,22 @@ class TestVirtualProbeNumeric(unittest.TestCase):
 ##        return
         vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         result = vpp.TransferMatrices()
-        result.WriteToFile('vptm.s6p')
+        self.CheckSParametersResult(result, './/DesignCon2008//VirtualProbeTransferMatrices.s6p', fileNameBase)
+        #result.WriteToFile('vptm.s6p')
         #os.remove('vptm.s6p')
         fr=vpp.FrequencyResponses()
         ir=vpp.ImpulseResponses(method='czt',adjustDelay=True)
-        ml = vpp.SystemDescription().pMeasurementList
-        ol = vpp.SystemDescription().pOutputList
+        ml = [m[0]+'_'+str(m[1]) for m in vpp.SystemDescription().pMeasurementList]
+        ol = [o[0]+'_'+str(o[1]) for o in vpp.SystemDescription().pOutputList]
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
         for o in range(len(ol)):
             for m in range(len(ml)):
                 plt.plot(fr[o][m].Frequencies('GHz'),fr[o][m].Response('dB'),label=str(ol[o])+' due to '+str(ml[m]))
-                fr[o][m].WriteToFile(str(ol[o])+'_due_to_'+str(ml[m])+'.txt')
+                #fr[o][m].WriteToFile('FrequencyResponse_'+ol[o]+'_due_to_'+ml[m]+'.txt')
+                self.CheckFrequencyResponseResult(fr[o][m],'.//DesignCon2008//FrequencyResponse_'+ol[o]+'_due_to_'+ml[m]+'.txt',fileNameBase)
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
         #plt.savefig('vp.png')
         plt.clf()
         plt.xlabel('time (ns)')
@@ -44,24 +43,36 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         for o in range(len(ol)):
             for m in range(len(ml)):
                 plt.plot(ir[o][m].Times('ns'),ir[o][m].Values(),label=str(ol[o])+' due to '+str(ml[m]))
+                #ir[o][m].WriteToFile('ImpulseResponse_'+str(ol[o])+'_due_to_'+str(ml[m])+'.txt')
+                self.CheckWaveformResult(ir[o][m],'.//DesignCon2008//ImpulseResponse_'+ol[o]+'_due_to_'+ml[m]+'.txt',fileNameBase)
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
         #plt.savefig('vptd.png')
-##        CableTxPWf=si.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.wf.TimeDescriptor(0,2000,20.e9))
-##        CableTxMWf=si.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.wf.TimeDescriptor(0,2000,20.e9))
-##        CableTxPWf.WriteToFile('CableTxPWf.txt')
-##        CableTxMWf.WriteToFile('CableTxMWf.txt')
-        ThruBackplaneP=si.wf.WaveformFileAmplitudeOnly('ThruBackplaneP.txt',si.wf.TimeDescriptor(0,2000,20.e9))
-        ThruBackplaneM=si.wf.WaveformFileAmplitudeOnly('ThruBackplaneM.txt',si.wf.TimeDescriptor(0,2000,20.e9))
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        os.chdir('.//DesignCon2008//')
+        CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
+        CableTxMWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxM.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
+        CableTxPWf.WriteToFile('CableTxPWf.txt')
+        CableTxMWf.WriteToFile('CableTxMWf.txt')
+        ThruBackplaneP=si.td.wf.WaveformFileAmplitudeOnly('ThruBackplaneP.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
+        ThruBackplaneM=si.td.wf.WaveformFileAmplitudeOnly('ThruBackplaneM.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
         ThruBackplaneDiff=ThruBackplaneP-ThruBackplaneM
-        inputWf=[si.wf.Waveform().ReadFromFile(fileName) for fileName in ['CableTxPWf.txt','CableTxMWf.txt']]
-        outputWf=vpp.ProcessWaveforms(inputWf)
+        inputWf=[si.td.wf.Waveform().ReadFromFile(fileName) for fileName in ['CableTxPWf.txt','CableTxMWf.txt']]
+        outputWf=vpp.ProcessWaveforms(inputWf,method='czt',adjustDelay=True)
         DiffIn=(inputWf[0]-inputWf[1])
-        DiffOutTop=(outputWf[ol.index(('D20',2))]-outputWf[ol.index(('D21',2))]).DelayBy(-4.7e-9)
-        DiffOutMid=(outputWf[ol.index(('D11',2))]-outputWf[ol.index(('D12',2))]).DelayBy(-4.7e-9)
-        DiffOutBot=(outputWf[ol.index(('R1',1))]-outputWf[ol.index(('R2',2))]).DelayBy(-2.325e-9)
+        self.CheckWaveformResult(DiffIn,'.//DesignCon2008//DiffIn.txt',fileNameBase)
+        DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
+        self.CheckWaveformResult(DiffOutTop,'.//DesignCon2008//DiffOutTop.txt',fileNameBase)
+        DiffOutMid=(outputWf[ol.index(('D11_2'))]-outputWf[ol.index(('D12_2'))]).DelayBy(-4.7e-9)
+        self.CheckWaveformResult(DiffOutMid,'.//DesignCon2008//DiffOutMid.txt',fileNameBase)
+        DiffOutBot=(outputWf[ol.index(('R1_1'))]-outputWf[ol.index(('R2_2'))]).DelayBy(-2.325e-9)
+        self.CheckWaveformResult(DiffOutBot,'.//DesignCon2008//DiffOutBot.txt',fileNameBase)
         ThruBackplaneDiff.DelayBy(-4.7e-9)
-        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.wf.AdaptedWaveforms([DiffIn*si.f.Upsampler(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
+        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.Upsampler(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
+        self.CheckWaveformResult(DiffIn,'.//DesignCon2008//DiffInAdapted.txt',fileNameBase)
+        self.CheckWaveformResult(DiffOutTop,'.//DesignCon2008//DiffOutTopAdapted.txt',fileNameBase)
+        self.CheckWaveformResult(DiffOutMid,'.//DesignCon2008//DiffOutMidAdapted.txt',fileNameBase)
+        self.CheckWaveformResult(DiffOutBot,'.//DesignCon2008//DiffOutBotAdapted.txt',fileNameBase)        
         plt.clf()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
@@ -70,7 +81,7 @@ class TestVirtualProbeNumeric(unittest.TestCase):
         plt.plot(DiffOutMid.Times('ns'),DiffOutMid.Values(),label='DiffOutMid')
         plt.plot(DiffOutBot.Times('ns'),DiffOutBot.Values(),label='DiffOutBot')
         plt.legend(loc='upper right')
-        plt.show()
+        #plt.show()
 ##        plt.clf()
 ##        plt.xlabel('time (ns)')
 ##        plt.ylabel('amplitude')
@@ -81,8 +92,6 @@ class TestVirtualProbeNumeric(unittest.TestCase):
 ##        #plt.plot([t % 1./fb for t in DiffOutBot.Times('ns')],DiffOutBot.Values(),label='DiffOutBot')
 ##        plt.legend(loc='upper right')
 ##        plt.show()
-
-
 
 if __name__ == '__main__':
     unittest.main()

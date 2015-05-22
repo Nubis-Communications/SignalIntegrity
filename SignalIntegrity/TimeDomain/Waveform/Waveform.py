@@ -49,8 +49,8 @@ class Waveform(object):
         else:
             return self.__add__(other)
     def __mul__(self,other):
-        from SignalIntegrity.Filters.FirFilter import FirFilter
-        from SignalIntegrity.Filters.WaveformTrimmer import WaveformTrimmer
+        from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
+        from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
         if isinstance(other,FirFilter):
             return other.FilterWaveform(self)
         elif isinstance(other,WaveformTrimmer):
@@ -74,6 +74,17 @@ class Waveform(object):
             for v in self.Values():
                 f.write(str(v)+'\n')
         return self
+    def __eq__(self,other):
+        if self.TimeDescriptor() != other.TimeDescriptor():
+            return False
+        if len(self.Values()) != len(other.Values()):
+            return False
+        for k in range(len(self.Values())):
+            if abs(self.Values()[k]-other.Values()[k])>1e-6:
+                return False
+        return True
+    def __ne__(self,other):
+        return not self == other
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):
@@ -88,7 +99,7 @@ class WaveformFileAmplitudeOnly(Waveform):
         with open(fileName,'rb') as f:
             wf = [float(line) for line in f]
         if NumPts==0:
-            NumpPts=len(wf)
+            NumPts=len(wf)
         else:
             if len(wf) > NumPts:
                 wf = [wf[k] for k in range(NumPts)]

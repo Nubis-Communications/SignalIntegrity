@@ -3,8 +3,10 @@ import math
 import cmath
 
 from SignalIntegrity.SParameters.FrequencyList import FrequencyList
+from SignalIntegrity.SParameters.FrequencyList import EvenlySpacedFrequencyList
+from SignalIntegrity.SParameters.FrequencyList import GenericFrequencyList
 from SignalIntegrity.SParameters.ImpulseResponse import ImpulseResponse
-from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
+from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 
 class FrequencyResponse(object):
     def __init__(self,f=None,resp=None):
@@ -61,7 +63,7 @@ class FrequencyResponse(object):
     def ReadFromFile(self,fileName):
         with open(fileName,"rU") as f:
             data=f.readlines()
-        if data[0]=='EvenlySpaced':
+        if data[0].strip('\n')=='EvenlySpaced':
             N = int(str(data[1]))
             Fe = float(str(data[2]))
             resp=[complex(v) for v in data[3:]]
@@ -86,3 +88,15 @@ class FrequencyResponse(object):
                 for n in len(fl):
                     f.write(str(fl[n])+' '+str(self.Response()[n])+'\n')
         return self
+    def __eq__(self,other):
+        if self.FrequencyList() != other.FrequencyList():
+            return False
+        if len(self.Response()) != len(other.Response()):
+            return False
+        for k in range(len(self.Response())):
+            if abs(self.Response()[k] - other.Response()[k]) > 1e-5:
+                return False
+        return True
+    def __ne__(self,other):
+        return not self == other
+

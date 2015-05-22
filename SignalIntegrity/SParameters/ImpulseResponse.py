@@ -1,9 +1,9 @@
 from numpy import fft
 
-from SignalIntegrity.Waveform.TimeDescriptor import TimeDescriptor
-from SignalIntegrity.Waveform.Waveform import Waveform
-from SignalIntegrity.Filters.FilterDescriptor import FilterDescriptor
-from SignalIntegrity.Filters.FirFilter import FirFilter
+from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
+from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
 
 class ImpulseResponse(Waveform):
     def __init__(self,t,td):
