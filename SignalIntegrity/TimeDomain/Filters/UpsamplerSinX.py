@@ -1,18 +1,32 @@
 from FirFilter import FirFilter
-import copy
 
-class FractionalDelayFilterLinear(FirFilter):
+import copy
+import math
+
+def SinXFunc(ku,K,U,F):
+    if float(ku)/U-F-K/2==0:
+        return 1.
+    else:
+        return math.sin(math.pi*(float(ku)/U-F-K/2))/(math.pi*(float(ku)/U-F-K/2))*\
+            (1./2.+1./2.*math.cos(math.pi*(float(ku)/U-K/2)/(K/2)))
+
+class FractionalDelayFilterSinX(FirFilter):
     def __init__(self,F,accountForDelay=True):
         from FilterDescriptor import FilterDescriptor
-        FirFilter.__init__(self,FilterDescriptor(1,F if accountForDelay else 0,1),[1-F,F])
+        K=128
+        U=1
+        FirFilter.__init__(self,
+            FilterDescriptor(U,K/2+F if accountForDelay else K/2,K-1),
+            [SinXFunc(ku,K,U,F) for ku in range(K)])
 
-class UpsamplerLinear(FirFilter):
+class UpsamplerSinX(FirFilter):
     def __init__(self,U):
         from FilterDescriptor import FilterDescriptor
+        K=128
+        F=0.
         FirFilter.__init__(self,
-            FilterDescriptor(U,(U-1.)/float(U),1),
-            [float(u+1)/float(U) for u in range(U)]+
-            [1-float(u+1)/float(U) for u in range(U)])
+            FilterDescriptor(U,K/2,K-1),
+            [SinXFunc(ku,K,U,F) for ku in range(K*U)])
     def FilterWaveform(self,wf):
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
@@ -22,9 +36,9 @@ class UpsamplerLinear(FirFilter):
             us[k*fd.U+fd.U-1]=wf.Values()[k]
         return FirFilter.FilterWaveform(self,Waveform(wf.TimeDescriptor(),us))
 
-class UpsamplerFractionalDelayFilterLinear(object):
+class UpsamplerFractionalDelayFilterSinX(object):
     def __init__(self,U,F,accountForDelay=True):
-        self.fdf = FractionalDelayFilterLinear(F,accountForDelay)
-        self.usf = UpsamplerLinear(U)
+        self.fdf = FractionalDelayFilterSinX(F,accountForDelay)
+        self.usf = UpsamplerSinX(U)
     def FilterWaveform(self,wf):
         return self.usf.FilterWaveform(self.fdf.FilterWaveform(wf))
