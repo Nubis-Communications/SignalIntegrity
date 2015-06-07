@@ -8,7 +8,37 @@ from SignalIntegrity.Splines import Spline
 from SignalIntegrity.ChirpZTransform import CZT
 
 class ResampledFrequencyResponse(FrequencyResponse):
+    """Resamples a frequency response onto a new frequency axis.
+
+    Attributes:
+        none
+    """
     def __init__(self,fr,fl,**args):
+        """Produces a new resampled FrequencyResponse from a given
+        FrequencyResponse resampled onto a new Frequency scale given
+        by the FrequencyList according to the args.
+
+        Args:
+            fr (FrequencyResponse) a frequency response to be resampled.
+            fl (FrequencyList) a frequency list containing the new scale.
+            args (dict): valid arguments are:
+                method: 'spline' or 'czt' - defaults to 'spline'
+                    the response will be resampled using either splines or
+                    the chirp z-transform method.
+                truncate: True or False - defaults to True
+                    the response will be truncated above the frequency information
+                    in the original frequency list contained in the frequency response
+                    provided.
+                speed: 'high' or 'low' - defaults to 'high'
+                    for debugging.  Determines whether the very simple but slow
+                    or the complicated but fast definition of the chirp z-transform
+                    is used if method=='czt'
+                adjustDelay: True or False - defaults to True
+                    when using method=='czt', a delay is employed to enforce realness
+                    of the last frequency response point during calculation.
+        Notes:
+
+        """
         fl=FrequencyList(fl)
         method = args['method'] if 'method' in args else 'spline'
         truncate = args['truncate'] if 'truncate' in args else True
