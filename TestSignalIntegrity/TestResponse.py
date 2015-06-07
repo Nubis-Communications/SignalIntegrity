@@ -4,6 +4,8 @@ from numpy import empty
 import os
 from TestHelpers import *
 
+import matplotlib.pyplot as plt
+
 class TestResponse(unittest.TestCase,SParameterCompareHelper):
     def testResampleResponseCompareSpline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -132,6 +134,33 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
             filterres.WriteToFile('filterres.s2p')
         regression=si.sp.File('filterres.s2p')
         self.assertTrue(self.SParametersAreEqual(filterres,regression,0.001),self.id()+'result not same')
+    def irc(self):
+        x = [0,0,0,0,0,0,0,0,0,0,1.5,0,-0.5,0,0,0,0,0,0,0]
+        td = si.td.wf.TimeDescriptor(-9.8,20,1.)
+        return si.sp.ImpulseResponse(td,x)
+    def frc(self):
+        return self.irc().FrequencyResponse2(None,adjustDelay=True)
+    def testResFr1(self):
+        Np=103
+        Fep=0.51
+        frc=self.frc()
+        irc=frc.ImpulseResponse2(None,adjustDelay=True)
+        frr=frc.Resample2(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.plot(frc.Frequencies(),frc.Response('mag'),label='original')
+        plt.plot(frr.Frequencies(),frr.Response('mag'),label='resampled')
+        plt.legend(loc='upper right')
+        plt.show()
+        plt.clf()
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('phase (deg)')
+        plt.plot(frc.Frequencies(),frc.Response('deg'),label='original')
+        plt.plot(frr.Frequencies(),frr.Response('deg'),label='resampled')
+        plt.legend(loc='upper right')
+        plt.show()
+
+
 
 if __name__ == '__main__':
     unittest.main()

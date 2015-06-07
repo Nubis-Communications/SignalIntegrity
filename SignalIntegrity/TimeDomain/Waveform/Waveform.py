@@ -29,8 +29,7 @@ class Waveform(object):
         self.m_y = [y+v for y in self.m_y]
         return self
     def DelayBy(self,d):
-        self.m_t.DelayBy(d)
-        return self
+        return Waveform(self.TimeDescriptor().DelayBy(d),self.Values())
     def __add__(self,other):
         if self.TimeDescriptor() == other.TimeDescriptor():
             return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
