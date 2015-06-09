@@ -16,7 +16,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         Fs=20.e9
         Fe=Fs/2
         N=200
-##        si.sp.ResampledSParameters(si.sp.File('XRAY041.s4p'),si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
+##        si.sp.File('XRAY041.s4p').Resample(si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
         vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         result = vpp.TransferMatrices()
@@ -24,7 +24,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         #result.WriteToFile('vptm.s6p')
         #os.remove('vptm.s6p')
         fr=vpp.FrequencyResponses()
-        ir=vpp.ImpulseResponses(method='czt',adjustDelay=True)
+        ir=vpp.ImpulseResponses(Fs)
         ml = [m[0]+'_'+str(m[1]) for m in vpp.SystemDescription().pMeasurementList]
         ol = [o[0]+'_'+str(o[1]) for o in vpp.SystemDescription().pOutputList]
         plt.xlabel('frequency (GHz)')
@@ -56,7 +56,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         ThruBackplaneM=si.td.wf.WaveformFileAmplitudeOnly('ThruBackplaneM.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
         ThruBackplaneDiff=ThruBackplaneP-ThruBackplaneM
         inputWf=[si.td.wf.Waveform().ReadFromFile(fileName) for fileName in ['Waveform_CableTxPWf.txt','Waveform_CableTxMWf.txt']]
-        outputWf=vpp.ProcessWaveforms(inputWf,method='czt',adjustDelay=True)
+        outputWf=vpp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
         self.CheckWaveformResult(DiffIn,'.//DesignCon2008//Waveform_DiffIn.txt',fileNameBase)
         DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
@@ -71,6 +71,16 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         self.CheckWaveformResult(DiffOutTop,'.//DesignCon2008//Waveform_DiffOutTopAdapted.txt',fileNameBase)
         self.CheckWaveformResult(DiffOutMid,'.//DesignCon2008//Waveform_DiffOutMidAdapted.txt',fileNameBase)
         self.CheckWaveformResult(DiffOutBot,'.//DesignCon2008//Waveform_DiffOutBotAdapted.txt',fileNameBase)
+
+##        inputWf[0]=inputWf[0]*si.td.f.UpsamplerSinX(2)
+##        outputWf=vpp.ProcessWaveforms(inputWf)
+##        DiffIn=(inputWf[0]-inputWf[1])
+##        DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
+##        DiffOutMid=(outputWf[ol.index(('D11_2'))]-outputWf[ol.index(('D12_2'))]).DelayBy(-4.7e-9)
+##        DiffOutBot=(outputWf[ol.index(('R1_1'))]-outputWf[ol.index(('R2_2'))]).DelayBy(-2.325e-9)
+##        ThruBackplaneDiff.DelayBy(-4.7e-9)
+##        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.UpsamplerSinX(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
+
 ##        plt.clf()
 ##        plt.xlabel('time (ns)')
 ##        plt.ylabel('amplitude')

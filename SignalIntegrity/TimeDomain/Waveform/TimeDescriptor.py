@@ -10,9 +10,9 @@ class TimeDescriptor(object):
     def __getitem__(self,item):
         return item/self.Fs+self.H
     def __eq__(self,other):
-        if abs(self.H - other.H) > 1e-15: return False
-        if self.N != other.N: return False
         if abs(self.Fs - other.Fs) > 1e-15: return False
+        if abs(self.H - other.H) > .00001*1./self.Fs: return False
+        if self.N != other.N: return False
         return True
     def __ne__(self,other):
         return not self == other

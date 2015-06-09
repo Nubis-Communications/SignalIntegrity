@@ -11,57 +11,89 @@ class ImpulseResponse(Waveform):
         Waveform.__init__(self,t,td)
     def DelayBy(self,d):
         return ImpulseResponse(self.TimeDescriptor().DelayBy(d),self.Values())
-    def FrequencyResponse2(self,fd=None,adjustDelay=False):
+    def FrequencyResponse(self,fd=None,adjustLength=True):
         """Produces the frequency response
 
         Args:
             fd (TimeDescriptor) (optional) the frequency descriptor for the frequency response.
-            adjustDelay (bool) whether to adjust the delay.
+            adjustLength (bool) (optional) whether to adjust the length.
+                defaults to True
 
         Notes:
             All impulse responses are evenly spaced
 
             whether a frequency descriptor is specified and whether
-            to adjust delay determines all possibilities of what can happen.
+            to adjust length determines all possibilities of what can happen.
 
-            fd  ad
+            fd  al
             F   F   generic frequency response
-            F   T   frequency response with delay adjusted
-            T   X   CZT resamples to fd
+            F   T   frequency response with length adjusted
+            T   X   CZT resamples to fd (length is adjusted first)
         """
         from SignalIntegrity.SParameters.FrequencyResponse import FrequencyResponse
-        if not fd and not adjustDelay:
+        if not fd and not adjustLength:
             X=fft.fft(self.Values())
             fd=self.TimeDescriptor().FrequencyList()
-            return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)]).DelayBy(-self.TimeDescriptor().H)
-        if not fd and adjustDelay:
-            H=self.TimeDescriptor().H
-            Ts=1./self.TimeDescriptor().Fs
-            TD=-Ts*(-H/Ts-math.floor(-H/Ts+0.5))
-            # TD is the fractional delay of the impulse response
-            return self.DelayBy(-TD).FrequencyResponse2().DelayBy(TD)
+            return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)])._DelayBy(self.TimeDescriptor().H)
+        if not fd and adjustLength:
+            td = self.TimeDescriptor()
+            PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.N+0.5)))
+            NegativePoints = int(max(0,math.floor(-td.H*td.Fs+0.5)))
+            P=max(PositivePoints,NegativePoints)*2
+            return self._Pad(P).FrequencyResponse(None,adjustLength=False)
         if fd:
-            return ir.FrequencyResponse2(None,adjustDelay=True).Resample2(fd)
-    def Resample2(self,td):
-        from SignalIntegrity.SParameters.FrequencyList import EvenlySpacedFrequencyList
-        from SignalIntegrity.SParameters.FrequencyResponse import FrequencyResponse
-        fr=self.FrequencyResponse2(None,adjustDelay=True)
-        fr=fr.Resample(td.FrequencyList())
-        return fr.ImpulseResponse(None,adjustDelay=True)
-    def FrequencyResponse(self):
-        from SignalIntegrity.SParameters.FrequencyList import EvenlySpacedFrequencyList
-        from SignalIntegrity.SParameters.FrequencyResponse import FrequencyResponse
+            return self.FrequencyResponse().Resample(fd)
+    def _Pad(self,P):
+        """Pads the impulse response
+
+        Args:
+            P (int) the desired number of time points.
+
+        Notes:
+            P must be even - not checked - it must add equal points to the left
+            and right of the impulse response.
+            K is the number of points in the selfs frequency response
+
+            if P==K, the original response is returned
+            if P<K, the response is truncated to P time points
+            if P>K, the response is zero padded to P time points
+        """
+        K=len(self)
+        if P==K:
+            x = self.Values()
+        elif P<K:
+            x=[self.Values()[k] for k in range((K-P)/2,K-(K-P)/2)]
+        else:
+            x=[0 for p in range((P-K)/2)]
+            x=x+self.Values()+x
+        td = self.TimeDescriptor()
+        return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
+    def Resample(self,td):
+        fr=self.FrequencyResponse()
+        return fr.ImpulseResponse(td)
+    def TrimToThreshold(self,threshold):
+        x=self.Values()
         td=self.TimeDescriptor()
-        v=self.Values()
-        K=td.N
-        tp=[v[k].real for k in range(K/2)]
-        tn=[v[k].real for k in range(K/2,K)]
-        y=tp+tn
-        Y=fft.fft(y)
-        Fs=td.Fs
-        N=K/2
-        f=EvenlySpacedFrequencyList(Fs/2.,N)
-        return FrequencyResponse(f,[Y[n] for n in range(N+1)])
+        maxabsx=max([abs(xv) for xv in x])
+        minv=maxabsx*threshold
+        for k in range(len(x)):
+            if abs(x[k]) >= minv:
+                startidx = k
+                break
+        for k in range(len(x)):
+            ki = len(x)-1-k
+            if abs(x[ki]) >= minv:
+                endidx = ki
+                break
+        if (endidx-startidx+1)/2*2 != endidx-startidx+1:
+            if endidx < len(x):
+                endidx = endidx + 1
+            elif startidx > 0:
+                startidx = startidx - 1
+            else:
+                raise Error
+        return ImpulseResponse(TimeDescriptor(td[startidx],endidx-startidx+1,td.Fs),
+            [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
         K=len(self)
         td=self.TimeDescriptor()

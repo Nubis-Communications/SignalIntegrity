@@ -38,11 +38,15 @@ class VirtualProbeNumericParser(VirtualProbeParser):
         ol = self.SystemDescription().pOutputList
         return [[FrequencyResponse(self.m_f,tm.Response(o+1,m+1))
             for m in range(len(ml))] for o in range(len(ol))]
-    def ImpulseResponses(self,td=None,**args):
+    def ImpulseResponses(self,td=None):
         fr = self.FrequencyResponses()
-        return [[fro_m.ImpulseResponse(td,**args) for fro_m in fro]
+        if td is None or isinstance(td,float) or isinstance(td,int):
+            td = [td for m in range(len(fr[0]))]
+        return [[fro[m].ImpulseResponse(td[m]) for m in range(len(fro))]
             for fro in fr]
-    def ProcessWaveforms(self,wfl,td=None,**args):
-        ir = self.ImpulseResponses(td,**args)
+    def ProcessWaveforms(self,wfl,td=None):
+        if td is None:
+            td = [wflm.TimeDescriptor().Fs for wflm in wfl]
+        ir = self.ImpulseResponses(td)
         return [sum([iro[m].FirFilter().FilterWaveform(wfl[m])
             for m in range(len(iro))]) for iro in ir]

@@ -23,8 +23,11 @@ class Waveform(object):
         return self.m_t.Times(unit)
     def TimeDescriptor(self):
         return self.m_t
-    def Values(self):
-        return self.m_y
+    def Values(self,unit=None):
+        if unit==None:
+            return self.m_y
+        elif unit =='abs':
+            return [abs(y) for y in self.m_y]
     def OffsetBy(self,v):
         self.m_y = [y+v for y in self.m_y]
         return self

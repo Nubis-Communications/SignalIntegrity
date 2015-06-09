@@ -23,8 +23,7 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,500,20.))
-        CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
-        CableTxPWfDelayed.DelayBy(0.3/CableTxPWfDelayed.TimeDescriptor().Fs)
+        CableTxPWfDelayed=CableTxPWf.DelayBy(0.3/CableTxPWf.TimeDescriptor().Fs)
         if PlotTestUpsampler:
             plt.clf()
             plt.xlabel('time (ns)')
@@ -36,11 +35,9 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
         self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
     def testResampleNoDelaySinX(self):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
-        print fileNameBase
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt')
-        CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
-        CableTxPWfDelayed.DelayBy(0.0/CableTxPWfDelayed.TimeDescriptor().Fs)
+        CableTxPWfDelayed=CableTxPWf.DelayBy(0.0/CableTxPWf.TimeDescriptor().Fs)
         CableTxPWfDelayed2=si.td.f.UpsamplerFractionalDelayFilterSinX(1,0.0).FilterWaveform(CableTxPWf)
         if PlotTestUpsampler:
             plt.clf()
@@ -56,12 +53,11 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(5,0,20.))
-        CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
         FractionalDelay=0.3
-        CableTxPWfDelayed.DelayBy(FractionalDelay/CableTxPWfDelayed.TimeDescriptor().Fs)
+        CableTxPWfDelayed=CableTxPWf.DelayBy(FractionalDelay/CableTxPWf.TimeDescriptor().Fs)
         CableTxPWfDelayed2=si.td.f.UpsamplerFractionalDelayFilterSinX(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
         CableTxPWfDelayed3=si.td.f.UpsamplerFractionalDelayFilterSinX(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
-        CableTxPWfDelayed3.DelayBy(FractionalDelay/CableTxPWfDelayed3.TimeDescriptor().Fs)
+        CableTxPWfDelayed3=CableTxPWfDelayed3.DelayBy(FractionalDelay/CableTxPWfDelayed3.TimeDescriptor().Fs)
         CableTxPWfDelayed4=si.td.f.UpsamplerFractionalDelayFilterSinX(1,FractionalDelay,accountForDelay=False).FilterWaveform(CableTxPWf)
         if PlotTestUpsampler:
             plt.clf()
@@ -84,9 +80,8 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
         # the waveform is not actually delayed!  i.e. it accounts for and undoes the delay effect
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,500,20.))
-        CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
-        CableTxPWfDelayed=si.td.f.UpsamplerFractionalDelayFilterSinX(1,0.3,accountForDelay=True).FilterWaveform(CableTxPWfDelayed)
-        CableTxPWfDelayed.DelayBy(0.0/CableTxPWfDelayed.TimeDescriptor().Fs)
+        CableTxPWfDelayed=si.td.f.UpsamplerFractionalDelayFilterSinX(1,0.3,accountForDelay=True).FilterWaveform(CableTxPWf)
+        CableTxPWfDelayed=CableTxPWfDelayed.DelayBy(0.0/CableTxPWfDelayed.TimeDescriptor().Fs)
         if PlotTestUpsampler:
             plt.clf()
             plt.xlabel('time (ns)')

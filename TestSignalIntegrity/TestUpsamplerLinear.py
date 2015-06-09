@@ -19,8 +19,7 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,50,20.))
-        CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
-        CableTxPWfDelayed.DelayBy(0.3/CableTxPWfDelayed.TimeDescriptor().Fs)
+        CableTxPWfDelayed=CableTxPWf.DelayBy(0.3/CableTxPWf.TimeDescriptor().Fs)
         #plt.clf()
         #plt.xlabel('time (ns)')
         #plt.ylabel('amplitude')
@@ -32,7 +31,6 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
     def testResampleNoDelayLinear(self):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
-        print fileNameBase
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt')
         CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
@@ -52,12 +50,11 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(5,0,20.))
-        CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
         FractionalDelay=0.3
-        CableTxPWfDelayed.DelayBy(FractionalDelay/CableTxPWfDelayed.TimeDescriptor().Fs)
+        CableTxPWfDelayed=CableTxPWf.DelayBy(FractionalDelay/CableTxPWf.TimeDescriptor().Fs)
         CableTxPWfDelayed2=si.td.f.UpsamplerFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
         CableTxPWfDelayed3=si.td.f.UpsamplerFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
-        CableTxPWfDelayed3.DelayBy(FractionalDelay/CableTxPWfDelayed3.TimeDescriptor().Fs)
+        CableTxPWfDelayed3=CableTxPWfDelayed3.DelayBy(FractionalDelay/CableTxPWfDelayed3.TimeDescriptor().Fs)
         CableTxPWfDelayed4=si.td.f.UpsamplerFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=False).FilterWaveform(CableTxPWf)
         #plt.clf()
         #plt.xlabel('time (ns)')

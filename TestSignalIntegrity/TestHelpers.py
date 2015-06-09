@@ -37,6 +37,14 @@ class ResponseTesterHelper(SParameterCompareHelper):
         regression=si.sp.FrequencyResponse().ReadFromFile(fileName)
         os.chdir(path)
         self.assertTrue(regression == fr,text + ' incorrect')
+    def GetFrequencyResponseResult(self,fileName):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        if not os.path.exists(fileName):
+            return None
+        regression=si.sp.FrequencyResponse().ReadFromFile(fileName)
+        os.chdir(path)
+        return regression
     def CheckWaveformResult(self,wf,fileName,text):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -46,6 +54,14 @@ class ResponseTesterHelper(SParameterCompareHelper):
         regression=si.td.wf.Waveform().ReadFromFile(fileName)
         os.chdir(path)
         self.assertTrue(regression == wf,text + ' incorrect')
+    def GetWaveformResult(self,fileName):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        if not os.path.exists(fileName):
+            return None
+        regression=si.td.wf.Waveform().ReadFromFile(fileName)
+        os.chdir(path)
+        return regression
     def CheckSParametersResult(self,sp,fileName,text):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

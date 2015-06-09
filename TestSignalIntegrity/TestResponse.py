@@ -6,17 +6,17 @@ from TestHelpers import *
 
 import matplotlib.pyplot as plt
 
-class TestResponse(unittest.TestCase,SParameterCompareHelper):
+class TestResponse(unittest.TestCase,ResponseTesterHelper):
     def testResampleResponseCompareSpline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf)
+        tdspres1=tdsp.Resample(newf)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
         tdrespf = tdsp.f()
 
-        tdrespres = [[si.sp.ResampledFrequencyResponse(si.sp.FrequencyResponse(tdrespf,tdresp[o][i]),newf)
+        tdrespres = [[si.sp.FrequencyResponse(tdrespf,tdresp[o][i]).Resample(newf)
             for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
 
         tddres2=[empty((tdsp.m_P,tdsp.m_P)).tolist() for np in range(len(newf))]
@@ -34,12 +34,12 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf,method='czt',adjustDelay=False)
+        tdspres1=tdsp.Resample(newf)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
         tdrespf = tdsp.f()
 
-        tdrespres = [[si.sp.ResampledFrequencyResponse(si.sp.FrequencyResponse(tdrespf,tdresp[o][i]),newf,method='czt',adjustDelay=True)
+        tdrespres = [[si.sp.FrequencyResponse(tdrespf,tdresp[o][i]).Resample(newf)
             for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
 
         tddres2=[empty((tdsp.m_P,tdsp.m_P)).tolist() for np in range(len(newf))]
@@ -57,12 +57,12 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf,method='czt')
+        tdspres1=tdsp.Resample(newf)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
         tdrespf = tdsp.f()
 
-        tdrespres = [[si.sp.FrequencyResponse(tdrespf,tdresp[o][i]).Resample(newf,method='czt')
+        tdrespres = [[si.sp.FrequencyResponse(tdrespf,tdresp[o][i]).Resample(newf)
             for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
 
         tddres2=[empty((tdsp.m_P,tdsp.m_P)).tolist() for np in range(len(newf))]
@@ -88,14 +88,14 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf,way='newway')
+        tdspres1=tdsp.Resample(newf)
 
         tdresp = si.sp.ArrayOfMatrices(tdsp.Data()).MatrixOfArrays()
         tdrespf = tdsp.f()
 
         for r in range(tdresp.NumRows()):
             for c in range(tdresp.NumCols()):
-                tdresp.SetArray(r,c,si.sp.ResampledFrequencyResponse(si.sp.FrequencyResponse(tdrespf,tdresp.GetArray(r,c)),newf).Response())
+                tdresp.SetArray(r,c,si.sp.FrequencyResponse(tdrespf,tdresp.GetArray(r,c)).Resample(newf).Response())
 
         tddres2=tdresp.ArrayOfMatrices()
 
@@ -109,7 +109,7 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.sp.EvenlySpacedFrequencyList(100*100e6,100)
         tdsp=si.sp.File('TestDut.s4p')
-        tdspres1=si.sp.ResampledSParameters(tdsp,newf)
+        tdspres1=tdsp.Resample(newf)
 
         tdresp = si.sp.ArrayOfMatrices(tdsp.Data())
         tdrespf = tdsp.f()
@@ -118,7 +118,7 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
 
         for r in range(tdresp.NumRows()):
             for c in range(tdresp.NumCols()):
-                tddres2.SetArray(r,c,si.sp.ResampledFrequencyResponse(si.sp.FrequencyResponse(tdrespf,tdresp.GetArray(r,c)),newf).Response())
+                tddres2.SetArray(r,c,si.sp.FrequencyResponse(tdrespf,tdresp.GetArray(r,c)).Resample(newf).Response())
 
         tdspres2 = si.sp.SParameters(newf,tddres2)
 
@@ -128,8 +128,8 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
     def testResampleResponseFilter(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         filtersp=si.sp.File('filter.s2p')
-        filtersp=si.sp.ResampledSParameters(filtersp,si.sp.EvenlySpacedFrequencyList(2e9,200),method='spline')
-        filterres=si.sp.ResampledSParameters(filtersp,si.sp.EvenlySpacedFrequencyList(2e9,4000),method='czt')
+        filtersp=filtersp.Resample(si.sp.EvenlySpacedFrequencyList(2e9,200))
+        filterres=filtersp.Resample(si.sp.EvenlySpacedFrequencyList(2e9,4000))
         if not os.path.exists('filterres.s2p'):
             filterres.WriteToFile('filterres.s2p')
         regression=si.sp.File('filterres.s2p')
@@ -139,27 +139,194 @@ class TestResponse(unittest.TestCase,SParameterCompareHelper):
         td = si.td.wf.TimeDescriptor(-9.8,20,1.)
         return si.sp.ImpulseResponse(td,x)
     def frc(self):
-        return self.irc().FrequencyResponse2(None,adjustDelay=True)
-    def testResFr1(self):
-        Np=103
-        Fep=0.51
-        frc=self.frc()
-        irc=frc.ImpulseResponse2(None,adjustDelay=True)
-        frr=frc.Resample2(si.sp.EvenlySpacedFrequencyList(Fep,Np))
-        plt.xlabel('frequency (GHz)')
-        plt.ylabel('magnitude (dB)')
-        plt.plot(frc.Frequencies(),frc.Response('mag'),label='original')
-        plt.plot(frr.Frequencies(),frr.Response('mag'),label='resampled')
-        plt.legend(loc='upper right')
-        plt.show()
-        plt.clf()
-        plt.xlabel('frequency (GHz)')
-        plt.ylabel('phase (deg)')
-        plt.plot(frc.Frequencies(),frc.Response('deg'),label='original')
-        plt.plot(frr.Frequencies(),frr.Response('deg'),label='resampled')
-        plt.legend(loc='upper right')
-        plt.show()
+        return self.irc().FrequencyResponse()
+    def Checkit(self,selfid,x,origin=None,plotResponseResults=False):
+        plotResponseResults=plotResponseResults or False
+        fileName = '_'.join(selfid.split('.')) + '.txt'
+        fileName = ('_'.join(selfid.split('.')[2:])).replace('test','') + '.txt'
+        if isinstance(x,si.sp.FrequencyResponse):
+            fileName='FrequencyResponse_'+fileName
+            if plotResponseResults == True:
+                regression = self.GetFrequencyResponseResult(fileName)
+                plt.clf()
+                plt.title(fileName)
+                plt.xlabel('frequency')
+                plt.ylabel('magnitude')
+                if not origin is None:
+                    plt.plot(origin.Frequencies(),origin.Response('mag'),linewidth=3.0,label='origin')
+                plt.plot(x.Frequencies(),x.Response('mag'),marker='o',label='result')
+                if not regression is None:
+                    plt.plot(regression.Frequencies(),regression.Response('mag'),label='regression')
+                plt.legend(loc='upper right')
+                plt.show()
+                plt.clf()
+                plt.title(fileName)
+                plt.xlabel('frequency')
+                plt.ylabel('phase (deg)')
+                if not origin is None:
+                    plt.plot(origin.Frequencies(),origin.Response('deg'),linewidth=3.0,label='origin')
+                plt.plot(x.Frequencies(),x.Response('deg'),marker='o',label='original')
+                if not regression is None:
+                    plt.plot(regression.Frequencies(),regression.Response('deg'),label='regression')
+                plt.legend(loc='upper right')
+                plt.show()
+            self.CheckFrequencyResponseResult(x,fileName,fileName+' incorrect')
+        if isinstance(x,si.td.wf.Waveform):
+            fileName='Waveform_'+fileName
+            if plotResponseResults == True:
+                regression = self.GetWaveformResult(fileName)
+                plt.clf()
+                plt.title(fileName)
+                plt.xlabel('time')
+                plt.ylabel('amplitude')
+                if not origin is None:
+                    plt.plot(origin.Times(),origin.Values(),linewidth=3.0,label='origin')
+                plt.plot(x.Times(),x.Values(),marker='o',label='result')
+                if not regression is None:
+                    plt.plot(regression.Times(),regression.Values(),label='regression')
+                plt.legend(loc='upper right')
+                plt.show()
+            self.CheckWaveformResult(x,fileName,fileName+' incorrect')
 
+    def testfrc(self):
+        frc=self.frc()
+        self.Checkit(self.id(),frc,None,False)
+    def testfrcWriteRead(self):
+        frc=self.frc()
+        frc.WriteToFile('frcwr.txt')
+        frc2=si.sp.FrequencyResponse().ReadFromFile('frcwr.txt')
+        os.remove('frcwr.txt')
+        self.Checkit(self.id(),frc2,frc,False)
+    def testRes_N_10_Fe_0p5(self):
+        Np=10
+        Fep=0.5
+        frc=self.frc()
+        frr=frc.Resample(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def testRes_N_9_Fe_0p45(self):
+        Np=9
+        Fep=0.45
+        frc=self.frc()
+        frr=frc.Resample(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def testRes_N_20_Fe_0p5(self):
+        Np=20
+        Fep=0.5
+        frc=self.frc()
+        frr=frc.Resample(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def testRes_N_20_Fe_1(self):
+        Np=20
+        Fep=1.
+        frc=self.frc()
+        frr=frc.Resample(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def testRes_N_53_Fe_0p435(self):
+        Np=53
+        Fep=0.435
+        frc=self.frc()
+        frr=frc.Resample(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def testirc(self):
+        irc=self.irc()
+        self.Checkit(self.id(),irc,None,False)
+    def testRes_K_20_Fs_1(self):
+        Kp=20
+        Fsp=1.0
+        irc=self.irc()
+        irr=irc.Resample(si.td.wf.TimeDescriptor(0,Kp,Fsp))
+        self.Checkit(self.id(),irr,irc,False)
+    def testRes_K_106_Fs_1p345(self):
+        Kp=106
+        Fsp=1.345
+        irc=self.irc()
+        irr=irc.Resample(si.td.wf.TimeDescriptor(0,Kp,Fsp))
+        self.Checkit(self.id(),irr,irc,False)
+    def testRes_K_106_Fs_1p345_fr(self):
+        Kp=106
+        Fsp=1.345
+        irc=self.irc()
+        irr=irc.Resample(si.td.wf.TimeDescriptor(0,Kp,Fsp))
+        frc=irc.FrequencyResponse()
+        frr=irr.FrequencyResponse()
+        self.Checkit(self.id(),frr,frc,False)
+    def testRes_Fs_2(self):
+        Kp=0
+        Fsp=2.
+        irc=self.irc()
+        irr=irc.Resample(Fsp)
+        self.Checkit(self.id(),irr,irc,False)
+    def testRes_Fs_1(self):
+        Kp=0
+        Fsp=1.
+        irc=self.irc()
+        irr=irc.Resample(Fsp)
+        self.Checkit(self.id(),irr,irc,False)
+    def testResUneven(self):
+        frc=self.frc()
+        f=frc.FrequencyList().Frequencies()
+        r=frc.Response()
+        del f[3]
+        del r[3]
+        frc2=si.sp.FrequencyResponse(f,r)
+        self.Checkit(self.id(),frc2,None,False)
+    def testResUneven_N_20_Fe_0p5(self):
+        Np=20
+        Fep=0.5
+        frc=self.frc()
+        f=frc.FrequencyList().Frequencies()
+        r=frc.Response()
+        del f[3]
+        del r[3]
+        frc2=si.sp.FrequencyResponse(f,r)
+        frr=frc2.Resample(si.sp.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc2,False)
+    def testResUneven_Fs_1(self):
+        Fsp=1
+        frc=self.frc()
+        irc=frc.ImpulseResponse()
+        f=frc.FrequencyList().Frequencies()
+        r=frc.Response()
+        del f[3]
+        del r[3]
+        frc2=si.sp.FrequencyResponse(f,r)
+        irr=frc2.ImpulseResponse(Fsp)
+        self.Checkit(self.id(),irr,irc,False)
+    def testfrcUnevenWriteRead(self):
+        frc=self.frc()
+        f=frc.FrequencyList().Frequencies()
+        r=frc.Response()
+        del f[3]
+        del r[3]
+        frc=si.sp.FrequencyResponse(f,r).WriteToFile('frcwr.txt')
+        frc2=si.sp.FrequencyResponse().ReadFromFile('frcwr.txt')
+        os.remove('frcwr.txt')
+        self.Checkit(self.id(),frc2,frc,False)
+    def testfrcne(self):
+        frc=self.frc()
+        frc2=frc
+        self.assertTrue(not frc != frc2,self.id()+'result not same')
+    def testircTrim(self):
+        irc=self.irc()
+        irc2=irc.TrimToThreshold(0.01)
+        self.Checkit(self.id(),irc2,irc,False)
+    def testircTrimTofrToir(self):
+        irc=self.irc()
+        irc2=irc.TrimToThreshold(0.01)
+        irc2=irc2.FrequencyResponse().ImpulseResponse()
+        self.Checkit(self.id(),irc2,irc,False)
+    def testircTrimTofr(self):
+        irc=self.irc()
+        frc=irc.FrequencyResponse()
+        irc2=irc.TrimToThreshold(0.01)
+        frc2=irc2.FrequencyResponse()
+        self.Checkit(self.id(),frc2,frc,False)
+    def testircTrimTofrResample(self):
+        irc=self.irc()
+        frc=irc.FrequencyResponse()
+        irc2=irc.TrimToThreshold(0.01)
+        frc2=irc2.FrequencyResponse(frc.FrequencyList())
+        self.Checkit(self.id(),frc2,frc,False)
 
 
 if __name__ == '__main__':
