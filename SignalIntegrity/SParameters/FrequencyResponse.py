@@ -81,7 +81,7 @@ class FrequencyResponse(object):
             td = TimeDescriptor(0.,2*int(math.ceil(Fs*td.N/2./td.Fs)),Fs)
         evenlySpaced = fd.CheckEvenlySpaced()
         if not evenlySpaced and td is None:
-            raise Error
+            return None
         if not evenlySpaced and not td is None:
             newfd = td.FrequencyList()
             oldfd = fd

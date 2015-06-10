@@ -3,7 +3,7 @@ import SignalIntegrity as si
 from numpy import empty
 import os
 from TestHelpers import *
-
+import math
 import matplotlib.pyplot as plt
 
 class TestResponse(unittest.TestCase,ResponseTesterHelper):
@@ -327,7 +327,63 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         irc2=irc.TrimToThreshold(0.01)
         frc2=irc2.FrequencyResponse(frc.FrequencyList())
         self.Checkit(self.id(),frc2,frc,False)
-
+    def testTrimPathological1(self):
+        ir=si.sp.ImpulseResponse(si.td.wf.TimeDescriptor(-1,3,1),[1,2,3])
+        ir=ir.TrimToThreshold(0.001)
+        self.Checkit(self.id(),ir,None,False)
+    def testTrimPathological2(self):
+        ir=si.sp.ImpulseResponse(si.td.wf.TimeDescriptor(-1,4,1),[1,2,3,0])
+        ir=ir.TrimToThreshold(0.001)
+        self.Checkit(self.id(),ir,None,False)
+    def testTrimPathological3(self):
+        ir=si.sp.ImpulseResponse(si.td.wf.TimeDescriptor(-1,4,1),[0,1,2,3])
+        ir=ir.TrimToThreshold(0.001)
+        self.Checkit(self.id(),ir,None,False)
+    def testResponsedB(self):
+        fr=self.frc()
+        mag=fr.Response('mag')
+        dB=fr.Response('dB')
+        corr=[20.*math.log10(magv) for magv in mag]
+        regression=si.sp.FrequencyResponse(fr.FrequencyList(),corr)
+        calc=si.sp.FrequencyResponse(fr.FrequencyList(),dB)
+        self.assertTrue(regression == calc,'dB incorrect')
+    def testResponseMag(self):
+        fr=self.frc()
+        r=fr.Response()
+        mag=fr.Response('mag')
+        corr=[abs(rv) for rv in r]
+        regression=si.sp.FrequencyResponse(fr.FrequencyList(),corr)
+        calc=si.sp.FrequencyResponse(fr.FrequencyList(),mag)
+        self.assertTrue(regression == calc,'mag incorrect')
+    def testResponseRI(self):
+        fr=self.frc()
+        re=fr.Response('real')
+        im=fr.Response('imag')
+        corr=[v[0]+1j*v[1] for v in zip(re,im)]
+        regression=si.sp.FrequencyResponse(fr.FrequencyList(),corr)
+        calc=fr
+        self.assertTrue(regression == calc,'real/imag incorrect')
+    def testResponsedeg(self):
+        fr=self.frc()
+        deg=fr.Response('deg')
+        rad=fr.Response('rad')
+        corr=[v/2./math.pi*360.0 for v in rad]
+        regression=si.sp.FrequencyResponse(fr.FrequencyList(),corr)
+        calc=si.sp.FrequencyResponse(fr.FrequencyList(),deg)
+        self.assertTrue(regression == calc,'deg incorrect')
+    def testfrpadnone(self):
+        fr=self.frc()
+        fr2=fr._Pad(fr.FrequencyList().N)
+        self.assertTrue(fr == fr2,'pad no points incorrect')
+    def testResUnevenNoDescriptor(self):
+        frc=self.frc()
+        f=frc.FrequencyList().Frequencies()
+        r=frc.Response()
+        del f[3]
+        del r[3]
+        frc2=si.sp.FrequencyResponse(f,r)
+        irr=frc2.ImpulseResponse()
+        self.assertTrue(irr is None,'uneven points no descriptor incorrect')
 
 if __name__ == '__main__':
     unittest.main()

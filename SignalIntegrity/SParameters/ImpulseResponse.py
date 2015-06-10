@@ -74,7 +74,7 @@ class ImpulseResponse(Waveform):
     def TrimToThreshold(self,threshold):
         x=self.Values()
         td=self.TimeDescriptor()
-        maxabsx=max([abs(xv) for xv in x])
+        maxabsx=max(self.Values('abs'))
         minv=maxabsx*threshold
         for k in range(len(x)):
             if abs(x[k]) >= minv:
@@ -86,12 +86,17 @@ class ImpulseResponse(Waveform):
                 endidx = ki
                 break
         if (endidx-startidx+1)/2*2 != endidx-startidx+1:
-            if endidx < len(x):
+            # the result would not have an even number of points
+            if endidx < len(x)-1:
+                # include a point at the end if possible
                 endidx = endidx + 1
             elif startidx > 0:
+                # include a point at the beginning if possible
                 startidx = startidx - 1
             else:
-                raise Error
+                # append a zero to the end and calculate number of points with endidx+1
+                return ImpulseResponse(TimeDescriptor(td[startidx],(endidx+1)-startidx+1,td.Fs),
+                    [x[k] for k in range(startidx,endidx+1)]+[0.])
         return ImpulseResponse(TimeDescriptor(td[startidx],endidx-startidx+1,td.Fs),
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
