@@ -21,6 +21,7 @@ from SignalIntegrity.Devices import TransconductanceAmplifier
 from FrequencyDependent import SeriesLf
 from FrequencyDependent import SeriesCf
 from FrequencyDependent import Mutualf
+from FrequencyDependent import Tlinef
 
 class DeviceParser():
     def __init__(self,f,ports,argsList):
@@ -111,4 +112,9 @@ class DeviceParser():
             v=dict([('zo',1e8),('zi',1e8),('z0',50.)]) # defaults
             v.update(a)
             self.m_sp=TransconductanceAmplifier(ports,v['gain'],v['zi'],v['zo'])
+            return
+        elif argsList[0] == 'tline':
+            v=dict([('zc',50.),('td',0.)]) # defaults
+            v.update(a)
+            self.m_spf=Tlinef(self.m_f,ports,v['zc'],v['td'])
             return

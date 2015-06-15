@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--This file was written by TinyCAD version 2.60.01
+If you wish to view this file go to http://tinycad.sourceforge.net to
+download a copy.-->
+<TinyCADSheets><TinyCAD><NAME>Sheet 1</NAME>
+<DETAILS><Size width='1485' height='1050'/>
+<GUIDES horiz='7' vert='5'/>
+<TITLE></TITLE>
+<AUTHOR></AUTHOR>
+<REVISION>1.0</REVISION>
+<DOCNUMBER></DOCNUMBER>
+<ORGANISATION></ORGANISATION>
+<SHEETS>1 of 1</SHEETS>
+<SHOWS>1</SHOWS>
+<DATE></DATE>
+<GRID spacing='100' snap='1'/>
+</DETAILS>
+<FONT id='0'><HEIGHT>-13</HEIGHT>
+<WIDTH>6</WIDTH>
+<WEIGHT>400</WEIGHT>
+<ITALIC>0</ITALIC>
+<UNDERLINE>0</UNDERLINE>
+<STRIKEOUT>0</STRIKEOUT>
+<CHARSET>0</CHARSET>
+<FACENAME>Arial</FACENAME>
+</FONT>
+<FONT id='1'><HEIGHT>-10</HEIGHT>
+<WIDTH>0</WIDTH>
+<WEIGHT>400</WEIGHT>
+<ITALIC>0</ITALIC>
+<UNDERLINE>0</UNDERLINE>
+<STRIKEOUT>0</STRIKEOUT>
+<CHARSET>0</CHARSET>
+<FACENAME>Arial</FACENAME>
+</FONT>
+<STYLE id='0'><STYLE>0</STYLE>
+<COLOR>000000</COLOR>
+<THICKNESS>1</THICKNESS>
+</STYLE>
+<STYLE id='2'><STYLE>0</STYLE>
+<COLOR>C0C0C0</COLOR>
+<THICKNESS>1</THICKNESS>
+</STYLE>
+<FILL id='0'><INDEX>-1</INDEX>
+<COLOR>000000</COLOR>
+</FILL>
+<FILL id='2'><INDEX>0</INDEX>
+<COLOR>FFFFFF</COLOR>
+</FILL>
+<FILL id='3'><INDEX>0</INDEX>
+<COLOR>C0C0C0</COLOR>
+</FILL>
+<FILL id='4'><INDEX>0</INDEX>
+<COLOR>C0C0C0</COLOR>
+</FILL>
+<SYMBOLDEF id='1'><NAME type='2'>TLine4</NAME>
+<REF type='0'>D?</REF>
+<DESCRIPTION>4 Port Transmission Line</DESCRIPTION>
+<PPP>1</PPP>
+<FIELD><NAME>$$SPICE_PROLOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>$$SPICE_EPILOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Package</NAME>
+<DEFAULT>package name for PCB layout</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Pins</NAME>
+<DEFAULT>4</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Type</NAME>
+<DEFAULT>TLine Z 50 Td 0.0</DEFAULT>
+<FT>000000</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<REF_POINT power='0' part='0' pos='54,34'/>
+<TinyCAD><ELLIPSE a='50,22' b='46,30' style='0' fill='3'/>
+<RECTANGLE a='24,22' b='48,30' style='2' fill='4'/>
+<ELLIPSE a='22,22' b='26,30' style='0' fill='2'/>
+<POLYGON pos='24,22' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='24,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='24,30' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='24,0' arc='0'/>
+</POLYGON>
+<PIN pos='18,26' which='0' elec='0' direction='3' part='0' number='1' show='3' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='54,26' which='0' elec='0' direction='2' part='0' number='2' show='3' length='20' number_pos='0' centre_name='0'></PIN>
+<PIN pos='18,34' which='0' elec='0' direction='3' part='0' number='3' show='3' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='54,34' which='0' elec='0' direction='2' part='0' number='4' show='3' length='30' number_pos='0' centre_name='0'></PIN>
+<POLYGON pos='24,30' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='0,4' arc='0'/>
+</POLYGON>
+<POLYGON pos='48,30' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='0,4' arc='0'/>
+</POLYGON>
+</TinyCAD>
+</SYMBOLDEF>
+<OPTIONS><GRID>0</GRID>
+<UNITS>0</UNITS>
+<COLOR_WIRE>FF0000</COLOR_WIRE>
+<COLOR_BUS>0000FF</COLOR_BUS>
+<COLOR_JUNCTION>000000</COLOR_JUNCTION>
+<COLOR_NOCONNECT>000000</COLOR_NOCONNECT>
+<COLOR_LABEL>208000</COLOR_LABEL>
+<COLOR_POWER>000000</COLOR_POWER>
+<COLOR_PIN>4040C0</COLOR_PIN>
+<COLOR_HIDDEN_PIN>208020</COLOR_HIDDEN_PIN>
+<COLOR_BACKGROUND>FFFFFF</COLOR_BACKGROUND>
+</OPTIONS>
+<SYMBOL id='1' pos='66,30' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D1' show='1' pos='1,-10'/>
+<FIELD type='2' description='Name' value='TLine4' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='4' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='TLine Z 50 Td 1.0e-9' show='1' pos='1,-7.6'/>
+</SYMBOL>
+<WIRE a='30,22' b='14,22'/>
+<WIRE a='30,30' b='14,30'/>
+<WIRE a='66,22' b='100,22'/>
+<WIRE a='66,30' b='100,30'/>
+<LABEL pos='18,22' direction='3' font='0' color='208000' style='0'>.Port 1</LABEL>
+<LABEL pos='92,22' direction='3' font='0' color='208000' style='0'>.Port 2</LABEL>
+<LABEL pos='18,30' direction='3' font='0' color='208000' style='0'>.Port 3</LABEL>
+<LABEL pos='92,30' direction='3' font='0' color='208000' style='0'>.Port 4</LABEL>
+</TinyCAD>
+</TinyCADSheets>

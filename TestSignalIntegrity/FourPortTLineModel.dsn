@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--This file was written by TinyCAD version 2.60.01
+If you wish to view this file go to http://tinycad.sourceforge.net to
+download a copy.-->
+<TinyCADSheets><TinyCAD><NAME>Sheet 1</NAME>
+<DETAILS><Size width='1485' height='1050'/>
+<GUIDES horiz='7' vert='5'/>
+<TITLE></TITLE>
+<AUTHOR></AUTHOR>
+<REVISION>1.0</REVISION>
+<DOCNUMBER></DOCNUMBER>
+<ORGANISATION></ORGANISATION>
+<SHEETS>1 of 1</SHEETS>
+<SHOWS>1</SHOWS>
+<DATE></DATE>
+<GRID spacing='100' snap='1'/>
+</DETAILS>
+<FONT id='1'><HEIGHT>-10</HEIGHT>
+<WIDTH>0</WIDTH>
+<WEIGHT>400</WEIGHT>
+<ITALIC>0</ITALIC>
+<UNDERLINE>0</UNDERLINE>
+<STRIKEOUT>0</STRIKEOUT>
+<CHARSET>0</CHARSET>
+<FACENAME>Arial</FACENAME>
+</FONT>
+<FONT id='3'><HEIGHT>-13</HEIGHT>
+<WIDTH>6</WIDTH>
+<WEIGHT>400</WEIGHT>
+<ITALIC>0</ITALIC>
+<UNDERLINE>0</UNDERLINE>
+<STRIKEOUT>0</STRIKEOUT>
+<CHARSET>0</CHARSET>
+<FACENAME>Arial</FACENAME>
+</FONT>
+<STYLE id='0'><STYLE>0</STYLE>
+<COLOR>000000</COLOR>
+<THICKNESS>1</THICKNESS>
+</STYLE>
+<STYLE id='2'><STYLE>0</STYLE>
+<COLOR>C0C0C0</COLOR>
+<THICKNESS>1</THICKNESS>
+</STYLE>
+<FILL id='0'><INDEX>-1</INDEX>
+<COLOR>000000</COLOR>
+</FILL>
+<FILL id='2'><INDEX>0</INDEX>
+<COLOR>FFFFFF</COLOR>
+</FILL>
+<FILL id='3'><INDEX>0</INDEX>
+<COLOR>C0C0C0</COLOR>
+</FILL>
+<FILL id='4'><INDEX>0</INDEX>
+<COLOR>C0C0C0</COLOR>
+</FILL>
+<SYMBOLDEF id='1'><NAME type='0'>TLine4</NAME>
+<REF type='0'>D?</REF>
+<DESCRIPTION>4 Port Transmission Line</DESCRIPTION>
+<PPP>1</PPP>
+<FIELD><NAME>$$SPICE_PROLOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>$$SPICE_EPILOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Package</NAME>
+<DEFAULT>package name for PCB layout</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Pins</NAME>
+<DEFAULT>4</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Type</NAME>
+<DEFAULT>TLine Z 50 Td 0.0</DEFAULT>
+<FT>000000</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<REF_POINT power='0' part='0' pos='54,34'/>
+<TinyCAD><ELLIPSE a='50,22' b='46,30' style='0' fill='3'/>
+<RECTANGLE a='24,22' b='48,30' style='2' fill='4'/>
+<ELLIPSE a='22,22' b='26,30' style='0' fill='2'/>
+<POLYGON pos='24,22' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='24,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='24,30' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='24,0' arc='0'/>
+</POLYGON>
+<PIN pos='18,26' which='0' elec='0' direction='3' part='0' number='1' show='3' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='54,26' which='0' elec='0' direction='2' part='0' number='2' show='3' length='20' number_pos='0' centre_name='0'></PIN>
+<PIN pos='18,34' which='0' elec='0' direction='3' part='0' number='3' show='3' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='54,34' which='0' elec='0' direction='2' part='0' number='4' show='3' length='30' number_pos='0' centre_name='0'></PIN>
+<POLYGON pos='24,30' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='0,4' arc='0'/>
+</POLYGON>
+<POLYGON pos='48,30' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='0,4' arc='0'/>
+</POLYGON>
+</TinyCAD>
+</SYMBOLDEF>
+<SYMBOLDEF id='2'><NAME type='2'>GND</NAME>
+<REF type='0'>D?</REF>
+<DESCRIPTION>GND</DESCRIPTION>
+<PPP>1</PPP>
+<FIELD><NAME>$$SPICE_PROLOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>$$SPICE_EPILOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Package</NAME>
+<DEFAULT>package name for PCB layout</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Pins</NAME>
+<DEFAULT>1</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Type</NAME>
+<DEFAULT>IdealShort</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<REF_POINT power='0' part='0' pos='68,42'/>
+<TinyCAD><PIN pos='64,32' which='0' elec='5' direction='1' part='0' number='1' show='1' length='30' number_pos='0' centre_name='0'></PIN>
+<POLYGON pos='60,38' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='8,0' arc='0'/>
+<POINT pos='4,4' arc='0'/>
+<POINT pos='0,0' arc='0'/>
+</POLYGON>
+</TinyCAD>
+</SYMBOLDEF>
+<SYMBOLDEF id='10'><NAME type='2'>L</NAME>
+<REF type='0'>L?</REF>
+<DESCRIPTION>Coil</DESCRIPTION>
+<PPP>1</PPP>
+<FIELD><NAME>$$SPICE_PROLOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>$$SPICE_EPILOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Package</NAME>
+<DEFAULT>package name for PCB layout</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Type</NAME>
+<DEFAULT>L 1e-9</DEFAULT>
+<FT>000000</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Pins</NAME>
+<DEFAULT>2</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<REF_POINT power='0' part='0' pos='88,50'/>
+<TinyCAD><PIN pos='80,50' which='5' elec='4' direction='3' part='0' number='1' show='0' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='87,50' which='5' elec='4' direction='2' part='0' number='2' show='0' length='30' number_pos='0' centre_name='0'></PIN>
+<POLYGON pos='86,50' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='1,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='80,50' style='0' fill='0'><POINT pos='1.2,0' arc='0'/>
+<POINT pos='0,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='81.2,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='82,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='82.8,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='83.6,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='84.4,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='85.2,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+</TinyCAD>
+</SYMBOLDEF>
+<SYMBOLDEF id='12'><NAME type='0'>L</NAME>
+<REF type='0'>L?</REF>
+<DESCRIPTION>Coil</DESCRIPTION>
+<PPP>1</PPP>
+<FIELD><NAME>$$SPICE_PROLOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>$$SPICE_EPILOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Package</NAME>
+<DEFAULT>package name for PCB layout</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Type</NAME>
+<DEFAULT>L 1e-9</DEFAULT>
+<FT>000000</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Pins</NAME>
+<DEFAULT>2</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<REF_POINT power='0' part='0' pos='88,50'/>
+<TinyCAD><PIN pos='80,50' which='5' elec='4' direction='3' part='0' number='1' show='0' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='87,50' which='5' elec='4' direction='2' part='0' number='2' show='0' length='30' number_pos='0' centre_name='0'></PIN>
+<POLYGON pos='86,50' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='1,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='80,50' style='0' fill='0'><POINT pos='1.2,0' arc='0'/>
+<POINT pos='0,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='81.2,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='82,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='82.8,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='83.6,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='84.4,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='85.2,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+</TinyCAD>
+</SYMBOLDEF>
+<SYMBOLDEF id='13'><NAME type='0'>L</NAME>
+<REF type='0'>L?</REF>
+<DESCRIPTION>Coil</DESCRIPTION>
+<PPP>1</PPP>
+<FIELD><NAME>$$SPICE_PROLOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>$$SPICE_EPILOG_PRIORITY</NAME>
+<DEFAULT>5</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Package</NAME>
+<DEFAULT>package name for PCB layout</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Type</NAME>
+<DEFAULT>L 1e-9</DEFAULT>
+<FT>000000</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<FIELD><NAME>Pins</NAME>
+<DEFAULT>2</DEFAULT>
+<FT>000002</FT>
+<VALUE></VALUE>
+<POS>0,0</POS>
+</FIELD>
+<REF_POINT power='0' part='0' pos='88,50'/>
+<TinyCAD><PIN pos='80,50' which='5' elec='4' direction='3' part='0' number='1' show='0' length='30' number_pos='0' centre_name='0'></PIN>
+<PIN pos='87,50' which='5' elec='4' direction='2' part='0' number='2' show='0' length='30' number_pos='0' centre_name='0'></PIN>
+<POLYGON pos='86,50' style='0' fill='0'><POINT pos='0,0' arc='0'/>
+<POINT pos='1,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='80,50' style='0' fill='0'><POINT pos='1.2,0' arc='0'/>
+<POINT pos='0,0' arc='0'/>
+</POLYGON>
+<POLYGON pos='81.2,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='82,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='82.8,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='83.6,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='84.4,48.4' style='0' fill='0'><POINT pos='0,1.6' arc='0'/>
+<POINT pos='0.8,0' arc='2'/>
+</POLYGON>
+<POLYGON pos='85.2,48.4' style='0' fill='0'><POINT pos='0.8,1.6' arc='0'/>
+<POINT pos='0,0' arc='2'/>
+</POLYGON>
+</TinyCAD>
+</SYMBOLDEF>
+<OPTIONS><GRID>0</GRID>
+<UNITS>0</UNITS>
+<COLOR_WIRE>FF0000</COLOR_WIRE>
+<COLOR_BUS>0000FF</COLOR_BUS>
+<COLOR_JUNCTION>000000</COLOR_JUNCTION>
+<COLOR_NOCONNECT>000000</COLOR_NOCONNECT>
+<COLOR_LABEL>208000</COLOR_LABEL>
+<COLOR_POWER>000000</COLOR_POWER>
+<COLOR_PIN>4040C0</COLOR_PIN>
+<COLOR_HIDDEN_PIN>208020</COLOR_HIDDEN_PIN>
+<COLOR_BACKGROUND>FFFFFF</COLOR_BACKGROUND>
+</OPTIONS>
+<SYMBOL id='1' pos='148,76' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D1' show='1' pos='-25,-14'/>
+<FIELD type='2' description='Name' value='TLine4' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='4' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='TLine Z 45 Td 1.0e-9' show='1' pos='-25,-11.6'/>
+</SYMBOL>
+<WIRE a='112,68' b='96,68'/>
+<WIRE a='112,96' b='94,96'/>
+<LABEL pos='46,76' direction='3' font='3' color='208000' style='0'>.Port 1</LABEL>
+<LABEL pos='218,76' direction='3' font='3' color='208000' style='0'>.Port 2</LABEL>
+<LABEL pos='46,88' direction='3' font='3' color='208000' style='0'>.Port 3</LABEL>
+<LABEL pos='218,88' direction='3' font='3' color='208000' style='0'>.Port 4</LABEL>
+<SYMBOL id='1' pos='148,96' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D2' show='1' pos='-25,-14'/>
+<FIELD type='2' description='Name' value='TLine4' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='4' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='TLine Z 45 Td 1.0e-9' show='1' pos='-25,-11.6'/>
+</SYMBOL>
+<SYMBOL id='1' pos='148,120' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D3' show='1' pos='-25,-14'/>
+<FIELD type='2' description='Name' value='TLine4' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='4' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='TLine Z -22.5 Td 1.e-9' show='1' pos='-25,-11.6'/>
+</SYMBOL>
+<SYMBOL id='1' pos='148,142' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D4' show='1' pos='-25,-14'/>
+<FIELD type='2' description='Name' value='TLine4' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='4' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='TLine Z 30 Td 1.2e-9' show='1' pos='-25,-11.6'/>
+</SYMBOL>
+<SYMBOL id='2' pos='112,158' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D5' show='1' pos='1,-8'/>
+<FIELD type='2' description='Name' value='GND' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='1' show='0' pos='0,0'/>
+<FIELD type='2' description='Type' value='IdealShort' show='0' pos='0,0'/>
+</SYMBOL>
+<SYMBOL id='2' pos='156,158' part='0' rotate='0' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='D6' show='1' pos='1,-8'/>
+<FIELD type='2' description='Name' value='GND' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='2' description='Pins' value='1' show='0' pos='0,0'/>
+<FIELD type='2' description='Type' value='IdealShort' show='0' pos='0,0'/>
+</SYMBOL>
+<WIRE a='112,82' b='112,88'/>
+<WIRE a='148,82' b='148,88'/>
+<WIRE a='112,112' b='106,112'/>
+<WIRE a='106,112' b='106,82'/>
+<WIRE a='106,82' b='112,82'/>
+<WIRE a='112,76' b='112,82'/>
+<WIRE a='148,82' b='156,82'/>
+<WIRE a='148,76' b='148,82'/>
+<WIRE a='156,82' b='156,112'/>
+<WIRE a='156,112' b='148,112'/>
+<WIRE a='112,124' b='112,134'/>
+<WIRE a='148,124' b='148,134'/>
+<WIRE a='108,142' b='108,148'/>
+<WIRE a='152,142' b='152,148'/>
+<WIRE a='106,112' b='90,112'/>
+<WIRE a='90,112' b='90,122'/>
+<WIRE a='108,142' b='112,142'/>
+<WIRE a='90,142' b='108,142'/>
+<WIRE a='156,112' b='174,112'/>
+<WIRE a='174,112' b='174,122'/>
+<WIRE a='152,142' b='148,142'/>
+<WIRE a='174,142' b='152,142'/>
+<JUNCTION pos='108,142'/>
+<JUNCTION pos='112,82'/>
+<JUNCTION pos='106,112'/>
+<JUNCTION pos='148,82'/>
+<JUNCTION pos='152,142'/>
+<JUNCTION pos='156,112'/>
+<WIRE a='108,128' b='108,124'/>
+<WIRE a='108,124' b='112,124'/>
+<JUNCTION pos='112,124'/>
+<WIRE a='112,120' b='112,124'/>
+<JUNCTION pos='148,124'/>
+<WIRE a='148,124' b='152,124'/>
+<WIRE a='148,120' b='148,124'/>
+<WIRE a='152,124' b='152,130'/>
+<WIRE a='38,76' b='96,76'/>
+<WIRE a='96,76' b='96,68'/>
+<WIRE a='94,88' b='94,96'/>
+<WIRE a='94,88' b='38,88'/>
+<WIRE a='148,68' b='188,68'/>
+<WIRE a='188,68' b='188,76'/>
+<WIRE a='188,88' b='188,96'/>
+<WIRE a='188,96' b='148,96'/>
+<WIRE a='188,76' b='230,76'/>
+<WIRE a='188,88' b='230,88'/>
+<SYMBOL id='10' pos='92,130' part='0' rotate='3' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='L1' show='1' pos='2,-4'/>
+<FIELD type='2' description='Name' value='L' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='L 1e-3' show='1' pos='2,-1.6'/>
+<FIELD type='2' description='Pins' value='2' show='0' pos='0,0'/>
+</SYMBOL>
+<WIRE a='90,129' b='90,142'/>
+<SYMBOL id='12' pos='110,136' part='0' rotate='3' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='L2' show='1' pos='-8,-4'/>
+<FIELD type='2' description='Name' value='L' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='L 1e-3' show='1' pos='-10,-1.6'/>
+<FIELD type='2' description='Pins' value='2' show='0' pos='0,0'/>
+</SYMBOL>
+<WIRE a='108,135' b='108,142'/>
+<SYMBOL id='13' pos='154,138' part='0' rotate='3' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='L3' show='1' pos='0,-4'/>
+<FIELD type='2' description='Name' value='L' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='L 1e-3' show='1' pos='0,-1.6'/>
+<FIELD type='2' description='Pins' value='2' show='0' pos='0,0'/>
+</SYMBOL>
+<WIRE a='152,137' b='152,142'/>
+<SYMBOL id='12' pos='176,130' part='0' rotate='3' can_scale='0' show_power='0' scale_x='1' scale_y='1'><FIELD type='0' description='Ref' value='L4' show='1' pos='2,-4'/>
+<FIELD type='2' description='Name' value='L' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_PROLOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='$$SPICE_EPILOG_PRIORITY' value='5' show='0' pos='0,0'/>
+<FIELD type='2' description='Package' value='package name for PCB layout' show='0' pos='0,0'/>
+<FIELD type='0' description='Type' value='L 1e-3' show='1' pos='2,-1.6'/>
+<FIELD type='2' description='Pins' value='2' show='0' pos='0,0'/>
+</SYMBOL>
+<WIRE a='174,129' b='174,142'/>
+</TinyCAD>
+</TinyCADSheets>
