@@ -4,6 +4,7 @@ from numpy import empty
 import os
 from TestHelpers import *
 import math
+import cmath
 import matplotlib.pyplot as plt
 
 class TestResponse(unittest.TestCase,ResponseTesterHelper):
@@ -187,10 +188,17 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
                 plt.legend(loc='upper right')
                 plt.show()
             self.CheckWaveformResult(x,fileName,fileName+' incorrect')
-
     def testfrc(self):
         frc=self.frc()
         self.Checkit(self.id(),frc,None,False)
+    def testfrcSumCosines(self):
+        frc=self.frc()
+        f=frc.FrequencyList()
+        irc=self.irc()
+        t=irc.TimeDescriptor()
+        cs=[1./t.N*sum([abs(frc[n])*(2. if 0<n<f.N else 1.)*math.cos(2.*math.pi*f[n]*t[k]+cmath.phase(frc[n])) for n in range(len(f))]) for k in range(len(t))]
+        irc2=si.sp.ImpulseResponse(t,cs)
+        self.Checkit(self.id(),irc2,irc,True)
     def testfrcWriteRead(self):
         frc=self.frc()
         frc.WriteToFile('frcwr.txt')
