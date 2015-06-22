@@ -204,7 +204,12 @@ class FrequencyResponse(object):
         # the padded response might be right
         if fd.N == fr.FrequencyList().N and fd.Fe == fr.FrequencyList().Fe:
             return fr
-        # now the padded frequency response is now resampled using the CZT on the impulse
+        # otherwise, if the end frequency of the padded response is the desired end frequency and if
+        # the number of points in the padded response is an integer multiple of the desired number of
+        # points, then just decimate the padded response
+        if fr.FrequencyList().Fe == fd.Fe and fr.FrequencyList().N/fd.N*fd.N == fr.FrequencyList().N:
+            return fr._Decimate(fr.FrequencyList().N/fd.N)
+        # this is the last resort.  The padded frequency response is now resampled using the CZT on the impulse
         # response
         ir=fr.ImpulseResponse()
         Ts=1./ir.TimeDescriptor().Fs
