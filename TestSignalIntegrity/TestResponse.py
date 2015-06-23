@@ -198,7 +198,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         t=irc.TimeDescriptor()
         cs=[1./t.N*sum([abs(frc[n])*(2. if 0<n<f.N else 1.)*math.cos(2.*math.pi*f[n]*t[k]+cmath.phase(frc[n])) for n in range(len(f))]) for k in range(len(t))]
         irc2=si.sp.ImpulseResponse(t,cs)
-        self.Checkit(self.id(),irc2,irc,True)
+        self.Checkit(self.id(),irc2,irc,False)
     def testfrcWriteRead(self):
         frc=self.frc()
         frc.WriteToFile('frcwr.txt')
