@@ -163,6 +163,33 @@ class TestDeembedding(unittest.TestCase):
         self.assertTrue(difference1<1e-10,'Multiple Unknowns Deembedding - first unknown incorrect')
         difference2 = linalg.norm(matrix(Su2)-matrix(SuCalc[UnknownNames.index('?2')]))
         self.assertTrue(difference2<1e-10,'Multiple Unknowns Deembedding - second unknown incorrect')
+    def testTwoPortTwoDevicesSLUnknownThruDeembedding(self):
+        SL=si.dev.Thru()
+        SR=si.dev.Thru()
+        # first build something that we know
+        SD=si.sd.SystemDescription()
+        SD.AddDevice('?L',2,SL)
+        SD.AddDevice('DR',2,SR)
+        SD.ConnectDevicePort('?L',2,'DR',1)
+        SD.AddPort('?L',1,1,True)
+        SD.AddPort('DR',2,2,True)
+        Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
+        SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
+        difference = linalg.norm(matrix(SuCalc)-matrix(SL))
+        self.assertTrue(difference<1e-10,'Two Port Two Devices SL unknown Fixture Deembedding incorrect')
+        #Now test according to the two port equation in the book
+        Sk11=Sk[1-1][1-1]
+        Sk12=Sk[1-1][2-1]
+        Sk21=Sk[2-1][1-1]
+        Sk22=Sk[2-1][2-1]
+        SR11=SR[1-1][1-1]
+        SR12=SR[1-1][2-1]
+        SR21=SR[2-1][1-1]
+        SR22=SR[2-1][2-1]
+        SLcalc=1./(Sk22*SR11-linalg.det(SR))
+        SLcalc=SLcalc*matrix([[SR11*linalg.det(Sk)-Sk11*linalg.det(SR),Sk12*SR21],[Sk21*SR12,Sk22-SR22]])
+        difference = linalg.norm(matrix(SLcalc)-matrix(SL))
+        self.assertTrue(difference<1e-10,'Two Port Two Devices SL Unknown Fixture Deembedding equation incorrect')
 
 if __name__ == '__main__':
     unittest.main()
