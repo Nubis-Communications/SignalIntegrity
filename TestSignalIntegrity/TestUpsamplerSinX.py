@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from TestHelpers import *
 
 PlotTestUpsampler=False
+PlotRegression=True
 
 class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -30,6 +31,9 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
             plt.ylabel('amplitude')
             plt.plot(CableTxPWfDelayed.Times('ns'),CableTxPWfDelayed.Values(),label='delayed by 0.3 samples added to HorOffset')
             plt.plot(CableTxPWf.Times('ns'),CableTxPWf.Values(),label='not delayed')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times('ns'),regression.Values(),label='regression')
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
@@ -45,6 +49,9 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
             plt.ylabel('amplitude')
             plt.plot(CableTxPWfDelayed.Times('ns'),CableTxPWfDelayed.Values(),label='delayed by 0 added to HorOffset')
             plt.plot(CableTxPWfDelayed2.Times('ns'),CableTxPWfDelayed2.Values(),label='delayed by fractional delay of 0')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times('ns'),regression.Values(),label='regression')
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
@@ -88,6 +95,9 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
             plt.ylabel('amplitude')
             plt.plot(CableTxPWf.Times('ns'),CableTxPWf.Values(),label='original waveform')
             plt.plot(CableTxPWfDelayed.Times('ns'),CableTxPWfDelayed.Values(),label='sample phase changed by 0.3 samples')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times('ns'),regression.Values(),label='regression')
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
@@ -102,6 +112,9 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
             plt.ylabel('amplitude')
             plt.plot(CableTxPWf.Times('ns'),CableTxPWf.Values(),marker='s',label='original waveform')
             plt.plot(CableTxPWfUpsampled.Times('ns'),CableTxPWfUpsampled.Values(),marker='o',label='upsampled by 10')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times('ns'),regression.Values(),label='regression')
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfUpsampled,fileNameBase+'.txt',fileNameBase)
@@ -116,6 +129,9 @@ class TestUpsamplerSinX(unittest.TestCase,ResponseTesterHelper):
             plt.ylabel('amplitude')
             plt.plot(CableTxPWf.Times('ns'),CableTxPWf.Values(),marker='s',label='original waveform')
             plt.plot(CableTxPWfUpsampled.Times('ns'),CableTxPWfUpsampled.Values(),marker='o',label='upsampled by 10 + sample phase')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times('ns'),regression.Values(),label='regression')
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfUpsampled,fileNameBase+'.txt',fileNameBase)

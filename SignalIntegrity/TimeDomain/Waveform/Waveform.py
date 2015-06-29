@@ -71,7 +71,7 @@ class Waveform(object):
         with open(fileName,"w") as f:
             td=self.TimeDescriptor()
             f.write(str(td.H)+'\n')
-            f.write(str(td.N)+'\n')
+            f.write(str(int(td.N))+'\n')
             f.write(str(td.Fs)+'\n')
             for v in self.Values():
                 f.write(str(v)+'\n')
