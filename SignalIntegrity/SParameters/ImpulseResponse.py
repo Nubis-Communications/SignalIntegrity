@@ -37,13 +37,15 @@ class ImpulseResponse(Waveform):
             return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)]).\
                 _DelayBy(self.TimeDescriptor().H)
         if not fd and adjustLength:
-            td = self.TimeDescriptor()
-            PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.N+0.5)))
-            NegativePoints = int(max(0,math.floor(-td.H*td.Fs+0.5)))
-            P=max(PositivePoints,NegativePoints)*2
-            return self._Pad(P).FrequencyResponse(None,adjustLength=False)
+            return self._AdjustLength().FrequencyResponse(None,adjustLength=False)
         if fd:
             return self.FrequencyResponse().Resample(fd)
+    def _AdjustLength(self):
+        td = self.TimeDescriptor()
+        PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.N+0.5)))
+        NegativePoints = int(max(0,math.floor(-td.H*td.Fs+0.5)))
+        P=max(PositivePoints,NegativePoints)*2
+        return self._Pad(P)
     def _Pad(self,P):
         """Pads the impulse response
 
@@ -104,6 +106,5 @@ class ImpulseResponse(Waveform):
             endidx-startidx+1,td.Fs),
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
-        K=len(self)
         td=self.TimeDescriptor()
-        return FirFilter(FilterDescriptor(1,-td.H*td.Fs,K-1),self.Values())
+        return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.N-1),self.Values())

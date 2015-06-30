@@ -145,9 +145,6 @@ class FrequencyResponse(object):
         else:
             # padding adds zeros to the response
             X=self.Response()+[0 for n in range(P-fd.N)]
-##            X=[0 for n in range(P+1)]
-##            for n in range(self.FrequencyList().N+1):
-##                X[n]=self.Response()[n]
         return FrequencyResponse(EvenlySpacedFrequencyList(P*fd.Fe/fd.N,P),X)
     def _Decimate(self,D):
         """decimates the frequency response

@@ -67,7 +67,7 @@ class TestWriteClass(unittest.TestCase):
         sourceCode=[]
         with open(fileName, 'rU') as inputFile:
             for line in inputFile:
-                if "class" in line:
+                if "class" == line.lstrip(' ').split(' ')[0]:
                     if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
                         inClass = True
                         inDef = False
@@ -76,7 +76,7 @@ class TestWriteClass(unittest.TestCase):
                         inClass = False
                         inDef = False
                         addingLines = False
-                elif "def" in line:
+                elif "def" == line.lstrip(' ').split(' ')[0]:
                     if inClass:
                         if any(d == line.lstrip(' ').split(' ')[1].split('(')[0] for d in defName):
                             inDef=True
@@ -136,7 +136,7 @@ class TestWriteClass(unittest.TestCase):
     def testWriteImpulseResponse_FrequencyResponse(self):
         fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
         className='ImpulseResponse'
-        defName=['FrequencyResponse']
+        defName=['FrequencyResponse','_AdjustLength']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_TrimToThreshold(self):
         fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
@@ -148,7 +148,42 @@ class TestWriteClass(unittest.TestCase):
         className='ImpulseResponse'
         defName=['FirFilter']
         self.WriteClassCode(fileName,className,defName)
-
-        
+    def testWriteImpulseResponse_Pad(self):
+        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        className='ImpulseResponse'
+        defName=['_Pad']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteImpulseResponse_Resample(self):
+        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        className='ImpulseResponse'
+        defName=['Resample']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTimeDescriptor_ApplyFilter(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/TimeDescriptor.py"
+        className='TimeDescriptor'
+        defName=['ApplyFilter','__init__','__len__','__getitem__','Times','__mul__','__div__',
+                 'DelayBy','FrequencyList','TimeOfPoint']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteFilterDescriptor_mul(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
+        className='FilterDescriptor'
+        defName=['__mul__','__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteFilterDescriptor_Trimmer(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
+        className='FilterDescriptor'
+        defName=['TrimLeft','TrimRight','TrimTotal']
+        self.WriteClassCode(fileName,className,defName)        
+    def testWriteFilterDescriptor_Order(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
+        className='FilterDescriptor'
+        defName=['Before','After']
+        self.WriteClassCode(fileName,className,defName)      
+    def testWriteWaveform_Values(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
+        className='Waveform'
+        defName=['Values','__init__','__len__','__getitem__','Times','TimeDescriptor',]
+        self.WriteClassCode(fileName,className,defName)      
+            
 if __name__ == '__main__':
     unittest.main()
