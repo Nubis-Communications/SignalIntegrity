@@ -1,7 +1,5 @@
 from numpy import convolve
 
-
-
 class FirFilter(object):
     def __init__(self,fd,ft):
         self.m_fd = fd

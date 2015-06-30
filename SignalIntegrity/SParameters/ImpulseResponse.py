@@ -15,7 +15,7 @@ class ImpulseResponse(Waveform):
         """Produces the frequency response
 
         Args:
-            fd (TimeDescriptor) (optional) the frequency descriptor for the frequency response.
+            fd (FrequencyDescriptor) (optional) the desired frequency descriptor.
             adjustLength (bool) (optional) whether to adjust the length.
                 defaults to True
 
@@ -34,7 +34,8 @@ class ImpulseResponse(Waveform):
         if not fd and not adjustLength:
             X=fft.fft(self.Values())
             fd=self.TimeDescriptor().FrequencyList()
-            return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)])._DelayBy(self.TimeDescriptor().H)
+            return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)]).\
+                _DelayBy(self.TimeDescriptor().H)
         if not fd and adjustLength:
             td = self.TimeDescriptor()
             PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.N+0.5)))
@@ -94,10 +95,13 @@ class ImpulseResponse(Waveform):
                 # include a point at the beginning if possible
                 startidx = startidx - 1
             else:
-                # append a zero to the end and calculate number of points with endidx+1
-                return ImpulseResponse(TimeDescriptor(td[startidx],(endidx+1)-startidx+1,td.Fs),
+                # append a zero to the end and calculate number of
+                # points with endidx+1
+                return ImpulseResponse(TimeDescriptor(td[startidx],
+                    (endidx+1)-startidx+1,td.Fs),
                     [x[k] for k in range(startidx,endidx+1)]+[0.])
-        return ImpulseResponse(TimeDescriptor(td[startidx],endidx-startidx+1,td.Fs),
+        return ImpulseResponse(TimeDescriptor(td[startidx],
+            endidx-startidx+1,td.Fs),
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
         K=len(self)

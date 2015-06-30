@@ -1,10 +1,10 @@
 from FirFilter import FirFilter
-import copy
 
 class FractionalDelayFilterLinear(FirFilter):
     def __init__(self,F,accountForDelay=True):
         from FilterDescriptor import FilterDescriptor
-        FirFilter.__init__(self,FilterDescriptor(1,F if accountForDelay else 0,1),[1-F,F])
+        FirFilter.__init__(self,FilterDescriptor(1,
+            F if accountForDelay else 0,1),[1-F,F])
 
 class UpsamplerLinear(FirFilter):
     def __init__(self,U):
@@ -15,7 +15,6 @@ class UpsamplerLinear(FirFilter):
             [1-float(u+1)/float(U) for u in range(U-1)])
     def FilterWaveform(self,wf):
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
-        from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
         fd=self.FilterDescriptor()
         us=[0. for k in range(len(wf)*fd.U)]
         for k in range(len(wf)):
