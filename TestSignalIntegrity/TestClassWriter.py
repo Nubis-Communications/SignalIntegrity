@@ -2,59 +2,6 @@ import unittest
 
 from TestHelpers import *
 
-"""
-class TestRoutineWriter(unittest.TestCase,RoutineWriterTesterHelper):
-    def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
-        unittest.TestCase.__init__(self,methodName)
-    def WriteClassCode(self,fileName,Routine,headerLines,printFuncName=False):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sourceCode = []
-        sourceCode.extend(headerLines)
-        addingLines = False
-        with open(fileName, 'rU') as inputFile:
-            for line in inputFile:
-                if 'def' in line:
-                    addingLines = False
-                    if Routine in line:
-                        addingLines = True
-                        includingLines = True
-                        if printFuncName:
-                            line = line.replace('test','').replace('self','')
-                            sourceCode.append(line[4:])
-                        continue
-                if addingLines:
-                    if '# exclude' in line:
-                        includingLines = False
-                        continue
-                    if '# include' in line:
-                        includingLines = True
-                        continue
-                    if includingLines:
-                        if printFuncName:
-                            sourceCode.append(line[4:])
-                        else:
-                            sourceCode.append(line[8:])
-        scriptName = Routine.replace('test','').replace('(self)','')
-        scriptFileName=scriptName + 'Code.py'
-        self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
-        old_stdout = sys.stdout
-        sys.stdout = mystdout = StringIO()
-        execfile(scriptFileName)
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sys.stdout = old_stdout
-        outputFileName = scriptName + '.po'
-        if not os.path.exists(outputFileName):
-            resultFile = open(outputFileName, 'w')
-            resultFile.write(mystdout.getvalue())
-            resultFile.close()
-            self.assertTrue(False, outputFileName + ' not found')
-        regressionFile = open(outputFileName, 'rU')
-        regression = regressionFile.read()
-        regressionFile.close()
-        self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
-"""
-
 class TestWriteClass(unittest.TestCase):
     def WriteClassCode(self,fileName,className,defName):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -133,10 +80,21 @@ class TestWriteClass(unittest.TestCase):
         className=''
         defName=['Rat']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteFrequencyResponse_Basic(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
+        className='FrequencyResponse'
+        defName=['__init__','__getitem__','__len__','FrequencyList',
+        'Frequencies','Response','ReadFromFile','WriteToFile']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_FrequencyResponse(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
         defName=['FrequencyResponse','_AdjustLength']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteImpulseResponse_DelayBy(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
+        className='ImpulseResponse'
+        defName=['DelayBy']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_TrimToThreshold(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
@@ -173,17 +131,33 @@ class TestWriteClass(unittest.TestCase):
         fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
         className='FilterDescriptor'
         defName=['TrimLeft','TrimRight','TrimTotal']
-        self.WriteClassCode(fileName,className,defName)        
+        self.WriteClassCode(fileName,className,defName)
     def testWriteFilterDescriptor_Order(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
         className='FilterDescriptor'
         defName=['Before','After']
-        self.WriteClassCode(fileName,className,defName)      
+        self.WriteClassCode(fileName,className,defName)
     def testWriteWaveform_Values(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
         className='Waveform'
         defName=['Values','__init__','__len__','__getitem__','Times','TimeDescriptor',]
-        self.WriteClassCode(fileName,className,defName)      
-            
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteFrequencyList_Frequencies(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
+        className='FrequencyList'
+        defName=['Frequencies','__init__','__len__','__getitem__','SetEvenlySpaced','SetList',
+        'EvenlySpaced','CheckEvenlySpaced','__div__','TimeDescriptor']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteEvenlySpacedFrequencyList_Init(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
+        className='EvenlySpacedFrequencyList'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testGenericFrequencyList_Init(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
+        className='GenericFrequencyList'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+
 if __name__ == '__main__':
     unittest.main()

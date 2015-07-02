@@ -53,7 +53,7 @@ class FrequencyResponse(object):
     def _DelayBy(self,TD):
         fd=self.FrequencyList()
         return FrequencyResponse(fd,
-            [self.Response()[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD) for n in range(fd.N+1)])
+        [self.Response()[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD) for n in range(fd.N+1)])
     def ImpulseResponse(self,td=None,adjustDelay=True):
         """Produces the impulse response
 
@@ -243,7 +243,8 @@ class FrequencyResponse(object):
             else:
                 f.write('UnevenlySpaced\n')
                 for n in range(len(fl)):
-                    f.write(str(fl[n])+' '+str(self.Response()[n].real)+' '+str(self.Response()[n].imag)+'\n')
+                    f.write(str(fl[n])+' '+str(self.Response()[n].real)+' '+
+                    str(self.Response()[n].imag)+'\n')
         return self
     def __eq__(self,other):
         if self.FrequencyList() != other.FrequencyList():
