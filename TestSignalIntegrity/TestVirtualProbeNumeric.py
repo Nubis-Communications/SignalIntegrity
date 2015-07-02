@@ -67,20 +67,20 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         DiffOutBot=(outputWf[ol.index(('R1_1'))]-outputWf[ol.index(('R2_2'))]).DelayBy(-2.325e-9)
         self.CheckWaveformResult(DiffOutBot,'.//DesignCon2008//Waveform_DiffOutBot.txt',fileNameBase)
         ThruBackplaneDiff.DelayBy(-4.7e-9)
-        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.UpsamplerSinX(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
+        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.InterpolatorSinX(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
         self.CheckWaveformResult(DiffIn,'.//DesignCon2008//Waveform_DiffInAdapted.txt',fileNameBase)
         self.CheckWaveformResult(DiffOutTop,'.//DesignCon2008//Waveform_DiffOutTopAdapted.txt',fileNameBase)
         self.CheckWaveformResult(DiffOutMid,'.//DesignCon2008//Waveform_DiffOutMidAdapted.txt',fileNameBase)
         self.CheckWaveformResult(DiffOutBot,'.//DesignCon2008//Waveform_DiffOutBotAdapted.txt',fileNameBase)
 
-        inputWf[0]=inputWf[0]*si.td.f.UpsamplerSinX(2)
+        inputWf[0]=inputWf[0]*si.td.f.InterpolatorSinX(2)
         outputWf=vpp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
         DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
         DiffOutMid=(outputWf[ol.index(('D11_2'))]-outputWf[ol.index(('D12_2'))]).DelayBy(-4.7e-9)
         DiffOutBot=(outputWf[ol.index(('R1_1'))]-outputWf[ol.index(('R2_2'))]).DelayBy(-2.325e-9)
         ThruBackplaneDiff.DelayBy(-4.7e-9)
-        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.UpsamplerSinX(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
+        [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.InterpolatorSinX(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
 
         """
         plt.clf()

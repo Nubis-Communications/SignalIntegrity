@@ -14,16 +14,16 @@ import matplotlib.pyplot as plt
 
 from TestHelpers import *
 
-PlotTestUpsamplerLinear=False
+PlotTestInterpolatorLinear=False
 PlotRegression=True
 
-class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
+class TestInterpolatorLinear(unittest.TestCase,ResponseTesterHelper):
     def testDelayLinear(self):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,50,20.))
         CableTxPWfDelayed=CableTxPWf.DelayBy(0.3/CableTxPWf.TimeDescriptor().Fs)
-        if PlotTestUpsamplerLinear:
+        if PlotTestInterpolatorLinear:
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')
@@ -41,8 +41,8 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt')
         CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
         CableTxPWfDelayed.DelayBy(0.0/CableTxPWfDelayed.TimeDescriptor().Fs)
-        CableTxPWfDelayed2=si.td.f.UpsamplerFractionalDelayFilterLinear(1,0.0).FilterWaveform(CableTxPWf)
-        if PlotTestUpsamplerLinear:
+        CableTxPWfDelayed2=si.td.f.InterpolatorFractionalDelayFilterLinear(1,0.0).FilterWaveform(CableTxPWf)
+        if PlotTestInterpolatorLinear:
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')
@@ -63,11 +63,11 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(5,0,20.))
         FractionalDelay=0.3
         CableTxPWfDelayed=CableTxPWf.DelayBy(FractionalDelay/CableTxPWf.TimeDescriptor().Fs)
-        CableTxPWfDelayed2=si.td.f.UpsamplerFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
-        CableTxPWfDelayed3=si.td.f.UpsamplerFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
+        CableTxPWfDelayed2=si.td.f.InterpolatorFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
+        CableTxPWfDelayed3=si.td.f.InterpolatorFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=True).FilterWaveform(CableTxPWf)
         CableTxPWfDelayed3=CableTxPWfDelayed3.DelayBy(FractionalDelay/CableTxPWfDelayed3.TimeDescriptor().Fs)
-        CableTxPWfDelayed4=si.td.f.UpsamplerFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=False).FilterWaveform(CableTxPWf)
-        if PlotTestUpsamplerLinear:
+        CableTxPWfDelayed4=si.td.f.InterpolatorFractionalDelayFilterLinear(1,FractionalDelay,accountForDelay=False).FilterWaveform(CableTxPWf)
+        if PlotTestInterpolatorLinear:
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')
@@ -89,9 +89,9 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,50,20.))
         #CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
-        CableTxPWfDelayed=si.td.f.UpsamplerFractionalDelayFilterLinear(1,0.3,accountForDelay=True).FilterWaveform(CableTxPWf)
+        CableTxPWfDelayed=si.td.f.InterpolatorFractionalDelayFilterLinear(1,0.3,accountForDelay=True).FilterWaveform(CableTxPWf)
         #CableTxPWfDelayed.DelayBy(0.0/CableTxPWfDelayed.TimeDescriptor().Fs)
-        if PlotTestUpsamplerLinear:
+        if PlotTestInterpolatorLinear:
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')
@@ -107,8 +107,8 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,50,20.))
-        CableTxPWfUpsampled=si.td.f.UpsamplerFractionalDelayFilterLinear(10,0.0).FilterWaveform(CableTxPWf)
-        if PlotTestUpsamplerLinear:
+        CableTxPWfUpsampled=si.td.f.InterpolatorFractionalDelayFilterLinear(10,0.0).FilterWaveform(CableTxPWf)
+        if PlotTestInterpolatorLinear:
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')
@@ -124,8 +124,8 @@ class TestUpsamplerLinear(unittest.TestCase,ResponseTesterHelper):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,50,20.))
-        CableTxPWfUpsampled=si.td.f.UpsamplerFractionalDelayFilterLinear(10,0.3).FilterWaveform(CableTxPWf)
-        if PlotTestUpsamplerLinear:
+        CableTxPWfUpsampled=si.td.f.InterpolatorFractionalDelayFilterLinear(10,0.3).FilterWaveform(CableTxPWf)
+        if PlotTestInterpolatorLinear:
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')

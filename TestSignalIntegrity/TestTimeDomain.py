@@ -1,7 +1,7 @@
 from TestVirtualProbeNumeric import *
 from TestResponse import *
-from TestUpsamplerLinear import *
-from TestUpsamplerSinX import *
+from TestInterpolatorLinear import *
+from TestInterpolatorSinX import *
 
 if __name__ == '__main__':
     unittest.main()

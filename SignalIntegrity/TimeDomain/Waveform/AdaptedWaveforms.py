@@ -3,11 +3,11 @@ class AdaptedWaveforms(object):
         from TimeDescriptor import TimeDescriptor
         from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
         from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
-        from SignalIntegrity.TimeDomain.Filters.UpsamplerSinX import UpsamplerSinX
-        from SignalIntegrity.TimeDomain.Filters.UpsamplerSinX import FractionalDelayFilterSinX
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         #upsample all of the waveforms first
-        wful=[wf*UpsamplerSinX(int(round(wfl[0].TimeDescriptor().Fs/wf.TimeDescriptor().Fs))) for wf in wfl]
+        wful=[wf*InterpolatorSinX(int(round(wfl[0].TimeDescriptor().Fs/wf.TimeDescriptor().Fs))) for wf in wfl]
         wfcdl=[wf.TimeDescriptor()*WaveformTrimmer(0,0)*
         FractionalDelayFilterSinX(0,True).FilterDescriptor()
             for wf in wful]

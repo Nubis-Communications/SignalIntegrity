@@ -6,7 +6,7 @@ class FractionalDelayFilterLinear(FirFilter):
         FirFilter.__init__(self,FilterDescriptor(1,
             F if accountForDelay else 0,1),[1-F,F])
 
-class UpsamplerLinear(FirFilter):
+class InterpolatorLinear(FirFilter):
     def __init__(self,U):
         from FilterDescriptor import FilterDescriptor
         FirFilter.__init__(self,
@@ -21,9 +21,9 @@ class UpsamplerLinear(FirFilter):
             us[k*fd.U]=wf.Values()[k]
         return FirFilter.FilterWaveform(self,Waveform(wf.TimeDescriptor(),us))
 
-class UpsamplerFractionalDelayFilterLinear(object):
+class InterpolatorFractionalDelayFilterLinear(object):
     def __init__(self,U,F,accountForDelay=True):
         self.fdf = FractionalDelayFilterLinear(F,accountForDelay)
-        self.usf = UpsamplerLinear(U)
+        self.usf = InterpolatorLinear(U)
     def FilterWaveform(self,wf):
         return self.usf.FilterWaveform(self.fdf.FilterWaveform(wf))

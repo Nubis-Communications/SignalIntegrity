@@ -10,7 +10,7 @@ class FirFilter(object):
         return self.m_fd
     def FilterWaveform(self,wf):
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
-        td = wf.TimeDescriptor().ApplyFilter(self.FilterDescriptor())
+        td = wf.TimeDescriptor()*self.FilterDescriptor()
         filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
         return Waveform(td,filteredwf)
     def Print(self):

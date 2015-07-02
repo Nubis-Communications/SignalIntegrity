@@ -18,7 +18,7 @@ class FractionalDelayFilterSinX(FirFilter):
             FilterDescriptor(U,S+F if accountForDelay else S,2*S),
             [SinXFunc(k,S,U,F) for k in range(2*U*S+1)])
 
-class UpsamplerSinX(FirFilter):
+class InterpolatorSinX(FirFilter):
     def __init__(self,U):
         from FilterDescriptor import FilterDescriptor
         S=64
@@ -34,9 +34,9 @@ class UpsamplerSinX(FirFilter):
             us[k*fd.U]=wf.Values()[k]
         return FirFilter.FilterWaveform(self,Waveform(wf.TimeDescriptor(),us))
 
-class UpsamplerFractionalDelayFilterSinX(object):
+class InterpolatorFractionalDelayFilterSinX(object):
     def __init__(self,U,F,accountForDelay=True):
         self.fdf = FractionalDelayFilterSinX(F,accountForDelay)
-        self.usf = UpsamplerSinX(U)
+        self.usf = InterpolatorSinX(U)
     def FilterWaveform(self,wf):
         return self.usf.FilterWaveform(self.fdf.FilterWaveform(wf))
