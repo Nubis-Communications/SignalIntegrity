@@ -5,7 +5,7 @@ import math
 import string
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Conversions import ReferenceImpedance
-from SignalIntegrity.SParameters.FrequencyList import *
+from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
 
 class File(SParameters):
     def __init__(self,name,Z0=50.0):

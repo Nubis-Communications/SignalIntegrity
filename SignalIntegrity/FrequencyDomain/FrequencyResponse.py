@@ -2,10 +2,10 @@ from numpy import fft
 import math
 import cmath
 
-from SignalIntegrity.SParameters.FrequencyList import FrequencyList
-from SignalIntegrity.SParameters.FrequencyList import EvenlySpacedFrequencyList
-from SignalIntegrity.SParameters.FrequencyList import GenericFrequencyList
-from SignalIntegrity.SParameters.ImpulseResponse import ImpulseResponse
+from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
+from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
+from SignalIntegrity.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
 from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Splines import Spline
 from SignalIntegrity.ChirpZTransform import CZT

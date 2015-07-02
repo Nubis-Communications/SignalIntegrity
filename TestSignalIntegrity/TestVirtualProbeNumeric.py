@@ -18,7 +18,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         N=200
 ##        si.sp.File('XRAY041.s4p').Resample(si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
-        vpp=si.p.VirtualProbeNumericParser(si.sp.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
+        vpp=si.p.VirtualProbeNumericParser(si.fd.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         result = vpp.TransferMatrices()
         self.CheckSParametersResult(result, './/DesignCon2008//VirtualProbeTransferMatrices.s6p', fileNameBase)
         #result.WriteToFile('vptm.s6p')

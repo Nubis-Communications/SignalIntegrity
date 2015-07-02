@@ -51,7 +51,7 @@ class TimeDescriptor(object):
     def DelayBy(self,D):
         return TimeDescriptor(self.H+D,self.N,self.Fs)
     def FrequencyList(self):
-        from SignalIntegrity.SParameters.FrequencyList import EvenlySpacedFrequencyList
+        from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
         K=self.N
         N=K/2
         Fe=self.Fs/2.

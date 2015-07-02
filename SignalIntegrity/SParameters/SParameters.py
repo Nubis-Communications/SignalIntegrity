@@ -5,8 +5,8 @@ import math
 import string
 
 from SignalIntegrity.Conversions import ReferenceImpedance
-from SignalIntegrity.SParameters.FrequencyList import *
-from SignalIntegrity.SParameters.FrequencyResponse import FrequencyResponse
+from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
+from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
 
 class SParameters():
     def __init__(self,f,data,Z0=50.0):

@@ -109,52 +109,52 @@ class TestWriteClass(unittest.TestCase):
 
 
     def testWriteFrequencyResponse_ImpulseResponse(self):
-        fileName="../SignalIntegrity/SParameters/FrequencyResponse.py"
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
         defName=['ImpulseResponse']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Resample(self):
-        fileName="../SignalIntegrity/SParameters/FrequencyResponse.py"
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
         defName=['Resample']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Pad(self):
-        fileName="../SignalIntegrity/SParameters/FrequencyResponse.py"
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
         defName=['_Pad']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_DelayBy(self):
-        fileName="../SignalIntegrity/SParameters/FrequencyResponse.py"
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
         defName=['_DelayBy']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Rat(self):
-        fileName="../SignalIntegrity/SParameters/FrequencyResponse.py"
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className=''
         defName=['Rat']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_FrequencyResponse(self):
-        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
         defName=['FrequencyResponse','_AdjustLength']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_TrimToThreshold(self):
-        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
         defName=['TrimToThreshold']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_FirFilter(self):
-        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
         defName=['FirFilter']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_Pad(self):
-        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
         defName=['_Pad']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_Resample(self):
-        fileName="../SignalIntegrity/SParameters/ImpulseResponse.py"
+        fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
         defName=['Resample']
         self.WriteClassCode(fileName,className,defName)
