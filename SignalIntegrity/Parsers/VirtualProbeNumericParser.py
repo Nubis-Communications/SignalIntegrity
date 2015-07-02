@@ -1,8 +1,8 @@
 from VirtualProbeParser import VirtualProbeParser
 from SignalIntegrity.SystemDescriptions import VirtualProbeNumeric
 from SignalIntegrity.SParameters import SParameters
-from SignalIntegrity.SParameters import FrequencyResponse
-from SignalIntegrity.SParameters import ImpulseResponse
+from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
+from SignalIntegrity.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
 
 from numpy import zeros
 

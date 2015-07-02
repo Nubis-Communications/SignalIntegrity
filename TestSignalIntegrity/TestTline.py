@@ -67,7 +67,8 @@ class TestTline(unittest.TestCase,SParameterCompareHelper):
             sf.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.File(fileName)
-        #self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
+        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
+        """
         import matplotlib.pyplot as plt
         for r in range(4):
             for c in range(4):
@@ -75,6 +76,6 @@ class TestTline(unittest.TestCase,SParameterCompareHelper):
                 plt.subplot(4,4,r*4+c+1)
                 plt.plot(f,y)
         plt.show()
-
+        """
 if __name__ == '__main__':
     unittest.main()

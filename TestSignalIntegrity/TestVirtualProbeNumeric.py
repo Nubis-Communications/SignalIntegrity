@@ -56,6 +56,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         ThruBackplaneM=si.td.wf.WaveformFileAmplitudeOnly('ThruBackplaneM.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
         ThruBackplaneDiff=ThruBackplaneP-ThruBackplaneM
         inputWf=[si.td.wf.Waveform().ReadFromFile(fileName) for fileName in ['Waveform_CableTxPWf.txt','Waveform_CableTxMWf.txt']]
+
         outputWf=vpp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
         self.CheckWaveformResult(DiffIn,'.//DesignCon2008//Waveform_DiffIn.txt',fileNameBase)
@@ -81,25 +82,26 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         ThruBackplaneDiff.DelayBy(-4.7e-9)
         [DiffIn,ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot]=si.td.wf.AdaptedWaveforms([DiffIn*si.td.f.UpsamplerSinX(10),ThruBackplaneDiff,DiffOutTop,DiffOutMid,DiffOutBot])
 
-##        plt.clf()
-##        plt.xlabel('time (ns)')
-##        plt.ylabel('amplitude')
-##        plt.plot(DiffIn.Times('ns'),DiffIn.Values(),label='DiffIn')
-##        plt.plot(DiffOutTop.Times('ns'),DiffOutTop.Values(),label='DiffOutTop')
-##        plt.plot(DiffOutMid.Times('ns'),DiffOutMid.Values(),label='DiffOutMid')
-##        plt.plot(DiffOutBot.Times('ns'),DiffOutBot.Values(),label='DiffOutBot')
-##        plt.legend(loc='upper right')
-##        plt.show()
-##        plt.clf()
-##        plt.xlabel('time (ns)')
-##        plt.ylabel('amplitude')
-##        fb=2.501234
-##        plt.scatter([(t-0.11) % (3./fb) for t in DiffIn.Times('ns')],DiffIn.Values(),label='DiffIn')
-##        plt.scatter([(t-0.11) % (3./fb) for t in DiffOutTop.Times('ns')],DiffOutTop.Values(),label='DiffOutTop')
-##        #plt.plot([t % 1./fb for t in DiffOutMid.Times('ns')],DiffOutMid.Values(),label='DiffOutMid')
-##        #plt.plot([t % 1./fb for t in DiffOutBot.Times('ns')],DiffOutBot.Values(),label='DiffOutBot')
-##        plt.legend(loc='upper right')
-##        plt.show()
-
+        """
+        plt.clf()
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.plot(DiffIn.Times('ns'),DiffIn.Values(),label='DiffIn')
+        plt.plot(DiffOutTop.Times('ns'),DiffOutTop.Values(),label='DiffOutTop')
+        plt.plot(DiffOutMid.Times('ns'),DiffOutMid.Values(),label='DiffOutMid')
+        plt.plot(DiffOutBot.Times('ns'),DiffOutBot.Values(),label='DiffOutBot')
+        plt.legend(loc='upper right')
+        plt.show()
+        plt.clf()
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        fb=2.501234
+        plt.scatter([(t-0.11) % (3./fb) for t in DiffIn.Times('ns')],DiffIn.Values(),label='DiffIn')
+        plt.scatter([(t-0.11) % (3./fb) for t in DiffOutTop.Times('ns')],DiffOutTop.Values(),label='DiffOutTop')
+        #plt.plot([t % 1./fb for t in DiffOutMid.Times('ns')],DiffOutMid.Values(),label='DiffOutMid')
+        #plt.plot([t % 1./fb for t in DiffOutBot.Times('ns')],DiffOutBot.Values(),label='DiffOutBot')
+        plt.legend(loc='upper right')
+        plt.show()
+        """
 if __name__ == '__main__':
     unittest.main()

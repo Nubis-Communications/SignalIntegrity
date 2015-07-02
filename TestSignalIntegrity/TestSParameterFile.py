@@ -270,9 +270,10 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         """
     def testRes(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        newf=[100e6*n for n in range(100)]
-        sf=si.sp.File('TestDut.s4p').Resample([1e9*n for n in range(10)])
-        sf2=si.sp.File('TestDut.s4p').Resample([1e9*n for n in range(10)]).Resample(newf)
+        newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
+        #newf=[100e6*n for n in range(100)]
+        sf=si.sp.File('TestDut.s4p').Resample(si.fd.EvenlySpacedFrequencyList(10e9,10))
+        sf2=si.sp.File('TestDut.s4p').Resample(si.fd.EvenlySpacedFrequencyList(10e9,10)).Resample(newf)
         if not os.path.exists('Test1.s4p'):
             sf.WriteToFile('Test1.s4p')
             self.assertTrue(False,'Test1.s4p' + ' does not exist')
