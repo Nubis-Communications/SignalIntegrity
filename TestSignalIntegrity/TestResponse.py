@@ -392,6 +392,25 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frc2=si.fd.FrequencyResponse(f,r)
         irr=frc2.ImpulseResponse()
         self.assertTrue(irr is None,'uneven points no descriptor incorrect')
-
+    def testRes_N_11_Fe_0p5(self):
+        Np=11
+        Fep=0.5
+        frc=self.frc()
+        frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def testRes_N_11_Fe_0p45(self):
+        Np=11
+        Fep=0.45
+        frc=self.frc()
+        frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+    def test_SparqResampling(self):
+        K=10240
+        Fs=5e6*40960
+        td=si.td.wf.TimeDescriptor(0.,K,Fs)
+        x=[1. for k in range(K)]
+        ir=si.td.wf.ImpulseResponse(td,x)
+        fr=ir.FrequencyResponse(si.fd.EvenlySpacedFrequencyList(40e9,8000))
+        pass
 if __name__ == '__main__':
     unittest.main()
