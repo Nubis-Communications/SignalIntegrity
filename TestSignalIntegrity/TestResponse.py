@@ -235,6 +235,12 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+    def testRes_N_23_Fe_0p6(self):
+        Np=23
+        Fep=0.6
+        frc=self.frc()
+        frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
     def testirc(self):
         irc=self.irc()
         self.Checkit(self.id(),irc,None,False)
