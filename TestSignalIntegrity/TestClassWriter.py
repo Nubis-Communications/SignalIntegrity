@@ -65,6 +65,11 @@ class TestWriteClass(unittest.TestCase):
         className='FrequencyResponse'
         defName=['Resample']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteFrequencyResponse_ResampleCZT(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
+        className='FrequencyResponse'
+        defName=['ResampleCZT']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Pad(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
