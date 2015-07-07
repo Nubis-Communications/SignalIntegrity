@@ -336,17 +336,29 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.File(fileName)
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
+
         """
         import matplotlib.pyplot as plt
-        f=sf.f()
         for r in range(2):
             for c in range(2):
-                responseVector=sf.Response(r+1,c+1)
-                y=[20*math.log(abs(resp),10) for resp in responseVector]
                 plt.subplot(2,2,r*2+c+1)
-                plt.plot(f,y)
+                currentFr=si.fd.FrequencyResponse(sf.f(),sf.Response(r+1,c+1))
+                plt.plot(currentFr.Frequencies(),currentFr.Response('dB'))
+                regressionFr=si.fd.FrequencyResponse(regression.f(),regression.Response(r+1, c+1))
+                plt.plot(regressionFr.Frequencies(),regressionFr.Response('dB'))
+        plt.show()
+
+        plt.clf()
+        for r in range(2):
+            for c in range(2):
+                plt.subplot(2,2,r*2+c+1)
+                currentFr=si.fd.FrequencyResponse(sf.f(),sf.Response(r+1,c+1))
+                plt.plot(currentFr.Frequencies(),currentFr.Response('deg'))
+                regressionFr=si.fd.FrequencyResponse(regression.f(),regression.Response(r+1, c+1))
+                plt.plot(regressionFr.Frequencies(),regressionFr.Response('deg'))
         plt.show()
         """
+
     def testRLC4(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         freq=[100e6*(i+1) for i in range(100)]
