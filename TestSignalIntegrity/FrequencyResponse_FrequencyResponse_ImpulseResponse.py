@@ -47,20 +47,7 @@ class FrequencyResponse(object):
             Y=tn+tp
             return ImpulseResponse(td,Y)
         if evenlySpaced and td is None and adjustDelay:
-            ir = self.ImpulseResponse(None,adjustDelay=False)
-            idx = ir.Values('abs').index(max(ir.Values('abs')))
-            TD = ir.Times()[idx] # the time of the main peak
-            # calculate the frequency response with this delay taken out
-            # the fractional delay is based on the minimum adjustment to the phase of
-            # the last point to make that point real
-            theta = self._DelayBy(-TD).Response('rad')[self.FrequencyList().N]
-            if theta < -math.pi/2.: theta=-(math.pi+theta)
-            elif theta > math.pi/2.: theta = math.pi-theta
-            else: theta = -theta
-            # calculate the fractional delay
-            TD=theta/2./math.pi/self.FrequencyList()[-1]
-            # take only the fractional delay now from the original response
-            # compute this generic impulse response with the fractional delay back in
+            TD=self._FractionalDelayTime()
             return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD)
         if evenlySpaced and not td is None:
             # if td is a float and not a time descriptor, it's assumed to be a sample

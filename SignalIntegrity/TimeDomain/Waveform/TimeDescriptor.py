@@ -1,4 +1,5 @@
 from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
+from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 
 class TimeDescriptor(object):
     def __init__(self,HorOffset,NumPts,SampleRate):
@@ -51,7 +52,6 @@ class TimeDescriptor(object):
     def DelayBy(self,D):
         return TimeDescriptor(self.H+D,self.N,self.Fs)
     def FrequencyList(self):
-        from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
         K=self.N
         N=K/2
         Fe=self.Fs/2.

@@ -78,7 +78,7 @@ class TestWriteClass(unittest.TestCase):
     def testWriteFrequencyResponse_DelayBy(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
-        defName=['_DelayBy']
+        defName=['_DelayBy','_FractionalDelayTime']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Rat(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
@@ -99,7 +99,7 @@ class TestWriteClass(unittest.TestCase):
     def testWriteImpulseResponse_DelayBy(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
         className='ImpulseResponse'
-        defName=['DelayBy']
+        defName=['DelayBy','_FractionalDelayTime']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_TrimToThreshold(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"

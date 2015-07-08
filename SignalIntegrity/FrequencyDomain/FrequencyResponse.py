@@ -101,20 +101,7 @@ class FrequencyResponse(object):
             Y=tn+tp
             return ImpulseResponse(td,Y)
         if evenlySpaced and td is None and adjustDelay:
-            ir = self.ImpulseResponse(None,adjustDelay=False)
-            idx = ir.Values('abs').index(max(ir.Values('abs')))
-            TD = ir.Times()[idx] # the time of the main peak
-            # calculate the frequency response with this delay taken out
-            # the fractional delay is based on the minimum adjustment to the phase of
-            # the last point to make that point real
-            theta = self._DelayBy(-TD).Response('rad')[self.FrequencyList().N]
-            if theta < -math.pi/2.: theta=-(math.pi+theta)
-            elif theta > math.pi/2.: theta = math.pi-theta
-            else: theta = -theta
-            # calculate the fractional delay
-            TD=theta/2./math.pi/self.FrequencyList()[-1]
-            # take only the fractional delay now from the original response
-            # compute this generic impulse response with the fractional delay back in
+            TD=self._FractionalDelayTime()
             return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD)
         if evenlySpaced and not td is None:
             # if td is a float and not a time descriptor, it's assumed to be a sample
@@ -166,92 +153,42 @@ class FrequencyResponse(object):
         Poly=Spline(fd,self.Response())
         newresp=[Poly.Evaluate(f) if f <= fd[-1] else 0.0001 for f in fdp]
         return FrequencyResponse(fdp,newresp)
-    def ResampleSave(self,fdp):
-        fd=self.FrequencyList()
-        evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
-        if not evenlySpaced: return self._SplineResample(fdp)
-        R=Rat(fd.Fe/fdp.Fe*fdp.N/fd.N)
-        D1=R[0]; D2=R[1]
-        if  D1*fd.N > 100000: return self.ResampleCZT(fdp)
-        if D1 == 1:
-            fr=self
-        else:
-            fr=self.ImpulseResponse()._Pad(2*D1*fd.N).FrequencyResponse(None,False)
-        if D2*fdp.N != D1*fd.N:
-            fr=fr._Pad(D2*fdp.N)
-        if D2==1:
-            return fr
-        return fr._Decimate(D2)
     def Resample(self,fdp):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
         if not evenlySpaced: return self._SplineResample(fdp)
         R=Rat(fd.Fe/fdp.Fe*fdp.N); ND1=R[0]; D2=R[1]
+        if ND1 < fd.N: R=Rat(fd.Fe/fdp.Fe*fdp.N/fd.N); ND1=R[0]*fd.N; D2=R[1]
         if  ND1 > 50000: return self.ResampleCZT(fdp)
         if ND1 == fd.N: fr=self
         else: fr=self.ImpulseResponse()._Pad(2*ND1).FrequencyResponse(None,False)
         if D2*fdp.N != ND1: fr=fr._Pad(D2*fdp.N)
         if D2==1: return fr
         else: return fr._Decimate(D2)
-    def ResampleOld(self,fdp):
-        fd=self.FrequencyList()
-        evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
-        if not evenlySpaced: return self._SplineResample(fdp)
-        P=2*min(Rat(fd.Fe/fdp.Fe*fdp.N)[0],100000)
-        K=fd.N*2
-        D=K/P # decimation factor for frequency response equivalent to padding
-        # pad the impulse response to put the new frequencies on the grid
-        if P==K:
-            # the pad amount is the same as the number of points in the impulse
-            # response.  The frequencies are already on the grid
-            fr=self
-        elif P*D == K:
-            # desired number of points is an integer multiple of the pad amount
-            # the frequency response can be simply decimated by this multiple
-            fr=self._Decimate(D)
-        else:
-            # the pad amount is not the same as the original impulse response and
-            # the original impulse response length is not an integer multiple of the
-            # pad amount.  Therefore pad the impulse response and recompute the
-            # frequency response
-            fr=self.ImpulseResponse()._Pad(P).FrequencyResponse(None,False)
-        frfd=fr.FrequencyList()
-        # often, after padding the impulse response to get things on the right
-        # frequency scale, the frequency response is just right
-        if fdp.N == frfd.N and fdp.Fe == frfd.Fe:
-            return fr
-        # The frequency response in fr is now what gets resampled.  It is probably
-        # on the desired frequency grid (it might not be if the pad amount got limited
-        # above.  If not, it's at the finest spacing possible.
-        fr=fr._Pad(P=int(math.ceil(fdp.Fe/frfd.Fe*frfd.N)))
-        frfd=fr.FrequencyList()
-        # the padded response might be right
-        if fdp.N == frfd.N and fdp.Fe == frfd.Fe:
-            return fr
-        # otherwise, if the end frequency of the padded response is the desired end
-        # frequency and if the number of points is an integer multiple of the desired
-        # number of points, then just decimate the padded response
-        if frfd.Fe == fdp.Fe and frfd.N/fdp.N*fdp.N == frfd.N:
-            return fr._Decimate(frfd.N/fdp.N)
-        # this is the last resort.  The padded frequency response is now resampled
-        # using the CZT on the impulse response
-        ir=fr.ImpulseResponse()
-        td=ir.TimeDescriptor()
-        TD=-(-td.H*td.Fs-math.floor(-td.H*td.Fs+0.5))/td.Fs
-        ir=ir.DelayBy(-TD)
-        X=CZT(ir.Values(),td.Fs,0,fdp.Fe,fdp.N,highSpeed=True)
-        return FrequencyResponse(fdp,X)._DelayBy(-td.N/2./td.Fs+TD)
+    def _FractionalDelayTime(self):
+        ir = self.ImpulseResponse(None,adjustDelay=False)
+        idx = ir.Values('abs').index(max(ir.Values('abs')))
+        TD = ir.Times()[idx] # the time of the main peak
+        # calculate the frequency response with this delay taken out
+        # the fractional delay is based on the minimum adjustment to the phase of
+        # the last point to make that point real
+        theta = self._DelayBy(-TD).Response('rad')[self.FrequencyList().N]
+        if theta < -math.pi/2.: theta=-(math.pi+theta)
+        elif theta > math.pi/2.: theta = math.pi-theta
+        else: theta = -theta
+        # calculate the fractional delay
+        TD=theta/2./math.pi/self.FrequencyList()[-1]
+        return TD
     def ResampleCZT(self,fdp):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
         if not evenlySpaced: return self._SplineResample(fdp)
         ir=self.ImpulseResponse()
-        td=ir.TimeDescriptor()
-        TD=-(-td.H*td.Fs-math.floor(-td.H*td.Fs+0.5))/td.Fs
-        Ni=int(math.floor(fd.Fe*fdp.N/fdp.Fe))
+        TD=ir._FractionalDelayTime()
+        Ni=int(min(math.floor(fd.Fe*fdp.N/fdp.Fe),fdp.N))
         Fei=Ni*fdp.Fe/fdp.N
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
-            CZT(ir.DelayBy(-TD).Values(),td.Fs,0,Fei,Ni)).\
+            CZT(ir.DelayBy(-TD).Values(),ir.TimeDescriptor().Fs,0,Fei,Ni)).\
             _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)
     def ReadFromFile(self,fileName):
         with open(fileName,"rU") as f:

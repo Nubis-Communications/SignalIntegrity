@@ -71,6 +71,10 @@ class ImpulseResponse(Waveform):
             x=x+self.Values()+x
         td = self.TimeDescriptor()
         return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
+    def _FractionalDelayTime(self):
+        td=self.TimeDescriptor()
+        TD=-(-td.H*td.Fs-math.floor(-td.H*td.Fs+0.5))/td.Fs
+        return TD
     def Resample(self,td):
         fr=self.FrequencyResponse()
         return fr.ImpulseResponse(td)

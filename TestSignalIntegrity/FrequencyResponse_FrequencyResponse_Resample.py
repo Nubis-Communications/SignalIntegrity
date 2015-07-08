@@ -5,6 +5,7 @@ class FrequencyResponse(object):
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
         if not evenlySpaced: return self._SplineResample(fdp)
         R=Rat(fd.Fe/fdp.Fe*fdp.N); ND1=R[0]; D2=R[1]
+        if ND1 < fd.N: R=Rat(fd.Fe/fdp.Fe*fdp.N/fd.N); ND1=R[0]*fd.N; D2=R[1]
         if  ND1 > 50000: return self.ResampleCZT(fdp)
         if ND1 == fd.N: fr=self
         else: fr=self.ImpulseResponse()._Pad(2*ND1).FrequencyResponse(None,False)

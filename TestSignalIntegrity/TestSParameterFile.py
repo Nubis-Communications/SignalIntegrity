@@ -270,7 +270,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         """
     def testRes(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
+        newf=si.fd.EvenlySpacedFrequencyList(10e9,100)
         #newf=[100e6*n for n in range(100)]
         sf=si.sp.File('TestDut.s4p').Resample(si.fd.EvenlySpacedFrequencyList(10e9,10))
         sf2=si.sp.File('TestDut.s4p').Resample(si.fd.EvenlySpacedFrequencyList(10e9,10)).Resample(newf)
@@ -280,25 +280,30 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         if not os.path.exists('Test2.s4p'):
             sf2.WriteToFile('Test2.s4p')
             self.assertTrue(False,'Test2.s4p' + ' does not exist')
-        regression = si.sp.File('Test1.s4p')
-        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'first result not same')
-        regression = si.sp.File('Test2.s4p')
-        self.assertTrue(self.SParametersAreEqual(sf2,regression,0.001),self.id()+'second result not same')
+
         """
         import matplotlib.pyplot as plt
         f=sf.f()
         f2=sf2.f()
+        plt.clf()
         for r in range(4):
             for c in range(4):
-                responseVector=sf.Response(r+1,c+1)
-                responseVector2=sf2.Response(r+1,c+1)
-                y=[20*math.log(abs(resp),10) for resp in responseVector]
-                y2=[20*math.log(abs(resp),10) for resp in responseVector2]
                 plt.subplot(4,4,r*4+c+1)
-                plt.plot(f,y)
-                plt.plot(f2,y2)
+                sffr=si.fd.FrequencyResponse(sf.f(),sf.Response(r+1,c+1))
+                plt.plot(sffr.Frequencies(),sffr.Response('dB'),label='downsampled')
+                sf2fr=si.fd.FrequencyResponse(sf2.f(),sf2.Response(r+1,c+1))
+                plt.plot(sf2fr.Frequencies(),sf2fr.Response('dB'),label='upsampled')
+                originalsp=si.sp.File('TestDut.s4p')
+                originalFr=si.fd.FrequencyResponse(originalsp.f(),originalsp.Response(r+1, c+1))
+                plt.plot(originalFr.Frequencies(),originalFr.Response('dB'),label='original')
         plt.show()
         """
+
+        regression = si.sp.File('Test1.s4p')
+        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'first result not same')
+        regression = si.sp.File('Test2.s4p')
+        self.assertTrue(self.SParametersAreEqual(sf2,regression,0.001),self.id()+'second result not same')
+
     def testRLC3(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         L1=1e-15
@@ -335,17 +340,16 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.File(fileName)
-        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
-
         """
         import matplotlib.pyplot as plt
         for r in range(2):
             for c in range(2):
                 plt.subplot(2,2,r*2+c+1)
                 currentFr=si.fd.FrequencyResponse(sf.f(),sf.Response(r+1,c+1))
-                plt.plot(currentFr.Frequencies(),currentFr.Response('dB'))
+                plt.plot(currentFr.Frequencies(),currentFr.Response('dB'),label='current')
                 regressionFr=si.fd.FrequencyResponse(regression.f(),regression.Response(r+1, c+1))
-                plt.plot(regressionFr.Frequencies(),regressionFr.Response('dB'))
+                plt.plot(regressionFr.Frequencies(),regressionFr.Response('dB'),label='regression')
+                plt.legend(loc='upper right')
         plt.show()
 
         plt.clf()
@@ -353,11 +357,13 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
             for c in range(2):
                 plt.subplot(2,2,r*2+c+1)
                 currentFr=si.fd.FrequencyResponse(sf.f(),sf.Response(r+1,c+1))
-                plt.plot(currentFr.Frequencies(),currentFr.Response('deg'))
+                plt.plot(currentFr.Frequencies(),currentFr.Response('deg'),label='current')
                 regressionFr=si.fd.FrequencyResponse(regression.f(),regression.Response(r+1, c+1))
-                plt.plot(regressionFr.Frequencies(),regressionFr.Response('deg'))
+                plt.plot(regressionFr.Frequencies(),regressionFr.Response('deg'),label='regression')
+                plt.legend(loc='upper right')
         plt.show()
         """
+        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
 
     def testRLC4(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

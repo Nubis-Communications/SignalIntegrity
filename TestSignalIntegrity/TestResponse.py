@@ -211,11 +211,15 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_9_Fe_0p45(self):
         Np=9
         Fep=0.45
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
     def testRes_N_20_Fe_0p5(self):
         Np=20
@@ -223,11 +227,15 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_20_Fe_1(self):
         Np=20
         Fep=1.
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
     def testRes_N_53_Fe_0p435(self):
         Np=53
@@ -235,11 +243,15 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_23_Fe_0p6(self):
         Np=23
         Fep=0.6
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
     def testirc(self):
         irc=self.irc()
@@ -404,11 +416,15 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_11_Fe_0p45(self):
         Np=11
         Fep=0.45
         frc=self.frc()
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
     def test_SparqResampling(self):
         K=10240
@@ -418,5 +434,11 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         ir=si.td.wf.ImpulseResponse(td,x)
         fr=ir.FrequencyResponse(si.fd.EvenlySpacedFrequencyList(40e9,8000))
         pass
+    def testTimeDelay(self):
+        irc=self.irc()
+        TD1=irc._FractionalDelayTime()
+        frc=irc.FrequencyResponse()
+        TD2=frc._FractionalDelayTime()
+        self.assertAlmostEqual(TD1,TD2,None,'TimeDelay incorrect')
 if __name__ == '__main__':
     unittest.main()

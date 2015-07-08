@@ -5,11 +5,10 @@ class FrequencyResponse(object):
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
         if not evenlySpaced: return self._SplineResample(fdp)
         ir=self.ImpulseResponse()
-        td=ir.TimeDescriptor()
-        TD=-(-td.H*td.Fs-math.floor(-td.H*td.Fs+0.5))/td.Fs
-        Ni=int(math.floor(fd.Fe*fdp.N/fdp.Fe))
+        TD=ir._FractionalDelayTime()
+        Ni=int(min(math.floor(fd.Fe*fdp.N/fdp.Fe),fdp.N))
         Fei=Ni*fdp.Fe/fdp.N
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
-            CZT(ir.DelayBy(-TD).Values(),td.Fs,0,Fei,Ni)).\
+            CZT(ir.DelayBy(-TD).Values(),ir.TimeDescriptor().Fs,0,Fei,Ni)).\
             _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)
 ...
