@@ -152,7 +152,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=si.fd.EvenlySpacedFrequencyList(20.e9,400)
         sp = si.p.SimulatorNumericParser(f)
-        sp.AddLine('device X 4 file .\\DesignCon2008\\XRAY041.s4p')
+        sp.AddLine('device X 4 file .//DesignCon2008//XRAY041.s4p')
         sp.AddLine('device S1 2 R 50.')
         sp.AddLine('device S2 2 R 50.')
         sp.AddLine('device R1 2 R 50.')
