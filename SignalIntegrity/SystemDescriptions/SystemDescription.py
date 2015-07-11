@@ -12,8 +12,8 @@ class SystemDescription:
         return self.Data[item]
     def __len__(self):
         return len(self.Data)
-    def AddDevice(self,Name,Ports,SParams=None):
-        self.Data.append(Device(Name,Ports))
+    def AddDevice(self,Name,Ports,SParams=None,Type='device'):
+        self.Data.append(Device(Name,Ports,Type))
         if isinstance(SParams,list):
             self.AssignSParameters(Name,SParams)
     def AssignM(self,DeviceN,DeviceP,MName):

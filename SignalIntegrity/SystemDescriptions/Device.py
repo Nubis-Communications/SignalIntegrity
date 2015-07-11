@@ -1,10 +1,11 @@
 from Port import Port
 
 class Device(object):
-    def __init__(self,Name,Ports):
+    def __init__(self,Name,Ports,Type='device'):
         self.m_Name = Name
         self.m_Ports = [Port() for p in range(Ports)]
         self.m_S = self.SymbolicMatrix(Name,Ports)
+        self.m_type=Type
     def get_S(self):
         return self.m_S
     def set_S(self, value):
@@ -18,6 +19,9 @@ class Device(object):
     @property
     def pName(self):
         return self.m_Name
+    @property
+    def pType(self):
+        return self.m_type
     @staticmethod
     def SymbolicMatrix(Name,Rows,Columns=-1):
         if Columns == -1:

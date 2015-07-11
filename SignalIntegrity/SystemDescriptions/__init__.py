@@ -8,3 +8,6 @@ from VirtualProbe import *
 from VirtualProbeNumeric import *
 from Deembedder import *
 from DeembedderNumeric import *
+from Simulator import *
+from SimulatorSymbolic import *
+from SimulatorNumeric import *

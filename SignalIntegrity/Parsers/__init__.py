@@ -4,4 +4,6 @@ from DeembedderParser import *
 from DeembedderNumericParser import *
 from VirtualProbeParser import *
 from VirtualProbeNumericParser import *
+from SimulatorParser import *
+from SimulatorNumericParser import *
 import Devices as dev

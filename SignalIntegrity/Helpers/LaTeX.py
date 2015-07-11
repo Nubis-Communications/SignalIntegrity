@@ -34,6 +34,10 @@ def Matrix2Text(M):
                     data = '\\frac{1}{\\sqrt{2}}'
                 elif data == '-0.707106781187':
                     data = '-\\frac{1}{\\sqrt{2}}'
+                elif data == '-0.5':
+                    data = '-\\frac{1}{2}'
+                elif data == '0.5':
+                    data = '\\frac{1}{2}'
             elif isinstance(val,complex):
                 data = str(val.real)+'j'+float(val.imag)
             else:

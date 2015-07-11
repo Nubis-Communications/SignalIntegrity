@@ -26,6 +26,7 @@ from TestTeeProblem import *
 from TestChirpZTransform import *
 from TestTimeDomain import *
 from TestClassWriter import *
+from TestSimulator import *
 
 if __name__ == '__main__':
     unittest.main()

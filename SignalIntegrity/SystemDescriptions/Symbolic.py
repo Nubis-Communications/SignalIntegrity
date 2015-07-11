@@ -9,7 +9,7 @@ class Symbolic():
         self.m_lines=[]
         size = args['size'] if 'size' in args else 'normal'
         self.m_docStart = args['docstart'] if 'docstart' in args else\
-        '\\documentclass[10pt]{article}\\usepackage{amsmath}\\begin{document}'
+        '\\documentclass[10pt]{article}\n\\usepackage{amsmath}\n\\usepackage{bbold}\n\\begin{document}'
         self.m_docEnd = args['docend'] if 'docend' in args else '\\end{document}'
         self.m_eqPrefix = args['eqprefix'] if 'eqprefix' in args else '\\[ '
         self.m_eqSuffix = args['eqsuffix'] if 'eqsuffix' in args else ' \\]'

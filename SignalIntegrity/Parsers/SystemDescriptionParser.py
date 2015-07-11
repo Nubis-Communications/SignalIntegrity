@@ -24,12 +24,14 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         for line in lines:
             self.AddLine(line)
         return self
-    def _ProcessLine(self,line):
+    def _ProcessLine(self,line,exclusionList):
         lineList=self.ReplaceArgs(line.split())
         if len(lineList) == 0:
             return
         if self.ProcessVariables(lineList):
             pass
+        elif lineList[0] in exclusionList:
+            self.m_ul.append(line)
         elif lineList[0] == 'device':
             argList = [lineList[i] for i in range(3,len(lineList))]
             if argList in self.m_spcl:
@@ -50,8 +52,8 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 self.m_sd.AddPort(lineList[i*3+2],int(lineList[i*3+3]),
                     int(lineList[i*3+1]),self.m_addThru)
         else: self.m_ul.append(line)
-    def _ProcessLines(self):
+    def _ProcessLines(self,exclusionList=[]):
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]
-        for line in self.m_lines: self._ProcessLine(line)
+        for line in self.m_lines: self._ProcessLine(line,exclusionList)
         return self

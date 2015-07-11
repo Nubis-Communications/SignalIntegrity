@@ -3,6 +3,8 @@ from SignalIntegrity.SystemDescriptions import SystemDescription
 class SystemSParameters(SystemDescription):
     def __init__(self,sd):
         self.Data = sd.Data
+        self.m_UniqueDevice=sd.m_UniqueDevice
+        self.m_UniqueNode=sd.m_UniqueNode
     def PortANames(self):
         return [x[1] for x in sorted
                 ([(self[d].pName.strip('P'),self[d][0].pA)
