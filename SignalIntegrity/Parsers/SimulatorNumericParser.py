@@ -15,7 +15,7 @@ class SimulatorNumericParser(SimulatorParser):
             return self.m_tm
         self.SystemDescription()
         if not self.m_sd.CheckConnections():
-            return
+            return # pragma: no cover
         spc=self.m_spc
         result=[]
         for n in range(len(self.m_f)):

@@ -34,11 +34,14 @@ class Waveform(object):
     def DelayBy(self,d):
         return Waveform(self.TimeDescriptor().DelayBy(d),self.Values())
     def __add__(self,other):
-        if self.TimeDescriptor() == other.TimeDescriptor():
-            return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
-        else:
-            awf=AdaptedWaveforms([self,other])
-            return awf[0]+awf[1]
+        if isinstance(other,Waveform):
+            if self.TimeDescriptor() == other.TimeDescriptor():
+                return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
+            else:
+                awf=AdaptedWaveforms([self,other])
+                return awf[0]+awf[1]
+        elif isintance(other,float):
+            return Waveform(self.m_t,[v+other for v in self.Values()])
     def __sub__(self,other):
         if self.TimeDescriptor() == other.TimeDescriptor():
             return Waveform(self.TimeDescriptor(),[self[k]-other[k] for k in range(len(self))])
@@ -57,6 +60,8 @@ class Waveform(object):
             return other.FilterWaveform(self)
         elif isinstance(other,WaveformTrimmer):
             return other.TrimWaveform(self)
+        elif isinstance(other,float):
+            return Waveform(self.m_t,[v*other for v in self.Values()])
     def ReadFromFile(self,fileName):
         with open(fileName,"rU") as f:
             data=f.readlines()
@@ -87,6 +92,23 @@ class Waveform(object):
         return True
     def __ne__(self,other):
         return not self == other
+    def Adapt(self,td):
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
+        from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
+        wf=self
+        u=int(round(td.Fs/wf.TimeDescriptor().Fs))
+        if not u==1:
+            wf=wf*InterpolatorSinX(u)
+        ad=td/wf.TimeDescriptor()
+        f=ad.D-int(ad.D)
+        if not f==0.0:
+            wf=wf*FractionalDelayFilterSinX(f,True)
+        ad=td/wf.TimeDescriptor()
+        tr=WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),max(0,int(round(ad.TrimRight()))))
+        wf=wf*tr
+        return wf
+
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):

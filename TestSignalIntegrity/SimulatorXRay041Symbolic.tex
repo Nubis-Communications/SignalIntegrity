@@ -1,0 +1,32 @@
+\documentclass[10pt]{article} \usepackage{amsmath} \usepackage{bbold}
+\begin{document}
+\[ TP=\left(\begin{array}{cc} \frac{ZT_p}{ZT_p+2\cdot Z0} &
+\frac{2\cdot Z0}{ZT_p+2\cdot Z0} \\ \frac{2\cdot Z0}{ZT_p+2\cdot Z0} &
+\frac{ZT_p}{ZT_p+2\cdot Z0} \end{array}\right) \]
+\[ TM=\left(\begin{array}{cc} \frac{ZT_m}{ZT_m+2\cdot Z0} &
+\frac{2\cdot Z0}{ZT_m+2\cdot Z0} \\ \frac{2\cdot Z0}{ZT_m+2\cdot Z0} &
+\frac{ZT_m}{ZT_m+2\cdot Z0} \end{array}\right) \]
+\[ RP=\frac{ ZT_p -Z0}{ ZT_p +Z0} \]
+\[ RM=\frac{ ZT_m -Z0}{ ZT_m +Z0} \]
+\[ \mathbf{Si} = \left[ \mathbb{I}  -
+\left(\begin{array}{ccccccccccccc} 0 & 0 & 0 & 0 & 0 & X_{11} & 0 &
+X_{12} & X_{13} & X_{14} & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & X_{21} & 0
+& X_{22} & X_{23} & X_{24} & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & X_{31} &
+0 & X_{32} & X_{33} & X_{34} & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & X_{41}
+& 0 & X_{42} & X_{43} & X_{44} & 0 & 0 & 0 \\ TP_{12} & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & TP_{11} & 0 \\ TP_{22} & 0 & 0 & 0 & 0 & 0 &
+0 & 0 & 0 & 0 & 0 & TP_{21} & 0 \\ 0 & TM_{12} & 0 & 0 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & TM_{11} \\ 0 & TM_{22} & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+0 & 0 & 0 & TM_{21} \\ 0 & 0 & RP & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+& 0 \\ 0 & 0 & 0 & RM & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 0 & -1 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 0
+& 0 & 0 \end{array}\right) \right]^{-1} \]
+\[ \left(\begin{array}{c} R_{P1} \\ R_{M1} \\ X_{1} \\ X_{2}
+\end{array}\right)=\left(\begin{array}{cc} Si_{3,12} + Si_{9,12} &
+Si_{3,13} + Si_{9,13} \\ Si_{4,12} + Si_{10,12} & Si_{4,13} +
+Si_{10,13} \\ Si_{1,12} + Si_{6,12} & Si_{1,13} + Si_{6,13} \\
+Si_{2,12} + Si_{8,12} & Si_{2,13} + Si_{8,13} \end{array}\right)\cdot
+\left(\begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array}\right)\cdot
+\left(\begin{array}{c} V_{1} \\ V_{2} \end{array}\right) \]
+\end{document}

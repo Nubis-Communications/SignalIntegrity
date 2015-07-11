@@ -1,5 +1,7 @@
 def ShuntZ(P,Z):
-    if P==2:
+    if P==1:
+        return ShuntZOnePort(Z)
+    elif P==2:
         return ShuntZTwoPort(Z)
     elif P==3:
         return ShuntZThreePort(Z)
@@ -25,3 +27,8 @@ def ShuntZTwoPort(Z):
             ['\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}'],
             ['\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
             ['\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}']]
+
+def ShuntZOnePort(Z):
+    return [['\\frac{ '+Z+' -Z0}{ '+Z+' +Z0}']]
+
+

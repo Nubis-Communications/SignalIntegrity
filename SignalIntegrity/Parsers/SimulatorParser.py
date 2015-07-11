@@ -8,7 +8,7 @@ class SimulatorParser(SystemDescriptionParser):
     def _ProcessSimulatorLine(self,line):
         lineList=self.ReplaceArgs(line.split())
         if len(lineList) == 0:
-            return
+            return # pragma: no cover
         elif lineList[0] == 'output':
             if self.m_sd.pOutputList is None:
                 self.m_sd.pOutputList = []
