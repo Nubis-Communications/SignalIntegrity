@@ -6,6 +6,7 @@ from SignalIntegrity.Devices import Open
 from SignalIntegrity.Devices import Ground
 from SignalIntegrity.Devices import Thru
 from SignalIntegrity.Devices import SeriesZ
+from SignalIntegrity.Devices import TerminationZ
 from SignalIntegrity.Devices import Tee
 from SignalIntegrity.Devices import MixedModeConverter
 from SignalIntegrity.Devices import MixedModeConverterVoltage
@@ -42,7 +43,10 @@ class DeviceParser():
             self.m_spf=SeriesLf(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'R':
-            self.m_sp=SeriesZ(float(argsList[1]))
+            if ports == 1:
+                self.m_sp=TerminationZ(float(argsList[1]))
+            elif ports == 2:
+                self.m_sp=SeriesZ(float(argsList[1]))
             return
         elif argsList[0] == 'M':
             self.m_sp=Mutualf(self.m_f,float(argsList[1]))

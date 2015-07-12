@@ -69,26 +69,73 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         svp=si.sd.SimulatorSymbolic(vp)
         svp.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
         # exclude
-        self.CheckSymbolicResult(self.id(),svp,'Symbolic Simulator 1')
-    def testSimulatorParserVoltageSourceOnePort(self):
+        self.CheckSymbolicResult(self.id(),svp,self.id())
+    def testSimulatorParserVoltageSourceOnePortSymbolic(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        f=si.fd.EvenlySpacedFrequencyList(20.e9,200)
-        sp = si.p.SimulatorNumericParser(f)
-        sp.AddLine('device F 2 file filter.s2p')
-        sp.AddLine('device S 2 R 50.')
-        sp.AddLine('device R 2 R 50.')
-        sp.AddLine('device G 1 ground')
+        sp = si.p.SimulatorParser()
+        sp.AddLine('device F 2')
+        sp.AddLine('device S 2')
+        sp.AddLine('device R 1')
         sp.AddLine('voltagesource V 1')
         sp.AddLine('connect V 1 S 1')
         sp.AddLine('connect S 2 F 1')
         sp.AddLine('connect F 2 R 1')
-        sp.AddLine('connect R 2 G 1')
-        sp.AddLine('output R 1')
+        sp.AddLine('output F 1 F 2')
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
+        ss.AssignSParameters('S',si.sy.SeriesZ('Z'))
+        ss.AssignSParameters('R',si.sy.ShuntZ(1,'Z'))
+        ss.DocStart().LaTeXEquations().DocEnd().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ss,self.id())
+    def testSimulatorParserVoltageSourceOnePort(self):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=si.fd.EvenlySpacedFrequencyList(20.e9,10*20)
+        sp = si.p.SimulatorNumericParser(f)
+        sp.AddLine('device F 2 file filter.s2p')
+        sp.AddLine('device S 2 R 50.')
+        sp.AddLine('device R 1 R 50.')
+        sp.AddLine('voltagesource V 1')
+        sp.AddLine('connect V 1 S 1')
+        sp.AddLine('connect S 2 F 1')
+        sp.AddLine('connect F 2 R 1')
+        sp.AddLine('output F 1 F 2')
         tm=sp.TransferMatrices()
         ports=tm.m_P
-        fileName = self.id().split('.')[2].replace('test','')+'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),fileName,fileName+' incorrect')
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        self.CheckSParametersResult(tm,spFileName,spFileName+' incorrect')
+        # check theory for filter response based on s-parameters
+        spf=si.sp.File('filter.s2p').Resample(f)
+        # theory is that thru response is 1/2 of S21 and return loss is 1/2 S11 + 1/2
+        tm2m=[[[0.5*m[0][0]+0.5,0.],[0.5*m[1][0],0.]] for m in spf]
+        tm2=si.sp.SParameters(spf.f(),tm2m)
+        # compare these resampled s-parameters to regression
+        self.CheckSParametersResult(tm2,fileNameBase+'2'+'.s'+str(ports)+'p',spFileName+' incorrect')
+        # compare them directly to the previous result
+        self.CheckSParametersResult(tm2,spFileName,spFileName+' incorrect')
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9),Amplitude=2.0)
+        srs=sp.ProcessWaveforms([stepin])
+        sr=srs[1]
+        tdr=srs[0]
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,21*40,40e9))
+        aw=si.td.wf.AdaptedWaveforms([stepin,sr,tdr])
+        sr=aw[1]
+        tdr=aw[2]
+        if False:
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(stepin.Times('ns'),stepin.Values(),label='step input')
+            plt.plot(sr.Times('ns'),sr.Values(),label='step response')
+            plt.plot(tdr.Times('ns'),tdr.Values(),label='tdr response')
+            plt.legend(loc='upper right')
+            plt.show()
+        self.CheckWaveformResult(stepin,'Waveform_'+fileNameBase+'_StepIn.txt','Waveform_'+fileNameBase+'_StepIn.txt')
+        self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
+        self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorParserCurrentSourceOnePort(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -103,15 +150,16 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect S 2 G 1')
         sp.AddLine('connect F 2 R 1')
         sp.AddLine('connect R 2 G 1')
-        sp.AddLine('output R 1')
+        sp.AddLine('output F 1 F 2')
         tm=sp.TransferMatrices()
         ports=tm.m_P
-        fileName = self.id().split('.')[2].replace('test','')+'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),fileName,fileName+' incorrect')
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
     def testSimulatorParserVoltageSourceTwoPorts(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        f=si.fd.EvenlySpacedFrequencyList(20.e9,200)
+        f=si.fd.EvenlySpacedFrequencyList(20.e9,20*20)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
         sp.AddLine('device S 2 R 50.')
@@ -123,11 +171,33 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect S 2 F 1')
         sp.AddLine('connect F 2 R 1')
         sp.AddLine('connect R 2 G 1')
-        sp.AddLine('output R 1')
+        sp.AddLine('output F 1 F 2')
         tm=sp.TransferMatrices()
         ports=tm.m_P
-        fileName = self.id().split('.')[2].replace('test','')+'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),fileName,fileName+' incorrect')
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9))
+        srs=sp.ProcessWaveforms([stepin])
+        sr=srs[0]
+        tdr=srs[1]
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,21*40,40e9))
+        aw=si.td.wf.AdaptedWaveforms([stepin,sr,tdr])
+        sr=aw[1]
+        tdr=aw[2]
+        if False:
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(stepin.Times('ns'),stepin.Values(),label='step input')
+            plt.plot(sr.Times('ns'),sr.Values(),label='step response')
+            plt.plot(tdr.Times('ns'),tdr.Values(),label='tdr response')
+            plt.legend(loc='upper right')
+            plt.show()
+        self.CheckWaveformResult(stepin,'Waveform_'+fileNameBase+'_StepIn.txt','Waveform_'+fileNameBase+'_StepIn.txt')
+        self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
+        self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorParserCurrentSourceTwoPorts(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -145,8 +215,9 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('output R 1')
         tm=sp.TransferMatrices()
         ports=tm.m_P
-        fileName = self.id().split('.')[2].replace('test','')+'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),fileName,fileName+' incorrect')
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
     def testSimulatorXRay041(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -168,7 +239,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect X 4 R2 1')
         sp.AddLine('connect R1 2 G 1')
         sp.AddLine('connect R2 2 G 1')
-        sp.AddLine('output R1 1 R2 1 X 1 X 2')
+        sp.AddLine('output X 3 X 4 X 1 X 2')
         tm=sp.TransferMatrices()
         ports=tm.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
@@ -215,17 +286,44 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect TM 2 X 2')
         sp.AddLine('connect X 3 RP 1')
         sp.AddLine('connect X 4 RM 1')
-        sp.AddLine('output RP 1 RM 1 X 1 X 2')
-        ss=si.sd.SimulatorSymbolic(sp.SystemDescription())
+        sp.AddLine('output X 3 X 4 X 1 X 2')
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
         ss.DocStart()
         ss._AddEq('TP='+ss._LaTeXMatrix(si.sy.SeriesZ('ZT_p')))
         ss._AddEq('TM='+ss._LaTeXMatrix(si.sy.SeriesZ('ZT_m')))
-        ss._AddEq('RP='+ss._LaTeXMatrix(si.sy.ShuntZ(1,'ZT_p')))
-        ss._AddEq('RM='+ss._LaTeXMatrix(si.sy.ShuntZ(1,'ZT_m')))
+        ss._AddEq('RP='+ss._LaTeXMatrix(si.sy.ShuntZ(1,'ZR_p')))
+        ss._AddEq('RM='+ss._LaTeXMatrix(si.sy.ShuntZ(1,'ZR_m')))
         ss.LaTeXTransferMatrix()
         ss.DocEnd().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ss,'SimulatorXRay041Symbolic')
+    def testSimulatorXRay041Symbolic2(self):
+        path=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sp = si.p.SimulatorParser()
+        sp.AddLine('device X 4')
+        sp.AddLine('device TP 2')
+        sp.AddLine('device TM 2')
+        sp.AddLine('device RP 1')
+        sp.AddLine('device RM 1')
+        sp.AddLine('device G 1 ground')
+        sp.AddLine('voltagesource V1 1')
+        sp.AddLine('voltagesource V2 1')
+        sp.AddLine('connect V1 1 TP 1')
+        sp.AddLine('connect V2 1 TM 1')
+        sp.AddLine('connect TP 2 X 1')
+        sp.AddLine('connect TM 2 X 2')
+        sp.AddLine('connect X 3 RP 1')
+        sp.AddLine('connect X 4 RM 1')
+        sp.AddLine('output X 3 X 4 X 1 X 2')
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
+        ss.AssignSParameters('TP',si.sy.SeriesZ('Z'))
+        ss.AssignSParameters('TM',si.sy.SeriesZ('Z'))
+        ss.AssignSParameters('RP',si.sy.ShuntZ(1,'Z'))
+        ss.AssignSParameters('RM',si.sy.ShuntZ(1,'Z'))
+        ss.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ss,'SimulatorXRay041Symbolic2')
     def testSimulatorXRaySparqDemo16(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -247,7 +345,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect X 4 R2 1')
         sp.AddLine('connect R1 2 G 1')
         sp.AddLine('connect R2 2 G 1')
-        sp.AddLine('output R1 1 R2 1 X 1 X 2')
+        sp.AddLine('output X 3 X 4 X 1 X 2')
         tm=sp.TransferMatrices()
         ports=tm.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
