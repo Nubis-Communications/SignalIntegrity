@@ -1,0 +1,12 @@
+\[ \left[ \mathbb{I}  - \left(\begin{array}{cccc} 0 & 0 & S_{12} &
+S_{11} \\ 0 & 0 & S_{22} & S_{21} \\ 0 & \Gamma_{l} & 0 & 0 \\
+\Gamma_{s} & 0 & 0 & 0 \end{array}\right)\right] \cdot
+\left(\begin{array}{c} n_{2} \\ n_{3} \\ n_{4} \\ n_{1}
+\end{array}\right) = \left(\begin{array}{c} 0 \\ 0 \\ 0 \\ m_{1}
+\end{array}\right) \]
+\[ \left[ \mathbb{I}  - \left(\begin{array}{cccc} 0 & 0 & S_{12} &
+S_{11} \\ 0 & 0 & S_{22} & S_{21} \\ 0 & \frac{ Zl -Z0}{ Zl +Z0} & 0 &
+0 \\ \frac{ Zs -Z0}{ Zs +Z0} & 0 & 0 & 0 \end{array}\right)\right]
+\cdot \left(\begin{array}{c} n_{2} \\ n_{3} \\ n_{4} \\ n_{1}
+\end{array}\right) = \left(\begin{array}{c} 0 \\ 0 \\ 0 \\ m_{1}
+\end{array}\right) \]
