@@ -1,7 +1,4 @@
 import unittest
-import os
-from cStringIO import StringIO
-import sys
 import SignalIntegrity as si
 from TestHelpers import *
 
@@ -116,8 +113,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         # exclude
         self.CheckSymbolicResult(self.id(),svp,self.id())
     def testSimulatorParserVoltageSourceOnePortSymbolic(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         sp = si.p.SimulatorParser()
         sp.AddLine('device F 2')
         sp.AddLine('device S 2')
@@ -134,8 +132,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         # exclude
         self.CheckSymbolicResult(self.id(),ss,self.id())
     def testSimulatorParserVoltageSourceOnePort(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,10*20)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
@@ -184,7 +183,6 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorParserCurrentSourceOnePort(self):
-        path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=si.fd.EvenlySpacedFrequencyList(20.e9,200)
         sp = si.p.SimulatorNumericParser(f)
@@ -205,8 +203,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorParserVoltageSourceTwoPorts(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,20*20)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
@@ -249,8 +248,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorParserCurrentSourceTwoPorts(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,200)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
@@ -270,8 +270,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorXRay041(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,400)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device X 4 file .//DesignCon2008//XRAY041.s4p')
@@ -322,8 +323,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorXRay041Symbolic(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         sp = si.p.SimulatorParser()
         sp.AddLine('device X 4')
         sp.AddLine('device P 2')
@@ -348,8 +350,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         # exclude
         self.CheckSymbolicResult(self.id(),ss,'SimulatorXRay041Symbolic')
     def testSimulatorXRay041Symbolic2(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         sp = si.p.SimulatorParser()
         sp.AddLine('device X 4')
         sp.AddLine('device P 2')
@@ -376,8 +379,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
     def testSimulatorXRay041Symbolic2Code(self):
         self.WriteCode('TestSimulator.py','testSimulatorXRay041Symbolic2(self)',self.standardHeader)
     def testSimulatorXRaySparqDemo16(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,400)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device X 4 file Sparq_demo_16.s4p')
@@ -428,16 +432,16 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorTlineFourPort(self):
-        path=os.getcwd()
+        # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        f=si.fd.EvenlySpacedFrequencyList(40.e9,400)
+        # include
+        f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device X 4 tline zc 50 td 1e-9')
         sp.AddLine('device S1 2 R 50.')
         sp.AddLine('device S2 2 R 50.')
-        sp.AddLine('device R1 2 R 50.')
-        sp.AddLine('device R2 2 R 50.')
-        sp.AddLine('device G 1 ground')
+        sp.AddLine('device R1 1 R 50.')
+        sp.AddLine('device R2 1 R 50.')
         sp.AddLine('voltagesource V1 1')
         sp.AddLine('voltagesource V2 1')
         sp.AddLine('connect V1 1 S1 1')
@@ -446,9 +450,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         sp.AddLine('connect S2 2 X 3')
         sp.AddLine('connect X 2 R1 1')
         sp.AddLine('connect X 4 R2 1')
-        sp.AddLine('connect R1 2 G 1')
-        sp.AddLine('connect R2 2 G 1')
-        sp.AddLine('output X 3 X 4 X 1 X 2')
+        sp.AddLine('output X 2 X 4 X 1 X 3')
         tm=sp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P

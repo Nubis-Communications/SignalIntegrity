@@ -1,7 +1,5 @@
 import SignalIntegrity as si
 
-path=os.getcwd()
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sp = si.p.SimulatorParser()
 sp.AddLine('device X 4')
 sp.AddLine('device P 2')
