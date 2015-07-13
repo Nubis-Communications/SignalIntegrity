@@ -52,6 +52,21 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckSymbolicResult(self.id()+'_2',ss,self.id())
     def testSymbolicSimulatorExample1aCode(self):
         self.WriteCode('TestSimulator.py','testSymbolicSimulatorExample1a(self)',self.standardHeader)
+    def testWriteSimulator_Basic(self):
+        fileName="../SignalIntegrity/SystemDescriptions/Simulator.py"
+        className='Simulator'
+        defName=['__init__','pOutputList','AddVoltageSource','AddCurrentSource']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSimulator_Other(self):
+        fileName="../SignalIntegrity/SystemDescriptions/Simulator.py"
+        className='Simulator'
+        defName=['SourceVector','SourceToStimsPrimeMatrix','StimsPrime','SIPrime','VoltageExtractionMatrix']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTransferMatrices_Basic(self):
+        fileName="../SignalIntegrity/FrequencyDomain/TransferMatrices.py"
+        className='TransferMatrices'
+        defName=['__init__','SParameters','__len__','__getitem__']
+        self.WriteClassCode(fileName,className,defName)
     def testSymbolicSimulatorExample3(self):
         sd=si.sd.SystemDescription()
         sd.AddDevice('C',4)

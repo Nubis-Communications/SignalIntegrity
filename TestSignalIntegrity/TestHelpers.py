@@ -149,3 +149,56 @@ class RoutineWriterTesterHelper(object):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
+    def WriteClassCode(self,fileName,className,defName):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        if isinstance(defName,str):
+            defName=[defName]
+        outputFileName=fileName.split('/')[-1].split('.')[0]+'_'+className+'_'+defName[0]+'.py'
+        inClass= className is ''
+        inDef=False
+        addingLines=False
+        sourceCode=[]
+        with open(fileName, 'rU') as inputFile:
+            for line in inputFile:
+                if "class" == line.lstrip(' ').split(' ')[0]:
+                    if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
+                        inClass = True
+                        inDef = False
+                        addingLines = True
+                    else:
+                        inClass = False
+                        inDef = False
+                        addingLines = False
+                elif "def" == line.lstrip(' ').split(' ')[0]:
+                    if inClass:
+                        if any(d == line.lstrip(' ').split(' ')[1].split('(')[0] for d in defName):
+                            inDef=True
+                            """
+                            if not addingLines:
+                                sourceCode.append("...")
+                            """
+                            addingLines=True
+                        else:
+                            if addingLines:
+                                sourceCode.append("...\n")
+                            inDef=False
+                            addingLines=False
+                    else:
+                        inDef=False
+                        addingLines=False
+                else:
+                    if addingLines:
+                        if not inDef:
+                            addingLines=False
+                if addingLines is True:
+                    sourceCode.append(line)
+        if not os.path.exists(outputFileName):
+            with open(outputFileName, 'w') as outputFile:
+                for line in sourceCode:
+                    outputFile.write(line)
+        with open(outputFileName, 'rU') as regressionFile:
+            regression = regressionFile.readlines()
+        self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
+
+
+
