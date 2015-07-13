@@ -303,7 +303,7 @@ class TestVirtualProbe(unittest.TestCase):
         vpp.m_ml = None
         vpp.m_ol = None
         vpp.m_D = None
-        result = vpp.TransferMatrices()
+        result = vpp.TransferMatrices().SParameters()
         ml = vpp.m_ml
         o1mag = [20.*math.log10(abs(result[n][0][0])) for n in range(len(f))]
         o2mag = [20.*math.log10(abs(result[n][1][0])) for n in range(len(f))]

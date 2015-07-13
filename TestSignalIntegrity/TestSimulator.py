@@ -5,20 +5,7 @@ import sys
 import SignalIntegrity as si
 from TestHelpers import *
 
-def AdaptWaveform(wf,td):
-        u=int(round(td.Fs/wf.TimeDescriptor().Fs))
-        if not u==1:
-            wf=wf*si.td.f.InterpolatorSinX(u)
-        ad=td/wf.TimeDescriptor()
-        f=ad.D-int(ad.D)
-        if not f==0.0:
-            wf=wf*si.td.f.FractionalDelayFilterSinX(f,True)
-        ad=td/wf.TimeDescriptor()
-        tr=si.td.f.WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),max(0,int(round(ad.TrimRight()))))
-        wf=wf*tr
-        return wf
-
-class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
+class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -145,10 +132,11 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect F 2 R 1')
         sp.AddLine('output F 1 F 2')
         tm=sp.TransferMatrices()
-        ports=tm.m_P
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
-        self.CheckSParametersResult(tm,spFileName,spFileName+' incorrect')
+        self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         # check theory for filter response based on s-parameters
         spf=si.sp.File('filter.s2p').Resample(f)
         # theory is that thru response is 1/2 of S21 and return loss is 1/2 S11 + 1/2
@@ -159,7 +147,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         # compare them directly to the previous result
         self.CheckSParametersResult(tm2,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9),Amplitude=2.0)
-        srs=sp.ProcessWaveforms([stepin])
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        srs=tmp.ProcessWaveforms([stepin])
         sr=srs[1]
         tdr=srs[0]
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,21*40,40e9))
@@ -195,10 +184,11 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect R 2 G 1')
         sp.AddLine('output F 1 F 2')
         tm=sp.TransferMatrices()
-        ports=tm.m_P
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
+        self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorParserVoltageSourceTwoPorts(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -216,12 +206,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect R 2 G 1')
         sp.AddLine('output F 1 F 2')
         tm=sp.TransferMatrices()
-        ports=tm.m_P
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
+        self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9))
-        srs=sp.ProcessWaveforms([stepin])
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        srs=tmp.ProcessWaveforms([stepin])
         sr=srs[0]
         tdr=srs[1]
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,21*40,40e9))
@@ -257,10 +249,11 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect R 2 G 1')
         sp.AddLine('output R 1')
         tm=sp.TransferMatrices()
-        ports=tm.m_P
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
+        self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorXRay041(self):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -284,14 +277,16 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect R2 2 G 1')
         sp.AddLine('output X 3 X 4 X 1 X 2')
         tm=sp.TransferMatrices()
-        ports=tm.m_P
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
+        self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9))
         stepinp=stepin
         stepinm=stepin*-1.
-        srs=sp.ProcessWaveforms([stepinp,stepinm])
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        srs=tmp.ProcessWaveforms([stepinp,stepinm])
         sr=srs[0]-srs[1]
         tdr=srs[2]-srs[3]
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,21*40,40e9))
@@ -390,14 +385,16 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,Sour
         sp.AddLine('connect R2 2 G 1')
         sp.AddLine('output X 3 X 4 X 1 X 2')
         tm=sp.TransferMatrices()
-        ports=tm.m_P
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
-        self.CheckSParametersResult(sp.TransferMatrices(),spFileName,spFileName+' incorrect')
+        self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
         stepinp=stepin
         stepinm=stepin*-1.
-        srs=sp.ProcessWaveforms([stepinp,stepinm])
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        srs=tmp.ProcessWaveforms([stepinp,stepinm])
         sr=srs[0]-srs[1]
         tdr=srs[2]-srs[3]
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,11*80,80e9))

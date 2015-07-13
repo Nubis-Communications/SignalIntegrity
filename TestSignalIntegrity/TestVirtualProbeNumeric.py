@@ -19,12 +19,12 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
 ##        si.sp.File('XRAY041.s4p').Resample(si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
         vpp=si.p.VirtualProbeNumericParser(si.fd.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
-        result = vpp.TransferMatrices()
-        self.CheckSParametersResult(result, './/DesignCon2008//VirtualProbeTransferMatrices.s6p', fileNameBase)
+        tm = vpp.TransferMatrices()
+        self.CheckSParametersResult(tm.SParameters(), './/DesignCon2008//VirtualProbeTransferMatrices.s6p', fileNameBase)
         #result.WriteToFile('vptm.s6p')
         #os.remove('vptm.s6p')
-        fr=vpp.FrequencyResponses()
-        ir=vpp.ImpulseResponses(Fs)
+        fr=tm.FrequencyResponses()
+        ir=tm.ImpulseResponses(Fs)
         ml = [m[0]+'_'+str(m[1]) for m in vpp.SystemDescription().pMeasurementList]
         ol = [o[0]+'_'+str(o[1]) for o in vpp.SystemDescription().pOutputList]
         plt.xlabel('frequency (GHz)')
@@ -56,8 +56,8 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         ThruBackplaneM=si.td.wf.WaveformFileAmplitudeOnly('ThruBackplaneM.txt',si.td.wf.TimeDescriptor(0,2000,20.e9))
         ThruBackplaneDiff=ThruBackplaneP-ThruBackplaneM
         inputWf=[si.td.wf.Waveform().ReadFromFile(fileName) for fileName in ['Waveform_CableTxPWf.txt','Waveform_CableTxMWf.txt']]
-
-        outputWf=vpp.ProcessWaveforms(inputWf)
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        outputWf=tmp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
         self.CheckWaveformResult(DiffIn,'.//DesignCon2008//Waveform_DiffIn.txt',fileNameBase)
         DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
@@ -74,7 +74,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         self.CheckWaveformResult(DiffOutBot,'.//DesignCon2008//Waveform_DiffOutBotAdapted.txt',fileNameBase)
 
         inputWf[0]=inputWf[0]*si.td.f.InterpolatorSinX(2)
-        outputWf=vpp.ProcessWaveforms(inputWf)
+        outputWf=tmp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
         DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
         DiffOutMid=(outputWf[ol.index(('D11_2'))]-outputWf[ol.index(('D12_2'))]).DelayBy(-4.7e-9)
