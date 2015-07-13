@@ -6,9 +6,9 @@ from SignalIntegrity.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
 
 from numpy import zeros
 
-class SimulatorNumericParser(SimulatorParser):
-    def __init__(self, f=None, args=None):
-        SimulatorParser.__init__(self, f, args)
+class TransferMatrixNumericProcessor(object):
+    def __init__(self,className):
+        self.m_className=className
         self.m_tm=None
     def TransferMatrices(self,square=True):
         if not self.m_tm == None:
@@ -21,7 +21,9 @@ class SimulatorNumericParser(SimulatorParser):
         for n in range(len(self.m_f)):
             for d in range(len(self.m_spc)):
                 self.m_sd[self.m_sd.IndexOfDevice(spc[d][0])].pSParameters=spc[d][1][n]
-            tm=SimulatorNumeric(self.m_sd).TransferMatrix()
+            tm=self.m_className(self.m_sd).TransferMatrix()
+            self.m_inputs=len(tm[0])
+            self.m_outputs=len(tm)
             if square and not (len(tm)==len(tm[0])):
                 P=max(len(tm),len(tm[0]))
                 tme=zeros((P,P),complex).tolist()
@@ -34,10 +36,8 @@ class SimulatorNumericParser(SimulatorParser):
         return self.m_tm
     def FrequencyResponses(self):
         tm = self.TransferMatrices()
-        sv = self.SystemDescription().SourceVector()
-        ol = self.SystemDescription().pOutputList
         return [[FrequencyResponse(self.m_f,tm.Response(o+1,s+1))
-            for s in range(len(sv))] for o in range(len(ol))]
+            for s in range(self.m_inputs)] for o in range(self.m_outputs)]
     def ImpulseResponses(self,td=None):
         fr = self.FrequencyResponses()
         if td is None or isinstance(td,float) or isinstance(td,int):
@@ -50,3 +50,8 @@ class SimulatorNumericParser(SimulatorParser):
         ir = self.ImpulseResponses(td)
         return [sum([iro[m].FirFilter().FilterWaveform(wfl[m])
             for m in range(len(iro))]) for iro in ir]
+
+class SimulatorNumericParser(SimulatorParser,TransferMatrixNumericProcessor):
+    def __init__(self, f=None, args=None):
+        SimulatorParser.__init__(self, f, args)
+        TransferMatrixNumericProcessor.__init__(self,SimulatorNumeric)
