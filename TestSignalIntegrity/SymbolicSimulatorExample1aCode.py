@@ -11,7 +11,6 @@ s.ConnectDevicePort('V',1,'Zs',1)
 s.ConnectDevicePort('Zs',2,'S',1)
 s.pOutputList = [('S',1),('S',2)]
 ss=si.sd.SimulatorSymbolic(s)
-ss.LaTeXEquations().Emit()
 ss.AssignSParameters('Zs',si.sy.SeriesZ('Zs'))
 ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
 ss.Clear().LaTeXEquations().Emit()

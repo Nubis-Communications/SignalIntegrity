@@ -38,8 +38,8 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         s.ConnectDevicePort('Zs',2,'S',1)
         s.pOutputList = [('S',1),('S',2)]
         ss=si.sd.SimulatorSymbolic(s)
-        ss.LaTeXEquations().Emit()
         # exclude
+        # ss.LaTeXEquations().Emit()
         self.CheckSymbolicResult(self.id()+'_1',ss,self.id())
         # include
         ss.AssignSParameters('Zs',si.sy.SeriesZ('Zs'))
