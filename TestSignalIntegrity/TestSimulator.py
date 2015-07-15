@@ -437,20 +437,24 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         # include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         sp = si.p.SimulatorNumericParser(f)
-        sp.AddLine('device X 4 tline zc 50 td 1e-9')
+        sp.AddLine('device L 4 tline zc 50. td 0.5e-9')
+        sp.AddLine('device R 4 tline zc 50. td 0.5e-9')
         sp.AddLine('device S1 2 R 50.')
-        sp.AddLine('device S2 2 R 50.')
+        sp.AddLine('device S2 1 R 50.')
         sp.AddLine('device R1 1 R 50.')
         sp.AddLine('device R2 1 R 50.')
+        sp.AddLine('device RM 1 R 5e6')
         sp.AddLine('voltagesource V1 1')
-        sp.AddLine('voltagesource V2 1')
         sp.AddLine('connect V1 1 S1 1')
-        sp.AddLine('connect V2 1 S2 1')
-        sp.AddLine('connect S1 2 X 1')
-        sp.AddLine('connect S2 2 X 3')
-        sp.AddLine('connect X 2 R1 1')
-        sp.AddLine('connect X 4 R2 1')
-        sp.AddLine('output X 2 X 4 X 1 X 3')
+        sp.AddLine('connect S1 2 L 1')
+        sp.AddLine('connect S2 1 L 3')
+        sp.AddLine('connect L 2 R 1')
+        sp.AddLine('connect L 4 RM 1')
+        sp.AddLine('connect L 4 R 3')        
+        sp.AddLine('connect R 2 R1 1')
+        sp.AddLine('connect R 4 R2 1')
+        sp.AddLine('output L 1 R 2 L 3 R 4 L 2 L 4')
+        sp.SystemDescription().Print()
         tm=sp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
@@ -458,29 +462,27 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
-        stepinp=stepin
-        stepinm=stepin*-1.
         tmp=si.td.f.TransferMatricesProcessor(tm)
-        srs=tmp.ProcessWaveforms([stepinp,stepinm])
-        sr=srs[0]-srs[1]
-        tdr=srs[2]-srs[3]
+        srs=tmp.ProcessWaveforms([stepin])
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,11*80,80e9))
-        aw=si.td.wf.AdaptedWaveforms([stepin,sr,tdr])
-        sr=aw[1]
-        tdr=aw[2]
-        if False:
+        aw=si.td.wf.AdaptedWaveforms([stepin]+srs)
+        if True:
             import matplotlib.pyplot as plt
             plt.clf()
             plt.xlabel('time (ns)')
             plt.ylabel('amplitude')
             plt.plot(stepin.Times('ns'),stepin.Values(),label='step input')
-            plt.plot(sr.Times('ns'),sr.Values(),label='step response')
-            plt.plot(tdr.Times('ns'),tdr.Values(),label='tdr response')
+            plt.plot(aw[1].Times('ns'),aw[1].Values(),label='port 1 response')
+            plt.plot(aw[2].Times('ns'),aw[2].Values(),label='port 2 response')
+            plt.plot(aw[3].Times('ns'),aw[3].Values(),label='port 3 response')
+            plt.plot(aw[4].Times('ns'),aw[4].Values(),label='port 4 response')
+            plt.plot(aw[5].Times('ns'),aw[5].Values(),label='mt response')
+            plt.plot(aw[6].Times('ns'),aw[6].Values(),label='mb response')
             plt.legend(loc='upper right')
             plt.show()
-        self.CheckWaveformResult(stepin,'Waveform_'+fileNameBase+'_StepIn.txt','Waveform_'+fileNameBase+'_StepIn.txt')
-        self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
-        self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
+#        self.CheckWaveformResult(stepin,'Waveform_'+fileNameBase+'_StepIn.txt','Waveform_'+fileNameBase+'_StepIn.txt')
+#        self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
+#        self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
 
 if __name__ == "__main__":
     unittest.main()
