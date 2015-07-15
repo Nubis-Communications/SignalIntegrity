@@ -1,3 +1,4 @@
+from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
 from SystemSParameters import SystemSParameters
 from SystemDescriptionSymbolic import SystemDescriptionSymbolic
 from Device import Device
@@ -34,6 +35,9 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
         Wxx=self.WeightsMatrix(XN,XN)
         sWba=self._LaTeXMatrix(Wba)
         if len(Wxx)==0:
+            self._AddEq('\\mathbf{S} = '+sWba)
+            return self
+        if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
             self._AddEq('\\mathbf{S} = '+sWba)
             return self
         sWbx=self._LaTeXMatrix(Wbx)

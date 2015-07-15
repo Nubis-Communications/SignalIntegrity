@@ -1,6 +1,7 @@
 from numpy import matrix
 from numpy import identity
 
+from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
 from SignalIntegrity.SystemDescriptions import SystemSParameters
 from Numeric import Numeric
 
@@ -30,5 +31,8 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         if len(Wxx)==0:
             result = matrix(Wba)
         else:
-            result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
+            if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
+                result = matrix(Wba)
+            else:
+                result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
         return result.tolist()
