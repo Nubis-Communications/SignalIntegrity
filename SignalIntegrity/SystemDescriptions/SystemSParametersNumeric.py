@@ -1,7 +1,7 @@
 from numpy import matrix
 from numpy import identity
 
-from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
+from SignalIntegrity.Helpers.AllZeroMatrix import *
 from SignalIntegrity.SystemDescriptions import SystemSParameters
 from Numeric import Numeric
 
@@ -25,6 +25,15 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         XN=self.OtherNames(AN+BN)
         Wba=self.WeightsMatrix(BN,AN)
         Wbx=self.WeightsMatrix(BN,XN)
+        nzcWbx=NonZeroColumns(Wbx)
+        zcWbx=ZeroColumns(Wbx)
+        nzrWxa=NonZeroRows(Wxa)
+        zrWxa=ZeroRows(Wxa)
+        XNnzcWbx=[XN[nzcWbx[i]] for i in range(len(nzcWbx))]
+        XNzcWbx=[XN[zcWbx[i]] for i in range(len(zcWbx))]
+        XNnzrWxa=[XN[nzrWxa[i]] for i in range(len(nzrWxa))]
+        XNzrWxa=[XN[zrWxa[i]] for i in range(len(zrWxa))]
+        Wxx11=self.WeightsMatrix()
         Wxa=self.WeightsMatrix(XN,AN)
         Wxx=self.WeightsMatrix(XN,XN)
         I=matrix(identity(len(Wxx)))
