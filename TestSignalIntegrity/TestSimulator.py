@@ -736,6 +736,40 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s2p'
         self.CheckSParametersResult(sp,spFileName,spFileName)
+    def testDiabolicalSymbolic2(self):
+        # exclude
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
+        ssnp1 = si.p.SystemDescriptionParser()
+        ssnp1.AddLine('device T1 2 thru')
+        ssnp1.AddLine('device T2 2 thru')
+        ssnp1.AddLine('device O3 1 open')
+        ssnp1.AddLine('device O4 1 open')
+        ssnp1.AddLine('connect O3 1 O4 1')
+        ssnp1.AddLine('port 1 T1 1 2 T2 2')
+        ssnp1.AddLine('connect T1 2 T2 1')
+        sps=si.sd.SystemSParametersSymbolic(ssnp1.SystemDescription())
+        sps.LaTeXSolution().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),sps,self.id())
+    def testDiabolicalNumeric2(self):
+        # exclude
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
+        f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
+        ssp = si.p.SystemSParametersNumericParser(f)
+        ssp.AddLine('device T1 2 thru')
+        ssp.AddLine('device T2 2 thru')
+        ssp.AddLine('device O3 1 open')
+        ssp.AddLine('device O4 1 open')
+        ssp.AddLine('connect O3 1 O4 1')
+        ssp.AddLine('port 1 T1 1 2 T2 2')
+        ssp.AddLine('connect T1 2 T2 1')
+        sp=ssp.SParameters()
+        # exclude
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s2p'
+        self.CheckSParametersResult(sp,spFileName,spFileName)
 
 if __name__ == "__main__":
     unittest.main()
