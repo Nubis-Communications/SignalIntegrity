@@ -29,9 +29,9 @@ def ZeroRows(M):
                 isAZeroRow=False
                 break
         if isAZeroRow:
-            zeroRowList.append(c)
+            zeroRowList.append(r)
     return zeroRowList
-            
+
 def NonZeroColumns(M):
     NonZeroColumnList=[]
     for c in range(len(M[0])):
@@ -53,7 +53,6 @@ def NonZeroRows(M):
                 isAZeroRow=False
                 break
         if not isAZeroRow:
-            NonZeroRowList.append(c)
+            NonZeroRowList.append(r)
     return NonZeroRowList
-            
-            
+
