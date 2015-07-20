@@ -18,8 +18,8 @@ C_{44} \\ 0 & 0 & 0 & 0 & R_{11} & R_{12} & 0 & 0 \\ 0 & 0 & 0 & 0 &
 R_{21} & R_{22} & 0 & 0 \end{smallmatrix}\right) \right]^{-1} \]
 \[ \mathbf{H} = \left[ \left(\begin{smallmatrix} Si_{51} + Si_{71} &
 Si_{52} + Si_{72} \\ Si_{61} + Si_{81} & Si_{62} + Si_{82}
-\end{smallmatrix}\right) \cdot \left(\begin{smallmatrix} 1 \\ -1
-\end{smallmatrix}\right) \right]\cdot\left[ \left(\begin{smallmatrix}
+\end{smallmatrix}\right)\cdot \left(\begin{smallmatrix} 1 \\ -1
+\end{smallmatrix}\right)\right]\cdot\left[ \left(\begin{smallmatrix}
 Si_{11} + Si_{31} & Si_{12} + Si_{32} \\ Si_{21} + Si_{41} & Si_{22} +
-Si_{42} \end{smallmatrix}\right) \cdot \left(\begin{smallmatrix} 1 \\
--1 \end{smallmatrix}\right) \right]^{-1} \]
+Si_{42} \end{smallmatrix}\right)\cdot \left(\begin{smallmatrix} 1 \\
+-1 \end{smallmatrix}\right)\right]^{-1} \]

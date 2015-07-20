@@ -60,7 +60,9 @@ class Symbolic():
         for d in range(len(self)):
             if '#' in self[d].pName:
                 self[d].pSParameters = TeeThreePortSafe(Z)
+        return self
     def _AddEq(self,text):
         self._AddLine(self._BeginEq() + text + self._EndEq())
+        return self
     def _LaTeXMatrix(self,matrix):
         return Matrix2LaTeX(matrix,self._SmallMatrix())
