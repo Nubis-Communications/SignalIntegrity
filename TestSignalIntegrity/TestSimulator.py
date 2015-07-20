@@ -752,7 +752,6 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         sd=ssnp1.SystemDescription()
         sd.Print()
         sps=si.sd.SystemSParametersSymbolic(sd)
-        sps.Clear().DocStart().LaTeXSystemEquation().LaTeXSolution().DocEnd().Emit().Clear()
         sps.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),sps,self.id())

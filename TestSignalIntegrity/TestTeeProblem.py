@@ -80,6 +80,14 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.LaTeXSolution(size='biggest').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Block Symbolic')
+    def testTeeSimplerBlockSymbolicUnsafe(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('D',si.sy.Tee(3))
+        ssps.DocStart().LaTeXSolution().DocEnd().Emit()
+        # exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Block Symbolic')
     def testTeeSimplerDirectSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
