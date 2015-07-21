@@ -69,7 +69,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
         sprs=ip.SParameters(sp.f())
         sprs.WriteToFile('cableRightSide.s2p')
         dp = si.p.DeembedderNumericParser(sp.f())
-        dp.AddLines(['device ?1 2',
+        dp.AddLines(['unknown ?1 2',
                      'device L 2 file cableLeftSide.s2p',
                      'device R 2 file cableRightSide.s2p',
                      'port 1 L 1 2 R 1',

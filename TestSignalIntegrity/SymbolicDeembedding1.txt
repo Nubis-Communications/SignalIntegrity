@@ -1,4 +1,4 @@
 device D 2
-device ? 1
+unknown Su 1
 port 1 D 1
-connect D 2 ? 1
+connect D 2 Su 1

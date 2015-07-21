@@ -550,7 +550,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         del parser
         parser = si.p.DeembedderNumericParser(freq)
         parser.AddLine('device D1 2 file cable.s2p')
-        parser.AddLine('device ? 2')
+        parser.AddLine('unknown ? 2')
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
@@ -572,7 +572,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         del parser
         parser = si.p.DeembedderNumericParser(freq)
         parser.AddLine('device D1 2 file cable.s2p')
-        parser.AddLine('device ? 2')
+        parser.AddLine('unknown ? 2')
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)

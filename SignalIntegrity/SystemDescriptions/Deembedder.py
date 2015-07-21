@@ -1,16 +1,18 @@
 from SystemSParameters import SystemSParameters
 
 class Deembedder(SystemSParameters):
-    def __init__(self,sd):
-        self.Data = sd.Data
+    def __init__(self,sd=None):
+        SystemSParameters.__init__(self,sd)
+    def AddUnknown(self,Name,Ports):
+        self.AddDevice(Name,Ports,SParams=None,Type='unknown')
     def DutANames(self):
-        return [p.pA for d in self for p in d if d.pName[0]=='?']
+        return [p.pA for d in self for p in d if d.pType=='unknown']
     def DutBNames(self):
-        return [p.pB for d in self for p in d if d.pName[0]=='?']
+        return [p.pB for d in self for p in d if d.pType=='unknown']
     def UnknownNames(self):
-        return [d.pName for d in self if d.pName[0]=='?']
+        return [d.pName for d in self if d.pType=='unknown']
     def UnknownPorts(self):
-        return [len(d) for d in self if d.pName[0]=='?']
+        return [len(d) for d in self if d.pType=='unknown']
     def Partition(self,A):#a list of arrays, one per unknown device
         PL=self.UnknownPorts()
         Result=[]

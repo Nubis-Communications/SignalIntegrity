@@ -1,3 +1,4 @@
+from SignalIntegrity.SystemDescriptions import Deembedder
 from SignalIntegrity.Parsers import SystemDescriptionParser
 from Devices.DeviceParser import DeviceParser
 import copy
@@ -14,12 +15,19 @@ class DeembedderParser(SystemDescriptionParser):
                 for i in range(1,len(lineList))])
             if not dev.m_spf is None:
                 self.m_spc.append(('system',dev.m_spf))
+        elif lineList[0] == 'unknown':
+            self.m_sd.AddUnknown(lineList[1],int(lineList[2]))
         else:
             self.m_ul.append(line)
     def _ProcessLines(self):
-        SystemDescriptionParser._ProcessLines(self)
+        SystemDescriptionParser._ProcessLines(self,['connect','port'])
+        self.m_sd = Deembedder(self.m_sd)
         lines=copy.deepcopy(self.m_ul)
         self.m_ul=[]
         for line in lines:
             self._ProcessDeembedderLine(line)
+        lines=copy.deepcopy(self.m_ul)
+        self.m_ul=[]
+        for line in lines:
+            SystemDescriptionParser._ProcessLine(self,line,[])
         return self

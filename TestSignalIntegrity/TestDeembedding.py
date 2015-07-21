@@ -9,9 +9,10 @@ class TestDeembedding(unittest.TestCase):
         Su=si.dev.TerminationZ(30)
         D=[[1.,2.],[3.,4.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
+        SD=si.sd.Deembedder()
         SD.AddDevice('D',2,D)
-        SD.AddDevice('?',1,Su)
+        SD.AddUnknown('?',1)
+        SD.AssignSParameters('?',Su)
         SD.ConnectDevicePort('D',2,'?',1)
         SD.AddPort('D',1,1,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
@@ -27,9 +28,10 @@ class TestDeembedding(unittest.TestCase):
         Su=[[1.,2.],[3.,4.]]
         SR=[[9.,10.],[11.,12.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
+        SD=si.sd.Deembedder()
         SD.AddDevice('DL',2,SL)
-        SD.AddDevice('?',2,Su)
+        SD.AddUnknown('?',2)
+        SD.AssignSParameters('?',Su)
         SD.AddDevice('DR',2,SR)
         SD.ConnectDevicePort('DL',2,'?',1)
         SD.ConnectDevicePort('?',2,'DR',2)
@@ -65,9 +67,10 @@ class TestDeembedding(unittest.TestCase):
         SL=[[5.,6.],[7.,8.]]
         SR=[[1.,2.],[3.,4.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
+        SD=si.sd.Deembedder()
         SD.AddDevice('DL',2,SL)
-        SD.AddDevice('?R',2,SR)
+        SD.AddUnknown('?R',2)
+        SD.AssignSParameters('?R',SR)
         SD.ConnectDevicePort('DL',2,'?R',1)
         SD.AddPort('DL',1,1,True)
         SD.AddPort('?R',2,2,True)
@@ -92,8 +95,9 @@ class TestDeembedding(unittest.TestCase):
         SL=[[5.,6.],[7.,8.]]
         SR=[[1.,2.],[3.,4.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
-        SD.AddDevice('?L',2,SL)
+        SD=si.sd.Deembedder()
+        SD.AddUnknown('?L',2)
+        SD.AssignSParameters('?L',SL)
         SD.AddDevice('DR',2,SR)
         SD.ConnectDevicePort('?L',2,'DR',1)
         SD.AddPort('?L',1,1,True)
@@ -119,9 +123,10 @@ class TestDeembedding(unittest.TestCase):
         Su=si.dev.TerminationZ(30+20.*1j)
         D=[[1.,2.,3.],[4.,5.,6.],[7.,8.,9.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
+        SD=si.sd.Deembedder()
         SD.AddDevice('D',3,D)
-        SD.AddDevice('?',1,Su)
+        SD.AddUnknown('?',1)
+        SD.AssignSParameters('?',Su)
         SD.ConnectDevicePort('D',3,'?',1)
         SD.AddPort('D',1,1,False)
         SD.AddPort('D',2,2,False)
@@ -133,9 +138,10 @@ class TestDeembedding(unittest.TestCase):
         Su=si.dev.TerminationZ(30+20.*1j)
         D=[[1.,2.,3.],[4.,5.,6.],[7.,8.,9.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
+        SD=si.sd.Deembedder()
         SD.AddDevice('D',3,D)
-        SD.AddDevice('?',1,Su)
+        SD.AddUnknown('?',1)
+        SD.AssignSParameters('?',Su)
         SD.ConnectDevicePort('D',3,'?',1)
         SD.AddPort('D',1,1,True)
         SD.AddPort('D',2,2,True)
@@ -148,10 +154,12 @@ class TestDeembedding(unittest.TestCase):
         Su2=si.dev.TerminationZ(15-5.*1j)
         D=[[1.,2.,5.,6.],[3.,4.,7.,8.],[9.,8.,7.,6.],[5.,4.,3.,2.]]
         # first build something that we know
-        SD=si.sd.SystemDescription()
+        SD=si.sd.Deembedder()
         SD.AddDevice('D',4,D)
-        SD.AddDevice('?1',1,Su1)
-        SD.AddDevice('?2',1,Su2)
+        SD.AddUnknown('?1',1)
+        SD.AssignSParameters('?1',Su1)
+        SD.AddUnknown('?2',1)
+        SD.AssignSParameters('?2',Su2)
         SD.ConnectDevicePort('D',3,'?1',1)
         SD.ConnectDevicePort('D',4,'?2',1)
         SD.AddPort('D',1,1,True)
@@ -167,8 +175,9 @@ class TestDeembedding(unittest.TestCase):
         SL=si.dev.Thru()
         SR=si.dev.Thru()
         # first build something that we know
-        SD=si.sd.SystemDescription()
-        SD.AddDevice('?L',2,SL)
+        SD=si.sd.Deembedder()
+        SD.AddUnknown('?L',2)
+        SD.AssignSParameters('?L',SL)
         SD.AddDevice('DR',2,SR)
         SD.ConnectDevicePort('?L',2,'DR',1)
         SD.AddPort('?L',1,1,True)

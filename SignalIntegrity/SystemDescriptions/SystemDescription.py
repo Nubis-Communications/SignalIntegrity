@@ -4,10 +4,15 @@ from Device import Device
 from UniqueNameFactory import UniqueNameFactory
 
 class SystemDescription:
-    def __init__(self):
-        self.Data = []
-        self.m_UniqueDevice=UniqueNameFactory('#')
-        self.m_UniqueNode=UniqueNameFactory('n')
+    def __init__(self,sd=None):
+        if not sd is None:
+            self.Data = sd.Data
+            self.m_UniqueDevice=sd.m_UniqueDevice
+            self.m_UniqueNode=sd.m_UniqueNode
+        else:
+            self.Data = []
+            self.m_UniqueDevice=UniqueNameFactory('#')
+            self.m_UniqueNode=UniqueNameFactory('n')
     def __getitem__(self,item):
         return self.Data[item]
     def __len__(self):
@@ -54,7 +59,7 @@ class SystemDescription:
         self.AddDevice(PortName,1,[[0.0]])
         self.AssignM(PortName,1,'m'+str(SystemPort))
         if not AddThru:
-            AddThru = (DeviceName[0]=='?')
+            AddThru = self[self.IndexOfDevice(DeviceName)].pType == 'unknown'
         if AddThru:
             thruName=self.m_UniqueDevice.Name()
             self.AddDevice(thruName,2,Thru())

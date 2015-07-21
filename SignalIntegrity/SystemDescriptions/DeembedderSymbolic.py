@@ -49,16 +49,16 @@ class DeembedderSymbolic(Deembedder,Symbolic):
         BL=self.Partition(matrix(B))
         AL=[AL[u].tolist() for u in range(len(AL))]
         BL=[BL[u].tolist() for u in range(len(BL))]
+        un=self.UnknownNames()
+        up=self.UnknownPorts()
         if len(AL)==1: #only one unknown device
             if len(Bmsd)!=len(Bdut): #if short and fat A
                 sAi='\\cdot\\mathbf{A}^H\\cdot\\left[\\mathbf{A}\\cdot'+\
                 '\\mathbf{A}^H\\right]^{-1}'
             else: #square A
                 sAi='\\cdot\\mathbf{A}^{-1}'
-            self._AddEq('\\mathbf{Su}=\\mathbf{B}'+sAi)
+            self._AddEq('\\mathbf{'+un[0]+'}=\\mathbf{B}'+sAi)
         else: #multiple unknown devices
-            un=self.UnknownNames()
-            up=self.UnknownPorts()
             for u in range(len(AL)):
                 AText=self._LaTeXMatrix(AL[u])
                 BText=self._LaTeXMatrix(BL[u])
