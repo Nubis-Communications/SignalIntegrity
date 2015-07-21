@@ -95,10 +95,10 @@ class ImpulseResponse(Waveform):
         if (endidx-startidx+1)/2*2 != endidx-startidx+1:
             # the result would not have an even number of points
             if endidx < len(x)-1:
-                # keep a point at the end if possible
+                # include a point at the end if possible
                 endidx = endidx + 1
             elif startidx > 0:
-                # keep a point at the beginning if possible
+                # include a point at the beginning if possible
                 startidx = startidx - 1
             else:
                 # append a zero to the end and calculate number of
