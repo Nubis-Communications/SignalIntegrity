@@ -186,6 +186,16 @@ class RoutineWriterTesterHelper(object):
                     else:
                         inDef=False
                         addingLines=False
+                elif '# exclude' in line:
+                    if inDef:
+                        if addingLines:
+                            sourceCode.append("...\n")
+                        addingLines = False
+                        continue
+                elif '# include' in line:
+                    if inDef:
+                        addingLines = True
+                        continue
                 else:
                     if addingLines:
                         if not inDef:

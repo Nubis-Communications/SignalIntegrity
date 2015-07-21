@@ -42,7 +42,7 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
             self._AddEq('\\mathbf{S} = '+sWba)
             return self
         I=self._Identity()
-
+        # exclude
         XNnzcWbx=[XN[nzcWbx] for nzcWbx in NonZeroColumns(Wbx)]
         XNzcWbx=[XN[zcWbx] for zcWbx in ZeroColumns(Wbx)]
         XNnzrWxa=[XN[nzrWxa] for nzrWxa in NonZeroRows(Wxa)]
@@ -71,7 +71,7 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
                 Wxa=Wxa1
                 I=self._LaTeXMatrix(I11)
                 Wxx=Wxx11
-
+        # include
         sWbx=self._LaTeXMatrix(Wbx)
         sWxa=self._LaTeXMatrix(Wxa)
         sWxx=self._LaTeXMatrix(Wxx)
