@@ -14,15 +14,13 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
             self.VoltageExtractionMatrix(self.pMeasurementList), self.SIPrime(True))
         oneElementVemsi = False
         if len(vemsi) == 1:
-            if len(vemsi[0]) == 1:
-                oneElementVemsi = True
+            if len(vemsi[0]) == 1: oneElementVemsi = True
         vemsi = Matrix2LaTeX(vemsi, self._SmallMatrix())
         veosi = MatrixMultiply(
             self.VoltageExtractionMatrix(self.pOutputList), self.SIPrime(True))
         oneElementVeosi = False
         if len(veosi) == 1:
-            if len(veosi[0]) == 1:
-                oneElementVeosi = True
+            if len(veosi[0]) == 1: oneElementVeosi = True
         veosi = Matrix2LaTeX(veosi, self._SmallMatrix())
         if self.pStimDef is None:
             if oneElementVemsi and oneElementVeosi:

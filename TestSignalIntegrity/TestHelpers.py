@@ -110,7 +110,7 @@ class RoutineWriterTesterHelper(object):
         addingLines = False
         with open(fileName, 'rU') as inputFile:
             for line in inputFile:
-                if 'def' in line:
+                if "def" == line.lstrip(' ').split(' ')[0]:
                     addingLines = False
                     if Routine in line:
                         addingLines = True

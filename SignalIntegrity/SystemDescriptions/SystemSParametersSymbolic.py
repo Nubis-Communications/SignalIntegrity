@@ -13,11 +13,11 @@ class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
             ' - '+sW+' \\right]^{-1}')
         return self
     def LaTeXSolution(self,**args):
-        type = args['type'] if 'type' in args else 'block'
+        solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         size = args['size'] if 'size' in args else 'normal'
         AN=self.PortBNames()
         BN=self.PortANames()
-        if type=='direct':
+        if solvetype=='direct':
             self._LaTeXSi()
             BN=self.PortANames()
             AN=self.PortBNames()
