@@ -6,7 +6,7 @@ from SignalIntegrity.SystemDescriptions import SystemSParameters
 from Numeric import Numeric
 
 class SystemSParametersNumeric(SystemSParameters,Numeric):
-    def __init__(self,sd):
+    def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
     def SParameters(self,**args):
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'

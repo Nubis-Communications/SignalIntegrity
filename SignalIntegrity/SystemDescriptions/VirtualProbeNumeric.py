@@ -4,7 +4,7 @@ from numpy import identity
 from VirtualProbe import VirtualProbe
 
 class VirtualProbeNumeric(VirtualProbe):
-    def __init__(self,sd):
+    def __init__(self,sd=None):
         VirtualProbe.__init__(self,sd)
     def TransferMatrix(self):
         if self.m_D is None:

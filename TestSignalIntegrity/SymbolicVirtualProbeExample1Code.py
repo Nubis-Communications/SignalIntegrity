@@ -1,14 +1,12 @@
 import SignalIntegrity as si
 
-sd=si.sd.SystemDescription()
-sd.AddDevice('T',1)
-sd.AddDevice('C',2)
-sd.AddDevice('R',1)
-sd.ConnectDevicePort('T',1,'C',1)
-sd.ConnectDevicePort('C',2,'R',1)
-sd.AssignM('T',1,'m1')
-vp=si.sd.VirtualProbe(sd)
-vp.pMeasurementList = [('T',1)]
-vp.pOutputList = [('R',1)]
-svp=si.sd.VirtualProbeSymbolic(vp,size='small')
-svp.LaTeXEquations().Emit()
+vps=si.sd.VirtualProbeSymbolic(size='small')
+vps.AddDevice('T',1)
+vps.AddDevice('C',2)
+vps.AddDevice('R',1)
+vps.ConnectDevicePort('T',1,'C',1)
+vps.ConnectDevicePort('C',2,'R',1)
+vps.AssignM('T',1,'m1')
+vps.pMeasurementList = [('T',1)]
+vps.pOutputList = [('R',1)]
+vps.LaTeXEquations().Emit()

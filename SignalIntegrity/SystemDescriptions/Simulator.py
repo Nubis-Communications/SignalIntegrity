@@ -8,7 +8,7 @@ from SignalIntegrity.Devices import Thru
 from SignalIntegrity.Devices import Ground
 
 class Simulator(SystemSParameters,object):
-    def __init__(self,sd):
+    def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
         self.m_ol = sd.m_ol if hasattr(sd, 'm_ol') else None
     @property

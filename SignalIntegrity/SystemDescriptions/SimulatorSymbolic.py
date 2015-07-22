@@ -5,8 +5,7 @@ from SignalIntegrity.Helpers import MatrixMultiply
 from SignalIntegrity.Helpers import SubscriptedVector
 
 class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
-    def __init__(self,sd,**args):
-        # self.Data=sd
+    def __init__(self,sd=None,**args):
         SystemSParametersSymbolic.__init__(self,sd,**args)
         Simulator.__init__(self, sd)
     def LaTeXTransferMatrix(self):

@@ -4,8 +4,8 @@ from Device import Device
 from SignalIntegrity.Helpers import SubscriptedVector
 
 class SystemDescriptionSymbolic(SystemDescription,Symbolic):
-    def __init__(self,sd,**args):
-        self.Data=sd
+    def __init__(self,sd=None,**args):
+        SystemDescription.__init__(self,sd)
         Symbolic.__init__(self,**args)
     def LaTeXSystemEquation(self):
         sW=self._LaTeXMatrix(self.WeightsMatrix())

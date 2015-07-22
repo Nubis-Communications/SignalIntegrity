@@ -4,7 +4,7 @@ from numpy import identity
 from Deembedder import Deembedder
 
 class DeembedderNumeric(Deembedder):
-    def __init__(self,sd):
+    def __init__(self,sd=None):
         Deembedder.__init__(self,sd)
     def CalculateUnknown(self,Sk):
         Bmsd=self.PortANames()

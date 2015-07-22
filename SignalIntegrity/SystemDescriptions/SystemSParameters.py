@@ -1,7 +1,7 @@
 from SignalIntegrity.SystemDescriptions import SystemDescription
 
 class SystemSParameters(SystemDescription):
-    def __init__(self,sd):
+    def __init__(self,sd=None):
         SystemDescription.__init__(self,sd)
     def PortANames(self):
         return [x[1] for x in sorted

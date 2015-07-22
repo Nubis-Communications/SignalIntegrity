@@ -4,8 +4,8 @@ from SignalIntegrity.SystemDescriptions import Device
 from numpy import matrix
 
 class DeembedderSymbolic(Deembedder,Symbolic):
-    def __init__(self,sd,**args):
-        self.Data=sd
+    def __init__(self,sd=None,**args):
+        Deembedder.__init__(self,sd)
         Symbolic.__init__(self,**args)
     def SymbolicSolution(self):
         Bmsd=self.PortANames()

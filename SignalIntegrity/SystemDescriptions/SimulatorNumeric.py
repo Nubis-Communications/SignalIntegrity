@@ -4,7 +4,7 @@ from numpy import identity
 from Simulator import Simulator
 
 class SimulatorNumeric(Simulator):
-    def __init__(self,sd):
+    def __init__(self,sd=None):
         Simulator.__init__(self,sd)
     def TransferMatrix(self):
         VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
