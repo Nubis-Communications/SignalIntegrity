@@ -1,4 +1,4 @@
 device D 2
-unknown Su 1
+unknown \Gamma_{dut} 1
 port 1 D 1
-connect D 2 Su 1
+connect D 2 \Gamma_{dut} 1

@@ -7,6 +7,7 @@ class DeembedderSymbolic(Deembedder,Symbolic):
     def __init__(self,sd=None,**args):
         Deembedder.__init__(self,sd)
         Symbolic.__init__(self,**args)
+        self.m_Sk = args['known'] if 'known' in args else 'Sk'
     def SymbolicSolution(self):
         Bmsd=self.PortANames()
         Amsd=self.PortBNames()
@@ -36,13 +37,13 @@ class DeembedderSymbolic(Deembedder,Symbolic):
         self._AddEq('\\mathbf{F_{22}} = '+sF22)
         sF12='\\mathbf{F_{12}}'
         if len(Bmsd)!=len(Bdut): #if long and skinny F12 then
-            sF12i='\\left[ '+sF12+'^H\\cdot '+sF12+\
-             '\\right]^{-1}\\cdot' + sF12+'^H\\cdot'
+            sF12i='\\left[ '+sF12+'^H \\cdot '+sF12+\
+             '\\right]^{-1} \\cdot' + sF12+'^H \\cdot'
         else: #square F12
             sF12i=sF12+'^{-1}\\cdot'
-        BText=sF12i+'\\left[\\mathbf{Sk}-\\mathbf{F_{11}}\\right]'
+        BText=sF12i+'\\left[ \\mathbf{'+self.m_Sk+'} - \\mathbf{F_{11}} \\right] '
         self._AddEq('\\mathbf{B}='+BText)
-        self._AddEq('\\mathbf{A}=\\mathbf{F_{21}}+\\mathbf{F_{22}}\\cdot\\mathbf{B}')
+        self._AddEq('\\mathbf{A}=\\mathbf{F_{21}}+ \\mathbf{F_{22}}\\cdot\\mathbf{B}')
         A=Device.SymbolicMatrix('A',len(Bdut),len(Bmsd))
         B=Device.SymbolicMatrix('B',len(Bdut),len(Bmsd))
         AL=self.Partition(matrix(A))# partition for multiple unknown devices
@@ -53,11 +54,11 @@ class DeembedderSymbolic(Deembedder,Symbolic):
         up=self.UnknownPorts()
         if len(AL)==1: #only one unknown device
             if len(Bmsd)!=len(Bdut): #if short and fat A
-                sAi='\\cdot\\mathbf{A}^H\\cdot\\left[\\mathbf{A}\\cdot'+\
-                '\\mathbf{A}^H\\right]^{-1}'
+                sAi='\\cdot \\mathbf{A}^H \\cdot\\left[ \\mathbf{A} \\cdot'+\
+                '\\mathbf{A}^H \\right]^{-1}'
             else: #square A
-                sAi='\\cdot\\mathbf{A}^{-1}'
-            self._AddEq('\\mathbf{'+un[0]+'}=\\mathbf{B}'+sAi)
+                sAi='\\cdot \\mathbf{A}^{-1}'
+            self._AddEq('\\mathbf{'+un[0]+'} = \\mathbf{B} '+sAi)
         else: #multiple unknown devices
             for u in range(len(AL)):
                 AText=self._LaTeXMatrix(AL[u])
@@ -65,7 +66,7 @@ class DeembedderSymbolic(Deembedder,Symbolic):
                 if un[u]==len(Bmsd): # square A and B
                     SuText=BText+'\\cdot '+AText+'^{-1}'
                 else: #short and fat A and B
-                    SuText=BText+'\\cdot '+AText+'^H\\cdot\\left[ '+AText+\
-                    '\\cdot'+AText+'^H\\right]^{-1}'
+                    SuText=BText+'\\cdot '+AText+'^H \\cdot \\left[ '+AText+\
+                    '\\cdot'+AText+'^H \\right]^{-1}'
                 self._AddEq('\\mathbf{'+un[u]+'}= '+SuText)
         return self

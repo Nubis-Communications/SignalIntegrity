@@ -355,10 +355,10 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1')
     def testSymbolicDeembeddingExample1(self):
-        ds=si.sd.DeembedderSymbolic(size='small')
+        ds=si.sd.DeembedderSymbolic(size='small',known='\\Gamma_{msd}')
         ds.AddDevice('D',2)
-        ds.AddUnknown('Su',1)
-        ds.ConnectDevicePort('D',2,'Su',1)
+        ds.AddUnknown('\\Gamma_{dut}',1)
+        ds.ConnectDevicePort('D',2,'\\Gamma_{dut}',1)
         ds.AddPort('D',1,1)
         ds.SymbolicSolution().Emit()
         # exclude
@@ -374,10 +374,10 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Thru')
     def testSymbolicDeembeddingThruExample1(self):
-        ds=si.sd.DeembedderSymbolic(size='small')
+        ds=si.sd.DeembedderSymbolic(size='small',known='\\Gamma_{msd}')
         ds.AddDevice('D',2)
-        ds.AddUnknown('Su',1)
-        ds.ConnectDevicePort('D',2,'Su',1)
+        ds.AddUnknown('\\Gamma_{dut}',1)
+        ds.ConnectDevicePort('D',2,'\\Gamma_{dut}',1)
         ds.AddPort('D',1,1,True)
         ds.SymbolicSolution().Emit()
         # exclude
@@ -385,7 +385,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
     def testSymbolicDeembeddingParserExample1Old(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device D 2','unknown Su 1','port 1 D 1','connect D 2 Su 1'])
-        dp.WriteToFile('SymbolicDeembedding1.txt',False)
+        dp.WriteToFile('SymbolicDeembedding1Old.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -393,16 +393,16 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Parser')
     def testSymbolicDeembeddingParserExample1(self):
         dp=si.p.DeembedderParser()
-        dp.AddLines(['device D 2','unknown Su 1','port 1 D 1','connect D 2 Su 1'])
+        dp.AddLines(['device D 2','unknown \\Gamma_{dut} 1','port 1 D 1','connect D 2 \\Gamma_{dut} 1'])
         # exclude
         dp.WriteToFile('SymbolicDeembedding1.txt',False)
         # include
-        ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
+        ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small',known='\\Gamma_{msd}')
         ds.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1 Parser')
     def testSymbolicDeembeddingParserFileExample1Old(self):
-        dp=si.p.DeembedderParser().File('SymbolicDeembedding1.txt')
+        dp=si.p.DeembedderParser().File('SymbolicDeembedding1Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -430,12 +430,12 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
     def testSymbolicDeembeddingExample2(self):
         ds=si.sd.DeembedderSymbolic(size='small')
         ds.AddDevice('L',2)
-        ds.AddUnknown('Su',2)
+        ds.AddUnknown('U',2)
         ds.AddDevice('R',2)
         ds.AddPort('L',1,1)
         ds.AddPort('R',1,2)
-        ds.ConnectDevicePort('L',2,'Su',1)
-        ds.ConnectDevicePort('R',2,'Su',2)
+        ds.ConnectDevicePort('L',2,'U',1)
+        ds.ConnectDevicePort('R',2,'U',2)
         ds.SymbolicSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 2')
@@ -444,7 +444,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         dp.AddLines(['device L 2','unknown Su 2','device R 2',
             'port 1 L 1 2 R 1','connect L 2 Su 1','connect R 2 Su 2'])
         # exclude
-        dp.WriteToFile('SymbolicDeembedding2.txt',False)
+        dp.WriteToFile('SymbolicDeembedding2Old.txt',False)
         # include
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
@@ -453,8 +453,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2 Parser')
     def testSymbolicDeembeddingParserExample2(self):
         dp=si.p.DeembedderParser()
-        dp.AddLines(['device L 2','unknown Su 2','device R 2',
-            'port 1 L 1 2 R 1','connect L 2 Su 1','connect R 2 Su 2'])
+        dp.AddLines(['device L 2','unknown U 2','device R 2',
+            'port 1 L 1 2 R 1','connect L 2 U 1','connect R 2 U 2'])
         # exclude
         dp.WriteToFile('SymbolicDeembedding2.txt',False)
         # include
@@ -463,7 +463,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 2 Parser')
     def testSymbolicDeembeddingParserFileExample2Old(self):
-        dp=si.p.DeembedderParser().File('SymbolicDeembedding2.txt')
+        dp=si.p.DeembedderParser().File('SymbolicDeembedding2Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -520,7 +520,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
     def testSymbolicDeembeddingParserExample3Old(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device L 2','unknown Su 2','port 1 L 1 2 Su 2','connect L 2 Su 1'])
-        dp.WriteToFile('SymbolicDeembedding3.txt',False)
+        dp.WriteToFile('SymbolicDeembedding3Old.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -537,7 +537,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 3 Parser')
     def testSymbolicDeembeddingParserFileExample3Old(self):
-        dp=si.p.DeembedderParser().File('SymbolicDeembedding3.txt')
+        dp=si.p.DeembedderParser().File('SymbolicDeembedding3Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -579,7 +579,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         dp.AddLines(['device F 4','unknown ?1 1','unknown ?2 1','port 1 F 1 2 F 2',
             'connect F 3 ?1 1','connect F 4 ?2 1'])
         # exclude
-        dp.WriteToFile('SymbolicDeembedding4.txt',False)
+        dp.WriteToFile('SymbolicDeembedding4Old.txt',False)
         # include
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
@@ -596,7 +596,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4 Parser')
     def testSymbolicDeembeddingParserFileExample4Old(self):
-        dp=si.p.DeembedderParser().File('SymbolicDeembedding4.txt')
+        dp=si.p.DeembedderParser().File('SymbolicDeembedding4Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -643,7 +643,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
             'unknown Su 2','port 1 D1 1 2 D2 1',
             'connect D1 2 Su 1','connect D2 2 D3 1',
             'connect D3 2 Su 2'])
-        dp.WriteToFile('SymbolicDeembedding5.txt',False)
+        dp.WriteToFile('SymbolicDeembedding5Old.txt',False)
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
@@ -663,7 +663,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 5 Parser')
     def testSymbolicDeembeddingParserFileExample5Old(self):
-        dp=si.p.DeembedderParser().File('SymbolicDeembedding5.txt')
+        dp=si.p.DeembedderParser().File('SymbolicDeembedding5Old.txt')
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
         # exclude
