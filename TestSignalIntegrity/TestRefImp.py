@@ -23,7 +23,7 @@ class TestReferenceImpedanceTransformation(unittest.TestCase):
         D.ConnectDevicePort('D1',2,'R2',1)
         D.AddPort('R1',2,1)
         D.AddPort('R2',2,2)
-        theRealResult=array(si.sd.SystemSParametersNumeric(D).SParameters(solvetype='direct'))
+        theRealResult=array(si.sd.SystemSParametersNumeric(D).SParameters(type='direct'))
         difference = linalg.norm(normalResult-theRealResult)
         self.assertTrue(difference<1e-10,'Reference Impedance Transformation incorrect')
         #now let's convert it back to 50 Ohms

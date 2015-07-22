@@ -9,10 +9,10 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
     def __init__(self,sd):
         SystemSParameters.__init__(self,sd)
     def SParameters(self,**args):
-        solvetype = args['solvetype'] if 'solvetype' in args else 'block'
+        type = args['type'] if 'type' in args else 'block'
         AN=self.PortBNames()
         BN=self.PortANames()
-        if solvetype == 'direct':
+        if type == 'direct':
             n=self.NodeVector()
             SCI=((matrix(identity(len(n)))-\
                 matrix(self.WeightsMatrix())).getI()).tolist()
@@ -21,7 +21,7 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
                 for c in range(len(BN)):
                     B[r][c]=SCI[n.index(BN[r])][n.index(AN[c])]
             return B
-        # else solvetype assumed to be 'block'
+        # else type assumed to be 'block'
         XN=self.OtherNames(AN+BN)
         Wba=self.WeightsMatrix(BN,AN)
         Wxx=self.WeightsMatrix(XN,XN)

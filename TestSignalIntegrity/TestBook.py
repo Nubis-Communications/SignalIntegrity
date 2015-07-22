@@ -133,7 +133,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.Clear().LaTeXSystemEquation()
         self.CheckSymbolicResult('LaTeXSystemEquation',symbolic,'LaTeXSystemEquation')
-        symbolic.Clear().LaTeXSolution(solvetype='direct')
+        symbolic.Clear().LaTeXSolution(type='direct')
         self.CheckSymbolicResult('LaTeXDirectSolution',symbolic,'LaTeXDirectSolution')
         symbolic.Clear().LaTeXSolution(size='big')
         self.CheckSymbolicResult('LaTeXBlockSolutionBig',symbolic,'LaTeXBlockSolutionBig')
@@ -150,8 +150,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         spc = si.sd.SystemSParameters(sd)
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
-        symbolic.LaTeXSolution(solvetype='direct')
-        symbolic.LaTeXSolution(solvetype='block').Emit()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1')
     def testSymbolicSolutionParserExample1(self):
@@ -161,8 +161,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
-        symbolic.LaTeXSolution(solvetype='direct')
-        symbolic.LaTeXSolution(solvetype='block').Emit()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1 Parser')
     def testSymbolicSolutionParserFileExample1(self):
@@ -170,8 +170,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
-        symbolic.LaTeXSolution(solvetype='direct')
-        symbolic.LaTeXSolution(solvetype='block').Emit()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1 Parser File')
     def testSymbolicSolutionExample2(self):
@@ -184,8 +184,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         spc = si.sd.SystemSParameters(sd)
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
-        symbolic.LaTeXSolution(solvetype='direct')
-        symbolic.LaTeXSolution(solvetype='block').Emit()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2')
     def testSymbolicSolutionParserExample2(self):
@@ -195,8 +195,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
-        symbolic.LaTeXSolution(solvetype='direct')
-        symbolic.LaTeXSolution(solvetype='block').Emit()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser')
     def testSymbolicSolutionParserFileExample2(self):
@@ -204,8 +204,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc)
         symbolic.LaTeXSystemEquation()
-        symbolic.LaTeXSolution(solvetype='direct')
-        symbolic.LaTeXSolution(solvetype='block').Emit()
+        symbolic.LaTeXSolution(type='direct')
+        symbolic.LaTeXSolution(type='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser File')
     def testSymbolicSolutionExample3(self):
@@ -228,9 +228,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground','port 1 L 1 2 R 2',
             'connect L 2 R 1 M 1','connect G 1 M 2'])
-        # exclude
         sdp.WriteToFile('SymbolicSolution3.txt',False)
-        # include
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
@@ -501,9 +499,9 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3')
     def testSymbolicVirtualProbeParserExample3(self):
         vpp=si.p.VirtualProbeParser()
-        vpp.AddLines(['device T 2','device C 4','device R 2','connect T 1 C 1',
-            'connect T 2 C 2','connect C 3 R 1','connect C 4 R 2','stim m1 T 1',
-            'stim m2 T 2','meas T 1 T 2','output R 1 R 2','stimdef [[1],[-1]]'])
+        vpp.AddLines(['device T 2','device C 4','device R 2','connect T 1 C 1','connect T 2 C 2',
+            'connect C 3 R 1','connect C 4 R 2','stim m1 T 1','stim m2 T 2','meas T 1 T 2','output R 1 R 2',
+            'stimdef [[1],[-1]]'])
         vpp.WriteToFile('VirtualProbe3.txt',False)
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
@@ -588,8 +586,8 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample1(self)',self.standardHeader)
     def testSymbolicVirtualProbeExample2Code(self):
         self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample2(self)',self.standardHeader)
-    def testSymbolicVirtualProbeParserFileExample3Code(self):
-        self.WriteCode('TestBook.py','testSymbolicVirtualProbeParserExample3(self)',self.standardHeader)
+    def testSymbolicVirtualProbeExample3Code(self):
+        self.WriteCode('TestBook.py','testSymbolicVirtualProbeExample3(self)',self.standardHeader)
     def testSymbolicVirtualProbeParserFileExample4Code(self):
         self.WriteCode('TestBook.py','testSymbolicVirtualProbeParserFileExample4(self)',self.standardHeader)
 

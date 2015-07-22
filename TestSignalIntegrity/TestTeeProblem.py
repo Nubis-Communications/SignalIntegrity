@@ -40,7 +40,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
-        ssps.LaTeXSolution(solvetype='direct').Emit()
+        ssps.LaTeXSolution(type='direct').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
     def testTeeNumeric(self):
@@ -49,7 +49,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         sspn.InstallSafeTees()
         rescalc1=sspn.SParameters()
-        rescalc2=sspn.SParameters(solvetype='direct')
+        rescalc2=sspn.SParameters(type='direct')
         rescorrect=si.dev.Tee()
         difference = linalg.norm(matrix(rescalc1)-matrix(rescalc2))
         self.assertTrue(difference<1e-6,'Tee Numeric incorrect')
@@ -85,7 +85,6 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
-        sdp.SystemDescription().Print()
         ssps.DocStart().LaTeXSolution().DocEnd().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Block Symbolic')
@@ -95,7 +94,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
-        ssps.LaTeXSolution(solvetype='direct').Emit()
+        ssps.LaTeXSolution(type='direct').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Direct Symbolic')
     def testTeeSimplerSystemEquation(self):
@@ -112,7 +111,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         sdp.AddLines(['device D 3 tee','port 1 D 1 2 D 2','connect D 2 D 3'])
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         sspn.InstallSafeTees()
-        rescalc2=sspn.SParameters(solvetype='direct')
+        rescalc2=sspn.SParameters(type='direct')
         rescalc1=sspn.SParameters()
         rescorrect=si.dev.Tee()
         difference = linalg.norm(matrix(rescalc1)-matrix(rescalc2))

@@ -8,5 +8,5 @@ sd.ConnectDevicePort('S', 2, '\\Gamma t', 1)  # connect the other ports
 spc = si.sd.SystemSParameters(sd)
 symbolic=si.sd.SystemSParametersSymbolic(spc)
 symbolic.LaTeXSystemEquation()
-symbolic.LaTeXSolution(solvetype='direct')
-symbolic.LaTeXSolution(solvetype='block').Emit()
+symbolic.LaTeXSolution(type='direct')
+symbolic.LaTeXSolution(type='block').Emit()
