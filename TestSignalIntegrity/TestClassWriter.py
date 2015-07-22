@@ -111,6 +111,11 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className='GenericFrequencyList'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
+    def testSystemSParametersSymbolic_LaTeXSolution(self):
+        fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersSymbolic.py"
+        className='SystemSParametersSymbolic'
+        defName=['LaTeXSolution','__init__','_LaTeXSi',]
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == '__main__':
     unittest.main()
