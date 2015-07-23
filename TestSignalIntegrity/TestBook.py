@@ -5,7 +5,7 @@ import sys
 import SignalIntegrity as si
 from TestHelpers import *
 
-class Test(unittest.TestCase,RoutineWriterTesterHelper):
+class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -125,7 +125,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example System Description Symbolic')
     def testSystemDescriptionSymbolicExample(self):
-        ssps = si.sd.SystemSParametersSymbolic()
+        ssps = si.sd.SystemDescriptionSymbolic()
         ssps.AddDevice('L', 2)  # add two-port left device
         ssps.AddDevice('R', 2)  # add two-port right device
         ssps.AddPort('L', 1, 1)  # add a port at port 1 of left device
@@ -240,6 +240,46 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         ssps.LaTeXSolution(solvetype='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 2')
+    def testNumericSolutionExample2(self):
+        sspn = si.sd.SystemSParametersNumeric()
+        sspn.AddDevice('L', 2)  # add two-port left device
+        sspn.AddDevice('R', 2)  # add two-port right device
+        sspn.AddPort('L', 1, 1)  # add a port at port 1 of left device
+        sspn.AddPort('R', 2, 2)  # add a port at port 2 of right device
+        sspn.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
+        fl=[i*100.*1e6 for i in range(100+1)]
+        spl=si.sp.File('cable.s2p').Resample(fl)
+        spr=si.sp.File('filter.s2p').Resample(fl)
+        sp=[]
+        for n in range(len(fl)):
+            sspn.AssignSParameters('L',spl[n])
+            sspn.AssignSParameters('R',spr[n])
+            sp.append(sspn.SParameters())
+        spres=si.sp.SParameters(fl,sp).WriteToFile('result.s2p')
+        # exclude
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
+        self.CheckSParametersResult(spres,spFileName,spFileName)
+    def testNumericSolutionExample2a(self):
+        sspn = si.sd.SystemSParametersNumeric()
+        sspn.AddDevice('L', 2)  # add two-port left device
+        sspn.AddDevice('R', 2)  # add two-port right device
+        sspn.AddPort('L', 1, 1)  # add a port at port 1 of left device
+        sspn.AddPort('R', 2, 2)  # add a port at port 2 of right device
+        sspn.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
+        fl=[i*100.*1e6 for i in range(100+1)]
+        spdl=[]
+        spdl.append(('L',si.sp.File('cable.s2p').Resample(fl)))
+        spdl.append(('R',si.sp.File('filter.s2p').Resample(fl)))
+        sp=[]
+        for n in range(len(fl)):
+            for ds in spdl: sspn.AssignSParameters(ds[0],ds[1][n])
+            sp.append(sspn.SParameters())
+        spres=si.sp.SParameters(fl,sp).WriteToFile('result.s2p')
+        # exclude
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
+        self.CheckSParametersResult(spres,spFileName,spFileName)
     def testSymbolicSolutionParserExample2Old(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
@@ -251,6 +291,15 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         symbolic.LaTeXSolution(solvetype='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser')
+    def testNumericSolutionParserExample2(self):
+        sspnp = si.p.SystemSParametersNumericParser([i*100.*1e6 for i in range(100+1)])
+        sspnp.AddLines(['device L 2 file cable.s2p','device R 2 file filter.s2p',
+            'port 1 L 1 2 R 2','connect L 2 R 1']).WriteToFile('example2.txt')
+        spres=sspnp.SParameters().WriteToFile('result.s2p')
+        # exclude
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
+        self.CheckSParametersResult(spres,spFileName,spFileName)
     def testSymbolicSolutionParserExample2(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device L 2','device R 2','port 1 L 1 2 R 2','connect L 2 R 1'])
@@ -270,6 +319,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         symbolic.LaTeXSolution(solvetype='block').Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser File')
+    def testNumericSolutionParserFileExample2(self):
+        fl=[i*100.*1e6 for i in range(100+1)]
+        sspnp = si.p.SystemSParametersNumericParser(fl).File('example2.txt')
+        spres=sspnp.SParameters().WriteToFile('result.s2p')
+        # exclude
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
+        self.CheckSParametersResult(spres,spFileName,spFileName)
     def testSymbolicSolutionParserFileExample2(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution2.txt')
         ssps = si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
@@ -966,10 +1023,22 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper):
         vps.LaTeXTransferMatrix().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 4 Parser File')
+    def testParserBreaker(self):
+        ssps=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(1,10))
+        ssps.AddLines(['device R1 2 R 50.','device R2 1 R 50.','port 1 R1 1','connect R1 2 R2 1'])
+        ssps.SParameters()
     def testSymbolicSolutionExample1Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionExample1(self)',self.standardHeader)
     def testSymbolicSolutionParserExample2Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionParserExample2(self)',self.standardHeader)
+    def testNumericSolutionExample2Code(self):
+        self.WriteCode('TestBook.py','testNumericSolutionExample2(self)',self.standardHeader)
+    def testNumericSolutionExample2aCode(self):
+        self.WriteCode('TestBook.py','testNumericSolutionExample2a(self)',self.standardHeader)
+    def testNumericSolutionParserExample2Code(self):
+        self.WriteCode('TestBook.py','testNumericSolutionParserExample2(self)',self.standardHeader)
+    def testNumericSolutionParserFileExample2Code(self):
+        self.WriteCode('TestBook.py','testNumericSolutionParserFileExample2(self)',self.standardHeader)
     def testSymbolicSolutionParserFileExample3Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionParserFileExample3(self)',self.standardHeader)
     def testSystemDescriptionExampleCode(self):

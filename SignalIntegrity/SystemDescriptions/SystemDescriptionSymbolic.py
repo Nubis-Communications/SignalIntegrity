@@ -1,11 +1,10 @@
-from SystemDescription import SystemDescription
+from SignalIntegrity.SystemDescriptions.SystemSParameters import SystemSParameters
 from Symbolic import Symbolic
-from Device import Device
 from SignalIntegrity.Helpers import SubscriptedVector
 
-class SystemDescriptionSymbolic(SystemDescription,Symbolic):
+class SystemDescriptionSymbolic(SystemSParameters,Symbolic):
     def __init__(self,sd=None,**args):
-        SystemDescription.__init__(self,sd)
+        SystemSParameters.__init__(self,sd)
         Symbolic.__init__(self,**args)
     def LaTeXSystemEquation(self):
         sW=self._LaTeXMatrix(self.WeightsMatrix())

@@ -1,13 +1,11 @@
 from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
-from SystemSParameters import SystemSParameters
 from SystemDescriptionSymbolic import SystemDescriptionSymbolic
 from Device import Device
 from SignalIntegrity.Helpers.AllZeroMatrix import *
 
-class SystemSParametersSymbolic(SystemSParameters,SystemDescriptionSymbolic):
+class SystemSParametersSymbolic(SystemDescriptionSymbolic):
     def __init__(self,sd=None,**args):
         SystemDescriptionSymbolic.__init__(self,sd,**args)
-        SystemSParameters.__init__(self,sd)
     def _LaTeXSi(self):
         sW=self._LaTeXMatrix(self.WeightsMatrix())
         self._AddEq('\mathbf{Si} = \\left[ '+self._Identity()+\

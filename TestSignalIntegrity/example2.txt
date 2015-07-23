@@ -1,0 +1,4 @@
+device L 2 file cable.s2p
+device R 2 file filter.s2p
+port 1 L 1 2 R 2
+connect L 2 R 1
