@@ -118,7 +118,7 @@ class TestConversions(unittest.TestCase):
         and computing the s-parameters that way and comparing to those computed through the normal calculation
         """
         Z=23+43*1j
-        normalResult = array(si.dev.ShuntZ(Z))
+        normalResult = array(si.dev.ShuntZTwoPort(Z))
         D=si.sd.SystemDescription()
         D.AddDevice('D1',2,si.dev.SeriesZ(Z))
         D.AddDevice('G1',1,si.dev.Ground())

@@ -14,9 +14,9 @@ class TestReferenceImpedanceTransformation(unittest.TestCase):
         Z=23+43*1j
         Z01=92-18*1j
         Z02=698+18*1j
-        normalResult = array(si.cvt.ReferenceImpedance(si.dev.ShuntZ(Z),[Z01,Z02]))
+        normalResult = array(si.cvt.ReferenceImpedance(si.dev.ShuntZTwoPort(Z),[Z01,Z02]))
         D=si.sd.SystemDescription()
-        D.AddDevice('D1',2,si.dev.ShuntZ(Z))
+        D.AddDevice('D1',2,si.dev.ShuntZTwoPort(Z))
         D.AddDevice('R1',2,si.dev.ReferenceImpedanceTransformer(Z01))
         D.AddDevice('R2',2,si.dev.ReferenceImpedanceTransformer(Z02))
         D.ConnectDevicePort('D1',1,'R1',1)
@@ -34,7 +34,7 @@ class TestReferenceImpedanceTransformation(unittest.TestCase):
         normalResult=array(si.cvt.ReferenceImpedance(normalResult, 50.0, [Z01,Z02]))
         difference = linalg.norm(normalResult-theRealResult)
         self.assertTrue(difference<1e-10,'Reference Impedance Transformation incorrect')
-        difference2 = linalg.norm(normalResult-array(si.dev.ShuntZ(Z)))
+        difference2 = linalg.norm(normalResult-array(si.dev.ShuntZTwoPort(Z)))
         self.assertTrue(difference2<1e-10,'Reference Impedance Transformation incorrect')
 
 if __name__ == '__main__':

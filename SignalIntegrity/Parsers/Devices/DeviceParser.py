@@ -7,6 +7,7 @@ from SignalIntegrity.Devices import Ground
 from SignalIntegrity.Devices import Thru
 from SignalIntegrity.Devices import SeriesZ
 from SignalIntegrity.Devices import TerminationZ
+from SignalIntegrity.Devices import ShuntZ
 from SignalIntegrity.Devices import Tee
 from SignalIntegrity.Devices import MixedModeConverter
 from SignalIntegrity.Devices import MixedModeConverterVoltage
@@ -33,6 +34,11 @@ class DeviceParser():
             return
         if len(argsList) == 0:
             return
+        if argsList[0] == 'subcircuit':
+            self.m_spf=SubCircuit(self.m_f,argsList[1],
+            ' '.join([x if len(x.split())==1 else "\'"+x+"\'" for x in argsList[2:]]))                                 
+            return
+        argsList=' '.join(argsList).split()
         if argsList[0] == 'file':
             self.m_spf=File(argsList[1]).Resample(self.m_f)
             return
@@ -47,6 +53,9 @@ class DeviceParser():
                 self.m_sp=TerminationZ(float(argsList[1]))
             elif ports == 2:
                 self.m_sp=SeriesZ(float(argsList[1]))
+            return
+        elif argsList[0] == 'Shunt':
+            self.m_sp=ShuntZ(ports,float(argsList[1]))
             return
         elif argsList[0] == 'M':
             self.m_sp=Mutualf(self.m_f,float(argsList[1]))
@@ -65,10 +74,6 @@ class DeviceParser():
             return
         elif argsList[0] == 'tee':
             self.m_sp=Tee(ports)
-            return
-        elif argsList[0] == 'subcircuit':
-            self.m_spf=SubCircuit(self.m_f,argsList[1],
-                ' '.join([argsList[i] for i in range(2,len(argsList))]))
             return
         elif argsList[0] == 'mixedmode':
             if len(argsList) > 1:

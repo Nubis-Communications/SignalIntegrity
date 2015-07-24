@@ -1,0 +1,5 @@
+var DL thru DR thru
+device L 2 DL
+device R 2 DR
+port 1 L 1 2 R 2
+connect L 2 R 1

@@ -11,7 +11,13 @@ def ShuntZZ0K(Z,Z0=None,K=None):
     partial=array([[Z*(Z02-Z01)-Z01*Z02,2*K2/K1*Z01*Z],[2*K1/K2*Z02*Z,Z*(Z01-Z02)-Z01*Z02]])
     return (partial*1./(Z01*Z02+Z*(Z01+Z02))).tolist()
 
-def ShuntZ(Z,Z0=50.):
+def ShuntZ(ports,Z,Z0=50.):
+    if ports == 2: return ShuntZTwoPort(Z,Z0)
+    elif ports == 3: return ShuntZThreePort(Z,Z0)
+    elif ports == 4: return ShuntZFourPort(Z,Z0)
+    else: return None
+
+def ShuntZTwoPort(Z,Z0=50.):
     return [[-Z0*Z0/(Z0*Z0+2.*Z*Z0),2.*Z0*Z/(Z0*Z0+2.*Z*Z0)],
         [2.*Z0*Z/(Z0*Z0+2.*Z*Z0),-Z0*Z0/(Z0*Z0+2.*Z*Z0)]]
 

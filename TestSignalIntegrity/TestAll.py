@@ -27,6 +27,7 @@ from TestChirpZTransform import *
 from TestTimeDomain import *
 from TestClassWriter import *
 from TestSimulator import *
+from TestSubcircuit import *
 
 if __name__ == '__main__':
     unittest.main()

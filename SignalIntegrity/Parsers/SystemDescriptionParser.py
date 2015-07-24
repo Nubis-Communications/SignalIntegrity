@@ -2,6 +2,7 @@ from SignalIntegrity.SystemDescriptions import SystemDescription
 from Devices.DeviceParser import DeviceParser
 from ParserFile import ParserFile
 from ParserArgs import ParserArgs
+from SignalIntegrity.Helpers.LineSplitter import LineSplitter
 
 class SystemDescriptionParser(ParserFile,ParserArgs):
     def __init__(self,f=None,args=None):
@@ -25,11 +26,11 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
             self.AddLine(line)
         return self
     def _ProcessLine(self,line,exclusionList):
-        lineList=self.ReplaceArgs(line.split())
+        lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0:
             return
         if self.ProcessVariables(lineList):
-            pass
+            return
         elif lineList[0] in exclusionList:
             self.m_ul.append(line)
         elif lineList[0] == 'device':

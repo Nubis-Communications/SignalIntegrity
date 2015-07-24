@@ -1,16 +1,18 @@
+from SignalIntegrity.Helpers.LineSplitter import LineSplitter
+
 class ParserArgs():
     def AssignArguments(self,args):
         self.m_vars=dict()
         if args is None:
             self.m_args=[]
         else:
-            args=args.split()
-            self.m_args = dict([(args[i],args[i+1]) for i in range(0,len(args),2)])
+            args=LineSplitter(args)
+            self.m_args = dict([(args[i],args[i+1])
+                for i in range(0,len(args),2)])
     def ReplaceArgs(self,lineList):
-        newList=lineList
-        for i in range(len(newList)):
-            if newList[i] in self.m_vars:
-                newList[i] = self.m_vars[newList[i]]
+        for i in range(len(lineList)):
+            if lineList[i] in self.m_vars:
+                lineList[i] = self.m_vars[lineList[i]]
         return lineList
     def ProcessVariables(self,lineList):
         if lineList[0] == 'var':
