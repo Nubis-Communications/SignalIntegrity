@@ -1,7 +1,7 @@
-var Ll x Cs x Lr x
-device L1 2 L Ll
-device C1 2 C Cs
-device L2 2 L Lr
+var $Ll$ x $Cs$ x $Lr$ x
+device L1 2 L $Ll$
+device C1 2 C $Cs$
+device L2 2 L $Lr$
 device G 1 ground
 connect L1 2 L2 1 C1 1
 connect C1 2 G 1

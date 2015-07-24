@@ -5,19 +5,32 @@ import sys
 import SignalIntegrity as si
 from TestHelpers import *
 from numpy import matrix
+from numpy import random
 
 class TestSubcircuit(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-    def testSubCircuitNetlistGenerator1(self):
+    def testShuntZFourPortSubCircuitNetlistGenerator(self):
         sdp = si.p.SystemDescriptionParser()
-        sdp.AddLines(['var Rsh 50.','device R 2 R Rsh',
-            'port 1 R 2 2 R 2 3 R 1'])
+        sdp.AddLines(['var $Rsh$ 50.','device R 2 R $Rsh$',
+            'port 1 R 2 2 R 1 3 R 2 4 R 1'])
         sdp.WriteToFile('ShuntZFourPort.sub')
+    def testShuntZThreePortSubCircuitNetlistGenerator(self):
+        sdp = si.p.SystemDescriptionParser()
+        sdp.AddLines(['var $Rsh$ 50.','device R 4 subcircuit ShuntZFourPort.sub Rsh $Rsh$',
+            'device O 1 open','connect O 1 R 4',
+            'port 1 R 1 2 R 3 3 R 2'])
+        sdp.WriteToFile('ShuntZThreePort.sub')
+    def testShuntZTwoPortSubCircuitNetlistGenerator(self):
+        sdp = si.p.SystemDescriptionParser()
+        sdp.AddLines(['var $Rsh$ 50.','device R 3 subcircuit ShuntZThreePort.sub Rsh $Rsh$',
+            'device G 1 ground','connect G 1 R 3',
+            'port 1 R 1 2 R 2'])
+        sdp.WriteToFile('ShuntZTwoPort.sub')
     def testSubCircuitUserNetlistGenerator1(self):
         sdp = si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 3 subcircuit ShuntZFourPort.sub Rsh 25.',
+        sdp.AddLines(['device D 3 subcircuit ShuntZThreePort.sub Rsh 25.',
                       'device G 1 ground','connect D 3 G 1',
                       'port 1 D 1 2 D 2'])
         sdp.WriteToFile('SubCircuitExample1.txt')
@@ -25,14 +38,47 @@ class TestSubcircuit(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterH
         fl=[0.]
         sspnp = si.p.SystemSParametersNumericParser(fl).File('SubCircuitExample1.txt')
         sp=sspnp.SParameters()
-        print matrix(sp[0])
-    def testSubCircuitCorrectAnswer1(self):
-        print matrix(si.dev.ShuntZ(2, 25.))
+    def testFourPortShunt(self):
+        # exclude
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
+        sspnp = si.p.SystemSParametersNumericParser([0.])
+        Z=94.
+        sspnp.AddLines(['device D 4 subcircuit ShuntZFourPort.sub Rsh '+str(Z),
+                      'port 1 D 1 2 D 2 3 D 3 4 D 4'])
+        sp=sspnp.SParameters()
+        # exclude
+        sp2 = si.sp.SParameters([0.],[si.dev.ShuntZ(4,Z)])
+        self.assertTrue(self.SParametersAreEqual(sp,sp2,0.00001),self.id() + ' incorrect')
+    def testThreePortShunt(self):
+        # exclude
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
+        sspnp = si.p.SystemSParametersNumericParser([0.])
+        Z=random.random()*200.
+        sspnp.AddLines(['device D 3 subcircuit ShuntZThreePort.sub Rsh '+str(Z),
+                      'port 1 D 1 2 D 2 3 D 3'])
+        sp=sspnp.SParameters()
+        # exclude
+        sp2 = si.sp.SParameters([0.],[si.dev.ShuntZ(3,Z)])
+        self.assertTrue(self.SParametersAreEqual(sp,sp2,0.00001),self.id() + ' incorrect')
+    def testTwoPortShunt(self):
+        # exclude
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
+        sspnp = si.p.SystemSParametersNumericParser([0.])
+        Z=random.random()*200.
+        sspnp.AddLines(['device D 2 subcircuit ShuntZTwoPort.sub Rsh '+str(Z),
+                      'port 1 D 1 2 D 2'])
+        sp=sspnp.SParameters()
+        # exclude
+        sp2 = si.sp.SParameters([0.],[si.dev.ShuntZ(2,Z)])
+        self.assertTrue(self.SParametersAreEqual(sp,sp2,0.00001),self.id() + ' incorrect')
     def testSubCircuitNetlistGenerator2(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines([
-            'var DL thru DR thru',
-            'device L 2 DL','device R 2 DR',
+            'var $DL$ thru $DR$ thru',
+            'device L 2 $DL$','device R 2 $DR$',
             'port 1 L 1 2 R 2','connect L 2 R 1'])
         sdp.WriteToFile('cascade.sub')
     def testSubCircuitUserNetlistGenerator2(self):
@@ -51,7 +97,8 @@ class TestSubcircuit(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterH
     def testSubCircuitExample2Code(self):
         self.WriteCode('TestSubcircuit.py','testSubCircuitExample2(self)',self.standardHeader)
 
+if __name__ == "__main__":
+    unittest.main()
 
-        
-    
-        
+
+

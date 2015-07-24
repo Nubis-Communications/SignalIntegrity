@@ -1,4 +1,4 @@
-device D 3 subcircuit ShuntZFourPort.sub Rsh 25.
+device D 3 subcircuit ShuntZThreePort.sub Rsh 25.
 device G 1 ground
 connect D 3 G 1
 port 1 D 1 2 D 2

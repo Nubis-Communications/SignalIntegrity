@@ -7,7 +7,7 @@ class ParserArgs():
             self.m_args=[]
         else:
             args=LineSplitter(args)
-            self.m_args = dict([(args[i],args[i+1])
+            self.m_args = dict([('$'+args[i]+'$',args[i+1])
                 for i in range(0,len(args),2)])
     def ReplaceArgs(self,lineList):
         for i in range(len(lineList)):

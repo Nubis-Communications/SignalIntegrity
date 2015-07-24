@@ -403,11 +403,11 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
     def testRLC5(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         freq=[100e6*(i+1) for i in range(100)]
-        parser=si.p.SystemSParametersNumericParser(freq,'%Lleft 1e-15 %Cshunt 1e-9 %Lright 1e-15')
-        parser.AddLine('var %Lleft x %Cshunt x %Lright x')
-        parser.AddLine('device L1 2 L %Lleft')
-        parser.AddLine('device C1 2 C %Cshunt')
-        parser.AddLine('device L2 2 L %Lright')
+        parser=si.p.SystemSParametersNumericParser(freq,'Lleft 1e-15 Cshunt 1e-9 Lright 1e-15')
+        parser.AddLine('var $Lleft$ x $Cshunt$ x $Lright$ x')
+        parser.AddLine('device L1 2 L $Lleft$')
+        parser.AddLine('device C1 2 C $Cshunt$')
+        parser.AddLine('device L2 2 L $Lright$')
         parser.AddLine('device D1 4 file TestDut.s4p')
         parser.AddLine('device G 1 ground')
         parser.AddLine('port 1 D1 1 2 D1 2 3 D1 3 4 L2 2')
@@ -440,10 +440,10 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         freq=[100e6*(i+1) for i in range(100)]
         if not os.path.exists('rlc.txt'):
             parser=si.p.SystemDescriptionParser(freq)
-            parser.AddLine('var Ll x Cs x Lr x')
-            parser.AddLine('device L1 2 L Ll')
-            parser.AddLine('device C1 2 C Cs')
-            parser.AddLine('device L2 2 L Lr')
+            parser.AddLine('var $Ll$ x $Cs$ x $Lr$ x')
+            parser.AddLine('device L1 2 L $Ll$')
+            parser.AddLine('device C1 2 C $Cs$')
+            parser.AddLine('device L2 2 L $Lr$')
             parser.AddLine('device G 1 ground')
             parser.AddLine('connect L1 2 L2 1 C1 1')
             parser.AddLine('connect C1 2 G 1')
@@ -452,8 +452,8 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
             parser.WriteToFile('rlc.txt')
         if not os.path.exists('r.txt'):
             parser=si.p.SystemDescriptionParser(freq)
-            parser.AddLine('var Rs 50')
-            parser.AddLine('device D1 2 R Rs')
+            parser.AddLine('var $Rs$ 50')
+            parser.AddLine('device D1 2 R $Rs$')
             parser.AddLine('port 1 D1 1 2 D1 2')
             parser.WriteToFile('r.txt')
         parser=si.p.SystemSParametersNumericParser(freq)

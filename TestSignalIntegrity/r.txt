@@ -1,3 +1,3 @@
-var Rs 50
-device D1 2 R Rs
+var $Rs$ 50
+device D1 2 R $Rs$
 port 1 D1 1 2 D1 2
