@@ -1,0 +1,5 @@
+device CCVS 4 currentcontrolledvoltagesource 1.
+device G 1 ground
+device O 1 open
+connect G 1 CCVS 3
+port 1 CCVS 1 2 CCVS 2 3 CCVS 4 4 O 1

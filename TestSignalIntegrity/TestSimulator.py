@@ -643,6 +643,109 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(aw[4],'Waveform_'+fileNameBase+'_4.txt','Waveform_'+fileNameBase+'_4.txt')
         self.CheckWaveformResult(aw[5],'Waveform_'+fileNameBase+'_5.txt','Waveform_'+fileNameBase+'_5.txt')
 #        self.CheckWaveformResult(aw[6],'Waveform_'+fileNameBase+'_6.txt','Waveform_'+fileNameBase+'_6.txt')
+
+    def testSimulatorTlineFourPortCurrentProbes(self):
+        # exclude
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # include
+        sdp = si.p.SystemDescriptionParser()
+        sdp.AddLines(['device CCVS 4 currentcontrolledvoltagesource 1.',
+            'device G 1 ground','device O 1 open','connect G 1 CCVS 3',
+            'port 1 CCVS 1 2 CCVS 2 3 CCVS 4 4 O 1']).WriteToFile('currentprobe.sub')
+        f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
+        snp = si.p.SimulatorNumericParser(f)
+        snp.AddLine('device L 4 tline zc 50. td 0.5e-9')
+        snp.AddLine('device R 4 tline zc 50. td 0.5e-9')
+        snp.AddLine('device S1 2 R 50.')
+        snp.AddLine('device S2 1 R 50.')
+        snp.AddLine('device R1 1 R 50.')
+        snp.AddLine('device R2 1 R 50.')
+        snp.AddLine('device RM 1 R 5e9')
+        snp.AddLine('voltagesource V1 1')
+        snp.AddLines(['device CCVS1 4 subcircuit currentprobe.sub','connect CCVS1 3 CCVS1 4','output CCVS1 3'])
+        snp.AddLines(['device CCVS2 4 subcircuit currentprobe.sub','connect CCVS2 3 CCVS2 4','output CCVS2 3'])
+        snp.AddLines(['device CCVS3 4 subcircuit currentprobe.sub','connect CCVS3 3 CCVS3 4','output CCVS3 3'])
+        snp.AddLines(['device CCVS4 4 subcircuit currentprobe.sub','connect CCVS4 3 CCVS4 4','output CCVS4 3'])
+        snp.AddLines(['device CCVS5 4 subcircuit currentprobe.sub','connect CCVS5 3 CCVS5 4','output CCVS5 3'])
+        snp.AddLines(['device CCVS6 4 subcircuit currentprobe.sub','connect CCVS6 3 CCVS6 4','output CCVS6 3'])
+        snp.AddLines(['device CCVS7 4 subcircuit currentprobe.sub','connect CCVS7 3 CCVS7 4','output CCVS7 3'])
+        snp.AddLines(['device CCVS8 4 subcircuit currentprobe.sub','connect CCVS8 3 CCVS8 4','output CCVS8 3'])
+        snp.AddLine('connect V1 1 S1 1')
+        snp.AddLine('connect S1 2 CCVS1 1')
+        snp.AddLine('connect CCVS1 2 L 1')
+        snp.AddLine('connect L 3 CCVS2 2')
+        snp.AddLine('connect CCVS2 1 S2 1')
+        snp.AddLine('connect L 2 CCVS3 2')
+        snp.AddLine('connect CCVS3 1 CCVS5 1')
+        snp.AddLine('connect CCVS5 2 R 1')
+        snp.AddLine('connect CCVS4 1 RM 1')
+        snp.AddLine('connect CCVS6 1 RM 1')
+        snp.AddLine('connect CCVS4 2 L 4')
+        snp.AddLine('connect CCVS6 2 R 3')
+        snp.AddLine('connect R 2 CCVS7 2')
+        snp.AddLine('connect CCVS7 1 R1 1')
+        snp.AddLine('connect R 4 CCVS8 2')
+        snp.AddLine('connect CCVS8 1 R2 1')
+        snp.AddLine('output L 1 L 3 L 2 L 4 R 2 R 4')
+        #snp.SystemDescription().Print()
+        tm=snp.TransferMatrices()
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        self.CheckSParametersResult(tmsp,spFileName,spFileName)
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        srs=tmp.ProcessWaveforms([stepin])
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,11*80,80e9))
+        aw=si.td.wf.AdaptedWaveforms([stepin]+srs)
+        if True:
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(stepin.Times('ns'),stepin.Values(),label='step input')
+            plt.plot(aw[1].Times('ns'),aw[1].Values(),label='I L1')
+            plt.plot(aw[2].Times('ns'),aw[2].Values(),label='I L3')
+            plt.plot(aw[3].Times('ns'),aw[3].Values(),label='I L2')
+            plt.plot(aw[4].Times('ns'),aw[4].Values(),label='I L4')
+            plt.plot(aw[5].Times('ns'),aw[5].Values(),label='I R1')
+            plt.plot(aw[6].Times('ns'),aw[6].Values(),label='I R3')
+            plt.plot(aw[7].Times('ns'),aw[7].Values(),label='I R2')
+            plt.plot(aw[8].Times('ns'),aw[8].Values(),label='I R4')
+            plt.plot(aw[9].Times('ns'),aw[9].Values(),label='V L1')
+            plt.plot(aw[10].Times('ns'),aw[10].Values(),label='V L3')
+            plt.plot(aw[11].Times('ns'),aw[11].Values(),label='V L2,R1')
+            plt.plot(aw[12].Times('ns'),aw[12].Values(),label='V L4,R3')
+            plt.plot(aw[13].Times('ns'),aw[13].Values(),label='V R2')
+            plt.plot(aw[14].Times('ns'),aw[14].Values(),label='V R4')
+            plt.legend(loc='upper right')
+            plt.show()
+        self.CheckWaveformResult(aw[0],'Waveform_'+fileNameBase+'_0.txt','Waveform_'+fileNameBase+'_0.txt')
+        self.CheckWaveformResult(aw[1],'Waveform_'+fileNameBase+'_1.txt','Waveform_'+fileNameBase+'_1.txt')
+        self.CheckWaveformResult(aw[2],'Waveform_'+fileNameBase+'_2.txt','Waveform_'+fileNameBase+'_2.txt')
+        self.CheckWaveformResult(aw[3],'Waveform_'+fileNameBase+'_3.txt','Waveform_'+fileNameBase+'_3.txt')
+        self.CheckWaveformResult(aw[4],'Waveform_'+fileNameBase+'_4.txt','Waveform_'+fileNameBase+'_4.txt')
+        self.CheckWaveformResult(aw[5],'Waveform_'+fileNameBase+'_5.txt','Waveform_'+fileNameBase+'_5.txt')
+        self.CheckWaveformResult(aw[6],'Waveform_'+fileNameBase+'_6.txt','Waveform_'+fileNameBase+'_6.txt')
+        self.CheckWaveformResult(aw[7],'Waveform_'+fileNameBase+'_7.txt','Waveform_'+fileNameBase+'_7.txt')
+        self.CheckWaveformResult(aw[8],'Waveform_'+fileNameBase+'_8.txt','Waveform_'+fileNameBase+'_8.txt')
+        self.CheckWaveformResult(aw[9],'Waveform_'+fileNameBase+'_9.txt','Waveform_'+fileNameBase+'_9.txt')
+        self.CheckWaveformResult(aw[10],'Waveform_'+fileNameBase+'_10.txt','Waveform_'+fileNameBase+'_10.txt')
+        self.CheckWaveformResult(aw[11],'Waveform_'+fileNameBase+'_11.txt','Waveform_'+fileNameBase+'_11.txt')
+        self.CheckWaveformResult(aw[12],'Waveform_'+fileNameBase+'_12.txt','Waveform_'+fileNameBase+'_12.txt')
+        self.CheckWaveformResult(aw[13],'Waveform_'+fileNameBase+'_13.txt','Waveform_'+fileNameBase+'_13.txt')
+        self.CheckWaveformResult(aw[14],'Waveform_'+fileNameBase+'_14.txt','Waveform_'+fileNameBase+'_14.txt')
+        times=[(i/2.+0.25)*1e-9 for i in range(18)]
+        for t in times:
+            line = str(t)
+            for m in range(15):
+                if 0 < m <= 8:
+                    line = line + ' '+str(round(aw[m].Measure(t)*1000.,6))+' mA'
+                else:
+                    line = line + ' '+str(round(aw[m].Measure(t),6))+' V'
+            print line
+
     def testSimulatorTlineFourPortModelCheck(self):
         # exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

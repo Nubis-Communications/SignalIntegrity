@@ -108,6 +108,12 @@ class Waveform(object):
         tr=WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),max(0,int(round(ad.TrimRight()))))
         wf=wf*tr
         return wf
+    def Measure(self,time):
+        for i in range(len(self.m_t)):
+            if self.m_t[i] > time:
+                v = (time - self.m_t[i-1])/(self.m_t[i]-self.m_t[i-1])*\
+                (self.m_y[i]-self.m_y[i-1])+self.m_y[i-1]
+                return v
 
 
 class WaveformFileAmplitudeOnly(Waveform):
