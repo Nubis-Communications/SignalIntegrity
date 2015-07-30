@@ -699,7 +699,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         srs=tmp.ProcessWaveforms([stepin])
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-1e-9,11*80,80e9))
         aw=si.td.wf.AdaptedWaveforms([stepin]+srs)
-        if True:
+        if False:
             import matplotlib.pyplot as plt
             plt.clf()
             plt.xlabel('time (ns)')

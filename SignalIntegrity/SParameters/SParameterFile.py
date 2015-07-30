@@ -17,7 +17,7 @@ class File(SParameters):
         Z0=50.
         sp=True
         f=[]
-        self.m_d=[]
+        self.m_f=[]
         numbersList=[]
         try:
             spfile=open(name,'rU')

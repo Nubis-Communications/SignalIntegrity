@@ -15,10 +15,9 @@ class SParameters():
         if not data is None:
             if len(data)>0: self.m_P=len(data[0])
     def __getitem__(self,item): return self.m_d[item]
-    def __len__(self): return len(self.m_d)
+    def __len__(self): return len(self.m_f)
     def f(self): return self.m_f
-    def Data(self): return self.m_d
-    def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self.m_d]
+    def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self]
     def WriteToFile(self,name,formatString=None):
         freqMul = 1e6; freqToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
@@ -36,7 +35,7 @@ class SParameters():
         spfile.write('# '+freqToken+' '+cpxType+' '+self.m_sToken+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
-            mat=self.m_d[n]
+            mat=self[n]
             if Z0 != self.m_Z0: mat=ReferenceImpedance(mat,Z0,self.m_Z0)
             if self.m_P == 2: mat=array(mat).transpose().tolist()
             for r in range(self.m_P):
@@ -56,6 +55,9 @@ class SParameters():
         spfile.close()
         return self
     def Resample(self,fl):
+        if self.m_d is None:
+            self.m_f=fl
+            return
         fl=FrequencyList(fl)
         f=FrequencyList(self.f()); f.CheckEvenlySpaced()
         SR=[empty((self.m_P,self.m_P)).tolist() for n in range(fl.N+1)]

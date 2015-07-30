@@ -232,9 +232,9 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         L2=1e-15
         freq=[100e6*(i+1) for i in range(100)]
         spc=[]
-        spc.append(('L1',si.p.dev.SeriesLf(freq,L1)))
-        spc.append(('C1',si.p.dev.SeriesCf(freq,C1)))
-        spc.append(('L2',si.p.dev.SeriesLf(freq,L2)))
+        spc.append(('L1',si.sp.dev.SeriesL(freq,L1)))
+        spc.append(('C1',si.sp.dev.SeriesC(freq,C1)))
+        spc.append(('L2',si.sp.dev.SeriesL(freq,L2)))
         SD=si.sd.SystemDescription()
         SD.AddDevice('L1',2)
         SD.AddDevice('L2',2)
@@ -311,9 +311,9 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         L2=1e-15
         freq=[100e6*(i+1) for i in range(100)]
         spc=[]
-        spc.append(('L1',si.p.dev.SeriesLf(freq,L1)))
-        spc.append(('C1',si.p.dev.SeriesCf(freq,C1)))
-        spc.append(('L2',si.p.dev.SeriesLf(freq,L2)))
+        spc.append(('L1',si.sp.dev.SeriesL(freq,L1)))
+        spc.append(('C1',si.sp.dev.SeriesC(freq,C1)))
+        spc.append(('L2',si.sp.dev.SeriesL(freq,L2)))
         spc.append(('D1',si.sp.File('TestDut.s4p').Resample(freq)))
         SD=si.sd.SystemDescription()
         SD.AddDevice('D1',4)

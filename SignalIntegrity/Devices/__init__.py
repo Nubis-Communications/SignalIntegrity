@@ -4,6 +4,8 @@ from MixedModeConverter import *
 from Mutual import *
 from ReferenceImpedanceTransformer import *
 from SeriesZ import *
+from SeriesC import *
+from SeriesL import *
 from ShuntZ import *
 from ShuntDevice import *
 from Tee import *
@@ -20,3 +22,5 @@ from VoltageAmplifier import *
 from CurrentAmplifier import *
 from TransresistanceAmplifier import *
 from TransconductanceAmplifier import *
+from TLineFourPort import *
+from TLineTwoPort import *

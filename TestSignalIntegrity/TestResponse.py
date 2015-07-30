@@ -91,7 +91,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         tdsp=si.sp.File('TestDut.s4p')
         tdspres1=tdsp.Resample(newf)
 
-        tdresp = si.sp.ArrayOfMatrices(tdsp.Data()).MatrixOfArrays()
+        tdresp = si.sp.ArrayOfMatrices(tdsp).MatrixOfArrays()
         tdrespf = tdsp.f()
 
         for r in range(tdresp.NumRows()):
@@ -112,7 +112,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         tdsp=si.sp.File('TestDut.s4p')
         tdspres1=tdsp.Resample(newf)
 
-        tdresp = si.sp.ArrayOfMatrices(tdsp.Data())
+        tdresp = si.sp.ArrayOfMatrices(tdsp)
         tdrespf = tdsp.f()
 
         tddres2=si.sp.EmptyArrayOfMatrices(4,4,len(newf))

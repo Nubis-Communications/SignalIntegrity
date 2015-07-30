@@ -1,0 +1,9 @@
+from SignalIntegrity.SParameters.SParameters import SParameters
+import SignalIntegrity.Devices as dev
+
+class SeriesC(SParameters):
+    def __init__(self,f,C,Z0=50.):
+        SParameters.__init__(self,f,None,Z0)
+        self.m_C=C
+    def __getitem__(self,n):
+        return dev.SeriesC(self.m_C,self.m_f[n],self.m_Z0)

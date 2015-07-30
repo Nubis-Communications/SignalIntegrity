@@ -11,5 +11,4 @@ import Symbolic as sy
 import ImpedanceProfile as ip
 import ChirpZTransform as czt
 import TimeDomain as td
-import TLines as tl
 import FrequencyDomain as fd

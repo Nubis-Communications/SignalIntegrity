@@ -44,12 +44,12 @@ class TestFrequencyDependentSParameters(unittest.TestCase):
         testDevice=si.p.dev.SeriesZf(f,Z)
         FDS=[]
         FDS.append(si.p.dev.SeriesZf(f,Z))
-        FDS.append(si.p.dev.SeriesLf(f,L))
-        FDS.append(si.p.dev.SeriesCf(f,C))
+        FDS.append(si.sp.dev.SeriesL(f,L))
+        FDS.append(si.sp.dev.SeriesC(f,C))
         S=[]
         S.append([FDS[0][n] for n in range(len(f))])
-        S.append([FDS[1].SParameters(n) for n in range(len(f))])
-        S.append([FDS[2].SParameters(n) for n in range(len(f))])
+        S.append([FDS[1][n] for n in range(len(f))])
+        S.append([FDS[2][n] for n in range(len(f))])
         #print S[0][0]
 
 

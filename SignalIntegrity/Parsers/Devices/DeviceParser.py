@@ -20,10 +20,10 @@ from SignalIntegrity.Devices import VoltageAmplifier
 from SignalIntegrity.Devices import CurrentAmplifier
 from SignalIntegrity.Devices import TransresistanceAmplifier
 from SignalIntegrity.Devices import TransconductanceAmplifier
-from FrequencyDependent import SeriesLf
-from FrequencyDependent import SeriesCf
-from FrequencyDependent import Mutualf
-from FrequencyDependent import Tlinef
+from SignalIntegrity.SParameters.Devices import SeriesC
+from SignalIntegrity.SParameters.Devices import SeriesL
+from SignalIntegrity.SParameters.Devices import Mutual
+from SignalIntegrity.SParameters.Devices import TLine
 
 class DeviceParser():
     def __init__(self,f,ports,argsList):
@@ -36,17 +36,17 @@ class DeviceParser():
             return
         if argsList[0] == 'subcircuit':
             self.m_spf=SubCircuit(self.m_f,argsList[1],
-            ' '.join([x if len(x.split())==1 else "\'"+x+"\'" for x in argsList[2:]]))                                 
+            ' '.join([x if len(x.split())==1 else "\'"+x+"\'" for x in argsList[2:]]))
             return
         argsList=' '.join(argsList).split()
         if argsList[0] == 'file':
             self.m_spf=File(argsList[1]).Resample(self.m_f)
             return
         elif argsList[0] == 'C':
-            self.m_spf=SeriesCf(self.m_f,float(argsList[1]))
+            self.m_spf=SeriesC(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'L':
-            self.m_spf=SeriesLf(self.m_f,float(argsList[1]))
+            self.m_spf=SeriesL(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'R':
             if ports == 1:
@@ -58,7 +58,7 @@ class DeviceParser():
             self.m_sp=ShuntZ(ports,float(argsList[1]))
             return
         elif argsList[0] == 'M':
-            self.m_sp=Mutualf(self.m_f,float(argsList[1]))
+            self.m_sp=Mutual(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'ground':
             self.m_sp=Ground()
@@ -125,5 +125,5 @@ class DeviceParser():
         elif argsList[0] == 'tline':
             v=dict([('zc',50.),('td',0.)]) # defaults
             v.update(a)
-            self.m_spf=Tlinef(self.m_f,ports,v['zc'],v['td'])
+            self.m_spf=TLine(self.m_f,ports,v['zc'],v['td'])
             return
