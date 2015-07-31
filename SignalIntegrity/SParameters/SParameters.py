@@ -3,6 +3,7 @@ from numpy import array
 import cmath
 import math
 import string
+import copy
 
 from SignalIntegrity.Conversions import ReferenceImpedance
 from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
@@ -14,6 +15,9 @@ class SParameters():
         self.m_f=FrequencyList(f)
         if not data is None:
             if len(data)>0: self.m_P=len(data[0])
+        else:
+            mat=self[0]
+            if not mat is None: self.m_P=len(mat[0])
     def __getitem__(self,item): return self.m_d[item]
     def __len__(self): return len(self.m_f)
     def f(self): return self.m_f
@@ -57,7 +61,7 @@ class SParameters():
     def Resample(self,fl):
         if self.m_d is None:
             self.m_f=fl
-            return
+            copy.deepcopy(self)
         fl=FrequencyList(fl)
         f=FrequencyList(self.f()); f.CheckEvenlySpaced()
         SR=[empty((self.m_P,self.m_P)).tolist() for n in range(fl.N+1)]

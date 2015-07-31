@@ -7,7 +7,7 @@ from numpy import matrix
 from numpy import identity
 from TestHelpers import *
 
-class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
+class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper,ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -226,6 +226,31 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps.LaTeXSolution().Emit()
         # exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Three Port Symbolic')
+    def testFrequencyDependentSeriesCResampling(self):
+        sp=si.sp.dev.SeriesC(si.fd.EvenlySpacedFrequencyList(1e9,100),1e-9)
+        sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
+        regression=si.sp.dev.SeriesC(si.fd.EvenlySpacedFrequencyList(2e9,200),1e-9)
+        self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
+    def testFrequencyDependentSeriesLResampling(self):
+        sp=si.sp.dev.SeriesL(si.fd.EvenlySpacedFrequencyList(1e9,100),1e-9)
+        sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
+        regression=si.sp.dev.SeriesL(si.fd.EvenlySpacedFrequencyList(2e9,200),1e-9)
+        self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
+    def testFrequencyDependentMutualResampling(self):
+        sp=si.sp.dev.Mutual(si.fd.EvenlySpacedFrequencyList(1e9,100),1e-9)
+        sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
+        regression=si.sp.dev.Mutual(si.fd.EvenlySpacedFrequencyList(2e9,200),1e-9)
+        self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
+    def testFrequencyDependentTLineFourPortResampling(self):
+        sp=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(1e9,100),4,25,1e-9)
+        sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
+        regression=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(2e9,200),4,25,1e-9)
+        self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
+    def testFrequencyDependentTLineTwoPortResampling(self):
+        sp=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(1e9,100),2,75,1e-9)
+        sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
+        regression=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(2e9,200),2,75,1e-9)
+        self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
     def testDeviceFourPortShuntCode(self):
         self.WriteCode('TestCommonElements.py','testDeviceShuntFourPort(self)',self.standardHeader)
     def testZShuntFourPortCode(self):
@@ -240,7 +265,6 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         self.WriteCode('TestCommonElements.py','testZShuntThreePortPossibility3(self)',self.standardHeader)
     def testZShuntTwoPortCode(self):
         self.WriteCode('TestCommonElements.py','testZShuntTwoPortPossibility2(self)',self.standardHeader)
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -6,8 +6,8 @@ import math
 
 class SeriesZf(SParameters):
     def __init__(self,f,Z,Z0=50.):
-        SParameters.__init__(self,f,None,Z0)
         self.m_Z=Z
+        SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         return SeriesZ(self.m_Z[n],self.m_Z0)
 
