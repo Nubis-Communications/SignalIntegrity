@@ -4,6 +4,7 @@ from MixedModeConverter import *
 from Mutual import *
 from ReferenceImpedanceTransformer import *
 from SeriesZ import *
+from SeriesG import *
 from SeriesC import *
 from SeriesL import *
 from ShuntZ import *

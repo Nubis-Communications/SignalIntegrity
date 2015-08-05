@@ -19,9 +19,11 @@ class SParameterCompareHelper(object):
         if len(lhs) != len(rhs): return False
         for n in range(len(lhs)):
             if abs(lhs.m_f[n] - rhs.m_f[n]) > epsilon: return False
+            lhsn=lhs[n]
+            rhsn=rhs[n]
             for r in range(lhs.m_P):
                 for c in range(lhs.m_P):
-                    if abs(lhs[n][r][c] - rhs[n][r][c]) > epsilon:
+                    if abs(lhsn[r][c] - rhsn[r][c]) > epsilon:
                         return False
         return True
 

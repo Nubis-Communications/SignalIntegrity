@@ -77,5 +77,64 @@ class TestTline(unittest.TestCase,SParameterCompareHelper):
                 plt.plot(f,y)
         plt.show()
         """
+    def testTline3(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
+        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        Ls=58.5e-9
+        Cs=20e-12
+        Lm=13.5e-9
+        Cm=1.11111111111e-12
+        Zd=2.*math.sqrt((Ls-Lm)/(Cs+2.*Cm))
+        Zc=0.5*math.sqrt((Ls+Lm)/Cs)
+        Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
+        Tc=math.sqrt((Ls+Lm)*Cs)
+        spmodel=si.sp.dev.ApproximateFourPortTLineOld(
+            f,
+                0.0,Ls,Cs,0.0,
+                0.0,Ls,Cs,0.0,
+                Lm,Cm,0.0,50.,10000)
+        spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                y=[20*math.log(abs(sf[n][r][c]+0.001),10) for n in range(len(f))]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+    def testTline4(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
+        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        Ls=58.5e-9
+        Cs=20e-12
+        Lm=13.5e-9
+        Cm=1.11111111111e-12
+        Zd=2.*math.sqrt((Ls-Lm)/(Cs+2.*Cm))
+        Zc=0.5*math.sqrt((Ls+Lm)/Cs)
+        Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
+        Tc=math.sqrt((Ls+Lm)*Cs)
+        spmodel=si.sp.dev.ApproximateFourPortTLine(
+            f,
+                0.0,Ls,Cs,0.0,
+                0.0,Ls,Cs,0.0,
+                Lm,Cm,0.0,50.,10000)
+        spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                y=[20*math.log(abs(sf[n][r][c]+0.001),10) for n in range(len(f))]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+
 if __name__ == '__main__':
     unittest.main()
