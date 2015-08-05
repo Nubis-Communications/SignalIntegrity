@@ -2,6 +2,8 @@ from SignalIntegrity.SParameters.SParameters import SParameters
 import SignalIntegrity.Devices as dev
 from numpy import math
 
+# primary is ports 1 and 2, secondary is ports 3 and 4
+# dot on ports 1 and 3
 class Mutual(SParameters):
     def __init__(self,f,M,Z0=50.):
         self.m_M=M

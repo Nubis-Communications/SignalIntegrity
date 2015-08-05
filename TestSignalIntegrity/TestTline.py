@@ -5,7 +5,7 @@ import math
 import os
 from TestHelpers import *
 
-class TestTline(unittest.TestCase,SParameterCompareHelper):
+class TestTline(unittest.TestCase,ResponseTesterHelper):
     def testTline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*20e6 for n in range(100)]
@@ -78,6 +78,15 @@ class TestTline(unittest.TestCase,SParameterCompareHelper):
         plt.show()
         """
     def testTline3(self):
+        """
+        this test checks that a four port transmission line approximated as 10,000
+        sections of RLGC sections with 1/10,000th of the supplied series resistance
+        and inductance, shunt capacitance and conductance, and mutual inductance and
+        capacitance is the same the mixed mode model with the differential and common-mode
+        impedance and propagation time corresponding to RLGC.
+
+        it tests the old, obsolete four port model which is all lumped components.
+        """
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*200e6 for n in range(50)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
@@ -107,6 +116,16 @@ class TestTline(unittest.TestCase,SParameterCompareHelper):
         plt.show()
         """
     def testTline4(self):
+        """
+        this test checks that a four port transmission line approximated as 10,000
+        sections of RLGC sections with 1/10,000th of the supplied series resistance
+        and inductance, shunt capacitance and conductance, and mutual inductance and
+        capacitance is the same the mixed mode model with the differential and common-mode
+        impedance and propagation time corresponding to RLGC.
+
+        it tests the new four port approximate model which consists of two two-port approximate
+        models with the mutual inductance, capacitance and inductance added to it.
+        """
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*200e6 for n in range(50)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
@@ -126,15 +145,76 @@ class TestTline(unittest.TestCase,SParameterCompareHelper):
                 Lm,Cm,0.0,50.,10000)
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
+    def testTline5(self):
         """
-        import matplotlib.pyplot as plt
-        for r in range(4):
-            for c in range(4):
-                y=[20*math.log(abs(sf[n][r][c]+0.001),10) for n in range(len(f))]
-                plt.subplot(4,4,r*4+c+1)
-                plt.plot(f,y)
-        plt.show()
+        This test checks that the four port transmission line model is the same as
+        the two port model connected with ideal transformers.
+        The primary of the left most transformer is connected between ports 1 and 3
+        The primary of the right most transformer is connected between ports 2 and 4
+        the dotted secondary of the left most transformer is connected to the transmission line
+        as is the dotted secondary of the right most transformer.
+        the undotted secondary connections are to ground.
         """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device T1 4 idealtransformer 1','device T2 4 idealtransformer 1',
+            'device TL 2 tline zc 50. td 1e-9','device G 1 ground',
+            'port 1 T1 1 2 T2 1 3 T1 2 4 T2 2','connect T1 3 TL 1','connect T2 3 TL 2',
+            'connect T1 4 G 1','connect T2 4 G 1'])
+        spmodel=sspnp.SParameters()
+        #fileNameBase = self.id().split('.')[2].replace('test','')
+        #spFileName = fileNameBase +'_1.s4p'
+        #self.CheckSParametersResult(spmodel,spFileName,' incorrect')
+        spmodel2=si.sp.dev.TLine(f,4,50.,1e-9)
+        #spFileName2 = fileNameBase +'_2.s4p'
+        #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
+    def testTline6(self):
+        """
+        This test checks that the four port transmission line model is the same as
+        the two port model connected with mixed mode converters.
+        The + and - of the left most mixed mode converter is connected between ports 1 and 3
+        The + and - of the right most transformer is connected between ports 2 and 4
+        the differential mode output of the mixed mode converters are connected to the transmission line
+        the common mode outputs of the mixed mode converters are connected to opens.
+        the transmission line is half the impedance
+        """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device M1 4 mixedmode','device M2 4 mixedmode',
+            'device TL 2 tline zc 25. td 1e-9','device O1 1 open','device O2 1 open',
+            'port 1 M1 1 2 M2 1 3 M1 2 4 M2 2','connect M1 3 TL 1','connect M2 3 TL 2',
+            'connect M1 4 O1 1','connect M2 4 O2 1'])
+        spmodel=sspnp.SParameters()
+        #fileNameBase = self.id().split('.')[2].replace('test','')
+        #spFileName = fileNameBase +'_1.s4p'
+        #self.CheckSParametersResult(spmodel,spFileName,' incorrect')
+        spmodel2=si.sp.dev.TLine(f,4,50.,1e-9)
+        #spFileName2 = fileNameBase +'_2.s4p'
+        #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
+    def testTline7(self):
+        """
+        this is the same test as testTline6 except it shows that it doesn't matter if the mixed mode
+        converter is a voltage or power version.
+        """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device M1 4 mixedmode voltage','device M2 4 mixedmode voltage',
+            'device TL 2 tline zc 25. td 1e-9','device O1 1 open','device O2 1 open',
+            'port 1 M1 1 2 M2 1 3 M1 2 4 M2 2','connect M1 3 TL 1','connect M2 3 TL 2',
+            'connect M1 4 O1 1','connect M2 4 O2 1'])
+        spmodel=sspnp.SParameters()
+        #fileNameBase = self.id().split('.')[2].replace('test','')
+        #spFileName = fileNameBase +'_1.s4p'
+        #self.CheckSParametersResult(spmodel,spFileName,' incorrect')
+        spmodel2=si.sp.dev.TLine(f,4,50.,1e-9)
+        #spFileName2 = fileNameBase +'_2.s4p'
+        #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
 
 if __name__ == '__main__':
     unittest.main()
