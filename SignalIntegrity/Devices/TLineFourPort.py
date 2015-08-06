@@ -19,7 +19,13 @@ import math
 # when two ports, ports 3 and 4 are assumed grounded
 
 def TLineFourPort(Zc,gamma,f,Z0):
-    a=(Zc-2.*Z0)/(Zc+2.*Z0)
+    p=(Zc-Z0)/(Zc+Z0)
+    a=(1.-3.*p)/(p-3.)
+    """
+    this calculation for a is the same as:
+    a=(Zc-2.*Z0)/(Zc+2.*Z0) or
+    a=(Zc/2.-Z0)/(Zc/2.+Z0)
+    """
     Y=cmath.exp(-1j*2.*math.pi*f*gamma)
     D=2.*(1-Y*Y*a*a)
     S1=(1.-Y*Y*a*a+a*(1.-Y*Y))/D

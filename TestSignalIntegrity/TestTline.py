@@ -5,7 +5,7 @@ import math
 import os
 from TestHelpers import *
 
-class TestTline(unittest.TestCase,ResponseTesterHelper):
+class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
     def testTline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*20e6 for n in range(100)]
@@ -215,6 +215,73 @@ class TestTline(unittest.TestCase,ResponseTesterHelper):
         #spFileName2 = fileNameBase +'_2.s4p'
         #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
+    def testTlineTwoPortSymbolic(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 2','port 1 T 1 2 T 2'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('T',si.sy.TLine(2,'\\rho','\\gamma'))
+        ssps._AddEq('\\rho = '+si.sy.TLineRho('Zc'))
+        ssps._AddEq('\\gamma = '+si.sy.TLineGamma('Td'))
+        ssps.LaTeXSolution().Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testTlineTwoPortSymbolic2(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 2','port 1 T 1 2 T 2'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('T',si.sy.TLine(2,si.sy.TLineRho('Zc'),'\\gamma'))
+        ssps._AddEq('\\gamma = '+si.sy.TLineGamma('Td'))
+        ssps.LaTeXSolution().Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testTlineTwoPortSymbolic3(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 2','port 1 T 1 2 T 2'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('T',si.sy.TLine(2,'\\rho',si.sy.TLineGamma('Td')))
+        ssps._AddEq('\\rho = '+si.sy.TLineRho('Zc'))
+        ssps.LaTeXSolution().Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testTlineTwoPortSymbolic4(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 2','port 1 T 1 2 T 2'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('T',si.sy.TLine(2,si.sy.TLineRho('Zc'),si.sy.TLineGamma('Td')))
+        ssps.LaTeXSolution().Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testIdealTransformerSymbolicDevice(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 4','port 1 T 1 2 T 2 3 T 3 4 T 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('T',si.sy.IdealTransformer('a'))
+        ssps.LaTeXSolution().Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testIdealTransformerSymbolicDevice2(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 4','port 1 T 1 2 T 2 3 T 3 4 T 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+        ssps.AssignSParameters('T',si.sy.IdealTransformer())
+        ssps.LaTeXSolution().Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testTlineFourPortSymbolicDevice(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T1 4','device T2 4',
+            'device TL 2','device G1 1 ground','device G2 1 ground',
+            'port 1 T1 1 2 T2 1 3 T1 2 4 T2 2','connect T1 3 TL 1','connect T2 3 TL 2',
+            'connect T1 4 G1 1','connect T2 4 G2 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.AssignSParameters('T1',si.sy.IdealTransformer())
+        ssps.AssignSParameters('T2',si.sy.IdealTransformer())
+        #ssps.DocStart()
+        TL=si.sy.TLineTwoPort('\\rho','\\gamma')
+        ssps._AddEq('\\rho = '+si.sy.TLineRho('Zc'))
+        ssps._AddEq('\\gamma = '+si.sy.TLineGamma('Td'))
+        ssps._AddEq('\\rho^\\prime = \\frac{1-3\\cdot \\rho }{\\rho - 3} = '+si.sy.TLineRho('Zc',4))
+        ssps._AddEq('TL_{11}=TL_{22} = '+TL[0][0])
+        ssps._AddEq('TL_{12}=TL_{21} = '+TL[0][1])
+        ssps.LaTeXSolution(size='big')
+        ssps._AddEq('\\mathbf{S} = '+ssps._LaTeXMatrix(si.sy.TLine(4,'\\rho^\\prime','\\gamma')))
+        #ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
 
 if __name__ == '__main__':
     unittest.main()
