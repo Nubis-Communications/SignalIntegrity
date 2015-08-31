@@ -83,7 +83,10 @@ class DeviceParser():
                 self.m_sp=MixedModeConverter()
             return
         elif argsList[0] == 'idealtransformer':
-            self.m_sp=IdealTransformer(float(argsList[1]))
+            if len(argsList) > 1:
+                self.m_sp=IdealTransformer(float(argsList[1]))
+            else:
+                self.m_sp=IdealTransformer()
             return
         elif argsList[0] == 'voltagecontrolledvoltagesource':
             self.m_sp=VoltageControlledVoltageSource(float(argsList[1]))

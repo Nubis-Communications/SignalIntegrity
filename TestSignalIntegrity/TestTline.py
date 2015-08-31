@@ -282,6 +282,53 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         #ssps.DocEnd()
         ssps.Emit()
         self.CheckSymbolicResult(self.id(),ssps,'incorrect')
-
+    def testMixedModeXfrmrComparison(self):
+        """
+        compares the differential mode of a mixed mode converter to an ideal transformer.
+        """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device M 4 mixedmode voltage','device O 1 open',
+            'port 1 M 1 2 M 2 3 M 3','connect M 4 O 1'])
+        spmodel=sspnp.SParameters()
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'_1.s3p'
+        self.CheckSParametersResult(spmodel,spFileName,' incorrect')
+        sspnp2=si.p.SystemSParametersNumericParser(f)
+        sspnp2.AddLines(['device T 4 idealtransformer','device G 1 ground',
+            'port 1 T 1 2 T 2 3 T 3','connect T 4 G 1'])
+        spmodel2=sspnp2.SParameters()
+        spFileName2 = fileNameBase +'_2.s3p'
+        self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
+        #This fails - still working on this.  It's not bad that it fails, it just
+        #isn't helping me figure out more about the four port tline.
+        #self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
+    def testMixedModeXfrmrComparisonSymbolic(self):
+        """
+        compares the differential mode of a mixed mode converter to an ideal transformer.
+        """
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device M 4 mixedmode voltage','device O 1 open',
+            'port 1 M 1 2 M 2 3 M 3','connect M 4 O 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXSolution()
+        ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testMixedModeXfrmrComparisonSymbolic2(self):
+        """
+        compares the differential mode of a mixed mode converter to an ideal transformer.
+        """
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device T 4 idealtransformer','device G 1 ground',
+            'port 1 T 1 2 T 2 3 T 3','connect T 4 G 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXSolution()
+        ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'incorrect')
 if __name__ == '__main__':
     unittest.main()

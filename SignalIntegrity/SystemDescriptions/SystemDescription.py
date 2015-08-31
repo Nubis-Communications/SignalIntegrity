@@ -3,7 +3,7 @@ from SignalIntegrity.Devices import Thru
 from Device import Device
 from UniqueNameFactory import UniqueNameFactory
 
-class SystemDescription:
+class SystemDescription(object):
     def __init__(self,sd=None):
         if not sd is None:
             self.Data = sd.Data

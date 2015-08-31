@@ -28,6 +28,7 @@ from TestTimeDomain import *
 from TestClassWriter import *
 from TestSimulator import *
 from TestSubcircuit import *
+from TestExceptions import *
 
 if __name__ == '__main__':
     unittest.main()

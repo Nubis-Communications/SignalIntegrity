@@ -1,6 +1,7 @@
 from SignalIntegrity.SystemDescriptions import SystemSParametersNumeric
 from SignalIntegrity.Parsers import SystemDescriptionParser
 from SignalIntegrity.SParameters import SParameters
+from SignalIntegrity.PySIException import PySIException
 
 class SystemSParametersNumericParser(SystemDescriptionParser):
     def __init__(self,f=None,args=None):
@@ -8,7 +9,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser):
     def SParameters(self):
         self.SystemDescription()
         if not self.m_sd.CheckConnections():
-            return
+            raise PySIException('CheckConnections')
         spc=self.m_spc
         result = []
         for n in range(len(self.m_f)):

@@ -7,6 +7,7 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
             ' - '+sW+' \\right]^{-1}')
         return self
     def LaTeXSolution(self,**args):
+...
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         size = args['size'] if 'size' in args else 'normal'
         AN=self.PortBNames()
