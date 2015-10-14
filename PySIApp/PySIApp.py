@@ -10,13 +10,8 @@ class PartGeometry(object):
         self.x=0
         self.y=0
         self.portsCoordinateList=portsCoordinateList
-    def SetOrigin(self,x,y,grid):
-        xord = int(round(x/grid))
-        yord = int(round(y/grid))
-        self.x=xord
-        self.y=yord
-    def DrawDevice(self,canvas,grid):
-        print 'drawing device at: ',self.x,self.y
+        if self.portsCoordinateList == None:
+            return
         minx=self.portsCoordinateList[0][0]
         maxx=self.portsCoordinateList[0][0]
         miny=self.portsCoordinateList[0][1]
@@ -26,17 +21,35 @@ class PartGeometry(object):
             if coord[0]>maxx: maxx=coord[0]
             if coord[1]<miny: miny=coord[1]
             if coord[1]>maxy: maxy=coord[1]
-        boundingBoxInitial=[minx,miny]
-        boundingBoxFinal=[maxx,maxy]
-        innerBoxInitial=[minx+1,miny+1]
-        innerBoxFinal=[maxx-1,maxy-1]
-        canvas.create_rectangle(innerBoxInitial[0]*grid+self.x*grid,innerBoxInitial[1]*grid+self.y*grid,innerBoxFinal[0]*grid+self.x*grid,innerBoxFinal[1]*grid+self.y*grid)
+        self.boundingBoxInitial=[minx,miny]
+        self.boundingBoxFinal=[maxx,maxy]
+        self.innerBoxInitial=[minx+1,miny-1]
+        self.innerBoxFinal=[maxx-1,maxy+1]
+    def SetOrigin(self,xy):
+        self.x=xy[0]
+        self.y=xy[1]
+    def DrawDevice(self,canvas,grid):
+        canvas.create_rectangle(self.innerBoxInitial[0]*grid+self.x*grid,self.innerBoxInitial[1]*grid+self.y*grid,self.innerBoxFinal[0]*grid+self.x*grid,self.innerBoxFinal[1]*grid+self.y*grid)
         for pin in self.portsCoordinateList:
-            if pin[0]==boundingBoxInitial[0]: # pin on left side
+            if pin[0]==self.boundingBoxInitial[0]: # pin on left side
                 canvas.create_line(pin[0]*grid+self.x*grid,pin[1]*grid+self.y*grid,(pin[0]+1)*grid+self.x*grid,pin[1]*grid+self.y*grid)
-            elif pin[0]==boundingBoxFinal[0]: # pin on right side
+            elif pin[0]==self.boundingBoxFinal[0]: # pin on right side
                 canvas.create_line(pin[0]*grid+self.x*grid,pin[1]*grid+self.y*grid,(pin[0]-1)*grid+self.x*grid,pin[1]*grid+self.y*grid)
-
+    def IsAt(self,xy):
+        x=xy[0]
+        y=xy[1]
+        if self.portsCoordinateList == None:
+            return False
+        if x < self.innerBoxInitial[0]+self.x:
+            return False
+        if x > self.innerBoxFinal[0]+self.x:
+            return False
+        if y < self.innerBoxInitial[1]+self.y:
+            return False
+        if y > self.innerBoxFinal[1]+self.y:
+            return False
+        return True
+    
 
 class PartGeometryTwoPort(PartGeometry):
     def __init__(self):
@@ -65,6 +78,8 @@ class Device(object):
             self.partGeometry = PartGeometryNone()
     def DrawDevice(self,canvas,grid):
         self.partGeometry.DrawDevice(canvas,grid)
+    def IsAt(self,coord):
+        return self.partGeometry.IsAt(coord)
 
 DeviceList = [
               Device(name='File',description='One\ Port\ File',ports=1,category='Files',propertiesList=[Property(keyword='',description='file name',value='')]),
@@ -341,6 +356,8 @@ class SchematicFrame(Frame):
         self.grid=10
         self.partLoaded = None
         self.schematic = Schematic()
+    def NearestGridCoordinate(self,x,y):
+        return (int(round(x/self.grid)),int(round(y/self.grid)))
     def on_resize(self,event):
         self.canvas.delete(ALL)
         self.canvas.create_rectangle(1,1,event.width-5,event.height-5)
@@ -349,11 +366,15 @@ class SchematicFrame(Frame):
         print 'clicked at: ',event.x,event.y
         if not self.partLoaded == None:
             partToLoad=self.partLoaded
-            partToLoad.partGeometry.SetOrigin(event.x,event.y,self.grid)
+            partToLoad.partGeometry.SetOrigin(self.NearestGridCoordinate(event.x,event.y))
             self.schematic.deviceList.append(partToLoad)
             self.partLoaded=None
+        else: # select a part
             for device in self.schematic.deviceList:
-                print device.partGeometry.x,device.partGeometry.y
+                if device.IsAt(self.NearestGridCoordinate(event.x,event.y)):
+                    self.deviceSelected = device
+                    print 'device selected' 
+
         self.DrawSchematic()
     def DrawSchematic(self):
         self.canvas.delete(ALL)
