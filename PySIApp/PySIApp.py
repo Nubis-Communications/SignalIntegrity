@@ -28,13 +28,13 @@ class PartGeometry(object):
     def SetOrigin(self,xy):
         self.x=xy[0]
         self.y=xy[1]
-    def DrawDevice(self,canvas,grid):
-        canvas.create_rectangle(self.innerBoxInitial[0]*grid+self.x*grid,self.innerBoxInitial[1]*grid+self.y*grid,self.innerBoxFinal[0]*grid+self.x*grid,self.innerBoxFinal[1]*grid+self.y*grid)
+    def DrawDevice(self,canvas,grid,x,y):
+        canvas.create_rectangle(self.innerBoxInitial[0]*grid+(self.x+x)*grid,self.innerBoxInitial[1]*grid+(self.y+y)*grid,self.innerBoxFinal[0]*grid+(self.x+x)*grid,self.innerBoxFinal[1]*grid+(self.y+y)*grid)
         for pin in self.portsCoordinateList:
             if pin[0]==self.boundingBoxInitial[0]: # pin on left side
-                canvas.create_line(pin[0]*grid+self.x*grid,pin[1]*grid+self.y*grid,(pin[0]+1)*grid+self.x*grid,pin[1]*grid+self.y*grid)
+                canvas.create_line(pin[0]*grid+(self.x+x)*grid,pin[1]*grid+(self.y+y)*grid,(pin[0]+1)*grid+(self.x+x)*grid,pin[1]*grid+(self.y+y)*grid)
             elif pin[0]==self.boundingBoxFinal[0]: # pin on right side
-                canvas.create_line(pin[0]*grid+self.x*grid,pin[1]*grid+self.y*grid,(pin[0]-1)*grid+self.x*grid,pin[1]*grid+self.y*grid)
+                canvas.create_line(pin[0]*grid+(self.x+x)*grid,pin[1]*grid+(self.y+y)*grid,(pin[0]-1)*grid+(self.x+x)*grid,pin[1]*grid+(self.y+y)*grid)
     def IsAt(self,xy):
         x=xy[0]
         y=xy[1]
@@ -49,7 +49,12 @@ class PartGeometry(object):
         if y > self.innerBoxFinal[1]+self.y:
             return False
         return True
-    
+    def WhereInPart(self,xy):
+        x=xy[0]
+        y=xy[1]
+        if self.portsCoordinateList == None:
+            return [0,0]
+        return [x-self.x,y-self.y]
 
 class PartGeometryTwoPort(PartGeometry):
     def __init__(self):
@@ -76,10 +81,19 @@ class Device(object):
             self.partGeometry = PartGeometryTwoPort()
         else:
             self.partGeometry = PartGeometryNone()
-    def DrawDevice(self,canvas,grid):
-        self.partGeometry.DrawDevice(canvas,grid)
+    def DrawDevice(self,canvas,grid,x,y):
+        self.partGeometry.DrawDevice(canvas,grid,x,y)
     def IsAt(self,coord):
         return self.partGeometry.IsAt(coord)
+    def WhereInPart(self,coord):
+        return self.partGeometry.WhereInPart(coord)
+
+class Port(Device):
+    def __init__(self,portNumber):
+        Device.__init__(self,name='Port',description='Port',ports=1,category=None,propertiesList=[Property(keyword='',description='port',value=1)])
+        self.partGeometry=PartGeometry([[0,0]])
+        self.partGeometry.innerBoxInitial=[0,0]
+        self.partGeometry.innerBoxFinal=[0,0]
 
 DeviceList = [
               Device(name='File',description='One\ Port\ File',ports=1,category='Files',propertiesList=[Property(keyword='',description='file name',value='')]),
@@ -125,7 +139,20 @@ class DeviceProperties(Frame):
             propertyLabel.pack(side=LEFT, expand=NO, fill=X)
             propertyEntry = Entry(propertyFrame,textvariable=self.propertyStrings[p])
             propertyEntry.config(width=10)
+            propertyEntry.bind('<Button-1>',lambda event,arg=p: self.onMouseButton1(event,arg))
             propertyEntry.pack(side=LEFT, expand=YES, fill=X)
+
+    def onMouseButton1(self,event,arg):
+        print 'entry clicked',arg
+        if self.properties[arg].description == 'file name':
+            extension='.s'+str(self.properties[0].value)+'p'
+            filename=askopenfilename(filetypes=[('s-parameters', extension)])
+            filenametokens=filename.split('.')
+            if len(filenametokens)==0:
+                return
+            if len(filenametokens)==1:
+                filename=filename+extension
+            self.propertyStrings[arg].set(filename)
 
 class DevicePropertiesDialog(Toplevel):
     def __init__(self,parent,device):
@@ -215,7 +242,8 @@ class DevicePropertiesDialog(Toplevel):
 
     def apply(self):
         self.result=copy.deepcopy(self.device)
-        self.result.propertiesList=[Property(prop.keyword,prop.description,prop.value) for prop in self.device.propertiesList]
+
+        self.result.propertiesList=[Property(self.device.propertiesList[p].keyword,self.device.propertiesList[p].description,self.DeviceProperties.propertyStrings[p+1].get()) for p in range(len(self.device.propertiesList))]
 
 class DevicePicker(Frame):
     def __init__(self,parent):
@@ -344,6 +372,8 @@ class DeviceFrame(Frame):
 class Schematic(object):
     def __init__(self):
         self.deviceList = []
+        self.wireList = []
+        self.portList = []
 
 class SchematicFrame(Frame):
     def __init__(self,parent):
@@ -353,34 +383,120 @@ class SchematicFrame(Frame):
         self.canvas.create_rectangle(1,1,self.canvas.winfo_reqheight(),self.canvas.winfo_reqwidth())
         self.canvas.bind("<Configure>", self.on_resize)
         self.canvas.bind('<Button-1>',self.onMouseButton1)
+        self.canvas.bind('<Button-3>',self.onMouseButton2)
+        self.canvas.bind('<B1-Motion>',self.onMouseButton1Motion)
+        self.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release)
+        self.canvas.bind('<Double-Button-1>',self.onMouseButton1Double)
+        self.canvas.bind('<Button-4>',self.onMouseWheel)
+        self.canvas.bind('<MouseWheel>',self.onMouseWheel)
+        self.canvas.bind('<Motion>',self.onMouseMotion)
         self.grid=10
+        self.originx=0
+        self.originy=0
         self.partLoaded = None
+        self.deviceSelected = None
+        self.wireLoaded = None
         self.schematic = Schematic()
+        self.wireSelected = False
     def NearestGridCoordinate(self,x,y):
-        return (int(round(x/self.grid)),int(round(y/self.grid)))
+        return (int(round(x/self.grid))-self.originx,int(round(y/self.grid))-self.originy)
     def on_resize(self,event):
         self.canvas.delete(ALL)
         self.canvas.create_rectangle(1,1,event.width-5,event.height-5)
         self.DrawSchematic()
     def onMouseButton1(self,event):
         print 'clicked at: ',event.x,event.y
+        self.Button1Coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.partLoaded == None:
             partToLoad=self.partLoaded
-            partToLoad.partGeometry.SetOrigin(self.NearestGridCoordinate(event.x,event.y))
+            partToLoad.partGeometry.SetOrigin(self.Button1Coord)
             self.schematic.deviceList.append(partToLoad)
             self.partLoaded=None
+            self.deviceSelected=self.schematic.deviceList[-1]
+            self.coordInPart=self.deviceSelected.WhereInPart(self.Button1Coord)
+        elif not self.wireLoaded == None:
+            self.wireLoaded.append(self.Button1Coord)
         else: # select a part
             for device in self.schematic.deviceList:
-                if device.IsAt(self.NearestGridCoordinate(event.x,event.y)):
+                if device.IsAt(self.Button1Coord):
                     self.deviceSelected = device
-                    print 'device selected' 
-
+                    self.coordInPart = device.WhereInPart(self.Button1Coord)
+                    print 'device selected'
+                    return
+            for w in range(len(self.schematic.wireList)):
+                for v in range(len(self.schematic.wireList[w])):
+                    if self.Button1Coord == self.schematic.wireList[w][v]:
+                        print 'wire vertex selected'
+                        self.wireSelected = True
+                        self.w = w
+                        self.v = v
+                        return
+                    else:
+                        print self.schematic.wireList[w][v],' not selected at ',self.Button1Coord
         self.DrawSchematic()
+    def onMouseButton2(self,event):
+        print 'right click'
+        if self.wireLoaded != None:
+            self.wireLoaded=None
+            self.schematic.wireList=self.schematic.wireList[:-1]
+        self.DrawSchematic()
+    def onMouseButton1Motion(self,event):
+        coord=self.NearestGridCoordinate(event.x,event.y)
+        if not self.deviceSelected == None:
+            self.deviceSelected.partGeometry.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
+        elif not self.wireLoaded == None:
+            if len(self.wireLoaded) > 0:
+                self.wireLoaded[-1] = coord
+        elif self.wireSelected == True:
+            self.schematic.wireList[self.w][self.v] = coord
+        else:
+            self.originx=self.originx+coord[0]-self.Button1Coord[0]
+            self.originy=self.originy+coord[1]-self.Button1Coord[1]
+        self.DrawSchematic()
+    def onMouseMotion(self,event):
+        coord=self.NearestGridCoordinate(event.x,event.y)
+        if not self.wireLoaded == None:
+                if len(self.wireLoaded) == 1:
+                    self.wireLoaded[-1] = coord
+                else:
+                    if abs(coord[0]-self.wireLoaded[-2][0]) > abs(coord[1]-self.wireLoaded[-2][1]):
+                        self.wireLoaded[-1] = (coord[0],self.wireLoaded[-2][1])
+                    else:
+                        self.wireLoaded[-1] = (self.wireLoaded[-2][0],coord[1])
+        self.DrawSchematic()
+
+    def onMouseButton1Release(self,event):
+        coord=self.NearestGridCoordinate(event.x,event.y)
+        if not self.deviceSelected == None:
+            self.deviceSelected.partGeometry.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
+            self.deviceSelected = None
+        self.wireSelected = False
+        self.DrawSchematic()
+    def onMouseWheel(self,event):
+        print 'wheel',event.delta
+    def onMouseButton1Double(self,event):
+        print 'double click'
+        if self.wireLoaded != None:
+            self.schematic.wireList[-1]=self.schematic.wireList[-1][:-1]
+            self.wireLoaded=[[0,0]]
+            self.schematic.wireList.append(self.wireLoaded)
+        else:
+            for d in range(len(self.schematic.deviceList)):
+                if self.schematic.deviceList[d].IsAt(self.NearestGridCoordinate(event.x,event.y)):
+                    dpe=DevicePropertiesDialog(self,self.schematic.deviceList[d])
+                    if dpe.result != None:
+                        self.schematic.deviceList[d] = dpe.result
+                    return
     def DrawSchematic(self):
         self.canvas.delete(ALL)
         for device in self.schematic.deviceList:
-            device.DrawDevice(self.canvas,self.grid)
-
+            device.DrawDevice(self.canvas,self.grid,self.originx,self.originy)
+        for wire in self.schematic.wireList:
+            if len(wire) >= 2:
+                segmentCoord=wire[0]
+                for vertex in wire[1:]:
+                    self.canvas.create_line((segmentCoord[0]+self.originx)*self.grid,(segmentCoord[1]+self.originy)*self.grid,(vertex[0]+self.originx)*self.grid,(vertex[1]+self.originy)*self.grid)
+                    segmentCoord=vertex
 
 class TheApp(Frame):
     def __init__(self):
@@ -400,8 +516,10 @@ class TheApp(Frame):
         FileMenu.add_command(label="Export NetList",command=self.onExportNetlist)
 
         PartsMenu=Menu(menu)
-        menu.add_cascade(label='Parts',menu=PartsMenu)
+        menu.add_cascade(label='Add',menu=PartsMenu)
         PartsMenu.add_command(label='Add Part',command=self.onAddPart)
+        PartsMenu.add_command(label='Add Wire',command=self.onAddWire)
+        PartsMenu.add_command(label='Add Port',command=self.onAddPort)
 
         ZoomMenu=Menu(menu)
         menu.add_cascade(label='Zoom',menu=ZoomMenu)
@@ -430,6 +548,14 @@ class TheApp(Frame):
         if dpd.result != None:
             dpe=DevicePropertiesDialog(self,DeviceList[dpd.result])
             self.SchematicFrame.partLoaded = dpe.result
+
+    def onAddWire(self):
+        self.SchematicFrame.wireLoaded=[(0,0)]
+        self.SchematicFrame.schematic.wireList.append(self.SchematicFrame.wireLoaded)
+
+    def onAddPort(self):
+        dpe=DevicePropertiesDialog(self,Port(1))
+        self.SchematicFrame.partLoaded = dpe.result
 
     def onZoomIn(self):
         self.SchematicFrame.grid = self.SchematicFrame.grid*2
