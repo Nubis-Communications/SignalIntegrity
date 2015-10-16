@@ -144,13 +144,27 @@ class TheApp(Frame):
         self.SchematicFrame.pack(side=LEFT,fill=BOTH,expand=YES)
 
 #         self.DeviceFrame.Picker.tree.bind('<<TreeviewSelect>>',self.onPartSelection)
+        root.bind('<Key>',self.onKey)
+
         root.mainloop()
+
+    def onKey(self,event):
+        print "pressed", repr(event.keycode), repr(event.keysym)
+        if event.keysym == 'Delete': # delete
+            if self.SchematicFrame.wireSelected:
+                self.SchematicFrame.wireSelected=False
+                del self.SchematicFrame.schematic.wireList[self.SchematicFrame.w]
+                self.SchematicFrame.DrawSchematic()
+            elif self.SchematicFrame.deviceSelected != None:
+                self.SchematicFrame.deviceSelected = None
+                del self.SchematicFrame.schematic.deviceList[self.SchematicFrame.deviceSelectedIndex]
+                self.SchematicFrame.DrawSchematic()
 
     def onReadSchematic(self):
         pass
 
     def onWriteSchematic(self):
-        pass
+        self.SchematicFrame.schematic.WriteToFile('dummy.txt')
 
     def onExportNetlist(self):
         textToShow=[]
@@ -172,9 +186,10 @@ class TheApp(Frame):
                 wireEndingPoint = wire[-1]
                 for d in range(len(dpc)):
                     for p in range(len(dpc[d])):
-                        if wireStartingPoint == dpc[d][p] or wireEndingPoint == dpc[d][p]:
-                            thisNet.append((d,p))
-            netList.append(thisNet)
+                        for vertex in wire:
+                            if vertex == dpc[d][p]:
+                                thisNet.append((d,p))
+            netList.append(list(set(thisNet)))
         # make connections
         for net in netList:
             if len(net) > 1: # at least two device ports are connected by this wire
@@ -197,6 +212,8 @@ class TheApp(Frame):
         nld = NetListDialog(self,textToShow)
 
     def onAddPart(self):
+        self.SchematicFrame.deviceSelected = None
+        self.SchematicFrame.wireSelected = False
         dpd=DevicePickerDialog(self)
         if dpd.result != None:
             devicePicked=copy.deepcopy(DeviceList[dpd.result])
@@ -205,13 +222,17 @@ class TheApp(Frame):
             self.SchematicFrame.partLoaded = dpe.result
 
     def onAddWire(self):
+        self.SchematicFrame.deviceSelected = None
+        self.SchematicFrame.wireSelected = False
         self.SchematicFrame.wireLoaded=[(0,0)]
         self.SchematicFrame.schematic.wireList.append(self.SchematicFrame.wireLoaded)
 
     def onAddPort(self):
+        self.SchematicFrame.deviceSelected = None
+        self.SchematicFrame.wireSelected = False
         portNumber=1
         for device in self.SchematicFrame.schematic.deviceList:
-            if device['type'].value == 'port':
+            if device['type'].value == 'Port':
                 if portNumber <= int(device['portnumber'].value):
                     portNumber = int(device['portnumber'].value)+1
         dpe=DevicePropertiesDialog(self,Port(portNumber))

@@ -4,6 +4,7 @@ Created on Oct 15, 2015
 @author: peterp
 '''
 from Tkinter import *
+import xml.etree.ElementTree as et
 
 from DeviceProperties import *
 
@@ -11,7 +12,13 @@ class Schematic(object):
     def __init__(self):
         self.deviceList = []
         self.wireList = []
-        self.portList = []
+    def WriteToFile(self,filename):
+        sch=et.Element('schematic')
+        devices = [device.xml() for device in self.deviceList]
+        sch.extend(devices)
+        #print et.tostring(sch)
+        et.ElementTree(sch).write('output.xml')
+
 
 class SchematicFrame(Frame):
     def __init__(self,parent):
@@ -38,7 +45,7 @@ class SchematicFrame(Frame):
         self.schematic = Schematic()
         self.wireSelected = False
     def NearestGridCoordinate(self,x,y):
-        return (int(round(x/self.grid))-self.originx,int(round(y/self.grid))-self.originy)
+        return (int(round(float(x)/self.grid))-self.originx,int(round(float(y)/self.grid))-self.originy)
     def on_resize(self,event):
         self.canvas.delete(ALL)
         self.canvas.create_rectangle(1,1,event.width-5,event.height-5)
@@ -52,16 +59,20 @@ class SchematicFrame(Frame):
             self.schematic.deviceList.append(partToLoad)
             self.partLoaded=None
             self.deviceSelected=self.schematic.deviceList[-1]
+            self.deviceSelectedIndex=len(self.schematic.deviceList)-1
             self.coordInPart=self.deviceSelected.WhereInPart(self.Button1Coord)
         elif not self.wireLoaded == None:
-            self.wireLoaded.append(self.Button1Coord)
+            self.wireLoaded[-1]=(self.Button1Coord)
         else: # select a part
-            for device in self.schematic.deviceList:
+            for d in range(len(self.schematic.deviceList)):
+                device=self.schematic.deviceList[d]
                 if device.IsAt(self.Button1Coord):
                     self.deviceSelected = device
+                    self.deviceSelectedIndex = d
                     self.coordInPart = device.WhereInPart(self.Button1Coord)
                     print 'device selected'
                     return
+            self.deviceSelected=None
             for w in range(len(self.schematic.wireList)):
                 for v in range(len(self.schematic.wireList[w])):
                     if self.Button1Coord == self.schematic.wireList[w][v]:
@@ -70,14 +81,19 @@ class SchematicFrame(Frame):
                         self.w = w
                         self.v = v
                         return
-                    else:
-                        print self.schematic.wireList[w][v],' not selected at ',self.Button1Coord
+            self.wireSelected=False
         self.DrawSchematic()
     def onMouseButton2(self,event):
         print 'right click'
+        self.deviceSelected=None
         if self.wireLoaded != None:
-            self.wireLoaded=None
-            self.schematic.wireList=self.schematic.wireList[:-1]
+            if len(self.wireLoaded) > 2:
+                self.schematic.wireList[-1]=self.wireLoaded[:-1]
+                self.wireLoaded=[(0,0)]
+                self.schematic.wireList.append(self.wireLoaded)
+            else:
+                self.wireLoaded=None
+            #self.schematic.wireList=self.schematic.wireList[:-1]
         self.DrawSchematic()
     def onMouseButton1Motion(self,event):
         coord=self.NearestGridCoordinate(event.x,event.y)
@@ -95,6 +111,10 @@ class SchematicFrame(Frame):
     def onMouseMotion(self,event):
         coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.wireLoaded == None:
+            freeFormWire=True
+            if freeFormWire:
+                self.wireLoaded[-1]=coord
+            else:
                 if len(self.wireLoaded) == 1:
                     self.wireLoaded[-1] = coord
                 else:
@@ -108,14 +128,19 @@ class SchematicFrame(Frame):
         coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.deviceSelected == None:
             self.deviceSelected.partPicture.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
-            self.deviceSelected = None
-        self.wireSelected = False
+            #self.deviceSelected = None
+        elif self.wireLoaded != None:
+            self.wireLoaded.append(coord)
+        #self.wireSelected = False
         self.DrawSchematic()
     def onMouseWheel(self,event):
         print 'wheel',event.delta
     def onMouseButton1Double(self,event):
         print 'double click'
-        if self.wireLoaded != None:
+        self.wireLoaded=None
+        self.deviceSelected=None
+        self.wireSelected=False
+        if False: #self.wireLoaded != None:
             self.schematic.wireList[-1]=self.schematic.wireList[-1][:-1]
             self.wireLoaded=[[0,0]]
             self.schematic.wireList.append(self.wireLoaded)
@@ -125,6 +150,7 @@ class SchematicFrame(Frame):
                     dpe=DevicePropertiesDialog(self,self.schematic.deviceList[d])
                     if dpe.result != None:
                         self.schematic.deviceList[d] = dpe.result
+                        self.DrawSchematic()
                     return
     def DrawSchematic(self):
         self.canvas.delete(ALL)

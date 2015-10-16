@@ -3,6 +3,7 @@ Created on Oct 15, 2015
 
 @author: peterp
 '''
+import xml.etree.ElementTree as et
 
 from PartProperty import *
 from PartPicture import *
@@ -14,6 +15,7 @@ class Device(object):
         self.propertiesList=propertiesList
         self.partPicture=partPicture
     def DrawDevice(self,canvas,grid,x,y):
+        self.CreateVisiblePropertiesList()
         self.partPicture.DrawDevice(canvas,grid,(x,y))
     def IsAt(self,coord):
         return self.partPicture.IsAt(coord)
@@ -32,6 +34,18 @@ class Device(object):
         return 'device '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
     def PinCoordinates(self):
         return self.partPicture.PinCoordinates()
+    def CreateVisiblePropertiesList(self):
+        visiblePartPropertyList=[]
+        for partProperty in self.propertiesList:
+            if partProperty.visible:
+                visiblePartPropertyList.append(str(partProperty.value))
+        self.partPicture.InsertVisiblePartProperties(visiblePartPropertyList)
+    def xml(self):
+        dev = et.Element('device')
+        props = [partProperty.xml() for partProperty in self.propertiesList]
+        dev.extend(props)
+        #et.SubElement(dev,self.partPicture)
+        return dev
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
@@ -69,6 +83,12 @@ class Port(Device):
     def NetListLine(self):
         return 'port '+str(self['portnumber'].value)+' '
 
+class DeviceGround(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Ground'),PartPropertyDescription('Ground'),PartPropertyPorts(1)],partPicture=PartPictureGround())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' ground'
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureOnePort()),
               DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureTwoPort()),
@@ -80,5 +100,6 @@ DeviceList = [
               DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureCapacitorTwoPort()),
               DeviceInductor([PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
               DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureTwoPort()),
-              DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureFourPort())
+              DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureFourPort()),
+              DeviceGround()
               ]
