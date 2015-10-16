@@ -30,6 +30,8 @@ class PartPicture(object):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         for pin in self.pinList:
             pin.DrawPin(canvas,grid,(self.origin[0]+drawingOrigin[0],self.origin[1]+drawingOrigin[1]))
+    def PinCoordinates(self):
+        return [(pin.pinConnectionPoint[0]+self.origin[0],pin.pinConnectionPoint[1]+self.origin[1]) for pin in self.pinList]
 
 class PartPictureBox(PartPicture):
     def __init__(self,origin,pinList,innerBox,boundingBox):
@@ -48,7 +50,7 @@ class PartPictureOnePort(PartPictureBox):
 class PartPictureTwoPort(PartPictureBox):
     def __init__(self):
         PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(4,1),'r')],[(1,0),(3,2)],[(0,0),(4,2)])
-        
+
 class PartPictureThreePort(PartPictureBox):
     def __init__(self):
         PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(4,2),'r')],[(1,0),(3,4)],[(0,0),(4,4)])

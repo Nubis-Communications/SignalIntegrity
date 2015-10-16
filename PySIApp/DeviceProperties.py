@@ -10,7 +10,7 @@ from tkFileDialog import askopenfilename
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
         Frame.__init__(self,parent)
-        self.title = 'Add '+device.PartPropertyByName('name').value
+        self.title = 'Add '+device.PartPropertyByName('type').value
         self.device=device
         self.propertyStrings=[StringVar(value=str(prop.value)) for prop in self.device.propertiesList]
 
@@ -29,7 +29,7 @@ class DeviceProperties(Frame):
     def onMouseButton1(self,event,arg):
         print 'entry clicked',arg
         if self.device.propertiesList[arg].description == 'file name':
-            extension='.s'+str(self.device['Ports'].value)+'p'
+            extension='.s'+str(self.device['ports'].value)+'p'
             filename=askopenfilename(filetypes=[('s-parameters', extension)])
             filenametokens=filename.split('.')
             if len(filenametokens)==0:

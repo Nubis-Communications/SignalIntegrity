@@ -19,13 +19,13 @@ class DevicePicker(Frame):
         categories=[]
         indexIntoDeviceList=0
         for device in DeviceList:
-            name=device['name'].value
+            parttype=device['type'].value
             description=device['description'].value
             category=device['category'].value
             if category not in categories:
                 self.tree.insert('','end',category,text=category,values=(category),tags='category')
                 categories.append(category)
-            self.tree.insert(category,'end',text=name,values=(description),tags=str(indexIntoDeviceList))
+            self.tree.insert(category,'end',text=parttype,values=(description),tags=str(indexIntoDeviceList))
             indexIntoDeviceList=indexIntoDeviceList+1
         self.selected=None
         self.tree.bind('<<TreeviewSelect>>',self.onPartSelection)

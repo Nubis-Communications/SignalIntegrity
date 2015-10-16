@@ -21,7 +21,7 @@ class Device(object):
         return self.partPicture.WhereInPart(coord)
     def PartPropertyByName(self,name):
         for partProperty in self.propertiesList:
-            if partProperty.description == name:
+            if partProperty.propertyName == name:
                 return partProperty
         return None
     def AddPartProperty(self,PartProperty):
@@ -29,54 +29,56 @@ class Device(object):
     def __getitem__(self,item):
         return self.PartPropertyByName(item)
     def NetListLine(self):
-        return 'device '+str(self['name'].value)+' '+str(self['Ports'].value)
+        return 'device '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+    def PinCoordinates(self):
+        return self.partPicture.PinCoordinates()
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyFileName()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' file '+self[PartPropertyFileName().description].value
+        return Device.NetListLine(self)+' file '+self[PartPropertyFileName().propertyName].value
 
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Resistors'),PartPropertyPartName('Resistor'),PartPropertyResistance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' r '+self[PartPropertyResistance().description].value
+        return Device.NetListLine(self)+' r '+self[PartPropertyResistance().propertyName].value
 
 class DeviceCapacitor(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyCapacitance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' c '+self[PartPropertyCapacitance().description].value
+        return Device.NetListLine(self)+' c '+self[PartPropertyCapacitance().propertyName].value
 
 class DeviceInductor(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyPorts(1)]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' l '+self[PartPropertyInductance().description].value
+        return Device.NetListLine(self)+' l '+self[PartPropertyInductance().propertyName].value
 
 class DeviceMutual(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyPorts(4),PartPropertyInductance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' m '+self[PartPropertyInductance().description].value
+        return Device.NetListLine(self)+' m '+self[PartPropertyInductance().propertyName].value
 
 class Port(Device):
     def __init__(self,portNumber):
-        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty(keyword='',description='Port Number',value=portNumber)],partPicture=PartPicturePort((0,0),portNumber))
+        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber)],partPicture=PartPicturePort((0,0),portNumber))
     def NetListLine(self):
-        return 'port '+str(self['Port Number'].value)+' '
+        return 'port '+str(self['portnumber'].value)+' '
 
 DeviceList = [
-              DeviceFile([PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1),PartPropertyFileName()],PartPictureOnePort()),
-              DeviceFile([PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2),PartPropertyFileName()],PartPictureTwoPort()),
-              DeviceFile([PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyDescription('Three\ Port\ File'),PartPropertyPorts(3),PartPropertyFileName()],PartPictureThreePort()),
-              DeviceFile([PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4),PartPropertyFileName()],PartPictureFourPort()),
-              DeviceResistor([PartPropertyCategory('Resistors'),PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPartName('Resistor'),PartPropertyPorts(1),PartPropertyResistance()],PartPictureOnePort()),
-              DeviceResistor([PartPropertyCategory('Resistors'),PartPropertyPartName('Resistor'),PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2),PartPropertyResistance()],PartPictureTwoPort()),
-              DeviceCapacitor([PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1),PartPropertyCapacitance()],PartPictureOnePort()),
-              DeviceCapacitor([PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2),PartPropertyCapacitance()],PartPictureCapacitorTwoPort()),
-              DeviceInductor([PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1),PartPropertyInductance()],PartPictureOnePort()),
-              DeviceInductor([PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2),PartPropertyInductance()],PartPictureTwoPort()),
-              Device([PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyDescription('Four\ Port\ Mutual\ Inductance'),PartPropertyPorts(1),PartPropertyInductance()],PartPictureFourPort())
+              DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureOnePort()),
+              DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureTwoPort()),
+              DeviceFile([PartPropertyDescription('Three\ Port\ File'),PartPropertyPorts(3)],PartPictureThreePort()),
+              DeviceFile([PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4)],PartPictureFourPort()),
+              DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
+              DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureTwoPort()),
+              DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
+              DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureCapacitorTwoPort()),
+              DeviceInductor([PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
+              DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureTwoPort()),
+              DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureFourPort())
               ]

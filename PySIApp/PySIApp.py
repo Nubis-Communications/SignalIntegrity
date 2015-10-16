@@ -18,7 +18,7 @@ class NetListFrame(Frame):
         Frame.__init__(self,parent)
         self.title = 'NetList'
         self.text=Text(self)
-        self.text.pack()
+        self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')
 
@@ -154,16 +154,54 @@ class TheApp(Frame):
 
     def onExportNetlist(self):
         textToShow=[]
-        for device in self.SchematicFrame.schematic.deviceList:
-            thisline=''
-            thisline=device.NetListLine()
-            textToShow.append(thisline)
+        deviceList = self.SchematicFrame.schematic.deviceList
+        wireList = self.SchematicFrame.schematic.wireList
+        # put all devices in the net list
+        for device in deviceList:
+            if device[PartPropertyPartName().propertyName].value != 'Port':
+                thisline=device.NetListLine()
+                textToShow.append(thisline)
+        # gather up all device pin coordinates
+        dpc = [device.PinCoordinates() for device in deviceList]
+        # make list of all net device port connections
+        netList = []
+        for wire in wireList:
+            thisNet = []
+            if len(wire) > 1:
+                wireStartingPoint = wire[0]
+                wireEndingPoint = wire[-1]
+                for d in range(len(dpc)):
+                    for p in range(len(dpc[d])):
+                        if wireStartingPoint == dpc[d][p] or wireEndingPoint == dpc[d][p]:
+                            thisNet.append((d,p))
+            netList.append(thisNet)
+        # make connections
+        for net in netList:
+            if len(net) > 1: # at least two device ports are connected by this wire
+                # determine whether one of these devices is a port
+                isAPortConnection=False
+                for dp in net:
+                    if deviceList[dp[0]][PartPropertyPartName().propertyName].value == 'Port':
+                        isAPortConnection=True
+                        thisConnectionString = deviceList[dp[0]].NetListLine()
+                        break
+                if isAPortConnection:
+                    for dp in net:
+                        if deviceList[dp[0]][PartPropertyPartName().propertyName].value != 'Port':
+                            thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
+                else:
+                    thisConnectionString = 'connect'
+                    for dp in net:
+                        thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
+                textToShow.append(thisConnectionString)
         nld = NetListDialog(self,textToShow)
 
     def onAddPart(self):
         dpd=DevicePickerDialog(self)
         if dpd.result != None:
-            dpe=DevicePropertiesDialog(self,DeviceList[dpd.result])
+            devicePicked=copy.deepcopy(DeviceList[dpd.result])
+            devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
+            dpe=DevicePropertiesDialog(self,devicePicked)
             self.SchematicFrame.partLoaded = dpe.result
 
     def onAddWire(self):
@@ -173,11 +211,11 @@ class TheApp(Frame):
     def onAddPort(self):
         portNumber=1
         for device in self.SchematicFrame.schematic.deviceList:
-            if device['name'].value == 'Port':
-                if portNumber <= int(device['Port Number'].value):
-                    portNumber = int(device['Port Number'].value)+1
+            if device['type'].value == 'port':
+                if portNumber <= int(device['portnumber'].value):
+                    portNumber = int(device['portnumber'].value)+1
         dpe=DevicePropertiesDialog(self,Port(portNumber))
-        self.SchematicFrame.partLoaded = Port(dpe.result['Port Number'].value)
+        self.SchematicFrame.partLoaded = Port(dpe.result['portnumber'].value)
 
     def onZoomIn(self):
         self.SchematicFrame.grid = self.SchematicFrame.grid*2
@@ -186,8 +224,6 @@ class TheApp(Frame):
     def onZoomOut(self):
         self.SchematicFrame.grid = max(1,self.SchematicFrame.grid/2)
         self.SchematicFrame.DrawSchematic()
-
-
 
 def main():
     app=TheApp()
