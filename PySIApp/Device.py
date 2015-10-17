@@ -42,10 +42,34 @@ class Device(object):
         self.partPicture.InsertVisiblePartProperties(visiblePartPropertyList)
     def xml(self):
         dev = et.Element('device')
+        
+        classNameElement = et.Element('class_name')
+        classNameElement.text = self.__class__.__name__
+        
+        pprope = et.Element('part_properties')
         props = [partProperty.xml() for partProperty in self.propertiesList]
-        dev.extend(props)
-        #et.SubElement(dev,self.partPicture)
+        pprope.extend(props)
+        
+        dev.extend([classNameElement,pprope,self.partPicture.xml()])
+        
         return dev
+
+class DeviceXMLClassFactory(object):
+    def __init__(self,xml):
+        propertiesList=[]
+        partPicture=None
+        className='Device'
+        for child in xml:
+            if child.tag == 'class_name':
+                className=child.text
+            if child.tag == 'part_properties':
+                for partPropertyElement in child:
+                    partProperty=PartPropertyXMLClassFactory(partPropertyElement).result
+                    propertiesList.append(partProperty)
+            elif child.tag == 'part_picture':
+                partPicture=PartPictureXMLClassFactory(child).result
+        self.result=eval(className).__new__(eval(className))
+        Device.__init__(self.result,propertiesList,partPicture)
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):

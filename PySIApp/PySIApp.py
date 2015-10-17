@@ -161,10 +161,10 @@ class TheApp(Frame):
                 self.SchematicFrame.DrawSchematic()
 
     def onReadSchematic(self):
-        pass
+        self.SchematicFrame.schematic.ReadFromFile('output.xml')
 
     def onWriteSchematic(self):
-        self.SchematicFrame.schematic.WriteToFile('dummy.txt')
+        self.SchematicFrame.schematic.WriteToFile('output.xml')
 
     def onExportNetlist(self):
         textToShow=[]

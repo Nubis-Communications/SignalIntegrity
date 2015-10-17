@@ -7,17 +7,60 @@ from Tkinter import *
 import xml.etree.ElementTree as et
 
 from DeviceProperties import *
+from Device import *
 
 class Schematic(object):
     def __init__(self):
         self.deviceList = []
         self.wireList = []
     def WriteToFile(self,filename):
-        sch=et.Element('schematic')
-        devices = [device.xml() for device in self.deviceList]
-        sch.extend(devices)
-        #print et.tostring(sch)
-        et.ElementTree(sch).write('output.xml')
+        schematicElement=et.Element('schematic')
+        
+        deviceElement=et.Element('devices')
+        deviceElementList = [device.xml() for device in self.deviceList]
+        deviceElement.extend(deviceElementList)
+        
+        wiresElement=et.Element('wires')
+        wireElements=[]
+        for wire in self.wireList:
+            wireElement=et.Element('wire')
+            vertexElements=[]
+            for vertex in wire:
+                vertexElement=et.Element('vertex')
+                vertexElement.text=str(vertex)
+                vertexElements.append(vertexElement)
+            wireElement.extend(vertexElements)
+            wireElements.append(wireElement)
+        wiresElement.extend(wireElements)
+        
+        schematicElement.extend([deviceElement,wiresElement])
+        
+        print et.tostring(schematicElement)
+        et.ElementTree(schematicElement).write(filename)
+    def ReadFromFile(self,filename):
+        self.deviceList = []
+        self.wireList = []
+        tree=et.parse(filename)
+        root=tree.getroot()
+        for child in root:
+            if child.tag == 'devices':
+                for deviceElement in child:
+                    returnedDevice=DeviceXMLClassFactory(deviceElement).result
+                    self.deviceList.append(returnedDevice)
+                    pass
+            elif child.tag == 'wires':
+                for wireElement in child:
+                    wire=[]
+                    for vertexElement in wireElement:
+                        wire.append(eval(vertexElement.text))
+                    self.wireList.append(wire)
+      
+                        
+                    
+                
+        
+
+                
 
 
 class SchematicFrame(Frame):

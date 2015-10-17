@@ -13,13 +13,14 @@ class PartProperty(object):
         self.value=value
         self.hidden=hidden
         self.visible=visible
+
     def xml(self):
-        pp = et.Element('part property')
+        pp = et.Element('part_property')
         pList=[]
         p=et.Element('keyword')
         p.text=str(self.keyword)
         pList.append(p)
-        p=et.Element('property name')
+        p=et.Element('property_name')
         p.text=str(self.propertyName)
         pList.append(p)
         p=et.Element('description')
@@ -36,6 +37,29 @@ class PartProperty(object):
         pList.append(p)
         pp.extend(pList)
         return pp
+
+class PartPropertyXMLClassFactory(PartProperty):
+    def __init__(self,xml):
+        propertyName=''
+        keyword=None
+        description=None
+        value=None
+        hidden=False
+        visible=False
+        for item in xml:
+            if item.tag == 'keyword':
+                keyword = item.text
+            elif item.tag == 'property_name':
+                propertyName = item.text
+            elif item.tag == 'description':
+                description = item.text
+            elif item.tag == 'value':
+                value = item.text
+            elif item.tag == 'hidden':
+                hidden = eval(item.text)
+            elif item.tag == 'visible':
+                visible = eval(item.text)
+        self.result=PartProperty(propertyName,keyword,description,value,hidden,visible)
 
 class PartPropertyReferenceDesignator(PartProperty):
     def __init__(self,referenceDesignator=''):

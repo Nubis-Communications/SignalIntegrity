@@ -3,6 +3,8 @@ Created on Oct 15, 2015
 
 @author: peterp
 '''
+import xml.etree.ElementTree as et
+
 from PartPin import *
 
 class PartPicture(object):
@@ -13,6 +15,7 @@ class PartPicture(object):
         self.boundingBox=boundingBox
         self.visiblePartPropertyList=[]
         self.propertiesLocation = propertiesLocation
+        self.lineList=None
     def InsertVisiblePartProperties(self,visiblePartPropertyList):
         self.visiblePartPropertyList=visiblePartPropertyList
     def SetOrigin(self,xy):
@@ -32,15 +35,71 @@ class PartPicture(object):
     def WhereInPart(self,xy):
         return (xy[0]-self.origin[0],xy[1]-self.origin[1])
     def DrawDevice(self,canvas,grid,drawingOrigin):
+        if self.lineList != None:
+            for line in self.lineList:
+                canvas.create_line((self.origin[0]+drawingOrigin[0]+line[0][0])*grid,
+                                   (self.origin[1]+drawingOrigin[1]+line[0][1])*grid,
+                                   (self.origin[0]+drawingOrigin[0]+line[1][0])*grid,
+                                   (self.origin[1]+drawingOrigin[1]+line[1][1])*grid)
         for pin in self.pinList:
             pin.DrawPin(canvas,grid,(self.origin[0]+drawingOrigin[0],self.origin[1]+drawingOrigin[1]))
         for v in range(len(self.visiblePartPropertyList)):
             canvas.create_text((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,(drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-10*v-10,text=self.visiblePartPropertyList[v],anchor='nw')
     def PinCoordinates(self):
         return [(pin.pinConnectionPoint[0]+self.origin[0],pin.pinConnectionPoint[1]+self.origin[1]) for pin in self.pinList]
+    def xml(self):
+        pList=[]
+        classNameElement = et.Element('class_name')
+        classNameElement.text = self.__class__.__name__
+        pList.append(classNameElement)
+        pp = et.Element('part_picture')
+        p=et.Element('origin')
+        p.text=str(self.origin)
+        pList.append(p)
+        p=et.Element('inner_box')
+        p.text=str(self.innerBox)
+        pList.append(p)
+        p=et.Element('bounding_box')
+        p.text=str(self.boundingBox)
+        pList.append(p)
+        p=et.Element('properties_location')
+        p.text=str(self.propertiesLocation)
+        pList.append(p)
+
+        pl = et.Element('pin_list')
+        pins=[pin.xml() for pin in self.pinList]
+        pl.extend(pins)
+        pList.append(pl)
+
+        pp.extend(pList)
+        return pp        
+
+class PartPictureXMLClassFactory(object):
+    def __init__(self,xml):
+        className='PartPicture'
+        for item in xml:
+            if item.tag == 'class_name':
+                className = item.text
+            if item.tag == 'origin':
+                origin = eval(item.text)
+            elif item.tag == 'inner_box':
+                innerBox = eval(item.text)
+            elif item.tag == 'bounding_box':
+                boundingBox = eval(item.text)
+            elif item.tag == 'properties_location':
+                propertiesLocation = eval(item.text)
+            elif item.tag == 'pin_list':
+                pinList = [PartPinXML(pinItem) for pinItem in item]
+        
+        self.result=eval(className).__new__(eval(className))
+        PartPicture.__init__(self.result,origin,pinList,innerBox,boundingBox,propertiesLocation)
 
 class PartPictureBox(PartPicture):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation):
+        lineList=[[(innerBox[0][0],innerBox[0][1]),(innerBox[1][0],innerBox[0][1])],
+                  [(innerBox[1][0],innerBox[0][1]),(innerBox[1][0],innerBox[1][1])],
+                  [(innerBox[1][0],innerBox[1][1]),(innerBox[0][0],innerBox[0][1])],
+                  [(innerBox[0][0],innerBox[0][1]),(innerBox[0][0],innerBox[0][1])]]
         PartPicture.__init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         canvas.create_rectangle((drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid,
