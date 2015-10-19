@@ -60,7 +60,7 @@ class PartPin(object):
         pp.extend(pList)
         return pp
 
-class PartPinXML(PartPin):
+class PartPinXMLClassFactory(PartPin):
     def __init__(self,xml):
         pinNumber=None
         pinConnectionPoint=None
@@ -75,9 +75,9 @@ class PartPinXML(PartPin):
             elif item.tag == 'orientation':
                 pinOrientation = item.text
             elif item.tag == 'visible':
-                pinVisible = item.text
+                pinVisible = eval(item.text)
             elif item.tag == 'number_visible':
-                pinNumberVisible = bool(item.text)
-        PartPin.__init__(self,pinNumber,pinConnectionPoint,pinOrientation,pinVisible,pinNumberVisible)
+                pinNumberVisible = eval(item.text)
+        self.result=PartPin(pinNumber,pinConnectionPoint,pinOrientation,pinVisible,pinNumberVisible)
         
         

@@ -54,14 +54,48 @@ class Schematic(object):
                     for vertexElement in wireElement:
                         wire.append(eval(vertexElement.text))
                     self.wireList.append(wire)
-      
-                        
-                    
-                
-        
-
-                
-
+    def NetList(self):
+        textToShow=[]
+        deviceList = self.deviceList
+        wireList = self.wireList
+        # put all devices in the net list
+        for device in deviceList:
+            if device[PartPropertyPartName().propertyName].value != 'Port':
+                thisline=device.NetListLine()
+                textToShow.append(thisline)
+        # gather up all device pin coordinates
+        dpc = [device.PinCoordinates() for device in deviceList]
+        # make list of all net device port connections
+        netList = []
+        for wire in wireList:
+            thisNet = []
+            if len(wire) > 1:
+                for d in range(len(dpc)):
+                    for p in range(len(dpc[d])):
+                        for vertex in wire:
+                            if vertex == dpc[d][p]:
+                                thisNet.append((d,p))
+            netList.append(list(set(thisNet)))
+        # make connections
+        for net in netList:
+            if len(net) > 1: # at least two device ports are connected by this wire
+                # determine whether one of these devices is a port
+                isAPortConnection=False
+                for dp in net:
+                    if deviceList[dp[0]][PartPropertyPartName().propertyName].value == 'Port':
+                        isAPortConnection=True
+                        thisConnectionString = deviceList[dp[0]].NetListLine()
+                        break
+                if isAPortConnection:
+                    for dp in net:
+                        if deviceList[dp[0]][PartPropertyPartName().propertyName].value != 'Port':
+                            thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
+                else:
+                    thisConnectionString = 'connect'
+                    for dp in net:
+                        thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
+                textToShow.append(thisConnectionString)
+        return textToShow
 
 class SchematicFrame(Frame):
     def __init__(self,parent):
@@ -76,7 +110,7 @@ class SchematicFrame(Frame):
         self.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release)
         self.canvas.bind('<Double-Button-1>',self.onMouseButton1Double)
         self.canvas.bind('<Button-4>',self.onMouseWheel)
-        #self.canvas.bind('<MouseWheel>',self.onMouseWheel)
+        self.canvas.bind('<MouseWheel>',self.onMouseWheel)
         self.canvas.bind('<Motion>',self.onMouseMotion)
         self.grid=10
         self.originx=0

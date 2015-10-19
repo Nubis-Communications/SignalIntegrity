@@ -89,7 +89,7 @@ class PartPictureXMLClassFactory(object):
             elif item.tag == 'properties_location':
                 propertiesLocation = eval(item.text)
             elif item.tag == 'pin_list':
-                pinList = [PartPinXML(pinItem) for pinItem in item]
+                pinList = [PartPinXMLClassFactory(pinItem).result for pinItem in item]
         
         self.result=eval(className).__new__(eval(className))
         PartPicture.__init__(self.result,origin,pinList,innerBox,boundingBox,propertiesLocation)

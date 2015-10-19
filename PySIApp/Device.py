@@ -105,7 +105,7 @@ class Port(Device):
     def __init__(self,portNumber):
         Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber)],partPicture=PartPicturePort((0,0),portNumber))
     def NetListLine(self):
-        return 'port '+str(self['portnumber'].value)+' '
+        return 'port '+str(self['portnumber'].value)
 
 class DeviceGround(Device):
     def __init__(self):

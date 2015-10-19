@@ -137,6 +137,10 @@ class TheApp(Frame):
         menu.add_cascade(label='Zoom',menu=ZoomMenu)
         ZoomMenu.add_command(label='Zoom In',command=self.onZoomIn)
         ZoomMenu.add_command(label='Zoom Out',command=self.onZoomOut)
+        
+        CalcMenu=Menu(menu)
+        menu.add_cascade(label='Calculate',menu=CalcMenu)
+        CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
 
 #         self.DeviceFrame = DeviceFrame(self)
 #         self.DeviceFrame.pack(side=LEFT, fill=Y, expand=NO)
@@ -161,55 +165,32 @@ class TheApp(Frame):
                 self.SchematicFrame.DrawSchematic()
 
     def onReadSchematic(self):
-        self.SchematicFrame.schematic.ReadFromFile('output.xml')
+        extension='.xml'
+        filename=askopenfilename(filetypes=[('xml', extension)])
+        if filename == '':
+            return
+        filenametokens=filename.split('.')
+        if len(filenametokens)==0:
+            return
+        if len(filenametokens)==1:
+            filename=filename+extension
+        self.SchematicFrame.schematic.ReadFromFile(filename)
+        self.SchematicFrame.DrawSchematic()
 
     def onWriteSchematic(self):
-        self.SchematicFrame.schematic.WriteToFile('output.xml')
+        extension='.xml'
+        filename=asksaveasfilename(filetypes=[('xml', extension)])
+        if filename=='':
+            return
+        filenametokens=filename.split('.')
+        if len(filenametokens)==0:
+            return
+        if len(filenametokens)==1:
+            filename=filename+extension
+        self.SchematicFrame.schematic.WriteToFile(filename)
 
     def onExportNetlist(self):
-        textToShow=[]
-        deviceList = self.SchematicFrame.schematic.deviceList
-        wireList = self.SchematicFrame.schematic.wireList
-        # put all devices in the net list
-        for device in deviceList:
-            if device[PartPropertyPartName().propertyName].value != 'Port':
-                thisline=device.NetListLine()
-                textToShow.append(thisline)
-        # gather up all device pin coordinates
-        dpc = [device.PinCoordinates() for device in deviceList]
-        # make list of all net device port connections
-        netList = []
-        for wire in wireList:
-            thisNet = []
-            if len(wire) > 1:
-                wireStartingPoint = wire[0]
-                wireEndingPoint = wire[-1]
-                for d in range(len(dpc)):
-                    for p in range(len(dpc[d])):
-                        for vertex in wire:
-                            if vertex == dpc[d][p]:
-                                thisNet.append((d,p))
-            netList.append(list(set(thisNet)))
-        # make connections
-        for net in netList:
-            if len(net) > 1: # at least two device ports are connected by this wire
-                # determine whether one of these devices is a port
-                isAPortConnection=False
-                for dp in net:
-                    if deviceList[dp[0]][PartPropertyPartName().propertyName].value == 'Port':
-                        isAPortConnection=True
-                        thisConnectionString = deviceList[dp[0]].NetListLine()
-                        break
-                if isAPortConnection:
-                    for dp in net:
-                        if deviceList[dp[0]][PartPropertyPartName().propertyName].value != 'Port':
-                            thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
-                else:
-                    thisConnectionString = 'connect'
-                    for dp in net:
-                        thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
-                textToShow.append(thisConnectionString)
-        nld = NetListDialog(self,textToShow)
+        nld = NetListDialog(self,self.SchematicFrame.schematic.NetList())
 
     def onAddPart(self):
         self.SchematicFrame.deviceSelected = None
@@ -246,6 +227,24 @@ class TheApp(Frame):
         self.SchematicFrame.grid = max(1,self.SchematicFrame.grid/2)
         self.SchematicFrame.DrawSchematic()
 
+    def onCalculateSParameters(self):
+        netList=self.SchematicFrame.schematic.NetList()
+        import SignalIntegrity as si
+        spnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
+        spnp.AddLines(netList)
+        sp=spnp.SParameters()
+        ports=sp.m_P
+        extension='.s'+str(ports)+'p'
+        filename=asksaveasfilename(filetypes=[('s-parameters', extension)])
+        if filename == '':
+            return
+        filenametokens=filename.split('.')
+        if len(filenametokens)==0:
+            return
+        if len(filenametokens)==1:
+            filename=filename+extension
+        sp.WriteToFile(filename)
+        pass
 def main():
     app=TheApp()
 
