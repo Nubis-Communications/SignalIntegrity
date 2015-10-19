@@ -7,18 +7,25 @@ from Tkinter import *
 import copy
 from tkFileDialog import askopenfilename
 
+from PartProperty import *
+
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
         Frame.__init__(self,parent)
         self.title = 'Add '+device.PartPropertyByName('type').value
         self.device=device
         self.propertyStrings=[StringVar(value=str(prop.value)) for prop in self.device.propertiesList]
+        self.propertyVisible=[IntVar(value=int(prop.visible)) for prop in self.device.propertiesList]
 
+        propertyListFrame = Frame(self)
+        propertyListFrame.pack(side=TOP,fill=X,expand=NO)
         for p in range(len(self.device.propertiesList)):
             if not self.device.propertiesList[p].hidden:
                 prop=self.device.propertiesList[p]
-                propertyFrame = Frame(self)
-                propertyFrame.pack(side=TOP,fill=BOTH,expand=YES)
+                propertyFrame = Frame(propertyListFrame)
+                propertyFrame.pack(side=TOP,fill=X,expand=YES)
+                propertyVisibleCheckBox = Checkbutton(propertyFrame,variable=self.propertyVisible[p],command=self.onPropertyVisible)
+                propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
                 propertyLabel = Label(propertyFrame,width=20,text=prop.description+': ',anchor='e')
                 propertyLabel.pack(side=LEFT, expand=NO, fill=X)
                 propertyEntry = Entry(propertyFrame,textvariable=self.propertyStrings[p])
@@ -26,16 +33,37 @@ class DeviceProperties(Frame):
                 propertyEntry.bind('<Button-1>',lambda event,arg=p: self.onMouseButton1(event,arg))
                 propertyEntry.pack(side=LEFT, expand=YES, fill=X)
 
+        partPictureFrame = Frame(self)
+        partPictureFrame.pack(side=TOP,fill=BOTH,expand=YES)
+        self.partPictureCanvas = Canvas(partPictureFrame)
+        self.partPictureCanvas.config(relief=SUNKEN,borderwidth=1)
+        self.partPictureCanvas.pack(side=TOP,fill=BOTH,expand=YES)
+        self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
+        device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
+
+    def onMouseButton1InPartPicture(self,event):
+        numPictures=len(self.device.partPicture.partPictureClassList)
+        current=self.device.partPicture.partPictureSelected
+        origin=self.device.partPicture.current.origin
+        selected=current+1
+        if selected >= numPictures:
+            selected = 0
+        self.device.partPicture.SwitchPartPicture(selected)
+        self.device.partPicture.current.SetOrigin(origin)
+        self.partPictureCanvas.delete(ALL)
+        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
+
+    def onPropertyVisible(self):
+        for p in range(len(self.device.propertiesList)):
+            self.device.propertiesList[p].visible=bool(self.propertyVisible[p].get())
+        self.partPictureCanvas.delete(ALL)
+        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
+
     def onMouseButton1(self,event,arg):
         print 'entry clicked',arg
-        if self.device.propertiesList[arg].description == 'file name':
+        if self.device.propertiesList[arg].propertyName == PartPropertyFileName().propertyName:
             extension='.s'+str(self.device['ports'].value)+'p'
             filename=askopenfilename(filetypes=[('s-parameters', extension)])
-            filenametokens=filename.split('.')
-            if len(filenametokens)==0:
-                return
-            if len(filenametokens)==1:
-                filename=filename+extension
             self.propertyStrings[arg].set(filename)
 
 class DevicePropertiesDialog(Toplevel):
@@ -128,3 +156,4 @@ class DevicePropertiesDialog(Toplevel):
         self.result=copy.deepcopy(self.device)
         for p in range(len(self.device.propertiesList)):
             self.result.propertiesList[p].value=self.DeviceProperties.propertyStrings[p].get()
+            self.result.propertiesList[p].visible=bool(self.DeviceProperties.propertyVisible[p].get())

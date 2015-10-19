@@ -137,7 +137,7 @@ class TheApp(Frame):
         menu.add_cascade(label='Zoom',menu=ZoomMenu)
         ZoomMenu.add_command(label='Zoom In',command=self.onZoomIn)
         ZoomMenu.add_command(label='Zoom Out',command=self.onZoomOut)
-        
+
         CalcMenu=Menu(menu)
         menu.add_cascade(label='Calculate',menu=CalcMenu)
         CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
@@ -179,14 +179,9 @@ class TheApp(Frame):
 
     def onWriteSchematic(self):
         extension='.xml'
-        filename=asksaveasfilename(filetypes=[('xml', extension)])
+        filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml')
         if filename=='':
             return
-        filenametokens=filename.split('.')
-        if len(filenametokens)==0:
-            return
-        if len(filenametokens)==1:
-            filename=filename+extension
         self.SchematicFrame.schematic.WriteToFile(filename)
 
     def onExportNetlist(self):
@@ -217,7 +212,7 @@ class TheApp(Frame):
                 if portNumber <= int(device['portnumber'].value):
                     portNumber = int(device['portnumber'].value)+1
         dpe=DevicePropertiesDialog(self,Port(portNumber))
-        self.SchematicFrame.partLoaded = Port(dpe.result['portnumber'].value)
+        self.SchematicFrame.partLoaded = dpe.result
 
     def onZoomIn(self):
         self.SchematicFrame.grid = self.SchematicFrame.grid*2
@@ -235,14 +230,9 @@ class TheApp(Frame):
         sp=spnp.SParameters()
         ports=sp.m_P
         extension='.s'+str(ports)+'p'
-        filename=asksaveasfilename(filetypes=[('s-parameters', extension)])
+        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension)
         if filename == '':
             return
-        filenametokens=filename.split('.')
-        if len(filenametokens)==0:
-            return
-        if len(filenametokens)==1:
-            filename=filename+extension
         sp.WriteToFile(filename)
         pass
 def main():

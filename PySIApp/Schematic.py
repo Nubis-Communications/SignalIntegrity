@@ -15,11 +15,9 @@ class Schematic(object):
         self.wireList = []
     def WriteToFile(self,filename):
         schematicElement=et.Element('schematic')
-        
         deviceElement=et.Element('devices')
         deviceElementList = [device.xml() for device in self.deviceList]
         deviceElement.extend(deviceElementList)
-        
         wiresElement=et.Element('wires')
         wireElements=[]
         for wire in self.wireList:
@@ -32,10 +30,8 @@ class Schematic(object):
             wireElement.extend(vertexElements)
             wireElements.append(wireElement)
         wiresElement.extend(wireElements)
-        
         schematicElement.extend([deviceElement,wiresElement])
-        
-        print et.tostring(schematicElement)
+        #print et.tostring(schematicElement)
         et.ElementTree(schematicElement).write(filename)
     def ReadFromFile(self,filename):
         self.deviceList = []
@@ -132,7 +128,7 @@ class SchematicFrame(Frame):
         self.Button1Coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.partLoaded == None:
             partToLoad=self.partLoaded
-            partToLoad.partPicture.SetOrigin(self.Button1Coord)
+            partToLoad.partPicture.current.SetOrigin(self.Button1Coord)
             self.schematic.deviceList.append(partToLoad)
             self.partLoaded=None
             self.deviceSelected=self.schematic.deviceList[-1]
@@ -175,7 +171,7 @@ class SchematicFrame(Frame):
     def onMouseButton1Motion(self,event):
         coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.deviceSelected == None:
-            self.deviceSelected.partPicture.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
+            self.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
         elif not self.wireLoaded == None:
             if len(self.wireLoaded) > 0:
                 self.wireLoaded[-1] = coord
@@ -204,7 +200,7 @@ class SchematicFrame(Frame):
     def onMouseButton1Release(self,event):
         coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.deviceSelected == None:
-            self.deviceSelected.partPicture.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
+            self.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.coordInPart[0],coord[1]-self.coordInPart[1]])
             #self.deviceSelected = None
         elif self.wireLoaded != None:
             self.wireLoaded.append(coord)

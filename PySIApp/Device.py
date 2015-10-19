@@ -16,11 +16,11 @@ class Device(object):
         self.partPicture=partPicture
     def DrawDevice(self,canvas,grid,x,y):
         self.CreateVisiblePropertiesList()
-        self.partPicture.DrawDevice(canvas,grid,(x,y))
+        self.partPicture.current.DrawDevice(canvas,grid,(x,y))
     def IsAt(self,coord):
-        return self.partPicture.IsAt(coord)
+        return self.partPicture.current.IsAt(coord)
     def WhereInPart(self,coord):
-        return self.partPicture.WhereInPart(coord)
+        return self.partPicture.current.WhereInPart(coord)
     def PartPropertyByName(self,name):
         for partProperty in self.propertiesList:
             if partProperty.propertyName == name:
@@ -33,25 +33,28 @@ class Device(object):
     def NetListLine(self):
         return 'device '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
     def PinCoordinates(self):
-        return self.partPicture.PinCoordinates()
+        return self.partPicture.current.PinCoordinates()
     def CreateVisiblePropertiesList(self):
         visiblePartPropertyList=[]
         for partProperty in self.propertiesList:
             if partProperty.visible:
-                visiblePartPropertyList.append(str(partProperty.value))
-        self.partPicture.InsertVisiblePartProperties(visiblePartPropertyList)
+                value = str(partProperty.value)
+                if partProperty.propertyName == 'filename':
+                    value = value.split('/')[-1]
+                visiblePartPropertyList.append(value)
+        self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
     def xml(self):
         dev = et.Element('device')
-        
+
         classNameElement = et.Element('class_name')
         classNameElement.text = self.__class__.__name__
-        
+
         pprope = et.Element('part_properties')
         props = [partProperty.xml() for partProperty in self.propertiesList]
         pprope.extend(props)
-        
+
         dev.extend([classNameElement,pprope,self.partPicture.xml()])
-        
+
         return dev
 
 class DeviceXMLClassFactory(object):
@@ -103,27 +106,27 @@ class DeviceMutual(Device):
 
 class Port(Device):
     def __init__(self,portNumber):
-        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber)],partPicture=PartPicturePort((0,0),portNumber))
+        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber,visible=True)],partPicture=PartPictureVariablePort())
     def NetListLine(self):
         return 'port '+str(self['portnumber'].value)
 
 class DeviceGround(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Ground'),PartPropertyDescription('Ground'),PartPropertyPorts(1)],partPicture=PartPictureGround())
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Ground'),PartPropertyDescription('Ground'),PartPropertyPorts(1)],partPicture=PartPictureVariableGround())
     def NetListLine(self):
         return Device.NetListLine(self)+' ground'
 
 DeviceList = [
-              DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureOnePort()),
-              DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureTwoPort()),
-              DeviceFile([PartPropertyDescription('Three\ Port\ File'),PartPropertyPorts(3)],PartPictureThreePort()),
-              DeviceFile([PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4)],PartPictureFourPort()),
-              DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
-              DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureTwoPort()),
-              DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
-              DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureCapacitorTwoPort()),
-              DeviceInductor([PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1)],PartPictureOnePort()),
-              DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureTwoPort()),
-              DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureFourPort()),
+              DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
+              DeviceFile([PartPropertyDescription('Three\ Port\ File'),PartPropertyPorts(3)],PartPictureVariableThreePort()),
+              DeviceFile([PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4)],PartPictureVariableFourPort()),
+              DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
+              DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
+              DeviceInductor([PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
+              DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureVariableFourPort()),
               DeviceGround()
               ]
