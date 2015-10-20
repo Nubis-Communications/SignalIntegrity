@@ -125,6 +125,8 @@ class TheApp(Frame):
         FileMenu.add_command(label="Read Schematic",command=self.onReadSchematic)
         FileMenu.add_command(label="Write Schematic",command=self.onWriteSchematic)
         FileMenu.add_separator()
+        FileMenu.add_command(label="Clear Schematic",command=self.onClearSchematic)
+        FileMenu.add_separator()
         FileMenu.add_command(label="Export NetList",command=self.onExportNetlist)
 
         PartsMenu=Menu(menu)
@@ -183,6 +185,10 @@ class TheApp(Frame):
         if filename=='':
             return
         self.SchematicFrame.schematic.WriteToFile(filename)
+        
+    def onClearSchematic(self):
+        self.SchematicFrame.schematic.Clear()
+        self.SchematicFrame.DrawSchematic()
 
     def onExportNetlist(self):
         nld = NetListDialog(self,self.SchematicFrame.schematic.NetList())

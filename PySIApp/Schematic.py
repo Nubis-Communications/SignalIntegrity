@@ -92,6 +92,9 @@ class Schematic(object):
                         thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
                 textToShow.append(thisConnectionString)
         return textToShow
+    def Clear(self):
+        self.deviceList = []
+        self.wireList = []        
 
 class SchematicFrame(Frame):
     def __init__(self,parent):
