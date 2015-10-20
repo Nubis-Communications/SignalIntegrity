@@ -32,7 +32,16 @@ class DeviceProperties(Frame):
                 propertyEntry.config(width=10)
                 propertyEntry.bind('<Button-1>',lambda event,arg=p: self.onMouseButton1(event,arg))
                 propertyEntry.pack(side=LEFT, expand=YES, fill=X)
-
+        orientationFrame = Frame(propertyListFrame)
+        orientationFrame.pack(side=TOP,fill=X,expand=NO)
+        self.orientationString=StringVar(value=str(self.device.partPicture.current.orientation))
+        orientationLabel = Label(orientationFrame,text='rotation: ')
+        orientationLabel.pack(side=LEFT,expand=NO,fill=X)
+        Radiobutton(orientationFrame,text='0',variable=self.orientationString,value='0',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
+        Radiobutton(orientationFrame,text='90',variable=self.orientationString,value='90',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
+        Radiobutton(orientationFrame,text='180',variable=self.orientationString,value='180',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
+        Radiobutton(orientationFrame,text='270',variable=self.orientationString,value='270',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
+        Button(orientationFrame,text='toggle',command=self.onToggleOrientation).pack(side=LEFT,expand=NO,fill=X)
         partPictureFrame = Frame(self)
         partPictureFrame.pack(side=TOP,fill=BOTH,expand=YES)
         self.partPictureCanvas = Canvas(partPictureFrame)
@@ -40,6 +49,16 @@ class DeviceProperties(Frame):
         self.partPictureCanvas.pack(side=TOP,fill=BOTH,expand=YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
         device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
+
+    def onToggleOrientation(self):
+        self.device.partPicture.current.Rotate()
+        self.orientationString.set(str(self.device.partPicture.current.orientation))
+        self.onOrientationChange()
+
+    def onOrientationChange(self):
+        self.device.partPicture.current.ApplyOrientation(self.orientationString.get())
+        self.partPictureCanvas.delete(ALL)
+        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)      
 
     def onMouseButton1InPartPicture(self,event):
         numPictures=len(self.device.partPicture.partPictureClassList)

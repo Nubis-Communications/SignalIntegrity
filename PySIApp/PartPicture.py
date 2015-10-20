@@ -4,47 +4,9 @@ Created on Oct 15, 2015
 @author: peterp
 '''
 import xml.etree.ElementTree as et
+import copy
 
 from PartPin import *
-
-class PartPicture(object):
-    def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation):
-        self.origin=origin
-        self.pinList=pinList
-        self.innerBox=innerBox
-        self.boundingBox=boundingBox
-        self.visiblePartPropertyList=[]
-        self.propertiesLocation = propertiesLocation
-    def InsertVisiblePartProperties(self,visiblePartPropertyList):
-        self.visiblePartPropertyList=visiblePartPropertyList
-    def SetOrigin(self,xy):
-        self.origin=tuple(xy)
-    def IsAt(self,xy):
-        x=xy[0]
-        y=xy[1]
-        if x < self.innerBox[0][0]+self.origin[0]:
-            return False
-        if x > self.innerBox[1][0]+self.origin[0]:
-            return False
-        if y < self.innerBox[0][1]+self.origin[1]:
-            return False
-        if y > self.innerBox[1][1]+self.origin[1]:
-            return False
-        return True
-    def WhereInPart(self,xy):
-        return (xy[0]-self.origin[0],xy[1]-self.origin[1])
-    def DrawDevice(self,canvas,grid,drawingOrigin,drawInnerBox=False):
-        if drawInnerBox:
-            canvas.create_rectangle((drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid,
-            (drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid,
-            (drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid,
-            (drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid)
-        for pin in self.pinList:
-            pin.DrawPin(canvas,grid,(self.origin[0]+drawingOrigin[0],self.origin[1]+drawingOrigin[1]))
-        for v in range(len(self.visiblePartPropertyList)):
-            canvas.create_text((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,(drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-10*v-10,text=self.visiblePartPropertyList[v],anchor='nw')
-    def PinCoordinates(self):
-        return [(pin.pinConnectionPoint[0]+self.origin[0],pin.pinConnectionPoint[1]+self.origin[1]) for pin in self.pinList]
 
 class CoordinateTranslater(object):
     def __init__(self,rotationPoint,rotationAngle):
@@ -61,13 +23,20 @@ class CoordinateTranslater(object):
         elif self.rotationAngle == '270':
             return (self.rotationPoint[0]+rsinq,self.rotationPoint[1]+rcosq)
 
-class PartPictureRotatable(PartPicture):
+class PartPicture(object):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation):
-        self.orientation=orientation
         self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2,(innerBox[0][1]+innerBox[1][1])/2)
+        self.origin=origin
+        self.pinListSupplied = pinList
+        self.innerBoxSupplied = innerBox
+        self.boundingBoxSupplied = boundingBox
+        self.propertiesLocationSupplied = propertiesLocation
+        self.ApplyOrientation(orientation)
+    def ApplyOrientation(self,orientation):
+        self.orientation = orientation
         ct=CoordinateTranslater(self.rotationPoint,self.orientation)
-        origin=ct.Translate(origin)
-        for pin in pinList:
+        self.pinList = copy.deepcopy(self.pinListSupplied)
+        for pin in self.pinList:
             if pin.pinOrientation=='t':
                 if self.orientation=='0':
                     pin.pinOrientation='t'
@@ -105,29 +74,89 @@ class PartPictureRotatable(PartPicture):
                 elif self.orientation=='270':
                     pin.pinOrientation='b'
             pin.pinConnectionPoint = ct.Translate(pin.pinConnectionPoint)
-        boundingBox=[ct.Translate(boundingBox[0]),ct.Translate(boundingBox[1])]
-        boundingBox=[(min(boundingBox[0][0],boundingBox[1][0]),min(boundingBox[0][1],boundingBox[1][1])),
-                     (max(boundingBox[0][0],boundingBox[1][0]),max(boundingBox[0][1],boundingBox[1][1]))]
-        innerBox=[ct.Translate(innerBox[0]),ct.Translate(innerBox[1])]
-        innerBox=[(min(innerBox[0][0],innerBox[1][0]),min(innerBox[0][1],innerBox[1][1])),
-                     (max(innerBox[0][0],innerBox[1][0]),max(innerBox[0][1],innerBox[1][1]))]
-        propertiesLocation=ct.Translate(propertiesLocation)
-        PartPicture.__init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation)
+        self.boundingBox=[ct.Translate(self.boundingBoxSupplied[0]),ct.Translate(self.boundingBoxSupplied[1])]
+        self.boundingBox=[(min(self.boundingBox[0][0],self.boundingBox[1][0]),min(self.boundingBox[0][1],self.boundingBox[1][1])),
+                     (max(self.boundingBox[0][0],self.boundingBox[1][0]),max(self.boundingBox[0][1],self.boundingBox[1][1]))]
+        self.innerBox=[ct.Translate(self.innerBoxSupplied[0]),ct.Translate(self.innerBoxSupplied[1])]
+        self.innerBox=[(min(self.innerBox[0][0],self.innerBox[1][0]),min(self.innerBox[0][1],self.innerBox[1][1])),
+                     (max(self.innerBox[0][0],self.innerBox[1][0]),max(self.innerBox[0][1],self.innerBox[1][1]))]
+        self.propertiesLocation=ct.Translate(self.propertiesLocationSupplied)
+    def Rotate(self):
+        if self.orientation == '0':
+            newOrientation = '90'
+        elif self.orientation == '90':
+            newOrientation = '180'
+        elif self.orientation == '180':
+            newOrientation = '270'
+        elif self.orientation == '270':
+            newOrientation = '0'
+        self.ApplyOrientation(newOrientation)
     def CoordinateTranslater(self,grid,drawingOrigin):
         return CoordinateTranslater(((drawingOrigin[0]+self.origin[0]+self.rotationPoint[0])*grid,
                                 (drawingOrigin[1]+self.origin[1]+self.rotationPoint[1])*grid),
-                                self.orientation)   
+                                self.orientation)
+    def InsertVisiblePartProperties(self,visiblePartPropertyList):
+        self.visiblePartPropertyList=visiblePartPropertyList
+    def SetOrigin(self,xy):
+        self.origin=tuple(xy)
+    def IsAt(self,xy):
+        x=xy[0]
+        y=xy[1]
+        if x < self.innerBox[0][0]+self.origin[0]:
+            return False
+        if x > self.innerBox[1][0]+self.origin[0]:
+            return False
+        if y < self.innerBox[0][1]+self.origin[1]:
+            return False
+        if y > self.innerBox[1][1]+self.origin[1]:
+            return False
+        return True
+    def WhereInPart(self,xy):
+        return (xy[0]-self.origin[0],xy[1]-self.origin[1])
+    def DrawDevice(self,canvas,grid,drawingOrigin,drawInnerBox=False):
+        if drawInnerBox:
+            canvas.create_rectangle((drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid,
+            (drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid,
+            (drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid,
+            (drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid)
+        for pin in self.pinList:
+            pin.DrawPin(canvas,grid,(self.origin[0]+drawingOrigin[0],self.origin[1]+drawingOrigin[1]))
+        for v in range(len(self.visiblePartPropertyList)):
+            canvas.create_text((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,(drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-10*v-10,text=self.visiblePartPropertyList[v],anchor='nw')
+    def PinCoordinates(self):
+        return [(pin.pinConnectionPoint[0]+self.origin[0],pin.pinConnectionPoint[1]+self.origin[1]) for pin in self.pinList]
+
+class PartPictureXMLClassFactory(object):
+    def __init__(self,xml):
+        partPictureClassList=[]
+        partPictureSelected = 0
+        origin=(0,0)
+        orientation='0'
+        for item in xml:
+            if item.tag == 'class_names':
+                for classNameElement in item:
+                    if classNameElement.tag == 'class_name':
+                        partPictureClassList.append(classNameElement.text)
+            elif item.tag == 'selected':
+                partPictureSelected = int(item.text)
+            elif item.tag == 'origin':
+                origin = eval(item.text)
+            elif item.tag == 'orientation':
+                orientation = item.text
+        self.result=PartPictureVariable(partPictureClassList,partPictureSelected,orientation)
+        self.result.current.SetOrigin(origin)
 
 class PartPictureVariable(object):
-    def __init__(self,partPictureClassList,partPictureSelected=0):
+    def __init__(self,partPictureClassList,partPictureSelected=0,orientation='0'):
         self.partPictureClassList = partPictureClassList
         self.partPictureSelected = partPictureSelected
+        self.orientation=orientation
         self.SwitchPartPicture(self.partPictureSelected)
     def PartPicture(self):
         return self.current
     def SwitchPartPicture(self,item):
         self.partPictureSelected = item
-        self.current=eval(self.partPictureClassList[self.partPictureSelected])()
+        self.current=eval(self.partPictureClassList[self.partPictureSelected])(self.orientation)
     def xml(self):
         thisElement=et.Element('part_picture')
         classNamesElement = et.Element('class_names')
@@ -141,131 +170,64 @@ class PartPictureVariable(object):
         selectedElement.text = str(self.partPictureSelected)
         originElement = et.Element('origin')
         originElement.text=str(self.current.origin)
-        thisElement.extend([classNamesElement,selectedElement,originElement])
+        orientationElement = et.Element('orientation')
+        orientationElement.text=str(self.current.orientation)
+        thisElement.extend([classNamesElement,selectedElement,originElement,orientationElement])
         return thisElement
 
-class PartPictureXMLClassFactory(object):
-    def __init__(self,xml):
-        partPictureClassList=[]
-        partPictureSelected = 0
-        origin=(0,0)
-        for item in xml:
-            if item.tag == 'class_names':
-                for classNameElement in item:
-                    if classNameElement.tag == 'class_name':
-                        partPictureClassList.append(classNameElement.text)
-            elif item.tag == 'selected':
-                partPictureSelected = int(item.text)
-            elif item.tag == 'origin':
-                origin = eval(item.text)
-        self.result=PartPictureVariable(partPictureClassList,partPictureSelected)
-        self.result.current.SetOrigin(origin)
-
-class PartPictureBoxRotatable(PartPictureRotatable):
+class PartPictureBox(PartPicture):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation):
-        PartPictureRotatable.__init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation)
+        PartPicture.__init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,True)
 
-class PartPictureOnePortRotatable(PartPictureBoxRotatable):
+class PartPictureOnePort(PartPictureBox):
     def __init__(self,orientation):
-        PartPictureBoxRotatable.__init__(self,(0,0),[PartPin(1,(0,1),'l')],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
-
-class PartPictureOnePort0(PartPictureOnePortRotatable):
-    def __init__(self):
-        PartPictureOnePortRotatable.__init__(self,'0')
-
-class PartPictureOnePort90(PartPictureOnePortRotatable):
-    def __init__(self):
-        PartPictureOnePortRotatable.__init__(self,'90')
-
-class PartPictureOnePort180(PartPictureOnePortRotatable):
-    def __init__(self):
-        PartPictureOnePortRotatable.__init__(self,'180')
-
-class PartPictureOnePort270(PartPictureOnePortRotatable):
-    def __init__(self):
-        PartPictureOnePortRotatable.__init__(self,'270')
-
-class PartPictureTwoPortRotatable(PartPictureBoxRotatable):
-    def __init__(self,orientation):
-        PartPictureBoxRotatable.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(4,1),'r')],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
-
-class PartPictureTwoPort0(PartPictureTwoPortRotatable):
-    def __init__(self):
-        PartPictureTwoPortRotatable.__init__(self,'0')
-
-class PartPictureTwoPort90(PartPictureTwoPortRotatable):
-    def __init__(self):
-        PartPictureTwoPortRotatable.__init__(self,'90')
-
-class PartPictureTwoPort180(PartPictureTwoPortRotatable):
-    def __init__(self):
-        PartPictureTwoPortRotatable.__init__(self,'180')
-
-class PartPictureTwoPort270(PartPictureTwoPortRotatable):
-    def __init__(self):
-        PartPictureTwoPortRotatable.__init__(self,'270')
-
-class PartPictureThreePortRotatable(PartPictureBoxRotatable):
-    def __init__(self,orientation):
-        PartPictureBoxRotatable.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(4,2),'r')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)
-
-class PartPictureThreePort0(PartPictureThreePortRotatable):
-    def __init__(self):
-        PartPictureThreePortRotatable.__init__(self,'0')
-
-class PartPictureThreePort90(PartPictureThreePortRotatable):
-    def __init__(self):
-        PartPictureThreePortRotatable.__init__(self,'90')
-
-class PartPictureThreePort180(PartPictureThreePortRotatable):
-    def __init__(self):
-        PartPictureThreePortRotatable.__init__(self,'180')
-
-class PartPictureThreePort270(PartPictureThreePortRotatable):
-    def __init__(self):
-        PartPictureThreePortRotatable.__init__(self,'270')
-
-class PartPictureFourPortRotatable(PartPictureBoxRotatable):
-    def __init__(self,orientation):
-        PartPictureBoxRotatable.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(4,1),'r'),PartPin(4,(4,3),'r')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)
-
-class PartPictureFourPort0(PartPictureFourPortRotatable):
-    def __init__(self):
-        PartPictureFourPortRotatable.__init__(self,'0')
-
-class PartPictureFourPort90(PartPictureFourPortRotatable):
-    def __init__(self):
-        PartPictureFourPortRotatable.__init__(self,'90')
-
-class PartPictureFourPort180(PartPictureFourPortRotatable):
-    def __init__(self):
-        PartPictureFourPortRotatable.__init__(self,'180')
-
-class PartPictureFourPort270(PartPictureFourPortRotatable):
-    def __init__(self):
-        PartPictureFourPortRotatable.__init__(self,'270')
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l')],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
 
 class PartPictureVariableOnePort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureOnePort0','PartPictureOnePort90','PartPictureOnePort180','PartPictureOnePort270'])
+        PartPictureVariable.__init__(self,['PartPictureOnePort'])
+
+class PartPictureTwoPort(PartPictureBox):
+    def __init__(self,orientation):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(4,1),'r')],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
+
+class PartPictureTwoPortSide(PartPictureBox):
+    def __init__(self,orientation):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)    
 
 class PartPictureVariableTwoPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureTwoPort0','PartPictureTwoPort90','PartPictureTwoPort180','PartPictureTwoPort270'])
+        PartPictureVariable.__init__(self,['PartPictureTwoPort','PartPictureTwoPortSide'])
+
+class PartPictureThreePort(PartPictureBox):
+    def __init__(self,orientation):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(4,2),'r')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)
+
+class PartPictureThreePortSide(PartPictureBox):
+    def __init__(self,orientation):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l')],[(1,0),(3,6)],[(0,0),(4,6)],(1,-1),orientation)    
 
 class PartPictureVariableThreePort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureThreePort0','PartPictureThreePort90','PartPictureThreePort180','PartPictureThreePort270'])
+        PartPictureVariable.__init__(self,['PartPictureThreePort','PartPictureThreePortSide'])
+
+class PartPictureFourPort(PartPictureBox):
+    def __init__(self,orientation):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(4,1),'r'),PartPin(4,(4,3),'r')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)
+
+class PartPictureFourPortSide(PartPictureBox):
+    def __init__(self,orientation):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l'),PartPin(4,(0,7),'l')],[(1,0),(3,8)],[(0,0),(4,8)],(1,-1),orientation)    
 
 class PartPictureVariableFourPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureFourPort0','PartPictureFourPort90','PartPictureFourPort180','PartPictureFourPort270'])
+        PartPictureVariable.__init__(self,['PartPictureFourPort','PartPictureFourPortSide'])
 
-class PartPicturePortRotatable(PartPictureRotatable):
+class PartPicturePort(PartPicture):
     def __init__(self,orientation):
-        PartPictureRotatable.__init__(self,(0,0),[PartPin(1,(3,1),'r',False)],[(1,1),(3,1)],[(0,0),(3,2)],(1,1),orientation)
+        PartPicture.__init__(self,(0,0),[PartPin(1,(3,1),'r',False)],[(1,1),(3,1)],[(0,0),(3,2)],(1,1),orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         lx=(drawingOrigin[0]+self.origin[0]+1)*grid+grid/2
         rx=(drawingOrigin[0]+self.origin[0]+2)*grid
@@ -277,29 +239,13 @@ class PartPicturePortRotatable(PartPictureRotatable):
         canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
-class PartPicturePort0(PartPicturePortRotatable):
-    def __init__(self):
-        PartPicturePortRotatable.__init__(self,'0')
-
-class PartPicturePort90(PartPicturePortRotatable):
-    def __init__(self):
-        PartPicturePortRotatable.__init__(self,'90')
-
-class PartPicturePort180(PartPicturePortRotatable):
-    def __init__(self):
-        PartPicturePortRotatable.__init__(self,'180')
-
-class PartPicturePort270(PartPicturePortRotatable):
-    def __init__(self):
-        PartPicturePortRotatable.__init__(self,'270')
-
 class PartPictureVariablePort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPicturePort0','PartPicturePort90','PartPicturePort180','PartPicturePort270'])
+        PartPictureVariable.__init__(self,['PartPicturePort'])
 
-class PartPictureGroundRotatable(PartPictureRotatable):
+class PartPictureGround(PartPicture):
     def __init__(self,orientation):
-        PartPictureRotatable.__init__(self,(0,0),[PartPin(1,(1,0),'t',True)],[(0,1),(3,2)],[(0,0),(3,2)],(3,1),orientation)
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',True)],[(0,1),(3,2)],[(0,0),(3,2)],(3,1),orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         lx=(drawingOrigin[0]+self.origin[0])*grid
         mx=lx+grid
@@ -311,29 +257,13 @@ class PartPictureGroundRotatable(PartPictureRotatable):
         canvas.create_polygon(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1],p[3][0],p[3][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
         
-class PartPictureGround0(PartPictureGroundRotatable):
-    def __init__(self):
-        PartPictureGroundRotatable.__init__(self,'0')
-
-class PartPictureGround180(PartPictureGroundRotatable):
-    def __init__(self):
-        PartPictureGroundRotatable.__init__(self,'180')
-
-class PartPictureGround90(PartPictureGroundRotatable):
-    def __init__(self):
-        PartPictureGroundRotatable.__init__(self,'90')
-
-class PartPictureGround270(PartPictureGroundRotatable):
-    def __init__(self):
-        PartPictureGroundRotatable.__init__(self,'270')        
-
 class PartPictureVariableGround(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureGround0','PartPictureGround90','PartPictureGround180','PartPictureGround270'])
+        PartPictureVariable.__init__(self,['PartPictureGround'])
 
-class PartPictureResistorTwoPortRotatable(PartPictureRotatable):
+class PartPictureResistorTwoPort(PartPicture):
     def __init__(self,orientation):
-        PartPictureRotatable.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
+        PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         my=(drawingOrigin[1]+self.origin[1])*grid+grid
         lx=(drawingOrigin[0]+self.origin[0]+1)*grid
@@ -359,29 +289,13 @@ class PartPictureResistorTwoPortRotatable(PartPictureRotatable):
                            p[8][0],p[8][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
-class PartPictureResistorTwoPort0(PartPictureResistorTwoPortRotatable):
-    def __init__(self):
-        PartPictureResistorTwoPortRotatable.__init__(self,'0')
-
-class PartPictureResistorTwoPort180(PartPictureResistorTwoPortRotatable):
-    def __init__(self):
-        PartPictureResistorTwoPortRotatable.__init__(self,'180')
-
-class PartPictureResistorTwoPort90(PartPictureResistorTwoPortRotatable):
-    def __init__(self):
-        PartPictureResistorTwoPortRotatable.__init__(self,'90')
-
-class PartPictureResistorTwoPort270(PartPictureResistorTwoPortRotatable):
-    def __init__(self):
-        PartPictureResistorTwoPortRotatable.__init__(self,'270')        
-
 class PartPictureVariableResistorTwoPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureResistorTwoPort0','PartPictureResistorTwoPort90','PartPictureResistorTwoPort180','PartPictureResistorTwoPort270'])
+        PartPictureVariable.__init__(self,['PartPictureResistorTwoPort'])
 
-class PartPictureCapacitorTwoPortRotatable(PartPictureRotatable):
+class PartPictureCapacitorTwoPort(PartPicture):
     def __init__(self,orientation):
-        PartPictureRotatable.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
+        PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ty=(drawingOrigin[1]+self.origin[1])*grid
         my=ty+grid
@@ -401,22 +315,6 @@ class PartPictureCapacitorTwoPortRotatable(PartPictureRotatable):
         canvas.create_line(p[3][0][0],p[3][0][1],p[3][1][0],p[3][1][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
-class PartPictureCapacitorTwoPort0(PartPictureCapacitorTwoPortRotatable):
-    def __init__(self):
-        PartPictureCapacitorTwoPortRotatable.__init__(self,'0')
-
-class PartPictureCapacitorTwoPort180(PartPictureCapacitorTwoPortRotatable):
-    def __init__(self):
-        PartPictureCapacitorTwoPortRotatable.__init__(self,'180')
-
-class PartPictureCapacitorTwoPort90(PartPictureCapacitorTwoPortRotatable):
-    def __init__(self):
-        PartPictureCapacitorTwoPortRotatable.__init__(self,'90')
-
-class PartPictureCapacitorTwoPort270(PartPictureCapacitorTwoPortRotatable):
-    def __init__(self):
-        PartPictureCapacitorTwoPortRotatable.__init__(self,'270')        
-
 class PartPictureVariableCapacitorTwoPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureCapacitorTwoPort0','PartPictureCapacitorTwoPort90','PartPictureCapacitorTwoPort180','PartPictureCapacitorTwoPort270'])
+        PartPictureVariable.__init__(self,['PartPictureCapacitorTwoPort'])
