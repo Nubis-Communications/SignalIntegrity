@@ -85,7 +85,7 @@ class DevicePropertiesDialog(Toplevel):
 
         self.buttonbox()
 
-        self.grab_set()
+        #self.grab_set()
 
         if not self.initial_focus:
             self.initial_focus = self

@@ -186,19 +186,40 @@ class PartPictureCapacitorTwoPortUp(PartPicture):
         canvas.create_line(mx,fy,mx,by)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
+class PartPictureResistorTwoPortLeft(PartPicture):
+    def __init__(self):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1))
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        my=(drawingOrigin[1]+self.origin[1])*grid+grid
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        canvas.create_line(lx,my,
+                           lx+grid/4,my-grid/2,
+                           lx+grid/2,my+grid/2,
+                           lx+3*grid/4,my-grid/2,
+                           lx+grid,my+grid/2,
+                           rx-3*grid/4,my-grid/2,
+                           rx-grid/2,my+grid/2,
+                           rx-grid/4,my-grid/2,
+                           rx,my)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+
 class PartPictureResistorTwoPortUp(PartPicture):
     def __init__(self):
         PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False),PartPin(2,(1,4),'b',False)],[(0,1),(2,3)],[(0,0),(2,4)],(3,1))
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0])*grid
-        mx=lx+grid
-        rx=mx+grid
+        mx=(drawingOrigin[0]+self.origin[0])*grid+grid
         iy=(drawingOrigin[1]+self.origin[1]+1)*grid
-        my=iy+grid
         by=(drawingOrigin[1]+self.origin[1]+3)*grid
-        canvas.create_line(mx,iy,lx,iy+grid/2)
-        canvas.create_line(lx,iy+grid/2,rx,by-grid/2)
-        canvas.create_line(rx,by-grid/2,mx,by)
+        canvas.create_line(mx,iy,
+                           mx+grid/2,iy+grid/4,
+                           mx-grid/2,iy+grid/2,
+                           mx+grid/2,iy+3*grid/4,
+                           mx-grid/2,iy+grid,
+                           mx+grid/2,by-3*grid/4,
+                           mx-grid/2,by-grid/2,
+                           mx+grid/2,by-grid/4,
+                           mx,by)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureGround(PartPicture):
@@ -278,7 +299,7 @@ class PartPictureVariableCapacitorTwoPort(PartPictureVariable):
 
 class PartPictureVariableResistorTwoPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureResistorTwoPortUp'])
+        PartPictureVariable.__init__(self,['PartPictureResistorTwoPortLeft','PartPictureResistorTwoPortUp'])
 
 class PartPictureVariableGround(PartPictureVariable):
     def __init__(self):
