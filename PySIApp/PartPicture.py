@@ -345,30 +345,117 @@ class PartPictureVariableVoltageSourceTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceTwoPort'])
 
+class PartPictureVoltageSourceOnePort(PartPicture):
+    def __init__(self,orientation):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,5)],[(0,0),(2,5)],(2,1),orientation)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
+        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
+        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1])
+        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
+        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
+        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
+           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
+           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1])
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1])
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])
+        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        glx=gmx-grid
+        grx=gmx+grid
+        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
+        gty=gby-grid
+        p=[ct.Translate((gmx,gty-grid)),
+           ct.Translate((gmx,gty)),
+           ct.Translate((glx,gty)),
+           ct.Translate((gmx,gby)),
+           ct.Translate((grx,gty)),
+           ct.Translate((gmx,gty))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1])
+        canvas.create_polygon(p[1][0],p[1][1],
+                           p[2][0],p[2][1],
+                           p[3][0],p[3][1],
+                           p[4][0],p[4][1],
+                           p[5][0],p[5][1])
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableVoltageSourceOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceOnePort'])
+
 class PartPictureCurrentSourceTwoPort(PartPicture):
     def __init__(self,orientation):
         PartPicture.__init__(self,(0,0),[PartPin(2,(1,0),'t',False),PartPin(1,(1,4),'b',False)],[(0,1),(2,3)],[(0,0),(2,4)],(2,1),orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid
-        ly=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid
-        ux=(drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid
-        uy=(drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid
+        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
+        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
+        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
         canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1])
-        px=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid+grid
-        py=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid+grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid+grid+grid/2
+        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
+        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
         p=[[ct.Translate((px-grid/4,py)),ct.Translate((px,py-grid/4))],
            [ct.Translate((px+grid/4,py)),ct.Translate((px,py-grid/4))],
            [ct.Translate((px,my+grid/4)),ct.Translate((px,py-grid/4))]]
         canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1])
         canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1])
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])        
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])
+       
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentSourceTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceTwoPort'])
+
+class PartPictureCurrentSourceOnePort(PartPicture):
+    def __init__(self,orientation):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,3)],[(0,0),(2,4)],(2,1),orientation)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
+        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
+        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1])
+        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
+        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
+        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px,py-grid/4))],
+           [ct.Translate((px+grid/4,py)),ct.Translate((px,py-grid/4))],
+           [ct.Translate((px,my+grid/4)),ct.Translate((px,py-grid/4))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1])
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1])
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])
+        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        glx=gmx-grid
+        grx=gmx+grid
+        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
+        gty=gby-grid
+        p=[ct.Translate((gmx,gty-grid)),
+           ct.Translate((gmx,gty)),
+           ct.Translate((glx,gty)),
+           ct.Translate((gmx,gby)),
+           ct.Translate((grx,gty)),
+           ct.Translate((gmx,gty))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1])
+        canvas.create_polygon(p[1][0],p[1][1],
+                           p[2][0],p[2][1],
+                           p[3][0],p[3][1],
+                           p[4][0],p[4][1],
+                           p[5][0],p[5][1])       
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourceOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceOnePort'])
         
 

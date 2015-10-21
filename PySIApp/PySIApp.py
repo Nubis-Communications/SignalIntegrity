@@ -27,7 +27,6 @@ class NetListDialog(Toplevel):
         Toplevel.__init__(self, parent)
         self.transient(parent)
 
-
         self.title('NetList')
 
         self.parent = parent

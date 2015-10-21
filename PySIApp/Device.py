@@ -141,6 +141,8 @@ DeviceList = [
               DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
               DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureVariableFourPort()),
               DeviceGround(),
+              DeviceVoltageSource([PartPropertyDescription('One\ Port\ Voltage\ Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
               DeviceVoltageSource([PartPropertyDescription('Two\ Port\ Voltage\ Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
+              DeviceCurrentSource([PartPropertyDescription('One\ Port\ Current\ Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
               DeviceCurrentSource([PartPropertyDescription('Two\ Port\ Current\ Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort())
               ]
