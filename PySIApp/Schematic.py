@@ -111,7 +111,7 @@ class SchematicFrame(Frame):
         self.canvas.bind('<Button-4>',self.onMouseWheel)
         self.canvas.bind('<MouseWheel>',self.onMouseWheel)
         self.canvas.bind('<Motion>',self.onMouseMotion)
-        self.grid=10
+        self.grid=32
         self.originx=0
         self.originy=0
         self.partLoaded = None

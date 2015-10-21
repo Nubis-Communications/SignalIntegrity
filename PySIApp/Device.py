@@ -116,6 +116,18 @@ class DeviceGround(Device):
     def NetListLine(self):
         return Device.NetListLine(self)+' ground'
 
+class DeviceVoltageSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Voltage Source'),PartPropertyFileName()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+
+class DeviceCurrentSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Current Source'),PartPropertyFileName()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
               DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
@@ -128,5 +140,7 @@ DeviceList = [
               DeviceInductor([PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
               DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
               DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureVariableFourPort()),
-              DeviceGround()
+              DeviceGround(),
+              DeviceVoltageSource([PartPropertyDescription('Two\ Port\ Voltage\ Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
+              DeviceCurrentSource([PartPropertyDescription('Two\ Port\ Current\ Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort())
               ]
