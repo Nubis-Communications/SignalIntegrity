@@ -39,7 +39,7 @@ class Device(object):
         for partProperty in self.propertiesList:
             if partProperty.visible:
                 value = str(partProperty.value)
-                if partProperty.propertyName == 'filename':
+                if partProperty.propertyName == 'filename' or partProperty.propertyName == 'waveformfilename':
                     value = value.split('/')[-1]
                 visiblePartPropertyList.append(value)
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
@@ -84,25 +84,25 @@ class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Resistors'),PartPropertyPartName('Resistor'),PartPropertyResistance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' r '+self[PartPropertyResistance().propertyName].value
+        return Device.NetListLine(self)+' R '+self[PartPropertyResistance().propertyName].value
 
 class DeviceCapacitor(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyCapacitance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' c '+self[PartPropertyCapacitance().propertyName].value
+        return Device.NetListLine(self)+' C '+self[PartPropertyCapacitance().propertyName].value
 
 class DeviceInductor(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyPorts(1)]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' l '+self[PartPropertyInductance().propertyName].value
+        return Device.NetListLine(self)+' L '+self[PartPropertyInductance().propertyName].value
 
 class DeviceMutual(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyPorts(4),PartPropertyInductance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' m '+self[PartPropertyInductance().propertyName].value
+        return Device.NetListLine(self)+' M '+self[PartPropertyInductance().propertyName].value
 
 class Port(Device):
     def __init__(self,portNumber):
@@ -118,15 +118,33 @@ class DeviceGround(Device):
 
 class DeviceVoltageSource(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Voltage Source'),PartPropertyFileName()]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Voltage Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
 
 class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Current Source'),PartPropertyFileName()]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Current Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+
+class DeviceMeasurement(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,propertiesList,partPicture)
+    def NetListLine(self):
+        return 'meas'
+
+class DeviceOutput(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,propertiesList,partPicture)
+    def NetListLine(self):
+        return 'output'
+
+class DeviceMixedModeConverter(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Mixed Mode Converter'),PartPropertyDescription('Mixed\ Mode\ Converter'),PartPropertyPorts(4)],PartPictureVariableFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' mixedmode'
 
 DeviceList = [
               DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
@@ -144,5 +162,8 @@ DeviceList = [
               DeviceVoltageSource([PartPropertyDescription('One\ Port\ Voltage\ Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
               DeviceVoltageSource([PartPropertyDescription('Two\ Port\ Voltage\ Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
               DeviceCurrentSource([PartPropertyDescription('One\ Port\ Current\ Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
-              DeviceCurrentSource([PartPropertyDescription('Two\ Port\ Current\ Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort())
+              DeviceCurrentSource([PartPropertyDescription('Two\ Port\ Current\ Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
+              DeviceMeasurement([PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDescription('Measure')],PartPictureVariableProbe()),
+              DeviceOutput([PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDescription('Output')],PartPictureVariableProbe()),
+              DeviceMixedModeConverter()
               ]

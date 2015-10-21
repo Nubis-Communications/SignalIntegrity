@@ -58,7 +58,7 @@ class DeviceProperties(Frame):
     def onOrientationChange(self):
         self.device.partPicture.current.ApplyOrientation(self.orientationString.get())
         self.partPictureCanvas.delete(ALL)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)      
+        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
 
     def onMouseButton1InPartPicture(self,event):
         numPictures=len(self.device.partPicture.partPictureClassList)
@@ -83,6 +83,10 @@ class DeviceProperties(Frame):
         if self.device.propertiesList[arg].propertyName == PartPropertyFileName().propertyName:
             extension='.s'+str(self.device['ports'].value)+'p'
             filename=askopenfilename(filetypes=[('s-parameters', extension)])
+            self.propertyStrings[arg].set(filename)
+        elif self.device.propertiesList[arg].propertyName == PartPropertyWaveformFileName().propertyName:
+            extension='.txt'
+            filename=askopenfilename(filetypes=[('waveforms', extension)])
             self.propertyStrings[arg].set(filename)
 
 class DevicePropertiesDialog(Toplevel):

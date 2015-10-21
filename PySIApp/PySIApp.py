@@ -142,6 +142,7 @@ class TheApp(Frame):
         CalcMenu=Menu(menu)
         menu.add_cascade(label='Calculate',menu=CalcMenu)
         CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
+        CalcMenu.add_command(label='Simulate',command=self.onSimulate)
 
 #         self.DeviceFrame = DeviceFrame(self)
 #         self.DeviceFrame.pack(side=LEFT, fill=Y, expand=NO)
@@ -184,7 +185,7 @@ class TheApp(Frame):
         if filename=='':
             return
         self.SchematicFrame.schematic.WriteToFile(filename)
-        
+
     def onClearSchematic(self):
         self.SchematicFrame.schematic.Clear()
         self.SchematicFrame.DrawSchematic()
@@ -239,7 +240,48 @@ class TheApp(Frame):
         if filename == '':
             return
         sp.WriteToFile(filename)
-        pass
+
+    def onSimulate(self):
+        netList=self.SchematicFrame.schematic.NetList()
+        import SignalIntegrity as si
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(40e9/2,200))
+        snp.AddLines(netList)
+        tm=snp.TransferMatrices()
+
+##        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,41*40,40e9))
+##        stepin.WriteToFile('Step.txt')
+
+##        sp=tm.SParameters()
+##        ports=sp.m_P
+##        extension='.s'+str(ports)+'p'
+##        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension)
+##        if filename == '':
+##            return
+##        sp.WriteToFile(filename)
+
+        tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
+
+        inputWaveformList = []
+        for device in self.SchematicFrame.schematic.deviceList:
+            deviceType = device[PartPropertyPartName().propertyName].value
+            if deviceType == 'Voltage Source' or deviceType == 'Current Source':
+                fileName = device[PartPropertyWaveformFileName().propertyName].value
+                waveform = si.td.wf.Waveform().ReadFromFile(fileName)
+                inputWaveformList.append(waveform)
+
+        outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
+        outputWaveformLabels = snp.m_sd.pOutputList
+
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+
+        for wfi in range(len(outputWaveformList)):
+            plt.plot(outputWaveformList[wfi].Times('ns'),outputWaveformList[wfi].Values(),label=str(outputWaveformLabels[wfi]))
+        plt.legend(loc='upper right')
+        plt.show()
+
 def main():
     app=TheApp()
 

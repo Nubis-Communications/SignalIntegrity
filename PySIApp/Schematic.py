@@ -56,45 +56,99 @@ class Schematic(object):
         wireList = self.wireList
         # put all devices in the net list
         for device in deviceList:
-            if device[PartPropertyPartName().propertyName].value != 'Port':
+            deviceType = device[PartPropertyPartName().propertyName].value
+            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
                 thisline=device.NetListLine()
                 textToShow.append(thisline)
         # gather up all device pin coordinates
-        dpc = [device.PinCoordinates() for device in deviceList]
-        # make list of all net device port connections
-        netList = []
-        for wire in wireList:
-            thisNet = []
-            if len(wire) > 1:
-                for d in range(len(dpc)):
-                    for p in range(len(dpc[d])):
+        devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
+        devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
+        deviceConnectionList = []
+        for deviceIndex in range(len(devicePinCoordinateList)):
+            devicePinConnectionList = []
+            for pinIndex in range(len(devicePinCoordinateList[deviceIndex])):
+                thisDevicePinCoordinate = devicePinCoordinateList[deviceIndex][pinIndex]
+                thisListOfConnectedDevicePins=[]
+                if devicePinNeedToCheckList[deviceIndex][pinIndex]:
+                    # search all device pins and wire vertices for this coordinate
+                    for deviceCheckIndex in range(len(devicePinCoordinateList)):
+                        for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
+                            thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
+                            if thisDevicePinCoordinate == thisDevicePinCheckCoordinate:
+                                thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
+                    for wire in wireList:
+                        thisWireConnectedToThisDevicePin = False
                         for vertex in wire:
-                            if vertex == dpc[d][p]:
-                                thisNet.append((d,p))
-            netList.append(list(set(thisNet)))
-        # make connections
+                            if vertex == thisDevicePinCoordinate:
+                                thisWireConnectedToThisDevicePin = True
+                                break
+                        if thisWireConnectedToThisDevicePin:
+                            for vertex in wire:
+                                for deviceCheckIndex in range(len(devicePinCoordinateList)):
+                                    for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
+                                        thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
+                                        if vertex == thisDevicePinCheckCoordinate:
+                                            thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
+                    thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
+                    for connectedDevicePins in thisListOfConnectedDevicePins:
+                        connectedDeviceIndex=connectedDevicePins[0]
+                        connectedPinIndex=connectedDevicePins[1]
+                        devicePinNeedToCheckList[connectedDeviceIndex][connectedPinIndex]=False
+                devicePinConnectionList.append(thisListOfConnectedDevicePins)
+            deviceConnectionList.append(devicePinConnectionList)
+        netList = []
+        for deviceConnection in deviceConnectionList:
+            for devicePinConnection in deviceConnection:
+                if len(devicePinConnection) > 1:
+                    netList.append(devicePinConnection)
         for net in netList:
-            if len(net) > 1: # at least two device ports are connected by this wire
-                # determine whether one of these devices is a port
-                isAPortConnection=False
-                for dp in net:
-                    if deviceList[dp[0]][PartPropertyPartName().propertyName].value == 'Port':
-                        isAPortConnection=True
-                        thisConnectionString = deviceList[dp[0]].NetListLine()
-                        break
-                if isAPortConnection:
-                    for dp in net:
-                        if deviceList[dp[0]][PartPropertyPartName().propertyName].value != 'Port':
-                            thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
-                else:
-                    thisConnectionString = 'connect'
-                    for dp in net:
-                        thisConnectionString = thisConnectionString + ' '+str(deviceList[dp[0]][PartPropertyReferenceDesignator().propertyName].value)+' '+str(dp[1]+1)
+            measureList=[]
+            outputList=[]
+            portList=[]
+            # gather up list of all measures, outputs, and ports
+            for devicePin in net:
+                deviceIndex=devicePin[0]
+                pinIndex=devicePin[1]
+                thisDevice=self.deviceList[deviceIndex]
+                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].value
+                if thisDevicePartName == 'Port':
+                    portList.append(devicePin)
+                elif thisDevicePartName == 'Output':
+                    outputList.append(devicePin)
+                elif thisDevicePartName == 'Measure':
+                    outputList.append(devicePin)
+            #remove all of the ports, outputs and measures from the net
+            net = list(set(net)-set(measureList)-set(portList)-set(outputList))
+            if len(net) > 0:
+                # for the measures, outputs and ports, we just need one device/port, so we use the first one
+                deviceIndexOfFirstDeviceInNet = net[0][0]
+                pinIndexOfFirstDeviceInNet = net[0][1]
+                firstDeviceName = self.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].value
+                firstDevicePinNumber = self.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet].pinNumber
+                devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
+                for measure in measureList:
+                    deviceIndex = measure[0]
+                    textToShow.append(self.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                for output in outputList:
+                    deviceIndex = output[0]
+                    textToShow.append(self.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                for port in portList:
+                    deviceIndex = port[0]
+                    textToShow.append(self.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+            if len(net) > 1:
+                # list the connections
+                thisConnectionString = 'connect'
+                for devicePortIndex in net:
+                    deviceIndex = devicePortIndex[0]
+                    pinIndex = devicePortIndex[1]
+                    deviceName = self.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].value
+                    pinNumber = self.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
+                    thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 textToShow.append(thisConnectionString)
         return textToShow
     def Clear(self):
         self.deviceList = []
-        self.wireList = []        
+        self.wireList = []
 
 class SchematicFrame(Frame):
     def __init__(self,parent):

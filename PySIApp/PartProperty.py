@@ -73,6 +73,10 @@ class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'filename',description='file name',value=fileName)
 
+class PartPropertyWaveformFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'waveformfilename',description='file name',value=fileName)
+
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.):
         PartProperty.__init__(self,'resistence',keyword='r',description='resistance (Ohms)',value=resistance,visible=True)

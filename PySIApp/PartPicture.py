@@ -195,7 +195,7 @@ class PartPictureTwoPort(PartPictureBox):
 
 class PartPictureTwoPortSide(PartPictureBox):
     def __init__(self,orientation):
-        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)    
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation)
 
 class PartPictureVariableTwoPort(PartPictureVariable):
     def __init__(self):
@@ -207,7 +207,7 @@ class PartPictureThreePort(PartPictureBox):
 
 class PartPictureThreePortSide(PartPictureBox):
     def __init__(self,orientation):
-        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l')],[(1,0),(3,6)],[(0,0),(4,6)],(1,-1),orientation)    
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l')],[(1,0),(3,6)],[(0,0),(4,6)],(1,-1),orientation)
 
 class PartPictureVariableThreePort(PartPictureVariable):
     def __init__(self):
@@ -219,7 +219,7 @@ class PartPictureFourPort(PartPictureBox):
 
 class PartPictureFourPortSide(PartPictureBox):
     def __init__(self,orientation):
-        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l'),PartPin(4,(0,7),'l')],[(1,0),(3,8)],[(0,0),(4,8)],(1,-1),orientation)    
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l'),PartPin(4,(0,7),'l')],[(1,0),(3,8)],[(0,0),(4,8)],(1,-1),orientation)
 
 class PartPictureVariableFourPort(PartPictureVariable):
     def __init__(self):
@@ -245,7 +245,7 @@ class PartPictureVariablePort(PartPictureVariable):
 
 class PartPictureGround(PartPicture):
     def __init__(self,orientation):
-        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',True)],[(0,1),(3,2)],[(0,0),(3,2)],(3,1),orientation)
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(3,2)],[(0,0),(3,2)],(3,1),orientation)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         lx=(drawingOrigin[0]+self.origin[0])*grid
         mx=lx+grid
@@ -256,7 +256,7 @@ class PartPictureGround(PartPicture):
         p=[ct.Translate((lx,ty)),ct.Translate((rx,ty)),ct.Translate((mx,by)),ct.Translate((lx,ty))]
         canvas.create_polygon(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1],p[3][0],p[3][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
-        
+
 class PartPictureVariableGround(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureGround'])
@@ -338,7 +338,7 @@ class PartPictureVoltageSourceTwoPort(PartPicture):
            [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
         canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1])
         canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1])
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])        
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableVoltageSourceTwoPort(PartPictureVariable):
@@ -408,7 +408,7 @@ class PartPictureCurrentSourceTwoPort(PartPicture):
         canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1])
         canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1])
         canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1])
-       
+
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentSourceTwoPort(PartPictureVariable):
@@ -451,11 +451,24 @@ class PartPictureCurrentSourceOnePort(PartPicture):
                            p[2][0],p[2][1],
                            p[3][0],p[3][1],
                            p[4][0],p[4][1],
-                           p[5][0],p[5][1])       
+                           p[5][0],p[5][1])
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentSourceOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceOnePort'])
-        
 
+class PartPictureProbe(PartPicture):
+    def __init__(self,orientation):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(0,2),'l',False,False)],[(0,1),(1,2)],[(0,0),(2,2)],(1,1),orientation)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        lx=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid
+        ly=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid
+        ux=(drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid
+        uy=(drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid
+        canvas.create_line(ux,ly,lx,uy)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableProbe(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureProbe'])
