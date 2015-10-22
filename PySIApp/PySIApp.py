@@ -12,6 +12,7 @@ from Device import *
 from DeviceProperties import *
 from DevicePicker import *
 from Schematic import *
+from PlotWindow import *
 
 class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
@@ -133,6 +134,7 @@ class TheApp(Frame):
         PartsMenu.add_command(label='Add Part',command=self.onAddPart)
         PartsMenu.add_command(label='Add Wire',command=self.onAddWire)
         PartsMenu.add_command(label='Add Port',command=self.onAddPort)
+        PartsMenu.add_command(label='Duplicate',command=self.onDuplicate)
 
         ZoomMenu=Menu(menu)
         menu.add_cascade(label='Zoom',menu=ZoomMenu)
@@ -151,6 +153,8 @@ class TheApp(Frame):
 
 #         self.DeviceFrame.Picker.tree.bind('<<TreeviewSelect>>',self.onPartSelection)
         root.bind('<Key>',self.onKey)
+        
+        self.plotDialog=None
 
         root.mainloop()
 
@@ -203,6 +207,12 @@ class TheApp(Frame):
             dpe=DevicePropertiesDialog(self,devicePicked)
             self.SchematicFrame.partLoaded = dpe.result
 
+    def onDuplicate(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.partLoaded=copy.deepcopy(self.SchematicFrame.deviceSelected) 
+        self.SchematicFrame.deviceSelected = None
+        self.SchematicFrame.wireSelected = False
+
     def onAddWire(self):
         self.SchematicFrame.deviceSelected = None
         self.SchematicFrame.wireSelected = False
@@ -244,12 +254,12 @@ class TheApp(Frame):
     def onSimulate(self):
         netList=self.SchematicFrame.schematic.NetList()
         import SignalIntegrity as si
-        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(40e9/2,200))
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(40e9/2,400))
         snp.AddLines(netList)
         tm=snp.TransferMatrices()
 
-##        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,41*40,40e9))
-##        stepin.WriteToFile('Step.txt')
+#         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,41*40,40e9))
+#         stepin.WriteToFile('Step.txt')
 
 ##        sp=tm.SParameters()
 ##        ports=sp.m_P
@@ -271,16 +281,15 @@ class TheApp(Frame):
 
         outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
         outputWaveformLabels = snp.m_sd.pOutputList
+        
+        if self.plotDialog == None:
+            self.plotDialog=PlotDialog(self)
+        else:
+            if not self.plotDialog.winfo_exists():
+                self.plotDialog=PlotDialog(self)
 
-        import matplotlib.pyplot as plt
-        plt.clf()
-        plt.xlabel('time (ns)')
-        plt.ylabel('amplitude')
-
-        for wfi in range(len(outputWaveformList)):
-            plt.plot(outputWaveformList[wfi].Times('ns'),outputWaveformList[wfi].Values(),label=str(outputWaveformLabels[wfi]))
-        plt.legend(loc='upper right')
-        plt.show()
+        self.plotDialog.UpdateWaveforms(outputWaveformList,outputWaveformLabels)
+        self.plotDialog.state('normal')
 
 def main():
     app=TheApp()

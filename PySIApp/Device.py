@@ -142,7 +142,7 @@ class DeviceOutput(Device):
 
 class DeviceMixedModeConverter(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Mixed Mode Converter'),PartPropertyDescription('Mixed\ Mode\ Converter'),PartPropertyPorts(4)],PartPictureVariableFourPort())
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Mixed Mode Converter'),PartPropertyDescription('Mixed\ Mode\ Converter'),PartPropertyPorts(4)],PartPictureVariableMixedModeConverter())
     def NetListLine(self):
         return Device.NetListLine(self)+' mixedmode'
 
@@ -151,7 +151,7 @@ DeviceList = [
               DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
               DeviceFile([PartPropertyDescription('Three\ Port\ File'),PartPropertyPorts(3)],PartPictureVariableThreePort()),
               DeviceFile([PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4)],PartPictureVariableFourPort()),
-              DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),
               DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
               DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
               DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
