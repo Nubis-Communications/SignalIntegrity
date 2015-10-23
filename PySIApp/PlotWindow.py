@@ -44,6 +44,8 @@ class PlotDialog(Toplevel):
         
     def UpdateWaveforms(self,waveformList, waveformNamesList):
         self.plt.cla()
+        self.plt.set_xlabel('time (ns)')
+        self.plt.set_ylabel('amplitude')     
         
         if not self.waveformList == None:
             self.plt.autoscale(False)

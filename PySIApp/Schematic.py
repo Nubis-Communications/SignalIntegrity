@@ -51,6 +51,7 @@ class Schematic(object):
                         wire.append(eval(vertexElement.text))
                     self.wireList.append(wire)
     def NetList(self):
+        self.ConsolidateWires()
         textToShow=[]
         deviceList = self.deviceList
         wireList = self.wireList
@@ -149,6 +150,68 @@ class Schematic(object):
     def Clear(self):
         self.deviceList = []
         self.wireList = []
+    def ConsolidateWires(self):
+        keepDeletingWires = True
+        while keepDeletingWires:
+            keepDeletingWires= False
+            for wireIndex in range(len(self.wireList)):
+                wire = self.wireList[wireIndex]
+                if len(wire) < 2:
+                    del self.wireList[wireIndex]
+                    keepDeletingWires=True
+                    break
+                else:
+                    keepDeletingVertices = True
+                    while keepDeletingVertices:
+                        keepDeletingVertices=False
+                        for vertexIndex in range(1,len(wire)):
+                            thisVertex = wire[vertexIndex]
+                            lastVertex = wire[vertexIndex-1]
+                            if thisVertex == lastVertex:
+                                del self.wireList[wireIndex][vertexIndex]
+                                keepDeletingVertices = True
+                                break
+        # at this point, all wires have at least two coordinates and no adjacent coordinates are the same                    
+        removeWireIndexList = [False for index in range(len(self.wireList))]
+        for thisWireIndex in range(len(self.wireList)):
+            if not removeWireIndexList[thisWireIndex]:
+                if len(self.wireList[thisWireIndex])<2:
+                    removeWireIndexList[thisWireIndex]=True
+            if not removeWireIndexList[thisWireIndex]:
+                for otherWireIndex in range(thisWireIndex+1,len(self.wireList)):
+                    thisWireStartPoint=self.wireList[thisWireIndex][0]
+                    thisWireEndPoint=self.wireList[thisWireIndex][-1]
+                    if not removeWireIndexList[otherWireIndex]:
+                        if len(self.wireList[otherWireIndex])<2:
+                            removeWireIndexList[otherWireIndex]=True
+                    if not removeWireIndexList[otherWireIndex]:
+                        otherWireStartPoint=self.wireList[otherWireIndex][0]
+                        otherWireEndPoint=self.wireList[otherWireIndex][-1]
+                        if thisWireEndPoint == otherWireStartPoint:
+                            self.wireList[thisWireIndex]=self.wireList[thisWireIndex]+self.wireList[otherWireIndex][1:]
+                            removeWireIndexList[otherWireIndex]=True
+                        elif thisWireStartPoint == otherWireEndPoint:
+                            self.wireList[thisWireIndex]=self.wireList[otherWireIndex]+self.wireList[thisWireIndex][1:]
+                            removeWireIndexList[otherWireIndex]=True
+                        elif thisWireStartPoint == otherWireStartPoint:
+                            self.wireList[otherWireIndex].reverse()
+                            self.wireList[thisWireIndex]= self.wireList[otherWireIndex]+self.wireList[thisWireIndex][1:]
+                            removeWireIndexList[otherWireIndex]=True
+                        elif thisWireEndPoint == otherWireEndPoint:
+                            self.wireList[otherWireIndex].reverse()
+                            self.wireList[thisWireIndex]=self.wireList[thisWireIndex]+self.wireList[otherWireIndex][1:]
+                            removeWireIndexList[otherWireIndex]=True
+        
+        # remove all of the wires to be removed
+        keepDeletingWires = True
+        while keepDeletingWires:
+            keepDeletingWires = False
+            for wireIndex in range(len(self.wireList)):
+                if removeWireIndexList[wireIndex]==True:
+                    del self.wireList[wireIndex]
+                    del removeWireIndexList[wireIndex]
+                    keepDeletingWires=True
+                    break                               
 
 class SchematicFrame(Frame):
     def __init__(self,parent):

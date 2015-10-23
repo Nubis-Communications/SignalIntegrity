@@ -308,7 +308,7 @@ class PartPictureVariableGround(PartPictureVariable):
 
 class PartPictureResistorTwoPort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
-        PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,-1),orientation,mirroredHorizontally,mirroredVertically)
+        PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,0),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         my=(drawingOrigin[1]+self.origin[1])*grid+grid
         lx=(drawingOrigin[0]+self.origin[0]+1)*grid
@@ -569,9 +569,9 @@ class PartPictureVariableProbe(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureProbe'])
 
-class PartPictureMixedModeConverter(PartPictureFourPort):
+class PartPictureMixedModeConverter(PartPictureBox):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureFourPort.__init__(self,orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(0,3),'l',False),PartPin(3,(4,1),'r',False),PartPin(4,(4,3),'r',False)],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
         lx=(drawingOrigin[0]+self.origin[0]+1)*grid+grid/2
         ty=(drawingOrigin[1]+self.origin[1]+1)*grid
@@ -586,7 +586,7 @@ class PartPictureMixedModeConverter(PartPictureFourPort):
         canvas.create_text(p[1][0],p[1][1],text='-')
         canvas.create_text(p[2][0],p[2][1],text='D')
         canvas.create_text(p[3][0],p[3][1],text='C')
-        PartPictureFourPort.DrawDevice(self,canvas,grid,drawingOrigin)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
         
 class PartPictureVariableMixedModeConverter(PartPictureVariable):
     def __init__(self):
