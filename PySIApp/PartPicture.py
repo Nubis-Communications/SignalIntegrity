@@ -362,6 +362,88 @@ class PartPictureVariableInductorTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureInductorTwoPort'])
 
+class PartPictureMutual(PartPicture):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(3,(0,3),'l',False),PartPin(2,(4,1),'r',False),PartPin(4,(4,3),'r',False)],[(1,0),(3,4)],[(0,0),(4,4)],(1,-1),orientation,mirroredHorizontally,mirroredVertically)
+    def ArcConverter(self,start,extent,rotationAngle,mirroredVertically,mirroredHorizontally):
+        start=(start+rotationAngle)%360
+        if mirroredVertically:
+            extent=-extent
+            if start==90 or start==270:
+                start=(start+180)%360
+        if mirroredHorizontally:
+            extent=-extent
+            if start==0 or start==180:
+                start=(start+180)%360
+        return [start,extent]
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        my=(drawingOrigin[1]+self.origin[1])*grid+grid
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)        
+        p=[ct.Translate((lx,my+grid/2)),
+           ct.Translate((lx+grid/2,my-grid/2)),
+           ct.Translate((lx,my+3*grid/2)),
+           ct.Translate((lx+grid/2,my-grid/2)),
+           ct.Translate((lx+grid/2,my+3*grid/2)),
+           ct.Translate((lx+grid,my-grid/2)),
+           ct.Translate((rx-grid,my+3*grid/2)),
+           ct.Translate((rx-grid/2,my-grid/2)),
+           ct.Translate((rx-grid/2,my+3*grid/2)),
+           ct.Translate((rx,my-grid/2)),
+           ct.Translate((rx-grid/2,my+grid/2)),
+           ct.Translate((rx,my-grid/2))]
+        r0=self.ArcConverter(90,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r1=self.ArcConverter(0,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r2=self.ArcConverter(0,180,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r3=self.ArcConverter(90,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r4=self.ArcConverter(0,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r0[0],extent=r0[1],style='arc',outline=self.color)
+        canvas.create_arc(p[2][0],p[2][1],p[3][0],p[3][1],start=r1[0],extent=r1[1],style='arc',outline=self.color)
+        canvas.create_arc(p[5][0],p[5][1],p[4][0],p[4][1],start=r2[0],extent=r2[1],style='arc',outline=self.color)
+        canvas.create_arc(p[6][0],p[6][1],p[7][0],p[7][1],start=r2[0],extent=r2[1],style='arc',outline=self.color)
+        canvas.create_arc(p[8][0],p[8][1],p[9][0],p[9][1],start=r3[0],extent=r3[1],style='arc',outline=self.color)
+        canvas.create_arc(p[10][0],p[10][1],p[11][0],p[11][1],start=r4[0],extent=r4[1],style='arc',outline=self.color)
+
+        my=(drawingOrigin[1]+self.origin[1]+3)*grid
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)        
+        p=[ct.Translate((lx,my+grid/2)),
+           ct.Translate((lx+grid/2,my-grid/2)),
+           ct.Translate((lx,my+3*grid/2)),
+           ct.Translate((lx+grid/2,my-grid/2)),
+           ct.Translate((lx+grid/2,my+3*grid/2)),
+           ct.Translate((lx+grid,my-grid/2)),
+           ct.Translate((rx-grid,my+3*grid/2)),
+           ct.Translate((rx-grid/2,my-grid/2)),
+           ct.Translate((rx-grid/2,my+3*grid/2)),
+           ct.Translate((rx,my-grid/2)),
+           ct.Translate((rx-grid/2,my+grid/2)),
+           ct.Translate((rx,my-grid/2))]
+        r0=self.ArcConverter(90,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r1=self.ArcConverter(0,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r2=self.ArcConverter(0,180,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r3=self.ArcConverter(90,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        r4=self.ArcConverter(0,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r0[0],extent=r0[1],style='arc',outline=self.color)
+        canvas.create_arc(p[2][0],p[2][1],p[3][0],p[3][1],start=r1[0],extent=r1[1],style='arc',outline=self.color)
+        canvas.create_arc(p[5][0],p[5][1],p[4][0],p[4][1],start=r2[0],extent=r2[1],style='arc',outline=self.color)
+        canvas.create_arc(p[6][0],p[6][1],p[7][0],p[7][1],start=r2[0],extent=r2[1],style='arc',outline=self.color)
+        canvas.create_arc(p[8][0],p[8][1],p[9][0],p[9][1],start=r3[0],extent=r3[1],style='arc',outline=self.color)
+        canvas.create_arc(p[10][0],p[10][1],p[11][0],p[11][1],start=r4[0],extent=r4[1],style='arc',outline=self.color)
+
+        ax=(drawingOrigin[0]+self.origin[0]+1)*grid-grid/4
+        a0y=(drawingOrigin[1]+self.origin[1]+1)*grid+grid/4
+        a1y=(drawingOrigin[1]+self.origin[1]+3)*grid-grid/4
+        p=[ct.Translate((ax,a0y)),ct.Translate((ax,a1y))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],arrow='both',fill=self.color)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableMutual(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureMutual'])
+
 class PartPictureResistorTwoPort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,0),orientation,mirroredHorizontally,mirroredVertically)
@@ -468,6 +550,49 @@ class PartPictureCapacitorTwoPort(PartPicture):
 class PartPictureVariableCapacitorTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCapacitorTwoPort'])
+
+class PartPictureCapacitorOnePort(PartPicture):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,5)],[(0,0),(2,5)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        mx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        lx=mx-2*grid/3
+        rx=mx+2*grid/3
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid
+        by=(drawingOrigin[1]+self.origin[1]+3)*grid
+        tpy=ty+3*grid/4
+        bpy=by-3*grid/4
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[[ct.Translate((mx,ty)),ct.Translate((mx,tpy))],
+           [ct.Translate((lx,tpy)),ct.Translate((rx,tpy))],
+           [ct.Translate((lx,bpy)),ct.Translate((rx,bpy))],
+           [ct.Translate((mx,bpy)),ct.Translate((mx,by))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        canvas.create_line(p[3][0][0],p[3][0][1],p[3][1][0],p[3][1][1],fill=self.color)
+        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        glx=gmx-grid
+        grx=gmx+grid
+        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
+        gty=gby-grid
+        p=[ct.Translate((gmx,gty-grid)),
+           ct.Translate((gmx,gty)),
+           ct.Translate((glx,gty)),
+           ct.Translate((gmx,gby)),
+           ct.Translate((grx,gty)),
+           ct.Translate((gmx,gty))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        canvas.create_polygon(p[1][0],p[1][1],
+                           p[2][0],p[2][1],
+                           p[3][0],p[3][1],
+                           p[4][0],p[4][1],
+                           p[5][0],p[5][1],fill=self.color)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCapacitorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCapacitorOnePort'])
 
 class PartPictureVoltageSourceTwoPort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
@@ -614,11 +739,14 @@ class PartPictureProbe(PartPicture):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ix=(drawingOrigin[0]+self.origin[0]+1)*grid
         iy=(drawingOrigin[1]+self.origin[1]+1)*grid
+        mx=ix-grid/2
+        my=iy+grid/2
         fx=(drawingOrigin[0]+self.origin[0]+0)*grid
         fy=(drawingOrigin[1]+self.origin[1]+2)*grid
         ct=self.CoordinateTranslater(grid,drawingOrigin)
-        p=[ct.Translate((ix,iy)),ct.Translate((fx,fy))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        p=[ct.Translate((ix,iy)),ct.Translate((mx,my)),ct.Translate((fx,fy))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,width=3)
+        canvas.create_line(p[1][0],p[1][1],p[2][0],p[2][1],fill=self.color)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableProbe(PartPictureVariable):
@@ -647,3 +775,29 @@ class PartPictureMixedModeConverter(PartPictureBox):
 class PartPictureVariableMixedModeConverter(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureMixedModeConverter'])
+
+class PartPictureVoltageControlledVoltageSourceFourPort(PartPictureBox):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,(0,0),[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        lx=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid
+        ly=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid
+        ux=(drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid
+        uy=(drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
+        px=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid+grid
+        py=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid+grid-grid/2
+        my=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid+grid+grid/2
+        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
+           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
+           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
+        
+class PartPictureVariableVoltageControlledVoltageSourceFourPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageControlledVoltageSourceFourPort'])

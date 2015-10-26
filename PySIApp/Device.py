@@ -100,8 +100,8 @@ class DeviceInductor(Device):
         return Device.NetListLine(self)+' L '+self[PartPropertyInductance().propertyName].value
 
 class DeviceMutual(Device):
-    def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyPorts(4),PartPropertyInductance()]+propertiesList,partPicture)
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyPorts(4),PartPropertyInductance(),PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],partPicture=PartPictureVariableMutual())
     def NetListLine(self):
         return Device.NetListLine(self)+' M '+self[PartPropertyInductance().propertyName].value
 
@@ -154,10 +154,10 @@ DeviceList = [
               DeviceFile([PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4)],PartPictureVariableFourPort()),
               DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),
               DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
-              DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),
               DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
               DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),
-              DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureVariableFourPort()),
+              DeviceMutual(),
               DeviceGround(),
               DeviceVoltageSource([PartPropertyDescription('One\ Port\ Voltage\ Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
               DeviceVoltageSource([PartPropertyDescription('Two\ Port\ Voltage\ Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
