@@ -14,9 +14,10 @@ class Device(object):
             propertiesList=[]
         self.propertiesList=propertiesList
         self.partPicture=partPicture
+        self.selected=False
     def DrawDevice(self,canvas,grid,x,y):
         self.CreateVisiblePropertiesList()
-        self.partPicture.current.DrawDevice(canvas,grid,(x,y))
+        self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y))
     def IsAt(self,coord):
         return self.partPicture.current.IsAt(coord)
     def WhereInPart(self,coord):
@@ -94,7 +95,7 @@ class DeviceCapacitor(Device):
 
 class DeviceInductor(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyPorts(1)]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyInductance()]+propertiesList,partPicture)
     def NetListLine(self):
         return Device.NetListLine(self)+' L '+self[PartPropertyInductance().propertyName].value
 
@@ -155,8 +156,7 @@ DeviceList = [
               DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
               DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
               DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
-              DeviceInductor([PartPropertyDescription('One\ Port\ Inductor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
-              DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
+              DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),
               DeviceMutual([PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],PartPictureVariableFourPort()),
               DeviceGround(),
               DeviceVoltageSource([PartPropertyDescription('One\ Port\ Voltage\ Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),

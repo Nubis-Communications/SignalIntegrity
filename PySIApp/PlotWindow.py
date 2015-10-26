@@ -15,6 +15,7 @@ from matplotlib.figure import Figure
 class PlotDialog(Toplevel):
     def __init__(self, parent):
         Toplevel.__init__(self, parent)
+        self.parent=parent
         self.title('PySI Plot Window')
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.withdraw()
@@ -43,6 +44,7 @@ class PlotDialog(Toplevel):
         self.f.canvas.draw()
         
     def UpdateWaveforms(self,waveformList, waveformNamesList):
+        self.lift(self.parent)
         self.plt.cla()
         self.plt.set_xlabel('time (ns)')
         self.plt.set_ylabel('amplitude')     

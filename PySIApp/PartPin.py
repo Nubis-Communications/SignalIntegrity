@@ -14,7 +14,7 @@ class PartPin(object):
         self.pinOrientation=pinOrientation
         self.pinNumberVisible = pinNumberVisible
         self.pinVisible = pinVisible
-    def DrawPin(self,canvas,grid,partOrigin):
+    def DrawPin(self,canvas,grid,partOrigin,color):
         if self.pinVisible:
             startx=(self.pinConnectionPoint[0]+partOrigin[0])*grid
             starty=(self.pinConnectionPoint[1]+partOrigin[1])*grid
@@ -36,9 +36,9 @@ class PartPin(object):
                 endx=endx-grid
                 textx=startx-grid/2
                 texty=starty-grid/2
-            canvas.create_line(startx,starty,endx,endy)
+            canvas.create_line(startx,starty,endx,endy,fill=color)
             if self.pinNumberVisible:
-                canvas.create_text(textx,texty,text=str(self.pinNumber))
+                canvas.create_text(textx,texty,text=str(self.pinNumber),fill=color)
     def xml(self):
         pp = et.Element('pin')
         pList=[]

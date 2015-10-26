@@ -146,12 +146,9 @@ class TheApp(Frame):
         CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
         CalcMenu.add_command(label='Simulate',command=self.onSimulate)
 
-#         self.DeviceFrame = DeviceFrame(self)
-#         self.DeviceFrame.pack(side=LEFT, fill=Y, expand=NO)
         self.SchematicFrame=SchematicFrame(self)
         self.SchematicFrame.pack(side=LEFT,fill=BOTH,expand=YES)
 
-#         self.DeviceFrame.Picker.tree.bind('<<TreeviewSelect>>',self.onPartSelection)
         root.bind('<Key>',self.onKey)
         
         self.plotDialog=None
@@ -162,15 +159,23 @@ class TheApp(Frame):
         print "pressed", repr(event.keycode), repr(event.keysym)
         if event.keysym == 'Delete': # delete
             if self.SchematicFrame.wireSelected:
+                self.schematic.wireList[self.SchematicFrame.w].selected=False
                 self.SchematicFrame.wireSelected=False
                 del self.SchematicFrame.schematic.wireList[self.SchematicFrame.w]
                 self.SchematicFrame.DrawSchematic()
             elif self.SchematicFrame.deviceSelected != None:
+                self.SchematicFrame.deviceSelected.selected=False
                 self.SchematicFrame.deviceSelected = None
                 del self.SchematicFrame.schematic.deviceList[self.SchematicFrame.deviceSelectedIndex]
                 self.SchematicFrame.DrawSchematic()
 
     def onReadSchematic(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         extension='.xml'
         filename=askopenfilename(filetypes=[('xml', extension)])
         if filename == '':
@@ -184,6 +189,12 @@ class TheApp(Frame):
         self.SchematicFrame.DrawSchematic()
 
     def onWriteSchematic(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         extension='.xml'
         filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml')
         if filename=='':
@@ -191,15 +202,31 @@ class TheApp(Frame):
         self.SchematicFrame.schematic.WriteToFile(filename)
 
     def onClearSchematic(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         self.SchematicFrame.schematic.Clear()
         self.SchematicFrame.DrawSchematic()
 
     def onExportNetlist(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         nld = NetListDialog(self,self.SchematicFrame.schematic.NetList())
 
     def onAddPart(self):
-        self.SchematicFrame.deviceSelected = None
-        self.SchematicFrame.wireSelected = False
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         dpd=DevicePickerDialog(self)
         if dpd.result != None:
             devicePicked=copy.deepcopy(DeviceList[dpd.result])
@@ -210,18 +237,30 @@ class TheApp(Frame):
     def onDuplicate(self):
         if not self.SchematicFrame.deviceSelected == None:
             self.SchematicFrame.partLoaded=copy.deepcopy(self.SchematicFrame.deviceSelected) 
-        self.SchematicFrame.deviceSelected = None
-        self.SchematicFrame.wireSelected = False
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
 
     def onAddWire(self):
-        self.SchematicFrame.deviceSelected = None
-        self.SchematicFrame.wireSelected = False
-        self.SchematicFrame.wireLoaded=[(0,0)]
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
+        self.SchematicFrame.wireLoaded=Wire([(0,0)])
         self.SchematicFrame.schematic.wireList.append(self.SchematicFrame.wireLoaded)
 
     def onAddPort(self):
-        self.SchematicFrame.deviceSelected = None
-        self.SchematicFrame.wireSelected = False
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         portNumber=1
         for device in self.SchematicFrame.schematic.deviceList:
             if device['type'].value == 'Port':
@@ -239,6 +278,12 @@ class TheApp(Frame):
         self.SchematicFrame.DrawSchematic()
 
     def onCalculateSParameters(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         netList=self.SchematicFrame.schematic.NetList()
         import SignalIntegrity as si
         spnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
@@ -252,6 +297,12 @@ class TheApp(Frame):
         sp.WriteToFile(filename)
 
     def onSimulate(self):
+        if not self.SchematicFrame.deviceSelected == None:
+            self.SchematicFrame.deviceSelected.selected=False
+            self.SchematicFrame.deviceSelected=None
+        if self.SchematicFrame.wireSelected:
+            self.schematic.wireList[self.SchematicFrame.w].selected=False
+            self.SchematicFrame.wireSelected = False
         netList=self.SchematicFrame.schematic.NetList()
         import SignalIntegrity as si
         snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(40e9/2,400))

@@ -9,6 +9,36 @@ import xml.etree.ElementTree as et
 from DeviceProperties import *
 from Device import *
 
+class Wire(object):
+    def __init__(self,vertexList=None,selected=False):
+        if vertexList==None:
+            vertexList=[]
+        self.vertexList=vertexList
+        self.selected=selected
+    def __getitem__(self,item):
+        return self.vertexList[item]
+    def __setitem__(self,item,value):
+        self.vertexList[item]=value
+    def __delitem__(self,item):
+        del self.vertexList[item]
+    def __len__(self):
+        return len(self.vertexList)
+    def append(self,item):
+        self.vertexList.append(item)
+    def reverse(self):
+        self.vertexList.reverse()
+    def DrawWire(self,canvas,grid,x,y):
+        if len(self) >= 2:
+            segmentCoord=self[0]
+            for vertex in self[1:]:
+                canvas.create_line((segmentCoord[0]+x)*grid,(segmentCoord[1]+y)*grid,(vertex[0]+x)*grid,(vertex[1]+y)*grid,fill=('blue' if self.selected else 'black'))
+                segmentCoord=vertex
+    def __add__(self,other):
+        if isinstance(other, Wire):
+            return Wire(self.vertexList+other.vertexList,self.selected)
+        elif isinstance(other,list):
+            return Wire(self.vertexList+other,self.selected)
+
 class Schematic(object):
     def __init__(self):
         self.deviceList = []
@@ -46,7 +76,7 @@ class Schematic(object):
                     pass
             elif child.tag == 'wires':
                 for wireElement in child:
-                    wire=[]
+                    wire=Wire()
                     for vertexElement in wireElement:
                         wire.append(eval(vertexElement.text))
                     self.wireList.append(wire)
@@ -216,7 +246,7 @@ class Schematic(object):
 class SchematicFrame(Frame):
     def __init__(self,parent):
         Frame.__init__(self,parent)
-        self.canvas = Canvas(self)
+        self.canvas = Canvas(self,relief=SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=TOP, fill=BOTH, expand=YES)
         self.canvas.create_rectangle(1,1,self.canvas.winfo_reqheight(),self.canvas.winfo_reqwidth())
         self.canvas.bind("<Configure>", self.on_resize)
@@ -246,12 +276,19 @@ class SchematicFrame(Frame):
     def onMouseButton1(self,event):
         print 'clicked at: ',event.x,event.y
         self.Button1Coord=self.NearestGridCoordinate(event.x,event.y)
+        if self.wireSelected:
+            self.wireSelected = False
+            self.schematic.wireList[self.w].selected=False
         if not self.partLoaded == None:
             partToLoad=self.partLoaded
             partToLoad.partPicture.current.SetOrigin(self.Button1Coord)
             self.schematic.deviceList.append(partToLoad)
             self.partLoaded=None
+            if not self.deviceSelected == None:
+                self.deviceSelected.selected=False
+                self.deviceSelected=None
             self.deviceSelected=self.schematic.deviceList[-1]
+            self.deviceSelected.selected=True
             self.deviceSelectedIndex=len(self.schematic.deviceList)-1
             self.coordInPart=self.deviceSelected.WhereInPart(self.Button1Coord)
         elif not self.wireLoaded == None:
@@ -260,29 +297,43 @@ class SchematicFrame(Frame):
             for d in range(len(self.schematic.deviceList)):
                 device=self.schematic.deviceList[d]
                 if device.IsAt(self.Button1Coord):
+                    if not self.deviceSelected == None:
+                        self.deviceSelected.selected=False
+                        self.deviceSelected=None
                     self.deviceSelected = device
+                    self.deviceSelected.selected=True
                     self.deviceSelectedIndex = d
                     self.coordInPart = device.WhereInPart(self.Button1Coord)
                     print 'device selected'
                     return
-            self.deviceSelected=None
+            if not self.deviceSelected == None:
+                self.deviceSelected.selected=False
+                self.deviceSelected=None
             for w in range(len(self.schematic.wireList)):
                 for v in range(len(self.schematic.wireList[w])):
                     if self.Button1Coord == self.schematic.wireList[w][v]:
+                        if self.wireSelected:
+                            self.wireSelected = False
+                            self.schematic.wireList[self.w].selected=False
                         print 'wire vertex selected'
                         self.wireSelected = True
+                        self.schematic.wireList[w].selected=True
                         self.w = w
                         self.v = v
                         return
-            self.wireSelected=False
+            if self.wireSelected:
+                self.schematic.wireList[self.w].selected=False
+                self.wireSelected=False
         self.DrawSchematic()
     def onMouseButton2(self,event):
         print 'right click'
-        self.deviceSelected=None
+        if not self.deviceSelected == None:
+            self.deviceSelected.selected=False
+            self.deviceSelected=None
         if self.wireLoaded != None:
             if len(self.wireLoaded) > 2:
-                self.schematic.wireList[-1]=self.wireLoaded[:-1]
-                self.wireLoaded=[(0,0)]
+                self.schematic.wireList[-1]=Wire(self.wireLoaded[:-1])
+                self.wireLoaded=Wire([(0,0)])
                 self.schematic.wireList.append(self.wireLoaded)
             else:
                 self.wireLoaded=None
@@ -331,11 +382,15 @@ class SchematicFrame(Frame):
     def onMouseButton1Double(self,event):
         print 'double click'
         self.wireLoaded=None
-        self.deviceSelected=None
-        self.wireSelected=False
+        if not self.deviceSelected == None:
+            self.deviceSelected.selected=False
+            self.deviceSelected=None
+            if self.wireSelected:
+                self.schematic.wireList[self.w].selected=False
+                self.wireSelected=False
         if False: #self.wireLoaded != None:
             self.schematic.wireList[-1]=self.schematic.wireList[-1][:-1]
-            self.wireLoaded=[[0,0]]
+            self.wireLoaded=Wire([(0,0)])
             self.schematic.wireList.append(self.wireLoaded)
         else:
             for d in range(len(self.schematic.deviceList)):
@@ -350,8 +405,4 @@ class SchematicFrame(Frame):
         for device in self.schematic.deviceList:
             device.DrawDevice(self.canvas,self.grid,self.originx,self.originy)
         for wire in self.schematic.wireList:
-            if len(wire) >= 2:
-                segmentCoord=wire[0]
-                for vertex in wire[1:]:
-                    self.canvas.create_line((segmentCoord[0]+self.originx)*self.grid,(segmentCoord[1]+self.originy)*self.grid,(vertex[0]+self.originx)*self.grid,(vertex[1]+self.originy)*self.grid)
-                    segmentCoord=vertex
+            wire.DrawWire(self.canvas,self.grid,self.originx,self.originy)
