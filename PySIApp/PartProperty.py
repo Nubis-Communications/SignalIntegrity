@@ -13,6 +13,8 @@ class PartProperty(object):
         self.value=value
         self.hidden=hidden
         self.visible=visible
+    def NetListProperty(self):
+        return self.keyword + ' ' + str(self.value)
 
     def xml(self):
         pp = et.Element('part_property')
@@ -63,11 +65,11 @@ class PartPropertyXMLClassFactory(PartProperty):
 
 class PartPropertyReferenceDesignator(PartProperty):
     def __init__(self,referenceDesignator=''):
-        PartProperty.__init__(self,'reference',description='Reference Designator',value=referenceDesignator,visible=True)
+        PartProperty.__init__(self,'reference',description='reference designator',value=referenceDesignator,visible=True)
 
 class PartPropertyPorts(PartProperty):
     def __init__(self,numPorts=1):
-        PartProperty.__init__(self,'ports',description='Ports',value=numPorts,hidden=True)
+        PartProperty.__init__(self,'ports',description='ports',value=numPorts,hidden=True)
 
 class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
@@ -100,3 +102,27 @@ class PartPropertyCategory(PartProperty):
 class PartPropertyDescription(PartProperty):
     def __init__(self,description=''):
         PartProperty.__init__(self,'description',description='part description',value=description,hidden=True)
+
+class PartPropertyVoltageGain(PartProperty):
+    def __init__(self,voltageGain=1.0):
+        PartProperty.__init__(self,'gain',keyword='gain',description='voltage gain (V/V)',value=voltageGain,visible=True)
+
+class PartPropertyCurrentGain(PartProperty):
+    def __init__(self,currentGain=1.0):
+        PartProperty.__init__(self,'gain',keyword='gain',description='current gain (A/A)',value=currentGain,visible=True)
+
+class PartPropertyTransconductance(PartProperty):
+    def __init__(self,transconductance=1.0):
+        PartProperty.__init__(self,'transconductance',keyword='tc',description='transconductance (A/V)',value=transconductance,visible=True)
+
+class PartPropertyTransresistance(PartProperty):
+    def __init__(self,transresistance=1.0):
+        PartProperty.__init__(self,'transresistance',keyword='tr',description='transresistance (V/A)',value=transresistance,visible=True)
+
+class PartPropertyInputImpedance(PartProperty):
+    def __init__(self,inputImpedance=1e8):
+        PartProperty.__init__(self,'inputimpedance',keyword='zi',description='input impedance (Ohms)',value=inputImpedance,visible=True)
+
+class PartPropertyOutputImpedance(PartProperty):
+    def __init__(self,outputImpedance=0.):
+        PartProperty.__init__(self,'outputimpedance',keyword='zo',description='output impedance (Ohms)',value=outputImpedance,visible=True)

@@ -101,7 +101,7 @@ class DeviceInductor(Device):
 
 class DeviceMutual(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyPorts(4),PartPropertyInductance(),PartPropertyDescription('Four\ Port\ Mutual\ Inductance')],partPicture=PartPictureVariableMutual())
+        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyPorts(4),PartPropertyInductance(),PartPropertyDescription('Four Port Mutual Inductance')],partPicture=PartPictureVariableMutual())
     def NetListLine(self):
         return Device.NetListLine(self)+' M '+self[PartPropertyInductance().propertyName].value
 
@@ -119,13 +119,13 @@ class DeviceGround(Device):
 
 class DeviceVoltageSource(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Voltage Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Voltage Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
 
 class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Current Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Current Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
 
@@ -143,27 +143,83 @@ class DeviceOutput(Device):
 
 class DeviceMixedModeConverter(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Mixed Mode Converter'),PartPropertyDescription('Mixed\ Mode\ Converter'),PartPropertyPorts(4)],PartPictureVariableMixedModeConverter())
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Mixed Mode Converter'),PartPropertyDescription('Mixed Mode Converter'),PartPropertyPorts(4)],PartPictureVariableMixedModeConverter())
     def NetListLine(self):
         return Device.NetListLine(self)+' mixedmode'
 
+class DeviceVoltageControlledVoltageSourceFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('VoltageControlledVoltageSource'),PartPropertyVoltageGain(1.0)]+propertiesList,PartPictureVariableVoltageControlledVoltageSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' voltagecontrolledvoltagesource '+str(self[PartPropertyVoltageGain().propertyName].value)
+
+class DeviceVoltageAmplifierFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('VoltageAmplifier'),PartPropertyVoltageGain(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableVoltageControlledVoltageSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' voltageamplifier '+self[PartPropertyVoltageGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+
+class DeviceCurrentControlledCurrentSourceFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('CurrentControlledCurrentSource'),PartPropertyCurrentGain(1.0)]+propertiesList,PartPictureVariableCurrentControlledCurrentSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' currentcontrolledcurrentsource '+str(self[PartPropertyCurrentGain().propertyName].value)
+
+class DeviceCurrentAmplifierFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('CurrentAmplifier'),PartPropertyCurrentGain(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableCurrentControlledCurrentSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' currentamplifier '+self[PartPropertyCurrentGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+
+class DeviceVoltageControlledCurrentSourceFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('VoltageControlledCurrentSource'),PartPropertyTransconductance(1.0)]+propertiesList,PartPictureVariableVoltageControlledCurrentSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' voltagecontrolledcurrentsource '+str(self[PartPropertyTransconductance().propertyName].value)
+
+class DeviceTransconductanceAmplifierFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('TransconductanceAmplifier'),PartPropertyTransconductance(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableVoltageControlledCurrentSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' transconductanceamplifier '+self[PartPropertyTransconductance().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+
+class DeviceCurrentControlledVoltageSourceFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('CurrentControlledVoltageSource'),PartPropertyTransresistance(1.0)]+propertiesList,PartPictureVariableCurrentControlledVoltageSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' currentcontrolledvoltagesource '+str(self[PartPropertyTransresistance().propertyName].value)
+
+class DeviceTransresistanceAmplifierFourPort(Device):
+    def __init__(self,propertiesList):
+        Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('TransresistanceAmplifier'),PartPropertyTransresistance(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableCurrentControlledVoltageSourceFourPort())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' transresistanceamplifier '+self[PartPropertyTransresistance().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+
 DeviceList = [
-              DeviceFile([PartPropertyDescription('One\ Port\ File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
-              DeviceFile([PartPropertyDescription('Two\ Port\ File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
-              DeviceFile([PartPropertyDescription('Three\ Port\ File'),PartPropertyPorts(3)],PartPictureVariableThreePort()),
-              DeviceFile([PartPropertyDescription('Four\ Port\ File'),PartPropertyPorts(4)],PartPictureVariableFourPort()),
-              DeviceResistor([PartPropertyDescription('One\ Port\ Resistor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),
-              DeviceResistor([PartPropertyDescription('Two\ Port\ Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
-              DeviceCapacitor([PartPropertyDescription('One\ Port\ Capacitor\ to\ Ground'),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),
-              DeviceCapacitor([PartPropertyDescription('Two\ Port\ Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
-              DeviceInductor([PartPropertyDescription('Two\ Port\ Inductor'),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),
+              DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
+              DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
+              DeviceFile([PartPropertyDescription('Three Port File'),PartPropertyPorts(3)],PartPictureVariableThreePort()),
+              DeviceFile([PartPropertyDescription('Four Port File'),PartPropertyPorts(4)],PartPictureVariableFourPort()),
+              DeviceResistor([PartPropertyDescription('One Port Resistor to Ground'),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),
+              DeviceResistor([PartPropertyDescription('Two Port Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
+              DeviceCapacitor([PartPropertyDescription('One Port Capacitor to Ground'),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),
+              DeviceCapacitor([PartPropertyDescription('Two Port Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
+              DeviceInductor([PartPropertyDescription('Two Port Inductor'),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),
               DeviceMutual(),
               DeviceGround(),
-              DeviceVoltageSource([PartPropertyDescription('One\ Port\ Voltage\ Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
-              DeviceVoltageSource([PartPropertyDescription('Two\ Port\ Voltage\ Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
-              DeviceCurrentSource([PartPropertyDescription('One\ Port\ Current\ Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
-              DeviceCurrentSource([PartPropertyDescription('Two\ Port\ Current\ Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
+              DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
+              DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
+              DeviceCurrentSource([PartPropertyDescription('One Port Current Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
+              DeviceCurrentSource([PartPropertyDescription('Two Port Current Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
               DeviceMeasurement([PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDescription('Measure')],PartPictureVariableProbe()),
               DeviceOutput([PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDescription('Output')],PartPictureVariableProbe()),
-              DeviceMixedModeConverter()
+              DeviceMixedModeConverter(),
+              DeviceVoltageControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Voltage Source'),PartPropertyPorts(4)]),
+              DeviceVoltageAmplifierFourPort([PartPropertyDescription('Four Port Voltage Amplifier'),PartPropertyPorts(4)]),
+              DeviceCurrentControlledCurrentSourceFourPort([PartPropertyDescription('Four Port Current Controlled Current Source'),PartPropertyPorts(4)]),
+              DeviceCurrentAmplifierFourPort([PartPropertyDescription('Four Port Current Amplifier'),PartPropertyPorts(4)]),
+              DeviceVoltageControlledCurrentSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Current Source'),PartPropertyPorts(4)]),
+              DeviceTransconductanceAmplifierFourPort([PartPropertyDescription('Four Port Transconductance Amplifier'),PartPropertyPorts(4)]),
+              DeviceCurrentControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Current Controlled Voltage Source'),PartPropertyPorts(4)]),
+              DeviceTransresistanceAmplifierFourPort([PartPropertyDescription('Four Port Transresistance Amplifier'),PartPropertyPorts(4)])
               ]
