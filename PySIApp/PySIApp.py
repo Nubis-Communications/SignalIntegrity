@@ -112,14 +112,14 @@ class NetListDialog(Toplevel):
 
 class TheApp(Frame):
     def __init__(self):
-        root = Tk()
-        Frame.__init__(self, root)
+        self.root = Tk()
+        Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
 
-        root.title("PySI App")
+        self.root.title("PySI App")
 
-        menu=Menu(root)
-        root.config(menu=menu)
+        menu=Menu(self.root)
+        self.root.config(menu=menu)
         FileMenu=Menu(menu)
         menu.add_cascade(label='File',menu=FileMenu)
         FileMenu.add_command(label="Open Project",command=self.onReadProjectFromFile)
@@ -149,11 +149,11 @@ class TheApp(Frame):
         self.Drawing=Drawing(self)
         self.Drawing.pack(side=LEFT,fill=BOTH,expand=YES)
 
-        root.bind('<Key>',self.onKey)
+        self.root.bind('<Key>',self.onKey)
 
         self.plotDialog=None
 
-        root.mainloop()
+        self.root.mainloop()
 
     def onKey(self,event):
         print "pressed", repr(event.keycode), repr(event.keysym)

@@ -6,8 +6,25 @@ Created on Oct 15, 2015
 from Tkinter import *
 import copy
 from tkFileDialog import askopenfilename
+import os
 
 from PartProperty import *
+
+def ConvertFileNameToRelativePath(filename):
+    if filename!='':
+        filenameList=filename.split('/')
+        if len(filenameList)>1:
+            currentWorkingDirectoryList=os.getcwd().split('/')
+            for tokenIndex in range(min(len(filenameList),len(currentWorkingDirectoryList))):
+                if filenameList[tokenIndex]!=currentWorkingDirectoryList[tokenIndex]:
+                    break
+            if tokenIndex > 0:
+                filenameprefix=''
+                for i in range(tokenIndex,len(currentWorkingDirectoryList)):
+                    filenameprefix=filenameprefix+'../'
+                filenamesuffix='/'.join(filenameList[tokenIndex:])
+                filename=filenameprefix+filenamesuffix
+    return filename
 
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
@@ -101,10 +118,12 @@ class DeviceProperties(Frame):
         if self.device.propertiesList[arg].propertyName == PartPropertyFileName().propertyName:
             extension='.s'+str(self.device['ports'].value)+'p'
             filename=askopenfilename(filetypes=[('s-parameters', extension)])
+            filename=ConvertFileNameToRelativePath(filename)
             self.propertyStrings[arg].set(filename)
         elif self.device.propertiesList[arg].propertyName == PartPropertyWaveformFileName().propertyName:
             extension='.txt'
             filename=askopenfilename(filetypes=[('waveforms', extension)])
+            filename=ConvertFileNameToRelativePath(filename)
             self.propertyStrings[arg].set(filename)
 
 class DevicePropertiesDialog(Toplevel):

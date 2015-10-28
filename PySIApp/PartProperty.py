@@ -58,7 +58,7 @@ class PartProperty(object):
         result=''
         if self.visible:
             if self.keywordVisible:
-                if self.keyword != None:
+                if self.keyword != None and self.keyword != 'None':
                     result=result+self.keyword+' '
             if self.type=='string':
                 value = str(self.value)

@@ -469,6 +469,9 @@ class Drawing(Frame):
         drawingProperty=et.Element('height')
         drawingProperty.text=str(self.canvas.winfo_height())
         drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('geometry')
+        drawingProperty.text=self.parent.root.geometry()
+        drawingPropertiesElementList.append(drawingProperty)
         drawingPropertiesElement.extend(drawingPropertiesElementList)
         schematicPropertiesElement=self.schematic.xml()
         drawingElement.extend([drawingPropertiesElement,schematicPropertiesElement])
@@ -485,6 +488,7 @@ class Drawing(Frame):
         self.wireSelected = False
         canvasWidth=600
         canvasHeight=600
+        geometry='600x600'
         for child in drawingElement:
             if child.tag == 'schematic':
                 self.schematic.InitFromXml(child)
@@ -500,4 +504,7 @@ class Drawing(Frame):
                         canvasWidth = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'height':
                         canvasHeight = int(drawingPropertyElement.text)
+                    elif drawingPropertyElement.tag == 'geometry':
+                        geometry = drawingPropertyElement.text
                 self.canvas.config(width=canvasWidth,height=canvasHeight)
+                self.parent.root.geometry(geometry.split('+')[0])
