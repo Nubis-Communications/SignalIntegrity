@@ -43,7 +43,7 @@ class Schematic(object):
     def __init__(self):
         self.deviceList = []
         self.wireList = []
-    def WriteToFile(self,filename):
+    def xml(self):
         schematicElement=et.Element('schematic')
         deviceElement=et.Element('devices')
         deviceElementList = [device.xml() for device in self.deviceList]
@@ -61,14 +61,9 @@ class Schematic(object):
             wireElements.append(wireElement)
         wiresElement.extend(wireElements)
         schematicElement.extend([deviceElement,wiresElement])
-        #print et.tostring(schematicElement)
-        et.ElementTree(schematicElement).write(filename)
-    def ReadFromFile(self,filename):
-        self.deviceList = []
-        self.wireList = []
-        tree=et.parse(filename)
-        root=tree.getroot()
-        for child in root:
+        return schematicElement
+    def InitFromXml(self,schematicElement):
+        for child in schematicElement:
             if child.tag == 'devices':
                 for deviceElement in child:
                     returnedDevice=DeviceXMLClassFactory(deviceElement).result
@@ -201,7 +196,7 @@ class Schematic(object):
                                 del self.wireList[wireIndex][vertexIndex]
                                 keepDeletingVertices = True
                                 break
-        # at this point, all wires have at least two coordinates and no adjacent coordinates are the same                    
+        # at this point, all wires have at least two coordinates and no adjacent coordinates are the same
         removeWireIndexList = [False for index in range(len(self.wireList))]
         for thisWireIndex in range(len(self.wireList)):
             if not removeWireIndexList[thisWireIndex]:
@@ -231,7 +226,7 @@ class Schematic(object):
                             self.wireList[otherWireIndex].reverse()
                             self.wireList[thisWireIndex]=self.wireList[thisWireIndex]+self.wireList[otherWireIndex][1:]
                             removeWireIndexList[otherWireIndex]=True
-        
+
         # remove all of the wires to be removed
         keepDeletingWires = True
         while keepDeletingWires:
@@ -241,19 +236,21 @@ class Schematic(object):
                     del self.wireList[wireIndex]
                     del removeWireIndexList[wireIndex]
                     keepDeletingWires=True
-                    break                               
+                    break
 
-class SchematicFrame(Frame):
+class Drawing(Frame):
     def __init__(self,parent):
         Frame.__init__(self,parent)
+        self.parent=parent
         self.canvas = Canvas(self,relief=SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=TOP, fill=BOTH, expand=YES)
-        self.canvas.create_rectangle(1,1,self.canvas.winfo_reqheight(),self.canvas.winfo_reqwidth())
+        #self.canvas.create_rectangle(1,1,self.canvas.winfo_reqheight(),self.canvas.winfo_reqwidth())
         self.canvas.bind("<Configure>", self.on_resize)
         self.canvas.bind('<Button-1>',self.onMouseButton1)
         self.canvas.bind('<Button-3>',self.onMouseButton2)
         self.canvas.bind('<B1-Motion>',self.onMouseButton1Motion)
         self.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release)
+        self.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release)
         self.canvas.bind('<Double-Button-1>',self.onMouseButton1Double)
         self.canvas.bind('<Button-4>',self.onMouseWheel)
         self.canvas.bind('<MouseWheel>',self.onMouseWheel)
@@ -267,9 +264,18 @@ class SchematicFrame(Frame):
         self.wireLoaded = None
         self.schematic = Schematic()
         self.wireSelected = False
+        self.deviceTearOffMenu=Menu(self, tearoff=0)
+        self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
+        self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
+        self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
+        self.canvasTearOffMenu=Menu(self, tearoff=0)
+        self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
+        self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
+        self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
     def NearestGridCoordinate(self,x,y):
         return (int(round(float(x)/self.grid))-self.originx,int(round(float(y)/self.grid))-self.originy)
     def on_resize(self,event):
+        return
         self.canvas.delete(ALL)
         self.canvas.create_rectangle(1,1,event.width-5,event.height-5)
         self.DrawSchematic()
@@ -326,10 +332,14 @@ class SchematicFrame(Frame):
                 self.wireSelected=False
         self.DrawSchematic()
     def onMouseButton2(self,event):
+        self.Button2Coord=self.NearestGridCoordinate(event.x,event.y)
         print 'right click'
         if not self.deviceSelected == None:
-            self.deviceSelected.selected=False
-            self.deviceSelected=None
+            if self.deviceSelected.IsAt(self.Button2Coord):
+                pass
+            else:
+                self.deviceSelected.selected=False
+                self.deviceSelected=None
         if self.wireLoaded != None:
             if len(self.wireLoaded) > 2:
                 self.schematic.wireList[-1]=Wire(self.wireLoaded[:-1])
@@ -339,6 +349,14 @@ class SchematicFrame(Frame):
                 self.wireLoaded=None
             #self.schematic.wireList=self.schematic.wireList[:-1]
         self.DrawSchematic()
+    def onMouseButton3Release(self,event):
+        if self.deviceSelected != None:
+            self.tk.call("tk_popup", self.deviceTearOffMenu, event.x_root, event.y_root)
+        elif self.wireLoaded != None:
+            pass
+        else:
+            self.tk.call('tk_popup',self.canvasTearOffMenu, event.x_root, event.y_root)
+
     def onMouseButton1Motion(self,event):
         coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.deviceSelected == None:
@@ -406,3 +424,80 @@ class SchematicFrame(Frame):
             device.DrawDevice(self.canvas,self.grid,self.originx,self.originy)
         for wire in self.schematic.wireList:
             wire.DrawWire(self.canvas,self.grid,self.originx,self.originy)
+    def EditSelectedDevice(self):
+        if self.deviceSelected != None:
+            dpe=DevicePropertiesDialog(self,self.deviceSelected)
+            if dpe.result != None:
+                self.schematic.deviceList[self.deviceSelectedIndex] = dpe.result
+                self.DrawSchematic()
+    def DuplicateSelectedDevice(self):
+        if not self.deviceSelected == None:
+            self.partLoaded=copy.deepcopy(self.deviceSelected)
+        if not self.deviceSelected == None:
+            self.deviceSelected.selected=False
+            self.deviceSelected=None
+        if self.wireSelected:
+            self.schematic.wireList[self.w].selected=False
+            self.wireSelected = False
+    def DeleteSelectedDevice(self):
+        if self.wireSelected:
+            self.schematic.wireList[self.w].selected=False
+            self.wireSelected=False
+            del self.schematic.wireList[self.w]
+            self.DrawSchematic()
+        elif self.deviceSelected != None:
+            self.deviceSelected.selected=False
+            self.deviceSelected = None
+            del self.schematic.deviceList[self.deviceSelectedIndex]
+            self.DrawSchematic()
+    def xml(self):
+        drawingElement=et.Element('drawing')
+        drawingPropertiesElement=et.Element('drawing_properties')
+        drawingPropertiesElementList=[]
+        drawingProperty=et.Element('grid')
+        drawingProperty.text=str(self.grid)
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('originx')
+        drawingProperty.text=str(self.originx)
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('originy')
+        drawingProperty.text=str(self.originy)
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('width')
+        drawingProperty.text=str(self.canvas.winfo_width())
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('height')
+        drawingProperty.text=str(self.canvas.winfo_height())
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingPropertiesElement.extend(drawingPropertiesElementList)
+        schematicPropertiesElement=self.schematic.xml()
+        drawingElement.extend([drawingPropertiesElement,schematicPropertiesElement])
+        return drawingElement
+    def InitFromXml(self,drawingElement):
+        self.grid=32
+        self.originx=0
+        self.originy=0
+        self.partLoaded = None
+        self.deviceSelected = None
+        self.coordInPart = (0,0)
+        self.wireLoaded = None
+        self.schematic = Schematic()
+        self.wireSelected = False
+        canvasWidth=600
+        canvasHeight=600
+        for child in drawingElement:
+            if child.tag == 'schematic':
+                self.schematic.InitFromXml(child)
+            elif child.tag == 'drawing_properties':
+                for drawingPropertyElement in child:
+                    if drawingPropertyElement.tag == 'grid':
+                        self.grid = int(drawingPropertyElement.text)
+                    elif drawingPropertyElement.tag == 'originx':
+                        self.originx = int(drawingPropertyElement.text)
+                    elif drawingPropertyElement.tag == 'originy':
+                        self.originy = int(drawingPropertyElement.text)
+                    elif drawingPropertyElement.tag == 'width':
+                        canvasWidth = int(drawingPropertyElement.text)
+                    elif drawingPropertyElement.tag == 'height':
+                        canvasHeight = int(drawingPropertyElement.text)
+                self.canvas.config(width=canvasWidth,height=canvasHeight)

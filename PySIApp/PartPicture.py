@@ -992,12 +992,54 @@ class PartPictureVoltageControlledCurrentSourceFourPort(PartPictureBox):
         my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
         p=[ct.Translate((px,py)),ct.Translate((px,my))]
         canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVoltageControlledCurrentSourceFourPortAlt(PartPictureBox):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,(0,0),[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(5,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # the outline around the dependent source
+        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        lx=mx-3*grid/4
+        rx=mx+3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+2)*grid
+        ty=my-grid
+        by=my+grid
+        p=[ct.Translate((mx,ty)),
+            ct.Translate((rx,my)),
+            ct.Translate((mx,by)),
+            ct.Translate((lx,my)),
+            ct.Translate((mx,ty))]
+        canvas.create_polygon(p[0][0],p[0][1],
+            p[1][0],p[1][1],
+            p[2][0],p[2][1],
+            p[3][0],p[3][1],
+            p[4][0],p[4][1],
+            outline=self.color,
+            fill='')
+        # minus and plus signs on the sensing port
+        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
+        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
+        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
+           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
+           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        # arrow inside the current source
+        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
+        p=[ct.Translate((px,py)),ct.Translate((px,my))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
 
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableVoltageControlledCurrentSourceFourPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureVoltageControlledCurrentSourceFourPort'])
+        PartPictureVariable.__init__(self,['PartPictureVoltageControlledCurrentSourceFourPort','PartPictureVoltageControlledCurrentSourceFourPortAlt'])
 
 class PartPictureCurrentControlledVoltageSourceFourPort(PartPictureBox):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
@@ -1041,6 +1083,48 @@ class PartPictureCurrentControlledVoltageSourceFourPort(PartPictureBox):
         canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
+class PartPictureCurrentControlledVoltageSourceFourPortAlt(PartPictureBox):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,(0,0),[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(5,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # the outline around the dependent source
+        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        lx=mx-3*grid/4
+        rx=mx+3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+2)*grid
+        ty=my-grid
+        by=my+grid
+        p=[ct.Translate((mx,ty)),
+            ct.Translate((rx,my)),
+            ct.Translate((mx,by)),
+            ct.Translate((lx,my)),
+            ct.Translate((mx,ty))]
+        canvas.create_polygon(p[0][0],p[0][1],
+            p[1][0],p[1][1],
+            p[2][0],p[2][1],
+            p[3][0],p[3][1],
+            p[4][0],p[4][1],
+            outline=self.color,
+            fill='')
+        # arrow on the sensing port
+        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
+        p=[ct.Translate((px,py)),ct.Translate((px,my))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        # plus and minus signs inside the voltage source
+        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
+        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
+        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
+           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
+           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
+
 class PartPictureVariableCurrentControlledVoltageSourceFourPort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureCurrentControlledVoltageSourceFourPort'])
+        PartPictureVariable.__init__(self,['PartPictureCurrentControlledVoltageSourceFourPort','PartPictureCurrentControlledVoltageSourceFourPortAlt'])

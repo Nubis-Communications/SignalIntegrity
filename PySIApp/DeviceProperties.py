@@ -16,7 +16,7 @@ class DeviceProperties(Frame):
         self.device=device
         self.propertyStrings=[StringVar(value=str(prop.value)) for prop in self.device.propertiesList]
         self.propertyVisible=[IntVar(value=int(prop.visible)) for prop in self.device.propertiesList]
-
+        self.keywordVisible=[IntVar(value=int(prop.keywordVisible)) for prop in self.device.propertiesList]
         propertyListFrame = Frame(self)
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
         for p in range(len(self.device.propertiesList)):
@@ -26,6 +26,8 @@ class DeviceProperties(Frame):
                 propertyFrame.pack(side=TOP,fill=X,expand=YES)
                 propertyVisibleCheckBox = Checkbutton(propertyFrame,variable=self.propertyVisible[p],command=self.onPropertyVisible)
                 propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
+                keywordVisibleCheckBox = Checkbutton(propertyFrame,variable=self.keywordVisible[p],command=self.onKeywordVisible)
+                keywordVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
                 propertyLabel = Label(propertyFrame,width=25,text=prop.description+': ',anchor='e')
                 propertyLabel.pack(side=LEFT, expand=NO, fill=X)
                 propertyEntry = Entry(propertyFrame,textvariable=self.propertyStrings[p])
@@ -85,6 +87,12 @@ class DeviceProperties(Frame):
     def onPropertyVisible(self):
         for p in range(len(self.device.propertiesList)):
             self.device.propertiesList[p].visible=bool(self.propertyVisible[p].get())
+        self.partPictureCanvas.delete(ALL)
+        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
+
+    def onKeywordVisible(self):
+        for p in range(len(self.device.propertiesList)):
+            self.device.propertiesList[p].keywordVisible=bool(self.keywordVisible[p].get())
         self.partPictureCanvas.delete(ALL)
         self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
 

@@ -38,11 +38,9 @@ class Device(object):
     def CreateVisiblePropertiesList(self):
         visiblePartPropertyList=[]
         for partProperty in self.propertiesList:
-            if partProperty.visible:
-                value = str(partProperty.value)
-                if partProperty.propertyName == 'filename' or partProperty.propertyName == 'waveformfilename':
-                    value = value.split('/')[-1]
-                visiblePartPropertyList.append(value)
+            propertyString=partProperty.PropertyString()
+            if propertyString != '':
+                visiblePartPropertyList.append(propertyString)
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
     def xml(self):
         dev = et.Element('device')
