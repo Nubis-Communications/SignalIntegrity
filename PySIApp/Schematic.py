@@ -9,6 +9,111 @@ import xml.etree.ElementTree as et
 from DeviceProperties import *
 from Device import *
 
+class NetList(object):
+    def __init__(self,schematic):
+        self.textToShow=[]
+        self.outputNames=[]
+        self.measureNames=[]
+        deviceList = schematic.deviceList
+        wireList = schematic.wireList
+        # put all devices in the net list
+        for device in deviceList:
+            deviceType = device[PartPropertyPartName().propertyName].value
+            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
+                thisline=device.NetListLine()
+                self.textToShow.append(thisline)
+        # gather up all device pin coordinates
+        devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
+        devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
+        deviceConnectionList = []
+        for deviceIndex in range(len(devicePinCoordinateList)):
+            devicePinConnectionList = []
+            for pinIndex in range(len(devicePinCoordinateList[deviceIndex])):
+                thisDevicePinCoordinate = devicePinCoordinateList[deviceIndex][pinIndex]
+                thisListOfConnectedDevicePins=[]
+                if devicePinNeedToCheckList[deviceIndex][pinIndex]:
+                    # search all device pins and wire vertices for this coordinate
+                    for deviceCheckIndex in range(len(devicePinCoordinateList)):
+                        for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
+                            thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
+                            if thisDevicePinCoordinate == thisDevicePinCheckCoordinate:
+                                thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
+                    for wire in wireList:
+                        thisWireConnectedToThisDevicePin = False
+                        for vertex in wire:
+                            if vertex == thisDevicePinCoordinate:
+                                thisWireConnectedToThisDevicePin = True
+                                break
+                        if thisWireConnectedToThisDevicePin:
+                            for vertex in wire:
+                                for deviceCheckIndex in range(len(devicePinCoordinateList)):
+                                    for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
+                                        thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
+                                        if vertex == thisDevicePinCheckCoordinate:
+                                            thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
+                    thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
+                    for connectedDevicePins in thisListOfConnectedDevicePins:
+                        connectedDeviceIndex=connectedDevicePins[0]
+                        connectedPinIndex=connectedDevicePins[1]
+                        devicePinNeedToCheckList[connectedDeviceIndex][connectedPinIndex]=False
+                devicePinConnectionList.append(thisListOfConnectedDevicePins)
+            deviceConnectionList.append(devicePinConnectionList)
+        netList = []
+        for deviceConnection in deviceConnectionList:
+            for devicePinConnection in deviceConnection:
+                if len(devicePinConnection) > 1:
+                    netList.append(devicePinConnection)
+        for net in netList:
+            measureList=[]
+            outputList=[]
+            portList=[]
+            # gather up list of all measures, outputs, and ports
+            for devicePin in net:
+                deviceIndex=devicePin[0]
+                pinIndex=devicePin[1]
+                thisDevice=schematic.deviceList[deviceIndex]
+                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].value
+                if thisDevicePartName == 'Port':
+                    portList.append(devicePin)
+                elif thisDevicePartName == 'Output':
+                    outputList.append(devicePin)
+                elif thisDevicePartName == 'Measure':
+                    outputList.append(devicePin)
+            #remove all of the ports, outputs and measures from the net
+            net = list(set(net)-set(measureList)-set(portList)-set(outputList))
+            if len(net) > 0:
+                # for the measures, outputs and ports, we just need one device/port, so we use the first one
+                deviceIndexOfFirstDeviceInNet = net[0][0]
+                pinIndexOfFirstDeviceInNet = net[0][1]
+                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].value
+                firstDevicePinNumber = schematic.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet].pinNumber
+                devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
+                for measure in measureList:
+                    deviceIndex = measure[0]
+                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                for output in outputList:
+                    deviceIndex = output[0]
+                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                    self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].value)
+                for port in portList:
+                    deviceIndex = port[0]
+                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+            if len(net) > 1:
+                # list the connections
+                thisConnectionString = 'connect'
+                for devicePortIndex in net:
+                    deviceIndex = devicePortIndex[0]
+                    pinIndex = devicePortIndex[1]
+                    deviceName = schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].value
+                    pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
+                    thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
+                self.textToShow.append(thisConnectionString)
+    def Text(self):
+        return self.textToShow
+    def OutputNames(self):
+        return self.outputNames
+    
+        
 class Wire(object):
     def __init__(self,vertexList=None,selected=False):
         if vertexList==None:
@@ -77,6 +182,7 @@ class Schematic(object):
                     self.wireList.append(wire)
     def NetList(self):
         self.ConsolidateWires()
+        return NetList(self)
         textToShow=[]
         deviceList = self.deviceList
         wireList = self.wireList
@@ -172,6 +278,13 @@ class Schematic(object):
                     thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 textToShow.append(thisConnectionString)
         return textToShow
+    def InputWaveforms(self):
+        inputWaveformList=[]
+        for device in self.deviceList:
+            wf = device.Waveform()
+            if not wf is None:
+                inputWaveformList.append(wf)
+        return inputWaveformList
     def Clear(self):
         self.deviceList = []
         self.wireList = []

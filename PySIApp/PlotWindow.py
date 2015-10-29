@@ -33,8 +33,7 @@ class PlotDialog(Toplevel):
         toolbar = NavigationToolbar2TkAgg( self.canvas, self )
         toolbar.update()
         self.canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
-        self.ok_button = Button(self, command=self.on_ok)
-        
+         
         controlsFrame = Frame(self)
         Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=LEFT,expand=NO,fill=X)
         controlsFrame.pack(side=TOP,fill=X,expand=NO)
@@ -46,8 +45,8 @@ class PlotDialog(Toplevel):
     def UpdateWaveforms(self,waveformList, waveformNamesList):
         self.lift(self.parent)
         self.plt.cla()
-        self.plt.set_xlabel('time (ns)')
-        self.plt.set_ylabel('amplitude')     
+        self.plt.set_xlabel('time (ns)',fontsize=10)
+        self.plt.set_ylabel('amplitude',fontsize=10)     
         
         if not self.waveformList == None:
             self.plt.autoscale(False)
@@ -58,11 +57,9 @@ class PlotDialog(Toplevel):
         for wfi in range(len(self.waveformList)):
             self.plt.plot(self.waveformList[wfi].Times('ns'),self.waveformList[wfi].Values(),label=str(self.waveformNamesList[wfi]))
 
-        self.plt.legend(loc='upper right')
+        self.plt.legend(loc='upper right',labelspacing=0.1,fontsize=10)
         self.f.canvas.draw()
-
-    def on_ok(self):
-        pass
+        return self
 
 
 

@@ -44,17 +44,15 @@ class Device(object):
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
     def xml(self):
         dev = et.Element('device')
-
         classNameElement = et.Element('class_name')
         classNameElement.text = self.__class__.__name__
-
         pprope = et.Element('part_properties')
         props = [partProperty.xml() for partProperty in self.propertiesList]
         pprope.extend(props)
-
         dev.extend([classNameElement,pprope,self.partPicture.xml()])
-
         return dev
+    def Waveform(self):
+        return None
 
 class DeviceXMLClassFactory(object):
     def __init__(self,xml):
@@ -120,6 +118,11 @@ class DeviceVoltageSource(Device):
         Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Voltage Source'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+    def Waveform(self):
+        import SignalIntegrity as si
+        fileName = self[PartPropertyWaveformFileName().propertyName].value
+        waveform = si.td.wf.Waveform().ReadFromFile(fileName)
+        return waveform
 
 class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):

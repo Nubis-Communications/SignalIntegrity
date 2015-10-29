@@ -13,6 +13,7 @@ from DeviceProperties import *
 from DevicePicker import *
 from Schematic import *
 from PlotWindow import *
+from Simulator import Simulator
 
 class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
@@ -153,6 +154,7 @@ class TheApp(Frame):
 
         self.plotDialog=None
 
+        self.simulator = Simulator(self)
         self.root.mainloop()
 
     def onKey(self,event):
@@ -190,6 +192,8 @@ class TheApp(Frame):
         for child in root:
             if child.tag == 'drawing':
                 self.Drawing.InitFromXml(child)
+            elif child.tag == 'simulator':
+                self.simulator.InitFromXml(child, self)
         self.Drawing.DrawSchematic()
 
     def onWriteProjectToFile(self):
@@ -205,7 +209,8 @@ class TheApp(Frame):
             return
         projectElement=et.Element('Project')
         drawingElement=self.Drawing.xml()
-        projectElement.extend([drawingElement])
+        simulatorElement=self.simulator.xml()
+        projectElement.extend([drawingElement,simulatorElement])
         et.ElementTree(projectElement).write(filename)
 
     def onClearSchematic(self):
@@ -225,7 +230,7 @@ class TheApp(Frame):
         if self.Drawing.wireSelected:
             self.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
-        nld = NetListDialog(self,self.Drawing.schematic.NetList())
+        nld = NetListDialog(self,self.Drawing.schematic.NetList().Text())
 
     def onAddPart(self):
         if not self.Drawing.deviceSelected == None:
@@ -291,7 +296,7 @@ class TheApp(Frame):
         if self.Drawing.wireSelected:
             self.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
-        netList=self.Drawing.schematic.NetList()
+        netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
         spnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
         spnp.AddLines(netList)
@@ -303,51 +308,15 @@ class TheApp(Frame):
             return
         sp.WriteToFile(filename)
 
-    def onSimulate(self):
+    def onSimulate(self):        
         if not self.Drawing.deviceSelected == None:
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
             self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
-        netList=self.Drawing.schematic.NetList()
-        import SignalIntegrity as si
-        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(40e9/2,400))
-        snp.AddLines(netList)
-        tm=snp.TransferMatrices()
-
-#         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,41*40,40e9))
-#         stepin.WriteToFile('Step.txt')
-
-##        sp=tm.SParameters()
-##        ports=sp.m_P
-##        extension='.s'+str(ports)+'p'
-##        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension)
-##        if filename == '':
-##            return
-##        sp.WriteToFile(filename)
-
-        tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
-
-        inputWaveformList = []
-        for device in self.Drawing.schematic.deviceList:
-            deviceType = device[PartPropertyPartName().propertyName].value
-            if deviceType == 'Voltage Source' or deviceType == 'Current Source':
-                fileName = device[PartPropertyWaveformFileName().propertyName].value
-                waveform = si.td.wf.Waveform().ReadFromFile(fileName)
-                inputWaveformList.append(waveform)
-
-        outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
-        outputWaveformLabels = snp.m_sd.pOutputList
-
-        if self.plotDialog == None:
-            self.plotDialog=PlotDialog(self)
-        else:
-            if not self.plotDialog.winfo_exists():
-                self.plotDialog=PlotDialog(self)
-
-        self.plotDialog.UpdateWaveforms(outputWaveformList,outputWaveformLabels)
-        self.plotDialog.state('normal')
+        
+        self.simulator.OpenSimulator()
 
 def main():
     app=TheApp()

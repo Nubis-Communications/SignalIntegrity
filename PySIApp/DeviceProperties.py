@@ -15,9 +15,12 @@ def ConvertFileNameToRelativePath(filename):
         filenameList=filename.split('/')
         if len(filenameList)>1:
             currentWorkingDirectoryList=os.getcwd().split('/')
+            atOrBelow=True
             for tokenIndex in range(min(len(filenameList),len(currentWorkingDirectoryList))):
                 if filenameList[tokenIndex]!=currentWorkingDirectoryList[tokenIndex]:
+                    atOrBelow=False
                     break
+            if atOrBelow: tokenIndex=tokenIndex+1
             if tokenIndex > 0:
                 filenameprefix=''
                 for i in range(tokenIndex,len(currentWorkingDirectoryList)):
@@ -29,7 +32,7 @@ def ConvertFileNameToRelativePath(filename):
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
         Frame.__init__(self,parent)
-        self.title = 'Add '+device.PartPropertyByName('type').value
+        self.title = device.PartPropertyByName('type').value
         self.device=device
         self.propertyStrings=[StringVar(value=str(prop.value)) for prop in self.device.propertiesList]
         self.propertyVisible=[IntVar(value=int(prop.visible)) for prop in self.device.propertiesList]
