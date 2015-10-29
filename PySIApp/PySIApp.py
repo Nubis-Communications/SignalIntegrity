@@ -155,6 +155,7 @@ class TheApp(Frame):
         self.plotDialog=None
 
         self.simulator = Simulator(self)
+        self.filename=None
         self.root.mainloop()
 
     def onKey(self,event):
@@ -187,6 +188,7 @@ class TheApp(Frame):
             return
         if len(filenametokens)==1:
             filename=filename+extension
+        filename=ConvertFileNameToRelativePath(filename)
         tree=et.parse(filename)
         root=tree.getroot()
         for child in root:
@@ -194,6 +196,7 @@ class TheApp(Frame):
                 self.Drawing.InitFromXml(child)
             elif child.tag == 'simulator':
                 self.simulator.InitFromXml(child, self)
+        self.filename=filename
         self.Drawing.DrawSchematic()
 
     def onWriteProjectToFile(self):
@@ -204,7 +207,11 @@ class TheApp(Frame):
             self.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         extension='.xml'
-        filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml')
+        if self.filename == None:
+            filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialdir=os.getcwd())
+        else:
+            filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialdir=os.getcwd(),initialfile=self.filename)
+
         if filename=='':
             return
         projectElement=et.Element('Project')
@@ -222,6 +229,7 @@ class TheApp(Frame):
             self.Drawing.wireSelected = False
         self.Drawing.schematic.Clear()
         self.Drawing.DrawSchematic()
+        self.filename=None
 
     def onExportNetlist(self):
         if not self.Drawing.deviceSelected == None:
