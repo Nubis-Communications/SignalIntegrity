@@ -97,7 +97,7 @@ class SimulatorDialog(Toplevel):
         self.timePointsEntry.bind('<Button-3>',self.onUntouched)
         self.timePointsEntry.bind('<Escape>',self.onUntouched)
         self.timePointsEntry.bind('<FocusOut>',self.onUntouched)
-        self.timePointsEntry.pack(side=LEFT, expand=YES, fill=X)         
+        self.timePointsEntry.pack(side=LEFT, expand=YES, fill=X)
         self.impulseLengthString=StringVar(value=ToSI(self.simulator.impulseLength,'s'))
         self.impulseLengthFrame=Frame(propertyListFrame)
         self.impulseLengthFrame.pack(side=TOP,fill=X,expand=YES)
@@ -121,7 +121,7 @@ class SimulatorDialog(Toplevel):
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
         self.onUntouched(event)
-    
+
     def onendFrequencyTouched(self,event):
         self.updateStrings()
         self.endFrequencyString.set('')
@@ -148,7 +148,7 @@ class SimulatorDialog(Toplevel):
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
         self.onUntouched(event)
-    
+
     def onfrequencyResolutionTouched(self,event):
         self.updateStrings()
         self.frequencyResolutionString.set('')
@@ -160,7 +160,6 @@ class SimulatorDialog(Toplevel):
     def onuserSampleRateTouched(self,event):
         self.updateStrings()
         self.userSampleRateString.set('')
-
 
     def onbaseSampleRateEntered(self,event):
         self.simulator.baseSampleRate=float(self.baseSampleRateString.get())
@@ -201,7 +200,7 @@ class SimulatorDialog(Toplevel):
 
     def onSimulate(self):
         self.simulator.Simulate()
-        
+
     def updateStrings(self):
         self.endFrequencyString.set(ToSI(self.simulator.endFrequency,'Hz'))
         self.frequencyPointsString.set(ToSI(self.simulator.frequencyPoints,'pts'))
@@ -297,5 +296,5 @@ class Simulator(object):
     def OpenSimulator(self):
         self.ShowSimulatorDialog()
 
-                        
-                        
+
+

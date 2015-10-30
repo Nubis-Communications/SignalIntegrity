@@ -20,19 +20,15 @@ class CoordinateTranslater(object):
         if self.rotationAngle == '0':
             deltax=rcosq
             deltay=-rsinq
-            #return (self.rotationPoint[0]+rcosq,self.rotationPoint[1]-rsinq)
         elif self.rotationAngle == '90':
             deltax=-rsinq
             deltay=-rcosq
-            #return (self.rotationPoint[0]-rsinq,self.rotationPoint[1]-rcosq)
         elif self.rotationAngle == '180':
             deltax=-rcosq
             deltay=rsinq
-            #return (self.rotationPoint[0]-rcosq,self.rotationPoint[1]+rsinq)
         elif self.rotationAngle == '270':
             deltax=rsinq
             deltay=rcosq
-            #return (self.rotationPoint[0]+rsinq,self.rotationPoint[1]+rcosq)
         if self.mirroredHorizontally:
             deltax=-deltax
         if self.mirroredVertically:
@@ -165,6 +161,91 @@ class PartPicture(object):
         else:
             self.color='black'
         return self
+    # helpers for commonly drawn things
+    def DrawPlusMinus(self,canvas,grid,drawingOrigin,x):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        px=(drawingOrigin[0]+self.origin[0]+x)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-5*grid/8
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+5*grid/8
+        pw=3*grid/16
+        p=[[ct.Translate((px-pw,py)),ct.Translate((px+pw,py))],
+           [ct.Translate((px,py-pw)),ct.Translate((px,py+pw))],
+           [ct.Translate((px-pw,my)),ct.Translate((px+pw,my))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+    def DrawMinusPlus(self,canvas,grid,drawingOrigin,x):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        px=(drawingOrigin[0]+self.origin[0]+x)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+5*grid/8
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-5*grid/8
+        pw=3*grid/16
+        p=[[ct.Translate((px-pw,py)),ct.Translate((px+pw,py))],
+           [ct.Translate((px,py-pw)),ct.Translate((px,py+pw))],
+           [ct.Translate((px-pw,my)),ct.Translate((px+pw,my))]]
+        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
+        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
+        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+    def DrawArrowUp(self,canvas,grid,drawingOrigin,x):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        px=(drawingOrigin[0]+self.origin[0]+0+x)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
+        p=[ct.Translate((px,py)),ct.Translate((px,my))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+    def DrawArrowDown(self,canvas,grid,drawingOrigin,x):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        px=(drawingOrigin[0]+self.origin[0]+0+x)*grid
+        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
+        p=[ct.Translate((px,py)),ct.Translate((px,my))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+    def DrawDependent(self,canvas,grid,drawingOrigin,x):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        mx=(drawingOrigin[0]+self.origin[0]+x)*grid
+        lx=mx-3*grid/4
+        rx=mx+3*grid/4
+        my=(drawingOrigin[1]+self.origin[1]+2)*grid
+        ty=my-grid
+        by=my+grid
+        p=[ct.Translate((mx,ty)),
+            ct.Translate((rx,my)),
+            ct.Translate((mx,by)),
+            ct.Translate((lx,my)),
+            ct.Translate((mx,ty))]
+        canvas.create_polygon(p[0][0],p[0][1],
+            p[1][0],p[1][1],
+            p[2][0],p[2][1],
+            p[3][0],p[3][1],
+            p[4][0],p[4][1],
+            outline=self.color,
+            fill='')
+    def DrawIndependent(self,canvas,grid,drawingOrigin):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
+        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
+        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
+    def DrawGround(self,canvas,grid,drawingOrigin,x,y):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        mx=(drawingOrigin[0]+self.origin[0]+x)*grid
+        size=2*grid/3
+        lx=mx-size
+        rx=mx+size
+        ty=(drawingOrigin[1]+self.origin[1]+y)*grid
+        by=ty+size
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((lx,ty)),ct.Translate((rx,ty)),ct.Translate((mx,by)),ct.Translate((lx,ty))]
+        canvas.create_polygon(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1],p[3][0],p[3][1],fill=self.color)
+    def DrawStem(self,canvas,grid,drawingOrigin,x,y):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        gx=(drawingOrigin[0]+self.origin[0]+x)*grid
+        gy=(drawingOrigin[1]+self.origin[1]+y)*grid
+        p=[ct.Translate((gx,gy)),ct.Translate((gx,gy+grid))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
 
 class PartPictureXMLClassFactory(object):
     def __init__(self,xml):
@@ -299,14 +380,7 @@ class PartPictureGround(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(3,2)],[(0,0),(3,2)],(3,1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0])*grid
-        mx=lx+grid
-        rx=mx+grid
-        ty=(drawingOrigin[1]+self.origin[1]+1)*grid
-        by=ty+grid
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
-        p=[ct.Translate((lx,ty)),ct.Translate((rx,ty)),ct.Translate((mx,by)),ct.Translate((lx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1],p[3][0],p[3][1],fill=self.color)
+        PartPicture.DrawGround(self,canvas,grid,drawingOrigin,1,1)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableGround(PartPictureVariable):
@@ -437,7 +511,7 @@ class PartPictureMutual(PartPicture):
         a0y=(drawingOrigin[1]+self.origin[1]+1)*grid+grid/4
         a1y=(drawingOrigin[1]+self.origin[1]+3)*grid-grid/4
         p=[ct.Translate((ax,a0y)),ct.Translate((ax,a1y))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],arrow='both',fill=self.color)
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],arrow='both',fill=self.color,arrowshape=((8*grid)/25,(10*grid)/25,(3*grid)/25))
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableMutual(PartPictureVariable):
@@ -502,23 +576,8 @@ class PartPictureResistorOnePort(PartPicture):
                            p[6][0],p[6][1],
                            p[7][0],p[7][1],
                            p[8][0],p[8][1],fill=self.color)
-        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
-        glx=gmx-grid
-        grx=gmx+grid
-        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
-        gty=gby-grid
-        p=[ct.Translate((gmx,gty-grid)),
-           ct.Translate((gmx,gty)),
-           ct.Translate((glx,gty)),
-           ct.Translate((gmx,gby)),
-           ct.Translate((grx,gty)),
-           ct.Translate((gmx,gty))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
-        canvas.create_polygon(p[1][0],p[1][1],
-                           p[2][0],p[2][1],
-                           p[3][0],p[3][1],
-                           p[4][0],p[4][1],
-                           p[5][0],p[5][1],fill=self.color)
+        PartPicture.DrawStem(self,canvas,grid,drawingOrigin,1,3)
+        PartPicture.DrawGround(self,canvas,grid,drawingOrigin,1,4)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableResistorOnePort(PartPictureVariable):
@@ -571,23 +630,8 @@ class PartPictureCapacitorOnePort(PartPicture):
         canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
         canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
         canvas.create_line(p[3][0][0],p[3][0][1],p[3][1][0],p[3][1][1],fill=self.color)
-        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
-        glx=gmx-grid
-        grx=gmx+grid
-        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
-        gty=gby-grid
-        p=[ct.Translate((gmx,gty-grid)),
-           ct.Translate((gmx,gty)),
-           ct.Translate((glx,gty)),
-           ct.Translate((gmx,gby)),
-           ct.Translate((grx,gty)),
-           ct.Translate((gmx,gty))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
-        canvas.create_polygon(p[1][0],p[1][1],
-                           p[2][0],p[2][1],
-                           p[3][0],p[3][1],
-                           p[4][0],p[4][1],
-                           p[5][0],p[5][1],fill=self.color)
+        PartPicture.DrawStem(self,canvas,grid,drawingOrigin,1,3)
+        PartPicture.DrawGround(self,canvas,grid,drawingOrigin,1,4)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCapacitorOnePort(PartPictureVariable):
@@ -598,65 +642,32 @@ class PartPictureVoltageSourceTwoPort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(2,(1,0),'t',False),PartPin(1,(1,4),'b',False)],[(0,1),(2,3)],[(0,0),(2,4)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
-        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
-        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
-        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
-        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
-        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
-        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
-        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawIndependent(self,canvas,grid,drawingOrigin)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableVoltageSourceTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceTwoPort'])
 
+class PartPictureVoltageSourceStepGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceTwoPort.__init__(self,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPictureVoltageSourceTwoPort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableVoltageSourceStepGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceStepGeneratorTwoPort'])
+
 class PartPictureVoltageSourceOnePort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,5)],[(0,0),(2,5)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
-        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
-        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
-        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
-        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
-        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
-        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
-        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
-        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
-        glx=gmx-grid
-        grx=gmx+grid
-        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
-        gty=gby-grid
-        p=[ct.Translate((gmx,gty-grid)),
-           ct.Translate((gmx,gty)),
-           ct.Translate((glx,gty)),
-           ct.Translate((gmx,gby)),
-           ct.Translate((grx,gty)),
-           ct.Translate((gmx,gty))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
-        canvas.create_polygon(p[1][0],p[1][1],
-                           p[2][0],p[2][1],
-                           p[3][0],p[3][1],
-                           p[4][0],p[4][1],
-                           p[5][0],p[5][1],fill=self.color)
+        PartPicture.DrawIndependent(self,canvas,grid,drawingOrigin)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
+        PartPicture.DrawStem(self,canvas,grid,drawingOrigin,1,3)
+        PartPicture.DrawGround(self,canvas,grid,drawingOrigin,1,4)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableVoltageSourceOnePort(PartPictureVariable):
@@ -667,23 +678,9 @@ class PartPictureCurrentSourceTwoPort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(2,(1,0),'t',False),PartPin(1,(1,4),'b',False)],[(0,1),(2,3)],[(0,0),(2,4)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
-        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
-        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
-        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
-        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
-        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
-        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
-        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px,py-grid/4))],
-           [ct.Translate((px+grid/4,py)),ct.Translate((px,py-grid/4))],
-           [ct.Translate((px,my+grid/4)),ct.Translate((px,py-grid/4))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
-
+        PartPicture.DrawIndependent(self,canvas,grid,drawingOrigin)
+        # arrow inside the current source
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentSourceTwoPort(PartPictureVariable):
@@ -694,39 +691,11 @@ class PartPictureCurrentSourceOnePort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,3)],[(0,0),(2,4)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
-        ly=(drawingOrigin[1]+self.origin[1]+1)*grid
-        ux=(drawingOrigin[0]+self.origin[0]+2)*grid
-        uy=(drawingOrigin[1]+self.origin[1]+3)*grid
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
-        p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
-        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
-        px=(drawingOrigin[0]+self.origin[0]+0)*grid+grid
-        py=(drawingOrigin[1]+self.origin[1]+1)*grid+grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1)*grid+grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px,py-grid/4))],
-           [ct.Translate((px+grid/4,py)),ct.Translate((px,py-grid/4))],
-           [ct.Translate((px,my+grid/4)),ct.Translate((px,py-grid/4))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
-        gmx=(drawingOrigin[0]+self.origin[0]+1)*grid
-        glx=gmx-grid
-        grx=gmx+grid
-        gby=(drawingOrigin[1]+self.origin[1]+5)*grid
-        gty=gby-grid
-        p=[ct.Translate((gmx,gty-grid)),
-           ct.Translate((gmx,gty)),
-           ct.Translate((glx,gty)),
-           ct.Translate((gmx,gby)),
-           ct.Translate((grx,gty)),
-           ct.Translate((gmx,gty))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
-        canvas.create_polygon(p[1][0],p[1][1],
-                           p[2][0],p[2][1],
-                           p[3][0],p[3][1],
-                           p[4][0],p[4][1],
-                           p[5][0],p[5][1],fill=self.color)
+        PartPicture.DrawIndependent(self,canvas,grid,drawingOrigin)
+        # arrow inside the current source
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
+        PartPicture.DrawStem(self,canvas,grid,drawingOrigin,1,3)
+        PartPicture.DrawGround(self,canvas,grid,drawingOrigin,1,4)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentSourceOnePort(PartPictureVariable):
@@ -782,44 +751,11 @@ class PartPictureVoltageControlledVoltageSourceFourPort(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # plus and minus signs on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
         # plus and minus signs inside the voltage source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVoltageControlledVoltageSourceFourPortAlt(PartPictureBox):
@@ -828,44 +764,11 @@ class PartPictureVoltageControlledVoltageSourceFourPortAlt(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # minus and plus signs on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawMinusPlus(self,canvas,grid,drawingOrigin,1)
         # plus and minus signs inside the voltage source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableVoltageControlledVoltageSourceFourPort(PartPictureVariable):
@@ -878,36 +781,11 @@ class PartPictureCurrentControlledCurrentSourceFourPort(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
         # arrow inside the current source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureCurrentControlledCurrentSourceFourPortAlt(PartPictureBox):
@@ -916,36 +794,11 @@ class PartPictureCurrentControlledCurrentSourceFourPortAlt(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowDown(self,canvas,grid,drawingOrigin,1)
         # arrow inside the current source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentControlledCurrentSourceFourPort(PartPictureVariable):
@@ -958,40 +811,11 @@ class PartPictureVoltageControlledCurrentSourceFourPort(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # plus and minus signs on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
         # arrow inside the current source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVoltageControlledCurrentSourceFourPortAlt(PartPictureBox):
@@ -1000,41 +824,11 @@ class PartPictureVoltageControlledCurrentSourceFourPortAlt(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # minus and plus signs on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawMinusPlus(self,canvas,grid,drawingOrigin,1)
         # arrow inside the current source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
-
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableVoltageControlledCurrentSourceFourPort(PartPictureVariable):
@@ -1047,40 +841,11 @@ class PartPictureCurrentControlledVoltageSourceFourPort(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='first',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
         # plus and minus signs inside the voltage source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureCurrentControlledVoltageSourceFourPortAlt(PartPictureBox):
@@ -1089,40 +854,11 @@ class PartPictureCurrentControlledVoltageSourceFourPortAlt(PartPictureBox):
     def DrawDevice(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
-        mx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        lx=mx-3*grid/4
-        rx=mx+3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+2)*grid
-        ty=my-grid
-        by=my+grid
-        p=[ct.Translate((mx,ty)),
-            ct.Translate((rx,my)),
-            ct.Translate((mx,by)),
-            ct.Translate((lx,my)),
-            ct.Translate((mx,ty))]
-        canvas.create_polygon(p[0][0],p[0][1],
-            p[1][0],p[1][1],
-            p[2][0],p[2][1],
-            p[3][0],p[3][1],
-            p[4][0],p[4][1],
-            outline=self.color,
-            fill='')
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
-        px=(drawingOrigin[0]+self.origin[0]+0+1)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-3*grid/4
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+3*grid/4
-        p=[ct.Translate((px,py)),ct.Translate((px,my))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        PartPicture.DrawArrowDown(self,canvas,grid,drawingOrigin,1)
         # plus and minus signs inside the voltage source
-        px=(drawingOrigin[0]+self.origin[0]+0+3)*grid
-        py=(drawingOrigin[1]+self.origin[1]+1+1)*grid-grid/2
-        my=(drawingOrigin[1]+self.origin[1]+1+1)*grid+grid/2
-        p=[[ct.Translate((px-grid/4,py)),ct.Translate((px+grid/4,py))],
-           [ct.Translate((px,py-grid/4)),ct.Translate((px,py+grid/4))],
-           [ct.Translate((px-grid/4,my)),ct.Translate((px+grid/4,my))]]
-        canvas.create_line(p[0][0][0],p[0][0][1],p[0][1][0],p[0][1][1],fill=self.color)
-        canvas.create_line(p[1][0][0],p[1][0][1],p[1][1][0],p[1][1][1],fill=self.color)
-        canvas.create_line(p[2][0][0],p[2][0][1],p[2][1][0],p[2][1][1],fill=self.color)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin)
 
 class PartPictureVariableCurrentControlledVoltageSourceFourPort(PartPictureVariable):

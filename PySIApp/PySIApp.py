@@ -210,7 +210,7 @@ class TheApp(Frame):
         if self.filename == None:
             filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialdir=os.getcwd())
         else:
-            filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialdir=os.getcwd(),initialfile=self.filename)
+            filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialfile=self.filename)
 
         if filename=='':
             return
@@ -316,14 +316,14 @@ class TheApp(Frame):
             return
         sp.WriteToFile(filename)
 
-    def onSimulate(self):        
+    def onSimulate(self):
         if not self.Drawing.deviceSelected == None:
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
             self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
-        
+
         self.simulator.OpenSimulator()
 
 def main():
