@@ -214,6 +214,7 @@ class TheApp(Frame):
 
         if filename=='':
             return
+        self.filename=filename
         projectElement=et.Element('Project')
         drawingElement=self.Drawing.xml()
         simulatorElement=self.simulator.xml()
@@ -251,12 +252,23 @@ class TheApp(Frame):
         if dpd.result != None:
             devicePicked=copy.deepcopy(DeviceList[dpd.result])
             devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
+            defaultProperty = devicePicked[PartPropertyDefaultReferenceDesignator().propertyName]
+            if defaultProperty != None:
+                defaultPropertyValue = defaultProperty.value
+                uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                if uniqueReferenceDesignator != None:
+                    devicePicked[PartPropertyReferenceDesignator().propertyName].value=uniqueReferenceDesignator
             dpe=DevicePropertiesDialog(self,devicePicked)
             self.Drawing.partLoaded = dpe.result
-
     def onDuplicate(self):
         if not self.Drawing.deviceSelected == None:
             self.Drawing.partLoaded=copy.deepcopy(self.Drawing.deviceSelected)
+            defaultProperty = self.Drawing.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
+            if defaultProperty != None:
+                defaultPropertyValue = defaultProperty.value
+                uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                if uniqueReferenceDesignator != None:
+                    self.Drawing.partLoaded[PartPropertyReferenceDesignator().propertyName].value=uniqueReferenceDesignator
         if not self.Drawing.deviceSelected == None:
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None

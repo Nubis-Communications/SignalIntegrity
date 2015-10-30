@@ -112,8 +112,8 @@ class NetList(object):
         return self.textToShow
     def OutputNames(self):
         return self.outputNames
-    
-        
+
+
 class Wire(object):
     def __init__(self,vertexList=None,selected=False):
         if vertexList==None:
@@ -350,7 +350,21 @@ class Schematic(object):
                     del removeWireIndexList[wireIndex]
                     keepDeletingWires=True
                     break
-
+    def NewUniqueReferenceDesignator(self,defaultDesignator):
+        if defaultDesignator != None and '?' in defaultDesignator:
+            referenceDesignatorList=[]
+            for device in self.deviceList:
+                deviceReferenceDesignatorProperty = device[PartPropertyReferenceDesignator().propertyName]
+                if deviceReferenceDesignatorProperty != None:
+                    deviceReferenceDesignator = deviceReferenceDesignatorProperty.value
+                    if deviceReferenceDesignator != None:
+                        referenceDesignatorList.append(deviceReferenceDesignator)
+            num = 1
+            while defaultDesignator.replace('?',str(num)) in referenceDesignatorList:
+                num=num+1
+            return defaultDesignator.replace('?',str(num))
+        else:
+            return None
 class Drawing(Frame):
     def __init__(self,parent):
         Frame.__init__(self,parent)
@@ -546,6 +560,12 @@ class Drawing(Frame):
     def DuplicateSelectedDevice(self):
         if not self.deviceSelected == None:
             self.partLoaded=copy.deepcopy(self.deviceSelected)
+            defaultProperty = self.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
+            if defaultProperty != None:
+                defaultPropertyValue = defaultProperty.value
+                uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                if uniqueReferenceDesignator != None:
+                    self.partLoaded[PartPropertyReferenceDesignator().propertyName].value=uniqueReferenceDesignator
         if not self.deviceSelected == None:
             self.deviceSelected.selected=False
             self.deviceSelected=None

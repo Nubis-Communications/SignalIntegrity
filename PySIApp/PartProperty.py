@@ -107,7 +107,11 @@ class PartPropertyXMLClassFactory(PartProperty):
 
 class PartPropertyReferenceDesignator(PartProperty):
     def __init__(self,referenceDesignator=''):
-        PartProperty.__init__(self,'reference',type='string',unit=None,description='reference designator',value=referenceDesignator,visible=True,keywordVisible=False)
+        PartProperty.__init__(self,'reference',type='string',unit=None,description='reference designator',value=referenceDesignator,visible=False,keywordVisible=False)
+
+class PartPropertyDefaultReferenceDesignator(PartProperty):
+    def __init__(self,referenceDesignator=''):
+        PartProperty.__init__(self,'defaultreference',type='string',unit=None,description='default reference designator',value=referenceDesignator,hidden=True,visible=False,keywordVisible=False)
 
 class PartPropertyPorts(PartProperty):
     def __init__(self,numPorts=1):
@@ -168,3 +172,35 @@ class PartPropertyInputImpedance(PartProperty):
 class PartPropertyOutputImpedance(PartProperty):
     def __init__(self,outputImpedance=0.):
         PartProperty.__init__(self,'outputimpedance',type='float',unit='Ohm',keyword='zo',description='output impedance (Ohms)',value=outputImpedance,visible=True)
+
+class PartPropertyHorizontalOffset(PartProperty):
+    def __init__(self,horizontalOffset=-100e-9):
+        PartProperty.__init__(self,'horizontaloffset',type='float',unit='s',keyword='ho',description='horizontal offset (s)',value=horizontalOffset,visible=False)
+
+class PartPropertyDuration(PartProperty):
+    def __init__(self,duration=200e-9):
+        PartProperty.__init__(self,'duration',type='float',unit='s',keyword='dur',description='duration (s)',value=duration,visible=False)
+
+class PartPropertySampleRate(PartProperty):
+    def __init__(self,sampleRate=40e9):
+        PartProperty.__init__(self,'sampleRate',type='float',unit='s',keyword='fs',description='Sample Rate (S/s)',value=sampleRate,visible=False)
+
+class PartPropertyStartTime(PartProperty):
+    def __init__(self,startTime=0.):
+        PartProperty.__init__(self,'starttime',type='float',unit='s',keyword='t0',description='start time (s)',value=startTime,visible=True)
+
+class PartPropertyVoltageAmplitude(PartProperty):
+    def __init__(self,voltageAmplitude=1.):
+        PartProperty.__init__(self,'voltageamplitude',type='float',unit='V',keyword='a',description='voltage amplitude (V)',value=voltageAmplitude,visible=True)
+
+class PartPropertyPulseWidth(PartProperty):
+    def __init__(self,pulseWidth=1e-9):
+        PartProperty.__init__(self,'pulsewidth',type='float',unit='s',keyword='w',description='pulse width (s)',value=pulseWidth,visible=True)
+
+class PartPropertyFrequency(PartProperty):
+    def __init__(self,frequency=1e6):
+        PartProperty.__init__(self,'frequency',type='float',unit='Hz',keyword='f',description='frequency (Hz)',value=frequency,visible=True)
+
+class PartPropertyPhase(PartProperty):
+    def __init__(self,phase=0.):
+        PartProperty.__init__(self,'phase',type='float',unit='deg',keyword='ph',description='phase (degrees)',value=phase,visible=True)
