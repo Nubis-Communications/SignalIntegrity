@@ -127,15 +127,15 @@ class PartPropertyWaveformFileName(PartProperty):
 
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.):
-        PartProperty.__init__(self,'resistence',type='float',unit='Ohm',keyword='r',description='resistance (Ohms)',value=resistance,visible=True)
+        PartProperty.__init__(self,'resistence',type='float',unit='Ohm',keyword='r',description='resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
 
 class PartPropertyCapacitance(PartProperty):
     def __init__(self,capacitance=1e-12):
-        PartProperty.__init__(self,'capacitance',type='float',unit='F',keyword='c',description='capacitance (F)',value=capacitance,visible=True)
+        PartProperty.__init__(self,'capacitance',type='float',unit='F',keyword='c',description='capacitance (F)',value=capacitance,visible=True,keywordVisible=False)
 
 class PartPropertyInductance(PartProperty):
     def __init__(self,inductance=1e-15):
-        PartProperty.__init__(self,'inductance',type='float',unit='H',keyword='l',description='inductance (H)',value=inductance,visible=True)
+        PartProperty.__init__(self,'inductance',type='float',unit='H',keyword='l',description='inductance (H)',value=inductance,visible=True,keywordVisible=False)
 
 class PartPropertyPartName(PartProperty):
     def __init__(self,partName=''):
@@ -193,6 +193,10 @@ class PartPropertyVoltageAmplitude(PartProperty):
     def __init__(self,voltageAmplitude=1.):
         PartProperty.__init__(self,'voltageamplitude',type='float',unit='V',keyword='a',description='voltage amplitude (V)',value=voltageAmplitude,visible=True)
 
+class PartPropertyCurrentAmplitude(PartProperty):
+    def __init__(self,currentAmplitude=1.):
+        PartProperty.__init__(self,'currentamplitude',type='float',unit='A',keyword='a',description='current amplitude (A)',value=currentAmplitude,visible=True)
+
 class PartPropertyPulseWidth(PartProperty):
     def __init__(self,pulseWidth=1e-9):
         PartProperty.__init__(self,'pulsewidth',type='float',unit='s',keyword='w',description='pulse width (s)',value=pulseWidth,visible=True)
@@ -204,3 +208,7 @@ class PartPropertyFrequency(PartProperty):
 class PartPropertyPhase(PartProperty):
     def __init__(self,phase=0.):
         PartProperty.__init__(self,'phase',type='float',unit='deg',keyword='ph',description='phase (degrees)',value=phase,visible=True)
+
+class PartPropertyTurnsRatio(PartProperty):
+    def __init__(self,ratio=1.):
+        PartProperty.__init__(self,'turnsratio',type='float',unit='',keyword='tr',description='turns ratio (P/S)',value=ratio,visible=True,keywordVisible=False)

@@ -103,6 +103,12 @@ class DeviceMutual(Device):
     def NetListLine(self):
         return Device.NetListLine(self)+' M '+self[PartPropertyInductance().propertyName].value
 
+class DeviceIdealTransformer(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('IdealTransformer'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyPorts(4),PartPropertyTurnsRatio(),PartPropertyDescription('Four Port IdealTransformer')],partPicture=PartPictureVariableIdealTransformer())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' idealtransformer '+self[PartPropertyTurnsRatio().propertyName].value
+
 class Port(Device):
     def __init__(self,portNumber):
         Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber,visible=True)],partPicture=PartPictureVariablePort())
@@ -182,6 +188,57 @@ class DeviceCurrentSource(Device):
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
 
+
+class DeviceCurrentStepGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertySampleRate(),PartPropertyCurrentAmplitude()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+    def Waveform(self):
+        import SignalIntegrity as si
+        Fs=float(self[PartPropertySampleRate().propertyName].value)
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
+        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].value)
+        startTime=float(self[PartPropertyStartTime().propertyName].value)
+        waveform = si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,startTime)
+        return waveform
+
+class DeviceCurrentPulseGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Pulse Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyPulseWidth(),PartPropertySampleRate(),PartPropertyCurrentAmplitude()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+    def Waveform(self):
+        import SignalIntegrity as si
+        Fs=float(self[PartPropertySampleRate().propertyName].value)
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
+        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].value)
+        startTime=float(self[PartPropertyStartTime().propertyName].value)
+        pulseWidth=float(self[PartPropertyPulseWidth().propertyName].value)
+        waveform = si.td.wf.PulseWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,startTime,pulseWidth)
+        return waveform
+
+class DeviceCurrentSineGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Sine Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyFrequency(),PartPropertyPhase()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+    def Waveform(self):
+        import SignalIntegrity as si
+        Fs=float(self[PartPropertySampleRate().propertyName].value)
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
+        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].value)
+        frequency=float(self[PartPropertyFrequency().propertyName].value)
+        phase=float(self[PartPropertyPhase().propertyName].value)
+        waveform = si.td.wf.SineWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,frequency,phase)
+        return waveform
+
 class DeviceMeasurement(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,propertiesList,partPicture)
@@ -259,6 +316,7 @@ DeviceList = [
               DeviceCapacitor([PartPropertyDescription('Two Port Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
               DeviceInductor([PartPropertyDescription('Two Port Inductor'),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),
               DeviceMutual(),
+              DeviceIdealTransformer(),
               DeviceGround(),
               DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
               DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
@@ -270,6 +328,12 @@ DeviceList = [
               DeviceVoltageSineGenerator([PartPropertyDescription('Two Port Voltage Sine Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceSineGeneratorTwoPort()),
               DeviceCurrentSource([PartPropertyDescription('One Port Current Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
               DeviceCurrentSource([PartPropertyDescription('Two Port Current Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
+              DeviceCurrentStepGenerator([PartPropertyDescription('One Port Current Step Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceStepGeneratorOnePort()),
+              DeviceCurrentStepGenerator([PartPropertyDescription('Two Port Current Step Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceStepGeneratorTwoPort()),
+              DeviceCurrentPulseGenerator([PartPropertyDescription('One Port Current Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourcePulseGeneratorOnePort()),
+              DeviceCurrentPulseGenerator([PartPropertyDescription('Two Port Current Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),
+              DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),
+              DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
               DeviceMeasurement([PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure')],PartPictureVariableProbe()),
               DeviceOutput([PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output')],PartPictureVariableProbe()),
               DeviceMixedModeConverter(),

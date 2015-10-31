@@ -10,6 +10,38 @@ import xml.etree.ElementTree as et
 from PlotWindow import *
 from ToSI import *
 
+class SimulatorProperty(Frame):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback):
+        Frame.__init__(self,parentFrame)
+        self.parentFrame=parentFrame
+        self.enteredCallback=enteredCallback
+        self.updateStringsCallback=updateStringsCallback
+        self.pack(side=TOP,fill=X,expand=YES)
+        self.string=StringVar()
+        self.label = Label(self,width=20,text=textLabel+': ',anchor='e')
+        self.label.pack(side=LEFT, expand=NO, fill=X)
+        self.entry = Entry(self,textvariable=self.string)
+        self.entry.config(width=15)
+        self.entry.bind('<Return>',self.onEntered)
+        self.entry.bind('<FocusIn>',self.onTouched)
+        self.entry.bind('<Button-3>',self.onUntouched)
+        self.entry.bind('<Escape>',self.onUntouched)
+        self.entry.bind('<FocusOut>',self.onUntouched)
+        self.entry.pack(side=LEFT, expand=YES, fill=X)
+    def SetString(self,value):
+        self.string.set(value)
+    def GetString(self):
+        return self.string.get()
+    def onEntered(self,event):
+        self.enteredCallback(event)
+        self.onUntouched(event)
+    def onTouched(self,event):
+        self.updateStringsCallback()
+        self.string.set('')
+    def onUntouched(self,event):
+        self.updateStringsCallback()
+        self.parentFrame.focus()       
+
 class SimulatorDialog(Toplevel):
     def __init__(self, parent,simulator):
         Toplevel.__init__(self, parent)
@@ -20,195 +52,73 @@ class SimulatorDialog(Toplevel):
         self.simulator=simulator
         propertyListFrame = Frame(self)
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
-        self.endFrequencyString=StringVar(value=ToSI(self.simulator.endFrequency,'Hz'))
-        self.endFrequencyFrame=Frame(propertyListFrame)
-        self.endFrequencyFrame.pack(side=TOP,fill=X,expand=YES)
-        self.endFrequencyLabel = Label(self.endFrequencyFrame,width=20,text='end frequency: ',anchor='e')
-        self.endFrequencyLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.endFrequencyEntry = Entry(self.endFrequencyFrame,textvariable=self.endFrequencyString)
-        self.endFrequencyEntry.config(width=15)
-        self.endFrequencyEntry.bind('<Return>',self.onendFrequencyEntered)
-        self.endFrequencyEntry.bind('<FocusIn>',self.onendFrequencyTouched)
-        self.endFrequencyEntry.bind('<Button-3>',self.onUntouched)
-        self.endFrequencyEntry.bind('<Escape>',self.onUntouched)
-        self.endFrequencyEntry.bind('<FocusOut>',self.onUntouched)
-        self.endFrequencyEntry.pack(side=LEFT, expand=YES, fill=X)
-        self.frequencyPointsString=StringVar(value=ToSI(self.simulator.frequencyPoints,'pts'))
-        self.frequencyPointsFrame=Frame(propertyListFrame)
-        self.frequencyPointsFrame.pack(side=TOP,fill=X,expand=YES)
-        self.frequencyPointsLabel = Label(self.frequencyPointsFrame,width=20,text='frequency points: ',anchor='e')
-        self.frequencyPointsLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.frequencyPointsEntry = Entry(self.frequencyPointsFrame,textvariable=self.frequencyPointsString)
-        self.frequencyPointsEntry.config(width=15)
-        self.frequencyPointsEntry.bind('<Return>',self.onfrequencyPointsEntered)
-        self.frequencyPointsEntry.bind('<FocusIn>',self.onfrequencyPointsTouched)
-        self.frequencyPointsEntry.bind('<Button-3>',self.onUntouched)
-        self.frequencyPointsEntry.bind('<Escape>',self.onUntouched)
-        self.frequencyPointsEntry.bind('<FocusOut>',self.onUntouched)
-        self.frequencyPointsEntry.pack(side=LEFT, expand=YES, fill=X)
-        self.frequencyResolutionString=StringVar(value=ToSI(self.simulator.frequencyResolution,'Hz/pt'))
-        self.frequencyResolutionFrame=Frame(propertyListFrame)
-        self.frequencyResolutionFrame.pack(side=TOP,fill=X,expand=YES)
-        self.frequencyResolutionLabel = Label(self.frequencyResolutionFrame,width=20,text='frequency resolution: ',anchor='e')
-        self.frequencyResolutionLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.frequencyResolutionEntry = Entry(self.frequencyResolutionFrame,textvariable=self.frequencyResolutionString)
-        self.frequencyResolutionEntry.config(width=15)
-        self.frequencyResolutionEntry.bind('<Return>',self.onfrequencyResolutionEntered)
-        self.frequencyResolutionEntry.bind('<FocusIn>',self.onfrequencyResolutionTouched)
-        self.frequencyResolutionEntry.bind('<Button-3>',self.onUntouched)
-        self.frequencyResolutionEntry.bind('<Escape>',self.onUntouched)
-        self.frequencyResolutionEntry.bind('<FocusOut>',self.onUntouched)
-        self.frequencyResolutionEntry.pack(side=LEFT, expand=YES, fill=X)
-        self.userSampleRateString=StringVar(value=ToSI(self.simulator.userSampleRate,'S/s'))
-        self.userSampleRateFrame=Frame(propertyListFrame)
-        self.userSampleRateFrame.pack(side=TOP,fill=X,expand=YES)
-        self.userSampleRateLabel = Label(self.userSampleRateFrame,width=20,text='user sample rate: ',anchor='e')
-        self.userSampleRateLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.userSampleRateEntry = Entry(self.userSampleRateFrame,textvariable=self.userSampleRateString)
-        self.userSampleRateEntry.config(width=15)
-        self.userSampleRateEntry.bind('<Return>',self.onuserSampleRateEntered)
-        self.userSampleRateEntry.bind('<FocusIn>',self.onuserSampleRateTouched)
-        self.userSampleRateEntry.bind('<Button-3>',self.onUntouched)
-        self.userSampleRateEntry.bind('<Escape>',self.onUntouched)
-        self.userSampleRateEntry.bind('<FocusOut>',self.onUntouched)
-        self.userSampleRateEntry.pack(side=LEFT, expand=YES, fill=X)
-        self.baseSampleRateString=StringVar(value=ToSI(self.simulator.baseSampleRate,'S/s'))
-        self.baseSampleRateFrame=Frame(propertyListFrame)
-        self.baseSampleRateFrame.pack(side=TOP,fill=X,expand=YES)
-        self.baseSampleRateLabel = Label(self.baseSampleRateFrame,width=20,text='base sample rate: ',anchor='e')
-        self.baseSampleRateLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.baseSampleRateEntry = Entry(self.baseSampleRateFrame,textvariable=self.baseSampleRateString)
-        self.baseSampleRateEntry.config(width=15)
-        self.baseSampleRateEntry.bind('<Return>',self.onbaseSampleRateEntered)
-        self.baseSampleRateEntry.bind('<FocusIn>',self.onbaseSampleRateTouched)
-        self.baseSampleRateEntry.bind('<Button-3>',self.onUntouched)
-        self.baseSampleRateEntry.bind('<Escape>',self.onUntouched)
-        self.baseSampleRateEntry.bind('<FocusOut>',self.onUntouched)
-        self.baseSampleRateEntry.pack(side=LEFT, expand=YES, fill=X)
-        self.timePointsString=StringVar(value=ToSI(self.simulator.timePoints,'pts'))
-        self.timePointsFrame=Frame(propertyListFrame)
-        self.timePointsFrame.pack(side=TOP,fill=X,expand=YES)
-        self.timePointsLabel = Label(self.timePointsFrame,width=20,text='time points: ',anchor='e')
-        self.timePointsLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.timePointsEntry = Entry(self.timePointsFrame,textvariable=self.timePointsString)
-        self.timePointsEntry.config(width=15)
-        self.timePointsEntry.bind('<Return>',self.ontimePointsEntered)
-        self.timePointsEntry.bind('<FocusIn>',self.ontimePointsTouched)
-        self.timePointsEntry.bind('<Button-3>',self.onUntouched)
-        self.timePointsEntry.bind('<Escape>',self.onUntouched)
-        self.timePointsEntry.bind('<FocusOut>',self.onUntouched)
-        self.timePointsEntry.pack(side=LEFT, expand=YES, fill=X)
-        self.impulseLengthString=StringVar(value=ToSI(self.simulator.impulseLength,'s'))
-        self.impulseLengthFrame=Frame(propertyListFrame)
-        self.impulseLengthFrame.pack(side=TOP,fill=X,expand=YES)
-        self.impulseLengthLabel = Label(self.impulseLengthFrame,width=20,text='impulse response length: ',anchor='e')
-        self.impulseLengthLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.impulseLengthEntry = Entry(self.impulseLengthFrame,textvariable=self.impulseLengthString)
-        self.impulseLengthEntry.config(width=15)
-        self.impulseLengthEntry.bind('<Return>',self.onimpulseLengthEntered)
-        self.impulseLengthEntry.bind('<FocusIn>',self.onimpulseLengthTouched)
-        self.impulseLengthEntry.bind('<Button-3>',self.onUntouched)
-        self.impulseLengthEntry.bind('<Escape>',self.onUntouched)
-        self.impulseLengthEntry.bind('<FocusOut>',self.onUntouched)
-        self.impulseLengthEntry.pack(side=LEFT, expand=YES, fill=X)
+        self.endFrequencyFrame=SimulatorProperty(propertyListFrame,'end frequency',self.onendFrequencyEntered,self.updateStrings)
+        self.frequencyPointsFrame=SimulatorProperty(propertyListFrame,'frequency points',self.onfrequencyPointsEntered,self.updateStrings)
+        self.frequencyResolutionFrame=SimulatorProperty(propertyListFrame,'frequency resolution',self.onfrequencyResolutionEntered,self.updateStrings)
+        self.userSampleRateFrame=SimulatorProperty(propertyListFrame,'user sample rate',self.onuserSampleRateEntered,self.updateStrings)
+        self.baseSampleRateFrame=SimulatorProperty(propertyListFrame,'base sample rate',self.onbaseSampleRateEntered,self.updateStrings)
+        self.timePointsFrame=SimulatorProperty(propertyListFrame,'time points',self.ontimePointsEntered,self.updateStrings)
+        self.impulseLengthFrame=SimulatorProperty(propertyListFrame,'impulse response length',self.onimpulseLengthEntered,self.updateStrings)
+        self.updateStrings()
         controlsFrame = Frame(self)
         Button(controlsFrame,text='simulate',command=self.onSimulate).pack(side=LEFT,expand=NO,fill=X)
         controlsFrame.pack(side=TOP,fill=X,expand=NO)
 
     def onendFrequencyEntered(self,event):
-        self.simulator.endFrequency=nextHigher12458(float(self.endFrequencyString.get()))
+        self.simulator.endFrequency=nextHigher12458(float(self.endFrequencyFrame.GetString()))
         self.simulator.baseSampleRate=2.*self.simulator.endFrequency
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
-        self.onUntouched(event)
-
-    def onendFrequencyTouched(self,event):
-        self.updateStrings()
-        self.endFrequencyString.set('')
-
-    def onUntouched(self,event):
-        self.updateStrings()
-        self.focus()
 
     def onfrequencyPointsEntered(self,event):
-        self.simulator.frequencyPoints=int(nextHigher12458(float(self.frequencyPointsString.get())))
+        self.simulator.frequencyPoints=int(nextHigher12458(float(self.frequencyPointsFrame.GetString())))
         self.simulator.timePoints=int(self.simulator.frequencyPoints*2)
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
-        self.onUntouched(event)
-
-    def onfrequencyPointsTouched(self,event):
-        self.updateStrings()
-        self.frequencyPointsString.set('')
 
     def onfrequencyResolutionEntered(self,event):
-        self.simulator.frequencyResolution=float(self.frequencyResolutionString.get())
+        self.simulator.frequencyResolution=float(self.frequencyResolutionFrame.GetString())
         self.simulator.frequencyPoints=int(nextHigher12458(self.simulator.endFrequency/self.simulator.frequencyResolution))
         self.simulator.timePoints=self.simulator.frequencyPoints*2
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
-        self.onUntouched(event)
-
-    def onfrequencyResolutionTouched(self,event):
-        self.updateStrings()
-        self.frequencyResolutionString.set('')
 
     def onuserSampleRateEntered(self,event):
-        self.simulator.userSampleRate=nextHigher12458(float(self.userSampleRateString.get()))
-        self.onUntouched(event)
-
-    def onuserSampleRateTouched(self,event):
-        self.updateStrings()
-        self.userSampleRateString.set('')
+        self.simulator.userSampleRate=nextHigher12458(float(self.userSampleRateFrame.GetString()))
 
     def onbaseSampleRateEntered(self,event):
-        self.simulator.baseSampleRate=float(self.baseSampleRateString.get())
+        self.simulator.baseSampleRate=float(self.baseSampleRateFrame.GetString())
         self.simulator.endFrequency=nextHigher12458(self.simulator.baseSampleRate/2.)
         self.simulator.baseSampleRate=self.simulator.endFrequency*2
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
-        self.onUntouched(event)
-
-    def onbaseSampleRateTouched(self,event):
-        self.updateStrings()
-        self.baseSampleRateString.set('')
 
     def ontimePointsEntered(self,event):
-        self.simulator.timePoints=int(self.timePointsString.get())
+        self.simulator.timePoints=int(self.timePointsFrame.GetString())
         self.simulator.frequencyPoints=int(nextHigher12458(self.simulator.timePoints/2))
         self.simulator.timePoints=self.simulator.frequencyPoints*2
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
-        self.onUntouched(event)
-
-    def ontimePointsTouched(self,event):
-        self.updateStrings()
-        self.timePointsString.set('')
 
     def onimpulseLengthEntered(self,event):
-        self.simulator.impulseLength=float(self.impulseLengthString.get())
+        self.simulator.impulseLength=float(self.impulseLengthFrame.GetString())
         self.simulator.timePoints=self.simulator.impulseLength*self.simulator.baseSampleRate
         self.simulator.frequencyPoints=int(nextHigher12458(self.simulator.timePoints/2.))
         self.simulator.timePoints=self.simulator.frequencyPoints*2
         self.simulator.frequencyResolution=self.simulator.endFrequency/self.simulator.frequencyPoints
         self.simulator.impulseLength=1./self.simulator.frequencyResolution
-        self.onUntouched(event)
-
-    def onimpulseLengthTouched(self,event):
-        self.updateStrings()
-        self.impulseLengthString.set('')
 
     def onSimulate(self):
         self.simulator.Simulate()
 
     def updateStrings(self):
-        self.endFrequencyString.set(ToSI(self.simulator.endFrequency,'Hz'))
-        self.frequencyPointsString.set(ToSI(self.simulator.frequencyPoints,'pts'))
-        self.userSampleRateString.set(ToSI(self.simulator.userSampleRate,'S/s'))
-        self.baseSampleRateString.set(ToSI(self.simulator.baseSampleRate,'S/s'))
-        self.timePointsString.set(ToSI(self.simulator.timePoints,'pts'))
-        self.frequencyResolutionString.set(ToSI(self.simulator.frequencyResolution,'Hz/pt'))
-        self.impulseLengthString.set(ToSI(self.simulator.impulseLength,'s'))
+        self.endFrequencyFrame.SetString(ToSI(self.simulator.endFrequency,'Hz'))
+        self.frequencyPointsFrame.SetString(ToSI(self.simulator.frequencyPoints,'pts'))
+        self.userSampleRateFrame.SetString(ToSI(self.simulator.userSampleRate,'S/s'))
+        self.baseSampleRateFrame.SetString(ToSI(self.simulator.baseSampleRate,'S/s'))
+        self.timePointsFrame.SetString(ToSI(self.simulator.timePoints,'pts'))
+        self.frequencyResolutionFrame.SetString(ToSI(self.simulator.frequencyResolution,'Hz/pt'))
+        self.impulseLengthFrame.SetString(ToSI(self.simulator.impulseLength,'s'))
 
 class Simulator(object):
     def __init__(self,parent,endFrequency=20e9,frequencyPoints=400,userSampleRate=40e9):

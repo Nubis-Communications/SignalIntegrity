@@ -7,6 +7,7 @@ import xml.etree.ElementTree as et
 import copy
 
 from PartPin import *
+from matplotlib.pyplot import grid
 
 class CoordinateTranslater(object):
     def __init__(self,rotationPoint,rotationAngle,mirroredHorizontally,mirroredVertically):
@@ -226,7 +227,6 @@ class PartPicture(object):
         ly=(drawingOrigin[1]+self.origin[1]+1)*grid
         ux=(drawingOrigin[0]+self.origin[0]+2)*grid
         uy=(drawingOrigin[1]+self.origin[1]+3)*grid
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         p=[ct.Translate((lx,ly)),ct.Translate((ux,uy))]
         canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
     def DrawGround(self,canvas,grid,drawingOrigin,x,y):
@@ -237,7 +237,6 @@ class PartPicture(object):
         rx=mx+size
         ty=(drawingOrigin[1]+self.origin[1]+y)*grid
         by=ty+size
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         p=[ct.Translate((lx,ty)),ct.Translate((rx,ty)),ct.Translate((mx,by)),ct.Translate((lx,ty))]
         canvas.create_polygon(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1],p[3][0],p[3][1],fill=self.color)
     def DrawStem(self,canvas,grid,drawingOrigin,x,y):
@@ -540,6 +539,77 @@ class PartPictureVariableMutual(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureMutual'])
 
+class PartPictureIdealTransformer(PartPicture):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,(0,0),[PartPin(3,(0,1),'l',False),PartPin(4,(0,3),'l',False),PartPin(1,(4,1),'r',False),PartPin(2,(4,3),'r',False)],[(1,0),(3,4)],[(0,0),(4,4)],(1,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # left side of the transformer
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid
+        p=[ct.Translate((lx-grid/2,ty)),ct.Translate((lx+grid/2,ty+grid/2))]
+        r=self.ArcConverter(-90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        p=[ct.Translate((lx-grid/2,ty+grid/2)),ct.Translate((lx+grid/2,ty+grid))]
+        r=self.ArcConverter(-90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        p=[ct.Translate((lx-grid/2,ty+grid)),ct.Translate((lx+grid/2,ty+3*grid/2))]
+        r=self.ArcConverter(-90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        p=[ct.Translate((lx-grid/2,ty+3*grid/2)),ct.Translate((lx+grid/2,ty+2*grid))]
+        r=self.ArcConverter(-90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        # right side of the transformer
+        lx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid
+        p=[ct.Translate((lx-grid/2,ty)),ct.Translate((lx+grid/2,ty+grid/2))]
+        r=self.ArcConverter(90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        p=[ct.Translate((lx-grid/2,ty+grid/2)),ct.Translate((lx+grid/2,ty+grid))]
+        r=self.ArcConverter(90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        p=[ct.Translate((lx-grid/2,ty+grid)),ct.Translate((lx+grid/2,ty+3*grid/2))]
+        r=self.ArcConverter(90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        p=[ct.Translate((lx-grid/2,ty+3*grid/2)),ct.Translate((lx+grid/2,ty+2*grid))]
+        r=self.ArcConverter(90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        # the core of the transformer
+        mx=(drawingOrigin[0]+self.origin[0]+2)*grid
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid
+        by=(drawingOrigin[1]+self.origin[1]+3)*grid
+        p=[ct.Translate((mx-grid/4,ty)),ct.Translate((mx-grid/4,by))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        p=[ct.Translate((mx+grid/4,ty)),ct.Translate((mx+grid/4,by))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color) 
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin)
+        # dot on the primary
+        lx=(drawingOrigin[0]+self.origin[0])*grid+3*grid/4
+        ty=(drawingOrigin[1]+self.origin[1])*grid+grid/2
+        size=grid/8
+        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
+        # dot on the secondary
+        lx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ty=(drawingOrigin[1]+self.origin[1])*grid+grid/2
+        size=grid/8
+        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
+        # primary label
+        x=(drawingOrigin[0]+self.origin[0])*grid+grid/2
+        y=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=ct.Translate((x,y))
+        canvas.create_text(p[0],p[1],text='P',fill=self.color)
+        # secondary label
+        x=(drawingOrigin[0]+self.origin[0]+3)*grid+grid/2
+        y=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=ct.Translate((x,y))
+        canvas.create_text(p[0],p[1],text='S',fill=self.color)
+
+class PartPictureVariableIdealTransformer(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureIdealTransformer'])
+
 class PartPictureResistorTwoPort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(1,0),orientation,mirroredHorizontally,mirroredVertically)
@@ -765,6 +835,39 @@ class PartPictureVariableCurrentSourceTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceTwoPort'])
 
+class PartPictureCurrentSourceStepGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceTwoPort.__init__(self,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPicture.DrawStepSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceTwoPort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourceStepGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceStepGeneratorTwoPort'])
+
+class PartPictureCurrentSourcePulseGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceTwoPort.__init__(self,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPicture.DrawPulseSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceTwoPort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourcePulseGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourcePulseGeneratorTwoPort'])
+
+class PartPictureCurrentSourceSineGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceTwoPort.__init__(self,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPicture.DrawSineSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceTwoPort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourceSineGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceSineGeneratorTwoPort'])
+
 class PartPictureCurrentSourceOnePort(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,3)],[(0,0),(2,4)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
@@ -779,6 +882,39 @@ class PartPictureCurrentSourceOnePort(PartPicture):
 class PartPictureVariableCurrentSourceOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceOnePort'])
+
+class PartPictureCurrentSourceStepGeneratorOnePort(PartPictureCurrentSourceOnePort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,5)],[(0,0),(2,5)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPicture.DrawStepSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceOnePort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourceStepGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceStepGeneratorOnePort'])
+
+class PartPictureCurrentSourcePulseGeneratorOnePort(PartPictureCurrentSourceOnePort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,5)],[(0,0),(2,5)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPicture.DrawPulseSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceOnePort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourcePulseGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourcePulseGeneratorOnePort'])
+
+class PartPictureCurrentSourceSineGeneratorOnePort(PartPictureCurrentSourceOnePort):
+    def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,(0,0),[PartPin(1,(1,0),'t',False)],[(0,1),(2,5)],[(0,0),(2,5)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin):
+        PartPicture.DrawSineSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceOnePort.DrawDevice(self,canvas,grid,drawingOrigin)
+
+class PartPictureVariableCurrentSourceSineGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceSineGeneratorOnePort'])
 
 class PartPictureProbe(PartPicture):
     def __init__(self,orientation,mirroredHorizontally,mirroredVertically):
