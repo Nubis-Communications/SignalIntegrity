@@ -19,9 +19,9 @@ class DevicePicker(Frame):
         categories=[]
         indexIntoDeviceList=0
         for device in DeviceList:
-            parttype=device['type'].value
-            description='\ '.join(device['description'].value.split())
-            category=device['category'].value
+            parttype=device['type'].GetValue()
+            description='\ '.join(device['description'].GetValue().split())
+            category=device['category'].GetValue()
             if category not in categories:
                 self.tree.insert('','end',category,text=category,values=(category),tags='category')
                 categories.append(category)

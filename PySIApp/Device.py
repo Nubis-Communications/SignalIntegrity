@@ -33,14 +33,20 @@ class Device(object):
         self.propertiesList=self.propertiesList+[PartProperty]
     def __getitem__(self,item):
         return self.PartPropertyByName(item)
+    def __setitem__(self,item,value):
+        for p in range(len(self.propertiesList)):
+            if self.propertiesList[p].propertyName == item:
+                self.propertiesList[p]=value
+                return
+        raise ValueError
     def NetListLine(self):
-        return 'device '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'device '+self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw')+' '+self['ports'].PropertyString(stype='raw')
     def PinCoordinates(self):
         return self.partPicture.current.PinCoordinates()
     def CreateVisiblePropertiesList(self):
         visiblePartPropertyList=[]
         for partProperty in self.propertiesList:
-            propertyString=partProperty.PropertyString()
+            propertyString=partProperty.PropertyString(stype='attr')
             if propertyString != '':
                 visiblePartPropertyList.append(propertyString)
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
@@ -77,43 +83,43 @@ class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' file '+self[PartPropertyFileName().propertyName].value
+        return Device.NetListLine(self)+' file '+self[PartPropertyFileName().propertyName].PropertyString(stype='raw')
 
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Resistors'),PartPropertyPartName('Resistor'),PartPropertyDefaultReferenceDesignator('R?'),PartPropertyResistance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' R '+self[PartPropertyResistance().propertyName].value
+        return Device.NetListLine(self)+' R '+self[PartPropertyResistance().propertyName].PropertyString(stype='raw')
 
 class DeviceCapacitor(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyDefaultReferenceDesignator('C?'),PartPropertyCapacitance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' C '+self[PartPropertyCapacitance().propertyName].value
+        return Device.NetListLine(self)+' C '+self[PartPropertyCapacitance().propertyName].PropertyString(stype='raw')
 
 class DeviceInductor(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Inductor'),PartPropertyDefaultReferenceDesignator('L?'),PartPropertyInductance()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' L '+self[PartPropertyInductance().propertyName].value
+        return Device.NetListLine(self)+' L '+self[PartPropertyInductance().propertyName].PropertyString(stype='raw')
 
 class DeviceMutual(Device):
     def __init__(self):
         Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('Mutual'),PartPropertyDefaultReferenceDesignator('M?'),PartPropertyPorts(4),PartPropertyInductance(),PartPropertyDescription('Four Port Mutual Inductance')],partPicture=PartPictureVariableMutual())
     def NetListLine(self):
-        return Device.NetListLine(self)+' M '+self[PartPropertyInductance().propertyName].value
+        return Device.NetListLine(self)+' M '+self[PartPropertyInductance().propertyName].PropertyString(stype='raw')
 
 class DeviceIdealTransformer(Device):
     def __init__(self):
         Device.__init__(self,[PartPropertyCategory('Inductors'),PartPropertyPartName('IdealTransformer'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyPorts(4),PartPropertyTurnsRatio(),PartPropertyDescription('Four Port IdealTransformer')],partPicture=PartPictureVariableIdealTransformer())
     def NetListLine(self):
-        return Device.NetListLine(self)+' idealtransformer '+self[PartPropertyTurnsRatio().propertyName].value
+        return Device.NetListLine(self)+' idealtransformer '+self[PartPropertyTurnsRatio().propertyName].PropertyString(stype='raw')
 
 class Port(Device):
     def __init__(self,portNumber):
         Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber,visible=True)],partPicture=PartPictureVariablePort())
     def NetListLine(self):
-        return 'port '+str(self['portnumber'].value)
+        return 'port '+str(self['portnumber'].PropertyString(stype='raw'))
 
 class DeviceGround(Device):
     def __init__(self):
@@ -125,10 +131,10 @@ class DeviceVoltageSource(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Voltage Source'),PartPropertyDefaultReferenceDesignator('VS?'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        fileName = self[PartPropertyWaveformFileName().propertyName].value
+        fileName = self[PartPropertyWaveformFileName().propertyName].PropertyString(stype='raw')
         waveform = si.td.wf.Waveform().ReadFromFile(fileName)
         return waveform
 
@@ -137,14 +143,14 @@ class DeviceVoltageStepGenerator(Device):
         Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Step Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertySampleRate(),PartPropertyVoltageAmplitude()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        Fs=float(self[PartPropertySampleRate().propertyName].value)
-        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
-        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
-        amplitude=float(self[PartPropertyVoltageAmplitude().propertyName].value)
-        startTime=float(self[PartPropertyStartTime().propertyName].value)
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        amplitude=float(self[PartPropertyVoltageAmplitude().propertyName].GetValue())
+        startTime=float(self[PartPropertyStartTime().propertyName].GetValue())
         waveform = si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,startTime)
         return waveform
 
@@ -153,15 +159,15 @@ class DeviceVoltagePulseGenerator(Device):
         Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Pulse Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyPulseWidth(),PartPropertySampleRate(),PartPropertyVoltageAmplitude()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        Fs=float(self[PartPropertySampleRate().propertyName].value)
-        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
-        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
-        amplitude=float(self[PartPropertyVoltageAmplitude().propertyName].value)
-        startTime=float(self[PartPropertyStartTime().propertyName].value)
-        pulseWidth=float(self[PartPropertyPulseWidth().propertyName].value)
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        amplitude=float(self[PartPropertyVoltageAmplitude().propertyName].GetValue())
+        startTime=float(self[PartPropertyStartTime().propertyName].GetValue())
+        pulseWidth=float(self[PartPropertyPulseWidth().propertyName].GetValue())
         waveform = si.td.wf.PulseWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,startTime,pulseWidth)
         return waveform
 
@@ -170,15 +176,15 @@ class DeviceVoltageSineGenerator(Device):
         Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Sine Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyFrequency(),PartPropertyPhase()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        Fs=float(self[PartPropertySampleRate().propertyName].value)
-        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
-        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
-        amplitude=float(self[PartPropertyVoltageAmplitude().propertyName].value)
-        frequency=float(self[PartPropertyFrequency().propertyName].value)
-        phase=float(self[PartPropertyPhase().propertyName].value)
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        amplitude=float(self[PartPropertyVoltageAmplitude().propertyName].GetValue())
+        frequency=float(self[PartPropertyFrequency().propertyName].GetValue())
+        phase=float(self[PartPropertyPhase().propertyName].GetValue())
         waveform = si.td.wf.SineWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,frequency,phase)
         return waveform
 
@@ -186,7 +192,7 @@ class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Current Source'),PartPropertyDefaultReferenceDesignator('CS?'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
 
 
 class DeviceCurrentStepGenerator(Device):
@@ -194,14 +200,14 @@ class DeviceCurrentStepGenerator(Device):
         Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertySampleRate(),PartPropertyCurrentAmplitude()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        Fs=float(self[PartPropertySampleRate().propertyName].value)
-        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
-        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
-        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].value)
-        startTime=float(self[PartPropertyStartTime().propertyName].value)
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].GetValue())
+        startTime=float(self[PartPropertyStartTime().propertyName].GetValue())
         waveform = si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,startTime)
         return waveform
 
@@ -210,15 +216,15 @@ class DeviceCurrentPulseGenerator(Device):
         Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Pulse Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyPulseWidth(),PartPropertySampleRate(),PartPropertyCurrentAmplitude()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        Fs=float(self[PartPropertySampleRate().propertyName].value)
-        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
-        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
-        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].value)
-        startTime=float(self[PartPropertyStartTime().propertyName].value)
-        pulseWidth=float(self[PartPropertyPulseWidth().propertyName].value)
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].GetValue())
+        startTime=float(self[PartPropertyStartTime().propertyName].GetValue())
+        pulseWidth=float(self[PartPropertyPulseWidth().propertyName].GetValue())
         waveform = si.td.wf.PulseWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,startTime,pulseWidth)
         return waveform
 
@@ -227,15 +233,15 @@ class DeviceCurrentSineGenerator(Device):
         Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Sine Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyFrequency(),PartPropertyPhase()]+propertiesList,partPicture)
     def NetListLine(self):
-        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].value)+' '+str(self['ports'].value)
+        return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
     def Waveform(self):
         import SignalIntegrity as si
-        Fs=float(self[PartPropertySampleRate().propertyName].value)
-        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].value)))
-        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].value)
-        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].value)
-        frequency=float(self[PartPropertyFrequency().propertyName].value)
-        phase=float(self[PartPropertyPhase().propertyName].value)
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        amplitude=float(self[PartPropertyCurrentAmplitude().propertyName].GetValue())
+        frequency=float(self[PartPropertyFrequency().propertyName].GetValue())
+        phase=float(self[PartPropertyPhase().propertyName].GetValue())
         waveform = si.td.wf.SineWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),amplitude,frequency,phase)
         return waveform
 
@@ -261,49 +267,49 @@ class DeviceVoltageControlledVoltageSourceFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('VoltageControlledVoltageSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyVoltageGain(1.0)]+propertiesList,PartPictureVariableVoltageControlledVoltageSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' voltagecontrolledvoltagesource '+str(self[PartPropertyVoltageGain().propertyName].value)
+        return Device.NetListLine(self)+' voltagecontrolledvoltagesource '+str(self[PartPropertyVoltageGain().propertyName].PropertyString(stype='raw'))
 
 class DeviceVoltageAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('VoltageAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyVoltageGain(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableVoltageControlledVoltageSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' voltageamplifier '+self[PartPropertyVoltageGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+        return Device.NetListLine(self)+' voltageamplifier '+self[PartPropertyVoltageGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()
 
 class DeviceCurrentControlledCurrentSourceFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('CurrentControlledCurrentSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyCurrentGain(1.0)]+propertiesList,PartPictureVariableCurrentControlledCurrentSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' currentcontrolledcurrentsource '+str(self[PartPropertyCurrentGain().propertyName].value)
+        return Device.NetListLine(self)+' currentcontrolledcurrentsource '+str(self[PartPropertyCurrentGain().propertyName].PropertyString(stype='raw'))
 
 class DeviceCurrentAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('CurrentAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyCurrentGain(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableCurrentControlledCurrentSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' currentamplifier '+self[PartPropertyCurrentGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+        return Device.NetListLine(self)+' currentamplifier '+self[PartPropertyCurrentGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()
 
 class DeviceVoltageControlledCurrentSourceFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('VoltageControlledCurrentSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransconductance(1.0)]+propertiesList,PartPictureVariableVoltageControlledCurrentSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' voltagecontrolledcurrentsource '+str(self[PartPropertyTransconductance().propertyName].value)
+        return Device.NetListLine(self)+' voltagecontrolledcurrentsource '+str(self[PartPropertyTransconductance().propertyName].PropertyString(stype='raw'))
 
 class DeviceTransconductanceAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransconductanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransconductance(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableVoltageControlledCurrentSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' transconductanceamplifier '+self[PartPropertyTransconductance().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+        return Device.NetListLine(self)+' transconductanceamplifier '+self[PartPropertyTransconductance().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()
 
 class DeviceCurrentControlledVoltageSourceFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('CurrentControlledVoltageSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransresistance(1.0)]+propertiesList,PartPictureVariableCurrentControlledVoltageSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' currentcontrolledvoltagesource '+str(self[PartPropertyTransresistance().propertyName].value)
+        return Device.NetListLine(self)+' currentcontrolledvoltagesource '+str(self[PartPropertyTransresistance().propertyName].PropertyString(stype='raw'))
 
 class DeviceTransresistanceAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransresistanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransresistance(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableCurrentControlledVoltageSourceFourPort())
     def NetListLine(self):
-        return Device.NetListLine(self)+' transresistanceamplifier '+self[PartPropertyTransresistance().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()+' '
+        return Device.NetListLine(self)+' transresistanceamplifier '+self[PartPropertyTransresistance().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()
 
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),

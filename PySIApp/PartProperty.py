@@ -13,33 +13,77 @@ class PartProperty(object):
         self.keyword=keyword
         self.propertyName=propertyName
         self.description=description
-        self.value=value
+        self._value=value
         self.hidden=hidden
         self.visible=visible
         self.keywordVisible=keywordVisible
         self.type=type
         self.unit=unit
+        if isinstance(value,str):
+            self.SetValueFromString(value)
     def NetListProperty(self):
         return self.keyword + ' ' + str(self.value)
-    def PropertyString(self):
-        result=''
-        if self.visible:
-            if self.keywordVisible:
-                if self.keyword != None and self.keyword != 'None':
-                    result=result+self.keyword+' '
+    def PropertyString(self,stype='raw'):
+        if stype=='attr':
+            result=''
+            if self.visible:
+                if self.keywordVisible:
+                    if self.keyword != None and self.keyword != 'None':
+                        result=result+self.keyword+' '
+                if self.type=='string':
+                    value = str(self._value)
+                elif self.type=='file':
+                    value = str(self._value).split('/')[-1]
+                elif self.type=='int':
+                    value = str(self._value)
+                elif self.type=='float':
+                    value = str(ToSI(float(self._value),self.unit))
+                else:
+                    value = str(self._value)
+                result=result+value
+            return result
+        elif stype == 'raw':
             if self.type=='string':
-                value = str(self.value)
+                value = str(self._value)
             elif self.type=='file':
-                value = str(self.value).split('/')[-1]
+                value = str(self._value)
             elif self.type=='int':
-                value = str(self.value)
+                value = str(self._value)
             elif self.type=='float':
-                value = str(ToSI(float(self.value),self.unit))
+                value = str(float(self._value))
             else:
-                value = str(self.value)
-            result=result+value
-        return result
-
+                value = str(self._value)
+            return value
+        elif stype == 'entry':
+            if self.type=='string':
+                value = str(self._value)
+            elif self.type=='file':
+                value = str(self._value)
+            elif self.type=='int':
+                value = str(self._value)
+            elif self.type=='float':
+                value = str(ToSI(float(self._value),self.unit))
+            else:
+                value = str(self._value)
+            return value
+        else:
+            raise ValueError
+            return str(self._value)
+    def SetValueFromString(self,string):
+        if self.type=='string':
+            self._value = str(string)
+        elif self.type=='file':
+            self._value = str(string)
+        elif self.type=='int':
+            self._value = int(string)
+        elif self.type=='float':
+            self._value = float(string)
+        else:
+            raise ValueError
+            self._value = str(string)
+        return self
+    def GetValue(self):
+        return self._value
     def xml(self):
         pp = et.Element('part_property')
         pList=[]
@@ -53,7 +97,7 @@ class PartProperty(object):
         p.text=str(self.description)
         pList.append(p)
         p=et.Element('value')
-        p.text=str(self.value)
+        p.text=self.PropertyString(stype='raw')
         pList.append(p)
         p=et.Element('hidden')
         p.text=str(self.hidden)
@@ -183,7 +227,7 @@ class PartPropertyDuration(PartProperty):
 
 class PartPropertySampleRate(PartProperty):
     def __init__(self,sampleRate=40e9):
-        PartProperty.__init__(self,'sampleRate',type='float',unit='s',keyword='fs',description='Sample Rate (S/s)',value=sampleRate,visible=False)
+        PartProperty.__init__(self,'sampleRate',type='float',unit='S/s',keyword='fs',description='Sample Rate (S/s)',value=sampleRate,visible=False)
 
 class PartPropertyStartTime(PartProperty):
     def __init__(self,startTime=0.):

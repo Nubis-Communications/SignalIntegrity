@@ -29,31 +29,80 @@ def ConvertFileNameToRelativePath(filename):
                 filename=filenameprefix+filenamesuffix
     return filename
 
+class DeviceProperty(Frame):
+    def __init__(self,parentFrame,device,partProperty,callBack):
+        Frame.__init__(self,parentFrame)
+        self.pack(side=TOP,fill=X,expand=YES)
+        self.parentFrame=parentFrame
+        self.device=device
+        self.partProperty=partProperty
+        self.callBack=callBack
+        self.pack(side=TOP,fill=X,expand=YES)
+        self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
+        self.propertyVisible=IntVar(value=int(self.partProperty.visible))
+        self.keywordVisible=IntVar(value=int(self.partProperty.keywordVisible)) 
+        propertyVisibleCheckBox = Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible)
+        propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
+        keywordVisibleCheckBox = Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
+        keywordVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
+        propertyLabel = Label(self,width=25,text=self.partProperty.description+': ',anchor='e')
+        propertyLabel.pack(side=LEFT, expand=NO, fill=X)
+        propertyEntry = Entry(self,textvariable=self.propertyString)
+        propertyEntry.config(width=15)
+        propertyEntry.bind('<Return>',self.onEntered)
+        propertyEntry.bind('<FocusIn>',self.onTouched)
+        propertyEntry.bind('<Button-3>',self.onUntouched)
+        propertyEntry.bind('<Escape>',self.onUntouched)
+        propertyEntry.bind('<FocusOut>',self.onUntouched)
+        propertyEntry.pack(side=LEFT, expand=YES, fill=X)
+        if self.partProperty.type == 'file':
+            propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
+            propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+    def onFileBrowse(self):
+        self.parentFrame.focus()       
+        if self.partProperty.propertyName == PartPropertyFileName().propertyName:
+            extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
+            filetypename='s-parameters'
+        elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
+            extension='.txt'
+            filetypename='waveforms'
+        else:
+            extension=''
+            filetypename='all'
+        filename=askopenfilename(filetypes=[(filetypename,extension)])
+        if filename != '':
+            filename=ConvertFileNameToRelativePath(filename)
+            self.propertyString.set(filename)
+            self.partProperty.SetValueFromString(self.propertyString.get())
+            self.callBack()
+    def onPropertyVisible(self):
+        self.partProperty.visible=bool(self.propertyVisible.get())
+        self.callBack()
+    def onKeywordVisible(self):
+        self.partProperty.keywordVisible=bool(self.keywordVisible.get())
+        self.callBack()
+    def onEntered(self,event):
+        self.partProperty.SetValueFromString(self.propertyString.get())
+        self.onUntouched(event)
+    def onTouched(self,event):
+        self.propertyString.set('')
+    def onUntouched(self,event):
+        self.propertyString.set(self.partProperty.PropertyString(stype='entry'))
+        self.callBack()
+        self.parentFrame.focus()       
+
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
         Frame.__init__(self,parent)
-        self.title = device.PartPropertyByName('type').value
+        self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
-        self.propertyStrings=[StringVar(value=str(prop.value)) for prop in self.device.propertiesList]
-        self.propertyVisible=[IntVar(value=int(prop.visible)) for prop in self.device.propertiesList]
-        self.keywordVisible=[IntVar(value=int(prop.keywordVisible)) for prop in self.device.propertiesList]
         propertyListFrame = Frame(self)
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
+        propertyListFrame.bind("<Return>", parent.ok)
+        self.propertyFrameList=[]
         for p in range(len(self.device.propertiesList)):
             if not self.device.propertiesList[p].hidden:
-                prop=self.device.propertiesList[p]
-                propertyFrame = Frame(propertyListFrame)
-                propertyFrame.pack(side=TOP,fill=X,expand=YES)
-                propertyVisibleCheckBox = Checkbutton(propertyFrame,variable=self.propertyVisible[p],command=self.onPropertyVisible)
-                propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
-                keywordVisibleCheckBox = Checkbutton(propertyFrame,variable=self.keywordVisible[p],command=self.onKeywordVisible)
-                keywordVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
-                propertyLabel = Label(propertyFrame,width=25,text=prop.description+': ',anchor='e')
-                propertyLabel.pack(side=LEFT, expand=NO, fill=X)
-                propertyEntry = Entry(propertyFrame,textvariable=self.propertyStrings[p])
-                propertyEntry.config(width=8)
-                propertyEntry.bind('<Button-1>',lambda event,arg=p: self.onMouseButton1(event,arg))
-                propertyEntry.pack(side=LEFT, expand=YES, fill=X)
+                self.propertyFrameList.append(DeviceProperty(propertyListFrame,self.device,self.device.propertiesList[p],self.UpdatePicture))
         rotationFrame = Frame(propertyListFrame)
         rotationFrame.pack(side=TOP,fill=X,expand=NO)
         self.rotationString=StringVar(value=str(self.device.partPicture.current.orientation))
@@ -81,6 +130,10 @@ class DeviceProperties(Frame):
         self.partPictureCanvas.pack(side=TOP,fill=BOTH,expand=YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
         device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
+        
+    def UpdatePicture(self):
+        self.partPictureCanvas.delete(ALL)
+        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
 
     def onToggleRotation(self):
         self.device.partPicture.current.Rotate()
@@ -89,9 +142,7 @@ class DeviceProperties(Frame):
 
     def onOrientationChange(self):
         self.device.partPicture.current.ApplyOrientation(self.rotationString.get(),bool(self.mirrorHorizontallyVar.get()),bool(self.mirrorVerticallyVar.get()))
-        self.partPictureCanvas.delete(ALL)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
-
+        self.UpdatePicture()
     def onMouseButton1InPartPicture(self,event):
         numPictures=len(self.device.partPicture.partPictureClassList)
         current=self.device.partPicture.partPictureSelected
@@ -101,33 +152,7 @@ class DeviceProperties(Frame):
             selected = 0
         self.device.partPicture.SwitchPartPicture(selected)
         self.device.partPicture.current.SetOrigin(origin)
-        self.partPictureCanvas.delete(ALL)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
-
-    def onPropertyVisible(self):
-        for p in range(len(self.device.propertiesList)):
-            self.device.propertiesList[p].visible=bool(self.propertyVisible[p].get())
-        self.partPictureCanvas.delete(ALL)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
-
-    def onKeywordVisible(self):
-        for p in range(len(self.device.propertiesList)):
-            self.device.propertiesList[p].keywordVisible=bool(self.keywordVisible[p].get())
-        self.partPictureCanvas.delete(ALL)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
-
-    def onMouseButton1(self,event,arg):
-        print 'entry clicked',arg
-        if self.device.propertiesList[arg].propertyName == PartPropertyFileName().propertyName:
-            extension='.s'+str(self.device['ports'].value)+'p'
-            filename=askopenfilename(filetypes=[('s-parameters', extension)])
-            filename=ConvertFileNameToRelativePath(filename)
-            self.propertyStrings[arg].set(filename)
-        elif self.device.propertiesList[arg].propertyName == PartPropertyWaveformFileName().propertyName:
-            extension='.txt'
-            filename=askopenfilename(filetypes=[('waveforms', extension)])
-            filename=ConvertFileNameToRelativePath(filename)
-            self.propertyStrings[arg].set(filename)
+        self.UpdatePicture()
 
 class DevicePropertiesDialog(Toplevel):
     def __init__(self,parent,device):
@@ -136,7 +161,7 @@ class DevicePropertiesDialog(Toplevel):
 
         self.device = device
 
-        self.title('Add '+device['description'].value)
+        self.title(device['description'].PropertyString(stype='raw'))
 
         self.parent = parent
 
@@ -176,12 +201,12 @@ class DevicePropertiesDialog(Toplevel):
 
         box = Frame(self)
 
-        w = Button(box, text="OK", width=10, command=self.ok, default=ACTIVE)
+        w = Button(box, text="OK", width=10, command=self.ok)
         w.pack(side=LEFT, padx=5, pady=5)
         w = Button(box, text="Cancel", width=10, command=self.cancel)
         w.pack(side=LEFT, padx=5, pady=5)
 
-        self.bind("<Return>", self.ok)
+        #self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
 
         box.pack()
@@ -216,7 +241,7 @@ class DevicePropertiesDialog(Toplevel):
         return 1 # override
 
     def apply(self):
-        self.result=copy.deepcopy(self.device)
-        for p in range(len(self.device.propertiesList)):
-            self.result.propertiesList[p].value=self.DeviceProperties.propertyStrings[p].get()
-            self.result.propertiesList[p].visible=bool(self.DeviceProperties.propertyVisible[p].get())
+        self.result=self.device
+        for propFrame in self.DeviceProperties.propertyFrameList:
+            self.result[propFrame.partProperty.propertyName]=propFrame.partProperty
+        return

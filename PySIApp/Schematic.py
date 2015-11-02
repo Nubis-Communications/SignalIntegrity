@@ -18,7 +18,7 @@ class NetList(object):
         wireList = schematic.wireList
         # put all devices in the net list
         for device in deviceList:
-            deviceType = device[PartPropertyPartName().propertyName].value
+            deviceType = device[PartPropertyPartName().propertyName].GetValue()
             if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
                 thisline=device.NetListLine()
                 self.textToShow.append(thisline)
@@ -72,7 +72,7 @@ class NetList(object):
                 deviceIndex=devicePin[0]
                 pinIndex=devicePin[1]
                 thisDevice=schematic.deviceList[deviceIndex]
-                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].value
+                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].GetValue()
                 if thisDevicePartName == 'Port':
                     portList.append(devicePin)
                 elif thisDevicePartName == 'Output':
@@ -85,7 +85,7 @@ class NetList(object):
                 # for the measures, outputs and ports, we just need one device/port, so we use the first one
                 deviceIndexOfFirstDeviceInNet = net[0][0]
                 pinIndexOfFirstDeviceInNet = net[0][1]
-                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].value
+                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].GetValue()
                 firstDevicePinNumber = schematic.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet].pinNumber
                 devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
                 for measure in measureList:
@@ -94,7 +94,7 @@ class NetList(object):
                 for output in outputList:
                     deviceIndex = output[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                    self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].value)
+                    self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
                 for port in portList:
                     deviceIndex = port[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
@@ -104,7 +104,7 @@ class NetList(object):
                 for devicePortIndex in net:
                     deviceIndex = devicePortIndex[0]
                     pinIndex = devicePortIndex[1]
-                    deviceName = schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].value
+                    deviceName = schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
                     pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
                     thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 self.textToShow.append(thisConnectionString)
@@ -188,7 +188,7 @@ class Schematic(object):
         wireList = self.wireList
         # put all devices in the net list
         for device in deviceList:
-            deviceType = device[PartPropertyPartName().propertyName].value
+            deviceType = device[PartPropertyPartName().propertyName].GetValue()
             if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
                 thisline=device.NetListLine()
                 textToShow.append(thisline)
@@ -242,7 +242,7 @@ class Schematic(object):
                 deviceIndex=devicePin[0]
                 pinIndex=devicePin[1]
                 thisDevice=self.deviceList[deviceIndex]
-                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].value
+                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].GetValue()
                 if thisDevicePartName == 'Port':
                     portList.append(devicePin)
                 elif thisDevicePartName == 'Output':
@@ -273,7 +273,7 @@ class Schematic(object):
                 for devicePortIndex in net:
                     deviceIndex = devicePortIndex[0]
                     pinIndex = devicePortIndex[1]
-                    deviceName = self.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].value
+                    deviceName = self.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
                     pinNumber = self.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
                     thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 textToShow.append(thisConnectionString)
@@ -356,7 +356,7 @@ class Schematic(object):
             for device in self.deviceList:
                 deviceReferenceDesignatorProperty = device[PartPropertyReferenceDesignator().propertyName]
                 if deviceReferenceDesignatorProperty != None:
-                    deviceReferenceDesignator = deviceReferenceDesignatorProperty.value
+                    deviceReferenceDesignator = deviceReferenceDesignatorProperty.GetValue()
                     if deviceReferenceDesignator != None:
                         referenceDesignatorList.append(deviceReferenceDesignator)
             num = 1
@@ -562,10 +562,10 @@ class Drawing(Frame):
             self.partLoaded=copy.deepcopy(self.deviceSelected)
             defaultProperty = self.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
             if defaultProperty != None:
-                defaultPropertyValue = defaultProperty.value
+                defaultPropertyValue = defaultProperty.GetValue()
                 uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
                 if uniqueReferenceDesignator != None:
-                    self.partLoaded[PartPropertyReferenceDesignator().propertyName].value=uniqueReferenceDesignator
+                    self.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
         if not self.deviceSelected == None:
             self.deviceSelected.selected=False
             self.deviceSelected=None

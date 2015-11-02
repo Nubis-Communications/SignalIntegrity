@@ -177,7 +177,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         extension='.xml'
         filename=askopenfilename(filetypes=[('xml', extension)])
@@ -204,7 +204,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         extension='.xml'
         if self.filename == None:
@@ -226,7 +226,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         self.Drawing.schematic.Clear()
         self.Drawing.DrawSchematic()
@@ -237,7 +237,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         nld = NetListDialog(self,self.Drawing.schematic.NetList().Text())
 
@@ -246,7 +246,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         dpd=DevicePickerDialog(self)
         if dpd.result != None:
@@ -254,10 +254,10 @@ class TheApp(Frame):
             devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
             defaultProperty = devicePicked[PartPropertyDefaultReferenceDesignator().propertyName]
             if defaultProperty != None:
-                defaultPropertyValue = defaultProperty.value
+                defaultPropertyValue = defaultProperty.GetValue()
                 uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
                 if uniqueReferenceDesignator != None:
-                    devicePicked[PartPropertyReferenceDesignator().propertyName].value=uniqueReferenceDesignator
+                    devicePicked[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
             dpe=DevicePropertiesDialog(self,devicePicked)
             self.Drawing.partLoaded = dpe.result
     def onDuplicate(self):
@@ -265,15 +265,15 @@ class TheApp(Frame):
             self.Drawing.partLoaded=copy.deepcopy(self.Drawing.deviceSelected)
             defaultProperty = self.Drawing.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
             if defaultProperty != None:
-                defaultPropertyValue = defaultProperty.value
+                defaultPropertyValue = defaultProperty.GetValue()
                 uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
                 if uniqueReferenceDesignator != None:
-                    self.Drawing.partLoaded[PartPropertyReferenceDesignator().propertyName].value=uniqueReferenceDesignator
+                    self.Drawing.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
         if not self.Drawing.deviceSelected == None:
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
 
     def onAddWire(self):
@@ -281,7 +281,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         self.Drawing.wireLoaded=Wire([(0,0)])
         self.Drawing.schematic.wireList.append(self.Drawing.wireLoaded)
@@ -291,13 +291,13 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         portNumber=1
         for device in self.Drawing.schematic.deviceList:
-            if device['type'].value == 'Port':
-                if portNumber <= int(device['portnumber'].value):
-                    portNumber = int(device['portnumber'].value)+1
+            if device['type'].GetValue() == 'Port':
+                if portNumber <= int(device['portnumber'].GetValue()):
+                    portNumber = int(device['portnumber'].GetValue())+1
         dpe=DevicePropertiesDialog(self,Port(portNumber))
         self.Drawing.partLoaded = dpe.result
 
@@ -314,7 +314,7 @@ class TheApp(Frame):
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None
         if self.Drawing.wireSelected:
-            self.schematic.wireList[self.Drawing.w].selected=False
+            self.Drawing.schematic.wireList[self.Drawing.w].selected=False
             self.Drawing.wireSelected = False
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
