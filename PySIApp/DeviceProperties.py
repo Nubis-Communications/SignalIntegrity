@@ -40,7 +40,7 @@ class DeviceProperty(Frame):
         self.pack(side=TOP,fill=X,expand=YES)
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
         self.propertyVisible=IntVar(value=int(self.partProperty.visible))
-        self.keywordVisible=IntVar(value=int(self.partProperty.keywordVisible)) 
+        self.keywordVisible=IntVar(value=int(self.partProperty.keywordVisible))
         propertyVisibleCheckBox = Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible)
         propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
         keywordVisibleCheckBox = Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
@@ -59,7 +59,7 @@ class DeviceProperty(Frame):
             propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
             propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
-        self.parentFrame.focus()       
+        self.parentFrame.focus()
         if self.partProperty.propertyName == PartPropertyFileName().propertyName:
             extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
             filetypename='s-parameters'
@@ -89,7 +89,7 @@ class DeviceProperty(Frame):
     def onUntouched(self,event):
         self.propertyString.set(self.partProperty.PropertyString(stype='entry'))
         self.callBack()
-        self.parentFrame.focus()       
+        self.parentFrame.focus()
 
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
@@ -130,7 +130,7 @@ class DeviceProperties(Frame):
         self.partPictureCanvas.pack(side=TOP,fill=BOTH,expand=YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
         device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
-        
+
     def UpdatePicture(self):
         self.partPictureCanvas.delete(ALL)
         self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
@@ -151,7 +151,6 @@ class DeviceProperties(Frame):
         if selected >= numPictures:
             selected = 0
         self.device.partPicture.SwitchPartPicture(selected)
-        self.device.partPicture.current.SetOrigin(origin)
         self.UpdatePicture()
 
 class DevicePropertiesDialog(Toplevel):
@@ -159,15 +158,15 @@ class DevicePropertiesDialog(Toplevel):
         Toplevel.__init__(self, parent)
         self.transient(parent)
 
-        self.device = device
+        self.device = copy.deepcopy(device)
 
-        self.title(device['description'].PropertyString(stype='raw'))
+        self.title(self.device['description'].PropertyString(stype='raw'))
 
         self.parent = parent
 
         self.result = None
 
-        self.DeviceProperties = DeviceProperties(self,device)
+        self.DeviceProperties = DeviceProperties(self,self.device)
         self.initial_focus = self.body(self.DeviceProperties)
         self.DeviceProperties.pack(side=TOP,fill=BOTH,expand=YES,padx=5, pady=5)
 
@@ -241,7 +240,7 @@ class DevicePropertiesDialog(Toplevel):
         return 1 # override
 
     def apply(self):
-        self.result=self.device
+        self.result=copy.deepcopy(self.device)
         for propFrame in self.DeviceProperties.propertyFrameList:
             self.result[propFrame.partProperty.propertyName]=propFrame.partProperty
         return

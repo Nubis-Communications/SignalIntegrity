@@ -147,7 +147,14 @@ class PartPropertyXMLClassFactory(PartProperty):
                 ptype = item.text
             elif item.tag == 'unit':
                 unit = item.text
+        # hack because stupid xml outputs none for empty string
+        if ptype == 'float' and (unit is None or unit == 'None'):
+            unit = ''
         self.result=PartProperty(propertyName,ptype,unit,keyword,description,value,hidden,visible,keywordVisible)
+
+class PartPropertyPortNumber(PartProperty):
+    def __init__(self,portNumber):
+        PartProperty.__init__(self,'portnumber',type='int',unit=None,keyword='',description='port number',value=portNumber,visible=True)
 
 class PartPropertyReferenceDesignator(PartProperty):
     def __init__(self,referenceDesignator=''):

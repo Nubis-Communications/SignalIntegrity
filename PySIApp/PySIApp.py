@@ -142,10 +142,10 @@ class TheApp(Frame):
         ZoomMenu.add_command(label='Zoom In',command=self.onZoomIn)
         ZoomMenu.add_command(label='Zoom Out',command=self.onZoomOut)
 
-        CalcMenu=Menu(menu)
-        menu.add_cascade(label='Calculate',menu=CalcMenu)
-        CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
-        CalcMenu.add_command(label='Simulate',command=self.onSimulate)
+        self.CalcMenu=Menu(menu)
+        menu.add_cascade(label='Calculate',menu=self.CalcMenu)
+        self.CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
+        self.CalcMenu.add_command(label='Simulate',command=self.onSimulate)
 
         self.Drawing=Drawing(self)
         self.Drawing.pack(side=LEFT,fill=BOTH,expand=YES)
@@ -156,6 +156,7 @@ class TheApp(Frame):
 
         self.simulator = Simulator(self)
         self.filename=None
+
         self.root.mainloop()
 
     def onKey(self,event):
@@ -263,12 +264,22 @@ class TheApp(Frame):
     def onDuplicate(self):
         if not self.Drawing.deviceSelected == None:
             self.Drawing.partLoaded=copy.deepcopy(self.Drawing.deviceSelected)
-            defaultProperty = self.Drawing.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
-            if defaultProperty != None:
-                defaultPropertyValue = defaultProperty.GetValue()
-                uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                if uniqueReferenceDesignator != None:
-                    self.Drawing.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
+            if self.Drawing.partLoaded['type'].GetValue() == 'Port':
+                portNumberList=[]
+                for device in self.Drawing.schematic.deviceList:
+                    if device['type'].GetValue() == 'Port':
+                        portNumberList.append(int(device['portnumber'].GetValue()))
+                portNumber=1
+                while portNumber in portNumberList:
+                    portNumber=portNumber+1
+                self.Drawing.partLoaded['portnumber'].SetValueFromString(str(portNumber))
+            else:
+                defaultProperty = self.Drawing.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
+                if defaultProperty != None:
+                    defaultPropertyValue = defaultProperty.GetValue()
+                    uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                    if uniqueReferenceDesignator != None:
+                        self.Drawing.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
         if not self.Drawing.deviceSelected == None:
             self.Drawing.deviceSelected.selected=False
             self.Drawing.deviceSelected=None

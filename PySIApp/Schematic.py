@@ -172,8 +172,8 @@ class Schematic(object):
             if child.tag == 'devices':
                 for deviceElement in child:
                     returnedDevice=DeviceXMLClassFactory(deviceElement).result
-                    self.deviceList.append(returnedDevice)
-                    pass
+                    if not returnedDevice is None:
+                        self.deviceList.append(returnedDevice)
             elif child.tag == 'wires':
                 for wireElement in child:
                     wire=Wire()
@@ -483,7 +483,6 @@ class Drawing(Frame):
             pass
         else:
             self.tk.call('tk_popup',self.canvasTearOffMenu, event.x_root, event.y_root)
-
     def onMouseButton1Motion(self,event):
         coord=self.NearestGridCoordinate(event.x,event.y)
         if not self.deviceSelected == None:
@@ -547,10 +546,26 @@ class Drawing(Frame):
                     return
     def DrawSchematic(self):
         self.canvas.delete(ALL)
+        foundAPort=False
+        foundASource=False
         for device in self.schematic.deviceList:
             device.DrawDevice(self.canvas,self.grid,self.originx,self.originy)
+            deviceType = device['type'].GetValue()
+            if  deviceType == 'Port':
+                foundAPort = True
+            else:
+                netListLine = device.NetListLine()
+                if not netListLine is None:
+                    firstToken=netListLine.strip().split(' ')[0]
+                    if firstToken == 'voltagesource':
+                        foundASource = True
+                    elif firstToken == 'currentsource':
+                        foundASource = True
         for wire in self.schematic.wireList:
             wire.DrawWire(self.canvas,self.grid,self.originx,self.originy)
+        self.parent.CalcMenu.entryconfigure('Simulate',state='normal' if foundASource else 'disabled')
+        self.parent.CalcMenu.entryconfigure('Calculate S-parameters',state='normal' if foundAPort else 'disabled')
+
     def EditSelectedDevice(self):
         if self.deviceSelected != None:
             dpe=DevicePropertiesDialog(self,self.deviceSelected)
@@ -560,12 +575,22 @@ class Drawing(Frame):
     def DuplicateSelectedDevice(self):
         if not self.deviceSelected == None:
             self.partLoaded=copy.deepcopy(self.deviceSelected)
-            defaultProperty = self.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
-            if defaultProperty != None:
-                defaultPropertyValue = defaultProperty.GetValue()
-                uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                if uniqueReferenceDesignator != None:
-                    self.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
+            if self.partLoaded['type'].GetValue() == 'Port':
+                portNumberList=[]
+                for device in self.schematic.deviceList:
+                    if device['type'].GetValue() == 'Port':
+                        portNumberList.append(int(device['portnumber'].GetValue()))
+                portNumber=1
+                while portNumber in portNumberList:
+                    portNumber=portNumber+1
+                self.partLoaded['portnumber'].SetValueFromString(str(portNumber))
+            else:
+                defaultProperty = self.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
+                if defaultProperty != None:
+                    defaultPropertyValue = defaultProperty.GetValue()
+                    uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                    if uniqueReferenceDesignator != None:
+                        self.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
         if not self.deviceSelected == None:
             self.deviceSelected.selected=False
             self.deviceSelected=None

@@ -76,8 +76,11 @@ class DeviceXMLClassFactory(object):
                     propertiesList.append(partProperty)
             elif child.tag == 'part_picture':
                 partPicture=PartPictureXMLClassFactory(child).result
-        self.result=eval(className).__new__(eval(className))
-        Device.__init__(self.result,propertiesList,partPicture)
+        try:
+            self.result=eval(className).__new__(eval(className))
+            Device.__init__(self.result,propertiesList,partPicture)
+        except NameError:
+            self.result=None
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
@@ -117,7 +120,7 @@ class DeviceIdealTransformer(Device):
 
 class Port(Device):
     def __init__(self,portNumber):
-        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartProperty('portnumber',keyword='',description='Port Number',value=portNumber,visible=True)],partPicture=PartPictureVariablePort())
+        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartPropertyPortNumber(portNumber)],partPicture=PartPictureVariablePort())
     def NetListLine(self):
         return 'port '+str(self['portnumber'].PropertyString(stype='raw'))
 
@@ -197,7 +200,7 @@ class DeviceCurrentSource(Device):
 
 class DeviceCurrentStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertySampleRate(),PartPropertyCurrentAmplitude()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
@@ -213,7 +216,7 @@ class DeviceCurrentStepGenerator(Device):
 
 class DeviceCurrentPulseGenerator(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Pulse Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Pulse Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyPulseWidth(),PartPropertySampleRate(),PartPropertyCurrentAmplitude()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
@@ -230,7 +233,7 @@ class DeviceCurrentPulseGenerator(Device):
 
 class DeviceCurrentSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Sine Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Sine Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyFrequency(),PartPropertyPhase()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))

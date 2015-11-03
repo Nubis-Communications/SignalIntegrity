@@ -6,7 +6,9 @@ Created on Oct 22, 2015
 
 from Tkinter import *
 import matplotlib
-matplotlib.use('TkAgg')
+
+if not 'matplotlib.backends' in sys.modules:
+    matplotlib.use('TkAgg')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 

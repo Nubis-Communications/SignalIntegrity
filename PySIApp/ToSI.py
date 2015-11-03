@@ -56,6 +56,9 @@ def nextLower12458(v):
 
 def ToSI(d,sa=''):
 
+    if sa is None:
+        sa=''
+
     if d==0.:
         return '0 '+sa
 

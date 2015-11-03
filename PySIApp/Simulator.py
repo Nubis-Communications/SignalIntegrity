@@ -40,7 +40,7 @@ class SimulatorProperty(Frame):
         self.string.set('')
     def onUntouched(self,event):
         self.updateStringsCallback()
-        self.parentFrame.focus()       
+        self.parentFrame.focus()
 
 class SimulatorDialog(Toplevel):
     def __init__(self, parent,simulator):
@@ -135,6 +135,7 @@ class Simulator(object):
         self.impulseLength=1./self.frequencyResolution
     def ShowSimulatorDialog(self):
         self.SimulatorDialog().state('normal')
+        self.SimulatorDialog().lift(self.parent)
     def PlotDialog(self):
         if not hasattr(self,'plotDialog'):
             self.plotDialog=PlotDialog(self.parent)
