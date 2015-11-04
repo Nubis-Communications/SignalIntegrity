@@ -22,7 +22,7 @@ class PartProperty(object):
         if isinstance(value,str):
             self.SetValueFromString(value)
     def NetListProperty(self):
-        return self.keyword + ' ' + str(self.value)
+        return self.keyword + ' ' + self.PropertyString(stype='raw')
     def PropertyString(self,stype='raw'):
         if stype=='attr':
             result=''

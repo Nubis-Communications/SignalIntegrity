@@ -18,7 +18,9 @@ class PlotDialog(Toplevel):
     def __init__(self, parent):
         Toplevel.__init__(self, parent)
         self.parent=parent
-        self.title('PySI Plot Window')
+        self.title('PySI Results')
+        img = PhotoImage(file='./icons/png/AppIcon.png')
+        self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.withdraw()
         self.f = Figure(figsize=(5,4), dpi=100)

@@ -111,41 +111,64 @@ class NetListDialog(Toplevel):
     def apply(self):
         pass
 
+class TheMenu(Menu):
+    def __init__(self,parent):
+        self.parent=parent
+        Menu.__init__(self,self.parent.root)
+        self.parent.root.config(menu=self)
+        self.FileMenu=Menu(self)
+        self.add_cascade(label='File',menu=self.FileMenu)
+        self.FileMenu.add_command(label="Open Project",command=self.parent.onReadProjectFromFile)
+        self.FileMenu.add_command(label="Save Project",command=self.parent.onWriteProjectToFile)
+        self.FileMenu.add_separator()
+        self.FileMenu.add_command(label="Clear Schematic",command=self.parent.onClearSchematic)
+        self.FileMenu.add_separator()
+        self.FileMenu.add_command(label="Export NetList",command=self.parent.onExportNetlist)
+
+        self.PartsMenu=Menu(self)
+        self.add_cascade(label='Edit',menu=self.PartsMenu)
+        self.PartsMenu.add_command(label='Add Part',command=self.parent.onAddPart)
+        self.PartsMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
+        self.PartsMenu.add_command(label='Add Port',command=self.parent.onAddPort)
+        self.PartsMenu.add_command(label='Duplicate',command=self.parent.onDuplicate)
+
+        self.ZoomMenu=Menu(self)
+        self.add_cascade(label='Zoom',menu=self.ZoomMenu)
+        self.ZoomMenu.add_command(label='Zoom In',command=self.parent.onZoomIn)
+        self.ZoomMenu.add_command(label='Zoom Out',command=self.parent.onZoomOut)
+
+        self.CalcMenu=Menu(self)
+        self.add_cascade(label='Calculate',menu=self.CalcMenu)
+        self.CalcMenu.add_command(label='Calculate S-parameters',command=self.parent.onCalculateSParameters)
+        self.CalcMenu.add_command(label='Simulate',command=self.parent.onSimulate)
+
+class ToolBar(Frame):
+    def __init__(self,parent):
+        self.parent=parent
+        Frame.__init__(self,self.parent)
+        self.pack(side=TOP,fill=X,expand=NO)
+        self.addPartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-add-2.png')
+        self.addPartButton = Button(self,command=self.parent.onAddPart,image=self.addPartButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.addWireButtonIcon = PhotoImage(file='./icons/png/16x16/actions/draw-line-3.png')
+        self.addWireButton = Button(self,command=self.parent.onAddWire,image=self.addWireButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.zoomInButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-in-3.png')
+        self.zoomInButton = Button(self,command=self.parent.onZoomIn,image=self.zoomInButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.zoomOutButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-out-3.png')
+        self.zoomOutButton = Button(self,command=self.parent.onZoomOut,image=self.zoomOutButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+
 class TheApp(Frame):
     def __init__(self):
         self.root = Tk()
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
 
-        self.root.title("PySI App")
+        self.root.title("PySI")
 
-        menu=Menu(self.root)
-        self.root.config(menu=menu)
-        FileMenu=Menu(menu)
-        menu.add_cascade(label='File',menu=FileMenu)
-        FileMenu.add_command(label="Open Project",command=self.onReadProjectFromFile)
-        FileMenu.add_command(label="Save Project",command=self.onWriteProjectToFile)
-        FileMenu.add_separator()
-        FileMenu.add_command(label="Clear Schematic",command=self.onClearSchematic)
-        FileMenu.add_separator()
-        FileMenu.add_command(label="Export NetList",command=self.onExportNetlist)
-
-        PartsMenu=Menu(menu)
-        menu.add_cascade(label='Add',menu=PartsMenu)
-        PartsMenu.add_command(label='Add Part',command=self.onAddPart)
-        PartsMenu.add_command(label='Add Wire',command=self.onAddWire)
-        PartsMenu.add_command(label='Add Port',command=self.onAddPort)
-        PartsMenu.add_command(label='Duplicate',command=self.onDuplicate)
-
-        ZoomMenu=Menu(menu)
-        menu.add_cascade(label='Zoom',menu=ZoomMenu)
-        ZoomMenu.add_command(label='Zoom In',command=self.onZoomIn)
-        ZoomMenu.add_command(label='Zoom Out',command=self.onZoomOut)
-
-        self.CalcMenu=Menu(menu)
-        menu.add_cascade(label='Calculate',menu=self.CalcMenu)
-        self.CalcMenu.add_command(label='Calculate S-parameters',command=self.onCalculateSParameters)
-        self.CalcMenu.add_command(label='Simulate',command=self.onSimulate)
+        img = PhotoImage(file='./icons/png/AppIcon.png')
+        self.root.tk.call('wm', 'iconphoto', self.root._w, img)
+        
+        self.menu=TheMenu(self)
+        self.toolbar=ToolBar(self)
 
         self.Drawing=Drawing(self)
         self.Drawing.pack(side=LEFT,fill=BOTH,expand=YES)

@@ -46,7 +46,9 @@ class SimulatorDialog(Toplevel):
     def __init__(self, parent,simulator):
         Toplevel.__init__(self, parent)
         self.parent=parent
-        self.title('PySI Simulator Window')
+        self.title('PySI Simulator')
+        img = PhotoImage(file='./icons/png/AppIcon.png')
+        self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.withdraw()
         self.simulator=simulator
