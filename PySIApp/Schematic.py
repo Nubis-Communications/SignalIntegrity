@@ -395,6 +395,21 @@ class DrawingStateMachine(object):
         self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Nothing)
         self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Nothing)
         self.parent.canvas.bind('<Motion>',self.onMouseMotion_Nothing)
+        self.parent.parent.toolbar.rotatePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Rotate Part',state='disabled')
+        self.parent.parent.toolbar.flipPartHorizontallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='disabled')
+        self.parent.parent.toolbar.flipPartVerticallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='disabled')
+        self.parent.parent.toolbar.deletePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Duplicate Part',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Duplicate Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Wire',state='disabled')
+        self.parent.parent.toolbar.panButton.config(relief=RAISED)
+        self.parent.parent.statusbar.clear()
         self.parent.DrawSchematic()
     def onMouseButton1_Nothing(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -413,7 +428,7 @@ class DrawingStateMachine(object):
                     self.parent.v = v
                     self.WireSelected()
                     return
-        self.Panning()
+        #self.Panning()
     def onMouseButton3_Nothing(self,event):
         pass
     def onMouseButton1Motion_Nothing(self,event):
@@ -440,6 +455,21 @@ class DrawingStateMachine(object):
         self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_DeviceSelected)
         self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_DeviceSelected)
         self.parent.canvas.bind('<Motion>',self.onMouseMotion_DeviceSelected)
+        self.parent.parent.toolbar.rotatePartButton.config(state="normal")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Rotate Part',state='normal')
+        self.parent.parent.toolbar.flipPartHorizontallyButton.config(state="normal")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='normal')
+        self.parent.parent.toolbar.flipPartVerticallyButton.config(state="normal")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='normal')
+        self.parent.parent.toolbar.deletePartButton.config(state="normal")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='normal')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='normal')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Duplicate Part',state='normal')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Duplicate Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Wire',state='disabled')
+        self.parent.parent.toolbar.panButton.config(relief=RAISED)
+        self.parent.parent.statusbar.set('Part Selected')
         self.parent.DrawSchematic()
     def onMouseButton1_DeviceSelected(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -458,7 +488,7 @@ class DrawingStateMachine(object):
                     self.parent.v = v
                     self.WireSelected()
                     return
-        self.Panning()
+        self.Nothing()
     def onMouseButton3_DeviceSelected(self,event):
         self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
         if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord):
@@ -494,6 +524,21 @@ class DrawingStateMachine(object):
         self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_WireSelected)
         self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_WireSelected)
         self.parent.canvas.bind('<Motion>',self.onMouseMotion_WireSelected)
+        self.parent.parent.toolbar.rotatePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Rotate Part',state='disabled')
+        self.parent.parent.toolbar.flipPartHorizontallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='disabled')
+        self.parent.parent.toolbar.flipPartVerticallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='disabled')
+        self.parent.parent.toolbar.deletePartButton.config(state="normal")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Duplicate Part',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Vertex',state='normal')
+        self.parent.parent.menu.WireMenu.entryconfigure('Duplicate Vertex',state='normal')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Wire',state='normal')
+        self.parent.parent.toolbar.panButton.config(relief=RAISED)
+        self.parent.parent.statusbar.set('Wire Selected')
         self.parent.DrawSchematic()
     def onMouseButton1_WireSelected(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -512,7 +557,7 @@ class DrawingStateMachine(object):
                     self.parent.v = v
                     self.WireSelected()
                     return
-        self.Panning()
+        self.Nothing()
     def onMouseButton3_WireSelected(self,event):
         pass
     def onMouseButton1Motion_WireSelected(self,event):
@@ -540,6 +585,21 @@ class DrawingStateMachine(object):
         self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_PartLoaded)
         self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_PartLoaded)
         self.parent.canvas.bind('<Motion>',self.onMouseMotion_PartLoaded)
+        self.parent.parent.toolbar.rotatePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Rotate Part',state='disabled')
+        self.parent.parent.toolbar.flipPartHorizontallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='disabled')
+        self.parent.parent.toolbar.flipPartVerticallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='disabled')
+        self.parent.parent.toolbar.deletePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Duplicate Part',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Duplicate Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Wire',state='disabled')
+        self.parent.parent.toolbar.panButton.config(relief=RAISED)
+        self.parent.parent.statusbar.set('Part In Clipboard')
         self.parent.DrawSchematic()
     def onMouseButton1_PartLoaded(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -574,20 +634,28 @@ class DrawingStateMachine(object):
         self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_WireLoaded)
         self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_WireLoaded)
         self.parent.canvas.bind('<Motion>',self.onMouseMotion_WireLoaded)
+        self.parent.parent.toolbar.rotatePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Rotate Part',state='disabled')
+        self.parent.parent.toolbar.flipPartHorizontallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='disabled')
+        self.parent.parent.toolbar.flipPartVerticallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='disabled')
+        self.parent.parent.toolbar.deletePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Duplicate Part',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Duplicate Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Wire',state='disabled')
+        self.parent.parent.toolbar.panButton.config(relief=RAISED)
+        self.parent.parent.statusbar.set('Drawing Wires')
         self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
         self.parent.wireLoaded[-1]=(self.parent.Button1Coord)
         self.parent.DrawSchematic()
     def onMouseButton3_WireLoaded(self,event):
-        self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        if len(self.parent.wireLoaded) > 2:
-            self.parent.schematic.wireList[-1]=Wire(self.parent.wireLoaded[:-1])
-            self.parent.wireLoaded=Wire([(0,0)])
-            self.parent.schematic.wireList.append(self.parent.wireLoaded)
-            self.parent.DrawSchematic()
-        else:
-            self.Nothing()
+        pass
     def onMouseButton1Motion_WireLoaded(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         if len(self.parent.wireLoaded) > 0:
@@ -598,7 +666,14 @@ class DrawingStateMachine(object):
         self.parent.wireLoaded.append(coord)
         self.parent.DrawSchematic()
     def onMouseButton3Release_WireLoaded(self,event):
-        pass
+        self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        if len(self.parent.wireLoaded) > 2:
+            self.parent.schematic.wireList[-1]=Wire(self.parent.wireLoaded[:-1])
+            self.parent.wireLoaded=Wire([(0,0)])
+            self.parent.schematic.wireList.append(self.parent.wireLoaded)
+            self.parent.DrawSchematic()
+        else:
+            self.Nothing()
     def onMouseButton1Double_WireLoaded(self,event):
         self.parent.wireLoaded=None
         self.Nothing()
@@ -629,9 +704,24 @@ class DrawingStateMachine(object):
         self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Panning)
         self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Panning)
         self.parent.canvas.bind('<Motion>',self.onMouseMotion_Panning)
+        self.parent.parent.toolbar.rotatePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Rotate Part',state='disabled')
+        self.parent.parent.toolbar.flipPartHorizontallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='disabled')
+        self.parent.parent.toolbar.flipPartVerticallyButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='disabled')
+        self.parent.parent.toolbar.deletePartButton.config(state="disabled")
+        self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='disabled')
+        self.parent.parent.menu.PartsMenu.entryconfigure('Duplicate Part',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Duplicate Vertex',state='disabled')
+        self.parent.parent.menu.WireMenu.entryconfigure('Delete Wire',state='disabled')
+        self.parent.parent.toolbar.panButton.config(relief=SUNKEN)
+        self.parent.parent.statusbar.set('Panning')
         self.parent.DrawSchematic()
     def onMouseButton1_Panning(self,event):
-        self.Nothing()
+        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
     def onMouseButton3_Panning(self,event):
         pass
     def onMouseButton1Motion_Panning(self,event):
@@ -646,7 +736,7 @@ class DrawingStateMachine(object):
     def onMouseButton1Double_Panning(self,event):
         self.Nothing()
     def onMouseMotion_Panning(self,event):
-        self.Nothing()
+        pass
 
 class Drawing(Frame):
     def __init__(self,parent):
@@ -721,13 +811,14 @@ class Drawing(Frame):
                     if uniqueReferenceDesignator != None:
                         self.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
             self.stateMachine.PartLoaded()
-    def DeleteSelectedDevice(self):
+    def DeleteSelected(self):
         if self.stateMachine.state=='WireSelected':
-            del self.schematic.wireList[self.w]
-            self.stateMachine.Nothing()
+            self.DeleteSelectedWire()
         elif self.stateMachine.state=='DeviceSelected':
-            del self.schematic.deviceList[self.deviceSelectedIndex]
-            self.stateMachine.Nothing()
+            self.DeleteSelectedDevice()
+    def DeleteSelectedDevice(self):
+        del self.schematic.deviceList[self.deviceSelectedIndex]
+        self.stateMachine.Nothing()
     def DeleteSelectedVertex(self):
         del self.schematic.wireList[self.w][self.v]
         self.stateMachine.Nothing()

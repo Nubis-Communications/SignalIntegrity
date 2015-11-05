@@ -5,6 +5,8 @@ from tkFileDialog import asksaveasfilename
 import keyword
 import copy
 
+from idlelib.ToolTip import *
+
 from PartPin import *
 from PartPicture import *
 from PartProperty import *
@@ -126,16 +128,31 @@ class TheMenu(Menu):
         self.FileMenu.add_command(label="Export NetList",command=self.parent.onExportNetlist)
 
         self.PartsMenu=Menu(self)
-        self.add_cascade(label='Edit',menu=self.PartsMenu)
+        self.add_cascade(label='Parts',menu=self.PartsMenu)
         self.PartsMenu.add_command(label='Add Part',command=self.parent.onAddPart)
-        self.PartsMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
         self.PartsMenu.add_command(label='Add Port',command=self.parent.onAddPort)
-        self.PartsMenu.add_command(label='Duplicate',command=self.parent.onDuplicate)
+        self.PartsMenu.add_separator()
+        self.PartsMenu.add_command(label='Delete Part',command=self.parent.onDeletePart)
+        self.PartsMenu.add_separator()
+        self.PartsMenu.add_command(label='Edit Properties',command=self.parent.onEditProperties)
+        self.PartsMenu.add_command(label='Duplicate Part',command=self.parent.onDuplicate)
+        self.PartsMenu.add_command(label='Rotate Part',command=self.parent.onRotatePart)
+        self.PartsMenu.add_command(label='Flip Horizontally',command=self.parent.onFlipPartHorizontally)
+        self.PartsMenu.add_command(label='Flip Vertically',command=self.parent.onFlipPartVertically)
 
-        self.ZoomMenu=Menu(self)
-        self.add_cascade(label='Zoom',menu=self.ZoomMenu)
-        self.ZoomMenu.add_command(label='Zoom In',command=self.parent.onZoomIn)
-        self.ZoomMenu.add_command(label='Zoom Out',command=self.parent.onZoomOut)
+        self.WireMenu=Menu(self)
+        self.add_cascade(label='Wires',menu=self.WireMenu)
+        self.WireMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
+        self.WireMenu.add_separator()
+        self.WireMenu.add_command(label='Delete Vertex',command=self.parent.onDeleteSelectedVertex)
+        self.WireMenu.add_command(label='Duplicate Vertex',command=self.parent.onDuplicateSelectedVertex)
+        self.WireMenu.add_command(label='Delete Wire',command=self.parent.onDeleteSelectedWire)
+
+        self.ViewMenu=Menu(self)
+        self.add_cascade(label='View',menu=self.ViewMenu)
+        self.ViewMenu.add_command(label='Zoom In',command=self.parent.onZoomIn)
+        self.ViewMenu.add_command(label='Zoom Out',command=self.parent.onZoomOut)
+        self.ViewMenu.add_command(label='Pan',command=self.parent.onPan)
 
         self.CalcMenu=Menu(self)
         self.add_cascade(label='Calculate',menu=self.CalcMenu)
@@ -147,14 +164,64 @@ class ToolBar(Frame):
         self.parent=parent
         Frame.__init__(self,self.parent)
         self.pack(side=TOP,fill=X,expand=NO)
+        filesFrame=self
+        self.newProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-new-3.gif')
+        self.newProjectButton = Button(filesFrame,command=self.parent.onClearSchematic,image=self.newProjectButtonIcon)
+        self.newProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
+        ToolTip(self.newProjectButton, 'New Project')
+        self.openProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-open-2.gif')
+        self.openProjectButton = Button(filesFrame,command=self.parent.onReadProjectFromFile,image=self.openProjectButtonIcon)
+        self.openProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
+        ToolTip(self.openProjectButton, 'Open Project')
+        self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
+        self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteProjectToFile,image=self.saveProjectButtonIcon)
+        self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
+        ToolTip(self.saveProjectButton, 'Save Project')
+        separator=Frame(self,bd=2,relief=SUNKEN)
+        separator.pack(side=LEFT,fill=X,padx=5,pady=5)
+        editFrame=self
         self.addPartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-add-2.gif')
-        self.addPartButton = Button(self,command=self.parent.onAddPart,image=self.addPartButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.addPartButton = Button(editFrame,command=self.parent.onAddPart,image=self.addPartButtonIcon)
+        self.addPartButton.pack(side=LEFT,fill=NONE,expand=NO)
+        ToolTip(self.addPartButton, 'Add Part')
+        self.deletePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-delete-6.gif')
+        self.deletePartButton = Button(editFrame,command=self.parent.onDeletePart,image=self.deletePartButtonIcon)
+        self.deletePartButton.pack(side=LEFT,fill=NONE,expand=NO)
         self.addWireButtonIcon = PhotoImage(file='./icons/png/16x16/actions/draw-line-3.gif')
-        self.addWireButton = Button(self,command=self.parent.onAddWire,image=self.addWireButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.addWireButton = Button(editFrame,command=self.parent.onAddWire,image=self.addWireButtonIcon)
+        self.addWireButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.rotatePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-rotate-left-4.gif')
+        self.rotatePartButton = Button(editFrame,command=self.parent.onRotatePart,image=self.rotatePartButtonIcon)
+        self.rotatePartButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.flipPartHorizontallyButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-flip-horizontal-3.gif')
+        self.flipPartHorizontallyButton = Button(editFrame,command=self.parent.onFlipPartHorizontally,image=self.flipPartHorizontallyButtonIcon)
+        self.flipPartHorizontallyButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.flipPartVerticallyButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-flip-vertical-3.gif')
+        self.flipPartVerticallyButton = Button(editFrame,command=self.parent.onFlipPartVertically,image=self.flipPartVerticallyButtonIcon)
+        self.flipPartVerticallyButton.pack(side=LEFT,fill=NONE,expand=NO)
+        separator=Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
         self.zoomInButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-in-3.gif')
-        self.zoomInButton = Button(self,command=self.parent.onZoomIn,image=self.zoomInButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.zoomInButton = Button(editFrame,command=self.parent.onZoomIn,image=self.zoomInButtonIcon)
+        self.zoomInButton.pack(side=LEFT,fill=NONE,expand=NO)
         self.zoomOutButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-out-3.gif')
-        self.zoomOutButton = Button(self,command=self.parent.onZoomOut,image=self.zoomOutButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
+        self.zoomOutButton = Button(editFrame,command=self.parent.onZoomOut,image=self.zoomOutButtonIcon)
+        self.zoomOutButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.panButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-move.gif')
+        self.panButton = Button(editFrame,command=self.parent.onPan,image=self.panButtonIcon)
+        self.panButton.pack(side=LEFT,fill=NONE,expand=NO)
+
+
+class StatusBar(Frame):
+    def __init__(self, master):
+        Frame.__init__(self, master)
+        self.label = Label(self, bd=1, relief=SUNKEN, anchor=W)
+        self.label.pack(fill=X)
+    def set(self, format, *args):
+        self.label.config(text=format % args)
+        self.label.update_idletasks()
+    def clear(self):
+        self.label.config(text="")
+        self.label.update_idletasks()
 
 class TheApp(Frame):
     def __init__(self):
@@ -167,17 +234,20 @@ class TheApp(Frame):
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
+        self.statusbar=StatusBar(self)
+
         self.menu=TheMenu(self)
         self.toolbar=ToolBar(self)
 
         self.Drawing=Drawing(self)
-        self.Drawing.pack(side=LEFT,fill=BOTH,expand=YES)
+        self.Drawing.pack(side=TOP,fill=BOTH,expand=YES)
 
+        self.statusbar.pack(side=BOTTOM,fill=X,expand=NO)
         self.root.bind('<Key>',self.onKey)
 
-        self.plotDialog=None
-
+        #self.plotDialog=None
         self.simulator = Simulator(self)
+
         self.filename=None
 
         self.root.mainloop()
@@ -255,34 +325,34 @@ class TheApp(Frame):
             dpe=DevicePropertiesDialog(self,devicePicked)
             self.Drawing.partLoaded = dpe.result
             self.Drawing.stateMachine.PartLoaded()
-    def onDuplicate(self):
+    def onDeletePart(self):
+        self.Drawing.DeleteSelected()
+    def onEditProperties(self):
+        self.Drawing.EditSelectedDevice()
+    def onRotatePart(self):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
-            self.Drawing.partLoaded=copy.deepcopy(self.Drawing.deviceSelected)
-            if self.Drawing.partLoaded['type'].GetValue() == 'Port':
-                portNumberList=[]
-                for device in self.Drawing.schematic.deviceList:
-                    if device['type'].GetValue() == 'Port':
-                        portNumberList.append(int(device['portnumber'].GetValue()))
-                portNumber=1
-                while portNumber in portNumberList:
-                    portNumber=portNumber+1
-                self.Drawing.partLoaded['portnumber'].SetValueFromString(str(portNumber))
-            else:
-                defaultProperty = self.Drawing.partLoaded[PartPropertyDefaultReferenceDesignator().propertyName]
-                if defaultProperty != None:
-                    defaultPropertyValue = defaultProperty.GetValue()
-                    uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                    if uniqueReferenceDesignator != None:
-                        self.Drawing.partLoaded[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
-            self.Drawing.stateMachine.PartLoaded()
-        else:
-            self.Drawing.stateMachine.Nothing()
-
+            self.Drawing.deviceSelected.partPicture.current.Rotate()
+            self.Drawing.stateMachine.DeviceSelected()
+    def onFlipPartHorizontally(self):
+        if self.Drawing.stateMachine.state == 'DeviceSelected':
+            orientation = self.Drawing.deviceSelected.partPicture.current.orientation
+            mirroredHorizontally = self.Drawing.deviceSelected.partPicture.current.mirroredHorizontally
+            mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
+            self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,not mirroredHorizontally,mirroredVertically)
+            self.Drawing.stateMachine.DeviceSelected()
+    def onFlipPartVertically(self):
+        if self.Drawing.stateMachine.state == 'DeviceSelected':
+            orientation = self.Drawing.deviceSelected.partPicture.current.orientation
+            mirroredHorizontally = self.Drawing.deviceSelected.partPicture.current.mirroredHorizontally
+            mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
+            self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,mirroredHorizontally,not mirroredVertically)
+            self.Drawing.stateMachine.DeviceSelected()
+    def onDuplicate(self):
+        self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):
         self.Drawing.wireLoaded=Wire([(0,0)])
         self.Drawing.schematic.wireList.append(self.Drawing.wireLoaded)
         self.Drawing.stateMachine.WireLoaded()
-
     def onAddPort(self):
         self.Drawing.stateMachine.Nothing()
         portNumber=1
@@ -302,6 +372,18 @@ class TheApp(Frame):
     def onZoomOut(self):
         self.Drawing.grid = max(1,self.Drawing.grid/2)
         self.Drawing.DrawSchematic()
+
+    def onPan(self):
+        self.Drawing.stateMachine.Panning()
+
+    def onDeleteSelectedVertex(self):
+        self.Drawing.DeleteSelectedVertex()
+
+    def onDuplicateSelectedVertex(self):
+        self.Drawing.DuplicateSelectedVertex()
+
+    def onDeleteSelectedWire(self):
+        self.Drawing.DeleteSelectedWire()
 
     def onCalculateSParameters(self):
         self.Drawing.stateMachine.Nothing()
