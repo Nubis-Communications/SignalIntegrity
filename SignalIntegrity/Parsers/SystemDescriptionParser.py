@@ -35,15 +35,15 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
             self.m_ul.append(line)
         elif lineList[0] == 'device':
             argList = [lineList[i] for i in range(3,len(lineList))]
-            if argList in self.m_spcl:
+            if [lineList[2]]+argList in self.m_spcl:
                 dev = DeviceParser(self.m_f,int(lineList[2]),None)
-                dev.m_spf = self.m_spc[self.m_spcl.index(argList)][1]
+                dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]
             else:
                 dev=DeviceParser(self.m_f,int(lineList[2]),argList)
             self.m_sd.AddDevice(lineList[1],int(lineList[2]),dev.m_sp)
             if not dev.m_spf is None:
                 self.m_spc.append((lineList[1],dev.m_spf))
-                self.m_spcl.append(argList)
+                self.m_spcl.append([lineList[2]]+argList)
         elif lineList[0] == 'connect':
             for i in range(3,len(lineList),2):
                 self.m_sd.ConnectDevicePort(lineList[1],int(lineList[2]),

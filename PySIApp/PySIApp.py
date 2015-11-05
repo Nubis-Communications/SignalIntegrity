@@ -147,13 +147,13 @@ class ToolBar(Frame):
         self.parent=parent
         Frame.__init__(self,self.parent)
         self.pack(side=TOP,fill=X,expand=NO)
-        self.addPartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-add-2.png')
+        self.addPartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-add-2.gif')
         self.addPartButton = Button(self,command=self.parent.onAddPart,image=self.addPartButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
-        self.addWireButtonIcon = PhotoImage(file='./icons/png/16x16/actions/draw-line-3.png')
+        self.addWireButtonIcon = PhotoImage(file='./icons/png/16x16/actions/draw-line-3.gif')
         self.addWireButton = Button(self,command=self.parent.onAddWire,image=self.addWireButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
-        self.zoomInButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-in-3.png')
+        self.zoomInButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-in-3.gif')
         self.zoomInButton = Button(self,command=self.parent.onZoomIn,image=self.zoomInButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
-        self.zoomOutButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-out-3.png')
+        self.zoomOutButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-out-3.gif')
         self.zoomOutButton = Button(self,command=self.parent.onZoomOut,image=self.zoomOutButtonIcon).pack(side=LEFT,fill=NONE,expand=NO)
 
 class TheApp(Frame):
@@ -164,9 +164,9 @@ class TheApp(Frame):
 
         self.root.title("PySI")
 
-        img = PhotoImage(file='./icons/png/AppIcon.png')
-        self.root.tk.call('wm', 'iconphoto', self.root._w, img)
-        
+        img = PhotoImage(file='./icons/png/AppIcon2.gif')
+        self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
+
         self.menu=TheMenu(self)
         self.toolbar=ToolBar(self)
 
@@ -221,7 +221,6 @@ class TheApp(Frame):
             filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialdir=os.getcwd())
         else:
             filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialfile=self.filename)
-
         if filename=='':
             return
         self.filename=filename

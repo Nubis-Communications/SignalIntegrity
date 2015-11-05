@@ -1,5 +1,7 @@
 from SeriesC import *
 from SeriesL import *
+from TerminationC import *
+from TerminationL import *
 from TLine import *
 from Mutual import *
 from ApproximateFourPortTline import *

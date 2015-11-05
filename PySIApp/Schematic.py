@@ -138,6 +138,11 @@ class Wire(object):
             for vertex in self[1:]:
                 canvas.create_line((segmentCoord[0]+x)*grid,(segmentCoord[1]+y)*grid,(vertex[0]+x)*grid,(vertex[1]+y)*grid,fill=('blue' if self.selected else 'black'))
                 segmentCoord=vertex
+            if self.selected:
+                for vertex in self:
+                    size=max(1,grid/8)
+                    canvas.create_line((vertex[0]+x)*grid-size,(vertex[1]+y)*grid-size,(vertex[0]+x)*grid+size,(vertex[1]+y)*grid+size,fill=('blue' if self.selected else 'black'))
+                    canvas.create_line((vertex[0]+x)*grid+size,(vertex[1]+y)*grid-size,(vertex[0]+x)*grid-size,(vertex[1]+y)*grid+size,fill=('blue' if self.selected else 'black'))
     def __add__(self,other):
         if isinstance(other, Wire):
             return Wire(self.vertexList+other.vertexList,self.selected)
@@ -370,7 +375,7 @@ class DrawingStateMachine(object):
     def __init__(self,parent):
         self.parent=parent
         self.Nothing()
-    
+
     def UnselectAllDevices(self):
         for device in self.parent.schematic.deviceList:
             device.selected=False
@@ -517,7 +522,7 @@ class DrawingStateMachine(object):
     def onMouseButton1Release_WireSelected(self,event):
         pass
     def onMouseButton3Release_WireSelected(self,event):
-        self.parent.tk.call('tk_popup',self.parent.canvasTearOffMenu, event.x_root, event.y_root)
+        self.parent.tk.call('tk_popup',self.parent.wireTearOffMenu, event.x_root, event.y_root)
     def onMouseButton1Double_WireSelected(self,event):
         pass
     def onMouseMotion_WireSelected(self,event):
@@ -661,6 +666,11 @@ class Drawing(Frame):
         self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
         self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
         self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
+        self.wireTearOffMenu=Menu(self, tearoff=0)
+        self.wireTearOffMenu.add_command(label="Delete Vertex",command=self.DeleteSelectedVertex)
+        self.wireTearOffMenu.add_command(label="Duplicate Vertex",command=self.DuplicateSelectedVertex)
+        self.wireTearOffMenu.add_command(label="Delete Wire",command=self.DeleteSelectedWire)
+
         self.stateMachine = DrawingStateMachine(self)
     def NearestGridCoordinate(self,x,y):
         return (int(round(float(x)/self.grid))-self.originx,int(round(float(y)/self.grid))-self.originy)
@@ -718,6 +728,17 @@ class Drawing(Frame):
         elif self.stateMachine.state=='DeviceSelected':
             del self.schematic.deviceList[self.deviceSelectedIndex]
             self.stateMachine.Nothing()
+    def DeleteSelectedVertex(self):
+        del self.schematic.wireList[self.w][self.v]
+        self.stateMachine.Nothing()
+    def DuplicateSelectedVertex(self):
+        self.schematic.wireList[self.w]=Wire(self.schematic.wireList[self.w][:self.v]+\
+        [self.schematic.wireList[self.w][self.v]]+\
+        self.schematic.wireList[self.w][self.v:],True)
+        self.stateMachine.WireSelected()
+    def DeleteSelectedWire(self):
+        del self.schematic.wireList[self.w]
+        self.stateMachine.Nothing()
     def xml(self):
         drawingElement=et.Element('drawing')
         drawingPropertiesElement=et.Element('drawing_properties')

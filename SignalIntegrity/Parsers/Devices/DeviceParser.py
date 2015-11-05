@@ -22,6 +22,8 @@ from SignalIntegrity.Devices import TransresistanceAmplifier
 from SignalIntegrity.Devices import TransconductanceAmplifier
 from SignalIntegrity.SParameters.Devices import SeriesC
 from SignalIntegrity.SParameters.Devices import SeriesL
+from SignalIntegrity.SParameters.Devices import TerminationC
+from SignalIntegrity.SParameters.Devices import TerminationL
 from SignalIntegrity.SParameters.Devices import Mutual
 from SignalIntegrity.SParameters.Devices import TLine
 
@@ -43,10 +45,16 @@ class DeviceParser():
             self.m_spf=File(argsList[1]).Resample(self.m_f)
             return
         elif argsList[0] == 'C':
-            self.m_spf=SeriesC(self.m_f,float(argsList[1]))
+            if ports == 1:
+                self.m_spf=TerminationC(self.m_f,float(argsList[1]))
+            elif ports == 2:
+                self.m_spf=SeriesC(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'L':
-            self.m_spf=SeriesL(self.m_f,float(argsList[1]))
+            if ports == 1:
+                self.m_spf=TerminationL(self.m_f,float(argsList[1]))
+            elif ports == 2:
+                self.m_spf=SeriesL(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'R':
             if ports == 1:

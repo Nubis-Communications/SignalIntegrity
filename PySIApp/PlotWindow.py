@@ -18,11 +18,12 @@ class PlotDialog(Toplevel):
     def __init__(self, parent):
         Toplevel.__init__(self, parent)
         self.parent=parent
+        self.withdraw()
         self.title('PySI Results')
-        img = PhotoImage(file='./icons/png/AppIcon.png')
+        img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
-        self.withdraw()
+
         self.f = Figure(figsize=(5,4), dpi=100)
         self.plt = self.f.add_subplot(111)
         self.plt.set_xlabel('time (ns)')
