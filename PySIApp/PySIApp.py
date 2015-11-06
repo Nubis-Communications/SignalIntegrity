@@ -5,7 +5,7 @@ from tkFileDialog import asksaveasfilename
 import keyword
 import copy
 
-from idlelib.ToolTip import *
+#from idlelib.ToolTip import *
 
 from PartPin import *
 from PartPicture import *
@@ -168,22 +168,22 @@ class ToolBar(Frame):
         self.newProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-new-3.gif')
         self.newProjectButton = Button(filesFrame,command=self.parent.onClearSchematic,image=self.newProjectButtonIcon)
         self.newProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        ToolTip(self.newProjectButton, 'New Project')
+        #ToolTip(self.newProjectButton, 'New Project')
         self.openProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-open-2.gif')
         self.openProjectButton = Button(filesFrame,command=self.parent.onReadProjectFromFile,image=self.openProjectButtonIcon)
         self.openProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        ToolTip(self.openProjectButton, 'Open Project')
+        #ToolTip(self.openProjectButton, 'Open Project')
         self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
         self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteProjectToFile,image=self.saveProjectButtonIcon)
         self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        ToolTip(self.saveProjectButton, 'Save Project')
+        #ToolTip(self.saveProjectButton, 'Save Project')
         separator=Frame(self,bd=2,relief=SUNKEN)
         separator.pack(side=LEFT,fill=X,padx=5,pady=5)
         editFrame=self
         self.addPartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-add-2.gif')
         self.addPartButton = Button(editFrame,command=self.parent.onAddPart,image=self.addPartButtonIcon)
         self.addPartButton.pack(side=LEFT,fill=NONE,expand=NO)
-        ToolTip(self.addPartButton, 'Add Part')
+        #ToolTip(self.addPartButton, 'Add Part')
         self.deletePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-delete-6.gif')
         self.deletePartButton = Button(editFrame,command=self.parent.onDeletePart,image=self.deletePartButtonIcon)
         self.deletePartButton.pack(side=LEFT,fill=NONE,expand=NO)

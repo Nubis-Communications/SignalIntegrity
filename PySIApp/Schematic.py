@@ -732,7 +732,7 @@ class DrawingStateMachine(object):
     def onMouseButton1Release_Panning(self,event):
         self.Nothing()
     def onMouseButton3Release_Panning(self,event):
-        pass
+        self.Nothing()
     def onMouseButton1Double_Panning(self,event):
         self.Nothing()
     def onMouseMotion_Panning(self,event):

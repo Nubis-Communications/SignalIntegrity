@@ -438,7 +438,7 @@ class PartPictureVariableFourPort(PartPictureVariable):
 
 class PartPicturePort(PartPicture):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPicture.__init__(self,origin,[PartPin(1,(3,1),'r',False)],[(2,0),(3,2)],[(0,0),(3,2)],(1,1),orientation,mirroredHorizontally,mirroredVertically)
+        PartPicture.__init__(self,origin,[PartPin(1,(3,1),'r',False)],[(2,0),(3,2)],[(0,0),(3,2)],(1,1),orientation,mirroredHorizontally,mirroredVertically,(3,1))
     def DrawDevice(self,canvas,grid,drawingOrigin):
         lx=(drawingOrigin[0]+self.origin[0]+1)*grid+grid/2
         rx=(drawingOrigin[0]+self.origin[0]+2)*grid
@@ -997,7 +997,6 @@ class PartPictureVoltageControlledVoltageSourceFourPort(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # plus and minus signs on the sensing port
@@ -1010,7 +1009,6 @@ class PartPictureVoltageControlledVoltageSourceFourPortAlt(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # minus and plus signs on the sensing port
@@ -1027,7 +1025,6 @@ class PartPictureCurrentControlledCurrentSourceFourPort(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
@@ -1040,7 +1037,6 @@ class PartPictureCurrentControlledCurrentSourceFourPortAlt(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
@@ -1057,7 +1053,6 @@ class PartPictureVoltageControlledCurrentSourceFourPort(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # plus and minus signs on the sensing port
@@ -1070,7 +1065,6 @@ class PartPictureVoltageControlledCurrentSourceFourPortAlt(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # minus and plus signs on the sensing port
@@ -1087,7 +1081,6 @@ class PartPictureCurrentControlledVoltageSourceFourPort(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
@@ -1100,7 +1093,6 @@ class PartPictureCurrentControlledVoltageSourceFourPortAlt(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin):
-        ct=self.CoordinateTranslater(grid,drawingOrigin)
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         # arrow on the sensing port
