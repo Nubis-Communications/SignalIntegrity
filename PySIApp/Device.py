@@ -22,6 +22,8 @@ class Device(object):
         self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y))
     def IsAt(self,coord):
         return self.partPicture.current.IsAt(coord)
+    def IsIn(self,coord0,coord1):
+        return self.partPicture.current.IsIn(coord0,coord1)
     def WhereInPart(self,coord):
         return self.partPicture.current.WhereInPart(coord)
     def PartPropertyByName(self,name):

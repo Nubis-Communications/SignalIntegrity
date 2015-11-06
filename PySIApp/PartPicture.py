@@ -144,6 +144,20 @@ class PartPicture(object):
         if y > self.innerBox[1][1]+self.origin[1]:
             return False
         return True
+    def IsIn(self,i,f):
+        minx=min(i[0],f[0])
+        miny=min(i[1],f[1])
+        maxx=max(i[0],f[0])
+        maxy=max(i[1],f[1])
+        if minx > self.innerBox[0][0]+self.origin[0]:
+            return False
+        if maxx < self.innerBox[1][0]+self.origin[0]:
+            return False
+        if miny > self.innerBox[0][1]+self.origin[1]:
+            return False
+        if maxy < self.innerBox[1][1]+self.origin[1]:
+            return False
+        return True
     def WhereInPart(self,xy):
         return (xy[0]-self.origin[0],xy[1]-self.origin[1])
     def DrawDevice(self,canvas,grid,drawingOrigin,drawInnerBox=False):
