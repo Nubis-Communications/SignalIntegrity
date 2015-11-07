@@ -937,7 +937,7 @@ class DrawingStateMachine(object):
         self.parent.parent.menu.PartsMenu.entryconfigure('Flip Horizontally',state='disabled')
         self.parent.parent.toolbar.flipPartVerticallyButton.config(state="disabled")
         self.parent.parent.menu.PartsMenu.entryconfigure('Flip Vertically',state='disabled')
-        self.parent.parent.toolbar.deletePartButton.config(state="disabled")
+        self.parent.parent.toolbar.deletePartButton.config(state="normal")
         self.parent.parent.menu.PartsMenu.entryconfigure('Delete Part',state='disabled')
         self.parent.parent.menu.PartsMenu.entryconfigure('Edit Properties',state='disabled')
         self.parent.parent.toolbar.duplicatePartButton.config(state="disabled")
@@ -983,11 +983,11 @@ class DrawingStateMachine(object):
             coordInPart = self.parent.OriginalDeviceCoordinates[d]
             if device.selected:
                 device.partPicture.current.SetOrigin([coord[0]-coordInPart[0],coord[1]-coordInPart[1]])
-            for w in range(len(self.parent.schematic.wireList)):
-                for v in range(len(self.parent.schematic.wireList[w])):
-                    if self.parent.schematic.wireList[w].selected:
-                        self.parent.schematic.wireList[w][v]=(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
-                                                              coord[1]-self.parent.OriginalWireCoordinates[w][v][1])
+        for w in range(len(self.parent.schematic.wireList)):
+            for v in range(len(self.parent.schematic.wireList[w])):
+                if self.parent.schematic.wireList[w].selected:
+                    self.parent.schematic.wireList[w][v]=(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
+                                                          coord[1]-self.parent.OriginalWireCoordinates[w][v][1])
         self.parent.DrawSchematic()
     def onMouseButton1Release_MultipleSelections(self,event):
         pass
@@ -1076,6 +1076,8 @@ class Drawing(Frame):
             self.DeleteSelectedWire()
         elif self.stateMachine.state=='DeviceSelected':
             self.DeleteSelectedDevice()
+        elif self.stateMachine.state=='Multiple Selections':
+            self.DeleteMultipleSelections()
     def DeleteSelectedDevice(self):
         del self.schematic.deviceList[self.deviceSelectedIndex]
         self.stateMachine.Nothing()
@@ -1089,6 +1091,18 @@ class Drawing(Frame):
         self.stateMachine.WireSelected()
     def DeleteSelectedWire(self):
         del self.schematic.wireList[self.w]
+        self.stateMachine.Nothing()
+    def DeleteMultipleSelections(self):
+        newDeviceList=[]
+        newWireList=[]
+        for device in self.schematic.deviceList:
+            if not device.selected:
+                newDeviceList.append(copy.deepcopy(device))
+        for wire in self.schematic.wireList:
+            if not wire.selected:
+                newWireList.append(copy.deepcopy(wire))
+        self.schematic.deviceList=newDeviceList
+        self.schematic.wireList=newWireList
         self.stateMachine.Nothing()
     def xml(self):
         drawingElement=et.Element('drawing')

@@ -258,13 +258,7 @@ class TheApp(Frame):
     def onKey(self,event):
         print "pressed", repr(event.keycode), repr(event.keysym)
         if event.keysym == 'Delete': # delete
-            if self.Drawing.stateMachine.state == 'WireSelected':
-                del self.Drawing.schematic.wireList[self.Drawing.w]
-                self.Drawing.stateMachine.Nothing()
-            elif self.Drawing.stateMachine.state == 'DeviceSelected':
-                del self.Drawing.schematic.deviceList[self.Drawing.deviceSelectedIndex]
-                self.Drawing.stateMachine.Nothing()
-
+            self.Drawing.DeleteSelected()
     def onReadProjectFromFile(self):
         self.Drawing.stateMachine.Nothing()
         extension='.xml'
