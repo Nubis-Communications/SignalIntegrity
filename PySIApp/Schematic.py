@@ -8,171 +8,23 @@ import xml.etree.ElementTree as et
 
 from DeviceProperties import *
 from Device import *
-
-class NetList(object):
-    def __init__(self,schematic):
-        self.textToShow=[]
-        self.outputNames=[]
-        self.measureNames=[]
-        deviceList = schematic.deviceList
-        wireList = schematic.wireList
-        # put all devices in the net list
-        for device in deviceList:
-            deviceType = device[PartPropertyPartName().propertyName].GetValue()
-            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
-                thisline=device.NetListLine()
-                self.textToShow.append(thisline)
-        # gather up all device pin coordinates
-        devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
-        devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
-        deviceConnectionList = []
-        for deviceIndex in range(len(devicePinCoordinateList)):
-            devicePinConnectionList = []
-            for pinIndex in range(len(devicePinCoordinateList[deviceIndex])):
-                thisDevicePinCoordinate = devicePinCoordinateList[deviceIndex][pinIndex]
-                thisListOfConnectedDevicePins=[]
-                if devicePinNeedToCheckList[deviceIndex][pinIndex]:
-                    # search all device pins and wire vertices for this coordinate
-                    for deviceCheckIndex in range(len(devicePinCoordinateList)):
-                        for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
-                            thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                            if thisDevicePinCoordinate == thisDevicePinCheckCoordinate:
-                                thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
-                    for wire in wireList:
-                        thisWireConnectedToThisDevicePin = False
-                        for vertex in wire:
-                            if vertex == thisDevicePinCoordinate:
-                                thisWireConnectedToThisDevicePin = True
-                                break
-                        if thisWireConnectedToThisDevicePin:
-                            for vertex in wire:
-                                for deviceCheckIndex in range(len(devicePinCoordinateList)):
-                                    for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
-                                        thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                                        if vertex == thisDevicePinCheckCoordinate:
-                                            thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
-                    thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
-                    for connectedDevicePins in thisListOfConnectedDevicePins:
-                        connectedDeviceIndex=connectedDevicePins[0]
-                        connectedPinIndex=connectedDevicePins[1]
-                        devicePinNeedToCheckList[connectedDeviceIndex][connectedPinIndex]=False
-                devicePinConnectionList.append(thisListOfConnectedDevicePins)
-            deviceConnectionList.append(devicePinConnectionList)
-        netList = []
-        for deviceConnection in deviceConnectionList:
-            for devicePinConnection in deviceConnection:
-                if len(devicePinConnection) > 1:
-                    netList.append(devicePinConnection)
-        for net in netList:
-            measureList=[]
-            outputList=[]
-            portList=[]
-            # gather up list of all measures, outputs, and ports
-            for devicePin in net:
-                deviceIndex=devicePin[0]
-                pinIndex=devicePin[1]
-                thisDevice=schematic.deviceList[deviceIndex]
-                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].GetValue()
-                if thisDevicePartName == 'Port':
-                    portList.append(devicePin)
-                elif thisDevicePartName == 'Output':
-                    outputList.append(devicePin)
-                elif thisDevicePartName == 'Measure':
-                    outputList.append(devicePin)
-            #remove all of the ports, outputs and measures from the net
-            net = list(set(net)-set(measureList)-set(portList)-set(outputList))
-            if len(net) > 0:
-                # for the measures, outputs and ports, we just need one device/port, so we use the first one
-                deviceIndexOfFirstDeviceInNet = net[0][0]
-                pinIndexOfFirstDeviceInNet = net[0][1]
-                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].GetValue()
-                firstDevicePinNumber = schematic.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet].pinNumber
-                devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
-                for measure in measureList:
-                    deviceIndex = measure[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                for output in outputList:
-                    deviceIndex = output[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                    self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
-                for port in portList:
-                    deviceIndex = port[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-            if len(net) > 1:
-                # list the connections
-                thisConnectionString = 'connect'
-                for devicePortIndex in net:
-                    deviceIndex = devicePortIndex[0]
-                    pinIndex = devicePortIndex[1]
-                    deviceName = schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
-                    pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
-                    thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
-                self.textToShow.append(thisConnectionString)
-    def Text(self):
-        return self.textToShow
-    def OutputNames(self):
-        return self.outputNames
-
-
-class Wire(object):
-    def __init__(self,vertexList=None,selected=False):
-        if vertexList==None:
-            vertexList=[]
-        self.vertexList=vertexList
-        self.selected=selected
-    def __getitem__(self,item):
-        return self.vertexList[item]
-    def __setitem__(self,item,value):
-        self.vertexList[item]=value
-    def __delitem__(self,item):
-        del self.vertexList[item]
-    def __len__(self):
-        return len(self.vertexList)
-    def append(self,item):
-        self.vertexList.append(item)
-    def reverse(self):
-        self.vertexList.reverse()
-    def DrawWire(self,canvas,grid,x,y):
-        if len(self) >= 2:
-            segmentCoord=self[0]
-            for vertex in self[1:]:
-                canvas.create_line((segmentCoord[0]+x)*grid,(segmentCoord[1]+y)*grid,(vertex[0]+x)*grid,(vertex[1]+y)*grid,fill=('blue' if self.selected else 'black'))
-                segmentCoord=vertex
-            if self.selected:
-                for vertex in self:
-                    size=max(1,grid/8)
-                    canvas.create_line((vertex[0]+x)*grid-size,(vertex[1]+y)*grid-size,(vertex[0]+x)*grid+size,(vertex[1]+y)*grid+size,fill=('blue' if self.selected else 'black'))
-                    canvas.create_line((vertex[0]+x)*grid+size,(vertex[1]+y)*grid-size,(vertex[0]+x)*grid-size,(vertex[1]+y)*grid+size,fill=('blue' if self.selected else 'black'))
-    def __add__(self,other):
-        if isinstance(other, Wire):
-            return Wire(self.vertexList+other.vertexList,self.selected)
-        elif isinstance(other,list):
-            return Wire(self.vertexList+other,self.selected)
+from NetList import NetList
+from Wire import *
 
 class Schematic(object):
     def __init__(self):
         self.deviceList = []
-        self.wireList = []
+        self.wireList = WireList()
     def xml(self):
         schematicElement=et.Element('schematic')
         deviceElement=et.Element('devices')
         deviceElementList = [device.xml() for device in self.deviceList]
         deviceElement.extend(deviceElementList)
-        wiresElement=et.Element('wires')
-        wireElements=[]
-        for wire in self.wireList:
-            wireElement=et.Element('wire')
-            vertexElements=[]
-            for vertex in wire:
-                vertexElement=et.Element('vertex')
-                vertexElement.text=str(vertex)
-                vertexElements.append(vertexElement)
-            wireElement.extend(vertexElements)
-            wireElements.append(wireElement)
-        wiresElement.extend(wireElements)
+        wiresElement=self.wireList.xml()
         schematicElement.extend([deviceElement,wiresElement])
         return schematicElement
     def InitFromXml(self,schematicElement):
+        self.__init__()
         for child in schematicElement:
             if child.tag == 'devices':
                 for deviceElement in child:
@@ -180,109 +32,10 @@ class Schematic(object):
                     if not returnedDevice is None:
                         self.deviceList.append(returnedDevice)
             elif child.tag == 'wires':
-                for wireElement in child:
-                    wire=Wire()
-                    for vertexElement in wireElement:
-                        wire.append(eval(vertexElement.text))
-                    self.wireList.append(wire)
+                self.wireList.InitFromXml(child)
     def NetList(self):
-        self.ConsolidateWires()
+        self.wireList.ConsolidateWires()
         return NetList(self)
-        textToShow=[]
-        deviceList = self.deviceList
-        wireList = self.wireList
-        # put all devices in the net list
-        for device in deviceList:
-            deviceType = device[PartPropertyPartName().propertyName].GetValue()
-            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
-                thisline=device.NetListLine()
-                textToShow.append(thisline)
-        # gather up all device pin coordinates
-        devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
-        devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
-        deviceConnectionList = []
-        for deviceIndex in range(len(devicePinCoordinateList)):
-            devicePinConnectionList = []
-            for pinIndex in range(len(devicePinCoordinateList[deviceIndex])):
-                thisDevicePinCoordinate = devicePinCoordinateList[deviceIndex][pinIndex]
-                thisListOfConnectedDevicePins=[]
-                if devicePinNeedToCheckList[deviceIndex][pinIndex]:
-                    # search all device pins and wire vertices for this coordinate
-                    for deviceCheckIndex in range(len(devicePinCoordinateList)):
-                        for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
-                            thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                            if thisDevicePinCoordinate == thisDevicePinCheckCoordinate:
-                                thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
-                    for wire in wireList:
-                        thisWireConnectedToThisDevicePin = False
-                        for vertex in wire:
-                            if vertex == thisDevicePinCoordinate:
-                                thisWireConnectedToThisDevicePin = True
-                                break
-                        if thisWireConnectedToThisDevicePin:
-                            for vertex in wire:
-                                for deviceCheckIndex in range(len(devicePinCoordinateList)):
-                                    for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
-                                        thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                                        if vertex == thisDevicePinCheckCoordinate:
-                                            thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
-                    thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
-                    for connectedDevicePins in thisListOfConnectedDevicePins:
-                        connectedDeviceIndex=connectedDevicePins[0]
-                        connectedPinIndex=connectedDevicePins[1]
-                        devicePinNeedToCheckList[connectedDeviceIndex][connectedPinIndex]=False
-                devicePinConnectionList.append(thisListOfConnectedDevicePins)
-            deviceConnectionList.append(devicePinConnectionList)
-        netList = []
-        for deviceConnection in deviceConnectionList:
-            for devicePinConnection in deviceConnection:
-                if len(devicePinConnection) > 1:
-                    netList.append(devicePinConnection)
-        for net in netList:
-            measureList=[]
-            outputList=[]
-            portList=[]
-            # gather up list of all measures, outputs, and ports
-            for devicePin in net:
-                deviceIndex=devicePin[0]
-                pinIndex=devicePin[1]
-                thisDevice=self.deviceList[deviceIndex]
-                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].GetValue()
-                if thisDevicePartName == 'Port':
-                    portList.append(devicePin)
-                elif thisDevicePartName == 'Output':
-                    outputList.append(devicePin)
-                elif thisDevicePartName == 'Measure':
-                    outputList.append(devicePin)
-            #remove all of the ports, outputs and measures from the net
-            net = list(set(net)-set(measureList)-set(portList)-set(outputList))
-            if len(net) > 0:
-                # for the measures, outputs and ports, we just need one device/port, so we use the first one
-                deviceIndexOfFirstDeviceInNet = net[0][0]
-                pinIndexOfFirstDeviceInNet = net[0][1]
-                firstDeviceName = self.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].value
-                firstDevicePinNumber = self.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet].pinNumber
-                devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
-                for measure in measureList:
-                    deviceIndex = measure[0]
-                    textToShow.append(self.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                for output in outputList:
-                    deviceIndex = output[0]
-                    textToShow.append(self.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                for port in portList:
-                    deviceIndex = port[0]
-                    textToShow.append(self.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-            if len(net) > 1:
-                # list the connections
-                thisConnectionString = 'connect'
-                for devicePortIndex in net:
-                    deviceIndex = devicePortIndex[0]
-                    pinIndex = devicePortIndex[1]
-                    deviceName = self.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
-                    pinNumber = self.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
-                    thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
-                textToShow.append(thisConnectionString)
-        return textToShow
     def InputWaveforms(self):
         inputWaveformList=[]
         for device in self.deviceList:
@@ -292,69 +45,7 @@ class Schematic(object):
         return inputWaveformList
     def Clear(self):
         self.deviceList = []
-        self.wireList = []
-    def ConsolidateWires(self):
-        keepDeletingWires = True
-        while keepDeletingWires:
-            keepDeletingWires= False
-            for wireIndex in range(len(self.wireList)):
-                wire = self.wireList[wireIndex]
-                if len(wire) < 2:
-                    del self.wireList[wireIndex]
-                    keepDeletingWires=True
-                    break
-                else:
-                    keepDeletingVertices = True
-                    while keepDeletingVertices:
-                        keepDeletingVertices=False
-                        for vertexIndex in range(1,len(wire)):
-                            thisVertex = wire[vertexIndex]
-                            lastVertex = wire[vertexIndex-1]
-                            if thisVertex == lastVertex:
-                                del self.wireList[wireIndex][vertexIndex]
-                                keepDeletingVertices = True
-                                break
-        # at this point, all wires have at least two coordinates and no adjacent coordinates are the same
-        removeWireIndexList = [False for index in range(len(self.wireList))]
-        for thisWireIndex in range(len(self.wireList)):
-            if not removeWireIndexList[thisWireIndex]:
-                if len(self.wireList[thisWireIndex])<2:
-                    removeWireIndexList[thisWireIndex]=True
-            if not removeWireIndexList[thisWireIndex]:
-                for otherWireIndex in range(thisWireIndex+1,len(self.wireList)):
-                    thisWireStartPoint=self.wireList[thisWireIndex][0]
-                    thisWireEndPoint=self.wireList[thisWireIndex][-1]
-                    if not removeWireIndexList[otherWireIndex]:
-                        if len(self.wireList[otherWireIndex])<2:
-                            removeWireIndexList[otherWireIndex]=True
-                    if not removeWireIndexList[otherWireIndex]:
-                        otherWireStartPoint=self.wireList[otherWireIndex][0]
-                        otherWireEndPoint=self.wireList[otherWireIndex][-1]
-                        if thisWireEndPoint == otherWireStartPoint:
-                            self.wireList[thisWireIndex]=self.wireList[thisWireIndex]+self.wireList[otherWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-                        elif thisWireStartPoint == otherWireEndPoint:
-                            self.wireList[thisWireIndex]=self.wireList[otherWireIndex]+self.wireList[thisWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-                        elif thisWireStartPoint == otherWireStartPoint:
-                            self.wireList[otherWireIndex].reverse()
-                            self.wireList[thisWireIndex]= self.wireList[otherWireIndex]+self.wireList[thisWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-                        elif thisWireEndPoint == otherWireEndPoint:
-                            self.wireList[otherWireIndex].reverse()
-                            self.wireList[thisWireIndex]=self.wireList[thisWireIndex]+self.wireList[otherWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-
-        # remove all of the wires to be removed
-        keepDeletingWires = True
-        while keepDeletingWires:
-            keepDeletingWires = False
-            for wireIndex in range(len(self.wireList)):
-                if removeWireIndexList[wireIndex]==True:
-                    del self.wireList[wireIndex]
-                    del removeWireIndexList[wireIndex]
-                    keepDeletingWires=True
-                    break
+        self.wireList = WireList()
     def NewUniqueReferenceDesignator(self,defaultDesignator):
         if defaultDesignator != None and '?' in defaultDesignator:
             referenceDesignatorList=[]
@@ -427,7 +118,7 @@ class DrawingStateMachine(object):
                 return
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if self.parent.Button1Coord == self.parent.schematic.wireList[w][v]:
+                if self.parent.schematic.wireList[w][v].IsAt(self.parent.Button1Coord):
                     self.parent.w = w
                     self.parent.v = v
                     self.WireSelected()
@@ -497,7 +188,7 @@ class DrawingStateMachine(object):
                 return
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if self.parent.Button1Coord == self.parent.schematic.wireList[w][v]:
+                if self.parent.schematic.wireList[w][v].IsAt(self.parent.Button1Coord):
                     self.parent.w = w
                     self.parent.v = v
                     self.WireSelected()
@@ -576,7 +267,7 @@ class DrawingStateMachine(object):
                 return
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if self.parent.Button1Coord == self.parent.schematic.wireList[w][v]:
+                if self.parent.schematic.wireList[w][v].IsAt(self.parent.Button1Coord):
                     self.parent.w = w
                     self.parent.v = v
                     self.WireSelected()
@@ -592,7 +283,7 @@ class DrawingStateMachine(object):
         pass
     def onMouseButton1Motion_WireSelected(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.schematic.wireList[self.parent.w][self.parent.v] = coord
+        self.parent.schematic.wireList[self.parent.w][self.parent.v].coord = coord
         self.parent.DrawSchematic()
     def onMouseButton1Release_WireSelected(self,event):
         pass
@@ -696,7 +387,7 @@ class DrawingStateMachine(object):
         self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.wireLoaded[-1]=(self.parent.Button1Coord)
+        self.parent.wireLoaded[-1]=Vertex(self.parent.Button1Coord)
         self.parent.DrawSchematic()
     def onCtrlMouseButton1_WireLoaded(self,event):
         pass
@@ -709,17 +400,17 @@ class DrawingStateMachine(object):
     def onMouseButton1Motion_WireLoaded(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         if len(self.parent.wireLoaded) > 0:
-            self.parent.wireLoaded[-1] = coord
+            self.parent.wireLoaded[-1] = Vertex(coord)
             self.parent.DrawSchematic()
     def onMouseButton1Release_WireLoaded(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.wireLoaded.append(coord)
+        self.parent.wireLoaded.append(Vertex(coord))
         self.parent.DrawSchematic()
     def onMouseButton3Release_WireLoaded(self,event):
         self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
         if len(self.parent.wireLoaded) > 2:
             self.parent.schematic.wireList[-1]=Wire(self.parent.wireLoaded[:-1])
-            self.parent.wireLoaded=Wire([(0,0)])
+            self.parent.wireLoaded=Wire([Vertex((0,0))])
             self.parent.schematic.wireList.append(self.parent.wireLoaded)
             self.parent.DrawSchematic()
         else:
@@ -731,17 +422,16 @@ class DrawingStateMachine(object):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         freeFormWire=True
         if freeFormWire:
-            self.parent.wireLoaded[-1]=coord
+            self.parent.wireLoaded[-1]=Vertex(coord)
         else:
             if len(self.parent.wireLoaded) == 1:
-                self.parent.wireLoaded[-1] = coord
+                self.parent.wireLoaded[-1] = Vertex(coord)
             else:
                 if abs(coord[0]-self.parent.wireLoaded[-2][0]) > abs(coord[1]-self.parent.wireLoaded[-2][1]):
-                    self.parent.wireLoaded[-1] = (coord[0],self.parent.wireLoaded[-2][1])
+                    self.parent.wireLoaded[-1] = Vertex((coord[0],self.parent.wireLoaded[-2][1]))
                 else:
-                    self.parent.wireLoaded[-1] = (self.parent.wireLoaded[-2][0],coord[1])
+                    self.parent.wireLoaded[-1] = Vertex((self.parent.wireLoaded[-2][0],coord[1]))
         self.parent.DrawSchematic()
-
     def Panning(self):
         self.UnselectAllDevices()
         self.UnselectAllWires()
@@ -845,20 +535,13 @@ class DrawingStateMachine(object):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
-        minx=min(coord[0],self.parent.Button1Coord[0])
-        miny=min(coord[1],self.parent.Button1Coord[1])
-        maxx=max(coord[0],self.parent.Button1Coord[0])
-        maxy=max(coord[1],self.parent.Button1Coord[1])
         for d in range(len(self.parent.schematic.deviceList)):
             device=self.parent.schematic.deviceList[d]
             if device.IsIn(coord,self.parent.Button1Coord):
                 device.selected=True
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if (minx <= self.parent.schematic.wireList[w][v][0]) and\
-                    (maxx >= self.parent.schematic.wireList[w][v][0]) and\
-                    (miny <= self.parent.schematic.wireList[w][v][1]) and\
-                    (maxy >= self.parent.schematic.wireList[w][v][1]):
+                if self.parent.schematic.wireList[w][v].IsIn(coord,self.parent.Button1Coord):
                     self.parent.schematic.wireList[w].selected=True
         self.parent.DrawSchematic()
         self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
@@ -873,10 +556,6 @@ class DrawingStateMachine(object):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
-        minx=min(coord[0],self.parent.Button1Coord[0])
-        miny=min(coord[1],self.parent.Button1Coord[1])
-        maxx=max(coord[0],self.parent.Button1Coord[0])
-        maxy=max(coord[1],self.parent.Button1Coord[1])
         for d in range(len(self.parent.schematic.deviceList)):
             device=self.parent.schematic.deviceList[d]
             if device.IsIn(coord,self.parent.Button1Coord):
@@ -890,10 +569,7 @@ class DrawingStateMachine(object):
                     self.parent.coordInPart = device.WhereInPart(self.parent.Button1Coord)
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if (minx <= self.parent.schematic.wireList[w][v][0]) and\
-                    (maxx >= self.parent.schematic.wireList[w][v][0]) and\
-                    (miny <= self.parent.schematic.wireList[w][v][1]) and\
-                    (maxy >= self.parent.schematic.wireList[w][v][1]):
+                if self.parent.schematic.wireList[w][v].IsIn(coord,self.parent.Button1Coord):
                     self.parent.schematic.wireList[w].selected=True
                     if AtLeastOneWireSelected:
                         MultipleThingsSelected=True
@@ -958,7 +634,7 @@ class DrawingStateMachine(object):
                 break
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if self.parent.Button1Coord == self.parent.schematic.wireList[w][v]:
+                if self.parent.schematic.wireList[w][v].IsAt(self.parent.Button1Coord):
                     inSelection=True
                     break
         if inSelection:
@@ -976,7 +652,7 @@ class DrawingStateMachine(object):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if self.parent.Button1Coord == vertex:
+                if vertex.IsAt(self.parent.Button1Coord):
                     wire.selected=True
         self.MultipleSelections()
     def onCtrlMouseButton1Motion_MultipleSelections(self,event):
@@ -995,7 +671,7 @@ class DrawingStateMachine(object):
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
                 if self.parent.schematic.wireList[w].selected:
-                    self.parent.schematic.wireList[w][v]=(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
+                    self.parent.schematic.wireList[w][v].coord=(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
                                                           coord[1]-self.parent.OriginalWireCoordinates[w][v][1])
         self.parent.DrawSchematic()
     def onMouseButton1Release_MultipleSelections(self,event):

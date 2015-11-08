@@ -2,7 +2,6 @@ from Tkinter import *
 
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
-import keyword
 import copy
 
 #from idlelib.ToolTip import *
@@ -16,102 +15,7 @@ from DevicePicker import *
 from Schematic import *
 from PlotWindow import *
 from Simulator import Simulator
-
-class NetListFrame(Frame):
-    def __init__(self,parent,textToShow):
-        Frame.__init__(self,parent)
-        self.title = 'NetList'
-        self.text=Text(self)
-        self.text.pack(side=TOP, fill=BOTH, expand=YES)
-        for line in textToShow:
-            self.text.insert(END,line+'\n')
-
-class NetListDialog(Toplevel):
-    def __init__(self,parent,textToShow):
-        Toplevel.__init__(self, parent)
-        self.transient(parent)
-
-        self.title('NetList')
-
-        self.parent = parent
-
-        self.result = None
-
-        self.NetListFrame = NetListFrame(self,textToShow)
-        self.initial_focus = self.body(self.NetListFrame)
-        self.NetListFrame.pack(side=TOP,fill=BOTH,expand=YES,padx=5, pady=5)
-
-        self.buttonbox()
-
-        self.grab_set()
-
-        if not self.initial_focus:
-            self.initial_focus = self
-
-        self.protocol("WM_DELETE_WINDOW", self.cancel)
-
-        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
-                                  parent.winfo_rooty()+50))
-
-        self.initial_focus.focus_set()
-
-        self.wait_window(self)
-
-    # construction hooks
-
-    def body(self, master):
-        # create dialog body.  return widget that should have
-        # initial focus.  this method should be overridden
-
-        pass
-
-    def buttonbox(self):
-        # add standard button box. override if you don't want the
-        # standard buttons
-
-        box = Frame(self)
-
-        w = Button(box, text="OK", width=10, command=self.ok, default=ACTIVE)
-        w.pack(side=LEFT, padx=5, pady=5)
-        w = Button(box, text="Cancel", width=10, command=self.cancel)
-        w.pack(side=LEFT, padx=5, pady=5)
-
-        self.bind("<Return>", self.ok)
-        self.bind("<Escape>", self.cancel)
-
-        box.pack()
-
-    #
-    # standard button semantics
-
-    def ok(self, event=None):
-
-        if not self.validate():
-            self.initial_focus.focus_set() # put focus back
-            return
-
-        self.withdraw()
-        self.update_idletasks()
-
-        self.apply()
-
-        self.cancel()
-
-    def cancel(self, event=None):
-
-        # put focus back to the parent window
-        self.parent.focus_set()
-        self.destroy()
-
-    #
-    # command hooks
-
-    def validate(self):
-
-        return 1 # override
-
-    def apply(self):
-        pass
+from NetList import *
 
 class TheMenu(Menu):
     def __init__(self,parent):
@@ -347,7 +251,7 @@ class TheApp(Frame):
     def onDuplicate(self):
         self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):
-        self.Drawing.wireLoaded=Wire([(0,0)])
+        self.Drawing.wireLoaded=Wire([Vertex((0,0))])
         self.Drawing.schematic.wireList.append(self.Drawing.wireLoaded)
         self.Drawing.stateMachine.WireLoaded()
     def onAddPort(self):
