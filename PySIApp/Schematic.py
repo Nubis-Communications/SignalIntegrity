@@ -969,7 +969,16 @@ class DrawingStateMachine(object):
         else:
             self.Selecting()
     def onCtrlMouseButton1_MultipleSelections(self,event):
-        pass
+        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        for d in range(len(self.parent.schematic.deviceList)):
+            device=self.parent.schematic.deviceList[d]
+            if device.IsAt(self.parent.Button1Coord):
+                device.selected=True
+        for wire in self.parent.schematic.wireList:
+            for vertex in wire:
+                if self.parent.Button1Coord == vertex:
+                    wire.selected=True
+        self.MultipleSelections()
     def onCtrlMouseButton1Motion_MultipleSelections(self,event):
         pass
     def onCtrlMouseButton1Release_MultipleSelections(self,event):
