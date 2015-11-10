@@ -89,13 +89,13 @@ class ToolBar(Frame):
         self.addPartButton.pack(side=LEFT,fill=NONE,expand=NO)
         #ToolTip(self.addPartButton, 'Add Part')
         self.deletePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-delete-6.gif')
-        self.deletePartButton = Button(editFrame,command=self.parent.onDeletePart,image=self.deletePartButtonIcon)
+        self.deletePartButton = Button(editFrame,command=self.parent.onDeleteSelected,image=self.deletePartButtonIcon)
         self.deletePartButton.pack(side=LEFT,fill=NONE,expand=NO)
         self.addWireButtonIcon = PhotoImage(file='./icons/png/16x16/actions/draw-line-3.gif')
         self.addWireButton = Button(editFrame,command=self.parent.onAddWire,image=self.addWireButtonIcon)
         self.addWireButton.pack(side=LEFT,fill=NONE,expand=NO)
         self.duplicatePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-copy-3.gif')
-        self.duplicatePartButton = Button(editFrame,command=self.parent.onDuplicate,image=self.duplicatePartButtonIcon)
+        self.duplicatePartButton = Button(editFrame,command=self.parent.onDuplicateSelected,image=self.duplicatePartButtonIcon)
         self.duplicatePartButton.pack(side=LEFT,fill=NONE,expand=NO)
         self.rotatePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-rotate-left-4.gif')
         self.rotatePartButton = Button(editFrame,command=self.parent.onRotatePart,image=self.rotatePartButtonIcon)
@@ -227,6 +227,8 @@ class TheApp(Frame):
             self.Drawing.partLoaded = dpe.result
             self.Drawing.stateMachine.PartLoaded()
     def onDeletePart(self):
+        self.Drawing.DeleteSelectedDevice()
+    def onDeleteSelected(self):
         self.Drawing.DeleteSelected()
     def onEditProperties(self):
         self.Drawing.EditSelectedDevice()
@@ -248,6 +250,8 @@ class TheApp(Frame):
             mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
             self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,mirroredHorizontally,not mirroredVertically)
             self.Drawing.stateMachine.DeviceSelected()
+    def onDuplicateSelected(self):
+        self.Drawing.DuplicateSelected()
     def onDuplicate(self):
         self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):

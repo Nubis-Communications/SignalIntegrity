@@ -37,11 +37,10 @@ class Vertex(object):
         return True
 
 class Wire(object):
-    def __init__(self,vertexList=None,selected=False):
+    def __init__(self,vertexList=None):
         if vertexList==None:
             vertexList=[]
         self.vertexList=vertexList
-        self.selected=selected
     def __getitem__(self,item):
         return self.vertexList[item]
     def __setitem__(self,item,value):
@@ -57,21 +56,31 @@ class Wire(object):
     def reverse(self):
         self.vertexList.reverse()
     def DrawWire(self,canvas,grid,x,y):
+        selected=False
+        for vertex in self:
+            if vertex.selected:
+                selected = True
         if len(self) >= 2:
             segmentCoord=self[0]
             for vertex in self[1:]:
-                canvas.create_line((segmentCoord[0]+x)*grid,(segmentCoord[1]+y)*grid,(vertex[0]+x)*grid,(vertex[1]+y)*grid,fill=('blue' if self.selected else 'black'))
+                canvas.create_line((segmentCoord[0]+x)*grid,(segmentCoord[1]+y)*grid,(vertex[0]+x)*grid,(vertex[1]+y)*grid,fill=('blue' if (segmentCoord.selected and vertex.selected) else 'black'))
                 segmentCoord=vertex
-            if self.selected:
+            if selected:
                 for vertex in self:
                     size=max(1,grid/8)
-                    canvas.create_line((vertex[0]+x)*grid-size,(vertex[1]+y)*grid-size,(vertex[0]+x)*grid+size,(vertex[1]+y)*grid+size,fill=('blue' if self.selected else 'black'))
-                    canvas.create_line((vertex[0]+x)*grid+size,(vertex[1]+y)*grid-size,(vertex[0]+x)*grid-size,(vertex[1]+y)*grid+size,fill=('blue' if self.selected else 'black'))
+                    canvas.create_line((vertex[0]+x)*grid-size,(vertex[1]+y)*grid-size,
+                                        (vertex[0]+x)*grid+size,(vertex[1]+y)*grid+size,
+                                        fill=('blue' if vertex.selected else 'black'),
+                                        width=(2 if vertex.selected else 1))
+                    canvas.create_line((vertex[0]+x)*grid+size,(vertex[1]+y)*grid-size,
+                                        (vertex[0]+x)*grid-size,(vertex[1]+y)*grid+size,
+                                        fill=('blue' if vertex.selected else 'black'),
+                                        width=(2 if vertex.selected else 1))
     def __add__(self,other):
         if isinstance(other, Wire):
-            return Wire(self.vertexList+other.vertexList,self.selected)
+            return Wire(self.vertexList+other.vertexList)
         elif isinstance(other,list):
-            return Wire(self.vertexList+other,self.selected)
+            return Wire(self.vertexList+other)
     def InitFromXml(self,wireElement):
         self.__init__()
         for child in wireElement:
@@ -106,6 +115,10 @@ class WireList(object):
         if not isinstance(item,Wire):
             raise ValueError
         self.wires.append(item)
+    def UnselectAll(self):
+        for wire in self:
+            for vertex in wire:
+                vertex.selected=False
     def InitFromXml(self,wiresElement):
         self.__init__()
         for child in wiresElement:
@@ -136,8 +149,8 @@ class WireList(object):
                     while keepDeletingVertices:
                         keepDeletingVertices=False
                         for vertexIndex in range(1,len(wire)):
-                            thisVertex = wire[vertexIndex]
-                            lastVertex = wire[vertexIndex-1]
+                            thisVertex = wire[vertexIndex].coord
+                            lastVertex = wire[vertexIndex-1].coord
                             if thisVertex == lastVertex:
                                 del self[wireIndex][vertexIndex]
                                 keepDeletingVertices = True
@@ -150,14 +163,14 @@ class WireList(object):
                     removeWireIndexList[thisWireIndex]=True
             if not removeWireIndexList[thisWireIndex]:
                 for otherWireIndex in range(thisWireIndex+1,len(self)):
-                    thisWireStartPoint=self[thisWireIndex][0]
-                    thisWireEndPoint=self[thisWireIndex][-1]
+                    thisWireStartPoint=self[thisWireIndex][0].coord
+                    thisWireEndPoint=self[thisWireIndex][-1].coord
                     if not removeWireIndexList[otherWireIndex]:
                         if len(self[otherWireIndex])<2:
                             removeWireIndexList[otherWireIndex]=True
                     if not removeWireIndexList[otherWireIndex]:
-                        otherWireStartPoint=self[otherWireIndex][0]
-                        otherWireEndPoint=self[otherWireIndex][-1]
+                        otherWireStartPoint=self[otherWireIndex][0].coord
+                        otherWireEndPoint=self[otherWireIndex][-1].coord
                         if thisWireEndPoint == otherWireStartPoint:
                             self[thisWireIndex]=self[thisWireIndex]+self[otherWireIndex][1:]
                             removeWireIndexList[otherWireIndex]=True
@@ -172,7 +185,6 @@ class WireList(object):
                             self[otherWireIndex].reverse()
                             self[thisWireIndex]=self[thisWireIndex]+self[otherWireIndex][1:]
                             removeWireIndexList[otherWireIndex]=True
-
         # remove all of the wires to be removed
         keepDeletingWires = True
         while keepDeletingWires:
@@ -183,5 +195,47 @@ class WireList(object):
                     del removeWireIndexList[wireIndex]
                     keepDeletingWires=True
                     break
-
-        
+        # now walk along all of the wires and put vertices at any locations where a wire vertex is along a straight line of another wire
+        newWireList=WireList()
+        for thisWire in self:
+            newWire=Wire()
+            thisWireSegmentStart=thisWire[0]
+            newWire.append(thisWireSegmentStart)
+            for vertex in thisWire[1:]:
+                thisWireSegmentEnd = vertex
+                vector=(thisWireSegmentEnd.coord[0]-thisWireSegmentStart.coord[0],thisWireSegmentEnd.coord[1]-thisWireSegmentStart.coord[1])
+                if vector[0]==0:
+                    # this is a north south line
+                    if vector[1]>0:
+                        step=(0,1) # this is a south going line
+                    elif vector[1]<0:
+                        step=(0,-1) # this is a north going line
+                    else:
+                        # this should not be possible
+                        raise ValueError
+                elif vector[1]==0:
+                    # this is an east west line
+                    if vector[0]>0:
+                        step=(1,0) # this is an east going line
+                    elif vector[0]<0:
+                        step=(-1,0) # this is a west going line
+                    else:
+                        # this should not be possible
+                        raise ValueError
+                else:
+                    # this is some kind of diagonal line
+                    step=(0,0)
+                if step != (0,0):
+                    # step along this line checking the start and end points of all other lines
+                    thisCoordToCheck = (thisWireSegmentStart.coord[0]+step[0],thisWireSegmentStart.coord[1]+step[1])
+                    while thisCoordToCheck != thisWireSegmentEnd.coord:
+                        for otherWire in self:
+                            for otherVertex in otherWire:
+                                if otherVertex.coord == thisCoordToCheck:
+                                    # found one - need to insert a vertex into this wire
+                                    newWire.append(Vertex(thisCoordToCheck))
+                        thisCoordToCheck = (thisCoordToCheck[0]+step[0],thisCoordToCheck[1]+step[1])
+                newWire.append(thisWireSegmentEnd)
+                thisWireSegmentStart=thisWireSegmentEnd
+            newWireList.append(newWire)
+        self.wires=newWireList
