@@ -14,31 +14,35 @@ class PartPin(object):
         self.pinOrientation=pinOrientation
         self.pinNumberVisible = pinNumberVisible
         self.pinVisible = pinVisible
-    def DrawPin(self,canvas,grid,partOrigin,color):
+    def DrawPin(self,canvas,grid,partOrigin,color,connected):
+        startx=(self.pinConnectionPoint[0]+partOrigin[0])*grid
+        starty=(self.pinConnectionPoint[1]+partOrigin[1])*grid
+        endx=startx
+        endy=starty
+        if self.pinOrientation == 't':
+            endy=endy+grid
+            textx=startx+grid/2
+            texty=starty+grid/2
+        elif self.pinOrientation == 'b':
+            endy=endy-grid
+            textx=startx+grid/2
+            texty=starty-grid/2
+        elif self.pinOrientation == 'l':
+            endx=endx+grid
+            textx=startx+grid/2
+            texty=starty-grid/2
+        elif self.pinOrientation =='r':
+            endx=endx-grid
+            textx=startx-grid/2
+            texty=starty-grid/2
         if self.pinVisible:
-            startx=(self.pinConnectionPoint[0]+partOrigin[0])*grid
-            starty=(self.pinConnectionPoint[1]+partOrigin[1])*grid
-            endx=startx
-            endy=starty
-            if self.pinOrientation == 't':
-                endy=endy+grid
-                textx=startx+grid/2
-                texty=starty+grid/2
-            elif self.pinOrientation == 'b':
-                endy=endy-grid
-                textx=startx+grid/2
-                texty=starty-grid/2
-            elif self.pinOrientation == 'l':
-                endx=endx+grid
-                textx=startx+grid/2
-                texty=starty-grid/2
-            elif self.pinOrientation =='r':
-                endx=endx-grid
-                textx=startx-grid/2
-                texty=starty-grid/2
             canvas.create_line(startx,starty,endx,endy,fill=color)
-            if self.pinNumberVisible:
-                canvas.create_text(textx,texty,text=str(self.pinNumber),fill=color)
+        if not connected:
+            size=max(1,grid/8)
+            canvas.create_line(startx-size,starty-size,startx+size,starty+size,fill='red',width=2)
+            canvas.create_line(startx+size,starty-size,startx-size,starty+size,fill='red',width=2)
+        if self.pinNumberVisible:
+            canvas.create_text(textx,texty,text=str(self.pinNumber),fill=color)
     def xml(self):
         pp = et.Element('pin')
         pList=[]

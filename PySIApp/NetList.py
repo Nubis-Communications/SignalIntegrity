@@ -1,6 +1,7 @@
 from Tkinter import *
 
 from PartProperty import *
+from Wire import *
 
 class NetList(object):
     def __init__(self,schematic):
@@ -8,7 +9,7 @@ class NetList(object):
         self.outputNames=[]
         self.measureNames=[]
         deviceList = schematic.deviceList
-        wireList = schematic.wireList
+        wireList = schematic.wireList.EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
             deviceType = device[PartPropertyPartName().propertyName].GetValue()

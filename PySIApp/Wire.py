@@ -4,6 +4,7 @@ Created on Nov 8, 2015
 @author: peterp
 '''
 import xml.etree.ElementTree as et
+import copy
 
 class Vertex(object):
     def __init__(self,coord,selected=False):
@@ -89,6 +90,8 @@ class Wire(object):
                 vertex.InitFromXml(child)
                 self.append(vertex)
         return self
+    def CoordinateList(self):
+        return [vertex.coord for vertex in self]
     def xml(self):
         wireElement=et.Element('wire')
         vertexElements=[]
@@ -134,7 +137,7 @@ class WireList(object):
             wireElements.append(wireElement)
         wiresElement.extend(wireElements)
         return wiresElement
-    def ConsolidateWires(self):
+    def ConsolidateWires(self,deviceList):
         keepDeletingWires = True
         while keepDeletingWires:
             keepDeletingWires= False
@@ -229,13 +232,46 @@ class WireList(object):
                     # step along this line checking the start and end points of all other lines
                     thisCoordToCheck = (thisWireSegmentStart.coord[0]+step[0],thisWireSegmentStart.coord[1]+step[1])
                     while thisCoordToCheck != thisWireSegmentEnd.coord:
+                        vertexAddedAtThisCoordinate=False
                         for otherWire in self:
                             for otherVertex in otherWire:
                                 if otherVertex.coord == thisCoordToCheck:
                                     # found one - need to insert a vertex into this wire
                                     newWire.append(Vertex(thisCoordToCheck))
+                                    vertexAddedAtThisCoordinate=True
+                                    break
+                        if not vertexAddedAtThisCoordinate:
+                            for device in deviceList:
+                                if vertexAddedAtThisCoordinate:
+                                    break
+                                for pinCoordinate in device.partPicture.current.PinCoordinates():
+                                    if pinCoordinate == thisCoordToCheck:
+                                        newWire.append(Vertex(thisCoordToCheck))
+                                        vertexAddedAtThisCoordinate=True
+                                        break
                         thisCoordToCheck = (thisCoordToCheck[0]+step[0],thisCoordToCheck[1]+step[1])
                 newWire.append(thisWireSegmentEnd)
                 thisWireSegmentStart=thisWireSegmentEnd
             newWireList.append(newWire)
         self.wires=newWireList
+    def EquiPotentialWireList(self):
+            wireList = copy.deepcopy(self.wires)
+            # for the purposes of the netlist, wires are just lists of vertices
+            # any vertex shared among wires makes them equipotential, so even though we would not draw the wires
+            # as added, their list of vertices can be added to form the equipotential line for purposes of determining
+            # device connections
+            for wireIndex in range(len(wireList)):
+                if len(wireList[wireIndex])>0:
+                    for otherWireIndex in range(len(wireList)):
+                        if len(wireList[otherWireIndex])>0 and wireIndex != otherWireIndex:
+                            if len(set(wireList[wireIndex].CoordinateList()).intersection(set(wireList[otherWireIndex].CoordinateList())))>0:
+                                # there is a common vertex among these wires
+                                # add the wires
+                                wireList[wireIndex]=wireList[wireIndex]+wireList[otherWireIndex]
+                                wireList[otherWireIndex]=Wire()
+            # now keep only surviving wires
+            newWireList=WireList()
+            for wire in wireList:
+                if len(wire)>0:
+                    newWireList.append(wire)
+            return newWireList

@@ -34,7 +34,7 @@ class Schematic(object):
             elif child.tag == 'wires':
                 self.wireList.InitFromXml(child)
     def NetList(self):
-        self.wireList.ConsolidateWires()
+        self.Consolidate()
         return NetList(self)
     def InputWaveforms(self):
         inputWaveformList=[]
@@ -61,7 +61,50 @@ class Schematic(object):
             return defaultDesignator.replace('?',str(num))
         else:
             return None
-
+    def DevicePinConnectedList(self):
+        devicePinConnectedList=[]
+        for thisDeviceIndex in range(len(self.deviceList)):
+            thisDeviceConnectedList=[]
+            for thisPinCoordinate in self.deviceList[thisDeviceIndex].partPicture.current.PinCoordinates():
+                thisPinConnected=False
+                for otherDeviceIndex in range(len(self.deviceList)):
+                    if thisPinConnected:
+                        break
+                    if thisDeviceIndex != otherDeviceIndex:
+                        if thisPinConnected:
+                            break
+                        for otherPinCoordinate in self.deviceList[otherDeviceIndex].partPicture.current.PinCoordinates():
+                            if thisPinCoordinate == otherPinCoordinate:
+                                thisPinConnected=True
+                                break
+                if not thisPinConnected:
+                    for wire in self.wireList:
+                        if thisPinConnected:
+                            break
+                        for vertex in wire:
+                            if thisPinCoordinate == vertex.coord:
+                                thisPinConnected=True
+                                break
+                thisDeviceConnectedList.append(thisPinConnected)
+            devicePinConnectedList.append(thisDeviceConnectedList)
+        return devicePinConnectedList
+    def Consolidate(self):
+        self.wireList.ConsolidateWires(self.deviceList)
+    def DotList(self):
+        dotList=[]
+        # make a list of all coordinates
+        coordList=[]
+        for device in self.deviceList:
+            coordList=coordList+device.PinCoordinates()
+        for wire in self.wireList:
+            vertexCoordinates=[vertex.coord for vertex in wire]
+            #vertex coordinates count as two except for the endpoints
+            coordList=coordList+vertexCoordinates+vertexCoordinates[1:-1]
+        uniqueCoordList=list(set(coordList))
+        for coord in uniqueCoordList:
+            if coordList.count(coord)>2:
+                dotList.append(coord)
+        return dotList
 class DrawingStateMachine(object):
     def __init__(self,parent):
         self.parent=parent
@@ -108,6 +151,7 @@ class DrawingStateMachine(object):
     def Nothing(self):
         self.parent.canvas.config(cursor='left_ptr')
         self.state='Nothing'
+        self.parent.schematic.Consolidate()
         self.UnselectAllDevices()
         self.UnselectAllWires()
         self.parent.canvas.bind('<Button-1>',self.onMouseButton1_Nothing)
@@ -250,7 +294,8 @@ class DrawingStateMachine(object):
     def onCtrlMouseButton1Motion_DeviceSelected(self,event):
         pass
     def onCtrlMouseButton1Release_DeviceSelected(self,event):
-        pass
+        self.parent.schematic.Consolidate()
+        self.parent.DrawSchematic()
     def onMouseButton3_DeviceSelected(self,event):
         self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
         if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord):
@@ -262,6 +307,7 @@ class DrawingStateMachine(object):
     def onMouseButton1Release_DeviceSelected(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         self.parent.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.parent.coordInPart[0],coord[1]-self.parent.coordInPart[1]])
+        self.parent.schematic.Consolidate()
         self.parent.DrawSchematic()
     def onMouseButton3Release_DeviceSelected(self,event):
         self.parent.tk.call("tk_popup", self.parent.deviceTearOffMenu, event.x_root, event.y_root)
@@ -754,7 +800,8 @@ class DrawingStateMachine(object):
                                                           coord[1]-self.parent.OriginalWireCoordinates[w][v][1])
         self.parent.DrawSchematic()
     def onMouseButton1Release_MultipleSelections(self,event):
-        pass
+        self.parent.schematic.Consolidate()
+        self.parent.DrawSchematic()
     def onMouseButton3Release_MultipleSelections(self,event):
         pass
     def onMouseButton1Double_MultipleSelections(self,event):
@@ -956,10 +1003,13 @@ class Drawing(Frame):
         return (int(round(float(x)/self.grid))-self.originx,int(round(float(y)/self.grid))-self.originy)
     def DrawSchematic(self):
         self.canvas.delete(ALL)
+        devicePinConnectedList=self.schematic.DevicePinConnectedList()
         foundAPort=False
         foundASource=False
-        for device in self.schematic.deviceList:
-            device.DrawDevice(self.canvas,self.grid,self.originx,self.originy)
+        for deviceIndex in range(len(self.schematic.deviceList)):
+            device = self.schematic.deviceList[deviceIndex]
+            devicePinsConnected=devicePinConnectedList[deviceIndex]
+            device.DrawDevice(self.canvas,self.grid,self.originx,self.originy,devicePinsConnected)
             deviceType = device['type'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
@@ -973,6 +1023,11 @@ class Drawing(Frame):
                         foundASource = True
         for wire in self.schematic.wireList:
             wire.DrawWire(self.canvas,self.grid,self.originx,self.originy)
+        for dot in self.schematic.DotList():
+            size=self.grid/8
+            self.canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
+                                    (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
+                                    fill='black',outline='black')
         self.parent.menu.CalcMenu.entryconfigure('Simulate',state='normal' if foundASource else 'disabled')
         self.parent.menu.CalcMenu.entryconfigure('Calculate S-parameters',state='normal' if foundAPort else 'disabled')
     def EditSelectedDevice(self):

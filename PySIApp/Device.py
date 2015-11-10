@@ -17,9 +17,9 @@ class Device(object):
         self.propertiesList=propertiesList
         self.partPicture=partPicture
         self.selected=False
-    def DrawDevice(self,canvas,grid,x,y):
+    def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
         self.CreateVisiblePropertiesList()
-        self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y))
+        self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y),pinsConnectedList)
     def IsAt(self,coord):
         return self.partPicture.current.IsAt(coord)
     def IsIn(self,coord0,coord1):
@@ -262,11 +262,17 @@ class DeviceOutput(Device):
     def NetListLine(self):
         return 'output'
 
-class DeviceMixedModeConverter(Device):
+class DevicePowerMixedModeConverter(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Mixed Mode Converter'),PartPropertyDefaultReferenceDesignator('MM?'),PartPropertyDescription('Mixed Mode Converter'),PartPropertyPorts(4)],PartPictureVariableMixedModeConverter())
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Power Mixed Mode Converter'),PartPropertyDefaultReferenceDesignator('MM?'),PartPropertyDescription('Power Mixed Mode Converter'),PartPropertyPorts(4)],PartPictureVariablePowerMixedModeConverter())
     def NetListLine(self):
         return Device.NetListLine(self)+' mixedmode'
+
+class DeviceVoltageMixedModeConverter(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Voltage Mixed Mode Converter'),PartPropertyDefaultReferenceDesignator('MM?'),PartPropertyDescription('Voltage Mixed Mode Converter'),PartPropertyPorts(4)],PartPictureVariableVoltageMixedModeConverter())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' mixedmode voltage'
 
 class DeviceVoltageControlledVoltageSourceFourPort(Device):
     def __init__(self,propertiesList):
@@ -347,7 +353,8 @@ DeviceList = [
               DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
               DeviceMeasurement([PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure')],PartPictureVariableProbe()),
               DeviceOutput([PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output')],PartPictureVariableProbe()),
-              DeviceMixedModeConverter(),
+              DevicePowerMixedModeConverter(),
+              DeviceVoltageMixedModeConverter(),
               DeviceVoltageControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Voltage Source'),PartPropertyPorts(4)]),
               DeviceVoltageAmplifierFourPort([PartPropertyDescription('Four Port Voltage Amplifier'),PartPropertyPorts(4)]),
               DeviceCurrentControlledCurrentSourceFourPort([PartPropertyDescription('Four Port Current Controlled Current Source'),PartPropertyPorts(4)]),
