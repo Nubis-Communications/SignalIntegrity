@@ -33,7 +33,6 @@ class DevicePicker(Frame):
     def onPartSelection(self,event):
         item = self.tree.selection()[0]
         self.selected=self.tree.item(item,'tags')[0]
-        print "selected: " + str(self.selected)
 
 class DevicePickerDialog(Toplevel):
     def __init__(self,parent):

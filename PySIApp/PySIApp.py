@@ -160,7 +160,7 @@ class TheApp(Frame):
         self.root.mainloop()
 
     def onKey(self,event):
-        print "pressed", repr(event.keycode), repr(event.keysym)
+#       print "pressed", repr(event.keycode), repr(event.keysym)
         if event.keysym == 'Delete': # delete
             self.Drawing.DeleteSelected()
     def onReadProjectFromFile(self):

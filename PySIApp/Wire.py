@@ -6,10 +6,87 @@ Created on Nov 8, 2015
 import xml.etree.ElementTree as et
 import copy
 
+class Segment(object):
+    def __init__(self,startVertex,endVertex):
+        self.selected=startVertex.selected and endVertex.selected
+        self.startCoord=startVertex.coord
+        self.endCoord=endVertex.coord
+    def __getitem__(self,item):
+        if item==0:
+            return self.startCoord
+        elif item==1:
+            return self.endCoord
+    def Direction(self):
+        vector=(self.endCoord[0]-self.startCoord[0],self.endCoord[1]-self.startCoord[1])
+        if vector[0]==0:
+            # this is a north south line
+            if vector[1]>0:
+                return 's' # this is a south going line
+            elif vector[1]<0:
+                return 'n' # this is a north going line
+            else:
+                return '?'
+        elif vector[1]==0:
+            # this is an east west line
+            if vector[0]>0:
+                return 'e' # this is an east going line
+            elif vector[0]<0:
+                return 'w' # this is a west going line
+            else:
+                return '?'
+        else:
+            return '?'
+    def IsAt(self,coord):
+        if self.startCoord == coord or self.endCoord==coord:
+            return True
+        dir=self.Direction()
+        if dir == 'e':
+            step = (1,0)
+        elif dir == 'w':
+            step = (-1,0)
+        elif dir == 'n':
+            step = (0,-1)
+        elif dir == 's':
+            step = (0,1)
+        else:
+            return False
+        thisCoord=self.startCoord
+        while thisCoord != self.endCoord:
+            if thisCoord == coord:
+                return True
+            thisCoord=(thisCoord[0]+step[0],thisCoord[1]+step[1])
+        return False
+
+class SegmentList(object):
+    def __init__(self,wire):
+        self.segmentList=[]
+        if len(wire)>=2:
+            startVertex=wire[0]
+            for endVertex in wire[1:]:
+                self.segmentList.append(Segment(startVertex,endVertex))
+                startVertex=endVertex
+    def __getitem__(self,item):
+        return self.segmentList[item]
+    def __len__(self):
+        return len(self.segmentList)
+    def Wire(self):
+        vertexList=[]
+        if len(self)==0:
+            return
+        for segmentIndex in range(0,len(self)):
+            segment=self[segmentIndex]
+            if segmentIndex==0:
+                vertexList.append(Vertex(segment[0],segment.selected))
+                vertexList.append(Vertex(segment[1],segment.selected))
+            else:
+                vertexList[-1].selected = segment.selected or vertexList[-1].selected
+                vertexList.append(Vertex(segment[1],segment.selected))
+        return Wire(vertexList)
+
 class Vertex(object):
     def __init__(self,coord,selected=False):
         self.coord=coord
-        self.selected=False
+        self.selected=selected
     def __getitem__(self,item):
         return self.coord[item]
     def InitFromXml(self,vertexElement):
@@ -64,7 +141,11 @@ class Wire(object):
         if len(self) >= 2:
             segmentCoord=self[0]
             for vertex in self[1:]:
-                canvas.create_line((segmentCoord[0]+x)*grid,(segmentCoord[1]+y)*grid,(vertex[0]+x)*grid,(vertex[1]+y)*grid,fill=('blue' if (segmentCoord.selected and vertex.selected) else 'black'))
+                canvas.create_line((segmentCoord[0]+x)*grid,
+                                    (segmentCoord[1]+y)*grid,
+                                    (vertex[0]+x)*grid,
+                                    (vertex[1]+y)*grid,
+                                    fill=('blue' if (segmentCoord.selected and vertex.selected) else 'black'))
                 segmentCoord=vertex
             if selected:
                 for vertex in self:
