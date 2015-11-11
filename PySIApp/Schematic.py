@@ -89,7 +89,14 @@ class Schematic(object):
             devicePinConnectedList.append(thisDeviceConnectedList)
         return devicePinConnectedList
     def Consolidate(self):
-        self.wireList.ConsolidateWires(self)
+        deviceList=self.deviceList
+        self.wireList.RemoveEmptyWires()
+        self.wireList.RemoveDuplicateVertices()
+        self.wireList.InsertNeededVertices(deviceList)
+        dotList=self.DotList()
+        self.wireList.SplitDottedWires(dotList)
+        self.wireList.JoinUnDottedWires(dotList)
+        self.wireList.RemoveUnneededVertices()
     def DotList(self):
         dotList=[]
         # make a list of all coordinates

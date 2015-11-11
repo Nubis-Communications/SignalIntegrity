@@ -41,7 +41,7 @@ class Wire(object):
     def __init__(self,vertexList=None):
         if vertexList==None:
             vertexList=[]
-        self.vertexList=vertexList
+        self.vertexList=copy.deepcopy(vertexList)
     def __getitem__(self,item):
         return self.vertexList[item]
     def __setitem__(self,item,value):

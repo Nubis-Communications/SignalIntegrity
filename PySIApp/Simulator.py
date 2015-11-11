@@ -211,7 +211,13 @@ class Simulator(object):
             elif e.parameter == 'SParameterFileNotFound':
                 tkMessageBox.showerror('Simulator','Cannot simulate due to missing s-parameter file: '+e.message)
                 return
-        inputWaveformList=self.schematic.InputWaveforms()
+        try:
+            inputWaveformList=self.schematic.InputWaveforms()
+        except si.PySIException as e:
+            if e.parameter == 'WaveformFileNotFound':
+                tkMessageBox.showerror('Simulator','Cannot simulate due to missing waveform file:'+e.message)
+                return
+
         outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
         outputWaveformList = [wf.Adapt(si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.userSampleRate)) for wf in outputWaveformList]
         outputWaveformLabels=netList.OutputNames()

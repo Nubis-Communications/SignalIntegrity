@@ -1,5 +1,6 @@
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
+from SignalIntegrity.PySIException import PySIException
 
 class Waveform(object):
     def __init__(self,x=None,y=None):
@@ -40,7 +41,7 @@ class Waveform(object):
             else:
                 awf=AdaptedWaveforms([self,other])
                 return awf[0]+awf[1]
-        elif isintance(other,float):
+        elif isinstance(other,float):
             return Waveform(self.m_t,[v+other for v in self.Values()])
     def __sub__(self,other):
         if self.TimeDescriptor() == other.TimeDescriptor():
@@ -63,14 +64,17 @@ class Waveform(object):
         elif isinstance(other,float):
             return Waveform(self.m_t,[v*other for v in self.Values()])
     def ReadFromFile(self,fileName):
-        with open(fileName,"rU") as f:
-            data=f.readlines()
-            HorOffset=float(data[0])
-            NumPts=int(data[1])
-            SampleRate=float(data[2])
-            Values=[float(v) for v in data[3:]]
-        self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)
-        self.m_y=Values
+        try:
+            with open(fileName,"rU") as f:
+                data=f.readlines()
+                HorOffset=float(data[0])
+                NumPts=int(data[1])
+                SampleRate=float(data[2])
+                Values=[float(v) for v in data[3:]]
+            self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)
+            self.m_y=Values
+        except IOError:
+            raise PySIException('WaveformFileNotFound',fileName)
         return self
     def WriteToFile(self,fileName):
         with open(fileName,"w") as f:
