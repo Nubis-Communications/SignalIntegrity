@@ -15,7 +15,7 @@ class DevicePicker(Frame):
         self.tree.pack(fill=BOTH,expand=YES)
         self.tree["columns"]=("description")
         self.tree.column("description")
-        self.tree.heading("description", text="description")
+        self.tree.heading("description", text="Description")
         categories=[]
         indexIntoDeviceList=0
         for device in DeviceList:

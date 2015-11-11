@@ -89,7 +89,7 @@ class Schematic(object):
             devicePinConnectedList.append(thisDeviceConnectedList)
         return devicePinConnectedList
     def Consolidate(self):
-        self.wireList.ConsolidateWires(self.deviceList)
+        self.wireList.ConsolidateWires(self)
     def DotList(self):
         dotList=[]
         # make a list of all coordinates
@@ -140,6 +140,9 @@ class DrawingStateMachine(object):
         if AtLeastOneDeviceSelected and AtLeastOneVertexSelected:
             MultipleThingsSelected=True
         if MultipleThingsSelected:
+            self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
+            self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-vertex[0],
+                                                     self.parent.Button1Coord[1]-vertex[1]) for vertex in wire] for wire in self.parent.schematic.wireList]
             self.MultipleSelections()
         elif AtLeastOneDeviceSelected:
             self.DeviceSelected()

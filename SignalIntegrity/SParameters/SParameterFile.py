@@ -6,6 +6,7 @@ import string
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Conversions import ReferenceImpedance
 from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
+from SignalIntegrity.PySIException import PySIException
 
 class File(SParameters):
     def __init__(self,name,Z0=50.0):
@@ -22,6 +23,7 @@ class File(SParameters):
         try:
             spfile=open(name,'rU')
         except IOError:
+            raise PySIException('SParameterFileNotFound',name)
             return
         for line in spfile:
             lineList = string.lower(line).split('!')[0].split()

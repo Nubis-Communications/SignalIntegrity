@@ -6,9 +6,11 @@ Created on Oct 29, 2015
 
 from Tkinter import *
 import xml.etree.ElementTree as et
+import tkMessageBox
 
 from PlotWindow import *
 from ToSI import *
+from SignalIntegrity.PySIException import PySIException
 
 class SimulatorProperty(Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback):
@@ -200,7 +202,15 @@ class Simulator(object):
         snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(self.endFrequency,self.frequencyPoints))
         snp.AddLines(netListText)
         #tm=snp.TransferMatrices()
-        tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
+        try:
+            tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
+        except si.PySIException as e:
+            if e.parameter == 'CheckConnections':
+                tkMessageBox.showerror('Simulator','Cannot simulate due to missing device connections')
+                return
+            elif e.parameter == 'SParameterFileNotFound':
+                tkMessageBox.showerror('Simulator','Cannot simulate due to missing s-parameter file: '+e.message)
+                return
         inputWaveformList=self.schematic.InputWaveforms()
         outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
         outputWaveformList = [wf.Adapt(si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.userSampleRate)) for wf in outputWaveformList]
