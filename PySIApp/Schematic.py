@@ -121,6 +121,12 @@ class DrawingStateMachine(object):
             device.selected=False
     def UnselectAllWires(self):
         self.parent.schematic.wireList.UnselectAll()
+    def SaveButton1Coordinates(self,event):
+        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.parent.Button1Augmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+    def SaveButton2Coordinates(self,event):
+        self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.parent.Button2Augmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)        
     def DispatchBasedOnSelections(self,nothingSelectedState=None):
         AtLeastOneDeviceSelected=False
         AtLeastOneVertexSelected=False
@@ -160,7 +166,7 @@ class DrawingStateMachine(object):
 
     def onMouseButton1TryToSelectSomething(self,event):
         self.Nothing()
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
         selectedSomething=False
         for device in self.parent.schematic.deviceList:
             if device.IsAt(self.parent.Button1Coord):
@@ -176,10 +182,17 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord):
-                        segment.selected=True
-                        selectedSomething=True
-                        break
+                    usingAdvancedSegmentDetection=True
+                    if usingAdvancedSegmentDetection:
+                        if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5):
+                            segment.selected=True
+                            selectedSomething=True
+                            break                            
+                    else:
+                        if segment.IsAt(self.parent.Button1Coord):
+                            segment.selected=True
+                            selectedSomething=True
+                            break
                 if selectedSomething:
                     wire = segmentList.Wire()
                     self.parent.schematic.wireList[wireIndex]=wire
@@ -187,7 +200,7 @@ class DrawingStateMachine(object):
         self.DispatchBasedOnSelections(self.Selecting)
 
     def onMouseButton1TryToToggleSomething(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
         toggledSomething=False
         for device in self.parent.schematic.deviceList:
             if device.IsAt(self.parent.Button1Coord):
@@ -203,10 +216,17 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord):
-                        segment.selected=not segment.selected
-                        toggledSomething=True
-                        break
+                    usingAdvancedSegmentDetection=True
+                    if usingAdvancedSegmentDetection:
+                        if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5):
+                            segment.selected=not segment.selected
+                            toggledSomething=True
+                            break                            
+                    else:
+                        if segment.IsAt(self.parent.Button1Coord):
+                            segment.selected=not segment.selected
+                            toggledSomething=True
+                            break
                 if toggledSomething:
                     wire = segmentList.Wire()
                     self.parent.schematic.wireList[wireIndex]=wire
@@ -324,7 +344,7 @@ class DrawingStateMachine(object):
         self.parent.schematic.Consolidate()
         self.parent.DrawSchematic()
     def onMouseButton3_DeviceSelected(self,event):
-        self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton2Coordinates(event)
         if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord):
             self.Nothing()
     def onMouseButton1Motion_DeviceSelected(self,event):
@@ -443,7 +463,7 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Part In Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_PartLoaded(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
         self.parent.partLoaded.partPicture.current.SetOrigin(self.parent.Button1Coord)
         self.parent.schematic.deviceList.append(self.parent.partLoaded)
         self.parent.schematic.deviceList[-1].selected=True
@@ -501,7 +521,7 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Drawing Wires')
             self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
         self.parent.wireLoaded[-1]=Vertex(self.parent.Button1Coord)
         self.parent.DrawSchematic()
     def onCtrlMouseButton1_WireLoaded(self,event):
@@ -522,7 +542,7 @@ class DrawingStateMachine(object):
         self.parent.wireLoaded.append(Vertex(coord))
         self.parent.DrawSchematic()
     def onMouseButton3Release_WireLoaded(self,event):
-        self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton2Coordinates(event)
         if len(self.parent.wireLoaded) > 2:
             self.parent.schematic.wireList[-1]=Wire(self.parent.wireLoaded[:-1])
             self.parent.wireLoaded=Wire([Vertex((0,0))])
@@ -582,7 +602,7 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Panning')
             self.parent.DrawSchematic()
     def onMouseButton1_Panning(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1_Panning(self,event):
         pass
     def onCtrlMouseButton1Motion_Panning(self,event):
@@ -639,9 +659,9 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Selecting')
             self.parent.DrawSchematic()
     def onMouseButton1_Selecting(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1_Selecting(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1Motion_Selecting(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
@@ -744,7 +764,7 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Multiple Selections')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleSelections(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
         self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
         self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-vertex[0],
                                                  self.parent.Button1Coord[1]-vertex[1]) for vertex in wire] for wire in self.parent.schematic.wireList]
@@ -763,9 +783,15 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord) and segment.selected:
-                        inSelection=True
-                        break
+                    usingAdvancedSegmentDetection=True
+                    if usingAdvancedSegmentDetection:
+                        if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5) and segment.selected:
+                            inSelection=True
+                            break                            
+                    else:
+                        if segment.IsAt(self.parent.Button1Coord) and segment.selected:
+                            inSelection=True
+                            break
                 if inSelection:
                     break
 
@@ -834,9 +860,9 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Selecting More')
             self.parent.DrawSchematic()
     def onMouseButton1_SelectingMore(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1_SelectingMore(self,event):
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1Motion_SelectingMore(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
@@ -916,7 +942,7 @@ class DrawingStateMachine(object):
     def onMouseButton1_MultipleItemsOnClipboard(self,event):
         self.UnselectAllDevices()
         self.UnselectAllWires()
-        self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        self.SaveButton1Coordinates(event)
         for device in self.parent.devicesToDuplicate:
             if device['type'].GetValue() == 'Port':
                 portNumberList=[]
@@ -995,6 +1021,9 @@ class Drawing(Frame):
         self.stateMachine = DrawingStateMachine(self)
     def NearestGridCoordinate(self,x,y):
         return (int(round(float(x)/self.grid))-self.originx,int(round(float(y)/self.grid))-self.originy)
+    def AugmentorToGridCoordinate(self,x,y):
+        (nearestGridx,nearestGridy)=self.NearestGridCoordinate(x,y)
+        return (float(x)/self.grid-self.originx-nearestGridx,float(y)/self.grid-self.originy-nearestGridy)
     def DrawSchematic(self):
         self.canvas.delete(ALL)
         devicePinConnectedList=self.schematic.DevicePinConnectedList()

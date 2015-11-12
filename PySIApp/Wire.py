@@ -5,6 +5,7 @@ Created on Nov 8, 2015
 '''
 import xml.etree.ElementTree as et
 import copy
+import math
 
 class Segment(object):
     def __init__(self,startVertex,endVertex):
@@ -39,14 +40,14 @@ class Segment(object):
     def IsAt(self,coord):
         if self.startCoord == coord or self.endCoord==coord:
             return True
-        dir=self.Direction()
-        if dir == 'e':
+        direction=self.Direction()
+        if direction == 'e':
             step = (1,0)
-        elif dir == 'w':
+        elif direction == 'w':
             step = (-1,0)
-        elif dir == 'n':
+        elif direction == 'n':
             step = (0,-1)
-        elif dir == 's':
+        elif direction == 's':
             step = (0,1)
         else:
             return False
@@ -56,6 +57,43 @@ class Segment(object):
                 return True
             thisCoord=(thisCoord[0]+step[0],thisCoord[1]+step[1])
         return False
+    def IsAtAdvanced(self,coord,augmentor,distanceAllowed):
+        xc=float(coord[0]+augmentor[0])
+        yc=float(coord[1]+augmentor[1])
+        xi=self.startCoord[0]
+        yi=self.startCoord[1]
+        xf=self.endCoord[0]
+        yf=self.endCoord[1]
+        if xc < min(xi,xf)-distanceAllowed:
+            return False
+        if xc > max(xi,xf)+distanceAllowed:
+            return False
+        if yc < min(yi,yf)-distanceAllowed:
+            return False
+        if yc > max(yi,yf)+distanceAllowed:
+            return False
+        deltax=xf-xi
+        deltay=yf-yi
+        if deltax == 0:
+            R=abs(xc-xi)
+        elif deltay == 0:
+            R=abs(yc-yi)
+        else:        
+            m=float(deltay)/float(deltax)
+            b=yi-xi*m
+            # m and b are equation of line forming wire segment
+            mp=-1./m
+            bp=yc-xc*mp
+            # mp and bp are equation of line perpendicular to wire segment passing
+            # through coordinate given
+            #
+            # now to find the intersection of the lines
+            # y=m*x+b
+            # y=mp*x+bp
+            x=(bp-b)/(m-mp)
+            y=m*x+b
+            R=math.sqrt((xc-x)*(xc-x)+(yc-y)*(yc-y))
+        return (R <= distanceAllowed)
 
 class SegmentList(object):
     def __init__(self,wire):
