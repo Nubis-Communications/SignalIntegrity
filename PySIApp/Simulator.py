@@ -11,6 +11,7 @@ import tkMessageBox
 from PlotWindow import *
 from ToSI import *
 from SignalIntegrity.PySIException import PySIException
+from PartProperty import *
 
 class SimulatorProperty(Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback):
@@ -219,8 +220,21 @@ class Simulator(object):
                 return
 
         outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
-        outputWaveformList = [wf.Adapt(si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.userSampleRate)) for wf in outputWaveformList]
         outputWaveformLabels=netList.OutputNames()
+
+        for outputWaveformIndex in range(len(outputWaveformList)):
+            outputWaveform=outputWaveformList[outputWaveformIndex]
+            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            for device in self.schematic.deviceList:
+                if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
+                    gain=device[PartPropertyVoltageGain().propertyName].GetValue()
+                    offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
+                    delay=device[PartPropertyDelay().propertyName].GetValue()
+                    outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                    outputWaveformList[outputWaveformIndex]=outputWaveform
+                    break
+
+        outputWaveformList = [wf.Adapt(si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.userSampleRate)) for wf in outputWaveformList]
         self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
     def OpenSimulator(self):
         self.ShowSimulatorDialog()

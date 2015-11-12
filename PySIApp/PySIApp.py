@@ -224,8 +224,9 @@ class TheApp(Frame):
                 if uniqueReferenceDesignator != None:
                     devicePicked[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
             dpe=DevicePropertiesDialog(self,devicePicked)
-            self.Drawing.partLoaded = dpe.result
-            self.Drawing.stateMachine.PartLoaded()
+            if dpe.result != None:
+                self.Drawing.partLoaded = dpe.result
+                self.Drawing.stateMachine.PartLoaded()
     def onDeletePart(self):
         self.Drawing.DeleteSelectedDevice()
     def onDeleteSelected(self):
@@ -235,21 +236,21 @@ class TheApp(Frame):
     def onRotatePart(self):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
             self.Drawing.deviceSelected.partPicture.current.Rotate()
-            self.Drawing.stateMachine.DeviceSelected()
+            self.Drawing.DrawSchematic()
     def onFlipPartHorizontally(self):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
             orientation = self.Drawing.deviceSelected.partPicture.current.orientation
             mirroredHorizontally = self.Drawing.deviceSelected.partPicture.current.mirroredHorizontally
             mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
             self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,not mirroredHorizontally,mirroredVertically)
-            self.Drawing.stateMachine.DeviceSelected()
+            self.Drawing.DrawSchematic()
     def onFlipPartVertically(self):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
             orientation = self.Drawing.deviceSelected.partPicture.current.orientation
             mirroredHorizontally = self.Drawing.deviceSelected.partPicture.current.mirroredHorizontally
             mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
             self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,mirroredHorizontally,not mirroredVertically)
-            self.Drawing.stateMachine.DeviceSelected()
+            self.Drawing.DrawSchematic()
     def onDuplicateSelected(self):
         self.Drawing.DuplicateSelected()
     def onDuplicate(self):

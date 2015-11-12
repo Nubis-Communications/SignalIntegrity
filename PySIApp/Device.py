@@ -251,14 +251,18 @@ class DeviceCurrentSineGenerator(Device):
         return waveform
 
 class DeviceMeasurement(Device):
-    def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure')],PartPictureVariableProbe())
     def NetListLine(self):
         return 'meas'
 
 class DeviceOutput(Device):
-    def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,propertiesList,partPicture)
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output'),
+            PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableProbe())
+        self[PartPropertyVoltageGain().propertyName].visible=False
+        self[PartPropertyVoltageOffset().propertyName].visible=False
+        self[PartPropertyDelay().propertyName].visible=False
     def NetListLine(self):
         return 'output'
 
@@ -351,8 +355,8 @@ DeviceList = [
               DeviceCurrentPulseGenerator([PartPropertyDescription('Two Port Current Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),
               DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),
               DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
-              DeviceMeasurement([PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure')],PartPictureVariableProbe()),
-              DeviceOutput([PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output')],PartPictureVariableProbe()),
+              DeviceMeasurement(),
+              DeviceOutput(),
               DevicePowerMixedModeConverter(),
               DeviceVoltageMixedModeConverter(),
               DeviceVoltageControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Voltage Source'),PartPropertyPorts(4)]),

@@ -263,3 +263,12 @@ class PartPropertyPhase(PartProperty):
 class PartPropertyTurnsRatio(PartProperty):
     def __init__(self,ratio=1.):
         PartProperty.__init__(self,'turnsratio',type='float',unit='',keyword='tr',description='turns ratio (P/S)',value=ratio,visible=True,keywordVisible=False)
+
+class PartPropertyVoltageOffset(PartProperty):
+    def __init__(self,voltageOffset=0.0):
+        PartProperty.__init__(self,'offset',type='float',unit='V',keyword='offset',description='voltage offset (V)',value=voltageOffset,visible=True)
+
+class PartPropertyDelay(PartProperty):
+    def __init__(self,delay=0.0):
+        PartProperty.__init__(self,'delay',type='float',unit='s',keyword='delay',description='delay (s)',value=delay,visible=True)
+
