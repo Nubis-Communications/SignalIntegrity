@@ -1,6 +1,41 @@
+import inspect
+
 class PySIException(Exception):
     def __init__(self,value,message=''):
         self.parameter=value
         self.message=message
     def __str__(self):
-        return repr(self.parameter)
+        return str(self.parameter)
+    def __eq__(self,other):
+        if isinstance(other,PySIException):
+            return str(self) == str(other)
+        elif isinstance(other,str):
+            return str(self) == other
+        elif inspect.isclass(other):
+            return self == eval(str(other).split('.')[-1].strip('\'>'))()
+        else:
+            return False
+
+class PySIExceptionCheckConnections(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'CheckConnections',message)
+
+class PySIExceptionSParameterFileNotFound(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'SParameterFileNotFound',message)
+
+class PySIExceptionSParameterFileExtensionMisformed(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'SParameterFileExtensionMisformed',message)
+
+class PySIExceptionWaveformFileNotFound(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'WaveformFileNotFound',message)
+
+class PySIExceptionSystemDescriptionBuildError(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'SystemDescriptionBuildError',message)
+
+class PySIExceptionSimulator(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'Simulator',message)

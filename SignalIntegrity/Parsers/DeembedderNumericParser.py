@@ -1,15 +1,14 @@
 from SignalIntegrity.Parsers import DeembedderParser
 from SignalIntegrity.SystemDescriptions import DeembedderNumeric
 from SignalIntegrity.SParameters import SParameters
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class DeembedderNumericParser(DeembedderParser):
     def __init__(self, f=None, args=None):
         DeembedderParser.__init__(self, f, args)
     def Deembed(self,systemSParameters=None):
         self._ProcessLines()
-        if not self.m_sd.CheckConnections():
-            raise PySIException('CheckConnections')
+        self.m_sd.CheckConnections()
         result=[]
         for n in range(len(self.m_f)):
             system=None

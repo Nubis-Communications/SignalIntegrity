@@ -10,7 +10,6 @@ import tkMessageBox
 
 from PlotWindow import *
 from ToSI import *
-from SignalIntegrity.PySIException import PySIException
 from PartProperty import *
 
 class SimulatorProperty(Frame):
@@ -206,16 +205,17 @@ class Simulator(object):
         try:
             tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
         except si.PySIException as e:
-            if e.parameter == 'CheckConnections':
+            if e == si.PySIExceptionCheckConnections:
                 tkMessageBox.showerror('Simulator','Cannot simulate due to unconnected devices')
-                return
-            elif e.parameter == 'SParameterFileNotFound':
+            elif e == si.PySIExceptionSParameterFileNotFound:
                 tkMessageBox.showerror('Simulator','Cannot simulate due to missing s-parameter file: '+e.message)
-                return
+            else:
+                tkMessageBox.showerror('Simulator','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            return
         try:
             inputWaveformList=self.schematic.InputWaveforms()
         except si.PySIException as e:
-            if e.parameter == 'WaveformFileNotFound':
+            if e == si.PySIExceptionWaveformFileNotFound:
                 tkMessageBox.showerror('Simulator','Cannot simulate due to missing waveform file:'+e.message)
                 return
 

@@ -15,7 +15,7 @@ class TestExceptions(unittest.TestCase):
         try:
             ssps.LaTeXSolution().Emit()
         except si.PySIException as e:
-            if e.parameter == 'CheckConnections':
+            if e == si.PySIExceptionCheckConnections:
                 pass
     def testSystemDescriptionCheckConnections2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -43,6 +43,27 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             sdp.SystemDescription().Print()
         self.assertEqual(cm.exception.parameter,'SystemDescriptionBuildError')
+    def testSimulatorNoOutputProbes(self):
+        sp=si.p.SimulatorParser()
+        sp.AddLines(['voltagesource VS1 1','device G1 1 ground','connect G1 1 VS1 1'])
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
+        with self.assertRaises(si.PySIException) as cm:
+            ss.LaTeXTransferMatrix()
+        self.assertEqual(cm.exception.parameter,'Simulator')
+    def testSimulatorNoSources(self):
+        sp=si.p.SimulatorParser()
+        sp.AddLines(['device R1 1 R 50.0','device R2 1 R 50.0','output R2 1','connect R2 1 R1 1'])
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
+        with self.assertRaises(si.PySIException) as cm:
+            ss.LaTeXTransferMatrix()
+        self.assertEqual(cm.exception.parameter,'Simulator')
+    def testSimulatorNumericalError(self):
+        sp=si.p.SimulatorParser()
+        sp.AddLines(['voltagesource VS1 1','device G1 1 ground','output G1 1','connect G1 1 VS1 1'])
+        sn=si.sd.SimulatorNumeric(sp.SystemDescription())
+        with self.assertRaises(si.PySIException) as cm:
+            sn.TransferMatrix()
+        self.assertEqual(cm.exception.parameter,'Simulator')
 if __name__ == '__main__':
     unittest.main()
 

@@ -2,7 +2,7 @@ from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
 from SystemDescriptionSymbolic import SystemDescriptionSymbolic
 from Device import Device
 from SignalIntegrity.Helpers.AllZeroMatrix import *
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class SystemSParametersSymbolic(SystemDescriptionSymbolic):
     def __init__(self,sd=None,**args):
@@ -14,8 +14,7 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
         return self
     def LaTeXSolution(self,**args):
         # exclude
-        if not self.CheckConnections():
-            raise PySIException('CheckConnections')
+        self.CheckConnections()
         # include
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         size = args['size'] if 'size' in args else 'normal'

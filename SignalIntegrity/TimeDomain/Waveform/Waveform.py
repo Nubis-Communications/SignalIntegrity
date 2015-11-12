@@ -1,6 +1,6 @@
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionWaveformFileNotFound
 
 class Waveform(object):
     def __init__(self,x=None,y=None):
@@ -74,7 +74,7 @@ class Waveform(object):
             self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)
             self.m_y=Values
         except IOError:
-            raise PySIException('WaveformFileNotFound',fileName)
+            raise PySIExceptionWaveformFileNotFound(fileName)
         return self
     def WriteToFile(self,fileName):
         with open(fileName,"w") as f:

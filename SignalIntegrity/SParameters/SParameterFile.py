@@ -6,13 +6,17 @@ import string
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Conversions import ReferenceImpedance
 from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionSParameterFileExtensionMisformed
+from SignalIntegrity.PySIException import PySIExceptionSParameterFileNotFound
 
 class File(SParameters):
     def __init__(self,name,Z0=50.0):
         self.m_sToken='S'
         self.m_Z0=Z0
-        self.m_P = int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
+        try:
+            self.m_P = int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
+        except ValueError:
+            raise PySIExceptionSParameterFileExtensionMisformed(name)
         freqMul = 1e6
         complexType = 'MA'
         Z0=50.
@@ -23,8 +27,7 @@ class File(SParameters):
         try:
             spfile=open(name,'rU')
         except IOError:
-            raise PySIException('SParameterFileNotFound',name)
-            return
+            raise PySIExceptionSParameterFileNotFound(name)
         for line in spfile:
             lineList = string.lower(line).split('!')[0].split()
             if len(lineList)>0:

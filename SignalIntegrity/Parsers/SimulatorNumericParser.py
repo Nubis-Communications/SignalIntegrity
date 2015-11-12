@@ -1,15 +1,14 @@
 from SimulatorParser import SimulatorParser
 from SignalIntegrity.SystemDescriptions import SimulatorNumeric
 from SignalIntegrity.FrequencyDomain.TransferMatrices import TransferMatrices
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class SimulatorNumericParser(SimulatorParser):
     def __init__(self, f=None, args=None):
         SimulatorParser.__init__(self, f, args)
     def TransferMatrices(self):
         self.SystemDescription()
-        if not self.m_sd.CheckConnections():
-            raise PySIException('CheckConnections')
+        self.m_sd.CheckConnections()
         spc=self.m_spc
         result=[]
         for n in range(len(self.m_f)):

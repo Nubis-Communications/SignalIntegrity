@@ -7,6 +7,7 @@ class SimulatorNumeric(Simulator):
     def __init__(self,sd=None):
         Simulator.__init__(self,sd)
     def TransferMatrix(self):
+        self.Check()
         VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
         SIPrime=matrix(self.SIPrime())
         sm=matrix(self.SourceToStimsPrimeMatrix())

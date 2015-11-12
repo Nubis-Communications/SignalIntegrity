@@ -1,7 +1,7 @@
 from VirtualProbeParser import VirtualProbeParser
 from SignalIntegrity.SystemDescriptions import VirtualProbeNumeric
 from SignalIntegrity.FrequencyDomain.TransferMatrices import TransferMatrices
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class VirtualProbeNumericParser(VirtualProbeParser):
     def __init__(self, f=None, args=None):
@@ -9,8 +9,7 @@ class VirtualProbeNumericParser(VirtualProbeParser):
         self.m_tm=None
     def TransferMatrices(self):
         self.SystemDescription()
-        if not self.m_sd.CheckConnections():
-            raise PySIException('CheckConnections')
+        self.m_sd.CheckConnections()
         spc=self.m_spc
         result=[]
         for n in range(len(self.m_f)):

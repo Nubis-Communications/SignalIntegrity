@@ -9,6 +9,7 @@ class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
         SystemSParametersSymbolic.__init__(self,sd,**args)
         Simulator.__init__(self, sd)
     def LaTeXTransferMatrix(self):
+        self.Check()
         self._LaTeXSi()
         veosi = MatrixMultiply(
             self.VoltageExtractionMatrix(self.pOutputList), self.SIPrime(True))

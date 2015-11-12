@@ -2,7 +2,8 @@ from SignalIntegrity.Devices import Tee
 from SignalIntegrity.Devices import Thru
 from Device import Device
 from UniqueNameFactory import UniqueNameFactory
-from SignalIntegrity.PySIException import PySIException
+from SignalIntegrity.PySIException import PySIExceptionSystemDescriptionBuildError
+from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class SystemDescription(object):
     def __init__(self,sd=None):
@@ -20,7 +21,8 @@ class SystemDescription(object):
         return len(self.Data)
     def AddDevice(self,Name,Ports,SParams=None,Type='device'):
         if Name in self.DeviceNames():
-            raise PySIException('SystemDescriptionBuildError')
+            raise PySIExceptionSystemDescriptionBuildError(
+                'duplicate device name: '+str(Name))
         self.Data.append(Device(Name,Ports,Type))
         if isinstance(SParams,list):
             self.AssignSParameters(Name,SParams)
@@ -33,7 +35,8 @@ class SystemDescription(object):
         try:
             return self.DeviceNames().index(DeviceName)
         except ValueError:
-            raise PySIException('SystemDescriptionBuildError')
+            raise PySIExceptionSystemDescriptionBuildError(
+                'cannot get index of device: '+str(DeviceName))
     def _InsertNodeName(self,DeviceName,Port,AName,BName):
         di = self.IndexOfDevice(DeviceName)
         self[di][Port-1].pA = AName
@@ -41,7 +44,7 @@ class SystemDescription(object):
     def CheckConnections(self):
         connected = [self[d][p].IsConnected()
             for d in range(len(self)) for p in range(len(self[d]))]
-        return False not in connected
+        if False in connected: raise PySIExceptionCheckConnections()
     def ConnectDevicePort(self,FromN,FromP,ToN,ToP):
         try:
             dfi = self.IndexOfDevice(FromN)
@@ -62,7 +65,9 @@ class SystemDescription(object):
                 self.ConnectDevicePort(FromN,FromP,TeeN,2)
                 self.ConnectDevicePort(TeeN,3,ToN,ToP)
         except IndexError:
-            raise PySIException('SystemDescriptionBuildError')
+            raise PySIExceptionSystemDescriptionBuildError(
+                'connect device ports '+str(FromN)+' '+str(FromP)+' to '+
+                str(ToN)+' '+str(ToP))
     def AddPort(self,DeviceName,DevicePort,SystemPort,AddThru=False):
         PortName = 'P'+str(SystemPort)
         self.AddDevice(PortName,1,[[0.0]])
