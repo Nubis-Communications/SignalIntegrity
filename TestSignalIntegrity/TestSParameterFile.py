@@ -158,8 +158,12 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         self.assertTrue(len(sf2)==0,self.id()+'result not same')
     def testSParameterFileFourPortNonExistant(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        sf=si.sp.File('TestDutcmp.s4p')
-        self.assertTrue(len(sf)==0,self.id()+'result not same')
+        try:
+            sf=si.sp.File('TestDutcmp.s4p')
+        except si.PySIException as e:
+            if e.parameter == 'SParameterFileNotFound':
+                return
+        self.fail(self.id()+'result not same')
     def testSParameterFileTwoPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.File('cable.s2p')

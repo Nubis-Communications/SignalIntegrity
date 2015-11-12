@@ -207,7 +207,7 @@ class Simulator(object):
             tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
         except si.PySIException as e:
             if e.parameter == 'CheckConnections':
-                tkMessageBox.showerror('Simulator','Cannot simulate due to missing device connections')
+                tkMessageBox.showerror('Simulator','Cannot simulate due to unconnected devices')
                 return
             elif e.parameter == 'SParameterFileNotFound':
                 tkMessageBox.showerror('Simulator','Cannot simulate due to missing s-parameter file: '+e.message)
