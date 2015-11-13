@@ -39,7 +39,10 @@ class CoordinateTranslater(object):
 class PartPicture(object):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically,rotationPoint=None):
         if rotationPoint==None:
-            self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2,(innerBox[0][1]+innerBox[1][1])/2)
+            if len(pinList)==1:
+                self.rotationPoint=pinList[0].pinConnectionPoint
+            else:
+                self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2,(innerBox[0][1]+innerBox[1][1])/2)
         else: self.rotationPoint = rotationPoint
         self.origin=origin
         self.pinListSupplied = pinList
@@ -344,6 +347,23 @@ class PartPicture(object):
         r1=self.ArcConverter(0,-180,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
         canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r0[0],extent=r0[1],style='arc',outline=self.color)
         canvas.create_arc(p[2][0],p[2][1],p[3][0],p[3][1],start=r1[0],extent=r1[1],style='arc',outline=self.color)
+    def DrawTransmissionLine(self,canvas,grid,drawingOrigin):
+        my=(drawingOrigin[1]+self.origin[1])*grid+grid
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # the oval at the front of the line
+        p=[ct.Translate((lx-grid/4,my-grid/2)),ct.Translate((lx+grid/4,my+grid/2))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
+        # the arc at the back of the line
+        p=[ct.Translate((rx-grid/2,my-grid/2)),ct.Translate((rx,my+grid/2))]
+        r=self.ArcConverter(-90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        # the lines connecting the ovals
+        p=[ct.Translate((lx,my-grid/2)),ct.Translate((rx-grid/4,my-grid/2))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        p=[ct.Translate((lx,my+grid/2)),ct.Translate((rx-grid/4,my+grid/2))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
 
 class PartPictureXMLClassFactory(object):
     def __init__(self,xml):
@@ -1145,3 +1165,35 @@ class PartPictureCurrentControlledVoltageSourceFourPortAlt(PartPictureBox):
 class PartPictureVariableCurrentControlledVoltageSourceFourPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentControlledVoltageSourceFourPort','PartPictureCurrentControlledVoltageSourceFourPortAlt'])
+
+class PartPictureTransmissionLineTwoPort(PartPicture):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawTransmissionLine(canvas,grid,drawingOrigin)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableTransmissionLineTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureTransmissionLineTwoPort'])
+
+class PartPictureTransmissionLineFourPort(PartPicture):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False),PartPin(3,(0,2),'l',False),PartPin(2,(4,1),'r',False),PartPin(4,(4,2),'r',False)],[(1,0),(3,2)],[(0,0),(4,3)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawTransmissionLine(canvas,grid,drawingOrigin)
+        # the lines connecting the bottom pins
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        by=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=[ct.Translate((lx,my+grid/2)),ct.Translate((lx,by))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        p=[ct.Translate((rx-grid/4,my+grid/2)),ct.Translate((rx-grid/4,by)),ct.Translate((rx,by))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],p[2][0],p[2][1],fill=self.color)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableTransmissionLineFourPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureTransmissionLineFourPort'])

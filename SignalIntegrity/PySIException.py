@@ -20,17 +20,13 @@ class PySIExceptionCheckConnections(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'CheckConnections',message)
 
-class PySIExceptionSParameterFileNotFound(PySIException):
+class PySIExceptionSParameterFile(PySIException):
     def __init__(self,message=''):
-        PySIException.__init__(self,'SParameterFileNotFound',message)
+        PySIException.__init__(self,'SParameterFile',message)
 
-class PySIExceptionSParameterFileExtensionMisformed(PySIException):
+class PySIExceptionWaveformFile(PySIException):
     def __init__(self,message=''):
-        PySIException.__init__(self,'SParameterFileExtensionMisformed',message)
-
-class PySIExceptionWaveformFileNotFound(PySIException):
-    def __init__(self,message=''):
-        PySIException.__init__(self,'WaveformFileNotFound',message)
+        PySIException.__init__(self,'WaveformFile',message)
 
 class PySIExceptionSystemDescriptionBuildError(PySIException):
     def __init__(self,message=''):

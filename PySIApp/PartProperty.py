@@ -270,5 +270,9 @@ class PartPropertyVoltageOffset(PartProperty):
 
 class PartPropertyDelay(PartProperty):
     def __init__(self,delay=0.0):
-        PartProperty.__init__(self,'delay',type='float',unit='s',keyword='delay',description='delay (s)',value=delay,visible=True)
+        PartProperty.__init__(self,'delay',type='float',unit='s',keyword='td',description='delay (s)',value=delay,visible=True)
+
+class PartPropertyCharacteristicImpedance(PartProperty):
+    def __init__(self,characteristicImpedance=50.):
+        PartProperty.__init__(self,'characteristicimpedance',type='float',unit='Ohm',keyword='zc',description='characteristic impedance (Ohms)',value=characteristicImpedance,visible=True)
 

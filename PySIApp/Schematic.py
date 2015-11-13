@@ -126,7 +126,7 @@ class DrawingStateMachine(object):
         self.parent.Button1Augmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
     def SaveButton2Coordinates(self,event):
         self.parent.Button2Coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.Button2Augmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)        
+        self.parent.Button2Augmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
     def DispatchBasedOnSelections(self,nothingSelectedState=None):
         AtLeastOneDeviceSelected=False
         AtLeastOneVertexSelected=False
@@ -187,7 +187,7 @@ class DrawingStateMachine(object):
                         if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5):
                             segment.selected=True
                             selectedSomething=True
-                            break                            
+                            break
                     else:
                         if segment.IsAt(self.parent.Button1Coord):
                             segment.selected=True
@@ -221,7 +221,7 @@ class DrawingStateMachine(object):
                         if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5):
                             segment.selected=not segment.selected
                             toggledSomething=True
-                            break                            
+                            break
                     else:
                         if segment.IsAt(self.parent.Button1Coord):
                             segment.selected=not segment.selected
@@ -359,11 +359,7 @@ class DrawingStateMachine(object):
     def onMouseButton3Release_DeviceSelected(self,event):
         self.parent.tk.call("tk_popup", self.parent.deviceTearOffMenu, event.x_root, event.y_root)
     def onMouseButton1Double_DeviceSelected(self,event):
-        dpe=DevicePropertiesDialog(self.parent,self.parent.deviceSelected)
-        if dpe.result != None:
-            self.parent.schematic.deviceList[self.parent.deviceSelectedIndex] = dpe.result
-            self.parent.schematic.Consolidate()
-            self.parent.DrawSchematic()
+        self.parent.EditSelectedDevice()
     def onMouseMotion_DeviceSelected(self,event):
         pass
 
@@ -787,7 +783,7 @@ class DrawingStateMachine(object):
                     if usingAdvancedSegmentDetection:
                         if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5) and segment.selected:
                             inSelection=True
-                            break                            
+                            break
                     else:
                         if segment.IsAt(self.parent.Button1Coord) and segment.selected:
                             inSelection=True
@@ -1061,7 +1057,9 @@ class Drawing(Frame):
         if self.stateMachine.state=='DeviceSelected':
             dpe=DevicePropertiesDialog(self,self.deviceSelected)
             if dpe.result != None:
-                self.schematic.deviceList[self.deviceSelectedIndex] = dpe.result
+                self.deviceSelected = dpe.result
+                self.schematic.deviceList[self.deviceSelectedIndex] = self.deviceSelected
+                self.schematic.Consolidate()
                 self.DrawSchematic()
     def DuplicateSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':

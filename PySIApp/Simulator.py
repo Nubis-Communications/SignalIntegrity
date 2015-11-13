@@ -206,19 +206,21 @@ class Simulator(object):
             tmp=si.td.f.TransferMatricesProcessor(snp.TransferMatrices())
         except si.PySIException as e:
             if e == si.PySIExceptionCheckConnections:
-                tkMessageBox.showerror('Simulator','Cannot simulate due to unconnected devices')
-            elif e == si.PySIExceptionSParameterFileNotFound:
-                tkMessageBox.showerror('Simulator','Cannot simulate due to missing s-parameter file: '+e.message)
+                tkMessageBox.showerror('Simulator','Unconnected devices error: '+e.message)
+            elif e == si.PySIExceptionSParameterFile:
+                tkMessageBox.showerror('Simulator','s-parameter file error: '+e.message)
             elif e == si.PySIExceptionSimulator:
                 tkMessageBox.showerror('Simulator','Simulator Error: '+e.message)
+            elif e == si.PySIExceptionSystemDescriptionBuildError:
+                tkMessageBox.showerror('Simulator','Schematic Error: '+e.message)
             else:
                 tkMessageBox.showerror('Simulator','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return
         try:
             inputWaveformList=self.schematic.InputWaveforms()
         except si.PySIException as e:
-            if e == si.PySIExceptionWaveformFileNotFound:
-                tkMessageBox.showerror('Simulator','Cannot simulate due to missing waveform file:'+e.message)
+            if e == si.PySIExceptionWaveformFile:
+                tkMessageBox.showerror('Simulator','Waveform file error: '+e.message)
                 return
 
         outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
@@ -228,14 +230,14 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
             for device in self.schematic.deviceList:
-                if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
-                    gain=device[PartPropertyVoltageGain().propertyName].GetValue()
-                    offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
-                    delay=device[PartPropertyDelay().propertyName].GetValue()
-                    outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
-                    outputWaveformList[outputWaveformIndex]=outputWaveform
-                    break
-
+                if device[PartPropertyPartName().propertyName].GetValue() == 'Output':
+                    if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
+                        gain=device[PartPropertyVoltageGain().propertyName].GetValue()
+                        offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
+                        delay=device[PartPropertyDelay().propertyName].GetValue()
+                        outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                        outputWaveformList[outputWaveformIndex]=outputWaveform
+                        break
         outputWaveformList = [wf.Adapt(si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.userSampleRate)) for wf in outputWaveformList]
         self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
     def OpenSimulator(self):
