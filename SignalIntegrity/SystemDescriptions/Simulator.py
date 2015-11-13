@@ -14,7 +14,7 @@ class Simulator(SystemSParameters,object):
         self.m_ol = sd.m_ol if hasattr(sd, 'm_ol') else None
     def Check(self):
         if self.m_ol is None:
-            raise PySIExceptionSimulator('no ouputs')
+            raise PySIExceptionSimulator('no outputs')
         if len(self.StimsPrime()) == 0:
             raise PySIExceptionSimulator('no sources')
     @property

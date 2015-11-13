@@ -209,6 +209,8 @@ class Simulator(object):
                 tkMessageBox.showerror('Simulator','Cannot simulate due to unconnected devices')
             elif e == si.PySIExceptionSParameterFileNotFound:
                 tkMessageBox.showerror('Simulator','Cannot simulate due to missing s-parameter file: '+e.message)
+            elif e == si.PySIExceptionSimulator:
+                tkMessageBox.showerror('Simulator','Simulator Error: '+e.message)
             else:
                 tkMessageBox.showerror('Simulator','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return

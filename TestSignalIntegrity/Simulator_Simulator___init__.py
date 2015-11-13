@@ -2,7 +2,7 @@ class Simulator(SystemSParameters,object):
     def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
         self.m_ol = sd.m_ol if hasattr(sd, 'm_ol') else None
-    @property
+...
     def pOutputList(self):
         return self.m_ol
     @pOutputList.setter

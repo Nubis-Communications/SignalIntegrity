@@ -474,7 +474,7 @@ class PartPictureVariablePort(PartPictureVariable):
 
 class PartPictureGround(PartPicture):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPicture.__init__(self,origin,[PartPin(1,(1,0),'t',False)],[(0,1),(3,2)],[(0,0),(3,2)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
+        PartPicture.__init__(self,origin,[PartPin(1,(1,0),'t',False)],[(0,1),(2,2)],[(0,0),(2,2)],(2,1),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         PartPicture.DrawGround(self,canvas,grid,drawingOrigin,1,1)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)

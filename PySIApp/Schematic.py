@@ -955,7 +955,11 @@ class DrawingStateMachine(object):
                         portNumber=portNumber+1
                     device['portnumber'].SetValueFromString(str(portNumber))
             else:
-                existingReferenceDesignators=[existingDevice[PartPropertyReferenceDesignator().propertyName].GetValue() for existingDevice in self.parent.schematic.deviceList]
+                existingReferenceDesignators=[]
+                for existingDevice in self.parent.schematic.deviceList:
+                    referenceDesignatorProperty = existingDevice[PartPropertyReferenceDesignator().propertyName]
+                    if referenceDesignatorProperty != None:
+                        existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
                 if device[PartPropertyReferenceDesignator().propertyName].GetValue() in existingReferenceDesignators:
                     defaultProperty = device[PartPropertyDefaultReferenceDesignator().propertyName]
                     if defaultProperty != None:

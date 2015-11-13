@@ -66,7 +66,7 @@ class DeviceParser():
             self.m_sp=ShuntZ(ports,float(argsList[1]))
             return
         elif argsList[0] == 'M':
-            self.m_sp=Mutual(self.m_f,float(argsList[1]))
+            self.m_spf=Mutual(self.m_f,float(argsList[1]))
             return
         elif argsList[0] == 'ground':
             self.m_sp=Ground()
