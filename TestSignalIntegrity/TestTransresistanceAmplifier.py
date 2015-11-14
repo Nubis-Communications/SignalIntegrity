@@ -19,7 +19,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Four Port')
     def testTransresistanceAmplifierFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -28,7 +28,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.TransresistanceAmplifierFourPort('\\gamma','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Four Port Symbolic')
     def testTransresistanceAmplifierFourPortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -81,7 +81,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.TransresistanceAmplifier(4,'\\gamma','Z_i','Z_o'))
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Three Port')
     def testTransresistanceAmplifierThreePortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -90,7 +90,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.TransresistanceAmplifier(3,'\\gamma','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Three Port Symbolic')
     def testTransresistanceAmplifierThreePortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -140,7 +140,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
         D=si.sy.TransresistanceAmplifier(4,'\\gamma','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Two Port Full')
     def testTransresistanceAmplifierTwoPortAlternate(self):
         sdp=si.p.SystemDescriptionParser()
@@ -151,7 +151,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
         D=si.sy.TransresistanceAmplifier(3,'\\gamma','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Two Port Alternate')
     def testTransresistanceAmplifierTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -162,7 +162,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
         D=si.sy.TransresistanceAmplifierTwoPort('\\gamma','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Two Port Symbolic')
     def testTransresistanceAmplifierTwoPortNumeric(self):
         sdp=si.p.SystemDescriptionParser()

@@ -17,13 +17,13 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         sd.AssignM('\\Gamma_s',1,'m1')
         ssp=si.sd.SystemSParametersSymbolic(sd)
         ssp.LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_1',ssp,self.id())
-        # include
+        # pragma: include
         ssp.AssignSParameters('\\Gamma_s',si.sy.ShuntZ(1,'Zs'))
         ssp.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
         ssp.Clear().LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ssp,self.id())
     def testSymbolicSimulatorExample1(self):
         ssps=si.sd.SystemSParametersSymbolic()
@@ -34,13 +34,13 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssps.ConnectDevicePort('S',2,'\\Gamma_l',1)
         ssps.AssignM('\\Gamma_s',1,'m1')
         ssps.LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_1',ssps,self.id())
-        # include
+        # pragma: include
         ssps.AssignSParameters('\\Gamma_s',si.sy.ShuntZ(1,'Zs'))
         ssps.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
         ssps.Clear().LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ssps,self.id())
     def testSymbolicSimulatorExample1Code(self):
         self.WriteCode('TestSimulator.py','testSymbolicSimulatorExample1(self)',self.standardHeader)
@@ -56,14 +56,14 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         s.ConnectDevicePort('Zs',2,'S',1)
         s.pOutputList = [('S',1),('S',2)]
         ss=si.sd.SimulatorSymbolic(s)
-        # exclude
+        # pragma: exclude
         # ss.LaTeXEquations().Emit()
         self.CheckSymbolicResult(self.id()+'_1',ss,self.id())
-        # include
+        # pragma: include
         ss.AssignSParameters('Zs',si.sy.SeriesZ('Zs'))
         ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
         ss.Clear().LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ss,self.id())
     def testSymbolicSimulatorExample1a(self):
         ss=si.sd.SimulatorSymbolic()
@@ -75,15 +75,15 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss.ConnectDevicePort('V',1,'Zs',1)
         ss.ConnectDevicePort('Zs',2,'S',1)
         ss.pOutputList = [('S',1),('S',2)]
-        # exclude
+        # pragma: exclude
         # ss.LaTeXEquations().Emit()
         self.CheckSymbolicResult(self.id()+'_1',ss,self.id())
         ss.Clear()
-        # include
+        # pragma: include
         ss.AssignSParameters('Zs',si.sy.SeriesZ('Zs'))
         ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
         ss.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ss,self.id())
     def testSymbolicSimulatorExample1aCode(self):
         self.WriteCode('TestSimulator.py','testSymbolicSimulatorExample1a(self)',self.standardHeader)
@@ -115,7 +115,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         vp.pOutputList = [('R',1),('R',2)]
         svp=si.sd.SimulatorSymbolic(vp)
         svp.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Symbolic Simulator 1')
     def testSymbolicSimulatorExample3(self):
         ss=si.sd.SimulatorSymbolic()
@@ -128,7 +128,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss.ConnectDevicePort('v1',2,'C',2)
         ss.pOutputList = [('R',1),('R',2)]
         ss.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ss,'Symbolic Simulator 1')
     def testSymbolicSimulatorExample3p5Old(self):
         sd=si.sd.SystemDescription()
@@ -145,7 +145,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         vp.pOutputList = [('R',1),('R',2)]
         svp=si.sd.SimulatorSymbolic(vp)
         svp.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Symbolic Simulator 1')
     def testSymbolicSimulatorExample3p5(self):
         ss=si.sd.SimulatorSymbolic()
@@ -160,7 +160,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss.ConnectDevicePort('v1',1,'G',1)
         ss.pOutputList = [('R',1),('R',2)]
         ss.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ss,'Symbolic Simulator 1')
     def testSymbolicSimulatorExample4Old(self):
         sd=si.sd.SystemDescription()
@@ -176,7 +176,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         vp.pOutputList = [('R',1),('R',2)]
         svp=si.sd.SimulatorSymbolic(vp)
         svp.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,self.id())
     def testSymbolicSimulatorExample4(self):
         ss=si.sd.SimulatorSymbolic()
@@ -190,12 +190,12 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss.ConnectDevicePort('i1',1,'C',2)
         ss.pOutputList = [('R',1),('R',2)]
         ss.DocStart().LaTeXTransferMatrix().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ss,self.id())
     def testSimulatorParserVoltageSourceOnePortSymbolic(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sp = si.p.SimulatorParser()
         sp.AddLine('device F 2')
         sp.AddLine('device S 2')
@@ -209,12 +209,12 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss.AssignSParameters('S',si.sy.SeriesZ('Z'))
         ss.AssignSParameters('R',si.sy.ShuntZ(1,'Z'))
         ss.DocStart().LaTeXEquations().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ss,self.id())
     def testSimulatorParserVoltageSourceOnePort(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,10*20)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
@@ -283,9 +283,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorParserVoltageSourceTwoPorts(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,20*20)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
@@ -328,9 +328,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorParserCurrentSourceTwoPorts(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,200)
         sp = si.p.SimulatorNumericParser(f)
         sp.AddLine('device F 2 file filter.s2p')
@@ -350,9 +350,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorXRay041(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(20.e9,400)
         snp = si.p.SimulatorNumericParser(f)
         snp.AddLine('device X 4 file .//DesignCon2008//XRAY041.s4p')
@@ -403,9 +403,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorXRay041Symbolic(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sp = si.p.SimulatorParser()
         sp.AddLine('device X 4')
         sp.AddLine('device P 2')
@@ -427,12 +427,12 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss._AddEq('\\Gamma_P='+ss._LaTeXMatrix(si.sy.ShuntZ(1,'Z')))
         ss._AddEq('\\Gamma_M='+ss._LaTeXMatrix(si.sy.ShuntZ(1,'Z')))
         ss.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ss,'SimulatorXRay041Symbolic')
     def testSimulatorXRay041Symbolic2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sp = si.p.SimulatorParser()
         sp.AddLine('device X 4')
         sp.AddLine('device P 2')
@@ -454,14 +454,14 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ss.AssignSParameters('\\Gamma_P',si.sy.ShuntZ(1,'Z'))
         ss.AssignSParameters('\\Gamma_M',si.sy.ShuntZ(1,'Z'))
         ss.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ss,'SimulatorXRay041Symbolic2')
     def testSimulatorXRay041Symbolic2Code(self):
         self.WriteCode('TestSimulator.py','testSimulatorXRay041Symbolic2(self)',self.standardHeader)
     def testSimulatorXRaySparqDemo16(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,400)
         snp = si.p.SimulatorNumericParser(f)
         snp.AddLine('device X 4 file Sparq_demo_16.s4p')
@@ -512,9 +512,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
     def testSimulatorTlineFourPort(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         snp = si.p.SimulatorNumericParser(f)
         snp.AddLine('device L 4 tline zc 50. td 0.5e-9')
@@ -568,9 +568,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(aw[5],'Waveform_'+fileNameBase+'_5.txt','Waveform_'+fileNameBase+'_5.txt')
         self.CheckWaveformResult(aw[6],'Waveform_'+fileNameBase+'_6.txt','Waveform_'+fileNameBase+'_6.txt')
     def testSimulatorTlineFourPort2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         """
         ssnp2 = si.p.SystemSParametersNumericParser(f)
@@ -608,7 +608,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         snp.AddLine('connect MM2 2 R1 1')
         snp.AddLine('connect MM2 1 R2 1')
         snp.AddLine('output MM1 1 MM2 1 MM1 2 MM2 2 TL 2')
-        # exclude
+        # pragma: exclude
         #snp.SystemDescription().Print()
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
@@ -616,7 +616,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
-        # include
+        # pragma: include
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
         tmp=si.td.f.TransferMatricesProcessor(tm)
         srs=tmp.ProcessWaveforms([stepin])
@@ -635,7 +635,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
             plt.plot(aw[5].Times('ns'),aw[5].Values(),label='mt response')
             plt.legend(loc='upper right')
             plt.show()
-        # exclude
+        # pragma: exclude
         self.CheckWaveformResult(aw[0],'Waveform_'+fileNameBase+'_0.txt','Waveform_'+fileNameBase+'_0.txt')
         self.CheckWaveformResult(aw[1],'Waveform_'+fileNameBase+'_1.txt','Waveform_'+fileNameBase+'_1.txt')
         self.CheckWaveformResult(aw[2],'Waveform_'+fileNameBase+'_2.txt','Waveform_'+fileNameBase+'_2.txt')
@@ -645,9 +645,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
 #        self.CheckWaveformResult(aw[6],'Waveform_'+fileNameBase+'_6.txt','Waveform_'+fileNameBase+'_6.txt')
 
     def testSimulatorTlineFourPortCurrentProbes(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device CCVS 4 currentcontrolledvoltagesource 1.',
             'device G 1 ground','device O 1 open','connect G 1 CCVS 3',
@@ -746,9 +746,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
                     line = line + ' '+str(round(aw[m].Measure(t),6))+' V'
             print line
     def testSimulatorTlineFourPortCurrentProbes2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device CCVS 4 currentcontrolledvoltagesource 1.',
             'device G 1 ground','device O 1 open','connect G 1 CCVS 3',
@@ -849,9 +849,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
                     line = line + ' '+str(round(aw[m].Measure(t),6))+' V'
             print line
     def testSimulatorTlineFourPortModelCheck(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         ssnp1 = si.p.SystemSParametersNumericParser(f)
         ssnp1.AddLine('device T 2 tline zc 25. td 0.5e-9')
@@ -863,16 +863,16 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssnp2.AddLine('connect T 3 T 4 G 1')
         ssnp2.AddLine('port 1 T 1 2 T 2')
         sp2=ssnp2.SParameters()
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s2p'
         self.CheckSParametersResult(sp1,fileNameBase+'_1.s2p',fileNameBase+'_1.s2p')
         self.CheckSParametersResult(sp2,fileNameBase+'_2.s2p',fileNameBase+'_2.s2p')
         self.assertTrue(self.SParametersAreEqual(sp1,sp2,0.00001),'SimulatorTlineFourPortModelCheck incorrect')
     def testSimulatorTlineFourPortModelCheck2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         ssnp1 = si.p.SystemSParametersNumericParser(f)
         ssnp1.AddLine('device T 2 tline zc 25. td 0.5e-9')
@@ -900,16 +900,16 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssnp2.AddLine('connect MM2 4 O2 1')
         ssnp2.AddLine('port 1 MM1 1 2 MM2 1 3 MM1 2 4 MM2 2')
         sp2=ssnp2.SParameters()
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s4p'
         self.CheckSParametersResult(sp1,fileNameBase+'_1.s4p',fileNameBase+'_1.s4p')
         self.CheckSParametersResult(sp2,fileNameBase+'_2.s4p',fileNameBase+'_2.s4p')
         self.assertTrue(self.SParametersAreEqual(sp1,sp2,0.00001),'SimulatorTlineFourPortModelCheck2 incorrect')
     def testSimulatorTlineTwoPort(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         snp = si.p.SimulatorNumericParser(f)
         snp.AddLine('device T 2 tline zc 25. td 1.0e-9')
@@ -945,9 +945,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(aw[1],'Waveform_'+fileNameBase+'_1.txt','Waveform_'+fileNameBase+'_1.txt')
         self.CheckWaveformResult(aw[2],'Waveform_'+fileNameBase+'_2.txt','Waveform_'+fileNameBase+'_2.txt')
     def testSimulatorTlineTwoPort2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         snp = si.p.SimulatorNumericParser(f)
         snp.AddLine('device T 4 tline zc 25. td 1.0e-9')
@@ -985,9 +985,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         self.CheckWaveformResult(aw[1],'Waveform_'+fileNameBase+'_1.txt','Waveform_'+fileNameBase+'_1.txt')
         self.CheckWaveformResult(aw[2],'Waveform_'+fileNameBase+'_2.txt','Waveform_'+fileNameBase+'_2.txt')
     def testDiabolicalSymbolic(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         ssnp1 = si.p.SystemDescriptionParser()
         ssnp1.AddLine('device O1 1 open')
@@ -1000,12 +1000,12 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssnp1.AddLine('port 1 O1 1 2 O2 1')
         sps=si.sd.SystemSParametersSymbolic(ssnp1.SystemDescription())
         sps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),sps,self.id())
     def testDiabolicalNumeric(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         ssp = si.p.SystemSParametersNumericParser(f)
         ssp.AddLine('device O1 1 open')
@@ -1017,14 +1017,14 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssp.AddLine('connect T 2 O4 1')
         ssp.AddLine('port 1 O1 1 2 O2 1')
         sp=ssp.SParameters()
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s2p'
         self.CheckSParametersResult(sp,spFileName,spFileName)
     def testDiabolicalSymbolic2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         ssnp1 = si.p.SystemDescriptionParser()
         ssnp1.AddLine('device T1 2 thru')
         ssnp1.AddLine('device T2 2 thru')
@@ -1037,12 +1037,12 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         sd.Print()
         sps=si.sd.SystemSParametersSymbolic(sd)
         sps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),sps,self.id())
     def testDiabolicalNumeric2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         f=si.fd.EvenlySpacedFrequencyList(40.e9,20*40)
         ssp = si.p.SystemSParametersNumericParser(f)
         ssp.AddLine('device T1 2 thru')
@@ -1059,7 +1059,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
             self.CheckSParametersResult(sp,spFileName,spFileName)
         except np.linalg.linalg.LinAlgError:
             pass
-        # exclude
+        # pragma: exclude
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,9 +13,9 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
             ' - '+sW+' \\right]^{-1}')
         return self
     def LaTeXSolution(self,**args):
-        # exclude
+        # pragma: exclude
         self.CheckConnections()
-        # include
+        # pragma: include
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         size = args['size'] if 'size' in args else 'normal'
         AN=self.PortBNames()
@@ -45,7 +45,7 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
             self._AddEq('\\mathbf{S} = '+sWba)
             return self
         I=self._Identity()
-        # exclude
+        # pragma: exclude
         XNnzcWbx=[XN[nzcWbx] for nzcWbx in NonZeroColumns(Wbx)]
         XNzcWbx=[XN[zcWbx] for zcWbx in ZeroColumns(Wbx)]
         XNnzrWxa=[XN[nzrWxa] for nzrWxa in NonZeroRows(Wxa)]
@@ -74,7 +74,7 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
                 Wxa=Wxa1
                 I=self._LaTeXMatrix(I11)
                 Wxx=Wxx11
-        # include
+        # pragma: include
         sWbx=self._LaTeXMatrix(Wbx)
         sWxa=self._LaTeXMatrix(Wxa)
         sWxx=self._LaTeXMatrix(Wxx)

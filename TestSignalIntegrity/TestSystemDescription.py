@@ -61,10 +61,10 @@ class TestSystemDescription(unittest.TestCase):
         n=SC.NodeVector()
         W=SC.WeightsMatrix()
         m=SC.StimulusVector()
-        # exclude
+        # pragma: exclude
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
-        # include
+        # pragma: include
         print 'node vector:'
         print(n)
         print 'weights matrix:'
@@ -90,7 +90,7 @@ class TestSystemDescription(unittest.TestCase):
         print(Wxa)
         print 'Wxx'
         print(Wxx)
-        # exclude
+        # pragma: exclude
         sys.stdout = old_stdout
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         fileName='_'.join(self.id().split('.'))+'.txt'

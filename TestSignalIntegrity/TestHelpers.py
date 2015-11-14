@@ -109,8 +109,13 @@ class RoutineWriterTesterHelper(object):
         sourceCode = []
         sourceCode.extend(headerLines)
         addingLines = False
+        indent=4
         with open(fileName, 'rU') as inputFile:
             for line in inputFile:
+                if len(line.split())>=2:
+                    pragmaLine = ('pragma:' == line.split()[1])
+                else:
+                    pragmaLine = False
                 if "def" == line.lstrip(' ').split(' ')[0]:
                     addingLines = False
                     if Routine in line:
@@ -118,20 +123,28 @@ class RoutineWriterTesterHelper(object):
                         includingLines = True
                         if printFuncName:
                             line = line.replace('test','').replace('self','')
-                            sourceCode.append(line[4:])
+                            sourceCode.append(line[indent:])
                         continue
                 if addingLines:
-                    if '# exclude' in line:
-                        includingLines = False
-                        continue
-                    if '# include' in line:
-                        includingLines = True
+                    if pragmaLine:
+                        tokens=line.split()
+                        pindex=tokens.index('pragma:')
+                        tokens=[tokens[i] for i in range(pindex,len(tokens))]
+                        for token in tokens:
+                            if token == 'exclude':
+                                includingLines = False
+                            elif token == 'include':
+                                includingLines = True
+                            elif token == 'outdent':
+                                indent = indent+4
+                            elif token == 'indent':
+                                indent = indent-4
                         continue
                     if includingLines:
                         if printFuncName:
-                            sourceCode.append(line[4:])
+                            sourceCode.append(line[indent:])
                         else:
-                            sourceCode.append(line[8:])
+                            sourceCode.append(line[indent+4:])
         scriptName = Routine.replace('test','').replace('(self)','')
         scriptFileName=scriptName + 'Code.py'
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
@@ -159,8 +172,13 @@ class RoutineWriterTesterHelper(object):
         inDef=False
         addingLines=False
         sourceCode=[]
+        indent=0
         with open(fileName, 'rU') as inputFile:
             for line in inputFile:
+                if len(line.split())>=2:
+                    pragmaLine = ('pragma:' == line.split()[1])
+                else:
+                    pragmaLine = False
                 if "class" == line.lstrip(' ').split(' ')[0]:
                     if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
                         inClass = True
@@ -186,23 +204,35 @@ class RoutineWriterTesterHelper(object):
                             addingLines=False
                     else:
                         inDef=False
-                        addingLines=False
-                elif '# exclude' in line:
-                    if inDef:
-                        if addingLines:
-                            sourceCode.append("...\n")
-                        addingLines = False
-                        continue
-                elif '# include' in line:
-                    if inDef:
-                        addingLines = True
+                        addingLines=False                    
+                elif pragmaLine:
+                        tokens=line.split()
+                        pindex=tokens.index('pragma:')
+                        tokens=[tokens[i] for i in range(pindex,len(tokens))]
+                        silent=False
+                        for token in tokens:
+                            if token == 'silent':
+                                silent=True
+                            if token == 'exclude':
+                                if inDef:
+                                    if addingLines:
+                                        if not silent:
+                                            sourceCode.append("...\n")
+                                    addingLines = False
+                            elif token == 'include':
+                                if inDef:
+                                    addingLines = True
+                            elif token == 'outdent':
+                                indent = indent+4
+                            elif token == 'indent':
+                                indent = indent-4
                         continue
                 else:
                     if addingLines:
                         if not inDef:
                             addingLines=False
                 if addingLines is True:
-                    sourceCode.append(line)
+                    sourceCode.append(line[indent:])
         if not os.path.exists(outputFileName):
             with open(outputFileName, 'w') as outputFile:
                 for line in sourceCode:

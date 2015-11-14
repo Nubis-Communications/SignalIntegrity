@@ -40,10 +40,7 @@ class Simulator(SystemSParameters,object):
         mprime=self.StimsPrime()
         if symbolic: SI=Device.SymbolicMatrix('Si',len(n))
         else:
-            try:
-                SI=(matrix(identity(len(n)))-matrix(self.WeightsMatrix())).getI().tolist()
-            except LinAlgError:
-                raise PySIExceptionSimulator('numerical error - cannot invert matrix')
+            SI=(matrix(identity(len(n)))-matrix(self.WeightsMatrix())).getI().tolist()
         SiPrime=[[0]*len(mprime) for r in range(len(n))]
         for c in range(len(mprime)):
             for r in range(len(n)):

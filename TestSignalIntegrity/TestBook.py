@@ -69,10 +69,10 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         sd.AddPort('L', 1, 1)  # add a port at port 1 of left device
         sd.AddPort('R', 2, 2)  # add a port at port 2 of right device
         sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
-        # exclude
+        # pragma: exclude
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
-        # include
+        # pragma: include
         sd.Print()  # print the system description
         spc = si.sd.SystemSParameters(sd)
         n = spc.NodeVector()  # get the node vector
@@ -89,7 +89,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
             print ' | {0:4}'.format(n[r]),
             print '| {0:4} |'.format(m[r])
         print '----------------------------------------------'
-        # exclude
+        # pragma: exclude
         sys.stdout = old_stdout
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         fileName = '_'.join(self.id().split('.')) + '.txt'
@@ -108,7 +108,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.SeriesZ('Z')))
         symbolic.DocEnd()
         symbolic.WriteToFile('Symbolic.tex')
-        # exclude
+        # pragma: exclude
         symbolic.Clear()
         symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.SeriesZ('Z')))
         symbolic.Emit()
@@ -122,7 +122,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         sd.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
         ssps = si.sd.SystemSParametersSymbolic(sd)
         ssps.LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example System Description Symbolic')
     def testSystemDescriptionSymbolicExample(self):
         ssps = si.sd.SystemDescriptionSymbolic()
@@ -132,7 +132,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.AddPort('R', 2, 2)  # add a port at port 2 of right device
         ssps.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
         ssps.LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example System Description Symbolic')
     def testSymbolicMethods(self):
         sdp = si.p.SystemDescriptionParser()
@@ -162,7 +162,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(solvetype='direct')
         symbolic.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1')
     def testSymbolicSolutionExample1(self):
         ssps = si.sd.SystemSParametersSymbolic()
@@ -173,7 +173,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.LaTeXSystemEquation()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 1')
     def testSymbolicSolutionParserExample1Old(self):
         sdp = si.p.SystemDescriptionParser()
@@ -184,7 +184,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(solvetype='direct')
         symbolic.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1 Parser')
     def testSymbolicSolutionParserExample1(self):
         sdp = si.p.SystemDescriptionParser()
@@ -195,7 +195,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.LaTeXSystemEquation()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 1 Parser')
     def testSymbolicSolutionParserFileExample1Old(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution1.txt')
@@ -204,7 +204,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(solvetype='direct')
         symbolic.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 1 Parser File')
     def testSymbolicSolutionParserFileExample1(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution1.txt')
@@ -212,7 +212,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.LaTeXSystemEquation()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 1 Parser File')
     def testSymbolicSolutionExample2Old(self):
         sd = si.sd.SystemDescription()
@@ -226,7 +226,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(solvetype='direct')
         symbolic.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2')
     def testSymbolicSolutionExample2(self):
         ssps = si.sd.SystemSParametersSymbolic()
@@ -238,7 +238,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.LaTeXSystemEquation()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 2')
     def testNumericSolutionExample2(self):
         sspn = si.sd.SystemSParametersNumeric()
@@ -256,7 +256,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
             sspn.AssignSParameters('R',spr[n])
             sp.append(sspn.SParameters())
         spres=si.sp.SParameters(fl,sp).WriteToFile('result.s2p')
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
         self.CheckSParametersResult(spres,spFileName,spFileName)
@@ -276,7 +276,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
             for ds in spdl: sspn.AssignSParameters(ds[0],ds[1][n])
             sp.append(sspn.SParameters())
         spres=si.sp.SParameters(fl,sp).WriteToFile('result.s2p')
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
         self.CheckSParametersResult(spres,spFileName,spFileName)
@@ -289,14 +289,14 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(solvetype='direct')
         symbolic.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser')
     def testNumericSolutionParserExample2(self):
         sspnp = si.p.SystemSParametersNumericParser([i*100.*1e6 for i in range(100+1)])
         sspnp.AddLines(['device L 2 file cable.s2p','device R 2 file filter.s2p',
             'port 1 L 1 2 R 2','connect L 2 R 1']).WriteToFile('example2.txt')
         spres=sspnp.SParameters().WriteToFile('result.s2p')
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
         self.CheckSParametersResult(spres,spFileName,spFileName)
@@ -308,7 +308,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.LaTeXSystemEquation()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 2 Parser')
     def testSymbolicSolutionParserFileExample2Old(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution2.txt')
@@ -317,13 +317,13 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         symbolic.LaTeXSystemEquation()
         symbolic.LaTeXSolution(solvetype='direct')
         symbolic.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 2 Parser File')
     def testNumericSolutionParserFileExample2(self):
         fl=[i*100.*1e6 for i in range(100+1)]
         sspnp = si.p.SystemSParametersNumericParser(fl).File('example2.txt')
         spres=sspnp.SParameters().WriteToFile('result.s2p')
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
         self.CheckSParametersResult(spres,spFileName,spFileName)
@@ -333,7 +333,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.LaTeXSystemEquation()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSolution(solvetype='block').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 2 Parser File')
     def testSymbolicSolutionExample3Old(self):
         sd = si.sd.SystemDescription()
@@ -349,7 +349,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         spc = si.sd.SystemSParameters(sd)
         symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3')
     def testSymbolicSolutionExample3(self):
         ssps = si.sd.SystemSParametersSymbolic(size='small')
@@ -363,43 +363,43 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps.ConnectDevicePort('L', 2, 'M', 1)
         ssps.ConnectDevicePort('G', 1, 'M', 2)
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3')
     def testSymbolicSolutionParserExample3Old(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground','port 1 L 1 2 R 2',
             'connect L 2 R 1 M 1','connect G 1 M 2'])
-        # exclude
+        # pragma: exclude
         sdp.WriteToFile('SymbolicSolution3.txt',False)
-        # include
+        # pragma: include
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser')
     def testSymbolicSolutionParserExample3(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground',
             'port 1 L 1 2 R 2','connect L 2 R 1 M 1','connect G 1 M 2'])
-        # exclude
+        # pragma: exclude
         sdp.WriteToFile('SymbolicSolution3.txt',False)
-        # include
+        # pragma: include
         ssps = si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3 Parser')
     def testSymbolicSolutionParserFileExample3Old(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution3.txt')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser File')
     def testSymbolicSolutionParserFileExample3(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution3.txt')
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3 Parser File')
     def testSymbolicDeembeddingExample1Old(self):
         d=si.sd.Deembedder()
@@ -409,7 +409,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.AddPort('D',1,1)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1')
     def testSymbolicDeembeddingExample1(self):
         ds=si.sd.DeembedderSymbolic(size='small',known='\\Gamma_{msd}')
@@ -418,7 +418,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.ConnectDevicePort('D',2,'\\Gamma_{dut}',1)
         ds.AddPort('D',1,1)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1')
     def testSymbolicDeembeddingThruExample1Old(self):
         d=si.sd.Deembedder()
@@ -428,7 +428,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.AddPort('D',1,1,True)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Thru')
     def testSymbolicDeembeddingThruExample1(self):
         ds=si.sd.DeembedderSymbolic(size='small',known='\\Gamma_{msd}')
@@ -437,7 +437,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.ConnectDevicePort('D',2,'\\Gamma_{dut}',1)
         ds.AddPort('D',1,1,True)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1 Thru')
     def testSymbolicDeembeddingParserExample1Old(self):
         dp=si.p.DeembedderParser()
@@ -446,30 +446,30 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Parser')
     def testSymbolicDeembeddingParserExample1(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device D 2','unknown \\Gamma_{dut} 1','port 1 D 1','connect D 2 \\Gamma_{dut} 1'])
-        # exclude
+        # pragma: exclude
         dp.WriteToFile('SymbolicDeembedding1.txt',False)
-        # include
+        # pragma: include
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small',known='\\Gamma_{msd}')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1 Parser')
     def testSymbolicDeembeddingParserFileExample1Old(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding1Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1 Parser File')
     def testSymbolicDeembeddingParserFileExample1(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding1.txt')
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1 Parser File')
     def testSymbolicDeembeddingExample2Old(self):
         d=si.sd.Deembedder()
@@ -482,7 +482,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.ConnectDevicePort('R',2,'Su',2)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2')
     def testSymbolicDeembeddingExample2(self):
         ds=si.sd.DeembedderSymbolic(size='small')
@@ -494,43 +494,43 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.ConnectDevicePort('L',2,'U',1)
         ds.ConnectDevicePort('R',2,'U',2)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 2')
     def testSymbolicDeembeddingParserExample2Old(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device L 2','unknown Su 2','device R 2',
             'port 1 L 1 2 R 1','connect L 2 Su 1','connect R 2 Su 2'])
-        # exclude
+        # pragma: exclude
         dp.WriteToFile('SymbolicDeembedding2Old.txt',False)
-        # include
+        # pragma: include
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2 Parser')
     def testSymbolicDeembeddingParserExample2(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device L 2','unknown U 2','device R 2',
             'port 1 L 1 2 R 1','connect L 2 U 1','connect R 2 U 2'])
-        # exclude
+        # pragma: exclude
         dp.WriteToFile('SymbolicDeembedding2.txt',False)
-        # include
+        # pragma: include
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 2 Parser')
     def testSymbolicDeembeddingParserFileExample2Old(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding2Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 2 Parser File')
     def testSymbolicDeembeddingParserFileExample2(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding2.txt')
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 2 Parser File')
     def testSymbolicDeembeddingExample3Old(self):
         d=si.sd.Deembedder()
@@ -541,7 +541,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.ConnectDevicePort('L',2,'Su',1)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 3')
     def testSymbolicDeembeddingExample3(self):
         ds=si.sd.DeembedderSymbolic(size='small')
@@ -551,7 +551,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.AddPort('Su',2,2,True)
         ds.ConnectDevicePort('L',2,'Su',1)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 3')
     def testSymbolicDeembeddingThruExample3Old(self):
         d=si.sd.Deembedder()
@@ -562,7 +562,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.ConnectDevicePort('L',2,'Su',1)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding 3 Thru incorrect')
     def testSymbolicDeembeddingThruExample3(self):
         ds=si.sd.DeembedderSymbolic(size='small')
@@ -572,7 +572,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.AddPort('Su',2,2,True)
         ds.ConnectDevicePort('L',2,'Su',1)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding 3 Thru incorrect')
     def testSymbolicDeembeddingParserExample3Old(self):
         dp=si.p.DeembedderParser()
@@ -581,30 +581,30 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 3 Parser')
     def testSymbolicDeembeddingParserExample3(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device L 2','unknown Su 2','port 1 L 1 2 Su 2','connect L 2 Su 1'])
-        # exclude
+        # pragma: exclude
         dp.WriteToFile('SymbolicDeembedding3.txt',False)
-        # include
+        # pragma: include
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 3 Parser')
     def testSymbolicDeembeddingParserFileExample3Old(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding3Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 3 Parser File')
     def testSymbolicDeembeddingParserFileExample3(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding3.txt')
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 3 Parser File')
     def testSymbolicDeembeddingExample4Old(self):
         d=si.sd.Deembedder()
@@ -617,7 +617,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.ConnectDevicePort('F',4,'?2',1)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4')
     def testSymbolicDeembeddingExample4(self):
         ds=si.sd.DeembedderSymbolic(size='small')
@@ -629,18 +629,18 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.ConnectDevicePort('F',3,'?1',1)
         ds.ConnectDevicePort('F',4,'?2',1)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 4')
     def testSymbolicDeembeddingParserExample4Old(self):
         dp=si.p.DeembedderParser()
         dp.AddLines(['device F 4','unknown ?1 1','unknown ?2 1','port 1 F 1 2 F 2',
             'connect F 3 ?1 1','connect F 4 ?2 1'])
-        # exclude
+        # pragma: exclude
         dp.WriteToFile('SymbolicDeembedding4Old.txt',False)
-        # include
+        # pragma: include
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 4 Parser')
     def testSymbolicDeembeddingParserExample4(self):
         dp=si.p.DeembedderParser()
@@ -650,20 +650,20 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4 Parser')
     def testSymbolicDeembeddingParserFileExample4Old(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding4Old.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 4 Parser File')
     def testSymbolicDeembeddingParserFileExample4(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding4.txt')
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 4 Parser File')
     def testSymbolicDeembeddingExample5Old(self):
         d=si.sd.Deembedder()
@@ -678,7 +678,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         d.ConnectDevicePort('D3',2,'Su',2)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5')
     def testSymbolicDeembeddingExample5(self):
         ds=si.sd.DeembedderSymbolic(size='small')
@@ -692,7 +692,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ds.ConnectDevicePort('D2',2,'D3',1)
         ds.ConnectDevicePort('D3',2,'Su',2)
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 5')
     def testSymbolicDeembeddingParserExample5Old(self):
         dp=si.p.DeembedderParser()
@@ -704,7 +704,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5 Parser')
     def testSymbolicDeembeddingParserExample5(self):
         dp=si.p.DeembedderParser()
@@ -712,25 +712,25 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
             'unknown Su 2','port 1 D1 1 2 D2 1',
             'connect D1 2 Su 1','connect D2 2 D3 1',
             'connect D3 2 Su 2'])
-        # exclude
+        # pragma: exclude
         dp.WriteToFile('SymbolicDeembedding5.txt',False)
-        # include
+        # pragma: include
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 5 Parser')
     def testSymbolicDeembeddingParserFileExample5Old(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding5Old.txt')
         ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
         ds.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 5 Parser File')
     def testSymbolicDeembeddingParserFileExample5(self):
         dp=si.p.DeembedderParser().File('SymbolicDeembedding5.txt')
         spc = si.sd.Deembedder(dp.SystemDescription())
         symbolic=si.sd.DeembedderSymbolic(spc,size='small')
         symbolic.SymbolicSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5 Parser File')
     def testSymbolicVirtualProbeExample1(self):
         vps=si.sd.VirtualProbeSymbolic(size='small')
@@ -743,7 +743,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vps.pMeasurementList = [('T',1)]
         vps.pOutputList = [('R',1)]
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 1')
     def testSymbolicVirtualProbeExample1Old(self):
         sd=si.sd.SystemDescription()
@@ -758,7 +758,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp.pOutputList = [('R',1)]
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 1')
     def testSymbolicVirtualProbeParserExample1Old(self):
         vpp=si.p.VirtualProbeParser()
@@ -768,31 +768,31 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 1 Parser')
     def testSymbolicVirtualProbeParserExample1(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1',
             'connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
-        # exclude
+        # pragma: exclude
         vpp.WriteToFile('VirtualProbe1.txt',False)
-        # include
+        # pragma: include
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 1 Parser')
     def testSymbolicVirtualProbeParserFileExample1Old(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe1.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 1 Parser File')
     def testSymbolicVirtualProbeParserFileExample1(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe1.txt')
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 1 Parser File')
     def testSymbolicVirtualProbeExample2Old(self):
         sd=si.sd.SystemDescription()
@@ -810,7 +810,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp.pOutputList = [('R',1),('R',2)]
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 2')
     def testSymbolicVirtualProbeExample2(self):
         vps=si.sd.VirtualProbeSymbolic(size='small')
@@ -826,7 +826,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vps.pMeasurementList = [('T',1),('T',2)]
         vps.pOutputList = [('R',1),('R',2)]
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 2')
     def testSymbolicVirtualProbeParserExample2Old(self):
         vpp=si.p.VirtualProbeParser()
@@ -836,32 +836,32 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 2 Parser')
     def testSymbolicVirtualProbeParserExample2(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines(['device T 2','device C 4','device R 2','connect T 1 C 1','connect T 2 C 2',
             'connect C 3 R 1','connect C 4 R 2','stim m1 T 1','stim m2 T 2','meas T 1 T 2',
             'output R 1 R 2'])
-        # exclude
+        # pragma: exclude
         vpp.WriteToFile('VirtualProbe2.txt',False)
-        # include
+        # pragma: include
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 2 Parser')
     def testSymbolicVirtualProbeParserFileExample2Old(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe2.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 2 Parser File')
     def testSymbolicVirtualProbeParserFileExample2(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe2.txt')
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 2 Parser File')
     def testSymbolicVirtualProbeExample3Old(self):
         sd=si.sd.SystemDescription()
@@ -880,7 +880,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp.pStimDef = [[1],[-1]]
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3')
     def testSymbolicVirtualProbeExample3(self):
         vps=si.sd.VirtualProbeSymbolic(size='small')
@@ -897,7 +897,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vps.pOutputList = [('R',1),('R',2)]
         vps.pStimDef = [[1],[-1]]
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 3')
     def testSymbolicVirtualProbeParserExample3Old(self):
         vpp=si.p.VirtualProbeParser()
@@ -908,32 +908,32 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3 Parser')
     def testSymbolicVirtualProbeParserExample3(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines(['device T 2','device C 4','device R 2','connect T 1 C 1',
             'connect T 2 C 2','connect C 3 R 1','connect C 4 R 2','stim m1 T 1',
             'stim m2 T 2','meas T 1 T 2','output R 1 R 2','stimdef [[1],[-1]]'])
-        # exclude
+        # pragma: exclude
         vpp.WriteToFile('VirtualProbe3.txt',False)
-        # include
+        # pragma: include
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 3 Parser')
     def testSymbolicVirtualProbeParserFileExample3Old(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe3.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 3 Parser File')
     def testSymbolicVirtualProbeParserFileExample3(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe3.txt')
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXEquations().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 3 Parser File')
     def testSymbolicVirtualProbeExample4Old(self):
         sd=si.sd.SystemDescription()
@@ -958,7 +958,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp.pStimDef = [[1],[-1]]
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4')
     def testSymbolicVirtualProbeExample4(self):
         vps=si.sd.VirtualProbeSymbolic(size='small')
@@ -981,7 +981,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vps.pOutputList = [('R',1),('R',2)]
         vps.pStimDef = [[1],[-1]]
         vps.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 4')
     def testSymbolicVirtualProbeParserExample4Old(self):
         vpp=si.p.VirtualProbeParser()
@@ -994,7 +994,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser')
     def testSymbolicVirtualProbeParserExample4(self):
         vpp=si.p.VirtualProbeParser()
@@ -1003,25 +1003,25 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
             'connect MM1 3 MM2 3','connect MM1 4 MM2 4','connect MM2 1 C 1','connect MM2 2 C 2',
             'connect C 3 R 1','connect C 4 R 2','stim m1 T 1 m2 T 2','meas MM1 3',
             'output R 1 R 2','stimdef [[1],[-1]]'])
-        # exclude
+        # pragma: exclude
         vpp.WriteToFile('VirtualProbe4.txt',False)
-        # include
+        # pragma: include
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 4 Parser')
     def testSymbolicVirtualProbeParserFileExample4Old(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe4.txt')
         vp=si.sd.VirtualProbe(vpp.SystemDescription())
         svp=si.sd.VirtualProbeSymbolic(vp,size='small')
         svp.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser File')
     def testSymbolicVirtualProbeParserFileExample4(self):
         vpp=si.p.VirtualProbeParser().File('VirtualProbe4.txt')
         vps=si.sd.VirtualProbeSymbolic(vpp.SystemDescription(),size='small')
         vps.LaTeXTransferMatrix().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 4 Parser File')
     def testParserBreaker(self):
         ssps=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(1,10))

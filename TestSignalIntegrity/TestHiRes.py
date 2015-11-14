@@ -11,9 +11,9 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
 
 
     def testHiRes2(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         Fsa=40e9    # assumed analog sample rate
         NoiseBandwidth=10e9
         snrdB = 42.5

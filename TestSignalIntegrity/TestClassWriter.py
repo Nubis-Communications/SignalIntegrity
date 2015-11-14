@@ -114,8 +114,12 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testSystemSParametersSymbolic_LaTeXSolution(self):
         fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersSymbolic.py"
         className='SystemSParametersSymbolic'
-        defName=['LaTeXSolution','__init__','_LaTeXSi',]
+        defName=['LaTeXSolution','__init__','_LaTeXSi']
         self.WriteClassCode(fileName,className,defName)
-
+    def testSystemSParametersNumeric_SParameters(self):
+        fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersNumeric.py"
+        className='SystemSParametersNumeric'
+        defName=['SParameters','__init__']
+        self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()

@@ -16,7 +16,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2 3 D 1 4 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
     def testDeviceShuntFourPortNumericDeriv(self):
         Z=45.
@@ -60,7 +60,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Four Port')
     def testZShuntFourPortSafeTee(self):
         sdp=si.p.SystemDescriptionParser()
@@ -70,7 +70,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.InstallSafeTees()
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Four Port')
     def testZShuntFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -80,7 +80,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
             eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Four Port Symbolic')
     def testZShuntFourPortNumeric(self):
         Z=-34.45+1j*24.98
@@ -99,7 +99,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
     def testZShuntThreePortPossibility2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -108,7 +108,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
     def testZShuntThreePortPossibility3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -118,7 +118,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
         ssps.AssignSParameters('Z',si.sy.SeriesZ('\\varepsilon'))
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
     def testZShuntThreePortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -127,7 +127,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.ShuntZThreePort('Z'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Three Port Symbolic')
     def testZShuntThreePortPossibility1Numeric(self):
         Z=-34.45+1j*24.98
@@ -206,7 +206,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Two Port')
     def testZShuntTwoPortPossibility2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -215,7 +215,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.ShuntZThreePort('Z'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
     def testZShuntTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -224,7 +224,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.ShuntZTwoPort('Z'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Three Port Symbolic')
     def testFrequencyDependentSeriesCResampling(self):
         sp=si.sp.dev.SeriesC(si.fd.EvenlySpacedFrequencyList(1e9,100),1e-9)

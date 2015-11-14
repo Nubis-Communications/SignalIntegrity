@@ -19,7 +19,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Four Port')
     def testCurrentAmplifierFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -28,7 +28,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('DC',si.sy.CurrentAmplifierFourPort('\\beta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Four Port Symbolic')
     def testCurrentAmplifierFourPortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -81,7 +81,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.CurrentAmplifier(4,'\\beta','Z_i','Z_o'))
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Three Port')
     def testCurrentAmplifierThreePortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -90,7 +90,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.CurrentAmplifier(3,'\\beta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Three Port Symbolic')
     def testCurrentAmplifierThreePortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -140,7 +140,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         D=si.sy.CurrentAmplifier(4,'\\beta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Two Port Full')
     def testCurrentAmplifierTwoPortAlternate(self):
         sdp=si.p.SystemDescriptionParser()
@@ -151,7 +151,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         D=si.sy.CurrentAmplifier(3,'\\beta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Two Port Alternate')
     def testCurrentAmplifierTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -162,7 +162,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         D=si.sy.CurrentAmplifierTwoPort('\\beta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Two Port Symbolic')
     def testCurrentAmplifierTwoPortNumeric(self):
         sdp=si.p.SystemDescriptionParser()

@@ -39,39 +39,39 @@ class TestSubcircuit(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterH
         sspnp = si.p.SystemSParametersNumericParser(fl).File('SubCircuitExample1.txt')
         sp=sspnp.SParameters()
     def testFourPortShunt(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sspnp = si.p.SystemSParametersNumericParser([0.])
         Z=94.
         sspnp.AddLines(['device D 4 subcircuit ShuntZFourPort.sub Rsh '+str(Z),
                       'port 1 D 1 2 D 2 3 D 3 4 D 4'])
         sp=sspnp.SParameters()
-        # exclude
+        # pragma: exclude
         sp2 = si.sp.SParameters([0.],[si.dev.ShuntZ(4,Z)])
         self.assertTrue(self.SParametersAreEqual(sp,sp2,0.00001),self.id() + ' incorrect')
     def testThreePortShunt(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sspnp = si.p.SystemSParametersNumericParser([0.])
         Z=random.random()*200.
         sspnp.AddLines(['device D 3 subcircuit ShuntZThreePort.sub Rsh '+str(Z),
                       'port 1 D 1 2 D 2 3 D 3'])
         sp=sspnp.SParameters()
-        # exclude
+        # pragma: exclude
         sp2 = si.sp.SParameters([0.],[si.dev.ShuntZ(3,Z)])
         self.assertTrue(self.SParametersAreEqual(sp,sp2,0.00001),self.id() + ' incorrect')
     def testTwoPortShunt(self):
-        # exclude
+        # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        # include
+        # pragma: include
         sspnp = si.p.SystemSParametersNumericParser([0.])
         Z=random.random()*200.
         sspnp.AddLines(['device D 2 subcircuit ShuntZTwoPort.sub Rsh '+str(Z),
                       'port 1 D 1 2 D 2'])
         sp=sspnp.SParameters()
-        # exclude
+        # pragma: exclude
         sp2 = si.sp.SParameters([0.],[si.dev.ShuntZ(2,Z)])
         self.assertTrue(self.SParametersAreEqual(sp,sp2,0.00001),self.id() + ' incorrect')
     def testSubCircuitNetlistGenerator2(self):
@@ -90,7 +90,7 @@ class TestSubcircuit(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterH
         fl=[i*100.*1e6 for i in range(100+1)]
         sspnp = si.p.SystemSParametersNumericParser(fl).File('SubCircuitExample2.txt')
         spres=sspnp.SParameters().WriteToFile('result.s2p')
-        # exclude
+        # pragma: exclude
         fileNameBase = self.id().split('.')[2].replace('test','')
         spFileName = fileNameBase +'.s'+str(spres.m_P)+'p'
         self.CheckSParametersResult(spres,spFileName,spFileName)

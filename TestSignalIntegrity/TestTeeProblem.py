@@ -34,14 +34,14 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
     def testTeeDirectSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.LaTeXSolution(solvetype='direct').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Device Four Port Symbolic')
     def testTeeNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -78,7 +78,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Block Symbolic')
     def testTeeSimplerBlockSymbolicUnsafe(self):
         sdp=si.p.SystemDescriptionParser()
@@ -87,7 +87,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('D',si.sy.Tee(3))
         sdp.SystemDescription().Print()
         ssps.DocStart().LaTeXSolution().DocEnd().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Block Symbolic')
     def testTeeSimplerDirectSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -96,7 +96,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
         ssps.LaTeXSolution(solvetype='direct').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler Direct Symbolic')
     def testTeeSimplerSystemEquation(self):
         sdp=si.p.SystemDescriptionParser()
@@ -105,7 +105,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.InstallSafeTees()
         ssps.LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler System Equation')
     def testTeeSimplerNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -125,7 +125,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('D',si.sy.Tee(3))
         ssps.AssignSParameters('Z',si.sy.SeriesZ('Z'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee with Z Block Symbolic')
     def testTeeWithZAllAroundBlockSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -137,7 +137,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps.AssignSParameters('Z2',si.sy.SeriesZ('Z_2'))
         ssps.AssignSParameters('Z3',si.sy.SeriesZ('Z_3'))
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee with Z Block Symbolic')
     def testTeeSimplerSystemEquationWithZ2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -145,7 +145,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         ssps.AssignSParameters('D',si.sy.TeeWithZ2('Z'))
         ssps.LaTeXSystemEquation().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler with Z2 System Equation')
 
 if __name__ == '__main__':

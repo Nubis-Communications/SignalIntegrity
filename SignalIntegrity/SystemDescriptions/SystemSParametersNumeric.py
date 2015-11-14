@@ -4,18 +4,27 @@ from numpy import identity
 from SignalIntegrity.Helpers.AllZeroMatrix import *
 from SignalIntegrity.SystemDescriptions import SystemSParameters
 from Numeric import Numeric
+from SignalIntegrity.PySIException import PySIExceptionNumeric
 
 class SystemSParametersNumeric(SystemSParameters,Numeric):
     def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
     def SParameters(self,**args):
+        from numpy.linalg.linalg import LinAlgError
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         AN=self.PortBNames()
         BN=self.PortANames()
         if solvetype == 'direct':
             n=self.NodeVector()
-            SCI=((matrix(identity(len(n)))-\
-                matrix(self.WeightsMatrix())).getI()).tolist()
+            # pragma: silent exclude
+            try:
+            # pragma: include outdent
+                SCI=((matrix(identity(len(n)))-\
+                    matrix(self.WeightsMatrix())).getI()).tolist()
+            # pragma: silent exclude indent
+            except LinAlgError:
+                raise PySIExceptionNumeric('cannot invert I-W')
+            # pragma: include
             B=[[0]*len(BN) for p in range(len(BN))]
             for r in range(len(BN)):
                 for c in range(len(BN)):
@@ -31,6 +40,7 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         Wxa=self.WeightsMatrix(XN,AN)
         if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
             return matrix(Wba).tolist()
+        # pragma: exclude
         XNnzcWbx=[XN[nzcWbx] for nzcWbx in NonZeroColumns(Wbx)]
         XNzcWbx=[XN[zcWbx] for zcWbx in ZeroColumns(Wbx)]
         XNnzrWxa=[XN[nzrWxa] for nzrWxa in NonZeroRows(Wxa)]
@@ -56,6 +66,14 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
                 I = matrix(identity(len(Wxx11)))
                 result=matrix(Wba)+matrix(Wbx1)*(I11-matrix(Wxx11)).getI()*matrix(Wxa1)
                 return result.tolist()
+        # pragma: include
         I=matrix(identity(len(Wxx)))
-        result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
+        # pragma: silent exclude
+        try:
+        # pragma: include outdent
+            result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
+        # pragma: silent exclude indent
+        except LinAlgError:
+            raise PySIExceptionNumeric('cannot invert I-Wxx')
+        # pragma: include
         return result.tolist()

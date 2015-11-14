@@ -14,7 +14,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
         symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Simple Transistor')
     def testTransistorSimpleSymbolic2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -23,14 +23,14 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
             'port 1 HIE 1 2 DC 4 3 DC 3',
             'connect HIE 2 DC 1',
             'connect DC 2 DC 4'])
-        # exclude
+        # pragma: exclude
         # sdp.WriteToFile('TransistorSimpleNetList.txt',False)
-        # include
+        # pragma: include
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('h_{ie}'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Simple Transistor 2')
     def testTransistorSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -41,7 +41,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
                       'connect Cp 2 T 3 rx 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor')
     def testTransistorWithShuntsSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -71,7 +71,7 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id()+'Defs',symbolic,'Transistor')
         self.CheckSymbolicResult(self.id(),ssps,'Transistor')
     def testTransistorSymbolicZO(self):
@@ -84,15 +84,15 @@ class TestTransistor(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
             'connect DC 2 DC 4',
             'connect ZO 1 DC 3',
             'connect ZO 2 DC 4'])
-        # exclude
+        # pragma: exclude
         # sdp.WriteToFile('TransistorSimpleNetList.txt',False)
-        # include
+        # pragma: include
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('DC',si.sy.CurrentControlledCurrentSource('\\beta'))
         ssps.AssignSParameters('HIE',si.sy.SeriesZ('Z_{\\pi}'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transistor Zo')
     def testTransistorSimpleSymbolicCode(self):
         self.WriteCode('TestTransistor.py','testTransistorSimpleSymbolic2(self)',self.standardHeader)

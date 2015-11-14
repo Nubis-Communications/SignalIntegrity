@@ -20,7 +20,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
         ssps.LaTeXSolution(size='big').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port')
     def testTransconductanceAmplifierFourPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -29,7 +29,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.TransconductanceAmplifierFourPort('\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port Symbolic')
     def testTransconductanceAmplifierFourPortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -84,7 +84,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.TransconductanceAmplifier(4,'\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Three Port')
     def testTransconductanceAmplifierThreePortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -93,7 +93,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
         ssps.AssignSParameters('D',si.sy.TransconductanceAmplifier(3,'\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Three Port Symbolic')
     def testTransconductanceAmplifierThreePortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -143,7 +143,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         D=si.sy.TransconductanceAmplifier(4,'\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Two Port Full')
     def testTransconductanceAmplifierTwoPortAlternate(self):
         sdp=si.p.SystemDescriptionParser()
@@ -154,7 +154,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         D=si.sy.TransconductanceAmplifier(3,'\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution(size='biggest').Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Two Port Alternate')
     def testTransconductanceAmplifierTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
@@ -165,7 +165,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         D=si.sy.TransconductanceAmplifierTwoPort('\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
-        # exclude
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Two Port Symbolic')
     def testTransconductanceAmplifierTwoPortNumeric(self):
         sdp=si.p.SystemDescriptionParser()

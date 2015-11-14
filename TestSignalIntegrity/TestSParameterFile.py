@@ -161,7 +161,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         try:
             sf=si.sp.File('TestDutcmp.s4p')
         except si.PySIException as e:
-            if e.parameter == 'SParameterFileNotFound':
+            if e.parameter == 'SParameterFile':
                 return
         self.fail(self.id()+'result not same')
     def testSParameterFileTwoPort(self):

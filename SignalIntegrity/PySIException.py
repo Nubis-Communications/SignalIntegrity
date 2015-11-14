@@ -35,3 +35,7 @@ class PySIExceptionSystemDescriptionBuildError(PySIException):
 class PySIExceptionSimulator(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'Simulator',message)
+
+class PySIExceptionNumeric(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'Numeric',message)
