@@ -39,7 +39,7 @@ class FrequencyResponse(object):
         if unit==None:
             return self.m_resp
         elif unit =='dB':
-            return [20.*math.log10(abs(self.m_resp[n])) for n in range(len(self.m_f))]
+            return [(-3000. if (abs(self.m_resp[n]) < 1e-15) else 20.*math.log10(abs(self.m_resp[n]))) for n in range(len(self.m_f))]
         elif unit == 'mag':
             return [abs(self.m_resp[n]) for n in range(len(self.m_f))]
         elif unit == 'rad':

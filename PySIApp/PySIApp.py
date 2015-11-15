@@ -16,6 +16,7 @@ from Schematic import *
 from PlotWindow import *
 from Simulator import Simulator
 from NetList import *
+from SParameterViewerWindow import *
 
 class TheMenu(Menu):
     def __init__(self,parent):
@@ -60,6 +61,7 @@ class TheMenu(Menu):
 
         self.CalcMenu=Menu(self)
         self.add_cascade(label='Calculate',menu=self.CalcMenu)
+        self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
         self.CalcMenu.add_command(label='Calculate S-parameters',command=self.parent.onCalculateSParameters)
         self.CalcMenu.add_command(label='Simulate',command=self.parent.onSimulate)
 
@@ -116,7 +118,13 @@ class ToolBar(Frame):
         self.panButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-move.gif')
         self.panButton = Button(editFrame,command=self.parent.onPan,image=self.panButtonIcon)
         self.panButton.pack(side=LEFT,fill=NONE,expand=NO)
-
+        separator=Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
+        self.calcPropertiesButtonIcon = PhotoImage(file='./icons/png/16x16/actions/tooloptions.gif')
+        self.calcPropertiesButton = Button(editFrame,command=self.parent.onCalculationProperties,image=self.calcPropertiesButtonIcon)
+        self.calcPropertiesButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.calculateButtonIcon = PhotoImage(file='./icons/png/16x16/actions/system-run-3.gif')
+        self.calculateButton = Button(editFrame,command=self.parent.onCalculate,image=self.calculateButtonIcon)
+        self.calculateButton.pack(side=LEFT,fill=NONE,expand=NO)
 
 class StatusBar(Frame):
     def __init__(self, master):
@@ -292,12 +300,14 @@ class TheApp(Frame):
         self.Drawing.DeleteSelectedWire()
 
     def onCalculateSParameters(self):
+        self.onCalculationProperties()
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
-        spnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
+        spnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(self.simulator.endFrequency,self.simulator.frequencyPoints))
         spnp.AddLines(netList)
         sp=spnp.SParameters()
+        SParametersDialog(self,sp)
         ports=sp.m_P
         extension='.s'+str(ports)+'p'
         filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension)
@@ -305,9 +315,42 @@ class TheApp(Frame):
             return
         sp.WriteToFile(filename)
 
+    def onCalculationProperties(self):
+        self.Drawing.stateMachine.Nothing()
+        self.simulator.ShowSimulatorDialog()
+
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()
-        self.simulator.OpenSimulator()
+        self.simulator.Simulate()
+    
+    def onCalculate(self):
+        self.Drawing.stateMachine.Nothing()
+        foundAPort=False
+        foundASource=False
+        foundAnOutput=False
+        for deviceIndex in range(len(self.Drawing.schematic.deviceList)):
+            device = self.Drawing.schematic.deviceList[deviceIndex]
+            deviceType = device['type'].GetValue()
+            if  deviceType == 'Port':
+                foundAPort = True
+            elif deviceType == 'Output':
+                foundAnOutput = True
+            else:
+                netListLine = device.NetListLine()
+                if not netListLine is None:
+                    firstToken=netListLine.strip().split(' ')[0]
+                    if firstToken == 'voltagesource':
+                        foundASource = True
+                    elif firstToken == 'currentsource':
+                        foundASource = True
+        canSimulate = foundASource and foundAnOutput and not foundAPort
+        canCalculateSParameters = foundAPort and not foundAnOutput
+        canCalculate = canSimulate or canCalculateSParameters
+        if canCalculate:
+            if canSimulate:
+                self.onSimulate()
+            elif canCalculateSParameters:
+                self.onCalculateSParameters()
 
 def main():
     app=TheApp()

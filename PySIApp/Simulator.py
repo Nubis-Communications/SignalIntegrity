@@ -64,9 +64,9 @@ class SimulatorDialog(Toplevel):
         self.timePointsFrame=SimulatorProperty(propertyListFrame,'time points',self.ontimePointsEntered,self.updateStrings)
         self.impulseLengthFrame=SimulatorProperty(propertyListFrame,'impulse response length',self.onimpulseLengthEntered,self.updateStrings)
         self.updateStrings()
-        controlsFrame = Frame(self)
-        Button(controlsFrame,text='simulate',command=self.onSimulate).pack(side=LEFT,expand=NO,fill=X)
-        controlsFrame.pack(side=TOP,fill=X,expand=NO)
+        #controlsFrame = Frame(self)
+        #Button(controlsFrame,text='simulate',command=self.onSimulate).pack(side=LEFT,expand=NO,fill=X)
+        #controlsFrame.pack(side=TOP,fill=X,expand=NO)
 
     def onendFrequencyEntered(self,event):
         self.simulator.endFrequency=nextHigher12458(float(self.endFrequencyFrame.GetString()))

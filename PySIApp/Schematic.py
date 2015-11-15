@@ -1029,6 +1029,7 @@ class Drawing(Frame):
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         foundAPort=False
         foundASource=False
+        foundAnOutput=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             devicePinsConnected=devicePinConnectedList[deviceIndex]
@@ -1036,6 +1037,8 @@ class Drawing(Frame):
             deviceType = device['type'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
+            elif deviceType == 'Output':
+                foundAnOutput = True
             else:
                 netListLine = device.NetListLine()
                 if not netListLine is None:
@@ -1051,8 +1054,12 @@ class Drawing(Frame):
             self.canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
                                     (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
                                     fill='black',outline='black')
-        self.parent.menu.CalcMenu.entryconfigure('Simulate',state='normal' if foundASource else 'disabled')
-        self.parent.menu.CalcMenu.entryconfigure('Calculate S-parameters',state='normal' if foundAPort else 'disabled')
+        canSimulate = foundASource and foundAnOutput and not foundAPort
+        canCalculateSParameters = foundAPort and not foundAnOutput
+        canCalculate = canSimulate or canCalculateSParameters
+        self.parent.menu.CalcMenu.entryconfigure('Simulate',state='normal' if canSimulate else 'disabled')
+        self.parent.toolbar.calculateButton.config(state='normal' if canCalculate else 'disabled')
+        self.parent.menu.CalcMenu.entryconfigure('Calculate S-parameters',state='normal' if canCalculateSParameters else 'disabled')
     def EditSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
             dpe=DevicePropertiesDialog(self,self.deviceSelected)
