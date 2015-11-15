@@ -2,7 +2,10 @@ from Tkinter import *
 
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
+from tkFileDialog import askdirectory  
+import tkMessageBox
 import copy
+import os
 
 #from idlelib.ToolTip import *
 
@@ -151,6 +154,24 @@ class TheApp(Frame):
 
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
+
+        sys.path.append(os.path.dirname(os.path.abspath(__file__))+'/..')
+        foundSignalIntegrity=False
+        while not foundSignalIntegrity:
+            foundSignalIntegrity = True
+            try:
+                import SignalIntegrity as si
+            except ImportError:
+                foundSignalIntegrity = False
+                if tkMessageBox.askokcancel('SignalIntegrity Package',
+                    'In order to run this application, I need to know where the '+\
+                    'SignalIntegrity package is.  Please browse to the directory where '+\
+                    'it\'s installed.\n'+'You should only need to do this once'):
+                        dirname = askdirectory(parent=self.root,initialdir=os.path.dirname(os.path.abspath(__file__)),
+                            title='Please select a directory')
+                        sys.path.append(dirname)
+                else:
+                    exit()
 
         self.statusbar=StatusBar(self)
 
@@ -350,6 +371,7 @@ class TheApp(Frame):
                 self.onCalculateSParameters()
 
     def onSParameterViewer(self):
+        import SignalIntegrity as si
         filetypes = [('s-parameter files', ('*.s*p'))]
         filename=askopenfilename(filetypes=filetypes,parent=self)
         if filename == '':
@@ -362,7 +384,7 @@ class TheApp(Frame):
         sp=si.sp.File(filename)
         SParametersDialog(self,sp)
 
-def main():
+def main():        
     app=TheApp()
 
 if __name__ == '__main__':

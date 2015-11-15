@@ -7,7 +7,7 @@ Created on Oct 22, 2015
 from Tkinter import *
 import matplotlib
 import math
-import SignalIntegrity as si
+
 from numpy import frompyfunc
 from PartProperty import PartPropertyDelay
 from Files import *
@@ -184,6 +184,7 @@ class SParametersDialog(Toplevel):
         self.deiconify()
 
     def PlotSParameter(self):
+        import SignalIntegrity as si
         self.topLeftPlot.cla()
         self.topRightPlot.cla()
         self.bottomLeftPlot.cla()
@@ -260,6 +261,7 @@ class SParametersDialog(Toplevel):
         return self
 
     def onUnwrap(self):
+        import SignalIntegrity as si
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
         ir=fr.ImpulseResponse()
         if ir is not None:
@@ -271,6 +273,7 @@ class SParametersDialog(Toplevel):
         self.delayViewerProperty.onUntouched(None)
 
     def onDelayEntered(self):
+        import SignalIntegrity as si
         self.topRightPlot.cla()
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
         TD = self.delay.GetValue()
@@ -281,6 +284,7 @@ class SParametersDialog(Toplevel):
         self.topRightCanvas.draw()
 
     def onReadSParametersFromFile(self):
+        import SignalIntegrity as si
         filetypes = [('s-parameter files', ('*.s*p'))]
         filename=askopenfilename(filetypes=filetypes,parent=self)
         if filename == '':
@@ -326,6 +330,7 @@ class SParametersDialog(Toplevel):
         self.sp.WriteToFile(filename)
 
     def onResample(self):
+        import SignalIntegrity as si
         self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
             self.parent.simulator.endFrequency,
             self.parent.simulator.frequencyPoints))
