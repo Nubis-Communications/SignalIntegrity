@@ -10,6 +10,10 @@ import math
 import SignalIntegrity as si
 from numpy import frompyfunc
 from PartProperty import PartPropertyDelay
+from Files import *
+
+from tkFileDialog import askopenfilename
+from tkFileDialog import asksaveasfilename
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -47,6 +51,31 @@ class ViewerProperty(Frame):
         self.callBack()
         self.parentFrame.focus()
 
+class SParametersDialogMenu(Menu):
+    def __init__(self,parent):
+        self.parent=parent
+        Menu.__init__(self,self.parent)
+        self.parent.config(menu=self)
+        self.FileMenu=Menu(self)
+        self.add_cascade(label='File',menu=self.FileMenu)
+        self.FileMenu.add_command(label="Save",command=self.parent.onWriteSParametersToFile)
+        self.FileMenu.add_command(label="Open File",command=self.parent.onReadSParametersFromFile)
+
+class SParametersDialogToolBar(Frame):
+    def __init__(self,parent):
+        self.parent=parent
+        Frame.__init__(self,self.parent)
+        self.pack(side=TOP,fill=X,expand=NO)
+        filesFrame=self
+        self.openProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-open-2.gif')
+        self.openProjectButton = Button(filesFrame,command=self.parent.onReadSParametersFromFile,image=self.openProjectButtonIcon)
+        self.openProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
+        self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteSParametersToFile,image=self.saveProjectButtonIcon)
+        self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
+        separator=Frame(self,bd=2,relief=SUNKEN)
+        separator.pack(side=LEFT,fill=X,padx=5,pady=5)
+
 class SParametersDialog(Toplevel):
     def __init__(self, parent,sp):
         Toplevel.__init__(self, parent)
@@ -55,6 +84,9 @@ class SParametersDialog(Toplevel):
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
+
+        self.menu=SParametersDialogMenu(self)
+        self.toolbar=SParametersDialogToolBar(self)
 
         topFrame=Frame(self)
         topFrame.pack(side=TOP,fill=BOTH,expand=YES)
@@ -114,27 +146,34 @@ class SParametersDialog(Toplevel):
         self.bottomRightToolbar.update()
         self.bottomRightCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
-        self.sp=sp
-        
-        self.fromPort = 1
-        self.toPort = 1
-        
-        self.PlotSParameter()
-
         controlsFrame = Frame(self)
+        controlsFrame.pack(side=TOP,fill=X,expand=NO)        
+        self.sButtonsFrame = Frame(controlsFrame, bd=1, relief=SUNKEN)
+        self.sButtonsFrame.pack(side=LEFT,expand=NO,fill=NONE)
         
-        sButtonsFrame = Frame(controlsFrame, bd=1, relief=SUNKEN)
-        sButtonsFrame.pack(side=LEFT,expand=NO,fill=NONE)
+        self.sp=sp
         numPorts=self.sp.m_P
+        
+        self.buttons=[]
         for toP in range(numPorts):
-            rowFrame=Frame(sButtonsFrame)
+            buttonrow=[]
+            rowFrame=Frame(self.sButtonsFrame)
             rowFrame.pack(side=TOP,expand=NO,fill=NONE)
             for fromP in range(numPorts):
-                Button(rowFrame,text='s'+str(toP+1)+str(fromP+1),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y)).pack(side=LEFT,fill=NONE,expand=NO)
-                       
-        #Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=LEFT,expand=NO,fill=X)
-        controlsFrame.pack(side=TOP,fill=X,expand=NO)
-    
+                thisButton=Button(rowFrame,text='s'+str(toP+1)+str(fromP+1),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+                thisButton.pack(side=LEFT,fill=NONE,expand=NO)
+                buttonrow.append(thisButton)
+            self.buttons.append(buttonrow)
+        
+        self.filename=None
+
+        self.fromPort = 1
+        self.toPort = 1
+
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
+        self.PlotSParameter()
+
+
     def PlotSParameter(self):
         self.topLeftPlot.cla()
         self.topRightPlot.cla()
@@ -167,8 +206,10 @@ class SParametersDialog(Toplevel):
         self.bottomRightCanvas.draw()
     
     def onSelectSParameter(self,toP,fromP):
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=RAISED)
         self.toPort = toP
         self.fromPort = fromP
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
 
     def onAutoscale(self):
@@ -211,9 +252,51 @@ class SParametersDialog(Toplevel):
         x=fr.Frequencies('GHz')
         self.topRightPlot.plot(x,y)
         self.topRightCanvas.draw()
-        
 
+    def onReadSParametersFromFile(self):
+        filetypes = [('s-parameter files', ('*.s*p'))]
+        filename=askopenfilename(filetypes=filetypes,parent=self)
+        if filename == '':
+            return
+        filenametokens=filename.split('.')
+        if len(filenametokens)==0:
+            return
+        #if len(filenametokens)==1:
+        #    filename=filename+extension
+        filename=ConvertFileNameToRelativePath(filename)
+        self.filename=filename
+        self.sp=si.sp.File(filename)
+        #self.__init__(self.parent,self.sp)
+        for widget in self.sButtonsFrame.winfo_children():
+            widget.destroy()
+   
+        numPorts=self.sp.m_P
+        self.buttons=[]
+        for toP in range(numPorts):
+            buttonrow=[]
+            rowFrame=Frame(self.sButtonsFrame)
+            rowFrame.pack(side=TOP,expand=NO,fill=NONE)
+            for fromP in range(numPorts):
+                thisButton=Button(rowFrame,text='s'+str(toP+1)+str(fromP+1),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+                thisButton.pack(side=LEFT,fill=NONE,expand=NO)
+                buttonrow.append(thisButton)
+            self.buttons.append(buttonrow)
 
+        self.fromPort = 1
+        self.toPort = 1
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
+        self.PlotSParameter()
 
+    def onWriteSParametersToFile(self):
+        ports=self.sp.m_P
+        extension='.s'+str(ports)+'p'
+        if self.filename == None:
+            filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,initialdir=os.getcwd(),parent=self)
+        else:
+            filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,initialfile=self.filename,parent=self)
+        if filename=='':
+            return
+        self.filename=filename
+        self.sp.WriteToFile(filename)
 
 

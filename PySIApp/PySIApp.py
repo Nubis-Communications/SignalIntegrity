@@ -17,6 +17,7 @@ from PlotWindow import *
 from Simulator import Simulator
 from NetList import *
 from SParameterViewerWindow import *
+from Files import *
 
 class TheMenu(Menu):
     def __init__(self,parent):
@@ -300,7 +301,7 @@ class TheApp(Frame):
         self.Drawing.DeleteSelectedWire()
 
     def onCalculateSParameters(self):
-        self.onCalculationProperties()
+        #self.onCalculationProperties()
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
@@ -308,12 +309,6 @@ class TheApp(Frame):
         spnp.AddLines(netList)
         sp=spnp.SParameters()
         SParametersDialog(self,sp)
-        ports=sp.m_P
-        extension='.s'+str(ports)+'p'
-        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension)
-        if filename == '':
-            return
-        sp.WriteToFile(filename)
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()

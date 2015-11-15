@@ -31,7 +31,7 @@ class FrequencyList(object):
             return (self/1.e6).Frequencies()
         elif unit == 'KHz':
             return (self/1.e3).Frequencies()
-    def CheckEvenlySpaced(self,epsilon=0.001):
+    def CheckEvenlySpaced(self,epsilon=0.01):
         if self.m_EvenlySpaced:
             return True
         for n in range(self.N+1):

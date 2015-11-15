@@ -191,11 +191,11 @@ class Simulator(object):
                     elif simulatorProperty.tag == 'user_samplerate':
                         userSampleRate = float(simulatorProperty.text)
         self.__init__(parent,endFrequency,frequencyPoints,userSampleRate)
-        self.SimulatorDialog().destroy()
+        #self.SimulatorDialog().destroy()
         self.PlotDialog().destroy()
     def Simulate(self):
         self.schematic=self.parent.Drawing.schematic
-        self.ShowSimulatorDialog()
+        #self.ShowSimulatorDialog()
         netList=self.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity as si
