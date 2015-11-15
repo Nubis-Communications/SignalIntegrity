@@ -132,6 +132,12 @@ class DeviceGround(Device):
     def NetListLine(self):
         return Device.NetListLine(self)+' ground'
 
+class DeviceOpen(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Open'),PartPropertyDefaultReferenceDesignator('O?'),PartPropertyDescription('Open'),PartPropertyPorts(1)],partPicture=PartPictureVariableOpen())
+    def NetListLine(self):
+        return Device.NetListLine(self)+' open'
+
 class DeviceVoltageSource(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Voltage Source'),PartPropertyDefaultReferenceDesignator('VS?'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
@@ -345,6 +351,7 @@ DeviceList = [
               DeviceMutual(),
               DeviceIdealTransformer(),
               DeviceGround(),
+              DeviceOpen(),
               DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
               DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
               DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),

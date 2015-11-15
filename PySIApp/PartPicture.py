@@ -503,6 +503,25 @@ class PartPictureVariableGround(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureGround'])
 
+class PartPictureOpen(PartPicture):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(1,(2,1),'r',False)],[(1,0),(2,2)],[(0,0),(2,2)],(0,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid-grid/4
+        rx=(drawingOrigin[0]+self.origin[0]+1)*grid+grid/4
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid-grid/4
+        by=(drawingOrigin[1]+self.origin[1]+1)*grid+grid/4
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((lx,ty)),ct.Translate((rx,by))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        p=[ct.Translate((rx,ty)),ct.Translate((lx,by))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableOpen(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureOpen'])
+
 class PartPictureInductorTwoPort(PartPicture):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False),PartPin(2,(4,1),'r',False)],[(1,0),(3,2)],[(0,0),(4,2)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
