@@ -60,6 +60,12 @@ class SParametersDialogMenu(Menu):
         self.add_cascade(label='File',menu=self.FileMenu)
         self.FileMenu.add_command(label="Save",command=self.parent.onWriteSParametersToFile)
         self.FileMenu.add_command(label="Open File",command=self.parent.onReadSParametersFromFile)
+        self.CalcMenu=Menu(self)
+        self.add_cascade(label='Calculate',menu=self.CalcMenu)
+        self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
+        #self.CalcMenu.add_command(label='S-parameter Viewer',command=self.parent.onSParameterViewer)
+        self.CalcMenu.add_separator()
+        self.CalcMenu.add_command(label='Resample',command=self.parent.onResample)
 
 class SParametersDialogToolBar(Frame):
     def __init__(self,parent):
@@ -80,6 +86,7 @@ class SParametersDialog(Toplevel):
     def __init__(self, parent,sp):
         Toplevel.__init__(self, parent)
         self.parent=parent
+        self.withdraw()
         self.title('S-parameters')
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
@@ -100,8 +107,8 @@ class SParametersDialog(Toplevel):
         bottomLeftFrame.pack(side=LEFT,fill=BOTH,expand=YES)
         bottomRightFrame=Frame(bottomFrame)
         bottomRightFrame.pack(side=LEFT,fill=BOTH,expand=YES)
-        
-        self.topLeftFigure=Figure(figsize=(5,3), dpi=100)
+
+        self.topLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftPlot.set_xlabel('frequency (GHz)')
         self.topLeftPlot.set_ylabel('magnitude (dB)')
@@ -111,7 +118,7 @@ class SParametersDialog(Toplevel):
         self.topLeftToolbar.update()
         self.topLeftCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
-        self.topRightFigure=Figure(figsize=(5,3), dpi=100)
+        self.topRightFigure=Figure(figsize=(5,2), dpi=100)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
         self.topRightPlot.set_xlabel('frequency (GHz)')
         self.topRightPlot.set_ylabel('phase (deg)')
@@ -126,7 +133,7 @@ class SParametersDialog(Toplevel):
         self.delay=PartPropertyDelay(0.)
         self.delayViewerProperty=ViewerProperty(self.topRightCanvasControlsFrame,self.delay,self.onDelayEntered)
 
-        self.bottomLeftFigure=Figure(figsize=(5,3), dpi=100)
+        self.bottomLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
         self.bottomLeftPlot.set_xlabel('time (ns)')
         self.bottomLeftPlot.set_ylabel('amplitude')
@@ -136,7 +143,7 @@ class SParametersDialog(Toplevel):
         self.bottomLeftToolbar.update()
         self.bottomLeftCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
-        self.bottomRightFigure=Figure(figsize=(5,3), dpi=100)
+        self.bottomRightFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
         self.bottomRightPlot.set_xlabel('frequency (GHz)')
         self.bottomRightPlot.set_ylabel('phase (deg)')
@@ -147,13 +154,15 @@ class SParametersDialog(Toplevel):
         self.bottomRightCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
         controlsFrame = Frame(self)
-        controlsFrame.pack(side=TOP,fill=X,expand=NO)        
+        controlsFrame.pack(side=TOP,fill=X,expand=NO)
         self.sButtonsFrame = Frame(controlsFrame, bd=1, relief=SUNKEN)
         self.sButtonsFrame.pack(side=LEFT,expand=NO,fill=NONE)
-        
+        self.resampleButton=Button(controlsFrame,text='resample',command=self.onResample)
+        self.resampleButton.pack(side=LEFT,expand=NO,fill=NONE)
+
         self.sp=sp
         numPorts=self.sp.m_P
-        
+
         self.buttons=[]
         for toP in range(numPorts):
             buttonrow=[]
@@ -164,7 +173,7 @@ class SParametersDialog(Toplevel):
                 thisButton.pack(side=LEFT,fill=NONE,expand=NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
-        
+
         self.filename=None
 
         self.fromPort = 1
@@ -172,7 +181,7 @@ class SParametersDialog(Toplevel):
 
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
-
+        self.deiconify()
 
     def PlotSParameter(self):
         self.topLeftPlot.cla()
@@ -193,18 +202,33 @@ class SParametersDialog(Toplevel):
         x=fr.Frequencies('GHz')
         self.topRightPlot.plot(x,y)
         #self.topRightPlot.canvas.draw()
- 
-        y=ir.Values()
-        x=ir.Times('ns')
-        self.bottomLeftPlot.plot(x,y)
-        self.bottomLeftPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
-        self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
+
+        if ir is not None:
+            y=ir.Values()
+            x=ir.Times('ns')
+            self.bottomLeftPlot.plot(x,y)
+            self.bottomLeftPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
+            self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
+            self.bottomLeftPlot.set_xlim(xmin=min(x))
+            self.bottomLeftPlot.set_xlim(xmax=max(x))
+
+            firFilter=ir.FirFilter()
+            stepWaveformTimeDescriptor=ir.TimeDescriptor()/firFilter.FilterDescriptor()
+            stepWaveform=si.td.wf.StepWaveform(stepWaveformTimeDescriptor)
+            stepResponse=stepWaveform*firFilter
+            y=stepResponse.Values()
+            x=stepResponse.Times('ns')
+            self.bottomRightPlot.plot(x,y)
+            self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
+            self.bottomRightPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
+            self.bottomRightPlot.set_xlim(xmin=min(x))
+            self.bottomRightPlot.set_xlim(xmax=max(x))
 
         self.topLeftCanvas.draw()
         self.topRightCanvas.draw()
         self.bottomLeftCanvas.draw()
         self.bottomRightCanvas.draw()
-    
+
     def onSelectSParameter(self,toP,fromP):
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=RAISED)
         self.toPort = toP
@@ -234,15 +258,18 @@ class SParametersDialog(Toplevel):
         self.plt.legend(loc='upper right',labelspacing=0.1)
         self.f.canvas.draw()
         return self
-    
+
     def onUnwrap(self):
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
         ir=fr.ImpulseResponse()
-        idx = ir.Values('abs').index(max(ir.Values('abs')))
-        TD = ir.Times()[idx] # the time of the main peak
+        if ir is not None:
+            idx = ir.Values('abs').index(max(ir.Values('abs')))
+            TD = ir.Times()[idx] # the time of the main peak
+        else:
+            TD=0.
         self.delay.SetValueFromString(str(TD))
         self.delayViewerProperty.onUntouched(None)
-        
+
     def onDelayEntered(self):
         self.topRightPlot.cla()
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
@@ -261,15 +288,14 @@ class SParametersDialog(Toplevel):
         filenametokens=filename.split('.')
         if len(filenametokens)==0:
             return
-        #if len(filenametokens)==1:
-        #    filename=filename+extension
+
         filename=ConvertFileNameToRelativePath(filename)
         self.filename=filename
         self.sp=si.sp.File(filename)
-        #self.__init__(self.parent,self.sp)
+
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
-   
+
         numPorts=self.sp.m_P
         self.buttons=[]
         for toP in range(numPorts):
@@ -299,4 +325,12 @@ class SParametersDialog(Toplevel):
         self.filename=filename
         self.sp.WriteToFile(filename)
 
+    def onResample(self):
+        self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
+            self.parent.simulator.endFrequency,
+            self.parent.simulator.frequencyPoints))
+        self.PlotSParameter()
 
+    def onCalculationProperties(self):
+        self.parent.onCalculationProperties()
+        self.parent.simulator.SimulatorDialog().lift(self)

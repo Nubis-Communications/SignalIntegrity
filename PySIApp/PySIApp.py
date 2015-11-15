@@ -63,6 +63,8 @@ class TheMenu(Menu):
         self.CalcMenu=Menu(self)
         self.add_cascade(label='Calculate',menu=self.CalcMenu)
         self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
+        self.CalcMenu.add_command(label='S-parameter Viewer',command=self.parent.onSParameterViewer)
+        self.CalcMenu.add_separator()
         self.CalcMenu.add_command(label='Calculate S-parameters',command=self.parent.onCalculateSParameters)
         self.CalcMenu.add_command(label='Simulate',command=self.parent.onSimulate)
 
@@ -317,7 +319,7 @@ class TheApp(Frame):
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()
         self.simulator.Simulate()
-    
+
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
         foundAPort=False
@@ -346,6 +348,19 @@ class TheApp(Frame):
                 self.onSimulate()
             elif canCalculateSParameters:
                 self.onCalculateSParameters()
+
+    def onSParameterViewer(self):
+        filetypes = [('s-parameter files', ('*.s*p'))]
+        filename=askopenfilename(filetypes=filetypes,parent=self)
+        if filename == '':
+            return
+        filenametokens=filename.split('.')
+        if len(filenametokens)==0:
+            return
+
+        filename=ConvertFileNameToRelativePath(filename)
+        sp=si.sp.File(filename)
+        SParametersDialog(self,sp)
 
 def main():
     app=TheApp()
