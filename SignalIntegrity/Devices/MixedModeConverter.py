@@ -1,9 +1,6 @@
 import math
 
 # Ports 1 2 3 4 are + - D C
-def MixedModeConverter():
-    MMCM=matrix([[0,0,1,1],[0,0,-1,1],[1,-1,0,0],[1,1,0,0]])/math.sqrt(2.0)
-    return array(MMCM).tolist()
 
 # this one has the right definition for differential and common mode voltage
 def MixedModeConverterVoltage():

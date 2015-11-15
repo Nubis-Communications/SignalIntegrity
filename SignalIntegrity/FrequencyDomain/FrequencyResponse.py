@@ -46,7 +46,8 @@ class FrequencyResponse(object):
         elif unit == 'rad':
             return [cmath.phase(self.m_resp[n]) for n in range(len(self.m_f))]
         elif unit == 'deg':
-            return [cmath.phase(self.m_resp[n])*180./math.pi for n in range(len(self.m_f))]
+            return [cmath.phase(self.m_resp[n])*180./math.pi
+                        for n in range(len(self.m_f))]
         elif unit == 'real':
             return [self.m_resp[n].real for n in range(len(self.m_f))]
         elif unit == 'imag':
@@ -180,7 +181,7 @@ class FrequencyResponse(object):
         # calculate the fractional delay
         TD=theta/2./math.pi/self.FrequencyList()[-1]
         return TD
-    def ResampleCZT(self,fdp):
+    def ResampleCZT(self,fdp,speedy=True):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
         if not evenlySpaced: return self._SplineResample(fdp)
@@ -189,7 +190,7 @@ class FrequencyResponse(object):
         Ni=int(min(math.floor(fd.Fe*fdp.N/fdp.Fe),fdp.N))
         Fei=Ni*fdp.Fe/fdp.N
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
-            CZT(ir.DelayBy(-TD).Values(),ir.TimeDescriptor().Fs,0,Fei,Ni)).\
+            CZT(ir.DelayBy(-TD).Values(),ir.TimeDescriptor().Fs,0,Fei,Ni,speedy)).\
             _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)
     def ReadFromFile(self,fileName):
         with open(fileName,"rU") as f:

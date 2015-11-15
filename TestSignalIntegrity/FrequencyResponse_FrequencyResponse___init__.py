@@ -19,7 +19,8 @@ class FrequencyResponse(object):
         elif unit == 'rad':
             return [cmath.phase(self.m_resp[n]) for n in range(len(self.m_f))]
         elif unit == 'deg':
-            return [cmath.phase(self.m_resp[n])*180./math.pi for n in range(len(self.m_f))]
+            return [cmath.phase(self.m_resp[n])*180./math.pi
+                        for n in range(len(self.m_f))]
         elif unit == 'real':
             return [self.m_resp[n].real for n in range(len(self.m_f))]
         elif unit == 'imag':

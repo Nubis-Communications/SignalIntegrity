@@ -213,6 +213,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_9_Fe_0p45(self):
         Np=9
         Fep=0.45
@@ -220,6 +222,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
         self.Checkit(self.id(),frr,frc,False)
     def testRes_N_20_Fe_0p5(self):
         Np=20
@@ -229,6 +233,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_20_Fe_1(self):
         Np=20
         Fep=1.
@@ -236,6 +242,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
         self.Checkit(self.id(),frr,frc,False)
     def testRes_N_53_Fe_0p435(self):
         Np=53
@@ -245,6 +253,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_23_Fe_0p6(self):
         Np=23
         Fep=0.6
@@ -252,6 +262,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
         self.Checkit(self.id(),frr,frc,False)
     def testirc(self):
         irc=self.irc()
@@ -418,6 +430,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
+        self.Checkit(self.id(),frr,frc,False)
     def testRes_N_11_Fe_0p45(self):
         Np=11
         Fep=0.45
@@ -425,6 +439,8 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         frr=frc.Resample(si.fd.EvenlySpacedFrequencyList(Fep,Np))
         self.Checkit(self.id(),frr,frc,False)
         frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np))
+        self.Checkit(self.id(),frr,frc,False)
+        frr=frc.ResampleCZT(si.fd.EvenlySpacedFrequencyList(Fep,Np),False)
         self.Checkit(self.id(),frr,frc,False)
     def test_SparqResampling(self):
         K=10240
