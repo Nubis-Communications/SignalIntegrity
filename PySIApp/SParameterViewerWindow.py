@@ -83,11 +83,14 @@ class SParametersDialogToolBar(Frame):
         separator.pack(side=LEFT,fill=X,padx=5,pady=5)
 
 class SParametersDialog(Toplevel):
-    def __init__(self, parent,sp):
+    def __init__(self, parent,sp,title=None,buttonLabels=None):
         Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
-        self.title('S-parameters')
+        if title is None:
+            self.title('S-parameters')
+        else:
+            self.title=title
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
@@ -161,15 +164,17 @@ class SParametersDialog(Toplevel):
         self.resampleButton.pack(side=LEFT,expand=NO,fill=NONE)
 
         self.sp=sp
-        numPorts=self.sp.m_P
+        if buttonLabels is None:
+            numPorts=self.sp.m_P
+            buttonLabels=[['s'+str(toP+1)+str(fromP+1) for toP in range(numPorts)] for fromP in range(numPorts)]
 
         self.buttons=[]
-        for toP in range(numPorts):
+        for toP in range(len(buttonLabels)):
             buttonrow=[]
             rowFrame=Frame(self.sButtonsFrame)
             rowFrame.pack(side=TOP,expand=NO,fill=NONE)
-            for fromP in range(numPorts):
-                thisButton=Button(rowFrame,text='s'+str(toP+1)+str(fromP+1),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+            for fromP in range(len(buttonLabels[0])):
+                thisButton=Button(rowFrame,text=buttonLabels[toP][fromP],width=len(buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
                 thisButton.pack(side=LEFT,fill=NONE,expand=NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)

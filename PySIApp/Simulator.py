@@ -30,7 +30,7 @@ class SimulatorDialogMenu(Menu):
         self.CalcMenu=Menu(self)
         self.add_cascade(label='Calculate',menu=self.CalcMenu)
         self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
-        self.CalcMenu.add_command(label='Examine Transfer Matrices',command=self.parent.onExamineTransferMatrices)
+        self.CalcMenu.add_command(label='View Transfer Parameters',command=self.parent.onExamineTransferMatrices)
         self.CalcMenu.add_separator()
         self.CalcMenu.add_command(label='Simulate',command=self.parent.parent.Simulate)
 
@@ -119,7 +119,10 @@ class SimulatorDialog(Toplevel):
         self.parent.parent.onCalculationProperties()
         self.parent.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
     def onExamineTransferMatrices(self):
-        SParametersDialog(self,self.parent.transferMatrices.SParameters())
+        buttonLabelList=[[out+' due to '+inp for inp in self.parent.sourceNames] for out in self.parent.outputWaveformLabels]
+        maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
+        buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
+        SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),'Transfer Parameters',buttonLabelList)
 
 class Simulator(object):
     def __init__(self,parent):
@@ -161,18 +164,19 @@ class Simulator(object):
             return
         tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         try:
-            inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+            self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+            self.sourceNames=netList.SourceNames()
         except si.PySIException as e:
             if e == si.PySIExceptionWaveformFile:
                 tkMessageBox.showerror('Simulator','Waveform file error: '+e.message)
                 return
 
-        outputWaveformList = tmp.ProcessWaveforms(inputWaveformList)
-        outputWaveformLabels=netList.OutputNames()
+        outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
+        self.outputWaveformLabels=netList.OutputNames()
 
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
                 if device[PartPropertyPartName().propertyName].GetValue() == 'Output':
                     if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
@@ -185,5 +189,5 @@ class Simulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
-        self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
+        self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 

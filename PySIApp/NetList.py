@@ -8,6 +8,7 @@ class NetList(object):
         self.textToShow=[]
         self.outputNames=[]
         self.measureNames=[]
+        self.sourceNames=[]
         deviceList = schematic.deviceList
         wireList = schematic.wireList.EquiPotentialWireList()
         # put all devices in the net list
@@ -16,6 +17,9 @@ class NetList(object):
             if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
                 thisline=device.NetListLine()
                 self.textToShow.append(thisline)
+                firstToken=thisline.strip().split(' ')[0]
+                if firstToken == 'voltagesource' or firstToken == 'currentsource':
+                    self.sourceNames.append(device[PartPropertyReferenceDesignator().propertyName].GetValue())
         # gather up all device pin coordinates
         devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
         devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
@@ -106,7 +110,8 @@ class NetList(object):
         return self.textToShow
     def OutputNames(self):
         return self.outputNames
-    
+    def SourceNames(self):
+        return self.sourceNames
 class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
         Frame.__init__(self,parent)
