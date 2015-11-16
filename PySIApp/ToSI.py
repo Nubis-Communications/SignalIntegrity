@@ -90,3 +90,27 @@ def ToSI(d,sa=''):
         s = "{d} ".format(d=d)
 
     return s+sa
+
+def FromSI(string,unit=None):
+    try:
+        return float(string)
+    except ValueError:
+        if unit is not None and unit != '':
+            string=string.split(unit)[0]
+            try:
+                return float(string)
+            except ValueError:
+                string=string.replace(' ','')
+                modifier=string[-1]
+                therest=string[:-1]
+                try:
+                    man=float(therest)
+                except ValueError:
+                    return None
+                Prefixes = ['y','z','a','f','p','n','u','m','',
+                            'K','M','G','T','P','E','Z','Y']
+                if modifier in Prefixes:
+                    exp=math.pow(10.,(Prefixes.index(modifier)-Prefixes.index(''))*3)
+                    return man*exp
+    return None
+                

@@ -17,7 +17,8 @@ from DeviceProperties import *
 from DevicePicker import *
 from Schematic import *
 from PlotWindow import *
-from Simulator import Simulator
+from CalculationProperties import *
+from Simulator import *
 from NetList import *
 from SParameterViewerWindow import *
 from Files import *
@@ -184,9 +185,8 @@ class TheApp(Frame):
         self.statusbar.pack(side=BOTTOM,fill=X,expand=NO)
         self.root.bind('<Key>',self.onKey)
 
-        #self.plotDialog=None
         self.simulator = Simulator(self)
-
+        self.calculationProperties=CalculationProperties(self)
         self.filename=None
 
         self.root.mainloop()
@@ -212,8 +212,8 @@ class TheApp(Frame):
         for child in root:
             if child.tag == 'drawing':
                 self.Drawing.InitFromXml(child)
-            elif child.tag == 'simulator':
-                self.simulator.InitFromXml(child, self)
+            elif child.tag == 'calculation_properties':
+                self.calculationProperties.InitFromXml(child, self)
         self.filename=filename
         self.Drawing.DrawSchematic()
 
@@ -229,8 +229,8 @@ class TheApp(Frame):
         self.filename=filename
         projectElement=et.Element('Project')
         drawingElement=self.Drawing.xml()
-        simulatorElement=self.simulator.xml()
-        projectElement.extend([drawingElement,simulatorElement])
+        calculationPropertiesElement=self.calculationProperties.xml()
+        projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
 
     def onClearSchematic(self):
@@ -328,14 +328,30 @@ class TheApp(Frame):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
-        spnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(self.simulator.endFrequency,self.simulator.frequencyPoints))
+        spnp=si.p.SystemSParametersNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                self.calculationProperties.endFrequency,
+                self.calculationProperties.frequencyPoints))
         spnp.AddLines(netList)
-        sp=spnp.SParameters()
+        try:
+            sp=spnp.SParameters()
+        except si.PySIException as e:
+            if e == si.PySIExceptionCheckConnections:
+                tkMessageBox.showerror('S-parameter Calculator','Unconnected devices error: '+e.message)
+            elif e == si.PySIExceptionSParameterFile:
+                tkMessageBox.showerror('S-parameter Calculator','s-parameter file error: '+e.message)
+            elif e == si.PySIExceptionNumeric:
+                tkMessageBox.showerror('S-parameter Calculator','S-parameter Calculator Numerical Error: '+e.message)
+            elif e == si.PySIExceptionSystemDescriptionBuildError:
+                tkMessageBox.showerror('S-parameter Calculator','Schematic Error: '+e.message)
+            else:
+                tkMessageBox.showerror('S-parameter Calculator','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            return
         SParametersDialog(self,sp)
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
-        self.simulator.ShowSimulatorDialog()
+        self.calculationProperties.ShowCalculationPropertiesDialog()
 
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()

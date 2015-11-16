@@ -28,7 +28,10 @@ class Schematic(object):
         for child in schematicElement:
             if child.tag == 'devices':
                 for deviceElement in child:
-                    returnedDevice=DeviceXMLClassFactory(deviceElement).result
+                    try:
+                        returnedDevice=DeviceXMLClassFactory(deviceElement).result
+                    except NameError: # part picture doesn't exist
+                        returnedDevice=None
                     if not returnedDevice is None:
                         self.deviceList.append(returnedDevice)
             elif child.tag == 'wires':

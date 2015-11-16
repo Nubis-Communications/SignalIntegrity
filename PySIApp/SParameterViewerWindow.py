@@ -332,10 +332,10 @@ class SParametersDialog(Toplevel):
     def onResample(self):
         import SignalIntegrity as si
         self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
-            self.parent.simulator.endFrequency,
-            self.parent.simulator.frequencyPoints))
+            self.parent.calculationProperties.endFrequency,
+            self.parent.calculationProperties.frequencyPoints))
         self.PlotSParameter()
 
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
-        self.parent.simulator.SimulatorDialog().lift(self)
+        self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)

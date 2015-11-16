@@ -6,7 +6,7 @@ Created on Oct 15, 2015
 import xml.etree.ElementTree as et
 import math
 
-from ToSI import ToSI
+from ToSI import *
 
 class PartProperty(object):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):
@@ -77,7 +77,9 @@ class PartProperty(object):
         elif self.type=='int':
             self._value = int(string)
         elif self.type=='float':
-            self._value = float(string)
+            value = FromSI(string,self.unit)
+            if value is not None:
+                self._value=value
         else:
             raise ValueError
             self._value = str(string)

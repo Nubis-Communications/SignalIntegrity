@@ -29,14 +29,16 @@ class DeviceProperty(Frame):
         keywordVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
         propertyLabel = Label(self,width=25,text=self.partProperty.description+': ',anchor='e')
         propertyLabel.pack(side=LEFT, expand=NO, fill=X)
-        propertyEntry = Entry(self,textvariable=self.propertyString)
-        propertyEntry.config(width=15)
-        propertyEntry.bind('<Return>',self.onEntered)
-        propertyEntry.bind('<FocusIn>',self.onTouched)
-        propertyEntry.bind('<Button-3>',self.onUntouched)
-        propertyEntry.bind('<Escape>',self.onUntouched)
-        propertyEntry.bind('<FocusOut>',self.onUntouched)
-        propertyEntry.pack(side=LEFT, expand=YES, fill=X)
+        self.propertyEntry = Entry(self,textvariable=self.propertyString)
+        self.propertyEntry.config(width=15)
+        self.propertyEntry.bind('<Return>',self.onEntered)
+        self.propertyEntry.bind('<Button-1>',self.onTouched)
+        self.propertyEntry.bind('<Button-1>',self.onTouched)        
+        self.propertyEntry.bind('<Double-Button-1>',self.onCleared)
+        self.propertyEntry.bind('<Button-3>',self.onUntouchedLoseFocus)
+        self.propertyEntry.bind('<Escape>',self.onUntouchedLoseFocus)
+        self.propertyEntry.bind('<FocusOut>',self.onUntouched)
+        self.propertyEntry.pack(side=LEFT, expand=YES, fill=X)
         if self.partProperty.type == 'file':
             propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
             propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
@@ -65,12 +67,15 @@ class DeviceProperty(Frame):
         self.callBack()
     def onEntered(self,event):
         self.partProperty.SetValueFromString(self.propertyString.get())
-        self.onUntouched(event)
+        self.onUntouchedLoseFocus(event)
     def onTouched(self,event):
+        self.propertyEntry.focus()
+    def onCleared(self,event):
         self.propertyString.set('')
     def onUntouched(self,event):
         self.propertyString.set(self.partProperty.PropertyString(stype='entry'))
         self.callBack()
+    def onUntouchedLoseFocus(self,event):
         self.parentFrame.focus()
 
 class DeviceProperties(Frame):
