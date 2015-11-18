@@ -34,7 +34,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         elif lineList[0] in exclusionList:
             self.m_ul.append(line)
         elif lineList[0] == 'device':
-            argList = [lineList[i] for i in range(3,len(lineList))]
+            argList = lineList[3:]
             if [lineList[2]]+argList in self.m_spcl:
                 dev = DeviceParser(self.m_f,int(lineList[2]),None)
                 dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]

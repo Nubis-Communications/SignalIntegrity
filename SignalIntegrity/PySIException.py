@@ -39,3 +39,7 @@ class PySIExceptionSimulator(PySIException):
 class PySIExceptionNumeric(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'Numeric',message)
+
+class PySIExceptionDeviceParser(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'DeviceParser',message)

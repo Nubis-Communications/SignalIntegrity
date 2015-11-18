@@ -11,8 +11,7 @@ class DeembedderParser(SystemDescriptionParser):
         if len(lineList) == 0: # pragma: no cover
             return
         if lineList[0] == 'system':
-            dev=DeviceParser(self.m_f,None,[lineList[i]
-                for i in range(1,len(lineList))])
+            dev=DeviceParser(self.m_f,None,lineList[1:])
             if not dev.m_spf is None:
                 self.m_spc.append(('system',dev.m_spf))
         elif lineList[0] == 'unknown':
