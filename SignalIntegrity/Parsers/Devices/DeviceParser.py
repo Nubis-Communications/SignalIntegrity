@@ -35,7 +35,7 @@ class DeviceFactory(object):
         ParserDevice('thru',2,False,{},False,"Thru()"),
         ParserDevice('termination',None,False,{},False,"zeros(shape=(ports,ports)).tolist()"),
         ParserDevice('tee',None,False,{},False,"Tee(ports)"),
-        ParserDevice('mixedmode',4,True,{'':None},False,"(MixedModeConverterVoltage() if arg[''] == 'voltage' else MixedModeConverter())"),
+        ParserDevice('mixedmode',4,True,{'':'power'},False,"(MixedModeConverterVoltage() if arg[''] == 'voltage' else MixedModeConverter())"),
         ParserDevice('idealtransformer',4,True,{'':1.},False,"IdealTransformer(float(arg['']))"),
         ParserDevice('voltagecontrolledvoltagesource',4,True,{'':None},False,"VoltageControlledVoltageSource(float(arg['']))"),
         ParserDevice('currentcontrolledcurrentsource',4,True,{'':None},False,"CurrentControlledCurrentSource(float(arg['']))"),
@@ -54,7 +54,9 @@ class DeviceFactory(object):
         ParserDevice('transconductanceamplifier',3,False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifierThreePort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
         ParserDevice('transconductanceamplifier',4,False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifierFourPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
         ParserDevice('tline',2,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
-        ParserDevice('tline',4,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))")
+        ParserDevice('tline',4,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
+        ParserDevice('teltline',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,'ln':0.,'cn':0.,'gn':0.,'lm':0.,'cm':0.,'gm':0.,'z0':50.,'K':1},
+                     True,"ApproximateFourPortTLine(f, float(arg['rp']),float(arg['lp']),float(arg['cp']),float(arg['gp']),float(arg['rn']),float(arg['ln']),float(arg['cn']),float(arg['gn']),float(arg['lm']),float(arg['cm']),float(arg['gm']),float(arg['z0']),int(arg['k']))")
         ]
     def __getitem__(self,item):
         return self.deviceList[item]
@@ -86,14 +88,19 @@ class DeviceFactory(object):
                     if key not in device.defaults:
                         invalidKeyList.append(key)
                 raise PySIExceptionDeviceParser('argument keyword(s) invalid: '+str(invalidKeyList)+' for '+name)
-            # TODO: test for uninitialized required argument
             arg=copy.copy(device.defaults)
             arg.update(argsProvidedDict)
+            if not all(arg[key] != None for key in arg.keys()):
+                argNotProvidedList=[]
+                for key in arg:
+                    if arg[key] == None:
+                        argNotProvidedList.append(key)
+                raise PySIExceptionDeviceParser('manditory keyword(s) not supplied: '+str(argNotProvidedList)+' for '+name)
             try:
                 self.dev=eval(device.func)
                 self.frequencyDependent=device.frequencyDependent
             except:
-                print 'device '+name+' could not be instantiated with arguments: '+' '.join(argsList)
+                #print 'device '+name+' could not be instantiated with arguments: '+' '.join(argsList)
                 raise PySIExceptionDeviceParser('device '+name+' could not be instantiated with arguments: '+' '.join(argsList))
             return True
         return False
@@ -118,6 +125,6 @@ class DeviceParser():
             else:
                 self.m_sp=self.deviceFactory.dev
         else:
-            print 'device not found: '+' '.join(argsList)
+            #print 'device not found: '+' '.join(argsList)
             raise PySIExceptionDeviceParser('device not found: '+' '.join(argsList))
         return
