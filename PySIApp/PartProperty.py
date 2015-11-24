@@ -179,16 +179,20 @@ class PartPropertyWaveformFileName(PartProperty):
         PartProperty.__init__(self,'waveformfilename',type='file',unit=None,description='file name',value=fileName)
 
 class PartPropertyResistance(PartProperty):
-    def __init__(self,resistance=50.):
-        PartProperty.__init__(self,'resistence',type='float',unit='Ohm',keyword='r',description='resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
+    def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
+        PartProperty.__init__(self,'resistence',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
 
 class PartPropertyCapacitance(PartProperty):
-    def __init__(self,capacitance=1e-12):
-        PartProperty.__init__(self,'capacitance',type='float',unit='F',keyword='c',description='capacitance (F)',value=capacitance,visible=True,keywordVisible=False)
+    def __init__(self,capacitance=1e-12,keyword='c',descriptionPrefix=''):
+        PartProperty.__init__(self,'capacitance',type='float',unit='F',keyword=keyword,description=descriptionPrefix+'capacitance (F)',value=capacitance,visible=True,keywordVisible=False)
 
 class PartPropertyInductance(PartProperty):
-    def __init__(self,inductance=1e-15):
-        PartProperty.__init__(self,'inductance',type='float',unit='H',keyword='l',description='inductance (H)',value=inductance,visible=True,keywordVisible=False)
+    def __init__(self,inductance=1e-15,keyword='l',descriptionPrefix=''):
+        PartProperty.__init__(self,'inductance',type='float',unit='H',keyword=keyword,description=descriptionPrefix+'inductance (H)',value=inductance,visible=True,keywordVisible=False)
+
+class PartPropertyConductance(PartProperty):
+    def __init__(self,conductance=0.,keyword='g',descriptionPrefix=''):
+        PartProperty.__init__(self,'conductance',type='float',unit='S',keyword=keyword,description=descriptionPrefix+'conductance (S)',value=conductance,visible=True,keywordVisible=False)
 
 class PartPropertyPartName(PartProperty):
     def __init__(self,partName=''):
@@ -278,3 +282,6 @@ class PartPropertyCharacteristicImpedance(PartProperty):
     def __init__(self,characteristicImpedance=50.):
         PartProperty.__init__(self,'characteristicimpedance',type='float',unit='Ohm',keyword='zc',description='characteristic impedance (Ohms)',value=characteristicImpedance,visible=True)
 
+class PartPropertySections(PartProperty):
+    def __init__(self,sections=1):
+        PartProperty.__init__(self,'sections',type='int',unit='',keyword='sect',description='sections',value=sections,visible=True,keywordVisible=False)

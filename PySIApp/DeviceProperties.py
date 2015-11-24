@@ -12,14 +12,14 @@ from PartProperty import *
 from Files import *
 
 class DeviceProperty(Frame):
-    def __init__(self,parentFrame,device,partProperty,callBack):
+    def __init__(self,parentFrame,device,partProperty,callBack,hidden):
         Frame.__init__(self,parentFrame)
-        self.pack(side=TOP,fill=X,expand=YES)
+        if not hidden:
+            self.pack(side=TOP,fill=X,expand=YES)
         self.parentFrame=parentFrame
         self.device=device
         self.partProperty=partProperty
         self.callBack=callBack
-        self.pack(side=TOP,fill=X,expand=YES)
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
         self.propertyVisible=IntVar(value=int(self.partProperty.visible))
         self.keywordVisible=IntVar(value=int(self.partProperty.keywordVisible))
@@ -33,7 +33,7 @@ class DeviceProperty(Frame):
         self.propertyEntry.config(width=15)
         self.propertyEntry.bind('<Return>',self.onEntered)
         self.propertyEntry.bind('<Button-1>',self.onTouched)
-        self.propertyEntry.bind('<Button-1>',self.onTouched)        
+        self.propertyEntry.bind('<Button-1>',self.onTouched)
         self.propertyEntry.bind('<Double-Button-1>',self.onCleared)
         self.propertyEntry.bind('<Button-3>',self.onUntouchedLoseFocus)
         self.propertyEntry.bind('<Escape>',self.onUntouchedLoseFocus)
@@ -87,9 +87,8 @@ class DeviceProperties(Frame):
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
         propertyListFrame.bind("<Return>", parent.ok)
         self.propertyFrameList=[]
-        for p in range(len(self.device.propertiesList)):
-            if not self.device.propertiesList[p].hidden:
-                self.propertyFrameList.append(DeviceProperty(propertyListFrame,self.device,self.device.propertiesList[p],self.UpdatePicture))
+        for partProperty in self.device.propertiesList:
+            self.propertyFrameList.append(DeviceProperty(propertyListFrame,self.device,partProperty,self.UpdatePicture,partProperty.hidden))
         rotationFrame = Frame(propertyListFrame)
         rotationFrame.pack(side=TOP,fill=X,expand=NO)
         self.rotationString=StringVar(value=str(self.device.partPicture.current.orientation))
@@ -191,6 +190,7 @@ class DevicePropertiesDialog(Toplevel):
     # command hooks
     def apply(self):
         self.result=copy.deepcopy(self.device)
-        for propFrame in self.DeviceProperties.propertyFrameList:
-            self.result[propFrame.partProperty.propertyName]=propFrame.partProperty
+        for pIndex in range(len(self.DeviceProperties.propertyFrameList)):
+            propFrame=self.DeviceProperties.propertyFrameList[pIndex]
+            self.result.propertiesList[pIndex]=propFrame.partProperty
         return

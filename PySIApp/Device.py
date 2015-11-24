@@ -31,6 +31,11 @@ class Device(object):
             if partProperty.propertyName == name:
                 return partProperty
         return None
+    def PartPropertyByKeyword(self,keyword):
+        for partProperty in self.propertiesList:
+            if partProperty.keyword == keyword:
+                return partProperty
+        return None
     def AddPartProperty(self,PartProperty):
         self.propertiesList=self.propertiesList+[PartProperty]
     def __getitem__(self,item):
@@ -338,6 +343,41 @@ class DeviceTransmissionLine(Device):
     def NetListLine(self):
         return Device.NetListLine(self)+' tline '+self[PartPropertyCharacteristicImpedance().propertyName].NetListProperty()+' '+self[PartPropertyDelay().propertyName].NetListProperty()
 
+class DeviceTelegrapherTwoPort(Device):
+    def __init__(self,propertiesList,partPicture):
+        pprp=PartPropertyResistance()
+        Device.__init__(self,[PartPropertyCategory('TransmissionLines'),PartPropertyPartName('Telegrapher'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyResistance(),PartPropertyInductance(),PartPropertyConductance(),PartPropertyCapacitance(),PartPropertySections()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return Device.NetListLine(self)+' telegrapher '+\
+            self[PartPropertyResistance().propertyName].NetListProperty()+' '+\
+            self[PartPropertyInductance().propertyName].NetListProperty()+' '+\
+            self[PartPropertyConductance().propertyName].NetListProperty()+' '+\
+            self[PartPropertyCapacitance().propertyName].NetListProperty()+' '+\
+            self[PartPropertySections().propertyName].NetListProperty()
+
+class DeviceTelegrapherFourPort(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('TransmissionLines'),PartPropertyPartName('Telegrapher'),PartPropertyDefaultReferenceDesignator('T?'),
+            PartPropertyResistance(keyword='rp',descriptionPrefix='positive '),PartPropertyInductance(keyword='lp',descriptionPrefix='positive '),PartPropertyConductance(keyword='gp',descriptionPrefix='positive '),PartPropertyCapacitance(keyword='cp',descriptionPrefix='positive '),
+            PartPropertyResistance(keyword='rn',descriptionPrefix='negative '),PartPropertyInductance(keyword='ln',descriptionPrefix='negative '),PartPropertyConductance(keyword='gn',descriptionPrefix='negative '),PartPropertyCapacitance(keyword='cn',descriptionPrefix='negative '),
+            PartPropertyConductance(keyword='gm',descriptionPrefix='mutual '),PartPropertyInductance(keyword='lm',descriptionPrefix='mutual '),PartPropertyCapacitance(keyword='cm',descriptionPrefix='mutual '),
+            PartPropertySections()]+propertiesList,partPicture)
+    def NetListLine(self):
+        nl=Device.NetListLine(self)+' telegrapher '
+        nl=nl+self.PartPropertyByKeyword('rp').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('lp').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('gp').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('cp').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('rn').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('ln').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('gn').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('cn').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('lm').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('gm').NetListProperty()+' '
+        nl=nl+self.PartPropertyByKeyword('cm').NetListProperty()+' '
+        nl=nl+self[PartPropertySections().propertyName].NetListProperty()
+        return nl
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
               DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
@@ -354,6 +394,8 @@ DeviceList = [
               DeviceOpen(),
               DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
               DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
+              DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
+              DeviceTelegrapherFourPort([PartPropertyDescription('Four Port Telegrapher'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
               DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
               DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
               DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),

@@ -5,83 +5,51 @@ from SignalIntegrity.Conversions import S2T
 from SignalIntegrity.Conversions import T2S
 from SignalIntegrity.SParameters.SParameters import SParameters
 
-class ApproximateFourPortTLineOld(SParameters):
-    def __init__(self,f, Rsp, Lsp, Csp, Gsp, Rsm, Lsm, Csm, Gsm, Lm, Cm, Gm, Z0, K):
-        from SignalIntegrity.Devices import SeriesZ
-        from SignalIntegrity.Devices import SeriesG
-        from SignalIntegrity.Devices import SeriesC
-        from SignalIntegrity.Devices import SeriesL
-        from SignalIntegrity.Devices import Ground
-        from SignalIntegrity.Devices import Mutual
-        import SignalIntegrity.SParameters.Devices as dev
-        from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
-        sspn=SystemSParametersNumeric()
-        spdl=[]
-        sspn.AddDevice('RP',2,SeriesZ(Rsp/K,Z0))
-        sspn.AddDevice('RN',2,SeriesZ(Rsm/K,Z0))
-        sspn.AddDevice('LP',2), spdl.append(('LP',dev.SeriesL(f,Lsp/K,Z0)))
-        sspn.AddDevice('LN',2), spdl.append(('LN',dev.SeriesL(f,Lsm/K,Z0)))
-        sspn.AddDevice('M',4), spdl.append(('M',dev.Mutual(f,Lm/K,Z0)))
-        sspn.AddDevice('GM',2,SeriesG(Gm/K,Z0))
-        sspn.AddDevice('CM',2), spdl.append(('CM',dev.SeriesC(f,Cm/K,Z0)))
-        sspn.AddDevice('CP',2), spdl.append(('CP',dev.SeriesC(f,Csp/K,Z0)))
-        sspn.AddDevice('CN',2), spdl.append(('CN',dev.SeriesC(f,Csm/K,Z0)))
-        sspn.AddDevice('GDP',1,Ground())
-        sspn.AddDevice('GDN',1,Ground())
-        sspn.AddDevice('GP',2,SeriesG(Gsp/K,Z0))
-        sspn.AddDevice('GN',2,SeriesG(Gsm/K,Z0))
-        sspn.AddPort('RP',1,1)
-        sspn.AddPort('RN',1,2)
-        sspn.ConnectDevicePort('RP',2,'LP',1)
-        sspn.ConnectDevicePort('RN',2,'LN',1)
-        sspn.ConnectDevicePort('LP',2,'M',1)
-        sspn.ConnectDevicePort('LN',2,'M',3)
-        sspn.ConnectDevicePort('M',2,'GM',1)
-        sspn.ConnectDevicePort('M',4,'GM',2)
-        sspn.ConnectDevicePort('GM',1,'CM',1)
-        sspn.ConnectDevicePort('GM',2,'CM',2)
-        sspn.ConnectDevicePort('CM',1,'CP',1)
-        sspn.ConnectDevicePort('CM',2,'CN',1)
-        sspn.ConnectDevicePort('CP',2,'GDP',1)
-        sspn.ConnectDevicePort('CN',2,'GDN',1)
-        sspn.ConnectDevicePort('GP',1,'CP',1)
-        sspn.ConnectDevicePort('GP',2,'CP',2)
-        sspn.ConnectDevicePort('GN',1,'CN',1)
-        sspn.ConnectDevicePort('GN',2,'CN',2)
-        sspn.AddPort('GM',1,3)
-        sspn.AddPort('GM',2,4)
-        sp=[]
-        for n in range(len(f)):
-            for ds in spdl: sspn.AssignSParameters(ds[0],ds[1][n])
-            sp.append(T2S(linalg.matrix_power(S2T(sspn.SParameters()),K)))
-        SParameters.__init__(self,f,sp)
-
 class ApproximateFourPortTLine(SParameters):
-    def __init__(self,f, Rsp, Lsp, Csp, Gsp, Rsm, Lsm, Csm, Gsm, Lm, Cm, Gm, Z0, K):
+    def __init__(self,f, rp, lp, cp, gp, rn, ln, cn, gn, lm, cm, gm, Z0, K):
         self.m_K=K
         from SignalIntegrity.Devices import SeriesG
+        from SignalIntegrity.Devices import SeriesZ
+        from SignalIntegrity.Devices import SeriesL
+        from SignalIntegrity.Devices import TerminationG
         from SignalIntegrity.Devices import SeriesC
         from SignalIntegrity.Devices import Mutual
         import SignalIntegrity.SParameters.Devices as dev
         from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
         self.m_sspn=SystemSParametersNumeric()
         self.m_spdl=[]
-        self.m_sspn.AddDevice('TP',2), self.m_spdl.append(('TP',dev.ApproximateTwoPortTLine(f,Rsp/K,Lsp/K,Gsp/K,Csp/K,Z0,1)))
-        self.m_sspn.AddDevice('TN',2), self.m_spdl.append(('TN',dev.ApproximateTwoPortTLine(f,Rsm/K,Lsm/K,Gsm/K,Csm/K,Z0,1)))
-        self.m_sspn.AddDevice('M',4), self.m_spdl.append(('M',dev.Mutual(f,Lm/K,Z0)))
-        self.m_sspn.AddDevice('GM',2,SeriesG(Gm/K,Z0))
-        self.m_sspn.AddDevice('CM',2), self.m_spdl.append(('CM',dev.SeriesC(f,Cm/K,Z0)))
-        self.m_sspn.AddPort('M',1,1)
-        self.m_sspn.AddPort('M',3,2)
-        self.m_sspn.ConnectDevicePort('M',2,'TP',1)
-        self.m_sspn.ConnectDevicePort('M',4,'TN',1)
-        self.m_sspn.ConnectDevicePort('TP',2,'GM',1)
-        self.m_sspn.ConnectDevicePort('TN',2,'GM',2)
-        self.m_sspn.ConnectDevicePort('TP',2,'CM',1)
-        self.m_sspn.ConnectDevicePort('TN',2,'CM',2)
-        self.m_sspn.AddPort('TP',2,3)
-        self.m_sspn.AddPort('TN',2,4)
+        self.m_sspn.AddDevice('rp',2,SeriesZ(rp/K,Z0))
+        self.m_sspn.AddDevice('lp',2), self.m_spdl.append(('lp',dev.SeriesL(f,lp/K,Z0)))
+        self.m_sspn.AddDevice('gp',1,TerminationG(gp/K,Z0))
+        self.m_sspn.AddDevice('cp',1), self.m_spdl.append(('cp',dev.TerminationC(f,cp/K,Z0)))
+        self.m_sspn.AddDevice('rn',2,SeriesZ(rn/K,Z0))
+        self.m_sspn.AddDevice('ln',2), self.m_spdl.append(('ln',dev.SeriesL(f,ln/K,Z0)))
+        self.m_sspn.AddDevice('gn',1,TerminationG(gn/K,Z0))
+        self.m_sspn.AddDevice('cn',1), self.m_spdl.append(('cn',dev.TerminationC(f,cn/K,Z0)))
+        self.m_sspn.AddDevice('lm',4), self.m_spdl.append(('lm',dev.Mutual(f,lm/K,Z0)))
+        self.m_sspn.AddDevice('gm',2,SeriesG(gm/K,Z0))
+        self.m_sspn.AddDevice('cm',2), self.m_spdl.append(('cm',dev.SeriesC(f,cm/K,Z0)))
+        self.m_sspn.ConnectDevicePort('rp',2,'lp',1)
+        self.m_sspn.ConnectDevicePort('rn',2,'ln',1)
+        self.m_sspn.ConnectDevicePort('lp',2,'lm',1)
+        self.m_sspn.ConnectDevicePort('ln',2,'lm',3)
+        self.m_sspn.ConnectDevicePort('lm',2,'gp',1)
+        self.m_sspn.ConnectDevicePort('lm',2,'cp',1)
+        self.m_sspn.ConnectDevicePort('lm',2,'gm',1)
+        self.m_sspn.ConnectDevicePort('lm',2,'cm',1)
+        self.m_sspn.ConnectDevicePort('lm',4,'gn',1)
+        self.m_sspn.ConnectDevicePort('lm',4,'cn',1)
+        self.m_sspn.ConnectDevicePort('lm',4,'gm',2)
+        self.m_sspn.ConnectDevicePort('lm',4,'cm',2)
+        self.m_sspn.AddPort('rp',1,1)
+        self.m_sspn.AddPort('lm',2,2)
+        self.m_sspn.AddPort('rn',1,3)
+        self.m_sspn.AddPort('lm',4,4)
+        self.lp=[1,3]
+        self.rp=[2,4]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
-        return T2S(linalg.matrix_power(S2T(self.m_sspn.SParameters()),self.m_K))
+        sp=self.m_sspn.SParameters()
+        if sp == 1: return sp
+        return T2S(linalg.matrix_power(S2T(sp,self.lp,self.rp),self.m_K),self.lp,self.rp)

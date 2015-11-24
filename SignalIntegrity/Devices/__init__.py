@@ -9,6 +9,7 @@ from SeriesC import *
 from SeriesL import *
 from TerminationC import *
 from TerminationL import *
+from TerminationG import *
 from ShuntZ import *
 from ShuntDevice import *
 from Tee import *

@@ -166,7 +166,7 @@ class SParametersDialog(Toplevel):
         self.sp=sp
         if buttonLabels is None:
             numPorts=self.sp.m_P
-            buttonLabels=[['s'+str(toP+1)+str(fromP+1) for toP in range(numPorts)] for fromP in range(numPorts)]
+            buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
 
         self.buttons=[]
         for toP in range(len(buttonLabels)):

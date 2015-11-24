@@ -55,8 +55,10 @@ class DeviceFactory(object):
         ParserDevice('transconductanceamplifier',4,False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifierFourPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
         ParserDevice('tline',2,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
         ParserDevice('tline',4,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
-        ParserDevice('teltline',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,'ln':0.,'cn':0.,'gn':0.,'lm':0.,'cm':0.,'gm':0.,'z0':50.,'K':1},
-                     True,"ApproximateFourPortTLine(f, float(arg['rp']),float(arg['lp']),float(arg['cp']),float(arg['gp']),float(arg['rn']),float(arg['ln']),float(arg['cn']),float(arg['gn']),float(arg['lm']),float(arg['cm']),float(arg['gm']),float(arg['z0']),int(arg['k']))")
+        ParserDevice('telegrapher',2,False,{'r':0.,'l':0.,'c':0.,'g':0.,'z0':50.,'sect':1},
+                     True,"ApproximateTwoPortTLine(f, float(arg['r']),float(arg['l']),float(arg['g']),float(arg['c']),float(arg['z0']),int(arg['sect']))"),
+        ParserDevice('telegrapher',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,'ln':0.,'cn':0.,'gn':0.,'lm':0.,'cm':0.,'gm':0.,'z0':50.,'sect':1},
+                     True,"ApproximateFourPortTLine(f, float(arg['rp']),float(arg['lp']),float(arg['cp']),float(arg['gp']),float(arg['rn']),float(arg['ln']),float(arg['cn']),float(arg['gn']),float(arg['lm']),float(arg['cm']),float(arg['gm']),float(arg['z0']),int(arg['sect']))")
         ]
     def __getitem__(self,item):
         return self.deviceList[item]

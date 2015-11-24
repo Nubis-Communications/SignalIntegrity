@@ -3,13 +3,13 @@ import math
 
 from SignalIntegrity.Conversions import S2T
 from SignalIntegrity.Conversions import T2S
-    
+
 def ApproximateFourPortTLine(f, Rsp, Lsp, Csp, Gsp, Rsm, Lsm, Csm, Gsm, Lm, Cm, Gm, Z0, K):
     from SignalIntegrity.Devices import SeriesZ
     from SignalIntegrity.Devices import Ground
     from SignalIntegrity.Devices import Mutual
     from SignalIntegrity.Devices import MixedModeConverter
-    
+
     from SignalIntegrity.SystemDescriptions import SystemDescription
     from SignalIntegrity.SystemDescriptions import SystemSParametersNumeric
     D=SystemDescription()
@@ -70,4 +70,3 @@ def ApproximateFourPortTLine(f, Rsp, Lsp, Csp, Gsp, Rsm, Lsm, Csm, Gsm, Lm, Cm, 
         R2=SystemSParametersNumeric(DMM).SParameters()
         Results.append(R2)
     return Results
-
