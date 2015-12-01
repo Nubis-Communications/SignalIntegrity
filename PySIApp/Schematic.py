@@ -243,10 +243,10 @@ class DrawingStateMachine(object):
         self.selectedWireVertex = [[vertex.selected for vertex in wire] for wire in self.parent.schematic.wireList]
         self.SelectingMore()
 
-    def Nothing(self):
+    def Nothing(self,force=False):
         if not hasattr(self,'state'):
             self.state=''
-        if self.state != 'Nothing':
+        if self.state != 'Nothing' or force:
             self.parent.canvas.config(cursor='left_ptr')
             self.state='Nothing'
             self.parent.schematic.Consolidate()
@@ -300,8 +300,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_Nothing(self,event):
         pass
 
-    def DeviceSelected(self):
-        if self.state != 'DeviceSelected':
+    def DeviceSelected(self,force=False):
+        if self.state != 'DeviceSelected' or force:
             self.state='DeviceSelected'
             for d in range(len(self.parent.schematic.deviceList)):
                 device=self.parent.schematic.deviceList[d]
@@ -366,8 +366,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_DeviceSelected(self,event):
         pass
 
-    def WireSelected(self):
-        if self.state != 'WireSelected':
+    def WireSelected(self,force=False):
+        if self.state != 'WireSelected' or force:
             self.state='WireSelected'
             for w in range(len(self.parent.schematic.wireList)):
                 for v in range(len(self.parent.schematic.wireList[w])):
@@ -428,8 +428,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_WireSelected(self,event):
         pass
 
-    def PartLoaded(self):
-        if self.state!='PartLoaded':
+    def PartLoaded(self,force=False):
+        if self.state!='PartLoaded' or force:
             self.parent.canvas.config(cursor='hand2')
             self.UnselectAllDevices()
             self.UnselectAllWires()
@@ -467,6 +467,7 @@ class DrawingStateMachine(object):
         self.parent.schematic.deviceList.append(self.parent.partLoaded)
         self.parent.schematic.deviceList[-1].selected=True
         self.DeviceSelected()
+        self.parent.parent.history.Event('part added')
     def onCtrlMouseButton1_PartLoaded(self,event):
         pass
     def onCtrlMouseButton1Motion_PartLoaded(self,event):
@@ -486,8 +487,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_PartLoaded(self,event):
         pass
 
-    def WireLoaded(self):
-        if self.state != 'WireLoaded':
+    def WireLoaded(self,force=False):
+        if self.state != 'WireLoaded' or force:
             self.state='WireLoaded'
             self.parent.canvas.config(cursor='pencil')
             self.UnselectAllDevices()
@@ -567,8 +568,8 @@ class DrawingStateMachine(object):
                     self.parent.wireLoaded[-1] = Vertex((self.parent.wireLoaded[-2][0],coord[1]))
         self.parent.DrawSchematic()
 
-    def Panning(self):
-        if self.state != 'Panning':
+    def Panning(self,force=False):
+        if self.state != 'Panning' or force:
             self.state='Panning'
             self.UnselectAllDevices()
             self.UnselectAllWires()
@@ -624,8 +625,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_Panning(self,event):
         pass
 
-    def Selecting(self):
-        if self.state != 'Selecting':
+    def Selecting(self,force=False):
+        if self.state != 'Selecting' or force:
             self.parent.canvas.config(cursor='left_ptr')
             self.state='Selecting'
             self.UnselectAllDevices()
@@ -728,8 +729,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_Selecting(self,event):
         pass
 
-    def MultipleSelections(self):
-        if self.state != 'Multiple Selections':
+    def MultipleSelections(self,force=False):
+        if self.state != 'Multiple Selections' or force:
             self.state='Multiple Selections'
             self.parent.canvas.config(cursor='left_ptr')
             self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
@@ -827,8 +828,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_MultipleSelections(self,event):
         pass
 
-    def SelectingMore(self):
-        if self.state != 'Selecting More':
+    def SelectingMore(self,force=False):
+        if self.state != 'Selecting More' or force:
             self.state='Selecting More'
             self.parent.canvas.config(cursor='left_ptr')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_SelectingMore)
@@ -907,8 +908,8 @@ class DrawingStateMachine(object):
     def onMouseMotion_SelectingMore(self,event):
         pass
 
-    def MultipleItemsOnClipboard(self):
-        if self.state != 'MultipleItemsOnClipboard':
+    def MultipleItemsOnClipboard(self,force=False):
+        if self.state != 'MultipleItemsOnClipboard' or force:
             self.state='MultipleItemsOnClipboard'
             self.parent.canvas.config(cursor='hand2')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_MultipleItemsOnClipboard)
@@ -994,6 +995,30 @@ class DrawingStateMachine(object):
         self.DispatchBasedOnSelections()
     def onMouseMotion_MultipleItemsOnClipboard(self,event):
         pass
+
+    def ForceIntializeState(self):
+        if self.state == 'Nothing':
+            self.Nothing(True)
+        elif self.state == 'DeviceSelected':
+            self.DeviceSelected(True)
+        elif self.state == 'WireSelected':
+            self.WireSelected(True)
+        elif self.state=='PartLoaded':
+            self.PartLoaded(True)
+        elif self.state == 'WireLoaded':
+            self.WireLoaded(True)
+        elif self.state == 'Panning':
+            self.Panning(True)
+        elif self.state == 'Selecting':
+            self.Selecting(True)
+        elif self.state == 'Multiple Selections':
+            self.MultipleSelections(True)
+        elif self.state == 'Selecting More':
+            self.SelectingMore(True)
+        elif self.state == 'MultipleItemsOnClipboard':
+            self.MultipleItemsOnClipboard(True)
+        else:
+            self.Nothing(True)
 
 class Drawing(Frame):
     def __init__(self,parent):
@@ -1081,6 +1106,7 @@ class Drawing(Frame):
                 self.schematic.deviceList[self.deviceSelectedIndex] = self.deviceSelected
                 self.schematic.Consolidate()
                 self.DrawSchematic()
+                self.parent.history.Event('edit device')
     def DuplicateSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
             self.partLoaded=copy.deepcopy(self.deviceSelected)
@@ -1111,9 +1137,11 @@ class Drawing(Frame):
     def DeleteSelectedDevice(self):
         del self.schematic.deviceList[self.deviceSelectedIndex]
         self.stateMachine.Nothing()
+        self.parent.history.Event('delete device')
     def DeleteSelectedVertex(self):
         del self.schematic.wireList[self.w][self.v]
         self.stateMachine.Nothing()
+        self.parent.history.Event('delete vertex')
     def DuplicateSelectedVertex(self):
         vertex=copy.deepcopy(self.schematic.wireList[self.w][self.v])
         self.schematic.wireList.UnselectAll()
@@ -1124,6 +1152,7 @@ class Drawing(Frame):
     def DeleteSelectedWire(self):
         del self.schematic.wireList[self.w]
         self.stateMachine.Nothing()
+        self.parent.history.Event('delete wire')
     def DeleteMultipleSelections(self,advanceStateMachine=True):
         newDeviceList=[]
         newWireList=WireList()
@@ -1141,6 +1170,7 @@ class Drawing(Frame):
         self.schematic.wireList=newWireList
         if advanceStateMachine:
             self.stateMachine.Nothing()
+        self.parent.history.Event('delete selections')
     def CutMultipleSelections(self):
         if self.stateMachine.state=='Multiple Selections':
             self.DuplicateMultipleSelections(False)

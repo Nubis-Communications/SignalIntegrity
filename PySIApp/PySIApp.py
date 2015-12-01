@@ -22,6 +22,7 @@ from Simulator import *
 from NetList import *
 from SParameterViewerWindow import *
 from Files import *
+from History import *
 
 class TheMenu(Menu):
     def __init__(self,parent):
@@ -37,6 +38,12 @@ class TheMenu(Menu):
         self.FileMenu.add_separator()
         self.FileMenu.add_command(label="Export NetList",command=self.parent.onExportNetlist)
         self.FileMenu.add_command(label="Export LaTeX (TikZ)",command=self.parent.onExportTpX)
+
+        self.EditMenu=Menu(self)
+        self.add_cascade(label='Edit',menu=self.EditMenu)
+        self.EditMenu.add_command(label="Undo",command=self.parent.onUndo)
+        self.EditMenu.add_command(label="Redo",command=self.parent.onRedo)
+        self.EditMenu.add_separator()
 
         self.PartsMenu=Menu(self)
         self.add_cascade(label='Parts',menu=self.PartsMenu)
@@ -134,6 +141,15 @@ class ToolBar(Frame):
         self.calculateButton = Button(editFrame,command=self.parent.onCalculate,image=self.calculateButtonIcon)
         self.calculateButton.pack(side=LEFT,fill=NONE,expand=NO)
 
+        undoFrame=Frame(self)
+        undoFrame.pack(side=RIGHT,fill=NONE,expand=NO,anchor=E)
+        self.undoButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-undo-3.gif')
+        self.undoButton = Button(undoFrame,command=self.parent.onUndo,image=self.undoButtonIcon)
+        self.undoButton.pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.redoButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-redo-3.gif')
+        self.redoButton = Button(undoFrame,command=self.parent.onRedo,image=self.redoButtonIcon)
+        self.redoButton.pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+
 class StatusBar(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -190,12 +206,23 @@ class TheApp(Frame):
         self.calculationProperties=CalculationProperties(self)
         self.filename=None
 
+        self.history=History(self)
+
         self.root.mainloop()
 
     def onKey(self,event):
 #       print "pressed", repr(event.keycode), repr(event.keysym)
         if event.keysym == 'Delete': # delete
             self.Drawing.DeleteSelected()
+
+    def onUndo(self):
+        self.history.Undo()
+        self.Drawing.DrawSchematic()
+
+    def onRedo(self):
+        self.history.Redo()
+        self.Drawing.DrawSchematic()
+
     def onReadProjectFromFile(self):
         self.Drawing.stateMachine.Nothing()
         extension='.xml'
@@ -217,6 +244,7 @@ class TheApp(Frame):
                 self.calculationProperties.InitFromXml(child, self)
         self.filename=filename
         self.Drawing.DrawSchematic()
+        self.history.Event('read project')
 
     def onWriteProjectToFile(self):
         self.Drawing.stateMachine.Nothing()
@@ -237,6 +265,7 @@ class TheApp(Frame):
     def onClearSchematic(self):
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
+        self.history.Event('new project')
         self.Drawing.DrawSchematic()
         self.filename=None
 
