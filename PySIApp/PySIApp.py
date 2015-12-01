@@ -2,7 +2,7 @@ from Tkinter import *
 
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
-from tkFileDialog import askdirectory  
+from tkFileDialog import askdirectory
 import tkMessageBox
 import copy
 import os
@@ -36,6 +36,7 @@ class TheMenu(Menu):
         self.FileMenu.add_command(label="Clear Schematic",command=self.parent.onClearSchematic)
         self.FileMenu.add_separator()
         self.FileMenu.add_command(label="Export NetList",command=self.parent.onExportNetlist)
+        self.FileMenu.add_command(label="Export LaTeX (TikZ)",command=self.parent.onExportTpX)
 
         self.PartsMenu=Menu(self)
         self.add_cascade(label='Parts',menu=self.PartsMenu)
@@ -243,6 +244,26 @@ class TheApp(Frame):
         self.Drawing.stateMachine.Nothing()
         nld = NetListDialog(self,self.Drawing.schematic.NetList().Text())
 
+    def onExportTpX(self):
+        from TpX import TpX
+        from TikZ import TikZ
+        self.Drawing.stateMachine.Nothing()
+        extension='.TpX'
+        if self.filename == None:
+            filename=asksaveasfilename(filetypes=[('tpx', extension)],defaultextension='.TpX',initialdir=os.getcwd())
+        else:
+            filename=asksaveasfilename(filetypes=[('tpx', extension)],defaultextension='.TpX',initialfile=self.filename.replace('.xml','.TpX'))
+        if filename=='':
+            return
+        try:
+            tpx=self.Drawing.DrawSchematic(TpX()).Finish()
+            tikz=self.Drawing.DrawSchematic(TikZ()).Finish()
+            #tikz.Document()
+            tpx.lineList=tpx.lineList+tikz.lineList
+            tpx.WriteToFile(filename)
+        except:
+            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+
     def onAddPart(self):
         self.Drawing.stateMachine.Nothing()
         dpd=DevicePickerDialog(self)
@@ -400,7 +421,7 @@ class TheApp(Frame):
         sp=si.sp.File(filename)
         SParametersDialog(self,sp)
 
-def main():        
+def main():
     app=TheApp()
 
 if __name__ == '__main__':

@@ -107,7 +107,7 @@ class PartProperty(object):
         p=et.Element('visible')
         p.text=str(self.visible)
         pList.append(p)
-        p=et.Element('keywordvisible')
+        p=et.Element('keyword_visible')
         p.text=str(self.keywordVisible)
         pList.append(p)
         p=et.Element('type')
@@ -143,7 +143,7 @@ class PartPropertyXMLClassFactory(PartProperty):
                 hidden = eval(item.text)
             elif item.tag == 'visible':
                 visible = eval(item.text)
-            elif item.tag == 'keywordVisible':
+            elif item.tag == 'keyword_visible':
                 keywordVisible = eval(item.text)
             elif item.tag == 'type':
                 ptype = item.text

@@ -1027,16 +1027,20 @@ class Drawing(Frame):
     def AugmentorToGridCoordinate(self,x,y):
         (nearestGridx,nearestGridy)=self.NearestGridCoordinate(x,y)
         return (float(x)/self.grid-self.originx-nearestGridx,float(y)/self.grid-self.originy-nearestGridy)
-    def DrawSchematic(self):
-        self.canvas.delete(ALL)
+    def DrawSchematic(self,canvas=None):
+        if canvas==None:
+            canvas=self.canvas
+            canvas.delete(ALL)
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         foundAPort=False
         foundASource=False
         foundAnOutput=False
+        foundSomething=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
+            foundSomething=True
             devicePinsConnected=devicePinConnectedList[deviceIndex]
-            device.DrawDevice(self.canvas,self.grid,self.originx,self.originy,devicePinsConnected)
+            device.DrawDevice(canvas,self.grid,self.originx,self.originy,devicePinsConnected)
             deviceType = device['type'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
@@ -1051,10 +1055,11 @@ class Drawing(Frame):
                     elif firstToken == 'currentsource':
                         foundASource = True
         for wire in self.schematic.wireList:
-            wire.DrawWire(self.canvas,self.grid,self.originx,self.originy)
+            foundSomething=True
+            wire.DrawWire(canvas,self.grid,self.originx,self.originy)
         for dot in self.schematic.DotList():
             size=self.grid/8
-            self.canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
+            canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
                                     (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
                                     fill='black',outline='black')
         canSimulate = foundASource and foundAnOutput and not foundAPort
@@ -1063,6 +1068,11 @@ class Drawing(Frame):
         self.parent.menu.CalcMenu.entryconfigure('Simulate',state='normal' if canSimulate else 'disabled')
         self.parent.toolbar.calculateButton.config(state='normal' if canCalculate else 'disabled')
         self.parent.menu.CalcMenu.entryconfigure('Calculate S-parameters',state='normal' if canCalculateSParameters else 'disabled')
+        self.parent.menu.FileMenu.entryconfigure('Save Project',state='normal' if foundSomething else 'disabled')
+        self.parent.menu.FileMenu.entryconfigure('Clear Schematic',state='normal' if foundSomething else 'disabled')
+        self.parent.menu.FileMenu.entryconfigure('Export NetList',state='normal' if foundSomething else 'disabled')
+        self.parent.menu.FileMenu.entryconfigure('Export LaTeX (TikZ)',state='normal' if foundSomething else 'disabled')
+        return canvas
     def EditSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
             dpe=DevicePropertiesDialog(self,self.deviceSelected)

@@ -1,4 +1,6 @@
 from Tkinter import *
+from tkFileDialog import asksaveasfilename
+import os
 
 from PartProperty import *
 from Wire import *
@@ -127,6 +129,7 @@ class NetListDialog(Toplevel):
         self.transient(parent)
 
         self.title('NetList')
+        self.textToShow=textToShow
 
         self.parent = parent
 
@@ -180,10 +183,14 @@ class NetListDialog(Toplevel):
     # standard button semantics
 
     def ok(self, event=None):
-
-        if not self.validate():
+        extension='.txt'
+        filename=asksaveasfilename(filetypes=[('text', extension)],defaultextension='.txt',initialdir=os.getcwd())
+        if filename=='':
             self.initial_focus.focus_set() # put focus back
             return
+        with open(filename,"w") as f:
+            for line in self.textToShow:
+                f.write(line+'\n')
 
         self.withdraw()
         self.update_idletasks()
