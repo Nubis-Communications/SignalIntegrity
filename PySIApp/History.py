@@ -62,21 +62,15 @@ class History(object):
         self.parent.statusbar.set('Redid: '+element.eventName)
     def FigureState(self):
         if len(self.history) <= 1:
-            self.parent.menu.EditMenu.entryconfigure('Undo',state='disabled')
-            self.parent.toolbar.undoButton.config(state="disabled")
-            self.parent.menu.EditMenu.entryconfigure('Redo',state='disabled')
-            self.parent.toolbar.redoButton.config(state="disabled")
+            self.parent.UndoDoer.Activate(False)
+            self.parent.RedoDoer.Activate(False)
             self.current=len(self.history)-1
         else:
             if self.current <= 0:
-                self.parent.menu.EditMenu.entryconfigure('Undo',state='disabled')
-                self.parent.toolbar.undoButton.config(state="disabled")
+                self.parent.UndoDoer.Activate(False)
             else:
-                self.parent.menu.EditMenu.entryconfigure('Undo',state='normal')
-                self.parent.toolbar.undoButton.config(state="normal")
+                self.parent.UndoDoer.Activate(True)
             if self.current+1 < len(self.history):
-                self.parent.menu.EditMenu.entryconfigure('Redo',state='normal')
-                self.parent.toolbar.redoButton.config(state="normal")
+                self.parent.RedoDoer.Activate(True)
             else:
-                self.parent.menu.EditMenu.entryconfigure('Redo',state='disabled')
-                self.parent.toolbar.redoButton.config(state="disabled")
+                self.parent.RedoDoer.Activate(False)

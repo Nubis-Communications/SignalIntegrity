@@ -24,131 +24,180 @@ from SParameterViewerWindow import *
 from Files import *
 from History import *
 
+class MenuElement(object):
+    def __init__(self,menu,**kw):
+        menu.add_command(kw)
+        self.label=kw['label']
+        self.menu=menu
+        self.active=None
+        if 'state' in kw:
+            active=kw['state'] == 'normal'
+        else:
+            active=True
+        self.Activate(active)
+    def Activate(self,active):
+        if active == self.active:
+            return
+        self.active=active
+        self.menu.entryconfigure(self.label,state='normal' if self.active else 'disabled')
+
+class ToolBarElement(object):
+    def __init__(self,frame,**kw):
+        if 'iconfile' in kw:
+            self.icon = PhotoImage(file=kw['iconfile'])
+            del kw['iconfile']
+            kw['image']=self.icon
+        self.button=Button(frame,kw)
+        self.active=None
+        if 'state' in kw:
+            active=kw['state'] == 'normal'
+        else:
+            active=True
+        self.Activate(active)
+    def Activate(self,active):
+        if active == self.active:
+            return
+        self.active=active
+        self.button.config(state='normal' if self.active else 'disabled')
+    def Pack(self,**kw):
+        self.button.pack(kw)
+        return self
+
+class KeyBindElement(object):
+    def __init__(self,bindTo,key,func):
+        self.bindTo=bindTo
+        self.key=key
+        self.func=func
+        self.active=False
+    def Activate(self,active):
+        if active == self.active:
+            return
+        self.active=active
+        if self.active:
+            self.bindTo.bind(self.key,self.func)
+        else:
+            self.bindTo.unbind(self.key)
+
+class Doer(object):
+    def __init__(self,command,active=True):
+        self.active=active
+        self.command=command
+        self.menuElement=None
+        self.toolBarElement=None
+        self.keyBindElement=None
+    def AddMenuElement(self,menu,**kw):
+        kw['command']=self.Execute
+        self.menuElement=MenuElement(menu,**kw)
+        self.menuElement.Activate(self.active)
+        return self.menuElement
+    def AddToolBarElement(self,frame,**kw):
+        kw['command']=self.Execute
+        self.toolBarElement=ToolBarElement(frame,**kw)
+        self.toolBarElement.Activate(self.active)
+        return self.toolBarElement
+    def AddKeyBindElement(self,bindTo,key):
+        self.keyBindElement = KeyBindElement(bindTo,key,self.Execute)
+        self.keyBindElement.Activate(self.active)
+        return self
+    def Execute(self,*args):
+        if self.active:
+            return self.command()
+    def Activate(self,active):
+        if self.active==active:
+            return
+        self.active=active
+        if self.menuElement is not None:
+            self.menuElement.Activate(active)
+        if self.toolBarElement is not None:
+            self.toolBarElement.Activate(active)
+        if self.keyBindElement is not None:
+            self.keyBindElement.Activate(active)
+
 class TheMenu(Menu):
     def __init__(self,parent):
         self.parent=parent
         Menu.__init__(self,self.parent.root)
         self.parent.root.config(menu=self)
-        self.FileMenu=Menu(self)
-        self.add_cascade(label='File',menu=self.FileMenu)
-        self.FileMenu.add_command(label="Open Project",command=self.parent.onReadProjectFromFile)
-        self.FileMenu.add_command(label="Save Project",command=self.parent.onWriteProjectToFile)
-        self.FileMenu.add_separator()
-        self.FileMenu.add_command(label="Clear Schematic",command=self.parent.onClearSchematic)
-        self.FileMenu.add_separator()
-        self.FileMenu.add_command(label="Export NetList",command=self.parent.onExportNetlist)
-        self.FileMenu.add_command(label="Export LaTeX (TikZ)",command=self.parent.onExportTpX)
+        FileMenu=Menu(self)
+        self.add_cascade(label='File',menu=FileMenu,underline=0)
+        self.parent.OpenProjectDoer.AddMenuElement(FileMenu,label="Open Project",accelerator='Ctrl+O',underline=0)
+        self.parent.SaveProjectDoer.AddMenuElement(FileMenu,label="Save Project",accelerator='Ctrl+S',underline=0)
+        FileMenu.add_separator()
+        self.parent.ClearProjectDoer.AddMenuElement(FileMenu,label="Clear Schematic",underline=0)
+        FileMenu.add_separator()
+        self.parent.ExportNetListDoer.AddMenuElement(FileMenu,label="Export NetList",underline=7)
+        self.parent.ExportTpXDoer.AddMenuElement(FileMenu,label="Export LaTeX (TikZ)",underline=7)
 
-        self.EditMenu=Menu(self)
-        self.add_cascade(label='Edit',menu=self.EditMenu)
-        self.EditMenu.add_command(label="Undo",command=self.parent.onUndo)
-        self.EditMenu.add_command(label="Redo",command=self.parent.onRedo)
-        self.EditMenu.add_separator()
+        EditMenu=Menu(self)
+        self.add_cascade(label='Edit',menu=EditMenu,underline=0)
+        self.parent.UndoDoer.AddMenuElement(EditMenu,label="Undo",accelerator='Ctrl+Z', underline=0)
+        self.parent.RedoDoer.AddMenuElement(EditMenu,label="Redo",accelerator='Ctrl+Shift+Z',underline=0)
+        EditMenu.add_separator()
 
-        self.PartsMenu=Menu(self)
-        self.add_cascade(label='Parts',menu=self.PartsMenu)
-        self.PartsMenu.add_command(label='Add Part',command=self.parent.onAddPart)
-        self.PartsMenu.add_command(label='Add Port',command=self.parent.onAddPort)
-        self.PartsMenu.add_separator()
-        self.PartsMenu.add_command(label='Delete Part',command=self.parent.onDeletePart)
-        self.PartsMenu.add_separator()
-        self.PartsMenu.add_command(label='Edit Properties',command=self.parent.onEditProperties)
-        self.PartsMenu.add_command(label='Duplicate Part',command=self.parent.onDuplicate)
-        self.PartsMenu.add_command(label='Rotate Part',command=self.parent.onRotatePart)
-        self.PartsMenu.add_command(label='Flip Horizontally',command=self.parent.onFlipPartHorizontally)
-        self.PartsMenu.add_command(label='Flip Vertically',command=self.parent.onFlipPartVertically)
+        PartsMenu=Menu(self)
+        self.add_cascade(label='Parts',menu=PartsMenu,underline=0)
+        self.parent.AddPartDoer.AddMenuElement(PartsMenu,label='Add Part',underline=0)
+        self.parent.AddPortDoer.AddMenuElement(PartsMenu,label='Add Port',underline=5)
+        PartsMenu.add_separator()
+        self.parent.DeletePartDoer.AddMenuElement(PartsMenu,label='Delete Part',underline=0)
+        PartsMenu.add_separator()
+        self.parent.EditPropertiesDoer.AddMenuElement(PartsMenu,label='Edit Properties',underline=0)
+        self.parent.DuplicatePartDoer.AddMenuElement(PartsMenu,label='Duplicate Part',accelerator='Ctrl+C',underline=0)
+        self.parent.RotatePartDoer.AddMenuElement(PartsMenu,label='Rotate Part',underline=0)
+        self.parent.FlipPartHorizontallyDoer.AddMenuElement(PartsMenu,label='Flip Horizontally',underline=5)
+        self.parent.FlipPartVerticallyDoer.AddMenuElement(PartsMenu,label='Flip Vertically',underline=5)
 
-        self.WireMenu=Menu(self)
-        self.add_cascade(label='Wires',menu=self.WireMenu)
-        self.WireMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
-        self.WireMenu.add_separator()
-        self.WireMenu.add_command(label='Delete Vertex',command=self.parent.onDeleteSelectedVertex)
-        self.WireMenu.add_command(label='Duplicate Vertex',command=self.parent.onDuplicateSelectedVertex)
-        self.WireMenu.add_command(label='Delete Wire',command=self.parent.onDeleteSelectedWire)
+        WireMenu=Menu(self)
+        self.add_cascade(label='Wires',menu=WireMenu,underline=0)
+        self.parent.AddWireDoer.AddMenuElement(WireMenu,label='Add Wire',underline=0)
+        WireMenu.add_separator()
+        self.parent.DeleteVertexDoer.AddMenuElement(WireMenu,label='Delete Vertex',underline=7)
+        self.parent.DuplicateVertexDoer.AddMenuElement(WireMenu,label='Duplicate Vertex',underline=1)
+        self.parent.DeleteWireDoer.AddMenuElement(WireMenu,label='Delete Wire',underline=0)
 
-        self.ViewMenu=Menu(self)
-        self.add_cascade(label='View',menu=self.ViewMenu)
-        self.ViewMenu.add_command(label='Zoom In',command=self.parent.onZoomIn)
-        self.ViewMenu.add_command(label='Zoom Out',command=self.parent.onZoomOut)
-        self.ViewMenu.add_command(label='Pan',command=self.parent.onPan)
+        ViewMenu=Menu(self)
+        self.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.parent.ZoomInDoer.AddMenuElement(ViewMenu,label='Zoom In',underline=5)
+        self.parent.ZoomOutDoer.AddMenuElement(ViewMenu,label='Zoom Out',underline=5)
+        self.parent.PanDoer.AddMenuElement(ViewMenu,label='Pan',underline=0)
 
-        self.CalcMenu=Menu(self)
-        self.add_cascade(label='Calculate',menu=self.CalcMenu)
-        self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
-        self.CalcMenu.add_command(label='S-parameter Viewer',command=self.parent.onSParameterViewer)
-        self.CalcMenu.add_separator()
-        self.CalcMenu.add_command(label='Calculate S-parameters',command=self.parent.onCalculateSParameters)
-        self.CalcMenu.add_command(label='Simulate',command=self.parent.onSimulate)
+        CalcMenu=Menu(self)
+        self.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
+        self.parent.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
+        self.parent.SParameterViewerDoer.AddMenuElement(CalcMenu,label='S-parameter Viewer',underline=12)
+        CalcMenu.add_separator()
+        self.parent.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
+        self.parent.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
 
 class ToolBar(Frame):
     def __init__(self,parent):
         self.parent=parent
         Frame.__init__(self,self.parent)
         self.pack(side=TOP,fill=X,expand=NO)
-        filesFrame=self
-        self.newProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-new-3.gif')
-        self.newProjectButton = Button(filesFrame,command=self.parent.onClearSchematic,image=self.newProjectButtonIcon)
-        self.newProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        #ToolTip(self.newProjectButton, 'New Project')
-        self.openProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-open-2.gif')
-        self.openProjectButton = Button(filesFrame,command=self.parent.onReadProjectFromFile,image=self.openProjectButtonIcon)
-        self.openProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        #ToolTip(self.openProjectButton, 'Open Project')
-        self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
-        self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteProjectToFile,image=self.saveProjectButtonIcon)
-        self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        #ToolTip(self.saveProjectButton, 'Save Project')
+        self.parent.ClearProjectDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/document-new-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.OpenProjectDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/document-open-2.gif',).Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.SaveProjectDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         separator=Frame(self,bd=2,relief=SUNKEN)
         separator.pack(side=LEFT,fill=X,padx=5,pady=5)
-        editFrame=self
-        self.addPartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-add-2.gif')
-        self.addPartButton = Button(editFrame,command=self.parent.onAddPart,image=self.addPartButtonIcon)
-        self.addPartButton.pack(side=LEFT,fill=NONE,expand=NO)
-        #ToolTip(self.addPartButton, 'Add Part')
-        self.deletePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-delete-6.gif')
-        self.deletePartButton = Button(editFrame,command=self.parent.onDeleteSelected,image=self.deletePartButtonIcon)
-        self.deletePartButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.addWireButtonIcon = PhotoImage(file='./icons/png/16x16/actions/draw-line-3.gif')
-        self.addWireButton = Button(editFrame,command=self.parent.onAddWire,image=self.addWireButtonIcon)
-        self.addWireButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.duplicatePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-copy-3.gif')
-        self.duplicatePartButton = Button(editFrame,command=self.parent.onDuplicateSelected,image=self.duplicatePartButtonIcon)
-        self.duplicatePartButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.rotatePartButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-rotate-left-4.gif')
-        self.rotatePartButton = Button(editFrame,command=self.parent.onRotatePart,image=self.rotatePartButtonIcon)
-        self.rotatePartButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.flipPartHorizontallyButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-flip-horizontal-3.gif')
-        self.flipPartHorizontallyButton = Button(editFrame,command=self.parent.onFlipPartHorizontally,image=self.flipPartHorizontallyButtonIcon)
-        self.flipPartHorizontallyButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.flipPartVerticallyButtonIcon = PhotoImage(file='./icons/png/16x16/actions/object-flip-vertical-3.gif')
-        self.flipPartVerticallyButton = Button(editFrame,command=self.parent.onFlipPartVertically,image=self.flipPartVerticallyButtonIcon)
-        self.flipPartVerticallyButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.AddPartDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/edit-add-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.DeleteSelectedDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/edit-delete-6.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.AddWireDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/draw-line-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.DuplicateSelectedDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/edit-copy-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.RotatePartDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/object-rotate-left-4.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.FlipPartHorizontallyDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/object-flip-horizontal-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.FlipPartVerticallyDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/object-flip-vertical-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         separator=Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.zoomInButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-in-3.gif')
-        self.zoomInButton = Button(editFrame,command=self.parent.onZoomIn,image=self.zoomInButtonIcon)
-        self.zoomInButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.zoomOutButtonIcon = PhotoImage(file='./icons/png/16x16/actions/zoom-out-3.gif')
-        self.zoomOutButton = Button(editFrame,command=self.parent.onZoomOut,image=self.zoomOutButtonIcon)
-        self.zoomOutButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.panButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-move.gif')
-        self.panButton = Button(editFrame,command=self.parent.onPan,image=self.panButtonIcon)
-        self.panButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.ZoomInDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/zoom-in-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.ZoomOutDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/zoom-out-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.PanDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/edit-move.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         separator=Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.calcPropertiesButtonIcon = PhotoImage(file='./icons/png/16x16/actions/tooloptions.gif')
-        self.calcPropertiesButton = Button(editFrame,command=self.parent.onCalculationProperties,image=self.calcPropertiesButtonIcon)
-        self.calcPropertiesButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.calculateButtonIcon = PhotoImage(file='./icons/png/16x16/actions/system-run-3.gif')
-        self.calculateButton = Button(editFrame,command=self.parent.onCalculate,image=self.calculateButtonIcon)
-        self.calculateButton.pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.CalculationPropertiesDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.parent.CalculateDoer.AddToolBarElement(self,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         undoFrame=Frame(self)
         undoFrame.pack(side=RIGHT,fill=NONE,expand=NO,anchor=E)
-        self.undoButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-undo-3.gif')
-        self.undoButton = Button(undoFrame,command=self.parent.onUndo,image=self.undoButtonIcon)
-        self.undoButton.pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
-        self.redoButtonIcon = PhotoImage(file='./icons/png/16x16/actions/edit-redo-3.gif')
-        self.redoButton = Button(undoFrame,command=self.parent.onRedo,image=self.redoButtonIcon)
-        self.redoButton.pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.parent.UndoDoer.AddToolBarElement(undoFrame,iconfile='./icons/png/16x16/actions/edit-undo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.parent.RedoDoer.AddToolBarElement(undoFrame,iconfile='./icons/png/16x16/actions/edit-redo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
 
 class StatusBar(Frame):
     def __init__(self, master):
@@ -192,6 +241,40 @@ class TheApp(Frame):
                     exit()
 
         self.statusbar=StatusBar(self)
+
+        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>')
+        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>')
+        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>')
+        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>')
+        self.ClearProjectDoer = Doer(self.onClearSchematic)
+        self.ExportNetListDoer = Doer(self.onExportNetlist)
+        self.ExportTpXDoer = Doer(self.onExportTpX)
+
+        self.AddPartDoer = Doer(self.onAddPart)
+        self.AddPortDoer = Doer(self.onAddPort)
+        self.DeletePartDoer = Doer(self.onDeletePart)
+        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>')
+        self.EditPropertiesDoer = Doer(self.onEditProperties)
+        self.DuplicatePartDoer = Doer(self.onDuplicate)
+        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>')
+        self.RotatePartDoer = Doer(self.onRotatePart)
+        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally)
+        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically)
+
+        self.AddWireDoer = Doer(self.onAddWire)
+        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex)
+        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex)
+        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire)
+
+        self.ZoomInDoer = Doer(self.onZoomIn)
+        self.ZoomOutDoer = Doer(self.onZoomOut)
+        self.PanDoer = Doer(self.onPan)
+
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
+        self.SParameterViewerDoer = Doer(self.onSParameterViewer)
+        self.CalculateDoer = Doer(self.onCalculate)
+        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters)
+        self.SimulateDoer = Doer(self.onSimulate)
 
         self.menu=TheMenu(self)
         self.toolbar=ToolBar(self)
