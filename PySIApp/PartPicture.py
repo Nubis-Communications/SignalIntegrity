@@ -1216,3 +1216,20 @@ class PartPictureTransmissionLineFourPort(PartPicture):
 class PartPictureVariableTransmissionLineFourPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureTransmissionLineFourPort'])
+
+class PartPictureStim(PartPicture):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(2,(0,1),'l',False),PartPin(1,(2,1),'r',False)],[(1,1),(1,1)],[(0,0),(2,2)],(1,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # the arrow
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        lx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+2)*grid
+        my=(drawingOrigin[1]+self.origin[1]+1)*grid
+        p=[ct.Translate((lx,my)),ct.Translate((rx,my))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/10,(10*grid)/10,(3*grid)/10))
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableStim(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureStim'])

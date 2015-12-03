@@ -88,6 +88,7 @@ class TheApp(Frame):
         self.SParameterViewerDoer = Doer(self.onSParameterViewer)
         self.CalculateDoer = Doer(self.onCalculate)
         self.CalculateSParametersDoer = Doer(self.onCalculateSParameters)
+        self.VirtualProbeDoer = Doer(self.onVirtualProbe)
         self.SimulateDoer = Doer(self.onSimulate)
 
         # The menu system
@@ -143,6 +144,7 @@ class TheApp(Frame):
         CalcMenu.add_separator()
         self.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
+        self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -384,6 +386,9 @@ class TheApp(Frame):
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()
         self.simulator.Simulate()
+        
+    def onVirtualProbe(self):
+        pass
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()

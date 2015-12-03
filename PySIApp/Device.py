@@ -263,13 +263,13 @@ class DeviceCurrentSineGenerator(Device):
 
 class DeviceMeasurement(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Probes'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure')],PartPictureVariableProbe())
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure'),PartPropertyWaveformFileName()],PartPictureVariableProbe())
     def NetListLine(self):
         return 'meas'
 
 class DeviceOutput(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Probes'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output'),
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output'),
             PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableProbe())
         self[PartPropertyVoltageGain().propertyName].visible=False
         self[PartPropertyVoltageOffset().propertyName].visible=False
@@ -277,6 +277,12 @@ class DeviceOutput(Device):
     def NetListLine(self):
         return 'output'
 
+class DeviceStim(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Stim'),PartPropertyDefaultReferenceDesignator('M?'),PartPropertyDescription('Stim')],PartPictureVariableStim())
+    def NetListLine(self):
+        return 'stim'
+    
 class DevicePowerMixedModeConverter(Device):
     def __init__(self):
         Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Power Mixed Mode Converter'),PartPropertyDefaultReferenceDesignator('MM?'),PartPropertyDescription('Power Mixed Mode Converter'),PartPropertyPorts(4)],PartPictureVariablePowerMixedModeConverter())
@@ -414,6 +420,7 @@ DeviceList = [
               DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
               DeviceMeasurement(),
               DeviceOutput(),
+              DeviceStim(),
               DevicePowerMixedModeConverter(),
               DeviceVoltageMixedModeConverter(),
               DeviceVoltageControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Voltage Source'),PartPropertyPorts(4)]),

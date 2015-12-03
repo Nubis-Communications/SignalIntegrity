@@ -1036,6 +1036,8 @@ class Drawing(Frame):
         foundASource=False
         foundAnOutput=False
         foundSomething=False
+        foundAMeasure=False
+        foundAStim=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -1046,6 +1048,10 @@ class Drawing(Frame):
                 foundAPort = True
             elif deviceType == 'Output':
                 foundAnOutput = True
+            elif deviceType == 'Stim':
+                foundAStim = True
+            elif deviceType == 'Measure':
+                foundAMeasure = True
             else:
                 netListLine = device.NetListLine()
                 if not netListLine is None:
@@ -1062,12 +1068,14 @@ class Drawing(Frame):
             canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
                                     (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
                                     fill='black',outline='black')
-        canSimulate = foundASource and foundAnOutput and not foundAPort
-        canCalculateSParameters = foundAPort and not foundAnOutput
-        canCalculate = canSimulate or canCalculateSParameters
+        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure
+        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim
+        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource
+        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe
         self.parent.SimulateDoer.Activate(canSimulate)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
+        self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.SaveProjectDoer.Activate(foundSomething)
         self.parent.ClearProjectDoer.Activate(foundSomething)
         self.parent.ExportNetListDoer.Activate(foundSomething)

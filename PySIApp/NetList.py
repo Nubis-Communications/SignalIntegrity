@@ -11,12 +11,13 @@ class NetList(object):
         self.outputNames=[]
         self.measureNames=[]
         self.sourceNames=[]
+        self.stimNames=[]
         deviceList = schematic.deviceList
         wireList = schematic.wireList.EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
             deviceType = device[PartPropertyPartName().propertyName].GetValue()
-            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output')):
+            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output') or (deviceType == 'Stim')):
                 thisline=device.NetListLine()
                 self.textToShow.append(thisline)
                 firstToken=thisline.strip().split(' ')[0]
@@ -67,6 +68,7 @@ class NetList(object):
             measureList=[]
             outputList=[]
             portList=[]
+            stimList=[]
             # gather up list of all measures, outputs, and ports
             for devicePin in net:
                 deviceIndex=devicePin[0]
@@ -79,8 +81,10 @@ class NetList(object):
                     outputList.append(devicePin)
                 elif thisDevicePartName == 'Measure':
                     outputList.append(devicePin)
-            #remove all of the ports, outputs and measures from the net
-            net = list(set(net)-set(measureList)-set(portList)-set(outputList))
+                elif thisDevicePartName == 'Stim':
+                    stimList.append(devicePin)
+            #remove all of the ports, outputs, measures and stims from the net
+            net = list(set(net)-set(measureList)-set(portList)-set(outputList)-set(stimList))
             if len(net) > 0:
                 # for the measures, outputs and ports, we just need one device/port, so we use the first one
                 deviceIndexOfFirstDeviceInNet = net[0][0]
@@ -97,6 +101,16 @@ class NetList(object):
                     self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
                 for port in portList:
                     deviceIndex = port[0]
+                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                # stims fall into three categories
+                # stims whose pin 1 is connected directly to a device port, and whose pin 2 is connected to port 1 of another stim.
+                # this type is a stim that depends on another.
+                # stims whose pin 1 is connected directly to a device port, and whose pin 2 is unconnected.
+                # this type of stim is independent
+                # stims whose pin 1 is connected to pin 2 of another stim and whose pin 2 is unconnected
+                # this is a stim that others depend on.
+                for stim in stimList:
+                    deviceIndex = stim[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
             if len(net) > 1:
                 # list the connections
