@@ -8,6 +8,7 @@ from Tkinter import *
 import tkMessageBox
 from PartProperty import *
 from SParameterViewerWindow import *
+from MenuSystemHelpers import *
 
 import matplotlib
 
@@ -27,6 +28,8 @@ class SimulatorDialogMenu(Menu):
         self.add_cascade(label='File',menu=self.FileMenu)
         self.FileMenu.add_command(label="Save Waveforms",command=self.parent.onWriteSimulatorToFile)
         self.FileMenu.add_command(label="Read Waveforms",command=self.parent.onReadSimulatorFromFile)
+        self.FileMenu.add_separator()
+        self.parent.Matplotlib2tikzDoer.AddMenuElement(self.FileMenu,label='Output to LaTeX (TikZ)')
         self.CalcMenu=Menu(self)
         self.add_cascade(label='Calculate',menu=self.CalcMenu)
         self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
@@ -46,7 +49,7 @@ class SimulatorDialogToolBar(Frame):
         self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
         self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteSimulatorToFile,image=self.saveProjectButtonIcon)
         self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        separator=Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
+        Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
         calcFrame=self
         self.calcPropertiesButtonIcon = PhotoImage(file='./icons/png/16x16/actions/tooloptions.gif')
         self.calcPropertiesButton = Button(calcFrame,command=self.parent.onCalculationProperties,image=self.calcPropertiesButtonIcon)
@@ -65,6 +68,8 @@ class SimulatorDialog(Toplevel):
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
+
+        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
 
         self.menu=SimulatorDialogMenu(self)
         self.toolbar=SimulatorDialogToolBar(self)
@@ -123,6 +128,10 @@ class SimulatorDialog(Toplevel):
         maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
         buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
         SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),'Transfer Parameters',buttonLabelList)
+
+    def onMatplotlib2TikZ(self):
+        from matplotlib2tikz import save as tikz_save
+        tikz_save('test.tex',figure=self.plt)
 
 class Simulator(object):
     def __init__(self,parent):
