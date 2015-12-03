@@ -19,46 +19,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 
 from matplotlib.figure import Figure
 
-class SimulatorDialogMenu(Menu):
-    def __init__(self,parent):
-        self.parent=parent
-        Menu.__init__(self,self.parent)
-        self.parent.config(menu=self)
-        self.FileMenu=Menu(self)
-        self.add_cascade(label='File',menu=self.FileMenu)
-        self.FileMenu.add_command(label="Save Waveforms",command=self.parent.onWriteSimulatorToFile)
-        self.FileMenu.add_command(label="Read Waveforms",command=self.parent.onReadSimulatorFromFile)
-        self.FileMenu.add_separator()
-        self.parent.Matplotlib2tikzDoer.AddMenuElement(self.FileMenu,label='Output to LaTeX (TikZ)')
-        self.CalcMenu=Menu(self)
-        self.add_cascade(label='Calculate',menu=self.CalcMenu)
-        self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
-        self.CalcMenu.add_command(label='View Transfer Parameters',command=self.parent.onExamineTransferMatrices)
-        self.CalcMenu.add_separator()
-        self.CalcMenu.add_command(label='Simulate',command=self.parent.parent.Simulate)
-
-class SimulatorDialogToolBar(Frame):
-    def __init__(self,parent):
-        self.parent=parent
-        Frame.__init__(self,self.parent)
-        self.pack(side=TOP,fill=X,expand=NO)
-        filesFrame=self
-        self.openProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-open-2.gif')
-        self.openProjectButton = Button(filesFrame,command=self.parent.onReadSimulatorFromFile,image=self.openProjectButtonIcon)
-        self.openProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
-        self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteSimulatorToFile,image=self.saveProjectButtonIcon)
-        self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        calcFrame=self
-        self.calcPropertiesButtonIcon = PhotoImage(file='./icons/png/16x16/actions/tooloptions.gif')
-        self.calcPropertiesButton = Button(calcFrame,command=self.parent.onCalculationProperties,image=self.calcPropertiesButtonIcon)
-        self.calcPropertiesButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.calculateButtonIcon = PhotoImage(file='./icons/png/16x16/actions/system-run-3.gif')
-        self.calculateButton = Button(calcFrame,command=self.parent.parent.Simulate,image=self.calculateButtonIcon)
-        self.calculateButton.pack(side=LEFT,fill=NONE,expand=NO)
-
-
 class SimulatorDialog(Toplevel):
     def __init__(self, parent):
         Toplevel.__init__(self, parent.parent)
@@ -69,10 +29,40 @@ class SimulatorDialog(Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
+        # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
+        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile)
+        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile)
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
+        # ------
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
+        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices)
+        self.SimulateDoer = Doer(self.parent.Simulate)
 
-        self.menu=SimulatorDialogMenu(self)
-        self.toolbar=SimulatorDialogToolBar(self)
+        # The menu system        
+        TheMenu=Menu(self)
+        self.config(menu=TheMenu)
+        FileMenu=Menu(self)
+        TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
+        self.WaveformSaveDoer.AddMenuElement(FileMenu,label="Save Waveforms",underline=0)
+        self.WaveformReadDoer.AddMenuElement(FileMenu,label="Read Waveforms",underline=0)
+        FileMenu.add_separator()
+        self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
+        # ------
+        CalcMenu=Menu(self)
+        TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
+        self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
+        self.ExamineTransferMatricesDoer.AddMenuElement(CalcMenu,label='View Transfer Parameters',underline=0)
+        CalcMenu.add_separator()
+        self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
+
+        # The Toolbar
+        ToolBarFrame = Frame(self)
+        ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
+        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         self.f = Figure(figsize=(5,4), dpi=100)
         self.plt = self.f.add_subplot(111)
@@ -92,6 +82,11 @@ class SimulatorDialog(Toplevel):
         controlsFrame = Frame(self)
         Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=LEFT,expand=NO,fill=X)
         controlsFrame.pack(side=TOP,fill=X,expand=NO)
+        
+        try:
+            from matplotlib2tikz import save as tikz_save
+        except:
+            self.Matplotlib2tikzDoer.Activate(False)
 
     def onAutoscale(self):
         self.plt.autoscale(True)
@@ -130,8 +125,15 @@ class SimulatorDialog(Toplevel):
         SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
-        from matplotlib2tikz import save as tikz_save
-        tikz_save('test.tex',figure=self.plt)
+        extension='.tex'
+        filename=asksaveasfilename(filetypes=[('tex', extension)],defaultextension='.tex',initialdir=os.getcwd())
+        if filename=='':
+            return
+        try:
+            from matplotlib2tikz import save as tikz_save
+            tikz_save(filename,figure=self.f)
+        except:
+            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
 class Simulator(object):
     def __init__(self,parent):

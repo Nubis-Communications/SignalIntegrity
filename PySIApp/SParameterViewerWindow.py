@@ -11,6 +11,7 @@ import math
 from numpy import frompyfunc
 from PartProperty import PartPropertyDelay
 from Files import *
+from MenuSystemHelpers import *
 
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
@@ -51,37 +52,6 @@ class ViewerProperty(Frame):
         self.callBack()
         self.parentFrame.focus()
 
-class SParametersDialogMenu(Menu):
-    def __init__(self,parent):
-        self.parent=parent
-        Menu.__init__(self,self.parent)
-        self.parent.config(menu=self)
-        self.FileMenu=Menu(self)
-        self.add_cascade(label='File',menu=self.FileMenu)
-        self.FileMenu.add_command(label="Save",command=self.parent.onWriteSParametersToFile)
-        self.FileMenu.add_command(label="Open File",command=self.parent.onReadSParametersFromFile)
-        self.CalcMenu=Menu(self)
-        self.add_cascade(label='Calculate',menu=self.CalcMenu)
-        self.CalcMenu.add_command(label='Calculation Properties',command=self.parent.onCalculationProperties)
-        #self.CalcMenu.add_command(label='S-parameter Viewer',command=self.parent.onSParameterViewer)
-        self.CalcMenu.add_separator()
-        self.CalcMenu.add_command(label='Resample',command=self.parent.onResample)
-
-class SParametersDialogToolBar(Frame):
-    def __init__(self,parent):
-        self.parent=parent
-        Frame.__init__(self,self.parent)
-        self.pack(side=TOP,fill=X,expand=NO)
-        filesFrame=self
-        self.openProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-open-2.gif')
-        self.openProjectButton = Button(filesFrame,command=self.parent.onReadSParametersFromFile,image=self.openProjectButtonIcon)
-        self.openProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        self.saveProjectButtonIcon = PhotoImage(file='./icons/png/16x16/actions/document-save-2.gif')
-        self.saveProjectButton = Button(filesFrame,command=self.parent.onWriteSParametersToFile,image=self.saveProjectButtonIcon)
-        self.saveProjectButton.pack(side=LEFT,fill=NONE,expand=NO)
-        separator=Frame(self,bd=2,relief=SUNKEN)
-        separator.pack(side=LEFT,fill=X,padx=5,pady=5)
-
 class SParametersDialog(Toplevel):
     def __init__(self, parent,sp,title=None,buttonLabels=None):
         Toplevel.__init__(self, parent)
@@ -94,9 +64,34 @@ class SParametersDialog(Toplevel):
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
+        
+        # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
+        self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>')
+        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>')
 
-        self.menu=SParametersDialogMenu(self)
-        self.toolbar=SParametersDialogToolBar(self)
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
+        self.ResampleDoer = Doer(self.onResample)
+
+        # The menu system        
+        TheMenu=Menu(self)
+        self.config(menu=TheMenu)
+        FileMenu=Menu(self)
+        TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
+        self.WriteSParametersToFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
+        self.ReadSParametersFromFileDoer.AddMenuElement(FileMenu,label="Open File",accelerator='Ctrl+O',underline=0)
+        CalcMenu=Menu(self)
+        TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
+        self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
+        CalcMenu.add_separator()
+        self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
+        
+        # The Toolbar
+        ToolBarFrame = Frame(self)
+        ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
+        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        Frame(self,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         topFrame=Frame(self)
         topFrame.pack(side=TOP,fill=BOTH,expand=YES)
