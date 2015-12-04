@@ -432,7 +432,7 @@ class PartPictureBox(PartPicture):
 
 class PartPictureOnePort(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l')],[(1,0),(3,2)],[(0,0),(4,2)],(1,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l')],[(1,0),(3,2)],[(0,0),(4,2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
 
 class PartPictureVariableOnePort(PartPictureVariable):
     def __init__(self):

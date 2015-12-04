@@ -386,15 +386,18 @@ class TheApp(Frame):
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()
         self.simulator.Simulate()
-        
+
     def onVirtualProbe(self):
-        pass
+        self.Drawing.stateMachine.Nothing()
+        self.simulator.VirtualProbe()
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
         foundAPort=False
         foundASource=False
         foundAnOutput=False
+        foundAMeasure=False
+        foundAStim=False
         for deviceIndex in range(len(self.Drawing.schematic.deviceList)):
             device = self.Drawing.schematic.deviceList[deviceIndex]
             deviceType = device['type'].GetValue()
@@ -402,6 +405,10 @@ class TheApp(Frame):
                 foundAPort = True
             elif deviceType == 'Output':
                 foundAnOutput = True
+            elif deviceType == 'Stim':
+                foundAStim = True
+            elif deviceType == 'Measure':
+                foundAMeasure = True
             else:
                 netListLine = device.NetListLine()
                 if not netListLine is None:
@@ -410,14 +417,17 @@ class TheApp(Frame):
                         foundASource = True
                     elif firstToken == 'currentsource':
                         foundASource = True
-        canSimulate = foundASource and foundAnOutput and not foundAPort
-        canCalculateSParameters = foundAPort and not foundAnOutput
-        canCalculate = canSimulate or canCalculateSParameters
+        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure
+        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim
+        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource
+        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe
         if canCalculate:
             if canSimulate:
                 self.onSimulate()
             elif canCalculateSParameters:
                 self.onCalculateSParameters()
+            elif canVirtualProbe:
+                self.onVirtualProbe()
 
     def onSParameterViewer(self):
         import SignalIntegrity as si

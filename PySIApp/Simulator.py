@@ -38,7 +38,7 @@ class SimulatorDialog(Toplevel):
         self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices)
         self.SimulateDoer = Doer(self.parent.Simulate)
 
-        # The menu system        
+        # The menu system
         TheMenu=Menu(self)
         self.config(menu=TheMenu)
         FileMenu=Menu(self)
@@ -82,7 +82,7 @@ class SimulatorDialog(Toplevel):
         controlsFrame = Frame(self)
         Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=LEFT,expand=NO,fill=X)
         controlsFrame.pack(side=TOP,fill=X,expand=NO)
-        
+
         try:
             from matplotlib2tikz import save as tikz_save
         except:
@@ -150,7 +150,6 @@ class Simulator(object):
     def UpdateWaveforms(self,outputWaveformList,outputWaveformLabels):
         self.SimulatorDialog().UpdateWaveforms(outputWaveformList,outputWaveformLabels).state('normal')
     def Simulate(self):
-        #self.ShowCalculationPropertiesDialog()
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity as si
@@ -180,6 +179,58 @@ class Simulator(object):
         except si.PySIException as e:
             if e == si.PySIExceptionWaveformFile:
                 tkMessageBox.showerror('Simulator','Waveform file error: '+e.message)
+                return
+
+        outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
+        self.outputWaveformLabels=netList.OutputNames()
+
+        for outputWaveformIndex in range(len(outputWaveformList)):
+            outputWaveform=outputWaveformList[outputWaveformIndex]
+            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            for device in self.parent.Drawing.schematic.deviceList:
+                if device[PartPropertyPartName().propertyName].GetValue() == 'Output':
+                    if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
+                        gain=device[PartPropertyVoltageGain().propertyName].GetValue()
+                        offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
+                        delay=device[PartPropertyDelay().propertyName].GetValue()
+                        outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                        outputWaveformList[outputWaveformIndex]=outputWaveform
+                        break
+        outputWaveformList = [wf.Adapt(
+            si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
+                for wf in outputWaveformList]
+        self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
+
+    def VirtualProbe(self):
+        netList=self.parent.Drawing.schematic.NetList()
+        netListText=netList.Text()
+        import SignalIntegrity as si
+        snp=si.p.VirtualProbeNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                self.parent.calculationProperties.endFrequency,
+                self.parent.calculationProperties.frequencyPoints))
+        snp.AddLines(netListText)
+        try:
+            self.transferMatrices=snp.TransferMatrices()
+        except si.PySIException as e:
+            if e == si.PySIExceptionCheckConnections:
+                tkMessageBox.showerror('Virtual Probe','Unconnected devices error: '+e.message)
+            elif e == si.PySIExceptionSParameterFile:
+                tkMessageBox.showerror('Virtual Probe','s-parameter file error: '+e.message)
+            elif e == si.PySIExceptionVirtualProbe:
+                tkMessageBox.showerror('Virtual Probe','Virtual Probe Error: '+e.message)
+            elif e == si.PySIExceptionSystemDescriptionBuildError:
+                tkMessageBox.showerror('Virtual Probe','Schematic Error: '+e.message)
+            else:
+                tkMessageBox.showerror('Virtual Probe','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            return
+        tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+        try:
+            self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+            self.sourceNames=netList.MeasureNames()
+        except si.PySIException as e:
+            if e == si.PySIExceptionWaveformFile:
+                tkMessageBox.showerror('Virtual Probe','Waveform file error: '+e.message)
                 return
 
         outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)

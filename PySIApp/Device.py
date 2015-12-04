@@ -266,6 +266,11 @@ class DeviceMeasurement(Device):
         Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure'),PartPropertyWaveformFileName()],PartPictureVariableProbe())
     def NetListLine(self):
         return 'meas'
+    def Waveform(self):
+        import SignalIntegrity as si
+        fileName = self[PartPropertyWaveformFileName().propertyName].PropertyString(stype='raw')
+        waveform = si.td.wf.Waveform().ReadFromFile(fileName)
+        return waveform
 
 class DeviceOutput(Device):
     def __init__(self):
@@ -279,10 +284,10 @@ class DeviceOutput(Device):
 
 class DeviceStim(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Stim'),PartPropertyDefaultReferenceDesignator('M?'),PartPropertyDescription('Stim')],PartPictureVariableStim())
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Stim'),PartPropertyDefaultReferenceDesignator('M?'),PartPropertyWeight(1.),PartPropertyDescription('Stim')],PartPictureVariableStim())
     def NetListLine(self):
         return 'stim'
-    
+
 class DevicePowerMixedModeConverter(Device):
     def __init__(self):
         Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Power Mixed Mode Converter'),PartPropertyDefaultReferenceDesignator('MM?'),PartPropertyDescription('Power Mixed Mode Converter'),PartPropertyPorts(4)],PartPictureVariablePowerMixedModeConverter())

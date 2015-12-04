@@ -12,6 +12,7 @@ class NetList(object):
         self.measureNames=[]
         self.sourceNames=[]
         self.stimNames=[]
+        self.globalStimList=[]
         deviceList = schematic.deviceList
         wireList = schematic.wireList.EquiPotentialWireList()
         # put all devices in the net list
@@ -80,7 +81,7 @@ class NetList(object):
                 elif thisDevicePartName == 'Output':
                     outputList.append(devicePin)
                 elif thisDevicePartName == 'Measure':
-                    outputList.append(devicePin)
+                    measureList.append(devicePin)
                 elif thisDevicePartName == 'Stim':
                     stimList.append(devicePin)
             #remove all of the ports, outputs, measures and stims from the net
@@ -95,22 +96,13 @@ class NetList(object):
                 for measure in measureList:
                     deviceIndex = measure[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                    self.measureNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
                 for output in outputList:
                     deviceIndex = output[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
                     self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
                 for port in portList:
                     deviceIndex = port[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                # stims fall into three categories
-                # stims whose pin 1 is connected directly to a device port, and whose pin 2 is connected to port 1 of another stim.
-                # this type is a stim that depends on another.
-                # stims whose pin 1 is connected directly to a device port, and whose pin 2 is unconnected.
-                # this type of stim is independent
-                # stims whose pin 1 is connected to pin 2 of another stim and whose pin 2 is unconnected
-                # this is a stim that others depend on.
-                for stim in stimList:
-                    deviceIndex = stim[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
             if len(net) > 1:
                 # list the connections
@@ -122,12 +114,84 @@ class NetList(object):
                     pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
                     thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 self.textToShow.append(thisConnectionString)
+            if len(stimList)>0: # there is at least one stim on this net
+                # stims fall into three categories
+                # stims whose pin 1 is connected directly to a device port, and whose pin 2 is connected to port 1 of another stim.
+                # this type is a stim that depends on another. This is called a dependent stim
+                # stims whose pin 1 is connected directly to a device port, and whose pin 2 is unconnected.
+                # this type of stim is independent. this is called an independent stim
+                # stims whose pin 1 is connected to pin 2 of another stim and whose pin 2 is unconnected
+                # this is a stim that others depend on. This is called a global stim
+                directStimListThisNet=[]
+                globalStimListThisNet=[]
+                if len(net) == 0: # there are only stims on this net
+                    # one and only one of these stims better be a global stim
+                    # this is indicated by a pin 1 connection to the net
+                    # and the rest of the stims with a pin 2 connection
+                    for stim in stimList:
+                        if deviceList[stim[0]].partPicture.current.pinList[stim[1]].pinNumber==1:
+                            globalStimListThisNet.append(stim)
+                        else:
+                            directStimListThisNet.append(stim)
+                    if len(globalStimListThisNet) != 1: # this is an error
+                        directStimListThisNet=[]
+                        globalStimListThisNet=[]
+                    elif len(directStimListThisNet) < 1: # this is an error
+                        directStimListThisNet=[]
+                        globalStimListThisNet=[]
+                else: # there are stims and devices on this net
+                    # all of the stim pins must be pin 1
+                    # and the pin 1 must be connected directly to one of the device ports on the net
+                    if all(deviceList[stim[0]].partPicture.current.pinList[stim[1]].pinNumber==1 for stim in stimList): # all of the stim pins are pin 1
+                        directStimListThisNet=stimList
+                # okay - now that we're here, we either have one global stim and one or more direct stims
+                # which implies that this is a stim net used to define a stimdef or...
+                # we have no global stim and one or more direct stims which implies that these are
+                # stimdef definitions
+                if len(globalStimListThisNet)==0: # stim
+                    for (stimDeviceIndex,stimPinIndex) in directStimListThisNet: # generate the stim for each stim
+                        stimPin1Coordinate=deviceList[stimDeviceIndex].PinCoordinates()[stimPinIndex]
+                        for (deviceIndex,devicePinIndex) in net: # find the device pin connected to this stim
+                            devicePinCoordinate=deviceList[deviceIndex].PinCoordinates()[devicePinIndex]
+                            if stimPin1Coordinate==devicePinCoordinate:
+                                stimNameString=''
+                                for stimNameIndex in range(len(self.stimNames)):
+                                    if stimDeviceIndex == self.stimNames[stimNameIndex]:
+                                        stimNameString = 'm'+str(stimNameIndex+1)
+                                        break
+                                if stimNameString=='':
+                                    self.stimNames.append(stimDeviceIndex)
+                                    stimNameString = 'm'+str(len(self.stimNames))
+                                deviceName = deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
+                                devicePinNumber = deviceList[deviceIndex].partPicture.current.pinList[devicePinIndex].pinNumber
+                                devicePinString = deviceName + ' ' + str(devicePinNumber)
+                                self.textToShow.append(deviceList[stimDeviceIndex].NetListLine() + ' ' + stimNameString + ' ' + devicePinString)
+                elif len(globalStimListThisNet)==1: #stimdef
+                    (globalStimDeviceIndex,globalStimPinIndex) = globalStimListThisNet[0]
+                    directStimDeviceIndexList=[directStimDevice[0] for directStimDevice in directStimListThisNet]
+                    self.globalStimList.append((globalStimDeviceIndex,tuple(directStimDeviceIndexList)))
+        # generate the stimdef if required
+        if len(self.globalStimList) > 0: # need a stimdef
+            # for now, if there is at least one global stim, meaning there must be a stimdef, then all stims must be derived from the
+            # global stims
+            stimdef=[[0 for j in self.globalStimList] for i in self.stimNames]
+            for c in range(len(self.globalStimList)):
+                determinesStimsDevicesIndexes=self.globalStimList[c][1]
+                for determinesStimDeviceIndex in determinesStimsDevicesIndexes:
+                    for r in range(len(self.stimNames)):
+                        dependentStimDeviceIndex=self.stimNames[r]
+                        if determinesStimDeviceIndex == dependentStimDeviceIndex:
+                            stimdef[r][c]=deviceList[dependentStimDeviceIndex][PartPropertyWeight().propertyName].GetValue()
+            self.textToShow.append('stimdef '+str(stimdef))
     def Text(self):
         return self.textToShow
     def OutputNames(self):
         return self.outputNames
     def SourceNames(self):
         return self.sourceNames
+    def MeasureNames(self):
+        return self.measureNames
+
 class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
         Frame.__init__(self,parent)
