@@ -13,6 +13,13 @@ class VirtualProbeNumeric(VirtualProbe):
             D=self.m_D
         VE_m=matrix(self.VoltageExtractionMatrix(self.m_ml))
         VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
-        SIPrime=matrix(self.SIPrime())
+        # pragma: silent exclude
+        try:
+        # pragma: include outdent
+            SIPrime=matrix(self.SIPrime())
+        # pragma: silent exclude indent
+        except PySIExceptionSimulator as e:
+            raise PySIExceptionVirtualProbe(e.message)
+        # pragma: include
         Result=((VE_o*SIPrime*matrix(D))*(VE_m*SIPrime*matrix(D)).getI()).tolist()
         return Result
