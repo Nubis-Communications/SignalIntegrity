@@ -393,41 +393,10 @@ class TheApp(Frame):
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
-        foundAPort=False
-        foundASource=False
-        foundAnOutput=False
-        foundAMeasure=False
-        foundAStim=False
-        for deviceIndex in range(len(self.Drawing.schematic.deviceList)):
-            device = self.Drawing.schematic.deviceList[deviceIndex]
-            deviceType = device['type'].GetValue()
-            if  deviceType == 'Port':
-                foundAPort = True
-            elif deviceType == 'Output':
-                foundAnOutput = True
-            elif deviceType == 'Stim':
-                foundAStim = True
-            elif deviceType == 'Measure':
-                foundAMeasure = True
-            else:
-                netListLine = device.NetListLine()
-                if not netListLine is None:
-                    firstToken=netListLine.strip().split(' ')[0]
-                    if firstToken == 'voltagesource':
-                        foundASource = True
-                    elif firstToken == 'currentsource':
-                        foundASource = True
-        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure
-        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim
-        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource
-        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe
-        if canCalculate:
-            if canSimulate:
-                self.onSimulate()
-            elif canCalculateSParameters:
-                self.onCalculateSParameters()
-            elif canVirtualProbe:
-                self.onVirtualProbe()
+        self.Drawing.DrawSchematic()
+        self.SimulateDoer.Execute()
+        self.CalculateSParametersDoer.Execute()
+        self.VirtualProbeDoer.Execute()
 
     def onSParameterViewer(self):
         import SignalIntegrity as si

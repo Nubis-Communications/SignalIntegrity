@@ -36,7 +36,7 @@ class SimulatorDialog(Toplevel):
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
         self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices)
-        self.SimulateDoer = Doer(self.parent.Simulate)
+        self.SimulateDoer = Doer(self.parent.parent.onCalculate)
 
         # The menu system
         TheMenu=Menu(self)
@@ -53,7 +53,7 @@ class SimulatorDialog(Toplevel):
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
         self.ExamineTransferMatricesDoer.AddMenuElement(CalcMenu,label='View Transfer Parameters',underline=0)
         CalcMenu.add_separator()
-        self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
+        self.SimulateDoer.AddMenuElement(CalcMenu,label='Recalculate',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -199,6 +199,7 @@ class Simulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
+        self.SimulatorDialog().title('PySI Simulation')
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 
     def VirtualProbe(self):
@@ -251,5 +252,6 @@ class Simulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
+        self.SimulatorDialog().title('PySI Virtual Probe')
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 
