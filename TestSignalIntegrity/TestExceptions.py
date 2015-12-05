@@ -64,6 +64,38 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             sn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
+    def testVirtualNoOutputProbes(self):
+        sp=si.p.VirtualProbeParser()
+        #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
+        sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1'])
+        ss=si.sd.VirtualProbeSymbolic(sp.SystemDescription(),size='small')
+        with self.assertRaises(si.PySIException) as cm:
+            ss.LaTeXTransferMatrix()
+        self.assertEqual(cm.exception.parameter,'VirtualProbe')
+    def testVirtualNoStims(self):
+        sp=si.p.VirtualProbeParser()
+        #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
+        sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','meas T 1','output R 1'])
+        ss=si.sd.VirtualProbeSymbolic(sp.SystemDescription(),size='small')
+        with self.assertRaises(si.PySIException) as cm:
+            ss.LaTeXTransferMatrix()
+        self.assertEqual(cm.exception.parameter,'VirtualProbe')
+    def testVirtualNoMeasures(self):
+        sp=si.p.VirtualProbeParser()
+        #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
+        sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','output R 1'])
+        ss=si.sd.VirtualProbeSymbolic(sp.SystemDescription(),size='small')
+        with self.assertRaises(si.PySIException) as cm:
+            ss.LaTeXTransferMatrix()
+        self.assertEqual(cm.exception.parameter,'VirtualProbe')
+    def testVirtualProbeNumericalError(self):
+        sp=si.p.VirtualProbeParser()
+        sp.AddLines(['device T 1','device C 1','device R 1','device G 1 ground','connect T 1 C 1','connect G 1 R 1','stim m1 T 1','meas T 1','output R 1'])
+        sn=si.sd.VirtualProbeNumeric(sp.SystemDescription())
+        with self.assertRaises(si.PySIException) as cm:
+            sn.TransferMatrix()
+        self.assertEqual(cm.exception.parameter,'VirtualProbe')
+
 if __name__ == '__main__':
     unittest.main()
 

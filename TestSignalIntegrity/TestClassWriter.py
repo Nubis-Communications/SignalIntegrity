@@ -121,5 +121,31 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className='SystemSParametersNumeric'
         defName=['SParameters','__init__']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteVirtualProbe(self):
+        fileName="../SignalIntegrity/SystemDescriptions/VirtualProbe.py"
+        className='VirtualProbe'
+        defName=['__init__','pMeasurementList','pStimDef']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteVirtualProbeNumeric(self):
+        fileName="../SignalIntegrity/SystemDescriptions/VirtualProbeNumeric.py"
+        className='VirtualProbeNumeric'
+        defName=['__init__','TransferMatrix']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteVirtualProbeSymbolic(self):
+        fileName="../SignalIntegrity/SystemDescriptions/VirtualProbeSymbolic.py"
+        className='VirtualProbeSymbolic'
+        defName=['__init__','LaTeXTransferMatrix','LaTeXEquations']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteVirtualProbeParser(self):
+        fileName="../SignalIntegrity/Parsers/VirtualProbeParser.py"
+        className='VirtualProbeParser'
+        defName=['__init__','_ProcessVirtualProbeLine','_ProcessLines']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteVirtualProbeNumericParserc(self):
+        fileName="../SignalIntegrity/Parsers/VirtualProbeNumericParser.py"
+        className='VirtualProbeNumericParser'
+        defName=['__init__','TransferMatrices']
+        self.WriteClassCode(fileName,className,defName)
+
 if __name__ == '__main__':
     unittest.main()

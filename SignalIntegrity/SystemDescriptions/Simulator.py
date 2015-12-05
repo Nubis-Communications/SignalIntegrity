@@ -79,7 +79,7 @@ class Simulator(SystemSParameters,object):
             # pragma: include outdent
                 SI=(matrix(identity(len(n)))-matrix(self.WeightsMatrix())).getI().tolist()
             # pragma: silent exclude indent
-            except LinAlgError:
+            except:
                 raise PySIExceptionSimulator('numerical error - cannot invert matrix')
             # pragma: include
         SiPrime=[[0]*len(mprime) for r in range(len(n))]
