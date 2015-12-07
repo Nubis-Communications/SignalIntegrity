@@ -6,10 +6,10 @@ Created on Oct 15, 2015
 from Tkinter import *
 import ttk
 
-from Device import *
+#from Device import *
 
 class DevicePicker(Frame):
-    def __init__(self,parent):
+    def __init__(self,parent,deviceList):
         Frame.__init__(self,parent)
         self.tree = ttk.Treeview(self)
         self.tree.pack(fill=BOTH,expand=YES)
@@ -18,7 +18,7 @@ class DevicePicker(Frame):
         self.tree.heading("description", text="Description")
         categories=[]
         indexIntoDeviceList=0
-        for device in DeviceList:
+        for device in deviceList:
             parttype=device['type'].GetValue()
             description='\ '.join(device['description'].GetValue().split())
             category=device['category'].GetValue()
@@ -35,7 +35,7 @@ class DevicePicker(Frame):
         self.selected=self.tree.item(item,'tags')[0]
 
 class DevicePickerDialog(Toplevel):
-    def __init__(self,parent):
+    def __init__(self,parent,deviceList):
         Toplevel.__init__(self, parent)
         self.transient(parent)
 
@@ -45,7 +45,7 @@ class DevicePickerDialog(Toplevel):
 
         self.result = None
 
-        self.DevicePicker = DevicePicker(self)
+        self.DevicePicker = DevicePicker(self,deviceList)
         self.initial_focus = self.body(self.DevicePicker)
         self.DevicePicker.pack(side=TOP,fill=BOTH,expand=YES,padx=5, pady=5)
 
