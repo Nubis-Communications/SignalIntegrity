@@ -170,5 +170,12 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         defName=['__init__','PortANames','PortBNames','OtherNames','NodeVector',
         'StimulusVector','WeightsMatrix']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteSymbolic(self):
+        fileName='../SignalIntegrity/SystemDescriptions/Symbolic.py'
+        className='Symbolic'
+        defName=['__init__','Clear','Emit','DocStart','DocEnd','_BeginEq',
+        '_EndEq','_AddLine','_AddLines','WriteToFile','_SmallMatrix',
+        '_Identity','Get','_AddEq','_LaTeXMatrix']
+        self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()
