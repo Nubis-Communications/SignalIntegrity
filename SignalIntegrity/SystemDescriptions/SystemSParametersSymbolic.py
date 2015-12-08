@@ -13,7 +13,7 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
             ' - '+sW+' \\right]^{-1}')
         return self
     def LaTeXSolution(self,**args):
-        # pragma: exclude
+        # pragma: silent exclude
         self.CheckConnections()
         # pragma: include
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'

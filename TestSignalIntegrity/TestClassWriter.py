@@ -116,11 +116,6 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className='SystemSParametersSymbolic'
         defName=['LaTeXSolution','__init__','_LaTeXSi']
         self.WriteClassCode(fileName,className,defName)
-    def testSystemSParametersNumeric_SParameters(self):
-        fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersNumeric.py"
-        className='SystemSParametersNumeric'
-        defName=['SParameters','__init__']
-        self.WriteClassCode(fileName,className,defName)
     def testWriteVirtualProbe(self):
         fileName="../SignalIntegrity/SystemDescriptions/VirtualProbe.py"
         className='VirtualProbe'
@@ -154,28 +149,69 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteDevice(self):
         fileName='../SignalIntegrity/SystemDescriptions/Device.py'
         className='Device'
-        defName=['__init__','get_S','set_S','del_S','__getitem__','__len__',
+        defName=['__init__','__getitem__','__len__',
                 'SymbolicMatrix','Print']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSystemDescription(self):
         fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
         className='SystemDescription'
-        defName=['__init__','__getitem__','__len__','AddDevice','AssignM','DeviceNames',
-            'IndexOfDevice','_InsertNodeName','ConnectDevicePort',
-            'AddPort','AssignSParameters','Print']
-        self.WriteClassCode(fileName,className,defName)
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSystemSParameters(self):
         fileName='../SignalIntegrity/SystemDescriptions/SystemSParameters.py'
         className='SystemSParameters'
         defName=['__init__','PortANames','PortBNames','OtherNames','NodeVector',
         'StimulusVector','WeightsMatrix']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSymbolic(self):
         fileName='../SignalIntegrity/SystemDescriptions/Symbolic.py'
         className='Symbolic'
         defName=['__init__','Clear','Emit','DocStart','DocEnd','_BeginEq',
         '_EndEq','_AddLine','_AddLines','WriteToFile','_SmallMatrix',
         '_Identity','Get','_AddEq','_LaTeXMatrix']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSystemDescriptionParser(self):
+        fileName='../SignalIntegrity/Parsers/SystemDescriptionParser.py'
+        className='SystemDescriptionParser'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSystemSParametersNumeric(self):
+        fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersNumeric.py"
+        className='SystemSParametersNumeric'
+        firstDef='SParameters'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSystemSParametersNumericParser(self):
+        fileName="../SignalIntegrity/Parsers/SystemSParametersParser.py"
+        className='SystemSParametersNumericParser'
+        firstDef='SParameters'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSubCircuit(self):
+        fileName="../SignalIntegrity/SubCircuits/SubCircuit.py"
+        className='SubCircuit'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteParserArgs(self):
+        fileName="../SignalIntegrity/Parsers/ParserArgs.py"
+        className='ParserArgs'
+        firstDef='ProcessVariables'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()

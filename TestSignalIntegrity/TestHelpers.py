@@ -12,6 +12,7 @@
 import os
 import sys
 from cStringIO import StringIO
+
 import SignalIntegrity as si
 
 class SParameterCompareHelper(object):
@@ -163,17 +164,43 @@ class RoutineWriterTesterHelper(object):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
-    def WriteClassCode(self,fileName,className,defName):
+    def EntireListOfClassFunctions(self,fileName,className):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        defName=[]
+        inClass= className is ''
+        with open(fileName, 'rU') as inputFile:
+            for line in inputFile:
+                if len(line.split())>=2:
+                    pragmaLine = ('pragma:' == line.split()[1])
+                else:
+                    pragmaLine = False
+                if "class" == line.lstrip(' ').split(' ')[0]:
+                    if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
+                        inClass = True
+                    else:
+                        inClass = False
+                elif "def" == line.lstrip(' ').split(' ')[0]:
+                    if inClass:
+                        defName.append(line.lstrip(' ').split(' ')[1].split('(')[0])
+        return defName
+    def WriteClassCode(self,fileName,className,defName,checkNames=True,lineDefs=False):
         if isinstance(defName,str):
             defName=[defName]
-        outputFileName=fileName.split('/')[-1].split('.')[0]+'_'+className+'_'+defName[0]+'.py'
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        outputFileName=fileName.split('/')[-1].split('.')[0]+'_'+className+'_'+defName[0]
+        lineDefFileName=outputFileName+'_#.tex'
+        outputFileName=outputFileName+'.py'
+        if checkNames:
+            allDefNames = self.EntireListOfClassFunctions(fileName,className)
+            self.assertTrue(all([name in allDefNames for name in defName]), 'def names wrong for '+outputFileName)
         inClass= className is ''
         inDef=False
         addingLines=False
         sourceCode=[]
         indent=0
+        lineDef=[]
         with open(fileName, 'rU') as inputFile:
+            lineNumber=1
             for line in inputFile:
                 if len(line.split())>=2:
                     pragmaLine = ('pragma:' == line.split()[1])
@@ -184,14 +211,20 @@ class RoutineWriterTesterHelper(object):
                         inClass = True
                         inDef = False
                         addingLines = True
+                        lineNumber=1
                     else:
                         inClass = False
                         inDef = False
                         addingLines = False
                 elif "def" == line.lstrip(' ').split(' ')[0]:
                     if inClass:
-                        if any(d == line.lstrip(' ').split(' ')[1].split('(')[0] for d in defName):
+                        thisDefName=line.lstrip(' ').split(' ')[1].split('(')[0]
+                        if any(d == thisDefName for d in defName):
                             inDef=True
+                            defMacro=className+'_'+thisDefName+'_Num'
+                            defMacro=''.join(ch for ch in defMacro if ch.isalpha())
+                            defLine='\\def\\'+defMacro+'{'+str(lineNumber)+'}\n'
+                            lineDef=lineDef+[defLine]
                             """
                             if not addingLines:
                                 sourceCode.append("...")
@@ -200,11 +233,12 @@ class RoutineWriterTesterHelper(object):
                         else:
                             if addingLines:
                                 sourceCode.append("...\n")
+                                lineNumber=lineNumber+1
                             inDef=False
                             addingLines=False
                     else:
                         inDef=False
-                        addingLines=False                    
+                        addingLines=False
                 elif pragmaLine:
                         tokens=line.split()
                         pindex=tokens.index('pragma:')
@@ -218,6 +252,7 @@ class RoutineWriterTesterHelper(object):
                                     if addingLines:
                                         if not silent:
                                             sourceCode.append("...\n")
+                                            lineNumber=lineNumber+1
                                     addingLines = False
                             elif token == 'include':
                                 if inDef:
@@ -233,6 +268,7 @@ class RoutineWriterTesterHelper(object):
                             addingLines=False
                 if addingLines is True:
                     sourceCode.append(line[indent:])
+                    lineNumber=lineNumber+1
         if not os.path.exists(outputFileName):
             with open(outputFileName, 'w') as outputFile:
                 for line in sourceCode:
@@ -240,6 +276,14 @@ class RoutineWriterTesterHelper(object):
         with open(outputFileName, 'rU') as regressionFile:
             regression = regressionFile.readlines()
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
+        if lineDefs:
+            if not os.path.exists(lineDefFileName):
+                with open(lineDefFileName, 'w') as outputFile:
+                    for line in lineDef:
+                        outputFile.write(line)
+            with open(lineDefFileName, 'rU') as regressionFile:
+                regression = regressionFile.readlines()
+            self.assertTrue(regression == lineDef, lineDefFileName + ' incorrect')
 
 
 
