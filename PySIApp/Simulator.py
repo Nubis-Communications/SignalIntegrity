@@ -64,7 +64,7 @@ class SimulatorDialog(Toplevel):
         self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
-        self.f = Figure(figsize=(5,4), dpi=100)
+        self.f = Figure(figsize=(6,4), dpi=100)
         self.plt = self.f.add_subplot(111)
         self.plt.set_xlabel('time (ns)')
         self.plt.set_ylabel('amplitude')
@@ -105,7 +105,17 @@ class SimulatorDialog(Toplevel):
         self.waveformNamesList=waveformNamesList
 
         for wfi in range(len(self.waveformList)):
+            if wfi==0:
+                mint=self.waveformList[wfi].Times('ns')[0]
+                maxt=self.waveformList[wfi].Times('ns')[-1]
+            else:
+                mint=max(mint,self.waveformList[wfi].Times('ns')[0])
+                maxt=min(maxt,self.waveformList[wfi].Times('ns')[-1])
             self.plt.plot(self.waveformList[wfi].Times('ns'),self.waveformList[wfi].Values(),label=str(self.waveformNamesList[wfi]))
+
+        if not self.waveformList is None:
+            self.plt.set_xlim(xmin=mint)
+            self.plt.set_xlim(xmax=maxt)
 
         self.plt.legend(loc='upper right',labelspacing=0.1)
         self.f.canvas.draw()
@@ -125,13 +135,24 @@ class SimulatorDialog(Toplevel):
         SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
+        import os
         extension='.tex'
         filename=asksaveasfilename(filetypes=[('tex', extension)],defaultextension='.tex',initialdir=os.getcwd())
         if filename=='':
             return
         try:
             from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.f)
+            tikz_save(filename,figure=self.f,show_info=False)
+            texfile=open(filename,'rU')
+            lines=[]
+            for line in texfile:
+                line=line.replace('\xe2\x88\x92','-')
+                lines.append(str(line))
+            texfile.close()
+            texfile=open(filename,'w')
+            for line in lines:
+                texfile.write(line)
+            texfile.close()
         except:
             tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 

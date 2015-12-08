@@ -10,6 +10,7 @@ import os
 
 from PartProperty import *
 from Files import *
+from SParameterViewerWindow import *
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,device,partProperty,callBack,hidden):
@@ -42,6 +43,9 @@ class DeviceProperty(Frame):
         if self.partProperty.type == 'file':
             propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
             propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+            if self.partProperty.propertyName == PartPropertyFileName().propertyName:
+                propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
+                propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
         self.parentFrame.focus()
         if self.partProperty.propertyName == PartPropertyFileName().propertyName:
@@ -58,6 +62,26 @@ class DeviceProperty(Frame):
             filename=ConvertFileNameToRelativePath(filename)
             self.propertyString.set(filename)
             self.partProperty.SetValueFromString(self.propertyString.get())
+            self.callBack()
+    def onFileView(self):
+        self.parentFrame.focus()
+        if self.partProperty.propertyName == PartPropertyFileName().propertyName:
+            extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
+            filetypename='s-parameters'
+        elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
+            extension='.txt'
+            filetypename='waveforms'
+        else:
+            extension=''
+            filetypename='all'
+        filename=askopenfilename(filetypes=[(filetypename,extension)])
+        if filename != '':
+            filename=ConvertFileNameToRelativePath(filename)
+            self.propertyString.set(filename)
+            self.partProperty.SetValueFromString(self.propertyString.get())
+            import SignalIntegrity as si
+            sp=si.sp.File(filename)
+            SParametersDialog(self,sp,filename)
             self.callBack()
     def onPropertyVisible(self):
         self.partProperty.visible=bool(self.propertyVisible.get())

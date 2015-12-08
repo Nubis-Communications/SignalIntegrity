@@ -1228,6 +1228,11 @@ class PartPictureStim(PartPicture):
         my=(drawingOrigin[1]+self.origin[1]+1)*grid
         p=[ct.Translate((lx,my)),ct.Translate((rx,my))]
         canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/10,(10*grid)/10,(3*grid)/10))
+        if not connected is None:
+            for pinIndex in range(len(self.pinList)):
+                pin = self.pinList[pinIndex]
+                if pin.pinNumber == 2:
+                    connected[pinIndex]=True
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
 
 class PartPictureVariableStim(PartPictureVariable):

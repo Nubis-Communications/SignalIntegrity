@@ -66,6 +66,11 @@ class TheApp(Frame):
         # ------
         self.AddPartDoer = Doer(self.onAddPart)
         self.AddPortDoer = Doer(self.onAddPort)
+        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe)
+        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe)
+        self.AddStimDoer = Doer(self.onAddStim)
+        self.AddUnknownDoer = Doer(self.onAddUnknown)
+        self.AddSystemDoer = Doer(self.onAddSystem)
         self.DeletePartDoer = Doer(self.onDeletePart)
         self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>')
         self.EditPropertiesDoer = Doer(self.onEditProperties)
@@ -90,6 +95,7 @@ class TheApp(Frame):
         self.CalculateSParametersDoer = Doer(self.onCalculateSParameters)
         self.VirtualProbeDoer = Doer(self.onVirtualProbe)
         self.SimulateDoer = Doer(self.onSimulate)
+        self.DeembedDoer = Doer(self.onDeembed)
 
         # The menu system
         TheMenu=Menu(self.root)
@@ -113,7 +119,12 @@ class TheApp(Frame):
         PartsMenu=Menu(self)
         TheMenu.add_cascade(label='Parts',menu=PartsMenu,underline=0)
         self.AddPartDoer.AddMenuElement(PartsMenu,label='Add Part',underline=0)
-        self.AddPortDoer.AddMenuElement(PartsMenu,label='Add Port',underline=5)
+        self.AddPortDoer.AddMenuElement(PartsMenu,label='Add Port',underline=6)
+        self.AddOutputProbeDoer.AddMenuElement(PartsMenu,label='Add Output Probe',underline=4)
+        self.AddMeasureProbeDoer.AddMenuElement(PartsMenu,label='Add Measure Probe',underline=4)
+        self.AddStimDoer.AddMenuElement(PartsMenu,label='Add Stim',underline=5)
+        self.AddUnknownDoer.AddMenuElement(PartsMenu,label='Add Unknown',underline=4)
+        self.AddSystemDoer.AddMenuElement(PartsMenu,label='Add System',underline=4)
         PartsMenu.add_separator()
         self.DeletePartDoer.AddMenuElement(PartsMenu,label='Delete Part',underline=0)
         PartsMenu.add_separator()
@@ -145,6 +156,7 @@ class TheApp(Frame):
         self.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
+        self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -274,10 +286,19 @@ class TheApp(Frame):
             tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onAddPart(self):
+        self.onAddPartFromSpecificList(DeviceList)
+
+    def onAddUnknown(self):
+        self.onAddPartFromSpecificList(DeviceListUnknown)
+
+    def onAddSystem(self):
+        self.onAddPartFromSpecificList(DeviceListSystem)
+
+    def onAddPartFromSpecificList(self,deviceList):
         self.Drawing.stateMachine.Nothing()
-        dpd=DevicePickerDialog(self)
+        dpd=DevicePickerDialog(self,deviceList)
         if dpd.result != None:
-            devicePicked=copy.deepcopy(DeviceList[dpd.result])
+            devicePicked=copy.deepcopy(deviceList[dpd.result])
             devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
             defaultProperty = devicePicked[PartPropertyDefaultReferenceDesignator().propertyName]
             if defaultProperty != None:
@@ -289,6 +310,7 @@ class TheApp(Frame):
             if dpe.result != None:
                 self.Drawing.partLoaded = dpe.result
                 self.Drawing.stateMachine.PartLoaded()
+
     def onDeletePart(self):
         self.Drawing.DeleteSelectedDevice()
     def onDeleteSelected(self):
@@ -333,6 +355,30 @@ class TheApp(Frame):
             self.Drawing.partLoaded = dpe.result
             self.Drawing.stateMachine.PartLoaded()
 
+    def onAddOutputProbe(self):
+        self.AddSpecificPart(DeviceOutput())
+
+    def onAddMeasureProbe(self):
+        self.AddSpecificPart(DeviceMeasurement())
+
+    def onAddStim(self):
+        self.AddSpecificPart(DeviceStim())
+
+    def AddSpecificPart(self,part):
+        self.Drawing.stateMachine.Nothing()
+        devicePicked=part
+        devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
+        defaultProperty = devicePicked[PartPropertyDefaultReferenceDesignator().propertyName]
+        if defaultProperty != None:
+            defaultPropertyValue = defaultProperty.GetValue()
+            uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+            if uniqueReferenceDesignator != None:
+                devicePicked[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
+        dpe=DevicePropertiesDialog(self,devicePicked)
+        if dpe.result != None:
+            self.Drawing.partLoaded = dpe.result
+            self.Drawing.stateMachine.PartLoaded()
+
     def onZoomIn(self):
         self.Drawing.grid = self.Drawing.grid*2
         self.Drawing.DrawSchematic()
@@ -354,7 +400,6 @@ class TheApp(Frame):
         self.Drawing.DeleteSelectedWire()
 
     def onCalculateSParameters(self):
-        #self.onCalculationProperties()
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
@@ -377,7 +422,12 @@ class TheApp(Frame):
             else:
                 tkMessageBox.showerror('S-parameter Calculator','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return
-        SParametersDialog(self,sp)
+        if self.filename is None:
+            filename = None
+        else:
+            filename=self.filename.split('.')
+            filename='.'.join(filename[:-1])
+        SParametersDialog(self,sp,filename=filename)
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
@@ -391,12 +441,43 @@ class TheApp(Frame):
         self.Drawing.stateMachine.Nothing()
         self.simulator.VirtualProbe()
 
+    def onDeembed(self):
+        self.Drawing.stateMachine.Nothing()
+        netList=self.Drawing.schematic.NetList().Text()
+        import SignalIntegrity as si
+        dnp=si.p.DeembedderNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                self.calculationProperties.endFrequency,
+                self.calculationProperties.frequencyPoints))
+        dnp.AddLines(netList)
+        try:
+            sp=dnp.Deembed()
+        except si.PySIException as e:
+            if e == si.PySIExceptionCheckConnections:
+                tkMessageBox.showerror('S-parameter Calculator','Unconnected devices error: '+e.message)
+            elif e == si.PySIExceptionSParameterFile:
+                tkMessageBox.showerror('S-parameter Calculator','s-parameter file error: '+e.message)
+            elif e == si.PySIExceptionNumeric:
+                tkMessageBox.showerror('S-parameter Calculator','S-parameter Calculator Numerical Error: '+e.message)
+            elif e == si.PySIExceptionSystemDescriptionBuildError:
+                tkMessageBox.showerror('S-parameter Calculator','Schematic Error: '+e.message)
+            else:
+                tkMessageBox.showerror('S-parameter Calculator','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            return
+        if self.filename is None:
+            filename = None
+        else:
+            filename=self.filename.split('.')
+            filename='.'.join(filename[:-1])
+        SParametersDialog(self,sp,filename=filename)
+
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
         self.Drawing.DrawSchematic()
         self.SimulateDoer.Execute()
         self.CalculateSParametersDoer.Execute()
         self.VirtualProbeDoer.Execute()
+        self.DeembedDoer.Execute()
 
     def onSParameterViewer(self):
         import SignalIntegrity as si
@@ -410,7 +491,7 @@ class TheApp(Frame):
 
         filename=ConvertFileNameToRelativePath(filename)
         sp=si.sp.File(filename)
-        SParametersDialog(self,sp)
+        SParametersDialog(self,sp,filename)
 
 def main():
     app=TheApp()

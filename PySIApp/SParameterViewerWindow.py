@@ -53,7 +53,7 @@ class ViewerProperty(Frame):
         self.parentFrame.focus()
 
 class SParametersDialog(Toplevel):
-    def __init__(self, parent,sp,title=None,buttonLabels=None):
+    def __init__(self, parent,sp,filename=None,title=None,buttonLabels=None):
         Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
@@ -64,7 +64,7 @@ class SParametersDialog(Toplevel):
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
-        
+
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>')
@@ -72,7 +72,7 @@ class SParametersDialog(Toplevel):
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
         self.ResampleDoer = Doer(self.onResample)
 
-        # The menu system        
+        # The menu system
         TheMenu=Menu(self)
         self.config(menu=TheMenu)
         FileMenu=Menu(self)
@@ -84,7 +84,7 @@ class SParametersDialog(Toplevel):
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
         CalcMenu.add_separator()
         self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
-        
+
         # The Toolbar
         ToolBarFrame = Frame(self)
         ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
@@ -174,7 +174,7 @@ class SParametersDialog(Toplevel):
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
 
-        self.filename=None
+        self.filename=filename
 
         self.fromPort = 1
         self.toPort = 1
