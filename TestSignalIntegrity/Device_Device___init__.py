@@ -1,5 +1,3 @@
-from Port import Port
-
 class Device(object):
     def __init__(self,Name,Ports,Type='device'):
         self.Name = Name

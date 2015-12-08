@@ -25,11 +25,11 @@ class TestVirtualProbe(unittest.TestCase):
         vp.pOutputList = [('R',1)]
         H=vp.TransferMatrix()
         #print "H", H
-        SC=D[D.DeviceNames().index('C')].pSParameters
+        SC=D[D.DeviceNames().index('C')].SParameters
         SC21=SC[2-1][1-1]
         SC11=SC[1-1][1-1]
         SC22=SC[2-1][2-1]
-        GR=D[D.DeviceNames().index('R')].pSParameters[0][0]
+        GR=D[D.DeviceNames().index('R')].SParameters[0][0]
         SCD=linalg.det(matrix(SC))
         # this is what I say the answer should be
         H2=(SC21*(1+GR))/(1+SC11-GR*(SC22+SCD))

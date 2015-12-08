@@ -313,7 +313,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 D 1 2 F 4 3 D 3 4 F 2',
             'connect D 2 F 3','connect D 3 F 1','connect D 4 F 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
-        DSp=ssps[ssps.IndexOfDevice('D')].pSParameters
+        DSp=ssps[ssps.IndexOfDevice('D')].SParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]
         DSp[0][2]=0
@@ -326,7 +326,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
         ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.helper.Matrix2Text(DSp)))
-        DSp=ssps[ssps.IndexOfDevice('F')].pSParameters
+        DSp=ssps[ssps.IndexOfDevice('F')].SParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]
         DSp[0][2]=0
@@ -350,7 +350,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 D 1 2 F 4 3 D 3 4 F 2',
             'connect D 2 F 3','connect D 3 F 1','connect D 4 F 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
-        DSp=ssps[ssps.IndexOfDevice('D')].pSParameters
+        DSp=ssps[ssps.IndexOfDevice('D')].SParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]
         DSp[0][2]=0
@@ -371,7 +371,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         # pragma: exclude
         #si.sy.SymbolicMatrix(si.helper.Matrix2Text(DSp),'\\mathbf{D}',True).Emit()
         # pragma: include
-        DSp=ssps[ssps.IndexOfDevice('F')].pSParameters
+        DSp=ssps[ssps.IndexOfDevice('F')].SParameters
         DSp[1][1]=DSp[0][0]
         DSp[1][0]=DSp[0][1]
         DSp[0][2]=0

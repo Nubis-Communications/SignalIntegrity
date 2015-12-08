@@ -3,8 +3,8 @@ class Simulator(SystemSParameters,object):
     def SourceVector(self):
         sv=[]
         for d in self:
-            if d.pType == 'current source' or d.pType == 'voltage source':
-                sv.append(d.pName)
+            if d.Type == 'current source' or d.Type == 'voltage source':
+                sv.append(d.Name)
         return sv
     def SourceToStimsPrimeMatrix(self,symbolic=False):
         sv=self.SourceVector()
@@ -13,18 +13,18 @@ class Simulator(SystemSParameters,object):
         sm = [[0]*len(sv) for r in range(len(sp))]
         for s in sv:
             d=self[self.IndexOfDevice(s)]
-            if d.pType == 'current source':
+            if d.Type == 'current source':
                 if len(d) == 1:
-                    sm[sp.index(d[0].pM)][sv.index(s)] = Z0
+                    sm[sp.index(d[0].M)][sv.index(s)] = Z0
                 elif len(d) == 2:
-                    sm[sp.index(d[0].pM)][sv.index(s)] = Z0
-                    sm[sp.index(d[1].pM)][sv.index(s)] = Z0
-            elif d.pType == 'voltage source':
+                    sm[sp.index(d[0].M)][sv.index(s)] = Z0
+                    sm[sp.index(d[1].M)][sv.index(s)] = Z0
+            elif d.Type == 'voltage source':
                 if len(d) == 1:
-                    sm[sp.index(d[0].pM)][sv.index(s)] = 1.
+                    sm[sp.index(d[0].M)][sv.index(s)] = 1.
                 elif len(d) == 2:
-                    sm[sp.index(d[0].pM)][sv.index(s)] = -1./2.
-                    sm[sp.index(d[1].pM)][sv.index(s)] = 1./2.
+                    sm[sp.index(d[0].M)][sv.index(s)] = -1./2.
+                    sm[sp.index(d[1].M)][sv.index(s)] = 1./2.
         return sm
     def StimsPrime(self):
         sv=self.StimulusVector()
@@ -51,6 +51,6 @@ class Simulator(SystemSParameters,object):
         result=[[0]*len(n) for r in range(len(nl))]
         for r in range(len(nl)):
             dp=self[self.DeviceNames().index(nl[r][0])][nl[r][1]-1]
-            result[r][n.index(dp.pA)]=1
-            result[r][n.index(dp.pB)]=1
+            result[r][n.index(dp.A)]=1
+            result[r][n.index(dp.B)]=1
         return result

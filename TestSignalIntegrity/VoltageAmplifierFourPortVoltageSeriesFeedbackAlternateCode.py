@@ -5,7 +5,7 @@ sdp.AddLines(['device D 4','device F 4',
     'port 1 D 1 2 F 4 3 D 3 4 F 2',
     'connect D 2 F 3','connect D 3 F 1','connect D 4 F 2'])
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
-DSp=ssps[ssps.IndexOfDevice('D')].pSParameters
+DSp=ssps[ssps.IndexOfDevice('D')].SParameters
 DSp[1][1]=DSp[0][0]
 DSp[1][0]=DSp[0][1]
 DSp[0][2]=0
@@ -23,7 +23,7 @@ ssps._AddEq('D_{12}='+DS[0][1])
 ssps._AddEq('D_{31}='+DS[2][0])
 ssps._AddEq('D_{33}='+DS[2][2])
 ssps._AddEq('D_{34}='+DS[2][3])
-DSp=ssps[ssps.IndexOfDevice('F')].pSParameters
+DSp=ssps[ssps.IndexOfDevice('F')].SParameters
 DSp[1][1]=DSp[0][0]
 DSp[1][0]=DSp[0][1]
 DSp[0][2]=0

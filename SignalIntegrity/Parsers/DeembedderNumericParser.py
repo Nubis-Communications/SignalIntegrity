@@ -16,7 +16,7 @@ class DeembedderNumericParser(DeembedderParser):
                 if self.m_spc[d][0] == 'system':
                     system=self.m_spc[d][1][n]
                 else:
-                    self.m_sd[self.m_sd.IndexOfDevice(self.m_spc[d][0])].pSParameters=\
+                    self.m_sd[self.m_sd.IndexOfDevice(self.m_spc[d][0])].SParameters=\
                         self.m_spc[d][1][n]
             if not systemSParameters is None:
                 system=systemSParameters[n]

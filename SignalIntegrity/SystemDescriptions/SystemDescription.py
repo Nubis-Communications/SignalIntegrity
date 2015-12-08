@@ -20,33 +20,41 @@ class SystemDescription(object):
     def __len__(self):
         return len(self.Data)
     def AddDevice(self,Name,Ports,SParams=None,Type='device'):
+        # pragma: silent exclude
         if Name in self.DeviceNames():
             raise PySIExceptionSystemDescriptionBuildError(
                 'duplicate device name: '+str(Name))
+        # pragma: include
         self.Data.append(Device(Name,Ports,Type))
         if isinstance(SParams,list):
             self.AssignSParameters(Name,SParams)
     def AssignM(self,DeviceN,DeviceP,MName):
         di = self.IndexOfDevice(DeviceN)
-        self[di][DeviceP-1].pM = MName
+        self[di][DeviceP-1].M = MName
     def DeviceNames(self):
-        return [self[d].pName for d in range(len(self))]
+        return [self[d].Name for d in range(len(self))]
     def IndexOfDevice(self,DeviceName):
+        # pragma: silent exclude
         try:
+        # pragma: include outdent
             return self.DeviceNames().index(DeviceName)
+        # pragma: silent exclude indent
         except ValueError:
             raise PySIExceptionSystemDescriptionBuildError(
                 'cannot get index of device: '+str(DeviceName))
+        # pragma: include
     def _InsertNodeName(self,DeviceName,Port,AName,BName):
         di = self.IndexOfDevice(DeviceName)
-        self[di][Port-1].pA = AName
-        self[di][Port-1].pB = BName
+        self[di][Port-1].A = AName
+        self[di][Port-1].B = BName
     def CheckConnections(self):
         connected = [self[d][p].IsConnected()
             for d in range(len(self)) for p in range(len(self[d]))]
         if False in connected: raise PySIExceptionCheckConnections()
     def ConnectDevicePort(self,FromN,FromP,ToN,ToP):
+        # pragma: silent exclude
         try:
+        # pragma: include outdent
             dfi = self.IndexOfDevice(FromN)
             dti = self.IndexOfDevice(ToN)
             if not self[dfi][FromP-1].IsConnected():
@@ -60,20 +68,22 @@ class SystemDescription(object):
                 TeeN = self.m_UniqueDevice.Name()
                 self.AddDevice(TeeN,3)
                 self.AssignSParameters(TeeN,Tee())
-                self._InsertNodeName(TeeN,1,self[dfi][FromP-1].pA,self[dfi][FromP-1].pB)
+                self._InsertNodeName(TeeN,1,self[dfi][FromP-1].A,self[dfi][FromP-1].B)
                 self._InsertNodeName(FromN,FromP,'','')
                 self.ConnectDevicePort(FromN,FromP,TeeN,2)
                 self.ConnectDevicePort(TeeN,3,ToN,ToP)
+        # pragma: silent exclude indent
         except IndexError:
             raise PySIExceptionSystemDescriptionBuildError(
                 'connect device ports '+str(FromN)+' '+str(FromP)+' to '+
                 str(ToN)+' '+str(ToP))
+        # pragma: include
     def AddPort(self,DeviceName,DevicePort,SystemPort,AddThru=False):
         PortName = 'P'+str(SystemPort)
         self.AddDevice(PortName,1,[[0.0]])
         self.AssignM(PortName,1,'m'+str(SystemPort))
         if not AddThru:
-            AddThru = self[self.IndexOfDevice(DeviceName)].pType == 'unknown'
+            AddThru = self[self.IndexOfDevice(DeviceName)].Type == 'unknown'
         if AddThru:
             thruName=self.m_UniqueDevice.Name()
             self.AddDevice(thruName,2,Thru())
@@ -83,11 +93,9 @@ class SystemDescription(object):
             self.ConnectDevicePort(PortName,1,DeviceName,DevicePort)
     def AssignSParameters(self,DeviceName,SParameters):
         di = self.IndexOfDevice(DeviceName)
-        self[di].pSParameters = SParameters
+        self[di].SParameters = SParameters
     def Print(self):
         print '\n','Device','Name','Port','Node','Name'
         for d in range(len(self)):
             print repr(d+1).rjust(6),
             self[d].Print(1)
-
-

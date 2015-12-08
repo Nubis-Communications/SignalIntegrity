@@ -10,7 +10,7 @@ class TestExceptions(unittest.TestCase):
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 2 ZI 2 3 ZO 2 4 DV 3',
             'connect ZI 1 DV 2','connect ZI 2 DV 1'])
-        sdp.SystemDescription().Print()
+        #sdp.SystemDescription().Print()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         try:
             ssps.LaTeXSolution().Emit()
@@ -22,7 +22,7 @@ class TestExceptions(unittest.TestCase):
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 2 ZI 2 3 ZO 2 4 DV 3',
             'connect ZI 1 DV 2','connect ZI 2 DV 1'])
-        sdp.SystemDescription().Print()
+        #sdp.SystemDescription().Print()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         with self.assertRaises(si.PySIException) as cm:
             ssps.LaTeXSolution().Emit()
@@ -64,7 +64,7 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             sn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
-    def testVirtualNoOutputProbes(self):
+    def testVirtualProbeNoOutputProbes(self):
         sp=si.p.VirtualProbeParser()
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1'])
@@ -72,7 +72,7 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
-    def testVirtualNoStims(self):
+    def testVirtualProbeNoStims(self):
         sp=si.p.VirtualProbeParser()
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','meas T 1','output R 1'])
@@ -80,7 +80,7 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
-    def testVirtualNoMeasures(self):
+    def testVirtualProbeNoMeasures(self):
         sp=si.p.VirtualProbeParser()
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','output R 1'])
@@ -94,6 +94,14 @@ class TestExceptions(unittest.TestCase):
         sn=si.sd.VirtualProbeNumeric(sp.SystemDescription())
         with self.assertRaises(si.PySIException) as cm:
             sn.TransferMatrix()
+        self.assertEqual(cm.exception.parameter,'VirtualProbe')
+    def testVirtualProbeWrongStimdef(self):
+        sp=si.p.VirtualProbeParser()
+        #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
+        sp.AddLines(['device T 1 termination','device C 2 thru','device R 1 termination','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1','stimdef [[1.,1.],[1.,1.]]'])
+        vpn=si.sd.VirtualProbeNumeric(sp.SystemDescription())
+        with self.assertRaises(si.PySIException) as cm:
+            vpn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
 
 if __name__ == '__main__':

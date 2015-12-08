@@ -146,6 +146,29 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className='VirtualProbeNumericParser'
         defName=['__init__','TransferMatrices']
         self.WriteClassCode(fileName,className,defName)
-
+    def testWritePort(self):
+        fileName='../SignalIntegrity/SystemDescriptions/Port.py'
+        className='Port'
+        defName=['__init__','IsConnected','Print']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDevice(self):
+        fileName='../SignalIntegrity/SystemDescriptions/Device.py'
+        className='Device'
+        defName=['__init__','get_S','set_S','del_S','__getitem__','__len__',
+                'SymbolicMatrix','Print']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSystemDescription(self):
+        fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
+        className='SystemDescription'
+        defName=['__init__','__getitem__','__len__','AddDevice','AssignM','DeviceNames',
+            'IndexOfDevice','_InsertNodeName','ConnectDevicePort',
+            'AddPort','AssignSParameters','Print']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSystemSParameters(self):
+        fileName='../SignalIntegrity/SystemDescriptions/SystemSParameters.py'
+        className='SystemSParameters'
+        defName=['__init__','PortANames','PortBNames','OtherNames','NodeVector',
+        'StimulusVector','WeightsMatrix']
+        self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()
