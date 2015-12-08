@@ -132,7 +132,7 @@ class SimulatorDialog(Toplevel):
         buttonLabelList=[[out+' due to '+inp for inp in self.parent.sourceNames] for out in self.parent.outputWaveformLabels]
         maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
         buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
-        SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),'Transfer Parameters',buttonLabelList)
+        SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),None,'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
         import os
