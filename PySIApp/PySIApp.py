@@ -96,6 +96,8 @@ class TheApp(Frame):
         self.VirtualProbeDoer = Doer(self.onVirtualProbe)
         self.SimulateDoer = Doer(self.onSimulate)
         self.DeembedDoer = Doer(self.onDeembed)
+        # ------
+        self.HelpDoer = Doer(self.onHelp)
 
         # The menu system
         TheMenu=Menu(self.root)
@@ -157,6 +159,10 @@ class TheApp(Frame):
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
+        # ------
+        HelpMenu=Menu(self)
+        TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
+        self.HelpDoer.AddMenuElement(HelpMenu,label='Help',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -492,6 +498,24 @@ class TheApp(Frame):
         filename=ConvertFileNameToRelativePath(filename)
         sp=si.sp.File(filename)
         SParametersDialog(self,sp,filename)
+
+    def onHelp(self):
+##    """
+##    For documentation of the webbrowser module,
+##    see http://docs.python.org/library/webbrowser.html
+##    """
+        import webbrowser
+        new = 2 # open in a new tab, if possible
+##
+##    # open a public URL, in this case, the webbrowser docs
+##    url = "http://docs.python.org/library/webbrowser.html"
+##    webbrowser.open(url,new=new)
+
+        # open an HTML file on my own (Windows) computer
+        url = "file://.PySIApp/Help/PySIHelp.html"
+        url = "file://C:/Users/peter.pupalaikis/Work/Books/LyxBook/PythonSource/PySIApp/Help/PySIHelp.html"
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html'
+        webbrowser.open(url,new=new)
 
 def main():
     app=TheApp()
