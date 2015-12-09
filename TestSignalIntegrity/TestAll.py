@@ -29,6 +29,7 @@ from TestClassWriter import *
 from TestSimulator import *
 from TestSubcircuit import *
 from TestExceptions import *
+from TestDeviceParser import *
 
 if __name__ == '__main__':
     unittest.main()

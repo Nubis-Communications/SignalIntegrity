@@ -43,6 +43,12 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             sdp.SystemDescription().Print()
         self.assertEqual(cm.exception.parameter,'SystemDescriptionBuildError')
+    def testSystemDescriptionDuplicateName(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device DV 4','device DV 2'])
+        with self.assertRaises(si.PySIException) as cm:
+            sdp.SystemDescription().Print()
+        self.assertEqual(cm.exception.parameter,'SystemDescriptionBuildError')
     def testSimulatorNoOutputProbes(self):
         sp=si.p.SimulatorParser()
         sp.AddLines(['voltagesource VS1 1','device G1 1 ground','connect G1 1 VS1 1'])

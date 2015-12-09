@@ -26,9 +26,7 @@ class DeviceFactory(object):
         ParserDevice('l',2,True,{'':None},True,"SeriesL(f,float(arg['']))"),
         ParserDevice('r',1,True,{'':None},False,"TerminationZ(float(arg['']))"),
         ParserDevice('r',2,True,{'':None},False,"SeriesZ(float(arg['']))"),
-        ParserDevice('shunt',2,True,{'':None},False,"ShuntZTwoPort(float(arg['']))"),
-        ParserDevice('shunt',3,True,{'':None},False,"ShuntZThreePort(float(arg['']))"),
-        ParserDevice('shunt',4,True,{'':None},False,"ShuntZFourPort(float(arg['']))"),
+        ParserDevice('shunt','2-4',True,{'':None},False,"ShuntZ(ports,float(arg['']))"),
         ParserDevice('m',4,True,{'':None},True,"Mutual(f,float(arg['']))"),
         ParserDevice('ground',1,False,{},False,"Ground()"),
         ParserDevice('open',1,False,{},False,"Open()"),
@@ -41,20 +39,11 @@ class DeviceFactory(object):
         ParserDevice('currentcontrolledcurrentsource',4,True,{'':None},False,"CurrentControlledCurrentSource(float(arg['']))"),
         ParserDevice('currentcontrolledvoltagesource',4,True,{'':None},False,"CurrentControlledVoltageSource(float(arg['']))"),
         ParserDevice('voltagecontrolledcurrentsource',4,True,{'':None},False,"VoltageControlledCurrentSource(float(arg['']))"),
-        ParserDevice('voltageamplifier',2,False,{'gain':None,'zo':0,'zi':1e8,'z0':50.},False,"VoltageAmplifierTwoPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('voltageamplifier',3,False,{'gain':None,'zo':0,'zi':1e8,'z0':50.},False,"VoltageAmplifierThreePort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('voltageamplifier',4,False,{'gain':None,'zo':0,'zi':1e8,'z0':50.},False,"VoltageAmplifierFourPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('currentamplifier',2,False,{'gain':None,'zo':1e8,'zi':0,'z0':50.},False,"CurrentAmplifierTwoPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('currentamplifier',3,False,{'gain':None,'zo':1e8,'zi':0,'z0':50.},False,"CurrentAmplifierThreePort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('currentamplifier',4,False,{'gain':None,'zo':1e8,'zi':0,'z0':50.},False,"CurrentAmplifierFourPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('transresistanceamplifier',2,False,{'gain':None,'zo':0.,'zi':0.,'z0':50.},False,"TransresistanceAmplifierTwoPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('transresistanceamplifier',3,False,{'gain':None,'zo':0.,'zi':0.,'z0':50.},False,"TransresistanceAmplifierThreePort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('transresistanceamplifier',4,False,{'gain':None,'zo':0.,'zi':0.,'z0':50.},False,"TransresistanceAmplifierFourPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('transconductanceamplifier',2,False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifierTwoPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('transconductanceamplifier',3,False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifierThreePort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('transconductanceamplifier',4,False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifierFourPort(float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('tline',2,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
-        ParserDevice('tline',4,False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
+        ParserDevice('voltageamplifier','2-4',False,{'gain':None,'zo':0,'zi':1e8,'z0':50.},False,"VoltageAmplifier(ports,float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
+        ParserDevice('currentamplifier','2-4',False,{'gain':None,'zo':1e8,'zi':0,'z0':50.},False,"CurrentAmplifier(ports,float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
+        ParserDevice('transresistanceamplifier','2-4',False,{'gain':None,'zo':0.,'zi':0.,'z0':50.},False,"TransresistanceAmplifier(ports,float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
+        ParserDevice('transconductanceamplifier','2-4',False,{'gain':None,'zo':1e8,'zi':1e8,'z0':50.},False,"TransconductanceAmplifier(ports,float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
+        ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,"TLine(f,ports,float(arg['zc']),float(arg['td']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'l':0.,'c':0.,'g':0.,'z0':50.,'sect':1},
                      True,"ApproximateTwoPortTLine(f, float(arg['r']),float(arg['l']),float(arg['g']),float(arg['c']),float(arg['z0']),int(arg['sect']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,'ln':0.,'cn':0.,'gn':0.,'lm':0.,'cm':0.,'gm':0.,'z0':50.,'sect':1},
@@ -73,8 +62,20 @@ class DeviceFactory(object):
         argsList=argsList[1:]
         for device in self:
             if device.ports is not None:
-                if device.ports != ports:
-                    continue
+                if isinstance(device.ports,int):
+                    if device.ports != ports:
+                        continue
+                elif isinstance(device.ports,str):
+                    if '-' in device.ports:
+                        (minPort,maxPort) = device.ports.split('-')
+                        if ports < int(minPort):
+                            continue
+                        if ports > int(maxPort):
+                            continue
+                    else:
+                        acceptablePorts = device.ports.split(',')
+                        if not any(ports == int(acceptablePort) for acceptablePort in acceptablePorts):
+                            continue
             if device.devicename != name:
                     continue
             # this is the device, try to make it

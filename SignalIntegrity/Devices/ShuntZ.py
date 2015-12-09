@@ -15,7 +15,6 @@ def ShuntZ(ports,Z,Z0=50.):
     if ports == 2: return ShuntZTwoPort(Z,Z0)
     elif ports == 3: return ShuntZThreePort(Z,Z0)
     elif ports == 4: return ShuntZFourPort(Z,Z0)
-    else: return None
 
 def ShuntZTwoPort(Z,Z0=50.):
     return [[-Z0*Z0/(Z0*Z0+2.*Z*Z0),2.*Z0*Z/(Z0*Z0+2.*Z*Z0)],
