@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.1.4" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>LyX Document</title>
+<style type='text/css'>
+/* LyX Provided Styles */
+table { border: 1px solid black; display: inline-block; }
+td { border: 1px solid black; padding: 0.5ex; }
+
+/* Layout-provided Styles */
+h1.part {
+font-weight: bold;
+font-size: x-large;
+margin-top: 2ex;
+margin-bottom: 1.5ex;
+text-align: left;
+
+}
+h2.section_ {
+font-weight: bold;
+font-size: x-large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: left;
+
+}
+div.standard {
+margin-bottom: 2ex;
+}
+ol.enumerate {
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+text-align: left;
+
+}
+ul.itemize {
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+text-align: left;
+
+}
+h3.subsection_ {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+h4.subsubsection_ {
+font-weight: bold;
+font-size: medium;
+margin-top: 0.7ex;
+margin-bottom: 0.4ex;
+text-align: left;
+
+}
+div.plain_layout {
+text-align: left;
+
+}
+div.ovalbox {
+border: groove medium black;
+padding: 0.5ex;
+}
+span.flex_url {
+font-family: monospace;
+}
+
+
+</style>
+</head>
+<body>
+<h1 class="part"><a id='magicparlabel-1' /><span class="part_label">Part I</span> Getting Started</h1>
+<h2 class="section_"><a id='magicparlabel-2' />Introduction</h2>
+<div class="standard"><a id='magicparlabel-3' />PySIApp is an application for performing certain important applications and tasks encountered in signal integrity. These basic applications are:</div>
+
+<ol class="enumerate"><a id='magicparlabel-4' /><li class="enumerate_item">Generation of s-parameters of systems.</li>
+<li class="enumerate_item">Linear Simulation of systems.</li>
+<li class="enumerate_item">Virtual probing systems.</li>
+<li class="enumerate_item">Deembedding s-parameters in systems.</li>
+</ol>
+<div class="standard"><a id='magicparlabel-8' />The basic philosophy behind this tool can be summarized as follows:</div>
+
+<ul class="itemize"><a id='magicparlabel-9' /><li class="itemize_item">A high percentage of tasks required by signal integrity engineers that are usually performed using expensive, closed, black box systems can be performed using this free, open-source tool.</li>
+<li class="itemize_item">While software tools are powerful and really help the signal integrity engineer, there are certain common mistakes made due to both quality of data input to the tools, and lack of basic understanding of what the tool is doing. We address these two issues by supplying many capabilities for understanding the quality of your input data, usually in the form of s-parameter files, and providing complete explanation of what the tool is doing all the way from theory (in the book that accompanies this software) and in the form of the software itself which can be examined and even modified.</li>
+</ul>
+<h2 class="section_"><a id='magicparlabel-11' />Navigation<a id="sec_Navigation" />
+</h2>
+<div class="standard"><a id='magicparlabel-12' />When PySIApp opens, the user sees a dialog with a menu bar, a toolbar, a canvas, and a status line. The menu bar, toolbar buttons and various key bindings enable certain tasks to be executed. The menu bar is broken into sections where appropriate. These are:</div>
+
+<ul class="itemize"><a id='magicparlabel-4128' /><li class="itemize_item"><a href="#sub_File">File</a>- tasks for dealing with the project file.</li>
+<li class="itemize_item"><a href="#sub_Edit">Edit</a>- tasks for undoing and redoing tasks in the schematic.</li>
+<li class="itemize_item"><a href="#sub_Parts">Parts</a>- tasks for dealing with schematic elements in the drawing.</li>
+<li class="itemize_item"><a href="#sub_Wires">Wires</a>- tasks for dealing with wires connecting schematic elements.</li>
+<li class="itemize_item"><a href="#sub_View">View</a>- tasks for controlling the view of the schematic.</li>
+<li class="itemize_item"><a href="#sub_Calculate">Calculate</a>- tasks for performing calculations on the schematic.</li>
+<li class="itemize_item"><a href="#sub_Help">Help</a>- tasks dealing with the help system.</li>
+</ul>
+<h3 class="subsection_"><a id='magicparlabel-20' />File<a id="sub_File" />
+</h3>
+<div class="standard"><a id='magicparlabel-21' />File tasks are broken into two basic areas:</div>
+
+<ul class="itemize"><a id='magicparlabel-22' /><li class="itemize_item">Opening, Saving, and Clearing the project.</li>
+<li class="itemize_item">Exporting netlists and pictures of the drawing.</li>
+</ul>
+<div class="standard"><a id='magicparlabel-4790' />The File tasks are:</div>
+
+<ul class="itemize"><a id='magicparlabel-4795' /><li class="itemize_item"><a href="#sub_Open_Project">Open Project</a></li>
+<li class="itemize_item"><a href="#sub_Save_Project">Save Project</a></li>
+<li class="itemize_item"><a href="#sub_Clear_Schematic">Clear Schematic</a></li>
+<li class="itemize_item"><a href="#sub_Export_Netlist">Export Netlist</a></li>
+<li class="itemize_item"><a href="#sub_Export_LaTeX">Export LaTeX (TikZ)</a></li>
+</ul>
+<div class="standard"><a id='magicparlabel-4814' />back to <a href="#sec_Navigation">Navigation</a></div>
+<h4 class="subsubsection_"><a id='magicparlabel-24' />Open Project<a id="help_open_project" />
+<a id="sub_Open_Project" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-25' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-66' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-69' />File▸Open Project</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-72' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-75' />Alt+F,O</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-78' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-81' />Ctrl+O</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-84' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-87' /><img style='width:1cm;' src='0_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_document-open-2.gif' alt='image: 0_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_document-open-2.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-90' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-93' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-94' />A request to open a project brings up a file dialog so you can choose the file you want to work with.</div>
+
+<div class="standard"><a id='magicparlabel-95' />It only accepts files with the .xml extension and the file must have been previously generated with PySIApp.</div>
+
+<div class="standard"><a id='magicparlabel-96' />It clears the current project, but this can be undone using Undo.</div>
+
+<div class="standard"><a id='magicparlabel-5577' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-5752' />Back to <a href="#sub_File">File</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-307' />Save Project<a id="help_save_project" />
+<a id="sub_Save_Project" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-320' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-310' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-311' />File▸Save Project</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-312' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-313' />Alt+F,S</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-314' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-315' />Ctrl+S</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-316' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-317' /><img style='width:1cm;' src='1_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_document-save-2.gif' alt='image: 1_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_document-save-2.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-318' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-319' />When the project is not empty</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-5974' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-5973' />Back to <a href="#sub_File">File</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-523' />Clear Schematic<a id="help_clear_schematic" />
+<a id="sub_Clear_Schematic" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-536' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-526' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-527' />File▸Clear Schematic</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-528' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-529' />Alt+F,C</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-530' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-531' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-532' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-533' /><img style='width:1cm;' src='2_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_document-new-3.gif' alt='image: 2_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_document-new-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-534' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-535' />When the project is not empty</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-5985' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-5984' />Back to <a href="#sub_File">File</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-744' />Export Netlist<a id="help_export_netlist" />
+<a id="sub_Export_Netlist" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-757' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-747' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-748' />File▸Export Netlist</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-749' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-750' />Alt+F,N</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-751' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-752' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-753' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-754' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-755' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-756' />When the project is not empty</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-5996' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-5995' />Back to <a href="#sub_File">File</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-1069' />Export LaTeX (TikZ)<a id="help_export_latex" />
+<a id="sub_Export_LaTeX" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-1082' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1072' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1073' />File▸Export LaTeX (TikZ)</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1074' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1075' />Alt+F,L</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1076' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1077' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1078' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1079' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1080' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1081' />When the project is not empty</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-6007' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6006' />Back to <a href="#sub_File">File</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h3 class="subsection_"><a id='magicparlabel-1551' />Edit<a id="sub_Edit" />
+</h3>
+<div class="standard"><a id='magicparlabel-1552' />The Edit tasks are broken into two sections, one involving undo and redo of schematic edits and the other dealing with multiple selections:</div>
+
+<ul class="itemize"><a id='magicparlabel-5071' /><li class="itemize_item"><a href="#sub_Undo">Undo</a></li>
+<li class="itemize_item"><a href="#sub_Redo">Redo</a></li>
+</ul>
+<div class="standard"><a id='magicparlabel-20275' />and:</div>
+
+<ul class="itemize"><a id='magicparlabel-20279' /><li class="itemize_item"><a href="#sub_Delete_Selected">Delete Selected</a></li>
+<li class="itemize_item"><a href="#sub_Duplicate_Selected">Duplicate Selected</a></li>
+<li class="itemize_item"><a href="#sub_Cut_Selected">Cut Selected</a></li>
+</ul>
+<div class="standard"><a id='magicparlabel-5078' />These tasks depend on the History Buffer which records the state of the schematic at various events.</div>
+
+<div class="standard"><a id='magicparlabel-6018' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6017' />Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-1555' />Undo<a id="help_undo" />
+<a id="sub_Undo" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-1568' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1558' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1559' />Edit▸Undo</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1560' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1561' />Alt+E,U</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1562' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1563' />Ctrl+Z</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1564' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1565' /><img style='width:1cm;' src='3_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-undo-3.gif' alt='image: 3_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-undo-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1566' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-1567' />When there is something to undo in the history buffer</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-6043' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6042' />Back to <a href="#sub_Edit">Edit</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-18071' />Redo<a id="help_redo" />
+<a id="sub_Redo" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-18084' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18074' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18075' />Edit▸Redo</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18076' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18077' />Alt+E,R</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18078' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18079' />Ctrl+Shift+Z</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18080' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18081' /><img style='width:1cm;' src='4_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-redo-3.gif' alt='image: 4_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-redo-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18082' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18083' />When there is something that can be redone in the history buffer</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-18086' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-18085' />Back to <a href="#sub_Edit">Edit</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-18107' />Delete Selected<a id="help_delete_selected" />
+<a id="sub_Delete_Selected" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-18120' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18110' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18111' />Edit▸Delete Selected</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18112' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18113' />Alt+E,D</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18114' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18115' />Delete</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18116' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18242' /><img style='width:1cm;' src='6_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-delete-6.gif' alt='image: 6_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-delete-6.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18118' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18119' />When one or more drawing element is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-18122' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-18121' />Back to <a href="#sub_Edit">Edit</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-18143' />Duplicate Selected<a id="help_duplicate_selected" />
+<a id="sub_Duplicate_Selected" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-18156' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18146' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18147' />Edit▸Duplicate Selected</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18148' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18149' />Alt+E,U</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18150' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18151' />Ctrl+C</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18152' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18818' /><img style='width:1cm;' src='7_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-copy-3.gif' alt='image: 7_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-copy-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18154' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18839' />When one or more drawing element is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-18158' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-18157' />Back to <a href="#sub_Edit">Edit</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-18179' />Cut Selected<a id="help_cut_selected" />
+<a id="sub_Cut_Selected" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-18192' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18182' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18183' />Edit▸Cut Selected</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18184' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18185' />Alt+E,C</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18186' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18187' />Ctrl+X</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18188' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18189' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-18190' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-20818' />When one or more drawing element is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-18194' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-18193' />Back to <a href="#sub_Edit">Edit</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h3 class="subsection_"><a id='magicparlabel-98' />Parts<a id="sub_Parts" />
+</h3>
+<div class="standard"><a id='magicparlabel-6532' />Parts tasks are for adding all elements of the schematic (except the connection <a href="#sub_Wires">wires</a>). All elements of the schematic are parts, but some parts are are added specially:</div>
+
+<ul class="itemize"><a id='magicparlabel-6768' /><li class="itemize_item"><a href="#sub_Add_Part">Add Part</a>- Adds generic parts to the schematic.</li>
+</ul>
+<div class="standard"><a id='magicparlabel-6786' />The remaining add tasks are for adding special parts used for specific PySI applications:</div>
+
+<ul class="itemize"><a id='magicparlabel-6801' /><li class="itemize_item"><a href="#sub_Add_Port">Add Port</a>(used for calculating s-parameters and deembedding)</li>
+<li class="itemize_item"><a href="#sub_Add_Output_Probe">Add Output Probe</a>(used for simulating and virtual probing)</li>
+<li class="itemize_item"><a href="#sub_Add_Measure_Probe">Add Measure Probe</a>(used only for virtual probing)</li>
+<li class="itemize_item"><a href="#sub_Add_Stim">Add Stim</a>(used only for virtual probing)</li>
+<li class="itemize_item"><a href="#sub_Add_Unknown">Add Unknown</a>(used only for deembedding)</li>
+<li class="itemize_item"><a href="#sub_Add_System">Add System</a>(used only for deembedding)</li>
+</ul>
+<div class="standard"><a id='magicparlabel-8208' />If a part is selected, the following tasks are also possible:</div>
+
+<ul class="itemize"><a id='magicparlabel-8268' /><li class="itemize_item"><a href="#sub_Delete_Part">Delete Part</a></li>
+<li class="itemize_item"><a href="#sub_Edit_Properties">Edit Properties</a></li>
+<li class="itemize_item"><a href="#sub_Duplicate_Part">Duplicate Part</a></li>
+<li class="itemize_item"><a href="#sub_Rotate_Part">Rotate Part</a></li>
+<li class="itemize_item"><a href="#sub_Flip_Horizontally">Flip Horizontally</a></li>
+<li class="itemize_item"><a href="#sub_Flip_Vertically">Flip Vertically</a></li>
+</ul>
+<div class="standard"><a id='magicparlabel-6293' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6292' />Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7546' />Add Part<a id="help_add_part" />
+<a id="sub_Add_Part" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-7559' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7549' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7550' />Parts▸Add Part</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7551' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7552' />Alt+P,A</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7553' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7554' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7555' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7556' /><img style='width:1cm;' src='5_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-add-2.gif' alt='image: 5_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-add-2.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7557' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7558' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-7561' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-7560' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7582' />Add Port<a id="help_add_port" />
+<a id="sub_Add_Port" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-7595' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7585' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7586' />Parts▸Add</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7587' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7588' />Alt+P,R</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7589' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7590' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7591' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7592' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7593' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7594' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-7597' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-7596' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7618' />Add Output Probe<a id="help_add_output_probe" />
+<a id="sub_Add_Output_Probe" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-7631' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7621' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7622' />Parts▸Add Output Probe</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7623' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7624' />Alt+P,O</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7625' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7626' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7627' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7628' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7629' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7630' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-7633' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-7632' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7654' />Add Measure Probe<a id="help_add_measure_probe" />
+<a id="sub_Add_Measure_Probe" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-7667' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7657' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7658' />Parts▸Add Measure Probe</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7659' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7660' />Alt+P,M</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7661' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7662' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7663' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7664' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7665' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7666' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-7669' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-7668' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7690' />Add Stim<a id="help_add_stim" />
+<a id="sub_Add_Stim" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-7703' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7693' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7694' />Parts▸Add Stim</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7695' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7696' />Alt+P,T</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7697' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7698' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7699' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7860' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7701' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7702' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-7705' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-7704' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7726' />Add Unknown<a id="help_add_unknown" />
+<a id="sub_Add_Unknown" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-7739' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7729' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7730' />Parts▸Add Unknown</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7731' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7732' />Alt+P,U</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7733' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7734' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7735' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7869' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7737' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-7738' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-7741' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-7740' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-7762' />Add System<a id="help_add_system" />
+<a id="sub_Add_System" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-11990' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11980' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11981' />Parts▸Add System</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11982' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11983' />Alt+P,S</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11984' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11985' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11986' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11987' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11988' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-11989' />Always</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-11992' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-11991' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-12013' />Delete Part<a id="help_delete_part" />
+<a id="sub_Delete_Part" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-16723' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16713' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16714' />Parts▸Delete Part</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16715' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16716' />Alt+P,D</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16717' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16718' />Delete</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16719' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16720' /><img style='width:1cm;' src='6_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-delete-6.gif' alt='image: 6_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-delete-6.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16721' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-16722' />When a part is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-16724' />This is also available through the context sensitive menu (right-click when part selected).</div>
+
+<div class="standard"><a id='magicparlabel-16726' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-16725' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-16766' />Edit Properties<a id="help_edit_properties" />
+<a id="sub_Edit_Properties" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-12026' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12016' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12017' />Parts▸Edit Properties</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12018' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12019' />Alt+P,E</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12020' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12021' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12022' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12023' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12024' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-12025' />When a part is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-14790' />This is also available through the context sensitive menu (right-click when part selected).</div>
+
+<div class="standard"><a id='magicparlabel-12028' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-12027' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-13677' />Duplicate Part<a id="help_duplicate_part" />
+<a id="sub_Duplicate_Part" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-13690' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13680' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13681' />Parts▸Duplicate Part</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13682' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13683' />Alt+P,D</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13684' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13685' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13686' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13687' /><img style='width:1cm;' src='7_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-copy-3.gif' alt='image: 7_home_peterp_Work_Books_LyxBook_PythonSource_PySIApp_icons_png_16x16_actions_edit-copy-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13688' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13689' />When a part is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-14750' />This is also available through the context sensitive menu (right-click when part selected).</div>
+
+<div class="standard"><a id='magicparlabel-13692' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-13691' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-13965' />Rotate Part<a id="help_rotate_part" />
+<a id="sub_Rotate_Part" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-13978' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13968' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13969' />Parts▸Rotate Part</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13970' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13971' />Alt+P,R</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13972' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13973' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13974' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13975' /><img style='width:1cm;' src='8_home_peterp_Work_Books_LyxBook_PythonSource_P___cons_png_16x16_actions_object-rotate-left-4.gif' alt='image: 8_home_peterp_Work_Books_LyxBook_PythonSource_P___cons_png_16x16_actions_object-rotate-left-4.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13976' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-13977' />When a part is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-13980' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-13979' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-14651' />Flip Horizontally<a id="help_flip_horizontally" />
+<a id="sub_Flip_Horizontally" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-14664' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14654' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14655' />Parts▸Flip Horizontally</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14656' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14657' />Alt+P,H</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14658' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14659' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14660' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14661' /><img style='width:1cm;' src='9_home_peterp_Work_Books_LyxBook_PythonSource_P____png_16x16_actions_object-flip-horizontal-3.gif' alt='image: 9_home_peterp_Work_Books_LyxBook_PythonSource_P____png_16x16_actions_object-flip-horizontal-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14662' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14663' />When a part is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-14666' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-14665' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h4 class="subsubsection_"><a id='magicparlabel-14687' />Flip Vertically<a id="help_flip_vertically" />
+<a id="sub_Flip_Vertically" />
+</h4>
+
+
+
+
+
+
+
+
+
+<div class="standard"><a id='magicparlabel-14700' /><table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14690' /><em>Menu System</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14691' />Parts▸Flip Vertically</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14692' /><em>Navigation</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14693' />Alt+P,V</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14694' /><em>Key Binding</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14695' />None</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14696' /><em>Toolbar</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14697' /><img style='width:1cm;' src='10_home_peterp_Work_Books_LyxBook_PythonSource____ns_png_16x16_actions_object-flip-vertical-3.gif' alt='image: 10_home_peterp_Work_Books_LyxBook_PythonSource____ns_png_16x16_actions_object-flip-vertical-3.gif' />
+</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14698' /><em>Availability</em></div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-14699' />When a part is selected</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-14702' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-14701' />Back to <a href="#sub_Parts">Parts</a>. Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h3 class="subsection_"><a id='magicparlabel-11734' />Wires<a id="sub_Wires" />
+</h3>
+<div class="standard"><a id='magicparlabel-6353' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6352' />Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h3 class="subsection_"><a id='magicparlabel-100' />View<a id="sub_View" />
+</h3>
+<div class="standard"><a id='magicparlabel-6364' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6363' />Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h3 class="subsection_"><a id='magicparlabel-101' />Calculate<a id="sub_Calculate" />
+</h3>
+<div class="standard"><a id='magicparlabel-6375' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6374' />Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h3 class="subsection_"><a id='magicparlabel-102' />Help<a id="sub_Help" />
+</h3>
+<div class="standard"><a id='magicparlabel-6386' /><div class='ovalbox'><div class="plain_layout"><a id='magicparlabel-6385' />Back to <a href="#sec_Navigation">Navigation</a>.</div>
+</div></div>
+<h1 class="part"><a id='magicparlabel-103' /><span class="part_label">Part II</span> PySI Applications</h1>
+<div class="standard"><a id='magicparlabel-104' />PySI has the ability to perform four basic tasks:</div>
+
+<ol class="enumerate"><a id='magicparlabel-105' /><li class="enumerate_item">Generate s-parameters of systems.</li>
+<li class="enumerate_item">Simulate systems.</li>
+<li class="enumerate_item">Virtual probe systems.</li>
+<li class="enumerate_item">Deembed s-parameters in systems.</li>
+</ol>
+<div class="standard"><a id='magicparlabel-109' />A system is, of course, a schematic containing various elements,. For the purpose of this section, schematic elements are broken into several categories. These are:</div>
+
+<ol class="enumerate"><a id='magicparlabel-110' /><li class="enumerate_item">Ports.</li>
+<li class="enumerate_item">Devices.</li>
+<li class="enumerate_item">Sources.</li>
+<li class="enumerate_item">Measure Probes.</li>
+<li class="enumerate_item">Output Probes.</li>
+<li class="enumerate_item">Stims.</li>
+</ol>
+<h3 class="subsection_"><a id='magicparlabel-116' />Devices</h3>
+<div class="standard"><a id='magicparlabel-117' />Devices are the things you are most familiar with. They include resistive and reactive elements, dependent sources, opens, shorts (ground), transformers, etc. The most general and important element is the file which is a generic box whose s-parameters can be read from a file.</div>
+<h3 class="subsection_"><a id='magicparlabel-118' />Ports</h3>
+<div class="standard"><a id='magicparlabel-119' />Ports define connections to circuit for the purpose of s-parameter generation and de-embedding. They are numbered and determine the port numbering of any s-parameters generated. At least one port must be present to perform the task of s-parameter generation or deembedding.</div>
+<h3 class="subsection_"><a id='magicparlabel-120' />Sources</h3>
+<div class="standard"><a id='magicparlabel-121' />Sources define stimulus to the circuit for the purpose of simulation. There are various types of voltage and current generators which can generate steps, pulses, sinewaves, etc. The most important sources supply a waveform specified in a waveform file. At least one source must be present to perform simulation.</div>
+<h3 class="subsection_"><a id='magicparlabel-122' />Output Probes</h3>
+<div class="standard"><a id='magicparlabel-123' />Output probes define the probing point for waveforms output by the system during either simulation or virtual probing. The waverforms at output probe connection points are what get displayed on the simulator plot dialog. At least one output probe must be present to perform simulation.</div>
+<h2 class="section_"><a id='magicparlabel-124' />S-parameter Generation<a id="sec_S_parameter_Generation" />
+<span class="flex_url">spgen</span></h2>
+<div class="standard"><a id='magicparlabel-129' />This section explains how to use PySI to generate the s-parameters of a system.</div>
+<h2 class="section_"><a id='magicparlabel-2574' />The History Buffer</h2>
+<h2 class="section_"><a id='magicparlabel-8195' />Built-in Devices (Parts)</h2>
+</body>
+</html>

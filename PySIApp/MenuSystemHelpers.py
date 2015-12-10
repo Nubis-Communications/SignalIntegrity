@@ -9,6 +9,7 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 from Tkinter import *
+import os
 
 class MenuElement(object):
     def __init__(self,menu,**kw):
@@ -65,12 +66,15 @@ class KeyBindElement(object):
             self.bindTo.unbind(self.key)
 
 class Doer(object):
+    inHelp=False
     def __init__(self,command,active=True):
         self.active=active
         self.command=command
         self.menuElement=None
         self.toolBarElement=None
         self.keyBindElement=None
+        self.url=None
+        self.helpEnabled=True
     def AddMenuElement(self,menu,**kw):
         kw['command']=self.Execute
         self.menuElement=MenuElement(menu,**kw)
@@ -85,7 +89,20 @@ class Doer(object):
         self.keyBindElement = KeyBindElement(bindTo,key,self.Execute)
         self.keyBindElement.Activate(self.active)
         return self
+    def AddHelpElement(self,url):
+        self.url=url
+        return self
+    def DisableHelp(self):
+        self.helpEnabled=False
+        return self
     def Execute(self,*args):
+        if self.inHelp and self.helpEnabled:
+            if not self.url is None:
+                import webbrowser
+                new = 0
+                url = 'file://'+os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.xhtml'+'#'+self.url
+                webbrowser.open(url,new=new)
+            return
         if self.active:
             return self.command()
     def Activate(self,active):

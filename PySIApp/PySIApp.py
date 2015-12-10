@@ -56,26 +56,28 @@ class TheApp(Frame):
         self.statusbar=StatusBar(self)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>')
-        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>')
-        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>')
-        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>')
-        self.ClearProjectDoer = Doer(self.onClearSchematic)
-        self.ExportNetListDoer = Doer(self.onExportNetlist)
-        self.ExportTpXDoer = Doer(self.onExportTpX)
+        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement('help_open_project')
+        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement('help_save_project')
+        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement('help_clear_schematic')
+        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement('help_export_netlist')
+        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement('help_export_latex')
         # ------
-        self.AddPartDoer = Doer(self.onAddPart)
-        self.AddPortDoer = Doer(self.onAddPort)
-        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe)
-        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe)
-        self.AddStimDoer = Doer(self.onAddStim)
-        self.AddUnknownDoer = Doer(self.onAddUnknown)
-        self.AddSystemDoer = Doer(self.onAddSystem)
-        self.DeletePartDoer = Doer(self.onDeletePart)
-        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>')
+        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('help_undo')
+        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement('help_redo')
+        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement('help_delete_selected')
+        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement('help_duplicate_selected')
+        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement('help_cut_selected')
+        # ------
+        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement('help_add_part')
+        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement('help_add_port')
+        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement('help_add_measure_probe')
+        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement('help_add_output_probe')
+        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement('help_add_stim')
+        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement('help_add_unknown')
+        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement('help_add_system')
+        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement('help_delete_part')
         self.EditPropertiesDoer = Doer(self.onEditProperties)
         self.DuplicatePartDoer = Doer(self.onDuplicate)
-        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>')
         self.RotatePartDoer = Doer(self.onRotatePart)
         self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally)
         self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically)
@@ -98,6 +100,9 @@ class TheApp(Frame):
         self.DeembedDoer = Doer(self.onDeembed)
         # ------
         self.HelpDoer = Doer(self.onHelp)
+        self.ControlHelpDoer = Doer(self.onControlHelp)
+        # ------
+        self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 
         # The menu system
         TheMenu=Menu(self.root)
@@ -117,6 +122,10 @@ class TheApp(Frame):
         self.UndoDoer.AddMenuElement(EditMenu,label="Undo",accelerator='Ctrl+Z', underline=0)
         self.RedoDoer.AddMenuElement(EditMenu,label="Redo",accelerator='Ctrl+Shift+Z',underline=0)
         EditMenu.add_separator()
+        # ------
+        self.DeleteSelectedDoer.AddMenuElement(EditMenu,label='Delete Selected',accelerator='Del',underline=0)
+        self.DuplicateSelectedDoer.AddMenuElement(EditMenu,label='Duplicate Selected',accelerator='Ctrl+C',underline=1)
+        self.CutSelectedDoer.AddMenuElement(EditMenu,label='Cut Selected',accelerator='Ctrl+X',underline=0)
         # ------
         PartsMenu=Menu(self)
         TheMenu.add_cascade(label='Parts',menu=PartsMenu,underline=0)
@@ -163,6 +172,7 @@ class TheApp(Frame):
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Help',underline=0)
+        self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -343,6 +353,8 @@ class TheApp(Frame):
             self.Drawing.DrawSchematic()
     def onDuplicateSelected(self):
         self.Drawing.DuplicateSelected()
+    def onCutMultipleSelections(self):
+        self.Drawing.CutMultipleSelections()
     def onDuplicate(self):
         self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):
@@ -500,22 +512,68 @@ class TheApp(Frame):
         SParametersDialog(self,sp,filename)
 
     def onHelp(self):
-##    """
-##    For documentation of the webbrowser module,
-##    see http://docs.python.org/library/webbrowser.html
-##    """
         import webbrowser
-        new = 2 # open in a new tab, if possible
-##
-##    # open a public URL, in this case, the webbrowser docs
-##    url = "http://docs.python.org/library/webbrowser.html"
-##    webbrowser.open(url,new=new)
-
-        # open an HTML file on my own (Windows) computer
-        url = "file://.PySIApp/Help/PySIHelp.html"
-        url = "file://C:/Users/peter.pupalaikis/Work/Books/LyxBook/PythonSource/PySIApp/Help/PySIHelp.html"
-        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html'
+        new = 0
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.xhtml'
         webbrowser.open(url,new=new)
+
+    def onControlHelp(self):
+        Doer.inHelp = not Doer.inHelp
+        if Doer.inHelp:
+            self.OpenProjectDoer.Activate(True)
+            self.SaveProjectDoer.Activate(True)
+            self.ClearProjectDoer.Activate(True)
+            self.ExportNetListDoer.Activate(True)
+            self.ExportTpXDoer.Activate(True)
+            # ------
+            self.UndoDoer.Activate(True)
+            self.RedoDoer.Activate(True)
+            # ------
+            self.AddPartDoer.Activate(True)
+            self.AddPortDoer.Activate(True)
+            self.AddMeasureProbeDoer.Activate(True)
+            self.AddOutputProbeDoer.Activate(True)
+            self.AddStimDoer.Activate(True)
+            self.AddUnknownDoer.Activate(True)
+            self.AddSystemDoer.Activate(True)
+            self.DeletePartDoer.Activate(True)
+            self.DeleteSelectedDoer.Activate(True)
+            self.EditPropertiesDoer.Activate(True)
+            self.DuplicatePartDoer.Activate(True)
+            self.DuplicateSelectedDoer.Activate(True)
+            self.CutSelectedDoer.Activate(True)
+            self.RotatePartDoer.Activate(True)
+            self.FlipPartHorizontallyDoer.Activate(True)
+            self.FlipPartVerticallyDoer.Activate(True)
+            # ------
+            self.AddWireDoer.Activate(True)
+            self.DeleteVertexDoer.Activate(True)
+            self.DuplicateVertexDoer.Activate(True)
+            self.DeleteWireDoer.Activate(True)
+            # ------
+            self.ZoomInDoer.Activate(True)
+            self.ZoomOutDoer.Activate(True)
+            self.PanDoer.Activate(True)
+            # ------
+            self.CalculationPropertiesDoer.Activate(True)
+            self.SParameterViewerDoer.Activate(True)
+            self.CalculateDoer.Activate(True)
+            self.CalculateSParametersDoer.Activate(True)
+            self.VirtualProbeDoer.Activate(True)
+            self.SimulateDoer.Activate(True)
+            self.DeembedDoer.Activate(True)
+            # ------
+            self.HelpDoer.Activate(True)
+            self.ControlHelpDoer.Activate(True)
+            # ------
+            self.EscapeDoer.Activate(True)
+
+            self.config(cursor='question_arrow')
+
+    def onEscape(self):
+        self.Drawing.stateMachine.Nothing(True)
+        Doer.inHelp = False
+        self.config(cursor='left_ptr')
 
 def main():
     app=TheApp()
