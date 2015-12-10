@@ -76,31 +76,31 @@ class TheApp(Frame):
         self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement('help_add_unknown')
         self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement('help_add_system')
         self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement('help_delete_part')
-        self.EditPropertiesDoer = Doer(self.onEditProperties)
-        self.DuplicatePartDoer = Doer(self.onDuplicate)
-        self.RotatePartDoer = Doer(self.onRotatePart)
-        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally)
-        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically)
+        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement('help_edit_properties')
+        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement('help_duplicate_part')
+        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement('help_rotate_part')
+        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement('help_flip_horizontally')
+        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement('help_flip_vertically')
         # ------
-        self.AddWireDoer = Doer(self.onAddWire)
-        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex)
-        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex)
-        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire)
+        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement('help_add_wire')
+        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement('help_delete_vertex')
+        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement('help_duplicate_vertex')
+        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement('help_delete_wire')
         # ------
-        self.ZoomInDoer = Doer(self.onZoomIn)
-        self.ZoomOutDoer = Doer(self.onZoomOut)
-        self.PanDoer = Doer(self.onPan)
+        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement('help_zoom_in')
+        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement('help_zoom_out')
+        self.PanDoer = Doer(self.onPan).AddHelpElement('help_pan')
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
-        self.SParameterViewerDoer = Doer(self.onSParameterViewer)
-        self.CalculateDoer = Doer(self.onCalculate)
-        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters)
-        self.VirtualProbeDoer = Doer(self.onVirtualProbe)
-        self.SimulateDoer = Doer(self.onSimulate)
-        self.DeembedDoer = Doer(self.onDeembed)
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('help_calculation_properties')
+        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('help_sparameter_viewer')
+        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('help_calculate')
+        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('help_calculate_sparameters')
+        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('help_virtual_probe')
+        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('help_simulate')
+        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('help_deembed')
         # ------
-        self.HelpDoer = Doer(self.onHelp)
-        self.ControlHelpDoer = Doer(self.onControlHelp)
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement('help_open_help_file')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('help_control_help')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 
@@ -171,7 +171,7 @@ class TheApp(Frame):
         # ------
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
-        self.HelpDoer.AddMenuElement(HelpMenu,label='Help',underline=0)
+        self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
 
         # The Toolbar
@@ -195,6 +195,9 @@ class TheApp(Frame):
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
         self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         # ------
         UndoFrame=Frame(ToolBarFrame)
         UndoFrame.pack(side=RIGHT,fill=NONE,expand=NO,anchor=E)
@@ -572,7 +575,6 @@ class TheApp(Frame):
 
     def onEscape(self):
         self.Drawing.stateMachine.Nothing(True)
-        Doer.inHelp = False
         self.config(cursor='left_ptr')
 
 def main():

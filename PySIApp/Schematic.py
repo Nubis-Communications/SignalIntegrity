@@ -252,6 +252,8 @@ class DrawingStateMachine(object):
             self.parent.schematic.Consolidate()
             self.UnselectAllDevices()
             self.UnselectAllWires()
+            Doer.inHelp = False
+            self.parent.parent.config(cursor='left_ptr')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_Nothing)
             self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_Nothing)
             self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_Nothing)
