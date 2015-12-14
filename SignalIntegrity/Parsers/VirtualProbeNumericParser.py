@@ -1,7 +1,6 @@
 from VirtualProbeParser import VirtualProbeParser
 from SignalIntegrity.SystemDescriptions import VirtualProbeNumeric
 from SignalIntegrity.FrequencyDomain.TransferMatrices import TransferMatrices
-from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class VirtualProbeNumericParser(VirtualProbeParser):
     def __init__(self, f=None, args=None):

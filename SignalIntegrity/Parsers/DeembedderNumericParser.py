@@ -1,7 +1,6 @@
 from SignalIntegrity.Parsers import DeembedderParser
 from SignalIntegrity.SystemDescriptions import DeembedderNumeric
 from SignalIntegrity.SParameters import SParameters
-from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class DeembedderNumericParser(DeembedderParser):
     def __init__(self, f=None, args=None):

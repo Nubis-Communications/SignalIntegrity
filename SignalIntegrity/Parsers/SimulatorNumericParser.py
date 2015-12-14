@@ -1,7 +1,6 @@
 from SimulatorParser import SimulatorParser
 from SignalIntegrity.SystemDescriptions import SimulatorNumeric
 from SignalIntegrity.FrequencyDomain.TransferMatrices import TransferMatrices
-from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class SimulatorNumericParser(SimulatorParser):
     def __init__(self, f=None, args=None):

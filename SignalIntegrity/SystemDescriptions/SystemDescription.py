@@ -2,8 +2,7 @@ from SignalIntegrity.Devices import Tee
 from SignalIntegrity.Devices import Thru
 from Device import Device
 from UniqueNameFactory import UniqueNameFactory
-from SignalIntegrity.PySIException import PySIExceptionSystemDescriptionBuildError
-from SignalIntegrity.PySIException import PySIExceptionCheckConnections
+from SignalIntegrity.PySIException import PySIExceptionSystemDescription
 
 class SystemDescription(object):
     def __init__(self,sd=None):
@@ -22,7 +21,7 @@ class SystemDescription(object):
     def AddDevice(self,Name,Ports,SParams=None,Type='device'):
         # pragma: silent exclude
         if Name in self.DeviceNames():
-            raise PySIExceptionSystemDescriptionBuildError(
+            raise PySIExceptionSystemDescription(
                 'duplicate device name: '+str(Name))
         # pragma: include
         self.Data.append(Device(Name,Ports,Type))
@@ -40,17 +39,17 @@ class SystemDescription(object):
             return self.DeviceNames().index(DeviceName)
         # pragma: silent exclude indent
         except ValueError:
-            raise PySIExceptionSystemDescriptionBuildError(
-                'cannot get index of device: '+str(DeviceName))
+            raise PySIExceptionSystemDescription(
+                'no device named: '+str(DeviceName))
         # pragma: include
     def _InsertNodeName(self,DeviceName,Port,AName,BName):
         di = self.IndexOfDevice(DeviceName)
         self[di][Port-1].A = AName
         self[di][Port-1].B = BName
     def CheckConnections(self):
-        connected = [self[d][p].IsConnected()
-            for d in range(len(self)) for p in range(len(self[d]))]
-        if False in connected: raise PySIExceptionCheckConnections()
+        if not all([self[d][p].IsConnected()
+            for d in range(len(self)) for p in range(len(self[d]))]):
+            raise PySIExceptionSystemDescription('unconnected device ports')
     def ConnectDevicePort(self,FromN,FromP,ToN,ToP):
         # pragma: silent exclude
         try:
@@ -74,8 +73,8 @@ class SystemDescription(object):
                 self.ConnectDevicePort(TeeN,3,ToN,ToP)
         # pragma: silent exclude indent
         except IndexError:
-            raise PySIExceptionSystemDescriptionBuildError(
-                'connect device ports '+str(FromN)+' '+str(FromP)+' to '+
+            raise PySIExceptionSystemDescription(
+                'cannot connect device ports '+str(FromN)+' '+str(FromP)+' to '+
                 str(ToN)+' '+str(ToP))
         # pragma: include
     def AddPort(self,DeviceName,DevicePort,SystemPort,AddThru=False):

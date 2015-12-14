@@ -432,14 +432,12 @@ class TheApp(Frame):
         try:
             sp=spnp.SParameters()
         except si.PySIException as e:
-            if e == si.PySIExceptionCheckConnections:
-                tkMessageBox.showerror('S-parameter Calculator','Unconnected devices error: '+e.message)
+            if e == si.PySIExceptionSystemDescription:
+                tkMessageBox.showerror('S-parameter Calculator','System Description Error: '+e.message)
             elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('S-parameter Calculator','s-parameter file error: '+e.message)
+                tkMessageBox.showerror('S-parameter Calculator','S-parameter File Error: '+e.message)
             elif e == si.PySIExceptionNumeric:
                 tkMessageBox.showerror('S-parameter Calculator','S-parameter Calculator Numerical Error: '+e.message)
-            elif e == si.PySIExceptionSystemDescriptionBuildError:
-                tkMessageBox.showerror('S-parameter Calculator','Schematic Error: '+e.message)
             else:
                 tkMessageBox.showerror('S-parameter Calculator','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return
@@ -474,16 +472,14 @@ class TheApp(Frame):
         try:
             sp=dnp.Deembed()
         except si.PySIException as e:
-            if e == si.PySIExceptionCheckConnections:
-                tkMessageBox.showerror('S-parameter Calculator','Unconnected devices error: '+e.message)
+            if e == si.PySIExceptionSystemDescription:
+                tkMessageBox.showerror('Deembedder','System Description Error: '+e.message)
             elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('S-parameter Calculator','s-parameter file error: '+e.message)
+                tkMessageBox.showerror('Deembedder','Deembedder File Error: '+e.message)
             elif e == si.PySIExceptionNumeric:
-                tkMessageBox.showerror('S-parameter Calculator','S-parameter Calculator Numerical Error: '+e.message)
-            elif e == si.PySIExceptionSystemDescriptionBuildError:
-                tkMessageBox.showerror('S-parameter Calculator','Schematic Error: '+e.message)
+                tkMessageBox.showerror('Deembedder','Deembedder Numerical Error: '+e.message)
             else:
-                tkMessageBox.showerror('S-parameter Calculator','Unhandled PySI Exception: '+str(e)+' '+e.message)
+                tkMessageBox.showerror('Deembedder','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return
         if self.filename is None:
             filename = None
@@ -515,10 +511,11 @@ class TheApp(Frame):
         SParametersDialog(self,sp,filename)
 
     def onHelp(self):
-        import webbrowser
+        import subprocess
         new = 0
-        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.xhtml'
-        webbrowser.open(url,new=new)
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.pdf'
+#        webbrowser.open(url,new=new)
+        subprocess.Popen([url],shell=True)
 
     def onControlHelp(self):
         Doer.inHelp = not Doer.inHelp

@@ -182,14 +182,12 @@ class Simulator(object):
         try:
             self.transferMatrices=snp.TransferMatrices()
         except si.PySIException as e:
-            if e == si.PySIExceptionCheckConnections:
-                tkMessageBox.showerror('Simulator','Unconnected devices error: '+e.message)
+            if e == si.PySIExceptionSystemDescription:
+                tkMessageBox.showerror('Simulator','System Description Error: '+e.message)
             elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('Simulator','s-parameter file error: '+e.message)
+                tkMessageBox.showerror('Simulator','S-parameter File Error: '+e.message)
             elif e == si.PySIExceptionSimulator:
                 tkMessageBox.showerror('Simulator','Simulator Error: '+e.message)
-            elif e == si.PySIExceptionSystemDescriptionBuildError:
-                tkMessageBox.showerror('Simulator','Schematic Error: '+e.message)
             else:
                 tkMessageBox.showerror('Simulator','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return
@@ -235,14 +233,12 @@ class Simulator(object):
         try:
             self.transferMatrices=snp.TransferMatrices()
         except si.PySIException as e:
-            if e == si.PySIExceptionCheckConnections:
-                tkMessageBox.showerror('Virtual Probe','Unconnected devices error: '+e.message)
+            if e == si.PySIExceptionSystemDescription:
+                tkMessageBox.showerror('Virtual Probe','System Description Error: '+e.message)
             elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('Virtual Probe','s-parameter file error: '+e.message)
+                tkMessageBox.showerror('Virtual Probe','S-parameter File Error: '+e.message)
             elif e == si.PySIExceptionVirtualProbe:
                 tkMessageBox.showerror('Virtual Probe','Virtual Probe Error: '+e.message)
-            elif e == si.PySIExceptionSystemDescriptionBuildError:
-                tkMessageBox.showerror('Virtual Probe','Schematic Error: '+e.message)
             else:
                 tkMessageBox.showerror('Virtual Probe','Unhandled PySI Exception: '+str(e)+' '+e.message)
             return

@@ -16,9 +16,9 @@ class PySIException(Exception):
         else:
             return False
 
-class PySIExceptionCheckConnections(PySIException):
+class PySIExceptionSystemDescription(PySIException):
     def __init__(self,message=''):
-        PySIException.__init__(self,'CheckConnections',message)
+        PySIException.__init__(self,'SystemDescription',message)
 
 class PySIExceptionSParameterFile(PySIException):
     def __init__(self,message=''):
@@ -27,10 +27,6 @@ class PySIExceptionSParameterFile(PySIException):
 class PySIExceptionWaveformFile(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'WaveformFile',message)
-
-class PySIExceptionSystemDescriptionBuildError(PySIException):
-    def __init__(self,message=''):
-        PySIException.__init__(self,'SystemDescriptionBuildError',message)
 
 class PySIExceptionSimulator(PySIException):
     def __init__(self,message=''):

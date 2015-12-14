@@ -2,7 +2,6 @@ from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
 from SystemDescriptionSymbolic import SystemDescriptionSymbolic
 from Device import Device
 from SignalIntegrity.Helpers.AllZeroMatrix import *
-from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class SystemSParametersSymbolic(SystemDescriptionSymbolic):
     def __init__(self,sd=None,**args):

@@ -444,7 +444,7 @@ class PartPictureTwoPort(PartPictureBox):
 
 class PartPictureTwoPortSide(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l')],[(1,0),(3,4)],[(0,0),(4,4)],(1,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l')],[(1,0),(3,4)],[(0,0),(4,4)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
 
 class PartPictureVariableTwoPort(PartPictureVariable):
     def __init__(self):
@@ -456,7 +456,7 @@ class PartPictureThreePort(PartPictureBox):
 
 class PartPictureThreePortSide(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l')],[(1,0),(3,6)],[(0,0),(4,6)],(1,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l')],[(1,0),(3,6)],[(0,0),(4,6)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
 
 class PartPictureVariableThreePort(PartPictureVariable):
     def __init__(self):
@@ -468,7 +468,7 @@ class PartPictureFourPort(PartPictureBox):
 
 class PartPictureFourPortSide(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l'),PartPin(4,(0,7),'l')],[(1,0),(3,8)],[(0,0),(4,8)],(1,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l'),PartPin(2,(0,3),'l'),PartPin(3,(0,5),'l'),PartPin(4,(0,7),'l')],[(1,0),(3,8)],[(0,0),(4,8)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
 
 class PartPictureVariableFourPort(PartPictureVariable):
     def __init__(self):
@@ -1129,6 +1129,34 @@ class PartPictureVariableCurrentControlledCurrentSourceFourPort(PartPictureVaria
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentControlledCurrentSourceFourPort','PartPictureCurrentControlledCurrentSourceFourPortAlt'])
 
+class PartPictureCurrentControlledCurrentSourceFourPortSwapped(PartPictureBox):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # the outline around the dependent source
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
+        # arrow on the sensing port
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
+        # arrow inside the current source
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,3)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureCurrentControlledCurrentSourceFourPortSwappedAlt(PartPictureBox):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # the outline around the dependent source
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
+        # arrow on the sensing port
+        PartPicture.DrawArrowDown(self,canvas,grid,drawingOrigin,1)
+        # arrow inside the current source
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,3)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentControlledCurrentSourceFourPortSwapped(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentControlledCurrentSourceFourPortSwapped','PartPictureCurrentControlledCurrentSourceFourPortSwappedAlt'])
+
 class PartPictureVoltageControlledCurrentSourceFourPort(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
@@ -1184,6 +1212,34 @@ class PartPictureCurrentControlledVoltageSourceFourPortAlt(PartPictureBox):
 class PartPictureVariableCurrentControlledVoltageSourceFourPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentControlledVoltageSourceFourPort','PartPictureCurrentControlledVoltageSourceFourPortAlt'])
+
+class PartPictureCurrentControlledVoltageSourceFourPortSwapped(PartPictureBox):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(2,(1,4),'b',False),PartPin(1,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # the outline around the dependent source
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
+        # arrow on the sensing port
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
+        # plus and minus signs inside the voltage source
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,3)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureCurrentControlledVoltageSourceFourPortSwappedAlt(PartPictureBox):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False),PartPin(3,(3,4),'b',False),PartPin(4,(3,0),'t',False)],[(0,1),(4,3)],[(0,0),(4,4)],(4.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # the outline around the dependent source
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
+        # arrow on the sensing port
+        PartPicture.DrawArrowDown(self,canvas,grid,drawingOrigin,1)
+        # plus and minus signs inside the voltage source
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,3)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentControlledVoltageSourceFourPortSwapped(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentControlledVoltageSourceFourPortSwapped','PartPictureCurrentControlledVoltageSourceFourPortSwappedAlt'])
 
 class PartPictureTransmissionLineTwoPort(PartPicture):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):

@@ -15,7 +15,7 @@ class TestExceptions(unittest.TestCase):
         try:
             ssps.LaTeXSolution().Emit()
         except si.PySIException as e:
-            if e == si.PySIExceptionCheckConnections:
+            if e == si.PySIExceptionSystemDescription:
                 pass
     def testSystemDescriptionCheckConnections2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -26,7 +26,7 @@ class TestExceptions(unittest.TestCase):
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         with self.assertRaises(si.PySIException) as cm:
             ssps.LaTeXSolution().Emit()
-        self.assertEqual(cm.exception.parameter,'CheckConnections')
+        self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSystemDescriptionWrongDevice(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
@@ -34,7 +34,7 @@ class TestExceptions(unittest.TestCase):
             'connect Z 1 DV 2','connect ZI 2 DV 1'])
         with self.assertRaises(si.PySIException) as cm:
             sdp.SystemDescription().Print()
-        self.assertEqual(cm.exception.parameter,'SystemDescriptionBuildError')
+        self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSystemDescriptionWrongConnection(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
@@ -42,13 +42,13 @@ class TestExceptions(unittest.TestCase):
             'connect ZI 3 DV 2','connect ZI 2 DV 1'])
         with self.assertRaises(si.PySIException) as cm:
             sdp.SystemDescription().Print()
-        self.assertEqual(cm.exception.parameter,'SystemDescriptionBuildError')
+        self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSystemDescriptionDuplicateName(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device DV 2'])
         with self.assertRaises(si.PySIException) as cm:
             sdp.SystemDescription().Print()
-        self.assertEqual(cm.exception.parameter,'SystemDescriptionBuildError')
+        self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSimulatorNoOutputProbes(self):
         sp=si.p.SimulatorParser()
         sp.AddLines(['voltagesource VS1 1','device G1 1 ground','connect G1 1 VS1 1'])

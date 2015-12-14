@@ -1,7 +1,6 @@
 from SignalIntegrity.SystemDescriptions import SystemSParametersNumeric
 from SignalIntegrity.Parsers import SystemDescriptionParser
 from SignalIntegrity.SParameters import SParameters
-from SignalIntegrity.PySIException import PySIExceptionCheckConnections
 
 class SystemSParametersNumericParser(SystemDescriptionParser):
     def __init__(self,f=None,args=None):
