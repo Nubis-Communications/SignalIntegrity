@@ -25,6 +25,7 @@ from MenuSystemHelpers import *
 
 class TheApp(Frame):
     def __init__(self):
+        help={'Open-Project':'Subsubsection-1','Save-Project':'Subsubsection-2','Open-Project':'Subsubsection-1'}
         self.root = Tk()
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
@@ -56,51 +57,51 @@ class TheApp(Frame):
         self.statusbar=StatusBar(self)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement('help_open_project')
-        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement('help_save_project')
-        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement('help_clear_schematic')
-        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement('help_export_netlist')
-        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement('help_export_latex')
+        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement('1')
+        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement('2')
+        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement('3')
+        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement('4')
+        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement('5')
         # ------
-        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('help_undo')
-        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement('help_redo')
-        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement('help_delete_selected')
-        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement('help_duplicate_selected')
-        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement('help_cut_selected')
+        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('6')
+        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement('7')
+        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement('8')
+        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement('9')
+        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement('10')
         # ------
-        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement('help_add_part')
-        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement('help_add_port')
-        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement('help_add_measure_probe')
-        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement('help_add_output_probe')
-        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement('help_add_stim')
-        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement('help_add_unknown')
-        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement('help_add_system')
-        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement('help_delete_part')
-        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement('help_edit_properties')
-        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement('help_duplicate_part')
-        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement('help_rotate_part')
-        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement('help_flip_horizontally')
-        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement('help_flip_vertically')
+        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement('11')
+        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement('12')
+        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement('14')
+        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement('13')
+        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement('15')
+        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement('16')
+        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement('17')
+        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement('18')
+        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement('19')
+        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement('20')
+        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement('21')
+        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement('22')
+        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement('23')
         # ------
-        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement('help_add_wire')
-        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement('help_delete_vertex')
-        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement('help_duplicate_vertex')
-        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement('help_delete_wire')
+        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement('24')
+        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement('25')
+        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement('26')
+        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement('27')
         # ------
-        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement('help_zoom_in')
-        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement('help_zoom_out')
-        self.PanDoer = Doer(self.onPan).AddHelpElement('help_pan')
+        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement('28')
+        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement('29')
+        self.PanDoer = Doer(self.onPan).AddHelpElement('30')
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('help_calculation_properties')
-        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('help_sparameter_viewer')
-        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('help_calculate')
-        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('help_calculate_sparameters')
-        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('help_virtual_probe')
-        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('help_simulate')
-        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('help_deembed')
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('31')
+        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('32')
+        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('33')
+        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('34')
+        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('35')
+        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('36')
+        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('37')
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement('help_open_help_file')
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('help_control_help')
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement('38')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('39')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 
@@ -432,14 +433,7 @@ class TheApp(Frame):
         try:
             sp=spnp.SParameters()
         except si.PySIException as e:
-            if e == si.PySIExceptionSystemDescription:
-                tkMessageBox.showerror('S-parameter Calculator','System Description Error: '+e.message)
-            elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('S-parameter Calculator','S-parameter File Error: '+e.message)
-            elif e == si.PySIExceptionNumeric:
-                tkMessageBox.showerror('S-parameter Calculator','S-parameter Calculator Numerical Error: '+e.message)
-            else:
-                tkMessageBox.showerror('S-parameter Calculator','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
         if self.filename is None:
             filename = None
@@ -472,14 +466,7 @@ class TheApp(Frame):
         try:
             sp=dnp.Deembed()
         except si.PySIException as e:
-            if e == si.PySIExceptionSystemDescription:
-                tkMessageBox.showerror('Deembedder','System Description Error: '+e.message)
-            elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('Deembedder','Deembedder File Error: '+e.message)
-            elif e == si.PySIExceptionNumeric:
-                tkMessageBox.showerror('Deembedder','Deembedder Numerical Error: '+e.message)
-            else:
-                tkMessageBox.showerror('Deembedder','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
             return
         if self.filename is None:
             filename = None
@@ -512,9 +499,7 @@ class TheApp(Frame):
 
     def onHelp(self):
         import subprocess
-        new = 0
-        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.pdf'
-#        webbrowser.open(url,new=new)
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/PySIHelp.html'
         subprocess.Popen([url],shell=True)
 
     def onControlHelp(self):

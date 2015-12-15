@@ -98,10 +98,10 @@ class Doer(object):
     def Execute(self,*args):
         if self.inHelp and self.helpEnabled:
             if not self.url is None:
-                import webbrowser
-                new = 0
-                url = 'file://'+os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.xhtml'+'#'+self.url
-                webbrowser.open(url,new=new)
+                import subprocess
+                url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/PySIHelp-Subsubsection-'+self.url+'.html'
+                url=url.replace('\\','/')
+                subprocess.Popen([url],shell=True)
             return
         if self.active:
             return self.command()

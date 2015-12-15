@@ -58,9 +58,23 @@ class SParametersDialog(Toplevel):
         self.parent=parent
         self.withdraw()
         if title is None:
-            self.title('S-parameters')
+            if filename is None:
+                self.title('S-parameters')
+            else:
+                filenametoshow=filename.split('/')[-1]
+                if filenametoshow is None:
+                    self.title('S-parameters')
+                else:
+                    self.title('S-parameters: '+filenametoshow)
         else:
-            self.title=title
+            if filename is None:
+                self.title=title
+            else:
+                filenametoshow=filename.split('/')[-1]
+                if filenametoshow is None:
+                    self.title(title)
+                else:
+                    self.title(title+': '+filenametoshow)
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)

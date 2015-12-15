@@ -20,7 +20,7 @@
 \font_sf_scale 100
 \font_tt_scale 100
 \graphics default
-\default_output_format xhtml
+\default_output_format html
 \output_sync 0
 \bibtex_command default
 \index_command default
@@ -52,10 +52,10 @@
 \shortcut idx
 \color #008000
 \end_index
-\secnumdepth 3
-\tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
+\secnumdepth -2
+\tocdepth 2
+\paragraph_separation skip
+\defskip smallskip
 \quotes_language english
 \papercolumns 1
 \papersides 1
@@ -69,11 +69,16 @@
 
 \begin_body
 
-\begin_layout Part
-Getting Started
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Introduction
 \end_layout
 
@@ -84,7 +89,13 @@ PySIApp is an application for performing certain important applications
 \end_layout
 
 \begin_layout Enumerate
-Generation of s-parameters of systems.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Enumerate
@@ -120,7 +131,580 @@ While software tools are powerful and really help the signal integrity engineer,
  of the software itself which can be examined and even modified.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
+S-parameter Generation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:S-parameter-Generation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section explains how to use PySI to generate the s-parameters of a
+ system.
+ Read through the following sections on how to accomplish this, or skip
+ immediately to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-parameter-Generation-Example"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Drawing a Schematic for S-parameter Generation
+\end_layout
+
+\begin_layout Standard
+When PySIApp opens, you have a blank canvas and are ready to draw a schematic.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename BlanckCanvas.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Drawing the schematic is accomplished through the addition of parts and
+ wires.
+\end_layout
+
+\begin_layout Standard
+To add parts to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Part"
+
+\end_inset
+
+.
+ To add wires to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Wire"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Attaching Ports to a Schematic
+\end_layout
+
+\begin_layout Standard
+Ports define the s-parameters of the final circuit.
+ As you must be aware, s-parameters are a vector of matrix elements, where
+ each matrix element is for a particular frequency (these frequencies are
+ defined by the calculation properties defined in the next section: 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties"
+
+\end_inset
+
+) and each matrix defines the complex port-port relationship at that frequency.
+\end_layout
+
+\begin_layout Standard
+Thus, for a set of two-port s-parameters, 
+\begin_inset Formula $S_{21}$
+\end_inset
+
+ refers to the port-port relationship as the output (reflected) wave from
+ port 2 due to an incident wave on port 1 over all the frequencies.
+ These port numbers are defined by the port element added in the schematic.
+ 
+\end_layout
+
+\begin_layout Standard
+To add ports to a schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Port"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Setting Calculation Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Setting-Calculation-Properties"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To set the calculation properties for s-parameter calculation, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculation-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The calculation properties determine how the s-parameters are calculated,
+ specifically the frequency points that are calculated.
+ The calculation properties are the same set for all of the PySI applications.
+ With regard to s-parameter calculation, the elements of particular insterest
+ are the end frequency, which is the last frequency in the s-parameter calculati
+on, and the frequency points, which are the number of frequency points that
+ will be present in the final s-parameters calculated.
+\end_layout
+
+\begin_layout Subsection
+Calculating S-parameters
+\end_layout
+
+\begin_layout Standard
+After creating the schematic for s-parameter generation and setting the
+ calculation properties, the s-parameters are calculated using either the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate-S-parameters"
+
+\end_inset
+
+ command or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate-Button"
+
+\end_inset
+
+ toolbar button.
+\end_layout
+
+\begin_layout Standard
+Note that calculation will not be possible at all (i.e.
+ the menu elements are disabled) if the schematic does not meet the criteria
+ for s-parameter calcualation.
+ This criteria for the schematic regarding elements are that the schematic
+ must:
+\end_layout
+
+\begin_layout Itemize
+have at least one port element (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Port"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+not have any other elements that don't make sense for s-parameter generation
+ including:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+output probes
+\end_layout
+
+\begin_layout Itemize
+measure probes
+\end_layout
+
+\begin_layout Itemize
+stims
+\end_layout
+
+\begin_layout Itemize
+unknown devices
+\end_layout
+
+\begin_layout Itemize
+system devices
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In calculating the s-parameters, the first step is to convert the schematic
+ shown into a net list.
+ This netlist puts the graphical schematic into a text based description.
+ Note that this netlist can be created, examined and saved separately if
+ you want.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlists"
+
+\end_inset
+
+ for more information on the net list and see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Export-Netlist"
+
+\end_inset
+
+ on ways of viewing and exporting the net lists.
+\end_layout
+
+\begin_layout Standard
+The net list is passed to a 
+\series bold
+SystemSParametersNumericParser
+\series default
+ class as described in the PySI book after which the s-parameters are extracted.
+\end_layout
+
+\begin_layout Standard
+During parsing of the net list, all devices listed are instantiated with
+ the end frequency and number of frequency points specified.
+ If a file device is encountered, the s-parameters read from the file are
+ resampled onto the end frequency and number of frequency points specified.
+\end_layout
+
+\begin_layout Standard
+Then, for each frequency point, the s-parameters are generated of the schematic.
+\end_layout
+
+\begin_layout Standard
+Sometimes, things go wrong and an error is generated.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Errors-and-Exceptions"
+
+\end_inset
+
+ for an explanation of any errors generated during calculation.
+\end_layout
+
+\begin_layout Standard
+If everything goes correctly, a dialog will open with the ability to view
+ the s-parameters calculated and save them to a file.
+ See the section on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ for more information on the viewing of the results.
+\end_layout
+
+\begin_layout Subsection
+S-parameter Generation Example
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:S-parameter-Generation-Example"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Don't forget to show the netlist.
+\end_layout
+
+\begin_layout Section
+Deembedding
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Deembedding"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Simulation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Simulation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Virtual Probing
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Virtual-Probing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+S-parameter Viewer
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:S-parameter-Viewer"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The s-parameter viewer is a dialog that allows viewing of s-parameters or
+ s-parameter-like things.
+ An example of an s-parameter-like think are the transfer matrices used
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications.
+ S-parameters are the primary result of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ application.
+\end_layout
+
+\begin_layout Standard
+The S-parameter viewer is invoked in the following ways:
+\end_layout
+
+\begin_layout Itemize
+As a result of a successful 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ calculation.
+\end_layout
+
+\begin_layout Itemize
+When the transfer matrices are viewed from the Simulation and Virtual Probing
+ output dialogs.
+\end_layout
+
+\begin_layout Itemize
+When browsing an s-parameter file in the part property of a file device.
+ (see the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Part"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit-Properties"
+
+\end_inset
+
+ commands, or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ device)
+\end_layout
+
+\begin_layout Itemize
+When invoked from the PySIApp main menu using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-parameter-Viewer"
+
+\end_inset
+
+ command at any time to view any file.
+\end_layout
+
+\begin_layout Standard
+When the s-parameter viewer dialog is invoked from the menu, the user is
+ asked to select a file for viewing.
+ This file must have the extension .s[x]p where x is the number of ports.
+ It must also be a valid touchstone file.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SParameterViewerDialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dialog is broken into four panes:
+\end_layout
+
+\begin_layout Itemize
+Upper Left - Magnitude Response
+\end_layout
+
+\begin_layout Itemize
+Upper Right - Phase Response
+\end_layout
+
+\begin_layout Itemize
+Lower Left - Impulse Response
+\end_layout
+
+\begin_layout Itemize
+Lower Right - Step Response
+\end_layout
+
+\begin_layout Standard
+When s-parameters are read from a file, they are plotted exactly as read
+ at the exact frequency points present in the file.
+\end_layout
+
+\begin_layout Standard
+When s-parameters have been calculated, they are calculated according to
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculation-Properties"
+
+\end_inset
+
+ as specified.
+\end_layout
+
+\begin_layout Standard
+The calculation properties that you are allowed to specify force the result
+ to be evenly spaced points from zero frequency to the end frequency specified.
+ But for files read from the disk and produced outside these tools, the
+ frequencies are often at odd locations and frequently don't include the
+ zero frequency points.
+ In these cases, the impulse response and step response cannot be shown
+ and the panes are blank.
+\end_layout
+
+\begin_layout Standard
+Each of the dialog panes have their own, independent control of panning
+ and zooming.
+ These controls come standard with MatPlotLib, the standard Python way of
+ plotting things.
+\end_layout
+
+\begin_layout Standard
+Below the panes are an array of buttons determining the s-parameters being
+ shown.
+ If transfer matrices are being shown, the buttons are named not by port
+ numbers but rather as relationships between, in the case of simulation,
+ output probe voltages and source voltages or, in the case of virtual probing,
+ output probe voltages and measurement probe voltages.
+\end_layout
+
+\begin_layout Standard
+The theory behind the s-parameter viewer dialog is that examination of s-paramet
+ers, particularly for signal integrity, must include the time-domain, as
+ the time-domain tells you how the s-parameters will perform in time-domain
+ simulations.
+ Speaking simply, the impulse response of the s-parameter shown is equivalent
+ to a time-domain filter that filters waveforms.
+ When viewing the impulse response, you should be looking for causality
+ and settling issues caused mostly by insufficient frequency resolution.
+ If there are bumps in the impulse response prior to time zero or prior
+ to the electrical length of the device (that are not insignificant), then
+ you have causality violations.
+ If the impulse occurs near the end of the impulse response and you see
+ remnants that wrap to the beginning of the response, you have insufficient
+ frequency resolution.
+ The step response highlights these type of problems and additionally show
+ problems when impulse responses settle to non-zero values at the beginning
+ and end of the response.
+ If you have these response problems from s-parameters read from a file,
+ then there is really nothing you can do with them.
+ If you have these issues as a result of a calculation, then sometimes these
+ problems can be repaired by changing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculation-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If the s-parameter file being viewed is an input file to any of the PySIApp
+ applications, then the file will end up getting resampled according to
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculation-Properties"
+
+\end_inset
+
+ and the viewer is a good way to see the effects of this resampling, most
+ importantly in the time-domain.
+ As mentioned, if the s-parameter viewer dialog is invoked on a file, then
+ the file is shown as read.
+ Selecting resample from either the Calculate menu or the resample button
+ shows what the s-parameters will look like when resampled by the application.
+ If the time-domain results look poor after resampling, then you have a
+ problem.
+ Currently, in this version of PySIApp, the resampling algorithms are geared
+ towards strictly proper resampling of files with equally spaced points
+ and the application does a poor job of extrapolation.
+ Part of this is on purpose, because you really should make sure that your
+ measurement instruments or other simulation tools provide the proper s-paramete
+r files, but in the future, the intent is to add many more tools and algorithms
+ for properly dealing with these situations.
+\end_layout
+
+\begin_layout Standard
+Finally, in the s-parameter viewer dialog, you have the ability to read
+ another file, or write the file to the disk using the file menu commands
+ or toolbar buttons.
+\end_layout
+
+\begin_layout Standard
+Note that in the phase response there is the ability to unwrap the phase.
+ Pressing this button does not strictly unwrap the phase, but calcualates
+ the principle delay in the impulse response (if the impulse response can
+ be calculated) and removes this delay from the phase response shown.
+ In the future, the intent is to probably entirely unwrap the phase, and
+ to show the phase only when the magnitude response is not unreasonably
+ small.
+\end_layout
+
+\begin_layout Section
 Navigation
 \begin_inset CommandInset label
 LatexCommand label
@@ -141,55 +725,49 @@ When PySIApp opens, the user sees a dialog with a menu bar, a toolbar, a
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "File"
-target "#sub_File"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
 
 \end_inset
 
-- tasks for dealing with the project file.
+ - tasks for dealing with the project file.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit"
-target "#sub_Edit"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
 
 \end_inset
 
-- tasks for undoing and redoing tasks in the schematic.
+ - tasks for undoing and redoing tasks in the schematic.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
-- tasks for dealing with schematic elements in the drawing.
+ - tasks for dealing with schematic elements in the drawing.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Wires"
-target "#sub_Wires"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
 
 \end_inset
 
-- tasks for dealing with wires connecting schematic elements.
+ - tasks for dealing with wires connecting schematic elements.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "View"
-target "#sub_View"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
 
 \end_inset
 
@@ -197,28 +775,26 @@ target "#sub_View"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
-- tasks for performing calculations on the schematic.
+ - tasks for performing calculations on the schematic.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Help"
-target "#sub_Help"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Help"
 
 \end_inset
 
-- tasks dealing with the help system.
+ - tasks dealing with the help system.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 File
 \begin_inset CommandInset label
 LatexCommand label
@@ -246,10 +822,9 @@ The File tasks are:
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Open Project"
-target "#sub_Open_Project"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Open-Project"
 
 \end_inset
 
@@ -257,10 +832,9 @@ target "#sub_Open_Project"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Save Project"
-target "#sub_Save_Project"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Save-Project"
 
 \end_inset
 
@@ -268,10 +842,9 @@ target "#sub_Save_Project"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Clear Schematic"
-target "#sub_Clear_Schematic"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Clear-Schematic"
 
 \end_inset
 
@@ -279,10 +852,9 @@ target "#sub_Clear_Schematic"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Export Netlist"
-target "#sub_Export_Netlist"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Export-Netlist"
 
 \end_inset
 
@@ -290,10 +862,9 @@ target "#sub_Export_Netlist"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Export LaTeX (TikZ)"
-target "#sub_Export_LaTeX"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Export-LaTeX"
 
 \end_inset
 
@@ -301,27 +872,39 @@ target "#sub_Export_LaTeX"
 \end_layout
 
 \begin_layout Standard
-back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\noindent
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+Back to 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
+
+\end_inset
+
+.
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Open Project
-\begin_inset CommandInset label
-LatexCommand label
-name "help:open-project"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Open-Project"
@@ -440,8 +1023,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/document-open-2.gif
-	width 1cm
+	filename document-open-2.png
 
 \end_inset
 
@@ -507,25 +1089,22 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "File"
-target "#sub_File"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -537,15 +1116,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Save Project
-\begin_inset CommandInset label
-LatexCommand label
-name "help:save-project"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Save-Project"
@@ -664,8 +1236,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/document-save-2.gif
-	width 1cm
+	filename document-save-2.png
 
 \end_inset
 
@@ -717,25 +1288,22 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "File"
-target "#sub_File"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -747,15 +1315,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Clear Schematic
-\begin_inset CommandInset label
-LatexCommand label
-name "help:clear-schematic"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Clear-Schematic"
@@ -874,8 +1435,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/document-new-3.gif
-	width 1cm
+	filename document-new-3.png
 
 \end_inset
 
@@ -927,25 +1487,22 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "File"
-target "#sub_File"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -957,15 +1514,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Export Netlist
-\begin_inset CommandInset label
-LatexCommand label
-name "help:export-netlist"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Export-Netlist"
@@ -1131,25 +1681,22 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "File"
-target "#sub_File"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -1161,15 +1708,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Export LaTeX (TikZ)
-\begin_inset CommandInset label
-LatexCommand label
-name "help:export-latex"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Export-LaTeX"
@@ -1335,25 +1875,22 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "File"
-target "#sub_File"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -1365,7 +1902,7 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Edit
 \begin_inset CommandInset label
 LatexCommand label
@@ -1382,10 +1919,9 @@ The Edit tasks are broken into two sections, one involving undo and redo
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Undo"
-target "#sub_Undo"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Undo"
 
 \end_inset
 
@@ -1393,10 +1929,9 @@ target "#sub_Undo"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Redo"
-target "#sub_Redo"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Redo"
 
 \end_inset
 
@@ -1408,10 +1943,9 @@ and:
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Delete Selected"
-target "#sub_Delete_Selected"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Delete-Selected"
 
 \end_inset
 
@@ -1419,10 +1953,9 @@ target "#sub_Delete_Selected"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Duplicate Selected"
-target "#sub_Duplicate_Selected"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Duplicate-Selected"
 
 \end_inset
 
@@ -1430,10 +1963,9 @@ target "#sub_Duplicate_Selected"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Cut Selected"
-target "#sub_Cut_Selected"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Cut-Selected"
 
 \end_inset
 
@@ -1463,11 +1995,9 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -1479,15 +2009,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Undo
-\begin_inset CommandInset label
-LatexCommand label
-name "help:undo"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Undo"
@@ -1606,8 +2129,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-undo-3.gif
-	width 1cm
+	filename edit-undo-3.png
 
 \end_inset
 
@@ -1659,26 +2181,22 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit"
-target "#sub_Edit"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -1690,15 +2208,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Redo
-\begin_inset CommandInset label
-LatexCommand label
-name "help:redo"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Redo"
@@ -1817,8 +2328,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-redo-3.gif
-	width 1cm
+	filename edit-redo-3.png
 
 \end_inset
 
@@ -1875,21 +2385,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit"
-target "#sub_Edit"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -1901,15 +2407,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Delete Selected
-\begin_inset CommandInset label
-LatexCommand label
-name "help:delete-selected"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Delete-Selected"
@@ -2028,8 +2527,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-delete-6.gif
-	width 1cm
+	filename edit-delete-6.png
 
 \end_inset
 
@@ -2086,21 +2584,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit"
-target "#sub_Edit"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -2112,15 +2606,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Duplicate Selected
-\begin_inset CommandInset label
-LatexCommand label
-name "help:duplicate-selected"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Duplicate-Selected"
@@ -2239,8 +2726,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-copy-3.gif
-	width 1cm
+	filename edit-copy-3.png
 
 \end_inset
 
@@ -2297,21 +2783,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit"
-target "#sub_Edit"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -2323,15 +2805,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Cut Selected
-\begin_inset CommandInset label
-LatexCommand label
-name "help:cut-selected"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Cut-Selected"
@@ -2502,21 +2977,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit"
-target "#sub_Edit"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -2528,7 +2999,7 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Parts
 \begin_inset CommandInset label
 LatexCommand label
@@ -2555,10 +3026,9 @@ target "#sub_Wires"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add Part"
-target "#sub_Add_Part"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Part"
 
 \end_inset
 
@@ -2571,69 +3041,63 @@ The remaining add tasks are for adding special parts used for specific PySI
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add Port"
-target "#sub_Add_Port"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Port"
 
 \end_inset
 
-(used for calculating s-parameters and deembedding)
+ (used for calculating s-parameters and deembedding)
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add Output Probe"
-target "#sub_Add_Output_Probe"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Output-Probe"
 
 \end_inset
 
-(used for simulating and virtual probing)
+ (used for simulating and virtual probing)
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add Measure Probe"
-target "#sub_Add_Measure_Probe"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Measure-Probe"
 
 \end_inset
 
-(used only for virtual probing)
+ (used only for virtual probing)
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add Stim"
-target "#sub_Add_Stim"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Stim"
 
 \end_inset
 
-(used only for virtual probing)
+ (used only for virtual probing)
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add Unknown"
-target "#sub_Add_Unknown"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Unknown"
 
 \end_inset
 
-(used only for deembedding)
+ (used only for deembedding)
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Add System"
-target "#sub_Add_System"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-System"
 
 \end_inset
 
-(used only for deembedding)
+ (used only for deembedding)
 \end_layout
 
 \begin_layout Standard
@@ -2641,10 +3105,9 @@ If a part is selected, the following tasks are also possible:
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Delete Part"
-target "#sub_Delete_Part"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Delete-Part"
 
 \end_inset
 
@@ -2652,10 +3115,9 @@ target "#sub_Delete_Part"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Edit Properties"
-target "#sub_Edit_Properties"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit-Properties"
 
 \end_inset
 
@@ -2663,10 +3125,9 @@ target "#sub_Edit_Properties"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Duplicate Part"
-target "#sub_Duplicate_Part"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Duplicate-Part"
 
 \end_inset
 
@@ -2674,10 +3135,9 @@ target "#sub_Duplicate_Part"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Rotate Part"
-target "#sub_Rotate_Part"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Rotate-Part"
 
 \end_inset
 
@@ -2685,10 +3145,9 @@ target "#sub_Rotate_Part"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Flip Horizontally"
-target "#sub_Flip_Horizontally"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Flip-Horizontally"
 
 \end_inset
 
@@ -2696,10 +3155,9 @@ target "#sub_Flip_Horizontally"
 \end_layout
 
 \begin_layout Itemize
-\begin_inset CommandInset href
-LatexCommand href
-name "Flip Vertically"
-target "#sub_Flip_Vertically"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Flip-Vertically"
 
 \end_inset
 
@@ -2719,16 +3177,14 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -2740,15 +3196,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Part
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-part"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Part"
@@ -2867,8 +3316,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-add-2.gif
-	width 1cm
+	filename edit-add-2.png
 
 \end_inset
 
@@ -2908,6 +3356,208 @@ Always
 \end_layout
 
 \begin_layout Standard
+Parts are added to the schematic through the navigation methods provided
+ in the table above.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ for a list of predefined parts allowed by PySI.
+\end_layout
+
+\begin_layout Standard
+The most useful and generic type of part for s-parameter files is the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ part.
+\end_layout
+
+\begin_layout Standard
+When you add a part, you first see the part picker, which lists all of the
+ part categories:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPicker.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By selecting a part category, you find the parts listed in that category:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerCategory.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You select a part and press OK to bring up the part properties dialog:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertyVoltageAmplifier.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the part properties dialog, you see the part properties at the top, followed
+ by the part orientation settings, followed by a picture of the part as
+ it will be shown in the schematic.
+\end_layout
+
+\begin_layout Standard
+The part properties are shown with two checkboxes, followed by a label,
+ followed by the value.
+ When first opened for a part, the default values are shown.
+\end_layout
+
+\begin_layout Standard
+The first checkbox determines whether the property is to be shown in the
+ schematic.
+\end_layout
+
+\begin_layout Standard
+The second checkbox determines whether the keyword for the property is displayed
+ (unchecking this box just shows the value).
+\end_layout
+
+\begin_layout Standard
+The value is modified by clicking inside the white area where the property
+ value is shown.
+ Note that all property values that are numbers are shown in engineering
+ notation (i.e.
+ a number with a suffix indicating the exponent).
+ PySIApp never uses scientific notation or anything like that.
+ Also, if the number has units, the units are shown.
+\end_layout
+
+\begin_layout Standard
+To change the value, you can either click once or double-click inside the
+ value entry box.
+ When you click once, the cursor is placed at the location clicked and you
+ can edit the value that is already there.
+ If you double-click, the entry is cleared and you can enter an entirely
+ new value.
+\end_layout
+
+\begin_layout Standard
+The units never need to be entered (but can be).
+\end_layout
+
+\begin_layout Standard
+Numbers can be entered with exponents or with the engineering notation suffix.
+ For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ 10e7.
+\end_layout
+
+\begin_layout Standard
+The reference designator is entered by PySIApp and is always unique at the
+ time of entry.
+ In that sense, it does not need to be modified or viewed in the schematic.
+\end_layout
+
+\begin_layout Standard
+The orientation of a part can be altered through rotation and mirroring.
+ The rotation shown is always for a rotation in the counter-clockwise direction,
+ but usually one just presses the toggle button until it looks right.
+ Mirroring vertically or horizontally is accomplished by checking the boxes.
+\end_layout
+
+\begin_layout Standard
+You have no control over the exact placement of the text displayed with
+ each part.
+ It is placed justified properly depending on the orientation.
+\end_layout
+
+\begin_layout Standard
+For many parts, there are alternate part pictures available.
+ These are chosen by simply clicking inside the the part picture area of
+ the dialog.
+ For example, for the voltage amplifier shown, there is an alternate picture
+ that has the voltage reference reversed at the input.
+ Clicking in the part picture changes the picture to the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertyVoltageAmplifierAlt.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After you are satisfied with all of the part property settings and the orientati
+on, press okay.
+ The part properties dialog disappears and, when hovered over the canvas,
+ you will see that your mouse cursor has now changed to a finger to indicate
+ that the part can now be placed.
+ left-clicking now has the part shown and selected:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VoltageAmplifierAltSelected.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Keeping the button pressed, the part remains selected and can be precisely
+ placed.
+\end_layout
+
+\begin_layout Standard
+Note that until a part is connected, you will see red x's wherever the unconnect
+ed pins are on the device.
+\end_layout
+
+\begin_layout Standard
+To change the part properties after the part has been placed, simply double-clic
+k on the part to bring up the part properties, or select the device and
+ use the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit-Properties"
+
+\end_inset
+
+ command.
+\end_layout
+
+\begin_layout Standard
+If at any time in the process of adding a part, you press the Cancel button
+ (or <escape>), the part addition is aborted and you return to the schematic
+ with no new part added.
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -2925,21 +3575,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -2951,15 +3597,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Port
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-port"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Port"
@@ -3113,6 +3752,136 @@ Always
 \end_layout
 
 \begin_layout Standard
+This command is used to add ports to a schematic.
+\end_layout
+
+\begin_layout Standard
+Ports are only added to schematics intended for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ or for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+When you add a port, the application immediately brings up the part property
+ dialog for the port:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertyPort.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On this dialog, you see the only property, the port number, the orientation
+ settings for the port, and a picture of the port element.
+\end_layout
+
+\begin_layout Standard
+The port part property are shown with two checkboxes, followed by a label,
+ followed by the port number.
+ The port number is filled in by default as the lowest port number not already
+ in the schematic.
+\end_layout
+
+\begin_layout Standard
+The first checkbox determines whether the port number should be shown in
+ the schematic.
+\end_layout
+
+\begin_layout Standard
+The second checkbox is superfluous for ports.
+ For part properties it determines whether the keyword for the property
+ should be shown, but a port number does not have a keyword, just the number.
+\end_layout
+
+\begin_layout Standard
+The port number is modified by clicking inside the white area where the
+ port number value is shown.
+ 
+\end_layout
+
+\begin_layout Standard
+To change the value, you can either click once or double-click inside the
+ value entry box.
+ When you click once, the cursor is placed at the location clicked and you
+ can edit the port number that is already there.
+ If you double-click, the entry is cleared and you can enter an entirely
+ new port number.
+\end_layout
+
+\begin_layout Standard
+keep in mind that when you have completed drawing your schematic, the port
+ number values must be numbered from 1 to however many ports are present
+ with no gaps in the numbers.
+ Otherwise you will get an error when you go to calculate.
+\end_layout
+
+\begin_layout Standard
+When you are satisfied with the port number and orientation, press OK.
+\end_layout
+
+\begin_layout Standard
+The part properties dialog disappears and, when hovered over the canvas,
+ you will see that your mouse cursor has now changed to a finger to indicate
+ that the port can now be placed.
+ left-clicking now has the port shown and selected:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PortInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Keeping the button pressed, the port remains selected and can be precisely
+ placed.
+\end_layout
+
+\begin_layout Standard
+Note that until a port is connected, you will see a red x at the port connection
+ point.
+\end_layout
+
+\begin_layout Standard
+To change the port number after the port has been placed, simply double-click
+ on the part to bring up the part properties, or select the port and use
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit-Properties"
+
+\end_inset
+
+ command.
+\end_layout
+
+\begin_layout Standard
+If at any time in the process of adding a port, you press the Cancel button
+ (or <escape>), the port addition is aborted and you return to the schematic
+ with no new port added.
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -3130,21 +3899,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -3156,15 +3921,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Output Probe
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-output-probe"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Output-Probe"
@@ -3335,21 +4093,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -3361,15 +4115,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Measure Probe
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-measure-probe"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Measure-Probe"
@@ -3540,21 +4287,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -3566,15 +4309,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Stim
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-stim"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Stim"
@@ -3745,21 +4481,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -3771,15 +4503,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Unknown
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-unknown"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Unknown"
@@ -3950,21 +4675,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -3976,15 +4697,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add System
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-system"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-System"
@@ -4155,21 +4869,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -4181,15 +4891,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Delete Part
-\begin_inset CommandInset label
-LatexCommand label
-name "help:delete-part"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Delete-Part"
@@ -4308,7 +5011,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-delete-6.gif
+	filename edit-delete-6.png
 	width 1cm
 
 \end_inset
@@ -4371,21 +5074,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -4397,15 +5096,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Edit Properties
-\begin_inset CommandInset label
-LatexCommand label
-name "help:edit-properties"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Edit-Properties"
@@ -4417,7 +5109,7 @@ name "sub:Edit-Properties"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -4530,7 +5222,7 @@ None
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -4541,11 +5233,33 @@ Availability
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 When a part is selected
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Mouse Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+double-click
 \end_layout
 
 \end_inset
@@ -4561,6 +5275,119 @@ When a part is selected
 \begin_layout Standard
 This is also available through the context sensitive menu (right-click when
  part selected).
+\end_layout
+
+\begin_layout Standard
+When a part is selected, editing the part properties brings up the part
+ properties dialog:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertyVoltageAmplifier.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the part properties dialog, you see the part properties at the top, followed
+ by the part orientation settings, followed by a picture of the part as
+ it will be shown in the schematic.
+\end_layout
+
+\begin_layout Standard
+The part properties are shown with two checkboxes, followed by a label,
+ followed by the value.
+ When first opened for a part, the default values are shown.
+\end_layout
+
+\begin_layout Standard
+The first checkbox determines whether the property is to be shown in the
+ schematic.
+\end_layout
+
+\begin_layout Standard
+The second checkbox determines whether the keyword for the property is displayed
+ (unchecking this box just shows the value).
+\end_layout
+
+\begin_layout Standard
+The value is modified by clicking inside the white area where the property
+ value is shown.
+ Note that all property values that are numbers are shown in engineering
+ notation (i.e.
+ a number with a suffix indicating the exponent).
+ PySIApp never uses scientific notation or anything like that.
+ Also, if the number has units, the units are shown.
+\end_layout
+
+\begin_layout Standard
+To change the value, you can either click once or double-click inside the
+ value entry box.
+ When you click once, the cursor is placed at the location clicked and you
+ can edit the value that is already there.
+ If you double-click, the entry is cleared and you can enter an entirely
+ new value.
+\end_layout
+
+\begin_layout Standard
+The units never need to be entered (but can be).
+\end_layout
+
+\begin_layout Standard
+Numbers can be entered with exponents or with the engineering notation suffix.
+ For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ 10e7.
+\end_layout
+
+\begin_layout Standard
+The reference designator is entered by PySIApp and is always unique at the
+ time of entry.
+ In that sense, it does not need to be modified or viewed in the schematic.
+\end_layout
+
+\begin_layout Standard
+The orientation of a part can be altered through rotation and mirroring.
+ The rotation shown is always for a rotation in the counter-clockwise direction,
+ but usually one just presses the toggle button until it looks right.
+ Mirroring vertically or horizontally is accomplished by checking the boxes.
+\end_layout
+
+\begin_layout Standard
+You have no control over the exact placement of the text displayed with
+ each part.
+ It is placed justified properly depending on the orientation.
+\end_layout
+
+\begin_layout Standard
+For many parts, there are alternate part pictures available.
+ These are chosen by simply clicking inside the the part picture area of
+ the dialog.
+ For example, for the voltage amplifier shown, there is an alternate picture
+ that has the voltage reference reversed at the input.
+ Clicking in the part picture changes the picture to the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertyVoltageAmplifierAlt.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After you are satisfied with all of the part property settings and the orientati
+on, press OK.
+ The part is now edited in the schematic.
+\end_layout
+
+\begin_layout Standard
+If at any time you press Cancel, the properties of the part are left unchanged
+ in the schematic.
 \end_layout
 
 \begin_layout Standard
@@ -4581,21 +5408,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -4607,15 +5430,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Duplicate Part
-\begin_inset CommandInset label
-LatexCommand label
-name "help:duplicate-part"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Duplicate-Part"
@@ -4734,8 +5550,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-copy-3.gif
-	width 1cm
+	filename edit-copy-3.png
 
 \end_inset
 
@@ -4797,21 +5612,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -4823,15 +5634,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Rotate Part
-\begin_inset CommandInset label
-LatexCommand label
-name "help:rotate-part"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Rotate-Part"
@@ -4950,8 +5754,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/object-rotate-left-4.gif
-	width 1cm
+	filename object-rotate-left-4.png
 
 \end_inset
 
@@ -5008,21 +5811,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -5034,15 +5833,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Flip Horizontally
-\begin_inset CommandInset label
-LatexCommand label
-name "help:flip-horizontally"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Flip-Horizontally"
@@ -5161,8 +5953,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/object-flip-horizontal-3.gif
-	width 1cm
+	filename object-flip-horizontal-3.png
 
 \end_inset
 
@@ -5219,21 +6010,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -5245,15 +6032,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Flip Vertically
-\begin_inset CommandInset label
-LatexCommand label
-name "help:flip-vertically"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Flip-Vertically"
@@ -5372,8 +6152,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/object-flip-vertical-3.gif
-	width 1cm
+	filename object-flip-vertical-3.png
 
 \end_inset
 
@@ -5430,21 +6209,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Parts"
-target "#sub_Parts"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -5456,7 +6231,7 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Wires
 \begin_inset CommandInset label
 LatexCommand label
@@ -5480,16 +6255,14 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -5501,15 +6274,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Add Wire
-\begin_inset CommandInset label
-LatexCommand label
-name "help:add-wire"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Add-Wire"
@@ -5628,8 +6394,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/draw-line-3.gif
-	width 1cm
+	filename draw-line-3.png
 
 \end_inset
 
@@ -5686,21 +6451,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Wires"
-target "#sub_Wires"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -5712,15 +6473,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Delete Vertex
-\begin_inset CommandInset label
-LatexCommand label
-name "help:delete-vertex"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Delete-Vertex"
@@ -5891,21 +6645,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Wires"
-target "#sub_Wires"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -5917,15 +6667,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Duplicate Vertex
-\begin_inset CommandInset label
-LatexCommand label
-name "help:duplicate-vertex"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Duplicate-Vertex"
@@ -6100,21 +6843,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Wires"
-target "#sub_Wires"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -6126,15 +6865,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Delete Wire
-\begin_inset CommandInset label
-LatexCommand label
-name "help:delete-wire"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Delete-Wire"
@@ -6305,21 +7037,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Wires"
-target "#sub_Wires"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -6331,7 +7059,7 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 View
 \begin_inset CommandInset label
 LatexCommand label
@@ -6355,16 +7083,14 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -6376,15 +7102,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Zoom In
-\begin_inset CommandInset label
-LatexCommand label
-name "help:zoom-in"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Zoom-In"
@@ -6503,8 +7222,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/zoom-in-3.gif
-	width 1cm
+	filename zoom-in-3.png
 
 \end_inset
 
@@ -6561,21 +7279,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "View"
-target "#sub_View"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -6587,15 +7301,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Zoom Out
-\begin_inset CommandInset label
-LatexCommand label
-name "help:zoom-out"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Zoom-Out"
@@ -6714,8 +7421,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/zoom-out-3.gif
-	width 1cm
+	filename zoom-out-3.png
 
 \end_inset
 
@@ -6772,21 +7478,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "View"
-target "#sub_View"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -6798,15 +7500,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Pan
-\begin_inset CommandInset label
-LatexCommand label
-name "help:pan"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Pan"
@@ -6925,8 +7620,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/edit-move.gif
-	width 1cm
+	filename edit-move.png
 
 \end_inset
 
@@ -6983,21 +7677,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "View"
-target "#sub_View"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -7009,7 +7699,7 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Calculate
 \begin_inset CommandInset label
 LatexCommand label
@@ -7033,16 +7723,14 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -7054,15 +7742,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 Calculation Properties
-\begin_inset CommandInset label
-LatexCommand label
-name "help:calculation-properties"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Calculation-Properties"
@@ -7181,8 +7862,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/tooloptions.gif
-	width 1cm
+	filename tooloptions.png
 
 \end_inset
 
@@ -7222,6 +7902,154 @@ Always
 \end_layout
 
 \begin_layout Standard
+Issuing the Calculation Properties command brings up the calculation properties
+ dialog:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationProperties.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The calculation properties are intended for use with all of the PySIApp
+ applications and consist of virtually entirely interrelated properties.
+ The base properties are the end frequency and the impulse response length.
+ All other properties are based on one or both of these properties:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+frequencyPoints=endFrequency\cdot impulseResponseLength
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+frequencyResolution=\frac{1}{impulseResponseLength}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+baseSampleRate=2\cdot endFrequency
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+timePoints=2\cdot endFrequency\cdot impulseResponseLength
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The value is modified by clicking inside the white area where the property
+ value is shown.
+ Note that all property values that are numbers are shown in engineering
+ notation (i.e.
+ a number with a suffix indicating the exponent).
+ PySIApp never uses scientific notation or anything like that.
+ Also, if the number has units, the units are shown.
+\end_layout
+
+\begin_layout Standard
+To change the value, you can either click once or double-click inside the
+ value entry box.
+ When you click once, the cursor is placed at the location clicked and you
+ can edit the value that is already there.
+ If you double-click, the entry is cleared and you can enter an entirely
+ new value.
+\end_layout
+
+\begin_layout Standard
+The units never need to be entered (but can be).
+\end_layout
+
+\begin_layout Standard
+Numbers can be entered with exponents or with the engineering notation suffix.
+ For example, 20 GHz can be entered as 20 GHz, 20 G, 20G, 20e6, or 2e7.
+\end_layout
+
+\begin_layout Standard
+Whenever either the end frequency or the impulse response length are modified,
+ all of the other properties are calculated as in the equations above.
+ If any of the properties are modified that directly affect one of these
+ base properties, then the affected base property is modified and all of
+ the other properties are recalculated as stated.
+ These properties include the frequency resolution, which is simply another
+ expression of the impulse response length, and the base sample reate, which
+ is simply another expression of the end frequency.
+\end_layout
+
+\begin_layout Standard
+Otherwise, if either the frequency points or the time points are modified,
+ which are functions of both of the base properties, then the end frequency
+ is held constant and the impulse response length is modified to accomodate
+ the new property value.
+\end_layout
+
+\begin_layout Standard
+To summarize, all of the properties can be modified.
+ Any modification first tries to hold the end frequency (and base sample
+ rate) constant first and the impulse response length second.
+\end_layout
+
+\begin_layout Standard
+One interesting thing to note is that the frequency points are actually
+ the number of frequencies minus one.
+ Said differently, the number of actual frequencies calculated is always
+ the number shown plus one.
+ In other words, for 
+\begin_inset Formula $N$
+\end_inset
+
+ frequency points and an end frequency 
+\begin_inset Formula $Fe$
+\end_inset
+
+, the actual frequency points are, for 
+\begin_inset Formula $n\in0\ldots N$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f\left[n\right]=\frac{n}{N}\cdot Fe
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -7239,21 +8067,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -7265,15 +8089,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Subsubsection
 S-parameter Viewer
-\begin_inset CommandInset label
-LatexCommand label
-name "help:SParameter-Viewer"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:S-parameter-Viewer"
@@ -7427,6 +8244,17 @@ Always
 \end_layout
 
 \begin_layout Standard
+This command invokes the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ dialog to view s-parameter files.
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -7444,21 +8272,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -7470,15 +8294,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Calculate
-\begin_inset CommandInset label
-LatexCommand label
-name "help:calculate-button"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Calculate-Button"
@@ -7597,8 +8414,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/system-run-3.gif
-	width 1cm
+	filename system-run-3.png
 
 \end_inset
 
@@ -7655,21 +8471,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -7681,15 +8493,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Calculate S-parameters
-\begin_inset CommandInset label
-LatexCommand label
-name "help:calculate-sparameters"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Calculate-S-parameters"
@@ -7808,8 +8613,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/system-run-3.gif
-	width 1cm
+	filename system-run-3.png
 
 \end_inset
 
@@ -7866,21 +8670,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -7892,15 +8692,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Simulate
-\begin_inset CommandInset label
-LatexCommand label
-name "help:simulate"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Simulate"
@@ -8019,8 +8812,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/system-run-3.gif
-	width 1cm
+	filename system-run-3.png
 
 \end_inset
 
@@ -8077,21 +8869,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -8103,15 +8891,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Virtual Probe
-\begin_inset CommandInset label
-LatexCommand label
-name "help:virtual-probe"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Virtual-Probe"
@@ -8230,8 +9011,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/system-run-3.gif
-	width 1cm
+	filename system-run-3.png
 
 \end_inset
 
@@ -8288,21 +9068,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -8314,15 +9090,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Deembed
-\begin_inset CommandInset label
-LatexCommand label
-name "help:deembed"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Deembed"
@@ -8441,8 +9210,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/system-run-3.gif
-	width 1cm
+	filename system-run-3.png
 
 \end_inset
 
@@ -8499,21 +9267,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Calculate"
-target "#sub_Calculate"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -8525,7 +9289,7 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Help
 \begin_inset CommandInset label
 LatexCommand label
@@ -8549,16 +9313,14 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -8570,15 +9332,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Open Help File
-\begin_inset CommandInset label
-LatexCommand label
-name "help:open-help-file"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Open-Help-File"
@@ -8697,8 +9452,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/help-contents-5.gif
-	width 1cm
+	filename help-contents-5.png
 
 \end_inset
 
@@ -8738,6 +9492,10 @@ Always
 \end_layout
 
 \begin_layout Standard
+This command opens this file that you are currently viewing from the application.
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -8755,21 +9513,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Help"
-target "#sub_Help"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Help"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -8781,15 +9535,8 @@ type "file:"
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Control Help
-\begin_inset CommandInset label
-LatexCommand label
-name "help:control-help"
-
-\end_inset
-
-
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Control-Help"
@@ -8908,8 +9655,7 @@ Toolbar
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/peterp/Work/Books/LyxBook/PythonSource/PySIApp/icons/png/16x16/actions/help-3.gif
-	width 1cm
+	filename help-3.png
 
 \end_inset
 
@@ -8949,6 +9695,23 @@ Always
 \end_layout
 
 \begin_layout Standard
+Control help allows you to get help on any command.
+\end_layout
+
+\begin_layout Standard
+When in control help, all of the commands are activated.
+ This includes key bindings, toolbar buttons, and menu elements.
+ However, issuing any of the possible commands takes you to a location in
+ the help system corresponding to the desired control instead of actually
+ issuing the command.
+\end_layout
+
+\begin_layout Standard
+Control help stays active until you either press the escape key, or touch
+ somewhere in the canvas.
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -8966,21 +9729,17 @@ status open
 \begin_layout Plain Layout
 \noindent
 Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Help"
-target "#sub_Help"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Help"
 
 \end_inset
 
 .
  Back to 
-\begin_inset CommandInset href
-LatexCommand href
-name "Navigation"
-target "#sec_Navigation"
-type "file:"
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Navigation"
 
 \end_inset
 
@@ -9014,6 +9773,14 @@ Virtual probe systems.
 
 \begin_layout Enumerate
 Deembed s-parameters in systems.
+\end_layout
+
+\begin_layout Standard
+You can also perform some minor tasks like:
+\end_layout
+
+\begin_layout Itemize
+Viewing s-parameter files
 \end_layout
 
 \begin_layout Standard
@@ -9096,22 +9863,26 @@ Output probes define the probing point for waveforms output by the system
  At least one output probe must be present to perform simulation.
 \end_layout
 
-\begin_layout Section*
-S-parameter Generation
+\begin_layout Section
+The History Buffer
+\end_layout
+
+\begin_layout Section
+Built-in Devices (Parts)
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:S-parameter-Generation"
+name "sec:Built-in-Devices"
 
 \end_inset
 
 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-spgen
 \end_layout
+
+\begin_layout Subsection
+File
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:File-1"
 
 \end_inset
 
@@ -9119,16 +9890,883 @@ spgen
 \end_layout
 
 \begin_layout Standard
-This section explains how to use PySI to generate the s-parameters of a
- system.
+\begin_inset Graphics
+	filename OnePort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TwoPort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TwoPortAlt.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThreePort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThreePortAlt.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename FourPort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename FourPortAlt.png
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Section*
-The History Buffer
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
 \end_layout
 
-\begin_layout Section*
-Built-in Devices (Parts)
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+File Devices are the most generic.
+ They take an s-parameter file name in the file name property.
+ The in the Part Properties Dialog, you can browse to the file and view
+ the file in the S-parameter Viewer if you want.
+\end_layout
+
+\begin_layout Standard
+When files read in, 
+\end_layout
+
+\begin_layout Subsection
+Resistor
+\end_layout
+
+\begin_layout Subsection
+Capacitor
+\end_layout
+
+\begin_layout Subsection
+Inductor
+\end_layout
+
+\begin_layout Subsection
+Mutual
+\end_layout
+
+\begin_layout Subsection
+IdealTransformer
+\end_layout
+
+\begin_layout Subsection
+Ground
+\end_layout
+
+\begin_layout Subsection
+Open
+\end_layout
+
+\begin_layout Subsection
+Power Mixed Mode Converter
+\end_layout
+
+\begin_layout Subsection
+Voltage Mixed Mode Converter
+\end_layout
+
+\begin_layout Subsection
+Transmission Line
+\end_layout
+
+\begin_layout Subsection
+Telegrapher
+\end_layout
+
+\begin_layout Subsection
+Voltage Source
+\end_layout
+
+\begin_layout Subsection
+Current Source
+\end_layout
+
+\begin_layout Subsection
+Voltage Step Generator
+\end_layout
+
+\begin_layout Subsection
+Voltage Pulse Generator
+\end_layout
+
+\begin_layout Subsection
+Voltage Sine Generator
+\end_layout
+
+\begin_layout Subsection
+Current Step Generator
+\end_layout
+
+\begin_layout Subsection
+Current Pulse Generator
+\end_layout
+
+\begin_layout Subsection
+Current Sine Generator
+\end_layout
+
+\begin_layout Subsection
+Measure Probe
+\end_layout
+
+\begin_layout Subsection
+Output Probe
+\end_layout
+
+\begin_layout Subsection
+Stim
+\end_layout
+
+\begin_layout Subsection
+Voltage Controlled Voltage Source
+\end_layout
+
+\begin_layout Subsection
+Current Controlled Current Source
+\end_layout
+
+\begin_layout Subsection
+Voltage Controlled Current Source
+\end_layout
+
+\begin_layout Subsection
+Current Controlled Voltage Source
+\end_layout
+
+\begin_layout Subsection
+Voltage Amplifier
+\end_layout
+
+\begin_layout Subsection
+Current Amplifier
+\end_layout
+
+\begin_layout Subsection
+Transconductance Amplifier
+\end_layout
+
+\begin_layout Subsection
+Transresistance Amplifier
+\end_layout
+
+\begin_layout Section
+Netlists
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Netlists"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Errors and Exceptions
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Errors-and-Exceptions"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When problems crop up during calculation, PySIApp throws an exception and
+ a message box is shown with the exception and the message the exception
+ generates.
+ As such, the exception type defines the main category of the exception
+ and the message pertains to various flavors of that exception type.
+\end_layout
+
+\begin_layout Standard
+The PySI exceptions are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System-Description-Error"
+
+\end_inset
+
+ - pertains to a general problem with the netlist used for calculation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Numeric"
+
+\end_inset
+
+ - pertains to a general numerical error during calculation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:SParameterFile"
+
+\end_inset
+
+ - pertains to a problem with reading an s-parameter file.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:WaveformFile"
+
+\end_inset
+
+ - pertains to a problem with reading a waveform file.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:DeviceParser"
+
+\end_inset
+
+ - pertains to a problem parsing a device description in the netlist.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulator"
+
+\end_inset
+
+ - pertains to a problem specific to the Simulator application and calculation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:VirtualProbe"
+
+\end_inset
+
+ - pertains to a problem specific to the Virtual Probe application and calculati
+on.
+\end_layout
+
+\begin_layout Subsection
+SParameterFile
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:SParameterFile"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An s-parameter file was specified for reading and it could not be read
+\end_layout
+
+\begin_layout Subsubsection
+incorrect extension in s-parameter file name
+\end_layout
+
+\begin_layout Standard
+All s-parameter files must have an extension '.s[x]p' where x is the number
+ of ports.
+ This is the only way to precisely determine the number of ports in an s-paramet
+er file, so the files must have an extension like this.
+\end_layout
+
+\begin_layout Subsubsection
+filename not found
+\end_layout
+
+\begin_layout Standard
+The s-parameter file could not be found.
+\end_layout
+
+\begin_layout Subsection
+WaveformFile
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:WaveformFile"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A waveform file was specified for reading and it could not be read
+\end_layout
+
+\begin_layout Subsubsection
+filename not found
+\end_layout
+
+\begin_layout Standard
+The waveform file could not be found.
+\end_layout
+
+\begin_layout Subsection
+SystemDescription
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:System-Description-Error"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+During calculation, the netlist is parsed to set up the calculation.
+ In this process, various things can go wrong because of incorrect specification
+ of the netlist:
+\end_layout
+
+\begin_layout Subsubsection
+Unconnected Device Ports
+\end_layout
+
+\begin_layout Standard
+One or more device ports in the schematic is not connected.
+ With the exception of the system device used in deembedding applications,
+ all device ports must be connected to one or more other device ports.
+\end_layout
+
+\begin_layout Standard
+Generally, by looking at your schematic, you can see this, because unconnected
+ device ports will have a red x on device pins.
+ That being said, simply connecting a wire to the device port makes the
+ red x disappear (because it is connected to the vertex of a wire) and the
+ wire itself might not be connected to anything.
+\end_layout
+
+\begin_layout Standard
+You can troubleshoot connection problems exactly by looking at the netlist.
+ The netlist will list each device with a name and number of ports and will
+ list all connections between device ports.
+\end_layout
+
+\begin_layout Subsubsection
+Duplicate Device Name
+\end_layout
+
+\begin_layout Standard
+One or more devices in your schematic has the same device name.
+ Usually, as you add devices to the schematic, you do not worry about the
+ reference designations and the application adds unique reference designators
+ as parts are added.
+ These reference designators can be edited, however, by the user and the
+ user can enter reference designations that are the same accidentally.
+ To troubleshoot this problem, you can look both at the schematic, specifically
+ the part properties for the devices, and at the netlist which will have
+ device declarations with the same device name.
+\end_layout
+
+\begin_layout Subsubsection
+No Device Named
+\end_layout
+
+\begin_layout Standard
+A connection or other type of declaration specifies a device name that is
+ nonexistent.
+ This type of error ought to be impossible to create from the application
+ and is more typical of hand generated netlists.
+ Nevertheless, this error message indicates that the netlist contains a
+ reference to a device name (listed in the error) that is not specified
+ elsewhere in the netlist.
+ An error like this is really an internal error, but you can see the cause
+ of an error like this by examining the netlist.
+\end_layout
+
+\begin_layout Subsubsection
+Cannot Connect Device Ports
+\end_layout
+
+\begin_layout Standard
+This is the same error as No Device Named, except that it was explicitely
+ called in an attempt to connect non-existent device ports.
+ It also handles non-existent ports of the device if they cannot be found.
+\end_layout
+
+\begin_layout Subsection
+Simulator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simulator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+No Outputs
+\end_layout
+
+\begin_layout Standard
+There are no output probes in the circuit.
+ This type of error ought to be difficult to create from the application
+ because the application checks for the existence of at least one output
+ probe prior to enabling the simulation calculation, but it does not check
+ whether the output probe is actually connected to anything.
+ It is useful to leave some output probes unconnected and floating in the
+ schematic to avoid calculation (for example, it might have been used for
+ troubleshooting), but at least one of the output probes must be connected
+ to the circuit.
+\end_layout
+
+\begin_layout Standard
+By looking at your schematic, you can see this, because unconnected output
+ probes will have a red x on their conection pins.
+ That being said, simply connecting a wire to the output probe makes the
+ red x disappear (because it is connected to the vertex of a wire) and the
+ wire itself might not be connected to anything.
+\end_layout
+
+\begin_layout Subsubsection
+No Sources
+\end_layout
+
+\begin_layout Standard
+There are no sources in the circuit.
+ This type of error ought to be impossible to create from the application
+ because the application checks for the existence of at least one source
+ prior to enabling the simulation calculation, but it does not check whether
+ the output probe is actually connected to anything.
+ If it is not connected, it ought to generate an Unconnected Device Ports
+ error.
+\end_layout
+
+\begin_layout Standard
+By looking at your schematic, you can see this, because unconnected sources
+ will have a red x on their conection pins.
+ That being said, simply connecting a wire to the pins of a source makes
+ the red x's disappear (because it is connected to the vertex of a wire)
+ and the wire itself might not be connected to anything.
+\end_layout
+
+\begin_layout Subsubsection
+Numerical Error
+\end_layout
+
+\begin_layout Standard
+This is the same error as Cannot Invert I-W or I-Wxx while calculating the
+ simulator transfer matrices.
+ It indicates pathological problems in the system described.
+\end_layout
+
+\begin_layout Subsection
+VirtualProbe
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:VirtualProbe"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+No Measures
+\end_layout
+
+\begin_layout Standard
+There are no measure probes in the circuit.
+ This type of error ought to be difficult to create from the application
+ because the application checks for the existence of at least one measure
+ probe prior to enabling the simulation calculation, but it does not check
+ whether the measure probe is actually connected to anything.
+ 
+\end_layout
+
+\begin_layout Standard
+By looking at your schematic, you can see this, because unconnected measure
+ probes will have a red x on their conection pins.
+ That being said, simply connecting a wire to the measure probe makes the
+ red x disappear (because it is connected to the vertex of a wire) and the
+ wire itself might not be connected to anything.
+\end_layout
+
+\begin_layout Subsubsection
+No Outputs
+\end_layout
+
+\begin_layout Standard
+There are no output probes in the circuit.
+ This type of error ought to be difficult to create from the application
+ because the application checks for the existence of at least one output
+ probe prior to enabling the simulation calculation, but it does not check
+ whether the output probe is actually connected to anything.
+ It is useful to leave some output probes unconnected and floating in the
+ schematic to avoid calculation (for example, it might have been used for
+ troubleshooting), but at least one of the output probes must be connected
+ to the circuit.
+\end_layout
+
+\begin_layout Standard
+By looking at your schematic, you can see this, because unconnected output
+ probes will have a red x on their conection pins.
+ That being said, simply connecting a wire to the output probe makes the
+ red x disappear (because it is connected to the vertex of a wire) and the
+ wire itself might not be connected to anything.
+\end_layout
+
+\begin_layout Subsubsection
+No Sources
+\end_layout
+
+\begin_layout Standard
+There are no sources in the circuit.
+ In the context of virtual probing, sources mean stims as a stim looks like
+ a source in the depths of the calculation.
+ The application checks for the existence of at least one stim prior to
+ enabling the virtual probe calculation, but it does not check whether the
+ stim is actually connected to anything.
+\end_layout
+
+\begin_layout Standard
+By looking at your schematic, you can examine unconnected stims, because
+ they will have a red x on their conection pins.
+ That being said, simply connecting a wire to the pins of a stim makes the
+ red x's disappear (because it is connected to the vertex of a wire) and
+ the wire itself might not be connected to anything.
+\end_layout
+
+\begin_layout Standard
+Stims also require that the end of the arrow is connected directly to a
+ device port.
+ This is because unlike waves which are present along a wire, stims represent
+ waves that emanate from a device port.
+ Unfortunately, the schematic editor allows you to make this mistake.
+\end_layout
+
+\begin_layout Standard
+Also, stims must be connected to only one device port.
+ While the schematic editor allows device ports to be connected directly
+ together, when a stim is connected to a device port, the device port must
+ be separated from others in the schematic by a small piece of wire.
+\end_layout
+
+\begin_layout Subsubsection
+Numerical Error
+\end_layout
+
+\begin_layout Standard
+This is the same error as Cannot Invert I-W or I-Wxx while calculating the
+ virtual probe transfer matrices.
+ It indicates pathological problems in the system described.
+\end_layout
+
+\begin_layout Subsubsection
+Incorrect Matrix Alignment
+\end_layout
+
+\begin_layout Standard
+This cryptic error is an all encompassing error to indicate that something
+ is wrong with the number of stims or measures in your system.
+ In virtual probing, the number of independent stims (stims without the
+ non-arrow side connected) must be less than or equal to the number of measure
+ probes in the system.
+ This error probably indicates that this is not the case (I say probably
+ because there are other sources of this error especially when hand created
+ netlists are entered into the system).
+\end_layout
+
+\begin_layout Subsection
+Numeric
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Numeric"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Cannot Invert I-W or I-Wxx 
+\end_layout
+
+\begin_layout Standard
+Understanding this error involves understanding the theory in the accompanying
+ book.
+ Suffice it to say that the problem is ill-determined in the sense that
+ the system characteristics matrix is not invertible.
+ This occurs under many pathological cases, some of which can be worked
+ around and others cannot (i.e.
+ there is simply no solution to the problem).
+\end_layout
+
+\begin_layout Standard
+An example of a pathological case that cannot be worked around are attempts
+ to deembed elements in systems where elements are present that do not pass
+ anything (at a given frequency).
+\end_layout
+
+\begin_layout Standard
+Examples of pathological cases that can be worked around are circuit nodes
+ whose absolute voltage or current cannot be determined due to the construction
+ of the circuit.
+ Sometimes, these can be worked around through the insertion of large resistors
+ to ground or tiny series resistors.
+ A detailed examination of the circuit would be necessary.
+\end_layout
+
+\begin_layout Subsection
+DeviceParser
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:DeviceParser"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Arguments Must Come in Keyword Pairs
+\end_layout
+
+\begin_layout Subsubsection
+Manditory Keywords Not Supplied
+\end_layout
+
+\begin_layout Subsubsection
+Arguments Must Come in Keyword Pairs
+\end_layout
+
+\begin_layout Subsubsection
+Device Could Not Be Instantiated
+\end_layout
+
+\begin_layout Subsubsection
+Device Not Found
 \end_layout
 
 \end_body

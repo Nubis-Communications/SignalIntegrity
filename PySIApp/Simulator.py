@@ -182,23 +182,15 @@ class Simulator(object):
         try:
             self.transferMatrices=snp.TransferMatrices()
         except si.PySIException as e:
-            if e == si.PySIExceptionSystemDescription:
-                tkMessageBox.showerror('Simulator','System Description Error: '+e.message)
-            elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('Simulator','S-parameter File Error: '+e.message)
-            elif e == si.PySIExceptionSimulator:
-                tkMessageBox.showerror('Simulator','Simulator Error: '+e.message)
-            else:
-                tkMessageBox.showerror('Simulator','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
             return
         tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.SourceNames()
         except si.PySIException as e:
-            if e == si.PySIExceptionWaveformFile:
-                tkMessageBox.showerror('Simulator','Waveform file error: '+e.message)
-                return
+            tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            return
 
         outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
         self.outputWaveformLabels=netList.OutputNames()
@@ -233,23 +225,15 @@ class Simulator(object):
         try:
             self.transferMatrices=snp.TransferMatrices()
         except si.PySIException as e:
-            if e == si.PySIExceptionSystemDescription:
-                tkMessageBox.showerror('Virtual Probe','System Description Error: '+e.message)
-            elif e == si.PySIExceptionSParameterFile:
-                tkMessageBox.showerror('Virtual Probe','S-parameter File Error: '+e.message)
-            elif e == si.PySIExceptionVirtualProbe:
-                tkMessageBox.showerror('Virtual Probe','Virtual Probe Error: '+e.message)
-            else:
-                tkMessageBox.showerror('Virtual Probe','Unhandled PySI Exception: '+str(e)+' '+e.message)
+            tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
         tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
         except si.PySIException as e:
-            if e == si.PySIExceptionWaveformFile:
-                tkMessageBox.showerror('Virtual Probe','Waveform file error: '+e.message)
-                return
+            tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            return
 
         outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
         self.outputWaveformLabels=netList.OutputNames()
