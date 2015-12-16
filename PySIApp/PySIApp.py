@@ -318,15 +318,19 @@ class TheApp(Frame):
         self.Drawing.stateMachine.Nothing()
         dpd=DevicePickerDialog(self,deviceList)
         if dpd.result != None:
-            devicePicked=copy.deepcopy(deviceList[dpd.result])
-            devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
-            defaultProperty = devicePicked[PartPropertyDefaultReferenceDesignator().propertyName]
-            if defaultProperty != None:
-                defaultPropertyValue = defaultProperty.GetValue()
-                uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                if uniqueReferenceDesignator != None:
-                    devicePicked[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
-            dpe=DevicePropertiesDialog(self,devicePicked)
+            if deviceList[dpd.result][PartPropertyPartName().propertyName].GetValue() == 'Port':
+                self.onAddPort()
+                return
+            else:
+                devicePicked=copy.deepcopy(deviceList[dpd.result])
+                devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
+                defaultProperty = devicePicked[PartPropertyDefaultReferenceDesignator().propertyName]
+                if defaultProperty != None:
+                    defaultPropertyValue = defaultProperty.GetValue()
+                    uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                    if uniqueReferenceDesignator != None:
+                        devicePicked[PartPropertyReferenceDesignator().propertyName].SetValueFromString(uniqueReferenceDesignator)
+                dpe=DevicePropertiesDialog(self,devicePicked)
             if dpe.result != None:
                 self.Drawing.partLoaded = dpe.result
                 self.Drawing.stateMachine.PartLoaded()

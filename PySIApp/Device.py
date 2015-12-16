@@ -138,8 +138,8 @@ class DeviceIdealTransformer(Device):
         return Device.NetListLine(self)+' idealtransformer '+self[PartPropertyTurnsRatio().propertyName].PropertyString(stype='raw')
 
 class Port(Device):
-    def __init__(self,portNumber):
-        Device.__init__(self,[PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartPropertyPortNumber(portNumber)],partPicture=PartPictureVariablePort())
+    def __init__(self,portNumber=1):
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartPropertyPortNumber(portNumber)],partPicture=PartPictureVariablePort())
     def NetListLine(self):
         return 'port '+str(self['portnumber'].PropertyString(stype='raw'))
 
@@ -435,6 +435,7 @@ DeviceList = [
               DeviceCurrentPulseGenerator([PartPropertyDescription('Two Port Current Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),
               DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),
               DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
+              Port(),
               DeviceMeasurement(),
               DeviceOutput(),
               DeviceStim(),

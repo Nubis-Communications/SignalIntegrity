@@ -1106,7 +1106,7 @@ class Drawing(Frame):
         return canvas
     def EditSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
-            dpe=DevicePropertiesDialog(self,self.deviceSelected)
+            dpe=DevicePropertiesDialog(self.parent,self.deviceSelected)
             if dpe.result != None:
                 self.deviceSelected = dpe.result
                 self.schematic.deviceList[self.deviceSelectedIndex] = self.deviceSelected

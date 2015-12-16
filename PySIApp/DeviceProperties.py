@@ -13,14 +13,15 @@ from Files import *
 from SParameterViewerWindow import *
 
 class DeviceProperty(Frame):
-    def __init__(self,parentFrame,device,partProperty,callBack,hidden):
+    def __init__(self,parentFrame,parent,partProperty):
         Frame.__init__(self,parentFrame)
-        if not hidden:
+        if not partProperty.hidden:
             self.pack(side=TOP,fill=X,expand=YES)
+        self.parent=parent
         self.parentFrame=parentFrame
-        self.device=device
+        self.device=parent.device
         self.partProperty=partProperty
-        self.callBack=callBack
+        self.callBack=parent.UpdatePicture
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
         self.propertyVisible=IntVar(value=int(self.partProperty.visible))
         self.keywordVisible=IntVar(value=int(self.partProperty.keywordVisible))
@@ -65,22 +66,14 @@ class DeviceProperty(Frame):
             self.callBack()
     def onFileView(self):
         self.parentFrame.focus()
-        if self.partProperty.propertyName == PartPropertyFileName().propertyName:
-            extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
-            filetypename='s-parameters'
-        elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-            extension='.txt'
-            filetypename='waveforms'
-        else:
-            extension=''
-            filetypename='all'
-        #filename=askopenfilename(filetypes=[(filetypename,extension)])
         filename=self.partProperty.GetValue()
         if filename != '':
-            import SignalIntegrity as si
-            sp=si.sp.File(filename)
-            SParametersDialog(self,sp,filename)
-            #self.callBack()
+            if self.partProperty.propertyName == PartPropertyFileName().propertyName:
+                import SignalIntegrity as si
+                sp=si.sp.File(filename)
+                SParametersDialog(self.parent.parent.parent,sp,filename)
+            elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
+                pass
     def onPropertyVisible(self):
         self.partProperty.visible=bool(self.propertyVisible.get())
         self.callBack()
@@ -103,6 +96,7 @@ class DeviceProperty(Frame):
 class DeviceProperties(Frame):
     def __init__(self,parent,device):
         Frame.__init__(self,parent)
+        self.parent=parent
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
         propertyListFrame = Frame(self)
@@ -110,7 +104,7 @@ class DeviceProperties(Frame):
         propertyListFrame.bind("<Return>", parent.ok)
         self.propertyFrameList=[]
         for partProperty in self.device.propertiesList:
-            self.propertyFrameList.append(DeviceProperty(propertyListFrame,self.device,partProperty,self.UpdatePicture,partProperty.hidden))
+            self.propertyFrameList.append(DeviceProperty(propertyListFrame,self,partProperty))
         rotationFrame = Frame(propertyListFrame)
         rotationFrame.pack(side=TOP,fill=X,expand=NO)
         self.rotationString=StringVar(value=str(self.device.partPicture.current.orientation))

@@ -1,0 +1,45 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polygon lc="black">72,-56 78,-64 72,-72 66,-64 72,-56</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">56,-58 56,-70</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">72,-58 72,-70</polyline>
+%  <rect x="48" y="-56" w="32" h="-16" lc="black"/>
+%  <polyline lc="black">56,-80 56,-72</polyline>
+%  <polyline lw="2" lc="red">55,-79 57,-81</polyline>
+%  <polyline lw="2" lc="red">57,-79 55,-81</polyline>
+%  <polyline lc="black">56,-48 56,-56</polyline>
+%  <polyline lw="2" lc="red">55,-47 57,-49</polyline>
+%  <polyline lw="2" lc="red">57,-47 55,-49</polyline>
+%  <polyline lc="black">72,-80 72,-72</polyline>
+%  <polyline lw="2" lc="red">71,-79 73,-81</polyline>
+%  <polyline lw="2" lc="red">73,-79 71,-81</polyline>
+%  <polyline lc="black">72,-48 72,-56</polyline>
+%  <polyline lw="2" lc="red">71,-47 73,-49</polyline>
+%  <polyline lw="2" lc="red">73,-47 71,-49</polyline>
+%  <text x="84" y="-71.5" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="84" y="-69" t="zi 0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="84" y="-66.5" t="zo 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="84" y="-64" t="D1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (72,-56) -- (78,-64) -- (72,-72) -- (66,-64) -- (72,-56) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (56,-58) -- (56,-70);
+\path[line width=0.30mm, draw=black, <-] (72,-58) -- (72,-70);
+\path[line width=0.30mm, draw=black] (48,-72) rectangle +(32,16);
+\path[line width=0.30mm, draw=black] (56,-80) -- (56,-72);
+\path[line width=0.6mm, draw=red] (55,-79) -- (57,-81);
+\path[line width=0.6mm, draw=red] (57,-79) -- (55,-81);
+\path[line width=0.30mm, draw=black] (56,-48) -- (56,-56);
+\path[line width=0.6mm, draw=red] (55,-47) -- (57,-49);
+\path[line width=0.6mm, draw=red] (57,-47) -- (55,-49);
+\path[line width=0.30mm, draw=black] (72,-80) -- (72,-72);
+\path[line width=0.6mm, draw=red] (71,-79) -- (73,-81);
+\path[line width=0.6mm, draw=red] (73,-79) -- (71,-81);
+\path[line width=0.30mm, draw=black] (72,-48) -- (72,-56);
+\path[line width=0.6mm, draw=red] (71,-47) -- (73,-49);
+\path[line width=0.6mm, draw=red] (73,-47) -- (71,-49);
+\draw[black] (84,-71.5) node[anchor=base west]{gain 1.0 };
+\draw[black] (84,-69) node[anchor=base west]{zi 0 Ohm};
+\draw[black] (84,-66.5) node[anchor=base west]{zo 100.0 MOhm};
+\draw[black] (84,-64) node[anchor=base west]{D1};
+\end{tikzpicture}%
