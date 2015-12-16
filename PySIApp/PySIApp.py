@@ -498,9 +498,9 @@ class TheApp(Frame):
         SParametersDialog(self,sp,filename)
 
     def onHelp(self):
-        import subprocess
+        import webbrowser
         url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/PySIHelp.html'
-        subprocess.Popen([url],shell=True)
+        webbrowser.open(url)
 
     def onControlHelp(self):
         Doer.inHelp = not Doer.inHelp

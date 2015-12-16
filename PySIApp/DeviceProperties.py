@@ -74,15 +74,13 @@ class DeviceProperty(Frame):
         else:
             extension=''
             filetypename='all'
-        filename=askopenfilename(filetypes=[(filetypename,extension)])
+        #filename=askopenfilename(filetypes=[(filetypename,extension)])
+        filename=self.partProperty.GetValue()
         if filename != '':
-            filename=ConvertFileNameToRelativePath(filename)
-            self.propertyString.set(filename)
-            self.partProperty.SetValueFromString(self.propertyString.get())
             import SignalIntegrity as si
             sp=si.sp.File(filename)
             SParametersDialog(self,sp,filename)
-            self.callBack()
+            #self.callBack()
     def onPropertyVisible(self):
         self.partProperty.visible=bool(self.propertyVisible.get())
         self.callBack()

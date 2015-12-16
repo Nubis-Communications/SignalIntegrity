@@ -180,14 +180,14 @@ class PartPropertyWaveformFileName(PartProperty):
 
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
-        PartProperty.__init__(self,'resistence',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
+        PartProperty.__init__(self,'resistance',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
 
 class PartPropertyCapacitance(PartProperty):
     def __init__(self,capacitance=1e-12,keyword='c',descriptionPrefix=''):
         PartProperty.__init__(self,'capacitance',type='float',unit='F',keyword=keyword,description=descriptionPrefix+'capacitance (F)',value=capacitance,visible=True,keywordVisible=False)
 
 class PartPropertyInductance(PartProperty):
-    def __init__(self,inductance=1e-15,keyword='l',descriptionPrefix=''):
+    def __init__(self,inductance=1e-9,keyword='l',descriptionPrefix=''):
         PartProperty.__init__(self,'inductance',type='float',unit='H',keyword=keyword,description=descriptionPrefix+'inductance (H)',value=inductance,visible=True,keywordVisible=False)
 
 class PartPropertyConductance(PartProperty):

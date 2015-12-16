@@ -1,0 +1,15 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polygon fill="black">10.75,-16 21.25,-16 16,-21.25 10.75,-16</polygon>
+%  <polyline lc="black">16,-8 16,-16</polyline>
+%  <polyline lw="2" lc="red">15,-7 17,-9</polyline>
+%  <polyline lw="2" lc="red">17,-7 15,-9</polyline>
+%  <text x="24" y="-16" t="G1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, fill=black] (10.75,-16) -- (21.25,-16) -- (16,-21.25) -- (10.75,-16) -- cycle;
+\path[line width=0.30mm, draw=black] (16,-8) -- (16,-16);
+\path[line width=0.6mm, draw=red] (15,-7) -- (17,-9);
+\path[line width=0.6mm, draw=red] (17,-7) -- (15,-9);
+\draw[black] (24,-16) node[anchor=base west]{G1};
+\end{tikzpicture}%
