@@ -137,7 +137,7 @@ class SimulatorDialog(Toplevel):
     def onMatplotlib2TikZ(self):
         import os
         extension='.tex'
-        filename=asksaveasfilename(filetypes=[('tex', extension)],defaultextension='.tex',initialdir=os.getcwd())
+        filename=asksaveasfilename(parent=self,filetypes=[('tex', extension)],defaultextension='.tex',initialdir=os.getcwd())
         if filename=='':
             return
         try:

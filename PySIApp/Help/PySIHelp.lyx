@@ -504,6 +504,11 @@ At this point, our schematic looks like this:
 
 \begin_layout Standard
 Notice the red x's showing where the part pins are unconnected.
+ Also note that the part is blue and the status message says 
+\emph on
+Part Selected
+\emph default
+.
 \end_layout
 
 \begin_layout Standard
@@ -764,7 +769,133 @@ The rest of the ports are added in a similar manner:
 \end_layout
 
 \begin_layout Standard
-Don't forget to show the netlist.
+The next step is to set the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculation-Properties"
+
+\end_inset
+
+.
+ By default they look like this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When we looked at the s-parameters, we can see that the end frequency is
+ 20 GHz and the impulse response length is 100 ns.
+ It looks like the 100 ns impulse response length might be excessive, so
+ we use 50 ns.
+ We double click in the impulse response length entry box and type 50n and
+ press enter.
+ Now we see:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationProperties50ns.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that, in general, we really don't want to think of the number of frequency
+ points in an s-parameter file.
+ Instead, we choose to think in terms of impulse response length.
+ In this example, this happens to mean one thousand frequency points.
+\end_layout
+
+\begin_layout Standard
+Before calculating the s-parameters, it's also good to look at the netlist.
+ Invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Export-Netlist"
+
+\end_inset
+
+, we see:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SParameterGenerationExampleNetListDialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If you've read the book that accompanies the PySI software, this netlist
+ should be familiar to you.
+ If you press OK, you can save this netlist to a file, if you wanted to.
+\end_layout
+
+\begin_layout Standard
+To calculate the s-parameters, invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate-Button"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate-S-parameters"
+
+\end_inset
+
+.
+ There should not be any errors (if there are, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Errors-and-Exceptions"
+
+\end_inset
+
+) and you should see the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SParameterGenerationExampleResultS11.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You can select the s-parameters you want to view from the buttons at the
+ lower-left and save the results to a file if you want:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SParameterGenerationExampleResultSave.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -4132,7 +4263,7 @@ When you add a port, the application immediately brings up the part property
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename PartPropertyPort.png
+	filename PartPropertiesPort.png
 
 \end_inset
 
@@ -8260,7 +8391,7 @@ Issuing the Calculation Properties command brings up the calculation properties
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename CalculationProperties.png
+	filename CalculationPropertiesDefault.png
 
 \end_inset
 
@@ -20163,7 +20294,34 @@ Arguments Must Come in Keyword Pairs
 \end_layout
 
 \begin_layout Subsubsection
-Manditory Keywords Not Supplied
+Mandatory Keywords Not Supplied
+\end_layout
+
+\begin_layout Standard
+This error message states that mandatory keywords and values were not supplied
+ to the device parser for a particular device.
+ The keyword error looks like: ['keyword1','keyword2',\SpecialChar \ldots{}
+] for 'deviceName'
+ where 'keyword1' and 'keyword2' are representative of keywords that must
+ be defined for the device and 'deviceName' is representative of the name
+ of the device.
+\end_layout
+
+\begin_layout Standard
+If a keyword is '', then the device takes an argument without a keyword
+ (the keyword is inherent).
+\end_layout
+
+\begin_layout Standard
+For example, an error message that says that the keywords not supplied are:
+ [''] for file, this means that the file name (which is not specified with
+ a keyword) was not supplied.
+\end_layout
+
+\begin_layout Standard
+When entering netlists by hand, it is easy to forget a mandatory keyword,
+ but in PySIApp, this is difficult since the application creates the netlist
+ entry from the instantiated part in the schematic.
 \end_layout
 
 \begin_layout Subsubsection

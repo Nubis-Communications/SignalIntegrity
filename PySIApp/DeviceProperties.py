@@ -11,6 +11,8 @@ import os
 from PartProperty import *
 from Files import *
 from SParameterViewerWindow import *
+from Simulator import *
+from SignalIntegrity.PySIException import PySIException
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):
@@ -44,7 +46,8 @@ class DeviceProperty(Frame):
         if self.partProperty.type == 'file':
             propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
             propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
-            if self.partProperty.propertyName == PartPropertyFileName().propertyName:
+            if self.partProperty.propertyName == PartPropertyFileName().propertyName or\
+                self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
                 propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
                 propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
@@ -68,12 +71,25 @@ class DeviceProperty(Frame):
         self.parentFrame.focus()
         filename=self.partProperty.GetValue()
         if filename != '':
+            import SignalIntegrity as si
             if self.partProperty.propertyName == PartPropertyFileName().propertyName:
-                import SignalIntegrity as si
-                sp=si.sp.File(filename)
+                try:
+                    sp=si.sp.File(filename)
+                except PySIException as e:
+                    tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+                    return
                 SParametersDialog(self.parent.parent.parent,sp,filename)
             elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-                pass
+                wf=si.td.wf.Waveform().ReadFromFile(filename)
+                filenametoshow=filename.split('/')[-1]
+                if filenametoshow is None:
+                    filenametoshow=''
+                sd=SimulatorDialog(self.parent.parent)
+                sd.title(filenametoshow)
+                sd.UpdateWaveforms([wf],[filenametoshow])
+                sd.state('normal')
+                sd.grab_set()
+
     def onPropertyVisible(self):
         self.partProperty.visible=bool(self.propertyVisible.get())
         self.callBack()

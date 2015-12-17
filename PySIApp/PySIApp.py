@@ -219,8 +219,26 @@ class TheApp(Frame):
 
         # The edit history (for undo)
         self.history=History(self)
+        
+        # we capture resizing so we can resize the canvas a bit smaller to allow the user
+        # to always see the status message bar.  But we don't know how much smaller initially.
+        # so we capture the first call to resize which occurs when the canvas is sized.
+        # the canvas is 600 x 600 so the difference between these amounts is the delta to apply on
+        # subsequent resize calls.
+        self.knowDelta=False
+        self.deltaWidth=0
+        self.deltaHeight=0
+        self.bind('<Configure>',self.onResize)
 
         self.root.mainloop()
+
+    def onResize(self,event):
+        if not self.knowDelta:
+            self.deltaWidth=event.width-600
+            self.deltaHeight=event.height-600
+            self.knowDelta=True
+        #print 'width: '+str(event.width)+', height'+str(event.height)
+        self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
 
     def onKey(self,event):
 #       print "pressed", repr(event.keycode), repr(event.keysym)
@@ -558,6 +576,9 @@ class TheApp(Frame):
             self.EscapeDoer.Activate(True)
 
             self.config(cursor='question_arrow')
+            
+            self.statusbar.set('Control Help')
+
 
     def onEscape(self):
         self.Drawing.stateMachine.Nothing(True)

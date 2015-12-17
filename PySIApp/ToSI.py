@@ -9,7 +9,7 @@ def nextHigher(v,ml):
     ml=sorted(ml)
     exp=math.floor(math.log10(v))
     mul=pow(10.,exp)
-    mant=v/mul
+    mant=v/mul-1e-15
     foundit=False
     for m in ml:
         if mant<= m:
@@ -24,7 +24,7 @@ def nextLower(v,ml):
     ml = list(reversed(sorted(ml)))
     exp=math.floor(math.log10(v))
     mul=pow(10.,exp)
-    mant=v/mul
+    mant=v/mul+1e-15
     foundit=False
     for m in ml:
         if mant >= m:

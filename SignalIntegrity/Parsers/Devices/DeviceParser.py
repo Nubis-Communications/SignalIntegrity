@@ -98,7 +98,7 @@ class DeviceFactory(object):
                 for key in arg:
                     if arg[key] == None:
                         argNotProvidedList.append(key)
-                raise PySIExceptionDeviceParser('manditory keyword(s) not supplied: '+str(argNotProvidedList)+' for '+name)
+                raise PySIExceptionDeviceParser('mandatory keyword(s) not supplied: '+str(argNotProvidedList)+' for '+name)
             try:
                 self.dev=eval(device.func)
                 self.frequencyDependent=device.frequencyDependent
