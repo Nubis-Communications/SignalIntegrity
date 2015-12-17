@@ -196,7 +196,6 @@ class SParametersDialog(Toplevel):
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
         self.deiconify()
-        self.grab_set()
 
     def PlotSParameter(self):
         import SignalIntegrity as si

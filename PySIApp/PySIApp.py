@@ -363,6 +363,7 @@ class TheApp(Frame):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
             self.Drawing.deviceSelected.partPicture.current.Rotate()
             self.Drawing.DrawSchematic()
+            self.history.Event('rotate')
     def onFlipPartHorizontally(self):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
             orientation = self.Drawing.deviceSelected.partPicture.current.orientation
@@ -370,6 +371,7 @@ class TheApp(Frame):
             mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
             self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,not mirroredHorizontally,mirroredVertically)
             self.Drawing.DrawSchematic()
+            self.history.Event('flip horizontally')
     def onFlipPartVertically(self):
         if self.Drawing.stateMachine.state == 'DeviceSelected':
             orientation = self.Drawing.deviceSelected.partPicture.current.orientation
@@ -377,6 +379,7 @@ class TheApp(Frame):
             mirroredVertically = self.Drawing.deviceSelected.partPicture.current.mirroredVertically
             self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,mirroredHorizontally,not mirroredVertically)
             self.Drawing.DrawSchematic()
+            self.history.Event('flip vertically')
     def onDuplicateSelected(self):
         self.Drawing.DuplicateSelected()
     def onCutMultipleSelections(self):

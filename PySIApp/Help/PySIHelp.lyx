@@ -53,7 +53,7 @@
 \color #008000
 \end_index
 \secnumdepth -2
-\tocdepth 2
+\tocdepth 1
 \paragraph_separation skip
 \defskip smallskip
 \quotes_language english
@@ -99,15 +99,34 @@ reference "sec:S-parameter-Generation"
 \end_layout
 
 \begin_layout Enumerate
-Linear Simulation of systems.
+Linear 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ of systems.
 \end_layout
 
 \begin_layout Enumerate
-Virtual probing systems.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ systems.
 \end_layout
 
 \begin_layout Enumerate
-Deembedding s-parameters in systems.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+s-parameters in systems.
 \end_layout
 
 \begin_layout Standard
@@ -899,21 +918,102 @@ You can select the s-parameters you want to view from the buttons at the
 \end_layout
 
 \begin_layout Section
-Deembedding
+Simulation
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Deembedding"
+name "sec:Simulation"
 
 \end_inset
 
 
 \end_layout
 
+\begin_layout Subsection
+Simulation Example
+\end_layout
+
+\begin_layout Standard
+In this example, we will step through the simulation of an RLC network.
+ this example will highlight many things about simulation that you need
+ to be aware of.
+\end_layout
+
+\begin_layout Standard
+The circuit we will simulate will be a series 100 nH inductor, 1 pF capacitor,
+ and 50 Ohm resistor.
+ We will simulate with a step voltage applied to the input to the circuit
+ and probe initially the voltage at the 50 Ohm termination resistor.
+\end_layout
+
+\begin_layout Standard
+When we open PySIApp, we have a blank canvas:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename BlanckCanvas.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Add-Part"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPicker.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Select the Generators category, and select the One Port Voltage Step Generator:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerOnePortVoltageGenerator.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For now, we accept the default properties:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesVoltageStepGeneratorDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Press OK and left-click to place the part in the schematic and drag the
+ part to where you want it:
+\end_layout
+
 \begin_layout Section
-Simulation
+Deembedding
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Simulation"
+name "sec:Deembedding"
 
 \end_inset
 
@@ -5966,7 +6066,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Duplicate Part
+Parts ▸ Duplicate Part
 \end_layout
 
 \end_inset
@@ -6170,7 +6270,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Rotate Part
+Parts ▸ Rotate Part
 \end_layout
 
 \end_inset
@@ -6369,7 +6469,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Flip Horizontally
+Parts ▸ Flip Horizontally
 \end_layout
 
 \end_inset
@@ -6568,7 +6668,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Flip Vertically
+Parts ▸ Flip Vertically
 \end_layout
 
 \end_inset
@@ -6810,7 +6910,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires▸Add Wire
+Wires ▸ Add Wire
 \end_layout
 
 \end_inset
@@ -7009,7 +7109,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires▸Delete Vertex
+Wires ▸ Delete Vertex
 \end_layout
 
 \end_inset
@@ -7203,7 +7303,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires▸Duplicate Vertex
+Wires ▸ Duplicate Vertex
 \end_layout
 
 \end_inset
@@ -7401,7 +7501,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires▸Delete Wire
+Wires ▸ Delete Wire
 \end_layout
 
 \end_inset
@@ -7638,7 +7738,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-View▸Zoom In
+View ▸ Zoom In
 \end_layout
 
 \end_inset
@@ -7837,7 +7937,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-View▸Zoom Out
+View ▸ Zoom Out
 \end_layout
 
 \end_inset
@@ -8036,7 +8136,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-View▸Pan
+View ▸ Pan
 \end_layout
 
 \end_inset
@@ -8278,7 +8378,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate▸Calculation Properties
+Calculate ▸ Calculation Properties
 \end_layout
 
 \end_inset
@@ -8625,7 +8725,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate▸S-parameter Viewer
+Calculate ▸ S-parameter Viewer
 \end_layout
 
 \end_inset
@@ -9029,7 +9129,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate▸Calculate S-parameters
+Calculate ▸ Calculate S-parameters
 \end_layout
 
 \end_inset
@@ -9228,7 +9328,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate▸Simulate
+Calculate ▸ Simulate
 \end_layout
 
 \end_inset
@@ -9427,7 +9527,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate▸Virtual Probe
+Calculate ▸ Virtual Probe
 \end_layout
 
 \end_inset
@@ -9626,7 +9726,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate▸Deembed
+Calculate ▸ Deembed
 \end_layout
 
 \end_inset
@@ -9868,7 +9968,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Help▸Open Help File
+Help ▸ Open Help File
 \end_layout
 
 \end_inset
@@ -10071,7 +10171,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Help▸Control Help
+Help ▸ Control Help
 \end_layout
 
 \end_inset

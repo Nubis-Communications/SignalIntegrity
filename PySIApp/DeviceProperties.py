@@ -78,7 +78,8 @@ class DeviceProperty(Frame):
                 except PySIException as e:
                     tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                     return
-                SParametersDialog(self.parent.parent.parent,sp,filename)
+                spd=SParametersDialog(self.parent.parent.parent,sp,filename)
+                spd.grab_set()
             elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
                 wf=si.td.wf.Waveform().ReadFromFile(filename)
                 filenametoshow=filename.split('/')[-1]
