@@ -99,7 +99,7 @@ class Doer(object):
         if self.inHelp and self.helpEnabled:
             if not self.url is None:
                 import webbrowser
-                url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/PySIHelp-Subsubsection-'+self.url+'.html'
+                url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+self.url
                 url=url.replace('\\','/')
                 webbrowser.open(url)
             return

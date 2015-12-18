@@ -68,7 +68,7 @@ class SParametersDialog(Toplevel):
                     self.title('S-parameters: '+filenametoshow)
         else:
             if filename is None:
-                self.title=title
+                self.title(title)
             else:
                 filenametoshow=filename.split('/')[-1]
                 if filenametoshow is None:

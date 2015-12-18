@@ -201,7 +201,7 @@ Drawing the schematic is accomplished through the addition of parts and
 To add parts to the schematic, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Part"
+reference "Control-Help:Add-Part"
 
 \end_inset
 
@@ -209,7 +209,7 @@ reference "sub:Add-Part"
  To add wires to the schematic, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Wire"
+reference "Control-Help:Add-Wire"
 
 \end_inset
 
@@ -249,7 +249,7 @@ Thus, for a set of two-port s-parameters,
 To add ports to a schematic, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Port"
+reference "Control-Help:Add-Port"
 
 \end_inset
 
@@ -271,7 +271,7 @@ name "sub:Setting-Calculation-Properties"
 To set the calculation properties for s-parameter calculation, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculation-Properties"
+reference "Control-Help:Calculation-Properties"
 
 \end_inset
 
@@ -298,14 +298,14 @@ After creating the schematic for s-parameter generation and setting the
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate-S-parameters"
+reference "Control-Help:Calculate-S-parameters"
 
 \end_inset
 
  command or the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate-Button"
+reference "Control-Help:Calculate-Button"
 
 \end_inset
 
@@ -324,7 +324,7 @@ Note that calculation will not be possible at all (i.e.
 have at least one port element (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Port"
+reference "Control-Help:Add-Port"
 
 \end_inset
 
@@ -374,7 +374,7 @@ reference "sec:Netlists"
  for more information on the net list and see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Export-Netlist"
+reference "Control-Help:Export-Netlist"
 
 \end_inset
 
@@ -461,7 +461,7 @@ Here we see three devices and four ports.
  We added the devices by executing 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Part"
+reference "Control-Help:Add-Part"
 
 \end_inset
 
@@ -534,7 +534,7 @@ Part Selected
 We then add the mixed-mode converter devices by again executing 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Part"
+reference "Control-Help:Add-Part"
 
 \end_inset
 
@@ -592,7 +592,7 @@ Since we are converting single-ended to mixed-mode s-parameters, we need
 To find out, we select our four port device and invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit-Properties"
+reference "Control-Help:Edit-Properties"
 
 \end_inset
 
@@ -682,7 +682,7 @@ It's easy to get another mixed-mode converter on the other side.
  Just invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Duplicate-Part"
+reference "Control-Help:Duplicate-Part"
 
 \end_inset
 
@@ -692,7 +692,7 @@ reference "sub:Duplicate-Part"
  Since it is the wrong orientation, invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Flip-Horizontally"
+reference "Control-Help:Flip-Horizontally"
 
 \end_inset
 
@@ -712,7 +712,7 @@ reference "sub:Flip-Horizontally"
 Now we invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Port"
+reference "Control-Help:Add-Port"
 
 \end_inset
 
@@ -750,7 +750,7 @@ e and the 1 and 2 refer to the left and right side of the transmission line.
  So we invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Duplicate-Part"
+reference "Control-Help:Duplicate-Part"
 
 \end_inset
 
@@ -758,7 +758,7 @@ reference "sub:Duplicate-Part"
  Use 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Flip-Horizontally"
+reference "Control-Help:Flip-Horizontally"
 
 \end_inset
 
@@ -791,7 +791,7 @@ The rest of the ports are added in a similar manner:
 The next step is to set the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculation-Properties"
+reference "Control-Help:Calculation-Properties"
 
 \end_inset
 
@@ -839,7 +839,7 @@ Before calculating the s-parameters, it's also good to look at the netlist.
  Invoking 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Export-Netlist"
+reference "Control-Help:Export-Netlist"
 
 \end_inset
 
@@ -865,14 +865,14 @@ If you've read the book that accompanies the PySI software, this netlist
 To calculate the s-parameters, invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate-Button"
+reference "Control-Help:Calculate-Button"
 
 \end_inset
 
  or 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate-S-parameters"
+reference "Control-Help:Calculate-S-parameters"
 
 \end_inset
 
@@ -962,7 +962,7 @@ When we open PySIApp, we have a blank canvas:
 We invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Part"
+reference "Control-Help:Add-Part"
 
 \end_inset
 
@@ -992,7 +992,10 @@ Select the Generators category, and select the One Port Voltage Step Generator:
 \end_layout
 
 \begin_layout Standard
-For now, we accept the default properties:
+For now, we accept the default properties which state that the step generator
+ will generate a waveform which starts at -100 ns, runs for 200 ns (i.e.
+ ends at 100 ns) which is 0 V until 0 s after which it jumps to 1 V for
+ the duration.
 \end_layout
 
 \begin_layout Standard
@@ -1007,6 +1010,564 @@ For now, we accept the default properties:
 \begin_layout Standard
 Press OK and left-click to place the part in the schematic and drag the
  part to where you want it:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep1.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we use 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ to add an inductor:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep3.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Double click in the inductance part property entry box and type 100n and
+ hit enter:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep4.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Press OK, click in the schematic and hold the left mouse button down to
+ drag the part to the desired location to the right of the voltage generator:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep5.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Repeat for a two-port, 1 pF capacitor and a one-port 50 Ohm resistor.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep6.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now connect all of the devices using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Wire"
+
+\end_inset
+
+ commands.
+ We start wire drawing by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Wire"
+
+\end_inset
+
+ and we observe that the cursor turns into a pen, and we see Drawing Wires
+ in the status bar.
+ We left click on the top of the voltage generator and see a dot form at
+ the generator connection point.
+ We move the mouse up a bit and we see a rubber band wire form between the
+ top of the generator and the cursor and we left click again.
+ A line now extends upward from the voltage generator to a dot.
+ We move the cursor to the right to the left side of the inductor and left
+ click again.
+ We right click to end the wire and move to the mouse to the right side
+ of the inductor.
+ There is no rubber band line because we completed the drawing of the last
+ wire, but left clicking on the right port of the inductor places another
+ dot and begins the next wire.
+ We move the mouse to the left side of the capacitor, observing the rubber
+ band line, and left click.
+ Right clicking ends that wire and we move on to the connection of the right
+ side of the capacitor to the top of the one-port resistor to ground.
+ When we complete this wire, we right click twice to end drawing wires.
+ Notice that the cursor returns to an arrow and the status bar message shows
+ nothing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep7.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If you want, experiment with changing the wires by left clicking on a wire
+ vertex and dragging:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep8.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or by clicking in the middle of a wire and dragging:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep9.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Output-Probe"
+
+\end_inset
+
+ to add some probing points to the circuit.
+ When we invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Output-Probe"
+
+\end_inset
+
+, we see the part properties dialog for the Output:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep10.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Click the leftmost checkbox for the reference designator (so it shows in
+ the schematic), and double click in the reference designator entry box
+ and type Vin followed by the enter key:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep11.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Press OK and place the probe on the wire connecting the voltage source to
+ the inductor:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep12.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If you want to make it look better, use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Flip-Horizontally"
+
+\end_inset
+
+ to change the orientation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep13.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Pan"
+
+\end_inset
+
+ to pan the drawing a bit to the right.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep14.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Select the output probe and use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Duplicate-Part"
+
+\end_inset
+
+ to place another probe at the resistor.
+ Use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Flip-Horizontally"
+
+\end_inset
+
+ to change the orientation, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ to change the reference designator to Vout.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep15.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice now that 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulate"
+
+\end_inset
+
+ are now enabled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep16.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Go ahead and invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulate"
+
+\end_inset
+
+ and let's see what happens.
+ After a few seconds of calculation, we see the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep17.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let's zoom in on the green Vout waveform to see what happened:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep18.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is, of course nonsense, so let's understand what happened here and
+ how the simulator works.
+ Understand this, we need on more set of information - the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+, where we see:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The simulator operates by generating transfer matrices that convert waveforms
+ generated from sources, in this case the step generator, into the output
+ waveforms.
+ In this case, since we have only one source, these are essentially two
+ filters that are applied to the source waveform, one filter converting
+ the source to Vin, the other converting the source to Vout.
+\end_layout
+
+\begin_layout Standard
+These filters are specified with a frequency response of 400 points with
+ 50 MHz spacing out to 20 GHz.
+ If s-parameter files had appeared in the schematic, all s-parameters would
+ be resampled to this specification during calculation of the transfer matrices.
+\end_layout
+
+\begin_layout Standard
+The net effect of the transfer matrices calculation is two finite-impulse
+ response (FIR) filters whose impulse response length is 20 ns.
+ In the accompanying book that describes the theory, we explain all about
+ this, but suffice it to say that the filter impulse response is 20 ns long
+ with time 0 appearing in the middle (i.e.
+ has 10 ns of filter duration prior to time zero and 10 ns after time zero).
+\end_layout
+
+\begin_layout Standard
+Since FFT methods are utilized, and since the FFT assumes that the frequency
+ response represents the 
+\emph on
+impulse train response
+\emph default
+ (as opposed to a single impulse response), we have an opportunity for time-alia
+sing effects, which we've certainly created.
+ To see this, invoke View Transfer Matrices from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ and we see:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep19.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is the trivial filter that converts the source waveform VG1 into Vin.
+ this filter is, of course, a single impulse as these two are the same.
+\end_layout
+
+\begin_layout Standard
+Selecting Vout due to VG1 shows something more interesting:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep20.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we see that the filter is highly resonant, which is not surprising.
+ We see this in the magnitude response in the upper left, to some degree
+ from the 180 degree phase transition in the phase response in the upper
+ right, in the impulse response in the lower left which is clearly not settled
+ at the end, and we see the problem the most clearly from the step response
+ in the lower right.
+\end_layout
+
+\begin_layout Standard
+Because of the FFT methods utilized, we see that the unsettled response
+ to the right continues from the left (at negative time) and is clearly
+ giving us the wrong answer.
+\end_layout
+
+\begin_layout Standard
+In the future, we might provide better or automated ways of dealing with
+ this, but this is a common problem, especially when s-parameters are used,
+ and is worth seeing and dealing with manually.
+\end_layout
+
+\begin_layout Standard
+Clearly, 20 ns worth of impulse response is insufficient.
+ Let's use something like 100 ns.
+ So we edit the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+, change the impulse response length to 100 ns, close the dialog returning
+ to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+, and recalculate.
+ After adjusting the zoom a bit, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep21.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is clearly a much better result.
+ You can examine the transfer matrices to see that the 100 ns impulse response
+ did the trick.
+\end_layout
+
+\begin_layout Standard
+Examining the calculation properties we see the implications of the 100
+ ns impulse response:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep22.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It means that two thousand frequency points were required at 10 MHz spacing.
+ If this system were provided through s-parameter measurements, this would
+ be the frequency resolution required to get a good time-domain simulation
+ - regardless of what kind of simulator were employed.
+\end_layout
+
+\begin_layout Standard
+As a final note, note that in the original, incorrect simulation, the waveform
+ result was almost 200 ns long (it was 180 ns to be precise) and that the
+ final result is 100 ns long.
+ This is because the impulse response length is removed half from the front
+ and half from the back of the waveform.
+ This is explained in the accompanying book.
+ This means that the input waveform must be sized properly to give you the
+ result you want.
+ If in my simulation, my desire was to see the step response starting at
+ -10 ns until 30 ns, and understanding that the filter takes 50 ns from
+ the front and back, we'd want an input waveform that starts at -60 ns and
+ ends at 80 ns, for a 140 ns duration.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep23.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep24.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1096,14 +1657,14 @@ When browsing an s-parameter file in the part property of a file device.
  (see the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Part"
+reference "Control-Help:Add-Part"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit-Properties"
+reference "Control-Help:Edit-Properties"
 
 \end_inset
 
@@ -1121,7 +1682,7 @@ reference "sub:File-1"
 When invoked from the PySIApp main menu using the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:S-parameter-Viewer"
+reference "Control-Help:S-parameter-Viewer"
 
 \end_inset
 
@@ -1174,7 +1735,7 @@ When s-parameters have been calculated, they are calculated according to
  the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculation-Properties"
+reference "Control-Help:Calculation-Properties"
 
 \end_inset
 
@@ -1237,7 +1798,7 @@ ers, particularly for signal integrity, must include the time-domain, as
  problems can be repaired by changing the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculation-Properties"
+reference "Control-Help:Calculation-Properties"
 
 \end_inset
 
@@ -1250,7 +1811,7 @@ If the s-parameter file being viewed is an input file to any of the PySIApp
  the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculation-Properties"
+reference "Control-Help:Calculation-Properties"
 
 \end_inset
 
@@ -1288,7 +1849,18 @@ Note that in the phase response there is the ability to unwrap the phase.
 \end_layout
 
 \begin_layout Section
-Navigation
+Simulator Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Simulator-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Main Schematic Dialog
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Navigation"
@@ -1407,7 +1979,7 @@ The File tasks are:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Open-Project"
+reference "Control-Help:Open-Project"
 
 \end_inset
 
@@ -1417,7 +1989,7 @@ reference "sub:Open-Project"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Save-Project"
+reference "Control-Help:Save-Project"
 
 \end_inset
 
@@ -1427,7 +1999,7 @@ reference "sub:Save-Project"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Clear-Schematic"
+reference "Control-Help:Clear-Schematic"
 
 \end_inset
 
@@ -1437,7 +2009,7 @@ reference "sub:Clear-Schematic"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Export-Netlist"
+reference "Control-Help:Export-Netlist"
 
 \end_inset
 
@@ -1447,7 +2019,7 @@ reference "sub:Export-Netlist"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Export-LaTeX"
+reference "Control-Help:Export-LaTeX"
 
 \end_inset
 
@@ -1490,7 +2062,7 @@ reference "sec:Navigation"
 Open Project
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Open-Project"
+name "Control-Help:Open-Project"
 
 \end_inset
 
@@ -1703,7 +2275,7 @@ reference "sec:Navigation"
 Save Project
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Save-Project"
+name "Control-Help:Save-Project"
 
 \end_inset
 
@@ -1902,7 +2474,7 @@ reference "sec:Navigation"
 Clear Schematic
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Clear-Schematic"
+name "Control-Help:Clear-Schematic"
 
 \end_inset
 
@@ -2101,7 +2673,7 @@ reference "sec:Navigation"
 Export Netlist
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Export-Netlist"
+name "Control-Help:Export-Netlist"
 
 \end_inset
 
@@ -2295,7 +2867,7 @@ reference "sec:Navigation"
 Export LaTeX (TikZ)
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Export-LaTeX"
+name "Control-Help:Export-LaTeX"
 
 \end_inset
 
@@ -2504,7 +3076,7 @@ The Edit tasks are broken into two sections, one involving undo and redo
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Undo"
+reference "Control-Help:Undo"
 
 \end_inset
 
@@ -2528,7 +3100,7 @@ and:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Delete-Selected"
+reference "Control-Help:Delete-Selected"
 
 \end_inset
 
@@ -2538,7 +3110,7 @@ reference "sub:Delete-Selected"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Duplicate-Selected"
+reference "Control-Help:Duplicate-Selected"
 
 \end_inset
 
@@ -2548,7 +3120,7 @@ reference "sub:Duplicate-Selected"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Cut-Selected"
+reference "Control-Help:Cut-Selected"
 
 \end_inset
 
@@ -2596,7 +3168,7 @@ reference "sec:Navigation"
 Undo
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Undo"
+name "Control-Help:Undo"
 
 \end_inset
 
@@ -2792,10 +3364,9 @@ reference "sec:Navigation"
 \end_layout
 
 \begin_layout Subsubsection
-Redo
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Redo"
+name "Control-Help:Redo"
 
 \end_inset
 
@@ -2994,7 +3565,7 @@ reference "sec:Navigation"
 Delete Selected
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Delete-Selected"
+name "Control-Help:Delete-Selected"
 
 \end_inset
 
@@ -3193,7 +3764,7 @@ reference "sec:Navigation"
 Duplicate Selected
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Duplicate-Selected"
+name "Control-Help:Duplicate-Selected"
 
 \end_inset
 
@@ -3392,7 +3963,7 @@ reference "sec:Navigation"
 Cut Selected
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Cut-Selected"
+name "Control-Help:Cut-Selected"
 
 \end_inset
 
@@ -3611,7 +4182,7 @@ target "#sub_Wires"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Part"
+reference "Control-Help:Add-Part"
 
 \end_inset
 
@@ -3626,7 +4197,7 @@ The remaining add tasks are for adding special parts used for specific PySI
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Port"
+reference "Control-Help:Add-Port"
 
 \end_inset
 
@@ -3636,7 +4207,7 @@ reference "sub:Add-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Output-Probe"
+reference "Control-Help:Add-Output-Probe"
 
 \end_inset
 
@@ -3646,7 +4217,7 @@ reference "sub:Add-Output-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Measure-Probe"
+reference "Control-Help:Add-Measure-Probe"
 
 \end_inset
 
@@ -3656,7 +4227,7 @@ reference "sub:Add-Measure-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Stim"
+reference "Control-Help:Add-Stim"
 
 \end_inset
 
@@ -3666,7 +4237,7 @@ reference "sub:Add-Stim"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-Unknown"
+reference "Control-Help:Add-Unknown"
 
 \end_inset
 
@@ -3676,7 +4247,7 @@ reference "sub:Add-Unknown"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Add-System"
+reference "Control-Help:Add-System"
 
 \end_inset
 
@@ -3690,7 +4261,7 @@ If a part is selected, the following tasks are also possible:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Delete-Part"
+reference "Control-Help:Delete-Part"
 
 \end_inset
 
@@ -3700,7 +4271,7 @@ reference "sub:Delete-Part"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit-Properties"
+reference "Control-Help:Edit-Properties"
 
 \end_inset
 
@@ -3710,7 +4281,7 @@ reference "sub:Edit-Properties"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Duplicate-Part"
+reference "Control-Help:Duplicate-Part"
 
 \end_inset
 
@@ -3720,7 +4291,7 @@ reference "sub:Duplicate-Part"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Rotate-Part"
+reference "Control-Help:Rotate-Part"
 
 \end_inset
 
@@ -3730,7 +4301,7 @@ reference "sub:Rotate-Part"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Flip-Horizontally"
+reference "Control-Help:Flip-Horizontally"
 
 \end_inset
 
@@ -3740,7 +4311,7 @@ reference "sub:Flip-Horizontally"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Flip-Vertically"
+reference "Control-Help:Flip-Vertically"
 
 \end_inset
 
@@ -3783,7 +4354,7 @@ reference "sec:Navigation"
 Add Part
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Part"
+name "Control-Help:Add-Part"
 
 \end_inset
 
@@ -4127,7 +4698,7 @@ k on the part to bring up the part properties, or select the device and
  use the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit-Properties"
+reference "Control-Help:Edit-Properties"
 
 \end_inset
 
@@ -4184,7 +4755,7 @@ reference "sec:Navigation"
 Add Port
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Port"
+name "Control-Help:Add-Port"
 
 \end_inset
 
@@ -4451,7 +5022,7 @@ To change the port number after the port has been placed, simply double-click
  the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit-Properties"
+reference "Control-Help:Edit-Properties"
 
 \end_inset
 
@@ -4508,7 +5079,7 @@ reference "sec:Navigation"
 Add Output Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Output-Probe"
+name "Control-Help:Add-Output-Probe"
 
 \end_inset
 
@@ -4702,7 +5273,7 @@ reference "sec:Navigation"
 Add Measure Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Measure-Probe"
+name "Control-Help:Add-Measure-Probe"
 
 \end_inset
 
@@ -4896,7 +5467,7 @@ reference "sec:Navigation"
 Add Stim
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Stim"
+name "Control-Help:Add-Stim"
 
 \end_inset
 
@@ -5090,7 +5661,7 @@ reference "sec:Navigation"
 Add Unknown
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Unknown"
+name "Control-Help:Add-Unknown"
 
 \end_inset
 
@@ -5284,7 +5855,7 @@ reference "sec:Navigation"
 Add System
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-System"
+name "Control-Help:Add-System"
 
 \end_inset
 
@@ -5478,7 +6049,7 @@ reference "sec:Navigation"
 Delete Part
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Delete-Part"
+name "Control-Help:Delete-Part"
 
 \end_inset
 
@@ -5683,7 +6254,7 @@ reference "sec:Navigation"
 Edit Properties
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Edit-Properties"
+name "Control-Help:Edit-Properties"
 
 \end_inset
 
@@ -6017,7 +6588,7 @@ reference "sec:Navigation"
 Duplicate Part
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Duplicate-Part"
+name "Control-Help:Duplicate-Part"
 
 \end_inset
 
@@ -6221,7 +6792,7 @@ reference "sec:Navigation"
 Rotate Part
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Rotate-Part"
+name "Control-Help:Rotate-Part"
 
 \end_inset
 
@@ -6420,7 +6991,7 @@ reference "sec:Navigation"
 Flip Horizontally
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Flip-Horizontally"
+name "Control-Help:Flip-Horizontally"
 
 \end_inset
 
@@ -6619,7 +7190,7 @@ reference "sec:Navigation"
 Flip Vertically
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Flip-Vertically"
+name "Control-Help:Flip-Vertically"
 
 \end_inset
 
@@ -6861,7 +7432,7 @@ reference "sec:Navigation"
 Add Wire
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Add-Wire"
+name "Control-Help:Add-Wire"
 
 \end_inset
 
@@ -7017,6 +7588,36 @@ Always
 \end_layout
 
 \begin_layout Standard
+The Add Wire command puts the schematic state-machine in the drawing wires
+ state.
+ When in this state, the cursor turns into a pencil and a wire is begun.
+ A wire is defined by a sequence of vertices.
+ clicking the left mouse button drops another vertex onto the schematic.
+ If at least one vertex has been placed for a wire, a rubber band line extends
+ from the last vertex placed to the grid coordinate closest to the cursor
+ location.
+\end_layout
+
+\begin_layout Standard
+wires can only be placed on the grid.
+\end_layout
+
+\begin_layout Standard
+When you right click, that ends the current wire.
+ If a vertex has been placed for the current wire (and a rubber band line
+ is extending to the cursor), the rubber band line disappears, the vertices
+ place define the wire drawn in the schematic and a new wire starts.
+ The next left click places a vertex for that wire and the process continues.
+\end_layout
+
+\begin_layout Standard
+Wire drawing ends when you right click twice.
+ In other words, it ends when you right click in the middle of drawing a
+ wire and no vertices for that wire have been placed.
+ Pressing escape will also end wire drawing.
+\end_layout
+
+\begin_layout Standard
 \noindent
 \begin_inset Box ovalbox
 position "t"
@@ -7060,7 +7661,7 @@ reference "sec:Navigation"
 Delete Vertex
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Delete-Vertex"
+name "Control-Help:Delete-Vertex"
 
 \end_inset
 
@@ -7254,7 +7855,7 @@ reference "sec:Navigation"
 Duplicate Vertex
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Duplicate-Vertex"
+name "Control-Help:Duplicate-Vertex"
 
 \end_inset
 
@@ -7452,7 +8053,7 @@ reference "sec:Navigation"
 Delete Wire
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Delete-Wire"
+name "Control-Help:Delete-Wire"
 
 \end_inset
 
@@ -7689,7 +8290,7 @@ reference "sec:Navigation"
 Zoom In
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Zoom-In"
+name "Control-Help:Zoom-In"
 
 \end_inset
 
@@ -7888,7 +8489,7 @@ reference "sec:Navigation"
 Zoom Out
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Zoom-Out"
+name "Control-Help:Zoom-Out"
 
 \end_inset
 
@@ -8087,7 +8688,7 @@ reference "sec:Navigation"
 Pan
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Pan"
+name "Control-Help:Pan"
 
 \end_inset
 
@@ -8329,7 +8930,7 @@ reference "sec:Navigation"
 Calculation Properties
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Calculation-Properties"
+name "Control-Help:Calculation-Properties"
 
 \end_inset
 
@@ -8676,7 +9277,7 @@ reference "sec:Navigation"
 S-parameter Viewer
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:S-parameter-Viewer"
+name "Control-Help:S-parameter-Viewer"
 
 \end_inset
 
@@ -8881,7 +9482,7 @@ reference "sec:Navigation"
 Calculate
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Calculate-Button"
+name "Control-Help:Calculate-Button"
 
 \end_inset
 
@@ -9080,7 +9681,7 @@ reference "sec:Navigation"
 Calculate S-parameters
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Calculate-S-parameters"
+name "Control-Help:Calculate-S-parameters"
 
 \end_inset
 
@@ -9279,7 +9880,7 @@ reference "sec:Navigation"
 Simulate
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Simulate"
+name "Control-Help:Simulate"
 
 \end_inset
 
@@ -9478,7 +10079,7 @@ reference "sec:Navigation"
 Virtual Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Virtual-Probe"
+name "Control-Help:Virtual-Probe"
 
 \end_inset
 
@@ -9677,7 +10278,7 @@ reference "sec:Navigation"
 Deembed
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Deembed"
+name "Control-Help:Deembed"
 
 \end_inset
 
@@ -9919,7 +10520,7 @@ reference "sec:Navigation"
 Open Help File
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Open-Help-File"
+name "Control-Help:Open-Help-File"
 
 \end_inset
 
@@ -10122,7 +10723,7 @@ reference "sec:Navigation"
 Control Help
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Control-Help"
+name "Control-Help:Control-Help"
 
 \end_inset
 
@@ -10332,118 +10933,6 @@ reference "sec:Navigation"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Part
-PySI Applications
-\end_layout
-
-\begin_layout Standard
-PySI has the ability to perform four basic tasks:
-\end_layout
-
-\begin_layout Enumerate
-Generate s-parameters of systems.
-\end_layout
-
-\begin_layout Enumerate
-Simulate systems.
-\end_layout
-
-\begin_layout Enumerate
-Virtual probe systems.
-\end_layout
-
-\begin_layout Enumerate
-Deembed s-parameters in systems.
-\end_layout
-
-\begin_layout Standard
-You can also perform some minor tasks like:
-\end_layout
-
-\begin_layout Itemize
-Viewing s-parameter files
-\end_layout
-
-\begin_layout Standard
-A system is, of course, a schematic containing various elements,.
- For the purpose of this section, schematic elements are broken into several
- categories.
- These are:
-\end_layout
-
-\begin_layout Enumerate
-Ports.
-\end_layout
-
-\begin_layout Enumerate
-Devices.
-\end_layout
-
-\begin_layout Enumerate
-Sources.
-\end_layout
-
-\begin_layout Enumerate
-Measure Probes.
-\end_layout
-
-\begin_layout Enumerate
-Output Probes.
-\end_layout
-
-\begin_layout Enumerate
-Stims.
-\end_layout
-
-\begin_layout Subsection*
-Devices
-\end_layout
-
-\begin_layout Standard
-Devices are the things you are most familiar with.
- They include resistive and reactive elements, dependent sources, opens,
- shorts (ground), transformers, etc.
- The most general and important element is the file which is a generic box
- whose s-parameters can be read from a file.
-\end_layout
-
-\begin_layout Subsection*
-Ports
-\end_layout
-
-\begin_layout Standard
-Ports define connections to circuit for the purpose of s-parameter generation
- and de-embedding.
- They are numbered and determine the port numbering of any s-parameters
- generated.
- At least one port must be present to perform the task of s-parameter generation
- or deembedding.
-\end_layout
-
-\begin_layout Subsection*
-Sources
-\end_layout
-
-\begin_layout Standard
-Sources define stimulus to the circuit for the purpose of simulation.
- There are various types of voltage and current generators which can generate
- steps, pulses, sinewaves, etc.
- The most important sources supply a waveform specified in a waveform file.
- At least one source must be present to perform simulation.
-\end_layout
-
-\begin_layout Subsection*
-Output Probes
-\end_layout
-
-\begin_layout Standard
-Output probes define the probing point for waveforms output by the system
- during either simulation or virtual probing.
- The waverforms at output probe connection points are what get displayed
- on the simulator plot dialog.
- At least one output probe must be present to perform simulation.
 \end_layout
 
 \begin_layout Section
@@ -10732,7 +11221,7 @@ File Devices are the most generic.
 When files read in, file devices are resampled according to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculation-Properties"
+reference "Control-Help:Calculation-Properties"
 
 \end_inset
 

@@ -22,6 +22,7 @@ from SParameterViewerWindow import *
 from Files import *
 from History import *
 from MenuSystemHelpers import *
+from BuildHelpSystem import *
 
 class TheApp(Frame):
     def __init__(self):
@@ -53,55 +54,56 @@ class TheApp(Frame):
                 else:
                     exit()
 
+        self.helpSystemKeys = HelpSystemKeys()
         # status bar
         self.statusbar=StatusBar(self)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement('1')
-        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement('2')
-        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement('3')
-        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement('4')
-        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement('5')
+        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Open-Project'])
+        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Save-Project'])
+        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Clear-Schematic'])
+        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Export-Netlist'])
+        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Export-LaTeX'])
         # ------
-        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('6')
-        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement('7')
-        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement('8')
-        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement('9')
-        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement('10')
+        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Undo'])
+        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Redo'])
+        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Selected'])
+        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Duplicate-Selected'])
+        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Cut-Selected'])
         # ------
-        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement('11')
-        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement('12')
-        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement('14')
-        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement('13')
-        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement('15')
-        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement('16')
-        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement('17')
-        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement('18')
-        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement('19')
-        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement('20')
-        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement('21')
-        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement('22')
-        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement('23')
+        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Part'])
+        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Port'])
+        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Measure-Probe'])
+        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Output-Probe'])
+        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Stim'])
+        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Unknown'])
+        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-System'])
+        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Part'])
+        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Edit-Properties'])
+        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Duplicate-Part'])
+        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Rotate-Part'])
+        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Flip-Horizontally'])
+        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Flip-Vertically'])
         # ------
-        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement('24')
-        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement('25')
-        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement('26')
-        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement('27')
+        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Wire'])
+        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Vertex'])
+        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Duplicate-Vertex'])
+        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Wire'])
         # ------
-        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement('28')
-        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement('29')
-        self.PanDoer = Doer(self.onPan).AddHelpElement('30')
+        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Zoom-In'])
+        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Zoom-Out'])
+        self.PanDoer = Doer(self.onPan).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Pan'])
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('31')
-        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('32')
-        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('33')
-        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('34')
-        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('35')
-        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('36')
-        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('37')
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Calculation-Properties'])
+        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement(self.helpSystemKeys.dict['Control-Help:S-parameter-Viewer'])
+        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Calculate-Button'])
+        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Calculate-S-parameters'])
+        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Simulate'])
+        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Virtual-Probe'])
+        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Deembed'])
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement('38')
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('39')
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Open-Help-File'])
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Control-Help'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 

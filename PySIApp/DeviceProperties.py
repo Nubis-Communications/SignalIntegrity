@@ -12,7 +12,6 @@ from PartProperty import *
 from Files import *
 from SParameterViewerWindow import *
 from Simulator import *
-from SignalIntegrity.PySIException import PySIException
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):
@@ -75,7 +74,7 @@ class DeviceProperty(Frame):
             if self.partProperty.propertyName == PartPropertyFileName().propertyName:
                 try:
                     sp=si.sp.File(filename)
-                except PySIException as e:
+                except si.PySIException as e:
                     tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                     return
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
