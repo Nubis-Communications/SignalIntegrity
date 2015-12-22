@@ -33,7 +33,7 @@ class PartProperty(object):
                 if self.type=='string':
                     value = str(self._value)
                 elif self.type=='file':
-                    value = str(self._value).split('/')[-1]
+                    value=('/'.join(str(self._value).split('\\'))).split('/')[-1]
                 elif self.type=='int':
                     value = str(self._value)
                 elif self.type=='float':

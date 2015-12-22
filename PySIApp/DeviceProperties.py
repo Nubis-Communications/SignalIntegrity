@@ -92,7 +92,7 @@ class DeviceProperty(Frame):
                 spd.grab_set()
             elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
                 wf=si.td.wf.Waveform().ReadFromFile(filename)
-                filenametoshow=filename.split('/')[-1]
+                filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
                 if filenametoshow is None:
                     filenametoshow=''
                 sd=SimulatorDialog(self.parent.parent)

@@ -36,7 +36,7 @@ class HelpSystemKeys(object):
         if 'class' in child.keys() and 'name' in child.keys():
             if child.get('class')=='Label':
                 #print child.get('name')
-                self.dict[child.get('name')]=filename.split('/')[-1]
+                self.dict[child.get('name')]=('/'.join(filename.split('\\'))).split('/')[-1]
     def Recurse(self,root,filename):
         for child in root:
             self.CheckAndAdd(child,filename)

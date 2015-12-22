@@ -7,9 +7,9 @@ import os
 
 def ConvertFileNameToRelativePath(filename):
     if filename!='':
-        filenameList=filename.split('/')
+        filenameList=('/'.join(filename.split('\\'))).split('/')
         if len(filenameList)>1:
-            currentWorkingDirectoryList=os.getcwd().split('/')
+            currentWorkingDirectoryList=('/'.join(os.getcwd().split('\\'))).split('/')
             atOrBelow=True
             for tokenIndex in range(min(len(filenameList),len(currentWorkingDirectoryList))):
                 if filenameList[tokenIndex]!=currentWorkingDirectoryList[tokenIndex]:
@@ -36,8 +36,8 @@ class FileParts(object):
             self.fileext=''
         else:
             filename=ConvertFileNameToRelativePath(filename)
-            self.filename=filename.split('/')[-1]
-            self.filepath='/'.join(filename.split('/')[:-1])
+            self.filename=('/'.join(filename.split('\\'))).split('/')[-1]
+            self.filepath='/'.join(('/'.join(filename.split('\\'))).split('/')[:-1])
             if self.filepath != '':
                 self.filepath=self.filepath+'/'
             self.fileext=''
