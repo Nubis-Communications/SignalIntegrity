@@ -12,6 +12,13 @@ class HelpSystemKeys(object):
         path=os.getcwd()
         path=path+'/Help/PySIHelp.html.LyXconv'
         self.dict={}
+        filename=path+'/PySIHelp.html'
+        try:
+            tree=et.parse(filename)
+            r=tree.getroot()
+            self.Recurse(r,filename)
+        except:
+            pass
         for stype in ['Section','Subsection','Subsubsection']:
             secIndex=1
             searchingSections=True
@@ -34,3 +41,10 @@ class HelpSystemKeys(object):
         for child in root:
             self.CheckAndAdd(child,filename)
             self.Recurse(child,filename)
+    def KeyValue(self,key):
+        if key in self.dict:
+            return self.dict[key]
+        else:
+            return None
+    def __getitem__(self,item):
+        return self.KeyValue(item)

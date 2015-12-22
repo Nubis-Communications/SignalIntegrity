@@ -80,6 +80,13 @@ LatexCommand tableofcontents
 
 \begin_layout Section
 Introduction
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Introduction"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -193,8 +200,8 @@ When PySIApp opens, you have a blank canvas and are ready to draw a schematic.
 \end_layout
 
 \begin_layout Standard
-Drawing the schematic is accomplished through the addition of parts and
- wires.
+Drawing the schematic is accomplished through the addition of parts, ports
+ and wires.
 \end_layout
 
 \begin_layout Standard
@@ -214,10 +221,25 @@ reference "Control-Help:Add-Wire"
 \end_inset
 
 .
+ See the next section about 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
 Attaching Ports to a Schematic
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Attaching-Ports-to-a-Schematic"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -928,8 +950,622 @@ name "sec:Simulation"
 
 \end_layout
 
+\begin_layout Standard
+Simulation is about applying voltage or current stimulus waveforms to a
+ circuit and measuring the resulting waveforms at various nodes in the circuit.
+\end_layout
+
+\begin_layout Standard
+This section provides step-by-step instructions for simulation.
+ You can read through this, or go immediately to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulation-Example"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The circuit is drawing as a variety of devices and interconnected with wires.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Drawing-a-Schematic-for-Simulation"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The stimulus to the circuit is applied through special parts.
+ These special parts are categorized as 
+\emph on
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Sources-and-Generators"
+
+\end_inset
+
+
+\emph default
+.
+ A source supplies an input waveform specified from a file.
+ A generator supplies some specified input waveform.
+ Sources and generators can be voltages or currents and can supply input
+ waveforms from files, pulses, steps, and sine waves.
+\end_layout
+
+\begin_layout Standard
+The probing points in the circuit for providing the output waveforms are
+ specified through the use of 
+\emph on
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes"
+
+\end_inset
+
+
+\emph default
+.
+ An output probe supplies the location of the node for which the output
+ waveform is desired, the name of the waveform in the simulation, and any
+ gain, offset, or delay to be applied.
+ In that sense it operates like a real probe.
+\end_layout
+
+\begin_layout Standard
+Once you are ready for simulation, you should configure the Calculation
+ properties.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Simulation"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Once a circuit is drawn containing at least one source or generator, and
+ at least one output probe, presumably with a circuit that has been properly
+ configured, you can simulate the circuit.
+ Simulation involves the calculation of transfer parameters which are applied
+ to the input waveforms to generate the output waveforms and the waveforms
+ are displayed.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulating"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Drawing a Schematic for Simulation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Drawing-a-Schematic-for-Simulation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When PySIApp opens, you have a blank canvas and are ready to draw a schematic
+ for simulation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename BlanckCanvas.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Drawing the schematic is accomplished through the addition of parts, wires,
+ and output probes.
+ Some of the parts are special and must be generators or sources for simulation
+ to be possible.
+\end_layout
+
+\begin_layout Standard
+To add parts to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+.
+ To add wires to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Wire"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To add sources or generators to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Sources-and-Generators"
+
+\end_inset
+
+.
+ To add output probes, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Sources and Generators
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Sources-and-Generators"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sources and generators supply stimulus to the circuit in the form of input
+ waveforms.
+\end_layout
+
+\begin_layout Standard
+They are added to the schematic by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting parts from the Sources and Generators categories in the Part
+ Picker Dialog:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerSourcesAndGenerators.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here is a list of parts and links to the parts that qualify as sources and
+ generators:
+\end_layout
+
+\begin_layout Standard
+Sources:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Generators:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Step-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Pulse-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Sine-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Step-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Pulse-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Sine-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Output Probes
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Output-Probes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Output probes define the location, name and characteristics of the output
+ waveforms from the simulation.
+\end_layout
+
+\begin_layout Standard
+They are added to the schematic by invoking either 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Output-Probe"
+
+\end_inset
+
+ or by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ from the Special category:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerOutputProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesOutputProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Setting Calculation Properties for Simulation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Setting-Calculation-Properties-for-Simulation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To set the calculation properties for simulation, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The calculation properties determine how the transfer parameters are calculated.
+ Transfer parameters are frequency responses that define transfer characteristic
+s from an input waveform to an output waveform.
+ Input waveforms come from sources and output waveforms are provided at
+ output probe locations in the circuit.
+ An output waveform is a linear combination of input waveforms applied to
+ filters that are the time-domain equivalent of the frequency responses.
+\end_layout
+
+\begin_layout Standard
+The frequency responses are calculated to the end frequency withe the frequency
+ spacing specified, and the filters are calculated by taking the inverse-FFT
+ of these frequency responses.
+ As such, they end up having a sample rate that is twice the end frequency
+ and an impulse response length that is the inverse of the frequency resolution
+ and a number of points that are twice the number of frequency points.
+\end_layout
+
+\begin_layout Standard
+The base sample rate should be set to the sample rate that you want the
+ simulation to run at, which is twice the end frequency.
+\end_layout
+
+\begin_layout Standard
+These impulse responses generated for the filters are always centered on
+ time zero, meaning half of the impulse response is before time zero and
+ half is after.
+\end_layout
+
+\begin_layout Standard
+Assuming that all of the s-parameters have been sampled sufficiently, meaning
+ to the right end frequency and most importantly, with the proper spacing
+ to provide an impulse response that does not have time-aliasing effects,
+ then it is possible to specify an appropriate impulse response length in
+ the calculation properties.
+ But with the tool in its current state, there is no way to guarantee this
+ - you must set it to a value that makes sense.
+ But the key is that it must be long enough.
+ If it is too short, the simulator produces incorrect waveforms.
+ If it is too long, it just needs to do extra work.
+\end_layout
+
+\begin_layout Standard
+The advice here is to set the impulse response length to a number that is
+ twice the length of a finite impulse response (FIR) filter in time as how
+ long you think the impulse response of the longest filter should be.
+ Then, after the simulation completes, you should view the transfer parameters
+ from the simulator dialog to make sure that this occurred.
+\end_layout
+
+\begin_layout Subsection
+Simulating
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simulating"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After creating the schematic for simulation and setting the calculation
+ properties, the simulation is run using either the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulate"
+
+\end_inset
+
+ command or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ toolbar button.
+\end_layout
+
+\begin_layout Standard
+Note that calculation will not be possible at all (i.e.
+ the menu elements are disabled) if the schematic does not meet the criteria
+ for simulation.
+ This criteria for the schematic regarding elements are that the schematic
+ must:
+\end_layout
+
+\begin_layout Itemize
+have at least one source or generator element (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Sources-and-Generators"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+have at least one output port (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+not have any other elements that don't make sense for simulation including:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ports
+\end_layout
+
+\begin_layout Itemize
+measure probes
+\end_layout
+
+\begin_layout Itemize
+stims
+\end_layout
+
+\begin_layout Itemize
+unknown devices
+\end_layout
+
+\begin_layout Itemize
+system devices
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In simulation, the first step is to convert the schematic shown into a net
+ list.
+ This netlist puts the graphical schematic into a text based description.
+ Note that this netlist can be created, examined and saved separately if
+ you want.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlists"
+
+\end_inset
+
+ for more information on the net list and see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Export-Netlist"
+
+\end_inset
+
+ on ways of viewing and exporting the net lists.
+\end_layout
+
+\begin_layout Standard
+The net list is passed to a 
+\series bold
+SimulatorNumericParser
+\series default
+ class as described in the PySI book after which the transfer parameters
+ are extracted.
+\end_layout
+
+\begin_layout Standard
+During parsing of the net list, all devices listed are instantiated with
+ the end frequency and number of frequency points specified (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Simulation"
+
+\end_inset
+
+).
+ If a file device is encountered, the s-parameters read from the file are
+ resampled onto the end frequency and number of frequency points specified.
+\end_layout
+
+\begin_layout Standard
+Then, for each frequency point, the transfer parameters are generated.
+\end_layout
+
+\begin_layout Standard
+After the transfer parameters are generated, the input waveforms are produced
+ or read from files and applied to the filters corresponding to the transfer
+ parameters to generate output waveforms.
+\end_layout
+
+\begin_layout Standard
+Sometimes, things go wrong and an error is generated.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Errors-and-Exceptions"
+
+\end_inset
+
+ for an explanation of any errors generated during calculation.
+\end_layout
+
+\begin_layout Standard
+If everything goes correctly, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ will open with the ability to view the output waveforms calculated and
+ save them to a file.
+\end_layout
+
 \begin_layout Subsection
 Simulation Example
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simulation-Example"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1389,7 +2025,7 @@ reference "Control-Help:Calculation-Properties"
 \end_layout
 
 \begin_layout Standard
-The simulator operates by generating transfer matrices that convert waveforms
+The simulator operates by generating transfer parameters that convert waveforms
  generated from sources, in this case the step generator, into the output
  waveforms.
  In this case, since we have only one source, these are essentially two
@@ -1401,11 +2037,12 @@ The simulator operates by generating transfer matrices that convert waveforms
 These filters are specified with a frequency response of 400 points with
  50 MHz spacing out to 20 GHz.
  If s-parameter files had appeared in the schematic, all s-parameters would
- be resampled to this specification during calculation of the transfer matrices.
+ be resampled to this specification during calculation of the transfer parameter
+s.
 \end_layout
 
 \begin_layout Standard
-The net effect of the transfer matrices calculation is two finite-impulse
+The net effect of the transfer parameters calculation is two finite-impulse
  response (FIR) filters whose impulse response length is 20 ns.
  In the accompanying book that describes the theory, we explain all about
  this, but suffice it to say that the filter impulse response is 20 ns long
@@ -1421,7 +2058,14 @@ impulse train response
 \emph default
  (as opposed to a single impulse response), we have an opportunity for time-alia
 sing effects, which we've certainly created.
- To see this, invoke View Transfer Matrices from the 
+ To see this, invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+ from the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Simulator-Dialog"
@@ -1512,8 +2156,8 @@ reference "sec:Simulator-Dialog"
 
 \begin_layout Standard
 This is clearly a much better result.
- You can examine the transfer matrices to see that the 100 ns impulse response
- did the trick.
+ You can examine the transfer parameters to see that the 100 ns impulse
+ response did the trick.
 \end_layout
 
 \begin_layout Standard
@@ -1606,7 +2250,7 @@ name "sec:S-parameter-Viewer"
 \begin_layout Standard
 The s-parameter viewer is a dialog that allows viewing of s-parameters or
  s-parameter-like things.
- An example of an s-parameter-like think are the transfer matrices used
+ An example of an s-parameter-like think are the transfer parameters used
  in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -1648,12 +2292,33 @@ reference "sec:S-parameter-Generation"
 \end_layout
 
 \begin_layout Itemize
-When the transfer matrices are viewed from the Simulation and Virtual Probing
- output dialogs.
+When the transfer parameters are viewed from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ during 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
-When browsing an s-parameter file in the part property of a file device.
+When browsing an s-parameter file in the part property dialog of a file
+ device.
  (see the 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -1768,7 +2433,7 @@ target "http://matplotlib.org"
 \begin_layout Standard
 Below the panes are an array of buttons determining the s-parameters being
  shown.
- If transfer matrices are being shown, the buttons are named not by port
+ If transfer parameters are being shown, the buttons are named not by port
  numbers but rather as relationships between, in the case of simulation,
  output probe voltages and source voltages or, in the case of virtual probing,
  output probe voltages and measurement probe voltages.
@@ -1848,11 +2513,1427 @@ Note that in the phase response there is the ability to unwrap the phase.
  small.
 \end_layout
 
+\begin_layout Subsection
+S-Parameter Viewer File Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:S-Parameter-Viewer-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The File tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-S-parameter-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Open-S-parameter-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Open S-parameter File
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Open-S-parameter-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Open
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,O
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename document-open-2.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Save S-parameter File
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Save-S-parameter-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Save
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename document-save-2.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+S-Parameter Viewer Calculation Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:S-Parameter-Viewer-Calculation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Calculate tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Resample"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Resample
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Resample"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Calculate ▸ Resample
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,R
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Simulator Dialog
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Simulator-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Simulator File Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simulator-File-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The File tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-Waveforms"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Read-Waveforms"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Output-to-LaTeX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Reading waveforms is not implemented
+\end_layout
+
+\begin_layout Subsubsection
+Save Waveforms
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Save-Waveforms"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Save
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename document-save-2.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Read Waveforms
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Read-Waveforms"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Open
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,R
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename document-open-2.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is currently disabled and not implemented.
+\end_layout
+
+\begin_layout Subsubsection
+Output to LaTeX (TikZ)
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Output-to-LaTeX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Output to LaTeX (TikZ)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,L
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Simulator Calculation Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simulator-Calculation-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Calculate tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Recalculate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+View Transfer Parameters
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ View Transfer Parameters
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Recalculate
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Recalculate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Recalculate
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,R
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
@@ -2081,6 +4162,8 @@ name "Control-Help:Open-Project"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -2089,7 +4172,7 @@ name "Control-Help:Open-Project"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -2294,6 +4377,8 @@ name "Control-Help:Save-Project"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -2302,7 +4387,7 @@ name "Control-Help:Save-Project"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -2493,6 +4578,8 @@ name "Control-Help:Clear-Schematic"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -2501,7 +4588,7 @@ name "Control-Help:Clear-Schematic"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -2692,6 +4779,8 @@ name "Control-Help:Export-Netlist"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -2700,7 +4789,7 @@ name "Control-Help:Export-Netlist"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -2886,6 +4975,8 @@ name "Control-Help:Export-LaTeX"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -2894,7 +4985,7 @@ name "Control-Help:Export-LaTeX"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -3086,7 +5177,7 @@ reference "Control-Help:Undo"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Redo"
+reference "Control-Help:Redo"
 
 \end_inset
 
@@ -3187,6 +5278,8 @@ name "Control-Help:Undo"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -3195,7 +5288,7 @@ name "Control-Help:Undo"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -3364,6 +5457,7 @@ reference "sec:Navigation"
 \end_layout
 
 \begin_layout Subsubsection
+Redo
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Redo"
@@ -3385,6 +5479,8 @@ name "Control-Help:Redo"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -3393,7 +5489,7 @@ name "Control-Help:Redo"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -3584,6 +5680,8 @@ name "Control-Help:Delete-Selected"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -3592,7 +5690,7 @@ name "Control-Help:Delete-Selected"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -3783,6 +5881,8 @@ name "Control-Help:Duplicate-Selected"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -3791,7 +5891,7 @@ name "Control-Help:Duplicate-Selected"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -3982,6 +6082,8 @@ name "Control-Help:Cut-Selected"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -3990,7 +6092,7 @@ name "Control-Help:Cut-Selected"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -4373,6 +6475,8 @@ name "Control-Help:Add-Part"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -4381,7 +6485,7 @@ name "Control-Help:Add-Part"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -4774,6 +6878,8 @@ name "Control-Help:Add-Port"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -4782,7 +6888,7 @@ name "Control-Help:Add-Port"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -5098,6 +7204,8 @@ name "Control-Help:Add-Output-Probe"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -5106,7 +7214,7 @@ name "Control-Help:Add-Output-Probe"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -5292,6 +7400,8 @@ name "Control-Help:Add-Measure-Probe"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -5300,7 +7410,7 @@ name "Control-Help:Add-Measure-Probe"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -5486,6 +7596,8 @@ name "Control-Help:Add-Stim"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -5494,7 +7606,7 @@ name "Control-Help:Add-Stim"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -5680,6 +7792,8 @@ name "Control-Help:Add-Unknown"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -5688,7 +7802,7 @@ name "Control-Help:Add-Unknown"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -5874,6 +7988,8 @@ name "Control-Help:Add-System"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -5882,7 +7998,7 @@ name "Control-Help:Add-System"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -6068,6 +8184,8 @@ name "Control-Help:Delete-Part"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -6076,7 +8194,7 @@ name "Control-Help:Delete-Part"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -6273,6 +8391,8 @@ name "Control-Help:Edit-Properties"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -6281,7 +8401,7 @@ name "Control-Help:Edit-Properties"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -6607,6 +8727,8 @@ name "Control-Help:Duplicate-Part"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -6615,7 +8737,7 @@ name "Control-Help:Duplicate-Part"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -6811,6 +8933,8 @@ name "Control-Help:Rotate-Part"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -6819,7 +8943,7 @@ name "Control-Help:Rotate-Part"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -7010,6 +9134,8 @@ name "Control-Help:Flip-Horizontally"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -7018,7 +9144,7 @@ name "Control-Help:Flip-Horizontally"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -7209,6 +9335,8 @@ name "Control-Help:Flip-Vertically"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -7217,7 +9345,7 @@ name "Control-Help:Flip-Vertically"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -7451,6 +9579,8 @@ name "Control-Help:Add-Wire"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -7459,7 +9589,7 @@ name "Control-Help:Add-Wire"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -7680,6 +9810,8 @@ name "Control-Help:Delete-Vertex"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -7688,7 +9820,7 @@ name "Control-Help:Delete-Vertex"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -7874,6 +10006,8 @@ name "Control-Help:Duplicate-Vertex"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -7882,7 +10016,7 @@ name "Control-Help:Duplicate-Vertex"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -8072,6 +10206,8 @@ name "Control-Help:Delete-Wire"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -8080,7 +10216,7 @@ name "Control-Help:Delete-Wire"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -8309,6 +10445,8 @@ name "Control-Help:Zoom-In"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -8317,7 +10455,7 @@ name "Control-Help:Zoom-In"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -8508,6 +10646,8 @@ name "Control-Help:Zoom-Out"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -8516,7 +10656,7 @@ name "Control-Help:Zoom-Out"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -8707,6 +10847,8 @@ name "Control-Help:Pan"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -8715,7 +10857,7 @@ name "Control-Help:Pan"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -8949,6 +11091,8 @@ name "Control-Help:Calculation-Properties"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -8957,7 +11101,7 @@ name "Control-Help:Calculation-Properties"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp, S-parameter Viewer, and Simulator Dialog
 \end_layout
 
 \end_inset
@@ -9296,6 +11440,8 @@ name "Control-Help:S-parameter-Viewer"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -9304,7 +11450,7 @@ name "Control-Help:S-parameter-Viewer"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -9501,6 +11647,8 @@ name "Control-Help:Calculate-Button"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -9509,7 +11657,7 @@ name "Control-Help:Calculate-Button"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -9700,6 +11848,8 @@ name "Control-Help:Calculate-S-parameters"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -9708,7 +11858,7 @@ name "Control-Help:Calculate-S-parameters"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -9899,6 +12049,8 @@ name "Control-Help:Simulate"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -9907,7 +12059,7 @@ name "Control-Help:Simulate"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -10098,6 +12250,8 @@ name "Control-Help:Virtual-Probe"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -10106,7 +12260,7 @@ name "Control-Help:Virtual-Probe"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -10297,6 +12451,8 @@ name "Control-Help:Deembed"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -10305,7 +12461,7 @@ name "Control-Help:Deembed"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp Dialog
 \end_layout
 
 \end_inset
@@ -10539,6 +12695,8 @@ name "Control-Help:Open-Help-File"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -10547,7 +12705,7 @@ name "Control-Help:Open-Help-File"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp, S-Parameter Viewer, and Simulator Dialog
 \end_layout
 
 \end_inset
@@ -10742,6 +12900,8 @@ name "Control-Help:Control-Help"
 
 \begin_layout Plain Layout
 
+\emph on
+Dialog
 \end_layout
 
 \end_inset
@@ -10750,7 +12910,7 @@ name "Control-Help:Control-Help"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Main PySIApp, S-Parameter Viewer, and Simulator Dialog
 \end_layout
 
 \end_inset
@@ -14536,6 +16696,13 @@ Ohms
 
 \begin_layout Subsection
 Voltage Source
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -14759,6 +16926,13 @@ None
 
 \begin_layout Subsection
 Current Source
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -14982,6 +17156,13 @@ None
 
 \begin_layout Subsection
 Voltage Step Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Step-Generator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -15393,6 +17574,13 @@ s
 
 \begin_layout Subsection
 Voltage Pulse Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Pulse-Generator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -15851,6 +18039,13 @@ s
 
 \begin_layout Subsection
 Voltage Sine Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Sine-Generator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -16309,6 +18504,13 @@ s
 
 \begin_layout Subsection
 Current Step Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Step-Generator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -16720,6 +18922,13 @@ s
 
 \begin_layout Subsection
 Current Pulse Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Pulse-Generator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -17178,6 +19387,13 @@ s
 
 \begin_layout Subsection
 Current Sine Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Sine-Generator"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -17806,6 +20022,13 @@ None
 
 \begin_layout Subsection
 Output Probe
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Output-Probe"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20706,7 +22929,7 @@ Numerical Error
 
 \begin_layout Standard
 This is the same error as Cannot Invert I-W or I-Wxx while calculating the
- simulator transfer matrices.
+ simulator transfer parameters.
  It indicates pathological problems in the system described.
 \end_layout
 
@@ -20808,7 +23031,7 @@ Numerical Error
 
 \begin_layout Standard
 This is the same error as Cannot Invert I-W or I-Wxx while calculating the
- virtual probe transfer matrices.
+ virtual probe transfer parameters.
  It indicates pathological problems in the system described.
 \end_layout
 

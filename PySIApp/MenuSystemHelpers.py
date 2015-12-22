@@ -107,7 +107,7 @@ class Doer(object):
             return self.command()
     def Activate(self,active):
         if self.active==active:
-            return
+            return self
         self.active=active
         if self.menuElement is not None:
             self.menuElement.Activate(active)
@@ -115,6 +115,7 @@ class Doer(object):
             self.toolBarElement.Activate(active)
         if self.keyBindElement is not None:
             self.keyBindElement.Activate(active)
+        return self
 
 class StatusBar(Frame):
     def __init__(self, master):

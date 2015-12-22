@@ -59,51 +59,51 @@ class TheApp(Frame):
         self.statusbar=StatusBar(self)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Open-Project'])
-        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Save-Project'])
-        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Clear-Schematic'])
-        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Export-Netlist'])
-        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Export-LaTeX'])
+        self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement(self.helpSystemKeys['Control-Help:Open-Project'])
+        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement(self.helpSystemKeys['Control-Help:Save-Project'])
+        self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement(self.helpSystemKeys['Control-Help:Clear-Schematic'])
+        self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement(self.helpSystemKeys['Control-Help:Export-Netlist'])
+        self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement(self.helpSystemKeys['Control-Help:Export-LaTeX'])
         # ------
-        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Undo'])
-        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Redo'])
-        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Selected'])
-        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Duplicate-Selected'])
-        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement(self.helpSystemKeys.dict['Control-Help:Cut-Selected'])
+        self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement(self.helpSystemKeys['Control-Help:Undo'])
+        self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement(self.helpSystemKeys['Control-Help:Redo'])
+        self.DeleteSelectedDoer = Doer(self.onDeleteSelected).AddKeyBindElement(self.root,'<Delete>').AddHelpElement(self.helpSystemKeys['Control-Help:Delete-Selected'])
+        self.DuplicateSelectedDoer = Doer(self.onDuplicateSelected).AddKeyBindElement(self.root,'<Control-c>').AddHelpElement(self.helpSystemKeys['Control-Help:Duplicate-Selected'])
+        self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement(self.helpSystemKeys['Control-Help:Cut-Selected'])
         # ------
-        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Part'])
-        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Port'])
-        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Measure-Probe'])
-        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Output-Probe'])
-        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Stim'])
-        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Unknown'])
-        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-System'])
-        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Part'])
-        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Edit-Properties'])
-        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Duplicate-Part'])
-        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Rotate-Part'])
-        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Flip-Horizontally'])
-        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Flip-Vertically'])
+        self.AddPartDoer = Doer(self.onAddPart).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Part'])
+        self.AddPortDoer = Doer(self.onAddPort).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Port'])
+        self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Measure-Probe'])
+        self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Output-Probe'])
+        self.AddStimDoer = Doer(self.onAddStim).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Stim'])
+        self.AddUnknownDoer = Doer(self.onAddUnknown).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Unknown'])
+        self.AddSystemDoer = Doer(self.onAddSystem).AddHelpElement(self.helpSystemKeys['Control-Help:Add-System'])
+        self.DeletePartDoer = Doer(self.onDeletePart).AddHelpElement(self.helpSystemKeys['Control-Help:Delete-Part'])
+        self.EditPropertiesDoer = Doer(self.onEditProperties).AddHelpElement(self.helpSystemKeys['Control-Help:Edit-Properties'])
+        self.DuplicatePartDoer = Doer(self.onDuplicate).AddHelpElement(self.helpSystemKeys['Control-Help:Duplicate-Part'])
+        self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement(self.helpSystemKeys['Control-Help:Rotate-Part'])
+        self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement(self.helpSystemKeys['Control-Help:Flip-Horizontally'])
+        self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement(self.helpSystemKeys['Control-Help:Flip-Vertically'])
         # ------
-        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Add-Wire'])
-        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Vertex'])
-        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Duplicate-Vertex'])
-        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Delete-Wire'])
+        self.AddWireDoer = Doer(self.onAddWire).AddHelpElement(self.helpSystemKeys['Control-Help:Add-Wire'])
+        self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement(self.helpSystemKeys['Control-Help:Delete-Vertex'])
+        self.DuplicateVertexDoer = Doer(self.onDuplicateSelectedVertex).AddHelpElement(self.helpSystemKeys['Control-Help:Duplicate-Vertex'])
+        self.DeleteWireDoer = Doer(self.onDeleteSelectedWire).AddHelpElement(self.helpSystemKeys['Control-Help:Delete-Wire'])
         # ------
-        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Zoom-In'])
-        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Zoom-Out'])
-        self.PanDoer = Doer(self.onPan).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Pan'])
+        self.ZoomInDoer = Doer(self.onZoomIn).AddHelpElement(self.helpSystemKeys['Control-Help:Zoom-In'])
+        self.ZoomOutDoer = Doer(self.onZoomOut).AddHelpElement(self.helpSystemKeys['Control-Help:Zoom-Out'])
+        self.PanDoer = Doer(self.onPan).AddHelpElement(self.helpSystemKeys['Control-Help:Pan'])
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Calculation-Properties'])
-        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement(self.helpSystemKeys.dict['Control-Help:S-parameter-Viewer'])
-        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Calculate-Button'])
-        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Calculate-S-parameters'])
-        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Simulate'])
-        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Virtual-Probe'])
-        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Deembed'])
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.helpSystemKeys['Control-Help:Calculation-Properties'])
+        self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement(self.helpSystemKeys['Control-Help:S-parameter-Viewer'])
+        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement(self.helpSystemKeys['Control-Help:Calculate-Button'])
+        self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement(self.helpSystemKeys['Control-Help:Calculate-S-parameters'])
+        self.SimulateDoer = Doer(self.onSimulate).AddHelpElement(self.helpSystemKeys['Control-Help:Simulate'])
+        self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement(self.helpSystemKeys['Control-Help:Virtual-Probe'])
+        self.DeembedDoer = Doer(self.onDeembed).AddHelpElement(self.helpSystemKeys['Control-Help:Deembed'])
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Open-Help-File'])
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.helpSystemKeys.dict['Control-Help:Control-Help'])
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.helpSystemKeys['Control-Help:Open-Help-File'])
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.helpSystemKeys['Control-Help:Control-Help'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 
@@ -217,7 +217,7 @@ class TheApp(Frame):
         # The Simulator Dialog
         self.simulator = Simulator(self)
         self.calculationProperties=CalculationProperties(self)
-        self.filename=None
+        self.fileparts=FileParts()
 
         # The edit history (for undo)
         self.history=History(self)
@@ -257,49 +257,49 @@ class TheApp(Frame):
 
     def onReadProjectFromFile(self):
         self.Drawing.stateMachine.Nothing()
-        extension='.xml'
-        filename=askopenfilename(filetypes=[('xml', extension)])
+        filename=askopenfilename(filetypes=[('xml', '.xml')],initialdir=self.fileparts.filepath,
+                                 initialfile=self.fileparts.filename)
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename == '':
             return
-        filenametokens=filename.split('.')
-        if len(filenametokens)==0:
-            return
-        if len(filenametokens)==1:
-            filename=filename+extension
-        filename=ConvertFileNameToRelativePath(filename)
-        tree=et.parse(filename)
+        self.fileparts=FileParts(filename)
+        tree=et.parse(self.fileparts.FullFilePathExtension('.xml'))
         root=tree.getroot()
         for child in root:
             if child.tag == 'drawing':
                 self.Drawing.InitFromXml(child)
             elif child.tag == 'calculation_properties':
                 self.calculationProperties.InitFromXml(child, self)
-        self.filename=filename
         self.Drawing.DrawSchematic()
         self.history.Event('read project')
+        self.root.title('PySI: '+self.fileparts.FileNameTitle())
 
     def onWriteProjectToFile(self):
         self.Drawing.stateMachine.Nothing()
-        extension='.xml'
-        if self.filename == None:
-            filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialdir=os.getcwd())
-        else:
-            filename=asksaveasfilename(filetypes=[('xml', extension)],defaultextension='.xml',initialfile=self.filename)
+        filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
+                                   initialfile=self.fileparts.filename,initialdir=self.fileparts.filepath)
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename=='':
             return
-        self.filename=filename
+        self.fileparts=FileParts(filename)
         projectElement=et.Element('Project')
         drawingElement=self.Drawing.xml()
         calculationPropertiesElement=self.calculationProperties.xml()
         projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
+        self.root.title("PySI: "+self.fileparts.FileNameTitle())
 
     def onClearSchematic(self):
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
         self.history.Event('new project')
         self.Drawing.DrawSchematic()
-        self.filename=None
+        self.fileparts=FileParts()
+        self.root.title('PySI')
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
@@ -309,11 +309,11 @@ class TheApp(Frame):
         from TpX import TpX
         from TikZ import TikZ
         self.Drawing.stateMachine.Nothing()
-        extension='.TpX'
-        if self.filename == None:
-            filename=asksaveasfilename(filetypes=[('tpx', extension)],defaultextension='.TpX',initialdir=os.getcwd())
-        else:
-            filename=asksaveasfilename(filetypes=[('tpx', extension)],defaultextension='.TpX',initialfile=self.filename.replace('.xml','.TpX'))
+        filename=asksaveasfilename(filetypes=[('tpx', '.TpX')],defaultextension='.TpX',
+                                   initialdir=self.fileparts.filepath,initialfile=self.fileparts.filename+'.TpX')
+        if filename is None:
+            filename=''
+        filename = str(filename)
         if filename=='':
             return
         try:
@@ -462,12 +462,7 @@ class TheApp(Frame):
         except si.PySIException as e:
             tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
-        if self.filename is None:
-            filename = None
-        else:
-            filename=self.filename.split('.')
-            filename='.'.join(filename[:-1])
-        SParametersDialog(self,sp,filename=filename)
+        SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
@@ -495,12 +490,7 @@ class TheApp(Frame):
         except si.PySIException as e:
             tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
             return
-        if self.filename is None:
-            filename = None
-        else:
-            filename=self.filename.split('.')
-            filename='.'.join(filename[:-1])
-        SParametersDialog(self,sp,filename=filename)
+        SParametersDialog(self,sp,filename=self.fileparts.FileNameWithExtension(''))
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
@@ -512,21 +502,25 @@ class TheApp(Frame):
 
     def onSParameterViewer(self):
         import SignalIntegrity as si
-        filetypes = [('s-parameter files', ('*.s*p'))]
-        filename=askopenfilename(filetypes=filetypes,parent=self)
+        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],parent=self,initialdir=self.fileparts.filepath)
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename == '':
             return
-        filenametokens=filename.split('.')
-        if len(filenametokens)==0:
+        fileparts=FileParts(filename)
+        if fileparts.fileext is None or fileparts.fileext == '':
             return
-
-        filename=ConvertFileNameToRelativePath(filename)
-        sp=si.sp.File(filename)
-        SParametersDialog(self,sp,filename)
+        sp=si.sp.File(fileparts.FullFilePathExtension())
+        SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
     def onHelp(self):
         import webbrowser
-        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/PySIHelp.html'
+        helpfile=self.helpSystemKeys['sec:Introduction']
+        if helpfile is None:
+            tkMessageBox.showerror('Help System','Cannot find the help system')
+            return
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+helpfile
         webbrowser.open(url)
 
     def onControlHelp(self):

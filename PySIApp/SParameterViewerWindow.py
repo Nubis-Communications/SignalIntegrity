@@ -15,6 +15,7 @@ from MenuSystemHelpers import *
 
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
+import tkMessageBox
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -57,47 +58,53 @@ class SParametersDialog(Toplevel):
         Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
+        self.fileparts=FileParts(filename)
         if title is None:
-            if filename is None:
+            if self.fileparts.filename =='':
                 self.title('S-parameters')
             else:
-                filenametoshow=filename.split('/')[-1]
-                if filenametoshow is None:
-                    self.title('S-parameters')
-                else:
-                    self.title('S-parameters: '+filenametoshow)
+                self.title('S-parameters: '+self.fileparts.FileNameTitle())
         else:
             if filename is None:
                 self.title(title)
             else:
-                filenametoshow=filename.split('/')[-1]
-                if filenametoshow is None:
-                    self.title(title)
-                else:
-                    self.title(title+': '+filenametoshow)
+                self.title(title+': '+self.fileparts.FileNameTitle())
+
         img = PhotoImage(file='./icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>')
-        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>')
-
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
-        self.ResampleDoer = Doer(self.onResample)
+        self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
+        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Save-S-parameter-File'])      
+        # ------
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
+        self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])        
+        # ------
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
+        # ------
+        self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
         # The menu system
         TheMenu=Menu(self)
         self.config(menu=TheMenu)
+        # ------
         FileMenu=Menu(self)
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
         self.WriteSParametersToFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
         self.ReadSParametersFromFileDoer.AddMenuElement(FileMenu,label="Open File",accelerator='Ctrl+O',underline=0)
+        # ------
         CalcMenu=Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
         CalcMenu.add_separator()
         self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
+        # ------
+        HelpMenu=Menu(self)
+        TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
+        self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
+        self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -106,6 +113,9 @@ class SParametersDialog(Toplevel):
         self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(self,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
         self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         topFrame=Frame(self)
         topFrame.pack(side=TOP,fill=BOTH,expand=YES)
@@ -187,8 +197,6 @@ class SParametersDialog(Toplevel):
                 thisButton.pack(side=LEFT,fill=NONE,expand=NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
-
-        self.filename=filename
 
         self.fromPort = 1
         self.toPort = 1
@@ -299,21 +307,18 @@ class SParametersDialog(Toplevel):
 
     def onReadSParametersFromFile(self):
         import SignalIntegrity as si
-        filetypes = [('s-parameter files', ('*.s*p'))]
-        filename=askopenfilename(filetypes=filetypes,parent=self)
+        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],initialdir=self.fileparts.filepath,parent=self)
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename == '':
             return
-        filenametokens=filename.split('.')
-        if len(filenametokens)==0:
+        self.fileparts=FileParts(filename)
+        if self.fileparts.fileext=='':
             return
-
-        filename=ConvertFileNameToRelativePath(filename)
-        self.filename=filename
         self.sp=si.sp.File(filename)
-
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
-
         numPorts=self.sp.m_P
         self.buttons=[]
         for toP in range(numPorts):
@@ -325,7 +330,6 @@ class SParametersDialog(Toplevel):
                 thisButton.pack(side=LEFT,fill=NONE,expand=NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
-
         self.fromPort = 1
         self.toPort = 1
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
@@ -334,13 +338,14 @@ class SParametersDialog(Toplevel):
     def onWriteSParametersToFile(self):
         ports=self.sp.m_P
         extension='.s'+str(ports)+'p'
-        if self.filename == None:
-            filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,initialdir=os.getcwd(),parent=self)
-        else:
-            filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,initialfile=self.filename,parent=self)
+        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,
+                    initialdir=self.fileparts.filepath,initialfile=self.fileparts.FileNameWithExtension(),parent=self)
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename=='':
             return
-        self.filename=filename
+        self.fileparts=FileParts(filename)
         self.sp.WriteToFile(filename)
 
     def onResample(self):
@@ -353,3 +358,21 @@ class SParametersDialog(Toplevel):
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
         self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
+        
+    def onHelp(self):
+        import webbrowser
+        helpfile=self.parent.helpSystemKeys['sec:S-parameter-Viewer']
+        if helpfile is None:
+            tkMessageBox.showerror('Help System','Cannot find or open this help element')
+            return
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        webbrowser.open(url)
+
+    def onControlHelp(self):
+        Doer.inHelp=True
+        self.config(cursor='question_arrow')
+
+    def onEscape(self):
+        Doer.inHelp=False
+        self.config(cursor='left_ptr')
+

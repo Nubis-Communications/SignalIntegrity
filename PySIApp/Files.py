@@ -15,7 +15,7 @@ def ConvertFileNameToRelativePath(filename):
                 if filenameList[tokenIndex]!=currentWorkingDirectoryList[tokenIndex]:
                     atOrBelow=False
                     break
-            if atOrBelow: tokenIndex=tokenIndex+1
+                if atOrBelow: tokenIndex=tokenIndex+1
             if tokenIndex > 0:
                 filenameprefix=''
                 for i in range(tokenIndex,len(currentWorkingDirectoryList)):
@@ -23,3 +23,58 @@ def ConvertFileNameToRelativePath(filename):
                 filenamesuffix='/'.join(filenameList[tokenIndex:])
                 filename=filenameprefix+filenamesuffix
     return filename
+
+class FileParts(object):
+    def __init__(self,filename=None):
+        if not filename is None:
+            filename=str(filename)
+        else:
+            filename=''
+        if filename=='':
+            self.filename=''
+            self.filepath=os.getcwd()
+            self.fileext=''
+        else:
+            filename=ConvertFileNameToRelativePath(filename)
+            self.filename=filename.split('/')[-1]
+            self.filepath='/'.join(filename.split('/')[:-1])
+            if self.filepath != '':
+                self.filepath=self.filepath+'/'
+            self.fileext=''
+            if len(self.filename.split('.')) > 1:
+                splitl=self.filename.split('.')
+                self.filename='.'.join(splitl[:-1])
+                self.fileext='.'+splitl[-1]
+            if self.filename is None:
+                self.filename=''
+            if self.filepath is None:
+                self.filepath=''
+            if self.fileext is None:
+                self.fileext=''
+    def FullFilePathExtension(self,ext=None):
+        if not ext is None:
+            ext=str(ext)
+            if not ext[0]=='.':
+                ext='.'+ext
+            self.fileext=ext
+        if self.filename=='':
+            return ''
+        return self.filepath+self.filename+self.fileext
+    def FileNameTitle(self):
+        return self.filename
+    def FileNameWithExtension(self,ext=None):
+        if not ext is None:
+            ext=str(ext)
+            if not ext[0]=='.':
+                ext='.'+ext
+            self.fileext=ext
+        return self.filename+self.fileext
+    def FilePath(self):
+        return self.filepath
+    
+        
+
+        
+    
+        
+        

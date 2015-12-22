@@ -262,7 +262,11 @@ class NetListDialog(Toplevel):
 
     def ok(self, event=None):
         extension='.txt'
-        filename=asksaveasfilename(filetypes=[('text', extension)],defaultextension='.txt',initialdir=os.getcwd())
+        filename=asksaveasfilename(parent=self,filetypes=[('text', extension)],defaultextension='.txt',
+                                   initialdir=self.parent.fileparts.filepath,initialfile=self.parent.fileparts.filename+'.txt')
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename=='':
             self.initial_focus.focus_set() # put focus back
             return

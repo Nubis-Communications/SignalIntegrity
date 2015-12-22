@@ -60,9 +60,20 @@ class DeviceProperty(Frame):
         else:
             extension=''
             filetypename='all'
-        filename=askopenfilename(filetypes=[(filetypename,extension)])
+        currentFileParts=FileParts(self.partProperty.PropertyString(stype='raw'))
+        if currentFileParts.filename=='':
+            initialDirectory=self.parent.parent.parent.fileparts.filepath
+            initialFile=''
+        else:
+            initialDirectory=currentFileParts.filepath
+            initialFile=currentFileParts.filename+extension
+        filename=askopenfilename(parent=self,filetypes=[(filetypename,extension)],
+                        initialdir=initialDirectory,initialfile=initialFile)
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename != '':
-            filename=ConvertFileNameToRelativePath(filename)
+            filename=FileParts(filename).FullFilePathExtension(extension)
             self.propertyString.set(filename)
             self.partProperty.SetValueFromString(self.propertyString.get())
             self.callBack()

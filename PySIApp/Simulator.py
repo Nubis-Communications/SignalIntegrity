@@ -30,13 +30,19 @@ class SimulatorDialog(Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile)
-        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile)
-        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
+        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Save-Waveforms'])
+        # TODO: someday allow waveform reading
+        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Read-Waveforms']).Activate(False)
+        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Output-to-LaTeX'])
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties)
-        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices)
-        self.SimulateDoer = Doer(self.parent.parent.onCalculate)
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
+        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:View-Transfer-Parameters'])
+        self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Recalculate'])
+        # ------
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Open-Help-File'])
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Control-Help'])
+        # ------
+        self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
         # The menu system
         TheMenu=Menu(self)
@@ -54,6 +60,11 @@ class SimulatorDialog(Toplevel):
         self.ExamineTransferMatricesDoer.AddMenuElement(CalcMenu,label='View Transfer Parameters',underline=0)
         CalcMenu.add_separator()
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Recalculate',underline=0)
+        # ------
+        HelpMenu=Menu(self)
+        TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
+        self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
+        self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -63,6 +74,9 @@ class SimulatorDialog(Toplevel):
         Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
         self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         self.f = Figure(figsize=(6,4), dpi=100)
         self.plt = self.f.add_subplot(111)
@@ -122,7 +136,22 @@ class SimulatorDialog(Toplevel):
         return self
 
     def onWriteSimulatorToFile(self):
-        pass
+        for wfi in range(len(self.waveformNamesList)):
+            outputWaveformName=self.waveformNamesList[wfi]
+            outputWaveform=self.waveformList[wfi]
+            if self.parent.parent.fileparts.filename=='':
+                filename=outputWaveformName
+            else:
+                filename=self.parent.parent.fileparts.filename+'_'+outputWaveformName
+            filename=asksaveasfilename(parent=self,filetypes=[('waveform', '.txt')],defaultextension='.txt',
+                            initialdir=self.parent.parent.fileparts.filepath,initialfile=filename+'.txt')
+            if filename is None:
+                filename=''
+            filename=str(filename)
+            if filename=='':
+                continue
+            outputWaveform.WriteToFile(filename)
+                
     def onReadSimulatorFromFile(self):
         pass
     def onCalculationProperties(self):
@@ -132,12 +161,18 @@ class SimulatorDialog(Toplevel):
         buttonLabelList=[[out+' due to '+inp for inp in self.parent.sourceNames] for out in self.parent.outputWaveformLabels]
         maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
         buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
-        SParametersDialog(self.parent.parent,self.parent.transferMatrices.SParameters(),None,'Transfer Parameters',buttonLabelList)
+        sp=self.parent.transferMatrices.SParameters()
+        SParametersDialog(self.parent.parent,sp,
+                          self.parent.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                          'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
         import os
-        extension='.tex'
-        filename=asksaveasfilename(parent=self,filetypes=[('tex', extension)],defaultextension='.tex',initialdir=os.getcwd())
+        filename=asksaveasfilename(parent=self,filetypes=[('tex', '.tex')],defaultextension='.tex',
+                                   initialdir=self.parent.parent.fileparts.filepath,initialfile=self.parent.parent.fileparts.filename+'.tex')
+        if filename is None:
+            filename=''
+        filename=str(filename)
         if filename=='':
             return
         try:
@@ -155,6 +190,23 @@ class SimulatorDialog(Toplevel):
             texfile.close()
         except:
             tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+
+    def onHelp(self):
+        import webbrowser
+        helpfile=self.parent.parent.helpSystemKeys['sec:Simulator-Dialog']
+        if helpfile is None:
+            tkMessageBox.showerror('Help System','Cannot find or open this help element')
+            return
+        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        webbrowser.open(url)
+
+    def onControlHelp(self):
+        Doer.inHelp=True
+        self.config(cursor='question_arrow')
+
+    def onEscape(self):
+        Doer.inHelp=False
+        self.config(cursor='left_ptr')
 
 class Simulator(object):
     def __init__(self,parent):
@@ -210,7 +262,7 @@ class Simulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
-        self.SimulatorDialog().title('PySI Simulation')
+        self.SimulatorDialog().title('PySI Sim: '+self.parent.fileparts.FileNameTitle())
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 
     def VirtualProbe(self):
@@ -253,6 +305,6 @@ class Simulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
-        self.SimulatorDialog().title('PySI Virtual Probe')
+        self.SimulatorDialog().title('PySI Virtual Probe: '+self.parent.fileparts.FileNameTitle())
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 
