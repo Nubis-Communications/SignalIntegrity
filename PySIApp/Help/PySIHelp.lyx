@@ -994,8 +994,22 @@ reference "sub:Sources-and-Generators"
 
 \emph default
 .
- A source supplies an input waveform specified from a file.
- A generator supplies some specified input waveform.
+ A source supplies an input 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ specified from a file.
+ A generator supplies some specified input 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+.
  Sources and generators can be voltages or currents and can supply input
  waveforms from files, pulses, steps, and sine waves.
 \end_layout
@@ -1132,8 +1146,15 @@ name "sub:Sources-and-Generators"
 \end_layout
 
 \begin_layout Standard
-Sources and generators supply stimulus to the circuit in the form of input
- waveforms.
+Sources and generators supply stimulus to the circuit in the form of an
+ input 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1262,8 +1283,15 @@ name "sub:Output-Probes"
 \end_layout
 
 \begin_layout Standard
-Output probes define the location, name and characteristics of the output
- waveforms from the simulation.
+An output probes define the location, name and characteristics of an output
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ from the simulation.
 \end_layout
 
 \begin_layout Standard
@@ -1629,7 +1657,14 @@ Select the Generators category, and select the One Port Voltage Step Generator:
 
 \begin_layout Standard
 For now, we accept the default properties which state that the step generator
- will generate a waveform which starts at -100 ns, runs for 200 ns (i.e.
+ will generate a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ that starts at -100 ns, runs for 200 ns (i.e.
  ends at 100 ns) which is 0 V until 0 s after which it jumps to 1 V for
  the duration.
 \end_layout
@@ -2219,6 +2254,194 @@ Deembedding
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Deembedding"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Deembedding is related to 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+.
+ While 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ solves for a system resulting from a circuit containing interconnected,
+ known devices, deembedding solves for unknowns given the resulting system
+ and a circuit containing interconnected, known and unknown devices.
+\end_layout
+
+\begin_layout Standard
+The deembedding problem is stated as: Given a circuit containing interconnected
+ devices, some of whose s-parameters are known and some unknown, and given
+ the s-parameters of the entire system, solve for the s-parameters of the
+ unknown devices.
+\end_layout
+
+\begin_layout Subsection
+Drawing a Schematic for Deembedding
+\end_layout
+
+\begin_layout Standard
+When PySIApp opens, you have a blank canvas and are ready to draw a schematic.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename BlanckCanvas.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Drawing the schematic for deembedding is accomplished through the addition
+ of parts, ports and wires.
+ At least one part will need to be an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+ and there will need to be exactly one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ part.
+\end_layout
+
+\begin_layout Standard
+To add parts to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+.
+ To add wires to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Wire"
+
+\end_inset
+
+.
+ See the next section about 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknowns"
+
+\end_inset
+
+ regarding unknowns.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Defining-the-System"
+
+\end_inset
+
+ with regard to the system.
+\end_layout
+
+\begin_layout Subsection
+Attaching Ports to a Schematic
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Attaching-Ports-to-a-Schematic-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In deembedding applications, ports equate the s-parameters of the circuit
+ to the system (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Defining-the-System"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+As you must be aware, s-parameters are a vector of matrix elements, where
+ each matrix element is for a particular frequency (these frequencies are
+ defined by the calculation properties defined in the next section: 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties"
+
+\end_inset
+
+) and each matrix defines the complex port-port relationship at that frequency.
+\end_layout
+
+\begin_layout Standard
+Thus, for a set of two-port s-parameters, 
+\begin_inset Formula $S_{21}$
+\end_inset
+
+ refers to the port-port relationship as the output (reflected) wave from
+ port 2 due to an incident wave on port 1 over all the frequencies.
+ These port numbers are defined by the port element added in the schematic
+ and match the system ports.
+\end_layout
+
+\begin_layout Standard
+To add ports to a schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Port"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Unknowns
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Unknowns"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Defining the System
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Defining-the-System"
 
 \end_inset
 
@@ -3270,6 +3493,31 @@ Always
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Saves an output 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7335,6 +7583,56 @@ Always
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This command is a shortcut which is the same as invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting Output from the Special parts category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesOutputProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The output probe part has one port that can be connected to a wire or device
+ port to select a voltage 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to be output during a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The 
 \end_layout
 
 \begin_layout Standard
@@ -22621,6 +22919,537 @@ gain
 
 \end_layout
 
+\begin_layout Subsection
+Unknown
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Unknown"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename OnePort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TwoPort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TwoPortAlt.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThreePort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThreePortAlt.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename FourPort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename FourPortAlt.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+U?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unknown devices are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications and can only be added to a schematic through 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Unknown"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Unknown devices have only a reference designator which provides the name
+ for the unknown.
+\end_layout
+
+\begin_layout Subsection
+System
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:System"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename OnePort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TwoPort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename TwoPortAlt.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThreePort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThreePortAlt.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename FourPort.png
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename FourPortAlt.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+System devices are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications and can only be added to a schematic through 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-System"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+System devices are the same as 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ devices except their internal type.
+\end_layout
+
+\begin_layout Standard
+They take an s-parameter file name in the file name property.
+ The in the Part Properties Dialog, you can browse to the file and view
+ the file in the S-parameter Viewer if you want.
+\end_layout
+
 \begin_layout Section
 Netlists
 \begin_inset CommandInset label
@@ -22692,7 +23521,14 @@ reference "sub:WaveformFile"
 
 \end_inset
 
- - pertains to a problem with reading a waveform file.
+ - pertains to a problem with reading a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file.
 \end_layout
 
 \begin_layout Itemize
@@ -22772,7 +23608,14 @@ name "sub:WaveformFile"
 \end_layout
 
 \begin_layout Standard
-A waveform file was specified for reading and it could not be read
+A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file was specified for reading and it could not be read
 \end_layout
 
 \begin_layout Subsubsection
@@ -23146,6 +23989,94 @@ Device Could Not Be Instantiated
 
 \begin_layout Subsubsection
 Device Not Found
+\end_layout
+
+\begin_layout Section
+Waveform
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Waveform"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A Waveform consists of a sequence of points representing either voltage
+ or current.
+ It is defined by:
+\end_layout
+
+\begin_layout Itemize
+The 
+\emph on
+horizontal offset
+\emph default
+.
+ The horizontal offset is simply the time of the first point in the waveform.
+\end_layout
+
+\begin_layout Itemize
+The number of points in the waveform.
+\end_layout
+
+\begin_layout Itemize
+The sample rate.
+\end_layout
+
+\begin_layout Itemize
+A sequence of points representing voltage or current.
+\end_layout
+
+\begin_layout Standard
+Thus, for a horizontal offset 
+\begin_inset Formula $h$
+\end_inset
+
+, a number of points 
+\begin_inset Formula $K$
+\end_inset
+
+, and a sample rate 
+\begin_inset Formula $Fs$
+\end_inset
+
+ and a sequence of 
+\begin_inset Formula $K$
+\end_inset
+
+ points, for 
+\begin_inset Formula $k\in0\ldots K-1$
+\end_inset
+
+, we have the voltage or current value specified as 
+\begin_inset Formula $v\left[k\right]$
+\end_inset
+
+ and a time 
+\begin_inset Formula $t\left[k\right]$
+\end_inset
+
+ where:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+t\left[k\right]=\frac{k}{K}\cdot\frac{1}{Fs}+h
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A waveform file is a text file where the first line contains the horizontal
+ offset, in seconds, the second line contains the integer number of points
+ in the waveform, the third line contains the sample rate in samples per
+ second, and the remaining lines contain the waveform values.
 \end_layout
 
 \end_body

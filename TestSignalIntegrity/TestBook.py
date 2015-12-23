@@ -1027,6 +1027,12 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         ssps=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(1,10))
         ssps.AddLines(['device R1 2 R 50.','device R2 1 R 50.','port 1 R1 1','connect R1 2 R2 1'])
         ssps.SParameters()
+    def testSymbolicDeembeddingParserFileTwoTwoTwo(self):
+        dp=si.p.DeembedderParser().AddLines(['unknown U1 2','unknown U2 2','device D 2','port 1 U1 1','port 2 U2 2','connect U1 2 D 1','connect D 2 U2 1'])
+        ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')
+        ds.DocStart().SymbolicSolution().DocEnd().Emit()
+        # pragma: exclude
+        self.CheckSymbolicResult(self.id(),ds,'Symbolic Deembedding TwoTwoTwo File')
     def testSymbolicSolutionExample1Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionExample1(self)',self.standardHeader)
     def testSymbolicSolutionParserExample2Code(self):

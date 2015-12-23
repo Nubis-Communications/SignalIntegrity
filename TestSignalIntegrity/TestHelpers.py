@@ -188,7 +188,7 @@ class RoutineWriterTesterHelper(object):
             defName=[defName]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         outputFileName=fileName.split('/')[-1].split('.')[0]+'_'+className+'_'+defName[0]
-        lineDefFileName=outputFileName+'_#.tex'
+        lineDefFileName=outputFileName+'_LineNums.tex'
         outputFileName=outputFileName+'.py'
         if checkNames:
             allDefNames = self.EntireListOfClassFunctions(fileName,className)

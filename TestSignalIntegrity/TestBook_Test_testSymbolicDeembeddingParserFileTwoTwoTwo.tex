@@ -1,0 +1,28 @@
+\documentclass[10pt]{article} \usepackage{amsmath} \usepackage{bbold}
+\begin{document}
+\[ \mathbf{F_{11}} = \left(\begin{smallmatrix} 0 & 0 \\ 0 & 0
+\end{smallmatrix}\right) \]
+\[ \mathbf{F_{12}} = \left(\begin{smallmatrix} 1 & 0 & 0 & 0 \\ 0 & 0
+& 0 & 1 \end{smallmatrix}\right) \]
+\[ \mathbf{F_{21}} = \left(\begin{smallmatrix} 1 & 0 \\ 0 & 0 \\ 0 & 0
+\\ 0 & 1 \end{smallmatrix}\right) \]
+\[ \mathbf{F_{22}} = \left(\begin{smallmatrix} 0 & 0 & 0 & 0 \\ 0 &
+D_{11} & D_{12} & 0 \\ 0 & D_{21} & D_{22} & 0 \\ 0 & 0 & 0 & 0
+\end{smallmatrix}\right) \]
+\[ \mathbf{B}=\left[ \mathbf{F_{12}}^H \cdot
+\mathbf{F_{12}}\right]^{-1} \cdot\mathbf{F_{12}}^H \cdot\left[
+\mathbf{Sk} - \mathbf{F_{11}} \right]  \]
+\[ \mathbf{A}=\mathbf{F_{21}}+ \mathbf{F_{22}}\cdot\mathbf{B} \]
+\[ \mathbf{U1}= \left(\begin{smallmatrix} B_{11} & B_{12} \\ B_{21} &
+B_{22} \end{smallmatrix}\right)\cdot \left(\begin{smallmatrix} A_{11}
+& A_{12} \\ A_{21} & A_{22} \end{smallmatrix}\right)^H \cdot \left[
+\left(\begin{smallmatrix} A_{11} & A_{12} \\ A_{21} & A_{22}
+\end{smallmatrix}\right)\cdot\left(\begin{smallmatrix} A_{11} & A_{12}
+\\ A_{21} & A_{22} \end{smallmatrix}\right)^H \right]^{-1} \]
+\[ \mathbf{U2}= \left(\begin{smallmatrix} B_{31} & B_{32} \\ B_{41} &
+B_{42} \end{smallmatrix}\right)\cdot \left(\begin{smallmatrix} A_{31}
+& A_{32} \\ A_{41} & A_{42} \end{smallmatrix}\right)^H \cdot \left[
+\left(\begin{smallmatrix} A_{31} & A_{32} \\ A_{41} & A_{42}
+\end{smallmatrix}\right)\cdot\left(\begin{smallmatrix} A_{31} & A_{32}
+\\ A_{41} & A_{42} \end{smallmatrix}\right)^H \right]^{-1} \]
+\end{document}

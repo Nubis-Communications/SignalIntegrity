@@ -54,8 +54,9 @@ class FileParts(object):
     def FullFilePathExtension(self,ext=None):
         if not ext is None:
             ext=str(ext)
-            if not ext[0]=='.':
-                ext='.'+ext
+            if len(ext)>0:
+                if not ext[0]=='.':
+                    ext='.'+ext
             self.fileext=ext
         if self.filename=='':
             return ''
@@ -63,10 +64,13 @@ class FileParts(object):
     def FileNameTitle(self):
         return self.filename
     def FileNameWithExtension(self,ext=None):
+        if self.filename=='':
+            return ''
         if not ext is None:
             ext=str(ext)
-            if not ext[0]=='.':
-                ext='.'+ext
+            if len(ext)>0:
+                if not ext[0]=='.':
+                    ext='.'+ext
             self.fileext=ext
         return self.filename+self.fileext
     def FilePath(self):

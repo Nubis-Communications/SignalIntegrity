@@ -339,7 +339,7 @@ class SParametersDialog(Toplevel):
         ports=self.sp.m_P
         extension='.s'+str(ports)+'p'
         filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,
-                    initialdir=self.fileparts.filepath,initialfile=self.fileparts.FileNameWithExtension(),parent=self)
+                    initialdir=self.fileparts.filepath,initialfile=self.fileparts.FileNameWithExtension(extension),parent=self)
         if filename is None:
             filename=''
         filename=str(filename)

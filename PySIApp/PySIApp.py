@@ -279,7 +279,7 @@ class TheApp(Frame):
     def onWriteProjectToFile(self):
         self.Drawing.stateMachine.Nothing()
         filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
-                                   initialfile=self.fileparts.filename,initialdir=self.fileparts.filepath)
+                                   initialfile=self.fileparts.FileNameWithExtension('.xml'),initialdir=self.fileparts.filepath)
         if filename is None:
             filename=''
         filename=str(filename)
@@ -490,7 +490,15 @@ class TheApp(Frame):
         except si.PySIException as e:
             tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
             return
-        SParametersDialog(self,sp,filename=self.fileparts.FileNameWithExtension(''))
+        unknownNames=dnp.m_sd.UnknownNames()
+        if len(unknownNames)==1:
+            sp=[sp]
+        for u in range(len(unknownNames)):
+            extension='.s'+str(sp[u].m_P)+'p'
+            filename=unknownNames[u]+extension
+            if self.fileparts.filename != '':
+                filename=self.fileparts.filename+'_'+filename
+            SParametersDialog(self,sp[u],filename=filename)
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()

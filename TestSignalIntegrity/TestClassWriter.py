@@ -213,5 +213,45 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all.remove(firstDef)
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
+    def testWriteDeembedder(self):
+        fileName="../SignalIntegrity/SystemDescriptions/Deembedder.py"
+        className='Deembedder'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeembedderNumeric(self):
+        fileName="../SignalIntegrity/SystemDescriptions/DeembedderNumeric.py"
+        className='DeembedderNumeric'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeembedderSymbolic(self):
+        fileName="../SignalIntegrity/SystemDescriptions/DeembedderSymbolic.py"
+        className='DeembedderSymbolic'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeembedderParser(self):
+        fileName="../SignalIntegrity/Parsers/DeembedderParser.py"
+        className='DeembedderParser'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeembedderNumericParser(self):
+        fileName="../SignalIntegrity/Parsers/DeembedderNumericParser.py"
+        className='DeembedderNumericParser'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()
