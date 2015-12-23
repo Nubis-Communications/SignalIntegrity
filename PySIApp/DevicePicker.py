@@ -11,6 +11,7 @@ import ttk
 class DevicePicker(Frame):
     def __init__(self,parent,deviceList):
         Frame.__init__(self,parent)
+        self.config()
         self.tree = ttk.Treeview(self)
         self.tree.pack(fill=BOTH,expand=YES)
         self.tree["columns"]=("description")
@@ -58,7 +59,7 @@ class DevicePickerDialog(Toplevel):
 
         self.protocol("WM_DELETE_WINDOW", self.cancel)
 
-        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
+        self.geometry("500x500+%d+%d" % (parent.winfo_rootx()+50,
                                   parent.winfo_rooty()+50))
 
         self.initial_focus.focus_set()

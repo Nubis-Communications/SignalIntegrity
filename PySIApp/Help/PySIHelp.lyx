@@ -2288,8 +2288,88 @@ The deembedding problem is stated as: Given a circuit containing interconnected
  unknown devices.
 \end_layout
 
+\begin_layout Standard
+The steps required for deembedding are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Drawing-a-Schematic-for-Deembedding"
+
+\end_inset
+
+ containing interconnected devices and wires with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknowns"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Defining-the-System"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Deembedding"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Running the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Deembedding-Calculation"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If you like, you can read the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Deembedding-Example"
+
+\end_inset
+
+ where hopefully everything will be clear.
+\end_layout
+
 \begin_layout Subsection
 Drawing a Schematic for Deembedding
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Drawing-a-Schematic-for-Deembedding"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2369,10 +2449,10 @@ reference "sub:Defining-the-System"
 \end_layout
 
 \begin_layout Subsection
-Attaching Ports to a Schematic
+Attaching Ports to a Schematic for Deembedding
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Attaching-Ports-to-a-Schematic-1"
+name "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
 
 \end_inset
 
@@ -2437,6 +2517,59 @@ name "sub:Unknowns"
 
 \end_layout
 
+\begin_layout Standard
+Unknowns are placed in the schematic using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Unknown"
+
+\end_inset
+
+ or by using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+ devices from the Unknowns category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerUnknownCategory.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once selected, the reference designator is used as the name for the unknown.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesUnknown.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the deembedding result is calculated, the s-parameters generated will
+ have a default name of the project file concatenated with the reference
+ designator for the unknown(s) in the system.
+\end_layout
+
 \begin_layout Subsection
 Defining the System
 \begin_inset CommandInset label
@@ -2446,6 +2579,671 @@ name "sub:Defining-the-System"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The system is defined by placing a special part in the schematic using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-System"
+
+\end_inset
+
+ or by using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ devices from the Systems category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerSystemsCategory.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once selected, a file is selected containing the s-parameters of the system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesSystem.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that when a system is placed, there are no red x's on the unconnected
+ ports.
+ This is because system ports are never connected.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SystemInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that there must be one system device in a schematic and the port numbering
+ of the system must match the port number of the ports in the schematic.
+ Essentially what you are telling the application is that the s-parameters
+ of the remaining schematic represented by interconnected parts and ports
+ matches the s-parameters of the system device.
+\end_layout
+
+\begin_layout Subsection
+Setting Calculation Properties for Deembedding
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Setting-Calculation-Properties-for-Deembedding"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To set the calculation properties for deembedding, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The calculation properties determine how the deembedded s-parameters are
+ calculated, specifically the frequency points that are calculated.
+ The calculation properties are the same set for all of the PySI applications.
+ With regard to deembedding, the elements of particular interest are the
+ end frequency, which is the last frequency in the s-parameter calculation,
+ and the frequency points, which are the number of frequency points that
+ will be present in the final s-parameters calculated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+You will have a problem if the end frequency specified extends beyond any
+ of the s-parameters defined in your schematic because the application extrapola
+tes s-parameters by setting all of the results to zero beyond the end frequency.
+ This means that the deembedding operation will almost certainly fail at
+ these points.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Deembedding Calculation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Deembedding-Calculation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After creating the schematic for s-parameter generation and setting the
+ calculation properties, the s-parameters of the unknowns are calculated
+ using either the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Deembed"
+
+\end_inset
+
+ command or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ toolbar button.
+\end_layout
+
+\begin_layout Standard
+Note that deembedding will not be possible at all (i.e.
+ the menu elements are disabled) if the schematic does not meet the criteria
+ for deembedding.
+ This criteria for the schematic regarding elements are that the schematic
+ must:
+\end_layout
+
+\begin_layout Itemize
+have at least one port element (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Port"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+have at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+ device.
+\end_layout
+
+\begin_layout Itemize
+have one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ device.
+\end_layout
+
+\begin_layout Itemize
+not have any other elements that don't make sense for deembedding including:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+output probes
+\end_layout
+
+\begin_layout Itemize
+measure probes
+\end_layout
+
+\begin_layout Itemize
+stims
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In the deembedding calculation, the first step is to convert the schematic
+ shown into a net list.
+ This netlist puts the graphical schematic into a text based description.
+ Note that this netlist can be created, examined and saved separately if
+ you want.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlists"
+
+\end_inset
+
+ for more information on the net list and see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Export-Netlist"
+
+\end_inset
+
+ on ways of viewing and exporting the net lists.
+\end_layout
+
+\begin_layout Standard
+The net list is passed to a 
+\series bold
+DeembedderNumericParser
+\series default
+ class as described in the PySI book after which the s-parameters of the
+ unknowns are extracted.
+\end_layout
+
+\begin_layout Standard
+During parsing of the net list, all devices listed are instantiated with
+ the end frequency and number of frequency points specified.
+ If a file device is encountered, the s-parameters read from the file are
+ resampled onto the end frequency and number of frequency points specified.
+\end_layout
+
+\begin_layout Standard
+Then, for each frequency point, the s-parameters of the unknowns are calculated.
+\end_layout
+
+\begin_layout Standard
+Sometimes, things go wrong and an error is generated.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Errors-and-Exceptions"
+
+\end_inset
+
+ for an explanation of any errors generated during calculation.
+\end_layout
+
+\begin_layout Standard
+If everything goes correctly, a dialog will open for each of the unknowns
+ with the ability to view the s-parameters calculated and save them to a
+ file.
+ See the section on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ for more information on the viewing of the results.
+\end_layout
+
+\begin_layout Subsection
+Deembedding Example
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Deembedding-Example"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this example, we will deembed a cable from the measurement of a cable
+ cascaded with a filter.
+ To generate this example, we created the cascaded cable and filter using
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CascCableFilter.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We saved the results of this calculation to the file CascCableFilter.s2p.
+\end_layout
+
+\begin_layout Standard
+We start this example with a blank project:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename BlanckCanvas.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+, we select a two port file device:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerTwoPortFile.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We browse to the file cable.s2p in the Examples directory:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesTwoPortFile.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pressing OK places the part in the schematic and we drag it to a good location:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CableInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next, we add the unknown filter device using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Unknown"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerTwoPortUnknown.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We enter Filter as the name of the unknown:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesTwoPortUnknown.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pressing OK places the part in the schematic and we drag it and connect
+ it to the cable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CableUnknownInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next, we use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Port"
+
+\end_inset
+
+ to add ports to the schematic.
+ The properties dialog for the port shows port 1, so we use it as is.
+ Pressing OK places the port in the schematic and we drag it so it is connected
+ to the cable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PortCableFilterInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Port"
+
+\end_inset
+
+ again, we have the part properties showing port 2.
+ In the part properties dialog, select the mirror horizontally checkbox:
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesPort2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Press OK and drag the port so it is connected to the unknown filter:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PortCableFilterPortInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Almost done.
+ We now add the system device by using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-System"
+
+\end_inset
+
+ and selecting a two port system:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerTwoPortSystem.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Browse to the CascCableFilter.s2p file:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesTwoPortSystem.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Press OK and place it anywhere in the schematic:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PortCableFilterPortSystemInSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming that the CascCableFilter.s2p file has the appropriate frequencies,
+ we would want to retain them for the deembedding calculation, so we use
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-parameter-Viewer"
+
+\end_inset
+
+ and select the CasCableFilter.s2p file for viewing:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CascCableFilterInSParameterViewer.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we can see that the end frequency is 20 GHz and the impulse response
+ length is 50 ns.
+\end_layout
+
+\begin_layout Standard
+We close this dialog and use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+ and set the end frequency and impulse response length appropriately:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesForDeembeddingExample.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We not that this amounts to one thousand frequency points to 20 GHz.
+\end_layout
+
+\begin_layout Standard
+Notice now that 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Deembed"
+
+\end_inset
+
+ are now enabled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename DeembeddingCalculationEnabled.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Deembed"
+
+\end_inset
+
+ to start the calculation.
+ Once the calculation is complete, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ is opened with the result of the deembedding.
+ Use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-S-parameter-File"
+
+\end_inset
+
+ to save the result to a file.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename DeembeddingResultInSParameterViewer.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that I selected S21 for viewing in the above dialog, and pressed unwrap
+ to remove the 593.7 ps of delay from the phase.
 \end_layout
 
 \begin_layout Section
@@ -11668,6 +12466,33 @@ One interesting thing to note is that the frequency points are actually
 \begin_inset Formula 
 \[
 f\left[n\right]=\frac{n}{N}\cdot Fe
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The time points for the impulse response is specified for 
+\begin_inset Formula $K=2\cdot N$
+\end_inset
+
+ time points and a sample rate 
+\begin_inset Formula $Fs=2\cdot Fe$
+\end_inset
+
+, as having times of, for 
+\begin_inset Formula $k\in0\ldots K-1$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+t\left[k\right]=\left(k-\frac{K}{2}\right)\cdot\frac{1}{Fs}
 \]
 
 \end_inset
@@ -22932,43 +23757,43 @@ name "sub:Unknown"
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename OnePort.png
+	filename UnknownOnePort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename TwoPort.png
+	filename UnknownTwoPort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename TwoPortAlt.png
+	filename UnknownTwoPortAlt.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ThreePort.png
+	filename UnknownThreePort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ThreePortAlt.png
+	filename UnknownThreePortAlt.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename FourPort.png
+	filename UnknownFourPort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename FourPortAlt.png
+	filename UnknownFourPortAlt.bmp
 
 \end_inset
 
@@ -23168,43 +23993,43 @@ name "sub:System"
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename OnePort.png
+	filename SystemOnePort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename TwoPort.png
+	filename SystemTwoPort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename TwoPortAlt.png
+	filename SystemTwoPortAlt.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ThreePort.png
+	filename SystemThreePort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename ThreePortAlt.png
+	filename SystemThreePortAlt.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename FourPort.png
+	filename SystemFourPort.bmp
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename FourPortAlt.png
+	filename SystemFourPortAlt.bmp
 
 \end_inset
 

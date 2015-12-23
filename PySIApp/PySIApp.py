@@ -326,7 +326,7 @@ class TheApp(Frame):
             tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onAddPart(self):
-        self.onAddPartFromSpecificList(DeviceList)
+        self.onAddPartFromSpecificList(DeviceList+DeviceListUnknown+DeviceListSystem)
 
     def onAddUnknown(self):
         self.onAddPartFromSpecificList(DeviceListUnknown)
