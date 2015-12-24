@@ -1415,8 +1415,21 @@ Assuming that all of the s-parameters have been sampled sufficiently, meaning
 The advice here is to set the impulse response length to a number that is
  twice the length of a finite impulse response (FIR) filter in time as how
  long you think the impulse response of the longest filter should be.
- Then, after the simulation completes, you should view the transfer parameters
- from the simulator dialog to make sure that this occurred.
+ Then, after the simulation completes, you should 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+ from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ to make sure that this occurred.
 \end_layout
 
 \begin_layout Subsection
@@ -3251,6 +3264,945 @@ Virtual Probing
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Virtual-Probing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Virtual probing is about converting measurements made a various circuit
+ locations to waveforms that would appear had the circuit been probed at
+ other locations.
+\end_layout
+
+\begin_layout Standard
+Virtual probing can be used for a number of purposes including:
+\end_layout
+
+\begin_layout Itemize
+Time-domain deembedding - removing the effects of components, including
+ probes from a measurement.
+\end_layout
+
+\begin_layout Itemize
+Undoing the effects of probe loading from a measurement.
+\end_layout
+
+\begin_layout Itemize
+Compliance testing or measuring well a system will perform under various
+ conditions.
+\end_layout
+
+\begin_layout Standard
+This section provides step-by-step instructions for virtual probing.
+ You can read through this, or go immediately to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Virtual-Probing-Example"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to virtually probe a circuit, you first need a schematic containing
+ a number of devices and interconnected with wires.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Drawing-a-Schematic-for-Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+You will need to supply probing points in the circuit for providing measured
+ waveforms (
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probes"
+
+\end_inset
+
+) and for specifying the output waveforms 
+\emph on
+(
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-1"
+
+\end_inset
+
+
+\emph default
+).
+\end_layout
+
+\begin_layout Standard
+A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probes"
+
+\end_inset
+
+ requires a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file that provides the waveform measured at that location.
+ We talk about these in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probes"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+An 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ supplies the location of the node for which the output waveform is desired,
+ the name of the waveform in the simulation, and any gain, offset, or delay
+ to be applied.
+ In that sense it operates like a real probe (without loading effects).
+ We talk about these in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For virtual probing to work correctly, all sources of stimuli (i.e.
+ waves entering the system, or sources of voltage and/or current) must be
+ identified.
+ In virtual probing, you don't supply stimuli, only tell it how it enters
+ the system.
+ This identification of stimuli is achieved through the use of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+.
+ This is discussed in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stimuli"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Once you are ready for virtual probing, you should configure the Calculation
+ properties.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Once a circuit is drawn containing at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+, at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ and at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+, presumably with a circuit that has been properly configured, you can virtually
+ probe the circuit.
+ Virtual probing involves first the calculation of transfer parameters which
+ are applied to the measured input waveforms to generate the output waveforms
+ and the waveforms are displayed.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Drawing a Schematic for Virtual Probing
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Drawing-a-Schematic-for-Virtual-Probing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When PySIApp opens, you have a blank canvas and are ready to draw a schematic
+ for virtual probing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename BlanckCanvas.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Drawing the schematic is accomplished through the addition of parts, wires,
+ measure probes, output probes and stims.
+ 
+\end_layout
+
+\begin_layout Standard
+To add parts to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+.
+ To add wires to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Wire"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To add a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ or an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ to the schematic, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Output-Probe"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Measure-Probe"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To add a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+, use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Stim"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Measure Probes
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Measure-Probes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Measure probes supply the location of an input 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ along with the location in the circuit where it was measured.
+\end_layout
+
+\begin_layout Standard
+They are added to the schematic by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Measure-Probe"
+
+\end_inset
+
+ or by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting the Measure from the Special category in the Part Picker
+ Dialog:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerMeasureProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesMeasureProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The reference designator need only be unique, but it useful to set it something
+ explicit, especially when viewing the transfer parameters that get calculated.
+ The waveform must be a file in the specified 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ format.
+\end_layout
+
+\begin_layout Subsection
+Output Probes
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Output-Probes-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An output probes define the location, name and characteristics of an output
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ resulting from virtual probing.
+\end_layout
+
+\begin_layout Standard
+They are added to the schematic by invoking either 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Output-Probe"
+
+\end_inset
+
+ or by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ from the Special category:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerOutputProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesOutputProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You can set the reference designator to a useful name, if you want, as it
+ will be the name of the waveform produced in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+.
+ You can set a gain, offset and/or delay to applied to the output waveform
+ produced.
+\end_layout
+
+\begin_layout Subsection
+Stimuli
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Stimuli"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Stimuli in virtual probing is surely the most confusing aspect.
+\end_layout
+
+\begin_layout Standard
+Virtual probing operates in theory by accounting for all of the 
+\emph on
+waves
+\emph default
+ flowing around a system using observations of 
+\emph on
+voltages
+\emph default
+ at the measurement probe points.
+ Now, since voltages are proportional to the sum of the forward and backward
+ going waves at a given node, so how can you tell which way they are going?
+ Well, if you look long enough such that any waves entering prior to the
+ time you started looking have either died down or are insignificant, then
+ everything works out fine.
+ But the application needs to know where they are and which device ports
+ they 
+\emph on
+emanate
+\emph default
+ from.
+\end_layout
+
+\begin_layout Standard
+For a properly constrained system, you should have as many measurement probes
+ as stimuli.
+ For example, barring other sorts of numerical problems, for a single-ended
+ transmitter, one measurement probe and one stimulus is enough.
+ If the system contains a differential transmitter, two stimulus are required.
+ Two measurement probes are required, or some assumptions are needed to
+ further constrain the stimuli is required.
+ Constraining stimuli is performed using independent and dependent stimuli
+ and specifying the constraints through interconnections and weights.
+\end_layout
+
+\begin_layout Standard
+To place an independent stimulus, use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Stim"
+
+\end_inset
+
+, leave the weight as 1.0, and place the tip of the arrow directly on the
+ port of a device as shown:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename IndependentStimInCircuit.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ must be connected to one and only one device port, as shown above.
+ This means that if two device ports are connected together, you must separate
+ them with a small bit of wire, and connect the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ to the device port you intend.
+ In other words, don't do this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\color red
+This is WRONG:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename IndependentStimInCircuitWrong.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Remember, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ defines the place of wave emanation from a port.
+ Connecting it to two device ports, or in the middle of a wire, does not
+ specify a device port from which waves emanate.
+\end_layout
+
+\begin_layout Standard
+If you have a situation where you have have more stimuli than measurements,
+ you can make the stimuli connected directly to the device ports 
+\emph on
+dependent
+\emph default
+ on an independent stimulus.
+\end_layout
+
+\begin_layout Standard
+For example, suppose you have the following situation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename DifferentialStimArrangement.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This virtual probing schematic says that you have two independent, single-ended
+ sources of stimuli at a transmitter and that you are measuring the differential
+ voltage at the transmitter and desiring to see the differential waveform
+ at a perfectly terminated receiver.
+ Here we have two stims and only one measurement probe which makes the system
+ unsolvable.
+\end_layout
+
+\begin_layout Standard
+We can rectify the situation by adding an independent stim and making the
+ two stims at the transmitter output dependent on it, like this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename DifferentialStimArrangementBalanced.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Although the two stims at the transmitter only showed one connection point
+ at the arrow tip, the back of the arrow can also be connected.
+ When the back of a stim is connected through a wire to arrow tip of another
+ stim, it becomes dependent on it by an amount defined by the weight of
+ the dependent stim.
+ We change the weight by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ with the stim selected.
+\end_layout
+
+\begin_layout Standard
+This arrangement says that the top stim is now the same as the independent
+ stim and that the bottom stim is the negative of the independent stim.
+ Since we now have only one independent stim, the system is solvable.
+\end_layout
+
+\begin_layout Standard
+Note that this does not imply that the voltage waveform will be balanced
+ at the transmitter (i.e.
+ no common mode component), only that we have promised that the waves emanating
+ from the transmitters are balanced.
+\end_layout
+
+\begin_layout Subsection
+Setting Calculation Properties for Virtual Probing
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Setting-Calculation-Properties-for-Virtual-Probing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To set the calculation properties for virtual probing, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The calculation properties determine how the transfer parameters are calculated.
+ Transfer parameters are frequency responses that define transfer characteristic
+s from an input waveform to an output waveform.
+ Input waveforms come from measurement probes and output waveforms are provided
+ at output probe locations in the circuit.
+ An output waveform is a linear combination of input waveforms applied to
+ filters that are the time-domain equivalent of the frequency responses.
+\end_layout
+
+\begin_layout Standard
+The frequency responses are calculated to the end frequency withe the frequency
+ spacing specified, and the filters are calculated by taking the inverse-FFT
+ of these frequency responses.
+ As such, they end up having a sample rate that is twice the end frequency
+ and an impulse response length that is the inverse of the frequency resolution
+ and a number of points that are twice the number of frequency points.
+\end_layout
+
+\begin_layout Standard
+The base sample rate should be set to the sample rate that you want the
+ virtual calculation to run at, which is twice the end frequency.
+\end_layout
+
+\begin_layout Standard
+These impulse responses generated for the filters are always centered on
+ time zero, meaning half of the impulse response is before time zero and
+ half is after.
+\end_layout
+
+\begin_layout Standard
+Assuming that all of the s-parameters have been sampled sufficiently, meaning
+ to the right end frequency and most importantly, with the proper spacing
+ to provide an impulse response that does not have time-aliasing effects,
+ then it is possible to specify an appropriate impulse response length in
+ the calculation properties.
+ But with the tool in its current state, there is no way to guarantee this
+ - you must set it to a value that makes sense.
+ But the key is that it must be long enough.
+ If it is too short, the simulator produces incorrect waveforms.
+ If it is too long, it just needs to do extra work.
+\end_layout
+
+\begin_layout Standard
+The advice here is to set the impulse response length to a number that is
+ twice the length of a finite impulse response (FIR) filter in time as how
+ long you think the impulse response of the longest filter should be.
+ Then, after the simulation completes, you should 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+ from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ to make sure that this occurred.
+\end_layout
+
+\begin_layout Subsection
+Virtual Probing
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Virtual-Probing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After creating the schematic for virtual probing and setting the calculation
+ properties, the calculation is run using either the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Virtual-Probe"
+
+\end_inset
+
+ command or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ toolbar button.
+\end_layout
+
+\begin_layout Standard
+Note that virtual probing will not be possible at all (i.e.
+ the menu elements are disabled) if the schematic does not meet the criteria
+ for virtual probing.
+ This criteria for the schematic regarding elements are that the schematic
+ must:
+\end_layout
+
+\begin_layout Itemize
+have at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+have at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+have at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+not have any other elements that don't make sense for virtual probing including:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+ports
+\end_layout
+
+\begin_layout Itemize
+unknown devices
+\end_layout
+
+\begin_layout Itemize
+system devices
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In virtual probing, the first step is to convert the schematic shown into
+ a net list.
+ This netlist puts the graphical schematic into a text based description.
+ Note that this netlist can be created, examined and saved separately if
+ you want.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlists"
+
+\end_inset
+
+ for more information on the net list and see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Export-Netlist"
+
+\end_inset
+
+ on ways of viewing and exporting the net lists.
+\end_layout
+
+\begin_layout Standard
+The net list is passed to a 
+\series bold
+VirtualProbeNumericParser
+\series default
+ class as described in the PySI book after which the transfer parameters
+ are extracted.
+\end_layout
+
+\begin_layout Standard
+During parsing of the net list, all devices listed are instantiated with
+ the end frequency and number of frequency points specified (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
+
+\end_inset
+
+).
+ If a file device is encountered, the s-parameters read from the file are
+ resampled onto the end frequency and number of frequency points specified.
+\end_layout
+
+\begin_layout Standard
+Then, for each frequency point, the transfer parameters are generated.
+\end_layout
+
+\begin_layout Standard
+After the transfer parameters are generated, the input waveforms are produced
+ or read from files and applied to the filters corresponding to the transfer
+ parameters to generate output waveforms.
+\end_layout
+
+\begin_layout Standard
+Sometimes, things go wrong and an error is generated.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Errors-and-Exceptions"
+
+\end_inset
+
+ for an explanation of any errors generated during calculation.
+\end_layout
+
+\begin_layout Standard
+If everything goes correctly, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ will open with the ability to view the output waveforms calculated and
+ save them to a file.
+\end_layout
+
+\begin_layout Subsection
+Virtual Probing Example
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Virtual-Probing-Example"
 
 \end_inset
 
@@ -20975,6 +21927,13 @@ s
 
 \begin_layout Subsection
 Measure Probe
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Measure-Probe"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -21416,6 +22375,13 @@ gain
 
 \begin_layout Subsection
 Stim
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Stim"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
