@@ -32,7 +32,7 @@ class FileParts(object):
             filename=''
         if filename=='':
             self.filename=''
-            self.filepath=os.getcwd()
+            self.filepath=''
             self.fileext=''
         else:
             filename=ConvertFileNameToRelativePath(filename)
@@ -75,6 +75,8 @@ class FileParts(object):
         return self.filename+self.fileext
     def FilePath(self):
         return self.filepath
+    def AbsoluteFilePath(self):
+        return os.getcwd()+'/'+self.filepath
     
         
 

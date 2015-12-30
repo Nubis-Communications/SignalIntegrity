@@ -20,7 +20,7 @@ class PlotDialog(Toplevel):
         self.parent=parent
         self.withdraw()
         self.title('PySI Results')
-        img = PhotoImage(file='./icons/png/AppIcon2.gif')
+        img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 

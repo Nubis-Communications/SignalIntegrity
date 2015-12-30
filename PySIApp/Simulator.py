@@ -25,7 +25,7 @@ class SimulatorDialog(Toplevel):
         self.parent=parent
         self.withdraw()
         self.title('PySI Simulation')
-        img = PhotoImage(file='./icons/png/AppIcon2.gif')
+        img = PhotoImage(file=self.parent.parent.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
@@ -69,14 +69,14 @@ class SimulatorDialog(Toplevel):
         # The Toolbar
         ToolBarFrame = Frame(self)
         ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         self.f = Figure(figsize=(6,4), dpi=100)
         self.plt = self.f.add_subplot(111)
@@ -117,19 +117,25 @@ class SimulatorDialog(Toplevel):
 
         self.waveformList=waveformList
         self.waveformNamesList=waveformNamesList
-
+        
+        mint=None
+        maxt=None
         for wfi in range(len(self.waveformList)):
-            if wfi==0:
-                mint=self.waveformList[wfi].Times('ns')[0]
-                maxt=self.waveformList[wfi].Times('ns')[-1]
-            else:
-                mint=max(mint,self.waveformList[wfi].Times('ns')[0])
-                maxt=min(maxt,self.waveformList[wfi].Times('ns')[-1])
-            self.plt.plot(self.waveformList[wfi].Times('ns'),self.waveformList[wfi].Values(),label=str(self.waveformNamesList[wfi]))
+            wf=self.waveformList[wfi]
+            wfTimes=wf.Times('ns')
+            if len(wfTimes)==0:
+                continue
+            wfValues=wf.Values()
+            wfName=str(self.waveformNamesList[wfi])
+            mint=wfTimes[0] if mint is None else max(mint,wfTimes[0])
+            maxt=wfTimes[-1] if maxt is None else min(maxt,wfTimes[-1])
+            self.plt.plot(wfTimes,wfValues,label=wfName)
 
         if not self.waveformList is None:
-            self.plt.set_xlim(xmin=mint)
-            self.plt.set_xlim(xmax=maxt)
+            if not mint is None:
+                self.plt.set_xlim(xmin=mint)
+            if not maxt is None:
+                self.plt.set_xlim(xmax=maxt)
 
         self.plt.legend(loc='upper right',labelspacing=0.1)
         self.f.canvas.draw()
@@ -143,8 +149,10 @@ class SimulatorDialog(Toplevel):
                 filename=outputWaveformName
             else:
                 filename=self.parent.parent.fileparts.filename+'_'+outputWaveformName
-            filename=asksaveasfilename(parent=self,filetypes=[('waveform', '.txt')],defaultextension='.txt',
-                            initialdir=self.parent.parent.fileparts.filepath,initialfile=filename+'.txt')
+            filename=asksaveasfilename(parent=self,filetypes=[('waveform', '.txt')],
+                            defaultextension='.txt',
+                            initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
+                            initialfile=filename+'.txt')
             if filename is None:
                 filename=''
             filename=str(filename)
@@ -169,7 +177,8 @@ class SimulatorDialog(Toplevel):
     def onMatplotlib2TikZ(self):
         import os
         filename=asksaveasfilename(parent=self,filetypes=[('tex', '.tex')],defaultextension='.tex',
-                                   initialdir=self.parent.parent.fileparts.filepath,initialfile=self.parent.parent.fileparts.filename+'.tex')
+                                   initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
+                                   initialfile=self.parent.parent.fileparts.filename+'.tex')
         if filename is None:
             filename=''
         filename=str(filename)

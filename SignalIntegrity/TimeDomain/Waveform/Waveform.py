@@ -40,7 +40,8 @@ class Waveform(object):
                 return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
             else:
                 awf=AdaptedWaveforms([self,other])
-                return awf[0]+awf[1]
+                return Waveform(awf[0].TimeDescriptor(),[awf[0][k]+awf[1][k] for k in range(len(awf[0]))])
+                #return awf[0]+awf[1]
         elif isinstance(other,float):
             return Waveform(self.m_t,[v+other for v in self.Values()])
     def __sub__(self,other):

@@ -62,10 +62,10 @@ class DeviceProperty(Frame):
             filetypename='all'
         currentFileParts=FileParts(self.partProperty.PropertyString(stype='raw'))
         if currentFileParts.filename=='':
-            initialDirectory=self.parent.parent.parent.fileparts.filepath
+            initialDirectory=self.parent.parent.parent.fileparts.AbsoluteFilePath()
             initialFile=''
         else:
-            initialDirectory=currentFileParts.filepath
+            initialDirectory=currentFileParts.AbsoluteFilePath()
             initialFile=currentFileParts.filename+extension
         filename=askopenfilename(parent=self,filetypes=[(filetypename,extension)],
                         initialdir=initialDirectory,initialfile=initialFile)

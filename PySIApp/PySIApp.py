@@ -30,13 +30,14 @@ class TheApp(Frame):
         self.root = Tk()
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
+        self.installdir=os.path.dirname(os.path.abspath(__file__))
 
         self.root.title("PySI")
 
-        img = PhotoImage(file='./icons/png/AppIcon2.gif')
+        img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
-        sys.path.append(os.path.dirname(os.path.abspath(__file__))+'/..')
+        sys.path.append(self.installdir+'/..')
         foundSignalIntegrity=False
         while not foundSignalIntegrity:
             foundSignalIntegrity = True
@@ -59,8 +60,10 @@ class TheApp(Frame):
         self.statusbar=StatusBar(self)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
+        self.NewProjectDoer = Doer(self.onNewProject).AddKeyBindElement(self.root,'<Control-n>').AddHelpElement(self.helpSystemKeys['Control-Help:New-Project'])
         self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement(self.helpSystemKeys['Control-Help:Open-Project'])
-        self.SaveProjectDoer = Doer(self.onWriteProjectToFile).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement(self.helpSystemKeys['Control-Help:Save-Project'])
+        self.SaveProjectDoer = Doer(self.onSaveProject).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement(self.helpSystemKeys['Control-Help:Save-Project'])
+        self.SaveAsProjectDoer = Doer(self.onSaveAsProject).AddKeyBindElement(self.root,'<Control-Shift-s>').AddHelpElement(self.helpSystemKeys['Control-Help:Save-As-Project'])
         self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement(self.helpSystemKeys['Control-Help:Clear-Schematic'])
         self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement(self.helpSystemKeys['Control-Help:Export-Netlist'])
         self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement(self.helpSystemKeys['Control-Help:Export-LaTeX'])
@@ -112,12 +115,14 @@ class TheApp(Frame):
         self.root.config(menu=TheMenu)
         FileMenu=Menu(self)
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
+        self.NewProjectDoer.AddMenuElement(FileMenu,label="New Project",accelerator='Ctrl+N',underline=0)
         self.OpenProjectDoer.AddMenuElement(FileMenu,label="Open Project",accelerator='Ctrl+O',underline=0)
         self.SaveProjectDoer.AddMenuElement(FileMenu,label="Save Project",accelerator='Ctrl+S',underline=0)
+        self.SaveAsProjectDoer.AddMenuElement(FileMenu,label="Save Project As...",accelerator='Ctrl+Shift-S',underline=1)
         FileMenu.add_separator()
         self.ClearProjectDoer.AddMenuElement(FileMenu,label="Clear Schematic",underline=0)
         FileMenu.add_separator()
-        self.ExportNetListDoer.AddMenuElement(FileMenu,label="Export NetList",underline=7)
+        self.ExportNetListDoer.AddMenuElement(FileMenu,label="Export NetList",underline=0)
         self.ExportTpXDoer.AddMenuElement(FileMenu,label="Export LaTeX (TikZ)",underline=7)
         # ------
         EditMenu=Menu(self)
@@ -180,32 +185,32 @@ class TheApp(Frame):
         # The Toolbar
         ToolBarFrame = Frame(self)
         ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        self.ClearProjectDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-new-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-open-2.gif',).Pack(side=LEFT,fill=NONE,expand=NO)
-        self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/document-new-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/document-open-2.gif',).Pack(side=LEFT,fill=NONE,expand=NO)
+        self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/edit-add-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/edit-delete-6.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.AddWireDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/draw-line-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.DuplicateSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/edit-copy-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.RotatePartDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/object-rotate-left-4.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.FlipPartHorizontallyDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/object-flip-horizontal-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.FlipPartVerticallyDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/object-flip-vertical-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-add-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-delete-6.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.AddWireDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/draw-line-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.DuplicateSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-copy-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.RotatePartDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/object-rotate-left-4.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.FlipPartHorizontallyDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/object-flip-horizontal-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.FlipPartVerticallyDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/object-flip-vertical-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.ZoomInDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/zoom-in-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ZoomOutDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/zoom-out-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.PanDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/edit-move.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ZoomInDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/zoom-in-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ZoomOutDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/zoom-out-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.PanDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-move.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         # ------
         UndoFrame=Frame(ToolBarFrame)
         UndoFrame.pack(side=RIGHT,fill=NONE,expand=NO,anchor=E)
-        self.UndoDoer.AddToolBarElement(UndoFrame,iconfile='./icons/png/16x16/actions/edit-undo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
-        self.RedoDoer.AddToolBarElement(UndoFrame,iconfile='./icons/png/16x16/actions/edit-redo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-undo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-redo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
 
         # The Drawing (which contains the schecmatic)
         self.Drawing=Drawing(self)
@@ -256,35 +261,47 @@ class TheApp(Frame):
         self.Drawing.DrawSchematic()
 
     def onReadProjectFromFile(self):
-        self.Drawing.stateMachine.Nothing()
-        filename=askopenfilename(filetypes=[('xml', '.xml')],initialdir=self.fileparts.filepath,
-                                 initialfile=self.fileparts.filename)
+        filename=askopenfilename(filetypes=[('xml', '.xml')],initialdir=self.fileparts.AbsoluteFilePath(),
+                                 initialfile=self.fileparts.FileNameWithExtension('.xml'))
         if filename is None:
             filename=''
         filename=str(filename)
         if filename == '':
             return
         self.fileparts=FileParts(filename)
-        tree=et.parse(self.fileparts.FullFilePathExtension('.xml'))
-        root=tree.getroot()
-        for child in root:
-            if child.tag == 'drawing':
-                self.Drawing.InitFromXml(child)
-            elif child.tag == 'calculation_properties':
-                self.calculationProperties.InitFromXml(child, self)
+        os.chdir(self.fileparts.AbsoluteFilePath())
+        self.fileparts=FileParts(filename)
+        try:
+            tree=et.parse(self.fileparts.FullFilePathExtension('.xml'))
+            root=tree.getroot()
+            for child in root:
+                if child.tag == 'drawing':
+                    self.Drawing.InitFromXml(child)
+                elif child.tag == 'calculation_properties':
+                    self.calculationProperties.InitFromXml(child, self)
+        except:
+            tkMessageBox.showerror('read project file','file not found or unreadable')
+            return
+        self.Drawing.stateMachine.Nothing()
         self.Drawing.DrawSchematic()
         self.history.Event('read project')
         self.root.title('PySI: '+self.fileparts.FileNameTitle())
-
-    def onWriteProjectToFile(self):
-        self.Drawing.stateMachine.Nothing()
+    
+    def onNewProject(self):
         filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
-                                   initialfile=self.fileparts.FileNameWithExtension('.xml'),initialdir=self.fileparts.filepath)
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   title='new project file')
         if filename is None:
             filename=''
         filename=str(filename)
         if filename=='':
             return
+        self.Drawing.stateMachine.Nothing()
+        self.Drawing.schematic.Clear()
+        self.Drawing.DrawSchematic()
+        self.history.Event('new project')
+        self.fileparts=FileParts(filename)
+        os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
         projectElement=et.Element('Project')
         drawingElement=self.Drawing.xml()
@@ -293,13 +310,46 @@ class TheApp(Frame):
         et.ElementTree(projectElement).write(filename)
         self.root.title("PySI: "+self.fileparts.FileNameTitle())
 
+    def onSaveProject(self):
+        if self.fileparts.filename=='':
+            return
+        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.xml')
+        self.Drawing.stateMachine.Nothing()
+        projectElement=et.Element('Project')
+        drawingElement=self.Drawing.xml()
+        calculationPropertiesElement=self.calculationProperties.xml()
+        projectElement.extend([drawingElement,calculationPropertiesElement])
+        et.ElementTree(projectElement).write(filename)
+        self.root.title("PySI: "+self.fileparts.FileNameTitle())
+        self.statusbar.set('Project Saved')
+
+    def onSaveAsProject(self):
+        filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
+                                   initialfile=self.fileparts.FileNameWithExtension('.xml'),initialdir=self.fileparts.AbsoluteFilePath())
+        if filename is None:
+            filename=''
+        filename=str(filename)
+        if filename=='':
+            return
+        self.Drawing.stateMachine.Nothing()
+        self.fileparts=FileParts(filename)
+        os.chdir(self.fileparts.AbsoluteFilePath())
+        self.fileparts=FileParts(filename)
+        projectElement=et.Element('Project')
+        drawingElement=self.Drawing.xml()
+        calculationPropertiesElement=self.calculationProperties.xml()
+        projectElement.extend([drawingElement,calculationPropertiesElement])
+        et.ElementTree(projectElement).write(filename)
+        self.root.title("PySI: "+self.fileparts.FileNameTitle())
+        self.statusbar.set('Project Saved')
+
     def onClearSchematic(self):
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
-        self.history.Event('new project')
+        self.history.Event('clear project')
         self.Drawing.DrawSchematic()
-        self.fileparts=FileParts()
-        self.root.title('PySI')
+        #self.fileparts=FileParts()
+        #self.root.title('PySI')
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
@@ -310,7 +360,7 @@ class TheApp(Frame):
         from TikZ import TikZ
         self.Drawing.stateMachine.Nothing()
         filename=asksaveasfilename(filetypes=[('tpx', '.TpX')],defaultextension='.TpX',
-                                   initialdir=self.fileparts.filepath,initialfile=self.fileparts.filename+'.TpX')
+                                   initialdir=self.fileparts.AbsoluteFilePath(),initialfile=self.fileparts.filename+'.TpX')
         if filename is None:
             filename=''
         filename = str(filename)
@@ -510,7 +560,9 @@ class TheApp(Frame):
 
     def onSParameterViewer(self):
         import SignalIntegrity as si
-        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],parent=self,initialdir=self.fileparts.filepath)
+        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],
+                                 parent=self,
+                                 initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
             filename=''
         filename=str(filename)
@@ -534,8 +586,10 @@ class TheApp(Frame):
     def onControlHelp(self):
         Doer.inHelp = not Doer.inHelp
         if Doer.inHelp:
+            self.NewProjectDoer.Activate(True)
             self.OpenProjectDoer.Activate(True)
             self.SaveProjectDoer.Activate(True)
+            self.SaveAsProjectDoer.Activate(True)
             self.ClearProjectDoer.Activate(True)
             self.ExportNetListDoer.Activate(True)
             self.ExportTpXDoer.Activate(True)
@@ -588,7 +642,10 @@ class TheApp(Frame):
 
 
     def onEscape(self):
-        self.Drawing.stateMachine.Nothing(True)
+        if self.Drawing.stateMachine.state != 'NoProject':
+            self.Drawing.stateMachine.Nothing(True)
+        else:
+            self.Drawing.stateMachine.NoProject(True)
         self.config(cursor='left_ptr')
 
 def main():

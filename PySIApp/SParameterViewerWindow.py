@@ -70,7 +70,7 @@ class SParametersDialog(Toplevel):
             else:
                 self.title(title+': '+self.fileparts.FileNameTitle())
 
-        img = PhotoImage(file='./icons/png/AppIcon2.gif')
+        img = PhotoImage(file=self.parent.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
@@ -109,13 +109,13 @@ class SParametersDialog(Toplevel):
         # The Toolbar
         ToolBarFrame = Frame(self)
         ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(self,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile='./icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         topFrame=Frame(self)
         topFrame.pack(side=TOP,fill=BOTH,expand=YES)
@@ -307,7 +307,9 @@ class SParametersDialog(Toplevel):
 
     def onReadSParametersFromFile(self):
         import SignalIntegrity as si
-        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],initialdir=self.fileparts.filepath,parent=self)
+        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),
+                                 parent=self)
         if filename is None:
             filename=''
         filename=str(filename)
@@ -338,8 +340,11 @@ class SParametersDialog(Toplevel):
     def onWriteSParametersToFile(self):
         ports=self.sp.m_P
         extension='.s'+str(ports)+'p'
-        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],defaultextension=extension,
-                    initialdir=self.fileparts.filepath,initialfile=self.fileparts.FileNameWithExtension(extension),parent=self)
+        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],
+                    defaultextension=extension,
+                    initialdir=self.fileparts.AbsoluteFilePath(),
+                    initialfile=self.fileparts.FileNameWithExtension(extension),
+                    parent=self)
         if filename is None:
             filename=''
         filename=str(filename)

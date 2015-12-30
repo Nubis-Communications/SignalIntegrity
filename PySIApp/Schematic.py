@@ -118,7 +118,7 @@ class Schematic(object):
 class DrawingStateMachine(object):
     def __init__(self,parent):
         self.parent=parent
-        self.Nothing()
+        self.NoProject()
     def UnselectAllDevices(self):
         for device in self.parent.schematic.deviceList:
             device.selected=False
@@ -242,6 +242,92 @@ class DrawingStateMachine(object):
         self.selectedDevices = [device.selected for device in self.parent.schematic.deviceList]
         self.selectedWireVertex = [[vertex.selected for vertex in wire] for wire in self.parent.schematic.wireList]
         self.SelectingMore()
+        
+    def NoProject(self,force=False):
+        if not hasattr(self,'state'):
+            self.state=''
+        if self.state != 'NoProject' or force:
+            self.parent.canvas.config(cursor='left_ptr')
+            self.state='NoProject'
+            self.parent.schematic.Consolidate()
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            Doer.inHelp = False
+            self.parent.canvas.bind('<Button-1>',self.onMouseButton1_NoProject)
+            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_NoProject)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_NoProject)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_NoProject)
+            self.parent.canvas.bind('<Button-3>',self.onMouseButton3_NoProject)
+            self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_NoProject)
+            self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_NoProject)
+            self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_NoProject)
+            self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_NoProject)
+            self.parent.canvas.bind('<Motion>',self.onMouseMotion_NoProject)
+            self.parent.parent.NewProjectDoer.Activate(True)
+            self.parent.parent.OpenProjectDoer.Activate(True)
+            self.parent.parent.SaveProjectDoer.Activate(False)
+            self.parent.parent.SaveAsProjectDoer.Activate(False)
+            self.parent.parent.ClearProjectDoer.Activate(False)
+            self.parent.parent.ExportNetListDoer.Activate(False)
+            self.parent.parent.ExportTpXDoer.Activate(False)
+            self.parent.parent.UndoDoer.Activate(False)
+            self.parent.parent.RedoDoer.Activate(False)
+            self.parent.parent.DeleteSelectedDoer.Activate(False)
+            self.parent.parent.DuplicateSelectedDoer.Activate(False)
+            self.parent.parent.CutSelectedDoer.Activate(False)
+            self.parent.parent.AddPartDoer.Activate(False)
+            self.parent.parent.AddPortDoer.Activate(False)
+            self.parent.parent.AddMeasureProbeDoer.Activate(False)
+            self.parent.parent.AddOutputProbeDoer.Activate(False)
+            self.parent.parent.AddStimDoer.Activate(False)
+            self.parent.parent.AddUnknownDoer.Activate(False)
+            self.parent.parent.AddSystemDoer.Activate(False)
+            self.parent.parent.DeletePartDoer.Activate(False)
+            self.parent.parent.EditPropertiesDoer.Activate(False)
+            self.parent.parent.DuplicatePartDoer.Activate(False)
+            self.parent.parent.RotatePartDoer.Activate(False)
+            self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
+            self.parent.parent.FlipPartVerticallyDoer.Activate(False)
+            self.parent.parent.AddWireDoer.Activate(False)
+            self.parent.parent.DeleteVertexDoer.Activate(False)
+            self.parent.parent.DuplicateVertexDoer.Activate(False)
+            self.parent.parent.DeleteWireDoer.Activate(False)
+            self.parent.parent.ZoomInDoer.Activate(False)
+            self.parent.parent.ZoomOutDoer.Activate(False)
+            self.parent.parent.PanDoer.Activate(False)
+            self.parent.parent.CalculationPropertiesDoer.Activate(False)
+            self.parent.parent.SParameterViewerDoer.Activate(True)
+            self.parent.parent.CalculateDoer.Activate(False)
+            self.parent.parent.CalculateSParametersDoer.Activate(False)
+            self.parent.parent.SimulateDoer.Activate(False)
+            self.parent.parent.VirtualProbeDoer.Activate(False)
+            self.parent.parent.DeembedDoer.Activate(False)
+            self.parent.parent.HelpDoer.Activate(True)
+            self.parent.parent.ControlHelpDoer.Activate(True)
+            self.parent.parent.EscapeDoer.Activate(True)
+            self.parent.parent.statusbar.set('No Project')
+            self.parent.DrawSchematic()
+
+    def onMouseButton1_NoProject(self,event):
+        pass
+    def onCtrlMouseButton1_NoProject(self,event):
+        pass
+    def onCtrlMouseButton1Motion_NoProject(self,event):
+        pass
+    def onCtrlMouseButton1Release_NoProject(self,event):
+        pass
+    def onMouseButton3_NoProject(self,event):
+        pass
+    def onMouseButton1Motion_NoProject(self,event):
+        pass
+    def onMouseButton1Release_NoProject(self,event):
+        pass
+    def onMouseButton3Release_NoProject(self,event):
+        self.parent.tk.call('tk_popup',self.parent.canvasTearOffMenu, event.x_root, event.y_root)
+    def onMouseButton1Double_NoProject(self,event):
+        pass
+    def onMouseMotion_NoProject(self,event):
+        pass
 
     def Nothing(self,force=False):
         if not hasattr(self,'state'):
@@ -264,18 +350,48 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Nothing)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Nothing)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Nothing)
+            self.parent.parent.NewProjectDoer.Activate(True)
+            self.parent.parent.OpenProjectDoer.Activate(True)
+            self.parent.parent.SaveProjectDoer.Activate(True)
+            self.parent.parent.SaveAsProjectDoer.Activate(True)
+            self.parent.parent.ClearProjectDoer.Activate(True)
+            self.parent.parent.ExportNetListDoer.Activate(True)
+            self.parent.parent.ExportTpXDoer.Activate(True)
+            #self.parent.parent.UndoDoer.Activate(False)
+            #self.parent.parent.RedoDoer.Activate(False)
+            self.parent.parent.DeleteSelectedDoer.Activate(False)
+            self.parent.parent.DuplicateSelectedDoer.Activate(False)
+            self.parent.parent.CutSelectedDoer.Activate(False)
+            self.parent.parent.AddPartDoer.Activate(True)
+            self.parent.parent.AddPortDoer.Activate(True)
+            self.parent.parent.AddMeasureProbeDoer.Activate(True)
+            self.parent.parent.AddOutputProbeDoer.Activate(True)
+            self.parent.parent.AddStimDoer.Activate(True)
+            self.parent.parent.AddUnknownDoer.Activate(True)
+            self.parent.parent.AddSystemDoer.Activate(True)
+            self.parent.parent.DeletePartDoer.Activate(False)
+            self.parent.parent.EditPropertiesDoer.Activate(False)
+            self.parent.parent.DuplicatePartDoer.Activate(False)
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
-            self.parent.parent.DeletePartDoer.Activate(False)
-            self.parent.parent.DeleteSelectedDoer.Activate(False)
-            self.parent.parent.EditPropertiesDoer.Activate(False)
-            self.parent.parent.DuplicatePartDoer.Activate(False)
-            self.parent.parent.DuplicateSelectedDoer.Activate(False)
-            self.parent.parent.CutSelectedDoer.Activate(False)
+            self.parent.parent.AddWireDoer.Activate(True)
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
+            self.parent.parent.ZoomInDoer.Activate(True)
+            self.parent.parent.ZoomOutDoer.Activate(True)
+            self.parent.parent.PanDoer.Activate(True)
+            self.parent.parent.CalculationPropertiesDoer.Activate(True)
+            self.parent.parent.SParameterViewerDoer.Activate(True)
+            #self.parent.parent.CalculateDoer.Activate(False)
+            #self.parent.parent.CalculateSParametersDoer.Activate(False)
+            #self.parent.parent.SimulateDoer.Activate(False)
+            #self.parent.parent.VirtualProbeDoer.Activate(False)
+            #self.parent.parent.DeembedDoer.Activate(False)
+            self.parent.parent.HelpDoer.Activate(True)
+            self.parent.parent.ControlHelpDoer.Activate(True)
+            self.parent.parent.EscapeDoer.Activate(False)
             self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
             self.parent.parent.statusbar.clear()
             self.parent.DrawSchematic()
@@ -1096,7 +1212,6 @@ class Drawing(Frame):
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
         self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.DeembedDoer.Activate(canDeembed)
-        self.parent.SaveProjectDoer.Activate(foundSomething)
         self.parent.ClearProjectDoer.Activate(foundSomething)
         self.parent.ExportNetListDoer.Activate(foundSomething)
         self.parent.ExportTpXDoer.Activate(foundSomething)

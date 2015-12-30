@@ -263,7 +263,7 @@ class NetListDialog(Toplevel):
     def ok(self, event=None):
         extension='.txt'
         filename=asksaveasfilename(parent=self,filetypes=[('text', extension)],defaultextension='.txt',
-                                   initialdir=self.parent.fileparts.filepath,initialfile=self.parent.fileparts.filename+'.txt')
+                                   initialdir=self.parent.fileparts.AbsoluteFilePath(),initialfile=self.parent.fileparts.filename+'.txt')
         if filename is None:
             filename=''
         filename=str(filename)

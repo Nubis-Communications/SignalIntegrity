@@ -4,10 +4,16 @@ Created on Oct 29, 2015
 @author: peterp
 '''
 import math
+import numpy
 
 def nextHigher(v,ml):
     ml=sorted(ml)
-    exp=math.floor(math.log10(v))
+    sign=math.copysign(1.,v)
+    v=v*sign
+    try:
+        exp=math.floor(math.log10(v))
+    except ValueError:
+        return 0.
     mul=pow(10.,exp)
     mant=v/mul-1e-15
     foundit=False
@@ -18,11 +24,16 @@ def nextHigher(v,ml):
             break
     if not foundit:
         mant=10.
-    return mant*mul
+    return mant*mul*sign
 
 def nextLower(v,ml):
     ml = list(reversed(sorted(ml)))
-    exp=math.floor(math.log10(v))
+    sign=math.copysign(1.,v)
+    v=v*sign
+    try:
+        exp=math.floor(math.log10(v))
+    except ValueError:
+        return 0.
     mul=pow(10.,exp)
     mant=v/mul+1e-15
     foundit=False
@@ -33,7 +44,7 @@ def nextLower(v,ml):
             break
     if not foundit:
         mant=0.1
-    return mant*mul
+    return mant*mul*sign
 
 def nextHigher125(v):
     return nextHigher(v,[1.,2.,5.])

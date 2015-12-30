@@ -54,7 +54,7 @@ class CalculationPropertiesDialog(Toplevel):
         self.parent=parent
         self.withdraw()
         self.title('PySI CalculationProperties')
-        img = PhotoImage(file='./icons/png/AppIcon2.gif')
+        img = PhotoImage(file=self.parent.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.calculationProperties=calculationProperties
@@ -73,12 +73,14 @@ class CalculationPropertiesDialog(Toplevel):
         self.calculationProperties.endFrequency=nextHigher12458(FromSI(self.endFrequencyFrame.GetString(),'Hz'))
         self.calculationProperties.baseSampleRate=2.*self.calculationProperties.endFrequency
         self.calculationProperties.frequencyPoints=int(nextHigher12458(self.calculationProperties.endFrequency/self.calculationProperties.frequencyResolution))
+        self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=self.calculationProperties.frequencyPoints*2
         self.calculationProperties.frequencyResolution=self.calculationProperties.endFrequency/self.calculationProperties.frequencyPoints
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution
 
     def onfrequencyPointsEntered(self,event):
         self.calculationProperties.frequencyPoints=int(nextHigher12458(FromSI(self.frequencyPointsFrame.GetString(),'pts')))
+        self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=int(self.calculationProperties.frequencyPoints*2)
         self.calculationProperties.frequencyResolution=self.calculationProperties.endFrequency/self.calculationProperties.frequencyPoints
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution
@@ -86,6 +88,7 @@ class CalculationPropertiesDialog(Toplevel):
     def onfrequencyResolutionEntered(self,event):
         self.calculationProperties.frequencyResolution=FromSI(self.frequencyResolutionFrame.GetString(),'Hz')
         self.calculationProperties.frequencyPoints=int(nextHigher12458(self.calculationProperties.endFrequency/self.calculationProperties.frequencyResolution))
+        self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=self.calculationProperties.frequencyPoints*2
         self.calculationProperties.frequencyResolution=self.calculationProperties.endFrequency/self.calculationProperties.frequencyPoints
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution
@@ -98,6 +101,7 @@ class CalculationPropertiesDialog(Toplevel):
         self.calculationProperties.endFrequency=nextHigher12458(self.calculationProperties.baseSampleRate/2.)
         self.calculationProperties.baseSampleRate=self.calculationProperties.endFrequency*2
         self.calculationProperties.frequencyPoints=int(nextHigher12458(self.calculationProperties.endFrequency/self.calculationProperties.frequencyResolution))
+        self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=self.calculationProperties.frequencyPoints*2
         self.calculationProperties.frequencyResolution=self.calculationProperties.endFrequency/self.calculationProperties.frequencyPoints
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution
@@ -105,6 +109,7 @@ class CalculationPropertiesDialog(Toplevel):
     def ontimePointsEntered(self,event):
         self.calculationProperties.timePoints=int(FromSI(self.timePointsFrame.GetString()),'pts')
         self.calculationProperties.frequencyPoints=int(nextHigher12458(self.calculationProperties.timePoints/2))
+        self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=self.calculationProperties.frequencyPoints*2
         self.calculationProperties.frequencyResolution=self.calculationProperties.endFrequency/self.calculationProperties.frequencyPoints
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution
@@ -113,6 +118,7 @@ class CalculationPropertiesDialog(Toplevel):
         self.calculationProperties.impulseLength=FromSI(self.impulseLengthFrame.GetString(),'s')
         self.calculationProperties.timePoints=self.calculationProperties.impulseLength*self.calculationProperties.baseSampleRate
         self.calculationProperties.frequencyPoints=int(nextHigher12458(self.calculationProperties.timePoints/2.))
+        self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=self.calculationProperties.frequencyPoints*2
         self.calculationProperties.frequencyResolution=self.calculationProperties.endFrequency/self.calculationProperties.frequencyPoints
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution

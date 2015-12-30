@@ -609,14 +609,20 @@ class WireList(object):
             # as added, their list of vertices can be added to form the equipotential line for purposes of determining
             # device connections
             for wireIndex in range(len(wireList)):
-                if len(wireList[wireIndex])>0:
-                    for otherWireIndex in range(len(wireList)):
-                        if len(wireList[otherWireIndex])>0 and wireIndex != otherWireIndex:
-                            if len(set(wireList[wireIndex].CoordinateList()).intersection(set(wireList[otherWireIndex].CoordinateList())))>0:
-                                # there is a common vertex among these wires
-                                # add the wires
-                                wireList[wireIndex]=wireList[wireIndex]+wireList[otherWireIndex]
-                                wireList[otherWireIndex]=Wire()
+                joinedOne=True
+                while joinedOne:
+                    joinedOne=False
+                    if len(wireList[wireIndex])>0:
+                        for otherWireIndex in range(len(wireList)):
+                            if len(wireList[otherWireIndex])>0 and wireIndex != otherWireIndex:
+                                if len(set(wireList[wireIndex].CoordinateList()).intersection(set(wireList[otherWireIndex].CoordinateList())))>0:
+                                    # there is a common vertex among these wires
+                                    # add the wires
+                                    wireList[wireIndex]=wireList[wireIndex]+wireList[otherWireIndex]
+                                    wireList[wireIndex].vertexList=[Vertex(survived) for survived in list(set([vertex.coord for vertex in wireList[wireIndex].vertexList]))]
+                                    wireList[otherWireIndex]=Wire()
+                                    joinedOne=True
+                                    break
             # now keep only surviving wires
             newWireList=WireList()
             for wire in wireList:

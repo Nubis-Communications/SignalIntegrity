@@ -34,7 +34,7 @@ class VirtualProbeNumeric(VirtualProbe):
         # pragma: silent exclude indent
         except ValueError:
             raise PySIExceptionVirtualProbe('incorrect matrix alignment')
-        except LinalgError:
+        except LinAlgError:
             raise PySIExceptionVirtualProbe('numerical error - cannot invert matrix')
         # pragma: include
         return Result

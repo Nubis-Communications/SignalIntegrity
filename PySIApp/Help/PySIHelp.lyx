@@ -4029,6 +4029,36 @@ reference "sec:Simulator-Dialog"
  to make sure that this occurred.
 \end_layout
 
+\begin_layout Standard
+To try to get some feeling on how the properties should be set, we can invoke
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-parameter-Viewer"
+
+\end_inset
+
+ and use the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ to examine the s-parameter files in the system and invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Resample"
+
+\end_inset
+
+ to see what the impulse responses look like resampled onto the desired
+ calculation properties.
+ But remember that your system contains many sets of such files that may
+ cause the impulse response lengths needed for the transfer parameters to
+ be different than what any individual s-parameter file shows.
+\end_layout
+
 \begin_layout Subsection
 Virtual Probing
 \begin_inset CommandInset label
@@ -4207,6 +4237,676 @@ name "sub:Virtual-Probing-Example"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+In this example, we are not going to explain how to draw the entire example
+ in the schematic editor.
+ Many of the other examples step you through this process.
+ We will examine a canned example found in the folder ./Examples/VirtualProbingEx
+ample/VirtualProbeExample.xml.
+\end_layout
+
+\begin_layout Standard
+When we open this example using 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Control-Help:Open-Project"
+
+\end_inset
+
+, we see the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbingExample.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This example demonstrates many possible examples of virtual probing simultaneous
+ly.
+ The top network containing inductors, a capacitor and a resistor is a 
+\emph on
+probe loading model
+\emph default
+.
+ This is a circuit which describes the effect that a probe has when inserted
+ into a system.
+ These models are generally published by manufacturers of high-frequency
+ probes used for oscilloscopes.
+ The probe loading model shown is for a single-ended probe.
+\end_layout
+
+\begin_layout Standard
+The circuit beneath the probe loading model is the circuit being measured.
+ Ignoring the stimuli for the moment, this circuit is for a 50
+\begin_inset space \thinspace{}
+\end_inset
+
+Ω differential source driving a differential transmission line represented
+ by a four-port s-parameter 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ device.
+ The s-parameters are contained in the file Sparq_demo_16.s4p.
+ Notice that the probe loading model is connected to the circuit at the
+ input termination.
+\end_layout
+
+\begin_layout Standard
+The final circuit at the bottom is an exact duplicate of the previously
+ described circuit section except that it does not have the probe loading
+ model connected.
+\end_layout
+
+\begin_layout Standard
+In the probe loading model section where the probe is connected to the circuit,
+ we have a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ device (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probes"
+
+\end_inset
+
+ for more information).
+ The measure probe is shows an input file name of VirtualProbingExampleSimulatio
+n_Vprobe.txt which is presumably a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file containing a waveform measured (by, for example an oscilloscope) while
+ probing a circuit like the middle circuit section.
+ In fact, in this contrived example, it is the output waveform of a PySI
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ simulated under exactly these conditions.
+\end_layout
+
+\begin_layout Standard
+Invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ with the measure probe selected and press view to view the waveform in
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbeVprobeWaveform.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Throughout the rest of the schematic, we see various 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ devices (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-1"
+
+\end_inset
+
+ for more information).
+ I will talk about these in a bit, but for now notice one interesting thing
+ about the output probes named Voutloaded and Vout.
+ These are in between two back-to-back 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Mixed-Mode-Converter"
+
+\end_inset
+
+ devices.
+ These devices placed back-to-pack expose the plus and minus terminals of
+ a single-ended line on each side and the differential- and common-mode
+ lines in the middle.
+ These devices connected in this arrangement have no effect on the circuit
+ (the two plus pins or the two minus pins could even be shorted together
+ if you wanted).
+ Thus, these output probes are probing the differential output at the output
+ termination.
+\end_layout
+
+\begin_layout Standard
+Note that these output probes have keyword/values of td -1.43ns and gain
+ 0.5.
+ The gain is the gain applied to the output waveform.
+ Since the input waveform is a single-ended measurement it is half the size
+ of the differential waveform.
+ We want to see relative changes is size, so we put the differential waveforms
+ on the same relative scale as the single-ended waveforms.
+ The time delay of -1.43 ns is to account for the delay through the channel.
+ This was estimated by examining the s-parameters of the file Sparq_demo_16.s4p.
+ You can do that by selecting the four-port file
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ device, double-clicking on it to invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ and then pressing view to invoke the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Selecting S31, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SparqDemo16S31.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and by selecting S41, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SparqDemo16S32.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since there are multiple spikes in the impulse response, the differential
+ time delay through the channels is roughly the time of the positive going
+ spike in the S31 that goes with the negative going spike in the S32.
+\end_layout
+
+\begin_layout Standard
+Regarding the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stimuli"
+
+\end_inset
+
+, we see four dependent stimuli and one independent stimuli.
+ The dependent stimuli are connected to the pin of each 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Ground"
+
+\end_inset
+
+ device representing the transmitters (remember, a voltage source looks
+ like a short with waves emanating from it).
+ These grounds are connected through a small piece of wire to the pins of
+ 50
+\begin_inset space \thinspace{}
+\end_inset
+
+Ω resistors.
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stimuli"
+
+\end_inset
+
+ for why this small piece of wire is necessary).
+ A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ is connected with the arrow touching each pin of the grounds, meaning the
+ stimulus emanates from the grounds.
+\end_layout
+
+\begin_layout Standard
+An independent stimulus is all the way to the left with wires connecting
+ the arrow tip of the independent stimulus to the back of each of the stims.
+ This means that the other stimuli depend on this stimulus.
+ Note that in each of the circuit sections, the weights of the two bottom
+ stims are -1.0 (the others are 1.0 and not shown).
+ This means that the top stim in each circuit is the same as the independent
+ stimulus and the bottom stim in each circuit is the negative of the independent
+ stimulus.
+ What we are saying here is that the waves emanating from the differential
+ transmitters are balanced.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stimuli"
+
+\end_inset
+
+ for a discussion of this topic.
+\end_layout
+
+\begin_layout Standard
+Now that we understand all of the interconnections, let's understand what
+ is the intent of this system.
+\end_layout
+
+\begin_layout Standard
+We are providing a measured waveform Vprobe, and have output probes called:
+\end_layout
+
+\begin_layout Itemize
+Vmeas - the measured input waveform at the transmitter.
+ This waveform can be considered as the input waveform to the backplane
+ with the probe loading the circuit.
+\end_layout
+
+\begin_layout Itemize
+Voutloaded - the waveform at the receiver to be produced by Virtual Probing.
+ This waveform is the output waveform with the probe loading the circuit.
+\end_layout
+
+\begin_layout Itemize
+Vin - the waveform at the transmitter in the bottom circuit to be produced
+ by Virtual Probing.
+ This waveform is the input waveform to the circuit if the probe were not
+ loading the circuit.
+\end_layout
+
+\begin_layout Itemize
+Vout - the waveform at the receiver to be produced by Virtual Probing.
+ This waveform is the output waveform without the probe loading the circuit.
+\end_layout
+
+\begin_layout Standard
+Virtual Probe is being asked to provide these waveforms given a single,
+ single-ended measurement at the transmitter.
+\end_layout
+
+\begin_layout Standard
+So the problem being solved is three-fold:
+\end_layout
+
+\begin_layout Itemize
+Voutloaded provides for a measurement in a different circuit location (the
+ receiver) given a measurement taken at the transmitter.
+\end_layout
+
+\begin_layout Itemize
+Vin provides for a measurement in the same system with the probe loading
+ effects removed.
+ In other words, it provides what the measurement would be were the probe
+ perfect.
+ In a sense, it is a deembedding of the loading effects of the probe.
+\end_layout
+
+\begin_layout Itemize
+Vout provides for a measurement of the output waveform from a system, without
+ the probe loading the system.
+ This measurement is usually the actual goal.
+ Note that this could be used for compliance testing of systems without
+ having the actual backplane - and in fact could be used for monte-carlo
+ testing of compliance if run with many different backplanes whose existance
+ is virtual - in the form of s-parameter files.
+ (These backplanes might not even exist and might be the product of other
+ signal integrity analysis tools).
+ All we would need to get right for this compliance testing would be a model
+ of the probe and probing structure connected to the transmitter.
+\end_layout
+
+\begin_layout Standard
+The first measurement we will take will be to see the effect of the probe
+ loading in the measurement of the input waveform.
+ So, select the two output probes at the output and move them off their
+ connection points as shown.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbingExampleProbeLoadingEffect.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Before creating the output waveforms, you need to check that the calculation
+ properties are appropriate.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
+
+\end_inset
+
+ for more information.
+ Here we use the following settings:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CalculationPropertiesDefault.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Invoke  
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Virtual-Probe"
+
+\end_inset
+
+ to create the output waveforms in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbeProbeLoadingWaveforms.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Amazingly, the new input waveform without the probe loading effects looks
+ much better.
+\end_layout
+
+\begin_layout Standard
+It's always a good idea to invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+ to view the transfer parameters in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+ Selecting Vin due to Vprobe, we see:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbeProbeLoadingTransferParameters.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is the filter that was created to convert the probed waveform to the
+ waveform that would be present without the probe loading effects.
+ Here we see a resonance at around 1 GHz accounting for a resonant cavity
+ in the probes response (this would not be a great probe in real life).
+ We see this resonance in the impulse and step response and fortunately
+ it dies down before 10 ns, so the calculation settings are okay for this
+ situation.
+\end_layout
+
+\begin_layout Standard
+Now let's go back to the schematic and view the output waveform.
+ Disconnect the Vin output probe and connect the Voutloaded output probe
+ like this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbingExampleProbingAtDifferentPoint.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Invoke  
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Virtual-Probe"
+
+\end_inset
+
+ to create the output waveforms in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbingExampleProbingAtDifferentPointWaveforms.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that because we applied the -1.43 ns delay and the half gain, they resemble
+ each other.
+ This is an example of using virtual probing to simply probe at a different
+ location in the circuit than is actually being probed.
+\end_layout
+
+\begin_layout Standard
+This portion of the example does not give us what we really want.
+ We want to see what the output waveform would be were the probe not loading
+ the system.
+ For this, we go back to the schematic, and disconnect the two output probes
+ at the input and connect the output probes at the output, like this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbeOutputsOnly.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Invoke  
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Virtual-Probe"
+
+\end_inset
+
+ to create the output waveforms in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbeOutputsOnlyWaveforms.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we see a not so negligible difference between the output waveforms
+ with and without the probe loading accounted for.
+\end_layout
+
+\begin_layout Standard
+Here, we were able to probe at the input and produce an output waveform
+ at the receiver that is independent of the probe effects.
+ In fact, if we simply probe the transmitter driving a known termination
+ with known probe effects, we could have gotten this same result.
+ Furthermore, we'd be able to replace the four-port backplane with varieties
+ of corner cases to test compliance, for example.
+\end_layout
+
+\begin_layout Standard
+Invoke 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Transfer-Parameters"
+
+\end_inset
+
+ to view the transfer parameters in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+ Selecting Vout due to Vprobe, we see:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VirtualProbeOutputsOnlyTransferParameters.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the end, you can connect all of the output probes and run the calculation
+ and save all of the waveforms by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-Waveforms"
+
+\end_inset
+
+ from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ and save all of the transfer parameters by invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-S-parameter-File"
+
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+ Note that the transfer parameters will be an .s4p file with only S11, S21,
+ S31, and S41 defined according to the ordering of the transfer parameters
+ shown.
 \end_layout
 
 \begin_layout Section
@@ -16562,6 +17262,13 @@ tr
 
 \begin_layout Subsection
 Ground
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Ground"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
