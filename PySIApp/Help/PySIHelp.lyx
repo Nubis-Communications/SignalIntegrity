@@ -232,7 +232,7 @@ reference "sub:Attaching-Ports-to-a-Schematic"
 \end_layout
 
 \begin_layout Subsection
-Attaching Ports to a Schematic
+Attaching Ports to a Schematic for S-parameter Calculation
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Attaching-Ports-to-a-Schematic"
@@ -243,7 +243,14 @@ name "sub:Attaching-Ports-to-a-Schematic"
 \end_layout
 
 \begin_layout Standard
-Ports define the s-parameters of the final circuit.
+A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ helps define the s-parameters of the final circuit.
  As you must be aware, s-parameters are a vector of matrix elements, where
  each matrix element is for a particular frequency (these frequencies are
  defined by the calculation properties defined in the next section: 
@@ -312,6 +319,13 @@ on, and the frequency points, which are the number of frequency points that
 
 \begin_layout Subsection
 Calculating S-parameters
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Calculating-S-parameters"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1021,7 +1035,7 @@ The probing points in the circuit for providing the output waveforms are
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Output-Probes"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -1127,7 +1141,7 @@ reference "sub:Sources-and-Generators"
  To add output probes, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Output-Probes"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -1272,10 +1286,10 @@ reference "sub:Current-Sine-Generator"
 \end_layout
 
 \begin_layout Subsection
-Output Probes
+Output Probes for Simulation
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Output-Probes"
+name "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -1485,7 +1499,7 @@ reference "sub:Sources-and-Generators"
 have at least one output port (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Output-Probes"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -3334,7 +3348,7 @@ reference "sub:Measure-Probes"
 (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Output-Probes-1"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -3384,7 +3398,7 @@ reference "sub:Output-Probe"
  We talk about these in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Output-Probes-1"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -3638,10 +3652,10 @@ reference "sec:Waveform"
 \end_layout
 
 \begin_layout Subsection
-Output Probes
+Output Probes for Virtual Probing
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Output-Probes-1"
+name "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -3826,9 +3840,20 @@ status open
 \begin_layout Plain Layout
 \noindent
 \align center
+\begin_inset Graphics
+	filename warning.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
 
 \color red
-This is WRONG:
+This is Wrong
 \end_layout
 
 \begin_layout Plain Layout
@@ -4385,7 +4410,7 @@ reference "sub:Output-Probe"
  devices (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Output-Probes-1"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -6642,7 +6667,7 @@ Always
 Main Schematic Dialog
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Navigation"
+name "sec:Main-Schematic-Dialog"
 
 \end_inset
 
@@ -6740,11 +6765,19 @@ name "sub:File"
 \end_layout
 
 \begin_layout Standard
-File tasks are broken into two basic areas:
+File tasks are a category in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+.
+ They are broken into two basic areas:
 \end_layout
 
 \begin_layout Itemize
-Opening, Saving, and Clearing the project.
+Dealing with the project file.
 \end_layout
 
 \begin_layout Itemize
@@ -6753,6 +6786,16 @@ Exporting netlists and pictures of the drawing.
 
 \begin_layout Standard
 The File tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:New-Project"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -6769,6 +6812,16 @@ reference "Control-Help:Open-Project"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Save-Project"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-As-Project"
 
 \end_inset
 
@@ -6805,36 +6858,204 @@ reference "Control-Help:Export-LaTeX"
 
 \end_layout
 
+\begin_layout Subsubsection
+New Project
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:New-Project"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
 
 \begin_layout Plain Layout
-\noindent
-Back to 
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
+
+\end_inset
+
+ ▸ New Project
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,N
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ctrl+N
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename document-new-3.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A request to create a new project brings up a file dialog so you can choose
+ the file you want to create.
+\end_layout
+
+\begin_layout Standard
+This will clear the current schematic and an empty project file is created.
+ This can be undone using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Undo"
 
 \end_inset
 
 .
 \end_layout
 
-\end_inset
+\begin_layout Standard
+A dialog will ask you for the file name.
+ If an existing file is selected, that file will be overwritten and cleared.
+\end_layout
 
-
+\begin_layout Standard
+No matter the file name you use, it will have the extension .xml placed on
+ it.
 \end_layout
 
 \begin_layout Subsubsection
@@ -6870,7 +7091,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -6892,7 +7119,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-File▸Open Project
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
+
+\end_inset
+
+ ▸ Open Project
 \end_layout
 
 \end_inset
@@ -7009,47 +7242,14 @@ It only accepts files with the .xml extension and the file must have been
 \end_layout
 
 \begin_layout Standard
-It clears the current project, but this can be undone using Undo.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+It clears the current project, but this can be undone using 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:File"
+reference "Control-Help:Undo"
 
 \end_inset
 
 .
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsubsection
@@ -7085,7 +7285,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -7107,7 +7313,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-File▸Save Project
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
+
+\end_inset
+
+ ▸ Save Project
 \end_layout
 
 \end_inset
@@ -7214,43 +7426,200 @@ When the project is not empty
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
+This saves the project to the disk with the current file name of the project
+ in use.
+\end_layout
+
+\begin_layout Standard
+It overwrites the existing file.
+\end_layout
+
+\begin_layout Subsubsection
+Save Project As\SpecialChar \ldots{}
+
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Save-As-Project"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
 
 \begin_layout Plain Layout
-\noindent
-Back to 
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:File"
 
 \end_inset
 
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+ ▸ Save Project As...
 \end_layout
 
 \end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,A
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ctrl+Shift-S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When the project is not empty
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This prompts for a filename to save to.
+\end_layout
+
+\begin_layout Standard
+The default file name is the current project file in use.
+\end_layout
+
+\begin_layout Standard
+A dialog will ask you for the file name.
+ If an existing file is selected, that file will be overwritten with the
+ new one.
+\end_layout
+
+\begin_layout Standard
+No matter the file name you use, it will have the extension .xml placed on
+ it.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7286,7 +7655,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -7308,7 +7683,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-File▸Clear Schematic
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
+
+\end_inset
+
+ ▸ Clear Schematic
 \end_layout
 
 \end_inset
@@ -7415,39 +7796,10 @@ When the project is not empty
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+It clears the current project, but this can be undone using 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:File"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
+reference "Control-Help:Undo"
 
 \end_inset
 
@@ -7487,7 +7839,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -7509,7 +7867,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-File▸Export Netlist
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
+
+\end_inset
+
+ ▸ Export Netlist
 \end_layout
 
 \end_inset
@@ -7611,43 +7975,61 @@ When the project is not empty
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
+During all of the PySI Calculations, a text-based net list is created that
+ is passed to the Signal Integrity toolbox software.
+\end_layout
 
-\begin_layout Plain Layout
-\noindent
-Back to 
+\begin_layout Standard
+The format of this net list is described in the accompanying book but somewhat
+ under 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:File"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Netlists"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+Usually, you don't need to look at or save this net list, but examining
+ it is helpful sometimes for debugging problems and saving it allows the
+ schematic to be be utilized within customized Python based user applications
+ that rely on the Signal Integrity toolbox, but do not rely on the PySIApp
+ application.
+\end_layout
+
+\begin_layout Standard
+Invoking this command causes the netlist to be generated that would be the
+ same for any calculation and shown.
+ For example, for this type of schematic:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SParameterGenerationExample.png
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+We would have a net list that looked like this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SParameterGenerationExampleNetListDialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pressing OK prompts you for a text file to save it to.
+ Pressing Cancel or escape leaves without saving the file.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7683,7 +8065,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -7705,7 +8093,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-File▸Export LaTeX (TikZ)
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File"
+
+\end_inset
+
+ ▸ Export LaTeX (TikZ)
 \end_layout
 
 \end_inset
@@ -7807,43 +8201,61 @@ When the project is not empty
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:File"
+This causes the current schematic to be output in a graphical file format
+ called 
+\begin_inset CommandInset href
+LatexCommand href
+name "TikZ"
+target "https://www.ctan.org/pkg/pgf?lang=en"
 
 \end_inset
 
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
+ which is interpreted in TeX and LaTeX based documents (see 
+\begin_inset CommandInset href
+LatexCommand href
+name "TeX Users Group (TUG)"
+target "https://tug.org/"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+While the TikZ file is directly importable into a LaTeX based document,
+ it is difficult to edit.
+ Fortunately a (old) free tool exists called 
+\begin_inset CommandInset href
+LatexCommand href
+name "TpX"
+target "http://tpx.sourceforge.net/"
+
 \end_inset
 
+ for creating graphics.
+ The file format of a TpX file is actual TikZ code for the drawing with
+ the TpX drawing information 
+\emph on
+commented out
+\emph default
+.
+ Thus, a TpX file is directly importable into a LaTeX based document and
+ only the TikZ code is interpreted.
+ PySIApp outputs the schematic this way, in TpX format so you can either
+ directly import the schematic into a LaTeX based document, or if you install
+ TpX, you can actually edit the schematic and save it as TikZ again.
+\end_layout
 
+\begin_layout Standard
+Because of differences between graphics drawing commands, the TpX and TikZ
+ will vary slightly from the actual schematic shown in PySIApp.
+\end_layout
+
+\begin_layout Standard
+In the future, a .png or some other rasterized graphics version should be
+ created, but believe it or not, this is more difficult.
+ For now, you're left with the screen capture methods built into the operating
+ system to get this.
 \end_layout
 
 \begin_layout Subsection
@@ -7858,8 +8270,15 @@ name "sub:Edit"
 \end_layout
 
 \begin_layout Standard
-The Edit tasks are broken into two sections, one involving undo and redo
- of schematic edits and the other dealing with multiple selections:
+The Edit tasks are a category in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ and are broken into two sections, one involving undo and redo of schematic
+ edits and the other dealing with multiple selections:
 \end_layout
 
 \begin_layout Itemize
@@ -7917,40 +8336,39 @@ reference "Control-Help:Cut-Selected"
 \end_layout
 
 \begin_layout Standard
-These tasks depend on the History Buffer which records the state of the
- schematic at various events.
+The undo and redo tasks depend on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:History-Buffer"
+
+\end_inset
+
+ which records the state of the schematic at various events.
+\end_layout
+
+\begin_layout Subsubsection
+History Buffer
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:History-Buffer"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+The PySIApp maintains a buffer containing the history of changes made to
+ the project since the application started.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+Currently it records the last 100 changes.
+\end_layout
 
-
+\begin_layout Standard
+Each change is labelled, so as a change is undid and redid, the name of
+ the event that is undid is displayed in the status message area.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7986,7 +8404,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8008,7 +8432,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Edit▸Undo
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
+
+\end_inset
+
+ ▸ Undo
 \end_layout
 
 \end_inset
@@ -8115,43 +8545,34 @@ When there is something to undo in the history buffer
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This undoes whatever has been done since the last event stored in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
+reference "sub:History-Buffer"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+It is available whenever something has been done since the last event, otherwise
+ it is disabled.
+\end_layout
+
+\begin_layout Standard
+The event that is undone is shown in the status message area.
+\end_layout
+
+\begin_layout Standard
+Whenever something gets undone, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Redo"
+
 \end_inset
 
-
+ becomes available.
 \end_layout
 
 \begin_layout Subsubsection
@@ -8187,7 +8608,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8209,7 +8636,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Edit▸Redo
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
+
+\end_inset
+
+ ▸ Redo
 \end_layout
 
 \end_inset
@@ -8316,43 +8749,35 @@ When there is something that can be redone in the history buffer
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
+This redoes the last undo.
+\end_layout
 
-\begin_layout Plain Layout
-\noindent
-Back to 
+\begin_layout Standard
+This is available whenever an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Edit"
+reference "Control-Help:Undo"
 
 \end_inset
 
-.
- Back to 
+ was issued.
+\end_layout
+
+\begin_layout Standard
+It becomes unavailable whenever a change occurs that causes an event to
+ store the state in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sub:History-Buffer"
 
 \end_inset
 
 .
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+In other words, if you undo something or many things and then make a change
+ to the schematic, the redo becomes unavailable.
 \end_layout
 
 \begin_layout Subsubsection
@@ -8388,7 +8813,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8410,7 +8841,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Edit▸Delete Selected
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
+
+\end_inset
+
+ ▸ Delete Selected
 \end_layout
 
 \end_inset
@@ -8517,43 +8954,18 @@ When one or more drawing element is selected
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Edit"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+This command is available whenever a device is selected, a wire is selected,
+ or if multiple items are selected.
+ Which of these states is shown in the status message area.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+The items selected to be deleted are shown as blue items in the schematic.
+\end_layout
 
-
+\begin_layout Standard
+This command is also available by right clicking while multiple devices
+ are selected through a context sensitive menu.
 \end_layout
 
 \begin_layout Subsubsection
@@ -8589,7 +9001,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8611,7 +9029,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Edit▸Duplicate Selected
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
+
+\end_inset
+
+ ▸ Duplicate Selected
 \end_layout
 
 \end_inset
@@ -8718,43 +9142,29 @@ When one or more drawing element is selected
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Edit"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+This command is available whenever a device is selected, a wire is selected,
+ or if multiple items are selected.
+ Which of these states is shown in the status message area.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+The items selected to be duplicated are shown as blue items in the schematic.
+\end_layout
 
+\begin_layout Standard
+When invoked, the selections are copied to memory and the mouse cursor changes
+ to a finger indicating that the new copied parts will be placed where the
+ finger points on the next mouse click.
+\end_layout
 
+\begin_layout Standard
+When the new parts are placed, all of the reference designators are updated
+ to be unique names based on the default designator rules for the part.
+\end_layout
+
+\begin_layout Standard
+This command is also available by right clicking while multiple devices
+ are selected through a context sensitive menu.
 \end_layout
 
 \begin_layout Subsubsection
@@ -8790,7 +9200,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -8812,7 +9228,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Edit▸Cut Selected
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Edit"
+
+\end_inset
+
+ ▸ Cut Selected
 \end_layout
 
 \end_inset
@@ -8914,43 +9336,24 @@ When one or more drawing element is selected
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Edit"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+This command is available whenever a device is selected, a wire is selected,
+ or if multiple items are selected.
+ Which of these states is shown in the status message area.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+The items selected to be cut are shown as blue items in the schematic.
+\end_layout
 
+\begin_layout Standard
+When invoked, the selections are copied to memory and removed from the schematic
+ and the mouse cursor changes to a finger indicating that the new copied
+ parts will be placed where the finger points on the next mouse click.
+\end_layout
 
+\begin_layout Standard
+This command is also available by right clicking while multiple devices
+ are selected through a context sensitive menu.
 \end_layout
 
 \begin_layout Subsection
@@ -8965,18 +9368,23 @@ name "sub:Parts"
 \end_layout
 
 \begin_layout Standard
-Parts tasks are for adding all elements of the schematic (except the connection
- 
-\begin_inset CommandInset href
-LatexCommand href
-name "wires"
-target "#sub_Wires"
+The Parts tasks are a category in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ for adding all elements of the schematic (except the connection 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
 
 \end_inset
 
 ).
- All elements of the schematic are parts, but some parts are are added specially
-:
+ All elements of the schematic are parts, but some parts are special and
+ can be added more easily through menu commands:
 \end_layout
 
 \begin_layout Itemize
@@ -8986,7 +9394,15 @@ reference "Control-Help:Add-Part"
 
 \end_inset
 
-- Adds generic parts to the schematic.
+- Adds any part to the schematic.
+ These parts are cataloged in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -9001,7 +9417,29 @@ reference "Control-Help:Add-Port"
 
 \end_inset
 
- (used for calculating s-parameters and deembedding)
+ - Adds a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+.
+ (used for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
@@ -9011,7 +9449,29 @@ reference "Control-Help:Add-Output-Probe"
 
 \end_inset
 
- (used for simulating and virtual probing)
+ - Adds an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+.
+ (used for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
@@ -9021,7 +9481,22 @@ reference "Control-Help:Add-Measure-Probe"
 
 \end_inset
 
- (used only for virtual probing)
+ - Adds a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
@@ -9031,7 +9506,22 @@ reference "Control-Help:Add-Stim"
 
 \end_inset
 
- (used only for virtual probing)
+ - Adds a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
@@ -9041,7 +9531,15 @@ reference "Control-Help:Add-Unknown"
 
 \end_inset
 
- (used only for deembedding)
+ - Adds a device whose s-parameters are unknown.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
@@ -9051,7 +9549,15 @@ reference "Control-Help:Add-System"
 
 \end_inset
 
- (used only for deembedding)
+ - Adds a device that represents the s-parameters of a system.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Standard
@@ -9118,38 +9624,6 @@ reference "Control-Help:Flip-Vertically"
 
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Add Part
 \begin_inset CommandInset label
@@ -9183,7 +9657,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -9205,7 +9685,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add Part
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add Part
 \end_layout
 
 \end_inset
@@ -9312,19 +9798,14 @@ Always
 \end_layout
 
 \begin_layout Standard
-Parts are added to the schematic through the navigation methods provided
- in the table above.
-\end_layout
-
-\begin_layout Standard
-See 
+This adds one of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Built-in-Devices"
 
 \end_inset
 
- for a list of predefined parts allowed by PySIApp.
+ to the schematic.
 \end_layout
 
 \begin_layout Standard
@@ -9541,7 +10022,7 @@ reference "sub:Parts"
  Back to 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Main-Schematic-Dialog"
 
 \end_inset
 
@@ -9586,7 +10067,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -9608,7 +10095,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add Port
 \end_layout
 
 \end_inset
@@ -9714,7 +10207,14 @@ This command is used to add ports to a schematic.
 \end_layout
 
 \begin_layout Standard
-Ports are only added to schematics intended for 
+A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ is only added to schematics intended for 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Generation"
@@ -9732,8 +10232,36 @@ reference "sec:Deembedding"
 \end_layout
 
 \begin_layout Standard
-When you add a port, the application immediately brings up the part property
- dialog for the port:
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic"
+
+\end_inset
+
+ for s-parameter calculation applications.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
+
+\end_inset
+
+ for deembedding applications.
+\end_layout
+
+\begin_layout Standard
+This command is a shortcut which is the same as invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting Port from the Special parts category.
 \end_layout
 
 \begin_layout Standard
@@ -9839,46 +10367,6 @@ If at any time in the process of adding a port, you press the Cancel button
  with no new port added.
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Add Output Probe
 \begin_inset CommandInset label
@@ -9912,7 +10400,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -9934,7 +10428,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add Output Probe
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add Output Probe
 \end_layout
 
 \end_inset
@@ -10036,6 +10536,53 @@ Always
 \end_layout
 
 \begin_layout Standard
+This adds an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ to the schematic.
+\end_layout
+
+\begin_layout Standard
+It is used for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-for Simulation"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-for-Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 This command is a shortcut which is the same as invoking 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -10044,6 +10591,15 @@ reference "Control-Help:Add-Part"
 \end_inset
 
  and selecting Output from the Special parts category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerOutputProbe.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -10081,50 +10637,6 @@ reference "sec:Virtual-Probing"
 .
 \end_layout
 
-\begin_layout Standard
-The 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Add Measure Probe
 \begin_inset CommandInset label
@@ -10158,7 +10670,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -10180,7 +10698,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add Measure Probe
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add Measure Probe
 \end_layout
 
 \end_inset
@@ -10282,43 +10806,84 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Parts"
+reference "sub:Measure-Probe"
 
 \end_inset
 
-.
- Back to 
+ to the schematic.
+\end_layout
+
+\begin_layout Standard
+It is used only for 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probes"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+This command is a shortcut which is the same as invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting Measure from the Special parts category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerMeasureProbe.png
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPropertiesMeasureProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The measure probe part has one port that can be connected to a wire or device
+ port to specify a measured 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to be supplied during or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ calculation.
 \end_layout
 
 \begin_layout Subsubsection
@@ -10354,7 +10919,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -10376,7 +10947,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add Stim
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add Stim
 \end_layout
 
 \end_inset
@@ -10478,43 +11055,47 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Parts"
+reference "sub:Stim"
 
 \end_inset
 
-.
- Back to 
+ to the schematic.
+\end_layout
+
+\begin_layout Standard
+It is used only for 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stimuli"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+This command is a shortcut which is the same as invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
 \end_inset
 
-
+ and selecting Stim from the Special parts category.
 \end_layout
 
 \begin_layout Subsubsection
@@ -10550,7 +11131,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -10572,7 +11159,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add Unknown
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add Unknown
 \end_layout
 
 \end_inset
@@ -10674,39 +11267,48 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Parts"
+reference "sub:Unknown"
 
 \end_inset
 
-.
- Back to 
+ to the schematic for use only in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknowns"
 
 \end_inset
 
 .
 \end_layout
+
+\begin_layout Standard
+This command is a shortcut which is the same as invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting the Unknowns category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerUnknownCategory.png
 
 \end_inset
 
@@ -10746,7 +11348,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -10768,7 +11376,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Add System
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Add System
 \end_layout
 
 \end_inset
@@ -10870,39 +11484,48 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Parts"
+reference "sub:System"
 
 \end_inset
 
-.
- Back to 
+ to the schematic for use only in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Defining-the-System"
 
 \end_inset
 
 .
 \end_layout
+
+\begin_layout Standard
+This command is a shortcut which is the same as invoking 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting the Systems category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerSystemsCategory.png
 
 \end_inset
 
@@ -10942,7 +11565,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -10964,7 +11593,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Delete Part
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Delete Part
 \end_layout
 
 \end_inset
@@ -11072,48 +11707,20 @@ When a part is selected
 \end_layout
 
 \begin_layout Standard
-This is also available through the context sensitive menu (right-click when
- part selected).
+This deletes the selected part.
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+The selected part is indicated by a blue color in the schematic.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+When a part is selected it shows this in the status message area.
+\end_layout
 
-
+\begin_layout Standard
+This is also available through the context sensitive menu (right-click when
+ part selected).
 \end_layout
 
 \begin_layout Subsubsection
@@ -11149,7 +11756,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -11171,7 +11784,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts▸Edit Properties
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Edit Properties
 \end_layout
 
 \end_inset
@@ -11295,6 +11914,18 @@ double-click
 \end_layout
 
 \begin_layout Standard
+This edits the part properties for the selected part.
+\end_layout
+
+\begin_layout Standard
+The selected part is indicated by a blue color in the schematic.
+\end_layout
+
+\begin_layout Standard
+When a part is selected it shows this in the status message area.
+\end_layout
+
+\begin_layout Standard
 This is also available through the context sensitive menu (right-click when
  part selected).
 \end_layout
@@ -11412,46 +12043,6 @@ If at any time you press Cancel, the properties of the part are left unchanged
  in the schematic.
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Duplicate Part
 \begin_inset CommandInset label
@@ -11485,7 +12076,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -11507,7 +12104,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts ▸ Duplicate Part
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Duplicate Part
 \end_layout
 
 \end_inset
@@ -11614,48 +12217,27 @@ When a part is selected
 \end_layout
 
 \begin_layout Standard
-This is also available through the context sensitive menu (right-click when
- part selected).
+This command is available whenever a device is selected.
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+The item selected to be duplicated is shown as blue in the schematic.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+When invoked, the part is copied to memory and the mouse cursor changes
+ to a finger indicating that the new copied part will be placed where the
+ finger points on the next mouse click.
+\end_layout
 
+\begin_layout Standard
+When the new part is placed, the reference designator is updated to be a
+ unique name based on the default designator rules for the part.
+\end_layout
 
+\begin_layout Standard
+This command is also available by right clicking while a part is selected
+ through a context sensitive menu.
 \end_layout
 
 \begin_layout Subsubsection
@@ -11691,7 +12273,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -11713,7 +12301,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts ▸ Rotate Part
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Rotate Part
 \end_layout
 
 \end_inset
@@ -11821,42 +12415,7 @@ When a part is selected
 
 \begin_layout Standard
 \noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+This rotates the picture of the part 90 degrees counter-clockwise.
 \end_layout
 
 \begin_layout Subsubsection
@@ -11892,7 +12451,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -11914,7 +12479,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts ▸ Flip Horizontally
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Flip Horizontally
 \end_layout
 
 \end_inset
@@ -12022,42 +12593,7 @@ When a part is selected
 
 \begin_layout Standard
 \noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+This mirrors the picture of the part horizontally about a vertical axis.
 \end_layout
 
 \begin_layout Subsubsection
@@ -12093,7 +12629,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -12115,7 +12657,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Parts ▸ Flip Vertically
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Parts"
+
+\end_inset
+
+ ▸ Flip Vertically
 \end_layout
 
 \end_inset
@@ -12223,42 +12771,7 @@ When a part is selected
 
 \begin_layout Standard
 \noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Parts"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+This mirrors the picture of the part vertically about a horizontal axis.
 \end_layout
 
 \begin_layout Subsection
@@ -12273,35 +12786,94 @@ name "sub:Wires"
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+The Wires tasks are a category in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ for dealing with wires:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Wire"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Delete-Vertex"
+
 \end_inset
 
+.
+\end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Duplicate-Vertex"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Delete-Wire"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Wires are simply collections of vertices with implied lines between each
+ adjacent vertex.
+\end_layout
+
+\begin_layout Standard
+Although wires might look continuous in the schematic, a wire only every
+ actually joins two nodes with a node being either a device port or a dot
+ in the schematic where two or more wires or device ports connect.
+ A wire joining two nodes may still contain several vertices as it snakes
+ around the schematic.
+\end_layout
+
+\begin_layout Standard
+wires are consolidated continuously as the schematic is drawn so a wire
+ might be split or combined as things are connected.
+\end_layout
+
+\begin_layout Standard
+Wires can be selected by:
+\end_layout
+
+\begin_layout Itemize
+a vertex - in which case just the vertex can be deleted or moved or the
+ entire wire containing the vertex can be deleted.
+\end_layout
+
+\begin_layout Itemize
+a segment (a line between two vertices), which is really just multiple selection
+s of two vertices - in which case the two vertices can be moved or deleted.
+\end_layout
+
+\begin_layout Itemize
+multiple vertices.
+\end_layout
+
+\begin_layout Standard
+Currently, wire handling is a bit awkward and will be improved in the future.
 \end_layout
 
 \begin_layout Subsubsection
@@ -12337,7 +12909,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -12359,7 +12937,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires ▸ Add Wire
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
+
+\end_inset
+
+ ▸ Add Wire
 \end_layout
 
 \end_inset
@@ -12495,46 +13079,6 @@ Wire drawing ends when you right click twice.
  Pressing escape will also end wire drawing.
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Wires"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Delete Vertex
 \begin_inset CommandInset label
@@ -12568,7 +13112,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -12590,7 +13140,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires ▸ Delete Vertex
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
+
+\end_inset
+
+ ▸ Delete Vertex
 \end_layout
 
 \end_inset
@@ -12693,42 +13249,9 @@ When a single wire vertex of a wire is selected
 
 \begin_layout Standard
 \noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Wires"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+Deletes a single wire vertex selected.
+ If the vertex deleted is in between other vertices of a wire, the wire
+ connects the adjacent vertices after deletion.
 \end_layout
 
 \begin_layout Subsubsection
@@ -12764,7 +13287,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -12786,7 +13315,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires ▸ Duplicate Vertex
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
+
+\end_inset
+
+ ▸ Duplicate Vertex
 \end_layout
 
 \end_inset
@@ -12891,46 +13426,6 @@ When a single wire vertex of a wire is selected
 This function does not work properly at this time.
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Wires"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Delete Wire
 \begin_inset CommandInset label
@@ -12964,7 +13459,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -12986,7 +13487,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Wires ▸ Delete Wire
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Wires"
+
+\end_inset
+
+ ▸ Delete Wire
 \end_layout
 
 \end_inset
@@ -13088,43 +13595,8 @@ When a single wire vertex of a wire is selected
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Wires"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+This deletes the entire wire (i.e.
+ all wire vertices) in the wire containing the vertex selected.
 \end_layout
 
 \begin_layout Subsection
@@ -13139,35 +13611,49 @@ name "sub:View"
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+The View tasks are a category in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ for dealing with the drawing canvas:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Zoom-In"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Zoom-Out"
+
 \end_inset
 
+.
+\end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Pan"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The drawing canvas starts out with a grid size of 32 pixels per grid point
+ with grid origin at the upper left edge of the drawing canvas.
 \end_layout
 
 \begin_layout Subsubsection
@@ -13203,7 +13689,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -13225,7 +13717,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-View ▸ Zoom In
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
+
+\end_inset
+
+ ▸ Zoom In
 \end_layout
 
 \end_inset
@@ -13332,43 +13830,8 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:View"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+Zooms in on the schematic picture by doubling the number of pixels per grid
+ point 
 \end_layout
 
 \begin_layout Subsubsection
@@ -13404,7 +13867,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -13426,7 +13895,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-View ▸ Zoom Out
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
+
+\end_inset
+
+ ▸ Zoom Out
 \end_layout
 
 \end_inset
@@ -13533,43 +14008,8 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:View"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
+Zooms out of the schematic picture by halving the number of pixels per grid
+ point 
 \end_layout
 
 \begin_layout Subsubsection
@@ -13605,7 +14045,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -13627,7 +14073,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-View ▸ Pan
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:View"
+
+\end_inset
+
+ ▸ Pan
 \end_layout
 
 \end_inset
@@ -13734,43 +14186,26 @@ Always
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:View"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+Panning allows you to change the offset of the grid in the drawing.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+It's kind of like selecting everything and moving it, but instead of moving
+ the elements in the drawing, the coordinates of the origin are modified
+ instead.
+\end_layout
 
+\begin_layout Standard
+When you invoke panning, the panning toolbar button stays down and the status
+ message area shows Panning.
+ The cursor changes to a panning symbol.
+ You then pan by holding down the left mouse button and dragging the drawing
+ origin relative to where the mouse button was pressed.
+\end_layout
 
+\begin_layout Standard
+Releasing the mouse button or right clicking or pressing escape turns off
+ panning.
 \end_layout
 
 \begin_layout Subsection
@@ -13785,35 +14220,115 @@ name "sub:Calculate"
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+The Calculate tasks are a category in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ for dealing calculations for the PySIApp applications:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+ - for editing the properties for the calculations.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-S-parameters"
+
+\end_inset
+
+ - for running an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulate"
+
 \end_inset
 
+ - for running a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
 
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Virtual-Probe"
+
+\end_inset
+
+ - for running 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Deembed"
+
+\end_inset
+
+ - for running 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+You also invoke the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-parameter-Viewer"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ toolbar button is ganged to perform whatever calculation makes sense based
+ on the schematic configuration.
 \end_layout
 
 \begin_layout Subsubsection
@@ -13849,7 +14364,27 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp, S-parameter Viewer, and Simulator Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -13871,7 +14406,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Calculation Properties
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
+
+\end_inset
+
+ ▸ Calculation Properties
 \end_layout
 
 \end_inset
@@ -14152,46 +14693,6 @@ t\left[k\right]=\left(k-\frac{K}{2}\right)\cdot\frac{1}{Fs}
 
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Calculate"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 S-parameter Viewer
 \begin_inset CommandInset label
@@ -14225,7 +14726,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -14247,7 +14754,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ S-parameter Viewer
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
+
+\end_inset
+
+ ▸ S-parameter Viewer
 \end_layout
 
 \end_inset
@@ -14359,46 +14872,6 @@ reference "sec:S-parameter-Viewer"
  dialog to view s-parameter files.
 \end_layout
 
-\begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Calculate"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Calculate
 \begin_inset CommandInset label
@@ -14432,7 +14905,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -14561,23 +15040,17 @@ When there is something to calculate
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
 
-\begin_layout Plain Layout
-\noindent
-Back to 
+\end_inset
+
+ toolbar button is ganged to perform whatever calculation makes sense based
+ on the schematic configuration.
+ If it is enabled, you can see which calculation will take place by looking
+ at which calculation is enabled under 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Calculate"
@@ -14585,19 +15058,6 @@ reference "sub:Calculate"
 \end_inset
 
 .
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsubsection
@@ -14633,7 +15093,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -14655,7 +15121,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Calculate S-parameters
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
+
+\end_inset
+
+ ▸ Calculate S-parameters
 \end_layout
 
 \end_inset
@@ -14762,43 +15234,22 @@ When s-parameters can be calculated
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This invokes the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate"
+reference "sec:S-parameter-Generation"
 
 \end_inset
 
 .
- Back to 
+ See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sub:Calculating-S-parameters"
 
 \end_inset
 
-.
-\end_layout
-
-\end_inset
-
-
+ for what happens when invoked and for the conditions for enabling this.
 \end_layout
 
 \begin_layout Subsubsection
@@ -14834,7 +15285,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -14856,7 +15313,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Simulate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
+
+\end_inset
+
+ ▸ Simulate
 \end_layout
 
 \end_inset
@@ -14963,43 +15426,22 @@ When the schematic can be simulated
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This invokes a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate"
+reference "sec:Simulation"
 
 \end_inset
 
 .
- Back to 
+ See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sub:Simulating"
 
 \end_inset
 
-.
-\end_layout
-
-\end_inset
-
-
+ for what happens when invoked and for the conditions for enabling this.
 \end_layout
 
 \begin_layout Subsubsection
@@ -15035,7 +15477,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15057,7 +15505,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Virtual Probe
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
+
+\end_inset
+
+ ▸ Virtual Probe
 \end_layout
 
 \end_inset
@@ -15164,43 +15618,22 @@ When the schematic can be virtual probed
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This invokes 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate"
+reference "sec:Virtual-Probing"
 
 \end_inset
 
 .
- Back to 
+ See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sub:Virtual-Probing"
 
 \end_inset
 
-.
-\end_layout
-
-\end_inset
-
-
+ for what happens when invoked and for the conditions for enabling this.
 \end_layout
 
 \begin_layout Subsubsection
@@ -15236,7 +15669,13 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15258,7 +15697,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Deembed
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculate"
+
+\end_inset
+
+ ▸ Deembed
 \end_layout
 
 \end_inset
@@ -15365,43 +15810,22 @@ When the schematic can be deembedded
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+This invokes 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sub:Calculate"
+reference "sec:Deembedding"
 
 \end_inset
 
 .
- Back to 
+ See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sub:Deembedding-Calculation"
 
 \end_inset
 
-.
-\end_layout
-
-\end_inset
-
-
+ for what happens when invoked and for the conditions for enabling this.
 \end_layout
 
 \begin_layout Subsection
@@ -15416,35 +15840,34 @@ name "sub:Help"
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
+The Help tasks are a category in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Navigation"
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ for dealing with the help system:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Open-Help-File"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Control-Help"
+
 \end_inset
 
-
+ - for help on any menu elements or toolbar buttons.
 \end_layout
 
 \begin_layout Subsubsection
@@ -15480,7 +15903,27 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp, S-Parameter Viewer, and Simulator Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15502,7 +15945,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Help ▸ Open Help File
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Help"
+
+\end_inset
+
+ ▸ Open Help File
 \end_layout
 
 \end_inset
@@ -15613,43 +16062,13 @@ This command opens this file that you are currently viewing from the application
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Help"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
+For the application to find the help system, it must be located at the relative
+ directory to the file PySIApp.py at ./Help/PySIHelp.html.LyXconv/.
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+In this directory should be many help files with the root located in PySIHelp.htm
+l.
 \end_layout
 
 \begin_layout Subsubsection
@@ -15685,7 +16104,27 @@ Dialog
 \begin_inset Text
 
 \begin_layout Plain Layout
-Main PySIApp, S-Parameter Viewer, and Simulator Dialog
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15707,7 +16146,13 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Help ▸ Control Help
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Help"
+
+\end_inset
+
+▸ Control Help
 \end_layout
 
 \end_inset
@@ -15826,52 +16271,13 @@ When in control help, all of the commands are activated.
 \end_layout
 
 \begin_layout Standard
-Control help stays active until you either press the escape key, or touch
- somewhere in the canvas.
+For the application to find the help system, it must be located at the relative
+ directory to the file PySIApp.py at ./Help/PySIHelp.html.LyXconv/.
 \end_layout
 
 \begin_layout Standard
-\noindent
-\begin_inset Box ovalbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-\noindent
-Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Help"
-
-\end_inset
-
-.
- Back to 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Navigation"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-The History Buffer
+Control help stays active until you either press the escape key, or touch
+ somewhere in the canvas.
 \end_layout
 
 \begin_layout Section
@@ -16149,7 +16555,14 @@ None
 File Devices are the most generic.
  They take an s-parameter file name in the file name property.
  The in the Part Properties Dialog, you can browse to the file and view
- the file in the S-parameter Viewer if you want.
+ the file in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ if you want.
 \end_layout
 
 \begin_layout Standard
@@ -16165,6 +16578,13 @@ reference "Control-Help:Calculation-Properties"
 
 \begin_layout Subsection
 Resistor
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Resistor"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -16386,8 +16806,19 @@ Ohms
 
 \end_layout
 
+\begin_layout Standard
+This is a one and two port resistor with the given resistance.
+\end_layout
+
 \begin_layout Subsection
 Capacitor
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Capacitor"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -16609,8 +17040,19 @@ F
 
 \end_layout
 
+\begin_layout Standard
+This is a one and two port capacitor with the given capacitance.
+\end_layout
+
 \begin_layout Subsection
 Inductor
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Inductor"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -16826,8 +17268,19 @@ H
 
 \end_layout
 
+\begin_layout Standard
+This is a two port inductor with the given inductance.
+\end_layout
+
 \begin_layout Subsection
 Mutual
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Mutual"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -17041,6 +17494,18 @@ H
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is a four-port mutual inductance.
+ Their no self inductance and only the mutual inductance is specified and
+ modeled.
+ For self inductance, you need to use the 
+\end_layout
+
+\begin_layout Standard
+The sense of the self inductance is indicated by the arrows in the part
+ picture.
 \end_layout
 
 \begin_layout Subsection
@@ -17260,6 +17725,24 @@ tr
 
 \end_layout
 
+\begin_layout Standard
+This is a four-port ideal transformer with a given turns ratio.
+\end_layout
+
+\begin_layout Standard
+The primary and secondary are labelled with P and S
+\end_layout
+
+\begin_layout Standard
+The sense of the relationship between the primary and secondary is given
+ by the dot locations.
+\end_layout
+
+\begin_layout Standard
+The turns ratio is primary relative to secondary, so a higher number indicates
+ more primary windings relative to the secondary.
+\end_layout
+
 \begin_layout Subsection
 Ground
 \begin_inset CommandInset label
@@ -17437,6 +17920,11 @@ string
 
 \end_layout
 
+\begin_layout Standard
+This is a one-port ground, which could also be considered as a one-port
+ ideal short.
+\end_layout
+
 \begin_layout Subsection
 Open
 \end_layout
@@ -17605,6 +18093,10 @@ string
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is a one-port ideal open.
 \end_layout
 
 \begin_layout Subsection
@@ -17785,7 +18277,8 @@ string
 \end_layout
 
 \begin_layout Standard
-The power mixed mode converter is one that defines differential and common
+This is a power mixed-mode converter.
+ The power mixed-mode converter is one that defines differential and common
  mode voltage with respect to positive and negative voltages as:
 \end_layout
 
@@ -17825,7 +18318,18 @@ reference "sub:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
+.
+\end_layout
 
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-parameter-Generation-Example"
+
+\end_inset
+
+ for an example of how this device is used.
 \end_layout
 
 \begin_layout Subsection
@@ -18046,7 +18550,18 @@ reference "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
+.
+\end_layout
 
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Virtual-Probing-Example"
+
+\end_inset
+
+ for an example of this type of device is used.
 \end_layout
 
 \begin_layout Subsection
@@ -18317,6 +18832,20 @@ s
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is a one- and two-port ideal transmission line with given characteristic
+ impedance and delay.
+\end_layout
+
+\begin_layout Standard
+The four-port ideal transmission line only transmits the differential mode.
+\end_layout
+
+\begin_layout Standard
+A two-port ideal transmission line with zero delay is simply and ideal thru
+ (no matter what the characteristic impedance).
 \end_layout
 
 \begin_layout Subsection
@@ -18725,12 +19254,33 @@ Ohms
 \end_layout
 
 \begin_layout Standard
+The telegrapher two-port is a model of a single-ended transmission line
+ based on the telegrapher circuit.
+\end_layout
+
+\begin_layout Standard
+If sections are set to 1 (the default), then the circuit is the lumped element
+ model as shown below:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Graphics
 	filename TelegrapherTwoPortEquivalent.bmp
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Otherwise, if sections are large, then the model is created by cascading
+ the sections with parameters that are divided by the number of sections.
+ In other words, the parameters are for the total line, and each section
+ has a value of the parameter divided by the number of sections.
+\end_layout
+
+\begin_layout Standard
+This is used to approximated distributed parameters.
 \end_layout
 
 \begin_layout Subsection
@@ -19468,12 +20018,33 @@ Ohms
 \end_layout
 
 \begin_layout Standard
+The telegrapher four-port is a model of a differential transmission line
+ based on the telegrapher circuit.
+\end_layout
+
+\begin_layout Standard
+If sections are set to 1 (the default), then the circuit is the lumped element
+ model as shown below:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Graphics
 	filename TelegrapherFourPortEquivalent.bmp
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Otherwise, if sections are large, then the model is created by cascading
+ the sections with parameters that are divided by the number of sections.
+ In other words, the parameters are for the total line, and each section
+ has a value of the parameter divided by the number of sections.
+\end_layout
+
+\begin_layout Standard
+This is used to approximated distributed parameters.
 \end_layout
 
 \begin_layout Subsection
@@ -19706,6 +20277,24 @@ None
 
 \end_layout
 
+\begin_layout Standard
+The voltage source is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a voltage 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ specified by the file name to the system.
+\end_layout
+
 \begin_layout Subsection
 Current Source
 \begin_inset CommandInset label
@@ -19934,6 +20523,24 @@ None
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The current source is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a current 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ specified by the file name to the system.
 \end_layout
 
 \begin_layout Subsection
@@ -20352,6 +20959,35 @@ s
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The voltage step generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a voltage step 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform is 0 V until the start time, after which it jumps immediately
+ to the amplitude specified for the remaining duration of the waveform.
 \end_layout
 
 \begin_layout Subsection
@@ -20819,6 +21455,35 @@ s
 
 \end_layout
 
+\begin_layout Standard
+The voltage pulse generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a voltage pulse 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform is 0 V until the start time, after which it jumps immediately
+ to the amplitude specified for the duration specified by the pulse width.
+\end_layout
+
 \begin_layout Subsection
 Voltage Sine Generator
 \begin_inset CommandInset label
@@ -21284,6 +21949,35 @@ s
 
 \end_layout
 
+\begin_layout Standard
+The voltage sine generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a voltage sine 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform is such that it has the frequency specified and has the phase
+ specified at time zero.
+\end_layout
+
 \begin_layout Subsection
 Current Step Generator
 \begin_inset CommandInset label
@@ -21700,6 +22394,35 @@ s
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The current step generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a current step 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform is 0 V until the start time, after which it jumps immediately
+ to the amplitude specified for the remaining duration of the waveform.
 \end_layout
 
 \begin_layout Subsection
@@ -22167,6 +22890,35 @@ s
 
 \end_layout
 
+\begin_layout Standard
+The current pulse generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a current pulse 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform is 0 V until the start time, after which it jumps immediately
+ to the amplitude specified for the duration specified by the pulse width.
+\end_layout
+
 \begin_layout Subsection
 Current Sine Generator
 \begin_inset CommandInset label
@@ -22632,6 +23384,241 @@ s
 
 \end_layout
 
+\begin_layout Standard
+The current sine generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a current sine 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform is such that it has the frequency specified and has the phase
+ specified at time zero.
+\end_layout
+
+\begin_layout Subsection
+Port
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Port"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Port.bmp
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+port number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The port is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications to define locations where waves enter and exit the system.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+, they define the how the s-parameters will be produced.
+ For example Sxy will be the reflected wave at port x due to the incident
+ wave at port y, with all other ports terminated in the reference impedance.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+, they match the port numbers in the circuit with the ports on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+They are added to the schematic with the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Port"
+
+\end_inset
+
+ command.
+\end_layout
+
 \begin_layout Subsection
 Measure Probe
 \begin_inset CommandInset label
@@ -22807,6 +23794,36 @@ None
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The measure probe is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications to specify measurements actually made in the system.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probes"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The file specified is for a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file containing the actual measurement.
 \end_layout
 
 \begin_layout Subsection
@@ -23078,6 +24095,45 @@ gain
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The output probe is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to specify output waveforms to be produced as a result of
+ the calculation.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-for Simulation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probes-for-Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When the waveforms are produced as a result of the calculation, you have
+ the capability of applying gain, offset and delay to the resulting waveform.
 \end_layout
 
 \begin_layout Subsection
