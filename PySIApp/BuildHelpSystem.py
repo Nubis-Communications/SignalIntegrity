@@ -8,8 +8,9 @@ import xml.etree.ElementTree as et
 import os
 
 class HelpSystemKeys(object):
-    def __init__(self):
-        path=os.getcwd()
+    def __init__(self,path=None):
+        if path is None:
+            path=os.getcwd()
         path=path+'/Help/PySIHelp.html.LyXconv'
         self.dict={}
         filename=path+'/PySIHelp.html'

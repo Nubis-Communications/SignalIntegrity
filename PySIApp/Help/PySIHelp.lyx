@@ -76,6 +76,13 @@ LatexCommand tableofcontents
 \end_inset
 
 
+\begin_inset CommandInset label
+LatexCommand label
+name "toc"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -87,6 +94,18 @@ name "sec:Introduction"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset href
+LatexCommand href
+name "Table of Contents"
+target "PySIHelp.html"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -171,8 +190,52 @@ name "sec:S-parameter-Generation"
 \begin_layout Standard
 This section explains how to use PySIApp to generate the s-parameters of
  a system.
- Read through the following sections on how to accomplish this, or skip
- immediately to the 
+ It involves the steps of:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Drawing-a-Schematic-for-S-parameter-Generation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Attaching-Ports-to-a-Schematic"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculating-S-parameters"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Read through the following sections on how to accomplish this, or skip immediate
+ly to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:S-parameter-Generation-Example"
@@ -184,6 +247,13 @@ reference "sub:S-parameter-Generation-Example"
 
 \begin_layout Subsection
 Drawing a Schematic for S-parameter Generation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Drawing-a-Schematic-for-S-parameter-Generation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -403,7 +473,7 @@ In calculating the s-parameters, the first step is to convert the schematic
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Netlists"
+reference "sec:Netlist"
 
 \end_inset
 
@@ -1541,7 +1611,7 @@ In simulation, the first step is to convert the schematic shown into a net
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Netlists"
+reference "sec:Netlist"
 
 \end_inset
 
@@ -2845,7 +2915,7 @@ In the deembedding calculation, the first step is to convert the schematic
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Netlists"
+reference "sec:Netlist"
 
 \end_inset
 
@@ -4182,7 +4252,7 @@ In virtual probing, the first step is to convert the schematic shown into
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Netlists"
+reference "sec:Netlist"
 
 \end_inset
 
@@ -4986,6 +5056,13 @@ reference "sec:S-parameter-Generation"
 
 \end_inset
 
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
  calculation.
 \end_layout
 
@@ -5407,6 +5484,13 @@ Always
 
 \end_layout
 
+\begin_layout Standard
+browses to an s-parameter file to read in.
+ The user is asked to select a file for viewing.
+ This file must have the extension .s[x]p where x is the number of ports.
+ It must also be a valid touchstone file.
+\end_layout
+
 \begin_layout Subsubsection
 Save S-parameter File
 \begin_inset CommandInset label
@@ -5566,6 +5650,12 @@ Always
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This saves the current s-parameter file being viewed to disk.
+ When saving a file, it must have the extension .s[x]p where x is the number
+ of ports.
 \end_layout
 
 \begin_layout Subsection
@@ -5749,6 +5839,40 @@ Always
 
 \end_layout
 
+\begin_layout Standard
+When s-parameters are produced as a result of a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ application, they are sampled with the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+ set at the time of the calculation.
+ If they are changed after the calculation, the results can be resampled
+ using this command.
+\end_layout
+
+\begin_layout Standard
+Also, oftentimes s-parameters are being viewed from files and are therefore
+ sampled however they are on the disk.
+ Resampling them allows the user to see ahead of time how they will be resampled
+ during calculation to look for bad behavior.
+\end_layout
+
 \begin_layout Section
 Simulator Dialog
 \begin_inset CommandInset label
@@ -5758,6 +5882,169 @@ name "sec:Simulator-Dialog"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename SimulatorExampleStep24.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The simulator dialog (which is really a waveform viewer dialog) appears
+ under the following conditions:
+\end_layout
+
+\begin_layout Itemize
+After 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulating"
+
+\end_inset
+
+ is invoked by either 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulate"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ and the simulation completes properly in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ application.
+\end_layout
+
+\begin_layout Itemize
+After 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Virtual-Probing"
+
+\end_inset
+
+ is invoked by either a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Virtual-Probe"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ and the calculation completes properly in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ application.
+\end_layout
+
+\begin_layout Itemize
+When viewing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ associated with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Source"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Source"
+
+\end_inset
+
+ in a schematic through the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ command.
+\end_layout
+
+\begin_layout Standard
+This dialog has a menu and toolbar with commands that handle:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulator-File-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulator-Calculation-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Along with context sensitive help.
+\end_layout
+
+\begin_layout Standard
+The main part of the dialog is a MatPlotLib plot (see 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://matplotlib.org"
+
+\end_inset
+
+) with control of panning and zooming.
+ These controls come standard with MatPlotLib, the standard Python way of
+ plotting things.
+ The plots have a legend in the upper right containing the name of the waveform
+ plot being displayed and indication of its color in the plot.
+ The axis for the plots are amplitude in Volts on the y axis, time in ns
+ on the x axis.
+ The waveform(s) are scaled and aligned as appropropriate originally.
 \end_layout
 
 \begin_layout Subsection
@@ -6316,6 +6603,54 @@ Always
 
 \end_layout
 
+\begin_layout Standard
+This causes the current plot to be output in a graphical file format called
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "TikZ"
+target "https://www.ctan.org/pkg/pgf?lang=en"
+
+\end_inset
+
+ which is interpreted in TeX and LaTeX based documents (see 
+\begin_inset CommandInset href
+LatexCommand href
+name "TeX Users Group (TUG)"
+target "https://tug.org/"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The TikZ file is directly importable into a LaTeX based document.
+\end_layout
+
+\begin_layout Standard
+This will only be available if matplotlib2tikz is installed in your Python
+ installation.
+ See 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/nschloe/matplotlib2tikz"
+target "https://github.com/nschloe/matplotlib2tikz"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Because of differences between graphics drawing commands, the TikZ will
+ vary slightly from the actual plot shown in PySIApp.
+\end_layout
+
+\begin_layout Standard
+For .png or other rasterized graphics use the disk button on the plot toolbar.
+\end_layout
+
 \begin_layout Subsection
 Simulator Calculation Menu
 \begin_inset CommandInset label
@@ -6507,6 +6842,47 @@ Always
 
 \end_layout
 
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications, transfer parameters are created during the calculation.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Simulation-Example"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Virtual-Probing-Example"
+
+\end_inset
+
+ for examples of this.
+ These transfer parameters can be viewed in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 Recalculate
 \begin_inset CommandInset label
@@ -6661,6 +7037,24 @@ Always
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This recalculates the results of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ application.
 \end_layout
 
 \begin_layout Section
@@ -7984,7 +8378,7 @@ The format of this net list is described in the accompanying book but somewhat
  under 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Netlists"
+reference "sec:Netlist"
 
 \end_inset
 
@@ -12041,6 +12435,69 @@ on, press OK.
 \begin_layout Standard
 If at any time you press Cancel, the properties of the part are left unchanged
  in the schematic.
+\end_layout
+
+\begin_layout Standard
+Some devices have file properties.
+ For example, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ devices have s-parameter files and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Source"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Source"
+
+\end_inset
+
+ have 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ files associated.
+ In these cases, the files can be browsed to and selected and viewed in
+ either the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -16291,6 +16748,329 @@ name "sec:Built-in-Devices"
 
 \end_layout
 
+\begin_layout Standard
+PySI defines the following built-in parts.
+ If you don't see what you want, you can always supply an s-parameter file
+ through a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ part.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Resistor"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Capacitor"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Inductor"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Mutual"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Ground"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Power-Mixed-Mode-Converter"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Mixed-Mode-Converter"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Step-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Pulse-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Sine-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Step-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Pulse-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Sine-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Controlled-Voltage-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Controlled-Voltage-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Controlled-Current-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Controlled-Current-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Controlled-Voltage-Source"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Amplifier"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Amplifier"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Transconductance-Amplifier"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Transresistance-Amplifier"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 File
 \begin_inset CommandInset label
@@ -16566,7 +17346,8 @@ reference "sec:S-parameter-Viewer"
 \end_layout
 
 \begin_layout Standard
-When files read in, file devices are resampled according to the 
+When files read in during calculations, file devices are resampled according
+ to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Calculation-Properties"
@@ -20295,6 +21076,25 @@ reference "sec:Waveform"
  specified by the file name to the system.
 \end_layout
 
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file can be viewed using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ with the device selected and pressing the View button on the Part Properties
+ dialog.
+\end_layout
+
 \begin_layout Subsection
 Current Source
 \begin_inset CommandInset label
@@ -20541,6 +21341,25 @@ reference "sec:Waveform"
 \end_inset
 
  specified by the file name to the system.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file can be viewed using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ with the device selected and pressing the View button on the Part Properties
+ dialog.
 \end_layout
 
 \begin_layout Subsection
@@ -23641,7 +24460,7 @@ name "sub:Measure-Probe"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="5">
+<lyxtabular version="3" rows="4" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -23743,6 +24562,53 @@ VM?
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -23826,6 +24692,25 @@ reference "sec:Waveform"
  file containing the actual measurement.
 \end_layout
 
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ file can be viewed using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Properties"
+
+\end_inset
+
+ with the device selected and pressing the View button on the Part Properties
+ dialog.
+\end_layout
+
 \begin_layout Subsection
 Output Probe
 \begin_inset CommandInset label
@@ -23848,7 +24733,7 @@ name "sub:Output-Probe"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="5">
+<lyxtabular version="3" rows="6" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -23944,6 +24829,53 @@ string
 
 \begin_layout Plain Layout
 VO?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -24158,7 +25090,7 @@ name "sub:Stim"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="5">
+<lyxtabular version="3" rows="4" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -24254,6 +25186,53 @@ string
 
 \begin_layout Plain Layout
 M?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -24462,8 +25441,34 @@ That is actually the purpose of the defining stim - to reduce the number
  ports.
 \end_layout
 
+\begin_layout Standard
+Note that the reference designator of the stim is not used for anything.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:stim"
+
+\end_inset
+
+ under 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+ for more information.
+\end_layout
+
 \begin_layout Subsection
 Voltage Controlled Voltage Source
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Controlled-Voltage-Source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -24685,8 +25690,28 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+This is a voltage source that is proportional to the voltage across the
+ voltage measurement terminals with the proportionality set by the gain.
+\end_layout
+
+\begin_layout Standard
+The input impedance of the voltage measurement pins is infinite.
+\end_layout
+
+\begin_layout Standard
+The output impedance of the voltage source is zero.
+\end_layout
+
 \begin_layout Subsection
 Current Controlled Current Source
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Controlled-Current-Source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -24908,8 +25933,28 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+This is a current source that is proportional to the current through the
+ current measurement terminals with the proportionality set by the gain.
+\end_layout
+
+\begin_layout Standard
+The input impedance of the current measurement pins is zero.
+\end_layout
+
+\begin_layout Standard
+The output impedance of the current source is infinite.
+\end_layout
+
 \begin_layout Subsection
 Voltage Controlled Current Source
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Controlled-Current-Source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -25131,8 +26176,28 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+This is a current source that is proportional to the voltage across the
+ voltage measurement terminals with the proportionality set by the gain.
+\end_layout
+
+\begin_layout Standard
+The input impedance of the voltage measurement pins is infinite.
+\end_layout
+
+\begin_layout Standard
+The output impedance of the current source is infinite.
+\end_layout
+
 \begin_layout Subsection
 Current Controlled Voltage Source
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Controlled-Voltage-Source"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -25354,8 +26419,28 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+This is a voltage source that is proportional to the current through the
+ current measurement terminals with the proportionality set by the gain.
+\end_layout
+
+\begin_layout Standard
+The input impedance of the current measurement pins is zero.
+\end_layout
+
+\begin_layout Standard
+The output impedance of the voltage source is zero.
+\end_layout
+
 \begin_layout Subsection
 Voltage Amplifier
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Voltage-Amplifier"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -25671,8 +26756,27 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+The voltage amplifier is like a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Controlled-Voltage-Source"
+
+\end_inset
+
+ except that the input impedance of the voltage sense is settable and the
+ output impedance of the voltage source is settable.
+\end_layout
+
 \begin_layout Subsection
 Current Amplifier
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Current-Amplifier"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -25988,8 +27092,27 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+The current amplifier is like a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Controlled-Current-Source"
+
+\end_inset
+
+ except that the input impedance of the current sense is settable and the
+ output impedance of the current source is settable.
+\end_layout
+
 \begin_layout Subsection
 Transconductance Amplifier
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Transconductance-Amplifier"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -26305,8 +27428,27 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+The transconductance amplifier is like a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Controlled-Current-Source"
+
+\end_inset
+
+ except that the input impedance of the voltage sense is settable and the
+ output impedance of the current source is settable.
+\end_layout
+
 \begin_layout Subsection
 Transresistance Amplifier
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Transresistance-Amplifier"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -26622,6 +27764,18 @@ gain
 
 \end_layout
 
+\begin_layout Standard
+The transresistance amplifier is like a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Current-Controlled-Voltage-Source"
+
+\end_inset
+
+ except that the input impedance of the current sense is settable and the
+ output impedance of the voltage source is settable.
+\end_layout
+
 \begin_layout Subsection
 Unknown
 \begin_inset CommandInset label
@@ -26843,19 +27997,59 @@ reference "sec:Deembedding"
 
 \end_inset
 
- applications and can only be added to a schematic through 
+ applications and are used to specify the devices whose s-parameters are
+ unknown and are to be solved for.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknowns"
+
+\end_inset
+
+ for more information on their use.
+\end_layout
+
+\begin_layout Standard
+Unknowns are placed in the schematic using 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Add-Unknown"
 
 \end_inset
 
-.
+ or by using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+ devices from the Unknowns category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerUnknownCategory.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 Unknown devices have only a reference designator which provides the name
- for the unknown.
+ for the unknown, which will be the default name given for the unknown s-paramet
+ers calculated.
 \end_layout
 
 \begin_layout Subsection
@@ -27126,14 +28320,60 @@ reference "sec:Deembedding"
 
 \end_inset
 
- applications and can only be added to a schematic through 
+ applications and are used to specify the s-parameters of the system as
+ defined by each 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ in the schematic.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Defining-the-System"
+
+\end_inset
+
+ for more information on their use.
+\end_layout
+
+\begin_layout Standard
+The system is defined by placing a special part in the schematic using 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Add-System"
 
 \end_inset
 
-.
+ or by using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+ and selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ devices from the Systems category.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename PartPickerSystemsCategory.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -27154,14 +28394,1106 @@ They take an s-parameter file name in the file name property.
 \end_layout
 
 \begin_layout Section
-Netlists
+Netlist
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Netlists"
+name "sec:Netlist"
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Netlists are the internal text based format of the schematic.
+ There is a one-to-one correspondance between the netlist and the schematic
+ from a device and connectivity standpoint.
+\end_layout
+
+\begin_layout Standard
+each line in the netlist starts with one of the following keywords:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+- specifies one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ in the schematic.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:connect"
+
+\end_inset
+
+- specifies one or more device pin connections.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:port"
+
+\end_inset
+
+- specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ and it's connection to a device pin.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:meas"
+
+\end_inset
+
+- specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ and it's connection to a device pin.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:output"
+
+\end_inset
+
+- specifies an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ and it's connection to a device pin.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:stim"
+
+\end_inset
+
+- specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ and it's associated device pin.
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:stimdef"
+
+\end_inset
+
+- specifies the relationship between defining and dependent stims (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+).
+ (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:unknown"
+
+\end_inset
+
+- specifies an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+ device (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:system"
+
+\end_inset
+
+- specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ device (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Subsection
+device
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:device"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+device
+\emph default
+ defines one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ in the schematic.
+\end_layout
+
+\begin_layout Standard
+The syntax is at least the keyword 
+\emph on
+device 
+\emph default
+followed by the reference designator followed by the number of ports followed
+ by a keyword defining one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Following this is often optional keyword pairs specifying the arguments
+ for the device.
+\end_layout
+
+\begin_layout Standard
+Sometimes the first argument is specified without a keyword (the keyword
+ is implied).
+ Usually this is for devices with only one argument, like a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Resistor"
+
+\end_inset
+
+ whose only argument is the resistance.
+\end_layout
+
+\begin_layout Standard
+If a device line of a netlist is specified incorrectly, you will get one
+ of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Errors-and-Exceptions"
+
+\end_inset
+
+ or the type: 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:DeviceParser"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+connect
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:connect"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+connect
+\emph default
+ specifies one or more device pin connections.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+device
+\emph default
+ followed pairs of reference designators and pin numbers.
+\end_layout
+
+\begin_layout Standard
+The reference designators refer to one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ specified in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ command elsewhere in the netlist.
+\end_layout
+
+\begin_layout Standard
+The pin numbers refer to a pin of the device.
+\end_layout
+
+\begin_layout Subsection
+port
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:port"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+port
+\emph default
+ specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ and it's connection to a device pin.
+\end_layout
+
+\begin_layout Standard
+This should appear only in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications and there must be at least one statement like this.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+port
+\emph default
+ followed by triplets containing a port number followed by the reference
+ designator and pin number of the device pin that the port is connected
+ to.
+\end_layout
+
+\begin_layout Standard
+The reference designators refer to one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ specified in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ command elsewhere in the netlist.
+\end_layout
+
+\begin_layout Standard
+The pin numbers refer to a pin of the device.
+\end_layout
+
+\begin_layout Standard
+If in your schematic, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ is connected to a net with multiple device pins connected, the line in
+ the netlist will specify a connection to an arbitrarily chosen one of the
+ device pins (with the connection to the other device pins held in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:connect"
+
+\end_inset
+
+ netlist lines.)
+\end_layout
+
+\begin_layout Subsection
+meas
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:meas"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+meas
+\emph default
+ specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ and it's connection to a device pin.
+\end_layout
+
+\begin_layout Standard
+This should only appear in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications and there must be at least one statement like this.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+meas
+\emph default
+ followed by a reference designator and pin number.
+\end_layout
+
+\begin_layout Standard
+The reference designators refer to one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ specified in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ command elsewhere in the netlist.
+\end_layout
+
+\begin_layout Standard
+The pin numbers refer to a pin of the device.
+\end_layout
+
+\begin_layout Standard
+If in your schematic, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ is connected to a net with multiple device pins connected, the line in
+ the netlist will specify a connection to an arbitrarily chosen one of the
+ device pins (with the connection to the other device pins held in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:connect"
+
+\end_inset
+
+ netlist lines.)
+\end_layout
+
+\begin_layout Standard
+Note that the reference designator (i.e.
+ the name) and the filename of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ associated with the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+ do not appear in the netlist as it is unimportant for the calculations.
+ Instead, the application keeps track of this information during netlist
+ generation for use in managing the calculation.
+\end_layout
+
+\begin_layout Subsection
+output
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:output"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+output
+\emph default
+ specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ and it's connection to a device pin.
+\end_layout
+
+\begin_layout Standard
+This should only appear in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications and there must be at least one statement like this in the
+ netlist.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+output
+\emph default
+ followed by a reference designator and pin number.
+\end_layout
+
+\begin_layout Standard
+The reference designators refer to one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ specified in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ command elsewhere in the netlist.
+\end_layout
+
+\begin_layout Standard
+The pin numbers refer to a pin of the device.
+\end_layout
+
+\begin_layout Standard
+If in your schematic, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ is connected to a net with multiple device pins connected, the line in
+ the netlist will specify a connection to an arbitrarily chosen one of the
+ device pins (with the connection to the other device pins held in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:connect"
+
+\end_inset
+
+ netlist lines.)
+\end_layout
+
+\begin_layout Standard
+Note that the reference designator (i.e.
+ the name) associated with the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ do not appear in the netlist as it is unimportant for the calculations.
+ Instead, the application keeps track of this information during netlist
+ generation for use in managing the calculation.
+\end_layout
+
+\begin_layout Subsection
+stim
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:stim"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+stim
+\emph default
+ specifies a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ and it's connection to a device pin.
+\end_layout
+
+\begin_layout Standard
+This should only appear in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications, and there must be at least one statement like this in the
+ netlist.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+stim
+\emph default
+ followed by the name of the stim followed by a reference designator and
+ pin number.
+\end_layout
+
+\begin_layout Standard
+The reference designators refer to one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ specified in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ command elsewhere in the netlist.
+\end_layout
+
+\begin_layout Standard
+The pin numbers refer to a pin of the device from which the stimulus emanates.
+\end_layout
+
+\begin_layout Standard
+The name of the stim is always a lowercase m followed by a number, where
+ the number is unique and is generated automatically during netlist generation.
+ The name and number have nothing to do with the reference designator for
+ the stim which is unimportant.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename warning.png
+	scale 30
+
+\end_inset
+
+If in your schematic, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ is connected to a net with multiple device pins connected, the line in
+ the netlist will specify a connection to an arbitrarily chosen one of the
+ device pins (with the connection to the other device pins held in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:connect"
+
+\end_inset
+
+ netlist lines.).
+ The arbitrarily chosen device pin might be the right one or the wrong one
+ and you might get the incorrect final result.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+stimdef
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:stimdef"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+stimdef
+\emph default
+ specifies the relationship between defining and dependent stims in the
+ schematic (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+This should only appear in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+A 
+\emph on
+stimdef
+\emph default
+ statement will only appear if there is a defining stim in the schematic.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+stimdef
+\emph default
+ followed by a python list-based matrix definition where the form:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\left[d_{11},d_{12},\ldots,d_{1C}\right],\left[d_{21},d_{22},\ldots,d_{2C}\right],\ldots,\left[d_{R1},d_{R2},\ldots,d_{RC}\right]\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is equivalent to a 
+\begin_inset Formula $R\times C$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(\begin{array}{cccc}
+d_{11} & d_{12} & \ldots & d_{1C}\\
+d_{21} & d_{22} & \ldots & d_{2C}\\
+\vdots & \vdots & \ddots & \vdots\\
+d_{R1} & d_{R2} & \ldots & d_{RC}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The matrix is such that for a 
+\begin_inset Formula $C$
+\end_inset
+
+ element vector of dependent stims 
+\begin_inset Formula $\mathbf{m}$
+\end_inset
+
+ (with the elements 
+\begin_inset Formula $\left(\begin{array}{c}
+m_{1}\\
+m_{2}\\
+\vdots\\
+m_{C}
+\end{array}\right)$
+\end_inset
+
+), as listed in the netlist for the dependent stims and an 
+\begin_inset Formula $R$
+\end_inset
+
+ element vector of defining stims 
+\begin_inset Formula $\mathbf{d}$
+\end_inset
+
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:stim"
+
+\end_inset
+
+ for the netlist statement for the stim and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ for a description of dependent and defining stims), that the stimdef defines
+ 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ such that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{d}=\mathbf{D}\cdot\mathbf{m}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When no stimdef statement appears, there are 
+\begin_inset Formula $C$
+\end_inset
+
+ unknowns (and there must be at least 
+\begin_inset Formula $C$
+\end_inset
+
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+s specified with lines that begin with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:meas"
+
+\end_inset
+
+ in the netlist).
+ If a stimdef statement appears, there are 
+\begin_inset Formula $R$
+\end_inset
+
+ unknowns (and there must be at least 
+\begin_inset Formula $R$
+\end_inset
+
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+s specified with lines that begin with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:meas"
+
+\end_inset
+
+ in the netlist).
+\end_layout
+
+\begin_layout Subsection
+unknown
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:unknown"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+unknown
+\emph default
+ defines an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Unknown"
+
+\end_inset
+
+ in the schematic.
+\end_layout
+
+\begin_layout Standard
+This should appear only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications and there must be one such statement in the netlist.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+unknown
+\emph default
+ followed by the reference designator followed by the number of ports.
+\end_layout
+
+\begin_layout Subsection
+system
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:system"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword 
+\emph on
+system
+\emph default
+ defines an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+ in the schematic.
+\end_layout
+
+\begin_layout Standard
+This should appear only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ applications and there must be one such statement in the netlist.
+\end_layout
+
+\begin_layout Standard
+The syntax is the keyword 
+\emph on
+system
+\emph default
+ followed by the reference designator followed by the number of ports followed
+ by the keyword 
+\emph on
+file
+\emph default
+ followed by the name of the file containing s-parameters that define the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:System"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -27541,11 +29873,45 @@ No Sources
 
 \begin_layout Standard
 There are no sources in the circuit.
- In the context of virtual probing, sources mean stims as a stim looks like
- a source in the depths of the calculation.
- The application checks for the existence of at least one stim prior to
- enabling the virtual probe calculation, but it does not check whether the
- stim is actually connected to anything.
+ In the context of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+, sources mean stims as a stim looks like a source in the depths of the
+ calculation.
+ The application checks for the existence of at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stim"
+
+\end_inset
+
+ defined by a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+ line defining a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:stim"
+
+\end_inset
+
+ prior to enabling the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ calculation, but it does not check whether the stim is actually connected
+ to anything.
 \end_layout
 
 \begin_layout Standard
@@ -27647,8 +30013,22 @@ name "sub:DeviceParser"
 
 \end_layout
 
-\begin_layout Subsubsection
-Arguments Must Come in Keyword Pairs
+\begin_layout Standard
+This error class is for errors parsing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+ lines with the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ keyword.
 \end_layout
 
 \begin_layout Subsubsection
@@ -27657,8 +30037,34 @@ Mandatory Keywords Not Supplied
 
 \begin_layout Standard
 This error message states that mandatory keywords and values were not supplied
- to the device parser for a particular device.
- The keyword error looks like: ['keyword1','keyword2',\SpecialChar \ldots{}
+ to the device parser for a particular 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ line in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+, defining one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+.
+ This would be an internal error to the application because you cannot really
+ control this.
+\end_layout
+
+\begin_layout Standard
+The keyword error looks like: ['keyword1','keyword2',\SpecialChar \ldots{}
 ] for 'deviceName'
  where 'keyword1' and 'keyword2' are representative of keywords that must
  be defined for the device and 'deviceName' is representative of the name
@@ -27667,7 +30073,14 @@ This error message states that mandatory keywords and values were not supplied
 
 \begin_layout Standard
 If a keyword is '', then the device takes an argument without a keyword
- (the keyword is inherent).
+ (the keyword is inherent - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -27686,12 +30099,95 @@ When entering netlists by hand, it is easy to forget a mandatory keyword,
 Arguments Must Come in Keyword Pairs
 \end_layout
 
+\begin_layout Standard
+This error message states that the netlist 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ line in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+, defining one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ was formed incorrectly and that it was expecting the arguments to come
+ in keyword/value pairs.
+ This would be an internal error to the application because you cannot really
+ control this.
+\end_layout
+
 \begin_layout Subsubsection
 Device Could Not Be Instantiated
 \end_layout
 
+\begin_layout Standard
+This error message states that the netlist 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ line in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+, defining one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ was formed incorrectly and the result of trying to create a device with
+ the given name and arguments failed.
+ This would be an internal error to the application because you cannot really
+ control this.
+\end_layout
+
 \begin_layout Subsubsection
 Device Not Found
+\end_layout
+
+\begin_layout Standard
+This error message states that the netlist 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:device"
+
+\end_inset
+
+ line in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+, defining one of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Built-in-Devices"
+
+\end_inset
+
+ was formed incorrectly and that the device name specified is unknown.
+ This would be an internal error to the application because you cannot really
+ control this.
 \end_layout
 
 \begin_layout Section

@@ -55,7 +55,7 @@ class TheApp(Frame):
                 else:
                     exit()
 
-        self.helpSystemKeys = HelpSystemKeys()
+        self.helpSystemKeys = HelpSystemKeys(self.installdir)
         # status bar
         self.statusbar=StatusBar(self)
 
@@ -226,7 +226,7 @@ class TheApp(Frame):
 
         # The edit history (for undo)
         self.history=History(self)
-        
+
         # we capture resizing so we can resize the canvas a bit smaller to allow the user
         # to always see the status message bar.  But we don't know how much smaller initially.
         # so we capture the first call to resize which occurs when the canvas is sized.
@@ -286,7 +286,7 @@ class TheApp(Frame):
         self.Drawing.DrawSchematic()
         self.history.Event('read project')
         self.root.title('PySI: '+self.fileparts.FileNameTitle())
-    
+
     def onNewProject(self):
         filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
@@ -637,7 +637,7 @@ class TheApp(Frame):
             self.EscapeDoer.Activate(True)
 
             self.config(cursor='question_arrow')
-            
+
             self.statusbar.set('Control Help')
 
 
