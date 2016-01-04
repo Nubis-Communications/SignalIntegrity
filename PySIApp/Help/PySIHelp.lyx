@@ -4275,7 +4275,7 @@ ample/VirtualProbeExample.xml.
 \begin_layout Standard
 When we open this example using 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "Control-Help:Open-Project"
 
 \end_inset
@@ -24311,6 +24311,155 @@ weight
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The stim is used only in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ applications to specify sources of stimulus in the system.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Stimuli"
+
+\end_inset
+
+ where this is explained in the context of setting up a virtual probing
+ application.
+\end_layout
+
+\begin_layout Standard
+It defines a source of waves in a system.
+\end_layout
+
+\begin_layout Standard
+The stim is an arrow with two pins - one at the head of the arrow and one
+ at the tail.
+ The one at the tail is usually not connected so it does not show up with
+ a red x at the connection point when unconnected.
+\end_layout
+
+\begin_layout Standard
+There are three types of situations for a stim:
+\end_layout
+
+\begin_layout Itemize
+independent stims - stims that define a source of wave emanation from a
+ device pin whose waves are not related to any other waves in the system.
+\end_layout
+
+\begin_layout Itemize
+dependent stims - stims that define a source of wave emanation from a device
+ pin but that are interrelated in some way with another.
+\end_layout
+
+\begin_layout Itemize
+defining stims - stims that define other stims.
+ These are the stims that other dependent stims depend on.
+\end_layout
+
+\begin_layout Standard
+If an independent or dependent stim is placed in a circuit, the arrow must
+ connect directly to one and only one device port pin.
+ It cannot be connected in the middle of a net and cannot be connected to
+ two device pins directly connected together.
+ This is because these stims define wave emanation from a device pin and
+ if the arrow were connected to more than one device port, or in the middle
+ of a wire, the device pin specified would be ambiguous.
+\end_layout
+
+\begin_layout Standard
+A defining stim must have it's arrow on a net containing only the tails
+ of other dependent stims.
+ This net can be formed by placing the arrow of a defining stim directly
+ on the tails of other independent stims, or through wires connecting to
+ the dependent stims, but again, the wire can only be connecting the arrow
+ of a defining stim to the tails of one or more dependent stims with nothing
+ else on the net.
+\end_layout
+
+\begin_layout Standard
+When a defining stim exists in the circuit, the netlist will contain a 
+\emph on
+stimdef
+\emph default
+ statement.
+ The stimdef will define the relationship between the defining stims and
+ the dependent stims determined by the weight property value for the stim.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename warning.png
+	scale 30
+
+\end_inset
+
+At the time that this manual was written, the application software does
+ not handle a rare special case properly - currently it requires that if
+ there is at least one defining stim in the system, that all other stims
+ beside the defining stims are dependent (i.e.
+ there are no independent stims).
+ To work around this (unlikely) situation (until the software is changed),
+ if there is a defining stim in the system, and you have some stims that
+ you want to be independent, then just place a new defining stim behind
+ each independent stim (i.e.
+ instantiate a new defining stim and place the arrow on the tail of the
+ independent stim making it dependent).
+ Then everything will work properly.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As stims define sources of wave emanation, they 
+\emph on
+constrain
+\emph default
+ the solution to the system.
+ In some sense, you can view the solution of determining the waves emanating
+ from each stim with respect to each 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Measure-Probe"
+
+\end_inset
+
+.
+ Thus, for a properly constrained system, you should have a number of measure
+ probes equal to the number of independent stims in the system (if there
+ is no defining stim), or equal to the number of defining stims (see note
+ above).
+ You have an overconstrained system if you have more measurement probes
+ and an underconstrained system if you have less.
+\end_layout
+
+\begin_layout Standard
+That is actually the purpose of the defining stim - to reduce the number
+ of unknowns by enforcing a relationship between waves emanating from device
+ ports.
 \end_layout
 
 \begin_layout Subsection
