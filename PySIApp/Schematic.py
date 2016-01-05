@@ -177,7 +177,7 @@ class DrawingStateMachine(object):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsAt(self.parent.Button1Coord):
+                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
                     selectedSomething=True
                     vertex.selected=True
         if not selectedSomething:
@@ -185,17 +185,10 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    usingAdvancedSegmentDetection=True
-                    if usingAdvancedSegmentDetection:
-                        if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5):
-                            segment.selected=True
-                            selectedSomething=True
-                            break
-                    else:
-                        if segment.IsAt(self.parent.Button1Coord):
-                            segment.selected=True
-                            selectedSomething=True
-                            break
+                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                        segment.selected=True
+                        selectedSomething=True
+                        break
                 if selectedSomething:
                     wire = segmentList.Wire()
                     self.parent.schematic.wireList[wireIndex]=wire
@@ -211,7 +204,7 @@ class DrawingStateMachine(object):
                 toggledSomething=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsAt(self.parent.Button1Coord):
+                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
                     vertex.selected=not vertex.selected
                     toggledSomething=True
         if not toggledSomething:
@@ -219,17 +212,10 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    usingAdvancedSegmentDetection=True
-                    if usingAdvancedSegmentDetection:
-                        if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5):
-                            segment.selected=not segment.selected
-                            toggledSomething=True
-                            break
-                    else:
-                        if segment.IsAt(self.parent.Button1Coord):
-                            segment.selected=not segment.selected
-                            toggledSomething=True
-                            break
+                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                        segment.selected=not segment.selected
+                        toggledSomething=True
+                        break
                 if toggledSomething:
                     wire = segmentList.Wire()
                     self.parent.schematic.wireList[wireIndex]=wire
@@ -771,62 +757,66 @@ class DrawingStateMachine(object):
         self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1Motion_Selecting(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
         for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord):
+            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsIn(coord,self.parent.Button1Coord):
+                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertex.selected=True
         self.parent.DrawSchematic()
-        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
-                                            (self.parent.Button1Coord[1]+self.parent.originy)*self.parent.grid,
-                                            (coord[0]+self.parent.originx)*self.parent.grid,
-                                            (coord[1]+self.parent.originy)*self.parent.grid,
+        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
+                                            (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
+                                            (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
+                                            (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
                                             dash=(1,5))
     def onCtrlMouseButton1Release_Selecting(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
         for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord):
+            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsIn(coord,self.parent.Button1Coord):
+                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertex.selected=True
         self.DispatchBasedOnSelections()
     def onMouseButton3_Selecting(self,event):
         pass
     def onMouseButton1Motion_Selecting(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
         for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord):
+            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsIn(coord,self.parent.Button1Coord):
+                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertex.selected=True
         self.parent.DrawSchematic()
-        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
-                                            (self.parent.Button1Coord[1]+self.parent.originy)*self.parent.grid,
-                                            (coord[0]+self.parent.originx)*self.parent.grid,
-                                            (coord[1]+self.parent.originy)*self.parent.grid,
+        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
+                                            (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
+                                            (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
+                                            (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
                                             dash=(1,5))
     def onMouseButton1Release_Selecting(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
         for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord):
+            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsIn(coord,self.parent.Button1Coord):
+                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertex.selected=True
         self.DispatchBasedOnSelections()
     def onMouseButton3Release_Selecting(self,event):
@@ -880,7 +870,7 @@ class DrawingStateMachine(object):
                 break
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsAt(self.parent.Button1Coord) and vertex.selected:
+                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and vertex.selected:
                     inSelection=True
                     break
         if not inSelection:
@@ -888,15 +878,9 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    usingAdvancedSegmentDetection=True
-                    if usingAdvancedSegmentDetection:
-                        if segment.IsAtAdvanced(self.parent.Button1Coord,self.parent.Button1Augmentor,0.5) and segment.selected:
-                            inSelection=True
-                            break
-                    else:
-                        if segment.IsAt(self.parent.Button1Coord) and segment.selected:
-                            inSelection=True
-                            break
+                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and segment.selected:
+                        inSelection=True
+                        break
                 if inSelection:
                     break
 
@@ -970,15 +954,16 @@ class DrawingStateMachine(object):
         self.SaveButton1Coordinates(event)
     def onCtrlMouseButton1Motion_SelectingMore(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
         for d in range(len(self.parent.schematic.deviceList)):
             device=self.parent.schematic.deviceList[d]
-            if device.IsIn(coord,self.parent.Button1Coord) or self.selectedDevices[d]:
+            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedDevices[d]:
                 device.selected=True
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
-                if self.parent.schematic.wireList[w][v].IsIn(coord,self.parent.Button1Coord) or self.selectedWireVertex[w][v]:
+                if self.parent.schematic.wireList[w][v].IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedWireVertex[w][v]:
                     self.parent.schematic.wireList[w][v].selected=True
         self.parent.DrawSchematic()
         self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
@@ -988,16 +973,17 @@ class DrawingStateMachine(object):
                                             dash=(1,5))
     def onCtrlMouseButton1Release_SelectingMore(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
+        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
         self.UnselectAllDevices()
         self.UnselectAllWires()
         for d in range(len(self.parent.schematic.deviceList)):
             device=self.parent.schematic.deviceList[d]
-            if device.IsIn(coord,self.parent.Button1Coord) or self.selectedDevices[d]:
+            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedDevices[d]:
                 device.selected=True
         for w in range(len(self.parent.schematic.wireList)):
             for v in range(len(self.parent.schematic.wireList[w])):
                 vertex = self.parent.schematic.wireList[w][v]
-                if vertex.IsIn(coord,self.parent.Button1Coord) or self.selectedWireVertex[w][v]:
+                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedWireVertex[w][v]:
                     vertex.selected=True
         self.DispatchBasedOnSelections()
     def onMouseButton3_SelectingMore(self,event):

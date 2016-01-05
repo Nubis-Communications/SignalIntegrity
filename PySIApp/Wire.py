@@ -37,27 +37,7 @@ class Segment(object):
                 return '?'
         else:
             return '?'
-    def IsAt(self,coord):
-        if self.startCoord == coord or self.endCoord==coord:
-            return True
-        direction=self.Direction()
-        if direction == 'e':
-            step = (1,0)
-        elif direction == 'w':
-            step = (-1,0)
-        elif direction == 'n':
-            step = (0,-1)
-        elif direction == 's':
-            step = (0,1)
-        else:
-            return False
-        thisCoord=self.startCoord
-        while thisCoord != self.endCoord:
-            if thisCoord == coord:
-                return True
-            thisCoord=(thisCoord[0]+step[0],thisCoord[1]+step[1])
-        return False
-    def IsAtAdvanced(self,coord,augmentor,distanceAllowed):
+    def IsAt(self,coord,augmentor,distanceAllowed):
         xc=float(coord[0]+augmentor[0])
         yc=float(coord[1]+augmentor[1])
         xi=self.startCoord[0]
@@ -135,13 +115,25 @@ class Vertex(object):
         vertexElement=et.Element('vertex')
         vertexElement.text=str(self.coord)
         return vertexElement
-    def IsAt(self,coord):
-        return self.coord == coord
-    def IsIn(self,i,f):
-        minx=min(i[0],f[0])
-        miny=min(i[1],f[1])
-        maxx=max(i[0],f[0])
-        maxy=max(i[1],f[1])
+    def IsAt(self,coord,augmentor,distanceAllowed):
+        xc=float(coord[0]+augmentor[0])
+        yc=float(coord[1]+augmentor[1])
+        x=self.coord[0]
+        y=self.coord[1]
+        if xc < x-distanceAllowed:
+            return False
+        if xc > x+distanceAllowed:
+            return False
+        if yc < y-distanceAllowed:
+            return False
+        if yc > y+distanceAllowed:
+            return False
+        return True        
+    def IsIn(self,i,f,ia,fa):
+        minx=min(float(i[0]+ia[0]),float(f[0]+fa[0]))
+        miny=min(float(i[1]+ia[1]),float(f[1]+fa[1]))
+        maxx=max(float(i[0]+ia[0]),float(f[0]+fa[0]))
+        maxy=max(float(i[1]+ia[1]),float(f[1]+fa[1]))
         if minx > self[0]:
             return False
         if maxx < self[0]:
@@ -150,7 +142,7 @@ class Vertex(object):
             return False
         if maxy < self[1]:
             return False
-        return True
+        return True       
 
 class Wire(object):
     def __init__(self,vertexList=None):

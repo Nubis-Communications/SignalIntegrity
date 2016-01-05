@@ -135,7 +135,7 @@ class PartPicture(object):
         self.visiblePartPropertyList=visiblePartPropertyList
     def SetOrigin(self,xy):
         self.origin=tuple(xy)
-    def IsAtAdvanced(self,coord,augmentor,distanceAllowed):
+    def IsAt(self,coord,augmentor,distanceAllowed):
         xc=float(coord[0]+augmentor[0])
         yc=float(coord[1]+augmentor[1])
         xi=self.innerBox[0][0]+self.origin[0]
@@ -151,25 +151,11 @@ class PartPicture(object):
         if yc > max(yi,yf)+distanceAllowed:
             return False
         return True
-    def IsAt(self,xy,augmentor=None,distanceAllowed=None):
-        if not augmentor is None:
-            return self.IsAtAdvanced(xy,augmentor,distanceAllowed)
-        x=xy[0]
-        y=xy[1]
-        if x < self.innerBox[0][0]+self.origin[0]:
-            return False
-        if x > self.innerBox[1][0]+self.origin[0]:
-            return False
-        if y < self.innerBox[0][1]+self.origin[1]:
-            return False
-        if y > self.innerBox[1][1]+self.origin[1]:
-            return False
-        return True
-    def IsIn(self,i,f):
-        minx=min(i[0],f[0])
-        miny=min(i[1],f[1])
-        maxx=max(i[0],f[0])
-        maxy=max(i[1],f[1])
+    def IsIn(self,i,f,ia,fa):
+        minx=min(float(i[0]+ia[0]),float(f[0]+fa[0]))
+        miny=min(float(i[1]+ia[1]),float(f[1]+fa[1]))
+        maxx=max(float(i[0]+ia[0]),float(f[0]+fa[0]))
+        maxy=max(float(i[1]+ia[1]),float(f[1]+fa[1]))
         if minx > self.innerBox[0][0]+self.origin[0]:
             return False
         if maxx < self.innerBox[1][0]+self.origin[0]:
