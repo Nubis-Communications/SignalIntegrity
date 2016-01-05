@@ -20,8 +20,8 @@ class Device(object):
     def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
         self.CreateVisiblePropertiesList()
         self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y),pinsConnectedList)
-    def IsAt(self,coord):
-        return self.partPicture.current.IsAt(coord)
+    def IsAt(self,coord,augmentor=None,distance=None):
+        return self.partPicture.current.IsAt(coord,augmentor,distance)
     def IsIn(self,coord0,coord1):
         return self.partPicture.current.IsIn(coord0,coord1)
     def WhereInPart(self,coord):

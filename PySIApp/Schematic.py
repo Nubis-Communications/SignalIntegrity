@@ -172,7 +172,7 @@ class DrawingStateMachine(object):
         self.SaveButton1Coordinates(event)
         selectedSomething=False
         for device in self.parent.schematic.deviceList:
-            if device.IsAt(self.parent.Button1Coord):
+            if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
                 selectedSomething=True
                 device.selected=True
         for wire in self.parent.schematic.wireList:
@@ -206,7 +206,7 @@ class DrawingStateMachine(object):
         self.SaveButton1Coordinates(event)
         toggledSomething=False
         for device in self.parent.schematic.deviceList:
-            if device.IsAt(self.parent.Button1Coord):
+            if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
                 device.selected=not device.selected
                 toggledSomething=True
         for wire in self.parent.schematic.wireList:
@@ -242,7 +242,7 @@ class DrawingStateMachine(object):
         self.selectedDevices = [device.selected for device in self.parent.schematic.deviceList]
         self.selectedWireVertex = [[vertex.selected for vertex in wire] for wire in self.parent.schematic.wireList]
         self.SelectingMore()
-        
+
     def NoProject(self,force=False):
         if not hasattr(self,'state'):
             self.state=''
@@ -462,7 +462,7 @@ class DrawingStateMachine(object):
         self.parent.DrawSchematic()
     def onMouseButton3_DeviceSelected(self,event):
         self.SaveButton2Coordinates(event)
-        if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord):
+        if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
             self.Nothing()
     def onMouseButton1Motion_DeviceSelected(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -875,7 +875,7 @@ class DrawingStateMachine(object):
                                                  self.parent.Button1Coord[1]-vertex[1]) for vertex in wire] for wire in self.parent.schematic.wireList]
         inSelection=False
         for device in self.parent.schematic.deviceList:
-            if device.IsAt(self.parent.Button1Coord) and device.selected:
+            if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and device.selected:
                 inSelection=True
                 break
         for wire in self.parent.schematic.wireList:
