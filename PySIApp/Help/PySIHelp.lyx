@@ -76,13 +76,159 @@ LatexCommand tableofcontents
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+About
 \begin_inset CommandInset label
 LatexCommand label
-name "toc"
+name "sec:About"
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+PySIApp and SignalIntegrity Toolbox are Python based tools for solving four
+ basic signal integrity problems.
+ (See the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Introduction"
+
+\end_inset
+
+ for what these problems are).
+\end_layout
+
+\begin_layout Standard
+The SignalIntegrity Toolbox is a Python package that is essentially a library
+ of functions that can be used to solve these problems through Python scripts
+ that you create.
+\end_layout
+
+\begin_layout Standard
+PySIApp is a TkInter based Python GUI application that relies on the SignalInteg
+rity Toolbox which allows users to solve problems in a graphical environment.
+\end_layout
+
+\begin_layout Standard
+This software is the culmination of several years of effort by Pete Pupalaikis
+ of Teledyne LeCroy.
+ While writing a book on signal integrity (to be released someday!), he
+ recognized patterns in the mathematics behind s-parameters and s-parameter
+ based systems that allow the math to be tweaked slightly to perform simulation,
+ virtual probing, s-parameter generation and deembedding, all from the same
+ basic mathematical concepts.
+ The purpose and underlying principal of the book and theory is that:
+\end_layout
+
+\begin_layout Enumerate
+engineers rely too heavily on tools that they don't understand, and it is
+ not only within their grasp to understand the theory, it is really imperative
+ to understand the results.
+\end_layout
+
+\begin_layout Enumerate
+once you understand the theory, you can do many things yourself and gain
+ the benefit of releasing yourself from reliance on expensive, black-box
+ tools that you don't understand and which the vendors don't always explain.
+ And once you understand the theory (and can even look at the source code),
+ you can rely on yourself to solve problems and examine and understand the
+ results.
+\end_layout
+
+\begin_layout Standard
+While writing this book on theory, he realized that even with an understanding
+ of the theory, many relatively simple problems are still very complicated
+ calculations and some software should be created based on this theory.
+ So the book teaches the theory, but then also teaches how to use the software
+ tools that utilize the theory.
+ Originally all of these software tools were in the form of the SignalIntegrity
+ library and were utilized from Python scripts.
+\end_layout
+
+\begin_layout Standard
+And finally, again during the development of this book and tools, he realized
+ that even the scripts get too complicated and it would be good to have
+ a GUI based application - that is PySIApp.
+ But the development of the SignalIntegrity library first provided huge
+ advantages - it can be tested well and can be utilized very flexibly.
+ Currently there are about 600 tests that test for proper behavior of the
+ underlying library.
+ As for the GUI, these are very difficult to test in an automated manner
+ and by definition, must be a bit less flexible.
+\end_layout
+
+\begin_layout Standard
+The goal is for this software to be released as open source software in
+ some manner, once proper licenses get worked out.
+ But for now, see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:License"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Contact
+\end_layout
+
+\begin_layout Standard
+Send all comments or questions about this material to the author Peter J.
+ Pupalaikis at PeterP@LeCroy.com
+\end_layout
+
+\begin_layout Section
+License
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:License"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work is jointly copyright Peter J.
+ Pupalaikis and Teledyne LeCroy Corporation.
+ All rights are reserved.
+\end_layout
+
+\begin_layout Standard
+All of this material including the documentation, source code, help system
+ and all files are intended for educational and evaluation purposes only.
+\end_layout
+
+\begin_layout Standard
+You have no rights granted to modify, copy, distribute, or use this material
+ for anything other than evaluating the material to supply feedback and
+ for learning about signal integrity.
+\end_layout
+
+\begin_layout Standard
+There is no warranty either explicit or implicit.
+ There is no suggestion as to the fitness, correctness, or suitability of
+ the software, the documentation, the results produced by the software,
+ or anything about this material even for the intended use of education
+ and evaluation.
+\end_layout
+
+\begin_layout Standard
+Included, but not limited, to the restrictions placed on the use of this
+ material, is the restriction that it cannot be used for commercial purposes
+ or integrated into something else used for commercial purposes.
+\end_layout
+
+\begin_layout Standard
+In jurisdictions that do not allow for certain elements of this license,
+ any invalid portion of this license shall not invalidate the remaining
+ restrictions.
 \end_layout
 
 \begin_layout Section
@@ -97,7 +243,7 @@ name "sec:Introduction"
 \end_layout
 
 \begin_layout Standard
-See 
+If you want, go right to the 
 \begin_inset CommandInset href
 LatexCommand href
 name "Table of Contents"
@@ -427,7 +573,14 @@ Note that calculation will not be possible at all (i.e.
 \end_layout
 
 \begin_layout Itemize
-have at least one port element (see 
+have at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ element (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Add-Port"
@@ -466,18 +619,18 @@ system devices
 \end_deeper
 \begin_layout Standard
 In calculating the s-parameters, the first step is to convert the schematic
- shown into a net list.
- This netlist puts the graphical schematic into a text based description.
- Note that this netlist can be created, examined and saved separately if
- you want.
- See 
+ shown into a 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
 
 \end_inset
 
- for more information on the net list and see 
+.
+ This netlist puts the graphical schematic into a text based description.
+ Note that this netlist can be created, examined and saved separately if
+ you want.
+ See 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Export-Netlist"
@@ -497,7 +650,14 @@ SystemSParametersNumericParser
 
 \begin_layout Standard
 During parsing of the net list, all devices listed are instantiated with
- the end frequency and number of frequency points specified.
+ the end frequency and number of frequency points specified in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
  If a file device is encountered, the s-parameters read from the file are
  resampled onto the end frequency and number of frequency points specified.
 \end_layout
@@ -520,15 +680,14 @@ reference "sec:Errors-and-Exceptions"
 
 \begin_layout Standard
 If everything goes correctly, a dialog will open with the ability to view
- the s-parameters calculated and save them to a file.
- See the section on the 
+ the s-parameters calculated and save them to a file in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Viewer"
 
 \end_inset
 
- for more information on the viewing of the results.
+.
 \end_layout
 
 \begin_layout Subsection
@@ -564,14 +723,36 @@ enerationExample.xml:
 
 \begin_layout Standard
 Here we see three devices and four ports.
- We added the devices by executing 
+ 
+\end_layout
+
+\begin_layout Standard
+To build this example, we first create a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:New-Project"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We added the devices by executing 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Add-Part"
 
 \end_inset
 
-, opening the Files category, and selecting the Four Port File device.
+, opening the Files category, and selecting the Four Port 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ device.
 \end_layout
 
 \begin_layout Standard
@@ -644,16 +825,14 @@ reference "Control-Help:Add-Part"
 
 \end_inset
 
-, opening the Miscellaneous category, and selecting the Power Mixed Mode
- Converter.
- (This device is explained in 
+, opening the Miscellaneous category, and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
-).
+.
 \end_layout
 
 \begin_layout Standard
@@ -822,7 +1001,14 @@ reference "Control-Help:Add-Port"
 
 \end_inset
 
- to add ports to the circuit.
+ to add a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ to the circuit.
  When we do this, we see the part properties dialog for the port:
 \end_layout
 
@@ -851,8 +1037,9 @@ Note that the port number 1 has already been filled in.
 
 \begin_layout Standard
 It is customary for mixed-mode s-parameters to have ports 1, 2, 3, and 4
- to be D1, D2, C1, C2 where the D and C refer to the differential- or common-mod
-e and the 1 and 2 refer to the left and right side of the transmission line.
+ to be D1, D2, C1, C2 where the D and C refer to the differential- and common-mo
+de and the 1 and 2 refer to the left and right side of the transmission
+ line.
  So we invoke 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -941,7 +1128,14 @@ Note that, in general, we really don't want to think of the number of frequency
 \end_layout
 
 \begin_layout Standard
-Before calculating the s-parameters, it's also good to look at the netlist.
+Before calculating the s-parameters, it's also good to look at the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+.
  Invoking 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -1095,7 +1289,14 @@ reference "sec:Waveform"
 
 .
  Sources and generators can be voltages or currents and can supply input
- waveforms from files, pulses, steps, and sine waves.
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ from files, pulses, steps, and sine waves.
 \end_layout
 
 \begin_layout Standard
@@ -1112,15 +1313,28 @@ reference "sub:Output-Probes-for Simulation"
 
 \emph default
 .
- An output probe supplies the location of the node for which the output
- waveform is desired, the name of the waveform in the simulation, and any
- gain, offset, or delay to be applied.
+ An 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ supplies the location of the node for which the output waveform is desired,
+ the name of the waveform in the simulation, and any gain, offset, or delay
+ to be applied.
  In that sense it operates like a real probe.
 \end_layout
 
 \begin_layout Standard
-Once you are ready for simulation, you should configure the Calculation
- properties.
+Once you are ready for simulation, you should configure the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -1133,11 +1347,25 @@ reference "sub:Setting-Calculation-Properties-for-Simulation"
 
 \begin_layout Standard
 Once a circuit is drawn containing at least one source or generator, and
- at least one output probe, presumably with a circuit that has been properly
- configured, you can simulate the circuit.
+ at least one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+, presumably with a circuit that has been properly configured, you can simulate
+ the circuit.
  Simulation involves the calculation of transfer parameters which are applied
  to the input waveforms to generate the output waveforms and the waveforms
- are displayed.
+ are displayed in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+.
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -1367,8 +1595,14 @@ name "sub:Output-Probes-for Simulation"
 \end_layout
 
 \begin_layout Standard
-An output probes define the location, name and characteristics of an output
- 
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ defines the location, name and characteristics of an output 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Waveform"
@@ -1419,6 +1653,20 @@ reference "sub:Output-Probe"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Note that the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ has configurable gain, offset, and delay that can be applied to the output
+ waveform calculated.
+ This is usually used to line the waveform up for better comparison with
+ another waveform or to separate the waveforms vertically on the display.
 \end_layout
 
 \begin_layout Subsection
@@ -1477,9 +1725,9 @@ The base sample rate should be set to the sample rate that you want the
 \end_layout
 
 \begin_layout Standard
-These impulse responses generated for the filters are always centered on
- time zero, meaning half of the impulse response is before time zero and
- half is after.
+The impulse responses generated for the filters are always centered on time
+ zero, meaning half of the impulse response is before time zero and half
+ is after.
 \end_layout
 
 \begin_layout Standard
@@ -1528,8 +1776,14 @@ name "sub:Simulating"
 \end_layout
 
 \begin_layout Standard
-After creating the schematic for simulation and setting the calculation
- properties, the simulation is run using either the 
+After creating the schematic for simulation and setting the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+, the simulation is run using either the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Simulate"
@@ -1566,7 +1820,14 @@ reference "sub:Sources-and-Generators"
 \end_layout
 
 \begin_layout Itemize
-have at least one output port (see 
+have at least one output 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Port"
+
+\end_inset
+
+ (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Output-Probes-for Simulation"
@@ -1603,19 +1864,18 @@ system devices
 
 \end_deeper
 \begin_layout Standard
-In simulation, the first step is to convert the schematic shown into a net
- list.
- This netlist puts the graphical schematic into a text based description.
- Note that this netlist can be created, examined and saved separately if
- you want.
- See 
+In simulation, the first step is to convert the schematic shown into a 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
 
 \end_inset
 
- for more information on the net list and see 
+.
+ This netlist puts the graphical schematic into a text based description.
+ Note that this netlist can be created, examined and saved separately if
+ you want.
+ See 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Export-Netlist"
@@ -1636,7 +1896,14 @@ SimulatorNumericParser
 
 \begin_layout Standard
 During parsing of the net list, all devices listed are instantiated with
- the end frequency and number of frequency points specified (see 
+ the end frequency and number of frequency points specified in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+ (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Setting-Calculation-Properties-for-Simulation"
@@ -1644,8 +1911,15 @@ reference "sub:Setting-Calculation-Properties-for-Simulation"
 \end_inset
 
 ).
- If a file device is encountered, the s-parameters read from the file are
- resampled onto the end frequency and number of frequency points specified.
+ If a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:File-1"
+
+\end_inset
+
+ device is encountered, the s-parameters read from the file are resampled
+ onto the end frequency and number of frequency points specified.
 \end_layout
 
 \begin_layout Standard
@@ -1695,15 +1969,49 @@ name "sub:Simulation-Example"
 
 \begin_layout Standard
 In this example, we will step through the simulation of an RLC network.
- this example will highlight many things about simulation that you need
+ this example will highlight a few things about simulation that you need
  to be aware of.
 \end_layout
 
 \begin_layout Standard
-The circuit we will simulate will be a series 100 nH inductor, 1 pF capacitor,
- and 50 Ohm resistor.
+The circuit we will simulate will be a series 100 nH 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Inductor"
+
+\end_inset
+
+, 1 pF 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Capacitor"
+
+\end_inset
+
+, and 50 Ohm 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Resistor"
+
+\end_inset
+
+.
  We will simulate with a step voltage applied to the input to the circuit
- and probe initially the voltage at the 50 Ohm termination resistor.
+ through a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Step-Generator"
+
+\end_inset
+
+ and probe initially the voltage at the 50 Ohm termination 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Resistor"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1740,7 +2048,14 @@ reference "Control-Help:Add-Part"
 \end_layout
 
 \begin_layout Standard
-Select the Generators category, and select the One Port Voltage Step Generator:
+Select the Generators category, and select the One Port 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Voltage-Step-Generator"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -1792,12 +2107,19 @@ Press OK and left-click to place the part in the schematic and drag the
 \begin_layout Standard
 Now we use 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "Control-Help:Add-Part"
 
 \end_inset
 
- to add an inductor:
+ to add an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Inductor"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -1847,7 +2169,21 @@ Press OK, click in the schematic and hold the left mouse button down to
 \end_layout
 
 \begin_layout Standard
-Repeat for a two-port, 1 pF capacitor and a one-port 50 Ohm resistor.
+Repeat for a two-port, 1 pF 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Capacitor"
+
+\end_inset
+
+ and a one-port 50 Ohm 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Resistor"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1950,7 +2286,14 @@ reference "Control-Help:Add-Output-Probe"
 
 \end_inset
 
-, we see the part properties dialog for the Output:
+, we see the part properties dialog for the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -2032,7 +2375,14 @@ reference "Control-Help:Pan"
 \end_layout
 
 \begin_layout Standard
-Select the output probe and use 
+Select the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Output-Probe"
+
+\end_inset
+
+ and use 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Duplicate-Part"
