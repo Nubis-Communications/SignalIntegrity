@@ -1,7 +1,11 @@
 '''
-Created on Nov 8, 2015
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
 
-@author: peterp
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
 '''
 import xml.etree.ElementTree as et
 import copy
@@ -58,7 +62,7 @@ class Segment(object):
             R=abs(xc-xi)
         elif deltay == 0:
             R=abs(yc-yi)
-        else:        
+        else:
             m=float(deltay)/float(deltax)
             b=yi-xi*m
             # m and b are equation of line forming wire segment
@@ -128,7 +132,7 @@ class Vertex(object):
             return False
         if yc > y+distanceAllowed:
             return False
-        return True        
+        return True
     def IsIn(self,i,f,ia,fa):
         minx=min(float(i[0]+ia[0]),float(f[0]+fa[0]))
         miny=min(float(i[1]+ia[1]),float(f[1]+fa[1]))
@@ -142,7 +146,7 @@ class Vertex(object):
             return False
         if maxy < self[1]:
             return False
-        return True       
+        return True
 
 class Wire(object):
     def __init__(self,vertexList=None):

@@ -1,9 +1,12 @@
 '''
-Created on Oct 29, 2015
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
 
-@author: peterp
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
 '''
-
 from Tkinter import *
 import xml.etree.ElementTree as et
 import tkMessageBox
@@ -26,7 +29,7 @@ class CalculationProperty(Frame):
         self.entry.config(width=15)
         self.entry.bind('<Return>',self.onEntered)
         self.entry.bind('<Button-1>',self.onTouched)
-        self.entry.bind('<Button-1>',self.onTouched)        
+        self.entry.bind('<Button-1>',self.onTouched)
         self.entry.bind('<Double-Button-1>',self.onCleared)
         self.entry.bind('<Button-3>',self.onUntouchedLoseFocus)
         self.entry.bind('<Escape>',self.onUntouchedLoseFocus)

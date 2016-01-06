@@ -1,9 +1,12 @@
 '''
-Created on Oct 22, 2015
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
 
-@author: peterp
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
 '''
-
 from Tkinter import *
 import matplotlib
 import math
@@ -76,10 +79,10 @@ class SParametersDialog(Toplevel):
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
-        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Save-S-parameter-File'])      
+        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Save-S-parameter-File'])
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
-        self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])        
+        self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
@@ -363,7 +366,7 @@ class SParametersDialog(Toplevel):
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
         self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
-        
+
     def onHelp(self):
         import webbrowser
         helpfile=self.parent.helpSystemKeys['sec:S-parameter-Viewer']

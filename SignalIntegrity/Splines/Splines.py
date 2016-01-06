@@ -1,3 +1,12 @@
+'''
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
+
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
+'''
 class Spline(object):
     def __init__(self,x,y):
         N=len(x)
@@ -21,7 +30,7 @@ class Spline(object):
         D = [1./6./h[i]*(z[i+1]-z[i]) for i in r]
         self.m_t = [x[i] for i in r]
         P=[]
-        #these are the actual polynomial coefficients for P[0]+P[1]*x+P[2]*x**2+P[3]*x**3 
+        #these are the actual polynomial coefficients for P[0]+P[1]*x+P[2]*x**2+P[3]*x**3
         for i in r:
             Pi=[]
             Pi.append(A[i]+x[i]*(-B[i]+x[i]*(C[i]-x[i]*D[i])))
@@ -38,7 +47,7 @@ class Spline(object):
             Ai.append(P[i][1]+x[i]*(2.*P[i][2]+x[i]*3.*P[i][3]))
             Ai.append(P[i][2]+x[i]*3.*P[i][3])
             Ai.append(P[i][3])
-            self.m_A.append(Ai) 
+            self.m_A.append(Ai)
     def Interval(self,x):
         if x<self.m_t[0]:
             return 0
@@ -51,9 +60,8 @@ class Spline(object):
         xi = (x-self.m_t[i])
         A=self.m_A[i]
         return A[0]+xi*(A[1]+xi*(A[2]+xi*A[3]))
-    
-        
-        
-       
-        
-            
+
+
+
+
+

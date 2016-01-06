@@ -1,13 +1,12 @@
-#-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
-#
-# Author:      Peter.Pupalaikis
-#
-# Created:     25/11/2015
-# Copyright:   (c) Peter.Pupalaikis 2015
-# Licence:     <your licence>
-#-------------------------------------------------------------------------------
+'''
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
+
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
+'''
 import math
 
 class TpX(object):

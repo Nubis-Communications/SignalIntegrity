@@ -1,3 +1,12 @@
+'''
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
+
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
+'''
 import cmath
 
 class RLGCElement():
@@ -8,7 +17,7 @@ class RLGCElement():
 		self.m_C = C
 		self.m_Z = Z
 		self.m_Y = Y
-	
+
 class RLGC():
 	def __init__(self,sp,Td):
 		self.m_RLGC = None
@@ -33,7 +42,7 @@ class RLGC():
 			# now we need to pick out non absurd ones
 			eng = engmp
 			rho = rhom
-			
+
 			pass
 #	def __getitem__(self,item):
 #		return self.m_RLGC[item]

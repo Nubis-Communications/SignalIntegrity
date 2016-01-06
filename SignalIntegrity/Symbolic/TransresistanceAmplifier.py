@@ -1,3 +1,12 @@
+'''
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
+
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
+'''
 def TransresistanceAmplifier(P,G,Zi,Zo):
     if P==2:
         return TransresistanceAmplifierTwoPort(G,Zi,Zo)
@@ -16,7 +25,7 @@ def TransresistanceAmplifierFourPort(G,Zi,Zo):
             [D12,D11,'0','0'] ,
             [D31,'-'+D31,D33,D34],
             ['-'+D31,D31,D34,D33]]
-    
+
 def TransresistanceAmplifierThreePort(G,Zi,Zo):
     D='3\\cdot Z0^2+\\left(2\\cdot '+Zo+'+2\\cdot '+Zi+'-'+G+'\\right)\\cdot Z0+'+Zo+'\\cdot '+Zi
     S11='\\frac{'+Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zi+'-'+G+'\\right)-Z0^2}{'+D+'}'

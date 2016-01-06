@@ -1,7 +1,11 @@
 '''
-Created on Oct 29, 2015
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
 
-@author: peterp
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
 '''
 import math
 import numpy
@@ -124,4 +128,4 @@ def FromSI(string,unit=None):
                     exp=math.pow(10.,(Prefixes.index(modifier)-Prefixes.index(''))*3)
                     return man*exp
     return None
-                
+

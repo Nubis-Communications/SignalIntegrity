@@ -1,3 +1,12 @@
+'''
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
+
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
+'''
 from numpy import matrix
 from numpy import array
 from numpy import identity
@@ -37,7 +46,7 @@ class Deembedder(SystemDescription):
         G15=-matrix(SC.WeightsMatrix(Bmsd,B))
         G24=-matrix(SC.WeightsMatrix(A,Amsd))
         G25=-matrix(SC.WeightsMatrix(A,B))
-        if len(U)>0: 
+        if len(U)>0:
             G13=-matrix(SC.WeightsMatrix(Bmsd,U))
             G23=-matrix(SC.WeightsMatrix(A,U))
             G33=matrix(identity(len(U)))-matrix(SC.WeightsMatrix(U,U))
@@ -47,7 +56,7 @@ class Deembedder(SystemDescription):
             A=(G23*G33.getI()*G34-G24)+(G23*G33.getI()*G35-G25)*B
         else:
             B=(-G15).getI()*(Sk+G14)
-            A=-G24-G25*B            
+            A=-G24-G25*B
         Su=B*A.getI()
         return Su.tolist()
     def UnknownFixtureDeembedding(self,Sk):
@@ -61,7 +70,7 @@ class Deembedder(SystemDescription):
         G15=-matrix(SC.WeightsMatrix(Bmsd,B))
         G24=-matrix(SC.WeightsMatrix(A,Amsd))
         G25=-matrix(SC.WeightsMatrix(A,B))
-        if len(U)>0: 
+        if len(U)>0:
             G13=-matrix(SC.WeightsMatrix(Bmsd,U))
             G23=-matrix(SC.WeightsMatrix(A,U))
             G33I=(matrix(identity(len(U)))-matrix(SC.WeightsMatrix(U,U))).getI()
@@ -82,7 +91,7 @@ class Deembedder(SystemDescription):
             Su=B*A.transpose()*(A*A.transpose()).getI()
         else:
             B=F12.getI()*(Sk-F11)
-            A=F21+F22*B            
+            A=F21+F22*B
             Su=B*A.getI()
         return Su.tolist()
     def CalculateUnknown(self,Sk):
@@ -128,5 +137,5 @@ class Deembedder(SystemDescription):
         if (len(Su)==1):# only one result
             return Su[0]# return the one result, not as a list
         return Su# return the list of results
-        
-        
+
+
