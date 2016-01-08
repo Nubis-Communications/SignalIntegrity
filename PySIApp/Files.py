@@ -11,21 +11,7 @@ import os
 
 def ConvertFileNameToRelativePath(filename):
     if filename!='':
-        filenameList=('/'.join(filename.split('\\'))).split('/')
-        if len(filenameList)>1:
-            currentWorkingDirectoryList=('/'.join(os.getcwd().split('\\'))).split('/')
-            atOrBelow=True
-            for tokenIndex in range(min(len(filenameList),len(currentWorkingDirectoryList))):
-                if filenameList[tokenIndex]!=currentWorkingDirectoryList[tokenIndex]:
-                    atOrBelow=False
-                    break
-                if atOrBelow: tokenIndex=tokenIndex+1
-            if tokenIndex > 0:
-                filenameprefix=''
-                for i in range(tokenIndex,len(currentWorkingDirectoryList)):
-                    filenameprefix=filenameprefix+'../'
-                filenamesuffix='/'.join(filenameList[tokenIndex:])
-                filename=filenameprefix+filenamesuffix
+        filename=os.path.relpath(filename,os.getcwd())
     return filename
 
 class FileParts(object):
@@ -80,7 +66,7 @@ class FileParts(object):
     def FilePath(self):
         return self.filepath
     def AbsoluteFilePath(self):
-        return os.getcwd()+'/'+self.filepath
+        return os.path.abspath(self.filepath)
 
 
 
