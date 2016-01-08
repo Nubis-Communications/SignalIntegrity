@@ -590,7 +590,6 @@ class TheApp(Frame):
             tkMessageBox.showerror('Help System','Cannot find the help system')
             return
         url = self.installdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
-        print url
         webbrowser.open(url)
 
     def onControlHelp(self):
