@@ -589,7 +589,8 @@ class TheApp(Frame):
         if helpfile is None:
             tkMessageBox.showerror('Help System','Cannot find the help system')
             return
-        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        url = self.installdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        print url
         webbrowser.open(url)
 
     def onControlHelp(self):

@@ -1,5 +1,5 @@
 @echo off
-set PYTHONPATH=%PYTHONPATH%;C:\Users\peter.pupalaikis\Work\Books\LyxBook\PythonSource
+set PYTHONPATH=%PYTHONPATH%;.
 coverage erase
 coverage -x .\TestSignalIntegrity\TestAll.py >NUL
 coverage html -d CoverageReport
