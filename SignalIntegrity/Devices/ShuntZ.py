@@ -11,6 +11,7 @@ from numpy import array
 
 from SignalIntegrity.Conversions import Z0KHelper
 
+# pragma: silent exclude
 def ShuntZZ0K(Z,Z0=None,K=None):
     (Z0,K)=Z0KHelper((Z0,K),2)
     Z01=Z0.item(0,0)
@@ -24,11 +25,11 @@ def ShuntZ(ports,Z,Z0=50.):
     if ports == 2: return ShuntZTwoPort(Z,Z0)
     elif ports == 3: return ShuntZThreePort(Z,Z0)
     elif ports == 4: return ShuntZFourPort(Z,Z0)
-
+# pragma: include
 def ShuntZTwoPort(Z,Z0=50.):
     return [[-Z0*Z0/(Z0*Z0+2.*Z*Z0),2.*Z0*Z/(Z0*Z0+2.*Z*Z0)],
         [2.*Z0*Z/(Z0*Z0+2.*Z*Z0),-Z0*Z0/(Z0*Z0+2.*Z*Z0)]]
-
+# pragma: silent exclude
 def ShuntZFourPort(Z,Z0=50.):
     D=2.*(Z+Z0)
     return [[-Z0/D,Z0/D,(2.*Z+Z0)/D,Z0/D],

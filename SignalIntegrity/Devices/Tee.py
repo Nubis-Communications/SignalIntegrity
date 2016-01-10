@@ -17,7 +17,7 @@ def Tee(P=None):
     for r in range(P):
         mat.itemset((r,r),(2.0-P)/P)
     return mat.tolist()
-
+# pragma: silent exclude
 def TeeThreePortSafe(Z,Z0=50.):
     D=3*(Z+Z0)
     DiagEle=(3*Z-Z0)/D

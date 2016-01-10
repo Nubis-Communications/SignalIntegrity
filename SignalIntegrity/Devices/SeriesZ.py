@@ -9,6 +9,7 @@
 '''
 from SignalIntegrity.Conversions import Z0KHelper
 
+# pragma: silent exclude
 def SeriesZZ0K(Z,Z0=None,K=None):
     (Z0,K)=Z0KHelper((Z0,K),2)
     Z01=Z0.item(0,0)
@@ -21,6 +22,6 @@ def SeriesZZ0K(Z,Z0=None,K=None):
     S21=(2.*K1/K2*Z02)/D
     S22=(Z+Z01-Z02)/D
     return [[S11,S12],[S21,S22]]
-
+# pragma: include
 def SeriesZ(Z,Z0=50.):
     return [[Z/(Z+2.*Z0),2.*Z0/(Z+2.*Z0)],[2*Z0/(Z+2.*Z0),Z/(Z+2.*Z0)]]
