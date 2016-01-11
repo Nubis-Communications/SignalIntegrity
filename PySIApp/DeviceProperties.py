@@ -217,7 +217,7 @@ class DevicePropertiesDialog(Toplevel):
         w.pack(side=LEFT, padx=5, pady=5)
         w = Button(box, text="Cancel", width=10, command=self.cancel)
         w.pack(side=LEFT, padx=5, pady=5)
-        #self.bind("<Return>", self.ok)
+        self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
         box.pack()
     #
