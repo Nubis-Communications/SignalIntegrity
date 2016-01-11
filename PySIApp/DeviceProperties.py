@@ -119,6 +119,7 @@ class DeviceProperty(Frame):
     def onCleared(self,event):
         self.propertyString.set('')
     def onUntouched(self,event):
+        self.partProperty.SetValueFromString(self.propertyString.get())
         self.propertyString.set(self.partProperty.PropertyString(stype='entry'))
         self.callBack()
     def onUntouchedLoseFocus(self,event):
@@ -216,7 +217,7 @@ class DevicePropertiesDialog(Toplevel):
         w.pack(side=LEFT, padx=5, pady=5)
         w = Button(box, text="Cancel", width=10, command=self.cancel)
         w.pack(side=LEFT, padx=5, pady=5)
-        #self.bind("<Return>", self.ok)
+        self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
         box.pack()
     #
@@ -239,5 +240,6 @@ class DevicePropertiesDialog(Toplevel):
         self.result=copy.deepcopy(self.device)
         for pIndex in range(len(self.DeviceProperties.propertyFrameList)):
             propFrame=self.DeviceProperties.propertyFrameList[pIndex]
+            propFrame.partProperty.SetValueFromString(propFrame.propertyString.get())
             self.result.propertiesList[pIndex]=propFrame.partProperty
         return
