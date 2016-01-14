@@ -10,8 +10,8 @@ class FrequencyResponse(object):
         Notes:
             internally, the frequency response is either evenly spaced or not.
 
-            whether evenly spaced, whether a time descriptor is specified and whether
-            to adjust delay determines all possibilities of what can happen.
+            whether evenly spaced, whether a time descriptor is specified and
+            whether to adjust delay determines all possibilities.
 
             es  td  ad
             F   F   X   Cannot be done
@@ -50,8 +50,8 @@ class FrequencyResponse(object):
             TD=self._FractionalDelayTime()
             return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD)
         if evenlySpaced and not td is None:
-            # if td is a float and not a time descriptor, it's assumed to be a sample
-            # rate.  In this case, we fill in the number of points in a time descriptor
-            # representing the time content of self
+            # if td is a float and not a time descriptor, it's assumed to be a
+            # sample rate.  In this case, we fill in the number of points in a
+            # time descriptor representing the time content of self
             return self.Resample(td.FrequencyList()).ImpulseResponse()
 ...

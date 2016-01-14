@@ -38,7 +38,8 @@ class TimeDescriptor(object):
             UpsampleFactor=self.Fs/other.Fs
             return FilterDescriptor(
                 UpsampleFactor,
-                DelaySamples=other.N-self.N/UpsampleFactor-(self.H-other.H)*other.Fs,
+                DelaySamples=other.N-self.N/UpsampleFactor-
+                    (self.H-other.H)*other.Fs,
                 StartupSamples=other.N-self.N/UpsampleFactor)
     def DelayBy(self,D):
         return TimeDescriptor(self.H+D,self.N,self.Fs)

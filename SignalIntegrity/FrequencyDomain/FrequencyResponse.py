@@ -49,7 +49,8 @@ class FrequencyResponse(object):
             return self.m_resp
         elif unit =='dB':
             return [-3000. if (abs(self.m_resp[n]) < 1e-15) else
-                     20.*math.log10(abs(self.m_resp[n])) for n in range(len(self.m_f))]
+                     20.*math.log10(abs(self.m_resp[n]))
+                        for n in range(len(self.m_f))]
         elif unit == 'mag':
             return [abs(self.m_resp[n]) for n in range(len(self.m_f))]
         elif unit == 'rad':
@@ -64,7 +65,8 @@ class FrequencyResponse(object):
     def _DelayBy(self,TD):
         fd=self.FrequencyList()
         return FrequencyResponse(fd,
-        [self.Response()[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD) for n in range(fd.N+1)])
+        [self.Response()[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD)
+            for n in range(fd.N+1)])
     def ImpulseResponse(self,td=None,adjustDelay=True):
         """Produces the impulse response
 
@@ -75,8 +77,8 @@ class FrequencyResponse(object):
         Notes:
             internally, the frequency response is either evenly spaced or not.
 
-            whether evenly spaced, whether a time descriptor is specified and whether
-            to adjust delay determines all possibilities of what can happen.
+            whether evenly spaced, whether a time descriptor is specified and
+            whether to adjust delay determines all possibilities.
 
             es  td  ad
             F   F   X   Cannot be done
@@ -115,9 +117,9 @@ class FrequencyResponse(object):
             TD=self._FractionalDelayTime()
             return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD)
         if evenlySpaced and not td is None:
-            # if td is a float and not a time descriptor, it's assumed to be a sample
-            # rate.  In this case, we fill in the number of points in a time descriptor
-            # representing the time content of self
+            # if td is a float and not a time descriptor, it's assumed to be a
+            # sample rate.  In this case, we fill in the number of points in a
+            # time descriptor representing the time content of self
             return self.Resample(td.FrequencyList()).ImpulseResponse()
     def _Pad(self,P):
         """Pads the frequency response

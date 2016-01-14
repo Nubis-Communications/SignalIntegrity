@@ -57,7 +57,9 @@ class FrequencyList(object):
         else:
             return GenericFrequencyList([v/d for v in self.List])
     def TimeDescriptor(self):
+        # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+        # pragma: include
         N=self.N
         Fs=2.*self.Fe
         K=2*N

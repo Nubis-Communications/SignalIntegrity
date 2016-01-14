@@ -12,20 +12,20 @@ class SParameters():
     def f(self): return self.m_f
     def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self]
     def WriteToFile(self,name,formatString=None):
-        freqMul = 1e6; freqToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
+        freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
             lineList = string.lower(formatString).split('!')[0].split()
             if len(lineList)>0:
-                if 'hz' in lineList: freqToken = 'Hz'; freqMul = 1.0
-                if 'khz' in lineList: freqToken = 'KHz'; freqMul = 1e3
-                if 'mhz' in lineList: freqToken = 'MHz'; freqMul = 1e6
-                if 'ghz' in lineList: freqToken = 'GHz'; freqMul = 1e9
+                if 'hz' in lineList: fToken = 'Hz'; freqMul = 1.0
+                if 'khz' in lineList: fToken = 'KHz'; freqMul = 1e3
+                if 'mhz' in lineList: fToken = 'MHz'; freqMul = 1e6
+                if 'ghz' in lineList: fToken = 'GHz'; freqMul = 1e9
                 if 'ma' in lineList: cpxType = 'MA'
                 if 'ri' in lineList: cpxType = 'RI'
                 if 'db' in lineList: cpxType = 'DB'
                 if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
         spfile=open(name,'w')
-        spfile.write('# '+freqToken+' '+cpxType+' '+self.m_sToken+' R '+str(Z0)+'\n')
+        spfile.write('# '+fToken+' '+cpxType+' '+self.m_sToken+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
             mat=self[n]

@@ -56,7 +56,8 @@ class TimeDescriptor(object):
             UpsampleFactor=self.Fs/other.Fs
             return FilterDescriptor(
                 UpsampleFactor,
-                DelaySamples=other.N-self.N/UpsampleFactor-(self.H-other.H)*other.Fs,
+                DelaySamples=other.N-self.N/UpsampleFactor-
+                    (self.H-other.H)*other.Fs,
                 StartupSamples=other.N-self.N/UpsampleFactor)
     def DelayBy(self,D):
         return TimeDescriptor(self.H+D,self.N,self.Fs)
@@ -68,7 +69,8 @@ class TimeDescriptor(object):
     def Intersection(self,other):
         return TimeDescriptor(
             HorOffset=max(self.H,other.H),
-            NumPts=max(0,min(self.TimeOfPoint(self.N),other.TimeOfPoint(other.N))-max(self.H,other.H))*self.Fs,
+            NumPts=max(0,min(self.TimeOfPoint(self.N),
+                other.TimeOfPoint(other.N))-max(self.H,other.H))*self.Fs,
             SampleRate=self.Fs)
     def TimeOfPoint(self,k):
         return self.H+float(k)/self.Fs

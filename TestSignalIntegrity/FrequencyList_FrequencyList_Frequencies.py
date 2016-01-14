@@ -48,7 +48,6 @@ class FrequencyList(object):
         else:
             return GenericFrequencyList([v/d for v in self.List])
     def TimeDescriptor(self):
-        from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
         N=self.N
         Fs=2.*self.Fe
         K=2*N

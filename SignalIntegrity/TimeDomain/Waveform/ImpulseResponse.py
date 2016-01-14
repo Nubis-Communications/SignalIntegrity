@@ -39,7 +39,9 @@ class ImpulseResponse(Waveform):
             F   T   frequency response with length adjusted
             T   X   CZT resamples to fd (length is adjusted first)
         """
+        # pragma: silent exclude
         from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
+        # pragma: include
         if not fd and not adjustLength:
             X=fft.fft(self.Values())
             fd=self.TimeDescriptor().FrequencyList()
