@@ -423,6 +423,11 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all.remove(firstDef)
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
+    def testWriteMutual(self):
+        fileName="../SignalIntegrity/Devices/Mutual.py"
+        className=''
+        defName=['Mutual']
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == '__main__':
     unittest.main()
