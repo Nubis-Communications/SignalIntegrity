@@ -116,6 +116,8 @@ def FromSI(string,unit=None):
                 return float(string)
             except ValueError:
                 string=string.replace(' ','')
+                if len(string) == 0:
+                    return 0.
                 modifier=string[-1]
                 therest=string[:-1]
                 try:
