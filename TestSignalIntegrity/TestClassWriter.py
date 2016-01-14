@@ -342,7 +342,13 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         firstDef='__init__'
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
+        all.remove('Resample')
         defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersResample(self):
+        fileName="../SignalIntegrity/SParameters/SParameters.py"
+        className='SParameters'
+        defName=['Resample']
         self.WriteClassCode(fileName,className,defName)
     def testWriteOpen(self):
         fileName="../SignalIntegrity/Devices/Open.py"
@@ -427,6 +433,11 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/Devices/Mutual.py"
         className=''
         defName=['Mutual']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteCZT(self):
+        fileName="../SignalIntegrity/ChirpZTransform/ChirpZTransform.py"
+        className=''
+        defName=['CZT']
         self.WriteClassCode(fileName,className,defName)
 
 if __name__ == '__main__':

@@ -2,10 +2,7 @@ class File(SParameters):
     def __init__(self,name,Z0=50.0):
         self.m_sToken='S'
         self.m_Z0=Z0
-        try:
-            self.m_P = int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
-        except ValueError:
-            raise PySIExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
+        self.m_P=int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
         freqMul = 1e6
         complexType = 'MA'
         Z0=50.
@@ -13,10 +10,7 @@ class File(SParameters):
         f=[]
         self.m_f=[]
         numbersList=[]
-        try:
-            spfile=open(name,'rU')
-        except IOError:
-            raise PySIExceptionSParameterFile(name+' not found')
+        spfile=open(name,'rU')
         for line in spfile:
             lineList = string.lower(line).split('!')[0].split()
             if len(lineList)>0:
