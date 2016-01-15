@@ -126,7 +126,7 @@ class DeviceProperty(Frame):
         self.parentFrame.focus()
 
 class DeviceProperties(Frame):
-    def __init__(self,parent,device):
+    def __init__(self,parent,device,advancedMode=False):
         Frame.__init__(self,parent)
         self.parent=parent
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
@@ -157,6 +157,21 @@ class DeviceProperties(Frame):
         self.mirrorHorizontallyVar=IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
         mirrorHorizontallyCheckBox = Checkbutton(mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
         mirrorHorizontallyCheckBox.pack(side=LEFT,expand=NO,fill=X)
+        if advancedMode:
+            advancedModeFrame=Frame(propertyListFrame)
+            advancedModeFrame.pack(side=TOP,fill=X,expand=NO)
+            pinNumbersLabel = Label(advancedModeFrame,text='pin numbers:')
+            pinNumbersLabel.pack(side=LEFT,expand=NO,fill=X)
+            pinNumbersOnButton = Button(advancedModeFrame,text='on',command=self.onPinNumbersOn)
+            pinNumbersOnButton.pack(side=LEFT,expand=NO,fill=X)
+            pinNumbersOffButton = Button(advancedModeFrame,text='off',command=self.onPinNumbersOff)
+            pinNumbersOffButton.pack(side=LEFT,expand=NO,fill=X)
+            showBoxLabel = Label(advancedModeFrame,text='  show box:')
+            showBoxLabel.pack(side=LEFT,expand=NO,fill=X)
+            showBoxOnButton = Button(advancedModeFrame,text='on',command=self.onShowBoxOn)
+            showBoxOnButton.pack(side=LEFT,expand=NO,fill=X)
+            showBoxOffButton = Button(advancedModeFrame,text='off',command=self.onShowBoxOff)
+            showBoxOffButton.pack(side=LEFT,expand=NO,fill=X)
         partPictureFrame = Frame(self)
         partPictureFrame.pack(side=TOP,fill=BOTH,expand=YES)
         self.partPictureCanvas = Canvas(partPictureFrame)
@@ -177,10 +192,30 @@ class DeviceProperties(Frame):
     def onOrientationChange(self):
         self.device.partPicture.current.ApplyOrientation(self.rotationString.get(),bool(self.mirrorHorizontallyVar.get()),bool(self.mirrorVerticallyVar.get()))
         self.UpdatePicture()
+        
+    def onPinNumbersOn(self):
+        for pin in self.device.partPicture.current.pinListSupplied:
+            pin.pinNumberVisible = True
+        for pin in self.device.partPicture.current.pinList:
+            pin.pinNumberVisible = True
+        self.UpdatePicture()
+    
+    def onPinNumbersOff(self):
+        for pin in self.device.partPicture.current.pinListSupplied:
+            pin.pinNumberVisible = False
+        for pin in self.device.partPicture.current.pinList:
+            pin.pinNumberVisible = False
+        self.UpdatePicture()
+
+    def onShowBoxOn(self):
+        pass
+
+    def onShowBoxOff(self):
+        pass
+
     def onMouseButton1InPartPicture(self,event):
         numPictures=len(self.device.partPicture.partPictureClassList)
         current=self.device.partPicture.partPictureSelected
-        origin=self.device.partPicture.current.origin
         selected=current+1
         if selected >= numPictures:
             selected = 0
