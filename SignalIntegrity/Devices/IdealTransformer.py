@@ -7,6 +7,10 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
+# ports 1 and 2 are the primary
+# ports 3 and 4 are the secondary
+# the dot is on ports 1 and 3
+# a is the turns ratio (secondary/primary
 def IdealTransformer(a=1.):
     a=float(a)
     D=a*a+1.

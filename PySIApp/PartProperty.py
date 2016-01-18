@@ -272,7 +272,7 @@ class PartPropertyPhase(PartProperty):
 
 class PartPropertyTurnsRatio(PartProperty):
     def __init__(self,ratio=1.):
-        PartProperty.__init__(self,'turnsratio',type='float',unit='',keyword='tr',description='turns ratio (P/S)',value=ratio,visible=True,keywordVisible=False)
+        PartProperty.__init__(self,'turnsratio',type='float',unit='',keyword='tr',description='turns ratio (S/P)',value=ratio,visible=True,keywordVisible=False)
 
 class PartPropertyVoltageOffset(PartProperty):
     def __init__(self,voltageOffset=0.0):
