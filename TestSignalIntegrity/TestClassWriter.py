@@ -439,6 +439,32 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className=''
         defName=['CZT']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteParserDevice(self):
+        fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
+        className='ParserDevice'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeviceFactoryInit(self):
+        fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
+        className='DeviceFactory'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeviceFactoryMakeDevice(self):
+        fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
+        className='DeviceFactory'
+        defName=['MakeDevice']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteDeviceParser(self):
+        fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
+        className='DeviceParser'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == '__main__':
     unittest.main()

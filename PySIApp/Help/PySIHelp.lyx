@@ -19175,8 +19175,8 @@ The sense of the relationship between the primary and secondary is given
 \end_layout
 
 \begin_layout Standard
-The turns ratio is primary relative to secondary, so a higher number indicates
- more primary windings relative to the secondary.
+The turns ratio is secondary relative to primary, so a higher number indicates
+ more secondary windings relative to the secondary.
 \end_layout
 
 \begin_layout Subsection
