@@ -100,7 +100,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
     def testWriteTransferMatrices_Basic(self):
         fileName="../SignalIntegrity/FrequencyDomain/TransferMatrices.py"
         className='TransferMatrices'
-        defName=['__init__','SParameters','__len__','__getitem__']
+        defName=['SParameters','__init__','__len__','__getitem__']
         self.WriteClassCode(fileName,className,defName)
     def testSymbolicSimulatorExample3Old(self):
         sd=si.sd.SystemDescription()

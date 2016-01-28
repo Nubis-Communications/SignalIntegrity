@@ -19,7 +19,9 @@ class TransferMatrices(object):
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
     def SParameters(self):
+        # pragma: silent exclude
         from SignalIntegrity.SParameters.SParameters import SParameters
+        # pragma: include
         if self.Inputs == self.Outputs:
             return SParameters(self.f,self.Matrices)
         else:
@@ -37,8 +39,11 @@ class TransferMatrices(object):
     def __getitem__(self,item):
         return self.Matrices[item]
     def FrequencyResponse(self,o,i):
+        # pragma: silent exclude
         from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
-        return FrequencyResponse(self.f,[Matrix[o-1][i-1] for Matrix in self.Matrices])
+        # pragma: include
+        return FrequencyResponse(self.f,[Matrix[o-1][i-1]
+            for Matrix in self.Matrices])
     def FrequencyResponses(self):
         return [[self.FrequencyResponse(o+1,s+1)
             for s in range(self.Inputs)] for o in range(self.Outputs)]

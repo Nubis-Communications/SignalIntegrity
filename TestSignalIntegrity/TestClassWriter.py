@@ -115,7 +115,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersSymbolic.py"
         className='SystemSParametersSymbolic'
         defName=['LaTeXSolution','__init__','_LaTeXSi']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteVirtualProbe(self):
         fileName="../SignalIntegrity/SystemDescriptions/VirtualProbe.py"
         className='VirtualProbe'
@@ -145,17 +145,31 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName='../SignalIntegrity/SystemDescriptions/Port.py'
         className='Port'
         defName=['__init__','IsConnected','Print']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteDevice(self):
         fileName='../SignalIntegrity/SystemDescriptions/Device.py'
         className='Device'
         defName=['__init__','__getitem__','__len__',
                 'SymbolicMatrix','Print']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
-    def testWriteSystemDescription(self):
+    def testWriteSystemDescriptionBasic(self):
         fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
         className='SystemDescription'
         firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        for subroutine in [firstDef,'AddDevice','AddPort','ConnectDevicePort']:
+            all.remove(subroutine)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteSystemDescriptionImportant(self):
+        fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
+        className='SystemDescription'
+        defName=['AddDevice','AddPort','ConnectDevicePort']
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteSystemDescriptionSymbolic(self):
+        fileName='../SignalIntegrity/SystemDescriptions/SystemDescriptionSymbolic.py'
+        className='SystemDescriptionSymbolic'
+        firstDef='LaTeXSystemEquation'
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
         defName=[firstDef]+all
@@ -465,6 +479,23 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all.remove(firstDef)
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
+    def testWriteTransferMatricesProcessing(self):
+        fileName="../SignalIntegrity/FrequencyDomain/TransferMatrices.py"
+        className='TransferMatrices'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        all.remove('SParameters')
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteTransferMatricesProcessor(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/TransferMatricesProcessor.py"
+        className='TransferMatricesProcessor'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
 
 if __name__ == '__main__':
     unittest.main()
