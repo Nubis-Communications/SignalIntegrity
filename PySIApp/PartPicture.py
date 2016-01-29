@@ -1036,6 +1036,26 @@ class PartPictureVariableProbe(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureProbe'])
 
+class PartPictureMeasureProbe(PartPictureBox):
+    def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l',False,False)],[(0.5,0),(1,0.5)],[(0,0),(1,1)],(1,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        ix=(drawingOrigin[0]+self.origin[0]+1)*grid
+        iy=(drawingOrigin[1]+self.origin[1]+0)*grid
+        mx=ix-grid/2
+        my=iy+grid/2
+        fx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        fy=(drawingOrigin[1]+self.origin[1]+1)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        p=[ct.Translate((ix,iy)),ct.Translate((mx,my)),ct.Translate((fx,fy))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,width=3)
+        canvas.create_line(p[1][0],p[1][1],p[2][0],p[2][1],fill=self.color)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableMeasureProbe(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureMeasureProbe'])
+
 class PartPicturePowerMixedModeConverter(PartPictureBox):
     def __init__(self,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l',False),PartPin(2,(0,3),'l',False),PartPin(3,(4,1),'r',False),PartPin(4,(4,3),'r',False)],[(1,0),(3,4)],[(0,0),(4,4)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)

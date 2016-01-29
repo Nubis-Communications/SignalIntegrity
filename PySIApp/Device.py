@@ -279,7 +279,7 @@ class DeviceCurrentSineGenerator(Device):
 
 class DeviceMeasurement(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure'),PartPropertyWaveformFileName()],PartPictureVariableProbe())
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('Measure'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure'),PartPropertyWaveformFileName()],PartPictureVariableMeasureProbe())
     def NetListLine(self):
         return 'meas'
     def Waveform(self):
