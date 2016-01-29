@@ -120,27 +120,27 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/SystemDescriptions/VirtualProbe.py"
         className='VirtualProbe'
         defName=['__init__','pMeasurementList','pStimDef']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteVirtualProbeNumeric(self):
         fileName="../SignalIntegrity/SystemDescriptions/VirtualProbeNumeric.py"
         className='VirtualProbeNumeric'
         defName=['__init__','TransferMatrix']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteVirtualProbeSymbolic(self):
         fileName="../SignalIntegrity/SystemDescriptions/VirtualProbeSymbolic.py"
         className='VirtualProbeSymbolic'
         defName=['__init__','LaTeXTransferMatrix','LaTeXEquations']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteVirtualProbeParser(self):
         fileName="../SignalIntegrity/Parsers/VirtualProbeParser.py"
         className='VirtualProbeParser'
         defName=['__init__','_ProcessVirtualProbeLine','_ProcessLines']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteVirtualProbeNumericParserc(self):
         fileName="../SignalIntegrity/Parsers/VirtualProbeNumericParser.py"
         className='VirtualProbeNumericParser'
         defName=['__init__','TransferMatrices']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWritePort(self):
         fileName='../SignalIntegrity/SystemDescriptions/Port.py'
         className='Port'
