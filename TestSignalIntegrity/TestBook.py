@@ -985,7 +985,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 4')
     def testSymbolicVirtualProbeParserExample4Old(self):
         vpp=si.p.VirtualProbeParser()
-        vpp.AddLines(['device T 2','device MM1 4 mixedmode','device MM2 4 mixedmode','device C 4',
+        vpp.AddLines(['device T 2','device MM1 4 mixedmode voltage','device MM2 4 mixedmode voltage','device C 4',
             'device R 2','connect T 1 MM1 1','connect T 2 MM1 2','connect MM1 3 MM2 3','connect MM1 4 MM2 4',
             'connect MM2 1 C 1','connect MM2 2 C 2',
             'connect C 3 R 1','connect C 4 R 2','stim m1 T 1 m2 T 2','meas MM1 3','output R 1 R 2',
@@ -998,7 +998,7 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
         self.CheckSymbolicResult(self.id(),svp,'Book Example Symbolic Virtual Probe 4 Parser')
     def testSymbolicVirtualProbeParserExample4(self):
         vpp=si.p.VirtualProbeParser()
-        vpp.AddLines(['device T 2','device MM1 4 mixedmode','device MM2 4 mixedmode',
+        vpp.AddLines(['device T 2','device MM1 4 mixedmode voltage','device MM2 4 mixedmode voltage',
             'device C 4','device R 2','connect T 1 MM1 1','connect T 2 MM1 2',
             'connect MM1 3 MM2 3','connect MM1 4 MM2 4','connect MM2 1 C 1','connect MM2 2 C 2',
             'connect C 3 R 1','connect C 4 R 2','stim m1 T 1 m2 T 2','meas MM1 3',

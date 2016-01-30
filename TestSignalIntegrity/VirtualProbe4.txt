@@ -1,6 +1,6 @@
 device T 2
-device MM1 4 mixedmode
-device MM2 4 mixedmode
+device MM1 4 mixedmode voltage
+device MM2 4 mixedmode voltage
 device C 4
 device R 2
 connect T 1 MM1 1
