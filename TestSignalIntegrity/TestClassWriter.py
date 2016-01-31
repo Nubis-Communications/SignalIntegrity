@@ -95,6 +95,35 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className='Waveform'
         defName=['Values','__init__','__len__','__getitem__','Times','TimeDescriptor',]
         self.WriteClassCode(fileName,className,defName)
+    def testWriteWaveform_File(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
+        className='Waveform'
+        defName=['ReadFromFile','WriteToFile']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteStepWaveform(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/StepWaveform.py"
+        className='StepWaveform'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWritePulseWaveform(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/PulseWaveform.py"
+        className='PulseWaveform'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSineWaveform(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/SineWaveform.py"
+        className='SineWaveform'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyList_Frequencies(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
         className='FrequencyList'
@@ -419,6 +448,19 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all.remove(firstDef)
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
+    def testWriteSinXFunc(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
+        className=''
+        defName=['SinXFunc']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteFractionalDelayFilterSinX(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
+        className='FractionalDelayFilterSinX'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
     def testWriteInterpolatorSinX(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
         className='InterpolatorSinX'
@@ -427,9 +469,33 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all.remove(firstDef)
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
+    def testWriteInterpolatorFractionalDelayFilterSinX(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
+        className='InterpolatorFractionalDelayFilterSinX'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteFractionalDelayFilterLinear(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorLinear.py"
+        className='FractionalDelayFilterLinear'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
     def testWriteInterpolatorLinear(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorLinear.py"
         className='InterpolatorLinear'
+        firstDef='__init__'
+        all=self.EntireListOfClassFunctions(fileName,className)
+        all.remove(firstDef)
+        defName=[firstDef]+all
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteInterpolatorFractionalDelayFilterLinear(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorLinear.py"
+        className='InterpolatorFractionalDelayFilterLinear'
         firstDef='__init__'
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
