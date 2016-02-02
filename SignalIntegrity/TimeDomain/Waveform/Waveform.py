@@ -65,8 +65,10 @@ class Waveform(object):
         else:
             return self.__add__(other)
     def __mul__(self,other):
+        # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
         from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
+        # pragma: include
         if isinstance(other,FirFilter):
             return other.FilterWaveform(self)
         elif isinstance(other,WaveformTrimmer):
@@ -74,17 +76,21 @@ class Waveform(object):
         elif isinstance(other,float):
             return Waveform(self.m_t,[v*other for v in self.Values()])
     def ReadFromFile(self,fileName):
+        # pragma: silent exclude outdent
         try:
+        # pragma: include
             with open(fileName,"rU") as f:
                 data=f.readlines()
                 HorOffset=float(data[0])
                 NumPts=int(data[1])
                 SampleRate=float(data[2])
-                Values=[float(v) for v in data[3:]]
+                Values=[float(data[k+3]) for k in range(NumPts)]
             self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)
             self.m_y=Values
+        # pragma: silent exclude indent
         except IOError:
             raise PySIExceptionWaveformFile(fileName+' not found')
+        # pragma: include
         return self
     def WriteToFile(self,fileName):
         with open(fileName,"w") as f:

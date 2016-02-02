@@ -100,6 +100,11 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className='Waveform'
         defName=['ReadFromFile','WriteToFile']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteWaveform_Multiply(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
+        className='Waveform'
+        defName=['__mul__']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteStepWaveform(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/StepWaveform.py"
         className='StepWaveform'
@@ -447,7 +452,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
         defName=[firstDef]+all
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSinXFunc(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
         className=''

@@ -1,6 +1,5 @@
 class FractionalDelayFilterSinX(FirFilter):
     def __init__(self,F,accountForDelay=True):
-        from FilterDescriptor import FilterDescriptor
         S=64
         U=1
         FirFilter.__init__(self,

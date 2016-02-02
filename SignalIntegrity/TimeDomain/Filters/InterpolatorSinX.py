@@ -20,7 +20,9 @@ def SinXFunc(k,S,U,F):
 
 class FractionalDelayFilterSinX(FirFilter):
     def __init__(self,F,accountForDelay=True):
+        # pragma: silent exclude
         from FilterDescriptor import FilterDescriptor
+        # pragma: include
         S=64
         U=1
         FirFilter.__init__(self,
@@ -29,14 +31,18 @@ class FractionalDelayFilterSinX(FirFilter):
 
 class InterpolatorSinX(FirFilter):
     def __init__(self,U):
+        # pragma: silent exclude
         from FilterDescriptor import FilterDescriptor
+        # pragma: include
         S=64
         F=0.
         FirFilter.__init__(self,
             FilterDescriptor(U,S+F,2*S),
             [SinXFunc(k,S,U,F) for k in range(2*U*S+1)])
     def FilterWaveform(self,wf):
+        # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
+        # pragma: include
         fd=self.FilterDescriptor()
         us=[0. for k in range(len(wf)*fd.U)]
         for k in range(len(wf)):
