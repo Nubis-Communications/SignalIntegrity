@@ -113,9 +113,11 @@ class Waveform(object):
     def __ne__(self,other):
         return not self == other
     def Adapt(self,td):
+        # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
         from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
+        # pragma: include
         wf=self
         u=int(round(td.Fs/wf.TimeDescriptor().Fs))
         if not u==1:
@@ -125,7 +127,8 @@ class Waveform(object):
         if not f==0.0:
             wf=wf*FractionalDelayFilterSinX(f,True)
         ad=td/wf.TimeDescriptor()
-        tr=WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),max(0,int(round(ad.TrimRight()))))
+        tr=WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),
+                           max(0,int(round(ad.TrimRight()))))
         wf=wf*tr
         return wf
     def Measure(self,time):

@@ -84,12 +84,12 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
         className='FilterDescriptor'
         defName=['TrimLeft','TrimRight','TrimTotal']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteFilterDescriptor_Order(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
         className='FilterDescriptor'
         defName=['Before','After']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteWaveform_Values(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
         className='Waveform'
@@ -104,6 +104,11 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
         className='Waveform'
         defName=['__mul__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteWaveform_Adapt(self):
+        fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
+        className='Waveform'
+        defName=['Adapt']
         self.WriteClassCode(fileName,className,defName)
     def testWriteStepWaveform(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/StepWaveform.py"
@@ -513,7 +518,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
         defName=[firstDef]+all
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteMutual(self):
         fileName="../SignalIntegrity/Devices/Mutual.py"
         className=''
