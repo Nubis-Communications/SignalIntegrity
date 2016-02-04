@@ -17469,7 +17469,27 @@ reference "sub:Mutual"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "sub:IdealTransformer"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "sub:Ground"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Open"
 
 \end_inset
 
@@ -17490,6 +17510,36 @@ reference "sub:Power-Mixed-Mode-Converter"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Voltage-Mixed-Mode-Converter"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Transmission-Line"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Telegrapher---Two-Port"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -18946,6 +18996,13 @@ The sense of the self inductance is indicated by the arrows in the part
 
 \begin_layout Subsection
 IdealTransformer
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:IdealTransformer"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -19363,6 +19420,13 @@ This is a one-port ground, which could also be considered as a one-port
 
 \begin_layout Subsection
 Open
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Open"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20002,6 +20066,13 @@ reference "sub:Virtual-Probing-Example"
 
 \begin_layout Subsection
 Transmission Line
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Transmission-Line"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20286,6 +20357,13 @@ A two-port ideal transmission line with zero delay is simply and ideal thru
 
 \begin_layout Subsection
 Telegrapher - Two Port
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Telegrapher---Two-Port"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20721,6 +20799,13 @@ This is used to approximated distributed parameters.
 
 \begin_layout Subsection
 Telegrapher - Four Port
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Telegrapher---Four-Port"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
