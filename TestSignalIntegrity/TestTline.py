@@ -104,10 +104,8 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
                 0.0,Ls,Cs,0.0,
                 0.0,Ls,Cs,0.0,
                 Lm,Cm,0.0,50.,10000)
-        spmodel.WriteToFile('tltestapprox.s4p')
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
-        spmodel2.WriteToFile('tltestmodel.s4p')
-        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.1),self.id()+' result not same')
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.05),self.id()+' result not same')
         """
         import matplotlib.pyplot as plt
         for r in range(4):
