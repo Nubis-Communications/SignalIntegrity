@@ -88,7 +88,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         it tests the old, obsolete four port model which is all lumped components.
         """
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        f=[(n+1)*200e6 for n in range(50)]
+        f=[(n)*200e6 for n in range(51)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
         #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
         Ls=58.5e-9
@@ -99,13 +99,15 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Zc=0.5*math.sqrt((Ls+Lm)/Cs)
         Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
         Tc=math.sqrt((Ls+Lm)*Cs)
-        spmodel=si.sp.dev.ApproximateFourPortTLineOld(
+        spmodel=si.sp.dev.ApproximateFourPortTLine(
             f,
                 0.0,Ls,Cs,0.0,
                 0.0,Ls,Cs,0.0,
                 Lm,Cm,0.0,50.,10000)
+        spmodel.WriteToFile('tltestapprox.s4p')
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
-        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
+        spmodel2.WriteToFile('tltestmodel.s4p')
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.1),self.id()+' result not same')
         """
         import matplotlib.pyplot as plt
         for r in range(4):
