@@ -572,6 +572,16 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all.remove(firstDef)
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteMixedModeConverter(self):
+        fileName="../SignalIntegrity/Devices/MixedModeConverter.py"
+        className=''
+        defName=['MixedModeConverter']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteMixedModeConverterVoltage(self):
+        fileName="../SignalIntegrity/Devices/MixedModeConverter.py"
+        className=''
+        defName=['MixedModeConverterVoltage']
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == '__main__':
     unittest.main()

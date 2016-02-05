@@ -9,20 +9,23 @@
 '''
 import math
 
-# Ports 1 2 3 4 are + - D C
-
-# this one has the right definition for differential and common mode voltage
 def MixedModeConverterVoltage():
+# Ports 1 2 3 4 are + - D C
+# this one has the right definition for differential
+# and common mode voltage
     DF=1.; CF=2.
     return [[0.,0.,DF/2.,CF/2.],
             [0.,0.,-DF/2.,CF/2.],
             [1./DF,-1./DF,0.,0.],
             [1./CF,1./CF,0.,0.]]
+# pragma: silent exclude
 
-# this is an alternate form of the standard mixed-mode converter
 def MixedModeConverter():
+# Ports 1 2 3 4 are + - D C
+# this is the standard mixed-mode converter
     DF=math.sqrt(2.0); CF=math.sqrt(2.0)
     return [[0.,0.,DF/2.,CF/2.],
             [0.,0.,-DF/2.,CF/2.],
             [1./DF,-1./DF,0.,0.],
             [1./CF,1./CF,0.,0.]]
+# pragma: silent exclude
