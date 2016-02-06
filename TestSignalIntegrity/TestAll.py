@@ -30,6 +30,7 @@ from TestSimulator import *
 from TestSubcircuit import *
 from TestExceptions import *
 from TestDeviceParser import *
+from TestMixedModeTermination import *
 
 if __name__ == '__main__':
     unittest.main()
