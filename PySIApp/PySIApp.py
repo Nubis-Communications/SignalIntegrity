@@ -35,7 +35,6 @@ from BuildHelpSystem import *
 
 class TheApp(Frame):
     def __init__(self):
-        help={'Open-Project':'Subsubsection-1','Save-Project':'Subsubsection-2','Open-Project':'Subsubsection-1'}
         self.root = Tk()
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
