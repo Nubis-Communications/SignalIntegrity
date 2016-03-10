@@ -192,14 +192,14 @@ class DeviceProperties(Frame):
     def onOrientationChange(self):
         self.device.partPicture.current.ApplyOrientation(self.rotationString.get(),bool(self.mirrorHorizontallyVar.get()),bool(self.mirrorVerticallyVar.get()))
         self.UpdatePicture()
-        
+
     def onPinNumbersOn(self):
         for pin in self.device.partPicture.current.pinListSupplied:
             pin.pinNumberVisible = True
         for pin in self.device.partPicture.current.pinList:
             pin.pinNumberVisible = True
         self.UpdatePicture()
-    
+
     def onPinNumbersOff(self):
         for pin in self.device.partPicture.current.pinListSupplied:
             pin.pinNumberVisible = False
@@ -239,7 +239,7 @@ class DevicePropertiesDialog(Toplevel):
         if not self.initial_focus:
             self.initial_focus = self
         self.protocol("WM_DELETE_WINDOW", self.cancel)
-        #self.geometry("+%d+%d" % (parent.winfo_rootx()+50,parent.winfo_rooty()+50))
+        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,parent.winfo_rooty()+50))
         self.initial_focus.focus_set()
         self.wait_window(self)
     # construction hooks
