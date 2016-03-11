@@ -54,6 +54,7 @@ class DeviceProperty(Frame):
                 propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
                 propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
+        self.callBack()
         self.parentFrame.focus()
         if self.partProperty.propertyName == PartPropertyFileName().propertyName:
             extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
@@ -113,6 +114,7 @@ class DeviceProperty(Frame):
         self.callBack()
     def onEntered(self,event):
         self.partProperty.SetValueFromString(self.propertyString.get())
+        self.callBack()
         self.onUntouchedLoseFocus(event)
     def onTouched(self,event):
         self.propertyEntry.focus()
@@ -182,6 +184,8 @@ class DeviceProperties(Frame):
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(ALL)
+        self.device.partPicture.ports=self.device['ports'].GetValue()
+        self.device.partPicture.SwitchPartPicture(self.device.partPicture.partPictureSelected)
         self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
 
     def onToggleRotation(self):
