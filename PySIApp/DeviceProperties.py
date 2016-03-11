@@ -47,15 +47,24 @@ class DeviceProperty(Frame):
         self.propertyEntry.bind('<FocusOut>',self.onUntouched)
         self.propertyEntry.pack(side=LEFT, expand=YES, fill=X)
         if self.partProperty.type == 'file':
-            propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
-            propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+            self.propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
+            self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
             if self.partProperty.propertyName == PartPropertyFileName().propertyName or\
                 self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-                propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
-                propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+                self.propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
+                self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
+        # this is a seemingly ugly workaround
+        # I do this because when you change the number of ports and then touch the file
+        # browse button, the ports are updated after this call based on the button press.
+        # without this ugly thing, the file extension reflects the wrong number of ports
+        # until the next time you press the button, when it is right.
+        # This workaround forces the ports to be updated now.
+        for pp in range(len(self.parent.device.propertiesList)):
+            if self.parent.device.propertiesList[pp].propertyName == 'ports':
+                self.parent.propertyFrameList[pp].onUntouched(None)
+        # end of ugly workaround
         self.callBack()
-        self.parentFrame.focus()
         if self.partProperty.propertyName == PartPropertyFileName().propertyName:
             extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
             filetypename='s-parameters'
@@ -281,4 +290,6 @@ class DevicePropertiesDialog(Toplevel):
             propFrame=self.DeviceProperties.propertyFrameList[pIndex]
             propFrame.partProperty.SetValueFromString(propFrame.propertyString.get())
             self.result.propertiesList[pIndex]=propFrame.partProperty
+        self.result.partPicture.ports=self.result['ports'].GetValue()
+        self.result.partPicture.SwitchPartPicture(self.result.partPicture.partPictureSelected)
         return

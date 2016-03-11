@@ -79,7 +79,10 @@ class PartProperty(object):
         elif self.type=='file':
             self._value = str(string)
         elif self.type=='int':
-            self._value = int(string)
+            try:
+                self._value = int(string)
+            except ValueError:
+                self._value = 0
         elif self.type=='float':
             value = FromSI(string,self.unit)
             if value is not None:
