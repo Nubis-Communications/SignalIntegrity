@@ -193,7 +193,8 @@ class DeviceProperties(Frame):
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(ALL)
-        self.device.partPicture.ports=self.device['ports'].GetValue()
+        if not self.device['ports'] is None:
+            self.device.partPicture.ports=self.device['ports'].GetValue()
         self.device.partPicture.SwitchPartPicture(self.device.partPicture.partPictureSelected)
         self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
 
@@ -290,6 +291,7 @@ class DevicePropertiesDialog(Toplevel):
             propFrame=self.DeviceProperties.propertyFrameList[pIndex]
             propFrame.partProperty.SetValueFromString(propFrame.propertyString.get())
             self.result.propertiesList[pIndex]=propFrame.partProperty
-        self.result.partPicture.ports=self.result['ports'].GetValue()
+        if not self.device['ports'] is None:
+            self.result.partPicture.ports=self.result['ports'].GetValue()
         self.result.partPicture.SwitchPartPicture(self.result.partPicture.partPictureSelected)
         return
