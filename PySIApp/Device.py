@@ -78,6 +78,7 @@ class DeviceXMLClassFactory(object):
         propertiesList=[]
         partPicture=None
         className='Device'
+        ports=None
         for child in xml:
             if child.tag == 'class_name':
                 className=child.text
@@ -85,8 +86,11 @@ class DeviceXMLClassFactory(object):
                 for partPropertyElement in child:
                     partProperty=PartPropertyXMLClassFactory(partPropertyElement).result
                     propertiesList.append(partProperty)
-            elif child.tag == 'part_picture':
-                partPicture=PartPictureXMLClassFactory(child).result
+                    if partProperty.propertyName=='ports':
+                        ports=partProperty.GetValue()
+        for child in xml:
+            if child.tag == 'part_picture':
+                partPicture=PartPictureXMLClassFactory(child,ports).result
         try:
             self.result=eval(className).__new__(eval(className))
             Device.__init__(self.result,propertiesList,partPicture)
@@ -406,10 +410,11 @@ class DeviceTelegrapherFourPort(Device):
         return nl
 
 DeviceList = [
-              DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableOnePort()),
-              DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableTwoPort()),
-              DeviceFile([PartPropertyDescription('Three Port File'),PartPropertyPorts(3)],PartPictureVariableThreePort()),
-              DeviceFile([PartPropertyDescription('Four Port File'),PartPropertyPorts(4)],PartPictureVariableFourPort()),
+              DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),
+              DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),
+              DeviceFile([PartPropertyDescription('Three Port File'),PartPropertyPorts(3)],PartPictureVariableSpecifiedPorts(3)),
+              DeviceFile([PartPropertyDescription('Four Port File'),PartPropertyPorts(4)],PartPictureVariableSpecifiedPorts(4)),
+              DeviceFile([PartPropertyDescription('Variable Port File'),PartPropertyPorts(4,False)],PartPictureVariableSpecifiedPorts()),
               DeviceResistor([PartPropertyDescription('One Port Resistor to Ground'),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),
               DeviceResistor([PartPropertyDescription('Two Port Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
               DeviceCapacitor([PartPropertyDescription('One Port Capacitor to Ground'),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),
@@ -456,15 +461,17 @@ DeviceList = [
               ]
 
 DeviceListUnknown = [
-              DeviceUnknown([PartPropertyDescription('One Port Unknown'),PartPropertyPorts(1)],PartPictureVariableUnknownOnePort()),
-              DeviceUnknown([PartPropertyDescription('Two Port Unknown'),PartPropertyPorts(2)],PartPictureVariableUnknownTwoPort()),
-              DeviceUnknown([PartPropertyDescription('Three Port Unknown'),PartPropertyPorts(3)],PartPictureVariableUnknownThreePort()),
-              DeviceUnknown([PartPropertyDescription('Four Port Unknown'),PartPropertyPorts(4)],PartPictureVariableUnknownFourPort()),
+              DeviceUnknown([PartPropertyDescription('One Port Unknown'),PartPropertyPorts(1)],PartPictureVariableUnknown(1)),
+              DeviceUnknown([PartPropertyDescription('Two Port Unknown'),PartPropertyPorts(2)],PartPictureVariableUnknown(2)),
+              DeviceUnknown([PartPropertyDescription('Three Port Unknown'),PartPropertyPorts(3)],PartPictureVariableUnknown(3)),
+              DeviceUnknown([PartPropertyDescription('Four Port Unknown'),PartPropertyPorts(4)],PartPictureVariableUnknown(4)),
+              DeviceUnknown([PartPropertyDescription('Variable Port Unknown'),PartPropertyPorts(4,False)],PartPictureVariableUnknown()),
               ]
 
 DeviceListSystem = [
-              DeviceSystem([PartPropertyDescription('One Port System'),PartPropertyPorts(1)],PartPictureVariableSystemOnePort()),
-              DeviceSystem([PartPropertyDescription('Two Port System'),PartPropertyPorts(2)],PartPictureVariableSystemTwoPort()),
-              DeviceSystem([PartPropertyDescription('Three Port System'),PartPropertyPorts(3)],PartPictureVariableSystemThreePort()),
-              DeviceSystem([PartPropertyDescription('Four Port System'),PartPropertyPorts(4)],PartPictureVariableSystemFourPort()),
+              DeviceSystem([PartPropertyDescription('One Port System'),PartPropertyPorts(1)],PartPictureVariableSystem(1)),
+              DeviceSystem([PartPropertyDescription('Two Port System'),PartPropertyPorts(2)],PartPictureVariableSystem(2)),
+              DeviceSystem([PartPropertyDescription('Three Port System'),PartPropertyPorts(3)],PartPictureVariableSystem(3)),
+              DeviceSystem([PartPropertyDescription('Four Port System'),PartPropertyPorts(4)],PartPictureVariableSystem(4)),
+              DeviceSystem([PartPropertyDescription('Variable Port System'),PartPropertyPorts(4,False)],PartPictureVariableSystem()),
               ]

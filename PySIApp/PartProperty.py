@@ -79,7 +79,10 @@ class PartProperty(object):
         elif self.type=='file':
             self._value = str(string)
         elif self.type=='int':
-            self._value = int(string)
+            try:
+                self._value = int(string)
+            except ValueError:
+                self._value = 0
         elif self.type=='float':
             value = FromSI(string,self.unit)
             if value is not None:
@@ -171,8 +174,8 @@ class PartPropertyDefaultReferenceDesignator(PartProperty):
         PartProperty.__init__(self,'defaultreference',type='string',unit=None,description='default reference designator',value=referenceDesignator,hidden=True,visible=False,keywordVisible=False)
 
 class PartPropertyPorts(PartProperty):
-    def __init__(self,numPorts=1):
-        PartProperty.__init__(self,'ports',type='int',unit=None,description='ports',value=numPorts,hidden=True)
+    def __init__(self,numPorts=1,hidden=True):
+        PartProperty.__init__(self,'ports',type='int',unit=None,description='ports',value=numPorts,hidden=hidden)
 
 class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
