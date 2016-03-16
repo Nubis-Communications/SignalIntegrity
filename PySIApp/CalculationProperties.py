@@ -28,6 +28,7 @@ class CalculationProperty(Frame):
         self.entry = Entry(self,textvariable=self.string)
         self.entry.config(width=15)
         self.entry.bind('<Return>',self.onEntered)
+        self.entry.bind('<Tab>',self.onEntered)
         self.entry.bind('<Button-1>',self.onTouched)
         self.entry.bind('<Button-1>',self.onTouched)
         self.entry.bind('<Double-Button-1>',self.onCleared)
