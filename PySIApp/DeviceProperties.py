@@ -39,6 +39,7 @@ class DeviceProperty(Frame):
         self.propertyEntry = Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)
         self.propertyEntry.bind('<Return>',self.onEntered)
+        self.propertyEntry.bind('<Tab>',self.onEntered)
         self.propertyEntry.bind('<Button-1>',self.onTouched)
         self.propertyEntry.bind('<Button-1>',self.onTouched)
         self.propertyEntry.bind('<Double-Button-1>',self.onCleared)
