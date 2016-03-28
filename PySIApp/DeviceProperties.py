@@ -16,6 +16,7 @@ from PartProperty import *
 from Files import *
 from SParameterViewerWindow import *
 from Simulator import *
+from Device import *
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):
@@ -52,8 +53,8 @@ class DeviceProperty(Frame):
             self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
             if self.partProperty.propertyName == PartPropertyFileName().propertyName or\
                 self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-                self.propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
-                self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+                self.propertyFileViewButton = Button(self,text='view',command=self.onFileView)
+                self.propertyFileViewButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
         # this is a seemingly ugly workaround
         # I do this because when you change the number of ports and then touch the file
@@ -115,7 +116,6 @@ class DeviceProperty(Frame):
                 sd.UpdateWaveforms([wf],[filenametoshow])
                 sd.state('normal')
                 sd.grab_set()
-
     def onPropertyVisible(self):
         self.partProperty.visible=bool(self.propertyVisible.get())
         self.callBack()
@@ -143,6 +143,12 @@ class DeviceProperties(Frame):
         self.parent=parent
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
+        if isinstance(self.device,Device): # part other than file - allow viewing
+            if self.device.NetListLine().split(' ')[0]=='device':
+                partViewFrame=Frame(self)
+                partViewFrame.pack(side=TOP,fill=X,expand=YES)
+                self.partViewButton = Button(partViewFrame,text='view s-parameters',command=self.onPartView)
+                self.partViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
         propertyListFrame = Frame(self)
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
         propertyListFrame.bind("<Return>", parent.ok)
@@ -236,6 +242,32 @@ class DeviceProperties(Frame):
             selected = 0
         self.device.partPicture.SwitchPartPicture(selected)
         self.UpdatePicture()
+
+    def onPartView(self):
+        self.focus()
+        device=self.device
+        numPorts=device['ports'].GetValue()
+        referenceDesignator=device['reference'].GetValue()
+        portLine='port'
+        for port in range(numPorts):
+            portLine=portLine+' '+str(port+1)+' '+referenceDesignator+' '+str(port+1)
+        deviceLine=device.NetListLine()
+        netList=[deviceLine,portLine]
+        import SignalIntegrity as si
+        spnp=si.p.SystemSParametersNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                self.parent.parent.calculationProperties.endFrequency,
+                self.parent.parent.calculationProperties.frequencyPoints))
+        spnp.AddLines(netList)
+        try:
+            sp=spnp.SParameters()
+        except si.PySIException as e:
+            tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            return
+        fileParts=copy.copy(self.parent.parent.fileparts)
+        fileParts.filename=fileParts.filename+'_'+referenceDesignator
+        spd=SParametersDialog(self.parent.parent,sp,filename=fileParts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+        spd.grab_set()
 
 class DevicePropertiesDialog(Toplevel):
     def __init__(self,parent,device):
