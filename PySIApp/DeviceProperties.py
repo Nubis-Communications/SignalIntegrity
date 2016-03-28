@@ -51,8 +51,7 @@ class DeviceProperty(Frame):
         if self.partProperty.type == 'file':
             self.propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
             self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
-            if self.partProperty.propertyName == PartPropertyFileName().propertyName or\
-                self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
+            if self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
                 self.propertyFileViewButton = Button(self,text='view',command=self.onFileView)
                 self.propertyFileViewButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
