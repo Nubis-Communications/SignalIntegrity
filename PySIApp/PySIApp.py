@@ -525,6 +525,7 @@ class TheApp(Frame):
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
         self.calculationProperties.ShowCalculationPropertiesDialog()
+        self.calculationProperties.CalculationPropertiesDialog().grab_set()
 
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()

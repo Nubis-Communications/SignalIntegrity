@@ -16,6 +16,7 @@ from PartProperty import *
 from Files import *
 from SParameterViewerWindow import *
 from Simulator import *
+from Device import *
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):
@@ -52,8 +53,8 @@ class DeviceProperty(Frame):
             self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
             if self.partProperty.propertyName == PartPropertyFileName().propertyName or\
                 self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-                self.propertyFileBrowseButton = Button(self,text='view',command=self.onFileView)
-                self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+                self.propertyFileViewButton = Button(self,text='view',command=self.onFileView)
+                self.propertyFileViewButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
         # this is a seemingly ugly workaround
         # I do this because when you change the number of ports and then touch the file
@@ -106,16 +107,19 @@ class DeviceProperty(Frame):
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
                 spd.grab_set()
             elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-                wf=si.td.wf.Waveform().ReadFromFile(filename)
                 filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
                 if filenametoshow is None:
                     filenametoshow=''
+                try:
+                    wf=self.parent.device.Waveform()
+                except si.PySIException as e:
+                    tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+                    return
                 sd=SimulatorDialog(self.parent.parent)
                 sd.title(filenametoshow)
                 sd.UpdateWaveforms([wf],[filenametoshow])
                 sd.state('normal')
                 sd.grab_set()
-
     def onPropertyVisible(self):
         self.partProperty.visible=bool(self.propertyVisible.get())
         self.callBack()
@@ -143,6 +147,18 @@ class DeviceProperties(Frame):
         self.parent=parent
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
+        if isinstance(self.device,Device): # part other than file - allow viewing
+            if not 'file name' in [property.description for property in self.device.propertiesList]:
+                if self.device.NetListLine().split(' ')[0]=='device':
+                    partViewFrame=Frame(self)
+                    partViewFrame.pack(side=TOP,fill=X,expand=YES)
+                    self.partViewButton = Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
+                    self.partViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
+                elif self.device.NetListLine().split(' ')[0]=='voltagesource':
+                    partViewFrame=Frame(self)
+                    partViewFrame.pack(side=TOP,fill=X,expand=YES)
+                    self.waveformViewButton = Button(partViewFrame,text='view waveform',command=self.onWaveformView)
+                    self.waveformViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
         propertyListFrame = Frame(self)
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
         propertyListFrame.bind("<Return>", parent.ok)
@@ -236,6 +252,48 @@ class DeviceProperties(Frame):
             selected = 0
         self.device.partPicture.SwitchPartPicture(selected)
         self.UpdatePicture()
+
+    def onPartView(self):
+        self.focus()
+        device=self.device
+        numPorts=device['ports'].GetValue()
+        referenceDesignator=device['reference'].GetValue()
+        portLine='port'
+        for port in range(numPorts):
+            portLine=portLine+' '+str(port+1)+' '+referenceDesignator+' '+str(port+1)
+        deviceLine=device.NetListLine()
+        netList=[deviceLine,portLine]
+        import SignalIntegrity as si
+        spnp=si.p.SystemSParametersNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                self.parent.parent.calculationProperties.endFrequency,
+                self.parent.parent.calculationProperties.frequencyPoints))
+        spnp.AddLines(netList)
+        try:
+            sp=spnp.SParameters()
+        except si.PySIException as e:
+            tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            return
+        fileParts=copy.copy(self.parent.parent.fileparts)
+        fileParts.filename=fileParts.filename+'_'+referenceDesignator
+        spd=SParametersDialog(self.parent.parent,sp,filename=fileParts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+        spd.grab_set()
+
+    def onWaveformView(self):
+        self.focus()
+        device=self.device
+        referenceDesignator=device['reference'].GetValue()
+        import SignalIntegrity as si
+        try:
+            wf=device.Waveform()
+        except si.PySIException as e:
+            tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+            return
+        sim=self.parent.parent.simulator
+        sd=sim.SimulatorDialog()
+        sd.title('PySI Waveform')
+        sim.UpdateWaveforms([wf],[referenceDesignator])
+        sd.grab_set()
 
 class DevicePropertiesDialog(Toplevel):
     def __init__(self,parent,device):
