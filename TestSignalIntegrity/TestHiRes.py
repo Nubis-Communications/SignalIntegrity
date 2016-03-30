@@ -21,7 +21,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
 
         # Make a filter with bandwidth equal to the noise bandwidth from 6 GHz filter s-parameters
         OriginalFilterBandwidth = 6e9
-        sp = si.sp.File('filter.s2p')
+        sp = si.sp.SParameterFile('filter.s2p',50.)
         sp.m_f=si.fd.EvenlySpacedFrequencyList(NoiseBandwidth/OriginalFilterBandwidth*sp.f()[-1],len(sp.f())-1)
         sp.WriteToFile('filterNBW.s2p')
         del OriginalFilterBandwidth
@@ -85,7 +85,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
 
         # 6 GHz filter s-parameters
         OriginalFilterBandwidth = 6e9
-        sp = si.sp.File('filter.s2p')
+        sp = si.sp.SParameterFile('filter.s2p',50.)
         sp.m_f=si.fd.EvenlySpacedFrequencyList(HWFilterBandwidth/OriginalFilterBandwidth*sp.f()[-1],len(sp.f())-1)
         sp.WriteToFile('filterBWL.s2p')
         del OriginalFilterBandwidth

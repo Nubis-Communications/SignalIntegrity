@@ -11,7 +11,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
     def testResampleResponseCompareSpline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.File('TestDut.s4p')
+        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
         tdspres1=tdsp.Resample(newf)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
@@ -34,7 +34,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
     def testResampleResponseCompareCZT(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.File('TestDut.s4p')
+        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
         tdspres1=tdsp.Resample(newf)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
@@ -57,7 +57,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
     def testResampleResponseCompareCZT2(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.File('TestDut.s4p')
+        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
         tdspres1=tdsp.Resample(newf)
 
         tdresp = [[tdsp.Response(o+1,i+1) for o in range(tdsp.m_P)] for i in range(tdsp.m_P)]
@@ -88,7 +88,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
     def testResampleResponseCompareSpline2(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.File('TestDut.s4p')
+        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
         tdspres1=tdsp.Resample(newf)
 
         tdresp = si.sp.ArrayOfMatrices(tdsp).MatrixOfArrays()
@@ -109,7 +109,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
     def testResampleResponseCompareSpline3(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.File('TestDut.s4p')
+        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
         tdspres1=tdsp.Resample(newf)
 
         tdresp = si.sp.ArrayOfMatrices(tdsp)
@@ -128,12 +128,12 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
     def testResampleResponseFilter(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        filtersp=si.sp.File('filter.s2p')
+        filtersp=si.sp.SParameterFile('filter.s2p',50.)
         filtersp=filtersp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
         filterres=filtersp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,4000))
         if not os.path.exists('filterres.s2p'):
             filterres.WriteToFile('filterres.s2p')
-        regression=si.sp.File('filterres.s2p')
+        regression=si.sp.SParameterFile('filterres.s2p',50.)
         self.assertTrue(self.SParametersAreEqual(filterres,regression,0.001),self.id()+'result not same')
     def irc(self):
         x = [0,0,0,0,0,0,0,0,0,0,1.5,0,-0.5,0,0,0,0,0,0,0]

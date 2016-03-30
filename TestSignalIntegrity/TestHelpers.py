@@ -70,7 +70,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
         if not os.path.exists(fileName):
             sp.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
-        regression=si.sp.File(fileName)
+        regression=si.sp.SParameterFile(fileName,50.)
         os.chdir(path)
         self.assertTrue(self.SParametersAreEqual(sp,regression,0.00001),text + ' incorrect')
 

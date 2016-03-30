@@ -16,7 +16,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         Fs=20.e9
         Fe=Fs/2
         N=200
-##        si.sp.File('XRAY041.s4p').Resample(si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
+##        si.sp.SParameterFile('XRAY041.s4p',50.).Resample(si.sp.EvenlySpacedFrequencyList(20.0e9,400)).WriteToFile('XRAY041.s4p')
 ##        return
         vpp=si.p.VirtualProbeNumericParser(si.fd.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         tm = vpp.TransferMatrices()

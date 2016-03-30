@@ -580,7 +580,7 @@ class TheApp(Frame):
         fileparts=FileParts(filename)
         if fileparts.fileext is None or fileparts.fileext == '':
             return
-        sp=si.sp.File(fileparts.FullFilePathExtension())
+        sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
         SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
     def onHelp(self):

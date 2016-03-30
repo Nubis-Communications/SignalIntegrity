@@ -100,7 +100,7 @@ class DeviceProperty(Frame):
             import SignalIntegrity as si
             if self.partProperty.propertyName == PartPropertyFileName().propertyName:
                 try:
-                    sp=si.sp.File(filename)
+                    sp=si.sp.SParameterFile(filename)
                 except si.PySIException as e:
                     tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                     return

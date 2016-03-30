@@ -1,7 +1,8 @@
 class DeviceFactory(object):
     def __init__(self):
         self.deviceList=[
-        ParserDevice('file',None,True,{'':None},True,"File(arg['']).Resample(f)"),
+        ParserDevice('file',None,True,{'':None},True,
+                    "SParameterFile(arg[''],50.).Resample(f)"),
         ParserDevice('c',1,True,{'':None},True,"TerminationC(f,float(arg['']))"),
         ParserDevice('c',2,True,{'':None},True,"SeriesC(f,float(arg['']))"),
         ParserDevice('l',1,True,{'':None},True,"TerminationL(f,float(arg['']))"),

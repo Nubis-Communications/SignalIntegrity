@@ -17,8 +17,8 @@ from SignalIntegrity.Conversions import ReferenceImpedance
 from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
 from SignalIntegrity.PySIException import PySIExceptionSParameterFile
 
-class File(SParameters):
-    def __init__(self,name,Z0=50.0):
+class SParameterFile(SParameters):
+    def __init__(self,name,Z0=None):
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
@@ -62,6 +62,7 @@ class File(SParameters):
                 else: numbersList = numbersList + lineList
         spfile.close()
         if not sp: return
+        if self.m_Z0==None: self.m_Z0=Z0
         frequencies = len(numbersList)/(1+self.m_P*self.m_P*2)
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]

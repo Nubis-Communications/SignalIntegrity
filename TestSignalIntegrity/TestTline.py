@@ -20,7 +20,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         if not os.path.exists(fileName):
             sf.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.sp.File(fileName)
+        regression = si.sp.SParameterFile(fileName,50.)
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same: '+str(fileName))
         import matplotlib.pyplot as plt
 ##        for r in range(4):
@@ -66,7 +66,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         if not os.path.exists(fileName):
             sf.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.sp.File(fileName)
+        regression = si.sp.SParameterFile(fileName,50.)
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same: '+str(fileName))
         """
         import matplotlib.pyplot as plt

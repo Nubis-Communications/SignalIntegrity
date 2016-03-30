@@ -383,7 +383,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         self.WriteClassCode(fileName,className,defName)
     def testWriteSParameterFile(self):
         fileName="../SignalIntegrity/SParameters/SParameterFile.py"
-        className='File'
+        className='SParameterFile'
         firstDef='__init__'
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
@@ -396,6 +396,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         all=self.EntireListOfClassFunctions(fileName,className)
         all.remove(firstDef)
         all.remove('Resample')
+        all.remove('SetReferenceImpedance')
         defName=[firstDef]+all
         self.WriteClassCode(fileName,className,defName)
     def testWriteSParametersResample(self):

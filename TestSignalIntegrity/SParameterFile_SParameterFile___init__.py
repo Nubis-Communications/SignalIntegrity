@@ -1,5 +1,5 @@
-class File(SParameters):
-    def __init__(self,name,Z0=50.0):
+class SParameterFile(SParameters):
+    def __init__(self,name,Z0=None):
         self.m_sToken='S'
         self.m_Z0=Z0
         self.m_P=int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
@@ -29,6 +29,7 @@ class File(SParameters):
                 else: numbersList = numbersList + lineList
         spfile.close()
         if not sp: return
+        if self.m_Z0==None: self.m_Z0=Z0
         frequencies = len(numbersList)/(1+self.m_P*self.m_P*2)
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]
