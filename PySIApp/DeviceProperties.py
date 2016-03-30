@@ -51,7 +51,8 @@ class DeviceProperty(Frame):
         if self.partProperty.type == 'file':
             self.propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
             self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
-            if self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
+            if self.partProperty.propertyName == PartPropertyFileName().propertyName or\
+                self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
                 self.propertyFileViewButton = Button(self,text='view',command=self.onFileView)
                 self.propertyFileViewButton.pack(side=LEFT,expand=NO,fill=X)
     def onFileBrowse(self):
@@ -106,10 +107,14 @@ class DeviceProperty(Frame):
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
                 spd.grab_set()
             elif self.partProperty.propertyName == PartPropertyWaveformFileName().propertyName:
-                wf=si.td.wf.Waveform().ReadFromFile(filename)
                 filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
                 if filenametoshow is None:
                     filenametoshow=''
+                try:
+                    wf=self.parent.device.Waveform()
+                except si.PySIException as e:
+                    tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+                    return
                 sd=SimulatorDialog(self.parent.parent)
                 sd.title(filenametoshow)
                 sd.UpdateWaveforms([wf],[filenametoshow])
@@ -143,11 +148,17 @@ class DeviceProperties(Frame):
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
         if isinstance(self.device,Device): # part other than file - allow viewing
-            if self.device.NetListLine().split(' ')[0]=='device':
-                partViewFrame=Frame(self)
-                partViewFrame.pack(side=TOP,fill=X,expand=YES)
-                self.partViewButton = Button(partViewFrame,text='view s-parameters',command=self.onPartView)
-                self.partViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
+            if not 'file name' in [property.description for property in self.device.propertiesList]:
+                if self.device.NetListLine().split(' ')[0]=='device':
+                    partViewFrame=Frame(self)
+                    partViewFrame.pack(side=TOP,fill=X,expand=YES)
+                    self.partViewButton = Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
+                    self.partViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
+                elif self.device.NetListLine().split(' ')[0]=='voltagesource':
+                    partViewFrame=Frame(self)
+                    partViewFrame.pack(side=TOP,fill=X,expand=YES)
+                    self.waveformViewButton = Button(partViewFrame,text='view waveform',command=self.onWaveformView)
+                    self.waveformViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
         propertyListFrame = Frame(self)
         propertyListFrame.pack(side=TOP,fill=X,expand=NO)
         propertyListFrame.bind("<Return>", parent.ok)
@@ -267,6 +278,22 @@ class DeviceProperties(Frame):
         fileParts.filename=fileParts.filename+'_'+referenceDesignator
         spd=SParametersDialog(self.parent.parent,sp,filename=fileParts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
         spd.grab_set()
+
+    def onWaveformView(self):
+        self.focus()
+        device=self.device
+        referenceDesignator=device['reference'].GetValue()
+        import SignalIntegrity as si
+        try:
+            wf=device.Waveform()
+        except si.PySIException as e:
+            tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+            return
+        sim=self.parent.parent.simulator
+        sd=sim.SimulatorDialog()
+        sd.title('PySI Waveform')
+        sim.UpdateWaveforms([wf],[referenceDesignator])
+        sd.grab_set()
 
 class DevicePropertiesDialog(Toplevel):
     def __init__(self,parent,device):

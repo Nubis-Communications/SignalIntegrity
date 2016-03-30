@@ -105,6 +105,9 @@ class SimulatorDialog(Toplevel):
         except:
             self.Matplotlib2tikzDoer.Activate(False)
 
+        self.ExamineTransferMatricesDoer.Activate(False)
+        self.SimulateDoer.Activate(False)
+
     def onAutoscale(self):
         self.plt.autoscale(True)
         self.f.canvas.draw()
@@ -275,6 +278,8 @@ class Simulator(object):
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('PySI Sim: '+self.parent.fileparts.FileNameTitle())
+        self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
+        self.SimulatorDialog().SimulateDoer.Activate(True)
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 
     def VirtualProbe(self):
