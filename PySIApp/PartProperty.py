@@ -296,3 +296,8 @@ class PartPropertySections(PartProperty):
 class PartPropertyWeight(PartProperty):
     def __init__(self,weight=1.0):
         PartProperty.__init__(self,'weight',type='float',unit='',keyword='weight',description='weight',value=weight,visible=False)
+
+class PartPropertyReferenceImpedance(PartProperty):
+    def __init__(self,impedance=50.,keyword='z0',):
+        PartProperty.__init__(self,'impedance',type='float',unit='Ohm',keyword=keyword,description='reference impedance (Ohms)',value=impedance,visible=True,keywordVisible=True)
+

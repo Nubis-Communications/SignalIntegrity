@@ -232,7 +232,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         # check theory for filter response based on s-parameters
-        spf=si.sp.File('filter.s2p').Resample(f)
+        spf=si.sp.SParameterFile('filter.s2p',50.).Resample(f)
         # theory is that thru response is 1/2 of S21 and return loss is 1/2 S11 + 1/2
         tm2m=[[[0.5*m[0][0]+0.5,0.],[0.5*m[1][0],0.]] for m in spf]
         tm2=si.sp.SParameters(spf.f(),tm2m)

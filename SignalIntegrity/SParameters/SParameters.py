@@ -80,3 +80,8 @@ class SParameters():
                 for n in range(len(fl)):
                     SR[n][o][i]=res[n]
         return SParameters(fl,SR,self.m_Z0)
+    def SetReferenceImpedance(self,Z0):
+        if Z0 != self.m_Z0:
+            for n in range(len(self.m_f)):
+                self.m_d[n]=ReferenceImpedance(self.m_d[n],Z0,self.m_Z0)
+        self.m_Z0=Z0

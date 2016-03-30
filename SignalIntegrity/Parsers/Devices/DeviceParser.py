@@ -10,7 +10,7 @@
 from numpy import zeros
 import copy
 
-from SignalIntegrity.SParameters import File
+from SignalIntegrity.SParameters import SParameterFile
 from SignalIntegrity.SubCircuits import SubCircuit
 from SignalIntegrity.Devices import *
 from SignalIntegrity.SParameters.Devices import *
@@ -28,7 +28,8 @@ class ParserDevice(object):
 class DeviceFactory(object):
     def __init__(self):
         self.deviceList=[
-        ParserDevice('file',None,True,{'':None},True,"File(arg['']).Resample(f)"),
+        ParserDevice('file',None,True,{'':None},True,
+                    "SParameterFile(arg[''],50.).Resample(f)"),
         ParserDevice('c',1,True,{'':None},True,"TerminationC(f,float(arg['']))"),
         ParserDevice('c',2,True,{'':None},True,"SeriesC(f,float(arg['']))"),
         ParserDevice('l',1,True,{'':None},True,"TerminationL(f,float(arg['']))"),

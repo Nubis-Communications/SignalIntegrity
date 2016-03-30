@@ -13,6 +13,7 @@ import math
 
 from numpy import frompyfunc
 from PartProperty import PartPropertyDelay
+from PartProperty import PartPropertyReferenceImpedance
 from Files import *
 from MenuSystemHelpers import *
 
@@ -34,7 +35,6 @@ class ViewerProperty(Frame):
         self.parentFrame=parentFrame
         self.partProperty=partProperty
         self.callBack=callBack
-        self.pack(side=TOP,fill=X,expand=YES)
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
         propertyLabel = Label(self,width=25,text=self.partProperty.description+': ',anchor='e')
         propertyLabel.pack(side=LEFT, expand=NO, fill=X)
@@ -45,7 +45,7 @@ class ViewerProperty(Frame):
         propertyEntry.bind('<Button-3>',self.onUntouched)
         propertyEntry.bind('<Escape>',self.onUntouched)
         propertyEntry.bind('<FocusOut>',self.onUntouched)
-        propertyEntry.pack(side=LEFT, expand=YES, fill=X)
+        propertyEntry.pack(side=LEFT, expand=NO, fill=X)
     def onEntered(self,event):
         self.partProperty.SetValueFromString(self.propertyString.get())
         self.onUntouched(event)
@@ -186,6 +186,10 @@ class SParametersDialog(Toplevel):
         self.resampleButton.pack(side=LEFT,expand=NO,fill=NONE)
 
         self.sp=sp
+
+        self.referenceImpedance=PartPropertyReferenceImpedance(self.sp.m_Z0)
+        self.referenceImpedanceProperty=ViewerProperty(controlsFrame,self.referenceImpedance,self.onReferenceImpedanceEntered)
+
         if buttonLabels is None:
             numPorts=self.sp.m_P
             buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
@@ -308,6 +312,11 @@ class SParametersDialog(Toplevel):
         self.topRightPlot.plot(x,y)
         self.topRightCanvas.draw()
 
+    def onReferenceImpedanceEntered(self):
+        import SignalIntegrity as si
+        self.sp.SetReferenceImpedance(self.referenceImpedance.GetValue())
+        self.PlotSParameter()
+
     def onReadSParametersFromFile(self):
         import SignalIntegrity as si
         filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],
@@ -321,7 +330,9 @@ class SParametersDialog(Toplevel):
         self.fileparts=FileParts(filename)
         if self.fileparts.fileext=='':
             return
-        self.sp=si.sp.File(filename)
+        self.sp=si.sp.SParameterFile(filename)
+        self.referenceImpedance.SetValueFromString(str(self.sp.m_Z0))
+        self.referenceImpedanceProperty.onUntouched(None)
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
         numPorts=self.sp.m_P
@@ -354,7 +365,7 @@ class SParametersDialog(Toplevel):
         if filename=='':
             return
         self.fileparts=FileParts(filename)
-        self.sp.WriteToFile(filename)
+        self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))
 
     def onResample(self):
         import SignalIntegrity as si

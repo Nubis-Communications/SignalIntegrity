@@ -10,7 +10,7 @@ from TestHelpers import *
 
 class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
     def testImpedanceProfileCable(self):
-        sp = si.sp.File('cable.s2p')
+        sp = si.sp.SParameterFile('cable.s2p',50.)
         ip = si.ip.ImpedanceProfile(sp,100,2)
         Z0 = 50.
         Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
@@ -48,7 +48,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
         difference = linalg.norm(array(Zc2)-array(Zc))
         self.assertTrue(difference<1e-4,'contrived impedance profile incorrect')
     def testCableDeembed(self):
-        sp = si.sp.File('cable.s2p')
+        sp = si.sp.SParameterFile('cable.s2p',50.)
         ip = si.ip.ImpedanceProfile(sp,6,1)
         Z0 = 50.
         Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
@@ -81,7 +81,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
         if not os.path.exists(fileName):
             cd.WriteToFile(fileName)
             self.assertTrue(False,fileName + 'does not exist')
-        regression = si.sp.File(fileName)
+        regression = si.sp.SParameterFile(fileName,50.)
         self.assertTrue(self.SParametersAreEqual(cd,regression,0.001),self.id()+'result not same')
 if __name__ == "__main__":
     unittest.main()
