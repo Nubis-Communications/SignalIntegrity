@@ -208,6 +208,8 @@ class SParametersDialog(Toplevel):
         self.fromPort = 1
         self.toPort = 1
 
+        self.variableLineWidth = False
+
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
         self.deiconify()
@@ -224,14 +226,25 @@ class SParametersDialog(Toplevel):
 
         y=fr.Response('dB')
         x=fr.Frequencies('GHz')
-        self.topLeftPlot.plot(x,y)
+
+        lw=[min(1.,math.sqrt(w)) for w in fr.Response('mag')]
+
+        if self.variableLineWidth:
+            for i in range(len(x)-1):
+                self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+        else:
+            self.topLeftPlot.plot(x,y)
         self.topLeftPlot.set_ylim(ymin=max(min(y),-60.0))
         self.topLeftPlot.set_ylim(ymax=max(y)+1.)
 
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
-        self.topRightPlot.plot(x,y)
-        #self.topRightPlot.canvas.draw()
+
+        if self.variableLineWidth:
+            for i in range(len(x)-1):
+                self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+        else:
+            self.topRightPlot.plot(x,y)
 
         if ir is not None:
             y=ir.Values()
@@ -307,9 +320,14 @@ class SParametersDialog(Toplevel):
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
         TD = self.delay.GetValue()
         fr=fr._DelayBy(-TD)
+        lw=[min(1.,math.sqrt(w)) for w in fr.Response('mag')]
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
-        self.topRightPlot.plot(x,y)
+        if self.variableLineWidth:
+            for i in range(len(x)-1):
+                self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+        else:
+            self.topRightPlot.plot(x,y)
         self.topRightCanvas.draw()
 
     def onReferenceImpedanceEntered(self):
