@@ -28,6 +28,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 
 from matplotlib.figure import Figure
 
+from matplotlib.collections import LineCollection
+
 class ViewerProperty(Frame):
     def __init__(self,parentFrame,partProperty,callBack):
         Frame.__init__(self,parentFrame)
@@ -229,11 +231,21 @@ class SParametersDialog(Toplevel):
 
         lw=[min(1.,math.sqrt(w)) for w in fr.Response('mag')]
 
+        fastway=True
+
         if self.variableLineWidth:
-            for i in range(len(x)-1):
-                self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+            if fastway:
+                segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
+                slw=lw[:-1]
+                lc = LineCollection(segments, linewidths=slw,color='blue')
+                self.topLeftPlot.add_collection(lc)
+            else:
+                for i in range(len(x)-1):
+                    self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             self.topLeftPlot.plot(x,y)
+        self.topLeftPlot.set_xlim(xmin=min(x))
+        self.topLeftPlot.set_xlim(xmax=max(x))
         self.topLeftPlot.set_ylim(ymin=max(min(y),-60.0))
         self.topLeftPlot.set_ylim(ymax=max(y)+1.)
 
@@ -241,10 +253,20 @@ class SParametersDialog(Toplevel):
         x=fr.Frequencies('GHz')
 
         if self.variableLineWidth:
-            for i in range(len(x)-1):
-                self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+            if fastway:
+                segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
+                slw=lw[:-1]
+                lc = LineCollection(segments, linewidths=slw,color='blue')
+                self.topRightPlot.add_collection(lc)
+            else:
+                for i in range(len(x)-1):
+                    self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             self.topRightPlot.plot(x,y)
+        self.topRightPlot.set_xlim(xmin=min(x))
+        self.topRightPlot.set_xlim(xmax=max(x))
+        self.topRightPlot.set_ylim(ymin=min(y)-1)
+        self.topRightPlot.set_ylim(ymax=max(y)+1)
 
         if ir is not None:
             y=ir.Values()
@@ -323,11 +345,22 @@ class SParametersDialog(Toplevel):
         lw=[min(1.,math.sqrt(w)) for w in fr.Response('mag')]
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
+        fastway=True
         if self.variableLineWidth:
-            for i in range(len(x)-1):
-                self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+            if fastway:
+                segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
+                slw=lw[:-1]
+                lc = LineCollection(segments, linewidths=slw,color='blue')
+                self.topRightPlot.add_collection(lc)
+            else:
+                for i in range(len(x)-1):
+                    self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             self.topRightPlot.plot(x,y)
+        self.topRightPlot.set_xlim(xmin=min(x))
+        self.topRightPlot.set_xlim(xmax=max(x))
+        self.topRightPlot.set_ylim(ymin=min(y)-1)
+        self.topRightPlot.set_ylim(ymax=max(y)+1)
         self.topRightCanvas.draw()
 
     def onReferenceImpedanceEntered(self):
@@ -350,7 +383,7 @@ class SParametersDialog(Toplevel):
             return
         self.sp=si.sp.SParameterFile(filename)
         self.referenceImpedance.SetValueFromString(str(self.sp.m_Z0))
-        self.referenceImpedanceProperty.onUntouched(None)
+        self.referenceImpedanceProperty.propertyString.set(self.referenceImpedance.PropertyString(stype='entry'))
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
         numPorts=self.sp.m_P
