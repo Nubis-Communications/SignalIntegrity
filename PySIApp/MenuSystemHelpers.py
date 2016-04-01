@@ -27,6 +27,23 @@ class MenuElement(object):
         self.active=active
         self.menu.entryconfigure(self.label,state='normal' if self.active else 'disabled')
 
+class CheckButtonMenuElement(object):
+    def __init__(self,menu,**kw):
+        menu.add_checkbutton(kw)
+        self.label=kw['label']
+        self.menu=menu
+        self.active=None
+        if 'state' in kw:
+            active=kw['state'] == 'normal'
+        else:
+            active=True
+        self.Activate(active)
+    def Activate(self,active):
+        if active == self.active:
+            return
+        self.active=active
+        self.menu.entryconfigure(self.label,state='normal' if self.active else 'disabled')
+
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
         if 'iconfile' in kw:
@@ -77,6 +94,11 @@ class Doer(object):
     def AddMenuElement(self,menu,**kw):
         kw['command']=self.Execute
         self.menuElement=MenuElement(menu,**kw)
+        self.menuElement.Activate(self.active)
+        return self.menuElement
+    def AddCheckButtonMenuElement(self,menu,**kw):
+        kw['command']=self.Execute
+        self.menuElement=CheckButtonMenuElement(menu,**kw)
         self.menuElement.Activate(self.active)
         return self.menuElement
     def AddToolBarElement(self,frame,**kw):

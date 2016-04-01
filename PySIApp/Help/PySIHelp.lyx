@@ -5934,6 +5934,17 @@ Finally, in the s-parameter viewer dialog, you have the ability to read
 \end_layout
 
 \begin_layout Standard
+You can also view the magnitude response and phase response with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+ which helps especially in viewing the phase response.
+\end_layout
+
+\begin_layout Standard
 Note that in the phase response there is the ability to unwrap the phase.
  Pressing this button does not strictly unwrap the phase, but calculates
  the principle delay in the impulse response (if the impulse response can
@@ -6526,6 +6537,207 @@ Also, oftentimes s-parameters are being viewed from files and are therefore
  sampled however they are on the disk.
  Resampling them allows the user to see ahead of time how they will be resampled
  during calculation to look for bad behavior.
+\end_layout
+
+\begin_layout Subsection
+S-Parameter Viewer View Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:S-Parameter-Viewer-View"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The View settings are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Variable Line Width
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Variable Line Width
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,L
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Allows viewing magnitude and phase response with a variable line width.
+\end_layout
+
+\begin_layout Standard
+This is helpful in viewing the s-parameter with an intensity that depends
+ on whether the value actually matters.
+ This is especially helpful when looking at the phase response, which tends
+ to vary wildly when the magnitude response is small.
+ When the magnitude response is small, the phase response doesn't matter
+ anyway, and this setting helps the user ignore these frequency locations.
+\end_layout
+
+\begin_layout Standard
+The line width of the magnitude response and phase response vary depending
+ on the magnitude response of the s-parameter.
+ If the magnitude is large, a large line width is used and if the magnitude
+ is small, a small line width is used.
 \end_layout
 
 \begin_layout Section

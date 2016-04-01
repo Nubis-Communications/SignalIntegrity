@@ -79,6 +79,8 @@ class SParametersDialog(Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
+        self.variableLineWidth = BooleanVar()
+
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Save-S-parameter-File'])
@@ -88,6 +90,8 @@ class SParametersDialog(Toplevel):
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
+        # ------
+        self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Variable-Line-Width'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -105,6 +109,10 @@ class SParametersDialog(Toplevel):
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
         CalcMenu.add_separator()
         self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
+        # ------
+        ViewMenu=Menu(self)
+        TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9,onvalue=True,offvalue=False,variable=self.variableLineWidth)
         # ------
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -210,8 +218,6 @@ class SParametersDialog(Toplevel):
         self.fromPort = 1
         self.toPort = 1
 
-        self.variableLineWidth = False
-
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
         self.deiconify()
@@ -229,11 +235,11 @@ class SParametersDialog(Toplevel):
         y=fr.Response('dB')
         x=fr.Frequencies('GHz')
 
-        lw=[min(1.,math.sqrt(w)) for w in fr.Response('mag')]
+        lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
 
         fastway=True
 
-        if self.variableLineWidth:
+        if self.variableLineWidth.get():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -252,7 +258,7 @@ class SParametersDialog(Toplevel):
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
 
-        if self.variableLineWidth:
+        if self.variableLineWidth.get():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -342,11 +348,11 @@ class SParametersDialog(Toplevel):
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
         TD = self.delay.GetValue()
         fr=fr._DelayBy(-TD)
-        lw=[min(1.,math.sqrt(w)) for w in fr.Response('mag')]
+        lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
         fastway=True
-        if self.variableLineWidth:
+        if self.variableLineWidth.get():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -445,4 +451,3 @@ class SParametersDialog(Toplevel):
     def onEscape(self):
         Doer.inHelp=False
         self.config(cursor='left_ptr')
-
