@@ -10,8 +10,10 @@
 from Tkinter import *
 import matplotlib
 import math
+import numpy as np
 
 from numpy import frompyfunc
+from numpy import linalg
 from PartProperty import PartPropertyDelay
 from PartProperty import PartPropertyReferenceImpedance
 from Files import *
@@ -80,6 +82,7 @@ class SParametersDialog(Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
         self.variableLineWidth = BooleanVar()
+        self.showPassivityViolations = BooleanVar()
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
@@ -87,11 +90,13 @@ class SParametersDialog(Toplevel):
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
         self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])
+        self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Passivity'])
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
         # ------
         self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Variable-Line-Width'])
+        self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Passivity-Violations'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -109,10 +114,13 @@ class SParametersDialog(Toplevel):
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
         CalcMenu.add_separator()
         self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
+        CalcMenu.add_separator()
+        self.EnforcePassivityDoer.AddMenuElement(CalcMenu,label='Enforce Passivity',underline=8)
         # ------
         ViewMenu=Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
         self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9,onvalue=True,offvalue=False,variable=self.variableLineWidth)
+        self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
         # ------
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -197,12 +205,17 @@ class SParametersDialog(Toplevel):
 
         self.sp=sp
 
-        self.referenceImpedance=PartPropertyReferenceImpedance(self.sp.m_Z0)
-        self.referenceImpedanceProperty=ViewerProperty(controlsFrame,self.referenceImpedance,self.onReferenceImpedanceEntered)
-
         if buttonLabels is None:
             numPorts=self.sp.m_P
             buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
+            self.referenceImpedance=PartPropertyReferenceImpedance(self.sp.m_Z0)
+            self.referenceImpedanceProperty=ViewerProperty(controlsFrame,self.referenceImpedance,self.onReferenceImpedanceEntered)
+        else:
+            # button labels are a proxy for transfer parameters (until I do something better)
+            self.showPassivityViolations.set(False)
+            self.ShowPassivityViolationsDoer.Activate(False)
+            self.EnforcePassivityDoer.Activate(False)
+            self.ReadSParametersFromFileDoer.Activate(False)
 
         self.buttons=[]
         for toP in range(len(buttonLabels)):
@@ -230,10 +243,19 @@ class SParametersDialog(Toplevel):
         self.bottomRightPlot.cla()
 
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
+        x=fr.Frequencies('GHz')
         ir=fr.ImpulseResponse()
 
         y=fr.Response('dB')
         x=fr.Frequencies('GHz')
+
+        if self.showPassivityViolations.get():
+            self.passivityViolations=[]
+            for n in range(len(self.sp)):
+                (u,s,vh)=linalg.svd(self.sp[n],full_matrices=1,compute_uv=1)
+                if s[0]-1 > 1e-15:
+                    dotsize=min(20.,math.log10(s[0])/math.log10(1.01)*20.)
+                    self.passivityViolations.append([x[n],y[n],dotsize])
 
         lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
 
@@ -250,6 +272,14 @@ class SParametersDialog(Toplevel):
                     self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             self.topLeftPlot.plot(x,y)
+
+        if self.showPassivityViolations.get():
+            self.topLeftPlot.scatter(
+                [c[0] for c in self.passivityViolations],
+                [c[1] for c in self.passivityViolations],
+                s=[c[2] for c in self.passivityViolations],
+                color='red')
+
         self.topLeftPlot.set_xlim(xmin=min(x))
         self.topLeftPlot.set_xlim(xmax=max(x))
         self.topLeftPlot.set_ylim(ymin=max(min(y),-60.0))
@@ -387,6 +417,9 @@ class SParametersDialog(Toplevel):
         self.fileparts=FileParts(filename)
         if self.fileparts.fileext=='':
             return
+
+        self.title('S-parameters: '+self.fileparts.FileNameTitle())
+
         self.sp=si.sp.SParameterFile(filename)
         self.referenceImpedance.SetValueFromString(str(self.sp.m_Z0))
         self.referenceImpedanceProperty.propertyString.set(self.referenceImpedance.PropertyString(stype='entry'))
@@ -451,3 +484,13 @@ class SParametersDialog(Toplevel):
     def onEscape(self):
         Doer.inHelp=False
         self.config(cursor='left_ptr')
+
+    def onEnforcePassivity(self):
+        for n in range(len(self.sp)):
+            (u,s,vh)=linalg.svd(self.sp[n],full_matrices=1,compute_uv=1)
+            for si in range(len(s)):
+                s[si]=min(1.,s[si])
+            self.sp.m_d[n]=np.dot(u,np.dot(np.diag(s),vh)).tolist()
+        self.PlotSParameter()
+
+

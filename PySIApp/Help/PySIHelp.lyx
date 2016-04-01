@@ -6137,7 +6137,7 @@ Availability
 \begin_inset Text
 
 \begin_layout Plain Layout
-Always
+When s-parameter files are being viewed
 \end_layout
 
 \end_inset
@@ -6155,6 +6155,10 @@ browses to an s-parameter file to read in.
  The user is asked to select a file for viewing.
  This file must have the extension .s[x]p where x is the number of ports.
  It must also be a valid touchstone file.
+\end_layout
+
+\begin_layout Standard
+This command is not available when viewing transfer parameters.
 \end_layout
 
 \begin_layout Subsubsection
@@ -6343,6 +6347,16 @@ The Calculate tasks are:
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Resample"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
 
 \end_inset
 
@@ -6539,6 +6553,183 @@ Also, oftentimes s-parameters are being viewed from files and are therefore
  during calculation to look for bad behavior.
 \end_layout
 
+\begin_layout Subsubsection
+Enforce Passivity
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Enforce-Passivity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Calculate ▸ Enforce Passivity
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This removes any passivity violations by making the minimum changes to the
+ s-parameters to enforce passivity.
+\end_layout
+
+\begin_layout Standard
+Passivity violations are shown using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This command is not available (and does not make sense) when viewing transfer
+ parameters.
+\end_layout
+
 \begin_layout Subsection
 S-Parameter Viewer View Menu
 \begin_inset CommandInset label
@@ -6558,6 +6749,16 @@ The View settings are:
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
 
 \end_inset
 
@@ -6738,6 +6939,210 @@ The line width of the magnitude response and phase response vary depending
  on the magnitude response of the s-parameter.
  If the magnitude is large, a large line width is used and if the magnitude
  is small, a small line width is used.
+\end_layout
+
+\begin_layout Subsubsection
+Show Passivity Violations
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Show Passivity Violations
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Shows locations of passivity violations.
+ These are shown as red dots on the magnitude response plot (the top left
+ plot) of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The dot sizes are large for relatively large passivity violations (singular
+ values greater than 1.01) and are smaller for smaller violations.
+\end_layout
+
+\begin_layout Standard
+Passivity violation detection is subject to the numerical accuracy of the
+ SVD algorithm used and sometimes leads to very small passivity violations
+ due to numerical error.
+ These are shown as very faint red dots.
+\end_layout
+
+\begin_layout Standard
+Circuits that are passive are circuits that can never, under any circumstances,
+ deliver power.
+ They are either entirely reflective, and/or absorb or dissipate power under
+ certain circumstances.
+\end_layout
+
+\begin_layout Standard
+Passivity violations can be removed from known passive circuits using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This command is not available (and does not make sense) when viewing transfer
+ parameters.
 \end_layout
 
 \begin_layout Section
