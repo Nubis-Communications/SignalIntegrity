@@ -31035,7 +31035,9 @@ During calculation, the netlist is parsed to set up the calculation.
  of the netlist:
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Unconnected Device Ports
 \end_layout
 
@@ -31059,7 +31061,9 @@ You can troubleshoot connection problems exactly by looking at the netlist.
  list all connections between device ports.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Duplicate Device Name
 \end_layout
 
@@ -31075,7 +31079,9 @@ One or more devices in your schematic has the same device name.
  device declarations with the same device name.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 No Device Named
 \end_layout
 
@@ -31091,7 +31097,9 @@ A connection or other type of declaration specifies a device name that is
  of an error like this by examining the netlist.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Cannot Connect Device Ports
 \end_layout
 
@@ -31112,7 +31120,9 @@ name "sub:Simulator"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 No Outputs
 \end_layout
 
@@ -31136,7 +31146,9 @@ By looking at your schematic, you can see this, because unconnected output
  wire itself might not be connected to anything.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 No Sources
 \end_layout
 
@@ -31158,7 +31170,9 @@ By looking at your schematic, you can see this, because unconnected sources
  and the wire itself might not be connected to anything.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Numerical Error
 \end_layout
 
@@ -31179,7 +31193,9 @@ name "sub:VirtualProbe"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 No Measures
 \end_layout
 
@@ -31200,7 +31216,9 @@ By looking at your schematic, you can see this, because unconnected measure
  wire itself might not be connected to anything.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 No Outputs
 \end_layout
 
@@ -31224,7 +31242,9 @@ By looking at your schematic, you can see this, because unconnected output
  wire itself might not be connected to anything.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 No Sources
 \end_layout
 
@@ -31294,7 +31314,9 @@ Also, stims must be connected to only one device port.
  be separated from others in the schematic by a small piece of wire.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Numerical Error
 \end_layout
 
@@ -31304,7 +31326,9 @@ This is the same error as Cannot Invert I-W or I-Wxx while calculating the
  It indicates pathological problems in the system described.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Incorrect Matrix Alignment
 \end_layout
 
@@ -31330,7 +31354,9 @@ name "sub:Numeric"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Cannot Invert I-W or I-Wxx 
 \end_layout
 
@@ -31388,7 +31414,9 @@ reference "sub:device"
  keyword.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Mandatory Keywords Not Supplied
 \end_layout
 
@@ -31452,7 +31480,9 @@ When entering netlists by hand, it is easy to forget a mandatory keyword,
  entry from the instantiated part in the schematic.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Arguments Must Come in Keyword Pairs
 \end_layout
 
@@ -31484,7 +31514,9 @@ reference "sec:Built-in-Devices"
  control this.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Device Could Not Be Instantiated
 \end_layout
 
@@ -31516,7 +31548,9 @@ reference "sec:Built-in-Devices"
  control this.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 Device Not Found
 \end_layout
 

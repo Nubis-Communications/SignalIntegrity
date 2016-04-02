@@ -341,25 +341,6 @@ class SParametersDialog(Toplevel):
         self.plt.autoscale(True)
         self.f.canvas.draw()
 
-    def UpdateWaveforms(self,waveformList, waveformNamesList):
-        self.lift(self.parent)
-        self.plt.cla()
-        self.plt.set_xlabel('time (ns)',fontsize=10)
-        self.plt.set_ylabel('amplitude',fontsize=10)
-
-        if not self.waveformList == None:
-            self.plt.autoscale(False)
-
-        self.waveformList=waveformList
-        self.waveformNamesList=waveformNamesList
-
-        for wfi in range(len(self.waveformList)):
-            self.plt.plot(self.waveformList[wfi].Times('ns'),self.waveformList[wfi].Values(),label=str(self.waveformNamesList[wfi]))
-
-        self.plt.legend(loc='upper right',labelspacing=0.1)
-        self.f.canvas.draw()
-        return self
-
     def onUnwrap(self):
         import SignalIntegrity as si
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
