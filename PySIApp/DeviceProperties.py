@@ -207,6 +207,12 @@ class DeviceProperties(Frame):
         self.partPictureCanvas.pack(side=TOP,fill=BOTH,expand=YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
         device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
+        (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(ALL) # bounding box that contains part picture
+        if minx < 0 or miny < 0: # the top or left side of the picture is clipped
+            # adjust the picture so that the left and top of the picture is in the window
+            offsetx=max(-minx,0)
+            offsety=max(-miny,0)
+            self.partPictureCanvas.move(ALL,offsetx,offsety)
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(ALL)
@@ -214,6 +220,12 @@ class DeviceProperties(Frame):
             self.device.partPicture.ports=self.device['ports'].GetValue()
         self.device.partPicture.SwitchPartPicture(self.device.partPicture.partPictureSelected)
         self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
+        (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(ALL) # bounding box that contains part picture
+        if minx < 0 or miny < 0: # the top or left side of the picture is clipped
+            # adjust the picture so that the left and top of the picture is in the window
+            offsetx=max(-minx,0)
+            offsety=max(-miny,0)
+            self.partPictureCanvas.move(ALL,offsetx,offsety)
 
     def onToggleRotation(self):
         self.device.partPicture.current.Rotate()
