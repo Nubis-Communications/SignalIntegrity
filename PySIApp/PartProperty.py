@@ -142,6 +142,10 @@ class PartPropertyXMLClassFactory(PartProperty):
                 keyword = item.text
             elif item.tag == 'property_name':
                 propertyName = item.text
+                # this fixes a misspelling I corrected but breaks
+                # lots of old projects
+                if propertyName == 'resistence':
+                    propertyName = 'resistance'
             elif item.tag == 'description':
                 description = item.text
             elif item.tag == 'value':

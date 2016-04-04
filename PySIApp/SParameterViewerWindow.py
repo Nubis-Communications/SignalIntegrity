@@ -83,6 +83,7 @@ class SParametersDialog(Toplevel):
 
         self.variableLineWidth = BooleanVar()
         self.showPassivityViolations = BooleanVar()
+        self.showCausalityViolations = BooleanVar()
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
@@ -91,12 +92,14 @@ class SParametersDialog(Toplevel):
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
         self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])
         self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Passivity'])
+        self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Causality'])
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
         # ------
         self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Variable-Line-Width'])
         self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Passivity-Violations'])
+        self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Causality-Violations'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -112,15 +115,17 @@ class SParametersDialog(Toplevel):
         CalcMenu=Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
-        CalcMenu.add_separator()
+        #CalcMenu.add_separator()
         self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
-        CalcMenu.add_separator()
+        #CalcMenu.add_separator()
         self.EnforcePassivityDoer.AddMenuElement(CalcMenu,label='Enforce Passivity',underline=8)
+        self.EnforceCausalityDoer.AddMenuElement(CalcMenu,label='Enforce Causality',underline=9)
         # ------
         ViewMenu=Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
         self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9,onvalue=True,offvalue=False,variable=self.variableLineWidth)
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
+        self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
         # ------
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -214,7 +219,9 @@ class SParametersDialog(Toplevel):
             # button labels are a proxy for transfer parameters (until I do something better)
             self.showPassivityViolations.set(False)
             self.ShowPassivityViolationsDoer.Activate(False)
+            self.ShowCausalityViolationsDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
+            self.EnforceCausalityDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
 
         self.buttons=[]
@@ -307,7 +314,22 @@ class SParametersDialog(Toplevel):
         if ir is not None:
             y=ir.Values()
             x=ir.Times('ns')
+
             self.bottomLeftPlot.plot(x,y)
+
+            if self.showCausalityViolations.get():
+                self.causalityViolations=[]
+                Ts=1./ir.TimeDescriptor().Fs/1e-9
+                for k in range(len(x)):
+                    if x[k]<=-Ts and abs(y[k])>0:
+                        dotsize=min(20.,abs(y[k])/0.1*20.)
+                        self.causalityViolations.append([x[k],y[k],dotsize])
+                self.bottomLeftPlot.scatter(
+                    [c[0] for c in self.causalityViolations],
+                    [c[1] for c in self.causalityViolations],
+                    s=[c[2] for c in self.causalityViolations],
+                    color='red')
+
             self.bottomLeftPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
             self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
             self.bottomLeftPlot.set_xlim(xmin=min(x))
@@ -472,6 +494,25 @@ class SParametersDialog(Toplevel):
             for si in range(len(s)):
                 s[si]=min(1.,s[si])
             self.sp.m_d[n]=np.dot(u,np.dot(np.diag(s),vh)).tolist()
+        self.PlotSParameter()
+
+    def onEnforceCausality(self):
+        import SignalIntegrity as si
+        for toPort in range(self.sp.m_P):
+            for fromPort in range(self.sp.m_P):
+                fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(toPort,fromPort))
+                ir=fr.ImpulseResponse()
+                if ir is not None:
+                    y=ir.Values()
+                    x=ir.Times()
+                    Ts=1./ir.TimeDescriptor().Fs
+                    for k in range(len(x)):
+                        if x[k]<=-Ts:
+                            ir.m_y[k]=0.
+                    fr=ir.FrequencyResponse()
+                    frv=fr.Response()
+                    for n in range(len(frv)):
+                        self.sp.m_d[n][toPort][fromPort]=frv[n]
         self.PlotSParameter()
 
 

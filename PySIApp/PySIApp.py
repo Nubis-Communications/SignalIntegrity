@@ -649,7 +649,6 @@ class TheApp(Frame):
 
             self.statusbar.set('Control Help')
 
-
     def onEscape(self):
         if self.Drawing.stateMachine.state != 'NoProject':
             self.Drawing.stateMachine.Nothing(True)

@@ -5954,6 +5954,40 @@ Note that in the phase response there is the ability to unwrap the phase.
  small.
 \end_layout
 
+\begin_layout Standard
+In the s-parameter viewer there are various menus that are available:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-Parameter-Viewer-File"
+
+\end_inset
+
+ - read and write files.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-Parameter-Viewer-Calculation"
+
+\end_inset
+
+ - resampling, and enforcements.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-Parameter-Viewer-View"
+
+\end_inset
+
+ - various viewing options.
+\end_layout
+
 \begin_layout Subsection
 S-Parameter Viewer File Menu
 \begin_inset CommandInset label
@@ -6363,6 +6397,16 @@ reference "Control-Help:Enforce-Passivity"
 
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Resample
 \begin_inset CommandInset label
@@ -6730,6 +6774,227 @@ This command is not available (and does not make sense) when viewing transfer
  parameters.
 \end_layout
 
+\begin_layout Standard
+Note that sometimes enforcing passivity causes causality violations.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Causality-Violations"
+
+\end_inset
+
+.
+ When this occurs, repeatedly enforcing causality and passivity over and
+ over again converges to an s-parameter set that is both causal and passive.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Enforce Causality
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Enforce-Causality"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Calculate ▸ Enforce Causality
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,A
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This removes any causality violations by zeroing the impulse response prior
+ to time zero to enforce causality.
+\end_layout
+
+\begin_layout Standard
+Causality violations are shown using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This command is not available (and does not make sense) when viewing transfer
+ parameters.
+\end_layout
+
+\begin_layout Standard
+Note that sometimes enforcing causality causes passivity violations.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+.
+ When this occurs, repeatedly enforcing causality and passivity over and
+ over again converges to an s-parameter set that is both causal and passive.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 S-Parameter Viewer View Menu
 \begin_inset CommandInset label
@@ -6759,6 +7024,16 @@ reference "Control-Help:Variable-Line-Width"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Causality-Violations"
 
 \end_inset
 
@@ -7134,6 +7409,200 @@ Passivity violations can be removed from known passive circuits using
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Passivity"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This command is not available (and does not make sense) when viewing transfer
+ parameters.
+\end_layout
+
+\begin_layout Subsubsection
+Show Causality Violations
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Show-Causality-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Show Causality Violations
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,A
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Shows locations of causality violations.
+ These are shown as red dots on the impulse response plot (the bottom left
+ plot) of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The dot sizes are large for relatively large causality violations and are
+ smaller for smaller violations.
+\end_layout
+
+\begin_layout Standard
+Causality violations are sometimes caused by sampling effects.
+\end_layout
+
+\begin_layout Standard
+Causality violations can be removed using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
 
 \end_inset
 
