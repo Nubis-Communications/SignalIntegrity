@@ -6407,6 +6407,16 @@ reference "Control-Help:Enforce-Causality"
 
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Wavelet-Denoise"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Resample
 \begin_inset CommandInset label
@@ -6995,6 +7005,206 @@ reference "Control-Help:Enforce-Passivity"
 
 \end_layout
 
+\begin_layout Subsubsection
+Wavelet Denoise
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Wavelet-Denoise"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Calculate ▸ Wavelet Denoise
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,W
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This denoises the s-parameters by performing the discrete wavelet transform
+ (DWT) on the impulse response, removing any wavelet coefficients that are
+ small and performing the IDWT to restore the impulse response.
+\end_layout
+
+\begin_layout Standard
+Wavelet denoising is inappropriate on:
+\end_layout
+
+\begin_layout Itemize
+already clean s-parameters
+\end_layout
+
+\begin_layout Itemize
+s-parameters for systems that produce oscillatory impulse responses (like
+ many types of filters).
+\end_layout
+
+\begin_layout Standard
+This command is not available (and does not make sense) when viewing transfer
+ parameters.
+\end_layout
+
+\begin_layout Standard
+Note that sometimes wavelet denoising causes causality and/or passivity
+ violations.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Causality-Violations"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 S-Parameter Viewer View Menu
 \begin_inset CommandInset label
@@ -7034,6 +7244,16 @@ reference "Control-Help:Show-Passivity-Violations"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Show-Causality-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
 
 \end_inset
 
@@ -7607,6 +7827,309 @@ reference "Control-Help:Enforce-Causality"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+This command is not available (and does not make sense) when viewing transfer
+ parameters.
+\end_layout
+
+\begin_layout Subsubsection
+Show Impedance
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Show-Impedance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Show Impedance
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,I
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This setting causes the step responses (the lower right plot) to be displayed
+ as impedance for the diagonal element s-parameters (S11, S22, S33, etc.).
+\end_layout
+
+\begin_layout Standard
+for a 
+\begin_inset Formula $K$
+\end_inset
+
+ element step response, for 
+\begin_inset Formula $k\in0\ldots K-1$
+\end_inset
+
+, where 
+\begin_inset Formula $s\left[k\right]$
+\end_inset
+
+ represents a value of the step response at a time 
+\begin_inset Formula $t\left[k\right]$
+\end_inset
+
+, the following formula approximates the line impedance at time 
+\begin_inset Formula $t\left[k\right]$
+\end_inset
+
+/2:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+i\left[k\right]\approx Z0\cdot\frac{1+s\left[k\right]}{1-s\left[k\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The factor of 
+\begin_inset Formula $1/2$
+\end_inset
+
+ on the time is because the reflection must go into and out of the system
+ (i.e.
+ go twice the time).
+\end_layout
+
+\begin_layout Standard
+Generally, this is called the impedance profile.
+ It is not really appropriate for lumped element systems and is really only
+ appropriate for transmission lines and cables, etc.
+ That being said, sometimes the launches into these systems have impedance
+ discontinuities that look like lumped excess inductance (high impedance)
+ or lumped excess capacitance (low impedance).
+\end_layout
+
+\begin_layout Standard
+This calculation is an approximation because in systems with lots of or
+ large reflections, the approximation of the impedance gets worse the further
+ into the line you go.
+ Here's an example of a open transmission line:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename OpenStub.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here is the step response:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename OpenStubStepResponse.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And here is the impedance profile calculated from the step response:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename OpenStubImpedance.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that something unnatural had to be done about the step response going
+ above unity, which was to clip it at 3000 Ohms.
+\end_layout
+
+\begin_layout Standard
+Here is a zoom of the impedance profile:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename OpenStubImpedanceZoomed.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, we see that the early part of the impedance profile shows a jump to
+ 100 Ohms for 100 ps as expected, and then a large impedance jump (the open).
+ What goes on beyond this zoomed portion is a result of the multiple reflections
+ and is not correct.
+\end_layout
+
+\begin_layout Standard
+\noindent
+There are more accurate methods possible (called peeling), but these are
+ not implemented at this time.
 \end_layout
 
 \begin_layout Standard

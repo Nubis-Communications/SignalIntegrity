@@ -84,6 +84,7 @@ class SParametersDialog(Toplevel):
         self.variableLineWidth = BooleanVar()
         self.showPassivityViolations = BooleanVar()
         self.showCausalityViolations = BooleanVar()
+        self.showImpedance = BooleanVar()
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
@@ -93,6 +94,7 @@ class SParametersDialog(Toplevel):
         self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])
         self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Passivity'])
         self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Causality'])
+        self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Wavelet-Denoise'])
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
@@ -100,6 +102,7 @@ class SParametersDialog(Toplevel):
         self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Variable-Line-Width'])
         self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Passivity-Violations'])
         self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Causality-Violations'])
+        self.ShowImpedanceDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Impedance'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -120,12 +123,14 @@ class SParametersDialog(Toplevel):
         #CalcMenu.add_separator()
         self.EnforcePassivityDoer.AddMenuElement(CalcMenu,label='Enforce Passivity',underline=8)
         self.EnforceCausalityDoer.AddMenuElement(CalcMenu,label='Enforce Causality',underline=9)
+        self.WaveletDenoiseDoer.AddMenuElement(CalcMenu,label='Wavelet Denoise',underline=0)
         # ------
         ViewMenu=Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
         self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9,onvalue=True,offvalue=False,variable=self.variableLineWidth)
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
         self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
+        self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
         # ------
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -220,8 +225,10 @@ class SParametersDialog(Toplevel):
             self.showPassivityViolations.set(False)
             self.ShowPassivityViolationsDoer.Activate(False)
             self.ShowCausalityViolationsDoer.Activate(False)
+            self.ShowImpedanceDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
             self.EnforceCausalityDoer.Activate(False)
+            self.WaveletDenoiseDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
 
         self.buttons=[]
@@ -250,7 +257,6 @@ class SParametersDialog(Toplevel):
         self.bottomRightPlot.cla()
 
         fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
-        x=fr.Frequencies('GHz')
         ir=fr.ImpulseResponse()
 
         y=fr.Response('dB')
@@ -341,6 +347,12 @@ class SParametersDialog(Toplevel):
             stepResponse=stepWaveform*firFilter
             y=stepResponse.Values()
             x=stepResponse.Times('ns')
+            
+            if self.showImpedance.get() and (self.fromPort == self.toPort):
+                Z0=self.referenceImpedance.GetValue()
+                y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
+                x=[xv/2 for xv in x]
+
             self.bottomRightPlot.plot(x,y)
             self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
             self.bottomRightPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
@@ -514,5 +526,30 @@ class SParametersDialog(Toplevel):
                     for n in range(len(frv)):
                         self.sp.m_d[n][toPort][fromPort]=frv[n]
         self.PlotSParameter()
+        
+    def onWaveletDenoise(self):
+        import SignalIntegrity as si
+        w=si.wl.WaveletDaubechies4()
+        for toPort in range(self.sp.m_P):
+            for fromPort in range(self.sp.m_P):
+                fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(toPort,fromPort))
+                ir=fr.ImpulseResponse()
+                if ir is not None:
+                    irl=len(ir)
+                    nirl=int(pow(2.,math.ceil(math.log(float(irl))/math.log(2.))))
+                    ir=ir._Pad(nirl)
+                    y=ir.Values()
+                    Y=w.DWT(y)
+                    threshold=0.0001
+                    Y=[0. if abs(Yv) <= threshold else Yv for Yv in Y]
+                    y=w.IDWT(Y)
+                    ir.m_y=y
+                    ir=ir._Pad(irl)
+                    fr=ir.FrequencyResponse()
+                    frv=fr.Response()
+                    for n in range(len(frv)):
+                        self.sp.m_d[n][toPort][fromPort]=frv[n]
+        self.PlotSParameter()
+        
 
 

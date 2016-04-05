@@ -31,6 +31,7 @@ from TestSubcircuit import *
 from TestExceptions import *
 from TestDeviceParser import *
 from TestMixedModeTermination import *
+from TestWavelets import *
 
 if __name__ == '__main__':
     unittest.main()

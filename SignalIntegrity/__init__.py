@@ -13,3 +13,4 @@ import ChirpZTransform as czt
 import TimeDomain as td
 import FrequencyDomain as fd
 from PySIException import *
+import Wavelets as wl
