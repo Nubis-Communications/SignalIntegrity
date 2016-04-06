@@ -10,10 +10,9 @@
 from Tkinter import *
 import matplotlib
 import math
-import numpy as np
 
 from numpy import frompyfunc
-from numpy import linalg
+
 from PartProperty import PartPropertyDelay
 from PartProperty import PartPropertyReferenceImpedance
 from Files import *
@@ -258,7 +257,7 @@ class SParametersDialog(Toplevel):
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
 
-        fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
+        fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         ir=fr.ImpulseResponse()
 
         y=fr.Response('dB')
@@ -266,10 +265,10 @@ class SParametersDialog(Toplevel):
 
         if self.showPassivityViolations.get():
             self.passivityViolations=[]
-            for n in range(len(self.sp)):
-                (u,s,vh)=linalg.svd(self.sp[n],full_matrices=1,compute_uv=1)
-                if s[0]-1 > 1e-15:
-                    dotsize=min(20.,math.log10(s[0])/math.log10(1.01)*20.)
+            s=self.sp._LargestSingularValues()
+            for n in range(len(s)):
+                if s[n]-1 > 1e-15:
+                    dotsize=max(min(20.,math.log10(s[0])/math.log10(1.01)*20.),1e-15)
                     self.passivityViolations.append([x[n],y[n],dotsize])
 
         lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
@@ -334,7 +333,7 @@ class SParametersDialog(Toplevel):
                 Ts=1./ir.TimeDescriptor().Fs/1e-9
                 for k in range(len(x)):
                     if x[k]<=-Ts and abs(y[k])>0:
-                        dotsize=min(20.,abs(y[k])/0.1*20.)
+                        dotsize=max(min(20.,abs(y[k])/0.1*20.),1e-15)
                         self.causalityViolations.append([x[k],y[k],dotsize])
                 self.bottomLeftPlot.scatter(
                     [c[0] for c in self.causalityViolations],
@@ -391,8 +390,7 @@ class SParametersDialog(Toplevel):
         self.f.canvas.draw()
 
     def onUnwrap(self):
-        import SignalIntegrity as si
-        fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
+        fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         ir=fr.ImpulseResponse()
         if ir is not None:
             idx = ir.Values('abs').index(max(ir.Values('abs')))
@@ -403,9 +401,8 @@ class SParametersDialog(Toplevel):
         self.delayViewerProperty.onUntouched(None)
 
     def onDelayEntered(self):
-        import SignalIntegrity as si
         self.topRightPlot.cla()
-        fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(self.toPort,self.fromPort))
+        fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         TD = self.delay.GetValue()
         fr=fr._DelayBy(-TD)
         lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
@@ -515,54 +512,15 @@ class SParametersDialog(Toplevel):
         self.config(cursor='left_ptr')
 
     def onEnforcePassivity(self):
-        for n in range(len(self.sp)):
-            (u,s,vh)=linalg.svd(self.sp[n],full_matrices=1,compute_uv=1)
-            for si in range(len(s)):
-                s[si]=min(1.,s[si])
-            self.sp.m_d[n]=np.dot(u,np.dot(np.diag(s),vh)).tolist()
+        self.sp.EnforcePassivity()
         self.PlotSParameter()
 
     def onEnforceCausality(self):
-        import SignalIntegrity as si
-        for toPort in range(self.sp.m_P):
-            for fromPort in range(self.sp.m_P):
-                fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(toPort,fromPort))
-                ir=fr.ImpulseResponse()
-                if ir is not None:
-                    y=ir.Values()
-                    x=ir.Times()
-                    Ts=1./ir.TimeDescriptor().Fs
-                    for k in range(len(x)):
-                        if x[k]<=-Ts:
-                            ir.m_y[k]=0.
-                    fr=ir.FrequencyResponse()
-                    frv=fr.Response()
-                    for n in range(len(frv)):
-                        self.sp.m_d[n][toPort][fromPort]=frv[n]
+        self.sp.EnforceCausality()
         self.PlotSParameter()
         
     def onWaveletDenoise(self):
-        import SignalIntegrity as si
-        w=si.wl.WaveletDaubechies4()
-        for toPort in range(self.sp.m_P):
-            for fromPort in range(self.sp.m_P):
-                fr=si.fd.FrequencyResponse(self.sp.f(),self.sp.Response(toPort,fromPort))
-                ir=fr.ImpulseResponse()
-                if ir is not None:
-                    irl=len(ir)
-                    nirl=int(pow(2.,math.ceil(math.log(float(irl))/math.log(2.))))
-                    ir=ir._Pad(nirl)
-                    y=ir.Values()
-                    Y=w.DWT(y)
-                    threshold=0.0001
-                    Y=[0. if abs(Yv) <= threshold else Yv for Yv in Y]
-                    y=w.IDWT(Y)
-                    ir.m_y=y
-                    ir=ir._Pad(irl)
-                    fr=ir.FrequencyResponse()
-                    frv=fr.Response()
-                    for n in range(len(frv)):
-                        self.sp.m_d[n][toPort][fromPort]=frv[n]
+        self.sp.WaveletDenoise()
         self.PlotSParameter()
         
 
