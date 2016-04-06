@@ -1,4 +1,4 @@
-class SParameters():
+class SParameters(SParameterManipulation):
     def __init__(self,f,data,Z0=50.0):
         self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
         self.m_f=FrequencyList(f)
@@ -11,6 +11,8 @@ class SParameters():
     def __len__(self): return len(self.m_f)
     def f(self): return self.m_f
     def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self]
+    def FrequencyResponse(self,ToP,FromP):
+        return FrequencyResponse(self.f(),self.Response(ToP,FromP))
     def WriteToFile(self,name,formatString=None):
         freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:

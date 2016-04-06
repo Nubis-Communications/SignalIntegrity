@@ -1,4 +1,4 @@
-class SParameters():
+class SParameters(SParameterManipulation):
 ...
     def Resample(self,fl):
         if self.m_d is None:
