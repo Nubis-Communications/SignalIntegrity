@@ -297,6 +297,8 @@ class SParametersDialog(Toplevel):
         self.topLeftPlot.set_xlim(xmax=max(x))
         self.topLeftPlot.set_ylim(ymin=max(min(y),-60.0))
         self.topLeftPlot.set_ylim(ymax=max(y)+1.)
+        self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
+        self.topLeftPlot.set_xlabel('frequency (GHz)',fontsize=10)
 
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
@@ -316,6 +318,8 @@ class SParametersDialog(Toplevel):
         self.topRightPlot.set_xlim(xmax=max(x))
         self.topRightPlot.set_ylim(ymin=min(y)-1)
         self.topRightPlot.set_ylim(ymax=max(y)+1)
+        self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
+        self.topRightPlot.set_xlabel('frequency (GHz)',fontsize=10)
 
         if ir is not None:
             y=ir.Values()
@@ -340,6 +344,8 @@ class SParametersDialog(Toplevel):
             self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
             self.bottomLeftPlot.set_xlim(xmin=min(x))
             self.bottomLeftPlot.set_xlim(xmax=max(x))
+            self.bottomLeftPlot.set_ylabel('amplitude',fontsize=10)
+            self.bottomLeftPlot.set_xlabel('time (ns)',fontsize=10)
 
             firFilter=ir.FirFilter()
             stepWaveformTimeDescriptor=ir.TimeDescriptor()/firFilter.FilterDescriptor()
@@ -352,6 +358,11 @@ class SParametersDialog(Toplevel):
                 Z0=self.referenceImpedance.GetValue()
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
                 x=[xv/2 for xv in x]
+                self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
+                self.bottomRightPlot.set_xlabel('length (ns)',fontsize=10)
+            else:
+                self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
+                self.bottomRightPlot.set_xlabel('time (ns)',fontsize=10)               
 
             self.bottomRightPlot.plot(x,y)
             self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
