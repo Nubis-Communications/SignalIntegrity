@@ -16,7 +16,8 @@ class SParameterManipulation(object):
     # locations where the largest singular value exceeds 1 are locations
     # where there are passivity violations
     def _LargestSingularValues(self):
-        return [linalg.svd(m,full_matrices=False,compute_uv=False)[0] for m in self.m_d]
+        return [linalg.svd(m,full_matrices=False,compute_uv=False)[0]
+            for m in self.m_d]
     # enforces passivity by clipping all singular values to a maximum value
     def EnforcePassivity(self,minSingularValue=1.):
         for n in range(len(self.m_d)):
@@ -24,6 +25,21 @@ class SParameterManipulation(object):
             for si in range(len(s)):
                 s[si]=min(minSingularValue,s[si])
             self.m_d[n]=dot(u,dot(diag(s),vh)).tolist()
+    def IsCausal(self,threshold=0.):
+        for toPort in range(self.m_P):
+            for fromPort in range(self.m_P):
+                fr=self.FrequencyResponse(toPort,fromPort)
+                ir=fr.ImpulseResponse()
+                if ir is None:
+                    return False
+                else:
+                    x=ir.Times()
+                    Ts=1./ir.TimeDescriptor().Fs
+                    for k in range(len(x)):
+                        if x[k]<=-Ts:
+                            if abs(ir.m_y[k])>threshold:
+                                return False
+        return True
     def EnforceCausality(self):
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
@@ -60,5 +76,3 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
-
-
