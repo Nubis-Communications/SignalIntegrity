@@ -29,8 +29,10 @@ if not 'matplotlib.backends' in sys.modules:
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
 from matplotlib.figure import Figure
-
 from matplotlib.collections import LineCollection
+
+from matplotlib import rcParams
+rcParams.update({'figure.autolayout': True})
 
 class ViewerProperty(Frame):
     def __init__(self,parentFrame,partProperty,callBack):
@@ -295,7 +297,7 @@ class SParametersDialog(Toplevel):
 
         self.topLeftPlot.set_xlim(xmin=min(x))
         self.topLeftPlot.set_xlim(xmax=max(x))
-        self.topLeftPlot.set_ylim(ymin=max(min(y),-60.0))
+        self.topLeftPlot.set_ylim(ymin=max(min(y)-1.,-60.0))
         self.topLeftPlot.set_ylim(ymax=max(y)+1.)
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency (GHz)',fontsize=10)
@@ -360,12 +362,14 @@ class SParametersDialog(Toplevel):
                 x=[xv/2 for xv in x]
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 self.bottomRightPlot.set_xlabel('length (ns)',fontsize=10)
+                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,Z0-1))
             else:
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
-                self.bottomRightPlot.set_xlabel('time (ns)',fontsize=10)               
+                self.bottomRightPlot.set_xlabel('time (ns)',fontsize=10)
+                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))               
 
             self.bottomRightPlot.plot(x,y)
-            self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
+
             self.bottomRightPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
             self.bottomRightPlot.set_xlim(xmin=min(x))
             self.bottomRightPlot.set_xlim(xmax=max(x))
@@ -426,7 +430,6 @@ class SParametersDialog(Toplevel):
         self.topRightCanvas.draw()
 
     def onReferenceImpedanceEntered(self):
-        import SignalIntegrity as si
         self.sp.SetReferenceImpedance(self.referenceImpedance.GetValue())
         self.PlotSParameter()
 
