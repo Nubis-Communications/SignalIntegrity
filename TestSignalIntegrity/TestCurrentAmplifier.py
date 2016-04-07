@@ -3,7 +3,8 @@ import unittest
 import SignalIntegrity as si
 from numpy import linalg
 from numpy import matrix
-from TestHelpers import *
+from TestHelpers import SourcesTesterHelper
+from TestHelpers import RoutineWriterTesterHelper
 
 class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -229,7 +230,6 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         self.WriteCode('TestCurrentAmplifier.py','testCurrentAmplifierTwoPort(self)',self.standardHeader)
     def testCurrentAmplifierTwoPortAlternateCode(self):
         self.WriteCode('TestCurrentAmplifier.py','testCurrentAmplifierTwoPortAlternate(self)',self.standardHeader)
-
 
 if __name__ == '__main__':
     unittest.main()

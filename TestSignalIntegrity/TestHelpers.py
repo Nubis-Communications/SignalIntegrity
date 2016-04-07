@@ -77,7 +77,6 @@ class ResponseTesterHelper(SParameterCompareHelper):
 class SourcesTesterHelper(object):
     def CheckSymbolicResult(self,selfid,symbolic,Text):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        fileName = '_'.join(selfid.split('.')) + '.tex'
         fileName = ('_'.join(selfid.split('.')[2:])).replace('test','') + '.tex'
         if not os.path.exists(fileName):
             symbolic.WriteToFile(fileName)
@@ -170,10 +169,6 @@ class RoutineWriterTesterHelper(object):
         inClass= className is ''
         with open(fileName, 'rU') as inputFile:
             for line in inputFile:
-                if len(line.split())>=2:
-                    pragmaLine = ('pragma:' == line.split()[1])
-                else:
-                    pragmaLine = False
                 if "class" == line.lstrip(' ').split(' ')[0]:
                     if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
                         inClass = True

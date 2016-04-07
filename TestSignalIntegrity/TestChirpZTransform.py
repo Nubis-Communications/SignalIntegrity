@@ -1,8 +1,7 @@
 import unittest
 import SignalIntegrity as si
-import math
 import os
-from TestHelpers import *
+from TestHelpers import SParameterCompareHelper
 
 class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
     def testCZTResampleSame(self):

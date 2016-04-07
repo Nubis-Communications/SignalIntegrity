@@ -11,8 +11,8 @@
 
 import unittest
 
-from TestHelpers import *
-
+import os
+from TestHelpers import ResponseTesterHelper
 import SignalIntegrity as si
 
 class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):

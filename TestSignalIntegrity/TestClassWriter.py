@@ -1,6 +1,6 @@
 import unittest
 
-from TestHelpers import *
+from TestHelpers import RoutineWriterTesterHelper
 
 class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteFrequencyResponse_ImpulseResponse(self):
@@ -114,25 +114,25 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/TimeDomain/Waveform/StepWaveform.py"
         className='StepWaveform'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWritePulseWaveform(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/PulseWaveform.py"
         className='PulseWaveform'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSineWaveform(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/SineWaveform.py"
         className='SineWaveform'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyList_Frequencies(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
@@ -195,10 +195,10 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
         className='SystemDescription'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
         for subroutine in [firstDef,'AddDevice','AddPort','ConnectDevicePort']:
-            all.remove(subroutine)
-        defName=[firstDef]+all
+            allfuncs.remove(subroutine)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSystemDescriptionImportant(self):
         fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
@@ -209,9 +209,9 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName='../SignalIntegrity/SystemDescriptions/SystemDescriptionSymbolic.py'
         className='SystemDescriptionSymbolic'
         firstDef='LaTeXSystemEquation'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSystemSParameters(self):
         fileName='../SignalIntegrity/SystemDescriptions/SystemSParameters.py'
@@ -230,81 +230,81 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName='../SignalIntegrity/Parsers/SystemDescriptionParser.py'
         className='SystemDescriptionParser'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSystemSParametersNumeric(self):
         fileName="../SignalIntegrity/SystemDescriptions/SystemSParametersNumeric.py"
         className='SystemSParametersNumeric'
         firstDef='SParameters'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSystemSParametersNumericParser(self):
         fileName="../SignalIntegrity/Parsers/SystemSParametersParser.py"
         className='SystemSParametersNumericParser'
         firstDef='SParameters'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSubCircuit(self):
         fileName="../SignalIntegrity/SubCircuits/SubCircuit.py"
         className='SubCircuit'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteParserArgs(self):
         fileName="../SignalIntegrity/Parsers/ParserArgs.py"
         className='ParserArgs'
         firstDef='ProcessVariables'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteDeembedder(self):
         fileName="../SignalIntegrity/SystemDescriptions/Deembedder.py"
         className='Deembedder'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteDeembedderNumeric(self):
         fileName="../SignalIntegrity/SystemDescriptions/DeembedderNumeric.py"
         className='DeembedderNumeric'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteDeembedderSymbolic(self):
         fileName="../SignalIntegrity/SystemDescriptions/DeembedderSymbolic.py"
         className='DeembedderSymbolic'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteDeembedderParser(self):
         fileName="../SignalIntegrity/Parsers/DeembedderParser.py"
         className='DeembedderParser'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteDeembedderNumericParser(self):
         fileName="../SignalIntegrity/Parsers/DeembedderNumericParser.py"
         className='DeembedderNumericParser'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteReferenceImpedance(self):
         fileName="../SignalIntegrity/Conversions/ReferenceImpedance.py"
@@ -385,19 +385,19 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/SParameters/SParameterFile.py"
         className='SParameterFile'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSParameters(self):
         fileName="../SignalIntegrity/SParameters/SParameters.py"
         className='SParameters'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        all.remove('Resample')
-        all.remove('SetReferenceImpedance')
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        allfuncs.remove('Resample')
+        allfuncs.remove('SetReferenceImpedance')
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSParametersResample(self):
         fileName="../SignalIntegrity/SParameters/SParameters.py"
@@ -423,41 +423,41 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/SystemDescriptions/SimulatorSymbolic.py"
         className='SimulatorSymbolic'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSimulatorParser(self):
         fileName="../SignalIntegrity/Parsers/SimulatorParser.py"
         className='SimulatorParser'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSimulatorNumeric(self):
         fileName="../SignalIntegrity/SystemDescriptions/SimulatorNumeric.py"
         className='SimulatorNumeric'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteSimulatorNumericParser(self):
         fileName="../SignalIntegrity/Parsers/SimulatorNumericParser.py"
         className='SimulatorNumericParser'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteFirFilter(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/FirFilter.py"
         className='FirFilter'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSinXFunc(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
@@ -468,57 +468,57 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
         className='FractionalDelayFilterSinX'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteInterpolatorSinX(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
         className='InterpolatorSinX'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteInterpolatorFractionalDelayFilterSinX(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
         className='InterpolatorFractionalDelayFilterSinX'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteFractionalDelayFilterLinear(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorLinear.py"
         className='FractionalDelayFilterLinear'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteInterpolatorLinear(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorLinear.py"
         className='InterpolatorLinear'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteInterpolatorFractionalDelayFilterLinear(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorLinear.py"
         className='InterpolatorFractionalDelayFilterLinear'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteWaveformTrimmer(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/WaveformTrimmer.py"
         className='WaveformTrimmer'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteMutual(self):
         fileName="../SignalIntegrity/Devices/Mutual.py"
@@ -534,9 +534,9 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
         className='ParserDevice'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteDeviceFactoryInit(self):
         fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
@@ -552,26 +552,26 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         fileName="../SignalIntegrity/Parsers/Devices/DeviceParser.py"
         className='DeviceParser'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTransferMatricesProcessing(self):
         fileName="../SignalIntegrity/FrequencyDomain/TransferMatrices.py"
         className='TransferMatrices'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        all.remove('SParameters')
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        allfuncs.remove('SParameters')
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteTransferMatricesProcessor(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/TransferMatricesProcessor.py"
         className='TransferMatricesProcessor'
         firstDef='__init__'
-        all=self.EntireListOfClassFunctions(fileName,className)
-        all.remove(firstDef)
-        defName=[firstDef]+all
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteMixedModeConverter(self):
         fileName="../SignalIntegrity/Devices/MixedModeConverter.py"

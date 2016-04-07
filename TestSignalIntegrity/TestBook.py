@@ -3,7 +3,8 @@ import os
 from cStringIO import StringIO
 import sys
 import SignalIntegrity as si
-from TestHelpers import *
+from TestHelpers import RoutineWriterTesterHelper
+from TestHelpers import ResponseTesterHelper
 
 class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
     def __init__(self, methodName='runTest'):

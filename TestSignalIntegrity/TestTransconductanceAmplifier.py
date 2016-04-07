@@ -3,7 +3,8 @@ import unittest
 import SignalIntegrity as si
 from numpy import linalg
 from numpy import matrix
-from TestHelpers import *
+from TestHelpers import SourcesTesterHelper
+from TestHelpers import RoutineWriterTesterHelper
 
 class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -219,7 +220,5 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
     def testTransconductanceAmplifierTwoPortAlternateCode(self):
         self.WriteCode('TestTransconductanceAmplifier.py','testTransconductanceAmplifierTwoPortAlternate(self)',self.standardHeader)
 
-
 if __name__ == '__main__':
     unittest.main()
-

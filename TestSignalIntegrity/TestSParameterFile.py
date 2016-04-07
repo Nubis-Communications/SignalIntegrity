@@ -2,7 +2,7 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
-from TestHelpers import *
+from TestHelpers import SParameterCompareHelper
 
 class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
     def testSParameterFileFourPort(self):
