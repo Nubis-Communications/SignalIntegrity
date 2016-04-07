@@ -311,9 +311,9 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
     def testRLC3(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         L1=1e-15
-        C1=1e-9
+        C1=10e-12
         L2=1e-15
-        freq=[100e6*(i+1) for i in range(100)]
+        freq=[10e6*i for i in range(1001)]
         spc=[]
         spc.append(('L1',si.sp.dev.SeriesL(freq,L1)))
         spc.append(('C1',si.sp.dev.SeriesC(freq,C1)))
@@ -367,7 +367,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
                 plt.legend(loc='upper right')
         plt.show()
         """
-        self.skipTest('until I get back to looking at this')
+        #self.skipTest('until I get back to looking at this')
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
 
     def testRLC4(self):
