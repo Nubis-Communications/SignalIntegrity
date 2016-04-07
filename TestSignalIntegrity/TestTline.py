@@ -330,5 +330,41 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         ssps.DocEnd()
         ssps.Emit()
         self.CheckSymbolicResult(self.id(),ssps,'incorrect')
+    def testMutualEntire(self):
+        sd=si.sd.SystemDescription()
+        sd.AddDevice('T',4)
+        sd.AddPort('T',1,1)
+        sd.AddPort('T',2,2)
+        sd.AddPort('T',3,3)
+        sd.AddPort('T',4,4)
+        f=[n*20e6 for n in range(101)]
+        Lsp=5.85e-8
+        Lsm=3.23e-8
+        Lm=1.35e-8
+        Z0=50.
+        Results=[]
+        for fn in f:
+            s=1j*2.0*math.pi*fn
+            sd.AssignSParameters('T',si.dev.Mutual(Lsp,Lsm,Lm,s,Z0))
+            R=si.sd.SystemSParametersNumeric(sd).SParameters()
+            Results.append(R)
+        spc1=si.sp.SParameters(f,Results)
+        Results=[]
+        for fn in f:
+            s=1j*2.0*math.pi*fn
+            sd.AssignSParameters('T',si.dev.MutualOld(Lsp,Lsm,Lm,s,Z0))
+            R=si.sd.SystemSParametersNumeric(sd).SParameters()
+            Results.append(R)
+        spc2=si.sp.SParameters(f,Results)
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device T 4 M '+str(Lm),'device L1 2 L '+str(Lsp),'device L2 2 L '+str(Lsm),'connect L1 2 T 1',
+            'connect L2 2 T 3','port 1 L1 1 2 T 2 3 L2 1 4 T 4'])
+        spc3=sspnp.SParameters()
+        #self.CheckSParametersResult(spc1,'mutual1.s4p','full mutual not same')
+        #self.CheckSParametersResult(spc2,'mutual2.s4p','full mutual (old) not same')
+        #self.CheckSParametersResult(spc3,'mutual3.s4p','assembled mutual not same')
+        self.assertTrue(self.SParametersAreEqual(spc1,spc2,1e-6),'Mutual not same')
+        self.assertTrue(self.SParametersAreEqual(spc1,spc3,1e-6),'Mutual not same')
+
 if __name__ == '__main__':
     unittest.main()

@@ -16,12 +16,12 @@ def MutualOld(Ll,Lr,M,s,Z0=None,K=None):
     try:
         F=1.0/(s*(M*M-Ll*Lr))
     except ZeroDivisionError:
-        F=1e25
+        F=1e15
     YM=matrix([[-Lr,Lr,M,-M],[Lr,-Lr,-M,M],[M,-M,-Ll,Ll],[-M,M,Ll,-Ll]])*F
     return array(Y2S(array(YM).tolist(),Z0,K)).tolist()
 
 def Mutual(Ll,Lr,M,s,Z0=None,K=None):
-    D=s*s*(Ll*Lr-M*M)+2*Z0*(Ll+Lr)+4*Z0*Z0
+    D=s*s*(Ll*Lr-M*M)+2*Z0*s*(Ll+Lr)+4*Z0*Z0
     S11=(s*s*(Ll*Lr-M*M)+2*s*Ll*Z0)/D
     S12=(2*Z0*(s*Lr+2*Z0))/D
     S13=(2*s*M*Z0)/D
