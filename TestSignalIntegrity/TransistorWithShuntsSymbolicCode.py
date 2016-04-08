@@ -21,7 +21,7 @@ Ccs=si.sy.ShuntZ(3,'\\frac{1}{C_{cs}\\cdot s}')
 symbolic._AddEq('\\mathbf{Ccs}='+ssps._LaTeXMatrix(Ccs))
 Cps=si.sy.ShuntZ(4,'\\frac{1}{C_{\\pi}\\cdot s}')
 symbolic._AddEq('\\mathbf{Cps}='+ssps._LaTeXMatrix(Cps))
-T=si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')
+T=si.sy.TransconductanceAmplifier(3,'-g_m', 'r_{\\pi}', 'r_o')
 symbolic._AddEq('\\mathbf{T}=\\ldots')
 symbolic._AddEq(ssps._LaTeXMatrix(T))
 symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]

@@ -39,7 +39,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 DV 1 2 DV 2 3 DV 3 4 DV 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
+        ssps.AssignSParameters('DV',si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port Symbolic')
@@ -94,7 +94,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 DV 1 2 DV 3 3 DV 2',
             'connect DV 2 DV 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
-        ssps.AssignSParameters('DV',si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o'))
+        ssps.AssignSParameters('DV',si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port')
@@ -117,7 +117,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 DV 1 2 DV 2 3 DV 3'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small',
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('DV',si.sy.VoltageAmplifierThreePort('\\alpha','Z_i','Z_o'))
+        ssps.AssignSParameters('DV',si.sy.VoltageAmplifier(3,'\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port Symbolic')
@@ -224,7 +224,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 DV 1 2 DV 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        DV=si.sy.VoltageAmplifierTwoPort('\\alpha','Z_i','Z_o')
+        DV=si.sy.VoltageAmplifier(2,'\\alpha','Z_i','Z_o')
         ssps.AssignSParameters('DV',DV)
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
@@ -291,8 +291,8 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
                       'connect V 2 F 3','connect F 4 G 1','connect V 3 F 1',
                       'connect V 4 G 1','connect F 2 G 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
-        ssps._AddEq('\\mathbf{V}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('A','Z_i','Z_o')))
-        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('B','Z_{if}','Z_{of}')))
+        ssps._AddEq('\\mathbf{V}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifier(4,'A','Z_i','Z_o')))
+        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifier(4,'B','Z_{if}','Z_{of}')))
         ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Voltage Series Feedback')
@@ -339,8 +339,8 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
         ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.helper.Matrix2Text(DSp)))
-        ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o')))
-        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}')))
+        ssps._AddEq('\\mathbf{D}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o')))
+        ssps._AddEq('\\mathbf{F}='+ssps._LaTeXMatrix(si.sy.VoltageAmplifier(4,'\\beta','Z_{if}','Z_{of}')))
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Four Port Voltage Series Feedback')
@@ -362,7 +362,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][1]=DSp[2][0]
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
-        DS=si.sy.VoltageAmplifierFourPort('\\alpha','Z_i','Z_o')
+        DS=si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o')
         ssps._AddEq('D_{11}={\\scriptstyle '+DS[0][0]+'}')
         ssps._AddEq('D_{12}={\\scriptstyle '+DS[0][1]+'}')
         ssps._AddEq('D_{31}={\\scriptstyle '+DS[2][0]+'}')
@@ -383,7 +383,7 @@ class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         DSp[3][1]=DSp[2][0]
         DSp[3][2]=DSp[2][3]
         DSp[3][3]=DSp[2][2]
-        FS=si.sy.VoltageAmplifierFourPort('\\beta','Z_{if}','Z_{of}')
+        FS=si.sy.VoltageAmplifier(4,'\\beta','Z_{if}','Z_{of}')
         ssps._AddEq('F_{11}={\\scriptstyle '+FS[0][0]+'}')
         ssps._AddEq('F_{12}={\\scriptstyle '+FS[0][1]+'}')
         ssps._AddEq('F_{31}={\\scriptstyle '+FS[2][0]+'}')

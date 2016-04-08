@@ -28,7 +28,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
         sdp.AddLines(['device D 4','port 1 D 1 2 D 2 3 D 3 4 D 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('D',si.sy.TransconductanceAmplifierFourPort('\\delta','Z_i','Z_o'))
+        ssps.AssignSParameters('D',si.sy.TransconductanceAmplifier(4,'\\delta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port Symbolic')
@@ -163,7 +163,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routin
             'port 1 D 1 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        D=si.sy.TransconductanceAmplifierTwoPort('\\delta','Z_i','Z_o')
+        D=si.sy.TransconductanceAmplifier(2,'\\delta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
         # pragma: exclude

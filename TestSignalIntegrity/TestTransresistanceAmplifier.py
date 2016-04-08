@@ -26,7 +26,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
         sdp.AddLines(['device D 4','port 1 D 1 2 D 2 3 D 3 4 D 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('D',si.sy.TransresistanceAmplifierFourPort('\\gamma','Z_i','Z_o'))
+        ssps.AssignSParameters('D',si.sy.TransresistanceAmplifier(4,'\\gamma','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transresistance Amplifier Four Port Symbolic')
@@ -159,7 +159,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,SourcesTesterHelper,Routine
             'port 1 D 1 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        D=si.sy.TransresistanceAmplifierTwoPort('\\gamma','Z_i','Z_o')
+        D=si.sy.TransresistanceAmplifier(2,'\\gamma','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
         # pragma: exclude

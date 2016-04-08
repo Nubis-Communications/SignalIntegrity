@@ -77,7 +77,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
             'connect ZI2 2 G 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps._AddEq('ZI1=ZI2='+ssps._LaTeXMatrix(si.sy.SeriesZ('Z_i')))
-        ssps._AddEq('VA='+ssps._LaTeXMatrix(si.sy.VoltageAmplifierFourPort('G','Z_d','Z_o')))
+        ssps._AddEq('VA='+ssps._LaTeXMatrix(si.sy.VoltageAmplifier(4,'G','Z_d','Z_o')))
         ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Again')

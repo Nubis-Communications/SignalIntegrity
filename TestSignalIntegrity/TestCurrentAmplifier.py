@@ -27,7 +27,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sdp.AddLines(['device DC 4','port 1 DC 1 2 DC 2 3 DC 3 4 DC 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('DC',si.sy.CurrentAmplifierFourPort('\\beta','Z_i','Z_o'))
+        ssps.AssignSParameters('DC',si.sy.CurrentAmplifier(4,'\\beta','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Current Amplifier Four Port Symbolic')
@@ -160,7 +160,7 @@ class TestCurrentAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
             'port 1 D 1 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        D=si.sy.CurrentAmplifierTwoPort('\\beta','Z_i','Z_o')
+        D=si.sy.CurrentAmplifier(2,'\\beta','Z_i','Z_o')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
