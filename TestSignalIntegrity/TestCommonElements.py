@@ -80,7 +80,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps=si.sd.SystemSParametersSymbolic(
             sdp.SystemDescription(),eqprefix='\\begin{equation} ',
             eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
+        ssps.AssignSParameters('D',si.sy.ShuntZ(4,'Z'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Four Port Symbolic')
@@ -108,7 +108,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 4','device O 1 open','port 1 D 1 2 D 3 3 D 2',
             'connect D 4 O 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
-        ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
+        ssps.AssignSParameters('D',si.sy.ShuntZ(4,'Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
@@ -117,7 +117,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 4','device Z 2','port 1 D 1 2 D 3 3 D 2',
             'connect D 2 Z 2','connect Z 1 D 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
-        ssps.AssignSParameters('D',si.sy.ShuntZFourPort('Z'))
+        ssps.AssignSParameters('D',si.sy.ShuntZ(4,'Z'))
         ssps.AssignSParameters('Z',si.sy.SeriesZ('\\varepsilon'))
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
@@ -127,7 +127,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 3','port 1 D 1 2 D 2 3 D 3'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('D',si.sy.ShuntZThreePort('Z'))
+        ssps.AssignSParameters('D',si.sy.ShuntZ(3,'Z'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Three Port Symbolic')
@@ -255,7 +255,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 3','device G 1 ground',
             'port 1 D 1 2 D 2','connect D 3 G 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
-        ssps.AssignSParameters('D',si.sy.ShuntZThreePort('Z'))
+        ssps.AssignSParameters('D',si.sy.ShuntZ(3,'Z'))
         ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
@@ -264,7 +264,7 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.AssignSParameters('D',si.sy.ShuntZTwoPort('Z'))
+        ssps.AssignSParameters('D',si.sy.ShuntZ(2,'Z'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Three Port Symbolic')
