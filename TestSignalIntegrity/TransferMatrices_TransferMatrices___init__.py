@@ -5,10 +5,6 @@ class TransferMatrices(object):
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
 ...
-    def __len__(self):
-        return len(self.f)
-    def __getitem__(self,item):
-        return self.Matrices[item]
     def FrequencyResponse(self,o,i):
         return FrequencyResponse(self.f,[Matrix[o-1][i-1]
             for Matrix in self.Matrices])

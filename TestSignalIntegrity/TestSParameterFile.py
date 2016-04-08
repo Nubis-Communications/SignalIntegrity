@@ -367,25 +367,21 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
                 plt.legend(loc='upper right')
         plt.show()
         """
-        #self.skipTest('until I get back to looking at this')
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
 
     def testRLC4(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        freq=[100e6*(i+1) for i in range(100)]
+        freq=[10e6*i for i in range(1001)]
         parser=si.p.SystemSParametersNumericParser(freq)
         parser.AddLine('device L1 2 L 1e-15')
-        parser.AddLine('device C1 2 C 1e-9')
+        parser.AddLine('device C1 2 C 10e-12')
         parser.AddLine('device L2 2 L 1e-15')
         parser.AddLine('device D1 4 file TestDut.s4p')
         parser.AddLine('device G 1 ground')
         parser.AddLine('port 1 D1 1 2 D1 2 3 D1 3 4 L2 2')
-        #parser.AddLine('port 2 D1 2')
-        #parser.AddLine('port 3 D1 3')
         parser.AddLine('connect L1 2 L2 1 C1 1')
         parser.AddLine('connect C1 2 G 1')
         parser.AddLine('connect D1 4 L1 1')
-        #parser.AddLine('port 4 L2 2')
         sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
@@ -393,7 +389,6 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.SParameterFile(fileName,50.)
         regression = si.sp.SParameterFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p',50.)
-        self.skipTest('until I get back to looking at this')
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -408,8 +403,8 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         """
     def testRLC5(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        freq=[100e6*(i+1) for i in range(100)]
-        parser=si.p.SystemSParametersNumericParser(freq,'Lleft 1e-15 Cshunt 1e-9 Lright 1e-15')
+        freq=[10e6*i for i in range(1001)]
+        parser=si.p.SystemSParametersNumericParser(freq,'Lleft 1e-15 Cshunt 10e-12 Lright 1e-15')
         parser.AddLine('var $Lleft$ x $Cshunt$ x $Lright$ x')
         parser.AddLine('device L1 2 L $Lleft$')
         parser.AddLine('device C1 2 C $Cshunt$')
@@ -417,19 +412,15 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         parser.AddLine('device D1 4 file TestDut.s4p')
         parser.AddLine('device G 1 ground')
         parser.AddLine('port 1 D1 1 2 D1 2 3 D1 3 4 L2 2')
-        #parser.AddLine('port 2 D1 2')
-        #parser.AddLine('port 3 D1 3')
         parser.AddLine('connect L1 2 L2 1 C1 1')
         parser.AddLine('connect C1 2 G 1')
         parser.AddLine('connect D1 4 L1 1')
-        #parser.AddLine('port 4 L2 2')
         sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.SParameterFile(fileName,50.)
-        self.skipTest('until I get back to looking at this')
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt
@@ -464,20 +455,18 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
             parser.AddLine('port 1 D1 1 2 D1 2')
             parser.WriteToFile('r.txt')
         parser=si.p.SystemSParametersNumericParser(freq)
-        parser.AddLine('device RLC 2 subcircuit rlc.txt Ll 1e-15 Cs 1e-9 Lr 1e-15')
+        parser.AddLine('device RLC 2 subcircuit rlc.txt Ll 1e-15 Cs 10e-12 Lr 1e-15')
         parser.AddLine('device R1 2 subcircuit r.txt')
         parser.AddLine('device D1 4 file TestDut.s4p')
         parser.AddLine('port 1 D1 1 2 D1 2 3 D1 3 4 RLC 2')
         parser.AddLine('connect D1 4 R1 1')
         parser.AddLine('connect R1 2 RLC 1')
-        #parser.AddLine('port 4 L2 2')
         sf=si.sp.SParameters(freq,parser.SParameters())
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
         if not os.path.exists(fileName):
             sf.WriteToFile('_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p')
             self.assertTrue(False,fileName + 'does not exist')
         regression = si.sp.SParameterFile(fileName,50.)
-        self.skipTest('until I get back to looking at this')
         self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same')
         """
         import matplotlib.pyplot as plt

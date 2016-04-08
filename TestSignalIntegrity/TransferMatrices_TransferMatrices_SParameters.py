@@ -17,8 +17,4 @@ class TransferMatrices(object):
                         squareMatrix[r][c]=transferMatrix[r][c]
                 squareMatrices.append(squareMatrix)
             return SParameters(self.f,squareMatrices)
-    def __len__(self):
-        return len(self.f)
-    def __getitem__(self,item):
-        return self.Matrices[item]
 ...
