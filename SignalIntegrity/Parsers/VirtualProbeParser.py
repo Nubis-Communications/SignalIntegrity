@@ -16,7 +16,7 @@ class VirtualProbeParser(SystemDescriptionParser):
         SystemDescriptionParser.__init__(self, f, args)
     def _ProcessVirtualProbeLine(self,line):
         lineList=self.ReplaceArgs(line.split())
-        if len(lineList) == 0:
+        if len(lineList) == 0: # pragma: no cover
             return
         if lineList[0] == 'meas':
             if self.m_sd.pMeasurementList is None:

@@ -30,6 +30,10 @@ class TestIdealTransformer(unittest.TestCase,SourcesTesterHelper,RoutineWriterTe
         sm = si.sd.Symbolic()
         sm._AddEq(sm._LaTeXMatrix(si.sy.IdealTransformer('a')))
         self.CheckSymbolicResult(self.id(),sm,'Ideal Transformer')
+    def testIdealTransformerSymbolic3(self):
+        sm = si.sd.Symbolic()
+        sm._AddEq(sm._LaTeXMatrix(si.sy.IdealTransformer(10)))
+        self.CheckSymbolicResult(self.id(),sm,'Ideal Transformer')
     def testIdealTransformerNumeric(self):
         sdp=si.p.SystemDescriptionParser()
         a=10 #turns ratio for ideal transformer

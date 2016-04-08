@@ -26,7 +26,7 @@ class SParameterFile(SParameters):
         # pragma: include outdent
             self.m_P=int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
         # pragma: silent exclude indent
-        except ValueError:
+        except:
             raise PySIExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
         # pragma: include
         freqMul = 1e6

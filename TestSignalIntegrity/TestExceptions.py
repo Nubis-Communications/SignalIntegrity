@@ -109,6 +109,10 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             vpn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
+    def testSParameterFileWrongExtension(self):
+        with self.assertRaises(si.PySIException) as cm:
+            sp=si.sp.SParameterFile('test.txt')
+        self.assertEqual(cm.exception.parameter,'SParameterFile')
 
 if __name__ == '__main__':
     unittest.main()

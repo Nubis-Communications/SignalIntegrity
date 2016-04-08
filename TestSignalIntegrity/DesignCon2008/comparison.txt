@@ -1,3 +1,4 @@
+# this is for running the comparison test
 device D1 2 termination
 device D2 2 termination
 device D3 1 file st20.s1p

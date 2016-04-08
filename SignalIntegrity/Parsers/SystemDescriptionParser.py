@@ -36,7 +36,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         return self
     def _ProcessLine(self,line,exclusionList):
         lineList=self.ReplaceArgs(LineSplitter(line))
-        if len(lineList) == 0:
+        if len(lineList) == 0: # pragma: no cover
             return
         if self.ProcessVariables(lineList):
             return
