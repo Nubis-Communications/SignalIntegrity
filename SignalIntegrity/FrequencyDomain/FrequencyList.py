@@ -50,12 +50,20 @@ class FrequencyList(object):
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
     def __getitem__(self,item): return self.List[item]
+    def __setitem__(self,item,value):
+        self.List[item]=value
+        return value
     def __len__(self): return len(self.List)
     def __div__(self,d):
         if self.EvenlySpaced():
             return EvenlySpacedFrequencyList(self.Fe/d,self.N)
         else:
             return GenericFrequencyList([v/d for v in self.List])
+    def __mul__(self,d):
+        if self.EvenlySpaced():
+            return EvenlySpacedFrequencyList(self.Fe*d,self.N)
+        else:
+            return GenericFrequencyList([v*d for v in self.List])
     def TimeDescriptor(self):
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
@@ -69,7 +77,7 @@ class FrequencyList(object):
             return False
         if self.N != other.N:
             return False
-        if (self.Fe - other.Fe) > 1e-5:
+        if abs(self.Fe - other.Fe) > 1e-5:
             return False
         if not self.m_EvenlySpaced:
             for k in range(len(self.List)):

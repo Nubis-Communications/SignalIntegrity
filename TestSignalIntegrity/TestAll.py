@@ -33,6 +33,7 @@ from TestDeviceParser import *
 from TestMixedModeTermination import *
 from TestWavelets import *
 from TestSParameterEnforcements import *
+from TestFrequencyList import *
 
 if __name__ == '__main__':
     unittest.main()

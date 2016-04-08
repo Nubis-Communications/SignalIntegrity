@@ -41,12 +41,20 @@ class FrequencyList(object):
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
     def __getitem__(self,item): return self.List[item]
+    def __setitem__(self,item,value):
+        self.List[item]=value
+        return value
     def __len__(self): return len(self.List)
     def __div__(self,d):
         if self.EvenlySpaced():
             return EvenlySpacedFrequencyList(self.Fe/d,self.N)
         else:
             return GenericFrequencyList([v/d for v in self.List])
+    def __mul__(self,d):
+        if self.EvenlySpaced():
+            return EvenlySpacedFrequencyList(self.Fe*d,self.N)
+        else:
+            return GenericFrequencyList([v*d for v in self.List])
     def TimeDescriptor(self):
         N=self.N
         Fs=2.*self.Fe

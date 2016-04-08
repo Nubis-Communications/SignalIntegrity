@@ -137,8 +137,8 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteFrequencyList_Frequencies(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
         className='FrequencyList'
-        defName=['Frequencies','__init__','__len__','__getitem__','SetEvenlySpaced','SetList',
-        'EvenlySpaced','CheckEvenlySpaced','__div__','TimeDescriptor']
+        defName=['Frequencies','__init__','__len__','__getitem__','__setitem__','SetEvenlySpaced','SetList',
+        'EvenlySpaced','CheckEvenlySpaced','__div__','__mul__','TimeDescriptor']
         self.WriteClassCode(fileName,className,defName)
     def testWriteEvenlySpacedFrequencyList_Init(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyList.py"
