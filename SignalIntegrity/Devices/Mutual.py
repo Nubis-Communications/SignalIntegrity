@@ -9,10 +9,12 @@
 '''
 from numpy import matrix
 from numpy import array
+import math
 
 from SignalIntegrity.Conversions import Y2S
 
-def MutualOld(Ll,Lr,M,s,Z0=None,K=None):
+def MutualOld(Ll,Lr,M,f,Z0=None,K=None):
+    s=1j*2.*math.pi*f
     try:
         F=1.0/(s*(M*M-Ll*Lr))
     except ZeroDivisionError:
@@ -20,7 +22,8 @@ def MutualOld(Ll,Lr,M,s,Z0=None,K=None):
     YM=matrix([[-Lr,Lr,M,-M],[Lr,-Lr,-M,M],[M,-M,-Ll,Ll],[-M,M,Ll,-Ll]])*F
     return array(Y2S(array(YM).tolist(),Z0,K)).tolist()
 
-def Mutual(Ll,Lr,M,s,Z0=None,K=None):
+def Mutual(Ll,Lr,M,f,Z0=None,K=None):
+    s=1j*2.*math.pi*f
     D=s*s*(Ll*Lr-M*M)+2*Z0*s*(Ll+Lr)+4*Z0*Z0
     S11=(s*s*(Ll*Lr-M*M)+2*s*Ll*Z0)/D
     S12=(2*Z0*(s*Lr+2*Z0))/D

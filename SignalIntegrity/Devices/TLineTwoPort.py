@@ -8,10 +8,11 @@
  this material whatsoever.
 '''
 import cmath
+import math
 
-def TLineSE(Zc,gamma,Z0):
+def TLineTwoPort(Zc,gamma,f,Z0):
     p=(Zc-Z0)/(Zc+Z0)
-    L=cmath.exp(-gamma)
+    L=cmath.exp(-1j*2.*math.pi*f*gamma)
     S1=(p*(1.-L*L))/(1.-p*p*L*L)
     S2=((1.-p*p)*L)/(1.-p*p*L*L)
     return [[S1,S2],[S2,S1]]

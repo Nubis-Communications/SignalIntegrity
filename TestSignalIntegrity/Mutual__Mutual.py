@@ -1,4 +1,5 @@
-def Mutual(Ll,Lr,M,s,Z0=None,K=None):
+def Mutual(Ll,Lr,M,f,Z0=None,K=None):
+    s=1j*2.*math.pi*f
     D=s*s*(Ll*Lr-M*M)+2*Z0*s*(Ll+Lr)+4*Z0*Z0
     S11=(s*s*(Ll*Lr-M*M)+2*s*Ll*Z0)/D
     S12=(2*Z0*(s*Lr+2*Z0))/D

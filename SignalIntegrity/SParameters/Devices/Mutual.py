@@ -18,4 +18,4 @@ class Mutual(SParameters):
         self.m_M=M
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
-        return dev.Mutual(0.,0.,self.m_M,1j*2.*math.pi*self.m_f[n],self.m_Z0)
+        return dev.Mutual(0.,0.,self.m_M,self.m_f[n],self.m_Z0)

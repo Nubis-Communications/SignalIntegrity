@@ -344,15 +344,13 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Z0=50.
         Results=[]
         for fn in f:
-            s=1j*2.0*math.pi*fn
-            sd.AssignSParameters('T',si.dev.Mutual(Lsp,Lsm,Lm,s,Z0))
+            sd.AssignSParameters('T',si.dev.Mutual(Lsp,Lsm,Lm,fn,Z0))
             R=si.sd.SystemSParametersNumeric(sd).SParameters()
             Results.append(R)
         spc1=si.sp.SParameters(f,Results)
         Results=[]
         for fn in f:
-            s=1j*2.0*math.pi*fn
-            sd.AssignSParameters('T',si.dev.MutualOld(Lsp,Lsm,Lm,s,Z0))
+            sd.AssignSParameters('T',si.dev.MutualOld(Lsp,Lsm,Lm,fn,Z0))
             R=si.sd.SystemSParametersNumeric(sd).SParameters()
             Results.append(R)
         spc2=si.sp.SParameters(f,Results)
