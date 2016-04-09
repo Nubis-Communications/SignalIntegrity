@@ -8,7 +8,6 @@
  this material whatsoever.
 '''
 from numpy import linalg
-import math
 
 from SignalIntegrity.Conversions import S2T
 from SignalIntegrity.Conversions import T2S

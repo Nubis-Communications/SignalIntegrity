@@ -113,6 +113,10 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             sp=si.sp.SParameterFile('test.txt')
         self.assertEqual(cm.exception.parameter,'SParameterFile')
+    def testWaveformFileNonexsistent(self):
+        with self.assertRaises(si.PySIException) as cm:
+            wf=si.td.wf.Waveform().ReadFromFile('IHopeThisFileDoesntExist.txt')
+        self.assertEqual(cm.exception.parameter,'WaveformFile')
 
 if __name__ == '__main__':
     unittest.main()

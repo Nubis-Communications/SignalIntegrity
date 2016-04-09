@@ -9,6 +9,7 @@
 '''
 from numpy import matrix
 from numpy import identity
+from numpy import linalg
 
 from SignalIntegrity.Helpers.AllZeroMatrix import *
 from SignalIntegrity.SystemDescriptions import SystemSParameters
@@ -79,6 +80,11 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         I=matrix(identity(len(Wxx)))
         # pragma: silent exclude
         try:
+            # I really hate this
+            # without this check, there is a gray zone where the matrix is really uninvertible
+            # yet, produces total garbage without raising the exception.
+            # TODO: have Kavi take a look at this.
+            if linalg.cond(I-matrix(Wxx),p=-2) < 1e-12: raise LinAlgError
         # pragma: include outdent
             result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
         # pragma: silent exclude indent

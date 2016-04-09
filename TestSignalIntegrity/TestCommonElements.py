@@ -189,6 +189,20 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         rescorrect=si.dev.ShuntZThreePort(Z)
         difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
         self.assertTrue(difference<1e-6,'Z Shunt Three Port Possibility 3 Numeric incorrect')
+    def testZShuntThreePortPossibility3NumericBlock50Unsafe(self):
+        Z=50.
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D 4','connect D 2 D 4',
+            'port 1 D 1 2 D 3 3 D 2'])
+        sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        sspn.AssignSParameters('D',si.dev.ShuntZFourPort(Z))
+        #sspn.InstallSafeTees()
+        with self.assertRaises(si.PySIException) as cm:
+            rescalc=sspn.SParameters()
+        self.assertEqual(cm.exception.parameter,'Numeric')
+        #rescorrect=si.dev.ShuntZThreePort(Z)
+        #difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        #self.assertTrue(difference<1e-6,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericBlockComplex(self):
         Z=-34.45+1j*24.98
         sdp=si.p.SystemDescriptionParser()
