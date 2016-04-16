@@ -210,7 +210,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         result=[]
         for n in range(len(freq)):
             for d in range(len(spc)):
-                SD[SD.IndexOfDevice(spc[d][0])].SParameters=spc[d][1][n]
+                SD.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(si.sd.SystemSParametersNumeric(SD).SParameters())
         sf=si.sp.SParameters(freq,result)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
@@ -252,7 +252,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         result=[]
         for n in range(len(freq)):
             for d in range(len(spc)):
-                SD[SD.IndexOfDevice(spc[d][0])].SParameters=spc[d][1][n]
+                SD.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(si.sd.SystemSParametersNumeric(SD).SParameters())
         sf=si.sp.SParameters(freq,result)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
@@ -336,7 +336,7 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         result=[]
         for n in range(len(freq)):
             for d in range(len(spc)):
-                SD[SD.IndexOfDevice(spc[d][0])].SParameters=spc[d][1][n]
+                SD.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(si.sd.SystemSParametersNumeric(SD).SParameters())
         sf=si.sp.SParameters(freq,result)
         fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'

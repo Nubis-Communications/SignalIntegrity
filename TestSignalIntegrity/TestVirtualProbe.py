@@ -13,9 +13,9 @@ import os
 class TestVirtualProbe(unittest.TestCase):
     def testVirtualProbeOneMeasOneOut(self):
         D=si.sd.SystemDescription()
-        D.AddDevice('T',1,si.dev.SeriesZ(50))
+        D.AddDevice('T',1,si.dev.TerminationZ(50))
         D.AddDevice('C',2,si.dev.SeriesZ(100))
-        D.AddDevice('R',1,si.dev.SeriesZ(25))
+        D.AddDevice('R',1,si.dev.TerminationZ(25))
         D.ConnectDevicePort('T',1,'C',1)
         D.ConnectDevicePort('C',2,'R',1)
         D.AssignM('T',1,'m1')
@@ -32,9 +32,9 @@ class TestVirtualProbe(unittest.TestCase):
         GR=D[D.DeviceNames().index('R')].SParameters[0][0]
         SCD=linalg.det(matrix(SC))
         # this is what I say the answer should be
-        H2=(SC21*(1+GR))/(1+SC11-GR*(SC22+SCD))
+        H2=[[(SC21*(1+GR))/(1+SC11-GR*(SC22+SCD))]]
         #print "H2", H2
-        difference = linalg.norm(H-H2)
+        difference = linalg.norm(array(H)-array(H2))
         self.assertTrue(difference<1e-10,'Simple Virtual Probe incorrect')
     def testVirtualProbeTwoMeasTwoOut(self):
         #First, make a structure with two series resistors with a shunt across them at the end

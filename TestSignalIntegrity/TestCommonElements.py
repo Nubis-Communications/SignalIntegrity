@@ -273,6 +273,13 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Shunt Z Three Port')
+    def WrongShuntZTwoPort(self,Z):
+        D='2\\cdot \\left('+Z+'+Z0\\right)'
+        return [['\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
+                ['\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}'],
+                ['\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
+                ['\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}']]
+
     def testZShuntTwoPortSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2'])
@@ -282,6 +289,16 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Three Port Symbolic')
+    def testZShuntTwoPortSymbolicWrong(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D 2','port 1 D 1 2 D 2'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
+        with self.assertRaises(si.PySIException) as cm:
+            ssps.AssignSParameters('D',self.WrongShuntZTwoPort('Z'))
+        self.assertEqual(cm.exception.parameter,'SystemDescription')
+        #ssps.LaTeXSolution().Emit()
+        #self.CheckSymbolicResult(self.id(),ssps,'Z Shunt Two Port Symbolic')
     def testFrequencyDependentSeriesCResampling(self):
         sp=si.sp.dev.SeriesC(si.fd.EvenlySpacedFrequencyList(1e9,100),1e-9)
         sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))

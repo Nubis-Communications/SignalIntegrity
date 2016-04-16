@@ -13,4 +13,4 @@ class Numeric(object):
     def InstallSafeTees(self,Z=0.00001):
         for d in range(len(self)):
             if '#' in self[d].Name:
-                self[d].SParameters = TeeThreePortSafe(0.000000001)
+                self[d].AssignSParameters(TeeThreePortSafe(0.000000001))

@@ -8,6 +8,7 @@
  this material whatsoever.
 '''
 from Port import Port
+from SignalIntegrity.PySIException import PySIExceptionSystemDescription
 
 class Device(object):
     def __init__(self,Name,Ports,Type='device'):
@@ -19,6 +20,12 @@ class Device(object):
         return self.Ports[item]
     def __len__(self):
         return len(self.Ports)
+    def AssignSParameters(self,SParameters):
+        # pragma: silent exclude
+        if len(SParameters) != len(SParameters[0]) or len(SParameters) != len(self.Ports):
+            raise PySIExceptionSystemDescription('illegal s-parameter assignment')
+        # pragma: include
+        self.SParameters=SParameters
     @staticmethod
     def SymbolicMatrix(Name,Rows,Columns=-1):
         if Columns == -1:

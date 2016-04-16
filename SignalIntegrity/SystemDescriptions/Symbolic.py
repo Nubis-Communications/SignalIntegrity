@@ -69,7 +69,7 @@ class Symbolic():
     def InstallSafeTees(self,Z='\\varepsilon'):
         for d in range(len(self)):
             if '#' in self[d].Name:
-                self[d].SParameters = TeeThreePortSafe(Z)
+                self[d].AssignSParameters(TeeThreePortSafe(Z))
         return self
     def _AddEq(self,text):
         self._AddLine(self._BeginEq() + text + self._EndEq())

@@ -100,8 +100,7 @@ class SystemDescription(object):
         else:
             self.ConnectDevicePort(PortName,1,DeviceName,DevicePort)
     def AssignSParameters(self,DeviceName,SParameters):
-        di = self.IndexOfDevice(DeviceName)
-        self[di].SParameters = SParameters
+        self[self.IndexOfDevice(DeviceName)].AssignSParameters(SParameters)
     def Print(self):
         print '\n','Device','Name','Port','Node','Name'
         for d in range(len(self)):

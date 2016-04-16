@@ -8,6 +8,8 @@ class Device(object):
         return self.Ports[item]
     def __len__(self):
         return len(self.Ports)
+    def AssignSParameters(self,SParameters):
+        self.SParameters=SParameters
     @staticmethod
     def SymbolicMatrix(Name,Rows,Columns=-1):
         if Columns == -1:

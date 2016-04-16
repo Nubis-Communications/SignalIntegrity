@@ -31,11 +31,9 @@ def ShuntZThreePort(Z):
             ['\\frac{2\\cdot Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}','\\frac{2\\cdot '+Z+'-Z0}{'+D+'}']]
 
 def ShuntZTwoPort(Z):
-    D='2\\cdot \\left('+Z+'+Z0\\right)'
-    return [['\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
-            ['\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}'],
-            ['\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
-            ['\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}']]
+    D='2\\cdot '+Z+' +Z0'
+    return [['\\frac{-Z0}{'+D+'}','\\frac{2\\cdot '+Z+'}{'+D+'}'],
+            ['\\frac{2\\cdot '+Z+'}{'+D+'}','\\frac{-Z0}{'+D+'}']]
 
 def ShuntZOnePort(Z):
     return [['\\frac{ '+Z+' -Z0}{ '+Z+' +Z0}']]

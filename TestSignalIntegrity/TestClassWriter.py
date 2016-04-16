@@ -188,8 +188,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteDevice(self):
         fileName='../SignalIntegrity/SystemDescriptions/Device.py'
         className='Device'
-        defName=['__init__','__getitem__','__len__',
-                'SymbolicMatrix','Print']
+        defName=self.EntireListOfClassFunctions(fileName,className)
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteSystemDescriptionBasic(self):
         fileName='../SignalIntegrity/SystemDescriptions/SystemDescription.py'
