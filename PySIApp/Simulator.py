@@ -115,7 +115,6 @@ class SimulatorDialog(Toplevel):
     def UpdateWaveforms(self,waveformList, waveformNamesList):
         self.lift(self.parent.parent)
         self.plt.cla()
-        self.plt.set_xlabel('time (ns)',fontsize=10)
         self.plt.set_ylabel('amplitude',fontsize=10)
 
         if not self.waveformList == None:
@@ -128,21 +127,38 @@ class SimulatorDialog(Toplevel):
         maxt=None
         for wfi in range(len(self.waveformList)):
             wf=self.waveformList[wfi]
-            wfTimes=wf.Times('ns')
+            wfTimes=wf.Times()
             if len(wfTimes)==0:
                 continue
             wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
             mint=wfTimes[0] if mint is None else max(mint,wfTimes[0])
             maxt=wfTimes[-1] if maxt is None else min(maxt,wfTimes[-1])
-            self.plt.plot(wfTimes,wfValues,label=wfName)
 
+        timeLabel='s'
+        timeLabelDivisor=1.
         if not self.waveformList is None:
+            if (not mint is None) and (not maxt is None):
+                durLabelTime=(maxt-mint)/10.
+                timeLabel=ToSI(durLabelTime,'s')[-2:]
+                timeLabelDivisor=FromSI('1. '+timeLabel,'s')
+                mint=mint/timeLabelDivisor
+                maxt=maxt/timeLabelDivisor
             if not mint is None:
                 self.plt.set_xlim(xmin=mint)
             if not maxt is None:
                 self.plt.set_xlim(xmax=maxt)
 
+        for wfi in range(len(self.waveformList)):
+            wf=self.waveformList[wfi]
+            wfTimes=wf.Times(timeLabelDivisor)
+            if len(wfTimes)==0:
+                continue
+            wfValues=wf.Values()
+            wfName=str(self.waveformNamesList[wfi])
+            self.plt.plot(wfTimes,wfValues,label=wfName)
+
+        self.plt.set_xlabel('time ('+timeLabel+')',fontsize=10)
         self.plt.legend(loc='upper right',labelspacing=0.1)
         self.f.canvas.draw()
         return self
