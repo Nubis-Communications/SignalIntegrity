@@ -373,7 +373,112 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         sd.AssignSParameters('Rb2',[['B1','B2'],['B2','B1']])
         sd.AssignSParameters('R',[['Z1','-Z1','Z2','-Z1'],['-Z1','Z1','-Z1','Z2'],
             ['Z2','-Z1','Z1','-Z1'],['-Z1','Z2','-Z1','Z1']])
-        si.sd.SystemSParametersSymbolic(sd,size='small').DocStart().LaTeXSolution(size='big').DocEnd().Emit()
+        ssps=si.sd.SystemSParametersSymbolic(sd,size='small')
+        ssps.DocStart()
+        ssps._AddEq('P1='+si.sy.SeriesZ('Zp')[0][0])
+        ssps._AddEq('P2='+si.sy.SeriesZ('Zp')[0][1])
+        ssps._AddEq('B1='+si.sy.SeriesZ('Zb')[0][0])
+        ssps._AddEq('B2='+si.sy.SeriesZ('Zb')[0][1])
+        ssps._AddEq('Z1='+si.sy.ShuntZ(4,'Z')[0][0])
+        ssps._AddEq('Z2='+si.sy.ShuntZ(4,'Z')[0][2])
+        ssps.LaTeXSolution(size='big').DocEnd().Emit()
 
+    def testSymbolicParasiticRFourPortWithShunt3(self):
+        sdp=si.p.SystemDescriptionParser().AddLines([
+            'device Rp1 2',
+            'device Rp2 2',
+            'device R 4',
+            'device Rb1 2',
+            'device Rb2 2',
+            'device MM1 4 mixedmode',
+            'device MM2 4 mixedmode',
+            'port 1 MM2 3',
+            'port 2 MM1 3',
+            'port 4 MM1 4',
+            'port 3 MM2 4',
+            'connect Rp1 1 MM2 1',
+            'connect Rp2 1 MM1 1',
+            'connect Rb1 1 MM2 2',
+            'connect Rb2 1 MM1 2',
+            'connect Rp1 2 R 1',
+            'connect Rp2 2 R 3',
+            'connect Rb1 2 R 2',
+            'connect Rb2 2 R 4'
+            ])
+        sd=sdp.SystemDescription()
+        sd.AssignSParameters('Rp1',[['PL1','PL2'],['PL2','PL1']])
+        sd.AssignSParameters('Rp2',[['PR1','PR2'],['PR2','PR1']])
+        sd.AssignSParameters('Rb1',[['BL1','BL2'],['BL2','BL1']])
+        sd.AssignSParameters('Rb2',[['BR1','BR2'],['BR2','BR1']])
+        sd.AssignSParameters('R',[['Z1','-Z1','Z2','-Z1'],['-Z1','Z1','-Z1','Z2'],
+            ['Z2','-Z1','Z1','-Z1'],['-Z1','Z2','-Z1','Z1']])
+        ssps=si.sd.SystemSParametersSymbolic(sd,size='small')
+        ssps.DocStart()
+        ssps._AddEq('PL1='+si.sy.SeriesZ('Zpl')[0][0])
+        ssps._AddEq('PL2='+si.sy.SeriesZ('Zpl')[0][1])
+        ssps._AddEq('PR1='+si.sy.SeriesZ('Zpr')[0][0])
+        ssps._AddEq('PR2='+si.sy.SeriesZ('Zpr')[0][1])
+        ssps._AddEq('BL1='+si.sy.SeriesZ('Zbl')[0][0])
+        ssps._AddEq('BL2='+si.sy.SeriesZ('Zbl')[0][1])
+        ssps._AddEq('BR1='+si.sy.SeriesZ('Zbr')[0][0])
+        ssps._AddEq('BR2='+si.sy.SeriesZ('Zbr')[0][1])
+        ssps._AddEq('Z1='+si.sy.ShuntZ(4,'Z')[0][0])
+        ssps._AddEq('Z2='+si.sy.ShuntZ(4,'Z')[0][2])
+        ssps.LaTeXSolution(size='big').DocEnd().Emit()
+
+    def testNumericParasiticRFourPortWithShunt(self):
+        sdp=si.p.SystemDescriptionParser().AddLines([
+            'device Rp1 2',
+            'device Rp2 2',
+            'device R 4',
+            'device Rb1 2',
+            'device Rb2 2',
+            'device MM1 4 mixedmode',
+            'device MM2 4 mixedmode',
+            'port 1 MM2 3',
+            'port 2 MM1 3',
+            'port 4 MM1 4',
+            'port 3 MM2 4',
+            'connect Rp1 1 MM2 1',
+            'connect Rp2 1 MM1 1',
+            'connect Rb1 1 MM2 2',
+            'connect Rb2 1 MM1 2',
+            'connect Rp1 2 R 1',
+            'connect Rp2 2 R 3',
+            'connect Rb1 2 R 2',
+            'connect Rb2 2 R 4'
+            ])
+        sd=sdp.SystemDescription()
+        Rp1=0.095590
+        Rp2=0.053934
+        Rb1=0.046207
+        Rb2=0.086222
+        R=0.1
+        Z0=50.
+        sd.AssignSParameters('Rp1',si.dev.SeriesZ(Rp1))
+        sd.AssignSParameters('Rp2',si.dev.SeriesZ(Rp2))
+        sd.AssignSParameters('Rb1',si.dev.SeriesZ(Rb1))
+        sd.AssignSParameters('Rb2',si.dev.SeriesZ(Rb2))
+        sd.AssignSParameters('R',si.dev.ShuntZ(4,R))
+        sspn=si.sd.SystemSParametersNumeric(sd)
+        spm=sspn.SParameters()
+        sdd21=spm[1][0]
+        Rcalc=Z0*(sdd21)/(1-sdd21)
+        # good to three decimal places
+        self.assertAlmostEqual(R,Rcalc,3,'resistance incorrect')
+        EstimatedError=-1./4*(2*Rp1+2*Rp2+2*Rb1+2*Rb2)*R/Z0
+        EstimatedErrorSmallerTerm=-1./4*(Rb1*Rp2-Rp1*Rp2-Rb1*Rb2+Rb2*Rp1)/Z0
+        # good to three decimal places
+        self.assertAlmostEqual(Rcalc-R,EstimatedError+EstimatedErrorSmallerTerm,6,'estimated error incorrect')
+        # check bracketing of error
+        maxp=max(Rp1,Rp2,Rb1,Rb2)
+        maxEstimatedError=-2./Z0*maxp*R
+        self.assertTrue(maxEstimatedError<EstimatedError+EstimatedErrorSmallerTerm,'max esimated error incorrect')
+        # check error bounds
+        # parasitics always cause lower calculation, so check that calculation is indeed lower
+        # but not lower than predicted by error.
+        # i.e.       R+maxError < Rcalc < R (remember, max error is negative)
+        self.assertTrue(Rcalc<R,'calculated R not less than actual R')
+        self.assertTrue(R+maxEstimatedError<Rcalc,'calculated error bounds incorrect')
 if __name__ == '__main__':
     unittest.main()
