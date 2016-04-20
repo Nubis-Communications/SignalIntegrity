@@ -1,0 +1,43 @@
+\[ PL1=\frac{Zpl}{Zpl+2\cdot Z0} \]
+\[ PL2=\frac{2\cdot Z0}{Zpl+2\cdot Z0} \]
+\[ PR1=\frac{Zpr}{Zpr+2\cdot Z0} \]
+\[ PR2=\frac{2\cdot Z0}{Zpr+2\cdot Z0} \]
+\[ BL1=\frac{Zbl}{Zbl+2\cdot Z0} \]
+\[ BL2=\frac{2\cdot Z0}{Zbl+2\cdot Z0} \]
+\[ BR1=\frac{Zbr}{Zbr+2\cdot Z0} \]
+\[ BR2=\frac{2\cdot Z0}{Zbr+2\cdot Z0} \]
+\[ Z1=\frac{-Z0}{2\cdot \left(Z+Z0\right)} \]
+\[ Z2=\frac{2\cdot Z+Z0}{2\cdot \left(Z+Z0\right)} \]
+\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
+0 & 0 & 0 & BL1 & 0 & 0 & 0 & 0 & 0 & BL2 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ PR1 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & PR2 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & PL2 & 0 & 0 & 0 & 0
+& 0 & PL1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & BR1 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & 0 & BR2 \\ 0 & 0 & 0 & 0 & 0 & Z1 & 0 & 0 & 0 &
+Z2 & 0 & -Z1 & 0 & -Z1 & 0 & 0 \\ PR2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & PR1 & 0 \\ 0 & 0 & PL1 & 0 & 0 & 0 & 0 & 0 & PL2
+& 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & BR2 & 0 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & 0 & 0 & BR1 \\ 0 & 0 & 0 & 0 & 0 & -Z1 & 0 & 0 & 0 & -Z1
+& 0 & Z2 & 0 & Z1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & BL2 & 0 & 0 & 0 &
+0 & 0 & BL1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & Z2 & 0 & 0 & 0 & Z1 & 0
+& -Z1 & 0 & -Z1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & -Z1 & 0 & 0 & 0 & -Z1 &
+0 & Z1 & 0 & Z2 & 0 & 0 \end{smallmatrix}\right) \right]^{-1}  \]
+\[ \mathbf{S} = \left(\begin{smallmatrix} 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
+0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{smallmatrix}\right) +
+\left(\begin{smallmatrix} 0 & -\frac{1}{\sqrt{2}} & 0 & 0 & 0 & 0 & 0
+& 0 & 0 & 0 & \frac{1}{\sqrt{2}} & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
+\frac{1}{\sqrt{2}} & 0 & 0 & 0 & -\frac{1}{\sqrt{2}} & 0 & 0 & 0 & 0 &
+0 & 0 & 0 & 0 \\ 0 & \frac{1}{\sqrt{2}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+0 & \frac{1}{\sqrt{2}} & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
+\frac{1}{\sqrt{2}} & 0 & 0 & 0 & \frac{1}{\sqrt{2}} & 0 & 0 & 0 & 0 &
+0 & 0 & 0 & 0 \end{smallmatrix}\right) \cdot \mathbf{Wi}
+\cdot\left(\begin{smallmatrix} 0 & \frac{1}{\sqrt{2}} & 0 &
+\frac{1}{\sqrt{2}} \\ 0 & 0 & 0 & 0 \\ \frac{1}{\sqrt{2}} & 0 &
+\frac{1}{\sqrt{2}} & 0 \\ 0 & 0 & 0 & 0 \\ 0 & -\frac{1}{\sqrt{2}} & 0
+& \frac{1}{\sqrt{2}} \\ 0 & 0 & 0 & 0 \\ -\frac{1}{\sqrt{2}} & 0 &
+\frac{1}{\sqrt{2}} & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0
+& 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
+0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{smallmatrix}\right) \]

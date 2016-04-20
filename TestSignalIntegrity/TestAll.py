@@ -34,6 +34,7 @@ from TestMixedModeTermination import *
 from TestWavelets import *
 from TestSParameterEnforcements import *
 from TestFrequencyList import *
+from TestPI import *
 
 if __name__ == '__main__':
     unittest.main()

@@ -16,8 +16,9 @@ import SignalIntegrity as si
 import math
 import os
 from TestHelpers import SParameterCompareHelper
+from TestHelpers import SourcesTesterHelper
 
-class TestPI(unittest.TestCase,SParameterCompareHelper):
+class TestPI(unittest.TestCase,SParameterCompareHelper,SourcesTesterHelper):
     def testRLCOnePort(self):
         # one port impedance calculation based on s11
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -144,8 +145,12 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         sd.AssignSParameters('R1',si.sy.SeriesZ('Zp'))
         sd.AssignSParameters('R2',si.sy.SeriesZ('Zp'))
         sd.AssignSParameters('R3',si.sy.ShuntZ(1,'Zd'))
-        si.sd.SystemSParametersSymbolic(sd).DocStart().LaTeXSolution(size='big').DocEnd().Emit()
-
+        ssps=si.sd.SystemSParametersSymbolic(sd)
+        #ssps.DocStart()
+        ssps.LaTeXSolution(size='big')
+        #ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,self.id()+' incorrect')
     def testNumericTwoPortParasiticCase0(self):
         # prove that if all parasitics are zero, that the S21 method provides
         # the exact answer for R
@@ -312,7 +317,12 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         sd.AssignSParameters('Rb1',si.sy.SeriesZ('Zb'))
         sd.AssignSParameters('Rb2',si.sy.SeriesZ('Zb'))
         sd.AssignSParameters('R',si.sy.SeriesZ('Z'))
-        si.sd.SystemSParametersSymbolic(sd,size='small').DocStart().LaTeXSolution(size='big').DocEnd().Emit()
+        ssps=si.sd.SystemSParametersSymbolic(sd)
+        #ssps.DocStart()
+        ssps.LaTeXSolution(size='big')
+        #ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,self.id()+' incorrect')
 
     def testSymbolicParasiticRFourPortWithShunt(self):
         sdp=si.p.SystemDescriptionParser().AddLines([
@@ -342,7 +352,12 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         sd.AssignSParameters('Rb1',si.sy.SeriesZ('Zb'))
         sd.AssignSParameters('Rb2',si.sy.SeriesZ('Zb'))
         sd.AssignSParameters('R',si.sy.ShuntZ(4,'Z'))
-        si.sd.SystemSParametersSymbolic(sd,size='small').DocStart().LaTeXSolution(size='big').DocEnd().Emit()
+        ssps=si.sd.SystemSParametersSymbolic(sd)
+        #ssps.DocStart()
+        ssps.LaTeXSolution(size='big')
+        #ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,self.id()+' incorrect')
 
     def testSymbolicParasiticRFourPortWithShunt2(self):
         sdp=si.p.SystemDescriptionParser().AddLines([
@@ -381,7 +396,12 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         ssps._AddEq('B2='+si.sy.SeriesZ('Zb')[0][1])
         ssps._AddEq('Z1='+si.sy.ShuntZ(4,'Z')[0][0])
         ssps._AddEq('Z2='+si.sy.ShuntZ(4,'Z')[0][2])
-        ssps.LaTeXSolution(size='big').DocEnd().Emit()
+        ssps=si.sd.SystemSParametersSymbolic(sd)
+        #ssps.DocStart()
+        ssps.LaTeXSolution(size='big')
+        #ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,self.id()+' incorrect')
 
     def testSymbolicParasiticRFourPortWithShunt3(self):
         sdp=si.p.SystemDescriptionParser().AddLines([
@@ -413,7 +433,7 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         sd.AssignSParameters('R',[['Z1','-Z1','Z2','-Z1'],['-Z1','Z1','-Z1','Z2'],
             ['Z2','-Z1','Z1','-Z1'],['-Z1','Z2','-Z1','Z1']])
         ssps=si.sd.SystemSParametersSymbolic(sd,size='small')
-        ssps.DocStart()
+        #ssps.DocStart()
         ssps._AddEq('PL1='+si.sy.SeriesZ('Zpl')[0][0])
         ssps._AddEq('PL2='+si.sy.SeriesZ('Zpl')[0][1])
         ssps._AddEq('PR1='+si.sy.SeriesZ('Zpr')[0][0])
@@ -424,7 +444,10 @@ class TestPI(unittest.TestCase,SParameterCompareHelper):
         ssps._AddEq('BR2='+si.sy.SeriesZ('Zbr')[0][1])
         ssps._AddEq('Z1='+si.sy.ShuntZ(4,'Z')[0][0])
         ssps._AddEq('Z2='+si.sy.ShuntZ(4,'Z')[0][2])
-        ssps.LaTeXSolution(size='big').DocEnd().Emit()
+        ssps.LaTeXSolution(size='big')
+        #ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,self.id()+' incorrect')
 
     def testNumericParasiticRFourPortWithShunt(self):
         sdp=si.p.SystemDescriptionParser().AddLines([
