@@ -139,7 +139,7 @@ class SimulatorDialog(Toplevel):
         timeLabelDivisor=1.
         if not self.waveformList is None:
             if (not mint is None) and (not maxt is None):
-                durLabelTime=(maxt-mint)/10.
+                durLabelTime=(maxt-mint)
                 timeLabel=ToSI(durLabelTime,'s')[-2:]
                 timeLabelDivisor=FromSI('1. '+timeLabel,'s')
                 mint=mint/timeLabelDivisor

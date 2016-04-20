@@ -21,6 +21,7 @@ from MenuSystemHelpers import *
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
 import tkMessageBox
+from ToSI import ToSI,FromSI
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -164,8 +165,6 @@ class SParametersDialog(Toplevel):
 
         self.topLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
-        self.topLeftPlot.set_xlabel('frequency (GHz)')
-        self.topLeftPlot.set_ylabel('magnitude (dB)')
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
         self.topLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         self.topLeftToolbar = NavigationToolbar2TkAgg( self.topLeftCanvas, topLeftFrame )
@@ -174,8 +173,6 @@ class SParametersDialog(Toplevel):
 
         self.topRightFigure=Figure(figsize=(5,2), dpi=100)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
-        self.topRightPlot.set_xlabel('frequency (GHz)')
-        self.topRightPlot.set_ylabel('phase (deg)')
         self.topRightCanvas=FigureCanvasTkAgg(self.topRightFigure, master=topRightFrame)
         self.topRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         self.topRightToolbar = NavigationToolbar2TkAgg( self.topRightCanvas, topRightFrame )
@@ -189,8 +186,6 @@ class SParametersDialog(Toplevel):
 
         self.bottomLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
-        self.bottomLeftPlot.set_xlabel('time (ns)')
-        self.bottomLeftPlot.set_ylabel('amplitude')
         self.bottomLeftCanvas=FigureCanvasTkAgg(self.bottomLeftFigure, master=bottomLeftFrame)
         self.bottomLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         self.bottomLeftToolbar = NavigationToolbar2TkAgg( self.bottomLeftCanvas, bottomLeftFrame )
@@ -199,8 +194,6 @@ class SParametersDialog(Toplevel):
 
         self.bottomRightFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
-        self.bottomRightPlot.set_xlabel('frequency (GHz)')
-        self.bottomRightPlot.set_ylabel('phase (deg)')
         self.bottomRightCanvas=FigureCanvasTkAgg(self.bottomRightFigure, master=bottomRightFrame)
         self.bottomRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         self.bottomRightToolbar = NavigationToolbar2TkAgg( self.bottomRightCanvas, bottomRightFrame )
@@ -261,7 +254,11 @@ class SParametersDialog(Toplevel):
         ir=fr.ImpulseResponse()
 
         y=fr.Response('dB')
-        x=fr.Frequencies('GHz')
+
+        freqLabel=ToSI(fr.Frequencies()[-1],'Hz')[-3:]
+        freqLabelDivisor=FromSI('1. '+freqLabel,'Hz')
+
+        x=fr.Frequencies(freqLabelDivisor)
 
         if self.showPassivityViolations.get():
             self.passivityViolations=[]
@@ -299,10 +296,10 @@ class SParametersDialog(Toplevel):
         self.topLeftPlot.set_ylim(ymin=max(min(y)-1.,-60.0))
         self.topLeftPlot.set_ylim(ymax=max(y)+1.)
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
-        self.topLeftPlot.set_xlabel('frequency (GHz)',fontsize=10)
+        self.topLeftPlot.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
 
         y=fr.Response('deg')
-        x=fr.Frequencies('GHz')
+        x=fr.Frequencies(freqLabelDivisor)
 
         if self.variableLineWidth.get():
             if fastway:
@@ -320,11 +317,15 @@ class SParametersDialog(Toplevel):
         self.topRightPlot.set_ylim(ymin=min(y)-1)
         self.topRightPlot.set_ylim(ymax=max(y)+1)
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
-        self.topRightPlot.set_xlabel('frequency (GHz)',fontsize=10)
+        self.topRightPlot.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
 
         if ir is not None:
             y=ir.Values()
-            x=ir.Times('ns')
+
+            timeLabel=ToSI(ir.Times()[-1],'s')[-2:]
+            timeLabelDivisor=FromSI('1. '+timeLabel,'s')
+
+            x=ir.Times(timeLabelDivisor)
 
             self.bottomLeftPlot.plot(x,y)
 
@@ -346,25 +347,25 @@ class SParametersDialog(Toplevel):
             self.bottomLeftPlot.set_xlim(xmin=min(x))
             self.bottomLeftPlot.set_xlim(xmax=max(x))
             self.bottomLeftPlot.set_ylabel('amplitude',fontsize=10)
-            self.bottomLeftPlot.set_xlabel('time (ns)',fontsize=10)
+            self.bottomLeftPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
 
             firFilter=ir.FirFilter()
             stepWaveformTimeDescriptor=ir.TimeDescriptor()/firFilter.FilterDescriptor()
             stepWaveform=si.td.wf.StepWaveform(stepWaveformTimeDescriptor)
             stepResponse=stepWaveform*firFilter
             y=stepResponse.Values()
-            x=stepResponse.Times('ns')
+            x=stepResponse.Times(timeLabelDivisor)
             
             if self.showImpedance.get() and (self.fromPort == self.toPort):
                 Z0=self.referenceImpedance.GetValue()
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
                 x=[xv/2 for xv in x]
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
-                self.bottomRightPlot.set_xlabel('length (ns)',fontsize=10)
+                self.bottomRightPlot.set_xlabel('length ('+timeLabel+')',fontsize=10)
                 self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,Z0-1))
             else:
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
-                self.bottomRightPlot.set_xlabel('time (ns)',fontsize=10)
+                self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
                 self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))               
 
             self.bottomRightPlot.plot(x,y)
