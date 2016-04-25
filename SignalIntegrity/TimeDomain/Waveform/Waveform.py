@@ -7,6 +7,10 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
+from numpy import fft
+import math
+import cmath
+
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.PySIException import PySIExceptionWaveformFile
@@ -137,7 +141,37 @@ class Waveform(object):
                 v = (time - self.m_t[i-1])/(self.m_t[i]-self.m_t[i-1])*\
                 (self.m_y[i]-self.m_y[i-1])+self.m_y[i-1]
                 return v
+    def FrequencyContent(self,fd=None,adjustLength=False):
+        """Produces the frequency content
 
+        Args:
+            fd (FrequencyDescriptor) (optional) the desired frequency descriptor.
+            adjustLength (bool) (optional) whether to adjust the length.
+                defaults to True
+
+        Notes:
+            All impulse responses are evenly spaced
+
+            whether a frequency descriptor is specified and whether
+            to adjust length determines all possibilities of what can happen.
+
+            fd  al
+            F   F   generic frequency response
+            F   T   frequency response with length adjusted
+            T   X   CZT resamples to fd (length is adjusted first)
+        """
+        # pragma: silent exclude
+        from SignalIntegrity.FrequencyDomain.FrequencyContent import FrequencyContent
+        # pragma: include
+        if not fd and not adjustLength:
+            X=fft.fft(self.Values())
+            fd=self.TimeDescriptor().FrequencyList()
+            return FrequencyContent(fd,[X[n]/(fd.N*2)*(1. if (n==0 or n==fd.N) else 2.) for n in range(fd.N+1)]).\
+                _DelayBy(self.TimeDescriptor().H)
+        if not fd and adjustLength:
+            return self._AdjustLength().FrequencyContent(None,adjustLength=False)
+        if fd:
+            return self.FrequencyContent().Resample(fd)
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):

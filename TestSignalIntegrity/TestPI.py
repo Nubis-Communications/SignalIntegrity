@@ -15,10 +15,10 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
-from TestHelpers import SParameterCompareHelper
+from TestHelpers import ResponseTesterHelper
 from TestHelpers import SourcesTesterHelper
 
-class TestPI(unittest.TestCase,SParameterCompareHelper,SourcesTesterHelper):
+class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
     def testRLCOnePort(self):
         # one port impedance calculation based on s11
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -503,5 +503,65 @@ class TestPI(unittest.TestCase,SParameterCompareHelper,SourcesTesterHelper):
         # i.e.       R+maxError < Rcalc < R (remember, max error is negative)
         self.assertTrue(Rcalc<R,'calculated R not less than actual R')
         self.assertTrue(R+maxEstimatedError<Rcalc,'calculated error bounds incorrect')
+
+    def testTransientCurrent(self):
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
+            'device R1 1 R 5.0',
+            'device D2 4 currentcontrolledvoltagesource 1.0',
+            'device G2 1 ground',
+            'device O2 1 open',
+            'voltagesource VG1 1',
+            'device L4 2 L 0.00022',
+            'device C3 2 C 4.7e-06',
+            'currentsource CG2 1',
+            'output D2 2',
+            'connect D2 2 CG2 1 R1 1',
+            'connect C3 2 D2 1 L4 2',
+            'connect G2 1 D2 3',
+            'output D2 4',
+            'connect D2 4 O2 1',
+            'connect C3 1 L4 1 VG1 1'
+            ])
+        tm=snp.TransferMatrices()
+        td=si.td.wf.TimeDescriptor(-2e-3,int(math.floor((5e-3 - -2e-3)*10e6)),10e6)
+        VG1=si.td.wf.StepWaveform(td,5.,-2e-3)
+        CG2=si.td.wf.PulseWaveform(td,-0.2,0.,.1e-6)
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        [Vout,Iout]=tmp.ProcessWaveforms([VG1,CG2])
+        VinMinusVout=si.td.wf.Waveform(Vout.TimeDescriptor(),[5.-v for v in Vout.Values()])
+        self.CheckWaveformResult(Iout,self.id()+'_Iout.txt','current')
+        self.CheckWaveformResult(Vout,self.id()+'_Vout.txt','voltage')
+        Voutfd=Vout.FrequencyContent()
+        Ioutfd=Iout.FrequencyContent()
+        VinMinusVoutfd=VinMinusVout.FrequencyContent()
+
+        plot=True
+        if plot:
+            import matplotlib.pyplot as plt
+            voy=Voutfd.Response('dB')
+            ioy=Ioutfd.Response('dB')
+            vivoy=VinMinusVoutfd.Response('dB')
+            vof=Voutfd.Frequencies('MHz')
+            iof=Ioutfd.Frequencies('MHz')
+            vivof=VinMinusVoutfd.Frequencies('MHz')
+            plt.subplot(1,1,1)
+            plt.plot(vof,voy,label='Vout')
+            plt.plot(iof,ioy,label='Iout')
+            plt.plot(vivof,vivoy,label='Vin-Vout')
+            plt.xscale('log')
+            plt.show()
+            plt.cla()
+
+            zoy=[pow(10.,(voy[n]-ioy[n])/20.) for n in range(len(voy))]
+            ziy=[pow(10.,(vivoy[n]-ioy[n])/20.) for n in range(len(voy))]
+            zof=Voutfd.Frequencies()
+            zif=VinMinusVoutfd.Frequencies()
+            plt.subplot(1,1,1)
+            plt.plot(zof,zoy,label='Zo')
+            plt.plot(zif,ziy,label='Zo')
+            plt.xscale('log')
+            plt.yscale('log')
+            plt.show()
+
 if __name__ == '__main__':
     unittest.main()
