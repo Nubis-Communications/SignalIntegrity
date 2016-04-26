@@ -37,6 +37,8 @@ def Rat(R,tol=0.0001):
 class FrequencyResponse(FrequencyDomain):
     def __init__(self,f=None,resp=None):
         FrequencyDomain.__init__(self,f,resp)
+    def Response(self,unit=None):
+        return self.Values(unit)
     def _DelayBy(self,TD):
         fd=self.FrequencyList()
         return FrequencyResponse(fd,

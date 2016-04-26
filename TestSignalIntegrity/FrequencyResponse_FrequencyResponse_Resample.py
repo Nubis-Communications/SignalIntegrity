@@ -1,4 +1,4 @@
-class FrequencyResponse(object):
+class FrequencyResponse(FrequencyDomain):
 ...
     def Resample(self,fdp):
         fd=self.FrequencyList()

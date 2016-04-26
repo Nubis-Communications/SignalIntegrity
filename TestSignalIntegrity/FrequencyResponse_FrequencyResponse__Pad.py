@@ -1,4 +1,4 @@
-class FrequencyResponse(object):
+class FrequencyResponse(FrequencyDomain):
 ...
     def _Pad(self,P):
         """Pads the frequency response

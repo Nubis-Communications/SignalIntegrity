@@ -1,4 +1,4 @@
-class FrequencyResponse(object):
+class FrequencyResponse(FrequencyDomain):
 ...
     def ImpulseResponse(self,td=None,adjustDelay=True):
         """Produces the impulse response

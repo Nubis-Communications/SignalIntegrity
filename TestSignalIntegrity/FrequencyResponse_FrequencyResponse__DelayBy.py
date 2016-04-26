@@ -1,4 +1,4 @@
-class FrequencyResponse(object):
+class FrequencyResponse(FrequencyDomain):
 ...
     def _DelayBy(self,TD):
         fd=self.FrequencyList()

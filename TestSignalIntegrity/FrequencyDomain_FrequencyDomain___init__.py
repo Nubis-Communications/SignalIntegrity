@@ -1,20 +1,3 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from numpy import fft
-import math
-import cmath
-
-from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
-from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
-from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
-
 class FrequencyDomain(object):
     def __init__(self,f=None,resp=None):
         self.m_f=FrequencyList(f)
@@ -74,15 +57,4 @@ class FrequencyDomain(object):
                     f.write(str(fl[n])+' '+str(self.Response()[n].real)+' '+
                     str(self.Response()[n].imag)+'\n')
         return self
-    def __eq__(self,other):
-        if self.FrequencyList() != other.FrequencyList():
-            return False # pragma: no cover
-        if len(self.Response()) != len(other.Response()):
-            return False # pragma: no cover
-        for k in range(len(self.Response())):
-            if abs(self.Response()[k] - other.Response()[k]) > 1e-5:
-                return False # pragma: no cover
-        return True
-    def __ne__(self,other):
-        return not self == other
-
+...
