@@ -538,9 +538,9 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         plot=True
         if plot:
             import matplotlib.pyplot as plt
-            voy=Voutfd.Response('dB')
-            ioy=Ioutfd.Response('dB')
-            vivoy=VinMinusVoutfd.Response('dB')
+            voy=Voutfd.Content('dB')
+            ioy=Ioutfd.Content('dB')
+            vivoy=VinMinusVoutfd.Content('dB')
             vof=Voutfd.Frequencies('MHz')
             iof=Ioutfd.Frequencies('MHz')
             vivof=VinMinusVoutfd.Frequencies('MHz')

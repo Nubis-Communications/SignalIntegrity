@@ -1,4 +1,4 @@
-class FrequencyResponse(object):
+class FrequencyResponse(FrequencyDomain):
 ...
     def ResampleCZT(self,fdp,speedy=True):
         fd=self.FrequencyList()
@@ -11,4 +11,3 @@ class FrequencyResponse(object):
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
             CZT(ir.DelayBy(-TD).Values(),ir.TimeDescriptor().Fs,0,Fei,Ni,speedy)).\
             _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)
-...

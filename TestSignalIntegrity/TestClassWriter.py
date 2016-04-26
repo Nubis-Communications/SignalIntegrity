@@ -33,11 +33,16 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className=''
         defName=['Rat']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteFrequencyDomain(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyDomain.py"
+        className='FrequencyDomain'
+        defName=['__init__','__getitem__','__len__','FrequencyList',
+        'Frequencies','Values','ReadFromFile','WriteToFile']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Basic(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'
-        defName=['__init__','__getitem__','__len__','FrequencyList',
-        'Frequencies','Response','ReadFromFile','WriteToFile']
+        defName=['__init__','Response']
         self.WriteClassCode(fileName,className,defName)
     def testWriteImpulseResponse_FrequencyResponse(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/ImpulseResponse.py"
