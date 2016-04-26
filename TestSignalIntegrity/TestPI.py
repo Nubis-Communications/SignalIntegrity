@@ -535,7 +535,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         Ioutfd=Iout.FrequencyContent()
         VinMinusVoutfd=VinMinusVout.FrequencyContent()
 
-        plot=True
+        plot=False
         if plot:
             import matplotlib.pyplot as plt
             voy=Voutfd.Content('dB')
@@ -562,6 +562,39 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
             plt.xscale('log')
             plt.yscale('log')
             plt.show()
+
+        # make a complex impedance plot
+        ZloadFrequencies=[]
+        ZloadImpedance=[]
+        ZsourceFrequencies=[]
+        ZsourceImpedance=[]
+        for n in range(len(Voutfd)):
+            try:
+                Zload=Voutfd.Content()[n]/Ioutfd.Content()[n]
+                ZloadFrequencies.append(Voutfd.Frequencies()[n])
+                ZloadImpedance.append(Zload)
+                Zsource=VinMinusVoutfd.Content()[n]/Ioutfd.Content()[n]
+                ZsourceFrequencies.append(Voutfd.Frequencies()[n])
+                ZsourceImpedance.append(Zsource)
+            except Exception as e:
+                raise e
+        Zloadfd=si.fd.FrequencyContent(si.fd.GenericFrequencyList(ZloadFrequencies),ZloadImpedance)
+        Zsourcefd=si.fd.FrequencyContent(si.fd.GenericFrequencyList(ZsourceFrequencies),ZsourceImpedance)
+
+        plot=True
+        if plot:
+            import matplotlib.pyplot as plt
+            zsy=Zsourcefd.Content('mag')
+            zly=Zloadfd.Content('mag')
+            zsf=Zsourcefd.Frequencies()
+            zlf=Zloadfd.Frequencies()
+            plt.subplot(1,1,1)
+            plt.plot(zsf,zsy,label='Zsource')
+            plt.plot(zlf,zly,label='Zload')
+            plt.xscale('log')
+            plt.yscale('log')
+            plt.show()
+
 
 if __name__ == '__main__':
     unittest.main()
