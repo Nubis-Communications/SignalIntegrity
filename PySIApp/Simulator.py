@@ -275,6 +275,8 @@ class Simulator(object):
             tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+
         outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
         self.outputWaveformLabels=netList.OutputNames()
 

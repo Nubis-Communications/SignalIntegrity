@@ -1,5 +1,4 @@
 class Waveform(object):
-...
     def ReadFromFile(self,fileName):
         with open(fileName,"rU") as f:
             data=f.readlines()

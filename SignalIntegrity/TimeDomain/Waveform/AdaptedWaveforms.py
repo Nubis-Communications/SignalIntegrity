@@ -14,13 +14,20 @@ class AdaptedWaveforms(object):
         from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import InterpolatorLinear
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import FractionalDelayFilterLinear
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
+        strategy=wfl[0].adaptionStrategy
         #upsample all of the waveforms first
         ufl=[int(round(wfl[0].TimeDescriptor().Fs/wf.TimeDescriptor().Fs)) for wf in wfl]
-        wfl=[wf if uf == 1 else wf*InterpolatorSinX(uf) for (uf,wf) in zip(ufl,wfl)]
+        wfl=[wf if uf == 1 else wf*
+            (InterpolatorSinX(uf) if strategy=='SinX' else InterpolatorLinear(uf))
+            for (uf,wf) in zip(ufl,wfl)]
         adl=[wfl[0].TimeDescriptor()/wf.TimeDescriptor() for wf in wfl]
         fdl=[ad.D-int(ad.D) for ad in adl]
-        wfl=[wf if fd == 0.0 else wf*FractionalDelayFilterSinX(fd,True) for (fd,wf) in zip(fdl,wfl)]
+        wfl=[wf if fd == 0.0 else wf*
+            (FractionalDelayFilterSinX(fd,True) if strategy=='SinX' else FractionalDelayFilterLinear(fd,True))
+            for (fd,wf) in zip(fdl,wfl)]
         overlapping=wfl[0].TimeDescriptor()
         for wf in wfl[1:]: overlapping=overlapping.Intersection(wf.TimeDescriptor())
         # overlapping now contains the overlapping waveform

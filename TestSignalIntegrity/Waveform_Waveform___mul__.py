@@ -1,5 +1,4 @@
 class Waveform(object):
-...
     def __mul__(self,other):
         if isinstance(other,FirFilter):
             return other.FilterWaveform(self)

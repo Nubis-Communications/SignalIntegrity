@@ -15,7 +15,8 @@ class FractionalDelayFilterLinear(FirFilter):
         from FilterDescriptor import FilterDescriptor
         # pragma: include
         FirFilter.__init__(self,FilterDescriptor(1,
-            F if accountForDelay else 0,1),[1-F,F])
+            (F if F >= 0 else 1+F) if accountForDelay else 0,1),
+            [1-F,F] if F >= 0 else [-F,1+F])
 
 class InterpolatorLinear(FirFilter):
     def __init__(self,U):

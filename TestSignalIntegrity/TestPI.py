@@ -505,6 +505,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         self.assertTrue(R+maxEstimatedError<Rcalc,'calculated error bounds incorrect')
 
     def testTransientCurrent(self):
+        fileNameBase= '_'.join(self.id().split('.'))
         snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
             'device R1 1 R 5.0',
             'device D2 4 currentcontrolledvoltagesource 1.0',
@@ -526,11 +527,12 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         td=si.td.wf.TimeDescriptor(-2e-3,int(math.floor((5e-3 - -2e-3)*10e6)),10e6)
         VG1=si.td.wf.StepWaveform(td,5.,-2e-3)
         CG2=si.td.wf.PulseWaveform(td,-0.2,0.,.1e-6)
+        si.td.wf.Waveform.adaptionStrategy='SinX'
         tmp=si.td.f.TransferMatricesProcessor(tm)
         [Vout,Iout]=tmp.ProcessWaveforms([VG1,CG2])
         VinMinusVout=si.td.wf.Waveform(Vout.TimeDescriptor(),[5.-v for v in Vout.Values()])
-        self.CheckWaveformResult(Iout,self.id()+'_Iout.txt','current')
-        self.CheckWaveformResult(Vout,self.id()+'_Vout.txt','voltage')
+        self.CheckWaveformResult(Iout,fileNameBase+'_Iout.txt','current')
+        self.CheckWaveformResult(Vout,fileNameBase+'_Vout.txt','voltage')
         Voutfd=Vout.FrequencyContent()
         Ioutfd=Iout.FrequencyContent()
         VinMinusVoutfd=VinMinusVout.FrequencyContent()
@@ -581,7 +583,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         Zloadfd=si.fd.FrequencyContent(si.fd.GenericFrequencyList(ZloadFrequencies),ZloadImpedance)
         Zsourcefd=si.fd.FrequencyContent(si.fd.GenericFrequencyList(ZsourceFrequencies),ZsourceImpedance)
 
-        plot=True
+        plot=False
         if plot:
             import matplotlib.pyplot as plt
             zsy=Zsourcefd.Content('mag')
@@ -595,6 +597,66 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
             plt.yscale('log')
             plt.show()
 
+    def testVRM(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
+            'device L1 2 L 0.00022',
+            'device C1 1 C 4.7e-06',
+            'device R1 1 R 5.0',
+            'device D1 4 currentcontrolledvoltagesource 1.0',
+            'device G1 1 ground',
+            'device O1 1 open',
+            'device D2 4 currentcontrolledvoltagesource 1.0',
+            'device G2 1 ground',
+            'device O2 1 open',
+            'device D3 4 voltagecontrolledvoltagesource 1.0',
+            'device G3 1 ground',
+            'device O3 1 open',
+            'currentsource CG2 1',
+            'voltagesource VS1 1',
+            'device R2 2 R 1000000.0',
+            'device C2 2 C 2.2e-09',
+            'device D4 4 voltagecontrolledvoltagesource 10.0',
+            'device G4 1 ground',
+            'device O4 1 open',
+            'device R3 2 R 0.1',
+            'connect L1 1 D1 2',
+            'connect L1 2 R3 1',
+            'connect D2 1 D4 1 C2 2 R3 2 C1 1 D3 1',
+            'output R1 1',
+            'connect R1 1 D2 2 CG2 1',
+            'output R2 1',
+            'connect R2 1 VS1 1 D1 1 D3 2',
+            'connect D1 3 G1 1',
+            'output O1 1',
+            'connect O1 1 D1 4',
+            'connect D2 3 G2 1',
+            'output O2 1',
+            'connect O2 1 D2 4',
+            'connect D3 3 G3 1',
+            'output O3 1',
+            'connect O3 1 D3 4',
+            'connect D4 2 R2 2 C2 1',
+            'connect D4 3 G4 1',
+            'output O4 1',
+            'connect O4 1 D4 4'
+        ])
+        tm=snp.TransferMatrices()
+        #self.CheckSParametersResult(tm.SParameters(),fileNameBase+'_TransferMatrices.s6p','transfer matrices')
+        VS1=si.td.wf.Waveform().ReadFromFile('pw.txt')
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+        td=VS1.TimeDescriptor()
+        CG2=si.td.wf.PulseWaveform(td,-0.2,1e-3,1e-3)
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        [Vout,Vin,Il,Iout,Vl,Vc]=tmp.ProcessWaveforms([CG2,VS1])
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        self.CheckWaveformResult(Vout,fileNameBase+'_Vout.txt','Vout')
+        self.CheckWaveformResult(Vin,fileNameBase+'_Vin.txt','Vin')
+        self.CheckWaveformResult(Il,fileNameBase+'_Il.txt','Il')
+        self.CheckWaveformResult(Iout,fileNameBase+'_Iout.txt','Iout')
+        self.CheckWaveformResult(Vl,fileNameBase+'_Vl.txt','Vl')
+        self.CheckWaveformResult(Vc,fileNameBase+'_Vc.txt','Vc')
 
 if __name__ == '__main__':
     unittest.main()

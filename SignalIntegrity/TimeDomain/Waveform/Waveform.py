@@ -16,6 +16,7 @@ from AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.PySIException import PySIExceptionWaveformFile
 
 class Waveform(object):
+    adaptionStrategy='SinX'
     def __init__(self,x=None,y=None):
         if isinstance(x,Waveform):
             self.m_t=x.m_t
@@ -120,16 +121,20 @@ class Waveform(object):
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import InterpolatorLinear
+        from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import FractionalDelayFilterLinear
         from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
         # pragma: include
         wf=self
         u=int(round(td.Fs/wf.TimeDescriptor().Fs))
         if not u==1:
-            wf=wf*InterpolatorSinX(u)
+            wf=wf*(InterpolatorSinX(u) if strategy=='SinX'
+                else InterpolatorLinear(u))
         ad=td/wf.TimeDescriptor()
         f=ad.D-int(ad.D)
         if not f==0.0:
-            wf=wf*FractionalDelayFilterSinX(f,True)
+            wf=wf*(FractionalDelayFilterSinX(f,True) if strategy=='SinX'
+                else FractionalDelayFilterLinear(f,True))
         ad=td/wf.TimeDescriptor()
         tr=WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),
                            max(0,int(round(ad.TrimRight()))))

@@ -103,6 +103,27 @@ class TestInterpolatorLinear(unittest.TestCase,ResponseTesterHelper):
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
+    def testChangeSamplePhaseLinearNegative(self):
+        fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
+        # to change the sample phase, fractionally delay the waveform - the filter descriptor makes it so
+        # the waveform is not actually delayed!  i.e. it accounts for and undoes the delay effect
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt',si.td.wf.TimeDescriptor(0,50,20.))
+        #CableTxPWfDelayed=copy.deepcopy(CableTxPWf)
+        CableTxPWfDelayed=si.td.f.InterpolatorFractionalDelayFilterLinear(1,-0.3,accountForDelay=True).FilterWaveform(CableTxPWf)
+        #CableTxPWfDelayed.DelayBy(0.0/CableTxPWfDelayed.TimeDescriptor().Fs)
+        if PlotTestInterpolatorLinear:
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(CableTxPWf.Times('ns'),CableTxPWf.Values(),label='original waveform')
+            plt.plot(CableTxPWfDelayed.Times('ns'),CableTxPWfDelayed.Values(),label='sample phase changed by 0.3 samples')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times('ns'),regression.Values(),label='regression')
+            plt.legend(loc='upper right')
+            plt.show()
+        self.CheckWaveformResult(CableTxPWfDelayed,fileNameBase+'.txt',fileNameBase)
     def testUpsampleNoDelayLinear(self):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
