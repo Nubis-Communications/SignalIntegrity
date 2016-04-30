@@ -158,6 +158,25 @@ class TestInterpolatorLinear(unittest.TestCase,ResponseTesterHelper):
             plt.legend(loc='upper right')
             plt.show()
         self.CheckWaveformResult(CableTxPWfUpsampled,fileNameBase+'.txt',fileNameBase)
+    def testSimpleLinear(self):
+        fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
+        impulseWf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-2,5,1),[0,0,1,0,0])
+        fdpWf=impulseWf*si.td.f.FractionalDelayFilterLinear(0.3,accountForDelay=True)
+        fdnWf=impulseWf*si.td.f.FractionalDelayFilterLinear(-0.3,accountForDelay=True)
+        self.CheckWaveformResult(fdpWf,fileNameBase+'p.txt',fileNameBase)
+        self.CheckWaveformResult(fdnWf,fileNameBase+'n.txt',fileNameBase)
+        if PlotTestInterpolatorLinear:
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(impulseWf.Times(),impulseWf.Values(),marker='s',label='original waveform')
+            plt.plot(fdpWf.Times(),fdpWf.Values(),marker='o',label='linear fractional delay .3')
+            plt.plot(fdnWf.Times(),fdnWf.Values(),marker='o',label='linear fractional delay -.3')
+            if PlotRegression:
+                regression=si.td.wf.Waveform().ReadFromFile(fileNameBase+'.txt')
+                plt.plot(regression.Times(),regression.Values(),label='regression')
+            plt.legend(loc='upper right')
+            plt.show()
 
 if __name__ == '__main__':
     unittest.main()
