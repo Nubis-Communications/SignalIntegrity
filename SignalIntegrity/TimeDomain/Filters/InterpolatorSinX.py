@@ -11,12 +11,14 @@ from FirFilter import FirFilter
 
 import math
 
-def SinXFunc(k,S,U,F):
-    if float(k)/U-F-S==0:
-        return 1.
-    else:
-        return math.sin(math.pi*(float(k)/U-F-S))/(math.pi*(float(k)/U-F-S))*\
-            (1./2.+1./2.*math.cos(math.pi*(float(k)/U-S)/S))
+def SinX(S,U,F):
+    sl=[1. if float(k)/U-F-S==0 else
+        math.sin(math.pi*(float(k)/U-F-S))/(math.pi*(float(k)/U-F-S))*\
+        (1./2.+1./2.*math.cos(math.pi*(float(k)/U-S)/S))
+        for k in range(2*U*S+1)]
+    s=sum(sl)/U
+    sl=[sle/s for sle in sl]
+    return sl
 
 class FractionalDelayFilterSinX(FirFilter):
     def __init__(self,F,accountForDelay=True):
@@ -26,8 +28,7 @@ class FractionalDelayFilterSinX(FirFilter):
         S=64
         U=1
         FirFilter.__init__(self,
-            FilterDescriptor(U,S+F if accountForDelay else S,2*S),
-            [SinXFunc(k,S,U,F) for k in range(2*U*S+1)])
+            FilterDescriptor(U,S+F if accountForDelay else S,2*S),SinX(S,U,F))
 
 class InterpolatorSinX(FirFilter):
     def __init__(self,U):
@@ -36,9 +37,7 @@ class InterpolatorSinX(FirFilter):
         # pragma: include
         S=64
         F=0.
-        FirFilter.__init__(self,
-            FilterDescriptor(U,S+F,2*S),
-            [SinXFunc(k,S,U,F) for k in range(2*U*S+1)])
+        FirFilter.__init__(self,FilterDescriptor(U,S+F,2*S),SinX(S,U,F))
     def FilterWaveform(self,wf):
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform

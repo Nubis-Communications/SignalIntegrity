@@ -531,8 +531,8 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         tmp=si.td.f.TransferMatricesProcessor(tm)
         [Vout,Iout]=tmp.ProcessWaveforms([VG1,CG2])
         VinMinusVout=si.td.wf.Waveform(Vout.TimeDescriptor(),[5.-v for v in Vout.Values()])
-        self.CheckWaveformResult(Iout,fileNameBase+'_Iout.txt','current')
-        self.CheckWaveformResult(Vout,fileNameBase+'_Vout.txt','voltage')
+        self.CheckWaveformResult(Iout,'Waveform_'+fileNameBase+'_Iout.txt','current')
+        self.CheckWaveformResult(Vout,'Waveform_'+fileNameBase+'_Vout.txt','voltage')
         Voutfd=Vout.FrequencyContent()
         Ioutfd=Iout.FrequencyContent()
         VinMinusVoutfd=VinMinusVout.FrequencyContent()
@@ -643,7 +643,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
             'connect O4 1 D4 4'
         ])
         tm=snp.TransferMatrices()
-        #self.CheckSParametersResult(tm.SParameters(),fileNameBase+'_TransferMatrices.s6p','transfer matrices')
+        self.CheckSParametersResult(tm.SParameters(),fileNameBase+'_TransferMatrices.s6p','transfer matrices')
         VS1=si.td.wf.Waveform().ReadFromFile('pw.txt')
         si.td.wf.Waveform.adaptionStrategy='Linear'
         td=VS1.TimeDescriptor()
@@ -651,12 +651,121 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         tmp=si.td.f.TransferMatricesProcessor(tm)
         [Vout,Vin,Il,Iout,Vl,Vc]=tmp.ProcessWaveforms([CG2,VS1])
         si.td.wf.Waveform.adaptionStrategy='SinX'
-        self.CheckWaveformResult(Vout,fileNameBase+'_Vout.txt','Vout')
-        self.CheckWaveformResult(Vin,fileNameBase+'_Vin.txt','Vin')
-        self.CheckWaveformResult(Il,fileNameBase+'_Il.txt','Il')
-        self.CheckWaveformResult(Iout,fileNameBase+'_Iout.txt','Iout')
-        self.CheckWaveformResult(Vl,fileNameBase+'_Vl.txt','Vl')
-        self.CheckWaveformResult(Vc,fileNameBase+'_Vc.txt','Vc')
+        self.CheckWaveformResult(Vout,'Waveform_'+fileNameBase+'_Vout.txt','Vout')
+        self.CheckWaveformResult(Vin,'Waveform_'+fileNameBase+'_Vin.txt','Vin')
+        self.CheckWaveformResult(Il,'Waveform_'+fileNameBase+'_Il.txt','Il')
+        self.CheckWaveformResult(Iout,'Waveform_'+fileNameBase+'_Iout.txt','Iout')
+        self.CheckWaveformResult(Vl,'Waveform_'+fileNameBase+'_Vl.txt','Vl')
+        self.CheckWaveformResult(Vc,'Waveform_'+fileNameBase+'_Vc.txt','Vc')
+    def testVRMVPAlgorithm(self):
+        from copy import copy
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+        Vin=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Vin.txt')
+        Vout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Vout.txt')
+        Vlcalc=Vin-Vout
+        Vl=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Vl.txt')
+        L=220e-6
+        R=.1
+        Il=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Il.txt')
+        il=copy(Vl.Values())
+        vl=Vl.Values()
+        il[0]=0.
+        T=1./Vl.TimeDescriptor().Fs
+        K=Vl.TimeDescriptor().N
+        for k in range(1,K):
+            il[k]=(vl[k]+L/T*il[k-1])/(L/T+R)
+        Ilcalc=si.td.wf.Waveform(Vl.TimeDescriptor(),il)
+        C=4.7e-6
+        Ioutcalc=Il-Vout.Derivative()*C
+        Iout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Iout.txt')
+        [Vlcalc,Vl,Ilcalc,Il,Ioutcalc,Iout]=si.td.wf.AdaptedWaveforms([Vlcalc,Vl,Ilcalc,Il,Ioutcalc,Iout])
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        plot=False
+        if plot:
+            import matplotlib.pyplot as plt
+            plt.subplot(1,1,1)
+            plt.plot(Vlcalc.Times(),Vlcalc.Values(),label='Vlcalc')
+            plt.plot(Vl.Times(),Vl.Values(),label='Vl')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+            plt.plot(Ilcalc.Times(),Ilcalc.Values(),label='Ilcalc')
+            plt.plot(Il.Times(),Il.Values(),label='Il')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+            plt.plot(Ioutcalc.Times(),Ioutcalc.Values(),label='Ioutcalc')
+            plt.plot(Iout.Times(),Iout.Values(),label='Iout')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+    def testDeriv(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        derivFd=si.fd.Differentiator(si.fd.EvenlySpacedFrequencyList(5e6,10000))
+        derivIr=derivFd.ImpulseResponse()
+        integralIr=derivIr.Integral()
+        plot=False
+        if plot:
+            import matplotlib.pyplot as plt
+            plt.subplot(1,1,1)
+            plt.plot(derivFd.Frequencies(),derivFd.Response('dB'),label='deriv')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.xscale('log')
+            plt.show()
+            plt.cla()
+
+            plt.plot(derivIr.Times(),derivIr.Values(),label='deriv')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+            plt.plot(integralIr.Times(),integralIr.Values(),label='integral')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+    def testDerivIntegral(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        Vout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Vout.txt')
+        Il=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Il.txt')
+        Iout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Iout.txt')
+        C=4.7e-6
+        VoutDC=Vout.Derivative()*C
+        [Il,Iout,VoutDC]=si.td.wf.AdaptedWaveforms([Il,Iout,VoutDC])
+        Ioutcalc=Il-VoutDC
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        self.CheckWaveformResult(Ioutcalc,'Waveform_'+fileNameBase+'_Ioutcalc.txt','Ioutcalc')
+        Ioutcalc2=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testDerivIntegral_Ioutcalc.txt')
+        IoutDiff=Ioutcalc-Ioutcalc2
+
+        plot=False
+        if plot:
+            import matplotlib.pyplot as plt
+            plt.subplot(1,1,1)
+            plt.plot(Il.Times(),Il.Values(),label='Il')
+            plt.plot(VoutDC.Times(),(VoutDC+0.98).Values(),label='VoutDC')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+
+            plt.plot(Ioutcalc.Times(),Ioutcalc.Values(),label='Ioutcalc')
+            plt.plot(Iout.Times(),Iout.Values(),label='Iout')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+            plt.plot(IoutDiff.Times(),IoutDiff.Values(),label='IoutDiff')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
 
 if __name__ == '__main__':
     unittest.main()

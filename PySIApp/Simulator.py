@@ -257,17 +257,21 @@ class Simulator(object):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity as si
-        snp=si.p.SimulatorNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                self.parent.calculationProperties.endFrequency,
-                self.parent.calculationProperties.frequencyPoints))
+        fd=si.fd.EvenlySpacedFrequencyList(
+            self.parent.calculationProperties.endFrequency,
+            self.parent.calculationProperties.frequencyPoints)
+        snp=si.p.SimulatorNumericParser(fd)
         snp.AddLines(netListText)
         try:
             self.transferMatrices=snp.TransferMatrices()
         except si.PySIException as e:
             tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
             return
-        tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+
+        #self.transferMatrices.SParameters().WriteToFile('xfer.sXp')
+
+        self.outputWaveformLabels=netList.OutputNames()
+
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.SourceNames()
@@ -275,10 +279,25 @@ class Simulator(object):
             tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
+        diresp=si.fd.Differentiator(fd).Response()
+
+        for r in range(len(self.outputWaveformLabels)):
+            for c in range(len(self.inputWaveformList)):
+                if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='d/':
+                    #print 'differentiate: '+self.outputWaveformLabels[r]
+                    for n in range(len(self.transferMatrices.Matrices)):
+                        self.transferMatrices.Matrices[n][r][c]=self.transferMatrices.Matrices[n][r][c]*diresp[n]
+
+        tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
         outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
-        self.outputWaveformLabels=netList.OutputNames()
+
+        for r in range(len(outputWaveformList)):
+            if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':
+                #print 'integrate: '+self.outputWaveformLabels[r]
+                outputWaveformList[r]=outputWaveformList[r].Integral()
 
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
@@ -341,5 +360,7 @@ class Simulator(object):
             si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.parent.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('PySI Virtual Probe: '+self.parent.fileparts.FileNameTitle())
+        self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
+        self.SimulatorDialog().SimulateDoer.Activate(True)
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
 

@@ -10,6 +10,7 @@
 from numpy import fft
 import math
 import cmath
+from copy import copy
 
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
@@ -53,8 +54,8 @@ class Waveform(object):
             if self.TimeDescriptor() == other.TimeDescriptor():
                 return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
             else:
-                awf=AdaptedWaveforms([self,other])
-                return Waveform(awf[0].TimeDescriptor(),[awf[0][k]+awf[1][k] for k in range(len(awf[0]))])
+                [s,o]=AdaptedWaveforms([self,other])
+                return Waveform(s.TimeDescriptor(),[s[k]+o[k] for k in range(len(s))])
                 #return awf[0]+awf[1]
         elif isinstance(other,float):
             return Waveform(self.m_t,[v+other for v in self.Values()])
@@ -62,8 +63,9 @@ class Waveform(object):
         if self.TimeDescriptor() == other.TimeDescriptor():
             return Waveform(self.TimeDescriptor(),[self[k]-other[k] for k in range(len(self))])
         else:
-            awf=AdaptedWaveforms([self,other])
-            return awf[0]-awf[1]
+            [s,o]=AdaptedWaveforms([self,other])
+            return Waveform(s.TimeDescriptor(),[s[k]-o[k] for k in range(len(s))])
+            #return awf[0]-awf[1]
     def __radd__(self, other):
         if other == 0:
             return self
@@ -177,6 +179,35 @@ class Waveform(object):
             return self._AdjustLength().FrequencyContent(None,adjustLength=False)
         if fd:
             return self.FrequencyContent().Resample(fd)
+    def Integral(self,c=0.,addPoint=True):
+        td=copy(self.TimeDescriptor())
+        i=[0 for k in range(len(self))]
+        for k in range(len(i)):
+            if k==0:
+                i[k]=(self[k]*3-c)*1./(2.*td.Fs)
+            else:
+                i[k]=i[k-1]+(self[k]*3-self[k-1])*1./(2.*td.Fs)
+        td.H=td.H+(1./2.)*(1./td.Fs)
+        if addPoint:
+            td.N=td.N+1
+            td.H=td.H=td.H-1./td.Fs
+            i=[c]+i
+        return Waveform(td,i)
+    def Derivative(self,c=0.,removePoint=True):
+        td=copy(self.TimeDescriptor())
+        vl=copy(self.Values())
+        v=self.Values()
+        for k in range(len(vl)):
+            if k==0:
+                vl[k]=0.
+            else:
+                vl[k]=(v[k]-v[k-1])*td.Fs
+        td.H=td.H-(1./2.)*(1./td.Fs)
+        if removePoint:
+            td.N=td.N-1
+            td.H=td.H+1./td.Fs
+            vl=vl[1:]
+        return Waveform(td,vl)
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):

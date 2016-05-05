@@ -225,6 +225,8 @@ class SParametersDialog(Toplevel):
             self.WaveletDenoiseDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
 
+        self.buttonLabels=buttonLabels
+
         self.buttons=[]
         for toP in range(len(buttonLabels)):
             buttonrow=[]
@@ -320,6 +322,14 @@ class SParametersDialog(Toplevel):
         self.topRightPlot.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
 
         if ir is not None:
+            print self.buttonLabels[self.toPort-1][self.fromPort-1]
+            if self.buttonLabels[self.toPort-1][self.fromPort-1][:2]=='i/' or self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
+                print 'Integrate'
+                ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False))
+            if self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
+                print 'Integrate'
+                ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False)*ir.TimeDescriptor().Fs)
+
             y=ir.Values()
 
             timeLabel=ToSI(ir.Times()[-1],'s')[-2:]
@@ -355,7 +365,7 @@ class SParametersDialog(Toplevel):
             stepResponse=stepWaveform*firFilter
             y=stepResponse.Values()
             x=stepResponse.Times(timeLabelDivisor)
-            
+
             if self.showImpedance.get() and (self.fromPort == self.toPort):
                 Z0=self.referenceImpedance.GetValue()
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
@@ -366,7 +376,7 @@ class SParametersDialog(Toplevel):
             else:
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
-                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))               
+                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
 
             self.bottomRightPlot.plot(x,y)
 
@@ -453,13 +463,14 @@ class SParametersDialog(Toplevel):
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
         numPorts=self.sp.m_P
+        self.buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
         self.buttons=[]
         for toP in range(numPorts):
             buttonrow=[]
             rowFrame=Frame(self.sButtonsFrame)
             rowFrame.pack(side=TOP,expand=NO,fill=NONE)
             for fromP in range(numPorts):
-                thisButton=Button(rowFrame,text='s'+str(toP+1)+str(fromP+1),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+                thisButton=Button(rowFrame,text=self.buttonLabels[toP][fromP],command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
                 thisButton.pack(side=LEFT,fill=NONE,expand=NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
@@ -519,10 +530,10 @@ class SParametersDialog(Toplevel):
     def onEnforceCausality(self):
         self.sp.EnforceCausality()
         self.PlotSParameter()
-        
+
     def onWaveletDenoise(self):
         self.sp.WaveletDenoise()
         self.PlotSParameter()
-        
+
 
 

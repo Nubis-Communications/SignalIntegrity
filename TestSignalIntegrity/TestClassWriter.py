@@ -466,7 +466,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteSinXFunc(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"
         className=''
-        defName=['SinXFunc']
+        defName=['SinX']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFractionalDelayFilterSinX(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/InterpolatorSinX.py"

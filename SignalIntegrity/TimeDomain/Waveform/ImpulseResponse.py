@@ -16,7 +16,7 @@ from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
 
 class ImpulseResponse(Waveform):
-    def __init__(self,t,td):
+    def __init__(self,t=None,td=None):
         Waveform.__init__(self,t,td)
     def DelayBy(self,d):
         return ImpulseResponse(self.TimeDescriptor().DelayBy(d),self.Values())
