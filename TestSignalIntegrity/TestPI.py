@@ -767,5 +767,125 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
             plt.show()
             plt.cla()
 
+    def testVRMParasitics(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
+            'device L1 2 L 0.00022',
+            'device C1 1 C 4.7e-06',
+            'device R1 1 R 5.0',
+            'device D1 4 currentcontrolledvoltagesource 1.0',
+            'device G1 1 ground',
+            'device O1 1 open',
+            'device D2 4 currentcontrolledvoltagesource 1.0',
+            'device G2 1 ground',
+            'device O2 1 open',
+            'device D3 4 voltagecontrolledvoltagesource 1.0',
+            'device G3 1 ground',
+            'device O3 1 open',
+            'currentsource CG2 1',
+            'voltagesource VS1 1',
+            'device R3 2 R 0.1',
+            'device R4 2 R 0.2',
+            'device C3 1 C 1e-07',
+            'device L2 2 L 1e-07',
+            'device R2 2 R 0.2',
+            'connect L1 1 D1 2',
+            'connect L1 2 R3 1',
+            'connect C1 1 L2 1',
+            'connect R1 1 CG2 1 D2 2',
+            'output R3 2',
+            'connect R3 2 D2 1 D3 1 R2 2',
+            'output D1 1',
+            'connect D1 1 R4 2 C3 1 D3 2',
+            'connect D1 3 G1 1',
+            'output O1 1',
+            'connect O1 1 D1 4',
+            'connect D2 3 G2 1',
+            'output O2 1',
+            'connect O2 1 D2 4',
+            'connect D3 3 G3 1',
+            'output O3 1',
+            'connect O3 1 D3 4',
+            'connect VS1 1 R4 1',
+            'connect L2 2 R2 1'
+        ])
+        tm=snp.TransferMatrices()
+        self.CheckSParametersResult(tm.SParameters(),fileNameBase+'_TransferMatrices.s5p','transfer matrices')
+        VS1=si.td.wf.Waveform().ReadFromFile('pw.txt')
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+        td=VS1.TimeDescriptor()
+        CG2=si.td.wf.PulseWaveform(td,-0.2,1e-3,1e-3)
+        tmp=si.td.f.TransferMatricesProcessor(tm)
+        [Vout,Vin,Il,Iout,Vl]=tmp.ProcessWaveforms([CG2,VS1])
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        self.CheckWaveformResult(Vout,'Waveform_'+fileNameBase+'_Vout.txt','Vout')
+        self.CheckWaveformResult(Vin,'Waveform_'+fileNameBase+'_Vin.txt','Vin')
+        self.CheckWaveformResult(Il,'Waveform_'+fileNameBase+'_Il.txt','Il')
+        self.CheckWaveformResult(Iout,'Waveform_'+fileNameBase+'_Iout.txt','Iout')
+        self.CheckWaveformResult(Vl,'Waveform_'+fileNameBase+'_Vl.txt','Vl')
+        
+    def testVRMComplicatedProcessing(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        Vout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Vout.txt')
+        Vin=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Vin.txt')
+        Vlcalc=Vin-Vout
+        K=Vlcalc.TimeDescriptor().N
+        T=1./Vlcalc.TimeDescriptor().Fs
+        L=220e-6
+        R=.1
+        C=4.7e-6
+        Lc=100e-9
+        Rc=200e-3
+        
+        A=T*T/(T*T+Lc*C+Rc*C*T)
+        print A
+        il=[0. for k in range(len(Vlcalc))]
+        vl=Vlcalc.Values()
+        il[0]=vl[0]*T/(L+R*T)
+        for k in range(1,K):
+            il[k]=vl[k]*T/(L+R*T)+il[k-1]*L/(L+R*T)
+        Ilcalc=si.td.wf.Waveform(Vlcalc.TimeDescriptor(),il)
+        iout=[0. for k in range(len(Ilcalc))]
+        vout=Vout.Values()
+        
+        il=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Il.txt').Values()
+        
+        ilz0=1.
+        ilz1=-C*A*(2*Lc+Rc*T)/(T*T)
+        ilz2=Lc*C*A/(T*T)
+        voutz0=-C/T*A
+        voutz1=C/T*A
+        ioutz1=C*A*(2*Lc+Rc*T)/(T*T)
+        ioutz2=-Lc*C*A/(T*T)
+
+        iout[0]=il[0]*ilz0+vout[0]*voutz0
+        iout[1]=il[1]*ilz0+il[0]*ilz1+vout[1]*voutz0+vout[0]*voutz1+iout[0]*ioutz1
+        for k in range(2,K):
+            iout[k]=il[k]*ilz0+il[k-1]*ilz1+il[k-2]*ilz2+vout[k]*voutz0+vout[k-1]*voutz1+iout[k-1]*ioutz1+iout[k-2]*ioutz2
+        
+        Ioutcalc=si.td.wf.Waveform(Vlcalc.TimeDescriptor(),iout)
+
+        Il=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Il.txt')
+        Vl=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Vl.txt')
+        Iout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Iout.txt')
+ 
+        plot=False
+        if plot:
+            import matplotlib.pyplot as plt
+            plt.subplot(1,1,1)
+            plt.plot(Ilcalc.Times(),Ilcalc.Values(),label='Ilcalc')
+            plt.plot(Il.Times(),Il.Values(),label='Il')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
+            plt.plot(Ioutcalc.Times(),Ioutcalc.Values(),label='Ioutcalc')
+            plt.plot(Iout.Times(),Iout.Values(),label='Iout')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
 if __name__ == '__main__':
     unittest.main()

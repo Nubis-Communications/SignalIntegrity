@@ -1,0 +1,536 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass memoir
+\begin_preamble
+
+\usepackage{cite}
+\usepackage{memhfixc}
+\usepackage{struktex}
+\usepackage{index}
+\usepackage{import}
+\usepackage{chapterfolder}
+\usepackage[printonlyused]{acronym}
+%\usepackage{showkeys}%\usepackage{outliner}
+\usepackage{bbold}
+\usepackage{lettrine}
+\usepackage{alltt}
+\usepackage{lmodern}
+\usepackage[OT1,OT2,T1]{fontenc}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{float}
+\floatname{algorithm}{Listing}
+
+\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+
+\tolerance=1000
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language american
+\language_package default
+\inputencoding auto
+\fontencoding T1
+\font_roman lmodern
+\font_sans lmss
+\font_typewriter lmtt
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics pdftex
+\default_output_format pdf2
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref false
+\papersize letterpaper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1.5in
+\topmargin 1.5in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\listings_params "basicstyle={\listingTextSize\ttfamily},breakautoindent=true,breakindent=10pt,breaklines=true,captionpos=t,columns=fixed,commentstyle={\listingTextSize\ttfamily\color{colComments}},extendedchars=true,float=hbp,identifierstyle={\listingTextSize\ttfamily\color{colIdentifier}},keywordstyle={\listingTextSize\ttfamily\color{colKeys}},language=Matlab,numbers=left,numbersep=1em,numberstyle={\listingTextSize\ttfamily},showspaces=false,showstringspaces=false,stringstyle={\listingTextSize\ttfamily\color{colString}},tabsize=4,xleftmargin=1em"
+\tracking_changes false
+\output_changes false
+\html_math_output 3
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Power Integrity
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+frontmatter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mainmatter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Processing
+\end_layout
+
+\begin_layout Subsection
+Computation of 
+\begin_inset Formula $I_{L}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{L}\left(s\right)=\frac{V_{in}\left(s\right)-V_{out}\left(s\right)}{s\cdot L+R}=\frac{V_{L}\left(s\right)}{s\cdot L+R}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+s\approx\frac{1}{T}\cdot\left(1-z^{-1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{L}\left(z\right)=\frac{V_{L}\left(z\right)}{\frac{L}{T}\cdot\left(1-z^{-1}\right)+R}=\frac{V_{L}\left(z\right)}{\left(\frac{L}{T}+R\right)-\frac{L}{T}\cdot z^{-1}}=\frac{V_{L}\left(z\right)}{\left(\frac{L+R\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{L}\left(z\right)=\frac{T}{L+R\cdot T}\left(V_{L}\left(z\right)+\frac{L}{T}\cdot z^{-1}\cdot I_{L}\left(z\right)\right)=\frac{T}{L+R\cdot T}\cdot V_{L}\left(z\right)+\frac{L}{L+R\cdot T}\cdot z^{-1}\cdot I_{L}\left(z\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{L}\left[k\right]=\frac{T}{L+R\cdot T}\cdot V_{L}\left[k\right]+\frac{L}{L+R\cdot T}\cdot I_{L}\left[k-1\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H_{L}\left(z\right)=\frac{I_{L}\left(z\right)}{V_{L}\left(z\right)}=\frac{1}{\left(\frac{L+R\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}=\frac{T}{L}\cdot\frac{1}{\frac{L+R\cdot T}{L}-z^{-1}}=\frac{T}{L+R\cdot T}\cdot\frac{z}{z-\frac{L}{L+R\cdot T}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset Formula $L\gg R\cdot T$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H_{L}\left(z\right)\approx\frac{T}{L}\cdot\frac{1}{1-z^{-1}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which means that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{L}\left(t\right)\approx\frac{1}{L}\int V_{L}\left(t\right)\cdot dt
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It turns out that the series 
+\begin_inset Formula $R$
+\end_inset
+
+ is very important, because without it, the computation will diverge.
+\end_layout
+
+\begin_layout Standard
+In practical applications, 
+\begin_inset Formula $R$
+\end_inset
+
+ is very small (on the order of 
+\begin_inset Formula $1\thinspace m\Omega$
+\end_inset
+
+.
+ With an inductance of 
+\begin_inset Formula $L=220\thinspace\mu H$
+\end_inset
+
+, and a sample rate of 
+\begin_inset Formula $10\thinspace MS/s$
+\end_inset
+
+, (
+\begin_inset Formula $T=100\thinspace ns$
+\end_inset
+
+), we would have a pole location at:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{L}{L+R\cdot T}=\frac{220\thinspace\mu}{220\thinspace\mu+.001\thinspace\mu\cdot.1\thinspace\mu}=\frac{220}{220+.0001}=0.9999995455
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This pole so close to unity can be very problematic in filtering and will
+ require very long filter startup times and will require processing techniques
+ to guess the starting point of 
+\begin_inset Formula $I_{L}$
+\end_inset
+
+ similar to what we need to do in clock recovery in serial data processing.
+\end_layout
+
+\begin_layout Subsection
+Computation of 
+\begin_inset Formula $I_{out}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+-I_{L}\left(s\right)+\frac{V_{out}\left(s\right)}{\frac{1}{C\cdot s}}+I_{out}\left(s\right)=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{out}\left(s\right)=I_{L}\left(s\right)-C\cdot s\cdot V_{out}\left(s\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+s\approx\frac{1}{T}\cdot\left(1-z^{-1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{out}\left(z\right)=I_{L}\left(z\right)-\frac{C}{T}\cdot\left(1-z^{-1}\right)\cdot V_{out}\left(z\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{out}\left[k\right]=I_{L}\left[k\right]-\frac{C}{T}\cdot\left(V_{out}\left[k\right]-V_{out}\left[k-1\right]\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Alternate computation with more parasitics
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+-I_{L}\left(s\right)+\frac{V_{out}\left(s\right)}{\frac{1}{C\cdot s}+s\cdot L+R}+I_{out}\left(s\right)=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A=\frac{T^{2}}{T^{2}+L\cdot C+R\cdot C\cdot T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{multline*}
+I_{out}\left[k\right]=I_{L}\left[k\right]+-C\cdot A\cdot\frac{2\cdot L+R\cdot T}{T^{2}}\cdot I_{L}\left[k-1\right]+\frac{L\cdot C}{T^{2}}\cdot A\cdot I_{L}\left[k-2\right]+\ldots\\
+\ldots+C\cdot A\cdot\frac{2\cdot L+R\cdot T}{T^{2}}\cdot I_{out}\left[k-1\right]+-\frac{L\cdot C}{T^{2}}\cdot A\cdot I_{out}\left[k-2\right]+\ldots\\
+\ldots+-\frac{C}{T}\cdot A\cdot V_{out}\left[k\right]+\frac{C}{T}\cdot A\cdot V_{out}\left[k-1\right]
+\end{multline*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is comforting to find that if 
+\begin_inset Formula $L=R=0$
+\end_inset
+
+, then 
+\begin_inset Formula $A=1$
+\end_inset
+
+, and we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{out}\left[k\right]=I_{L}\left[k\right]+-\frac{C}{T}\cdot V_{out}\left[k\right]+\frac{C}{T}\cdot V_{out}\left[k-1\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "ProcessingDiagram.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Processing Block Diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ProcessingBlockDiagram"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "ProcessingDiagram2.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Processing Block Diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ProcessingBlockDiagram-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
