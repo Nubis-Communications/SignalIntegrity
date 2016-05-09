@@ -23,6 +23,7 @@
 \usepackage{float}
 \floatname{algorithm}{Listing}
 
+
 \DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
 \DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
 
@@ -154,12 +155,253 @@ mainmatter
 \end_layout
 
 \begin_layout Section
-Processing
+Introduction
 \end_layout
 
-\begin_layout Subsection
-Computation of 
-\begin_inset Formula $I_{L}$
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "BlockDiagram.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+System Block Diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SystemBlockDiagram"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename VoltageStartup.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Startup Voltages
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:StartupVoltages"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A simplified block diagram of a switched-mode power supply is shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:SystemBlockDiagram"
+
+\end_inset
+
+.
+ This block diagram is of a 
+\begin_inset Quotes eld
+\end_inset
+
+buck
+\begin_inset Quotes erd
+\end_inset
+
+ convertor configuration, so called because the system produces a regulated
+ voltage 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+ which is lower than the input voltage 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+.
+ Other configurations are possible including 
+\begin_inset Quotes eld
+\end_inset
+
+boost
+\begin_inset Quotes erd
+\end_inset
+
+ configurations where the output voltage is higher than the input voltage,
+ along with combinations (
+\begin_inset Quotes eld
+\end_inset
+
+buck-boost
+\begin_inset Quotes erd
+\end_inset
+
+) and flyback configurations that provide isolated outputs.
+ The analysis of all configurations is similar as they are rearrangements
+ of the inductor location and sometimes include a transformer.
+\end_layout
+
+\begin_layout Standard
+In this simplified configuration, the input voltage is switched on and off
+ with a given duty cycle.
+ When the top FET switches on, the input voltage is connected directly to
+ the inductor.
+ Since the inductance is very large, current increases nearly linearly,
+ building up a magnetic field in the inductor.
+ When the top FET switches off, current wants to continue flowing and the
+ bottom FET switches on allowing the current to continue through the inductor.
+ At this point, the current decreases nearly linearly discharging into the
+ bulk capacitance and the load.
+ At startup, the voltage across the inductor during the top FET on time
+ is approximately 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+, and the output voltage 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+ is nearly zero, but as the system reaches steady state, 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+ approaches a voltage that is proportional to 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ based on the switching duty cycle.
+ In steady state, the voltage across the inductor alternates between the
+ positive and negative difference between the steady state output voltage
+ and the input voltage and the inductor current is nearly steady and is
+ nearly equal to the load current.
+\end_layout
+
+\begin_layout Standard
+Typically, the output voltage is fed back to the voltage regulation module
+ (VRM) and the duty cycle is regulated based on observations of the output
+ voltage.
+ Thus, under dynamic conditions, the VRM modulates the duty cycle in order
+ to supply more or less current to the load and to keep 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+ as constant as possible.
+\end_layout
+
+\begin_layout Standard
+In the analysis of switched-mode supplies, it is interesting to measure
+ the input voltage, output voltage, inductor current, and load current in
+ order to understand the dynamics of the supply.
+\end_layout
+
+\begin_layout Section
+Measurement of Inductor Current
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "CurrentSense.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Inductor Current Sense Circuit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:CurrentSense"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A standard way of measuring the inductor current is shown in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:CurrentSense"
+
+\end_inset
+
+.
+ Analyzing this circuit, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{l}=\frac{V_{l}}{s\cdot L+R_{l}}=\frac{\frac{V_{l}}{L}}{s+\frac{R_{l}}{L}}
+\]
+
 \end_inset
 
 
@@ -168,12 +410,298 @@ Computation of
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{L}\left(s\right)=\frac{V_{in}\left(s\right)-V_{out}\left(s\right)}{s\cdot L+R}=\frac{V_{L}\left(s\right)}{s\cdot L+R}
+V_{cs}=\frac{V_{l}}{R_{s}+\frac{1}{C_{s}\cdot s}}\cdot\frac{1}{C_{s}\cdot s}=\frac{\frac{V_{l}}{R_{s}\cdot C_{s}}}{s+\frac{1}{R_{s}\cdot C_{s}}}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Therefore, the inductor current relative to the voltage across 
+\begin_inset Formula $C_{cs}$
+\end_inset
+
+ is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{I_{l}}{V_{cs}}=\frac{s+\frac{1}{R_{s}\cdot C_{s}}}{s+\frac{R_{l}}{L}}\cdot\frac{R_{s}\cdot C_{s}}{L}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ideally, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{R_{l}}{L}=\frac{1}{R_{s}\cdot C_{s}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+C_{s}=\frac{L}{R_{l}\cdot R_{s}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The DC gain is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+G=\frac{R_{s}\cdot C_{s}}{L}=\frac{1}{R_{l}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A reasonable set of values would be an inductance of 
+\begin_inset Formula $220\thinspace\mu H$
+\end_inset
+
+ and the series inductor resistance of 
+\begin_inset Formula $R_{l}=1\thinspace m\Omega$
+\end_inset
+
+.
+ The product of the sense resistor 
+\begin_inset Formula $R_{s}$
+\end_inset
+
+ and the sense capacitor 
+\begin_inset Formula $C_{s}$
+\end_inset
+
+ is therefore:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R_{s}\cdot C_{s}=\frac{L}{R_{l}}=0.22
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, for a sense resistance of 
+\begin_inset Formula $R_{s}=1\thinspace M\Omega$
+\end_inset
+
+, we have a sense capacitor of 
+\begin_inset Formula $220\thinspace nF$
+\end_inset
+
+.
+ Unfortunately, the DC gain is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+G=\frac{1}{R_{l}}=1000
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ideally, we can find another way of making this measurement.
+\end_layout
+
+\begin_layout Section
+Processing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "TestVRMParasitics.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+System Equivalent Circuit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SystemEquivalentCircuit"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+In this section, we endeavor to try to calculate the important measurements
+ 
+\begin_inset Formula $V_{l}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{l}$
+\end_inset
+
+, and 
+\begin_inset Formula $I_{o}$
+\end_inset
+
+ from two single-ended measurements 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+.
+ In order to do this, we consider the equivalent circuit in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:SystemEquivalentCircuit"
+
+\end_inset
+
+.
+ Here we have included numerous parasitics including the on-resistance and
+ capacitance of the drive circuit 
+\begin_inset Formula $R_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $C_{s}$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Note that these are not the same 
+\begin_inset Formula $R_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $C_{s}$
+\end_inset
+
+ from last section
+\end_layout
+
+\end_inset
+
+, the series resistance in the inductor 
+\begin_inset Formula $R_{l}$
+\end_inset
+
+ and the series resistance and inductance of the capacitor 
+\begin_inset Formula $R_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $L_{c}$
+\end_inset
+
+.
+ For now, we consider the load as an unknown quantity 
+\begin_inset Formula $Z_{o}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Computation of 
+\begin_inset Formula $I_{l}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Considering the current across the inductor, we solve:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{l}\left(s\right)=\frac{V_{i}\left(s\right)-V_{o}\left(s\right)}{s\cdot L+R_{l}}=\frac{V_{l}\left(s\right)}{s\cdot L+R_{l}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We note that 
+\begin_inset Formula $V_{l}$
+\end_inset
+
+ is simply the difference between 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{s}$
+\end_inset
+
+.
+ In sampled systems, we use the approximation of the derivative that lets
+ us convert from the Laplace transform to the z transform:
 \end_layout
 
 \begin_layout Standard
@@ -188,9 +716,13 @@ s\approx\frac{1}{T}\cdot\left(1-z^{-1}\right)
 \end_layout
 
 \begin_layout Standard
+Making the substitution, we have:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
-I_{L}\left(z\right)=\frac{V_{L}\left(z\right)}{\frac{L}{T}\cdot\left(1-z^{-1}\right)+R}=\frac{V_{L}\left(z\right)}{\left(\frac{L}{T}+R\right)-\frac{L}{T}\cdot z^{-1}}=\frac{V_{L}\left(z\right)}{\left(\frac{L+R\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}
+I_{l}\left(z\right)=\frac{V_{l}\left(z\right)}{\frac{L}{T}\cdot\left(1-z^{-1}\right)+R_{l}}=\frac{V_{l}\left(z\right)}{\left(\frac{L}{T}+R_{l}\right)-\frac{L}{T}\cdot z^{-1}}=\frac{V_{l}\left(z\right)}{\left(\frac{L+R_{l}\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}
 \]
 
 \end_inset
@@ -201,7 +733,7 @@ I_{L}\left(z\right)=\frac{V_{L}\left(z\right)}{\frac{L}{T}\cdot\left(1-z^{-1}\ri
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{L}\left(z\right)=\frac{T}{L+R\cdot T}\left(V_{L}\left(z\right)+\frac{L}{T}\cdot z^{-1}\cdot I_{L}\left(z\right)\right)=\frac{T}{L+R\cdot T}\cdot V_{L}\left(z\right)+\frac{L}{L+R\cdot T}\cdot z^{-1}\cdot I_{L}\left(z\right)
+I_{l}\left(z\right)=\frac{T}{L+R_{l}\cdot T}\left(V_{l}\left(z\right)+\frac{L}{T}\cdot z^{-1}\cdot I_{l}\left(z\right)\right)=\frac{T}{L+R_{l}\cdot T}\cdot V_{l}\left(z\right)+\frac{L}{L+R_{l}\cdot T}\cdot z^{-1}\cdot I_{l}\left(z\right)
 \]
 
 \end_inset
@@ -210,9 +742,14 @@ I_{L}\left(z\right)=\frac{T}{L+R\cdot T}\left(V_{L}\left(z\right)+\frac{L}{T}\cd
 \end_layout
 
 \begin_layout Standard
+Taking the inverse z transform, we obtain the difference equation of the
+ inductor current with respect to the voltage across the inductor.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
-I_{L}\left[k\right]=\frac{T}{L+R\cdot T}\cdot V_{L}\left[k\right]+\frac{L}{L+R\cdot T}\cdot I_{L}\left[k-1\right]
+I_{l}\left[k\right]=\frac{T}{L+R_{l}\cdot T}\cdot V_{l}\left[k\right]+\frac{L}{L+R_{l}\cdot T}\cdot I_{l}\left[k-1\right]
 \]
 
 \end_inset
@@ -221,9 +758,14 @@ I_{L}\left[k\right]=\frac{T}{L+R\cdot T}\cdot V_{L}\left[k\right]+\frac{L}{L+R\c
 \end_layout
 
 \begin_layout Standard
+The transfer function that produces the inductor current from the inductor
+ voltage is:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
-H_{L}\left(z\right)=\frac{I_{L}\left(z\right)}{V_{L}\left(z\right)}=\frac{1}{\left(\frac{L+R\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}=\frac{T}{L}\cdot\frac{1}{\frac{L+R\cdot T}{L}-z^{-1}}=\frac{T}{L+R\cdot T}\cdot\frac{z}{z-\frac{L}{L+R\cdot T}}
+H_{l}\left(z\right)=\frac{I_{l}\left(z\right)}{V_{l}\left(z\right)}=\frac{1}{\left(\frac{L+R_{l}\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}=\frac{T}{L}\cdot\frac{1}{\frac{L+R_{l}\cdot T}{L}-z^{-1}}=\frac{T}{L+R_{l}\cdot T}\cdot\frac{z}{z-\frac{L}{L+R\cdot T}}
 \]
 
 \end_inset
@@ -233,7 +775,7 @@ H_{L}\left(z\right)=\frac{I_{L}\left(z\right)}{V_{L}\left(z\right)}=\frac{1}{\le
 
 \begin_layout Standard
 When 
-\begin_inset Formula $L\gg R\cdot T$
+\begin_inset Formula $L\gg R_{l}\cdot T$
 \end_inset
 
 :
@@ -242,7 +784,7 @@ When
 \begin_layout Standard
 \begin_inset Formula 
 \[
-H_{L}\left(z\right)\approx\frac{T}{L}\cdot\frac{1}{1-z^{-1}}
+H_{l}\left(z\right)\approx\frac{T}{L}\cdot\frac{1}{1-z^{-1}}
 \]
 
 \end_inset
@@ -257,7 +799,7 @@ which means that:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{L}\left(t\right)\approx\frac{1}{L}\int V_{L}\left(t\right)\cdot dt
+I_{l}\left(t\right)\approx\frac{1}{L}\int V_{L}\left(t\right)\cdot dt
 \]
 
 \end_inset
@@ -267,7 +809,7 @@ I_{L}\left(t\right)\approx\frac{1}{L}\int V_{L}\left(t\right)\cdot dt
 
 \begin_layout Standard
 It turns out that the series 
-\begin_inset Formula $R$
+\begin_inset Formula $R_{l}$
 \end_inset
 
  is very important, because without it, the computation will diverge.
@@ -275,7 +817,7 @@ It turns out that the series
 
 \begin_layout Standard
 In practical applications, 
-\begin_inset Formula $R$
+\begin_inset Formula $R_{l}$
 \end_inset
 
  is very small (on the order of 
@@ -301,7 +843,7 @@ In practical applications,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{L}{L+R\cdot T}=\frac{220\thinspace\mu}{220\thinspace\mu+.001\thinspace\mu\cdot.1\thinspace\mu}=\frac{220}{220+.0001}=0.9999995455
+\frac{L}{L+R_{l}\cdot T}=\frac{220\thinspace\mu}{220\thinspace\mu+.001\thinspace\mu\cdot.1\thinspace\mu}=\frac{220}{220+.0001}=0.9999995455
 \]
 
 \end_inset
@@ -313,7 +855,7 @@ In practical applications,
 This pole so close to unity can be very problematic in filtering and will
  require very long filter startup times and will require processing techniques
  to guess the starting point of 
-\begin_inset Formula $I_{L}$
+\begin_inset Formula $I_{l}$
 \end_inset
 
  similar to what we need to do in clock recovery in serial data processing.
@@ -321,16 +863,28 @@ This pole so close to unity can be very problematic in filtering and will
 
 \begin_layout Subsection
 Computation of 
-\begin_inset Formula $I_{out}$
+\begin_inset Formula $I_{o}$
 \end_inset
 
 :
 \end_layout
 
 \begin_layout Standard
+Given the inductor current 
+\begin_inset Formula $I_{l}$
+\end_inset
+
+, we solve for the current away from the voltage node 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
--I_{L}\left(s\right)+\frac{V_{out}\left(s\right)}{\frac{1}{C\cdot s}}+I_{out}\left(s\right)=0
+-I_{l}\left(s\right)+\frac{V_{o}\left(s\right)}{\frac{1}{C\cdot s}}+I_{o}\left(s\right)=0
 \]
 
 \end_inset
@@ -341,12 +895,13 @@ Computation of
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{out}\left(s\right)=I_{L}\left(s\right)-C\cdot s\cdot V_{out}\left(s\right)
+I_{o}\left(s\right)=I_{l}\left(s\right)-C\cdot s\cdot V_{o}\left(s\right)
 \]
 
 \end_inset
 
-
+Again, we use the approximation of the derivative that lets us convert from
+ the Laplace transform to the z transform:
 \end_layout
 
 \begin_layout Standard
@@ -363,7 +918,7 @@ s\approx\frac{1}{T}\cdot\left(1-z^{-1}\right)
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{out}\left(z\right)=I_{L}\left(z\right)-\frac{C}{T}\cdot\left(1-z^{-1}\right)\cdot V_{out}\left(z\right)
+I_{o}\left(z\right)=I_{l}\left(z\right)-\frac{C}{T}\cdot\left(1-z^{-1}\right)\cdot V_{o}\left(z\right)
 \]
 
 \end_inset
@@ -374,7 +929,7 @@ I_{out}\left(z\right)=I_{L}\left(z\right)-\frac{C}{T}\cdot\left(1-z^{-1}\right)\
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{out}\left[k\right]=I_{L}\left[k\right]-\frac{C}{T}\cdot\left(V_{out}\left[k\right]-V_{out}\left[k-1\right]\right)
+I_{o}\left[k\right]=I_{l}\left[k\right]-\frac{C}{T}\cdot\left(V_{o}\left[k\right]-V_{o}\left[k-1\right]\right)
 \]
 
 \end_inset
@@ -387,9 +942,13 @@ Alternate computation with more parasitics
 \end_layout
 
 \begin_layout Standard
+With the full set of parasitics inserted, we have:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
--I_{L}\left(s\right)+\frac{V_{out}\left(s\right)}{\frac{1}{C\cdot s}+s\cdot L+R}+I_{out}\left(s\right)=0
+-I_{l}\left(s\right)+\frac{V_{o}\left(s\right)}{\frac{1}{C\cdot s}+s\cdot L_{c}+R_{c}}+I_{o}\left(s\right)=0
 \]
 
 \end_inset
@@ -398,22 +957,30 @@ Alternate computation with more parasitics
 \end_layout
 
 \begin_layout Standard
+We define:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
-A=\frac{T^{2}}{T^{2}+L\cdot C+R\cdot C\cdot T}
+A=\frac{T^{2}}{T^{2}+L_{c}\cdot C+R_{c}\cdot C\cdot T}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+and have the difference equation:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{multline*}
-I_{out}\left[k\right]=I_{L}\left[k\right]+-C\cdot A\cdot\frac{2\cdot L+R\cdot T}{T^{2}}\cdot I_{L}\left[k-1\right]+\frac{L\cdot C}{T^{2}}\cdot A\cdot I_{L}\left[k-2\right]+\ldots\\
-\ldots+C\cdot A\cdot\frac{2\cdot L+R\cdot T}{T^{2}}\cdot I_{out}\left[k-1\right]+-\frac{L\cdot C}{T^{2}}\cdot A\cdot I_{out}\left[k-2\right]+\ldots\\
-\ldots+-\frac{C}{T}\cdot A\cdot V_{out}\left[k\right]+\frac{C}{T}\cdot A\cdot V_{out}\left[k-1\right]
+I_{o}\left[k\right]=I_{l}\left[k\right]+-C\cdot A\cdot\frac{2\cdot L_{c}+R_{c}\cdot T}{T^{2}}\cdot I_{l}\left[k-1\right]+\frac{L_{c}\cdot C}{T^{2}}\cdot A\cdot I_{l}\left[k-2\right]+\ldots\\
+\ldots+C\cdot A\cdot\frac{2\cdot L_{c}+R_{c}\cdot T}{T^{2}}\cdot I_{o}\left[k-1\right]+-\frac{L_{c}\cdot C}{T^{2}}\cdot A\cdot I_{o}\left[k-2\right]+\ldots\\
+\ldots+-\frac{C}{T}\cdot A\cdot V_{o}\left[k\right]+\frac{C}{T}\cdot A\cdot V_{o}\left[k-1\right]
 \end{multline*}
 
 \end_inset
@@ -436,7 +1003,7 @@ It is comforting to find that if
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{out}\left[k\right]=I_{L}\left[k\right]+-\frac{C}{T}\cdot V_{out}\left[k\right]+\frac{C}{T}\cdot V_{out}\left[k-1\right]
+I_{o}\left[k\right]=I_{l}\left[k\right]+-\frac{C}{T}\cdot V_{o}\left[k\right]+\frac{C}{T}\cdot V_{o}\left[k-1\right]
 \]
 
 \end_inset
@@ -445,6 +1012,33 @@ I_{out}\left[k\right]=I_{L}\left[k\right]+-\frac{C}{T}\cdot V_{out}\left[k\right
 \end_layout
 
 \begin_layout Standard
+In any case, the full processing system that produces all of the desired
+ output waveforms is provided in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:ProcessingBlockDiagram-1"
+
+\end_inset
+
+.
+ Here we have grayed out the processing that is a function of the nonzero
+ parasitics for the capacitor 
+\begin_inset Formula $R_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $L_{c}$
+\end_inset
+
+ to simplify the understanding.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 \noindent
 \begin_inset Float figure
 wide false
@@ -477,6 +1071,11 @@ Processing Block Diagram
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:ProcessingBlockDiagram"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -530,6 +1129,105 @@ name "fig:ProcessingBlockDiagram-1"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Power Integrity Solutions
+\end_layout
+
+\begin_layout Standard
+Given the processor in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:ProcessingBlockDiagram-1"
+
+\end_inset
+
+, one could imagine a simple signal integrity solution for the scope centered
+ around this kind of processing:
+\end_layout
+
+\begin_layout Itemize
+Given 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+, it should be possible to determine the closed loop transfer function and
+ the transfer function of the control loop.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+And if the control loop can be broken (i.e.
+ connecting the voltage sense circuit to a constant voltage so the converter
+ runs open loop), we can separate the slower control loop portion from the
+ dynamic response of the regulation circuit alone.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Given 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{o}$
+\end_inset
+
+ we can find 
+\begin_inset Formula $Z_{o}$
+\end_inset
+
+, or the ac impedance of the load.
+\end_layout
+
+\begin_layout Itemize
+Given 
+\begin_inset Formula $V_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{l}$
+\end_inset
+
+ we can find the ac source impedance.
+\end_layout
+
+\begin_layout Itemize
+Given 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+, it is my hope to be able to perform some sort of system identification
+ that can allow us to characterize the parasitic portion of the inductor
+ portion of the circuit - in any case, we will probably need some form of
+ calibration of the system to avoid divergence of the measurement waveforms.
+\end_layout
+
+\begin_layout Standard
+Some things that I'm suspicious of is whether slight DC offsets and DC innaccura
+cies will cause measurement problems.
+ I don't think noise and such will be such an issues.
+ Also, the very long time-constants will be some sort of issue for sure
+ and I'm wondering how misestimates or measurements of the parasitics will
+ cause problems.
+\end_layout
+
+\begin_layout Standard
+Many of the dynamic measurements would benefit from some sort of stimulus
+ to the load to induce variations (ideally in load current).
+ If the processing can be performed satisfactorily, we would not need to
+ precisely control the stimulus as we would be measuring the effects, but
+ might need some method of controlling the magnitude of the stimulus and
+ certainly in attaching it to the circuit.
 \end_layout
 
 \end_body
