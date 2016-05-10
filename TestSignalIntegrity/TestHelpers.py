@@ -17,6 +17,8 @@ import SignalIntegrity as si
 
 class SParameterCompareHelper(object):
     def SParametersAreEqual(self,lhs,rhs,epsilon):
+        if lhs.m_P != rhs.m_P: return False
+        if lhs.m_Z0 != rhs.m_Z0: return False
         if len(lhs) != len(rhs): return False
         for n in range(len(lhs)):
             if abs(lhs.m_f[n] - rhs.m_f[n]) > epsilon: return False

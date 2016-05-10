@@ -13,11 +13,13 @@ import cmath
 import math
 import string
 import copy
+import os
 
 from SignalIntegrity.Conversions import ReferenceImpedance
 from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
 from SParameterManipulation import SParameterManipulation
+from SignalIntegrity.PySIException import PySIExceptionSParameterFile
 
 class SParameters(SParameterManipulation):
     def __init__(self,f,data,Z0=50.0):
@@ -35,6 +37,27 @@ class SParameters(SParameterManipulation):
     def FrequencyResponse(self,ToP,FromP):
         return FrequencyResponse(self.f(),self.Response(ToP,FromP))
     def WriteToFile(self,name,formatString=None):
+        # pragma: silent exclude
+        try:
+            filename, file_extension = os.path.splitext(name)
+            extensionCorrect=True
+            if file_extension=='' or file_extension is None:
+                name=name+'.s'+str(self.m_P)+'p'
+            else:
+                file_extension=file_extension.lower()
+                if len(file_extension)<4:
+                    extensionCorrect=False
+                elif file_extension[1]!='s':
+                    extensionCorrect=False
+                elif file_extension[-1]!='p':
+                    extensionCorrect=False
+                elif int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0]) != self.m_P:
+                    extensionCorrect=False
+            if not extensionCorrect:
+                raise PySIExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
+        except:
+            raise PySIExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
+        # pragma: include
         freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
             lineList = string.lower(formatString).split('!')[0].split()
@@ -88,3 +111,4 @@ class SParameters(SParameterManipulation):
             for n in range(len(self.m_f)):
                 self.m_d[n]=ReferenceImpedance(self.m_d[n],Z0,self.m_Z0)
         self.m_Z0=Z0
+        return self

@@ -576,6 +576,84 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         de=si.sp.SParameters(freq,parser.Deembed(system))
         self.assertTrue(self.SParametersAreEqual(de,si.sp.SParameterFile('cable.s2p',50.).Resample(freq),0.00001),self.id()+'result not same')
         os.remove(systemSParametersFileName)
+# Incorrect S-parameter file extensions on write
+    def testMissingExtension(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',50.)
+        # this is to test writing without an extension
+        if os.path.exists('TestDutCmp.s4p'):
+            os.remove('TestDutCmp.s4p')
+        sf.WriteToFile('TestDutCmp')
+        sf2=si.sp.SParameterFile('TestDutCmp.s4p',50.)
+        self.assertTrue(self.SParametersAreEqual(sf2,sf,0.001),self.id()+'result not same')
+    def testExtensionNoS(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',50.)
+        # this is to test writing without an extension
+        if os.path.exists('TestDutCmp.s4p'):
+            os.remove('TestDutCmp.s4p')
+        with self.assertRaises(si.PySIException) as cm:
+            sf.WriteToFile('TestDutCmp.45p')
+        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+    def testExtensionNo4(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',50.)
+        # this is to test writing without an extension
+        if os.path.exists('TestDutCmp.s4p'):
+            os.remove('TestDutCmp.s4p')
+        with self.assertRaises(si.PySIException) as cm:
+            sf.WriteToFile('TestDutCmp.sXp')
+        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+    def testExtensionNoP(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',50.)
+        # this is to test writing without an extension
+        if os.path.exists('TestDutCmp.s4p'):
+            os.remove('TestDutCmp.s4p')
+        with self.assertRaises(si.PySIException) as cm:
+            sf.WriteToFile('TestDutCmp.s45')
+        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile)
+    def testExtensionNotLongEnough(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',50)
+        # this is to test writing without an extension
+        if os.path.exists('TestDutCmp.s4p'):
+            os.remove('TestDutCmp.s4p')
+        with self.assertRaises(si.PySIException) as cm:
+            sf.WriteToFile('TestDutCmp.x')
+        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+    def testExtensionWrongPorts(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',50.)
+        # this is to test writing without an extension
+        if os.path.exists('TestDutCmp.s4p'):
+            os.remove('TestDutCmp.s4p')
+        with self.assertRaises(si.PySIException) as cm:
+            sf.WriteToFile('TestDutCmp.s3p')
+        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+    def testSParameterFileFourPortReferenceImpedance(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('TestDut.s4p',30.)
+        #f=[i*100e6 for i in range(201)]
+        #sf.Resample(f)
+        #sf.WriteToFile('TestDut.s4p')
+        f=sf.f()
+        """
+        import matplotlib.pyplot as plt
+        for r in range(4):
+            for c in range(4):
+                responseVector=sf.Response(r+1,c+1)
+                y=[20*math.log(abs(resp),10) for resp in responseVector]
+                plt.subplot(4,4,r*4+c+1)
+                plt.plot(f,y)
+        plt.show()
+        """
+        # this is to test reading and writing, but also to ensure that
+        # WriteToFile is always executed and covered
+        sf.WriteToFile('TestDutCmp.s4p')
+        sf2=si.sp.SParameterFile('TestDutCmp.s4p',50.)
+        os.remove('TestDutCmp.s4p')
+        self.assertTrue(self.SParametersAreEqual(sf2,sf.SetReferenceImpedance(50.),0.001),self.id()+'result not same')
 
 if __name__ == '__main__':
     unittest.main()
