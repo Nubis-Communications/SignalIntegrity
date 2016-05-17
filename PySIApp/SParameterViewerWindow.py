@@ -322,7 +322,6 @@ class SParametersDialog(Toplevel):
         self.topRightPlot.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
 
         if ir is not None:
-            print self.buttonLabels[self.toPort-1][self.fromPort-1]
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:2]=='i/' or self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
                 print 'Integrate'
                 ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False))
