@@ -1,6 +1,6 @@
 if exist dist rd dist /s /q
 if exist build rd build /s /q
-PyInstaller PySIApp\PySIApp.py --icon=AppIcon2.ico --onefile --hidden-import=tkFileDialog --hidden-import=FileDialog
+PyInstaller PySIApp\PySIApp.py --icon=AppIcon2.ico --onefile --noconsole --hidden-import=tkFileDialog --hidden-import=FileDialog
 if exist dist goto built else goto notbuilt
 :built
 del PySIApp.spec

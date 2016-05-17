@@ -40,7 +40,9 @@ class TheApp(Frame):
         self.pack(fill=BOTH, expand=YES)
         self.installdir=os.path.dirname(os.path.abspath(__file__))
 
-        self.root.title("PySI")
+        versionString='1.0.0'
+
+        self.root.title('PySI - '+versionString)
 
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
