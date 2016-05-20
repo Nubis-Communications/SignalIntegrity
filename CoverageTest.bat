@@ -1,7 +1,7 @@
 @echo off
 set PYTHONPATH=%PYTHONPATH%;.
 coverage erase
-coverage -x .\TestSignalIntegrity\TestAll.py >NUL
+coverage run .\TestSignalIntegrity\TestAll.py >NUL
 coverage html -d CoverageReport
 coverage erase
 pause
