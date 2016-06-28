@@ -8,6 +8,7 @@
  this material whatsoever.
 '''
 from numpy import convolve
+#from PySICppLib import PySIConvolve
 
 class FirFilter(object):
     def __init__(self,fd,ft):
@@ -22,6 +23,7 @@ class FirFilter(object):
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
         td = wf.TimeDescriptor()*self.FilterDescriptor()
+        #filteredwf=PySIConvolve(wf.Values(),self.FilterTaps())
         filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
         return Waveform(td,filteredwf)
     def Print(self):
