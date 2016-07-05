@@ -5,3 +5,4 @@ from AdaptedWaveforms import *
 from StepWaveform import *
 from PulseWaveform import *
 from SineWaveform import *
+from NoiseWaveform import *

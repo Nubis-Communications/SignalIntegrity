@@ -887,5 +887,19 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
             plt.show()
             plt.cla()
 
+    def testNoise(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        fileNameBase= '_'.join(self.id().split('.'))
+        td=si.td.wf.TimeDescriptor(0.,10000,20e9)
+        nwf=si.td.wf.NoiseWaveform(td,.1)
+        plot=False
+        if plot:
+            import matplotlib.pyplot as plt
+            plt.subplot(1,1,1)
+            plt.plot(nwf.Times(),nwf.Values(),label='nwf')
+            plt.legend(loc='upper right',labelspacing=0.1)
+            plt.show()
+            plt.cla()
+
 if __name__ == '__main__':
     unittest.main()
