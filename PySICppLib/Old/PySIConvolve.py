@@ -12,7 +12,7 @@
 import ctypes
 import os
 
-lib=ctypes.cdll.LoadLibrary(os.path.dirname(__file__)+'/x64/Release/PySICppLib.dll')
+lib=ctypes.cdll.LoadLibrary(os.path.dirname(__file__)+'/PySIConvolve.so')
 lib.PySIConvolve.argtypes = [ctypes.c_int,
                             ctypes.POINTER(ctypes.c_float),
                             ctypes.c_int,
