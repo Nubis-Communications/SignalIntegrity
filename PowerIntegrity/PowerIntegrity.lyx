@@ -163,12 +163,14 @@ Introduction
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset CommandInset include
-LatexCommand include
-filename "BlockDiagram.TpX"
+LatexCommand input
+preview true
+filename "D:/PowerIntegrity/BlockDiagram.TpX"
 
 \end_inset
 
@@ -208,7 +210,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename VoltageStartup.png
+	filename D:/PowerIntegrity/VoltageStartup.png
 
 \end_inset
 
@@ -349,12 +351,14 @@ Measurement of Inductor Current
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset CommandInset include
-LatexCommand include
-filename "CurrentSense.TpX"
+LatexCommand input
+preview true
+filename "D:/PowerIntegrity/CURREN~1.TPX"
 
 \end_inset
 
@@ -553,9 +557,11 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset CommandInset include
-LatexCommand include
-filename "TestVRMParasitics.TpX"
+LatexCommand input
+preview true
+filename "D:/PowerIntegrity/TESTVR~1.TPX"
 
 \end_inset
 
@@ -1046,9 +1052,11 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset CommandInset include
-LatexCommand include
-filename "ProcessingDiagram.TpX"
+LatexCommand input
+preview true
+filename "D:/PowerIntegrity/PROCES~1.TPX"
 
 \end_inset
 
@@ -1095,9 +1103,11 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset CommandInset include
-LatexCommand include
-filename "ProcessingDiagram2.TpX"
+LatexCommand input
+preview true
+filename "D:/PowerIntegrity/PROCES~2.TPX"
 
 \end_inset
 
@@ -1213,11 +1223,11 @@ Given
 \end_layout
 
 \begin_layout Standard
-Some things that I'm suspicious of is whether slight DC offsets and DC innaccura
-cies will cause measurement problems.
+Some things that I'm suspicious of is whether slight DC offsets and DC inaccurac
+ies will cause measurement problems.
  I don't think noise and such will be such an issues.
  Also, the very long time-constants will be some sort of issue for sure
- and I'm wondering how misestimates or measurements of the parasitics will
+ and I'm wondering how mis-estimates or measurements of the parasitics will
  cause problems.
 \end_layout
 
