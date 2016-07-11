@@ -261,6 +261,10 @@ class PartPropertyVoltageAmplitude(PartProperty):
     def __init__(self,voltageAmplitude=1.):
         PartProperty.__init__(self,'voltageamplitude',type='float',unit='V',keyword='a',description='voltage amplitude (V)',value=voltageAmplitude,visible=True)
 
+class PartPropertyVoltageRms(PartProperty):
+    def __init__(self,voltagerms=0.):
+        PartProperty.__init__(self,'voltagerms',type='float',unit='Vrms',keyword='vrms',description='voltage (Vrms)',value=voltagerms,visible=True)
+
 class PartPropertyCurrentAmplitude(PartProperty):
     def __init__(self,currentAmplitude=1.):
         PartProperty.__init__(self,'currentamplitude',type='float',unit='A',keyword='a',description='current amplitude (A)',value=currentAmplitude,visible=True)

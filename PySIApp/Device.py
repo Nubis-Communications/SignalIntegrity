@@ -409,6 +409,21 @@ class DeviceTelegrapherFourPort(Device):
         nl=nl+self[PartPropertySections().propertyName].NetListProperty()
         return nl
 
+class DeviceVoltageNoiseSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        Device.__init__(self,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Noise Source'),PartPropertyDefaultReferenceDesignator('VG?'),
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageRms()]+propertiesList,partPicture)
+    def NetListLine(self):
+        return 'voltagesource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
+    def Waveform(self):
+        import SignalIntegrity as si
+        Fs=float(self[PartPropertySampleRate().propertyName].GetValue())
+        K=int(math.ceil(Fs*float(self[PartPropertyDuration().propertyName].GetValue())))
+        horOffset=float(self[PartPropertyHorizontalOffset().propertyName].GetValue())
+        sigma=float(self[PartPropertyVoltageRms().propertyName].GetValue())
+        waveform = si.td.wf.NoiseWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),sigma)
+        return waveform
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),
               DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),
@@ -430,6 +445,8 @@ DeviceList = [
               DeviceTelegrapherFourPort([PartPropertyDescription('Four Port Telegrapher'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
               DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
               DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
+              DeviceVoltageNoiseSource([PartPropertyDescription('One Port Voltage Noise Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceNoiseSourceOnePort()),
+              DeviceVoltageNoiseSource([PartPropertyDescription('Two Port Voltage Noise Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),
               DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),
               DeviceVoltageStepGenerator([PartPropertyDescription('Two Port Voltage Step Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceStepGeneratorTwoPort()),
               DeviceVoltagePulseGenerator([PartPropertyDescription('One Port Voltage Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePulseGeneratorOnePort()),

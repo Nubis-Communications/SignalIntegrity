@@ -869,6 +869,17 @@ class PartPictureVariableVoltageSourceStepGeneratorTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceStepGeneratorTwoPort'],2)
 
+class PartPictureVoltageSourceNoiseSourceTwoPort(PartPictureVoltageSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,u"\u03C3")
+        PartPictureVoltageSourceTwoPort.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceNoiseSourceTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceNoiseSourceTwoPort'],2)
+
 class PartPictureVoltageSourcePulseGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
@@ -915,6 +926,17 @@ class PartPictureVoltageSourceStepGeneratorOnePort(PartPictureVoltageSourceOnePo
 class PartPictureVariableVoltageSourceStepGeneratorOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceStepGeneratorOnePort'],1)
+
+class PartPictureVoltageSourceNoiseSourceOnePort(PartPictureVoltageSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,u"\u03C3")
+        PartPictureVoltageSourceOnePort.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceNoiseSourceOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceNoiseSourceOnePort'],1)
 
 class PartPictureVoltageSourcePulseGeneratorOnePort(PartPictureVoltageSourceOnePort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

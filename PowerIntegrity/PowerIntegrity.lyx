@@ -170,7 +170,7 @@ status open
 \begin_inset CommandInset include
 LatexCommand input
 preview true
-filename "D:/PowerIntegrity/BlockDiagram.TpX"
+filename "BlockDiagram.TpX"
 
 \end_inset
 
@@ -210,7 +210,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename D:/PowerIntegrity/VoltageStartup.png
+	filename VoltageStartup.png
 
 \end_inset
 
@@ -358,7 +358,7 @@ status open
 \begin_inset CommandInset include
 LatexCommand input
 preview true
-filename "D:/PowerIntegrity/CURREN~1.TPX"
+filename "CurrentSense.TpX"
 
 \end_inset
 
@@ -561,7 +561,7 @@ status open
 \begin_inset CommandInset include
 LatexCommand input
 preview true
-filename "D:/PowerIntegrity/TESTVR~1.TPX"
+filename "TestVRMParasitics.TpX"
 
 \end_inset
 
@@ -672,6 +672,13 @@ Note that these are not the same
 \begin_layout Subsection
 Computation of 
 \begin_inset Formula $I_{l}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Computation-of-Il"
+
 \end_inset
 
 
@@ -1056,7 +1063,7 @@ status open
 \begin_inset CommandInset include
 LatexCommand input
 preview true
-filename "D:/PowerIntegrity/PROCES~1.TPX"
+filename "ProcessingDiagram.TpX"
 
 \end_inset
 
@@ -1107,7 +1114,7 @@ status open
 \begin_inset CommandInset include
 LatexCommand input
 preview true
-filename "D:/PowerIntegrity/PROCES~2.TPX"
+filename "ProcessingDiagram2.TpX"
 
 \end_inset
 
@@ -1238,6 +1245,180 @@ Many of the dynamic measurements would benefit from some sort of stimulus
  precisely control the stimulus as we would be measuring the effects, but
  might need some method of controlling the magnitude of the stimulus and
  certainly in attaching it to the circuit.
+\end_layout
+
+\begin_layout Section
+Errors in Measurements of 
+\begin_inset Formula $I_{l}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section calculates how noise in measurements of 
+\begin_inset Formula $V_{l}$
+\end_inset
+
+ translate into noise in the calculation of 
+\begin_inset Formula $I_{l}$
+\end_inset
+
+ as put forth in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:Computation-of-Il"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Given 
+\begin_inset Formula $N+1$
+\end_inset
+
+ discrete frequency bins in a frequency response, the noise in each bin
+ is calculated as, for 
+\begin_inset Formula $n\in0\ldots N$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathcal{N}\left[n\right]=\frac{VDIV\cdot2\cdot10^{-\frac{SNR}{20}}}{L\cdot\sqrt{N}\cdot\pi\cdot f\left[n\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $VDIV$
+\end_inset
+
+ is the volt/division setting of the oscilloscope at which the voltages
+ 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{o}$
+\end_inset
+
+ are measured, 
+\begin_inset Formula $SNR$
+\end_inset
+
+ is the signal-to-noise ratio of the oscilloscope at that volt/division
+ setting, 
+\begin_inset Formula $L$
+\end_inset
+
+ is the inductance, and 
+\begin_inset Formula $f\left[n\right]$
+\end_inset
+
+ is the frequency of the bin according to:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f\left[n\right]=\frac{n}{N}\cdot\frac{Fs}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $Fs$
+\end_inset
+
+ is the sample rate.
+\end_layout
+
+\begin_layout Standard
+Thus, to make a 
+\begin_inset Formula $K=2\cdot N$
+\end_inset
+
+ element time-domain signal with these noise characteristics :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+A\left[n\right]=\mathcal{N}\left[n\right]\cdot\begin{cases}
+\sqrt{2} & n>0\\
+1 & otherwise
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+X\left[n\right]=A\left[n\right]\cdot\begin{cases}
+\frac{1}{2}\cdot e^{j\cdot\operatorname{rnd}\left(2\cdot\pi\right)} & 0<n<N\\
+1 & otherwise
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+for 
+\begin_inset Formula $n^{\prime}\in1\ldots N-1$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+X\left[N+n^{\prime}\right]=X\left[N-n^{\prime}\right]^{\ast}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+for 
+\begin_inset Formula $k\in0\ldots K-1$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x\left[k\right]=\frac{1}{K}\sum_{n=0}^{K-1}X\left[n\right]\cdot e^{j\cdot\frac{n\cdot k}{K}}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \end_body
