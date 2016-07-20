@@ -23,7 +23,9 @@ class FirFilter(object):
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
         td = wf.TimeDescriptor()*self.FilterDescriptor()
+        # pragma: silent exclude
         #filteredwf=PySIConvolve(wf.Values(),self.FilterTaps())
+        # pragma: include
         filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
         return Waveform(td,filteredwf)
     def Print(self):
