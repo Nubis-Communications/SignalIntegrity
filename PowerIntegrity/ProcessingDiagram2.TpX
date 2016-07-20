@@ -1,4 +1,4 @@
-%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
 %  <line x1="78" y1="27.5" x2="86" y2="27.5" arr2="h44" arrs="0.5"/>
 %  <polyline arr2="h44" arrs="0.5">68,27.5 68,27.5 68,17.5 79,17.5 86.5,26</polyline>
 %  <polygon fill="white">79,30 79,25 84,27.5</polygon>
@@ -13,7 +13,7 @@
 %  <line x1="88.5" y1="30" x2="88.5" y2="65" arr2="h44" arrs="0.5"/>
 %  <polyline arr2="h44" arrs="0.5">54,67.5 56,67.5 56,42.5 80.5,42.5 87.5,65.5</polyline>
 %  <text x="13" y="66" t="Vi" tex="$V_{i}$" h="5" halign="r"/>
-%  <text x="28.5" y="73" t="a0" tex="$\frac{Ts}{L+R_l \cdot Ts}$" h="4" halign="c" fill="white"/>
+%  <text x="28.5" y="73" t="a0" tex="$\frac{R_l \cdot Ts}{L+R_l \cdot Ts}$" h="4" halign="c" fill="white"/>
 %  <text x="44" y="51" t="a1" tex="$\frac{L}{L+R_l \cdot Ts}$" h="4" halign="c" fill="white"/>
 %  <text x="19" y="41" t="-1" tex="$-1$" h="4" halign="r" fill="white"/>
 %  <text x="82" y="33" t="CTA" tex="$\frac{C}{T}\cdot A$" h="4" halign="c" fill="white"/>
@@ -47,7 +47,7 @@
 %  <rect x="41" y="64" w="7.00003" h="7" fill="white"/>
 %  <text x="44.5" y="66" t="z" tex="$z^{-1}$" h="4" halign="c" fill="white"/>
 %  <polygon fill="white">48,60 48,55 43,57.5</polygon>
-%  <polyline arrs="0.5">35.5,70 35.5,75 51.5,75 51.5,67.5 54.5,67.5</polyline>
+%  <polyline arrs="0.5">35.5,70 35.5,77.5 51.5,77.5 51.5,67.5 54.5,67.5</polyline>
 %  <text x="13" y="26" t="Vo" tex="$V_{o}$" h="5" halign="r"/>
 %  <circle x="22.5" y="67.5" d="5" fill="white"/>
 %  <text x="21" y="66" t="+" tex="$\Sigma$" h="5" fill="white"/>
@@ -63,10 +63,12 @@
 %  <text x="74" y="11" t="CTA" tex="$-\frac{C}{T}\cdot A$" h="4" halign="c" fill="white"/>
 %  <text x="60" y="36" t="1" tex="$1$" h="4" halign="c" fill="white"/>
 %  <text x="70" y="50" t="X" tex="$-\frac{C\cdot A\cdot \left( 2\cdot L_c +R_c \cdot T\right)}{T^2}$" h="4" halign="c" fill="white"/>
-%  <text x="81" y="73" t="X" tex="$\frac{L\cdot C\cdot A}{T^2}$" h="4" halign="c" fill="white"/>
+%  <text x="81" y="73" t="X" tex="$\frac{L_c\cdot C\cdot A}{T^2}$" h="4" halign="c" fill="white"/>
 %  <text x="105" y="50" t="X" tex="$\frac{C\cdot A\cdot \left( 2\cdot L_c +R_c \cdot T\right)}{T^2}$" h="4" halign="c" fill="white"/>
 %  <text x="110" y="36" t="X" tex="$-\frac{L\cdot C\cdot A}{T^2}$" h="4" halign="c" fill="white"/>
 %  <text x="55" y="103" t="A" tex="$A=\frac{T^2}{T^2+L_c \cdot C+R_c \cdot C\cdot T}$" h="5" halign="c"/>
+%  <text x="44" y="84" t="G" tex="$\frac{1}{R_l}$" h="4" halign="c" fill="white"/>
+%  <polygon fill="white">41,80 41,75 46,77.5</polygon>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -108,7 +110,7 @@
 \path[line width=0.30mm, draw=L] (54.00,67.50) -- (56.00,67.50) -- (56.00,42.50) -- (80.50,42.50) -- (87.50,65.50);
 \path[line width=0.30mm, draw=L, fill=F] (87.50,65.50) -- (86.76,64.26) -- (87.43,64.06) -- (87.50,65.50) -- cycle;
 \draw(13.00,66.00) node[anchor=base east]{$V_{i}$};
-\draw(28.50,73.00) node[anchor=base]{$\frac{Ts}{L+R_l \cdot Ts}$};
+\draw(28.50,73.00) node[anchor=base]{$\frac{R_l \cdot Ts}{L+R_l \cdot Ts}$};
 \draw(44.00,51.00) node[anchor=base]{$\frac{L}{L+R_l \cdot Ts}$};
 \draw(19.00,41.00) node[anchor=base east]{$-1$};
 \draw(82.00,33.00) node[anchor=base]{$\frac{C}{T}\cdot A$};
@@ -159,7 +161,7 @@
 \path[line width=0.30mm, draw=L, fill=F] (41.00,64.00) rectangle +(7.00,7.00);
 \draw(44.50,66.00) node[anchor=base]{$z^{-1}$};
 \path[line width=0.30mm, draw=L, fill=F] (48.00,60.00) -- (48.00,55.00) -- (43.00,57.50) -- cycle;
-\path[line width=0.30mm, draw=L] (35.50,70.00) -- (35.50,75.00) -- (51.50,75.00) -- (51.50,67.50) -- (54.50,67.50);
+\path[line width=0.30mm, draw=L] (35.50,70.00) -- (35.50,77.50) -- (51.50,77.50) -- (51.50,67.50) -- (54.50,67.50);
 \draw(13.00,26.00) node[anchor=base east]{$V_{o}$};
 \path[line width=0.30mm, draw=L, fill=F] (22.50,67.50) circle (2.50mm);
 \draw(21.00,66.00) node[anchor=base west]{$\Sigma$};
@@ -182,8 +184,11 @@
 \draw(74.00,11.00) node[anchor=base]{$-\frac{C}{T}\cdot A$};
 \draw(60.00,36.00) node[anchor=base]{$1$};
 \draw(70.00,50.00) node[anchor=base]{$-\frac{C\cdot A\cdot \left( 2\cdot L_c +R_c \cdot T\right)}{T^2}$};
-\draw(81.00,73.00) node[anchor=base]{$\frac{L\cdot C\cdot A}{T^2}$};
+\draw(81.00,73.00) node[anchor=base]{$\frac{L_c\cdot C\cdot A}{T^2}$};
 \draw(105.00,50.00) node[anchor=base]{$\frac{C\cdot A\cdot \left( 2\cdot L_c +R_c \cdot T\right)}{T^2}$};
 \draw(110.00,36.00) node[anchor=base]{$-\frac{L\cdot C\cdot A}{T^2}$};
 \draw(55.00,103.00) node[anchor=base]{$A=\frac{T^2}{T^2+L_c \cdot C+R_c \cdot C\cdot T}$};
+\draw(44.00,84.00) node[anchor=base]{$\frac{1}{R_l}$};
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (41.00,80.00) -- (41.00,75.00) -- (46.00,77.50) -- cycle;
 \end{tikzpicture}%

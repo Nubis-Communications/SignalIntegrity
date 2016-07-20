@@ -257,7 +257,7 @@ buck
 \begin_inset Quotes erd
 \end_inset
 
- convertor configuration, so called because the system produces a regulated
+ converter configuration, so called because the system produces a regulated
  voltage 
 \begin_inset Formula $V_{o}$
 \end_inset
@@ -777,9 +777,9 @@ The transfer function that produces the inductor current from the inductor
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-H_{l}\left(z\right)=\frac{I_{l}\left(z\right)}{V_{l}\left(z\right)}=\frac{1}{\left(\frac{L+R_{l}\cdot T}{T}\right)-\frac{L}{T}\cdot z^{-1}}=\frac{T}{L}\cdot\frac{1}{\frac{L+R_{l}\cdot T}{L}-z^{-1}}=\frac{T}{L+R_{l}\cdot T}\cdot\frac{z}{z-\frac{L}{L+R\cdot T}}
-\]
+\begin{equation}
+H_{l}\left(z\right)=\frac{I_{l}\left(z\right)}{V_{l}\left(z\right)}=\frac{\frac{T}{L+R_{l}\cdot T}}{1-\frac{L}{L+R_{l}\cdot T}\cdot z^{-1}}=\frac{T}{L+R_{l}\cdot T}\cdot\frac{1}{1-\frac{L}{L+R_{l}\cdot T}\cdot z^{-1}}=\frac{T}{L+R_{l}\cdot T}\cdot\frac{z}{z-\frac{L}{L+R_{l}\cdot T}}\label{eq:HlZ}
+\end{equation}
 
 \end_inset
 
@@ -821,11 +821,72 @@ I_{l}\left(t\right)\approx\frac{1}{L}\int V_{L}\left(t\right)\cdot dt
 \end_layout
 
 \begin_layout Standard
+Returning to the transfer function for 
+\begin_inset Formula $H_{l}\left(z\right)$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:HlZ"
+
+\end_inset
+
+, we have the DC gain of the function as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+G=\left.\frac{T}{L+R_{l}\cdot T}\cdot\frac{z}{z-\frac{L}{L+R_{l}\cdot T}}\right|_{z=1}=\frac{T}{L+R_{l}\cdot T}\cdot\frac{1}{1-\frac{L}{L+R\cdot T}}=\frac{1}{R_{l}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 It turns out that the series 
 \begin_inset Formula $R_{l}$
 \end_inset
 
  is very important, because without it, the computation will diverge.
+\end_layout
+
+\begin_layout Standard
+For nonzero 
+\begin_inset Formula $R_{l}$
+\end_inset
+
+, we prefer to take the gain outside of the filter computation, making the
+ new transfer function:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+H_{l}\left(z\right)=\frac{1}{R_{l}}\cdot\frac{R_{l}\cdot T}{L+R_{l}\cdot T}\cdot\frac{1}{1-\frac{L}{L+R_{l}\cdot T}\cdot z^{-1}}\label{eq:HlZ-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and the new difference equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R_{l}\cdot I_{l}\left[k\right]=\frac{R_{l}\cdot T}{L+R_{l}\cdot T}\cdot V_{l}\left[k\right]+\frac{L}{L+R_{l}\cdot T}\cdot I_{l}\left[k-1\right]
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1003,7 +1064,7 @@ I_{o}\left[k\right]=I_{l}\left[k\right]+-C\cdot A\cdot\frac{2\cdot L_{c}+R_{c}\c
 
 \begin_layout Standard
 It is comforting to find that if 
-\begin_inset Formula $L=R=0$
+\begin_inset Formula $L_{c}=R_{c}=0$
 \end_inset
 
 , then 
@@ -1049,7 +1110,7 @@ reference "fig:ProcessingBlockDiagram-1"
 \begin_layout Standard
 \noindent
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
