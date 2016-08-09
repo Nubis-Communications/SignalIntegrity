@@ -1,0 +1,375 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
+%  <polygon li="none" fill="gray">10,20 40,20 42.5,17.5 42.5,12.5 40,10 10,10 10,20</polygon>
+%  <polygon li="none" fill="silver">60,0 59.5,0.5 29.5,0.5 29.5,-10 30,-10 30,0 60,0</polygon>
+%  <polygon li="none" fill="gray">30,0 60,0 62.5,-2.5 62.5,-7.5 60,-10 30,-10 30,0</polygon>
+%  <polygon li="none" fill="teal">63,-2.5 66,-5 63,-7.5 63,-6.5 60,-6.5 60,-3.5 63,-3.5 63,-2.5</polygon>
+%  <text x="33.5" y="-9" t="CK" h="4" lc="white"/>
+%  <text x="34" y="-4" t="WF" h="4" lc="white"/>
+%  <text x="59" y="-6.5" t="Out" h="4" halign="r" lc="white"/>
+%  <polyline lc="silver">27,-4 27,-1 30,-1 30,0</polyline>
+%  <polyline lc="silver">27,-9 27,-6 30,-6 30,-5</polyline>
+%  <polyline lc="silver">60,-6.5 60,-3.5 63,-3.5 63,-2.5</polyline>
+%  <polygon li="none" fill="silver">85,-20 84.5,-19.5 54.5,-19.5 54.5,-35 55,-35 55,-20 85,-20</polygon>
+%  <polygon li="none" fill="gray">55,-20 85,-20 87.5,-22.5 87.5,-32.5 85,-35 55,-35 55,-20</polygon>
+%  <text x="58.5" y="-24" t="In" h="4" lc="white"/>
+%  <text x="84" y="-29" t="Out" h="4" halign="r" lc="white"/>
+%  <polyline lc="silver">52,-24 52,-21 55,-21 55,-20</polyline>
+%  <polyline lc="silver">85,-29 85,-26 88,-26 88,-25</polyline>
+%  <polygon li="none" fill="teal">88,-25 91,-27.5 88,-30 88,-29 85,-29 85,-26 88,-26 88,-25</polygon>
+%  <polygon li="none" fill="blue">55,-20 58,-22.5 55,-25 55,-24 52,-24 52,-21 55,-21 55,-20</polygon>
+%  <text x="-7" y="-4" t="VSS" h="4" halign="r"/>
+%  <polygon li="none" fill="teal">-3,0 0,-2.5 -3,-5 -3,-4 -6,-4 -6,-1 -3,-1 -3,0</polygon>
+%  <polyline lc="silver">-6,-4 -6,-1 -3,-1 -3,0</polyline>
+%  <bezier arrs="0.2" lw="4.00" lc="teal">65,-5 67,-5 71,-5 71,-8 71,-12 64,-14 60,-14 55.2231,-14 49,-15 49,-20 49,-21.795 51,-22.5 52,-22.5</bezier>
+%  <text x="97" y="-13" t="ILB" h="4"/>
+%  <polygon li="none" fill="teal">93,-9 96,-11.5 93,-14 93,-13 90,-13 90,-10 93,-10 93,-9</polygon>
+%  <polyline lc="silver">90,-13 90,-10 93,-10 93,-9</polyline>
+%  <bezier arrs="0.2" lw="4.00" lc="teal">90,-27.5 92.5,-27.5 94,-25.5355 94,-22 94,-18.5 87.8814,-17 84,-17 79.5,-17 76,-17.7569 76,-14.5 76,-12 79.83,-11.5 82.5,-11.5 85.5,-11.5 88,-11.5 90.5,-11.5</bezier>
+%  <polyline lc="silver">52,-29 52,-26 55,-26 55,-25</polyline>
+%  <polygon li="none" fill="purple">55,-25 58,-27.5 55,-30 55,-29 52,-29 52,-26 55,-26 55,-25</polygon>
+%  <text x="58.5" y="-34" t="Adder" h="4" lc="white"/>
+%  <polyline lc="silver">52,-34 52,-31 55,-31 55,-30</polyline>
+%  <polygon li="none" fill="purple">55,-30 58,-32.5 55,-35 55,-34 52,-34 52,-31 55,-31 55,-30</polygon>
+%  <rect x="67" y="-31.55" w="8.00006" h="8.00001" lc="silver" fill="gray"/>
+%  <rect x="68.3" y="-27" w="0.200005" h="0.199997" li="none" fill="white"/>
+%  <rect x="68.3" y="-27.2" w="0.199989" h="0.200012" li="none" fill="white"/>
+%  <rect x="68.3" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.3" y="-27.4" w="0.200005" h="0.20002" li="none" fill="white"/>
+%  <rect x="68.9" y="-27" w="0.200005" h="0.199997" li="none" fill="white"/>
+%  <rect x="68.9" y="-27.2" w="0.199989" h="0.200012" li="none" fill="white"/>
+%  <rect x="68.9" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.9" y="-27.4" w="0.200005" h="0.20002" li="none" fill="white"/>
+%  <rect x="68.5" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.7" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.5" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.5" y="-28.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.3" y="-28.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.1" y="-28.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="68.5" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="69.3" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="69.5" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="69.7" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="69.3" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="69.5" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="69.7" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.3" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.5" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.7" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.3" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.5" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.7" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.3" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.5" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.7" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.1" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.1" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.9" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.9" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.9" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.9" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="70.9" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.3" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.3" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.5" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.7" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.9" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.9" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.5" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.7" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.3" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.3" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.9" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="71.9" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="72.3" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="72.5" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="72.7" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="72.5" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="72.5" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-26.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-26.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.3" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.5" y="-27" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.5" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.3" y="-28" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.7" y="-27.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.7" y="-27.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.7" y="-27.6" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.7" y="-27.8" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-26.4" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <rect x="73.1" y="-26.2" w="0.200005" h="0.200024" li="none" fill="white"/>
+%  <text x="58.5" y="-29" t="Multi" h="4" lc="white"/>
+%  <polygon li="none" fill="silver">40,20 39.5,20.5 9.5,20.5 9.5,10 10,10 10,20 40,20</polygon>
+%  <polygon li="none">10,20 40,20 42.5,17.5 42.5,12.5 40,10 10,10 10,20</polygon>
+%  <text x="13.5" y="13.5" t="In" h="4" lc="white"/>
+%  <text x="39" y="13.4" t="Out" h="4" halign="r" lc="white"/>
+%  <polyline lc="silver">7,13.5 7,16.5 10,16.5 10,17.5</polyline>
+%  <rect x="22" y="11" w="8.00006" h="8.00001" lc="silver" fill="gray"/>
+%  <polyline lc="silver">40,13.4 40,16.4 43,16.4 43,17.4</polyline>
+%  <polygon li="none" fill="blue">43,17.4 46,14.9 43,12.4 43,13.4 40,13.4 40,16.4 43,16.4 43,17.4</polygon>
+%  <polygon li="none" fill="blue">10,17.5 13,15 10,12.5 10,13.5 7,13.5 7,16.5 10,16.5 10,17.5</polygon>
+%  <polyline lc="aqua">22,13 22.5,13 23.5,13 24.5,13 25,13.5 25,14 25.5,15 26.5,16 27,16.5 27.5,16.5 28.5,16 29,16 29.5,16.5 30,16.5</polyline>
+%  <rect x="22.5" y="12.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="22.25" y="13.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="22" y="13" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="23" y="13.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="23.25" y="12.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="23.5" y="12.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="23.75" y="13" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="24" y="13.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="24.25" y="12.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="24.5" y="13.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25" y="12.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25.25" y="13.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25" y="14" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25" y="14" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25.75" y="13.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25.5" y="14.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25.75" y="14.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="24.75" y="14.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="24.75" y="15" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25.5" y="15.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="25.75" y="15.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="26.25" y="15.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="26.5" y="15.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="26" y="16" w="0.25" h="0.250002" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="26.5" y="16.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="27" y="16.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="27.25" y="16.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="27.75" y="16.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="28" y="16.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="28.25" y="16.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="27.75" y="15.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="28.75" y="15.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="29" y="16.25" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="29.25" y="16.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="29.75" y="16.75" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <rect x="29.5" y="15.5" w="0.25" h="0.25" li="none" lc="aqua" fill="goldenrod"/>
+%  <bezier lw="4.00" lc="blue">45,15 46.5,15 48.5,15 50,15 52.5443,15 55.6393,12.4251 55,10 53.549,4.49555 44.3317,6 38.5,6 31.5,6 23,7 22,2.5 21.3675,-0.346051 21.8435,-2.5 27.5,-2.5</bezier>
+%  <polygon li="none" fill="teal">30,0 33,-2.5 30,-5 30,-4 27,-4 27,-1 30,-1 30,0</polygon>
+%  <bezier lw="4.00" lc="teal">-1,-2.5 5.5,-2.5 8.48748,-2.10268 11.5,-3.5 14.2388,-4.77034 13.3292,-5.09826 16,-6.5 19.757,-8.47184 24,-7.5 28,-7.5</bezier>
+%  <bezier lw="4.00" lc="teal">-1,-2.5 3.5,-2.5 5.19653,-2.52795 7.5,-2 9.46798,-1.54894 9.88251,-1.17685 11,0.5 12.7802,3.17127 9.80509,6.56204 5.5,7 2.5976,7.29527 -3.03266,8.55262 -2.5,11 -1.69954,14.6778 3.12685,15 7,15</bezier>
+%  <polygon li="none" fill="blue">30,-5 33,-7.5 30,-10 30,-9 27,-9 27,-6 30,-6 30,-5</polygon>
+%  <rect x="42" y="-9" w="8.00006" h="8.00001" lc="silver" fill="gray"/>
+%  <polyline lc="aqua">42,-4 42.6,-4 43,-3 43.7,-5.1 44.5,-3 45,-2 45.5,-2.5 46.4,-4.3 47.2,-3 48,-2.5 48.7,-5.1 49,-3 50,-3.5</polyline>
+%  <circle x="49.1" y="-3.12" d="0.565686" lw="0.50" lc="white"/>
+%  <circle x="44" y="-4.32" d="0.565686" lw="0.50" lc="white"/>
+%  <circle x="46.1" y="-3.8" d="0.565686" lw="0.50" lc="white"/>
+%  <polyline lc="yellow">42,-6 43,-6 43,-8 44,-8 44,-6 45,-6 45,-8 46.1,-8 46.1,-6 47.5,-6 47.5,-8 49.1,-8 49.1,-6 49.9,-6</polyline>
+%  <line x1="44" y1="-7.9" x2="44" y2="-6.5" arr2="h44" arrs="0.2" lc="yellow"/>
+%  <line x1="46.1" y1="-7.9" x2="46.1" y2="-6.5" arr2="h44" arrs="0.2" lc="yellow"/>
+%  <line x1="49.1" y1="-7.9" x2="49.1" y2="-6.5" arr2="h44" arrs="0.2" lc="yellow"/>
+%  <polyline arrs="0.2" li="dot" lc="white">42,-2.8 44,-2.8 44,-4.3 46.1,-4.3 46.1,-3.8 49.1,-3.8 49.1,-3.1 49.9,-3.1 49.8,-3.1</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (-16.34,-37.00) rectangle +(121.78,59.50);
+\definecolor{F}{rgb}{0.502,0.502,0.502}
+\path[fill=F] (10.00,20.00) -- (40.00,20.00) -- (42.50,17.50) -- (42.50,12.50) -- (40.00,10.00) -- (10.00,10.00) -- (10.00,20.00) -- cycle;
+\definecolor{F}{rgb}{0.753,0.753,0.753}
+\path[fill=F] (60.00,0.00) -- (59.50,0.50) -- (29.50,0.50) -- (29.50,-10.00) -- (30.00,-10.00) -- (30.00,0.00) -- (60.00,0.00) -- cycle;
+\definecolor{F}{rgb}{0.502,0.502,0.502}
+\path[fill=F] (30.00,0.00) -- (60.00,0.00) -- (62.50,-2.50) -- (62.50,-7.50) -- (60.00,-10.00) -- (30.00,-10.00) -- (30.00,0.00) -- cycle;
+\definecolor{F}{rgb}{0,0.502,0.502}
+\path[fill=F] (63.00,-2.50) -- (66.00,-5.00) -- (63.00,-7.50) -- (63.00,-6.50) -- (60.00,-6.50) -- (60.00,-3.50) -- (63.00,-3.50) -- (63.00,-2.50) -- cycle;
+\definecolor{T}{rgb}{1,1,1}
+\draw[T] (33.50,-9.00) node[anchor=base west]{\textcolor[rgb]{1, 1, 1}{CK}};
+\draw[T] (34.00,-4.00) node[anchor=base west]{\textcolor[rgb]{1, 1, 1}{WF}};
+\draw[T] (59.00,-6.50) node[anchor=base east]{\textcolor[rgb]{1, 1, 1}{Out}};
+\definecolor{L}{rgb}{0.753,0.753,0.753}
+\path[line width=0.30mm, draw=L] (27.00,-4.00) -- (27.00,-1.00) -- (30.00,-1.00) -- (30.00,0.00);
+\path[line width=0.30mm, draw=L] (27.00,-9.00) -- (27.00,-6.00) -- (30.00,-6.00) -- (30.00,-5.00);
+\path[line width=0.30mm, draw=L] (60.00,-6.50) -- (60.00,-3.50) -- (63.00,-3.50) -- (63.00,-2.50);
+\definecolor{F}{rgb}{0.753,0.753,0.753}
+\path[fill=F] (85.00,-20.00) -- (84.50,-19.50) -- (54.50,-19.50) -- (54.50,-35.00) -- (55.00,-35.00) -- (55.00,-20.00) -- (85.00,-20.00) -- cycle;
+\definecolor{F}{rgb}{0.502,0.502,0.502}
+\path[fill=F] (55.00,-20.00) -- (85.00,-20.00) -- (87.50,-22.50) -- (87.50,-32.50) -- (85.00,-35.00) -- (55.00,-35.00) -- (55.00,-20.00) -- cycle;
+\draw[T] (58.50,-24.00) node[anchor=base west]{\textcolor[rgb]{1, 1, 1}{In}};
+\draw[T] (84.00,-29.00) node[anchor=base east]{\textcolor[rgb]{1, 1, 1}{Out}};
+\path[line width=0.30mm, draw=L] (52.00,-24.00) -- (52.00,-21.00) -- (55.00,-21.00) -- (55.00,-20.00);
+\path[line width=0.30mm, draw=L] (85.00,-29.00) -- (85.00,-26.00) -- (88.00,-26.00) -- (88.00,-25.00);
+\definecolor{F}{rgb}{0,0.502,0.502}
+\path[fill=F] (88.00,-25.00) -- (91.00,-27.50) -- (88.00,-30.00) -- (88.00,-29.00) -- (85.00,-29.00) -- (85.00,-26.00) -- (88.00,-26.00) -- (88.00,-25.00) -- cycle;
+\definecolor{F}{rgb}{0,0,1}
+\path[fill=F] (55.00,-20.00) -- (58.00,-22.50) -- (55.00,-25.00) -- (55.00,-24.00) -- (52.00,-24.00) -- (52.00,-21.00) -- (55.00,-21.00) -- (55.00,-20.00) -- cycle;
+\draw(-7.00,-4.00) node[anchor=base east]{VSS};
+\definecolor{F}{rgb}{0,0.502,0.502}
+\path[fill=F] (-3.00,0.00) -- (0.00,-2.50) -- (-3.00,-5.00) -- (-3.00,-4.00) -- (-6.00,-4.00) -- (-6.00,-1.00) -- (-3.00,-1.00) -- (-3.00,0.00) -- cycle;
+\path[line width=0.30mm, draw=L] (-6.00,-4.00) -- (-6.00,-1.00) -- (-3.00,-1.00) -- (-3.00,0.00);
+\definecolor{L}{rgb}{0,0.502,0.502}
+\path[line width=1.20mm, draw=L] (65.00,-5.00) .. controls (67.00,-5.00) and (71.00,-5.00) .. (71.00,-8.00) .. controls (71.00,-12.00) and (64.00,-14.00) .. (60.00,-14.00) .. controls (55.22,-14.00) and (49.00,-15.00) .. (49.00,-20.00) .. controls (49.00,-21.80) and (51.00,-22.50) .. (52.00,-22.50);
+\draw(97.00,-13.00) node[anchor=base west]{ILB};
+\path[fill=F] (93.00,-9.00) -- (96.00,-11.50) -- (93.00,-14.00) -- (93.00,-13.00) -- (90.00,-13.00) -- (90.00,-10.00) -- (93.00,-10.00) -- (93.00,-9.00) -- cycle;
+\definecolor{L}{rgb}{0.753,0.753,0.753}
+\path[line width=0.30mm, draw=L] (90.00,-13.00) -- (90.00,-10.00) -- (93.00,-10.00) -- (93.00,-9.00);
+\definecolor{L}{rgb}{0,0.502,0.502}
+\path[line width=1.20mm, draw=L] (90.00,-27.50) .. controls (92.50,-27.50) and (94.00,-25.54) .. (94.00,-22.00) .. controls (94.00,-18.50) and (87.88,-17.00) .. (84.00,-17.00) .. controls (79.50,-17.00) and (76.00,-17.76) .. (76.00,-14.50) .. controls (76.00,-12.00) and (79.83,-11.50) .. (82.50,-11.50) .. controls (85.50,-11.50) and (88.00,-11.50) .. (90.50,-11.50);
+\definecolor{L}{rgb}{0.753,0.753,0.753}
+\path[line width=0.30mm, draw=L] (52.00,-29.00) -- (52.00,-26.00) -- (55.00,-26.00) -- (55.00,-25.00);
+\definecolor{F}{rgb}{0.502,0,0.502}
+\path[fill=F] (55.00,-25.00) -- (58.00,-27.50) -- (55.00,-30.00) -- (55.00,-29.00) -- (52.00,-29.00) -- (52.00,-26.00) -- (55.00,-26.00) -- (55.00,-25.00) -- cycle;
+\draw[T] (58.50,-34.00) node[anchor=base west]{\textcolor[rgb]{1, 1, 1}{Adder}};
+\path[line width=0.30mm, draw=L] (52.00,-34.00) -- (52.00,-31.00) -- (55.00,-31.00) -- (55.00,-30.00);
+\path[fill=F] (55.00,-30.00) -- (58.00,-32.50) -- (55.00,-35.00) -- (55.00,-34.00) -- (52.00,-34.00) -- (52.00,-31.00) -- (55.00,-31.00) -- (55.00,-30.00) -- cycle;
+\definecolor{F}{rgb}{0.502,0.502,0.502}
+\path[line width=0.30mm, draw=L, fill=F] (67.00,-31.55) rectangle +(8.00,8.00);
+\definecolor{F}{rgb}{1,1,1}
+\path[fill=F] (68.30,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (68.30,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (68.30,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (68.30,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (68.90,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (68.90,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (68.90,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (68.90,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (68.50,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (68.70,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (68.50,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (68.50,-28.20) rectangle +(0.20,0.20);
+\path[fill=F] (68.30,-28.40) rectangle +(0.20,0.20);
+\path[fill=F] (68.10,-28.40) rectangle +(0.20,0.20);
+\path[fill=F] (68.50,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (69.30,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (69.50,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (69.70,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (69.30,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (69.50,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (69.70,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (70.30,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.50,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.70,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.30,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (70.50,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (70.70,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (70.30,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.50,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.70,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.10,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (70.10,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (70.90,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (70.90,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (70.90,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (70.90,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (70.90,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (71.30,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (71.30,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (71.50,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (71.70,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (71.90,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (71.90,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (71.50,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (71.70,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (71.30,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (71.30,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (71.90,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (71.90,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (72.30,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (72.50,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (72.70,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (72.50,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (72.50,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-26.60) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-26.80) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (73.30,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (73.50,-27.00) rectangle +(0.20,0.20);
+\path[fill=F] (73.50,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (73.30,-28.00) rectangle +(0.20,0.20);
+\path[fill=F] (73.70,-27.20) rectangle +(0.20,0.20);
+\path[fill=F] (73.70,-27.40) rectangle +(0.20,0.20);
+\path[fill=F] (73.70,-27.60) rectangle +(0.20,0.20);
+\path[fill=F] (73.70,-27.80) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-26.40) rectangle +(0.20,0.20);
+\path[fill=F] (73.10,-26.20) rectangle +(0.20,0.20);
+\draw[T] (58.50,-29.00) node[anchor=base west]{\textcolor[rgb]{1, 1, 1}{Multi}};
+\definecolor{F}{rgb}{0.753,0.753,0.753}
+\path[fill=F] (40.00,20.00) -- (39.50,20.50) -- (9.50,20.50) -- (9.50,10.00) -- (10.00,10.00) -- (10.00,20.00) -- (40.00,20.00) -- cycle;
+\path[] (10.00,20.00) -- (40.00,20.00) -- (42.50,17.50) -- (42.50,12.50) -- (40.00,10.00) -- (10.00,10.00) -- (10.00,20.00) -- cycle;
+\draw[T] (13.50,13.50) node[anchor=base west]{\textcolor[rgb]{1, 1, 1}{In}};
+\draw[T] (39.00,13.40) node[anchor=base east]{\textcolor[rgb]{1, 1, 1}{Out}};
+\path[line width=0.30mm, draw=L] (7.00,13.50) -- (7.00,16.50) -- (10.00,16.50) -- (10.00,17.50);
+\definecolor{F}{rgb}{0.502,0.502,0.502}
+\path[line width=0.30mm, draw=L, fill=F] (22.00,11.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (40.00,13.40) -- (40.00,16.40) -- (43.00,16.40) -- (43.00,17.40);
+\definecolor{F}{rgb}{0,0,1}
+\path[fill=F] (43.00,17.40) -- (46.00,14.90) -- (43.00,12.40) -- (43.00,13.40) -- (40.00,13.40) -- (40.00,16.40) -- (43.00,16.40) -- (43.00,17.40) -- cycle;
+\path[fill=F] (10.00,17.50) -- (13.00,15.00) -- (10.00,12.50) -- (10.00,13.50) -- (7.00,13.50) -- (7.00,16.50) -- (10.00,16.50) -- (10.00,17.50) -- cycle;
+\definecolor{L}{rgb}{0,1,1}
+\path[line width=0.30mm, draw=L] (22.00,13.00) -- (22.50,13.00) -- (23.50,13.00) -- (24.50,13.00) -- (25.00,13.50) -- (25.00,14.00) -- (25.50,15.00) -- (26.50,16.00) -- (27.00,16.50) -- (27.50,16.50) -- (28.50,16.00) -- (29.00,16.00) -- (29.50,16.50) -- (30.00,16.50);
+\definecolor{F}{rgb}{0.855,0.647,0.125}
+\path[fill=F] (22.50,12.50) rectangle +(0.25,0.25);
+\path[fill=F] (22.25,13.25) rectangle +(0.25,0.25);
+\path[fill=F] (22.00,13.00) rectangle +(0.25,0.25);
+\path[fill=F] (23.00,13.25) rectangle +(0.25,0.25);
+\path[fill=F] (23.25,12.75) rectangle +(0.25,0.25);
+\path[fill=F] (23.50,12.50) rectangle +(0.25,0.25);
+\path[fill=F] (23.75,13.00) rectangle +(0.25,0.25);
+\path[fill=F] (24.00,13.25) rectangle +(0.25,0.25);
+\path[fill=F] (24.25,12.75) rectangle +(0.25,0.25);
+\path[fill=F] (24.50,13.25) rectangle +(0.25,0.25);
+\path[fill=F] (25.00,12.75) rectangle +(0.25,0.25);
+\path[fill=F] (25.25,13.25) rectangle +(0.25,0.25);
+\path[fill=F] (25.00,14.00) rectangle +(0.25,0.25);
+\path[fill=F] (25.00,14.00) rectangle +(0.25,0.25);
+\path[fill=F] (25.75,13.75) rectangle +(0.25,0.25);
+\path[fill=F] (25.50,14.25) rectangle +(0.25,0.25);
+\path[fill=F] (25.75,14.50) rectangle +(0.25,0.25);
+\path[fill=F] (24.75,14.50) rectangle +(0.25,0.25);
+\path[fill=F] (24.75,15.00) rectangle +(0.25,0.25);
+\path[fill=F] (25.50,15.25) rectangle +(0.25,0.25);
+\path[fill=F] (25.75,15.50) rectangle +(0.25,0.25);
+\path[fill=F] (26.25,15.25) rectangle +(0.25,0.25);
+\path[fill=F] (26.50,15.50) rectangle +(0.25,0.25);
+\path[fill=F] (26.00,16.00) rectangle +(0.25,0.25);
+\path[fill=F] (26.50,16.25) rectangle +(0.25,0.25);
+\path[fill=F] (27.00,16.25) rectangle +(0.25,0.25);
+\path[fill=F] (27.25,16.75) rectangle +(0.25,0.25);
+\path[fill=F] (27.75,16.50) rectangle +(0.25,0.25);
+\path[fill=F] (28.00,16.50) rectangle +(0.25,0.25);
+\path[fill=F] (28.25,16.25) rectangle +(0.25,0.25);
+\path[fill=F] (27.75,15.75) rectangle +(0.25,0.25);
+\path[fill=F] (28.75,15.50) rectangle +(0.25,0.25);
+\path[fill=F] (29.00,16.25) rectangle +(0.25,0.25);
+\path[fill=F] (29.25,16.50) rectangle +(0.25,0.25);
+\path[fill=F] (29.75,16.75) rectangle +(0.25,0.25);
+\path[fill=F] (29.50,15.50) rectangle +(0.25,0.25);
+\definecolor{L}{rgb}{0,0,1}
+\path[line width=1.20mm, draw=L] (45.00,15.00) .. controls (46.50,15.00) and (48.50,15.00) .. (50.00,15.00) .. controls (52.54,15.00) and (55.64,12.43) .. (55.00,10.00) .. controls (53.55,4.50) and (44.33,6.00) .. (38.50,6.00) .. controls (31.50,6.00) and (23.00,7.00) .. (22.00,2.50) .. controls (21.37,-0.35) and (21.84,-2.50) .. (27.50,-2.50);
+\definecolor{F}{rgb}{0,0.502,0.502}
+\path[fill=F] (30.00,0.00) -- (33.00,-2.50) -- (30.00,-5.00) -- (30.00,-4.00) -- (27.00,-4.00) -- (27.00,-1.00) -- (30.00,-1.00) -- (30.00,0.00) -- cycle;
+\definecolor{L}{rgb}{0,0.502,0.502}
+\path[line width=1.20mm, draw=L] (-1.00,-2.50) .. controls (5.50,-2.50) and (8.49,-2.10) .. (11.50,-3.50) .. controls (14.24,-4.77) and (13.33,-5.10) .. (16.00,-6.50) .. controls (19.76,-8.47) and (24.00,-7.50) .. (28.00,-7.50);
+\path[line width=1.20mm, draw=L] (-1.00,-2.50) .. controls (3.50,-2.50) and (5.20,-2.53) .. (7.50,-2.00) .. controls (9.47,-1.55) and (9.88,-1.18) .. (11.00,0.50) .. controls (12.78,3.17) and (9.81,6.56) .. (5.50,7.00) .. controls (2.60,7.30) and (-3.03,8.55) .. (-2.50,11.00) .. controls (-1.70,14.68) and (3.13,15.00) .. (7.00,15.00);
+\definecolor{F}{rgb}{0,0,1}
+\path[fill=F] (30.00,-5.00) -- (33.00,-7.50) -- (30.00,-10.00) -- (30.00,-9.00) -- (27.00,-9.00) -- (27.00,-6.00) -- (30.00,-6.00) -- (30.00,-5.00) -- cycle;
+\definecolor{L}{rgb}{0.753,0.753,0.753}
+\definecolor{F}{rgb}{0.502,0.502,0.502}
+\path[line width=0.30mm, draw=L, fill=F] (42.00,-9.00) rectangle +(8.00,8.00);
+\definecolor{L}{rgb}{0,1,1}
+\path[line width=0.30mm, draw=L] (42.00,-4.00) -- (42.60,-4.00) -- (43.00,-3.00) -- (43.70,-5.10) -- (44.50,-3.00) -- (45.00,-2.00) -- (45.50,-2.50) -- (46.40,-4.30) -- (47.20,-3.00) -- (48.00,-2.50) -- (48.70,-5.10) -- (49.00,-3.00) -- (50.00,-3.50);
+\definecolor{L}{rgb}{1,1,1}
+\path[line width=0.15mm, draw=L] (49.10,-3.12) circle (0.28mm);
+\path[line width=0.15mm, draw=L] (44.00,-4.32) circle (0.28mm);
+\path[line width=0.15mm, draw=L] (46.10,-3.80) circle (0.28mm);
+\definecolor{L}{rgb}{1,1,0}
+\path[line width=0.30mm, draw=L] (42.00,-6.00) -- (43.00,-6.00) -- (43.00,-8.00) -- (44.00,-8.00) -- (44.00,-6.00) -- (45.00,-6.00) -- (45.00,-8.00) -- (46.10,-8.00) -- (46.10,-6.00) -- (47.50,-6.00) -- (47.50,-8.00) -- (49.10,-8.00) -- (49.10,-6.00) -- (49.90,-6.00);
+\path[line width=0.30mm, draw=L] (44.00,-7.90) -- (44.00,-6.50);
+\definecolor{F}{rgb}{1,1,0}
+\path[line width=0.30mm, draw=L, fill=F] (44.00,-6.50) -- (43.86,-7.06) -- (44.14,-7.06) -- (44.00,-6.50) -- cycle;
+\path[line width=0.30mm, draw=L] (46.10,-7.90) -- (46.10,-6.50);
+\path[line width=0.30mm, draw=L, fill=F] (46.10,-6.50) -- (45.96,-7.06) -- (46.24,-7.06) -- (46.10,-6.50) -- cycle;
+\path[line width=0.30mm, draw=L] (49.10,-7.90) -- (49.10,-6.50);
+\path[line width=0.30mm, draw=L, fill=F] (49.10,-6.50) -- (48.96,-7.06) -- (49.24,-7.06) -- (49.10,-6.50) -- cycle;
+\definecolor{L}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (42.00,-2.80) -- (44.00,-2.80) -- (44.00,-4.30) -- (46.10,-4.30) -- (46.10,-3.80) -- (49.10,-3.80) -- (49.10,-3.10) -- (49.90,-3.10) -- (49.80,-3.10);
+\end{tikzpicture}%

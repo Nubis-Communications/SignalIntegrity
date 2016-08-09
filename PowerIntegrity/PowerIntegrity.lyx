@@ -880,9 +880,9 @@ and the new difference equation:
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-R_{l}\cdot I_{l}\left[k\right]=\frac{R_{l}\cdot T}{L+R_{l}\cdot T}\cdot V_{l}\left[k\right]+\frac{L}{L+R_{l}\cdot T}\cdot I_{l}\left[k-1\right]
-\]
+\begin{equation}
+R_{l}\cdot I_{l}\left[k\right]=\frac{R_{l}\cdot T}{L+R_{l}\cdot T}\cdot V_{l}\left[k\right]+\frac{L}{L+R_{l}\cdot T}\cdot I_{l}\left[k-1\right]\label{eq:IlDiff}
+\end{equation}
 
 \end_inset
 
@@ -1051,11 +1051,11 @@ and have the difference equation:
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{multline*}
+\begin{multline}
 I_{o}\left[k\right]=I_{l}\left[k\right]+-C\cdot A\cdot\frac{2\cdot L_{c}+R_{c}\cdot T}{T^{2}}\cdot I_{l}\left[k-1\right]+\frac{L_{c}\cdot C}{T^{2}}\cdot A\cdot I_{l}\left[k-2\right]+\ldots\\
 \ldots+C\cdot A\cdot\frac{2\cdot L_{c}+R_{c}\cdot T}{T^{2}}\cdot I_{o}\left[k-1\right]+-\frac{L_{c}\cdot C}{T^{2}}\cdot A\cdot I_{o}\left[k-2\right]+\ldots\\
-\ldots+-\frac{C}{T}\cdot A\cdot V_{o}\left[k\right]+\frac{C}{T}\cdot A\cdot V_{o}\left[k-1\right]
-\end{multline*}
+\ldots+-\frac{C}{T}\cdot A\cdot V_{o}\left[k\right]+\frac{C}{T}\cdot A\cdot V_{o}\left[k-1\right]\label{eq:IoDiff}
+\end{multline}
 
 \end_inset
 
@@ -1480,6 +1480,459 @@ x\left[k\right]=\frac{1}{K}\sum_{n=0}^{K-1}X\left[n\right]\cdot e^{j\cdot\frac{n
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Processing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand input
+preview true
+filename "ScopeProcessingDiagram.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Power Integrity Scope Processing
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ScopeProcessing"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:ScopeProcessing"
+
+\end_inset
+
+ we see a processing web setup to perform the desired power integrity measuremen
+ts.
+ Specifically, the processing takes in three voltage waveforms:
+\end_layout
+
+\begin_layout Itemize
+VS - the voltage at the switch (the voltage at the input to the inductor).
+ This voltage waveform should be arranged such that it maximizes the vertical
+ scale of the scope, but does not go offscreen.
+\end_layout
+
+\begin_layout Itemize
+VO - the voltage at the output (the voltage at the output side of the inductor).
+ This voltage waveform should be arranged such that under all conditions
+ (including transient conditions, the waveform does not go offscreen.
+ It should include zero volts.
+\end_layout
+
+\begin_layout Itemize
+VSS - the voltage at the switch overdriven into the scope such that bottom
+ portion of the switch voltage is onscreen where it settles after the overdrive
+ recovery.
+ The top portion of this waveform will be far offscreen above.
+\end_layout
+
+\begin_layout Standard
+The output of this processing is three waveforms:
+\end_layout
+
+\begin_layout Itemize
+VL - the voltage across the inductor, formed as a simple subtraction: 
+\begin_inset Formula $VL=VS-VO$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+IL - the current through the inductor.
+\end_layout
+
+\begin_layout Itemize
+IO - the current into the load.
+\end_layout
+
+\begin_layout Standard
+Optionally, we might want to provide power waveforms formed by taking the
+ product of VO and IO and VS and IL, but that is simple processing.
+\end_layout
+
+\begin_layout Standard
+The key complexity here is the computation of IL.
+ The first part of the processing forms the 
+\emph on
+dynamic
+\emph default
+ inductor current ILD.
+ This is performed by applying the difference equation in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:IlDiff"
+
+\end_inset
+
+.
+ Typically, because of small 
+\begin_inset Formula $R_{l}$
+\end_inset
+
+, this will perform much like an integrator on 
+\begin_inset Formula $V_{l}$
+\end_inset
+
+.
+ The output will tend to look like a sawtooth current waveform.
+ Because of integration, it will highly amplify very low frequency noise
+ and the waveform will have a low frequency wander in it.
+ This amplification can be seen by the DC gain 
+\begin_inset Formula $1/R_{l}$
+\end_inset
+
+, where 
+\begin_inset Formula $R_{l}$
+\end_inset
+
+ tends to be very small.
+ Therefore, the wander is removed by subtracting a smoothed waveform from
+ the ILD waveform output.
+ The result is the sawtooth current waveform with the wander removed.
+\end_layout
+
+\begin_layout Standard
+To restore the baseline inductor current, the overdriven waveform VSS is
+ supplied to a processor that produces the per-cycle baseline current ILB.
+ This production of the baseline inductor current is provided in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:InductorBaselineCurrent"
+
+\end_inset
+
+.
+ The baseline inductor current is added to the sawtooth dynamic current
+ and output as IL.
+\end_layout
+
+\begin_layout Standard
+Using the waveforms VO (supplied) and the computed IL, the output current
+ IO is produced by a processor that implements the difference equation in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:IoDiff"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+WaveformSampler
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand input
+preview true
+filename "WaveformSamplerInternal.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\emph on
+WaveformSampler
+\emph default
+ Composite Processor Internals
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:WaveformSamplerInternals"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The 
+\emph on
+WaveformSampler
+\emph default
+ processor is a composite processor.
+ It has two inputs:
+\end_layout
+
+\begin_layout Itemize
+WF - the waveform to sample
+\end_layout
+
+\begin_layout Itemize
+CK - the clock waveform
+\end_layout
+
+\begin_layout Standard
+It has a single output - the sampled waveform.
+\end_layout
+
+\begin_layout Standard
+It consists internally of three processors:
+\end_layout
+
+\begin_layout Itemize
+A 
+\emph on
+Time@Level
+\emph default
+ processor
+\end_layout
+
+\begin_layout Itemize
+A 
+\emph on
+WaveformSamplerInternal
+\emph default
+ processor
+\end_layout
+
+\begin_layout Itemize
+A 
+\emph on
+TrackOfParameter
+\emph default
+ processor
+\end_layout
+
+\begin_layout Standard
+The internals of the 
+\emph on
+WaveformSampler
+\emph default
+ processor are shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:WaveformSamplerInternals"
+
+\end_inset
+
+.
+ The 
+\emph on
+Time@Level
+\emph default
+ processor determines the locations of clock edges on the clock waveform
+ based on specified polarity, threshold, and hysteresis values programmed
+ and passes these values to the TL input of the 
+\emph on
+WaveformSamplerInternal
+\emph default
+ processor.
+ The 
+\emph on
+WaveformSamplerInternal
+\emph default
+ processor then interpolates values on the waveform supplied at the clock
+ edge times supplied and outputs parameter values that are the coordinates
+ of the sampled waveform where the x ordinate is the clock edge time and
+ the y ordinate is the value of the waveform at that time.
+ The 
+\emph on
+TrackOfParameter
+\emph default
+ processor is utilized to turn the parameter values back into a waveform
+ representing the sampled waveform.
+ The track produces a waveform with the same sample locations as the supplied
+ waveform to the 
+\emph on
+WaveformSampler
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
+InductorBaselineCurrent
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:InductorBaselineCurrent"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand input
+preview true
+filename "InductorBaselineCurrent.TpX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\emph on
+InductorBaselineCurrent
+\emph default
+ Composite Processor Internals
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:InductorBaselineCurrentInternals"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The 
+\emph on
+InductorBaselineCurrent
+\emph default
+ processor is a composite processor.
+ It has one input: VSS - The voltage at the switch (saturated).
+ This is the switch voltage severely overdriven but showing the switch on
+ voltage on the screen.
+ It has one output: ILB - The inductor baseline current.
+\end_layout
+
+\begin_layout Standard
+The processor consists internally of three processors:
+\end_layout
+
+\begin_layout Itemize
+An 
+\emph on
+Eres
+\emph default
+ processor
+\end_layout
+
+\begin_layout Itemize
+A 
+\emph on
+WaveformSampler 
+\emph default
+processor
+\end_layout
+
+\begin_layout Itemize
+A 
+\emph on
+Rescaler
+\emph default
+ processor
+\end_layout
+
+\begin_layout Standard
+The internals of the 
+\emph on
+InductorBaselineCurrent
+\emph default
+ processor are shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:InductorBaselineCurrentInternals"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The baseline current is defined as the average inductor current over one
+ cycle of the switched voltage waveform.
+ It is used to augment the inductor dynamic current defined by dynamic voltage
+ across the inductor.
+ The inductor baseline current is calculated by sampling a smoothed version
+ of the over-driven switch voltage somewhere around the middle to the end
+ of the switch voltage cycle.
+ Since this essentially a per-cycle measurement of the voltage drop across
+ the FET switch when the switch is connected to ground, the inductor current
+ is proportional to this voltage.
+ Therefore, the 
+\emph on
+Rescaler
+\emph default
+ processor is utilized to provide the gain and offset for such a conversion,
+ and to supply the new units of Amps.
+ The gain and offset in the rescaler will need to be determined through
+ some sort of calibration step.
 \end_layout
 
 \end_body
