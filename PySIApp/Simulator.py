@@ -12,6 +12,7 @@ import tkMessageBox
 from PartProperty import *
 from SParameterViewerWindow import *
 from MenuSystemHelpers import *
+from ProgressDialog import ProgressDialog
 
 import matplotlib
 
@@ -238,7 +239,7 @@ class SimulatorDialog(Toplevel):
     def onEscape(self):
         Doer.inHelp=False
         self.config(cursor='left_ptr')
-
+    
 class Simulator(object):
     def __init__(self,parent):
         self.parent=parent
@@ -253,6 +254,8 @@ class Simulator(object):
         return self.simulatorDialog
     def UpdateWaveforms(self,outputWaveformList,outputWaveformLabels):
         self.SimulatorDialog().UpdateWaveforms(outputWaveformList,outputWaveformLabels).state('normal')
+    def _ProcessWaveforms(self,callback=None):
+        return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList)
     def Simulate(self):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
@@ -262,8 +265,9 @@ class Simulator(object):
             self.parent.calculationProperties.frequencyPoints)
         snp=si.p.SimulatorNumericParser(fd)
         snp.AddLines(netListText)
+        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=10.0)
         try:
-            self.transferMatrices=snp.TransferMatrices()
+            self.transferMatrices=progressDialog.GetResult()
         except si.PySIException as e:
             tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
             return
@@ -288,11 +292,15 @@ class Simulator(object):
                     for n in range(len(self.transferMatrices.Matrices)):
                         self.transferMatrices.Matrices[n][r][c]=self.transferMatrices.Matrices[n][r][c]*diresp[n]
 
-        tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
-
+        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
+        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+        try:
+            outputWaveformList = progressDialog.GetResult()
+        except si.PySIException as e:
+            tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            return
 
         for r in range(len(outputWaveformList)):
             if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':
@@ -327,21 +335,31 @@ class Simulator(object):
             si.fd.EvenlySpacedFrequencyList(
                 self.parent.calculationProperties.endFrequency,
                 self.parent.calculationProperties.frequencyPoints))
-        snp.AddLines(netListText)
+        snp.AddLines(netListText)       
+        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=10.0)
         try:
-            self.transferMatrices=snp.TransferMatrices()
+            self.transferMatrices=progressDialog.GetResult()
         except si.PySIException as e:
             tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
-        tmp=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+
+        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
         except si.PySIException as e:
             tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
+        
+        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+        try:
+            outputWaveformList = progressDialog.GetResult()
+        except si.PySIException as e:
+            tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            return
 
-        outputWaveformList = tmp.ProcessWaveforms(self.inputWaveformList)
         self.outputWaveformLabels=netList.OutputNames()
 
         for outputWaveformIndex in range(len(outputWaveformList)):

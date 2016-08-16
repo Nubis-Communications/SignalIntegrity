@@ -1,5 +1,5 @@
-class SimulatorNumericParser(SimulatorParser):
-    def __init__(self, f=None, args=None):
+class SimulatorNumericParser(SimulatorParser,CallBacker):
+    def __init__(self, f=None, args=None,  callback=None):
         SimulatorParser.__init__(self, f, args)
     def TransferMatrices(self):
         self.SystemDescription()

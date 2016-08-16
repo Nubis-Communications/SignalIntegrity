@@ -1,5 +1,5 @@
-class DeembedderNumericParser(DeembedderParser):
-    def __init__(self, f=None, args=None):
+class DeembedderNumericParser(DeembedderParser,CallBacker):
+    def __init__(self, f=None, args=None, callback=None):
         DeembedderParser.__init__(self, f, args)
     def Deembed(self,systemSParameters=None):
         self._ProcessLines()

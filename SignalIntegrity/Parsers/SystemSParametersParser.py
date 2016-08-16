@@ -8,12 +8,17 @@
  this material whatsoever.
 '''
 from SignalIntegrity.SystemDescriptions import SystemSParametersNumeric
-from SignalIntegrity.Parsers import SystemDescriptionParser
+from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
 from SignalIntegrity.SParameters import SParameters
+from SignalIntegrity.PySIException import PySIExceptionSParameters
+from SignalIntegrity.CallBacker import CallBacker
 
-class SystemSParametersNumericParser(SystemDescriptionParser):
-    def __init__(self,f=None,args=None):
+class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
+    def __init__(self,f=None,args=None,callback=None):
         SystemDescriptionParser.__init__(self,f,args)
+        # pragma: silent exclude
+        CallBacker.__init__(self,callback)
+        # pragma: include
     def SParameters(self):
         self.SystemDescription()
         self.m_sd.CheckConnections()
@@ -23,5 +28,11 @@ class SystemSParametersNumericParser(SystemDescriptionParser):
             for d in range(len(spc)):
                 self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(SystemSParametersNumeric(self.m_sd).SParameters())
+            # pragma: silent exclude
+            if self.HasACallBack():
+                progress=self.m_f[n]/self.m_f[-1]*100.0
+                if not self.CallBack(progress):
+                    raise PySIExceptionSParameters('calculation aborted')
+            # pragma: include
         sf = SParameters(self.m_f, result)
         return sf

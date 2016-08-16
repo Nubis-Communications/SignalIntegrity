@@ -7,13 +7,18 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from SignalIntegrity.Parsers import DeembedderParser
+from SignalIntegrity.Parsers.DeembedderParser import DeembedderParser
 from SignalIntegrity.SystemDescriptions import DeembedderNumeric
 from SignalIntegrity.SParameters import SParameters
+from SignalIntegrity.PySIException import PySIExceptionDeembedder
+from SignalIntegrity.CallBacker import CallBacker
 
-class DeembedderNumericParser(DeembedderParser):
-    def __init__(self, f=None, args=None):
+class DeembedderNumericParser(DeembedderParser,CallBacker):
+    def __init__(self, f=None, args=None, callback=None):
         DeembedderParser.__init__(self, f, args)
+        # pragma: silent exclude
+        CallBacker.__init__(self,callback)
+        # pragma: include
     def Deembed(self,systemSParameters=None):
         self._ProcessLines()
         self.m_sd.CheckConnections()
@@ -33,6 +38,12 @@ class DeembedderNumericParser(DeembedderParser):
             if NumUnknowns == 1: unl=[unl]
             for u in range(NumUnknowns):
                 result[u].append(unl[u])
+            # pragma: silent exclude
+            if self.HasACallBack():
+                progress = self.m_f[n]/self.m_f[-1]*100.0
+                if not self.CallBack(progress):
+                    raise PySIExceptionDeembedder('calculation aborted')
+            # pragma: include
         sf=[SParameters(self.m_f,r) for r in result]
         if len(sf)==1:
             return sf[0]

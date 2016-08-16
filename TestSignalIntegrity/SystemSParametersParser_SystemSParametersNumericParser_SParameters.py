@@ -1,5 +1,5 @@
-class SystemSParametersNumericParser(SystemDescriptionParser):
-    def __init__(self,f=None,args=None):
+class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
+    def __init__(self,f=None,args=None,callback=None):
         SystemDescriptionParser.__init__(self,f,args)
     def SParameters(self):
         self.SystemDescription()

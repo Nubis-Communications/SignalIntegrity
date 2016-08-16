@@ -33,6 +33,10 @@ class PySIExceptionSParameterFile(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'SParameterFile',message)
 
+class PySIExceptionDeembedder(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'Deembedder',message)
+
 class PySIExceptionWaveformFile(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'WaveformFile',message)
@@ -44,6 +48,10 @@ class PySIExceptionSimulator(PySIException):
 class PySIExceptionVirtualProbe(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'VirtualProbe',message)
+
+class PySIExceptionSParameters(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'S-Parameters',message)
 
 class PySIExceptionNumeric(PySIException):
     def __init__(self,message=''):

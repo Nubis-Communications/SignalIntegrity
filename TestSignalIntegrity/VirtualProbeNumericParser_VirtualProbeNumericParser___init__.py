@@ -1,5 +1,5 @@
-class VirtualProbeNumericParser(VirtualProbeParser):
-    def __init__(self, f=None, args=None):
+class VirtualProbeNumericParser(VirtualProbeParser,CallBacker):
+    def __init__(self, f=None, args=None, callback=None):
         VirtualProbeParser.__init__(self, f, args)
         self.m_tm=None
     def TransferMatrices(self):

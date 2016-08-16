@@ -24,7 +24,7 @@ class TimeDescriptor(object):
     def ApplyFilter(self,F):
         return TimeDescriptor(
             HorOffset=self.H+(F.S-F.D)/self.Fs,
-            NumPts=max(0,(self.N-F.S)*F.U),
+            NumPts=int(max(0,(self.N-F.S)*F.U)),
             SampleRate=self.Fs*F.U)
     def __mul__(self,F):
         return self.ApplyFilter(F)

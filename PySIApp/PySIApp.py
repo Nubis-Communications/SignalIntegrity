@@ -32,6 +32,7 @@ from Files import *
 from History import *
 from MenuSystemHelpers import *
 from BuildHelpSystem import *
+from ProgressDialog import ProgressDialog
 
 class TheApp(Frame):
     def __init__(self):
@@ -517,8 +518,9 @@ class TheApp(Frame):
                 self.calculationProperties.endFrequency,
                 self.calculationProperties.frequencyPoints))
         spnp.AddLines(netList)
+        progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=10.0)
         try:
-            sp=spnp.SParameters()
+            sp=progressDialog.GetResult()
         except si.PySIException as e:
             tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
@@ -546,8 +548,10 @@ class TheApp(Frame):
                 self.calculationProperties.endFrequency,
                 self.calculationProperties.frequencyPoints))
         dnp.AddLines(netList)
+        
+        progressDialog = ProgressDialog(self,self.installdir,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=10.0)
         try:
-            sp=dnp.Deembed()
+            sp=progressDialog.GetResult()
         except si.PySIException as e:
             tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
             return
