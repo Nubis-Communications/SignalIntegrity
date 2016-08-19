@@ -192,6 +192,25 @@ class NetList(object):
                         if determinesStimDeviceIndex == dependentStimDeviceIndex:
                             stimdef[r][c]=deviceList[dependentStimDeviceIndex][PartPropertyWeight().propertyName].GetValue()
             self.textToShow.append('stimdef '+str(stimdef))
+        
+        # clean up everything to deal with special case current probes and differential voltage probes
+        endinglines=[]
+        textToShow=[]
+        for line in self.textToShow:
+            tokens = line.split(' ')
+            if tokens[0] == 'currentoutput':
+                line = 'device '+tokens[1]+' 4 currentcontrolledvoltagesource 1.0'
+            if tokens[0] == 'differentialvoltageoutput':
+                line = 'device '+tokens[1]+' 4 voltagecontrolledvoltagesource 1.0'
+            if tokens[0] == 'currentoutput' or tokens[0] == 'differentialvoltageoutput':
+                self.outputNames.append(tokens[1])
+                endinglines.append('device '+tokens[1]+'_2 1 ground')
+                endinglines.append('device '+tokens[1]+'_3 1 open')
+                endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_2 1')
+                endinglines.append('connect '+tokens[1]+' 4 '+tokens[1]+'_3 1')
+                endinglines.append('output '+tokens[1]+' 4')
+            textToShow.append(line)
+        self.textToShow=textToShow+endinglines
     def Text(self):
         return self.textToShow
     def OutputNames(self):

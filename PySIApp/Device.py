@@ -424,6 +424,26 @@ class DeviceVoltageNoiseSource(Device):
         waveform = si.td.wf.NoiseWaveform(si.td.wf.TimeDescriptor(horOffset,K,Fs),sigma)
         return waveform
 
+class DeviceVoltageOutputProbe(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('DifferentialVoltageOutput'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Differential Voltage Probe'),PartPropertyPorts(2),
+            PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableVoltageProbe())
+        self[PartPropertyVoltageGain().propertyName].visible=False
+        self[PartPropertyVoltageOffset().propertyName].visible=False
+        self[PartPropertyDelay().propertyName].visible=False
+    def NetListLine(self):
+        return 'differentialvoltageoutput '+self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw')+' '+self['ports'].PropertyString(stype='raw')
+
+class DeviceCurrentOutputProbe(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
+            PartPropertyTransresistance(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableCurrentProbe())
+        self[PartPropertyTransresistance().propertyName].visible=False
+        self[PartPropertyVoltageOffset().propertyName].visible=False
+        self[PartPropertyDelay().propertyName].visible=False
+    def NetListLine(self):
+        return 'currentoutput '+self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw')+' '+self['ports'].PropertyString(stype='raw')
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),
               DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),
@@ -474,7 +494,9 @@ DeviceList = [
               DeviceVoltageControlledCurrentSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Current Source'),PartPropertyPorts(4)]),
               DeviceTransconductanceAmplifierFourPort([PartPropertyDescription('Four Port Transconductance Amplifier'),PartPropertyPorts(4)]),
               DeviceCurrentControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Current Controlled Voltage Source'),PartPropertyPorts(4)]),
-              DeviceTransresistanceAmplifierFourPort([PartPropertyDescription('Four Port Transresistance Amplifier'),PartPropertyPorts(4)])
+              DeviceTransresistanceAmplifierFourPort([PartPropertyDescription('Four Port Transresistance Amplifier'),PartPropertyPorts(4)]),
+              DeviceCurrentOutputProbe(),
+              DeviceVoltageOutputProbe()
               ]
 
 DeviceListUnknown = [

@@ -1422,6 +1422,32 @@ class PartPictureSystemSide(PartPictureSpecifiedPortsSide):
         self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'S')
         PartPictureSpecifiedPortsSide.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
 
+class PartPictureVoltageProbe(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False)],[(0.5,1),(1.5,3)],[(0.5,0),(1.5,4)],(0,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # arrow on the sensing port
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
 class PartPictureVariableSystem(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureSystem','PartPictureSystemAcross','PartPictureSystemDownAndUp','PartPictureSystemSide'],ports)
+
+class PartPictureVariableVoltageProbe(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageProbe'],2)
+
+class PartPictureCurrentProbe(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False),PartPin(2,(1,0),'t',False)],[(0.5,1),(1.5,3)],[(0.5,0),(1.5,4)],(0,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # arrow on the sensing port
+        PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+        
+class PartPictureVariableCurrentProbe(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentProbe'],2)
+
+

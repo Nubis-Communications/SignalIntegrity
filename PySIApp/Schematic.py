@@ -1166,7 +1166,7 @@ class Drawing(Frame):
             deviceType = device['type'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
-            elif deviceType == 'Output':
+            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput']:
                 foundAnOutput = True
             elif deviceType == 'Stim':
                 foundAStim = True

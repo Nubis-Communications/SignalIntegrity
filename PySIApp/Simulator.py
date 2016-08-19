@@ -311,12 +311,17 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device[PartPropertyPartName().propertyName].GetValue() == 'Output':
+                if device[PartPropertyPartName().propertyName].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
                     if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
-                        gain=device[PartPropertyVoltageGain().propertyName].GetValue()
+                        # probes may have different kinds of gain specified
+                        gainProperty = device[PartPropertyVoltageGain().propertyName]
+                        if gainProperty is None:
+                            gainProperty = device[PartPropertyTransresistance().propertyName]
+                        gain=gainProperty.GetValue()
                         offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
                         delay=device[PartPropertyDelay().propertyName].GetValue()
-                        outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                        if gain != 1.0 and offset != 0.0 and delay != 0.0:
+                            outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
@@ -366,12 +371,17 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device[PartPropertyPartName().propertyName].GetValue() == 'Output':
+                if device[PartPropertyPartName().propertyName].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
                     if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
-                        gain=device[PartPropertyVoltageGain().propertyName].GetValue()
+                        # probes may have different kinds of gain specified
+                        gainProperty = device[PartPropertyVoltageGain().propertyName]
+                        if gainProperty is None:
+                            gainProperty = device[PartPropertyTransresistance().propertyName]
+                        gain=gainProperty.GetValue()
                         offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
                         delay=device[PartPropertyDelay().propertyName].GetValue()
-                        outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                        if gain != 1.0 and offset != 0.0 and delay != 0.0:
+                            outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
