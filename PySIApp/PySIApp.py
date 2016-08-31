@@ -33,6 +33,7 @@ from History import *
 from MenuSystemHelpers import *
 from BuildHelpSystem import *
 from ProgressDialog import ProgressDialog
+from About import AboutDialog
 
 class TheApp(Frame):
     def __init__(self):
@@ -118,6 +119,7 @@ class TheApp(Frame):
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.helpSystemKeys['Control-Help:Open-Help-File'])
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.helpSystemKeys['Control-Help:Control-Help'])
+        self.AboutDoer = Doer(self.onAbout).AddHelpElement(self.helpSystemKeys['Control-Help:About'])
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 
@@ -192,6 +194,7 @@ class TheApp(Frame):
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
+        self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
 
         # The Toolbar
         ToolBarFrame = Frame(self)
@@ -661,6 +664,9 @@ class TheApp(Frame):
         else:
             self.Drawing.stateMachine.NoProject(True)
         self.config(cursor='left_ptr')
+        
+    def onAbout(self):
+        AboutDialog(self)
 
 def main():
     app=TheApp()
