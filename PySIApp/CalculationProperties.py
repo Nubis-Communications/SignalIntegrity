@@ -111,7 +111,7 @@ class CalculationPropertiesDialog(Toplevel):
         self.calculationProperties.impulseLength=1./self.calculationProperties.frequencyResolution
 
     def ontimePointsEntered(self,event):
-        self.calculationProperties.timePoints=int(FromSI(self.timePointsFrame.GetString()),'pts')
+        self.calculationProperties.timePoints=int(FromSI(self.timePointsFrame.GetString(),'pts'))
         self.calculationProperties.frequencyPoints=int(nextHigher12458(self.calculationProperties.timePoints/2))
         self.calculationProperties.frequencyPoints=max(1,self.calculationProperties.frequencyPoints)
         self.calculationProperties.timePoints=self.calculationProperties.frequencyPoints*2
