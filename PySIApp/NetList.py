@@ -8,6 +8,7 @@
  this material whatsoever.
 '''
 from Tkinter import *
+from ScrolledText import ScrolledText
 from tkFileDialog import asksaveasfilename
 import os
 
@@ -224,10 +225,11 @@ class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
         Frame.__init__(self,parent)
         self.title = 'NetList'
-        self.text=Text(self)
+        self.text=ScrolledText(self)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')
+        self.text.configure(state='disabled')
 
 class NetListDialog(Toplevel):
     def __init__(self,parent,textToShow):

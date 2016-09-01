@@ -35,7 +35,7 @@ class CreditsDialog(Toplevel):
         self.text.focus_set()
         self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
             self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
-
+        self.text.configure(state='disabled')
  
 class LicenseDialog(Toplevel):
     def __init__(self,parent):
@@ -69,7 +69,7 @@ class LicenseDialog(Toplevel):
         self.text.focus_set()
         self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
             self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
- 
+        self.text.configure(state='disabled') 
 class AboutDialog(Toplevel):
     def __init__(self,parent):
         self.parent = parent
