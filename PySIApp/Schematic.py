@@ -181,7 +181,7 @@ class DrawingStateMachine(object):
                 device.selected=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2):
                     selectedSomething=True
                     vertex.selected=True
         if not selectedSomething:
@@ -189,7 +189,7 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2):
                         segment.selected=True
                         selectedSomething=True
                         break
@@ -208,7 +208,7 @@ class DrawingStateMachine(object):
                 toggledSomething=True
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2):
                     vertex.selected=not vertex.selected
                     toggledSomething=True
         if not toggledSomething:
@@ -216,7 +216,7 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2):
                         segment.selected=not segment.selected
                         toggledSomething=True
                         break
@@ -874,7 +874,7 @@ class DrawingStateMachine(object):
                 break
         for wire in self.parent.schematic.wireList:
             for vertex in wire:
-                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and vertex.selected:
+                if vertex.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and vertex.selected:
                     inSelection=True
                     break
         if not inSelection:
@@ -882,7 +882,7 @@ class DrawingStateMachine(object):
                 wire=self.parent.schematic.wireList[wireIndex]
                 segmentList = SegmentList(wire)
                 for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and segment.selected:
+                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and segment.selected:
                         inSelection=True
                         break
                 if inSelection:
