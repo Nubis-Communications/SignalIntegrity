@@ -32,6 +32,10 @@ class ProgressDialog(Toplevel):
         self.classOfThing = classOfThing
         self.currentPercent = -1
         self.granularity = granularity
+        self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
+            self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
+        self.grab_set()
+
     def onStop(self):
         self.stopCommand=True
     def Callback(self,number):

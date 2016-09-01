@@ -109,6 +109,9 @@ class SimulatorDialog(Toplevel):
         self.ExamineTransferMatricesDoer.Activate(False)
         self.SimulateDoer.Activate(False)
 
+        self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
+            self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
+
     def onAutoscale(self):
         self.plt.autoscale(True)
         self.f.canvas.draw()
@@ -187,7 +190,8 @@ class SimulatorDialog(Toplevel):
         pass
     def onCalculationProperties(self):
         self.parent.parent.onCalculationProperties()
-        self.parent.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
+        #self.parent.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
+
     def onExamineTransferMatrices(self):
         buttonLabelList=[[out+' due to '+inp for inp in self.parent.sourceNames] for out in self.parent.outputWaveformLabels]
         maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))

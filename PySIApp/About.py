@@ -17,6 +17,7 @@ from ScrolledText import ScrolledText
 
 class CreditsDialog(Toplevel):
     def __init__(self,parent):
+        self.parent=parent
         textToShow = ['for now, PySI has been entirely written by:','','\t Peter J. Pupalaikis \t <PeterP@LeCroy.com>']
         Toplevel.__init__(self, parent)
         self.img = PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
@@ -28,13 +29,17 @@ class CreditsDialog(Toplevel):
         for line in textToShow:
             self.text.insert(END,line+'\n')
         buttonsFrame = Frame(self)
-        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')#,fill=BOTH,expand=YES)
+        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
         closeButton = Button(buttonsFrame,text='Close',command=self.destroy)
-        closeButton.pack(side=LEFT,expand=YES)#,fill=BOTH,expand=YES)
+        closeButton.pack(side=LEFT,expand=YES)
+        self.text.focus_set()
+        self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
+            self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
+
  
 class LicenseDialog(Toplevel):
     def __init__(self,parent):
-
+        self.parent=parent
         textToShow = []
         try:
             licenseFile=open(parent.parent.installdir+'/../LICENSE.txt','rU')
@@ -58,9 +63,12 @@ class LicenseDialog(Toplevel):
         for line in textToShow:
             self.text.insert(END,line+'\n')
         buttonsFrame = Frame(self)
-        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')#,fill=BOTH,expand=YES)
+        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
         closeButton = Button(buttonsFrame,text='Close',command=self.destroy)
-        closeButton.pack(side=LEFT,expand=YES)#,fill=BOTH,expand=YES)
+        closeButton.pack(side=LEFT,expand=YES)
+        self.text.focus_set()
+        self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
+            self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
  
 class AboutDialog(Toplevel):
     def __init__(self,parent):
@@ -74,6 +82,7 @@ class AboutDialog(Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('About PySIApp')
+        self.focus_set()
         iconLabel = Label(self, image=self.img)
         iconLabel.pack(side=TOP,expand=YES,fill=BOTH)
         msg = Message(self,text="PySIApp Signal and Power Integrity Tools",justify=CENTER, width=500)
@@ -88,12 +97,14 @@ class AboutDialog(Toplevel):
         hyperLink.pack(side=TOP,expand=YES,fill=X)
         buttonsFrame = Frame(self)
         buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
-        creditsButton = Button(buttonsFrame,text='Credits', command=self.onCredits)
+        creditsButton = Button(buttonsFrame,text='Credits', command=self.onCredits, width=10)
         creditsButton.pack(side=LEFT,expand=YES)
-        licenseButton = Button(buttonsFrame,text='License', command=self.onLicense)
+        licenseButton = Button(buttonsFrame,text='License', command=self.onLicense, width=10)
         licenseButton.pack(side=LEFT,expand=YES)
-        closeButton = Button(buttonsFrame,text='Close',command=self.destroy)
+        closeButton = Button(buttonsFrame,text='Close',command=self.destroy, width=10)
         closeButton.pack(side=LEFT,expand=YES)
+        self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
+            self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 
     def onCredits(self):
         CreditsDialog(self)

@@ -244,6 +244,9 @@ class SParametersDialog(Toplevel):
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
         self.deiconify()
+        self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
+            self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
+
 
     def PlotSParameter(self):
         import SignalIntegrity as si
@@ -503,7 +506,7 @@ class SParametersDialog(Toplevel):
 
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
-        self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
+        #self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
 
     def onHelp(self):
         import webbrowser

@@ -36,6 +36,7 @@ class CalculationProperty(Frame):
         self.entry.bind('<Escape>',self.onUntouchedLoseFocus)
         self.entry.bind('<FocusOut>',self.onUntouched)
         self.entry.pack(side=LEFT, expand=YES, fill=X)
+
     def SetString(self,value):
         self.string.set(value)
     def GetString(self):
@@ -72,7 +73,11 @@ class CalculationPropertiesDialog(Toplevel):
         self.timePointsFrame=CalculationProperty(propertyListFrame,'time points',self.ontimePointsEntered,self.updateStrings)
         self.impulseLengthFrame=CalculationProperty(propertyListFrame,'impulse response length',self.onimpulseLengthEntered,self.updateStrings)
         self.updateStrings()
-
+        self.deiconify()
+        (x,y)=(self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
+            self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2)
+        self.geometry("%+d%+d" % (x,y))
+        
     def onendFrequencyEntered(self,event):
         self.calculationProperties.endFrequency=nextHigher12458(FromSI(self.endFrequencyFrame.GetString(),'Hz'))
         self.calculationProperties.baseSampleRate=2.*self.calculationProperties.endFrequency
@@ -153,8 +158,9 @@ class CalculationProperties(object):
         self.frequencyResolution=self.endFrequency/self.frequencyPoints
         self.impulseLength=1./self.frequencyResolution
     def ShowCalculationPropertiesDialog(self):
-        self.CalculationPropertiesDialog().state('normal')
-        self.CalculationPropertiesDialog().lift(self.parent)
+        self.CalculationPropertiesDialog()
+        #self.CalculationPropertiesDialog().state('normal')
+        #self.CalculationPropertiesDialog().lift(self.parent)
     def CalculationPropertiesDialog(self):
         if not hasattr(self, 'calculationPropertiesDialog'):
             self.calculationPropertiesDialog = CalculationPropertiesDialog(self.parent,self)
