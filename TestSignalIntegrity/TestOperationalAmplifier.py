@@ -25,9 +25,7 @@ class TestOperationalAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWrit
         ssps.AssignSParameters('ZI1',si.sy.ShuntZ(2,'Zi'))
         ssps.AssignSParameters('ZI2',si.sy.ShuntZ(2,'Zi'))
         ssps.AssignSParameters('A',si.sy.VoltageAmplifier(4, 'G', 'Zd', 'Zo'))
-        ssps.DocStart()
         ssps.LaTeXSolution(size='biggest').Emit()
-        ssps.DocEnd()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier')
     def testOperationalAmplifierNumeric(self):

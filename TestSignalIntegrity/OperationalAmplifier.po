@@ -1,5 +1,3 @@
-\documentclass[10pt]{article} \usepackage{amsmath} \usepackage{bbold}
-\begin{document}
 \[ \mathbf{W_{ba}} = \left(\begin{smallmatrix} \frac{-Z0}{2\cdot Zi
 +Z0} & 0 & 0 \\ 0 & \frac{-Z0}{2\cdot Zi +Z0} & 0 \\ 0 & 0 &
 \frac{Zo}{Zo+2\cdot Z0} \end{smallmatrix}\right) \]
