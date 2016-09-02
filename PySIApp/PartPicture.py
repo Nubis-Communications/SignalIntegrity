@@ -1221,7 +1221,6 @@ class PartPictureVoltageAmplifierFourPortAlt(PartPictureAmp):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureAmp.__init__(self,origin,[PartPin(1,(0,3),'l',False),PartPin(2,(0,1),'l',False),PartPin(4,(4,3),'r',False),PartPin(3,(4,1),'r',False)],[(1,0),(4,4)],[(1,0),(4,4)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
-
         # minus and plus signs on the sensing port
         PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1.5)
         # plus and minus signs inside the voltage source
@@ -1242,6 +1241,18 @@ class PartPictureVoltageAmplifierFourPortAlt(PartPictureAmp):
 class PartPictureVariableVoltageAmplifierFourPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageAmplifierFourPort'],4)
+
+class PartPictureOperationalAmplifier(PartPictureAmp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureAmp.__init__(self,origin,[PartPin(1,(0,3),'l',False),PartPin(2,(0,1),'l',False),PartPin(3,(5,2),'r',False)],[(1,0),(4,4)],[(1,0),(4,4)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # minus and plus signs on the sensing port
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1.5)
+        PartPictureAmp.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableOperationalAmplifier(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureOperationalAmplifier'],3)
 
 class PartPictureCurrentControlledCurrentSourceFourPort(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

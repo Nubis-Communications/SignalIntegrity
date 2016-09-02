@@ -1,77 +1,29 @@
-\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 0
-& 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 &
--\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & \frac{2}{3} &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \frac{2}{3} & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & 0 & -\frac{1}{3} & 0 \\ -\frac{1}{3} & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & \frac{2}{3} & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & \frac{2}{3} & 0
-& 0 & 0 \\ 0 & -\frac{1}{3} & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 \\ 0 & \frac{2}{3} & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0
-& 0 & 0 & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} \\
-0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3}
-\\ 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 &
-\frac{2}{3} & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0
-& -\frac{1}{3} & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{Z_d}{Z_d+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{2\cdot Z0}{Z_d+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{Z_o}{Z_o+2\cdot Z0}
-& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 &
-\alpha & 0 & 0 & 0 & -\alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & \frac{Z_i}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2\cdot
-Z0}{Z_d+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{Z_d}{Z_d+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{2}{3} & 0 & 0 & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 \\ 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & -\frac{1}{3} & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 \\ 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -1 & 0
-& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{Z_i}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & \frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 &
-\frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
--\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 \\
-0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0
-\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2\cdot Z0}{Z_i+2\cdot Z0}
-& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-\frac{Z_i}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & \frac{2\cdot Z0}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0
-& 0 & \frac{Z_i}{Z_i+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 \\ 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 &
--\frac{1}{3} \\ 0 & 0 & -\frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3}
-& 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & -\alpha & 0 & 0 & 0 & \alpha & 0 & 0 &
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-\end{smallmatrix}\right) \right]^{-1}  \]
-\[ \mathbf{S} = \left(\begin{smallmatrix} -\frac{1}{3} & 0 & 0 \\ 0 &
--\frac{1}{3} & 0 \\ 0 & 0 & \frac{Z_o}{Z_o+2\cdot Z0}
-\end{smallmatrix}\right) + \left(\begin{smallmatrix} \frac{2}{3} & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & 0 \\ 0 & \frac{2}{3} & 0 & 0 &
-\frac{2}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & 0 & \frac{2\cdot Z0}{Z_o+2\cdot Z0} & 0 & 0 & 0 & 0
-& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \end{smallmatrix}\right) \cdot
-\mathbf{Wi} \cdot\left(\begin{smallmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\
-\frac{2}{3} & 0 & 0 \\ \frac{2}{3} & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0
-\\ 0 & \frac{2}{3} & 0 \\ 0 & \frac{2}{3} & 0 \\ 0 & 0 & 0 \\ 0 & 0 &
-0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & \frac{2\cdot
-Z0}{Z_o+2\cdot Z0} \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0
-\\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0
-& 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0
+\documentclass[10pt]{article} \usepackage{amsmath} \usepackage{bbold}
+\begin{document}
+\[ \mathbf{W_{ba}} = \left(\begin{smallmatrix} \frac{-Z0}{2\cdot Zi
++Z0} & 0 & 0 \\ 0 & \frac{-Z0}{2\cdot Zi +Z0} & 0 \\ 0 & 0 &
+\frac{Zo}{Zo+2\cdot Z0} \end{smallmatrix}\right) \]
+\[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & \frac{2\cdot
+Zi}{2\cdot Zi +Z0} & 0 & 0 & 0 & 0 \\ \frac{2\cdot Zi}{2\cdot Zi +Z0}
+& 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & \frac{2\cdot Zd\cdot Z0\cdot
+G}{\left(Zd+2\cdot Z0\right)\cdot\left(Zo+2\cdot Z0\right)} &
+\frac{2\cdot Z0}{Zo+2\cdot Z0} & -\frac{2\cdot Zd\cdot Z0\cdot
+G}{\left(Zd+2\cdot Z0\right)\cdot\left(Zo+2\cdot Z0\right)} & 0
 \end{smallmatrix}\right) \]
+\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} 0 & 0 & 0 \\ 0 & 0 & 0
+\\ 0 & \frac{2\cdot Zi}{2\cdot Zi +Z0} & 0 \\ 0 & 0 & 0 \\
+\frac{2\cdot Zi}{2\cdot Zi +Z0} & 0 & 0 \\ 0 & 0 & \frac{2\cdot
+Z0}{Zo+2\cdot Z0} \end{smallmatrix}\right) \]
+\[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & 0 &
+\frac{Zd}{Zd+2\cdot Z0} & 0 & \frac{2\cdot Z0}{Zd+2\cdot Z0} & 0 \\ 0
+& 0 & \frac{2\cdot Z0}{Zd+2\cdot Z0} & 0 & \frac{Zd}{Zd+2\cdot Z0} & 0
+\\ \frac{-Z0}{2\cdot Zi +Z0} & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0
+& -1 \\ 0 & \frac{-Z0}{2\cdot Zi +Z0} & 0 & 0 & 0 & 0 \\ 0 & 0 &
+-\frac{2\cdot Zd\cdot Z0\cdot G}{\left(Zd+2\cdot
+Z0\right)\cdot\left(Zo+2\cdot Z0\right)} & \frac{Zo}{Zo+2\cdot Z0} &
+\frac{2\cdot Zd\cdot Z0\cdot G}{\left(Zd+2\cdot
+Z0\right)\cdot\left(Zo+2\cdot Z0\right)} & 0 \end{smallmatrix}\right)
+\]
+\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
+-\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]
+\end{document}

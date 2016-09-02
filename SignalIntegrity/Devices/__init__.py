@@ -28,3 +28,4 @@ from TransresistanceAmplifier import *
 from TransconductanceAmplifier import *
 from TLineFourPort import *
 from TLineTwoPort import *
+from OperationalAmplifier import OperationalAmplifier

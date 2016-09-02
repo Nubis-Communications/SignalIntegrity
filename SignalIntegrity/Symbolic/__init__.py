@@ -11,3 +11,4 @@ from CurrentControlledCurrentSource import *
 from CurrentControlledVoltageSource import *
 from IdealTransformer import *
 from TLine import *
+from OperationalAmplifier import OperationalAmplifier
