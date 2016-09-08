@@ -9,14 +9,11 @@
 '''
 class AdaptedWaveforms(object):
     def __init__(self,wfl):
-        from TimeDescriptor import TimeDescriptor
         from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
-        from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
         from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import InterpolatorLinear
         from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import FractionalDelayFilterLinear
-        from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         strategy=wfl[0].adaptionStrategy
         #upsample all of the waveforms first
         ufl=[int(round(wfl[0].TimeDescriptor().Fs/wf.TimeDescriptor().Fs)) for wf in wfl]

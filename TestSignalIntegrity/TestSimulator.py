@@ -3,9 +3,10 @@ import SignalIntegrity as si
 from TestHelpers import *
 import numpy as np
 
-class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
+class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper,CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
+        CallbackTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testSymbolicSimulatorExample1Old(self):
         sd=si.sd.SystemDescription()
@@ -1060,6 +1061,71 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         except np.linalg.linalg.LinAlgError:
             pass
         # pragma: exclude
+    def testSimulatorCallbacks(self):
+        self.InitCallbackTester()
+        Fs=40e9
+        N=20
+        HO=-1e-9
+        Dur=2e-9
+        Kw=int(Dur*Fs+0.5)
+        f=si.fd.EvenlySpacedFrequencyList(Fs/2,N)
+        snp=si.p.SimulatorNumericParser(f,callback=self.CallbackTester)
+        snp.AddLines(['voltagesource VG1 1','device R1 1 R 50.0','device C1 2 C 1e-12',
+                      'connect C1 1 VG1 1','output R1 1 C1 1','connect R1 1 C1 2'])
+        tm=snp.TransferMatrices()
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        #self.CheckSParametersResult(tmsp,spFileName,spFileName)
+        self.assertTrue(self.CheckCallbackTesterResults([21,0.,100.]),'simulator transfer matrix callback incorrect')
+        self.InitCallbackTester()
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(HO,Kw,Fs))
+        tmp=si.td.f.TransferMatricesProcessor(tm,callback=self.CallbackTester)
+        srs=tmp.ProcessWaveforms([stepin])
+        self.assertTrue(self.CheckCallbackTesterResults([2,0.,50.]),'simulator callback incorrect')
+        #self.CheckWaveformResult(srs,'Waveform_'+fileNameBase+'.txt','Waveform_'+fileNameBase+'.txt')        
+    def testSimulatorCallbackAbortTransferMatrix(self):
+        self.InitCallbackTester(abortOn=3)
+        Fs=40e9
+        N=20
+        HO=-1e-9
+        Dur=2e-9
+        Kw=int(Dur*Fs+0.5)
+        f=si.fd.EvenlySpacedFrequencyList(Fs/2,N)
+        snp=si.p.SimulatorNumericParser(f,callback=self.CallbackTester)
+        snp.AddLines(['voltagesource VG1 1','device R1 1 R 50.0','device C1 2 C 1e-12',
+                      'connect C1 1 VG1 1','output R1 1','connect R1 1 C1 2'])
+        with self.assertRaises(si.PySIException) as cm:
+            tm=snp.TransferMatrices()
+        self.assertEqual(cm.exception.parameter,'Simulator')
+        self.assertTrue(self.CheckCallbackTesterResults([3,0.,10.]),'simulator transfer matrix processing abort callback incorrect')
+    def testSimulatorCallbackAbortWaveformProcessing(self):
+        self.InitCallbackTester()
+        Fs=40e9
+        N=20
+        HO=-1e-9
+        Dur=2e-9
+        Kw=int(Dur*Fs+0.5)
+        f=si.fd.EvenlySpacedFrequencyList(Fs/2,N)
+        snp=si.p.SimulatorNumericParser(f,callback=self.CallbackTester)
+        snp.AddLines(['voltagesource VG1 1','device R1 1 R 50.0','device C1 2 C 1e-12',
+                      'connect C1 1 VG1 1','output R1 1 C1 1','connect R1 1 C1 2'])
+        tm=snp.TransferMatrices()
+        tmsp=tm.SParameters()
+        ports=tmsp.m_P
+        fileNameBase = self.id().split('.')[2].replace('test','')
+        spFileName = fileNameBase +'.s'+str(ports)+'p'
+        #self.CheckSParametersResult(tmsp,spFileName,spFileName)
+        self.assertTrue(self.CheckCallbackTesterResults([21,0.,100.]),'simulator transfer matrix callback incorrect')
+        self.InitCallbackTester(abortOn=1)
+        stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(HO,Kw,Fs))
+        tmp=si.td.f.TransferMatricesProcessor(tm,callback=self.CallbackTester)
+        with self.assertRaises(si.PySIException) as cm:
+            srs=tmp.ProcessWaveforms([stepin])
+        self.assertFalse(cm.exception == 1.343)
+        self.assertEqual(cm.exception,'Simulator')       
+        self.assertTrue(self.CheckCallbackTesterResults([1,0.,0.]),'simulator callback waveform processing abort incorrect')
 
 if __name__ == "__main__":
     unittest.main()

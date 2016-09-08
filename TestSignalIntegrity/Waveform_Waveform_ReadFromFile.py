@@ -3,7 +3,7 @@ class Waveform(object):
         with open(fileName,"rU") as f:
             data=f.readlines()
             HorOffset=float(data[0])
-            NumPts=int(data[1])
+            NumPts=int(float(data[1])+0.5)
             SampleRate=float(data[2])
             Values=[float(data[k+3]) for k in range(NumPts)]
         self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)

@@ -10,7 +10,7 @@
 
 class CallBacker(object):
     def __init__(self,callback=None):
-        self.callback=callback
+        self.InstallCallback(callback)
     def HasACallBack(self):
         return not self.callback is None 
     def CallBack(self,progressPercent):

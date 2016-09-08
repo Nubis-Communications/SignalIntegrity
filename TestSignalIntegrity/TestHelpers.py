@@ -282,5 +282,26 @@ class RoutineWriterTesterHelper(object):
                 regression = regressionFile.readlines()
             self.assertTrue(regression == lineDef, lineDefFileName + ' incorrect')
 
+class CallbackTesterHelper(object):
+    def __init__(self):
+        self.InitCallbackTester()
+    def InitCallbackTester(self,abortOn=-1):
+        self.abortOn=abortOn
+        self.numProgress=0
+        self.firstProgress=None
+        self.lastProgress=None
+    def CallbackTester(self,progress):
+        if self.numProgress == 0:
+            self.firstProgress=progress
+        self.lastProgress=progress
+        self.numProgress=self.numProgress+1
+        if self.numProgress == self.abortOn:
+            return False
+        else:
+            return True  
+    def CallBackTesterResults(self):
+        return [self.numProgress,self.firstProgress,self.lastProgress]
+    def CheckCallbackTesterResults(self,correct):
+        return correct == self.CallBackTesterResults()
 
 

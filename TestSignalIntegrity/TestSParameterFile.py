@@ -3,8 +3,13 @@ import SignalIntegrity as si
 import math
 import os
 from TestHelpers import SParameterCompareHelper
+from TestHelpers import CallbackTesterHelper
 
-class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
+class TestSParameterFile(unittest.TestCase,SParameterCompareHelper,CallbackTesterHelper):
+    def __init__(self, methodName='runTest'):
+        CallbackTesterHelper.__init__(self)
+        unittest.TestCase.__init__(self,methodName)
+
     def testSParameterFileFourPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)
@@ -527,6 +532,33 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
                 plt.plot(f,y)
         plt.show()
         """
+    def testSParameterCallback(self):
+        self.InitCallbackTester()
+        freq=[0.1e9*i for i in range(201)]
+        parser=si.p.SystemSParametersNumericParser(freq,callback=self.CallbackTester)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('port 1 D1 1 2 D1 2')
+        parser.SParameters()
+        self.assertTrue(self.CheckCallbackTesterResults([201,0.,100.]),'S-parameter parser callback incorrect')
+    def testSParameterCallbackAbort(self):
+        self.InitCallbackTester(50)
+        freq=[0.1e9*i for i in range(201)]
+        parser=si.p.SystemSParametersNumericParser(freq,callback=self.CallbackTester)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('port 1 D1 1 2 D1 2')
+        with self.assertRaises(si.PySIException) as cm:
+            parser.SParameters()
+        self.assertEqual(cm.exception.parameter,'S-Parameters')
+        self.assertTrue(self.CheckCallbackTesterResults([50,0.,24.5]),'S-parameter parser callback abort incorrect')
+    def testSParameterCallbackRemoval(self):
+        self.InitCallbackTester()
+        freq=[0.1e9*i for i in range(201)]
+        parser=si.p.SystemSParametersNumericParser(freq,callback=self.CallbackTester)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('port 1 D1 1 2 D1 2')
+        parser.RemoveCallback()
+        parser.SParameters()
+        self.assertTrue(self.CheckCallbackTesterResults([0,None,None]),'S-parameter parser callback removal incorrect')
     def testAreEqual(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         firstFileRead = si.sp.SParameterFile('TestDut.s4p',50.)
@@ -573,9 +605,58 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper):
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
+        print systemSParametersFileName
         de=si.sp.SParameters(freq,parser.Deembed(system))
         self.assertTrue(self.SParametersAreEqual(de,si.sp.SParameterFile('cable.s2p',50.).Resample(freq),0.00001),self.id()+'result not same')
         os.remove(systemSParametersFileName)
+    def testDeembedCallback(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        self.InitCallbackTester()
+        freq=[0.1e9*i for i in range(201)]
+        parser=si.p.SystemSParametersNumericParser(freq)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('device D2 2 file cable.s2p')
+        parser.AddLine('port 1 D1 1 2 D2 2')
+        parser.AddLine('connect D1 2 D2 1')
+        system=si.sp.SParameters(freq,parser.SParameters())
+        systemSParametersFileName='_'.join(self.id().split('.'))+'.s'+str(system.m_P)+'p'
+        if not os.path.exists(systemSParametersFileName):
+            system.WriteToFile(systemSParametersFileName)
+        del parser
+        parser = si.p.DeembedderNumericParser(freq,callback=self.CallbackTester)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('unknown ? 2')
+        parser.AddLine('port 1 D1 1 2 ? 2')
+        parser.AddLine('connect D1 2 ? 1')
+        parser.AddLine('system file '+systemSParametersFileName)
+        si.sp.SParameters(freq,parser.Deembed(system))
+        os.remove(systemSParametersFileName)
+        self.assertTrue(self.CheckCallbackTesterResults([201,0.,100.]),'Deembedder parser callback incorrect')
+    def testDeembedCallbackAbort(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        self.InitCallbackTester(abortOn=50)
+        freq=[0.1e9*i for i in range(201)]
+        parser=si.p.SystemSParametersNumericParser(freq)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('device D2 2 file cable.s2p')
+        parser.AddLine('port 1 D1 1 2 D2 2')
+        parser.AddLine('connect D1 2 D2 1')
+        system=si.sp.SParameters(freq,parser.SParameters())
+        systemSParametersFileName='_'.join(self.id().split('.'))+'.s'+str(system.m_P)+'p'
+        if not os.path.exists(systemSParametersFileName):
+            system.WriteToFile(systemSParametersFileName)
+        del parser
+        parser = si.p.DeembedderNumericParser(freq,callback=self.CallbackTester)
+        parser.AddLine('device D1 2 file cable.s2p')
+        parser.AddLine('unknown ? 2')
+        parser.AddLine('port 1 D1 1 2 ? 2')
+        parser.AddLine('connect D1 2 ? 1')
+        parser.AddLine('system file '+systemSParametersFileName)
+        with self.assertRaises(si.PySIException) as cm:
+            si.sp.SParameters(freq,parser.Deembed(system))
+        self.assertEqual(cm.exception.parameter,'Deembedder')
+        os.remove(systemSParametersFileName)
+        self.assertTrue(self.CheckCallbackTesterResults([50,0.,24.5]),'Deembedder parser callback abort incorrect')
 # Incorrect S-parameter file extensions on write
     def testMissingExtension(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

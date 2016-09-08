@@ -7,10 +7,14 @@ from numpy import matrix
 import copy
 import math
 import os
+from TestHelpers import CallbackTesterHelper
 
 ##import matplotlib.pyplot as plt
 
-class TestVirtualProbe(unittest.TestCase):
+class TestVirtualProbe(unittest.TestCase,CallbackTesterHelper):
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
+        CallbackTesterHelper.__init__(self)
     def testVirtualProbeOneMeasOneOut(self):
         D=si.sd.SystemDescription()
         D.AddDevice('T',1,si.dev.TerminationZ(50))
@@ -281,8 +285,9 @@ class TestVirtualProbe(unittest.TestCase):
         regressionFile2.close()
         self.assertTrue(regressionLine2==line2,'Virtual Probe Example 3 line 2 in book incorrect')
     def testVirtualProbeBalun(self):
+        self.InitCallbackTester()
         f=[float(i)/200*3e9 for i in range(200)]
-        vpp=si.p.VirtualProbeNumericParser(f)
+        vpp=si.p.VirtualProbeNumericParser(f,callback=self.CallbackTester)
         vpp.AddLine('device D1 3 file BAL-0003.s3p')
         vpp.AddLine('device D2 4 mixedmode')
         vpp.AddLine('connect D1 1 D2 1')
@@ -317,6 +322,35 @@ class TestVirtualProbe(unittest.TestCase):
 ##        plt.plot(fp,o2mag,label=labels[1])
 ##        plt.legend(loc='upper left')
 ##        plt.show()
+        self.assertTrue(self.CheckCallbackTesterResults([200,0.,100.]),'virtual probe transfer matrix callback incorrect')
+    def testVirtualProbeBalunAbort(self):
+        self.InitCallbackTester(abortOn=50)
+        f=[float(i)/200*3e9 for i in range(200)]
+        vpp=si.p.VirtualProbeNumericParser(f,callback=self.CallbackTester)
+        vpp.AddLine('device D1 3 file BAL-0003.s3p')
+        vpp.AddLine('device D2 4 mixedmode')
+        vpp.AddLine('connect D1 1 D2 1')
+        vpp.AddLine('connect D1 2 D2 2')
+        vpp.AddLine('device D3 1 termination')
+        vpp.AddLine('device D4 1 termination')
+        vpp.AddLine('device D5 1 termination')
+        vpp.AddLine('connect D3 1 D1 3')
+        vpp.AddLine('connect D4 1 D2 3')
+        vpp.AddLine('connect D5 1 D2 4')
+        # just to enhance test coverage by utilizing an open
+        vpp.AddLine('device D6 1 open')
+        vpp.AddLine('connect D6 1 D5 1')
+        vpp.AddLine('stim m1 D3 1')
+        vpp.AddLine('meas D1 3')
+        vpp.AddLine('output D4 1')
+        vpp.AddLine('output D5 1')
+        vpp.m_ml = None
+        vpp.m_ol = None
+        vpp.m_D = None
+        with self.assertRaises(si.PySIException) as cm:
+            vpp.TransferMatrices()
+        self.assertEqual(cm.exception,'VirtualProbe') 
+        self.assertTrue(self.CheckCallbackTesterResults([50, 0.0, 24.623115577889447]),'virtual probe transfer matrix callback abort incorrect')
 
 if __name__ == '__main__':
     unittest.main()
