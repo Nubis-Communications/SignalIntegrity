@@ -83,7 +83,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteFilterDescriptor_mul(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"
         className='FilterDescriptor'
-        defName=['__mul__','__init__']
+        defName=['__mul__','__init__','__eq__']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFilterDescriptor_Trimmer(self):
         fileName="../SignalIntegrity/TimeDomain/Filters/FilterDescriptor.py"

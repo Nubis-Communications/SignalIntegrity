@@ -3,6 +3,11 @@ class FilterDescriptor(object):
         self.U = UpsampleFactor
         self.D = DelaySamples
         self.S = StartupSamples
+    def __eq__(self,other):
+        if abs(self.U - other.U) > 1e-15: return False
+        if abs(self.D - other.D) > 1e-15: return False
+        if abs(self.S - other.S) > 1e-15: return False
+        return True
     def __mul__(self,other):
         if isinstance(other,FilterDescriptor):
             return FilterDescriptor(

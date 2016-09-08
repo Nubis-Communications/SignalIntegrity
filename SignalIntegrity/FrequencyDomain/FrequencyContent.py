@@ -23,8 +23,3 @@ class FrequencyContent(FrequencyDomain):
         return FrequencyContent(fd,
         [self.Content()[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD)
             for n in range(fd.N+1)])
-    def _SplineResample(self,fdp):
-        fd=self.FrequencyList()
-        Poly=Spline(fd,self.Content())
-        newresp=[Poly.Evaluate(f) if f <= fd[-1] else 0.0001 for f in fdp]
-        return FrequencyContent(fdp,newresp)

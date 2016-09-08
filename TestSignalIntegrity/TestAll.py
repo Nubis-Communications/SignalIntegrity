@@ -35,6 +35,7 @@ from TestWavelets import *
 from TestSParameterEnforcements import *
 from TestFrequencyList import *
 from TestPI import *
+from TestDescriptors import *
 
 if __name__ == '__main__':
     unittest.main()
