@@ -9,12 +9,11 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-
-
 import unittest
 import SignalIntegrity as si
 import math
 import os
+
 from TestHelpers import ResponseTesterHelper
 from TestHelpers import SourcesTesterHelper
 

@@ -3,6 +3,7 @@ import unittest
 import SignalIntegrity as si
 from numpy import linalg
 from numpy import matrix
+import os
 
 class TestDeembedding(unittest.TestCase):
     def testOnePortFixtureDeembedding(self):
@@ -199,6 +200,21 @@ class TestDeembedding(unittest.TestCase):
         SLcalc=SLcalc*matrix([[SR11*linalg.det(Sk)-Sk11*linalg.det(SR),Sk12*SR21],[Sk21*SR12,Sk22-SR22]])
         difference = linalg.norm(matrix(SLcalc)-matrix(SL))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SL Unknown Fixture Deembedding equation incorrect')
+    def testUnderconstrained(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=si.fd.EvenlySpacedFrequencyList(20e9,20)
+        si.p.SystemSParametersNumericParser(f).AddLines(['device R1 2 R 50.0','device R2 2 R 50.0',
+            'device R3 2 R 50.0','port 1 R1 1','connect R1 2 R2 1','connect R3 1 R2 2',
+            'port 2 R3 2']).SParameters().WriteToFile('system.s2p')
+        with self.assertRaises(si.PySIException) as cm:
+            si.p.DeembedderNumericParser(f).AddLines(['unknown U1 2','unknown U2 2',
+                'system file system.s2p','device R1 2 R 50.0','port 1 U1 1','connect U1 2 R1 1',
+                'connect R1 2 U2 1','port 2 U2 2']).Deembed()
+        self.assertEqual(cm.exception.parameter,'Numeric')
+        self.assertEqual(cm.exception.message,'under-constrained system')
+        os.remove('system.s2p')
+        
+        
 
 if __name__ == '__main__':
     unittest.main()
