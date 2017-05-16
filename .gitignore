@@ -1,0 +1,4 @@
+*.pyc
+PySI.egg-info
+build
+dist
