@@ -279,8 +279,10 @@ class TheApp(Frame):
                                  initialfile=self.fileparts.FileNameWithExtension('.xml'))
         if filename is None:
             filename=''
+        if isinstance(filename,tuple):
+            filename=''
         filename=str(filename)
-        if filename == '':
+        if filename=='':
             return
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
@@ -583,8 +585,10 @@ class TheApp(Frame):
                                  initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
             filename=''
+        if isinstance(filename,tuple):
+            filename=''
         filename=str(filename)
-        if filename == '':
+        if filename=='':
             return
         fileparts=FileParts(filename)
         if fileparts.fileext is None or fileparts.fileext == '':

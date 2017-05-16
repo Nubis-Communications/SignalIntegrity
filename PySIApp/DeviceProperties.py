@@ -87,6 +87,8 @@ class DeviceProperty(Frame):
                         initialdir=initialDirectory,initialfile=initialFile)
         if filename is None:
             filename=''
+        if isinstance(filename,tuple):
+            filename=''
         filename=str(filename)
         if filename != '':
             filename=FileParts(filename).FullFilePathExtension(extension)
