@@ -4,11 +4,13 @@ Created on May 15, 2017
 @author: pete
 '''
 from setuptools import setup
+import os
 
 install_requires=['numpy','matplotlib']
 
 pathToIcons='PySIApp/icons/png/'
 pathToMoreIcons=pathToIcons+'16x16/actions/'
+pathToHelp='PySIApp/Help/PySIHelp.html.LyXconv/'
 
 setup(
       name='PySI',
@@ -57,7 +59,9 @@ setup(
                     pathToMoreIcons+'system-run-3.gif',
                     pathToMoreIcons+'help-3.gif',
                     pathToMoreIcons+'edit-undo-3.gif',
-                    pathToMoreIcons+'edit-redo-3.gif']),
+                    pathToMoreIcons+'edit-redo-3.gif'],
+                   ),
+                  (pathToHelp,[pathToHelp+x for x in os.listdir(pathToHelp)]),
                   ('./', ['LICENSE.txt']),
                   ('./', ['README.txt'])],
       install_requires=install_requires,
