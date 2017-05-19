@@ -8,9 +8,9 @@ import os
 
 install_requires=['numpy','matplotlib']
 
-pathToIcons='PySIApp/icons/png/'
-pathToMoreIcons=pathToIcons+'16x16/actions/'
-pathToHelp='PySIApp/Help/PySIHelp.html.LyXconv/'
+pathToIcons='PySIApp/icons/png'
+pathToMoreIcons=pathToIcons+'/16x16/actions'
+pathToHelp='PySIApp/Help/PySIHelp.html.LyXconv'
 
 setup(
       name='PySI',
@@ -39,31 +39,30 @@ setup(
                 'SignalIntegrity.TimeDomain.Waveform',
                 'SignalIntegrity.Wavelets',
                 'PySIApp'],
-      data_files=[(pathToIcons, [pathToIcons+'AppIcon2.gif']),
+      data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
                   (pathToMoreIcons,
-                    [pathToMoreIcons+'document-new-3.gif',
-                    pathToMoreIcons+'document-open-2.gif',
-                    pathToMoreIcons+'document-save-2.gif',
-                    pathToMoreIcons+'tooloptions.gif',
-                    pathToMoreIcons+'help-contents-5.gif',
-                    pathToMoreIcons+'edit-add-2.gif',
-                    pathToMoreIcons+'edit-delete-6.gif',
-                    pathToMoreIcons+'draw-line-3.gif',
-                    pathToMoreIcons+'edit-copy-3.gif',
-                    pathToMoreIcons+'object-rotate-left-4.gif',
-                    pathToMoreIcons+'object-flip-horizontal-3.gif',
-                    pathToMoreIcons+'object-flip-vertical-3.gif',
-                    pathToMoreIcons+'zoom-in-3.gif',
-                    pathToMoreIcons+'zoom-out-3.gif',
-                    pathToMoreIcons+'edit-move.gif',
-                    pathToMoreIcons+'system-run-3.gif',
-                    pathToMoreIcons+'help-3.gif',
-                    pathToMoreIcons+'edit-undo-3.gif',
-                    pathToMoreIcons+'edit-redo-3.gif'],
+                    [pathToMoreIcons+'/document-new-3.gif',
+                    pathToMoreIcons+'/document-open-2.gif',
+                    pathToMoreIcons+'/document-save-2.gif',
+                    pathToMoreIcons+'/tooloptions.gif',
+                    pathToMoreIcons+'/help-contents-5.gif',
+                    pathToMoreIcons+'/edit-add-2.gif',
+                    pathToMoreIcons+'/edit-delete-6.gif',
+                    pathToMoreIcons+'/draw-line-3.gif',
+                    pathToMoreIcons+'/edit-copy-3.gif',
+                    pathToMoreIcons+'/object-rotate-left-4.gif',
+                    pathToMoreIcons+'/object-flip-horizontal-3.gif',
+                    pathToMoreIcons+'/object-flip-vertical-3.gif',
+                    pathToMoreIcons+'/zoom-in-3.gif',
+                    pathToMoreIcons+'/zoom-out-3.gif',
+                    pathToMoreIcons+'/edit-move.gif',
+                    pathToMoreIcons+'/system-run-3.gif',
+                    pathToMoreIcons+'/help-3.gif',
+                    pathToMoreIcons+'/edit-undo-3.gif',
+                    pathToMoreIcons+'/edit-redo-3.gif'],
                    ),
-                  (pathToHelp,[pathToHelp+x for x in os.listdir(pathToHelp)]),
-                  ('./', ['LICENSE.txt']),
-                  ('./', ['README.txt'])],
+                  (pathToHelp,[pathToHelp+'/'+x for x in os.listdir(pathToHelp)]),
+                  ('.', ['LICENSE.txt','README.txt'])],
       install_requires=install_requires,
       entry_points={
         'console_scripts': [
