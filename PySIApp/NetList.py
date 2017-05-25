@@ -296,6 +296,8 @@ class NetListDialog(Toplevel):
                                    initialdir=self.parent.fileparts.AbsoluteFilePath(),initialfile=self.parent.fileparts.filename+'.txt')
         if filename is None:
             filename=''
+        if isinstance(filename,tuple):
+            filename=''
         filename=str(filename)
         if filename=='':
             self.initial_focus.focus_set() # put focus back
