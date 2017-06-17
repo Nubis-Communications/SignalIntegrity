@@ -8,6 +8,7 @@
  this material whatsoever.
 '''
 from Tkinter import *
+import tkFont
 
 from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
@@ -34,10 +35,21 @@ from MenuSystemHelpers import *
 from BuildHelpSystem import *
 from ProgressDialog import ProgressDialog
 from About import AboutDialog
+from Preferences import Preferences
+from PreferencesDialog import PreferencesDialog
 
 class TheApp(Frame):
     def __init__(self):
+        # make absolutely sure the directory of this file is the first in the
+        # python path
+        thisFileDir=os.path.dirname(os.path.realpath(__file__))
+        sys.path=[thisFileDir]+sys.path
+
+        self.preferences=Preferences()
         self.root = Tk()
+
+        self.UpdateColorsAndFonts()
+
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
         self.installdir=os.path.dirname(os.path.abspath(__file__))
@@ -72,6 +84,10 @@ class TheApp(Frame):
         self.statusbar=StatusBar(self)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
+        self.RecentProject0Doer = Doer(self.onRecentProject0).Activate(False)
+        self.RecentProject1Doer = Doer(self.onRecentProject1).Activate(False)
+        self.RecentProject2Doer = Doer(self.onRecentProject2).Activate(False)
+        self.RecentProject3Doer = Doer(self.onRecentProject3).Activate(False)
         self.NewProjectDoer = Doer(self.onNewProject).AddKeyBindElement(self.root,'<Control-n>').AddHelpElement(self.helpSystemKeys['Control-Help:New-Project'])
         self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement(self.helpSystemKeys['Control-Help:Open-Project'])
         self.SaveProjectDoer = Doer(self.onSaveProject).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement(self.helpSystemKeys['Control-Help:Save-Project'])
@@ -118,6 +134,7 @@ class TheApp(Frame):
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement(self.helpSystemKeys['Control-Help:Deembed'])
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.helpSystemKeys['Control-Help:Open-Help-File'])
+        self.PreferencesDoer=Doer(self.onPreferences)
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.helpSystemKeys['Control-Help:Control-Help'])
         self.AboutDoer = Doer(self.onAbout).AddHelpElement(self.helpSystemKeys['Control-Help:About'])
         # ------
@@ -126,17 +143,24 @@ class TheApp(Frame):
         # The menu system
         TheMenu=Menu(self.root)
         self.root.config(menu=TheMenu)
-        FileMenu=Menu(self)
-        TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
-        self.NewProjectDoer.AddMenuElement(FileMenu,label="New Project",accelerator='Ctrl+N',underline=0)
-        self.OpenProjectDoer.AddMenuElement(FileMenu,label="Open Project",accelerator='Ctrl+O',underline=0)
-        self.SaveProjectDoer.AddMenuElement(FileMenu,label="Save Project",accelerator='Ctrl+S',underline=0)
-        self.SaveAsProjectDoer.AddMenuElement(FileMenu,label="Save Project As...",accelerator='Ctrl+Shift-S',underline=1)
-        FileMenu.add_separator()
-        self.ClearProjectDoer.AddMenuElement(FileMenu,label="Clear Schematic",underline=0)
-        FileMenu.add_separator()
-        self.ExportNetListDoer.AddMenuElement(FileMenu,label="Export NetList",underline=0)
-        self.ExportTpXDoer.AddMenuElement(FileMenu,label="Export LaTeX (TikZ)",underline=7)
+        self.FileMenu=Menu(self)
+        TheMenu.add_cascade(label='File',menu=self.FileMenu,underline=0)
+        self.RecentsMenu=Menu(self.FileMenu)
+        self.FileMenu.add_cascade(label='Open Recent Projects',menu=self.RecentsMenu,underline=5)
+        self.RecentProject0Doer.AddMenuElement(self.RecentsMenu,label='')
+        self.RecentProject1Doer.AddMenuElement(self.RecentsMenu,label='')
+        self.RecentProject2Doer.AddMenuElement(self.RecentsMenu,label='')
+        self.RecentProject3Doer.AddMenuElement(self.RecentsMenu,label='')
+        self.FileMenu.add_separator()
+        self.NewProjectDoer.AddMenuElement(self.FileMenu,label="New Project",accelerator='Ctrl+N',underline=0)
+        self.OpenProjectDoer.AddMenuElement(self.FileMenu,label="Open Project",accelerator='Ctrl+O',underline=0)
+        self.SaveProjectDoer.AddMenuElement(self.FileMenu,label="Save Project",accelerator='Ctrl+S',underline=0)
+        self.SaveAsProjectDoer.AddMenuElement(self.FileMenu,label="Save Project As...",accelerator='Ctrl+Shift-S',underline=1)
+        self.FileMenu.add_separator()
+        self.ClearProjectDoer.AddMenuElement(self.FileMenu,label="Clear Schematic",underline=0)
+        self.FileMenu.add_separator()
+        self.ExportNetListDoer.AddMenuElement(self.FileMenu,label="Export NetList",underline=0)
+        self.ExportTpXDoer.AddMenuElement(self.FileMenu,label="Export LaTeX (TikZ)",underline=7)
         # ------
         EditMenu=Menu(self)
         TheMenu.add_cascade(label='Edit',menu=EditMenu,underline=0)
@@ -194,6 +218,7 @@ class TheApp(Frame):
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
+        self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
 
         # The Toolbar
@@ -251,6 +276,13 @@ class TheApp(Frame):
         self.deltaHeight=0
         self.bind('<Configure>',self.onResize)
 
+        projectFileName = self.preferences.GetLastFileOpened()
+
+        if not projectFileName == None:
+            self.OpenProjectFile(projectFileName)
+
+        self.UpdateRecentProjectsMenu()
+
         self.root.mainloop()
 
     def onResize(self,event):
@@ -277,6 +309,9 @@ class TheApp(Frame):
     def onReadProjectFromFile(self):
         filename=askopenfilename(filetypes=[('xml', '.xml')],initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension('.xml'))
+        self.OpenProjectFile(filename)
+
+    def OpenProjectFile(self,filename):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -302,6 +337,7 @@ class TheApp(Frame):
         self.Drawing.DrawSchematic()
         self.history.Event('read project')
         self.root.title('PySI: '+self.fileparts.FileNameTitle())
+        self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
 
     def onNewProject(self):
         filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
@@ -327,6 +363,7 @@ class TheApp(Frame):
         projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
         self.root.title("PySI: "+self.fileparts.FileNameTitle())
+        self.AnotherFileOpened(filename)
 
     def onSaveProject(self):
         if self.fileparts.filename=='':
@@ -358,6 +395,7 @@ class TheApp(Frame):
         calculationPropertiesElement=self.calculationProperties.xml()
         projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
+        self.AnotherFileOpened(filename)
         self.root.title("PySI: "+self.fileparts.FileNameTitle())
         self.statusbar.set('Project Saved')
 
@@ -368,6 +406,64 @@ class TheApp(Frame):
         self.Drawing.DrawSchematic()
         #self.fileparts=FileParts()
         #self.root.title('PySI')
+
+    def AnotherFileOpened(self,filename):
+        self.preferences.AnotherFileOpened(filename)
+        self.UpdateRecentProjectsMenu()
+
+    def UpdateRecentProjectsMenu(self):
+        recentFileList=self.preferences.GetRecentFileList()
+        if all(r is None for r in recentFileList):
+            self.FileMenu.entryconfigure(1,state='disabled')
+        else:
+            self.FileMenu.entryconfigure(1,state='normal')
+
+        if recentFileList[0] is None:
+            self.RecentsMenu.entryconfig(1, label='')
+            self.RecentProject0Doer.menuElement.label=''
+            self.RecentProject0Doer.Activate(False)
+        else:
+            self.RecentsMenu.entryconfig(1, label=recentFileList[0])
+            self.RecentProject0Doer.menuElement.label=recentFileList[0]
+            self.RecentProject0Doer.Activate(True)
+        if recentFileList[1] is None:
+            self.RecentsMenu.entryconfig(2, label='')
+            self.RecentProject1Doer.menuElement.label=''
+            self.RecentProject1Doer.Activate(False)
+        else:
+            self.RecentsMenu.entryconfig(2, label=recentFileList[1])
+            self.RecentProject1Doer.menuElement.label=recentFileList[1]
+            self.RecentProject1Doer.Activate(True)
+        if recentFileList[2] is None:
+            self.RecentsMenu.entryconfig(3, label='')
+            self.RecentProject2Doer.menuElement.label=''
+            self.RecentProject2Doer.Activate(False)
+        else:
+            self.RecentsMenu.entryconfig(3, label=recentFileList[2])
+            self.RecentProject2Doer.menuElement.label=recentFileList[2]
+            self.RecentProject2Doer.Activate(True)
+        if recentFileList[3] is None:
+            self.RecentsMenu.entryconfig(4, label='')
+            self.RecentProject3Doer.menuElement.label=''
+            self.RecentProject3Doer.Activate(False)
+        else:
+            self.RecentsMenu.entryconfig(4, label=recentFileList[3])
+            self.RecentProject3Doer.menuElement.label=recentFileList[3]
+            self.RecentProject3Doer.Activate(True)
+
+    def onRecentProject0(self):
+        self.OpenProjectFile(self.preferences.GetLastFileOpened(0))
+
+    def onRecentProject1(self):
+        self.OpenProjectFile(self.preferences.GetLastFileOpened(1))
+
+    def onRecentProject2(self):
+        self.OpenProjectFile(self.preferences.GetLastFileOpened(2))
+
+    def onRecentProject3(self):
+        self.OpenProjectFile(self.preferences.GetLastFileOpened(3))
+
+
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
@@ -675,6 +771,46 @@ class TheApp(Frame):
         
     def onAbout(self):
         AboutDialog(self)
+
+    def onPreferences(self):
+        if not hasattr(self, 'preferencesDialog'):
+            self.preferencesDialog = PreferencesDialog(self,self.preferences)
+        if self.preferencesDialog == None:
+            self.preferencesDialog= PreferencesDialog(self,self.preferences)
+        else:
+            if not self.preferencesDialog.winfo_exists():
+                self.preferencesDialog=PreferencesDialog(self,self.preferences)
+
+    def UpdateColorsAndFonts(self):
+        fontSizeDesired = self.preferences.GetValue('Appearance.FontSize')
+        if not fontSizeDesired is None:
+            default_font = tkFont.nametofont("TkDefaultFont")
+            try:
+                default_font.configure(size=fontSizeDesired)
+                self.root.option_add("*Font", default_font)
+            except:
+                pass
+
+        backgroundColor=self.preferences.GetValue('Appearance.Color.Background')
+        if backgroundColor is None:
+            backgroundColor=self.root['bg']
+        foregroundColor=self.preferences.GetValue('Appearance.Color.Foreground')
+        if foregroundColor is None:
+            foregroundColor='black'
+        try:
+            self.root.tk_setPalette(background=backgroundColor,foreground=foregroundColor)
+        except:
+            pass
+
+        matPlotLibColor=self.preferences.GetValue('Appearance.Color.Plot')
+        if not matPlotLibColor is None:
+            import matplotlib as mpl
+            try:
+                mpl.rc("figure", facecolor=matPlotLibColor)
+            except:
+                pass
+
+        self.root.update_idletasks()
 
 def main():
     app=TheApp()
