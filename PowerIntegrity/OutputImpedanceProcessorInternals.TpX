@@ -1,0 +1,80 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
+%  <polyline arr2="h44">80,-56 110,-56 110,-52</polyline>
+%  <polyline arr2="h44">98,-40 110,-40 110,-44</polyline>
+%  <polyline arr2="h44">41,-40 50,-40</polyline>
+%  <text x="40" y="-41" t="v[k]" tex="$v_{\left[ k \right]}$" h="4" halign="r" lc="black"/>
+%  <text x="82" y="-36" t="V[n]" tex="$V_{\left[ n \right]}$" h="4" lc="black"/>
+%  <rect x="50" y="-46.0001" w="30" h="12.0001" fill="white"/>
+%  <text x="65" y="-42" t="Goertzel" h="4" halign="c" li="dot" ha="4" lc="black" hc="silver"/>
+%  <polyline arr2="h44">80,-40 90,-40</polyline>
+%  <circle x="110" y="-48" d="8" fill="white"/>
+%  <text x="110" y="-49.5" t="S" tex="$\Sigma$" h="4" halign="c"/>
+%  <polyline arr2="h44">41,-56 50,-56</polyline>
+%  <text x="40" y="-57" t="i[k]" tex="$i_{\left[ k \right]}$" h="4" halign="r" lc="black"/>
+%  <rect x="50" y="-62.0001" w="30" h="12.0001" fill="white"/>
+%  <text x="65" y="-58" t="Goertzel" h="4" halign="c" li="dot" ha="4" lc="black" hc="silver"/>
+%  <text x="83" y="-63" t="I[n]" tex="$I_{\left[ n \right]}$" h="4" lc="black"/>
+%  <polygon fill="white">98,-40 90,-36 90,-44 98,-40</polygon>
+%  <text x="94.5" y="-47" t="-1" tex="$-1$" h="4" halign="c"/>
+%  <text x="116" y="-44" t="Z[n]" tex="$Z_{\left[ n \right]}$" h="4" lc="black"/>
+%  <polyline arr2="h44">114,-48 124,-48</polyline>
+%  <text x="156" y="-45" t="Zbar" tex="$\bar{Z}$" h="4" lc="black"/>
+%  <rect x="124" y="-61" w="30.0001" h="26" fill="white"/>
+%  <text x="139" y="-50" t="Statistics" h="4" halign="c" li="dot" ha="4" lc="black" hc="silver"/>
+%  <polyline arr2="h44">154,-48 164,-48</polyline>
+%  <text x="156" y="-37" t="M" tex="$M$" h="4" lc="black"/>
+%  <polyline arr2="h44">154,-40 164,-40</polyline>
+%  <text x="156" y="-53" t="sigma" tex="$\sigma$" h="4" lc="black"/>
+%  <polyline arr2="h44">154,-56 164,-56</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (31.34,-65.86) rectangle +(136.22,35.00);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (80.00,-56.00) -- (110.00,-56.00) -- (110.00,-52.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (110.00,-52.00) -- (109.30,-54.80) -- (110.70,-54.80) -- (110.00,-52.00) -- cycle;
+\path[line width=0.30mm, draw=L] (98.00,-40.00) -- (110.00,-40.00) -- (110.00,-44.00);
+\path[line width=0.30mm, draw=L, fill=F] (110.00,-44.00) -- (110.70,-41.20) -- (109.30,-41.20) -- (110.00,-44.00) -- cycle;
+\path[line width=0.30mm, draw=L] (41.00,-40.00) -- (50.00,-40.00);
+\path[line width=0.30mm, draw=L, fill=F] (50.00,-40.00) -- (47.20,-39.30) -- (47.20,-40.70) -- (50.00,-40.00) -- cycle;
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (40.00,-41.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{$v_{\left[ k \right]}$}};
+\draw[T] (82.00,-36.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$V_{\left[ n \right]}$}};
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (50.00,-46.00) rectangle +(30.00,12.00);
+\draw[T] (65.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{Goertzel}};
+\path[line width=0.30mm, draw=L] (80.00,-40.00) -- (90.00,-40.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (90.00,-40.00) -- (87.20,-39.30) -- (87.20,-40.70) -- (90.00,-40.00) -- cycle;
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (110.00,-48.00) circle (4.00mm);
+\draw(110.00,-49.50) node[anchor=base]{$\Sigma$};
+\path[line width=0.30mm, draw=L] (41.00,-56.00) -- (50.00,-56.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (50.00,-56.00) -- (47.20,-55.30) -- (47.20,-56.70) -- (50.00,-56.00) -- cycle;
+\draw[T] (40.00,-57.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{$i_{\left[ k \right]}$}};
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (50.00,-62.00) rectangle +(30.00,12.00);
+\draw[T] (65.00,-58.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{Goertzel}};
+\draw[T] (83.00,-63.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$I_{\left[ n \right]}$}};
+\path[line width=0.30mm, draw=L, fill=F] (98.00,-40.00) -- (90.00,-36.00) -- (90.00,-44.00) -- (98.00,-40.00) -- cycle;
+\draw(94.50,-47.00) node[anchor=base]{$-1$};
+\draw[T] (116.00,-44.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$Z_{\left[ n \right]}$}};
+\path[line width=0.30mm, draw=L] (114.00,-48.00) -- (124.00,-48.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (124.00,-48.00) -- (121.20,-47.30) -- (121.20,-48.70) -- (124.00,-48.00) -- cycle;
+\draw[T] (156.00,-45.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$\bar{Z}$}};
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (124.00,-61.00) rectangle +(30.00,26.00);
+\draw[T] (139.00,-50.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{Statistics}};
+\path[line width=0.30mm, draw=L] (154.00,-48.00) -- (164.00,-48.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (164.00,-48.00) -- (161.20,-47.30) -- (161.20,-48.70) -- (164.00,-48.00) -- cycle;
+\draw[T] (156.00,-37.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$M$}};
+\path[line width=0.30mm, draw=L] (154.00,-40.00) -- (164.00,-40.00);
+\path[line width=0.30mm, draw=L, fill=F] (164.00,-40.00) -- (161.20,-39.30) -- (161.20,-40.70) -- (164.00,-40.00) -- cycle;
+\draw[T] (156.00,-53.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$\sigma$}};
+\path[line width=0.30mm, draw=L] (154.00,-56.00) -- (164.00,-56.00);
+\path[line width=0.30mm, draw=L, fill=F] (164.00,-56.00) -- (161.20,-55.30) -- (161.20,-56.70) -- (164.00,-56.00) -- cycle;
+\end{tikzpicture}%

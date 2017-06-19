@@ -1,0 +1,47 @@
+%<TpX v="5" TeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
+%  <bitmap x="0.609093" y="-104" w="127.391" h="81.0001" link="shmooUnlabeled.png"/>
+%  <text x="0" y="-92" t="1m" tex="$1\thinspace m\Omega$" h="4" halign="r"/>
+%  <text x="0" y="-74" t="10m" tex="$10\thinspace m\Omega$" h="4" halign="r"/>
+%  <text x="0" y="-56" t="100m" tex="$100\thinspace m\Omega$" h="4" halign="r"/>
+%  <text x="0" y="-38" t="1" tex="$1\thinspace \Omega$" h="4" halign="r"/>
+%  <text x="72" y="-104" t="10Hz" tex="$10\thinspace Hz$" h="4"/>
+%  <text x="88" y="-102" t="1kHz" tex="$1\thinspace kHz$" h="4"/>
+%  <text x="112" y="-98" t="1MHz" tex="$1\thinspace MHz$" h="4"/>
+%  <text x="128" y="-95" t="100MHz" tex="$100\thinspace MHz$" h="4"/>
+%  <text x="2" y="-96" t="0A" tex="$0\thinspace A$" h="4" halign="r"/>
+%  <text x="29" y="-101" t="500mA" tex="$500\thinspace mA$" h="4" halign="r"/>
+%  <text x="60" y="-105" t="1A" tex="$1\thinspace A$" h="4" halign="r"/>
+%</TpX>
+\centering
+\ifpdf
+  \setlength{\unitlength}{1bp}%
+  \begin{picture}(440.31, 246.23)(0,0)
+  \put(0,0){\includegraphics{Shmoo.pdf}}
+  \put(31.50,44.97){\makebox[0pt][r]{$1\thinspace m\Omega$}}
+  \put(31.50,95.99){\makebox[0pt][r]{$10\thinspace m\Omega$}}
+  \put(31.50,147.02){\makebox[0pt][r]{$100\thinspace m\Omega$}}
+  \put(31.50,198.04){\makebox[0pt][r]{$1\thinspace \Omega$}}
+  \put(235.59,10.95){$10\thinspace Hz$}
+  \put(280.95,16.62){$1\thinspace kHz$}
+  \put(348.98,27.96){$1\thinspace MHz$}
+  \put(394.33,36.46){$100\thinspace MHz$}
+  \put(37.17,33.63){\makebox[0pt][r]{$0\thinspace A$}}
+  \put(113.70,19.46){\makebox[0pt][r]{$500\thinspace mA$}}
+  \put(201.58,8.12){\makebox[0pt][r]{$1\thinspace A$}}
+  \end{picture}%
+\else
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (-11.11,-107.86) rectangle +(155.33,86.86);
+\draw(0.00,-92.00) node[anchor=base east]{$1\thinspace m\Omega$};
+\draw(0.00,-74.00) node[anchor=base east]{$10\thinspace m\Omega$};
+\draw(0.00,-56.00) node[anchor=base east]{$100\thinspace m\Omega$};
+\draw(0.00,-38.00) node[anchor=base east]{$1\thinspace \Omega$};
+\draw(72.00,-104.00) node[anchor=base west]{$10\thinspace Hz$};
+\draw(88.00,-102.00) node[anchor=base west]{$1\thinspace kHz$};
+\draw(112.00,-98.00) node[anchor=base west]{$1\thinspace MHz$};
+\draw(128.00,-95.00) node[anchor=base west]{$100\thinspace MHz$};
+\draw(2.00,-96.00) node[anchor=base east]{$0\thinspace A$};
+\draw(29.00,-101.00) node[anchor=base east]{$500\thinspace mA$};
+\draw(60.00,-105.00) node[anchor=base east]{$1\thinspace A$};
+\end{tikzpicture}%
+\fi

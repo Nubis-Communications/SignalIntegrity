@@ -1,0 +1,93 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
+%  <rect x="16" y="-161" w="57" h="65" li="dot" ha="4" lc="black" hc="silver"/>
+%  <polyline arr2="h44">105.5,-142 105.5,-110</polyline>
+%  <polyline arr2="h44">85.5,-122 85.5,-117.5 102,-108</polyline>
+%  <polyline arr2="h44">45.5,-122 45.5,-117.5 62,-108</polyline>
+%  <polyline arr2="h44">25.5,-142 25.5,-106 61.5,-106</polyline>
+%  <line x1="65.5" y1="-130" x2="65.5" y2="-142"/>
+%  <line x1="65.5" y1="-110" x2="65.5" y2="-122"/>
+%  <polyline arr2="h44">20,-90 65.5,-90 65.5,-102</polyline>
+%  <polygon fill="white">105.5,-142 101.5,-150 109.5,-150 105.5,-142</polygon>
+%  <rect x="61.5" y="-130" w="7.99999" h="8.00001" fill="white"/>
+%  <text x="65.5" y="-127.5" t="D" tex="$z^{-1}$" h="4" halign="c"/>
+%  <circle x="105.5" y="-106" d="8" fill="white"/>
+%  <text x="105.5" y="-107.5" t="S" tex="$\Sigma$" h="4" halign="c"/>
+%  <text x="103" y="-145" t="-1" tex="$-1$" h="4" halign="r"/>
+%  <polygon fill="white">85.5,-122 81.5,-130 89.5,-130 85.5,-122</polygon>
+%  <text x="83" y="-125" t="W" tex="$W$" h="4" halign="r"/>
+%  <circle x="65.5" y="-106" d="8" fill="white"/>
+%  <text x="65.5" y="-107.5" t="S" tex="$\Sigma$" h="4" halign="c"/>
+%  <polygon fill="white">45.5,-122 41.5,-130 49.5,-130 45.5,-122</polygon>
+%  <text x="43" y="-125" t="-2W" tex="$-2\cdot\operatorname{Re} \left(W\right)$" h="4" halign="r"/>
+%  <polygon fill="white">25.5,-142 21.5,-150 29.5,-150 25.5,-142</polygon>
+%  <text x="23" y="-145" t="-1" tex="$-1$" h="4" halign="r"/>
+%  <rect x="61.5" y="-150" w="7.99999" h="8" fill="white"/>
+%  <text x="65.5" y="-147.5" t="D" tex="$z^{-1}$" h="4" halign="c"/>
+%  <polygon fill="white">128,-90 120,-86 120,-94 128,-90</polygon>
+%  <text x="124.5" y="-97" t="1/K" tex="$\frac{1}{K}$" h="4" halign="c"/>
+%  <line x1="65.5" y1="-150" x2="65.5" y2="-157.5"/>
+%  <polyline>25.5,-150 25.5,-157.5 105.5,-157.5 105.5,-150</polyline>
+%  <polyline>65.5,-137 45.5,-137 45.5,-130</polyline>
+%  <polyline>65.5,-137 85.5,-137 85.5,-130</polyline>
+%  <circle x="65.5" y="-137" d="1" lc="black" fill="black"/>
+%  <polyline lc="black">105.5,-102 105.5,-90 120,-90</polyline>
+%  <text x="19" y="-91" t="x[k]" tex="$x_{\left[ k \right]}$" h="4" halign="r" lc="black"/>
+%  <circle x="65.5" y="-157.5" d="1" lc="black" fill="black"/>
+%  <polyline arr2="h44">128,-90 140,-90</polyline>
+%  <text x="142" y="-91" t="X[n]" tex="$X_{\left[ n \right]}$" h="4" lc="black"/>
+%  <text x="110" y="-125" t="W=" tex="$W=e^{j\cdot 2\pi\cdot\frac{n}{K}}$" h="4" li="dot" ha="4" lc="black" hc="silver"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (10.34,-163.00) rectangle +(141.22,79.00);
+\definecolor{L}{rgb}{0.753,0.753,0.753}
+\path[line width=0.15mm, draw=L]  (16.00,-97.14) -- (17.14,-96.00) (16.00,-99.97) -- (19.97,-96.00) (16.00,-102.79) -- (22.79,-96.00) (16.00,-105.62) -- (25.62,-96.00) (16.00,-108.45) -- (28.45,-96.00) (16.00,-111.28) -- (31.28,-96.00) (16.00,-114.11) -- (34.11,-96.00) (16.00,-116.94) -- (36.94,-96.00) (16.00,-119.76) -- (39.76,-96.00) (16.00,-122.59) -- (42.59,-96.00) (16.00,-125.42) -- (45.42,-96.00) (16.00,-128.25) -- (48.25,-96.00) (16.00,-131.08) -- (51.08,-96.00) (16.00,-133.91) -- (53.91,-96.00) (16.00,-136.74) -- (56.74,-96.00) (16.00,-139.56) -- (59.56,-96.00) (16.00,-142.39) -- (62.39,-96.00) (16.00,-145.22) -- (65.22,-96.00) (16.00,-148.05) -- (68.05,-96.00) (16.00,-150.88) -- (70.88,-96.00) (16.00,-153.71) -- (73.00,-96.71) (16.00,-156.53) -- (73.00,-99.53) (16.00,-159.36) -- (73.00,-102.36) (17.19,-161.00) -- (73.00,-105.19) (20.02,-161.00) -- (73.00,-108.02) (22.85,-161.00) -- (73.00,-110.85) (25.68,-161.00) -- (73.00,-113.68) (28.50,-161.00) -- (73.00,-116.50) (31.33,-161.00) -- (73.00,-119.33) (34.16,-161.00) -- (73.00,-122.16) (36.99,-161.00) -- (73.00,-124.99) (39.82,-161.00) -- (73.00,-127.82) (42.65,-161.00) -- (73.00,-130.65) (45.48,-161.00) -- (73.00,-133.48) (48.30,-161.00) -- (73.00,-136.30) (51.13,-161.00) -- (73.00,-139.13) (53.96,-161.00) -- (73.00,-141.96) (56.79,-161.00) -- (73.00,-144.79) (59.62,-161.00) -- (73.00,-147.62) (62.45,-161.00) -- (73.00,-150.45) (65.27,-161.00) -- (73.00,-153.27) (68.10,-161.00) -- (73.00,-156.10) (70.93,-161.00) -- (73.00,-158.93);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (16.00,-96.00) [rotate around={270:(16.00,-96.00)}] rectangle +(65.00,57.00);
+\path[line width=0.30mm, draw=L] (105.50,-142.00) -- (105.50,-110.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (105.50,-110.00) -- (104.80,-112.80) -- (106.20,-112.80) -- (105.50,-110.00) -- cycle;
+\path[line width=0.30mm, draw=L] (85.50,-122.00) -- (85.50,-117.50) -- (102.00,-108.00);
+\path[line width=0.30mm, draw=L, fill=F] (102.00,-108.00) -- (99.22,-108.79) -- (99.92,-110.00) -- (102.00,-108.00) -- cycle;
+\path[line width=0.30mm, draw=L] (45.50,-122.00) -- (45.50,-117.50) -- (62.00,-108.00);
+\path[line width=0.30mm, draw=L, fill=F] (62.00,-108.00) -- (59.22,-108.79) -- (59.92,-110.00) -- (62.00,-108.00) -- cycle;
+\path[line width=0.30mm, draw=L] (25.50,-142.00) -- (25.50,-106.00) -- (61.50,-106.00);
+\path[line width=0.30mm, draw=L, fill=F] (61.50,-106.00) -- (58.70,-105.30) -- (58.70,-106.70) -- (61.50,-106.00) -- cycle;
+\path[line width=0.30mm, draw=L] (65.50,-130.00) -- (65.50,-142.00);
+\path[line width=0.30mm, draw=L] (65.50,-110.00) -- (65.50,-122.00);
+\path[line width=0.30mm, draw=L] (20.00,-90.00) -- (65.50,-90.00) -- (65.50,-102.00);
+\path[line width=0.30mm, draw=L, fill=F] (65.50,-102.00) -- (66.20,-99.20) -- (64.80,-99.20) -- (65.50,-102.00) -- cycle;
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (105.50,-142.00) -- (101.50,-150.00) -- (109.50,-150.00) -- (105.50,-142.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (61.50,-122.00) [rotate around={270:(61.50,-122.00)}] rectangle +(8.00,8.00);
+\draw(65.50,-127.50) node[anchor=base]{$z^{-1}$};
+\path[line width=0.30mm, draw=L, fill=F] (105.50,-106.00) circle (4.00mm);
+\draw(105.50,-107.50) node[anchor=base]{$\Sigma$};
+\draw(103.00,-145.00) node[anchor=base east]{$-1$};
+\path[line width=0.30mm, draw=L, fill=F] (85.50,-122.00) -- (81.50,-130.00) -- (89.50,-130.00) -- (85.50,-122.00) -- cycle;
+\draw(83.00,-125.00) node[anchor=base east]{$W$};
+\path[line width=0.30mm, draw=L, fill=F] (65.50,-106.00) circle (4.00mm);
+\draw(65.50,-107.50) node[anchor=base]{$\Sigma$};
+\path[line width=0.30mm, draw=L, fill=F] (45.50,-122.00) -- (41.50,-130.00) -- (49.50,-130.00) -- (45.50,-122.00) -- cycle;
+\draw(43.00,-125.00) node[anchor=base east]{$-2\cdot\operatorname{Re} \left(W\right)$};
+\path[line width=0.30mm, draw=L, fill=F] (25.50,-142.00) -- (21.50,-150.00) -- (29.50,-150.00) -- (25.50,-142.00) -- cycle;
+\draw(23.00,-145.00) node[anchor=base east]{$-1$};
+\path[line width=0.30mm, draw=L, fill=F] (61.50,-142.00) [rotate around={270:(61.50,-142.00)}] rectangle +(8.00,8.00);
+\draw(65.50,-147.50) node[anchor=base]{$z^{-1}$};
+\path[line width=0.30mm, draw=L, fill=F] (128.00,-90.00) -- (120.00,-86.00) -- (120.00,-94.00) -- (128.00,-90.00) -- cycle;
+\draw(124.50,-97.00) node[anchor=base]{$\frac{1}{K}$};
+\path[line width=0.30mm, draw=L] (65.50,-150.00) -- (65.50,-157.50);
+\path[line width=0.30mm, draw=L] (25.50,-150.00) -- (25.50,-157.50) -- (105.50,-157.50) -- (105.50,-150.00);
+\path[line width=0.30mm, draw=L] (65.50,-137.00) -- (45.50,-137.00) -- (45.50,-130.00);
+\path[line width=0.30mm, draw=L] (65.50,-137.00) -- (85.50,-137.00) -- (85.50,-130.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (65.50,-137.00) circle (0.50mm);
+\path[line width=0.30mm, draw=L] (105.50,-102.00) -- (105.50,-90.00) -- (120.00,-90.00);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (19.00,-91.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{$x_{\left[ k \right]}$}};
+\path[line width=0.30mm, draw=L, fill=F] (65.50,-157.50) circle (0.50mm);
+\path[line width=0.30mm, draw=L] (128.00,-90.00) -- (140.00,-90.00);
+\path[line width=0.30mm, draw=L, fill=F] (140.00,-90.00) -- (137.20,-89.30) -- (137.20,-90.70) -- (140.00,-90.00) -- cycle;
+\draw[T] (142.00,-91.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$X_{\left[ n \right]}$}};
+\draw[T] (110.00,-125.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{$W=e^{j\cdot 2\pi\cdot\frac{n}{K}}$}};
+\end{tikzpicture}%
