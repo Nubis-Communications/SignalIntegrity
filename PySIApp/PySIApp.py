@@ -309,6 +309,8 @@ class TheApp(Frame):
                                    title='new project file')
         if filename is None:
             filename=''
+        if isinstance(filename,tuple):
+            filename=''
         filename=str(filename)
         if filename=='':
             return
@@ -378,6 +380,8 @@ class TheApp(Frame):
         filename=asksaveasfilename(filetypes=[('tpx', '.TpX')],defaultextension='.TpX',
                                    initialdir=self.fileparts.AbsoluteFilePath(),initialfile=self.fileparts.filename+'.TpX')
         if filename is None:
+            filename=''
+        if isinstance(filename,tuple):
             filename=''
         filename = str(filename)
         if filename=='':

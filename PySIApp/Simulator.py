@@ -181,6 +181,8 @@ class SimulatorDialog(Toplevel):
                             initialfile=filename+'.txt')
             if filename is None:
                 filename=''
+            if isinstance(filename,tuple):
+                filename=''
             filename=str(filename)
             if filename=='':
                 continue
@@ -207,6 +209,8 @@ class SimulatorDialog(Toplevel):
                                    initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
                                    initialfile=self.parent.parent.fileparts.filename+'.tex')
         if filename is None:
+            filename=''
+        if isinstance(filename,tuple):
             filename=''
         filename=str(filename)
         if filename=='':

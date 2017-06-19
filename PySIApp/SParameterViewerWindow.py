@@ -493,6 +493,8 @@ class SParametersDialog(Toplevel):
                     parent=self)
         if filename is None:
             filename=''
+        if isinstance(filename,tuple):
+            filename=''
         filename=str(filename)
         if filename=='':
             return
