@@ -60,6 +60,26 @@ class Spline(object):
         xi = (x-self.m_t[i])
         A=self.m_A[i]
         return A[0]+xi*(A[1]+xi*(A[2]+xi*A[3]))
+    def EvaluateDerivative(self,x):
+        i = self.Interval(x)
+        xi = (x-self.m_t[i])
+        A=self.m_A[i]
+        return A[1]+xi*(A[2]+xi*A[3])
+    def EvaluateSecondDerivative(self,x):
+        i = self.Interval(x)
+        xi = (x-self.m_t[i])
+        A=self.m_A[i]
+        return A[2]+xi*A[3]   
+    def WriteToFile(self,fileName):
+        with open(fileName,'w') as f:
+            f.write(self.m_t)
+            f.write(self.m_A)
+        return self
+    def ReadFromFile(self,fileName):
+        with open(fileName,'r') as f:
+            self.m_t=f.read(self.m_t)
+            self.m_r=f.read(self.m_A)
+        return self
 
 
 

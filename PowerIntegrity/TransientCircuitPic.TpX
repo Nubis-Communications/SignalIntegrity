@@ -1,0 +1,53 @@
+%<TpX v="5" TeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
+%  <bitmap x="39" y="-74.75" w="69" h="51.75" link="BoardPic.JPG"/>
+%  <text x="91" y="-21" t="Gate" h="4"/>
+%  <line x1="91" y1="-22" x2="82.5" y2="-41"/>
+%  <text x="82" y="-17" t="Source" h="4" halign="c"/>
+%  <line x1="82" y1="-18" x2="80" y2="-40"/>
+%  <text x="110" y="-47" t="Drain" h="4"/>
+%  <line x1="109" y1="-46" x2="79" y2="-46"/>
+%  <text x="109" y="-39" t="FET" h="4"/>
+%  <line x1="109" y1="-39" x2="80" y2="-43"/>
+%  <text x="85" y="-79" t="Output Cap" h="4" halign="c"/>
+%  <line x1="85" y1="-75" x2="77" y2="-48"/>
+%  <text x="57" y="-81" t="Ground" h="4" halign="c"/>
+%  <line x1="57" y1="-78" x2="74" y2="-52"/>
+%  <text x="56" y="-15" t="Source" h="4" halign="c"/>
+%  <text x="56" y="-19" t="Resistor" h="4" halign="c"/>
+%  <line x1="56" y1="-20" x2="73" y2="-45"/>
+%</TpX>
+\centering
+\ifpdf
+  \setlength{\unitlength}{1bp}%
+  \begin{picture}(238.42, 209.76)(0,0)
+  \put(0,0){\includegraphics{TransientCircuitPic.pdf}}
+  \put(153.07,178.20){Gate}
+  \put(127.56,189.54){\makebox[0pt]{Source}}
+  \put(206.93,104.50){Drain}
+  \put(204.09,127.17){FET}
+  \put(136.06,13.79){\makebox[0pt]{Output Cap}}
+  \put(56.69,8.12){\makebox[0pt]{Ground}}
+  \put(53.86,195.21){\makebox[0pt]{Source}}
+  \put(53.86,183.87){\makebox[0pt]{Resistor}}
+  \end{picture}%
+\else
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (37.00,-83.86) rectangle +(84.11,74.00);
+\draw(91.00,-21.00) node[anchor=base west]{Gate};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (91.00,-22.00) -- (82.50,-41.00);
+\draw(82.00,-17.00) node[anchor=base]{Source};
+\path[line width=0.30mm, draw=L] (82.00,-18.00) -- (80.00,-40.00);
+\draw(110.00,-47.00) node[anchor=base west]{Drain};
+\path[line width=0.30mm, draw=L] (109.00,-46.00) -- (79.00,-46.00);
+\draw(109.00,-39.00) node[anchor=base west]{FET};
+\path[line width=0.30mm, draw=L] (109.00,-39.00) -- (80.00,-43.00);
+\draw(85.00,-79.00) node[anchor=base]{Output Cap};
+\path[line width=0.30mm, draw=L] (85.00,-75.00) -- (77.00,-48.00);
+\draw(57.00,-81.00) node[anchor=base]{Ground};
+\path[line width=0.30mm, draw=L] (57.00,-78.00) -- (74.00,-52.00);
+\draw(56.00,-15.00) node[anchor=base]{Source};
+\draw(56.00,-19.00) node[anchor=base]{Resistor};
+\path[line width=0.30mm, draw=L] (56.00,-20.00) -- (73.00,-45.00);
+\end{tikzpicture}%
+\fi
