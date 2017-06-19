@@ -788,6 +788,7 @@ class TheApp(Frame):
             try:
                 default_font.configure(size=fontSizeDesired)
                 self.root.option_add("*Font", default_font)
+                PartPicture.textSpacing=fontSizeDesired
             except:
                 pass
 
