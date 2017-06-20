@@ -402,6 +402,7 @@ class TheApp(Frame):
         calculationPropertiesElement=self.calculationProperties.xml()
         projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
+        filename=ConvertFileNameToRelativePath(filename)
         self.AnotherFileOpened(filename)
         self.root.title("PySI: "+self.fileparts.FileNameTitle())
         self.statusbar.set('Project Saved')
