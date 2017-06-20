@@ -793,18 +793,40 @@ class TheApp(Frame):
             try:
                 default_font.configure(size=fontSizeDesired)
                 self.root.option_add("*Font", default_font)
-                PartPicture.textSpacing=fontSizeDesired
+                PartPicture.textSpacing=fontSizeDesired+5
             except:
                 pass
 
+        w=Button(self.root)
+
         backgroundColor=self.preferences.GetValue('Appearance.Color.Background')
         if backgroundColor is None:
-            backgroundColor=self.root['bg']
+            backgroundColor=w['background']
+
         foregroundColor=self.preferences.GetValue('Appearance.Color.Foreground')
         if foregroundColor is None:
-            foregroundColor='black'
+            foregroundColor=w['foreground']
+
+        activeForegroundColor=self.preferences.GetValue('Appearance.Color.ActiveForeground')
+        if activeForegroundColor is None:
+            activeForegroundColor=w['activeforeground']
+
+        activeBackgroundColor=self.preferences.GetValue('Appearance.Color.ActiveBackground')
+        if activeBackgroundColor is None:
+            activeBackgroundColor=w['activebackground']
+
+        disabledForegroundColor=self.preferences.GetValue('Appearance.Color.DisabledForeground')
+        if disabledForegroundColor is None:
+            disabledForegroundColor=w['disabledforeground']
+
         try:
-            self.root.tk_setPalette(background=backgroundColor,foreground=foregroundColor)
+            self.root.tk_setPalette(
+                foreground=foregroundColor,
+                background=backgroundColor,
+                activeforeground=activeForegroundColor,
+                activebackground=activeBackgroundColor,
+                disabledforeground=disabledForegroundColor
+                )
         except:
             pass
 

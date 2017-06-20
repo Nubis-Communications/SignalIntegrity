@@ -19,6 +19,7 @@ class ColorConfiguration(XMLConfiguration):
         self.dict['Foreground']=XMLPropertyDefaultString('Foreground')
         self.dict['ActiveBackground']=XMLPropertyDefaultString('ActiveBackground')
         self.dict['ActiveForeground']=XMLPropertyDefaultString('ActiveForeground')
+        self.dict['DisabledForeground']=XMLPropertyDefaultString('DisabledForeground')
         self.dict['Plot']=XMLPropertyDefaultString('Plot')
 
 class AppearanceConfiguration(XMLConfiguration):
