@@ -14,6 +14,7 @@ from tkFileDialog import askopenfilename
 from tkFileDialog import asksaveasfilename
 from tkFileDialog import askdirectory
 import tkMessageBox
+from tkMessageBox import askyesnocancel
 import copy
 import os
 
@@ -47,6 +48,8 @@ class TheApp(Frame):
 
         self.preferences=Preferences()
         self.root = Tk()
+
+        self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.UpdateColorsAndFonts()
 
@@ -307,6 +310,8 @@ class TheApp(Frame):
         self.Drawing.DrawSchematic()
 
     def onReadProjectFromFile(self):
+        if not self.CheckSaveCurrentProject():
+            return
         filename=askopenfilename(filetypes=[('xml', '.xml')],initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension('.xml'))
         self.OpenProjectFile(filename)
@@ -319,10 +324,10 @@ class TheApp(Frame):
         filename=str(filename)
         if filename=='':
             return
-        self.fileparts=FileParts(filename)
-        os.chdir(self.fileparts.AbsoluteFilePath())
-        self.fileparts=FileParts(filename)
         try:
+            self.fileparts=FileParts(filename)
+            os.chdir(self.fileparts.AbsoluteFilePath())
+            self.fileparts=FileParts(filename)
             tree=et.parse(self.fileparts.FullFilePathExtension('.xml'))
             root=tree.getroot()
             for child in root:
@@ -340,6 +345,8 @@ class TheApp(Frame):
         self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
 
     def onNewProject(self):
+        if not self.CheckSaveCurrentProject():
+            return
         filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
                                    title='new project file')
@@ -462,8 +469,6 @@ class TheApp(Frame):
 
     def onRecentProject3(self):
         self.OpenProjectFile(self.preferences.GetLastFileOpened(3))
-
-
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
@@ -812,6 +817,24 @@ class TheApp(Frame):
                 pass
 
         self.root.update_idletasks()
+
+    def CheckSaveCurrentProject(self):
+        if self.Drawing.stateMachine.state == 'NoProject':
+            return True
+        if not self.preferences.GetValue('ProjectFiles.AskToSaveCurrentFile'):
+            return True
+
+        doit =  askyesnocancel('Wait....','Do you want to save the current project first?')
+        if doit is None:
+            return False
+        else:
+            if doit:
+                self.onSaveAsProject()
+        return True
+
+    def onClosing(self):
+        if self.CheckSaveCurrentProject():
+            self.root.destroy()
 
 def main():
     app=TheApp()

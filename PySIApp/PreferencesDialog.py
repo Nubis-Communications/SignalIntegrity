@@ -18,6 +18,7 @@ class PreferencesDialog(PropertiesDialog):
         self.matPlotLibColorFrame=CalculationProperty(self.propertyListFrame,'plot color',None,self.onUpdateColors,preferences,'Appearance.Color.Plot')
         self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')
         self.openLastFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'open last file on start',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenLastFile')
+        self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ask to save current file',None,None,preferences,'ProjectFiles.AskToSaveCurrentFile')
         self.Finish()
     def onUpdatePreferences(self):
         self.project.SaveToFile()

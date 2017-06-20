@@ -39,6 +39,7 @@ class ProjectFilesConfiguration(XMLConfiguration):
         self.dict['OpenLastFile']=XMLPropertyDefaultBool('OpenLastFIle',True)
         self.dict['RetainLastFilesOpened']=XMLPropertyDefaultBool('RetainLastFilesOpened',True)
         self.dict['LastFile']=XMLProperty('LastFile',[LastFilesConfiguration() for _ in range(4)],'array')
+        self.dict['AskToSaveCurrentFile']=XMLPropertyDefaultBool('AskToSaveCurrentFile',True)
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
