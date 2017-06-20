@@ -460,20 +460,28 @@ class TheApp(Frame):
             self.RecentProject3Doer.Activate(True)
 
     def onRecentProject0(self):
+        if not self.CheckSaveCurrentProject():
+            return False
         self.OpenProjectFile(self.preferences.GetLastFileOpened(0))
 
     def onRecentProject1(self):
+        if not self.CheckSaveCurrentProject():
+            return False
         self.OpenProjectFile(self.preferences.GetLastFileOpened(1))
 
     def onRecentProject2(self):
+        if not self.CheckSaveCurrentProject():
+            return False
         self.OpenProjectFile(self.preferences.GetLastFileOpened(2))
 
     def onRecentProject3(self):
+        if not self.CheckSaveCurrentProject():
+            return False
         self.OpenProjectFile(self.preferences.GetLastFileOpened(3))
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
-        nld = NetListDialog(self,self.Drawing.schematic.NetList().Text())
+        NetListDialog(self,self.Drawing.schematic.NetList().Text())
 
     def onExportTpX(self):
         from TpX import TpX
