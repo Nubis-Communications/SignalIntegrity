@@ -77,7 +77,7 @@ def ToSI(d,sa=''):
     if d==0.:
         return '0 '+sa
 
-    incPrefixes = ['K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
+    incPrefixes = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
     decPrefixes = ['m', 'u', 'n', 'p', 'f', 'a', 'z', 'y']
 
     degree = int(math.floor(math.log10(math.fabs(d)) / 3))
