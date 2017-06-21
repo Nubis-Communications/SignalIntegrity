@@ -374,6 +374,7 @@ class TheApp(Frame):
         calculationPropertiesElement=self.calculationProperties.xml()
         projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
+        filename=ConvertFileNameToRelativePath(filename)
         self.root.title("PySI: "+self.fileparts.FileNameTitle())
         self.AnotherFileOpened(filename)
 
@@ -394,6 +395,8 @@ class TheApp(Frame):
         filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
                                    initialfile=self.fileparts.FileNameWithExtension('.xml'),initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
+            filename=''
+        if isinstance(filename,tuple):
             filename=''
         filename=str(filename)
         if filename=='':
