@@ -7,13 +7,18 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
-import xml.etree.ElementTree as et
+from Tkinter import Menu,Frame,Canvas
+from Tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
 
-from DeviceProperties import *
-from Device import *
+import xml.etree.ElementTree as et
+import copy
+
+from PartProperty import PartPropertyReferenceDesignator,PartPropertyDefaultReferenceDesignator
+from Device import DeviceXMLClassFactory
 from NetList import NetList
-from Wire import *
+from Wire import WireList,Vertex,SegmentList,Wire
+from MenuSystemHelpers import Doer
+from DeviceProperties import DevicePropertiesDialog
 
 class Schematic(object):
     def __init__(self):
