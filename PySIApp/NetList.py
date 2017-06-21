@@ -7,13 +7,13 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
+from Tkinter import Toplevel,Frame,Button
+from Tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
 from ScrolledText import ScrolledText
-from tkFileDialog import asksaveasfilename
-import os
 
-from PartProperty import *
-from Wire import *
+from FilePicker import AskSaveAsFilename
+from PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyWeight
+#from Wire import *
 
 class NetList(object):
     def __init__(self,schematic):
@@ -292,14 +292,12 @@ class NetListDialog(Toplevel):
 
     def ok(self, event=None):
         extension='.txt'
-        filename=asksaveasfilename(parent=self,filetypes=[('text', extension)],defaultextension='.txt',
-                                   initialdir=self.parent.fileparts.AbsoluteFilePath(),initialfile=self.parent.fileparts.filename+'.txt')
+        filename=AskSaveAsFilename(parent=self,
+                                   filetypes=[('text', extension)],
+                                   defaultextension='.txt',
+                                   initialdir=self.parent.fileparts.AbsoluteFilePath(),
+                                   initialfile=self.parent.fileparts.filename+'.txt')
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename=='':
             self.initial_focus.focus_set() # put focus back
             return
         with open(filename,"w") as f:

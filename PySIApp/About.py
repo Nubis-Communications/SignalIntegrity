@@ -7,10 +7,8 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
-import copy
-from tkFileDialog import askopenfilename
-import os
+from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,Message
+from Tkinter import TOP,BOTH,LEFT,YES,X,END,CENTER
 import webbrowser
 import textwrap
 from ScrolledText import ScrolledText

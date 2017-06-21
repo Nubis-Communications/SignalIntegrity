@@ -7,20 +7,21 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
+from Tkinter import Frame,Entry,Label,StringVar,Toplevel,PhotoImage,BooleanVar,Menu,Button
+from Tkinter import TOP,X,YES,LEFT,NO,SUNKEN,RAISED,NONE,BOTH
 import matplotlib
 import math
-
-from numpy import frompyfunc
-
-from PartProperty import PartPropertyDelay
-from PartProperty import PartPropertyReferenceImpedance
-from Files import *
-from MenuSystemHelpers import *
-
-from tkFileDialog import askopenfilename
-from tkFileDialog import asksaveasfilename
+import sys
+import os
 import tkMessageBox
+
+
+from PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
+from Files import FileParts
+from MenuSystemHelpers import Doer
+
+from FilePicker import AskOpenFileName,AskSaveAsFilename
+
 from ToSI import ToSI,FromSI
 
 if not 'matplotlib.backends' in sys.modules:
@@ -445,15 +446,10 @@ class SParametersDialog(Toplevel):
 
     def onReadSParametersFromFile(self):
         import SignalIntegrity as si
-        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
                                  parent=self)
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename == '':
             return
         self.fileparts=FileParts(filename)
         if self.fileparts.fileext=='':
@@ -486,17 +482,12 @@ class SParametersDialog(Toplevel):
     def onWriteSParametersToFile(self):
         ports=self.sp.m_P
         extension='.s'+str(ports)+'p'
-        filename=asksaveasfilename(filetypes=[('s-parameters', extension)],
+        filename=AskSaveAsFilename(filetypes=[('s-parameters', extension)],
                     defaultextension=extension,
                     initialdir=self.fileparts.AbsoluteFilePath(),
                     initialfile=self.fileparts.FileNameWithExtension(extension),
                     parent=self)
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename=='':
             return
         self.fileparts=FileParts(filename)
         self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))

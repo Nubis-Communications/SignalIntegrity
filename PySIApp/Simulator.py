@@ -7,14 +7,22 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
+from Tkinter import Toplevel,Frame,PhotoImage,Menu,Button
+from Tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
 import tkMessageBox
-from PartProperty import *
-from SParameterViewerWindow import *
-from MenuSystemHelpers import *
+from PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyVoltageOffset
+from PartProperty import PartPropertyTransresistance,PartPropertyVoltageGain,PartPropertyDelay
+from SParameterViewerWindow import SParametersDialog
+from MenuSystemHelpers import Doer
 from ProgressDialog import ProgressDialog
+from FilePicker import AskSaveAsFilename
+from ToSI import FromSI,ToSI
 
 import matplotlib
+
+import sys
+import os
+
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -175,16 +183,11 @@ class SimulatorDialog(Toplevel):
                 filename=outputWaveformName
             else:
                 filename=self.parent.parent.fileparts.filename+'_'+outputWaveformName
-            filename=asksaveasfilename(parent=self,filetypes=[('waveform', '.txt')],
+            filename=AskSaveAsFilename(parent=self,filetypes=[('waveform', '.txt')],
                             defaultextension='.txt',
                             initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
                             initialfile=filename+'.txt')
             if filename is None:
-                filename=''
-            if isinstance(filename,tuple):
-                filename=''
-            filename=str(filename)
-            if filename=='':
                 continue
             outputWaveform.WriteToFile(filename)
 
@@ -204,16 +207,11 @@ class SimulatorDialog(Toplevel):
                           'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
-        import os
-        filename=asksaveasfilename(parent=self,filetypes=[('tex', '.tex')],defaultextension='.tex',
+        filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
+                                   defaultextension='.tex',
                                    initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
                                    initialfile=self.parent.parent.fileparts.filename+'.tex')
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename=='':
             return
         try:
             from matplotlib2tikz import save as tikz_save

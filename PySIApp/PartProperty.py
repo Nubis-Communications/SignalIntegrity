@@ -8,9 +8,8 @@
  this material whatsoever.
 '''
 import xml.etree.ElementTree as et
-import math
 
-from ToSI import *
+from ToSI import ToSI,FromSI
 
 class PartProperty(object):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):

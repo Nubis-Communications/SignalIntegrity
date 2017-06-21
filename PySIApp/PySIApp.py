@@ -12,9 +12,6 @@ from Tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
 
 import tkFont
 
-from tkFileDialog import askopenfilename
-from tkFileDialog import asksaveasfilename
-from tkFileDialog import askdirectory
 import tkMessageBox
 from tkMessageBox import askyesnocancel
 
@@ -43,6 +40,7 @@ from ProgressDialog import ProgressDialog
 from About import AboutDialog
 from Preferences import Preferences
 from PreferencesDialog import PreferencesDialog
+from FilePicker import AskSaveAsFilename,AskOpenFileName
 
 class TheApp(Frame):
     def __init__(self):
@@ -69,23 +67,24 @@ class TheApp(Frame):
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
-        sys.path.append(self.installdir+'/..')
-        foundSignalIntegrity=False
-        while not foundSignalIntegrity:
-            foundSignalIntegrity = True
-            try:
-                import SignalIntegrity as si
-            except ImportError:
-                foundSignalIntegrity = False
-                if tkMessageBox.askokcancel('SignalIntegrity Package',
-                    'In order to run this application, I need to know where the '+\
-                    'SignalIntegrity package is.  Please browse to the directory where '+\
-                    'it\'s installed.\n'+'You should only need to do this once'):
-                        dirname = askdirectory(parent=self.root,initialdir=os.path.dirname(os.path.abspath(__file__)),
-                            title='Please select a directory')
-                        sys.path.append(dirname)
-                else:
-                    exit()
+        # I believe this is totally obsolete
+#         sys.path.append(self.installdir+'/..')
+#         foundSignalIntegrity=False
+#         while not foundSignalIntegrity:
+#             foundSignalIntegrity = True
+#             try:
+#                 import SignalIntegrity as si
+#             except ImportError:
+#                 foundSignalIntegrity = False
+#                 if tkMessageBox.askokcancel('SignalIntegrity Package',
+#                     'In order to run this application, I need to know where the '+\
+#                     'SignalIntegrity package is.  Please browse to the directory where '+\
+#                     'it\'s installed.\n'+'You should only need to do this once'):
+#                         dirname = askdirectory(parent=self.root,initialdir=os.path.dirname(os.path.abspath(__file__)),
+#                             title='Please select a directory')
+#                         sys.path.append(dirname)
+#                 else:
+#                     exit()
 
         self.helpSystemKeys = HelpSystemKeys(self.installdir)
         # status bar
@@ -317,8 +316,12 @@ class TheApp(Frame):
     def onReadProjectFromFile(self):
         if not self.CheckSaveCurrentProject():
             return
-        filename=askopenfilename(filetypes=[('xml', '.xml')],initialdir=self.fileparts.AbsoluteFilePath(),
+        filename=AskOpenFileName(filetypes=[('xml', '.xml')],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension('.xml'))
+
+        if filename is None:
+            return
         self.OpenProjectFile(filename)
 
     def OpenProjectFile(self,filename):
@@ -352,20 +355,20 @@ class TheApp(Frame):
     def onNewProject(self):
         if not self.CheckSaveCurrentProject():
             return
-        filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
+        filename=AskSaveAsFilename(filetypes=[('xml', '.xml')],
+                                   defaultextension='.xml',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
                                    title='new project file')
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename=='':
             return
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
         self.Drawing.DrawSchematic()
         self.history.Event('new project')
+        self.SaveProjectToFile(filename)
+
+    def SaveProjectToFile(self,filename):
+        self.Drawing.stateMachine.Nothing()
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
@@ -375,45 +378,24 @@ class TheApp(Frame):
         projectElement.extend([drawingElement,calculationPropertiesElement])
         et.ElementTree(projectElement).write(filename)
         filename=ConvertFileNameToRelativePath(filename)
-        self.root.title("PySI: "+self.fileparts.FileNameTitle())
         self.AnotherFileOpened(filename)
+        self.root.title("PySI: "+self.fileparts.FileNameTitle())
+        self.statusbar.set('Project Saved')
 
     def onSaveProject(self):
         if self.fileparts.filename=='':
             return
         filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.xml')
-        self.Drawing.stateMachine.Nothing()
-        projectElement=et.Element('Project')
-        drawingElement=self.Drawing.xml()
-        calculationPropertiesElement=self.calculationProperties.xml()
-        projectElement.extend([drawingElement,calculationPropertiesElement])
-        et.ElementTree(projectElement).write(filename)
-        self.root.title("PySI: "+self.fileparts.FileNameTitle())
-        self.statusbar.set('Project Saved')
+        self.SaveProjectToFile(filename)
 
     def onSaveAsProject(self):
-        filename=asksaveasfilename(filetypes=[('xml', '.xml')],defaultextension='.xml',
-                                   initialfile=self.fileparts.FileNameWithExtension('.xml'),initialdir=self.fileparts.AbsoluteFilePath())
+        filename=AskSaveAsFilename(filetypes=[('xml', '.xml')],
+                                   defaultextension='.xml',
+                                   initialfile=self.fileparts.FileNameWithExtension('.xml'),
+                                   initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename=='':
             return
-        self.Drawing.stateMachine.Nothing()
-        self.fileparts=FileParts(filename)
-        os.chdir(self.fileparts.AbsoluteFilePath())
-        self.fileparts=FileParts(filename)
-        projectElement=et.Element('Project')
-        drawingElement=self.Drawing.xml()
-        calculationPropertiesElement=self.calculationProperties.xml()
-        projectElement.extend([drawingElement,calculationPropertiesElement])
-        et.ElementTree(projectElement).write(filename)
-        filename=ConvertFileNameToRelativePath(filename)
-        self.AnotherFileOpened(filename)
-        self.root.title("PySI: "+self.fileparts.FileNameTitle())
-        self.statusbar.set('Project Saved')
+        self.SaveProjectToFile(filename)
 
     def onClearSchematic(self):
         self.Drawing.stateMachine.Nothing()
@@ -495,14 +477,11 @@ class TheApp(Frame):
         from TpX import TpX
         from TikZ import TikZ
         self.Drawing.stateMachine.Nothing()
-        filename=asksaveasfilename(filetypes=[('tpx', '.TpX')],defaultextension='.TpX',
-                                   initialdir=self.fileparts.AbsoluteFilePath(),initialfile=self.fileparts.filename+'.TpX')
+        filename=AskSaveAsFilename(filetypes=[('tpx', '.TpX')],
+                                   defaultextension='.TpX',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=self.fileparts.filename+'.TpX')
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename = str(filename)
-        if filename=='':
             return
         try:
             tpx=self.Drawing.DrawSchematic(TpX()).Finish()
@@ -702,15 +681,10 @@ class TheApp(Frame):
 
     def onSParameterViewer(self):
         import SignalIntegrity as si
-        filename=askopenfilename(filetypes=[('s-parameter files', ('*.s*p'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
                                  parent=self,
                                  initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename=='':
             return
         fileparts=FileParts(filename)
         if fileparts.fileext is None or fileparts.fileext == '':

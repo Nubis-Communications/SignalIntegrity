@@ -10,7 +10,7 @@
 from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
 from Tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
 from tkColorChooser import askcolor
-from tkFileDialog import askopenfilename, asksaveasfilename
+from FilePicker import AskOpenFileName,AskSaveAsFilename
 
 from ToSI import FromSI,ToSI
 from Files import FileParts,ConvertFileNameToRelativePath
@@ -79,14 +79,10 @@ class CalculationPropertyFileName(CalculationProperty):
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
         fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project.GetValue(self.projectPath))
-        filename=askopenfilename(filetypes=[('txt', '.txt')],initialdir=fp.AbsoluteFilePath(),
+        filename=AskOpenFileName(filetypes=[('txt', '.txt')],
+                                initialdir=fp.AbsoluteFilePath(),
                                 initialfile=fp.FileNameWithExtension('txt'))
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename == '':
             return
         filename=ConvertFileNameToRelativePath(filename)
         self.project.SetValue(self.projectPath,filename)
@@ -98,14 +94,10 @@ class CalculationPropertyFileNameSaveAs(CalculationProperty):
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
         fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project.GetValue(self.projectPath))
-        filename=asksaveasfilename(filetypes=[('txt', '.txt')],initialdir=fp.AbsoluteFilePath(),
-                                initialfile=fp.FileNameWithExtension('txt'))
+        filename=AskSaveAsFilename(filetypes=[('txt', '.txt')],
+                                   initialdir=fp.AbsoluteFilePath(),
+                                   initialfile=fp.FileNameWithExtension('txt'))
         if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename == '':
             return
         filename=ConvertFileNameToRelativePath(filename)
         self.project.SetValue(self.projectPath,filename)

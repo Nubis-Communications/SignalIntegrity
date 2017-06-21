@@ -7,16 +7,17 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
+from Tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
+from Tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
+import tkMessageBox
 import copy
-from tkFileDialog import askopenfilename
-import os
 
-from PartProperty import *
-from Files import *
-from SParameterViewerWindow import *
-from Simulator import *
-from Device import *
+from FilePicker import AskOpenFileName
+from PartProperty import PartPropertyFileName,PartPropertyWaveformFileName
+from Files import FileParts
+from SParameterViewerWindow import SParametersDialog
+from Simulator import SimulatorDialog
+from Device import Device
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):
@@ -83,8 +84,10 @@ class DeviceProperty(Frame):
         else:
             initialDirectory=currentFileParts.AbsoluteFilePath()
             initialFile=currentFileParts.filename+extension
-        filename=askopenfilename(parent=self,filetypes=[(filetypename,extension)],
-                        initialdir=initialDirectory,initialfile=initialFile)
+        filename=AskOpenFileName(parent=self,
+                                 filetypes=[(filetypename,extension)],
+                                 initialdir=initialDirectory,
+                                 initialfile=initialFile)
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
