@@ -7,7 +7,9 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from Tkinter import *
+from Tkinter import Frame,PhotoImage,Menu,Button,Tk
+from Tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
+
 import tkFont
 
 from tkFileDialog import askopenfilename
@@ -15,25 +17,28 @@ from tkFileDialog import asksaveasfilename
 from tkFileDialog import askdirectory
 import tkMessageBox
 from tkMessageBox import askyesnocancel
+
 import copy
 import os
+import sys
 
-from PartPin import *
-from PartPicture import *
-from PartProperty import *
-from Device import *
-from DeviceProperties import *
-from DevicePicker import *
-from Schematic import *
-from PlotWindow import *
-from CalculationProperties import *
-from Simulator import *
-from NetList import *
-from SParameterViewerWindow import *
-from Files import *
-from History import *
-from MenuSystemHelpers import *
-from BuildHelpSystem import *
+import xml.etree.ElementTree as et
+
+from PartPicture import PartPicture
+from PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
+from Device import DeviceList,DeviceListUnknown,DeviceListSystem
+from Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
+from DeviceProperties import DevicePropertiesDialog
+from DevicePicker import DevicePickerDialog
+from Schematic import Drawing,Wire,Vertex
+from CalculationProperties import CalculationProperties
+from Simulator import Simulator
+from NetList import NetListDialog
+from SParameterViewerWindow import SParametersDialog
+from Files import FileParts,ConvertFileNameToRelativePath
+from History import History
+from MenuSystemHelpers import Doer,StatusBar
+from BuildHelpSystem import HelpSystemKeys
 from ProgressDialog import ProgressDialog
 from About import AboutDialog
 from Preferences import Preferences
@@ -868,7 +873,7 @@ class TheApp(Frame):
             self.root.destroy()
 
 def main():
-    app=TheApp()
+    TheApp()
 
 if __name__ == '__main__':
     main()
