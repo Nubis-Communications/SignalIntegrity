@@ -88,6 +88,7 @@ class SParametersDialog(Toplevel):
         self.showPassivityViolations = BooleanVar()
         self.showCausalityViolations = BooleanVar()
         self.showImpedance = BooleanVar()
+        self.logScale =  BooleanVar()
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
@@ -106,6 +107,7 @@ class SParametersDialog(Toplevel):
         self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Passivity-Violations'])
         self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Causality-Violations'])
         self.ShowImpedanceDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Impedance'])
+        self.LogScaleDoer = Doer(self.PlotSParameter)
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -134,6 +136,7 @@ class SParametersDialog(Toplevel):
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
         self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
         self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
+        self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4,onvalue=True,offvalue=False,variable=self.logScale)
         # ------
         HelpMenu=Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -221,6 +224,7 @@ class SParametersDialog(Toplevel):
             self.ShowPassivityViolationsDoer.Activate(False)
             self.ShowCausalityViolationsDoer.Activate(False)
             self.ShowImpedanceDoer.Activate(False)
+            self.LogScaleDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
             self.EnforceCausalityDoer.Activate(False)
             self.WaveletDenoiseDoer.Activate(False)
@@ -278,6 +282,10 @@ class SParametersDialog(Toplevel):
 
         fastway=True
 
+# this works - properly displays on log plot, only it is just too slow!
+#         if self.logScale.get():
+#             fastway=False
+
         if self.variableLineWidth.get():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
@@ -286,9 +294,15 @@ class SParametersDialog(Toplevel):
                 self.topLeftPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                    if self.logScale.get():
+                        self.topLeftPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                    else:
+                        self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            self.topLeftPlot.plot(x,y)
+            if self.logScale.get():
+                self.topLeftPlot.semilogx(x,y)
+            else:
+                self.topLeftPlot.plot(x,y)
 
         if self.showPassivityViolations.get():
             self.topLeftPlot.scatter(
@@ -315,9 +329,16 @@ class SParametersDialog(Toplevel):
                 self.topRightPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                    if self.logScale.get():
+                        self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                    else:
+                        self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            self.topRightPlot.plot(x,y)
+            if self.logScale.get():
+                self.topRightPlot.semilogx(x,y)
+            else:
+                self.topRightPlot.plot(x,y)
+
         self.topRightPlot.set_xlim(xmin=min(x))
         self.topRightPlot.set_xlim(xmax=max(x))
         self.topRightPlot.set_ylim(ymin=min(y)-1)
@@ -431,9 +452,15 @@ class SParametersDialog(Toplevel):
                 self.topRightPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                    if self.logScale.get():
+                        self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                    else:
+                        self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            self.topRightPlot.plot(x,y)
+            if self.logScale.get():
+                self.topRightPlot.semilogx(x,y)
+            else:
+                self.topRightPlot.plot(x,y)
         self.topRightPlot.set_xlim(xmin=min(x))
         self.topRightPlot.set_xlim(xmax=max(x))
         self.topRightPlot.set_ylim(ymin=min(y)-1)
