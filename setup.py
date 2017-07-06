@@ -5,6 +5,8 @@ Created on May 15, 2017
 '''
 from setuptools import setup
 import os
+import unittest
+import TestSignalIntegrity.TestAll
 
 install_requires=['numpy','matplotlib']
 
@@ -66,5 +68,10 @@ setup(
       install_requires=install_requires,
       entry_points={
         'console_scripts': [
-            'PySI = PySIApp.PySIApp:main']}
+            'PySI = PySIApp.PySIApp:main']},
+      test_suite='TestSignalIntegrity.TestAll'
       )
+
+#       test_loader=unittest.TestLoader().loadTestsFromModule(TestSignalIntegrity.TestAll, use_load_tests=True),
+#       test_suite='TestSignalIntegrity.TestAll'
+
