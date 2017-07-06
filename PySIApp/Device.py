@@ -229,7 +229,11 @@ class DeviceCurrentSource(Device):
         Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Current Source'),PartPropertyDefaultReferenceDesignator('CS?'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
     def NetListLine(self):
         return 'currentsource '+str(self[PartPropertyReferenceDesignator().propertyName].PropertyString(stype='raw'))+' '+str(self['ports'].PropertyString(stype='raw'))
-
+    def Waveform(self):
+        import SignalIntegrity as si
+        fileName = self[PartPropertyWaveformFileName().propertyName].PropertyString(stype='raw')
+        waveform = si.td.wf.Waveform().ReadFromFile(fileName)
+        return waveform
 
 class DeviceCurrentStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
