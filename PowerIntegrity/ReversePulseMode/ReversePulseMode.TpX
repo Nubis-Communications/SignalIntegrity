@@ -1,0 +1,375 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" PicMagnif="1" FontSizeInTeX="0">
+%  <rect x="132" y="-16" w="8" h="8" lc="black"/>
+%  <polyline lc="black">128,-12 132,-12</polyline>
+%  <text x="130" y="-10" t="1" h="4" halign="c" lc="black"/>
+%  <text x="121" y="-3" t="outputImpedanceResampled.s1p" h="4" halign="c" lc="black"/>
+%  <polyline lw="3.00" lc="black">124,-8 126,-10</polyline>
+%  <polyline lc="black">126,-10 128,-12</polyline>
+%  <text x="123" y="-7" t="Vcomp" h="4" halign="r" lc="black"/>
+%  <polyline lc="black">51,-21.5 53,-21.5 53,-18.5 55,-18.5</polyline>
+%  <ellipse x="53" y="-20" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">53,-17 53,-23</polyline>
+%  <polyline lc="black">53,-24 53,-28</polyline>
+%  <polygon fill="black">50.5,-28 55.5,-28 53,-30.5 50.5,-28</polygon>
+%  <polyline lc="black">53,-12 53,-16</polyline>
+%  <text x="59" y="-24.25" t="t0 -450.0 ns" h="4" lc="black"/>
+%  <text x="59" y="-20" t="a 1.0 A" h="4" lc="black"/>
+%  <polyline lc="black">10,-53.5 12,-53.5 12,-50.5 14,-50.5</polyline>
+%  <ellipse x="12" y="-52" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">12,-49 12,-55</polyline>
+%  <polyline lc="black">12,-56 12,-60</polyline>
+%  <polygon fill="black">9.5,-60 14.5,-60 12,-62.5 9.5,-60</polygon>
+%  <polyline lc="black">12,-44 12,-48</polyline>
+%  <text x="18" y="-56.25" t="t0 0 s" h="4" lc="black"/>
+%  <text x="18" y="-52" t="a -1.0 A" h="4" lc="black"/>
+%  <rect x="52" y="-48" w="8" h="8" lc="black"/>
+%  <polyline lc="black">48,-44 52,-44</polyline>
+%  <text x="50" y="-42" t="1" h="4" halign="c" lc="black"/>
+%  <text x="56" y="-35.4" t="outputImpedanceResampled.s1p" h="4" halign="c" lc="black"/>
+%  <polyline lw="3.00" lc="black">40,-40 42,-42</polyline>
+%  <polyline lc="black">42,-42 44,-44</polyline>
+%  <text x="39" y="-39" t="Vstep" h="4" halign="r" lc="black"/>
+%  <polyline lc="black">24,-21.5 26,-21.5 26,-18.5 28,-18.5</polyline>
+%  <ellipse x="26" y="-20" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">26,-17 26,-23</polyline>
+%  <polyline lc="black">26,-24 26,-28</polyline>
+%  <polygon fill="black">23.5,-28 28.5,-28 26,-30.5 23.5,-28</polygon>
+%  <polyline lc="black">26,-12 26,-16</polyline>
+%  <text x="32" y="-24.25" t="t0 -1.65 us" h="4" lc="black"/>
+%  <text x="32" y="-20" t="a -1.0 A" h="4" lc="black"/>
+%  <polyline lc="black">-3,-21.5 -1,-21.5 -1,-18.5 1,-18.5</polyline>
+%  <ellipse x="-1" y="-20" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">-1,-17 -1,-23</polyline>
+%  <polyline lc="black">-1,-24 -1,-28</polyline>
+%  <polygon fill="black">-3.5,-28 1.5,-28 -1,-30.5 -3.5,-28</polygon>
+%  <polyline lc="black">-1,-12 -1,-16</polyline>
+%  <text x="5" y="-24.25" t="t0 -15.6 us" h="4" lc="black"/>
+%  <text x="5" y="-20" t="a 1.0 A" h="4" lc="black"/>
+%  <rect x="132" y="-68" w="8" h="8" lc="black"/>
+%  <polyline lc="black">128,-64 132,-64</polyline>
+%  <text x="130" y="-62" t="1" h="4" halign="c" lc="black"/>
+%  <text x="121" y="-55" t="outputImpedanceResampled.s1p" h="4" halign="c" lc="black"/>
+%  <polyline lw="3.00" lc="black">124,-40 126,-42</polyline>
+%  <polyline lc="black">126,-42 128,-44</polyline>
+%  <text x="123" y="-39" t="VO1" h="4" halign="r" lc="black"/>
+%  <rect x="132" y="-88" w="8" h="8" lc="black"/>
+%  <polyline lc="black">128,-84 132,-84</polyline>
+%  <text x="130" y="-82" t="1" h="4" halign="c" lc="black"/>
+%  <text x="121" y="-75" t="outputImpedanceResampled.s1p" h="4" halign="c" lc="black"/>
+%  <polyline lw="3.00" lc="black">124,-60 126,-62</polyline>
+%  <polyline lc="black">126,-62 128,-64</polyline>
+%  <text x="123" y="-59" t="VO2" h="4" halign="r" lc="black"/>
+%  <polyline lc="black">30,-93.5 32,-93.5 32,-90.5 34,-90.5</polyline>
+%  <ellipse x="32" y="-92" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">32,-89 32,-95</polyline>
+%  <polyline lc="black">32,-96 32,-100</polyline>
+%  <polygon fill="black">29.5,-100 34.5,-100 32,-102.5 29.5,-100</polygon>
+%  <polyline lc="black">32,-84 32,-88</polyline>
+%  <text x="38" y="-96.25" t="t0 -1.65 us" h="4" lc="black"/>
+%  <text x="38" y="-92" t="a -1.0 A" h="4" lc="black"/>
+%  <rect x="132" y="-108" w="8" h="8" lc="black"/>
+%  <polyline lc="black">128,-104 132,-104</polyline>
+%  <text x="130" y="-102" t="1" h="4" halign="c" lc="black"/>
+%  <text x="121" y="-95" t="outputImpedanceResampled.s1p" h="4" halign="c" lc="black"/>
+%  <polyline lw="3.00" lc="black">124,-80 126,-82</polyline>
+%  <polyline lc="black">126,-82 128,-84</polyline>
+%  <text x="123" y="-79" t="VO3" h="4" halign="r" lc="black"/>
+%  <polyline lc="black">6,-113.5 8,-113.5 8,-110.5 10,-110.5</polyline>
+%  <ellipse x="8" y="-112" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">8,-109 8,-115</polyline>
+%  <polyline lc="black">8,-116 8,-120</polyline>
+%  <polygon fill="black">5.5,-120 10.5,-120 8,-122.5 5.5,-120</polygon>
+%  <polyline lc="black">8,-104 8,-108</polyline>
+%  <text x="14" y="-116.25" t="t0 -15.6 us" h="4" lc="black"/>
+%  <text x="14" y="-112" t="a 1.0 A" h="4" lc="black"/>
+%  <polyline lc="black">78,-21.5 80,-21.5 80,-18.5 82,-18.5</polyline>
+%  <ellipse x="80" y="-20" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">80,-17 80,-23</polyline>
+%  <polyline lc="black">80,-24 80,-28</polyline>
+%  <polygon fill="black">77.5,-28 82.5,-28 80,-30.5 77.5,-28</polygon>
+%  <polyline lc="black">80,-12 80,-16</polyline>
+%  <text x="86" y="-24.25" t="t0 -300.0 ns" h="4" lc="black"/>
+%  <text x="86" y="-20" t="a -1.0 A" h="4" lc="black"/>
+%  <polyline lc="black">54,-73.5 56,-73.5 56,-70.5 58,-70.5</polyline>
+%  <ellipse x="56" y="-72" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">56,-69 56,-75</polyline>
+%  <polyline lc="black">56,-76 56,-80</polyline>
+%  <polygon fill="black">53.5,-80 58.5,-80 56,-82.5 53.5,-80</polygon>
+%  <polyline lc="black">56,-64 56,-68</polyline>
+%  <text x="62" y="-76.25" t="t0 -450.0 ns" h="4" lc="black"/>
+%  <text x="62" y="-72" t="a 1.0 A" h="4" lc="black"/>
+%  <rect x="132" y="-48" w="8" h="8" lc="black"/>
+%  <polyline lc="black">128,-44 132,-44</polyline>
+%  <text x="130" y="-42" t="1" h="4" halign="c" lc="black"/>
+%  <text x="121" y="-35" t="outputImpedanceResampled.s1p" h="4" halign="c" lc="black"/>
+%  <polyline lw="3.00" lc="black">124,-100 126,-102</polyline>
+%  <polyline lc="black">126,-102 128,-104</polyline>
+%  <text x="123" y="-99" t="VO4" h="4" halign="r" lc="black"/>
+%  <polyline lc="black">66,-53.5 68,-53.5 68,-50.5 70,-50.5</polyline>
+%  <ellipse x="68" y="-52" dx="8" dy="8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">68,-49 68,-55</polyline>
+%  <polyline lc="black">68,-56 68,-60</polyline>
+%  <polygon fill="black">65.5,-60 70.5,-60 68,-62.5 65.5,-60</polygon>
+%  <polyline lc="black">68,-44 68,-48</polyline>
+%  <text x="74" y="-56.25" t="t0 -300.0 ns" h="4" lc="black"/>
+%  <text x="74" y="-52" t="a -1.0 A" h="4" lc="black"/>
+%  <rect x="112" y="-16" w="8" h="8" lc="black"/>
+%  <polyline lc="black">108,-12 112,-12</polyline>
+%  <text x="110" y="-10" t="1" h="4" halign="c" lc="black"/>
+%  <polyline lc="black">124,-12 120,-12</polyline>
+%  <text x="122" y="-10" t="2" h="4" halign="c" lc="black"/>
+%  <rect x="112" y="-48" w="8" h="8" lc="black"/>
+%  <polyline lc="black">108,-44 112,-44</polyline>
+%  <text x="110" y="-42" t="1" h="4" halign="c" lc="black"/>
+%  <polyline lc="black">124,-44 120,-44</polyline>
+%  <text x="122" y="-42" t="2" h="4" halign="c" lc="black"/>
+%  <rect x="112" y="-68" w="8" h="8" lc="black"/>
+%  <polyline lc="black">108,-64 112,-64</polyline>
+%  <text x="110" y="-62" t="1" h="4" halign="c" lc="black"/>
+%  <polyline lc="black">124,-64 120,-64</polyline>
+%  <text x="122" y="-62" t="2" h="4" halign="c" lc="black"/>
+%  <rect x="112" y="-88" w="8" h="8" lc="black"/>
+%  <polyline lc="black">108,-84 112,-84</polyline>
+%  <text x="110" y="-82" t="1" h="4" halign="c" lc="black"/>
+%  <polyline lc="black">124,-84 120,-84</polyline>
+%  <text x="122" y="-82" t="2" h="4" halign="c" lc="black"/>
+%  <rect x="28" y="-48" w="8" h="8" lc="black"/>
+%  <polyline lc="black">24,-44 28,-44</polyline>
+%  <text x="26" y="-42" t="1" h="4" halign="c" lc="black"/>
+%  <polyline lc="black">40,-44 36,-44</polyline>
+%  <text x="38" y="-42" t="2" h="4" halign="c" lc="black"/>
+%  <rect x="112" y="-108" w="8" h="8" lc="black"/>
+%  <polyline lc="black">108,-104 112,-104</polyline>
+%  <text x="110" y="-102" t="1" h="4" halign="c" lc="black"/>
+%  <polyline lc="black">124,-104 120,-104</polyline>
+%  <text x="122" y="-102" t="2" h="4" halign="c" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">95,-12 89,-12</polyline>
+%  <rect x="88" y="-14" w="8" h="4" lc="black"/>
+%  <polyline lc="black">84,-12 88,-12</polyline>
+%  <polyline lc="black">100,-12 96,-12</polyline>
+%  <polyline lc="black">53,-12 80,-12</polyline>
+%  <polyline lc="black">44,-44 48,-44</polyline>
+%  <polyline lc="black">26,-12 53,-12</polyline>
+%  <polyline lc="black">-1,-12 26,-12</polyline>
+%  <polyline lc="black">8,-64 56,-64</polyline>
+%  <polyline lc="black">8,-84 32,-84</polyline>
+%  <polyline lc="black">128,-12 124,-12</polyline>
+%  <polyline lc="black">68,-44 108,-44</polyline>
+%  <polyline lc="black">124,-44 128,-44</polyline>
+%  <polyline lc="black">128,-64 124,-64</polyline>
+%  <polyline lc="black">108,-64 56,-64</polyline>
+%  <polyline lc="black">32,-84 108,-84</polyline>
+%  <polyline lc="black">124,-84 128,-84</polyline>
+%  <polyline lc="black">12,-44 24,-44</polyline>
+%  <polyline lc="black">40,-44 44,-44</polyline>
+%  <polyline lc="black">8,-104 108,-104</polyline>
+%  <polyline lc="black">124,-104 128,-104</polyline>
+%  <polyline lc="black">80,-12 84,-12</polyline>
+%  <polyline lc="black">100,-12 108,-12</polyline>
+%  <ellipse x="128" y="-12" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="128" y="-64" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="44" y="-44" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="128" y="-44" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="56" y="-64" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="26" y="-12" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="32" y="-84" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="53" y="-12" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="128" y="-104" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="80" y="-12" dx="1" dy="1" lc="black" fill="black"/>
+%  <ellipse x="128" y="-84" dx="1" dy="1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (-7.00,-124.50) rectangle +(156.05,126.64);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (132.00,-16.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (128.00,-12.00) -- (132.00,-12.00);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (130.00,-10.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\draw[T] (121.00,-3.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{outputImpedanceResampled.s1p}};
+\path[line width=0.90mm, draw=L] (124.00,-8.00) -- (126.00,-10.00);
+\path[line width=0.30mm, draw=L] (126.00,-10.00) -- (128.00,-12.00);
+\draw[T] (123.00,-7.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{Vcomp}};
+\path[line width=0.30mm, draw=L] (51.00,-21.50) -- (53.00,-21.50) -- (53.00,-18.50) -- (55.00,-18.50);
+\path[line width=0.30mm, draw=L] (53.00,-20.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (53.00,-17.00) -- (53.00,-23.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (53.00,-17.00) -- (52.65,-18.40) -- (53.35,-18.40) -- (53.00,-17.00) -- cycle;
+\path[line width=0.30mm, draw=L] (53.00,-24.00) -- (53.00,-28.00);
+\path[line width=0.30mm, draw=L, fill=F] (50.50,-28.00) -- (55.50,-28.00) -- (53.00,-30.50) -- (50.50,-28.00) -- cycle;
+\path[line width=0.30mm, draw=L] (53.00,-12.00) -- (53.00,-16.00);
+\draw[T] (59.00,-24.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -450.0 ns}};
+\draw[T] (59.00,-20.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a 1.0 A}};
+\path[line width=0.30mm, draw=L] (10.00,-53.50) -- (12.00,-53.50) -- (12.00,-50.50) -- (14.00,-50.50);
+\path[line width=0.30mm, draw=L] (12.00,-52.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (12.00,-49.00) -- (12.00,-55.00);
+\path[line width=0.30mm, draw=L, fill=F] (12.00,-49.00) -- (11.65,-50.40) -- (12.35,-50.40) -- (12.00,-49.00) -- cycle;
+\path[line width=0.30mm, draw=L] (12.00,-56.00) -- (12.00,-60.00);
+\path[line width=0.30mm, draw=L, fill=F] (9.50,-60.00) -- (14.50,-60.00) -- (12.00,-62.50) -- (9.50,-60.00) -- cycle;
+\path[line width=0.30mm, draw=L] (12.00,-44.00) -- (12.00,-48.00);
+\draw[T] (18.00,-56.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 0 s}};
+\draw[T] (18.00,-52.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a -1.0 A}};
+\path[line width=0.30mm, draw=L] (52.00,-48.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (48.00,-44.00) -- (52.00,-44.00);
+\draw[T] (50.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\draw[T] (56.00,-35.40) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{outputImpedanceResampled.s1p}};
+\path[line width=0.90mm, draw=L] (40.00,-40.00) -- (42.00,-42.00);
+\path[line width=0.30mm, draw=L] (42.00,-42.00) -- (44.00,-44.00);
+\draw[T] (39.00,-39.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{Vstep}};
+\path[line width=0.30mm, draw=L] (24.00,-21.50) -- (26.00,-21.50) -- (26.00,-18.50) -- (28.00,-18.50);
+\path[line width=0.30mm, draw=L] (26.00,-20.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (26.00,-17.00) -- (26.00,-23.00);
+\path[line width=0.30mm, draw=L, fill=F] (26.00,-17.00) -- (25.65,-18.40) -- (26.35,-18.40) -- (26.00,-17.00) -- cycle;
+\path[line width=0.30mm, draw=L] (26.00,-24.00) -- (26.00,-28.00);
+\path[line width=0.30mm, draw=L, fill=F] (23.50,-28.00) -- (28.50,-28.00) -- (26.00,-30.50) -- (23.50,-28.00) -- cycle;
+\path[line width=0.30mm, draw=L] (26.00,-12.00) -- (26.00,-16.00);
+\draw[T] (32.00,-24.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -1.65 us}};
+\draw[T] (32.00,-20.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a -1.0 A}};
+\path[line width=0.30mm, draw=L] (-3.00,-21.50) -- (-1.00,-21.50) -- (-1.00,-18.50) -- (1.00,-18.50);
+\path[line width=0.30mm, draw=L] (-1.00,-20.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (-1.00,-17.00) -- (-1.00,-23.00);
+\path[line width=0.30mm, draw=L, fill=F] (-1.00,-17.00) -- (-1.35,-18.40) -- (-0.65,-18.40) -- (-1.00,-17.00) -- cycle;
+\path[line width=0.30mm, draw=L] (-1.00,-24.00) -- (-1.00,-28.00);
+\path[line width=0.30mm, draw=L, fill=F] (-3.50,-28.00) -- (1.50,-28.00) -- (-1.00,-30.50) -- (-3.50,-28.00) -- cycle;
+\path[line width=0.30mm, draw=L] (-1.00,-12.00) -- (-1.00,-16.00);
+\draw[T] (5.00,-24.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -15.6 us}};
+\draw[T] (5.00,-20.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a 1.0 A}};
+\path[line width=0.30mm, draw=L] (132.00,-68.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (128.00,-64.00) -- (132.00,-64.00);
+\draw[T] (130.00,-62.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\draw[T] (121.00,-55.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{outputImpedanceResampled.s1p}};
+\path[line width=0.90mm, draw=L] (124.00,-40.00) -- (126.00,-42.00);
+\path[line width=0.30mm, draw=L] (126.00,-42.00) -- (128.00,-44.00);
+\draw[T] (123.00,-39.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{VO1}};
+\path[line width=0.30mm, draw=L] (132.00,-88.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (128.00,-84.00) -- (132.00,-84.00);
+\draw[T] (130.00,-82.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\draw[T] (121.00,-75.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{outputImpedanceResampled.s1p}};
+\path[line width=0.90mm, draw=L] (124.00,-60.00) -- (126.00,-62.00);
+\path[line width=0.30mm, draw=L] (126.00,-62.00) -- (128.00,-64.00);
+\draw[T] (123.00,-59.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{VO2}};
+\path[line width=0.30mm, draw=L] (30.00,-93.50) -- (32.00,-93.50) -- (32.00,-90.50) -- (34.00,-90.50);
+\path[line width=0.30mm, draw=L] (32.00,-92.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (32.00,-89.00) -- (32.00,-95.00);
+\path[line width=0.30mm, draw=L, fill=F] (32.00,-89.00) -- (31.65,-90.40) -- (32.35,-90.40) -- (32.00,-89.00) -- cycle;
+\path[line width=0.30mm, draw=L] (32.00,-96.00) -- (32.00,-100.00);
+\path[line width=0.30mm, draw=L, fill=F] (29.50,-100.00) -- (34.50,-100.00) -- (32.00,-102.50) -- (29.50,-100.00) -- cycle;
+\path[line width=0.30mm, draw=L] (32.00,-84.00) -- (32.00,-88.00);
+\draw[T] (38.00,-96.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -1.65 us}};
+\draw[T] (38.00,-92.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a -1.0 A}};
+\path[line width=0.30mm, draw=L] (132.00,-108.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (128.00,-104.00) -- (132.00,-104.00);
+\draw[T] (130.00,-102.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\draw[T] (121.00,-95.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{outputImpedanceResampled.s1p}};
+\path[line width=0.90mm, draw=L] (124.00,-80.00) -- (126.00,-82.00);
+\path[line width=0.30mm, draw=L] (126.00,-82.00) -- (128.00,-84.00);
+\draw[T] (123.00,-79.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{VO3}};
+\path[line width=0.30mm, draw=L] (6.00,-113.50) -- (8.00,-113.50) -- (8.00,-110.50) -- (10.00,-110.50);
+\path[line width=0.30mm, draw=L] (8.00,-112.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (8.00,-109.00) -- (8.00,-115.00);
+\path[line width=0.30mm, draw=L, fill=F] (8.00,-109.00) -- (7.65,-110.40) -- (8.35,-110.40) -- (8.00,-109.00) -- cycle;
+\path[line width=0.30mm, draw=L] (8.00,-116.00) -- (8.00,-120.00);
+\path[line width=0.30mm, draw=L, fill=F] (5.50,-120.00) -- (10.50,-120.00) -- (8.00,-122.50) -- (5.50,-120.00) -- cycle;
+\path[line width=0.30mm, draw=L] (8.00,-104.00) -- (8.00,-108.00);
+\draw[T] (14.00,-116.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -15.6 us}};
+\draw[T] (14.00,-112.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a 1.0 A}};
+\path[line width=0.30mm, draw=L] (78.00,-21.50) -- (80.00,-21.50) -- (80.00,-18.50) -- (82.00,-18.50);
+\path[line width=0.30mm, draw=L] (80.00,-20.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (80.00,-17.00) -- (80.00,-23.00);
+\path[line width=0.30mm, draw=L, fill=F] (80.00,-17.00) -- (79.65,-18.40) -- (80.35,-18.40) -- (80.00,-17.00) -- cycle;
+\path[line width=0.30mm, draw=L] (80.00,-24.00) -- (80.00,-28.00);
+\path[line width=0.30mm, draw=L, fill=F] (77.50,-28.00) -- (82.50,-28.00) -- (80.00,-30.50) -- (77.50,-28.00) -- cycle;
+\path[line width=0.30mm, draw=L] (80.00,-12.00) -- (80.00,-16.00);
+\draw[T] (86.00,-24.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -300.0 ns}};
+\draw[T] (86.00,-20.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a -1.0 A}};
+\path[line width=0.30mm, draw=L] (54.00,-73.50) -- (56.00,-73.50) -- (56.00,-70.50) -- (58.00,-70.50);
+\path[line width=0.30mm, draw=L] (56.00,-72.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (56.00,-69.00) -- (56.00,-75.00);
+\path[line width=0.30mm, draw=L, fill=F] (56.00,-69.00) -- (55.65,-70.40) -- (56.35,-70.40) -- (56.00,-69.00) -- cycle;
+\path[line width=0.30mm, draw=L] (56.00,-76.00) -- (56.00,-80.00);
+\path[line width=0.30mm, draw=L, fill=F] (53.50,-80.00) -- (58.50,-80.00) -- (56.00,-82.50) -- (53.50,-80.00) -- cycle;
+\path[line width=0.30mm, draw=L] (56.00,-64.00) -- (56.00,-68.00);
+\draw[T] (62.00,-76.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -450.0 ns}};
+\draw[T] (62.00,-72.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a 1.0 A}};
+\path[line width=0.30mm, draw=L] (132.00,-48.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (128.00,-44.00) -- (132.00,-44.00);
+\draw[T] (130.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\draw[T] (121.00,-35.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{outputImpedanceResampled.s1p}};
+\path[line width=0.90mm, draw=L] (124.00,-100.00) -- (126.00,-102.00);
+\path[line width=0.30mm, draw=L] (126.00,-102.00) -- (128.00,-104.00);
+\draw[T] (123.00,-99.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{VO4}};
+\path[line width=0.30mm, draw=L] (66.00,-53.50) -- (68.00,-53.50) -- (68.00,-50.50) -- (70.00,-50.50);
+\path[line width=0.30mm, draw=L] (68.00,-52.00) ellipse (4.00mm and 4.00mm);
+\path[line width=0.30mm, draw=L] (68.00,-49.00) -- (68.00,-55.00);
+\path[line width=0.30mm, draw=L, fill=F] (68.00,-49.00) -- (67.65,-50.40) -- (68.35,-50.40) -- (68.00,-49.00) -- cycle;
+\path[line width=0.30mm, draw=L] (68.00,-56.00) -- (68.00,-60.00);
+\path[line width=0.30mm, draw=L, fill=F] (65.50,-60.00) -- (70.50,-60.00) -- (68.00,-62.50) -- (65.50,-60.00) -- cycle;
+\path[line width=0.30mm, draw=L] (68.00,-44.00) -- (68.00,-48.00);
+\draw[T] (74.00,-56.25) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 -300.0 ns}};
+\draw[T] (74.00,-52.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a -1.0 A}};
+\path[line width=0.30mm, draw=L] (112.00,-16.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (108.00,-12.00) -- (112.00,-12.00);
+\draw[T] (110.00,-10.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\path[line width=0.30mm, draw=L] (124.00,-12.00) -- (120.00,-12.00);
+\draw[T] (122.00,-10.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{2}};
+\path[line width=0.30mm, draw=L] (112.00,-48.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (108.00,-44.00) -- (112.00,-44.00);
+\draw[T] (110.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\path[line width=0.30mm, draw=L] (124.00,-44.00) -- (120.00,-44.00);
+\draw[T] (122.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{2}};
+\path[line width=0.30mm, draw=L] (112.00,-68.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (108.00,-64.00) -- (112.00,-64.00);
+\draw[T] (110.00,-62.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\path[line width=0.30mm, draw=L] (124.00,-64.00) -- (120.00,-64.00);
+\draw[T] (122.00,-62.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{2}};
+\path[line width=0.30mm, draw=L] (112.00,-88.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (108.00,-84.00) -- (112.00,-84.00);
+\draw[T] (110.00,-82.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\path[line width=0.30mm, draw=L] (124.00,-84.00) -- (120.00,-84.00);
+\draw[T] (122.00,-82.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{2}};
+\path[line width=0.30mm, draw=L] (28.00,-48.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (24.00,-44.00) -- (28.00,-44.00);
+\draw[T] (26.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\path[line width=0.30mm, draw=L] (40.00,-44.00) -- (36.00,-44.00);
+\draw[T] (38.00,-42.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{2}};
+\path[line width=0.30mm, draw=L] (112.00,-108.00) rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (108.00,-104.00) -- (112.00,-104.00);
+\draw[T] (110.00,-102.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{1}};
+\path[line width=0.30mm, draw=L] (124.00,-104.00) -- (120.00,-104.00);
+\draw[T] (122.00,-102.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{2}};
+\path[line width=0.30mm, draw=L] (95.00,-12.00) -- (89.00,-12.00);
+\path[line width=0.30mm, draw=L, fill=F] (95.00,-12.00) -- (93.60,-11.65) -- (93.60,-12.35) -- (95.00,-12.00) -- cycle;
+\path[line width=0.30mm, draw=L] (88.00,-14.00) rectangle +(8.00,4.00);
+\path[line width=0.30mm, draw=L] (84.00,-12.00) -- (88.00,-12.00);
+\path[line width=0.30mm, draw=L] (100.00,-12.00) -- (96.00,-12.00);
+\path[line width=0.30mm, draw=L] (53.00,-12.00) -- (80.00,-12.00);
+\path[line width=0.30mm, draw=L] (44.00,-44.00) -- (48.00,-44.00);
+\path[line width=0.30mm, draw=L] (26.00,-12.00) -- (53.00,-12.00);
+\path[line width=0.30mm, draw=L] (-1.00,-12.00) -- (26.00,-12.00);
+\path[line width=0.30mm, draw=L] (8.00,-64.00) -- (56.00,-64.00);
+\path[line width=0.30mm, draw=L] (8.00,-84.00) -- (32.00,-84.00);
+\path[line width=0.30mm, draw=L] (128.00,-12.00) -- (124.00,-12.00);
+\path[line width=0.30mm, draw=L] (68.00,-44.00) -- (108.00,-44.00);
+\path[line width=0.30mm, draw=L] (124.00,-44.00) -- (128.00,-44.00);
+\path[line width=0.30mm, draw=L] (128.00,-64.00) -- (124.00,-64.00);
+\path[line width=0.30mm, draw=L] (108.00,-64.00) -- (56.00,-64.00);
+\path[line width=0.30mm, draw=L] (32.00,-84.00) -- (108.00,-84.00);
+\path[line width=0.30mm, draw=L] (124.00,-84.00) -- (128.00,-84.00);
+\path[line width=0.30mm, draw=L] (12.00,-44.00) -- (24.00,-44.00);
+\path[line width=0.30mm, draw=L] (40.00,-44.00) -- (44.00,-44.00);
+\path[line width=0.30mm, draw=L] (8.00,-104.00) -- (108.00,-104.00);
+\path[line width=0.30mm, draw=L] (124.00,-104.00) -- (128.00,-104.00);
+\path[line width=0.30mm, draw=L] (80.00,-12.00) -- (84.00,-12.00);
+\path[line width=0.30mm, draw=L] (100.00,-12.00) -- (108.00,-12.00);
+\path[line width=0.30mm, draw=L, fill=F] (128.00,-12.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (128.00,-64.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (44.00,-44.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (128.00,-44.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (56.00,-64.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (26.00,-12.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (32.00,-84.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (53.00,-12.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (128.00,-104.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (80.00,-12.00) ellipse (0.50mm and 0.50mm);
+\path[line width=0.30mm, draw=L, fill=F] (128.00,-84.00) ellipse (0.50mm and 0.50mm);
+\end{tikzpicture}%
