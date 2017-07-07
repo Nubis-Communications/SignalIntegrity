@@ -75,6 +75,8 @@ class Preferences(PreferencesFile):
     
     def GetRecentFileList(self):
         lastFiles=self.GetValue('ProjectFiles.LastFile')
+        if lastFiles is None:
+            return None
         return [lf.GetValue('Name') for lf in lastFiles]
 
 if __name__ == '__main__':

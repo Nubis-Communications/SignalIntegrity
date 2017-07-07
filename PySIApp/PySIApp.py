@@ -411,6 +411,8 @@ class TheApp(Frame):
 
     def UpdateRecentProjectsMenu(self):
         recentFileList=self.preferences.GetRecentFileList()
+        if recentFileList is None:
+            recentFileList=[None,None,None,None]
         if all(r is None for r in recentFileList):
             self.FileMenu.entryconfigure(1,state='disabled')
         else:
