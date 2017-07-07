@@ -8,7 +8,6 @@
  this material whatsoever.
 '''
 import math
-import numpy
 
 def nextHigher(v,ml):
     ml=sorted(ml)
@@ -125,7 +124,7 @@ def FromSI(string,unit=None):
                 except ValueError:
                     return None
                 Prefixes = ['y','z','a','f','p','n','u','m','',
-                            'K','M','G','T','P','E','Z','Y']
+                            'k','M','G','T','P','E','Z','Y']
                 if modifier in Prefixes:
                     exp=math.pow(10.,(Prefixes.index(modifier)-Prefixes.index(''))*3)
                     return man*exp
