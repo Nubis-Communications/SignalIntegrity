@@ -224,7 +224,7 @@ class SParametersDialog(Toplevel):
             self.ShowPassivityViolationsDoer.Activate(False)
             self.ShowCausalityViolationsDoer.Activate(False)
             self.ShowImpedanceDoer.Activate(False)
-            self.LogScaleDoer.Activate(False)
+            #self.LogScaleDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
             self.EnforceCausalityDoer.Activate(False)
             self.WaveletDenoiseDoer.Activate(False)
