@@ -59,7 +59,7 @@ class SParameterFile(SParameters):
                         Z0=float(lineList[lineList.index('r')+1])
                     if not self.m_sToken.lower() in lineList:
                         sp=False
-                else: numbersList = numbersList + lineList
+                else: numbersList.extend(lineList)
         spfile.close()
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
@@ -85,3 +85,16 @@ class SParameterFile(SParameters):
             if Z0 != self.m_Z0:
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
         self.m_f=GenericFrequencyList(f)
+
+if __name__ == "__main__":
+    runProfiler=True
+
+    if runProfiler:
+        import cProfile
+        cProfile.run('SParameterFile(\'/home/peterp/Work/PySI/PowerIntegrity/ReversePulseMode/CurrentDelayLine1p65us.s4p\')','stats')
+
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        SParameterFile('/home/peterp/Work/PySI/PowerIntegrity/ReversePulseMode/CurrentDelayLine1p65us.s4p')

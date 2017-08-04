@@ -93,6 +93,7 @@ class SParametersDialog(Toplevel):
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Save-S-parameter-File'])
+        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
         self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])
@@ -119,6 +120,8 @@ class SParametersDialog(Toplevel):
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
         self.WriteSParametersToFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
         self.ReadSParametersFromFileDoer.AddMenuElement(FileMenu,label="Open File",accelerator='Ctrl+O',underline=0)
+        FileMenu.add_separator()
+        self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
         CalcMenu=Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
@@ -245,6 +248,11 @@ class SParametersDialog(Toplevel):
 
         self.fromPort = 1
         self.toPort = 1
+
+        try:
+            from matplotlib2tikz import save as tikz_save
+        except:
+            self.Matplotlib2tikzDoer.Activate(False)
 
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
         self.PlotSParameter()
@@ -529,6 +537,108 @@ class SParametersDialog(Toplevel):
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
         #self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
+
+    def onMatplotlib2TikZ(self):
+        filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
+                                   defaultextension='.tex',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=self.fileparts.filename+'Magnitude.tex')
+        if filename is None:
+            return
+
+        try:
+            from matplotlib2tikz import save as tikz_save
+            tikz_save(filename,figure=self.topLeftFigure,show_info=False)
+            texfile=open(filename,'rU')
+            lines=[]
+            for line in texfile:
+                line=line.replace('\xe2\x88\x92','-')
+                lines.append(str(line))
+            texfile.close()
+            texfile=open(filename,'w')
+            for line in lines:
+                texfile.write(line)
+            texfile.close()
+        except:
+            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+
+        fp=FileParts(filename.replace('Magnitude.tex', ''))
+        filename=fp.filename
+
+        filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
+                                   defaultextension='.tex',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=filename+'Phase.tex')
+        if filename is None:
+            return
+
+        try:
+            from matplotlib2tikz import save as tikz_save
+            tikz_save(filename,figure=self.topRightFigure,show_info=False)
+            texfile=open(filename,'rU')
+            lines=[]
+            for line in texfile:
+                line=line.replace('\xe2\x88\x92','-')
+                lines.append(str(line))
+            texfile.close()
+            texfile=open(filename,'w')
+            for line in lines:
+                texfile.write(line)
+            texfile.close()
+        except:
+            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+
+        fp=FileParts(filename.replace('Phase.tex', ''))
+        filename=fp.filename
+
+        filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
+                                   defaultextension='.tex',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=filename+'ImpulseResponse.tex')
+        if filename is None:
+            return
+
+        try:
+            from matplotlib2tikz import save as tikz_save
+            tikz_save(filename,figure=self.bottomLeftFigure,show_info=False)
+            texfile=open(filename,'rU')
+            lines=[]
+            for line in texfile:
+                line=line.replace('\xe2\x88\x92','-')
+                lines.append(str(line))
+            texfile.close()
+            texfile=open(filename,'w')
+            for line in lines:
+                texfile.write(line)
+            texfile.close()
+        except:
+            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+
+        fp=FileParts(filename.replace('ImpulseResponse.tex', ''))
+        filename=fp.filename
+
+        filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
+                                   defaultextension='.tex',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=filename+'StepResponse.tex')
+        if filename is None:
+            return
+
+        try:
+            from matplotlib2tikz import save as tikz_save
+            tikz_save(filename,figure=self.bottomRightFigure,show_info=False)
+            texfile=open(filename,'rU')
+            lines=[]
+            for line in texfile:
+                line=line.replace('\xe2\x88\x92','-')
+                lines.append(str(line))
+            texfile.close()
+            texfile=open(filename,'w')
+            for line in lines:
+                texfile.write(line)
+            texfile.close()
+        except:
+            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onHelp(self):
         import webbrowser

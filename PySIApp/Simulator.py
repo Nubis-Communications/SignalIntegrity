@@ -210,7 +210,7 @@ class SimulatorDialog(Toplevel):
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',
                                    initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
-                                   initialfile=self.parent.parent.fileparts.filename+'.tex')
+                                   initialfile=self.parent.parent.fileparts.filename+'Waveforms.tex')
         if filename is None:
             return
         try:
