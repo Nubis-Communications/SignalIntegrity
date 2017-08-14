@@ -524,6 +524,14 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteWaveformDecimator(self):
+        fileName="../SignalIntegrity/TimeDomain/Filters/WaveformDecimator.py"
+        className='WaveformDecimator'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteMutual(self):
         fileName="../SignalIntegrity/Devices/Mutual.py"
         className=''

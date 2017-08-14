@@ -85,7 +85,7 @@ class SParameterFile(SParameters):
             if Z0 != self.m_Z0:
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
         self.m_f=GenericFrequencyList(f)
-
+# pragma: silent exclude
 if __name__ == "__main__":
     runProfiler=True
 

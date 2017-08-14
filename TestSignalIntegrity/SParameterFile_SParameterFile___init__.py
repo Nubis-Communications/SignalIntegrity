@@ -26,7 +26,7 @@ class SParameterFile(SParameters):
                         Z0=float(lineList[lineList.index('r')+1])
                     if not self.m_sToken.lower() in lineList:
                         sp=False
-                else: numbersList = numbersList + lineList
+                else: numbersList.extend(lineList)
         spfile.close()
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
