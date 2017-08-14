@@ -6,7 +6,7 @@ Created on May 15, 2017
 from setuptools import setup
 import os
 import unittest
-import TestSignalIntegrity.TestAll
+from TestSignalIntegrity import *
 
 install_requires=['numpy','matplotlib']
 
@@ -40,7 +40,8 @@ setup(
                 'SignalIntegrity.TimeDomain.Filters',
                 'SignalIntegrity.TimeDomain.Waveform',
                 'SignalIntegrity.Wavelets',
-                'PySIApp'],
+                'PySIApp',
+                'TestSignalIntegrity'],
       data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
                   (pathToMoreIcons,
                     [pathToMoreIcons+'/document-new-3.gif',
