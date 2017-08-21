@@ -1,17 +1,16 @@
 class Waveform(object):
     def Adapt(self,td):
         wf=self
-        u=int(round(td.Fs/wf.TimeDescriptor().Fs))
-        if u>1:
-            wf=wf*(InterpolatorSinX(u) if wf.adaptionStrategy=='SinX'
-                else InterpolatorLinear(u))
+        (upsampleFactor,decimationFactor)=Rat(td.Fs/wf.TimeDescriptor().Fs)
+        if upsampleFactor>1:
+            wf=wf*(InterpolatorSinX(upsampleFactor) if wf.adaptionStrategy=='SinX'
+                else InterpolatorLinear(upsampleFactor))
         ad=td/wf.TimeDescriptor()
         f=ad.D-int(ad.D)
         if not f==0.0:
             wf=wf*(FractionalDelayFilterSinX(f,True) if wf.adaptionStrategy=='SinX'
                 else FractionalDelayFilterLinear(f,True))
             ad=td/wf.TimeDescriptor()
-        decimationFactor=int(round(1.0/ad.U))
         if decimationFactor>1:
             decimationPhase=int(round(ad.TrimLeft())) % decimationFactor
             wf=wf*WaveformDecimator(decimationFactor,decimationPhase)

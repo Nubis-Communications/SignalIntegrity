@@ -88,5 +88,34 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
             for k in range(len(wfa)):
                 self.assertAlmostEqual(wfa[k], wfdes[k],delta=1e-5,msg='desired waveform not the same by: '+str(abs(wfa[k]-wfdes[k])))
 
+    def testUpsampleDecimatePySI(self):
+        td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
+        wf=si.td.wf.SineWaveform(td)
+        wf.adaptionStrategy='Linear'
+        tda=si.td.wf.TimeDescriptor(td.H+130.76543/td.Fs,td.N*0.08-20,80e6)
+        wfdes=si.td.wf.SineWaveform(tda)
+        
+        wfa=wf.Adapt(tda)
+
+        fb=tda/wfa.TimeDescriptor()
+
+        plotit=False
+        if plotit:
+            fb.Print()
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(wf.Times('ns'),wf.Values(),label='input waveform')
+            plt.plot(wfdes.Times('ns'),wfdes.Values(),marker='o',label='desired waveform')
+            plt.plot(wfa.Times('ns'),wfa.Values(),label='adapted waveform')
+            plt.legend(loc='upper right')
+            plt.show()
+        else:
+            self.assertEqual(tda, wfa.TimeDescriptor(), 'desired time descriptor not met')
+            self.assertEqual(len(wfa.Values()),len(wfdes.Values()),msg='waveforms are not the same size!')
+            for k in range(len(wfa)):
+                self.assertAlmostEqual(wfa[k], wfdes[k],delta=1e-5,msg='desired waveform not the same by: '+str(abs(wfa[k]-wfdes[k])))
+
 if __name__ == "__main__":
     unittest.main()

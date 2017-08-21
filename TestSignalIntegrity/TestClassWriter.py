@@ -29,7 +29,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         defName=['_DelayBy','_FractionalDelayTime']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Rat(self):
-        fileName="../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
+        fileName="../SignalIntegrity/Rat/Rat.py"
         className=''
         defName=['Rat']
         self.WriteClassCode(fileName,className,defName)
