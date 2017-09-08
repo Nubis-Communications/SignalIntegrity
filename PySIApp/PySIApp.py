@@ -42,7 +42,7 @@ from Preferences import Preferences
 from PreferencesDialog import PreferencesDialog
 from FilePicker import AskSaveAsFilename,AskOpenFileName
 
-class TheApp(Frame):
+class PySIApp(Frame):
     def __init__(self):
         # make absolutely sure the directory of this file is the first in the
         # python path
@@ -852,7 +852,7 @@ class TheApp(Frame):
             self.root.destroy()
 
 def main():
-    TheApp()
+    PySIApp()
 
 if __name__ == '__main__':
     main()

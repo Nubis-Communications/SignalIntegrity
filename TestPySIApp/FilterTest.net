@@ -1,0 +1,10 @@
+voltagesource VS1 1
+device R1 2 R 50.0
+device R2 1 R 50.0
+device D2 2 file filter.s2p
+output R1 1
+connect R1 1 VS1 1
+output D2 1
+connect D2 1 R1 2
+output R2 1
+connect R2 1 D2 2
