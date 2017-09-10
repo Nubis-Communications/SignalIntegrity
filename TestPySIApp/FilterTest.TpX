@@ -25,7 +25,7 @@
 %  <text x="38" y="-14" t="1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">52,-16 48,-16</polyline>
 %  <text x="50" y="-14" t="2" h="3" halign="c" lc="black"/>
-%  <text x="44" y="-10" t="filter.s2p" h="3" halign="c" lc="black"/>
+%  <text x="44" y="-10" t="lpfilter.s2p" h="3" halign="c" lc="black"/>
 %  <polyline lw="3" lc="black">8,-12 10,-14</polyline>
 %  <polyline lc="black">10,-14 12,-16</polyline>
 %  <text x="8" y="-12" t="VS" h="3" halign="r" lc="black"/>
@@ -72,7 +72,7 @@
 \draw[black] (38,-14) node[anchor=base]{1};
 \path[line width=0.30mm, draw=black] (52,-16) -- (48,-16);
 \draw[black] (50,-14) node[anchor=base]{2};
-\draw[black] (44,-10) node[anchor=base]{filter.s2p};
+\draw[black] (44,-10) node[anchor=base]{lpfilter.s2p};
 \path[line width=0.9mm, draw=black] (8,-12) -- (10,-14);
 \path[line width=0.30mm, draw=black] (10,-14) -- (12,-16);
 \draw[black] (8,-12) node[anchor=base east]{VS};
