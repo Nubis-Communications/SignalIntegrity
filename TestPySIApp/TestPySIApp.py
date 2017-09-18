@@ -26,43 +26,45 @@ class SParameterCompareHelper(object):
         return True
 
 class Test(unittest.TestCase,SParameterCompareHelper):
-    relearn=False
-    def PictureChecker(self,pysi):
+    relearn=True
+    def TestFileName(self,filename):
+        return filename.replace('..', 'Up').replace('/','_').split('.')[0]
+    def PictureChecker(self,pysi,filename):
         currentDirectory=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        filename=pysi.fileparts.filename+'.TpX'
+        testFilename=self.TestFileName(filename)+'.TpX'
         try:
             tpx=pysi.Drawing.DrawSchematic(TpX()).Finish()
             tikz=pysi.Drawing.DrawSchematic(TikZ()).Finish()
             tpx.lineList=tpx.lineList+tikz.lineList
         except:
             self.assertTrue(False,filename + ' couldnt be drawn')
-        if not os.path.exists(filename):
-            tpx.WriteToFile(filename)
+        if not os.path.exists(testFilename):
+            tpx.WriteToFile(testFilename)
             if not self.relearn:
-                self.assertTrue(False, filename + ' not found')
-        with open(filename) as f:
+                self.assertTrue(False, testFilename + ' not found')
+        with open(testFilename) as f:
             regression=f.readlines()
-        self.assertTrue(tpx.lineList==regression,filename + ' incorrect')
+        self.assertTrue(tpx.lineList==regression,testFilename + ' incorrect')
         os.chdir(currentDirectory)
-    def NetListChecker(self,pysi):
+    def NetListChecker(self,pysi,filename):
         currentDirectory=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        filename=pysi.fileparts.filename+'.net'
+        testFilename=self.TestFileName(filename)+'.net'
         try:
             netlist=pysi.Drawing.schematic.NetList().Text()
         except:
             self.assertTrue(False,filename + ' couldnt produce netlist')
         netlist=[line+'\n' for line in netlist]
-        if not os.path.exists(filename):
-            with open(filename,"w") as f:
+        if not os.path.exists(testFilename):
+            with open(testFilename,"w") as f:
                 for line in netlist:
                     f.write(line)
                 if not self.relearn:
-                    self.assertTrue(False, filename + ' not found')
-        with open(filename) as f:
+                    self.assertTrue(False, testFilename + ' not found')
+        with open(testFilename) as f:
             regression=f.readlines()
-        self.assertTrue(netlist==regression,filename + ' incorrect')
+        self.assertTrue(netlist==regression,testFilename + ' incorrect')
         os.chdir(currentDirectory)
     def SParameterRegressionChecker(self,sp,spfilename):
         currentDirectory=os.getcwd()
@@ -89,9 +91,9 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         pysi=PySIAppHeadless()
         self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
         if checkPicture:
-            self.PictureChecker(pysi)
+            self.PictureChecker(pysi,filename)
         if checkNetlist:
-            self.NetListChecker(pysi)
+            self.NetListChecker(pysi,filename)
         return pysi
     def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
@@ -99,6 +101,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         spfilename=result[1]
+        spfilename=self.TestFileName(filename)+'.'+spfilename.split('.')[-1]
         sp=result[0]
         self.SParameterRegressionChecker(sp, spfilename)
     def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
@@ -117,11 +120,11 @@ class Test(unittest.TestCase,SParameterCompareHelper):
                 raise
         except:
             self.assertTrue(False, filename + 'has no transfer matrices')
-        spfilename=pysi.fileparts.filename+'.s'+str(ports)+'p'
+        spfilename=self.TestFileName(filename)+'.s'+str(ports)+'p'
         self.SParameterRegressionChecker(sp, spfilename)
         for i in range(len(outputNames)):
             wf=outputWaveforms[i]
-            wffilename=pysi.fileparts.filename+'_'+outputNames[i]+'.txt'
+            wffilename=self.TestFileName(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
     def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
@@ -139,11 +142,11 @@ class Test(unittest.TestCase,SParameterCompareHelper):
                 raise
         except:
             self.assertTrue(False, filename + 'has no transfer matrices')
-        spfilename=pysi.fileparts.filename+'.s'+str(ports)+'p'
+        spfilename=self.TestFileName(filename)+'.s'+str(ports)+'p'
         self.SParameterRegressionChecker(sp, spfilename)
         for i in range(len(outputNames)):
             wf=outputWaveforms[i]
-            wffilename=pysi.fileparts.filename+'_'+outputNames[i]+'.txt'
+            wffilename=self.TestFileName(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
     def DeembeddingResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
@@ -151,6 +154,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         spfilenames=result[0]
+        spfilenames=[self.TestFileName(filename)+'_'+spf for spf in spfilenames]
         sps=result[1]
         for i in range(len(spfilenames)):
             sp=sps[i]
