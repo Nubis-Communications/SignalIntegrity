@@ -923,7 +923,7 @@ class PartPictureVariableVoltageSourceSineGeneratorTwoPort(PartPictureVariable):
 
 class PartPictureVoltageSourceOnePort(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPicture.__init__(self,origin,[PartPin(1,(1,0),'t',False,True,False)],[(0,1),(2,5)],[(0,0),(2,5)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
+        PartPicture.__init__(self,origin,[PartPin(1,(1,0),'t',False,True,False)],[(0,1),(2,3)],[(0,0),(2,5)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         PartPicture.DrawIndependent(self,canvas,grid,drawingOrigin)
         PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)

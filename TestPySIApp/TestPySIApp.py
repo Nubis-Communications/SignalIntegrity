@@ -179,6 +179,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
             '/home/peterp/Work/PySI/TestPySIApp/FilterTest.xml',
             '/home/peterp/Work/PySI/TestPySIApp/FourPortTLineTest.xml',
             '/home/peterp/Work/PySI/TestPySIApp/Devices.xml',
+            '/home/peterp/Work/PySI/TestPySIApp/Noise.xml',
             #'/home/peterp/Work/PySI/TestPySIApp/TestVRM.xml',
             '/home/peterp/Work/PySI/TestPySIApp/OpenStub.xml',
             '/home/peterp/Work/PySI/PowerIntegrity/TestVRMIstvan2.xml',
