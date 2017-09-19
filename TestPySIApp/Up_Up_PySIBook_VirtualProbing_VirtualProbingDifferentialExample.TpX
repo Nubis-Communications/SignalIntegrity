@@ -1,0 +1,155 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lw="3" lc="black">72,-12 70,-14</polyline>
+%  <polyline lc="black">70,-14 68,-16</polyline>
+%  <rect x="70" y="-12" w="2" h="-2" lc="black"/>
+%  <text x="72" y="-12" t="Vdt" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">112,-12 110,-14</polyline>
+%  <polyline lc="black">110,-14 108,-16</polyline>
+%  <text x="112" y="-12" t="Vpr" h="3" halign="l" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">44,-24 52,-24</polyline>
+%  <polyline lc="black">44,-24 48,-24</polyline>
+%  <polyline lc="black">52,-24 48,-24</polyline>
+%  <rect x="40" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">52,-16 48,-16</polyline>
+%  <text x="50" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">52,-24 48,-24</polyline>
+%  <text x="50" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <text x="44" y="-10" t="T" h="3" halign="c" lc="black"/>
+%  <rect x="96" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">92,-16 96,-16</polyline>
+%  <text x="94" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">92,-24 96,-24</polyline>
+%  <text x="94" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">108,-16 104,-16</polyline>
+%  <text x="106" y="-14" t="3" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">108,-24 104,-24</polyline>
+%  <text x="106" y="-22" t="4" h="3" halign="c" lc="black"/>
+%  <text x="100" y="-10" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="120" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">116,-16 120,-16</polyline>
+%  <text x="118" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">116,-24 120,-24</polyline>
+%  <text x="118" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <text x="124" y="-10" t="R" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">112,-28 110,-26</polyline>
+%  <polyline lc="black">110,-26 108,-24</polyline>
+%  <text x="112" y="-30" t="Vm" h="3" halign="l" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">44,-16 52,-16</polyline>
+%  <polyline lc="black">44,-16 48,-16</polyline>
+%  <polyline lc="black">52,-16 48,-16</polyline>
+%  <text x="58" y="-16" t="+" h="3" halign="c" lc="black"/>
+%  <text x="58" y="-24" t="-" h="3" halign="c" lc="black"/>
+%  <text x="62" y="-16" t="DV" h="3" halign="c" lc="black"/>
+%  <text x="62" y="-24" t="CV" h="3" halign="c" lc="black"/>
+%  <rect x="56" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">52,-16 56,-16</polyline>
+%  <polyline lc="black">52,-24 56,-24</polyline>
+%  <polyline lc="black">68,-16 64,-16</polyline>
+%  <polyline lc="black">68,-24 64,-24</polyline>
+%  <text x="60" y="-10" t="MM1" h="3" halign="c" lc="black"/>
+%  <text x="86" y="-16" t="+" h="3" halign="c" lc="black"/>
+%  <text x="86" y="-24" t="-" h="3" halign="c" lc="black"/>
+%  <text x="82" y="-16" t="DV" h="3" halign="c" lc="black"/>
+%  <text x="82" y="-24" t="CV" h="3" halign="c" lc="black"/>
+%  <rect x="80" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">92,-16 88,-16</polyline>
+%  <polyline lc="black">92,-24 88,-24</polyline>
+%  <polyline lc="black">76,-16 80,-16</polyline>
+%  <polyline lc="black">76,-24 80,-24</polyline>
+%  <text x="84" y="-10" t="MM2" h="3" halign="c" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">24,-20 32,-20</polyline>
+%  <polyline lc="black">24,-20 28,-20</polyline>
+%  <polyline lc="black">32,-20 28,-20</polyline>
+%  <polyline lc="black">108,-16 116,-16</polyline>
+%  <polyline lc="black">108,-24 116,-24</polyline>
+%  <polyline lc="black">68,-16 76,-16</polyline>
+%  <polyline lc="black">68,-24 76,-24</polyline>
+%  <polyline lc="black">44,-16 36,-16</polyline>
+%  <polyline lc="black">36,-16 32,-20</polyline>
+%  <polyline lc="black">32,-20 36,-24</polyline>
+%  <polyline lc="black">36,-24 44,-24</polyline>
+%  <ellipse x="68" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="52" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="52" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="32" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="108" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="108" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.9mm, draw=black] (72,-12) -- (70,-14);
+\path[line width=0.30mm, draw=black] (70,-14) -- (68,-16);
+\path[line width=0.30mm, draw=black] (70,-14) rectangle +(2,2);
+\draw[black] (72,-12) node[anchor=base west]{Vdt};
+\path[line width=0.9mm, draw=black] (112,-12) -- (110,-14);
+\path[line width=0.30mm, draw=black] (110,-14) -- (108,-16);
+\draw[black] (112,-12) node[anchor=base west]{Vpr};
+\path[line width=0.30mm, draw=black, ->] (44,-24) -- (52,-24);
+\path[line width=0.30mm, draw=black] (44,-24) -- (48,-24);
+\path[line width=0.30mm, draw=black] (52,-24) -- (48,-24);
+\path[line width=0.30mm, draw=black] (40,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (52,-16) -- (48,-16);
+\draw[black] (50,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (52,-24) -- (48,-24);
+\draw[black] (50,-22) node[anchor=base]{2};
+\draw[black] (44,-10) node[anchor=base]{T};
+\path[line width=0.30mm, draw=black] (96,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (92,-16) -- (96,-16);
+\draw[black] (94,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (92,-24) -- (96,-24);
+\draw[black] (94,-22) node[anchor=base]{2};
+\path[line width=0.30mm, draw=black] (108,-16) -- (104,-16);
+\draw[black] (106,-14) node[anchor=base]{3};
+\path[line width=0.30mm, draw=black] (108,-24) -- (104,-24);
+\draw[black] (106,-22) node[anchor=base]{4};
+\draw[black] (100,-10) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (120,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (116,-16) -- (120,-16);
+\draw[black] (118,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (116,-24) -- (120,-24);
+\draw[black] (118,-22) node[anchor=base]{2};
+\draw[black] (124,-10) node[anchor=base]{R};
+\path[line width=0.9mm, draw=black] (112,-28) -- (110,-26);
+\path[line width=0.30mm, draw=black] (110,-26) -- (108,-24);
+\draw[black] (112,-28) node[anchor=north west]{Vm};
+\path[line width=0.30mm, draw=black, ->] (44,-16) -- (52,-16);
+\path[line width=0.30mm, draw=black] (44,-16) -- (48,-16);
+\path[line width=0.30mm, draw=black] (52,-16) -- (48,-16);
+\draw[black] (58,-16) node[anchor=base]{+};
+\draw[black] (58,-24) node[anchor=base]{-};
+\draw[black] (62,-16) node[anchor=base]{DV};
+\draw[black] (62,-24) node[anchor=base]{CV};
+\path[line width=0.30mm, draw=black] (56,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (52,-16) -- (56,-16);
+\path[line width=0.30mm, draw=black] (52,-24) -- (56,-24);
+\path[line width=0.30mm, draw=black] (68,-16) -- (64,-16);
+\path[line width=0.30mm, draw=black] (68,-24) -- (64,-24);
+\draw[black] (60,-10) node[anchor=base]{MM1};
+\draw[black] (86,-16) node[anchor=base]{+};
+\draw[black] (86,-24) node[anchor=base]{-};
+\draw[black] (82,-16) node[anchor=base]{DV};
+\draw[black] (82,-24) node[anchor=base]{CV};
+\path[line width=0.30mm, draw=black] (80,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (92,-16) -- (88,-16);
+\path[line width=0.30mm, draw=black] (92,-24) -- (88,-24);
+\path[line width=0.30mm, draw=black] (76,-16) -- (80,-16);
+\path[line width=0.30mm, draw=black] (76,-24) -- (80,-24);
+\draw[black] (84,-10) node[anchor=base]{MM2};
+\path[line width=0.30mm, draw=black, ->] (24,-20) -- (32,-20);
+\path[line width=0.30mm, draw=black] (24,-20) -- (28,-20);
+\path[line width=0.30mm, draw=black] (32,-20) -- (28,-20);
+\path[line width=0.30mm, draw=black] (108,-16) -- (116,-16);
+\path[line width=0.30mm, draw=black] (108,-24) -- (116,-24);
+\path[line width=0.30mm, draw=black] (68,-16) -- (76,-16);
+\path[line width=0.30mm, draw=black] (68,-24) -- (76,-24);
+\path[line width=0.30mm, draw=black] (44,-16) -- (36,-16);
+\path[line width=0.30mm, draw=black] (36,-16) -- (32,-20);
+\path[line width=0.30mm, draw=black] (32,-20) -- (36,-24);
+\path[line width=0.30mm, draw=black] (36,-24) -- (44,-24);
+\path[line width=0.30mm, draw=black, fill=black] (68,-16) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (52,-24) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (52,-16) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (32,-20) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (108,-16) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (108,-24) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

@@ -1,0 +1,26 @@
+device T4 4 tline zc 45.0 td 1e-09
+device T5 4 tline zc 45.0 td 1e-09
+device T6 4 tline zc -22.5 td 1e-09
+device T7 4 tline zc 30.0 td 1.2e-09
+device G1 1 ground
+device G2 1 ground
+device R1 1 R 3e+12
+device R2 1 R 4e+12
+device R3 1 R 1e+12
+device R4 1 R 2e+12
+device MM3 4 mixedmode
+device MM4 4 mixedmode
+port 1 MM3 3
+port 2 MM4 3
+port 3 MM3 4
+port 4 MM4 4
+connect MM3 1 T4 1
+connect T5 3 T6 3 T4 3 R3 1
+connect T4 2 MM4 1
+connect T6 4 T4 4 R4 1 T5 4
+connect MM3 2 T5 1
+connect T5 2 MM4 2
+connect R1 1 T7 1 T6 1
+connect R2 1 T6 2 T7 2
+connect G1 1 T7 3
+connect T7 4 G2 1

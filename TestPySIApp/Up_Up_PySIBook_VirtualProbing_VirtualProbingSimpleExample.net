@@ -1,0 +1,8 @@
+device T 1 file None
+device C 2 file None
+device R 1 file None
+meas C 1
+connect C 1 T 1
+stim m1 T 1
+output R 1
+connect R 1 C 2

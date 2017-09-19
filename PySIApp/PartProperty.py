@@ -145,6 +145,8 @@ class PartPropertyXMLClassFactory(PartProperty):
                 # lots of old projects
                 if propertyName == 'resistence':
                     propertyName = 'resistance'
+                if propertyName == 'Resistance':
+                    propertyName = 'resistance'
             elif item.tag == 'description':
                 description = item.text
             elif item.tag == 'value':

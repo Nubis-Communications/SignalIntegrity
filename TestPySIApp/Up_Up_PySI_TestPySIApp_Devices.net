@@ -1,0 +1,89 @@
+device D1 1 file test
+device D2 1 file test
+device D3 1 file test
+device D4 1 file test
+device D5 2 file Test
+device D6 2 file Test
+device D7 2 file Test
+device D8 2 file Test
+device D9 3 file test
+device D10 3 file test
+device D11 3 file test
+device D12 3 file test
+device D13 4 file test
+device D14 4 file test
+device D15 4 file test
+device D16 4 file test
+device R1 1 R 50.0
+device R2 1 R 50.0
+device R3 1 R 50.0
+device R4 1 R 50.0
+device R5 2 R 50.0
+device R6 2 R 50.0
+device R7 2 R 50.0
+device R8 2 R 50.0
+device C1 1 C 1e-12
+device C2 1 C 1e-12
+device C3 1 C 1e-12
+device C4 1 C 1e-12
+device L1 2 L 1e-15
+device L2 2 L 1e-15
+device L3 2 L 1e-15
+device L4 2 L 1e-15
+device M1 4 M 1e-15
+device M2 4 M 1e-15
+device M3 4 M 1e-15
+device M4 4 M 1e-15
+device D21 4 idealtransformer 1.0
+device D22 4 idealtransformer 1.0
+device D23 4 idealtransformer 1.0
+device D24 4 idealtransformer 1.0
+device G1 1 ground
+device G2 1 ground
+device G3 1 ground
+device G4 1 ground
+voltagesource VS1 1
+voltagesource VS2 1
+voltagesource VS3 1
+voltagesource VS4 1
+voltagesource VS5 2
+voltagesource VS6 2
+voltagesource VS7 2
+voltagesource VS8 2
+currentsource CS1 1
+currentsource CS2 1
+currentsource CS3 1
+currentsource CS4 1
+currentsource CS5 2
+currentsource CS6 2
+currentsource CS7 2
+currentsource CS8 2
+voltagesource VG1 1
+voltagesource VG2 1
+voltagesource VG4 1
+voltagesource VG5 2
+voltagesource VG6 2
+voltagesource VG7 2
+voltagesource VG8 2
+voltagesource VG9 1
+voltagesource VG10 1
+voltagesource VG11 1
+voltagesource VG12 1
+voltagesource VG13 1
+voltagesource VG14 1
+voltagesource VG15 1
+voltagesource VG16 1
+voltagesource VG17 2
+voltagesource VG18 2
+voltagesource VG19 2
+voltagesource VG20 2
+voltagesource VG3 1
+currentsource CG1 1
+currentsource CG2 1
+currentsource CG3 1
+currentsource CG4 1
+currentsource CG5 2
+currentsource CG6 2
+currentsource CG7 2
+currentsource CG8 2
+device O1 1 open

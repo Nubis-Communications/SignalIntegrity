@@ -1,0 +1,35 @@
+voltagesource VG1 1
+device L1 2 L 1.2e-06
+device R1 2 R 0.002
+device R2 1 R 1.0
+device L2 2 L 1e-10
+device VOL 4 voltagecontrolledvoltagesource 1.0
+device L3 2 L 1.2e-06
+device R3 2 R 0.002
+device R4 1 R 1.0
+device L4 2 L 1e-10
+device VO 4 voltagecontrolledvoltagesource 1.0
+device D1 4 voltagecontrolledvoltagesource 500.0
+device D2 4 voltagecontrolledvoltagesource 500.0
+device O1 1 open
+device G1 1 ground
+connect L1 1 VG1 1 L3 1
+connect R1 1 D1 2 L1 2 VOL 2
+connect R1 2 L2 1
+connect R2 1 D1 1 L2 2 VOL 1
+connect L3 2 R3 1 VO 2 D2 2
+connect L4 1 D2 1 L4 2 R3 2 R4 1 VO 1
+connect D2 3 D1 3
+output D1 4
+connect D1 4 O1 1
+connect G1 1 D2 4
+device VOL_2 1 ground
+device VOL_3 1 open
+connect VOL 3 VOL_2 1
+connect VOL 4 VOL_3 1
+output VOL 4
+device VO_2 1 ground
+device VO_3 1 open
+connect VO 3 VO_2 1
+connect VO 4 VO_3 1
+output VO 4

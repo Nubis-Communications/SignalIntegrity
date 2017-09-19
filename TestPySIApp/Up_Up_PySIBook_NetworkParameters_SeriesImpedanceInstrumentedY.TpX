@@ -1,0 +1,95 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">36,-16 37,-14 38,-18 39,-14 40,-18 41,-14 42,-18 43,-14 44,-16</polyline>
+%  <polyline lc="black">32,-16 36,-16</polyline>
+%  <polyline lc="black">48,-16 44,-16</polyline>
+%  <rect x="76" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">72,-16 76,-16</polyline>
+%  <polyline lw="2" lc="red">71.5,-15.5 72.5,-16.5</polyline>
+%  <polyline lw="2" lc="red">72.5,-15.5 71.5,-16.5</polyline>
+%  <text x="74" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">72,-24 76,-24</polyline>
+%  <polyline lw="2" lc="red">71.5,-23.5 72.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">72.5,-23.5 71.5,-24.5</polyline>
+%  <text x="74" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">88,-20 84,-20</polyline>
+%  <polyline lw="2" lc="red">87.5,-19.5 88.5,-20.5</polyline>
+%  <polyline lw="2" lc="red">88.5,-19.5 87.5,-20.5</polyline>
+%  <text x="86" y="-18" t="3" h="3" halign="c" lc="black"/>
+%  <rect x="32" y="-12" w="16" h="-8" lc="black"/>
+%  <polyline lc="black">36,-24 36,-20</polyline>
+%  <polyline lw="2" lc="red">35.5,-23.5 36.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">36.5,-23.5 35.5,-24.5</polyline>
+%  <text x="38" y="-22" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">44,-24 44,-20</polyline>
+%  <polyline lw="2" lc="red">43.5,-23.5 44.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">44.5,-23.5 43.5,-24.5</polyline>
+%  <text x="46" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">40,-8 40,-12</polyline>
+%  <polyline lw="2" lc="red">39.5,-7.5 40.5,-8.5</polyline>
+%  <polyline lw="2" lc="red">40.5,-7.5 39.5,-8.5</polyline>
+%  <text x="42" y="-10" t="3" h="3" halign="c" lc="black"/>
+%  <ellipse x="20" y="-24" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">19.25,-21.5 20.75,-21.5</polyline>
+%  <polyline lc="black">20,-20.75 20,-22.25</polyline>
+%  <polyline lc="black">19.25,-26.5 20.75,-26.5</polyline>
+%  <polyline lc="black">20,-28 20,-32</polyline>
+%  <polygon fill="black">17.5,-32 22.5,-32 20,-34.5 17.5,-32</polygon>
+%  <polyline lc="black">20,-16 20,-20</polyline>
+%  <ellipse x="60" y="-24" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">59.25,-21.5 60.75,-21.5</polyline>
+%  <polyline lc="black">60,-20.75 60,-22.25</polyline>
+%  <polyline lc="black">59.25,-26.5 60.75,-26.5</polyline>
+%  <polyline lc="black">60,-28 60,-32</polyline>
+%  <polygon fill="black">57.5,-32 62.5,-32 60,-34.5 57.5,-32</polygon>
+%  <polyline lc="black">60,-16 60,-20</polyline>
+%  <polyline lc="black">20,-16 32,-16</polyline>
+%  <polyline lc="black">48,-16 60,-16</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (36,-16) -- (37,-14) -- (38,-18) -- (39,-14) -- (40,-18) -- (41,-14) -- (42,-18) -- (43,-14) -- (44,-16);
+\path[line width=0.30mm, draw=black] (32,-16) -- (36,-16);
+\path[line width=0.30mm, draw=black] (48,-16) -- (44,-16);
+\path[line width=0.30mm, draw=black] (76,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (72,-16) -- (76,-16);
+\path[line width=0.6mm, draw=red] (71.5,-15.5) -- (72.5,-16.5);
+\path[line width=0.6mm, draw=red] (72.5,-15.5) -- (71.5,-16.5);
+\draw[black] (74,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (72,-24) -- (76,-24);
+\path[line width=0.6mm, draw=red] (71.5,-23.5) -- (72.5,-24.5);
+\path[line width=0.6mm, draw=red] (72.5,-23.5) -- (71.5,-24.5);
+\draw[black] (74,-22) node[anchor=base]{2};
+\path[line width=0.30mm, draw=black] (88,-20) -- (84,-20);
+\path[line width=0.6mm, draw=red] (87.5,-19.5) -- (88.5,-20.5);
+\path[line width=0.6mm, draw=red] (88.5,-19.5) -- (87.5,-20.5);
+\draw[black] (86,-18) node[anchor=base]{3};
+\path[line width=0.30mm, draw=black] (32,-20) rectangle +(16,8);
+\path[line width=0.30mm, draw=black] (36,-24) -- (36,-20);
+\path[line width=0.6mm, draw=red] (35.5,-23.5) -- (36.5,-24.5);
+\path[line width=0.6mm, draw=red] (36.5,-23.5) -- (35.5,-24.5);
+\draw[black] (38,-22) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (44,-24) -- (44,-20);
+\path[line width=0.6mm, draw=red] (43.5,-23.5) -- (44.5,-24.5);
+\path[line width=0.6mm, draw=red] (44.5,-23.5) -- (43.5,-24.5);
+\draw[black] (46,-22) node[anchor=base]{2};
+\path[line width=0.30mm, draw=black] (40,-8) -- (40,-12);
+\path[line width=0.6mm, draw=red] (39.5,-7.5) -- (40.5,-8.5);
+\path[line width=0.6mm, draw=red] (40.5,-7.5) -- (39.5,-8.5);
+\draw[black] (42,-10) node[anchor=base]{3};
+\path[line width=0.30mm, draw=black] (20,-24) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (19.25,-21.5) -- (20.75,-21.5);
+\path[line width=0.30mm, draw=black] (20,-20.75) -- (20,-22.25);
+\path[line width=0.30mm, draw=black] (19.25,-26.5) -- (20.75,-26.5);
+\path[line width=0.30mm, draw=black] (20,-28) -- (20,-32);
+\path[line width=0.30mm, fill=black] (17.5,-32) -- (22.5,-32) -- (20,-34.5) -- (17.5,-32) -- cycle;
+\path[line width=0.30mm, draw=black] (20,-16) -- (20,-20);
+\path[line width=0.30mm, draw=black] (60,-24) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (59.25,-21.5) -- (60.75,-21.5);
+\path[line width=0.30mm, draw=black] (60,-20.75) -- (60,-22.25);
+\path[line width=0.30mm, draw=black] (59.25,-26.5) -- (60.75,-26.5);
+\path[line width=0.30mm, draw=black] (60,-28) -- (60,-32);
+\path[line width=0.30mm, fill=black] (57.5,-32) -- (62.5,-32) -- (60,-34.5) -- (57.5,-32) -- cycle;
+\path[line width=0.30mm, draw=black] (60,-16) -- (60,-20);
+\path[line width=0.30mm, draw=black] (20,-16) -- (32,-16);
+\path[line width=0.30mm, draw=black] (48,-16) -- (60,-16);
+\end{tikzpicture}%

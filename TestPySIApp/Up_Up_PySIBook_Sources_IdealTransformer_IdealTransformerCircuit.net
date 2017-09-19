@@ -1,0 +1,5 @@
+device a 4 currentcontrolledcurrentsource 1.0
+device a 4 voltagecontrolledvoltagesource 1.0
+device D1 4 file None
+connect a 1 a 1 a 3
+connect a 2 a 4 a 4 a 2

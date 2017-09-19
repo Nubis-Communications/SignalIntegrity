@@ -1,0 +1,7 @@
+device D2 4 file None
+device B 4 currentcontrolledcurrentsource 1.0
+device Zo 2 R 50.0
+device Zi 2 R 0.0
+connect Zi 2 B 1
+connect B 3 Zo 1
+connect B 4 Zo 2

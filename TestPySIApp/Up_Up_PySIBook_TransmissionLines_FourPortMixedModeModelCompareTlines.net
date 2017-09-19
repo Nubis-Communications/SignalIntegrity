@@ -1,0 +1,6 @@
+device T1 2 tline zc 45.0 td 1e-09
+device T2 2 tline zc 60.0 td 1.2e-09
+port 1 T1 1
+port 2 T1 2
+port 3 T2 1
+port 4 T2 2

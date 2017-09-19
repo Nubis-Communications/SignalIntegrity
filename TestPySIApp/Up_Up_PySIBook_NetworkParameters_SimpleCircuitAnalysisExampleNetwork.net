@@ -1,0 +1,5 @@
+voltagesource VS1 1
+device YS 2 file None
+device YL 1 file None
+connect YS 1 VS1 1
+connect YL 1 YS 2

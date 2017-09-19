@@ -1,0 +1,6 @@
+device AL 2 file None
+device AR 2 file None
+port 2 AL 1
+port 1 AL 1
+connect AL 1 AR 2
+connect AL 2 AR 1

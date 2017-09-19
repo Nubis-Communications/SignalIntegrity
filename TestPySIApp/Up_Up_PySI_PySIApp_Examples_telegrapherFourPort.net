@@ -1,0 +1,21 @@
+device rp 2 R 0.0
+device rn 2 R 0.0
+device lm 4 M 1e-15
+device lp 2 L 1e-15
+device ln 2 L 1e-15
+device cm 2 C 1e-12
+device cn 1 C 1e-12
+device cp 1 C 1e-12
+device gp 1 R 50.0
+device gm 2 R 50.0
+device gn 1 R 50.0
+port 1 rp 1
+connect rp 2 lp 1
+port 3 rn 1
+connect rn 2 ln 1
+connect lm 1 lp 2
+connect ln 2 lm 3
+port 2 cm 2
+connect cm 2 gm 1 gp 1 cp 1 lm 2
+port 4 gn 1
+connect gn 1 lm 4 gm 2 cm 1 cn 1

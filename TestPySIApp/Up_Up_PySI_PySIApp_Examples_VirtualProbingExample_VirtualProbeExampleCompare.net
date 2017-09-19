@@ -1,0 +1,16 @@
+voltagesource VS1 1
+device O1 1 open
+voltagesource VS2 1
+device O2 1 open
+voltagesource VS3 1
+device O3 1 open
+voltagesource VS4 1
+device O4 1 open
+output O1 1
+connect O1 1 VS1 1
+output VS2 1
+connect VS2 1 O2 1
+output O3 1
+connect O3 1 VS3 1
+output O4 1
+connect O4 1 VS4 1

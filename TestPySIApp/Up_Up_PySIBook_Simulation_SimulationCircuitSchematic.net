@@ -1,0 +1,7 @@
+voltagesource v 1
+device Zs 2 R 50.0
+device S 2 file None
+device Zl 1 R 50.0
+connect Zs 1 v 1
+connect S 1 Zs 2
+connect Zl 1 S 2

@@ -1,0 +1,19 @@
+device C1 1 C 5.243e-13
+device L1 2 L 8.278e-10
+device C2 1 C 1.165e-12
+device L2 2 L 9.995e-10
+device C3 1 C 1.244e-12
+device L3 2 L 1.0235e-09
+device C4 1 C 1.244e-12
+device L4 2 L 9.995e-10
+device C5 1 C 1.165e-12
+device L5 2 L 8.278e-10
+device C6 1 C 5.243e-13
+port 1 L1 1
+connect L1 1 C1 1
+connect L2 1 C2 1 L1 2
+connect L2 2 L3 1 C3 1
+connect L3 2 L4 1 C4 1
+connect L5 1 C5 1 L4 2
+port 2 C6 1
+connect C6 1 L5 2

@@ -1,0 +1,3 @@
+device T2 2 telegrapher r 0.0 l 5e-08 g 0.0 c 2e-11 sect 10000
+port 1 T2 1
+port 2 T2 2

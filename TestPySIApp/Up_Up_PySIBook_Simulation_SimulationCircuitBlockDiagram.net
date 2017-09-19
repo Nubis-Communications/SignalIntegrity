@@ -1,0 +1,6 @@
+device S 2 file None
+device Gs 1 file None
+currentsource CS1 1
+device Gl 1 file None
+connect Gs 1 S 1
+connect S 2 Gl 1

@@ -1,0 +1,6 @@
+device MM1 4 mixedmode
+device S 2 file None
+connect S 1 MM1 1
+connect MM1 2 S 2
+port 1 MM1 3
+port 2 MM1 4

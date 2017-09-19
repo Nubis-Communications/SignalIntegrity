@@ -1,0 +1,5 @@
+device T1 4 telegrapher rp 0.0 lp 5e-08 gp 0.0 cp 2e-11 rn 0.0 ln 5e-08 gn 0.0 cn 2e-11 lm 1e-19 gm 1e-15 cm 1e-19 sect 100
+port 1 T1 1
+port 3 T1 3
+port 2 T1 2
+port 4 T1 4

@@ -1,0 +1,7 @@
+currentsource CS1 1
+device R1 2 R 50.0
+currentsource CS3 1
+device D1 3 file None
+device D2 3 file None
+connect R1 1 CS1 1
+connect CS3 1 R1 2

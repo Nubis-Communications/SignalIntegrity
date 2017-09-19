@@ -1,0 +1,31 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">42.5,-51 45.5,-51</polyline>
+%  <polyline lc="black">44,-49.5 44,-52.5</polyline>
+%  <polyline lc="black">42.5,-61 45.5,-61</polyline>
+%  <polyline lc="black">40,-40 64,-56 40,-72 40,-40</polyline>
+%  <polyline lc="black">32,-64 40,-64</polyline>
+%  <polyline lw="2" lc="red">31,-63 33,-65</polyline>
+%  <polyline lw="2" lc="red">33,-63 31,-65</polyline>
+%  <polyline lc="black">32,-48 40,-48</polyline>
+%  <polyline lw="2" lc="red">31,-47 33,-49</polyline>
+%  <polyline lw="2" lc="red">33,-47 31,-49</polyline>
+%  <polyline lc="black">72,-56 64,-56</polyline>
+%  <polyline lw="2" lc="red">71,-55 73,-57</polyline>
+%  <polyline lw="2" lc="red">73,-55 71,-57</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (42.5,-51) -- (45.5,-51);
+\path[line width=0.30mm, draw=black] (44,-49.5) -- (44,-52.5);
+\path[line width=0.30mm, draw=black] (42.5,-61) -- (45.5,-61);
+\path[line width=0.30mm, draw=black] (40,-40) -- (64,-56) -- (40,-72) -- (40,-40);
+\path[line width=0.30mm, draw=black] (32,-64) -- (40,-64);
+\path[line width=0.6mm, draw=red] (31,-63) -- (33,-65);
+\path[line width=0.6mm, draw=red] (33,-63) -- (31,-65);
+\path[line width=0.30mm, draw=black] (32,-48) -- (40,-48);
+\path[line width=0.6mm, draw=red] (31,-47) -- (33,-49);
+\path[line width=0.6mm, draw=red] (33,-47) -- (31,-49);
+\path[line width=0.30mm, draw=black] (72,-56) -- (64,-56);
+\path[line width=0.6mm, draw=red] (71,-55) -- (73,-57);
+\path[line width=0.6mm, draw=red] (73,-55) -- (71,-57);
+\end{tikzpicture}%

@@ -92,6 +92,9 @@ class TikZ(object):
         line=line+alignString
         textToWrite=kw['text']
         textToWrite=textToWrite.replace('_','\\textunderscore ')
+        #hack to deal with unicode sigma
+        if textToWrite==u"\u03C3":
+            textToWrite='$\sigma$'
         line=line+'{'+textToWrite+'};\n'
         self.lineList.append(line)
     def create_polygon(self, *args, **kw):

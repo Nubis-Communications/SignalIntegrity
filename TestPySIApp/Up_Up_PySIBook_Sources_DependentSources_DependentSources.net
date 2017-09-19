@@ -1,0 +1,5 @@
+device D1 4 voltagecontrolledvoltagesource 1.0
+device D2 4 currentcontrolledcurrentsource 1.0
+device D3 4 voltagecontrolledcurrentsource 1.0
+device D4 4 currentcontrolledvoltagesource 1.0
+device D5 4 file None

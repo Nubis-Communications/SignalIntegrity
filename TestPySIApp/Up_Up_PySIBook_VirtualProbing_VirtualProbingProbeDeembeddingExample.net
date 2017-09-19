@@ -1,0 +1,28 @@
+device T 2 file None
+device C 4 file None
+device R 2 file None
+device P 2 file None
+device T 2 file None
+device C 4 file None
+device R 2 file None
+meas C 3
+meas C 3
+connect C 3 P 1 P 2 R 1
+output C 4
+connect C 4 R 2
+output T 2
+connect T 2 C 2
+stim m1 T 2
+output T 1
+connect T 1 C 1
+stim m2 T 1
+connect R 2 C 4
+output C 3
+connect C 3 R 1
+output T 2
+connect T 2 C 2
+stim m3 T 2
+output C 1
+connect C 1 T 1
+stim m4 T 1
+stimdef [[1.0, 0], [0, 1.0], [1.0, 0], [0, 1.0]]

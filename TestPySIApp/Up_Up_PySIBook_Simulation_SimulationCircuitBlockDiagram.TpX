@@ -1,0 +1,47 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="48" y="-12" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">44,-16 48,-16</polyline>
+%  <text x="46" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">60,-16 56,-16</polyline>
+%  <text x="58" y="-14" t="2" h="3" halign="c" lc="black"/>
+%  <text x="52" y="-10" t="S" h="3" halign="c" lc="black"/>
+%  <rect x="32" y="-12" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">44,-16 40,-16</polyline>
+%  <text x="42" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-10" t="Gs" h="3" halign="c" lc="black"/>
+%  <ellipse x="24" y="-24" dx="8" dy="-8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">24,-21 24,-27</polyline>
+%  <polyline lc="black">24,-28 24,-32</polyline>
+%  <polygon fill="black">21.5,-32 26.5,-32 24,-34.5 21.5,-32</polygon>
+%  <polyline lc="black">24,-16 24,-20</polyline>
+%  <polyline lw="2" lc="red">23.5,-15.5 24.5,-16.5</polyline>
+%  <polyline lw="2" lc="red">24.5,-15.5 23.5,-16.5</polyline>
+%  <rect x="64" y="-12" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">60,-16 64,-16</polyline>
+%  <text x="62" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <text x="68" y="-10" t="Gl" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (48,-20) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (44,-16) -- (48,-16);
+\draw[black] (46,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (60,-16) -- (56,-16);
+\draw[black] (58,-14) node[anchor=base]{2};
+\draw[black] (52,-10) node[anchor=base]{S};
+\path[line width=0.30mm, draw=black] (32,-20) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (44,-16) -- (40,-16);
+\draw[black] (42,-14) node[anchor=base]{1};
+\draw[black] (36,-10) node[anchor=base]{Gs};
+\path[line width=0.30mm, draw=black] (24,-24) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black, <-] (24,-21) -- (24,-27);
+\path[line width=0.30mm, draw=black] (24,-28) -- (24,-32);
+\path[line width=0.30mm, fill=black] (21.5,-32) -- (26.5,-32) -- (24,-34.5) -- (21.5,-32) -- cycle;
+\path[line width=0.30mm, draw=black] (24,-16) -- (24,-20);
+\path[line width=0.6mm, draw=red] (23.5,-15.5) -- (24.5,-16.5);
+\path[line width=0.6mm, draw=red] (24.5,-15.5) -- (23.5,-16.5);
+\path[line width=0.30mm, draw=black] (64,-20) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (60,-16) -- (64,-16);
+\draw[black] (62,-14) node[anchor=base]{1};
+\draw[black] (68,-10) node[anchor=base]{Gl};
+\end{tikzpicture}%

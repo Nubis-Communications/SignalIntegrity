@@ -1,0 +1,21 @@
+device T 2 file None
+device C 4 file None
+device R 2 file None
+device MM1 4 mixedmode voltage
+device MM2 4 mixedmode voltage
+meas MM2 3
+connect MM2 3 MM1 3
+output C 3
+connect C 3 R 1
+connect MM1 2 T 2
+stim m1 MM1 2
+stim m1 T 2
+connect T 1 MM1 1
+stim m2 T 1
+stim m2 MM1 1
+connect MM2 1 C 1
+connect C 2 MM2 2
+output R 2
+connect R 2 C 4
+connect MM1 4 MM2 4
+stimdef [[1.0], [1.0]]

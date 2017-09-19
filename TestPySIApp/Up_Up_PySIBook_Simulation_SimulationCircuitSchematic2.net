@@ -1,0 +1,13 @@
+device X 4 file None
+voltagesource V1 1
+device Z 2 R 50.0
+voltagesource VS1 1
+device Z 2 R 50.0
+device Z 1 R 50.0
+device Z 1 R 50.0
+connect X 1 Z 2
+connect X 2 Z 2
+connect X 3 Z 1
+connect X 4 Z 1
+connect Z 1 V1 1
+connect VS1 1 Z 1

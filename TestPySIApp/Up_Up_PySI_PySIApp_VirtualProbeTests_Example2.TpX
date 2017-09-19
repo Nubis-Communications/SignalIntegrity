@@ -1,0 +1,109 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lw="3" lc="black">48,-48 46,-50</polyline>
+%  <polyline lc="black">46,-50 44,-52</polyline>
+%  <text x="48" y="-48" t="VM1" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">76,-48 74,-50</polyline>
+%  <polyline lc="black">74,-50 72,-52</polyline>
+%  <text x="76" y="-48" t="VO1" h="3" halign="l" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">32,-52 40,-52</polyline>
+%  <polyline lc="black">32,-52 36,-52</polyline>
+%  <polyline lc="black">40,-52 36,-52</polyline>
+%  <rect x="28" y="-48" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">40,-52 36,-52</polyline>
+%  <text x="38" y="-50" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">40,-60 36,-60</polyline>
+%  <text x="38" y="-58" t="2" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-46" t="D1" h="3" halign="c" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">32,-60 40,-60</polyline>
+%  <polyline lc="black">32,-60 36,-60</polyline>
+%  <polyline lc="black">40,-60 36,-60</polyline>
+%  <rect x="60" y="-48" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">56,-52 60,-52</polyline>
+%  <text x="58" y="-50" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">56,-60 60,-60</polyline>
+%  <text x="58" y="-58" t="2" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">72,-52 68,-52</polyline>
+%  <text x="70" y="-50" t="3" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">72,-60 68,-60</polyline>
+%  <text x="70" y="-58" t="4" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-46" t="D2" h="3" halign="c" lc="black"/>
+%  <rect x="88" y="-48" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">84,-52 88,-52</polyline>
+%  <text x="86" y="-50" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">84,-60 88,-60</polyline>
+%  <text x="86" y="-58" t="2" h="3" halign="c" lc="black"/>
+%  <text x="92" y="-46" t="D3" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">48,-64 46,-62</polyline>
+%  <polyline lc="black">46,-62 44,-60</polyline>
+%  <text x="48" y="-66" t="VM2" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">76,-64 74,-62</polyline>
+%  <polyline lc="black">74,-62 72,-60</polyline>
+%  <text x="76" y="-66" t="VO2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">40,-52 44,-52</polyline>
+%  <polyline lc="black">40,-60 44,-60</polyline>
+%  <polyline lc="black">72,-52 84,-52</polyline>
+%  <polyline lc="black">72,-60 84,-60</polyline>
+%  <polyline lc="black">44,-52 56,-52</polyline>
+%  <polyline lc="black">44,-60 56,-60</polyline>
+%  <ellipse x="40" y="-52" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="44" y="-60" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="40" y="-60" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="44" y="-52" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="72" y="-60" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="72" y="-52" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.9mm, draw=black] (48,-48) -- (46,-50);
+\path[line width=0.30mm, draw=black] (46,-50) -- (44,-52);
+\draw[black] (48,-48) node[anchor=base west]{VM1};
+\path[line width=0.9mm, draw=black] (76,-48) -- (74,-50);
+\path[line width=0.30mm, draw=black] (74,-50) -- (72,-52);
+\draw[black] (76,-48) node[anchor=base west]{VO1};
+\path[line width=0.30mm, draw=black, ->] (32,-52) -- (40,-52);
+\path[line width=0.30mm, draw=black] (32,-52) -- (36,-52);
+\path[line width=0.30mm, draw=black] (40,-52) -- (36,-52);
+\path[line width=0.30mm, draw=black] (28,-64) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (40,-52) -- (36,-52);
+\draw[black] (38,-50) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (40,-60) -- (36,-60);
+\draw[black] (38,-58) node[anchor=base]{2};
+\draw[black] (32,-46) node[anchor=base]{D1};
+\path[line width=0.30mm, draw=black, ->] (32,-60) -- (40,-60);
+\path[line width=0.30mm, draw=black] (32,-60) -- (36,-60);
+\path[line width=0.30mm, draw=black] (40,-60) -- (36,-60);
+\path[line width=0.30mm, draw=black] (60,-64) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (56,-52) -- (60,-52);
+\draw[black] (58,-50) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (56,-60) -- (60,-60);
+\draw[black] (58,-58) node[anchor=base]{2};
+\path[line width=0.30mm, draw=black] (72,-52) -- (68,-52);
+\draw[black] (70,-50) node[anchor=base]{3};
+\path[line width=0.30mm, draw=black] (72,-60) -- (68,-60);
+\draw[black] (70,-58) node[anchor=base]{4};
+\draw[black] (64,-46) node[anchor=base]{D2};
+\path[line width=0.30mm, draw=black] (88,-64) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (84,-52) -- (88,-52);
+\draw[black] (86,-50) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (84,-60) -- (88,-60);
+\draw[black] (86,-58) node[anchor=base]{2};
+\draw[black] (92,-46) node[anchor=base]{D3};
+\path[line width=0.9mm, draw=black] (48,-64) -- (46,-62);
+\path[line width=0.30mm, draw=black] (46,-62) -- (44,-60);
+\draw[black] (48,-64) node[anchor=north west]{VM2};
+\path[line width=0.9mm, draw=black] (76,-64) -- (74,-62);
+\path[line width=0.30mm, draw=black] (74,-62) -- (72,-60);
+\draw[black] (76,-64) node[anchor=north west]{VO2};
+\path[line width=0.30mm, draw=black] (40,-52) -- (44,-52);
+\path[line width=0.30mm, draw=black] (40,-60) -- (44,-60);
+\path[line width=0.30mm, draw=black] (72,-52) -- (84,-52);
+\path[line width=0.30mm, draw=black] (72,-60) -- (84,-60);
+\path[line width=0.30mm, draw=black] (44,-52) -- (56,-52);
+\path[line width=0.30mm, draw=black] (44,-60) -- (56,-60);
+\path[line width=0.30mm, draw=black, fill=black] (40,-52) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (44,-60) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (40,-60) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (44,-52) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (72,-60) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (72,-52) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

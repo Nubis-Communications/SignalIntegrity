@@ -1,0 +1,43 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="24" y="-44" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">23.25,-41.5 24.75,-41.5</polyline>
+%  <polyline lc="black">24,-40.75 24,-42.25</polyline>
+%  <polyline lc="black">23.25,-46.5 24.75,-46.5</polyline>
+%  <polyline lc="black">24,-48 24,-52</polyline>
+%  <polygon fill="black">21.5,-52 26.5,-52 24,-54.5 21.5,-52</polygon>
+%  <polyline lc="black">24,-36 24,-40</polyline>
+%  <rect x="36" y="-32" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">32,-36 36,-36</polyline>
+%  <text x="34" y="-34" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">48,-36 44,-36</polyline>
+%  <text x="46" y="-34" t="2" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-30" t="YS" h="3" halign="c" lc="black"/>
+%  <rect x="72" y="-32" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">68,-36 72,-36</polyline>
+%  <text x="70" y="-34" t="1" h="3" halign="c" lc="black"/>
+%  <text x="76" y="-30" t="YL" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">24,-36 32,-36</polyline>
+%  <polyline lc="black">48,-36 68,-36</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (24,-44) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (23.25,-41.5) -- (24.75,-41.5);
+\path[line width=0.30mm, draw=black] (24,-40.75) -- (24,-42.25);
+\path[line width=0.30mm, draw=black] (23.25,-46.5) -- (24.75,-46.5);
+\path[line width=0.30mm, draw=black] (24,-48) -- (24,-52);
+\path[line width=0.30mm, fill=black] (21.5,-52) -- (26.5,-52) -- (24,-54.5) -- (21.5,-52) -- cycle;
+\path[line width=0.30mm, draw=black] (24,-36) -- (24,-40);
+\path[line width=0.30mm, draw=black] (36,-40) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (32,-36) -- (36,-36);
+\draw[black] (34,-34) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (48,-36) -- (44,-36);
+\draw[black] (46,-34) node[anchor=base]{2};
+\draw[black] (40,-30) node[anchor=base]{YS};
+\path[line width=0.30mm, draw=black] (72,-40) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (68,-36) -- (72,-36);
+\draw[black] (70,-34) node[anchor=base]{1};
+\draw[black] (76,-30) node[anchor=base]{YL};
+\path[line width=0.30mm, draw=black] (24,-36) -- (32,-36);
+\path[line width=0.30mm, draw=black] (48,-36) -- (68,-36);
+\end{tikzpicture}%

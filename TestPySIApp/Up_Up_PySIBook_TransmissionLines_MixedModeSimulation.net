@@ -1,0 +1,38 @@
+voltagesource VG1 1
+device R1 2 R 60.0
+voltagesource VG2 1
+device R2 2 R 60.0
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device T1 2 tline zc 45.0 td 1e-09
+device T2 2 tline zc 60.0 td 1.2e-09
+device R3 1 R 60.0
+device R4 1 R 60.0
+device MM3 4 mixedmode voltage
+device MM4 4 mixedmode voltage
+device MM5 4 mixedmode voltage
+device MM6 4 mixedmode voltage
+device R5 2 R 360.0
+device R6 2 R 360.0
+connect R1 1 VG1 1
+connect MM4 1 R5 1 R1 2
+connect R2 1 VG2 1
+connect R2 2 MM4 2 R5 2
+connect MM3 1 MM1 1
+connect MM1 2 MM3 2
+connect MM1 3 T1 1
+connect T2 1 MM1 4
+connect MM6 1 MM2 1
+connect MM2 2 MM6 2
+connect T1 2 MM2 3
+connect MM2 4 T2 2
+connect R6 1 R3 1 MM5 1
+connect MM5 2 R4 1 R6 2
+output MM4 3
+connect MM4 3 MM3 3
+output MM3 4
+connect MM3 4 MM4 4
+output MM6 3
+connect MM6 3 MM5 3
+output MM6 4
+connect MM6 4 MM5 4

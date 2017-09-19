@@ -1,0 +1,51 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">56,-36 58,-35 54,-34 58,-33 54,-32 58,-31 54,-30 58,-29 56,-28</polyline>
+%  <polyline lc="black">56,-40 56,-36</polyline>
+%  <polyline lc="black">56,-24 56,-28</polyline>
+%  <text x="60" y="-32" t="100.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="42" y="-28" t="+" h="3" halign="c" lc="black"/>
+%  <text x="42" y="-36" t="-" h="3" halign="c" lc="black"/>
+%  <text x="38" y="-28" t="DP" h="3" halign="c" lc="black"/>
+%  <text x="38" y="-36" t="CP" h="3" halign="c" lc="black"/>
+%  <rect x="36" y="-24" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">48,-28 44,-28</polyline>
+%  <polyline lc="black">48,-36 44,-36</polyline>
+%  <polyline lc="black">32,-28 36,-28</polyline>
+%  <polyline lc="black">32,-36 36,-36</polyline>
+%  <polyline lc="black">26,-26 28,-28 26,-30</polyline>
+%  <polyline lc="black">32,-28 28,-28</polyline>
+%  <text x="26" y="-28" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">26,-34 28,-36 26,-38</polyline>
+%  <polyline lc="black">32,-36 28,-36</polyline>
+%  <text x="26" y="-36" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">48,-28 48,-24</polyline>
+%  <polyline lc="black">48,-24 56,-24</polyline>
+%  <polyline lc="black">48,-36 48,-40</polyline>
+%  <polyline lc="black">48,-40 56,-40</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (56,-36) -- (58,-35) -- (54,-34) -- (58,-33) -- (54,-32) -- (58,-31) -- (54,-30) -- (58,-29) -- (56,-28);
+\path[line width=0.30mm, draw=black] (56,-40) -- (56,-36);
+\path[line width=0.30mm, draw=black] (56,-24) -- (56,-28);
+\draw[black] (60,-32) node[anchor=base west]{100.0 Ohm};
+\draw[black] (42,-28) node[anchor=base]{+};
+\draw[black] (42,-36) node[anchor=base]{-};
+\draw[black] (38,-28) node[anchor=base]{DP};
+\draw[black] (38,-36) node[anchor=base]{CP};
+\path[line width=0.30mm, draw=black] (36,-40) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (48,-28) -- (44,-28);
+\path[line width=0.30mm, draw=black] (48,-36) -- (44,-36);
+\path[line width=0.30mm, draw=black] (32,-28) -- (36,-28);
+\path[line width=0.30mm, draw=black] (32,-36) -- (36,-36);
+\path[line width=0.30mm, draw=black] (26,-26) -- (28,-28) -- (26,-30);
+\path[line width=0.30mm, draw=black] (32,-28) -- (28,-28);
+\draw[black] (26,-28) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (26,-34) -- (28,-36) -- (26,-38);
+\path[line width=0.30mm, draw=black] (32,-36) -- (28,-36);
+\draw[black] (26,-36) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (48,-28) -- (48,-24);
+\path[line width=0.30mm, draw=black] (48,-24) -- (56,-24);
+\path[line width=0.30mm, draw=black] (48,-36) -- (48,-40);
+\path[line width=0.30mm, draw=black] (48,-40) -- (56,-40);
+\end{tikzpicture}%

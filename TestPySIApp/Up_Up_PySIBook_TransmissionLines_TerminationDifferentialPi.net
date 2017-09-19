@@ -1,0 +1,8 @@
+device MM1 4 mixedmode
+device Z3 2 R 50.0
+device Z1 1 R 60.0
+device Z2 1 R 60.0
+connect MM1 1 Z3 2 Z1 1
+connect MM1 2 Z3 1 Z2 1
+port 1 MM1 3
+port 2 MM1 4

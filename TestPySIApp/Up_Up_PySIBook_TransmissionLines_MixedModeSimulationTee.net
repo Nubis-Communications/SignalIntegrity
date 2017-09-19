@@ -1,0 +1,66 @@
+device R1 2 R 45.0
+device R2 2 R 45.0
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device T1 2 tline zc 45.0 td 1e-09
+device T2 2 tline zc 60.0 td 1.2e-09
+device MM3 4 mixedmode voltage
+device MM4 4 mixedmode voltage
+device MM5 4 mixedmode voltage
+device MM6 4 mixedmode voltage
+voltagesource VG1 2
+voltagesource VG2 2
+device G1 1 ground
+device R3 2 R 7.5
+device R4 2 R 45.0
+device R5 2 R 45.0
+device G2 1 ground
+device R6 2 R 7.5
+device R7 2 R 45.0
+device R8 2 R 60.0
+device T3 2 tline zc 45.0 td 1e-09
+device T4 2 tline zc 60.0 td 1.2e-09
+voltagesource VG3 2
+voltagesource VG4 2
+device G3 1 ground
+device R10 2 R 45.0
+device R11 2 R 60.0
+device G4 1 ground
+connect R1 1 VG1 2
+connect R1 2 MM4 1
+connect R2 1 VG2 2
+connect R2 2 MM4 2
+connect MM1 1 MM3 1
+connect MM3 2 MM1 2
+connect MM1 3 T1 1
+connect MM1 4 T2 1
+connect MM2 1 MM6 1
+connect MM2 2 MM6 2
+connect MM2 3 T1 2
+connect T2 2 MM2 4
+output MM3 3
+connect MM3 3 MM4 3
+output MM3 4
+connect MM3 4 MM4 4
+connect R4 1 MM5 1
+connect R5 1 MM5 2
+output MM5 3
+connect MM5 3 MM6 3
+output MM5 4
+connect MM5 4 MM6 4
+connect VG1 1 R3 2 VG2 1
+connect R3 1 G1 1
+connect R6 2 R5 2 R4 2
+connect R6 1 G2 1
+connect R7 1 VG3 2
+output R7 2
+connect R7 2 T3 1
+connect R8 1 VG4 2
+output T4 1
+connect T4 1 R8 2
+output T3 2
+connect T3 2 R10 1
+output R11 1
+connect R11 1 T4 2
+connect VG3 1 G3 1 VG4 1
+connect G4 1 R10 2 R11 2

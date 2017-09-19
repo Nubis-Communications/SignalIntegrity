@@ -1,0 +1,22 @@
+device D1 4 file Sparq_demo_16.s4p
+voltagesource VS1 2
+voltagesource VS2 2
+device R2 2 R 50.0
+device R3 2 R 50.0
+device G2 1 ground
+device R4 1 R 50.0
+device R5 1 R 50.0
+device Voutsim 4 voltagecontrolledvoltagesource 1.0
+output R2 2
+connect R2 2 D1 1
+connect D1 2 R3 2
+connect R5 1 D1 3 Voutsim 2
+connect D1 4 Voutsim 1 R4 1
+connect R2 1 VS1 2
+connect VS2 1 VS1 1 G2 1
+connect VS2 2 R3 1
+device Voutsim_2 1 ground
+device Voutsim_3 1 open
+connect Voutsim 3 Voutsim_2 1
+connect Voutsim 4 Voutsim_3 1
+output Voutsim 4
