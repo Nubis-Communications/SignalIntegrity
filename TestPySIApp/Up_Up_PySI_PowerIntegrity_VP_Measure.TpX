@@ -85,7 +85,7 @@
 %  <text x="48" y="-10" t="gain 1.0 " h="3" halign="c" lc="black"/>
 %  <polygon fill="black">60,-18.5 60,-13.5 62.5,-16 60,-18.5</polygon>
 %  <polyline lc="black">56,-16 60,-16</polyline>
-%  <text x="28" y="-40" t="$\sigma$" h="3" halign="c" lc="black"/>
+%  <text x="28" y="-40" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
 %  <ellipse x="28" y="-40" dx="-8" dy="-8" lc="black"/>
 %  <polyline lc="black">28.75,-37.5 27.25,-37.5</polyline>
 %  <polyline lc="black">28,-36.75 28,-38.25</polyline>
@@ -93,7 +93,7 @@
 %  <polyline lc="black">28,-32 28,-36</polyline>
 %  <polyline lc="black">28,-48 28,-44</polyline>
 %  <text x="22" y="-40" t="8.944 mVrms" h="3" halign="r" lc="black"/>
-%  <text x="104" y="-40" t="$\sigma$" h="3" halign="c" lc="black"/>
+%  <text x="104" y="-40" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
 %  <ellipse x="104" y="-40" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">103.25,-37.5 104.75,-37.5</polyline>
 %  <polyline lc="black">104,-36.75 104,-38.25</polyline>

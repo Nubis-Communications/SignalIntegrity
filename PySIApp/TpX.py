@@ -77,10 +77,10 @@ class TpX(object):
         else:
             alignString='halign="c"'
         #hack to deal with unicode sigma
-        textLine=kw['text']
-        if textLine==u"\u03C3":
-            textLine='$\sigma$'
-        line='%  <text x="'+self.Format(x)+'" y="'+self.Format(y)+'" t="'+textLine+'" h="3" '+alignString
+        if kw['text']==u"\u03C3":
+            line='%  <text x="'+self.Format(x)+'" y="'+self.Format(y)+'" t="" tex="$\sigma$" h="3" '+alignString
+        else:
+            line='%  <text x="'+self.Format(x)+'" y="'+self.Format(y)+'" t="'+kw['text']+'" h="3" '+alignString
         if 'fill' in kw:
             line=line+' lc="'+kw['fill']+'"'
         line=line+'/>\n'

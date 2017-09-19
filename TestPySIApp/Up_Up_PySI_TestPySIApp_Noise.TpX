@@ -1,5 +1,5 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <text x="32" y="-56" t="$\sigma$" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-56" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
 %  <ellipse x="32" y="-56" dx="16" dy="-16" lc="black"/>
 %  <polyline lc="black">30.5,-51 33.5,-51</polyline>
 %  <polyline lc="black">32,-49.5 32,-52.5</polyline>
@@ -7,7 +7,7 @@
 %  <polyline lc="black">32,-40 32,-48</polyline>
 %  <polyline lc="black">32,-72 32,-64</polyline>
 %  <text x="44" y="-56" t="1.0 mVrms" h="3" halign="l" lc="black"/>
-%  <text x="80" y="-56" t="$\sigma$" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-56" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
 %  <ellipse x="80" y="-56" dx="16" dy="-16" lc="black"/>
 %  <polyline lc="black">78.5,-51 81.5,-51</polyline>
 %  <polyline lc="black">80,-49.5 80,-52.5</polyline>
