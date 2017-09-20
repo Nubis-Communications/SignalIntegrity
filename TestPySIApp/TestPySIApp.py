@@ -174,6 +174,10 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         self.VirtualProbeResultsChecker('../PySIApp/Examples/VirtualProbingExample/VirtualProbeExample.xml')
     def testOpenStub(self):
         self.SParameterResultsChecker('OpenStub.xml')
+    def testPySIAppExamplesPulseGeneratorTest(self):
+        self.SimulationResultsChecker('../PySIApp/Examples/PulseGeneratorTest.xml')
+    def testPySIAppExamplesStepGeneratorTest(self):
+        self.SimulationResultsChecker('../PySIApp/Examples/StepGeneratorTest.xml')
     def testPicturesNetlists(self):
         filesList=[
             '/home/peterp/Work/PySI/TestPySIApp/FilterTest.xml',
