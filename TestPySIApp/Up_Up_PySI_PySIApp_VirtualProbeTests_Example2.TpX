@@ -1,7 +1,4 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polyline lw="3" lc="black">48,-48 46,-50</polyline>
-%  <polyline lc="black">46,-50 44,-52</polyline>
-%  <text x="48" y="-48" t="VM1" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">76,-48 74,-50</polyline>
 %  <polyline lc="black">74,-50 72,-52</polyline>
 %  <text x="76" y="-48" t="VO1" h="3" halign="l" lc="black"/>
@@ -33,12 +30,17 @@
 %  <polyline lc="black">84,-60 88,-60</polyline>
 %  <text x="86" y="-58" t="2" h="3" halign="c" lc="black"/>
 %  <text x="92" y="-46" t="D3" h="3" halign="c" lc="black"/>
-%  <polyline lw="3" lc="black">48,-64 46,-62</polyline>
-%  <polyline lc="black">46,-62 44,-60</polyline>
-%  <text x="48" y="-66" t="VM2" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">76,-64 74,-62</polyline>
 %  <polyline lc="black">74,-62 72,-60</polyline>
 %  <text x="76" y="-66" t="VO2" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">48,-48 46,-50</polyline>
+%  <polyline lc="black">46,-50 44,-52</polyline>
+%  <rect x="46" y="-48" w="2" h="-2" lc="black"/>
+%  <text x="48" y="-48" t="VM1" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">48,-64 46,-62</polyline>
+%  <polyline lc="black">46,-62 44,-60</polyline>
+%  <rect x="46" y="-62" w="2" h="-2" lc="black"/>
+%  <text x="48" y="-66" t="VM2" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">40,-52 44,-52</polyline>
 %  <polyline lc="black">40,-60 44,-60</polyline>
 %  <polyline lc="black">72,-52 84,-52</polyline>
@@ -54,9 +56,6 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.9mm, draw=black] (48,-48) -- (46,-50);
-\path[line width=0.30mm, draw=black] (46,-50) -- (44,-52);
-\draw[black] (48,-48) node[anchor=base west]{VM1};
 \path[line width=0.9mm, draw=black] (76,-48) -- (74,-50);
 \path[line width=0.30mm, draw=black] (74,-50) -- (72,-52);
 \draw[black] (76,-48) node[anchor=base west]{VO1};
@@ -88,12 +87,17 @@
 \path[line width=0.30mm, draw=black] (84,-60) -- (88,-60);
 \draw[black] (86,-58) node[anchor=base]{2};
 \draw[black] (92,-46) node[anchor=base]{D3};
-\path[line width=0.9mm, draw=black] (48,-64) -- (46,-62);
-\path[line width=0.30mm, draw=black] (46,-62) -- (44,-60);
-\draw[black] (48,-64) node[anchor=north west]{VM2};
 \path[line width=0.9mm, draw=black] (76,-64) -- (74,-62);
 \path[line width=0.30mm, draw=black] (74,-62) -- (72,-60);
 \draw[black] (76,-64) node[anchor=north west]{VO2};
+\path[line width=0.9mm, draw=black] (48,-48) -- (46,-50);
+\path[line width=0.30mm, draw=black] (46,-50) -- (44,-52);
+\path[line width=0.30mm, draw=black] (46,-50) rectangle +(2,2);
+\draw[black] (48,-48) node[anchor=base west]{VM1};
+\path[line width=0.9mm, draw=black] (48,-64) -- (46,-62);
+\path[line width=0.30mm, draw=black] (46,-62) -- (44,-60);
+\path[line width=0.30mm, draw=black] (46,-64) rectangle +(2,2);
+\draw[black] (48,-64) node[anchor=north west]{VM2};
 \path[line width=0.30mm, draw=black] (40,-52) -- (44,-52);
 \path[line width=0.30mm, draw=black] (40,-60) -- (44,-60);
 \path[line width=0.30mm, draw=black] (72,-52) -- (84,-52);

@@ -1,7 +1,4 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polyline lw="3" lc="black">24,-12 22,-14</polyline>
-%  <polyline lc="black">22,-14 20,-16</polyline>
-%  <text x="24" y="-12" t="VM1" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">20,-20 22,-21 18,-22 22,-23 18,-24 22,-25 18,-26 22,-27 20,-28</polyline>
 %  <polyline lc="black">20,-28 20,-32</polyline>
 %  <polygon fill="black">22.5,-32 17.5,-32 20,-34.5 22.5,-32</polygon>
@@ -26,15 +23,16 @@
 %  <polyline arr2="h44" arrs="0.5" lc="black">12,-16 20,-16</polyline>
 %  <polyline lc="black">12,-16 16,-16</polyline>
 %  <polyline lc="black">20,-16 16,-16</polyline>
+%  <polyline lw="3" lc="black">24,-12 22,-14</polyline>
+%  <polyline lc="black">22,-14 20,-16</polyline>
+%  <rect x="22" y="-12" w="2" h="-2" lc="black"/>
+%  <text x="24" y="-12" t="VM1" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">20,-16 32,-16</polyline>
 %  <ellipse x="20" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="48" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.9mm, draw=black] (24,-12) -- (22,-14);
-\path[line width=0.30mm, draw=black] (22,-14) -- (20,-16);
-\draw[black] (24,-12) node[anchor=base west]{VM1};
 \path[line width=0.30mm, draw=black] (20,-20) -- (22,-21) -- (18,-22) -- (22,-23) -- (18,-24) -- (22,-25) -- (18,-26) -- (22,-27) -- (20,-28);
 \path[line width=0.30mm, draw=black] (20,-28) -- (20,-32);
 \path[line width=0.30mm, fill=black] (22.5,-32) -- (17.5,-32) -- (20,-34.5) -- (22.5,-32) -- cycle;
@@ -59,6 +57,10 @@
 \path[line width=0.30mm, draw=black, ->] (12,-16) -- (20,-16);
 \path[line width=0.30mm, draw=black] (12,-16) -- (16,-16);
 \path[line width=0.30mm, draw=black] (20,-16) -- (16,-16);
+\path[line width=0.9mm, draw=black] (24,-12) -- (22,-14);
+\path[line width=0.30mm, draw=black] (22,-14) -- (20,-16);
+\path[line width=0.30mm, draw=black] (22,-14) rectangle +(2,2);
+\draw[black] (24,-12) node[anchor=base west]{VM1};
 \path[line width=0.30mm, draw=black] (20,-16) -- (32,-16);
 \path[line width=0.30mm, draw=black, fill=black] (20,-16) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (48,-16) ellipse (0.5mm and -0.5mm);

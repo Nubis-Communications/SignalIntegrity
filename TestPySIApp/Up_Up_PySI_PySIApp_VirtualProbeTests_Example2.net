@@ -1,11 +1,11 @@
 device D1 2 file None
 device D2 4 file None
 device D3 2 file None
+output D2 3
+connect D2 3 D3 1
 meas D1 1
 connect D1 1 D2 1
 stim m1 D1 1
-output D2 3
-connect D2 3 D3 1
 meas D2 2
 connect D2 2 D1 2
 stim m2 D1 2
