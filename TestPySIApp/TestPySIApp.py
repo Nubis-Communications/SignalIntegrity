@@ -182,7 +182,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         filesList=[
             '/home/peterp/Work/PySI/TestPySIApp/FilterTest.xml',
             '/home/peterp/Work/PySI/TestPySIApp/FourPortTLineTest.xml',
-            '/home/peterp/Work/PySI/TestPySIApp/Devices.xml',
+            '/home/peterp/Work/PySI/TestPySIApp/FileDevices.xml',
             '/home/peterp/Work/PySI/TestPySIApp/Noise.xml',
             '/home/peterp/Work/PySI/TestPySIApp/OpenStub.xml',
             '/home/peterp/Work/PySI/PowerIntegrity/TestVRMIstvan2.xml',
