@@ -204,6 +204,8 @@ class Test(unittest.TestCase,SParameterCompareHelper):
             'FourPortTLineTest.xml',
             'FileDevices.xml',
             'GeneratorsDevices.xml',
+            'UnknownDevices.xml',
+            'SystemDevices.xml',
             'Noise.xml',
             'OpenStub.xml',
             '/home/peterp/Work/PySI/PowerIntegrity/TestVRMIstvan2.xml',
