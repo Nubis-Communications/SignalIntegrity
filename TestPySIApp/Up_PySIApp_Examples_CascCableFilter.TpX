@@ -1,0 +1,41 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="48" y="-20" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">44,-24 48,-24</polyline>
+%  <text x="46" y="-22" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">60,-24 56,-24</polyline>
+%  <text x="58" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <text x="52" y="-18" t="cable.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="64" y="-20" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">60,-24 64,-24</polyline>
+%  <text x="62" y="-22" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">76,-24 72,-24</polyline>
+%  <text x="74" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <text x="68" y="-18" t="filter.s2p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">38,-22 40,-24 38,-26</polyline>
+%  <polyline lc="black">44,-24 40,-24</polyline>
+%  <text x="38" y="-24" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">82,-22 80,-24 82,-26</polyline>
+%  <polyline lc="black">76,-24 80,-24</polyline>
+%  <text x="82" y="-24" t="2" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (48,-28) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (44,-24) -- (48,-24);
+\draw[black] (46,-22) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (60,-24) -- (56,-24);
+\draw[black] (58,-22) node[anchor=base]{2};
+\draw[black] (52,-18) node[anchor=base]{cable.s2p};
+\path[line width=0.30mm, draw=black] (64,-28) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (60,-24) -- (64,-24);
+\draw[black] (62,-22) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (76,-24) -- (72,-24);
+\draw[black] (74,-22) node[anchor=base]{2};
+\draw[black] (68,-18) node[anchor=base]{filter.s2p};
+\path[line width=0.30mm, draw=black] (38,-22) -- (40,-24) -- (38,-26);
+\path[line width=0.30mm, draw=black] (44,-24) -- (40,-24);
+\draw[black] (38,-24) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (82,-22) -- (80,-24) -- (82,-26);
+\path[line width=0.30mm, draw=black] (76,-24) -- (80,-24);
+\draw[black] (82,-24) node[anchor=base west]{2};
+\end{tikzpicture}%
