@@ -1,4 +1,0 @@
-device T1 2 tline zc 100.0 td 1e-10
-device O1 1 open
-port 1 T1 1
-connect T1 2 O1 1

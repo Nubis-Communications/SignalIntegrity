@@ -382,7 +382,8 @@ class PartPicture(object):
         by=(drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid
         mx=(lx+rx)/2
         my=(ty+by)/2
-        p=ct.Translate((mx,my))
+        #p=ct.Translate((mx,my))
+        p=(mx,my)
         canvas.create_text(p[0],p[1],text=c,fill=self.color)
 
 class PartPictureXMLClassFactory(object):

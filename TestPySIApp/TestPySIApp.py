@@ -26,7 +26,7 @@ class SParameterCompareHelper(object):
         return True
 
 class Test(unittest.TestCase,SParameterCompareHelper):
-    relearn=True
+    relearn=False
     def TestFileName(self,filename):
         return filename.replace('..', 'Up').replace('/','_').split('.')[0]
     def PictureChecker(self,pysi,filename):
@@ -180,11 +180,12 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         self.SimulationResultsChecker('../PySIApp/Examples/StepGeneratorTest.xml')
     def testPicturesNetlists(self):
         filesList=[
-            '/home/peterp/Work/PySI/TestPySIApp/FilterTest.xml',
-            '/home/peterp/Work/PySI/TestPySIApp/FourPortTLineTest.xml',
-            '/home/peterp/Work/PySI/TestPySIApp/FileDevices.xml',
-            '/home/peterp/Work/PySI/TestPySIApp/Noise.xml',
-            '/home/peterp/Work/PySI/TestPySIApp/OpenStub.xml',
+            'FilterTest.xml',
+            'FourPortTLineTest.xml',
+            'FileDevices.xml',
+            'GeneratorsDevices.xml',
+            'Noise.xml',
+            'OpenStub.xml',
             '/home/peterp/Work/PySI/PowerIntegrity/TestVRMIstvan2.xml',
             '/home/peterp/Work/PySI/PowerIntegrity/VP/Measure.xml',
             '/home/peterp/Work/PySI/PowerIntegrity/VP/Calculate.xml',
