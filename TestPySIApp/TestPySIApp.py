@@ -204,6 +204,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
             'FourPortTLineTest.xml',
             'FileDevices.xml',
             'ReactiveDevices.xml',
+            'TransmissionLineDevices.xml',
             'GeneratorsDevices.xml',
             'UnknownDevices.xml',
             'SystemDevices.xml',

@@ -1,0 +1,6 @@
+device T1 2 telegrapher r 0.0 l 1e-09 g 0.0 c 1e-12 sect 1
+device T2 2 tline zc 50.0 td 0.0
+device T3 4 tline zc 50.0 td 0.0
+device T4 4 telegrapher rp 0.0 lp 1e-09 gp 0.0 cp 1e-12 rn 0.0 ln 1e-09 gn 0.0 cn 1e-12 lm 1e-09 gm 0.0 cm 1e-12 sect 1
+device T5 2 tline zc 50.0 td 0.0
+device T6 4 tline zc 50.0 td 0.0
