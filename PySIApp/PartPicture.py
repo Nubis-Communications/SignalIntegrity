@@ -1455,28 +1455,28 @@ class PartPictureUnknown(PartPictureSpecifiedPorts):
         PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'?')
-        PartPictureSpecifiedPorts.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+        PartPictureSpecifiedPorts.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
 class PartPictureUnknownAcross(PartPictureSpecifiedPortsAcross):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'?')
-        PartPictureSpecifiedPortsAcross.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+        PartPictureSpecifiedPortsAcross.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
 class PartPictureUnknownDownAndUp(PartPictureSpecifiedPortsDownAndUp):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'?')
-        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
 class PartPictureUnknownSide(PartPictureSpecifiedPortsSide):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPortsSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'?')
-        PartPictureSpecifiedPortsSide.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+        PartPictureSpecifiedPortsSide.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
 class PartPictureVariableUnknown(PartPictureVariable):
     def __init__(self,ports=4):
