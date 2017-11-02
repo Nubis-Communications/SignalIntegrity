@@ -163,6 +163,12 @@ class DeviceOpen(Device):
     def NetListLine(self):
         return Device.NetListLine(self)+' open'
 
+class DeviceDirectionalCoupler(Device):
+    def __init__(self):
+        Device.__init__(self,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Directional Coupler'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyDescription('Directional Coupler'),PartPropertyPorts(3)],partPicture=PartPictureVariableDirectionalCoupler())    
+    def NetListLine(self):
+        return Device.NetListLine(self)+' directionalcoupler'
+
 class DeviceVoltageSource(Device):
     def __init__(self,propertiesList,partPicture):
         Device.__init__(self,[PartPropertyCategory('Sources'),PartPropertyPartName('Voltage Source'),PartPropertyDefaultReferenceDesignator('VS?'),PartPropertyWaveformFileName()]+propertiesList,partPicture)
@@ -330,12 +336,6 @@ class DeviceVoltageControlledVoltageSourceFourPort(Device):
     def NetListLine(self):
         return Device.NetListLine(self)+' voltagecontrolledvoltagesource '+str(self[PartPropertyVoltageGain().propertyName].PropertyString(stype='raw'))
 
-class DeviceVoltageAmplifierFourPort(Device):
-    def __init__(self,propertiesList):
-        Device.__init__(self,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('VoltageAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyVoltageGain(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableVoltageControlledVoltageSourceFourPort())
-    def NetListLine(self):
-        return Device.NetListLine(self)+' voltageamplifier '+self[PartPropertyVoltageGain().propertyName].NetListProperty()+' '+self[PartPropertyInputImpedance().propertyName].NetListProperty()+' '+self[PartPropertyOutputImpedance().propertyName].NetListProperty()
-
 class DeviceVoltageAmplifierTwoPort(Device):
     def __init__(self,propertiesList):
         Device.__init__(self,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('VoltageAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyVoltageGain(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableVoltageAmplifierTwoPort())
@@ -481,6 +481,7 @@ DeviceList = [
               DeviceIdealTransformer(),
               DeviceGround(),
               DeviceOpen(),
+              DeviceDirectionalCoupler(),
               DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
               DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
               DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),

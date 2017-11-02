@@ -29,3 +29,4 @@ from TransconductanceAmplifier import *
 from TLineFourPort import *
 from TLineTwoPort import *
 from OperationalAmplifier import OperationalAmplifier
+from DirectionalCoupler import DirectionalCoupler
