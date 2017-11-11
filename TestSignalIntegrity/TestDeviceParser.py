@@ -375,9 +375,13 @@ class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
         self.Tester(self.id(),'telegrapher',4)
     def testTelegrapher4LC(self):
         self.Tester(self.id(),'telegrapher',4,lp='58.5e-9',cp='20e-12',ln='58.5e-9',cn='20e-12',lm='13.5e-9',cm='1.111e-12',sect='10000')
+    def testDirectionalCoupler3(self):
+        self.Tester(self.id(),'directionalcoupler',3)
+    def testDirectionalCoupler4(self):
+        self.Tester(self.id(),'directionalcoupler',4)
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,28)
+        self.assertEqual(L,29)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,[],[1,2,3]))
