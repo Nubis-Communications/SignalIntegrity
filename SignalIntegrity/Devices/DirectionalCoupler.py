@@ -9,7 +9,14 @@
 '''
 # port 1 and 2 are a thru
 # port 3 picks off the wave going from port 1 to 2
-def DirectionalCoupler():
-    return [[0,1,0],
-            [1,0,0],
-            [1,0,0]]
+# port 4 (optional) picks off the wave going from port 2 to port 1
+def DirectionalCoupler(ports):
+    if ports==3:
+        return [[0,1,0],
+                [1,0,0],
+                [1,0,0]]
+    elif ports==4:
+        return [[0,1,0,0],
+                [1,0,0,0],
+                [1,0,0,0],
+                [0,1,0,0]]

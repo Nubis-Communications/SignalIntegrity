@@ -200,6 +200,8 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         self.SimulationResultsChecker('../PySIApp/Examples/StepGeneratorTest.xml')
     def testPySIAppPySIBookMeasurementTDRSimulationTest(self):
         self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation.xml')
+    def testPySIAppPySIBookMeasurementTDRSimulationTest2(self):
+        self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation2.xml')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.xml',
@@ -328,6 +330,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
             '/home/peterp/Work/TempProject/SenseResistorMeasurement.xml',
             '/home/peterp/Work/TempProject/SenseResistorSimple.xml',
             '/home/peterp/Work/PySIBook/Measurement/TDRSimulation.xml',
+            '/home/peterp/Work/PySIBook/Measurement/TDRSimulation2.xml',
         ]
         for filename in filesList:
             filename=filename.replace('/home/peterp/Work','../..')

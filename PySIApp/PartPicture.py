@@ -567,19 +567,19 @@ class PartPictureVariableOpen(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureOpen'],1)
 
-class PartPictureDirectionalCoupler(PartPictureBox):
+class PartPictureDirectionalCouplerThreePort(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(4,1),'r',False,True,True),PartPin(3,(2,3),'b',False,True,True)],[(1,0),(3,2)],[(0,0),(4,3)],(0,-2),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(4,1),'r',False,True,True),PartPin(3,(2,3),'b',False,True,True)],[(1,0),(3,2)],[(0,0),(4,3)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         # arrow on the sensing port
         ct=self.CoordinateTranslater(grid,drawingOrigin)
-        lx=(drawingOrigin[0]+self.origin[0]+1.25)*grid
-        rx=(drawingOrigin[0]+self.origin[0]+2.75)*grid
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
         y=(drawingOrigin[1]+self.origin[1]+1)*grid
         p=[ct.Translate((lx,y)),ct.Translate((rx,y))]
-        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
         ct=self.CoordinateTranslater(grid,drawingOrigin)
-        sx=(drawingOrigin[0]+self.origin[0]+0.25)*grid
+        sx=(drawingOrigin[0]+self.origin[0]+0)*grid
         sy=(drawingOrigin[1]+self.origin[1]+1)*grid
         ex=(drawingOrigin[0]+self.origin[0]+2)*grid
         ey=(drawingOrigin[1]+self.origin[1]+2.5)*grid
@@ -593,9 +593,51 @@ class PartPictureDirectionalCoupler(PartPictureBox):
         canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))        
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
-class PartPictureVariableDirectionalCoupler(PartPictureVariable):
+class PartPictureVariableDirectionalCouplerThreePort(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureDirectionalCoupler'],3)
+        PartPictureVariable.__init__(self,['PartPictureDirectionalCouplerThreePort'],3)
+
+class PartPictureDirectionalCouplerFourPort(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,2),'l',False,True,True),PartPin(2,(4,2),'r',False,True,True),PartPin(3,(2,4),'b',False,True,True),PartPin(4,(2,0),'t',False,True,True)],[(1,1),(3,3)],[(0,0),(4,4)],(1,1),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # arrow on the sensing port
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        y=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=[ct.Translate((lx,y)),ct.Translate((rx,y))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        sx=(drawingOrigin[0]+self.origin[0]+0)*grid
+        sy=(drawingOrigin[1]+self.origin[1]+2)*grid
+        ex=(drawingOrigin[0]+self.origin[0]+2)*grid
+        ey=(drawingOrigin[1]+self.origin[1]+3.5)*grid
+        p=[ct.Translate((sx,sy)),ct.Translate((ex,ey))]
+        r0=self.ArcConverter(0,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r0[0],extent=r0[1],style='arc',outline=self.color)
+        x=(drawingOrigin[0]+self.origin[0]+2)*grid
+        sy=(drawingOrigin[1]+self.origin[1]+2.75)*grid
+        ey=(drawingOrigin[1]+self.origin[1]+3)*grid
+        p=[ct.Translate((x,sy)),ct.Translate((x,ey))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))        
+        sx=(drawingOrigin[0]+self.origin[0]+2)*grid
+        sy=(drawingOrigin[1]+self.origin[1]+0.5)*grid
+        ex=(drawingOrigin[0]+self.origin[0]+4)*grid
+        ey=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=[ct.Translate((sx,sy)),ct.Translate((ex,ey))]
+        r0=self.ArcConverter(180,90,int(ct.rotationAngle),ct.mirroredVertically,ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r0[0],extent=r0[1],style='arc',outline=self.color)
+        x=(drawingOrigin[0]+self.origin[0]+2)*grid
+        sy=(drawingOrigin[1]+self.origin[1]+1.25)*grid
+        ey=(drawingOrigin[1]+self.origin[1]+1)*grid
+        p=[ct.Translate((x,sy)),ct.Translate((x,ey))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))        
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableDirectionalCouplerFourPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureDirectionalCouplerFourPort'],3)
 
 class PartPictureInductorTwoPort(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

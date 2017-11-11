@@ -42,7 +42,7 @@ class DeviceFactory(object):
         ParserDevice('ground',1,False,{},False,"Ground()"),
         ParserDevice('open',1,False,{},False,"Open()"),
         ParserDevice('thru',2,False,{},False,"Thru()"),
-        ParserDevice('directionalcoupler',3,False,{},False,"DirectionalCoupler()"),
+        ParserDevice('directionalcoupler','3-4',False,{},False,"DirectionalCoupler(ports)"),
         ParserDevice('termination',None,False,{},False,
                      "zeros(shape=(ports,ports)).tolist()"),
         ParserDevice('tee',None,False,{},False,"Tee(ports)"),
