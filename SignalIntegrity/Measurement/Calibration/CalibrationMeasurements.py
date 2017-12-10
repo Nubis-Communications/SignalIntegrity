@@ -35,6 +35,13 @@ class ThruCalibrationMeasurement(CalibrationMeasurement):
         self.portDriven=portDriven
         self.otherPort=otherPort
 
+class XtalkCalibrationMeasurement(CalibrationMeasurement):
+    def __init__(self,s,portDriven,otherPort,name=None):
+        CalibrationMeasurement.__init__(self,'xtalk',name)
+        self.s=s
+        self.portDriven=portDriven
+        self.otherPort=otherPort
+
 class CalibrationMeasurements(object):
     def __init__(self,ports,calibrationList=[]):
         self.ports=ports
@@ -48,7 +55,7 @@ class CalibrationMeasurements(object):
                 portDriven=calibrationMeasurement.port
                 otherPort=portDriven
                 self.calibrationMatrix[otherPort-1][portDriven-1].append(calibrationMeasurement)
-            elif calibrationMeasurement.type=='thru':
+            elif (calibrationMeasurement.type=='thru') or (calibrationMeasurement.type=='xtalk'):
                 portDriven=calibrationMeasurement.portDriven
                 otherPort=calibrationMeasurement.otherPort
                 self.calibrationMatrix[otherPort-1][portDriven-1].append(calibrationMeasurement)
@@ -78,36 +85,45 @@ class CalibrationMeasurements(object):
                 left[m][1]=measurementList[m].Gamma[n][0][0]*measurementList[m].gamma[n][0][0]
                 left[m][2]=-measurementList[m].Gamma[n][0][0]
                 right[m]=[measurementList[m].gamma[n][0][0]]
-            (Ed,Es,detS)=tuple((matrix(left).getI()*matrix(right)).tolist())
-            Er=detS-Ed*Es
+            EdEsdetS=(matrix(left).getI()*matrix(right)).tolist()
+            (Ed,Es,detS)=(EdEsdetS[0][0],EdEsdetS[1][0],EdEsdetS[2][0])
+            Er=Ed*Es-detS
             data.append([[Ed,1.],[Er,Es]])
         return SParameters(fList,data)
     def CalculateThruErrorTerms(self,measurementList,reflectErrorTerms):
-        self.ET=None
-        fList=measurementList[0].s.m_f
+        xtalkMeasurementList=[]
+        thruMeasurementList=[]
+        for meas in measurementList:
+            if meas.type=='xtalk':
+                xtalkMeasurementList.append(meas)
+            elif meas.type=='thru':
+                thruMeasurementList.append(meas)
+        if len(xtalkMeasurementList)==0:
+            ExSp=0
+        else:
+            ExSp=xtalkMeasurementList[0].s
+        fList=thruMeasurementList[0].s.m_f
         data=[]
         for n in range(len(fList)):
-            leftEl=[[0.] for _ in range(len(measurementList))]
-            rightEl=[[0.] for _ in range(len(measurementList))]
-            for m in range(len(measurementList)):
-                S=measurementList[m].S[n]
-                s=measurementList[m].s[n]
-                SL=T2S(S2T(reflectErrorTerms[n])*S2T(S))
-                detSL=det(matrix(SL)).tolist()
-                leftEl[m][0]=detSL-s[0][0]*s[1][1]
-                rightEl[m][0]=SL[0][0]-s[0][0]
-            El=(matrix(leftEl).getI()*matrix(rightEl)).tolist()[0][0]
-            leftEt=[[0.] for _ in range(len(measurementList))]
-            rightEt=[[0.] for _ in range(len(measurementList))]
-            for m in range(len(measurementList)):
-                S=measurementList[m].S[n]
-                s=measurementList[m].s[n]
-                SL=T2S(S2T(reflectErrorTerms[n])*S2T(S))
-                detSL=det(matrix(SL)).tolist()
-                leftEt[m][0]=SL[1][0]
-                rightEt[m][0]=s[1][0]*(1-SL[1][1]*El)
-            Et=(matrix(leftEt).getI()*matrix(rightEt)).tolist()[0][0]
-            data.append([[El,0.],[Et,0.]])
+            A=[[0. for _ in range(2)] for _ in range(2*len(thruMeasurementList))]
+            B=[[0.] for _ in range(2*len(thruMeasurementList))]
+            Ed=reflectErrorTerms[n][0][0]
+            Er=reflectErrorTerms[n][1][0]
+            Es=reflectErrorTerms[n][1][1]
+            Ex=ExSp[n]
+            for m in range(len(thruMeasurementList)):
+                S=thruMeasurementList[m].S[n]
+                s=thruMeasurementList[m].s[n]
+                detS=det(matrix(S))
+                A[2*m][0]=(Es*detS-S[1][1])*(Ed-s[0][0])-Er*detS
+                A[2*m][1]=0.
+                A[2*m+1][0]=(Es*detS*S[1][1])*(Ex-s[1][0])
+                A[2*m+1][1]=s[1][0]
+                B[2*m][0]=(1.-Es*S[0][0])*(s[0][0]-Ed)-Er*s[0][0]
+                B[2*m+1][0](1.-Es*S[0][0])*(s[1][0]-Ex)
+            ElEt=(matrix(B)*matrix(A).getI()).tolist()
+            (El,Et)=(ElEt[0][0],ElEt[1][0])
+            data.append([[El,Ex],[Et,0.]])
         return SParameters(fList,data)
     def ErrorTerms(self):
         if self.ET is None:

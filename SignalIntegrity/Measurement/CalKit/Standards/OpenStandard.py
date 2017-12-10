@@ -21,7 +21,14 @@ class OpenStandard(SParameters):
         sd.AddDevice('C',1)
         sd.AddPort('offset',1,1)
         sd.ConnectDevicePort('offset',2,'C',1)
-        sd.AssignSParameters('offset',Offset(f,offsetDelay,offsetZ0,offsetLoss))
-        sd.AssignSParameters('C',TerminationCPolynomial(f,C0*1e-15,C1*1e-27,C2*1e-36,C3*1e-45))
         sspn=SystemSParametersNumeric(sd)
-        SParameters.__init__(self,f,sspn.SParameters().m_d)
+
+        offsetSParameters=Offset(f,offsetDelay,offsetZ0,offsetLoss)
+        terminationSParameters=TerminationCPolynomial(f,C0*1e-15,C1*1e-27,C2*1e-36,C3*1e-45)
+
+        sp=[]
+        for n in range(len(f)):
+            sspn.AssignSParameters('offset',offsetSParameters[n])
+            sspn.AssignSParameters('C',terminationSParameters[n])
+            sp.append(sspn.SParameters())
+        SParameters.__init__(self,f,sp)

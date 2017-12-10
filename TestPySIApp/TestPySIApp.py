@@ -202,6 +202,8 @@ class Test(unittest.TestCase,SParameterCompareHelper):
         self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation.xml')
     def testPySIAppPySIBookMeasurementTDRSimulationTest2(self):
         self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation2.xml')
+    def testPySIAppPySIBookMeasurementTDRSimulationTest3(self):
+        self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation3.xml')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.xml',

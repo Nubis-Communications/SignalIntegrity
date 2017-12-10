@@ -37,7 +37,7 @@ from SignalIntegrity.SParameters.SParameterFile import SParameterFile
 # % offset loss (GOhm/s) - LOAD
 # % offset delay (pS) - THRU
 # % real(Zo) of offset length - THRU
-# % offset loss (GOhm/s) – THRU
+# % offset loss (GOhm/s) - THRU
 # 63.170000 
 # -1178.000000
 # 109.600000
@@ -81,7 +81,7 @@ class CalibrationConstants(object):
         self.loadOffsetLoss=0.      # % offset loss (GOhm/s) - LOAD
         self.thruOffsetDelay=0.     # % offset delay (pS) - THRU
         self.thruOffsetZ0=50.       # % real(Zo) of offset length - THRU
-        self.thruOffsetLoss=0.      # % offset loss (GOhm/s) – THRU
+        self.thruOffsetLoss=0.      # % offset loss (GOhm/s) - THRU
 
     def ReadFromFile(self,filename):
         with open(filename) as f:
@@ -110,7 +110,7 @@ class CalibrationConstants(object):
         self.loadOffsetLoss=float(actualLines[17]*1e9)      # % offset loss (GOhm/s) - LOAD
         self.thruOffsetDelay=float(actualLines[18]*1e-12)   # % offset delay (pS) - THRU
         self.thruOffsetZ0=float(actualLines[19])            # % real(Zo) of offset length - THRU
-        self.thruOffsetLoss=float(actualLines[20]*1e9)      # % offset loss (GOhm/s) – THRU
+        self.thruOffsetLoss=float(actualLines[20]*1e9)      # % offset loss (GOhm/s) - THRU
         return self
     def WriteToFile(self,filename,calkitname=None):
         line=[]
@@ -139,7 +139,7 @@ class CalibrationConstants(object):
         line.append('% offset loss (GOhm/s) - LOAD\n')
         line.append('% offset delay (pS) - THRU\n')
         line.append('% real(Zo) of offset length - THRU\n')
-        line.append('% offset loss (GOhm/s) – THRU\n')
+        line.append('% offset loss (GOhm/s) - THRU\n')
         line.append(str(self.openC0/1e-15)+'\n')            # % C0 (fF) - OPEN
         line.append(str(self.openC1/1e-27)+'\n')            # % C1 (1e-27 F/Hz) - OPEN
         line.append(str(self.openC2/1e-36)+'\n')            # % C2 (1e-36 F/Hz^2) - OPEN
@@ -160,7 +160,7 @@ class CalibrationConstants(object):
         line.append(str(self.loadOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) - LOAD
         line.append(str(self.thruOffsetDelay/1e-12)+'\n')   # % offset delay (pS) - THRU
         line.append(str(self.thruOffsetZ0)+'\n')            # % real(Zo) of offset length - THRU
-        line.append(str(self.thruOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) – THRU
+        line.append(str(self.thruOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) - THRU
         return self
 
 class CalibrationKit(object):

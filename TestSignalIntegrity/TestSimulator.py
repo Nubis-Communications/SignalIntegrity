@@ -3,7 +3,7 @@ import SignalIntegrity as si
 from TestHelpers import *
 import numpy as np
 
-class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper,CallbackTesterHelper):
+class AAATestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper,CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         CallbackTesterHelper.__init__(self)
@@ -229,7 +229,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=sp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         # check theory for filter response based on s-parameters
@@ -260,6 +260,18 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
             plt.plot(tdr.Times('ns'),tdr.Values(),label='tdr response')
             plt.legend(loc='upper right')
             plt.show()
+        
+        if False:
+            regression=si.td.wf.Waveform().ReadFromFile('Waveform_'+fileNameBase+'_StepResponse.txt')
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.xlabel('time (ns)')
+            plt.ylabel('amplitude')
+            plt.plot(regression.Times('ns'),regression.Values(),label='regression step response')
+            plt.plot(sr.Times('ns'),sr.Values(),label='step response')
+            plt.legend(loc='upper right')
+            plt.show()
+            
         self.CheckWaveformResult(stepin,'Waveform_'+fileNameBase+'_StepIn.txt','Waveform_'+fileNameBase+'_StepIn.txt')
         self.CheckWaveformResult(sr,'Waveform_'+fileNameBase+'_StepResponse.txt','Waveform_'+fileNameBase+'_StepResponse.txt')
         self.CheckWaveformResult(tdr,'Waveform_'+fileNameBase+'_TdrResponse.txt','Waveform_'+fileNameBase+'_TdrResponse.txt')
@@ -280,7 +292,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=sp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorParserVoltageSourceTwoPorts(self):
@@ -303,7 +315,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=sp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9))
@@ -347,7 +359,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=sp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
     def testSimulatorXRay041(self):
@@ -376,7 +388,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-80e-9,160*40,40e9))
@@ -485,7 +497,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName+' incorrect')
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
@@ -539,7 +551,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
@@ -614,7 +626,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
         # pragma: include
@@ -692,7 +704,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
@@ -795,7 +807,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
@@ -865,7 +877,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssnp2.AddLine('port 1 T 1 2 T 2')
         sp2=ssnp2.SParameters()
         # pragma: exclude
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s2p'
         self.CheckSParametersResult(sp1,fileNameBase+'_1.s2p',fileNameBase+'_1.s2p')
         self.CheckSParametersResult(sp2,fileNameBase+'_2.s2p',fileNameBase+'_2.s2p')
@@ -902,7 +914,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssnp2.AddLine('port 1 MM1 1 2 MM2 1 3 MM1 2 4 MM2 2')
         sp2=ssnp2.SParameters()
         # pragma: exclude
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s4p'
         self.CheckSParametersResult(sp1,fileNameBase+'_1.s4p',fileNameBase+'_1.s4p')
         self.CheckSParametersResult(sp2,fileNameBase+'_2.s4p',fileNameBase+'_2.s4p')
@@ -924,7 +936,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
@@ -964,7 +976,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         self.CheckSParametersResult(tmsp,spFileName,spFileName)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-20e-9,40*80,80e9))
@@ -1019,7 +1031,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssp.AddLine('port 1 O1 1 2 O2 1')
         sp=ssp.SParameters()
         # pragma: exclude
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s2p'
         self.CheckSParametersResult(sp,spFileName,spFileName)
     def testDiabolicalSymbolic2(self):
@@ -1055,7 +1067,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         ssp.AddLine('connect T1 2 T2 1')
         try:
             sp=ssp.SParameters()
-            fileNameBase = self.id().split('.')[2].replace('test','')
+            fileNameBase = self.id().split('.')[-1].replace('test','')
             spFileName = fileNameBase +'.s2p'
             self.CheckSParametersResult(sp,spFileName,spFileName)
         except np.linalg.linalg.LinAlgError:
@@ -1075,7 +1087,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         #self.CheckSParametersResult(tmsp,spFileName,spFileName)
         self.assertTrue(self.CheckCallbackTesterResults([21,0.,100.]),'simulator transfer matrix callback incorrect')
@@ -1114,7 +1126,7 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
         tm=snp.TransferMatrices()
         tmsp=tm.SParameters()
         ports=tmsp.m_P
-        fileNameBase = self.id().split('.')[2].replace('test','')
+        fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         #self.CheckSParametersResult(tmsp,spFileName,spFileName)
         self.assertTrue(self.CheckCallbackTesterResults([21,0.,100.]),'simulator transfer matrix callback incorrect')

@@ -22,7 +22,14 @@ class LoadStandard(SParameters):
         sd.AddDevice('Z',1)
         sd.AddPort('offset',1,1)
         sd.ConnectDevicePort('offset',2,'Z',1)
-        sd.AssignSParameters('offset',Offset(f,offsetDelay,offsetZ0,offsetLoss))
-        sd.AssignSParameters('Z',TerminationZ(terminationZ0))
         sspn=SystemSParametersNumeric(sd)
-        SParameters.__init__(self,f,sspn.SParameters().m_d)
+
+        offsetSParameters=Offset(f,offsetDelay,offsetZ0,offsetLoss)
+        terminationSParameters=TerminationZ(terminationZ0)
+
+        sp=[]
+        for n in range(len(f)):
+            sspn.AssignSParameters('offset',offsetSParameters[n])
+            sspn.AssignSParameters('Z',terminationSParameters)
+            sp.append(sspn.SParameters())
+        SParameters.__init__(self,f,sp)

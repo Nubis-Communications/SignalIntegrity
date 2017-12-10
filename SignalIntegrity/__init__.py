@@ -16,3 +16,4 @@ from PySIException import *
 import Wavelets as wl
 from Rat import *
 import Measurement as m
+import Test as test

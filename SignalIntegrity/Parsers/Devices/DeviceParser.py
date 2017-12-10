@@ -15,6 +15,7 @@ from SignalIntegrity.SubCircuits import SubCircuit
 from SignalIntegrity.Devices import *
 from SignalIntegrity.SParameters.Devices import *
 from SignalIntegrity.PySIException import PySIExceptionDeviceParser
+from SignalIntegrity.Measurement.CalKit.Standards import *
 
 class ParserDevice(object):
     def __init__(self,devicename,ports,arginname,defaults,frequencyDependent,func):
@@ -87,7 +88,22 @@ class DeviceFactory(object):
                      float(arg['gm']),float(arg['z0']),int(arg['sect']))"),
         ParserDevice('opamp',3,False,{'zi':1e8,'zd':1e8,'zo':0.,'gain':1e8,'z0':50.},
                      False,"OperationalAmplifier(float(arg['zi']),float(arg['zd']),\
-                     float(arg['zo']),float(arg['gain']),float(arg['z0']))")
+                     float(arg['zo']),float(arg['gain']),float(arg['z0']))"),
+        # pragma: silent exclude
+        ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
+                    'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
+                     "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
+                     float(arg['l0']),float(arg['l1']),float(arg['l2']),float(arg['l3']))"),
+        ParserDevice('openstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
+                    'c0':0.0,'c1':0.0,'c2':0.0,'c3':0.0},True,
+                     "OpenStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
+                     float(arg['c0']),float(arg['c1']),float(arg['c2']),float(arg['c3']))"),
+        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'tz0':50.0},
+                     True,"LoadStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
+                     float(arg['tz0']))"),
+        ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0},
+                     True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']))")
+        # pragma: silent include
         ]
     def __getitem__(self,item):
         return self.deviceList[item]

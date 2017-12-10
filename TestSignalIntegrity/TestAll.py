@@ -37,6 +37,7 @@ from TestFrequencyList import *
 from TestPI import *
 from TestDescriptors import *
 from TestAdaptDecimate import *
+from TestSPARQSOLT import *
 
 if __name__ == '__main__':
     unittest.main()

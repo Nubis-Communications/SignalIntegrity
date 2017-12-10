@@ -21,7 +21,8 @@ class SParameterCompareHelper(object):
         if lhs.m_Z0 != rhs.m_Z0: return False
         if len(lhs) != len(rhs): return False
         for n in range(len(lhs)):
-            if abs(lhs.m_f[n] - rhs.m_f[n]) > epsilon: return False
+            if abs(lhs.m_f[n] - rhs.m_f[n]) > .1:
+                return False
             lhsn=lhs[n]
             rhsn=rhs[n]
             for r in range(lhs.m_P):
@@ -79,7 +80,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
 class SourcesTesterHelper(object):
     def CheckSymbolicResult(self,selfid,symbolic,Text):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        fileName = ('_'.join(selfid.split('.')[2:])).replace('test','') + '.tex'
+        fileName = ('_'.join(selfid.split('.')[-1:])).replace('test','') + '.tex'
         if not os.path.exists(fileName):
             symbolic.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')

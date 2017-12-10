@@ -4,7 +4,7 @@ from TestHelpers import *
 import numpy as np
 import math
 
-class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
+class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
