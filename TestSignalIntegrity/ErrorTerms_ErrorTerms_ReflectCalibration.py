@@ -1,33 +1,5 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from numpy import matrix,zeros, identity
-from numpy.linalg import det
-
-# Error terms are, for P ports, a P x P matrix of lists of three error terms.
-# For the diagonal elements, the three error terms are ED, ER, and ES in that order
-# for the off diagonal elements, the three error terms are EX, ET and EL in that order
-# for r in 0...P-1, and c in 0...P-1,  ET[r][c] = [ED[r],ER[r],ES[r]], when r==c
-# ET[r][c]=[EX[r][c],ET[r][c],EL[r][c]] when r !=c
 class ErrorTerms(object):
-    def __init__(self,ET=None):
-        self.ET=ET
-        if not ET is None:
-            self.numPorts=len(ET)
-        else:
-            self.numPorts=None
-    def Initialize(self,numPorts):
-        self.numPorts=numPorts
-        self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)] for _ in range(self.numPorts)]
-        return self
-    def _Zeros(self):
-        return [[0. for _ in range(self.numPorts)] for _ in range(self.numPorts)]
+...
     def Fixture(self,m):
         E=[[self._Zeros(),self._Zeros()],[self._Zeros(),self._Zeros()]]
         for n in range(self.numPorts):
@@ -48,12 +20,6 @@ class ErrorTerms(object):
         self.ET[m][m]=[Ed,Er,Es]
         return self
     def ThruCalibration(self,b1a1,b2a1,S,m,n):
-        # pragma: silent exclude
-        if not isinstance(b1a1,list):
-            b1a1=[b1a1]
-            b2a1=[b2a1]
-            S=[S]
-        # pragma: include
         [Ed,Er,Es]=self.ET[m][m]
         Ex=self.ET[m][n][0]
         A=zeros((2*len(b1a1),2)).tolist()

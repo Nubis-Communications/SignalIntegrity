@@ -5,8 +5,9 @@ import os
 
 from SignalIntegrity.Test import PySIAppTestHelper
 import matplotlib.pyplot as plt
+from TestSignalIntegrity.TestHelpers import RoutineWriterTesterHelper
 
-class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper):
+class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -15,6 +16,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        RoutineWriterTesterHelper.__init__(self)
     def testSPARQSOLPerfectButWithLength(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -94,9 +96,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
 
     def testSPARQSOLImPerfectButWithLength(self):
@@ -178,9 +180,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
         
     def testVNASOLPerfect(self):
@@ -255,9 +257,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
         return
         
@@ -340,9 +342,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
         return
 
@@ -406,9 +408,8 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
         regression=si.sp.SParameterFile(spfilename)
         self.assertTrue(self.SParametersAreEqual(sp, regression,1e-3),spfilename + ' incorrect')
         os.chdir(currentDirectory)
-    def TestName(self):
+    def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
-
     def testSPARQSOLPerfectButWithLengthDelay(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -490,9 +491,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
 
     def testSPARQSOLImPerfectButWithLengthDelay(self):
@@ -692,9 +693,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-4),'s-parameters not equal')
         
     def testVNASOLPerfectDelay(self):
@@ -770,9 +771,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
         return
         
@@ -816,7 +817,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                       'output I 4']
 
         tm=si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 ground']).TransferMatrices()
-        self.SParameterRegressionChecker(tm.SParameters(), self.TestName()+'_ShortXferMatrices.s4p')
+        self.SParameterRegressionChecker(tm.SParameters(), self.NameForTest()+'_ShortXferMatrices.s4p')
         td=si.td.wf.TimeDescriptor(-51e-9,112,1e9)
         iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-1.5e-9,PulseWidth=1.5e-9)
         tmp=si.td.f.TransferMatricesProcessor(tm)
@@ -855,7 +856,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
             plt.show()
 
         tm=si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices()
-        self.SParameterRegressionChecker(tm.SParameters(), self.TestName()+'_OpenXferMatrices.s4p')
+        self.SParameterRegressionChecker(tm.SParameters(), self.NameForTest()+'_OpenXferMatrices.s4p')
         tmp = si.td.f.TransferMatricesProcessor(tm)
         wfList=tmp.ProcessWaveforms([iwf])
         refwffc=wfList[2].FrequencyContent()
@@ -891,7 +892,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
             plt.show()
 
         tm=si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 50.0']).TransferMatrices()
-        self.SParameterRegressionChecker(tm.SParameters(), self.TestName()+'_LoadXferMatrices.s4p')
+        self.SParameterRegressionChecker(tm.SParameters(), self.NameForTest()+'_LoadXferMatrices.s4p')
         tmp = si.td.f.TransferMatricesProcessor(tm)
         wfList=tmp.ProcessWaveforms([iwf])
         refwffc=wfList[2].FrequencyContent()
@@ -927,7 +928,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
             plt.show()
 
         tm=si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 20.0']).TransferMatrices()
-        self.SParameterRegressionChecker(tm.SParameters(), self.TestName()+'_DUTXferMatrices.s4p')
+        self.SParameterRegressionChecker(tm.SParameters(), self.NameForTest()+'_DUTXferMatrices.s4p')
         tmp = si.td.f.TransferMatricesProcessor(tm)
         wfList=tmp.ProcessWaveforms([iwf])
         refwffc=wfList[2].FrequencyContent()
@@ -976,9 +977,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 5e-4),'s-parameters not equal')
 
     def testSPARQSOLImPerfectButWithLengthDelayCalStd(self):
@@ -1178,9 +1179,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSP, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOL(self):
@@ -1217,9 +1218,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spDict['Dut'][n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s1p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSp=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
-        self.SParameterRegressionChecker(DUTActualSp, self.TestName()+'_Actual.s1p')
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOLT(self):
@@ -1349,17 +1350,23 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper)
             et[n].ThruCalibration(spDict['Thru'][n][1][1],spDict['Thru'][n][0][1],calStandards[3][n],0,1)
             DUT[n]=et[n].DutCalculation(spDict['Dut'][n])
         DUTCalcSp=si.sp.SParameters(f,DUT)
-        self.SParameterRegressionChecker(DUTCalcSp, self.TestName()+'_Calc.s2p')
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
         DUTActualSp=si.sp.SParameterFile('BMYchebySParameters.s2p').Resample(DUTCalcSp.f())
         DUTActualSp=si.m.calkit.ThruStandard(f,100e-12)
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
-        self.SParameterRegressionChecker(DUTActualSp, self.TestName()+'_Actual.s2p')
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
     def testThruStandard(self):
         Fe=20e9
         N=200
         sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
-        self.SParameterRegressionChecker(sp, self.TestName()+'.s2p')
+        self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
+    def testWriteErrorTermsCode(self):
+        fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['ReflectCalibration','ThruCalibration','ExCalibration','DutCalculation','Fixture']
+        self.WriteClassCode(fileName,className,defName)
+        #self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
 
 if __name__ == "__main__":
     unittest.main()

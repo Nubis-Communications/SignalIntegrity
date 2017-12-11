@@ -8,14 +8,14 @@ class PySIAppTestHelper:
     relearn=True
     def __init__(self,path):
         self.path=path
-    def TestFileName(self,filename):
+    def FileNameForTest(self,filename):
         return filename.replace('..', 'Up').replace('/','_').split('.')[0]
     def PictureChecker(self,pysi,filename):
         if not self.checkPictures:
             return
         currentDirectory=os.getcwd()
         os.chdir(self.path)
-        testFilename=self.TestFileName(filename)+'.TpX'
+        testFilename=self.FileNameForTest(filename)+'.TpX'
         try:
             tpx=pysi.Drawing.DrawSchematic(TpX()).Finish()
             tikz=pysi.Drawing.DrawSchematic(TikZ()).Finish()
@@ -33,7 +33,7 @@ class PySIAppTestHelper:
     def NetListChecker(self,pysi,filename):
         currentDirectory=os.getcwd()
         os.chdir(self.path)
-        testFilename=self.TestFileName(filename)+'.net'
+        testFilename=self.FileNameForTest(filename)+'.net'
         try:
             netlist=pysi.Drawing.schematic.NetList().Text()
         except:
@@ -84,7 +84,7 @@ class PySIAppTestHelper:
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         spfilename=result[1]
-        spfilename=self.TestFileName(filename)+'.'+spfilename.split('.')[-1]
+        spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
         sp=result[0]
         self.SParameterRegressionChecker(sp, spfilename)
     def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
@@ -103,11 +103,11 @@ class PySIAppTestHelper:
                 raise
         except:
             self.assertTrue(False, filename + 'has no transfer matrices')
-        spfilename=self.TestFileName(filename)+'.s'+str(ports)+'p'
+        spfilename=self.FileNameForTest(filename)+'.s'+str(ports)+'p'
         self.SParameterRegressionChecker(sp, spfilename)
         for i in range(len(outputNames)):
             wf=outputWaveforms[i]
-            wffilename=self.TestFileName(filename)+'_'+outputNames[i]+'.txt'
+            wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
         return result
     def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
@@ -126,11 +126,11 @@ class PySIAppTestHelper:
                 raise
         except:
             self.assertTrue(False, filename + 'has no transfer matrices')
-        spfilename=self.TestFileName(filename)+'.s'+str(ports)+'p'
+        spfilename=self.FileNameForTest(filename)+'.s'+str(ports)+'p'
         self.SParameterRegressionChecker(sp, spfilename)
         for i in range(len(outputNames)):
             wf=outputWaveforms[i]
-            wffilename=self.TestFileName(filename)+'_'+outputNames[i]+'.txt'
+            wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
     def DeembeddingResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
@@ -138,7 +138,7 @@ class PySIAppTestHelper:
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         spfilenames=result[0]
-        spfilenames=[self.TestFileName(filename)+'_'+spf for spf in spfilenames]
+        spfilenames=[self.FileNameForTest(filename)+'_'+spf for spf in spfilenames]
         sps=result[1]
         for i in range(len(spfilenames)):
             sp=sps[i]
