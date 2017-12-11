@@ -3,7 +3,7 @@ class ErrorTerms(object):
     def Fixture(self,m):
         E=[[self._Zeros(),self._Zeros()],[self._Zeros(),self._Zeros()]]
         for n in range(self.numPorts):
-            ETn=self.ET[m][n]
+            ETn=self.ET[n][m]
             E[0][0][m][n]=ETn[0]
             E[0][1][n][n]=ETn[1]
             E[1][1][n][n]=ETn[2]
@@ -19,9 +19,9 @@ class ErrorTerms(object):
         Er=Ed*Es-DeltaS
         self.ET[m][m]=[Ed,Er,Es]
         return self
-    def ThruCalibration(self,b1a1,b2a1,S,m,n):
+    def ThruCalibration(self,b1a1,b2a1,S,n,m):
         [Ed,Er,Es]=self.ET[m][m]
-        Ex=self.ET[m][n][0]
+        Ex=self.ET[n][m][0]
         A=zeros((2*len(b1a1),2)).tolist()
         B=zeros((2*len(b1a1),1)).tolist()
         for i in range(len(b1a1)):
@@ -35,12 +35,12 @@ class ErrorTerms(object):
             B[2*i+1][0]=(1-Es*Sm[0][0])*(b2a1[i]-Ex)
         ElEt=(matrix(A).getI()*matrix(B)).tolist()
         (El,Et)=(ElEt[0][0],ElEt[1][0])
-        self.ET[m][n]=[Ex,Et,El]
+        self.ET[n][m]=[Ex,Et,El]
         return self
-    def ExCalibration(self,b2a1,m,n):
-        [Ex,Et,El]=self.ET[m][n]
+    def ExCalibration(self,b2a1,n,m):
+        [Ex,Et,El]=self.ET[n][m]
         Ex=b2a1
-        self.ET[m][n]=[Ex,Et,El]
+        self.ET[n][m]=[Ex,Et,El]
         return self
     def DutCalculation(self,sRaw):
         if self.numPorts==1:

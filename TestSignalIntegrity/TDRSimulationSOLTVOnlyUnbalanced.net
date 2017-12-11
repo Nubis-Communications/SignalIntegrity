@@ -1,0 +1,156 @@
+device T1 2 tline zc 60.0 td 5e-10
+device Short 1 R 0.001
+voltagesource VGLeft 1
+device T2 2 tline zc 55.0 td 1e-09
+device T3 2 tline zc 60.0 td 5e-10
+device Open 1 R 5000000000.0
+device T4 2 tline zc 55.0 td 1e-09
+device T5 2 tline zc 60.0 td 5e-10
+device Load 1 R 50.00001
+device T6 2 tline zc 55.0 td 1e-09
+device T7 2 tline zc 60.0 td 5e-10
+device T8 2 tline zc 55.0 td 1e-09
+device D9 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device D10 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device D11 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device D12 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T9 2 tline zc 60.0 td 5e-10
+device R1 1 R 0.001
+device D21 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device T17 2 tline zc 45.0 td 1.2e-09
+device T10 2 tline zc 60.0 td 5e-10
+device R21 1 R 5000000000.0
+device T11 2 tline zc 60.0 td 5e-10
+device R2 1 R 50.00001
+device T13 2 tline zc 60.0 td 5e-10
+voltagesource VGRight 1
+device T15 2 tline zc 60.0 td 5e-10
+device T16 2 tline zc 55.0 td 1e-09
+device D24 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T19 2 tline zc 60.0 td 5e-10
+device G1 1 ground
+device G2 1 ground
+device T21 2 tline zc 60.0 td 5e-10
+device T22 2 tline zc 55.0 td 1e-09
+device D35 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T23 2 tline zc 60.0 td 5e-10
+device T25 2 tline zc 60.0 td 5e-10
+device T26 2 tline zc 55.0 td 1e-09
+device D41 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T27 2 tline zc 60.0 td 5e-10
+device G3 1 ground
+device G4 1 ground
+device T29 2 tline zc 50.0 td 1e-10
+device T30 2 tline zc 50.0 td 1e-10
+device T31 2 tline zc 60.0 td 2e-10
+device T32 2 tline zc 60.0 td 2e-10
+device D1 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D2 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D3 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D4 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D5 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D6 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device T12 2 tline zc 45.0 td 1.2e-09
+device T14 2 tline zc 45.0 td 1.2e-09
+device T18 2 tline zc 45.0 td 1.2e-09
+device T20 2 tline zc 45.0 td 1.2e-09
+device T24 2 tline zc 45.0 td 1.2e-09
+device T28 2 tline zc 45.0 td 1.2e-09
+device T33 2 tline zc 60.0 td 5e-10
+device T34 2 tline zc 55.0 td 1e-09
+device D7 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T35 2 tline zc 60.0 td 5e-10
+device T36 2 tline zc 60.0 td 5e-10
+device T37 2 tline zc 55.0 td 1e-09
+device D8 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T38 2 tline zc 60.0 td 5e-10
+device G5 1 ground
+device G6 1 ground
+device D13 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D14 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device T41 2 tline zc 45.0 td 1.2e-09
+device T42 2 tline zc 45.0 td 1.2e-09
+device O1 1 open
+device O2 1 open
+device O3 1 open
+device O4 1 open
+output T1 1
+connect T1 1 T2 2
+connect T1 2 Short 1
+connect D11 1 VGLeft 1 D10 1 D9 1 D24 1 D41 1 D8 1
+connect D9 2 T2 1
+output T4 2
+connect T4 2 T3 1
+connect T3 2 Open 1
+connect T4 1 D10 2
+output T5 1
+connect T5 1 T6 2
+connect Load 1 T5 2
+connect D11 2 T6 1
+output T7 1
+connect T7 1 T8 2
+connect T32 1 T7 2
+connect D12 2 T8 1
+connect D12 1 G1 1
+output T17 2
+connect T17 2 T9 1
+connect T9 2 R1 1
+connect D2 1 D21 1 D1 1 D14 1 VGRight 1 D4 1 D6 1
+connect T17 1 D21 2
+output T10 1
+connect T10 1 T12 2
+connect R21 1 T10 2
+output T14 2
+connect T14 2 T11 1
+connect T11 2 R2 1
+output T13 1
+connect T13 1 T28 2
+connect T32 2 T13 2
+output T15 1
+connect T15 1 T16 2
+connect T31 1 T15 2
+connect D24 2 T16 1
+output T24 2
+connect T24 2 T19 1
+connect T19 2 T31 2
+connect G2 1 D5 1
+output T21 1
+connect T21 1 T22 2
+connect T30 1 T21 2
+connect D35 2 T22 1
+connect G3 1 D35 1
+output T20 2
+connect T20 2 T23 1
+connect T23 2 T30 2
+output T25 1
+connect T25 1 T26 2
+connect T25 2 T29 1
+connect T26 1 D41 2
+output T18 2
+connect T18 2 T27 1
+connect T29 2 T27 2
+connect G4 1 D3 1
+connect T12 1 D1 2
+connect T14 1 D2 2
+connect D3 2 T18 1
+connect T20 1 D4 2
+connect D5 2 T24 1
+connect T28 1 D6 2
+output T33 1
+connect T33 1 T34 2
+connect T33 2 O2 1
+connect T34 1 D7 2
+connect D7 1 G5 1
+output T42 2
+connect T42 2 T35 1
+connect T35 2 O4 1
+output T37 2
+connect T37 2 T36 1
+connect O1 1 T36 2
+connect T37 1 D8 2
+output T41 2
+connect T41 2 T38 1
+connect T38 2 O3 1
+connect D13 1 G6 1
+connect D13 2 T41 1
+connect T42 1 D14 2

@@ -5,7 +5,7 @@ import os
 
 from SignalIntegrity.Test import PySIAppTestHelper
 import matplotlib.pyplot as plt
-from TestSignalIntegrity.TestHelpers import RoutineWriterTesterHelper
+from TestHelpers import RoutineWriterTesterHelper
 
 class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
@@ -1365,8 +1365,358 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
         defName=['ReflectCalibration','ThruCalibration','ExCalibration','DutCalculation','Fixture']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
         #self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
+    def testTDRSimulationSOLT2(self):
+        result = self.SimulationResultsChecker('TDRSimulationSOLTVOnlyUnbalanced.xml')
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        outputWaveforms=result[3]
+        
+        tdrWaveforms=dict(zip(outputNames,outputWaveforms))
+        
+        spDict=dict()
+
+        wf=tdrWaveforms['VThru11']
+        incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc11=incwf11.FrequencyContent()
+        refwf11=wf-incwf11
+        refwffc11=refwf11.FrequencyContent()
+
+        wf=tdrWaveforms['VThru22']
+        incwf22=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc22=incwf22.FrequencyContent()
+        refwf22=wf-incwf22
+        refwffc22=refwf22.FrequencyContent()
+
+        wf=tdrWaveforms['VThru21']
+        incwf21=incwf11
+        incwffc21=incwf21.FrequencyContent()
+        refwf21=wf
+        refwffc21=refwf21.FrequencyContent()
+
+        wf=tdrWaveforms['VThru12']
+        incwf12=incwf22
+        incwffc12=incwf12.FrequencyContent()
+        refwf12=wf
+        refwffc12=refwf12.FrequencyContent()
+
+        f=incwffc11.FrequencyList()
+        spDict['Thru']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
+                                             [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
+                                            for n in range(len(f))])
+        
+        wf=tdrWaveforms['VEx11']
+        incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc11=incwf11.FrequencyContent()
+        refwf11=wf-incwf11
+        refwffc11=refwf11.FrequencyContent()
+
+        wf=tdrWaveforms['VEx22']
+        incwf22=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc22=incwf22.FrequencyContent()
+        refwf22=wf-incwf22
+        refwffc22=refwf22.FrequencyContent()
+
+        wf=tdrWaveforms['VEx21']
+        incwf21=incwf11
+        incwffc21=incwf21.FrequencyContent()
+        refwf21=wf
+        refwffc21=refwf21.FrequencyContent()
+
+        wf=tdrWaveforms['VEx12']
+        incwf12=incwf22
+        incwffc12=incwf12.FrequencyContent()
+        refwf12=wf
+        refwffc12=refwf12.FrequencyContent()
+
+        f=incwffc11.FrequencyList()
+        spDict['Ex']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
+                                             [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
+                                            for n in range(len(f))])
+        
+        wf=tdrWaveforms['VDut11']
+        incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc11=incwf11.FrequencyContent()
+        refwf11=wf-incwf11
+        refwffc11=refwf11.FrequencyContent()
+
+        wf=tdrWaveforms['VDut22']
+        incwf22=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc22=incwf22.FrequencyContent()
+        refwf22=wf-incwf22
+        refwffc22=refwf22.FrequencyContent()
+
+        wf=tdrWaveforms['VDut21']
+        incwf21=incwf11
+        incwffc21=incwf21.FrequencyContent()
+        refwf21=wf
+        refwffc21=refwf21.FrequencyContent()
+
+        wf=tdrWaveforms['VDut12']
+        incwf12=incwf22
+        incwffc12=incwf12.FrequencyContent()
+        refwf12=wf
+        refwffc12=refwf12.FrequencyContent()
+
+        f=incwffc11.FrequencyList()
+        spDict['Dut']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
+                                             [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
+                                            for n in range(len(f))])
+
+        wf=tdrWaveforms['VShort1']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Short1']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VOpen1']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Open1']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VLoad1']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Load1']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VShort2']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Short2']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VOpen2']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Open2']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VLoad2']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Load2']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        f=spDict['Dut'].f()
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+                      si.m.calkit.OpenStandard(f),
+                      si.m.calkit.LoadStandard(f),
+                      si.m.calkit.ThruStandard(f,100e-12)]
+        et=[si.m.cal.ErrorTerms().Initialize(2) for _ in range(len(f))]
+        DUT=[[[0.,0.],[0.,0.]] for _ in range(len(f))]
+        for n in range(len(et)):
+            et[n].ReflectCalibration([spDict['Short1'][n][0][0],spDict['Open1'][n][0][0],spDict['Load1'][n][0][0]],
+                [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],0)
+            et[n].ReflectCalibration([spDict['Short2'][n][0][0],spDict['Open2'][n][0][0],spDict['Load2'][n][0][0]],
+                [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],1)
+            et[n].ExCalibration(spDict['Ex'][n][1][0],1,0)
+            et[n].ExCalibration(spDict['Ex'][n][0][1],0,1)
+            et[n].ThruCalibration(spDict['Thru'][n][0][0],spDict['Thru'][n][1][0],calStandards[3][n],1,0)
+            et[n].ThruCalibration(spDict['Thru'][n][1][1],spDict['Thru'][n][0][1],calStandards[3][n],0,1)
+            DUT[n]=et[n].DutCalculation(spDict['Dut'][n])
+        et=[si.m.cal.ErrorTerms(et[n].ET) for n in range(len(f))] # just to make a copy to satisfy coverage
+        DUTCalcSp=si.sp.SParameters(f,DUT)
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.SParameterFile('BMYchebySParameters.s2p').Resample(DUTCalcSp.f())
+        DUTActualSp=si.m.calkit.ThruStandard(f,100e-12)
+        DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
+    def testTDRSimulationSOLTTwoPortEQ(self):
+        result = self.SimulationResultsChecker('TDRSimulationSOLTVOnlyUnbalanced.xml')
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        outputWaveforms=result[3]
+        
+        tdrWaveforms=dict(zip(outputNames,outputWaveforms))
+        
+        spDict=dict()
+
+        wf=tdrWaveforms['VThru11']
+        incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc11=incwf11.FrequencyContent()
+        refwf11=wf-incwf11
+        refwffc11=refwf11.FrequencyContent()
+
+        wf=tdrWaveforms['VThru22']
+        incwf22=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc22=incwf22.FrequencyContent()
+        refwf22=wf-incwf22
+        refwffc22=refwf22.FrequencyContent()
+
+        wf=tdrWaveforms['VThru21']
+        incwf21=incwf11
+        incwffc21=incwf21.FrequencyContent()
+        refwf21=wf
+        refwffc21=refwf21.FrequencyContent()
+
+        wf=tdrWaveforms['VThru12']
+        incwf12=incwf22
+        incwffc12=incwf12.FrequencyContent()
+        refwf12=wf
+        refwffc12=refwf12.FrequencyContent()
+
+        f=incwffc11.FrequencyList()
+        spDict['Thru']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
+                                             [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
+                                            for n in range(len(f))])
+        
+        wf=tdrWaveforms['VEx11']
+        incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc11=incwf11.FrequencyContent()
+        refwf11=wf-incwf11
+        refwffc11=refwf11.FrequencyContent()
+
+        wf=tdrWaveforms['VEx22']
+        incwf22=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc22=incwf22.FrequencyContent()
+        refwf22=wf-incwf22
+        refwffc22=refwf22.FrequencyContent()
+
+        wf=tdrWaveforms['VEx21']
+        incwf21=incwf11
+        incwffc21=incwf21.FrequencyContent()
+        refwf21=wf
+        refwffc21=refwf21.FrequencyContent()
+
+        wf=tdrWaveforms['VEx12']
+        incwf12=incwf22
+        incwffc12=incwf12.FrequencyContent()
+        refwf12=wf
+        refwffc12=refwf12.FrequencyContent()
+
+        f=incwffc11.FrequencyList()
+        spDict['Ex']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
+                                             [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
+                                            for n in range(len(f))])
+        
+        wf=tdrWaveforms['VDut11']
+        incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc11=incwf11.FrequencyContent()
+        refwf11=wf-incwf11
+        refwffc11=refwf11.FrequencyContent()
+
+        wf=tdrWaveforms['VDut22']
+        incwf22=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
+        incwffc22=incwf22.FrequencyContent()
+        refwf22=wf-incwf22
+        refwffc22=refwf22.FrequencyContent()
+
+        wf=tdrWaveforms['VDut21']
+        incwf21=incwf11
+        incwffc21=incwf21.FrequencyContent()
+        refwf21=wf
+        refwffc21=refwf21.FrequencyContent()
+
+        wf=tdrWaveforms['VDut12']
+        incwf12=incwf22
+        incwffc12=incwf12.FrequencyContent()
+        refwf12=wf
+        refwffc12=refwf12.FrequencyContent()
+
+        f=incwffc11.FrequencyList()
+        spDict['Dut']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
+                                             [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
+                                            for n in range(len(f))])
+
+        wf=tdrWaveforms['VShort1']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Short1']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VOpen1']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Open1']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VLoad1']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Load1']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VShort2']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Short2']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VOpen2']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Open2']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        wf=tdrWaveforms['VLoad2']
+        refwf=si.td.wf.Waveform(wf.TimeDescriptor(),[0 if abs(t)<10e-12 else v for (t,v) in zip(wf.Times(),wf.Values())])
+        incwf=wf-refwf
+        refwffc=refwf.FrequencyContent()
+        incwffc=incwf.FrequencyContent()
+        spDict['Load2']=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
+
+        f=spDict['Dut'].f()
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+                      si.m.calkit.OpenStandard(f),
+                      si.m.calkit.LoadStandard(f),
+                      si.m.calkit.ThruStandard(f,100e-12)]
+        et=[si.m.cal.ErrorTerms().Initialize(2) for _ in range(len(f))]
+        for n in range(len(et)):
+            et[n].ReflectCalibration([spDict['Short1'][n][0][0],spDict['Open1'][n][0][0],spDict['Load1'][n][0][0]],
+                [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],0)
+            et[n].ReflectCalibration([spDict['Short2'][n][0][0],spDict['Open2'][n][0][0],spDict['Load2'][n][0][0]],
+                [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],1)
+            et[n].ExCalibration(spDict['Ex'][n][1][0],1,0)
+            et[n].ExCalibration(spDict['Ex'][n][0][1],0,1)
+            et[n].ThruCalibration(spDict['Thru'][n][0][0],spDict['Thru'][n][1][0],calStandards[3][n],1,0)
+            et[n].ThruCalibration(spDict['Thru'][n][1][1],spDict['Thru'][n][0][1],calStandards[3][n],0,1)
+
+        ED1=[et[n].ET[0][0][0] for n in range(len(et))]
+        ER1=[et[n].ET[0][0][1] for n in range(len(et))]
+        ES1=[et[n].ET[0][0][2] for n in range(len(et))]
+        ED2=[et[n].ET[1][1][0] for n in range(len(et))]
+        ER2=[et[n].ET[1][1][1] for n in range(len(et))]
+        ES2=[et[n].ET[1][1][2] for n in range(len(et))]
+        EX12=[et[n].ET[0][1][0] for n in range(len(et))]
+        ET12=[et[n].ET[0][1][1] for n in range(len(et))]
+        EL12=[et[n].ET[0][1][2] for n in range(len(et))]
+        EX21=[et[n].ET[1][0][0] for n in range(len(et))]
+        ET21=[et[n].ET[1][0][1] for n in range(len(et))]
+        EL21=[et[n].ET[1][0][2] for n in range(len(et))]
+        
+        from numpy import matrix,identity
+
+        DUT=[(matrix([[(spDict['Dut'][n][0][0]-ED1[n])/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])/ET12[n]],
+                       [(spDict['Dut'][n][1][0]-EX21[n])/ET21[n],(spDict['Dut'][n][1][1]-ED2[n])/ER2[n]]])*\
+            (identity(2)+matrix([[(spDict['Dut'][n][0][0]-ED1[n])*ES1[n]/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])*EL12[n]/ET12[n]],
+                                 [(spDict['Dut'][n][1][0]-EX21[n])*EL21[n]/ET21[n],(spDict['Dut'][n][1][1]-ED2[n])*ES2[n]/ER2[n]]])).getI()).tolist()
+                for n in range(len(et))]
+
+        DUTCalcSp=si.sp.SParameters(f,DUT)
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.SParameterFile('BMYchebySParameters.s2p').Resample(DUTCalcSp.f())
+        DUTActualSp=si.m.calkit.ThruStandard(f,100e-12)
+        DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
 if __name__ == "__main__":
     unittest.main()
