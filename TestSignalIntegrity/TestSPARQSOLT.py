@@ -1366,7 +1366,6 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         className='ErrorTerms'
         defName=['ReflectCalibration','ThruCalibration','ExCalibration','DutCalculation','Fixture']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
-        #self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
     def testTDRSimulationSOLT2(self):
         result = self.SimulationResultsChecker('TDRSimulationSOLTVOnlyUnbalanced.xml')
         sourceNames=result[0]
@@ -1717,57 +1716,66 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
-    def TestCalkitWrite(self):
+    def testCalkitWrite(self):
+        calkit = si.m.calkit.CalibrationKit()
+        calkit.WriteToFile('default.cstd')
         
         # cal constants for an Agilent 85052D 3.5mm cal kit
-        openC0=49.43e-15            # % C0 (fF) - OPEN
-        openC1=-310.13e-27          # % C1 (1e-27 F/Hz) - OPEN
-        openC2=23.1682e-36          # % C2 (1e-36 F/Hz^2) - OPEN
-        openC3=0.15966e-45          # % C3 (1e-45 F/Hz^3) - OPEN
-        openOffsetDelay=29.243e-12  # % offset delay (pS) - OPEN
-        openOffsetZ0=50.            # % real(Zo) of offset length - OPEN
-        openOffsetLoss=2.2e9        # % offset loss (GOhm/s) - OPEN
-        shortL0=2.0765e-12          # % L0 (pH) - SHORT
-        shortL1=-108.54e-24         # % L1 (1e-24 H/Hz) - SHORT
-        shortL2=2.1705e-33          # % L2 (1e-33 H/Hz^2) - SHORT
-        shortL3=-0.1001e-42         # % L3 (1e-42 H/Hz^3) - SHORT
-        shortOffsetDelay=31.785e-12 # % offset delay (pS) - SHORT
-        shortOffsetZ0=50.           # % real(Zo) of offset length - SHORT
-        shortOffsetLoss=2.36e9      # % offset loss (GOhm/s) - SHORT
-        loadZ=50.                   # % load resistance (Ohm) - LOAD
-        loadOffsetDelay=0.          # % offset delay (pS) - LOAD
-        loadOffsetZ0=50.            # % real(Zo) of offset length - LOAD
-        loadOffsetLoss=0.           # % offset loss (GOhm/s) - LOAD
-        thruOffsetDelay=94.75e-12   # % offset delay (pS) - THRU
-        thruOffsetZ0=50.            # % real(Zo) of offset length - THRU
-        thruOffsetLoss=2.52e9       # % offset loss (GOhm/s) - THRU
+        calkit.Constants.openC0=49.43e-15            # % C0 (fF) - OPEN
+        calkit.Constants.openC1=-310.13e-27          # % C1 (1e-27 F/Hz) - OPEN
+        calkit.Constants.openC2=23.1682e-36          # % C2 (1e-36 F/Hz^2) - OPEN
+        calkit.Constants.openC3=0.15966e-45          # % C3 (1e-45 F/Hz^3) - OPEN
+        calkit.Constants.openOffsetDelay=29.243e-12  # % offset delay (pS) - OPEN
+        calkit.Constants.openOffsetZ0=50.            # % real(Zo) of offset length - OPEN
+        calkit.Constants.openOffsetLoss=2.2e9        # % offset loss (GOhm/s) - OPEN
+        calkit.Constants.shortL0=2.0765e-12          # % L0 (pH) - SHORT
+        calkit.Constants.shortL1=-108.54e-24         # % L1 (1e-24 H/Hz) - SHORT
+        calkit.Constants.shortL2=2.1705e-33          # % L2 (1e-33 H/Hz^2) - SHORT
+        calkit.Constants.shortL3=-0.1001e-42         # % L3 (1e-42 H/Hz^3) - SHORT
+        calkit.Constants.shortOffsetDelay=31.785e-12 # % offset delay (pS) - SHORT
+        calkit.Constants.shortOffsetZ0=50.           # % real(Zo) of offset length - SHORT
+        calkit.Constants.shortOffsetLoss=2.36e9      # % offset loss (GOhm/s) - SHORT
+        calkit.Constants.loadZ=50.                   # % load resistance (Ohm) - LOAD
+        calkit.Constants.loadOffsetDelay=0.          # % offset delay (pS) - LOAD
+        calkit.Constants.loadOffsetZ0=50.            # % real(Zo) of offset length - LOAD
+        calkit.Constants.loadOffsetLoss=0.           # % offset loss (GOhm/s) - LOAD
+        calkit.Constants.thruOffsetDelay=94.75e-12   # % offset delay (pS) - THRU
+        calkit.Constants.thruOffsetZ0=50.            # % real(Zo) of offset length - THRU
+        calkit.Constants.thruOffsetLoss=2.52e9       # % offset loss (GOhm/s) - THRU
+      
+        calkit.WriteToFile('Agilent85052D.cstd', 'Agilent 85052D 3.5mm cal kit')
+        
+        calkit = si.m.calkit.CalibrationKit('Agilent85052D.cstd',si.fd.FrequencyList().SetEvenlySpaced(20e9,200))
 
-        ck=si.m.calkit.CalibrationConstants()
-        ck.openC0=openC0
-        ck.openC1=openC1
-        ck.openC2=openC2
-        ck.openC3=openC3
-        ck.openOffsetDelay=openOffsetDelay
-        ck.openOffsetZ0=openOffsetZ0
-        ck.openOffsetLoss=openOffsetLoss
-        ck.shortL0=shortL0
-        ck.shortL1=shortL1
-        ck.shortL2=shortL2
-        ck.shortL3=shortL3
-        ck.shortOffsetDelay=shortOffsetDelay
-        ck.shortOffsetZ0=shortOffsetZ0
-        ck.shortOffsetLoss=shortOffsetLoss
-        ck.loadZ=loadZ
-        ck.loadOffsetDelay=loadOffsetDelay
-        ck.loadOffsetZ0=loadOffsetZ0
-        ck.loadOffsetLoss=loadOffsetLoss
-        ck.thruOffsetDelay=thruOffsetDelay
-        ck.thruOffsetZ0=thruOffsetZ0
-        ck.thruOffsetLoss=thruOffsetLoss
-        
-        ck.WriteToFile('Agilent85052D.cstd', 'Agilent 85052D 3.5mm cal kit')
-        
-        ck.ReadFromFile('Agilent85052D.cstd')
+        stdPrefix='Agilent85052D_200_20GHz_'
+        calkit.WriteStandardsToFiles(stdPrefix)
+        calkit.ReadStandardsFromFiles(stdPrefix)
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        os.remove(stdPrefix+'Short.s1p')
+        os.remove(stdPrefix+'Open.s1p')
+        os.remove(stdPrefix+'Load.s1p')
+        os.remove(stdPrefix+'Thru.s2p')
+        self.SParameterRegressionChecker(calkit.shortStandard, self.NameForTest()+'_ShortStandard.s1p')
+        self.SParameterRegressionChecker(calkit.openStandard, self.NameForTest()+'_OpenStandard.s1p')
+        self.SParameterRegressionChecker(calkit.loadStandard, self.NameForTest()+'_LoadStandard.s1p')
+        self.SParameterRegressionChecker(calkit.thruStandard, self.NameForTest()+'_ThruStandard.s2p')
+    def testWriteCalibrationKitCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/CalibrationKit.py"
+        className='CalibrationKit'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteCalibrationConstantsCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/CalibrationKit.py"
+        className='CalibrationConstants'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+        defName=['ReadFromFile']
+        self.WriteClassCode(fileName,className,defName)
+        defName=['WriteToFile']
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
     unittest.main()
