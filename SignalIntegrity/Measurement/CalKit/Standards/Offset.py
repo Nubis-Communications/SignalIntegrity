@@ -13,7 +13,8 @@ class Offset(SParameters):
     def __init__(self,fList,offsetDelay,offsetZ0,offsetLoss):
         data=[]
         for f in fList:
-            alpha=0. if (f==0) else -1j*offsetLoss*math.sqrt(f/1e9)*offsetDelay/(4.*math.pi*f*offsetZ0)
+            alpha=0. if (f==0) else -1j*offsetLoss*math.sqrt(f/1e9)*\
+                offsetDelay/(4.*math.pi*f*offsetZ0)
             beta=offsetDelay
             gamma=alpha+beta
             data.append(TLineTwoPort(offsetZ0,gamma,f,50.0))

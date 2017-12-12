@@ -18,7 +18,7 @@ class TerminationPolynomial(object):
         self.a2=a2
         self.a3=a3
     def Polynomial(self,f):
-        return self.a0+self.a1*f+self.a2*f*f+self.a3*f*f*f
+        return ((self.a3*f+self.a2)*f+self.a1)*f+self.a0
  
 class TerminationCPolynomial(SParameters,TerminationPolynomial):
     def __init__(self,f,C0=0.0,C1=0.0,C2=0.0,C3=0.0,Z0=50.):

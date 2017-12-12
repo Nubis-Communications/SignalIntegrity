@@ -16,7 +16,8 @@ from SignalIntegrity.Devices.TerminationZ import TerminationZ
 from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
 
 class LoadStandard(SParameters):
-    def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,terminationZ0=50.0):
+    def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
+                 terminationZ0=50.0):
         sd=SystemDescription()
         sd.AddDevice('offset',2)
         sd.AddDevice('Z',1)
