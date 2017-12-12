@@ -1717,6 +1717,57 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+    def TestCalkitWrite(self):
+        
+        # cal constants for an Agilent 85052D 3.5mm cal kit
+        openC0=49.43e-15            # % C0 (fF) - OPEN
+        openC1=-310.13e-27          # % C1 (1e-27 F/Hz) - OPEN
+        openC2=23.1682e-36          # % C2 (1e-36 F/Hz^2) - OPEN
+        openC3=0.15966e-45          # % C3 (1e-45 F/Hz^3) - OPEN
+        openOffsetDelay=29.243e-12  # % offset delay (pS) - OPEN
+        openOffsetZ0=50.            # % real(Zo) of offset length - OPEN
+        openOffsetLoss=2.2e9        # % offset loss (GOhm/s) - OPEN
+        shortL0=2.0765e-12          # % L0 (pH) - SHORT
+        shortL1=-108.54e-24         # % L1 (1e-24 H/Hz) - SHORT
+        shortL2=2.1705e-33          # % L2 (1e-33 H/Hz^2) - SHORT
+        shortL3=-0.1001e-42         # % L3 (1e-42 H/Hz^3) - SHORT
+        shortOffsetDelay=31.785e-12 # % offset delay (pS) - SHORT
+        shortOffsetZ0=50.           # % real(Zo) of offset length - SHORT
+        shortOffsetLoss=2.36e9      # % offset loss (GOhm/s) - SHORT
+        loadZ=50.                   # % load resistance (Ohm) - LOAD
+        loadOffsetDelay=0.          # % offset delay (pS) - LOAD
+        loadOffsetZ0=50.            # % real(Zo) of offset length - LOAD
+        loadOffsetLoss=0.           # % offset loss (GOhm/s) - LOAD
+        thruOffsetDelay=94.75e-12   # % offset delay (pS) - THRU
+        thruOffsetZ0=50.            # % real(Zo) of offset length - THRU
+        thruOffsetLoss=2.52e9       # % offset loss (GOhm/s) - THRU
+
+        ck=si.m.calkit.CalibrationConstants()
+        ck.openC0=openC0
+        ck.openC1=openC1
+        ck.openC2=openC2
+        ck.openC3=openC3
+        ck.openOffsetDelay=openOffsetDelay
+        ck.openOffsetZ0=openOffsetZ0
+        ck.openOffsetLoss=openOffsetLoss
+        ck.shortL0=shortL0
+        ck.shortL1=shortL1
+        ck.shortL2=shortL2
+        ck.shortL3=shortL3
+        ck.shortOffsetDelay=shortOffsetDelay
+        ck.shortOffsetZ0=shortOffsetZ0
+        ck.shortOffsetLoss=shortOffsetLoss
+        ck.loadZ=loadZ
+        ck.loadOffsetDelay=loadOffsetDelay
+        ck.loadOffsetZ0=loadOffsetZ0
+        ck.loadOffsetLoss=loadOffsetLoss
+        ck.thruOffsetDelay=thruOffsetDelay
+        ck.thruOffsetZ0=thruOffsetZ0
+        ck.thruOffsetLoss=thruOffsetLoss
+        
+        ck.WriteToFile('Agilent85052D.cstd', 'Agilent 85052D 3.5mm cal kit')
+        
+        ck.ReadFromFile('Agilent85052D.cstd')
 
 if __name__ == "__main__":
     unittest.main()
