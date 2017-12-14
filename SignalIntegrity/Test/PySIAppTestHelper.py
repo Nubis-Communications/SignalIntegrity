@@ -1,6 +1,3 @@
-from PySIApp import PySIAppHeadless
-from PySIApp.TpX import TpX
-from PySIApp.TikZ import TikZ
 import SignalIntegrity as si
 import os
 
@@ -17,6 +14,8 @@ class PySIAppTestHelper:
         os.chdir(self.path)
         testFilename=self.FileNameForTest(filename)+'.TpX'
         try:
+            from PySIApp.TpX import TpX
+            from PySIApp.TikZ import TikZ
             tpx=pysi.Drawing.DrawSchematic(TpX()).Finish()
             tikz=pysi.Drawing.DrawSchematic(TikZ()).Finish()
             tpx.lineList=tpx.lineList+tikz.lineList
@@ -71,6 +70,7 @@ class PySIAppTestHelper:
         os.chdir(currentDirectory)
     def Preliminary(self,filename,checkPicture=True,checkNetlist=True):
         os.chdir(self.path)
+        from PySIApp.PySIAppHeadless import PySIAppHeadless
         pysi=PySIAppHeadless()
         self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
         if checkPicture:

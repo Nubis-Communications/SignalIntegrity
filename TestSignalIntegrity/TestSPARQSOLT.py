@@ -1776,6 +1776,32 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.WriteClassCode(fileName,className,defName)
         defName=['WriteToFile']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteOffsetCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/Standards/Offset.py"
+        className='Offset'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteThruStandardCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/Standards/ThruStandard.py"
+        className='ThruStandard'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteShortStandardCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/Standards/ShortStandard.py"
+        className='ShortStandard'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteOpenStandardCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/Standards/OpenStandard.py"
+        className='OpenStandard'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteLoadStandardCode(self):
+        fileName="../SignalIntegrity/Measurement/CalKit/Standards/LoadStandard.py"
+        className='LoadStandard'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
+        
 
 if __name__ == "__main__":
     unittest.main()
