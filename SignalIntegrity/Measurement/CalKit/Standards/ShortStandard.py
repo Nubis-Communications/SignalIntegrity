@@ -8,7 +8,6 @@
  this material whatsoever.
 '''
 
-from SignalIntegrity.SystemDescriptions.SystemDescription import SystemDescription
 from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 from SignalIntegrity.Measurement.CalKit.Standards.TerminationPolynomial import TerminationLPolynomial
 from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
@@ -17,12 +16,12 @@ from SignalIntegrity.SParameters.SParameters import SParameters
 class ShortStandard(SParameters):
     def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
                  L0=0.0,L1=0.0,L2=0.0,L3=0.0):
-        sd=SystemDescription()
-        sd.AddDevice('offset',2)
-        sd.AddDevice('L',1)
-        sd.AddPort('offset',1,1)
-        sd.ConnectDevicePort('offset',2,'L',1)
-        sspn=SystemSParametersNumeric(sd)
+        # pragma: silent exclude
+        from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
+        # pragma: include
+        sspn=SystemSParametersNumeric(SystemDescriptionParser().AddLines(
+            ['device offset 2','device L 1','port 1 offset 1','connect offset 2 L 1']
+            ).SystemDescription())
         offsetSParameters=Offset(f,offsetDelay,offsetZ0,offsetLoss)
         terminationSParameters=TerminationLPolynomial(f,L0,L1,L2,L3)
         sp=[]

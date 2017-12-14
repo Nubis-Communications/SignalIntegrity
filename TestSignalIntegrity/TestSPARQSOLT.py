@@ -6,6 +6,7 @@ import os
 from SignalIntegrity.Test import PySIAppTestHelper
 import matplotlib.pyplot as plt
 from TestHelpers import RoutineWriterTesterHelper
+from ImageChops import offset
 
 class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
@@ -1357,6 +1358,12 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
     def testThruStandard(self):
+        Fe=20e9
+        N=200
+        sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
+        self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
+    def testThruStandardCalcZc(self):
+        si.m.calkit.std.Offset.calcZc=True
         Fe=20e9
         N=200
         sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
