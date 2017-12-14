@@ -1,0 +1,336 @@
+device T1 2 tline zc 60.0 td 5e-10
+device Short 1 R 0.001
+voltagesource VGLeft 1
+device T2 2 tline zc 55.0 td 1e-09
+device T3 2 tline zc 60.0 td 5e-10
+device Open 1 R 5000000000.0
+device T4 2 tline zc 55.0 td 1e-09
+device T5 2 tline zc 60.0 td 5e-10
+device Load 1 R 50.00001
+device T6 2 tline zc 55.0 td 1e-09
+device T7 2 tline zc 60.0 td 5e-10
+device T8 2 tline zc 55.0 td 1e-09
+device D9 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device D10 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device D11 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device D12 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T9 2 tline zc 60.0 td 5e-10
+device R1 1 R 0.001
+device D21 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device T17 2 tline zc 45.0 td 1.2e-09
+device T10 2 tline zc 60.0 td 5e-10
+device R21 1 R 5000000000.0
+device T11 2 tline zc 60.0 td 5e-10
+device R2 1 R 50.00001
+device T13 2 tline zc 60.0 td 5e-10
+voltagesource VGRight 1
+device T15 2 tline zc 60.0 td 5e-10
+device T16 2 tline zc 55.0 td 1e-09
+device D24 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T19 2 tline zc 60.0 td 5e-10
+device G1 1 ground
+device G2 1 ground
+device T21 2 tline zc 60.0 td 5e-10
+device T22 2 tline zc 55.0 td 1e-09
+device D35 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T23 2 tline zc 60.0 td 5e-10
+device T25 2 tline zc 60.0 td 5e-10
+device T26 2 tline zc 55.0 td 1e-09
+device D41 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T27 2 tline zc 60.0 td 5e-10
+device G3 1 ground
+device G4 1 ground
+device T29 2 tline zc 50.0 td 1e-10
+device T30 2 tline zc 50.0 td 1e-10
+device T31 2 tline zc 60.0 td 2e-10
+device T32 2 tline zc 60.0 td 2e-10
+device D1 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D2 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D3 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D4 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D5 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D6 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device T12 2 tline zc 45.0 td 1.2e-09
+device T14 2 tline zc 45.0 td 1.2e-09
+device T18 2 tline zc 45.0 td 1.2e-09
+device T20 2 tline zc 45.0 td 1.2e-09
+device T24 2 tline zc 45.0 td 1.2e-09
+device T28 2 tline zc 45.0 td 1.2e-09
+device T33 2 tline zc 60.0 td 5e-10
+device T34 2 tline zc 55.0 td 1e-09
+device D7 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T35 2 tline zc 60.0 td 5e-10
+device T36 2 tline zc 60.0 td 5e-10
+device T37 2 tline zc 55.0 td 1e-09
+device D8 2 voltageamplifier gain 1.0 zi 100000000.0 zo 40.0
+device T38 2 tline zc 60.0 td 5e-10
+device G5 1 ground
+device G6 1 ground
+device D13 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device D14 2 voltageamplifier gain 1.0 zi 100000000.0 zo 55.0
+device T41 2 tline zc 45.0 td 1.2e-09
+device T42 2 tline zc 45.0 td 1.2e-09
+device O1 1 open
+device O2 1 open
+device O3 1 open
+device O4 1 open
+device R3 1 R 50.0
+device D15 3 directionalcoupler
+device D16 3 directionalcoupler
+device R4 1 R 50.0
+device R5 1 R 50.0
+device D17 3 directionalcoupler
+device D18 3 directionalcoupler
+device R6 1 R 50.0
+device R7 1 R 50.0
+device D19 3 directionalcoupler
+device D20 3 directionalcoupler
+device R8 1 R 50.0
+device R9 1 R 50.0
+device D22 3 directionalcoupler
+device D23 3 directionalcoupler
+device R10 1 R 50.0
+device R11 1 R 50.0
+device D25 3 directionalcoupler
+device D26 3 directionalcoupler
+device R12 1 R 50.0
+device R13 1 R 50.0
+device D27 3 directionalcoupler
+device D28 3 directionalcoupler
+device R14 1 R 50.0
+device R15 1 R 50.0
+device D29 3 directionalcoupler
+device D30 3 directionalcoupler
+device R16 1 R 50.0
+device R17 1 R 50.0
+device D31 3 directionalcoupler
+device D32 3 directionalcoupler
+device R18 1 R 50.0
+device R19 1 R 50.0
+device D33 3 directionalcoupler
+device D34 3 directionalcoupler
+device R20 1 R 50.0
+device R22 1 R 50.0
+device D36 3 directionalcoupler
+device D37 3 directionalcoupler
+device R23 1 R 50.0
+device R24 1 R 50.0
+device D38 3 directionalcoupler
+device D39 3 directionalcoupler
+device R25 1 R 50.0
+device R26 1 R 50.0
+device D40 3 directionalcoupler
+device D42 3 directionalcoupler
+device R27 1 R 50.0
+device R28 1 R 50.0
+device D43 3 directionalcoupler
+device D44 3 directionalcoupler
+device R29 1 R 50.0
+device R30 1 R 50.0
+device D45 3 directionalcoupler
+device D46 3 directionalcoupler
+device R31 1 R 50.0
+device R32 1 R 50.0
+device D47 3 directionalcoupler
+device D48 3 directionalcoupler
+device R33 1 R 50.0
+device R34 1 R 50.0
+device D49 3 directionalcoupler
+device D50 3 directionalcoupler
+device R35 1 R 50.0
+device R36 1 R 50.0
+device D51 3 directionalcoupler
+device D52 3 directionalcoupler
+device R37 1 R 50.0
+device R38 1 R 50.0
+device D53 3 directionalcoupler
+device D54 3 directionalcoupler
+device R39 1 R 50.0
+connect D16 1 T1 1
+connect T1 2 Short 1
+output T2 2
+connect T2 2 D15 1
+connect D11 1 VGLeft 1 D10 1 D9 1 D24 1 D41 1 D8 1
+connect D9 2 T2 1
+connect D18 1 T3 1
+connect T3 2 Open 1
+output T4 2
+connect T4 2 D17 1
+connect T4 1 D10 2
+connect T5 1 D26 1
+connect Load 1 T5 2
+output D25 1
+connect D25 1 T6 2
+connect D11 2 T6 1
+connect T7 1 D30 1
+connect T32 1 T7 2
+output D29 1
+connect D29 1 T8 2
+connect D12 2 T8 1
+connect D12 1 G1 1
+connect D19 1 T9 1
+connect T9 2 R1 1
+output T17 2
+connect T17 2 D20 1
+connect D2 1 D21 1 D1 1 D14 1 VGRight 1 D4 1 D6 1
+connect T17 1 D21 2
+connect T10 1 D22 1
+connect R21 1 T10 2
+output D23 1
+connect D23 1 T12 2
+connect D27 1 T11 1
+connect T11 2 R2 1
+output T14 2
+connect T14 2 D28 1
+connect T13 1 D53 1
+connect T32 2 T13 2
+output D54 1
+connect D54 1 T28 2
+connect T15 1 D50 1
+connect T31 1 T15 2
+output D49 1
+connect D49 1 T16 2
+connect D24 2 T16 1
+connect D51 1 T19 1
+connect T19 2 T31 2
+output T24 2
+connect T24 2 D52 1
+connect G2 1 D5 1
+connect T21 1 D46 1
+connect T30 1 T21 2
+output T22 2
+connect T22 2 D45 1
+connect D35 2 T22 1
+connect G3 1 D35 1
+connect D47 1 T23 1
+connect T23 2 T30 2
+output T20 2
+connect T20 2 D48 1
+connect D42 1 T25 1
+connect T25 2 T29 1
+output D40 1
+connect D40 1 T26 2
+connect T26 1 D41 2
+connect D43 1 T27 1
+connect T29 2 T27 2
+output D44 1
+connect D44 1 T18 2
+connect G4 1 D3 1
+connect T12 1 D1 2
+connect T14 1 D2 2
+connect D3 2 T18 1
+connect T20 1 D4 2
+connect D5 2 T24 1
+connect T28 1 D6 2
+connect T33 1 D37 1
+connect T33 2 O2 1
+output T34 2
+connect T34 2 D36 1
+connect T34 1 D7 2
+connect D7 1 G5 1
+connect D38 1 T35 1
+connect T35 2 O4 1
+output T42 2
+connect T42 2 D39 1
+connect D32 1 T36 1
+connect O1 1 T36 2
+output T37 2
+connect T37 2 D31 1
+connect T37 1 D8 2
+connect T38 1 D33 1
+connect T38 2 O3 1
+output T41 2
+connect T41 2 D34 1
+connect D13 1 G6 1
+connect D13 2 T41 1
+connect T42 1 D14 2
+output R3 1
+connect R3 1 D15 3
+connect D16 2 D15 2
+output R4 1
+connect R4 1 D16 3
+output D17 3
+connect D17 3 R5 1
+connect D17 2 D18 2
+output D18 3
+connect D18 3 R6 1
+output R7 1
+connect R7 1 D19 3
+connect D19 2 D20 2
+output D20 3
+connect D20 3 R8 1
+output D22 3
+connect D22 3 R9 1
+connect D22 2 D23 2
+output R10 1
+connect R10 1 D23 3
+output R11 1
+connect R11 1 D25 3
+connect D26 2 D25 2
+output R12 1
+connect R12 1 D26 3
+output D27 3
+connect D27 3 R13 1
+connect D27 2 D28 2
+output D28 3
+connect D28 3 R14 1
+output R15 1
+connect R15 1 D29 3
+connect D29 2 D30 2
+output D30 3
+connect D30 3 R16 1
+output D31 3
+connect D31 3 R17 1
+connect D31 2 D32 2
+output R18 1
+connect R18 1 D32 3
+output R19 1
+connect R19 1 D33 3
+connect D34 2 D33 2
+output R20 1
+connect R20 1 D34 3
+output D36 3
+connect D36 3 R22 1
+connect D36 2 D37 2
+output D37 3
+connect D37 3 R23 1
+output R24 1
+connect R24 1 D38 3
+connect D38 2 D39 2
+output D39 3
+connect D39 3 R25 1
+output D40 3
+connect D40 3 R26 1
+connect D40 2 D42 2
+output R27 1
+connect R27 1 D42 3
+output R28 1
+connect R28 1 D43 3
+connect D44 2 D43 2
+output R29 1
+connect R29 1 D44 3
+output D45 3
+connect D45 3 R30 1
+connect D45 2 D46 2
+output D46 3
+connect D46 3 R31 1
+output R32 1
+connect R32 1 D47 3
+connect D47 2 D48 2
+output D48 3
+connect D48 3 R33 1
+output D49 3
+connect D49 3 R34 1
+connect D49 2 D50 2
+output R35 1
+connect R35 1 D50 3
+output R36 1
+connect R36 1 D51 3
+connect D52 2 D51 2
+output R37 1
+connect R37 1 D52 3
+output D53 3
+connect D53 3 R38 1
+connect D53 2 D54 2
+output D54 3
+connect D54 3 R39 1

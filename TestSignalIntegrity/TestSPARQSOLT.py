@@ -6,7 +6,8 @@ import os
 from SignalIntegrity.Test import PySIAppTestHelper
 import matplotlib.pyplot as plt
 from TestHelpers import RoutineWriterTesterHelper
-from ImageChops import offset
+
+from numpy import matrix
 
 class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
@@ -1808,7 +1809,105 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         className='LoadStandard'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
+    def testVNASimulationSOLT(self):
+        result = self.SimulationResultsChecker('TDRSimulationSOLTUnbalanced.xml')
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        outputWaveforms=result[3]
         
+        fr=transferMatrices.FrequencyResponses()
+        
+        spDict=dict()
+
+        AShort1=fr[outputNames.index('AShort1')][sourceNames.index('VGLeft')]
+        BShort1=fr[outputNames.index('BShort1')][sourceNames.index('VGLeft')]
+        f=AShort1.Frequencies()
+        spDict['Short1']=si.sp.SParameters(f,[[[BShort1[n]/AShort1[n]]] for n in range(len(f))])
+
+        AShort2=fr[outputNames.index('AShort2')][sourceNames.index('VGRight')]
+        BShort2=fr[outputNames.index('BShort2')][sourceNames.index('VGRight')]
+        spDict['Short2']=si.sp.SParameters(f,[[[BShort2[n]/AShort2[n]]] for n in range(len(f))])
+
+        AOpen1=fr[outputNames.index('AOpen1')][sourceNames.index('VGLeft')]
+        BOpen1=fr[outputNames.index('BOpen1')][sourceNames.index('VGLeft')]
+        f=AOpen1.Frequencies()
+        spDict['Open1']=si.sp.SParameters(f,[[[BOpen1[n]/AOpen1[n]]] for n in range(len(f))])
+
+        AOpen2=fr[outputNames.index('AOpen2')][sourceNames.index('VGRight')]
+        BOpen2=fr[outputNames.index('BOpen2')][sourceNames.index('VGRight')]
+        spDict['Open2']=si.sp.SParameters(f,[[[BOpen2[n]/AOpen2[n]]] for n in range(len(f))])
+
+        ALoad1=fr[outputNames.index('ALoad1')][sourceNames.index('VGLeft')]
+        BLoad1=fr[outputNames.index('BLoad1')][sourceNames.index('VGLeft')]
+        f=ALoad1.Frequencies()
+        spDict['Load1']=si.sp.SParameters(f,[[[BLoad1[n]/ALoad1[n]]] for n in range(len(f))])
+
+        ALoad2=fr[outputNames.index('ALoad2')][sourceNames.index('VGRight')]
+        BLoad2=fr[outputNames.index('BLoad2')][sourceNames.index('VGRight')]
+        spDict['Load2']=si.sp.SParameters(f,[[[BLoad2[n]/ALoad2[n]]] for n in range(len(f))])
+
+        AThru11=fr[outputNames.index('AThru11')][sourceNames.index('VGLeft')]
+        AThru21=fr[outputNames.index('AThru21')][sourceNames.index('VGLeft')]
+        AThru12=fr[outputNames.index('AThru12')][sourceNames.index('VGRight')]
+        AThru22=fr[outputNames.index('AThru22')][sourceNames.index('VGRight')]     
+        BThru11=fr[outputNames.index('BThru11')][sourceNames.index('VGLeft')]
+        BThru21=fr[outputNames.index('BThru21')][sourceNames.index('VGLeft')]
+        BThru12=fr[outputNames.index('BThru12')][sourceNames.index('VGRight')]
+        BThru22=fr[outputNames.index('BThru22')][sourceNames.index('VGRight')]
+        spDict['Thru']=si.sp.SParameters(f,[(matrix([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]])*
+                                            matrix([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]]).getI()).tolist()
+                                            for n in range(len(f))])
+        
+        ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
+        ADut21=fr[outputNames.index('ADut21')][sourceNames.index('VGLeft')]
+        ADut12=fr[outputNames.index('ADut12')][sourceNames.index('VGRight')]
+        ADut22=fr[outputNames.index('ADut22')][sourceNames.index('VGRight')]     
+        BDut11=fr[outputNames.index('BDut11')][sourceNames.index('VGLeft')]
+        BDut21=fr[outputNames.index('BDut21')][sourceNames.index('VGLeft')]
+        BDut12=fr[outputNames.index('BDut12')][sourceNames.index('VGRight')]
+        BDut22=fr[outputNames.index('BDut22')][sourceNames.index('VGRight')]
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]])*
+                                            matrix([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]]).getI()).tolist()
+                                            for n in range(len(f))])
+        
+        AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
+        AEx21=fr[outputNames.index('AEx21')][sourceNames.index('VGLeft')]
+        AEx12=fr[outputNames.index('AEx12')][sourceNames.index('VGRight')]
+        AEx22=fr[outputNames.index('AEx22')][sourceNames.index('VGRight')]     
+        BEx11=fr[outputNames.index('BEx11')][sourceNames.index('VGLeft')]
+        BEx21=fr[outputNames.index('BEx21')][sourceNames.index('VGLeft')]
+        BEx12=fr[outputNames.index('BEx12')][sourceNames.index('VGRight')]
+        BEx22=fr[outputNames.index('BEx22')][sourceNames.index('VGRight')]
+        spDict['Ex']=si.sp.SParameters(f,[(matrix([[BEx11[n],BEx12[n]],[BEx21[n],BEx22[n]]])*
+                                            matrix([[AEx11[n],AEx12[n]],[AEx21[n],AEx22[n]]]).getI()).tolist()
+                                            for n in range(len(f))])
+
+        f=spDict['Dut'].f()
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+                      si.m.calkit.OpenStandard(f),
+                      si.m.calkit.LoadStandard(f),
+                      si.m.calkit.ThruStandard(f,100e-12)]
+        et=[si.m.cal.ErrorTerms().Initialize(2) for _ in range(len(f))]
+        DUT=[[[0.,0.],[0.,0.]] for _ in range(len(f))]
+        for n in range(len(et)):
+            et[n].ReflectCalibration([spDict['Short1'][n][0][0],spDict['Open1'][n][0][0],spDict['Load1'][n][0][0]],
+                [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],0)
+            et[n].ReflectCalibration([spDict['Short2'][n][0][0],spDict['Open2'][n][0][0],spDict['Load2'][n][0][0]],
+                [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],1)
+            et[n].ExCalibration(spDict['Ex'][n][1][0],1,0)
+            et[n].ExCalibration(spDict['Ex'][n][0][1],0,1)
+            et[n].ThruCalibration(spDict['Thru'][n][0][0],spDict['Thru'][n][1][0],calStandards[3][n],1,0)
+            et[n].ThruCalibration(spDict['Thru'][n][1][1],spDict['Thru'][n][0][1],calStandards[3][n],0,1)
+            DUT[n]=et[n].DutCalculation(spDict['Dut'][n])
+        et=[si.m.cal.ErrorTerms(et[n].ET) for n in range(len(f))] # just to make a copy to satisfy coverage
+        DUTCalcSp=si.sp.SParameters(f,DUT)
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.SParameterFile('BMYchebySParameters.s2p').Resample(DUTCalcSp.f())
+        DUTActualSp=si.m.calkit.ThruStandard(f,100e-12)
+        DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
 if __name__ == "__main__":
     unittest.main()
