@@ -7,7 +7,7 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from SignalIntegrity.Measurement.Calibration.CalibrationMeasurements import CalibrationMeasurements
+from SignalIntegrity.Measurement.Calibration.CalibrationMeasurements import Calibration
 
 class SParametersCalculation(SParameters):
     def __init__(self,rawSParameters,calMeasurements):

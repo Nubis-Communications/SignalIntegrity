@@ -19,6 +19,13 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         unittest.TestCase.__init__(self,methodName)
         PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         RoutineWriterTesterHelper.__init__(self)
+    def GetSimulationResultsCheck(self,filename):
+        if not hasattr(TestSPARQSolt, 'simdict'):
+            TestSPARQSolt.simdict=dict()
+        if filename in TestSPARQSolt.simdict:
+            return TestSPARQSolt.simdict[filename]
+        TestSPARQSolt.simdict[filename] = self.SimulationResultsChecker(filename)
+        return TestSPARQSolt.simdict[filename]
     def testSPARQSOLPerfectButWithLength(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -269,7 +276,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         cl=[si.m.cal.ReflectCalibrationMeasurement(spRawShort,si.m.calkit.std.ShortStandard(f),1,'s'),
             si.m.cal.ReflectCalibrationMeasurement(spRawOpen,si.m.calkit.std.OpenStandard(f),1,'o'),
             si.m.cal.ReflectCalibrationMeasurement(spRawLoad,si.m.calkit.std.LoadStandard(f),1,'l')]
-        cm=si.m.cal.CalibrationMeasurements(1,cl)
+        cm=si.m.cal.Calibration(1,cl)
 
         et=cm.ErrorTerms()
         pass
@@ -353,7 +360,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         cl=[si.m.cal.ReflectCalibrationMeasurement(spRawShort,si.m.calkit.std.ShortStandard(f),1,'s'),
             si.m.cal.ReflectCalibrationMeasurement(spRawOpen,si.m.calkit.std.OpenStandard(f),1,'o'),
             si.m.cal.ReflectCalibrationMeasurement(spRawLoad,si.m.calkit.std.LoadStandard(f),1,'l')]
-        cm=si.m.cal.CalibrationMeasurements(1,cl)
+        cm=si.m.cal.Calibration(1,cl)
 
         et=cm.ErrorTerms()
 
@@ -783,7 +790,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         cl=[si.m.cal.ReflectCalibrationMeasurement(spRawShort,si.m.calkit.std.ShortStandard(f),1,'s'),
             si.m.cal.ReflectCalibrationMeasurement(spRawOpen,si.m.calkit.std.OpenStandard(f),1,'o'),
             si.m.cal.ReflectCalibrationMeasurement(spRawLoad,si.m.calkit.std.LoadStandard(f),1,'l')]
-        cm=si.m.cal.CalibrationMeasurements(1,cl)
+        cm=si.m.cal.Calibration(1,cl)
 
         et=cm.ErrorTerms()
         pass
@@ -1187,7 +1194,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOL(self):
-        result = self.SimulationResultsChecker('TDRSimulationSOL.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOL.xml')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1226,7 +1233,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOLT(self):
-        result = self.SimulationResultsChecker('TDRSimulationSOLTVOnly.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnly.xml')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1375,7 +1382,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         defName=['ReflectCalibration','ThruCalibration','ExCalibration','DutCalculation','Fixture']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testTDRSimulationSOLT2(self):
-        result = self.SimulationResultsChecker('TDRSimulationSOLTVOnlyUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.xml')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1541,7 +1548,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOLTTwoPortEQ(self):
-        result = self.SimulationResultsChecker('TDRSimulationSOLTVOnlyUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.xml')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1810,7 +1817,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
     def testVNASimulationSOLT(self):
-        result = self.SimulationResultsChecker('TDRSimulationSOLTUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.xml')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1908,6 +1915,116 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
+    def testVNASimulationSOLT2(self):
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.xml')
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        outputWaveforms=result[3]
+        
+        fr=transferMatrices.FrequencyResponses()
+        
+        spDict=dict()
+
+        AShort1=fr[outputNames.index('AShort1')][sourceNames.index('VGLeft')]
+        BShort1=fr[outputNames.index('BShort1')][sourceNames.index('VGLeft')]
+        f=AShort1.Frequencies()
+        spDict['Short1']=si.sp.SParameters(f,[[[BShort1[n]/AShort1[n]]] for n in range(len(f))])
+
+        AShort2=fr[outputNames.index('AShort2')][sourceNames.index('VGRight')]
+        BShort2=fr[outputNames.index('BShort2')][sourceNames.index('VGRight')]
+        spDict['Short2']=si.sp.SParameters(f,[[[BShort2[n]/AShort2[n]]] for n in range(len(f))])
+
+        AOpen1=fr[outputNames.index('AOpen1')][sourceNames.index('VGLeft')]
+        BOpen1=fr[outputNames.index('BOpen1')][sourceNames.index('VGLeft')]
+        f=AOpen1.Frequencies()
+        spDict['Open1']=si.sp.SParameters(f,[[[BOpen1[n]/AOpen1[n]]] for n in range(len(f))])
+
+        AOpen2=fr[outputNames.index('AOpen2')][sourceNames.index('VGRight')]
+        BOpen2=fr[outputNames.index('BOpen2')][sourceNames.index('VGRight')]
+        spDict['Open2']=si.sp.SParameters(f,[[[BOpen2[n]/AOpen2[n]]] for n in range(len(f))])
+
+        ALoad1=fr[outputNames.index('ALoad1')][sourceNames.index('VGLeft')]
+        BLoad1=fr[outputNames.index('BLoad1')][sourceNames.index('VGLeft')]
+        f=ALoad1.Frequencies()
+        spDict['Load1']=si.sp.SParameters(f,[[[BLoad1[n]/ALoad1[n]]] for n in range(len(f))])
+
+        ALoad2=fr[outputNames.index('ALoad2')][sourceNames.index('VGRight')]
+        BLoad2=fr[outputNames.index('BLoad2')][sourceNames.index('VGRight')]
+        spDict['Load2']=si.sp.SParameters(f,[[[BLoad2[n]/ALoad2[n]]] for n in range(len(f))])
+
+        AThru11=fr[outputNames.index('AThru11')][sourceNames.index('VGLeft')]
+        AThru21=fr[outputNames.index('AThru21')][sourceNames.index('VGLeft')]
+        AThru12=fr[outputNames.index('AThru12')][sourceNames.index('VGRight')]
+        AThru22=fr[outputNames.index('AThru22')][sourceNames.index('VGRight')]     
+        BThru11=fr[outputNames.index('BThru11')][sourceNames.index('VGLeft')]
+        BThru21=fr[outputNames.index('BThru21')][sourceNames.index('VGLeft')]
+        BThru12=fr[outputNames.index('BThru12')][sourceNames.index('VGRight')]
+        BThru22=fr[outputNames.index('BThru22')][sourceNames.index('VGRight')]
+        spDict['Thru']=si.sp.SParameters(f,[(matrix([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]])*
+                                            matrix([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]]).getI()).tolist()
+                                            for n in range(len(f))])
+        
+        ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
+        ADut21=fr[outputNames.index('ADut21')][sourceNames.index('VGLeft')]
+        ADut12=fr[outputNames.index('ADut12')][sourceNames.index('VGRight')]
+        ADut22=fr[outputNames.index('ADut22')][sourceNames.index('VGRight')]     
+        BDut11=fr[outputNames.index('BDut11')][sourceNames.index('VGLeft')]
+        BDut21=fr[outputNames.index('BDut21')][sourceNames.index('VGLeft')]
+        BDut12=fr[outputNames.index('BDut12')][sourceNames.index('VGRight')]
+        BDut22=fr[outputNames.index('BDut22')][sourceNames.index('VGRight')]
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]])*
+                                            matrix([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]]).getI()).tolist()
+                                            for n in range(len(f))])
+        
+        AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
+        AEx21=fr[outputNames.index('AEx21')][sourceNames.index('VGLeft')]
+        AEx12=fr[outputNames.index('AEx12')][sourceNames.index('VGRight')]
+        AEx22=fr[outputNames.index('AEx22')][sourceNames.index('VGRight')]     
+        BEx11=fr[outputNames.index('BEx11')][sourceNames.index('VGLeft')]
+        BEx21=fr[outputNames.index('BEx21')][sourceNames.index('VGLeft')]
+        BEx12=fr[outputNames.index('BEx12')][sourceNames.index('VGRight')]
+        BEx22=fr[outputNames.index('BEx22')][sourceNames.index('VGRight')]
+        spDict['Ex']=si.sp.SParameters(f,[(matrix([[BEx11[n],BEx12[n]],[BEx21[n],BEx22[n]]])*
+                                            matrix([[AEx11[n],AEx12[n]],[AEx21[n],AEx22[n]]]).getI()).tolist()
+                                            for n in range(len(f))])
+
+        f=spDict['Dut'].f()
+        
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(0,0),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(0,0),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(0,0),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],1,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],1,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],1,'Load1'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(0,0),spDict['Thru'].FrequencyResponse(1,0),calStandards[3],0,1,'Thru1'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(1,1),spDict['Thru'].FrequencyResponse(0,1),calStandards[3],1,0,'Thru2'),
+            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(1,0),0,1,'Ex1'),
+            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(0,1),1,0,'Ex2')            
+            ]
+
+        cm=si.m.cal.Calibration(2,f,ml)
+        
+        DUTCalcSp=cm.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
+    def testWriteCalibrationCode(self):
+        fileName="../SignalIntegrity/Measurement/Calibration/Calibration.py"
+        className='Calibration'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
 
 if __name__ == "__main__":
     unittest.main()
