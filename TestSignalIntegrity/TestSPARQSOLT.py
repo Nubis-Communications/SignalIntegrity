@@ -1230,6 +1230,19 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSp=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s1p')
+
+        if self.plot:
+            plt.clf()
+            plt.title('error magnitude')
+            plt.xlabel('frequency (GHz)')
+            plt.ylabel('amplitude')
+            for r in range(DUTCalcSp.m_P):
+                for c in range(DUTCalcSp.m_P):
+                    plt.semilogy(DUTCalcSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTCalcSp))],label='S'+str(r)+str(c))
+            plt.legend(loc='upper right')
+            plt.show()
+
+
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOLT(self):
@@ -2016,6 +2029,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
 
     def testWriteCalibrationCode(self):
         fileName="../SignalIntegrity/Measurement/Calibration/Calibration.py"

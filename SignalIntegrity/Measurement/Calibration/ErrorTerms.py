@@ -33,6 +33,8 @@ class ErrorTerms(object):
             self.numPorts=len(ET)
         else:
             self.numPorts=None
+    def __getitem__(self,i):
+        return self.ET[i]
     def Initialize(self,numPorts):
         self.numPorts=numPorts
         self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)] for _ in range(self.numPorts)]

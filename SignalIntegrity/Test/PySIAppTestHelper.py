@@ -3,6 +3,7 @@ import os
 
 class PySIAppTestHelper:
     relearn=True
+    plotErrors=True
     def __init__(self,path):
         self.path=path
     def FileNameForTest(self,filename):
@@ -50,14 +51,29 @@ class PySIAppTestHelper:
         os.chdir(currentDirectory)
     def SParameterRegressionChecker(self,sp,spfilename):
         currentDirectory=os.getcwd()
-        os.chdir(self.path)     
+        os.chdir(self.path)
         if not os.path.exists(spfilename):
             sp.WriteToFile(spfilename)
             if not self.relearn:
                 self.assertTrue(False, spfilename + ' not found')
         regression=si.sp.SParameterFile(spfilename)
-        self.assertTrue(self.SParametersAreEqual(sp, regression),spfilename + ' incorrect')
+        SpAreEqual=self.SParametersAreEqual(sp, regression,1e-3)
+        if not SpAreEqual:
+            if PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title(spfilename)
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(regression.m_P):
+                    for c in range(regression.m_P):
+                        plt.semilogy(regression.f(),[abs(sp[n][r][c]-regression[n][r][c]) for n in range(len(regression))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+        self.assertTrue(SpAreEqual,spfilename + ' incorrect')
         os.chdir(currentDirectory)
+
     def WaveformRegressionChecker(self,wf,wffilename):
         currentDirectory=os.getcwd()
         os.chdir(self.path)     

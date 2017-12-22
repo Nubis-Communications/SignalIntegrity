@@ -31,8 +31,8 @@ class SParameterCompareHelper(object):
                         return False
         return True
 
-
 class ResponseTesterHelper(SParameterCompareHelper):
+    plotErrors=True
     def CheckFrequencyResponseResult(self,fr,fileName,text):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -57,8 +57,19 @@ class ResponseTesterHelper(SParameterCompareHelper):
             wf.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
         regression=si.td.wf.Waveform().ReadFromFile(fileName)
+        wfsAreEqual=(regression==wf)
+        if not wfsAreEqual:
+            if ResponseTesterHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title(fileName)
+                plt.xlabel('time (s)')
+                plt.ylabel('amplitude')
+                plt.semilogy(regression.Times(),[abs(wf[k]-regression[k]) for k in range(len(regression))])
+                plt.grid(True)
+                plt.show()
         os.chdir(path)
-        self.assertTrue(regression == wf,text + ' incorrect')
+        self.assertTrue(wfsAreEqual,text + ' incorrect')
     def GetWaveformResult(self,fileName):
         path=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
