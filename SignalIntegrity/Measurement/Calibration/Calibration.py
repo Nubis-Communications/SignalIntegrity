@@ -11,6 +11,7 @@ from SignalIntegrity.Measurement.Calibration.ErrorTerms import ErrorTerms
 from SignalIntegrity.SParameters.SParameters import SParameters
 
 class Calibration(object):
+    FillInTransferThru=True
     def __init__(self,ports,f,calibrationList=[]):
         self.ports=ports
         self.f=f
@@ -64,27 +65,9 @@ class Calibration(object):
                                   for measurement in thruMeasurementList]
                             S=[measurement.S[n] for measurement in thruMeasurementList]
                             self.ET[n].ThruCalibration(b1a1,b2a1,S,otherPort,drivenPort)
-        for otherPort in range(self.ports):
-            for drivenPort in range(self.ports):
-                if (otherPort != drivenPort):
-                    if all(self.ET[0][otherPort][drivenPort][1:])==0.:
-                        # print 'need to compute thru'+str(otherPort+1)+str(drivenPort+1)
-                        for mid in range(self.ports):
-                            if all(self.ET[0][otherPort][drivenPort][1:])==0.:
-                                if ((mid != otherPort) and
-                                    (mid != drivenPort) and
-                                    (any(self.ET[0][otherPort][mid][1:])!=0.) and
-                                    (any(self.ET[0][mid][drivenPort][1:])!=0.)):
-                                    # print 'did it with '+str(otherPort+1)+str(mid+1)+' and '+str(mid+1)+str(drivenPort+1)
-                                    for n in range(len(self.f)):
-                                        (Exl,Etl,Ell)=self.ET[n][otherPort][mid]
-                                        (Exr,Etr,Elr)=self.ET[n][mid][drivenPort]
-                                        (Edm,Erm,Esm)=self.ET[n][mid][mid]
-                                        (Edo,Ero,Eso)=self.ET[n][otherPort][otherPort]
-                                        (Ex,Et,El)=self.ET[n][otherPort][drivenPort]
-                                        Et=Etl*Etr/Erm
-                                        El=Eso
-                                        self.ET[n][otherPort][drivenPort]=[Ex,Et,El]
+        if Calibration.FillInTransferThru:
+            for n in range(len(self.f)):
+                self.ET[n].TransferThruCalibration()
         return self
     def ErrorTerms(self):
         if self.ET is None:

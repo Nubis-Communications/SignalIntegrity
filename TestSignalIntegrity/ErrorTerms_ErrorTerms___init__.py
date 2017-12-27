@@ -1,31 +1,3 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from numpy import matrix,zeros,identity
-from numpy.linalg import det
-
-# Error terms are, for P ports, a P x P matrix of lists of three error terms.
-# For the diagonal elements, the three error terms are ED, ER, and ES in that order
-# for the off diagonal elements, the three error terms are EX, ET and EL in that order
-# for r in 0...P-1, and c in 0...P-1,  ET[r][c] = [ED[r],ER[r],ES[r]], when r==c
-# ET[r][c]=[EX[r][c],ET[r][c],EL[r][c]] when r !=c
-#
-# ET[r][c] refers to the error terms at port r when driven at port c
-# in other words, if r==c, then:
-# ET[r][r][0] = EDr
-# ET[r][r][1] = ERr
-# ET[r][r][2] = ESr
-# and when r!=c, then:
-# ET[r][c][0]=EXrc
-# ET[r][c][1]=ETrc
-# ET[r][c][2]=ELrc
-#
 class ErrorTerms(object):
     def __init__(self,ET=None):
         self.ET=ET
@@ -49,12 +21,6 @@ class ErrorTerms(object):
         self.ET[m][m]=[Ed,Er,Es]
         return self
     def ThruCalibration(self,b1a1,b2a1,S,n,m):
-        # pragma: silent exclude
-        if not isinstance(b1a1,list):
-            b1a1=[b1a1]
-            b2a1=[b2a1]
-            S=[S]
-        # pragma: include
         [Ed,Er,Es]=self.ET[m][m]
         Ex=self.ET[n][m][0]
         A=zeros((2*len(b1a1),2)).tolist()
@@ -97,36 +63,4 @@ class ErrorTerms(object):
                                     El=Eso
                                     self.ET[otherPort][drivenPort]=[Ex,Et,El]
         return self
-    def Fixture(self,m):
-        E=[[zeros((self.numPorts,self.numPorts),complex).tolist(),
-            zeros((self.numPorts,self.numPorts),complex).tolist()],
-           [zeros((self.numPorts,self.numPorts),complex).tolist(),
-            zeros((self.numPorts,self.numPorts),complex).tolist()]]
-        for n in range(self.numPorts):
-            ETn=self.ET[n][m]
-            E[0][0][m][n]=ETn[0]
-            E[0][1][n][n]=ETn[1]
-            E[1][1][n][n]=ETn[2]
-        E[1][0][m][m]=1.
-        return E
-    def DutCalculation(self,sRaw):
-        if self.numPorts==1:
-            (Ed,Er,Es)=tuple(self.ET[0][0])
-            gamma=sRaw[0][0]
-            Gamma=(gamma-Ed)/((gamma-Ed)*Es+Er)
-            return Gamma
-        else:
-            A=zeros((self.numPorts,self.numPorts),complex).tolist()
-            B=zeros((self.numPorts,self.numPorts),complex).tolist()
-            I=(identity(self.numPorts)).tolist()
-            for m in range(self.numPorts):
-                E=self.Fixture(m)
-                b=matrix([[sRaw[r][m]] for r in range(self.numPorts)])
-                Im=matrix([[I[r][m]] for r in range(self.numPorts)])
-                bprime=(matrix(E[0][1]).getI()*(b-matrix(E[0][0])*Im)).tolist()
-                aprime=(matrix(E[1][0])*Im+matrix(E[1][1])*matrix(bprime)).tolist()
-                for r in range(self.numPorts):
-                    A[r][m]=aprime[r][0]
-                    B[r][m]=bprime[r][0]
-            S=(matrix(B)*matrix(A).getI()).tolist()
-            return S
+...

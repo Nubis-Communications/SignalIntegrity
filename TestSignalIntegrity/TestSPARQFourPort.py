@@ -1,15 +1,11 @@
 import unittest
 import SignalIntegrity as si
-from TestHelpers import SParameterCompareHelper
+from TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
 import os
-
-from SignalIntegrity.Test import PySIAppTestHelper
-
-from TestHelpers import RoutineWriterTesterHelper
 
 from numpy import matrix
 
-class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -17,7 +13,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         RoutineWriterTesterHelper.__init__(self)
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQFourPort, 'simdict'):
@@ -153,7 +149,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if PySIAppTestHelper.plotErrors:
+            if si.test.PySIAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -289,7 +285,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s4p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
         if not SpAreEqual:
-            if PySIAppTestHelper.plotErrors:
+            if si.test.PySIAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')

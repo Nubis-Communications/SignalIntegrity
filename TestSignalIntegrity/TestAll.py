@@ -38,6 +38,7 @@ from TestPI import *
 from TestDescriptors import *
 from TestAdaptDecimate import *
 from TestSPARQSOLT import *
+from TestSPARQFourPort import *
 
 if __name__ == '__main__':
     unittest.main()

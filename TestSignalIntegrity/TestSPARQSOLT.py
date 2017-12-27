@@ -1389,10 +1389,15 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         N=200
         sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
         self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
-    def testWriteErrorTermsCode(self):
+    def testWriteErrorTermsCodeCalibration(self):
         fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['ReflectCalibration','ThruCalibration','ExCalibration','DutCalculation','Fixture']
+        defName=['__init__','Initialize','ReflectCalibration','ThruCalibration','ExCalibration','TransferThruCalibration']
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteErrorTermsCodeDut(self):
+        fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['DutCalculation','Fixture']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testTDRSimulationSOLT2(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.xml')
@@ -2010,16 +2015,16 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
               si.m.calkit.LoadStandard(f),
               si.m.calkit.ThruStandard(f,100e-12)]
 
-        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(0,0),calStandards[0],0,'Short1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(0,0),calStandards[1],0,'Open1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(0,0),calStandards[2],0,'Load1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],1,'Short1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],1,'Open1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],1,'Load1'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(0,0),spDict['Thru'].FrequencyResponse(1,0),calStandards[3],0,1,'Thru1'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(1,1),spDict['Thru'].FrequencyResponse(0,1),calStandards[3],1,0,'Thru2'),
-            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(1,0),0,1,'Ex1'),
-            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(0,1),1,0,'Ex2')            
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(1,1),spDict['Thru'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru1'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(2,2),spDict['Thru'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru2'),
+            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(2,1),0,1,'Ex1'),
+            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(1,2),1,0,'Ex2')            
             ]
 
         cm=si.m.cal.Calibration(2,f,ml)
@@ -2029,7 +2034,6 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
-
 
     def testWriteCalibrationCode(self):
         fileName="../SignalIntegrity/Measurement/Calibration/Calibration.py"

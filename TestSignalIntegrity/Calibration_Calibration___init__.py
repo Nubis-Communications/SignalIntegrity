@@ -41,15 +41,20 @@ class Calibration(object):
                         elif meas.type=='thru':
                             thruMeasurementList.append(meas)
                     if len(xtalkMeasurementList)!=0:
-                        self.ET[n].ExCalibration(xtalkMeasurementList[0].b2a1[n],
-                                otherPort,drivenPort)
-                    for n in range(len(self.f)):
-                        b1a1=[measurement.b1a1[n]
-                              for measurement in thruMeasurementList]
-                        b2a1=[measurement.b2a1[n]
-                              for measurement in thruMeasurementList]
-                        S=[measurement.S[n] for measurement in thruMeasurementList]
-                        self.ET[n].ThruCalibration(b1a1,b2a1,S,otherPort,drivenPort)
+                        for n in range(len(self.f)):
+                            self.ET[n].ExCalibration(xtalkMeasurementList[0].b2a1[n],
+                                    otherPort,drivenPort)
+                    if len(thruMeasurementList)!=0:
+                        for n in range(len(self.f)):
+                            b1a1=[measurement.b1a1[n]
+                                  for measurement in thruMeasurementList]
+                            b2a1=[measurement.b2a1[n]
+                                  for measurement in thruMeasurementList]
+                            S=[measurement.S[n] for measurement in thruMeasurementList]
+                            self.ET[n].ThruCalibration(b1a1,b2a1,S,otherPort,drivenPort)
+        if Calibration.FillInTransferThru:
+            for n in range(len(self.f)):
+                self.ET[n].TransferThruCalibration()
         return self
     def ErrorTerms(self):
         if self.ET is None:
