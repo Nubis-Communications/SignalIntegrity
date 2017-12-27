@@ -35,6 +35,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
     def testResampleCheby(self):
         return
         sp=si.sp.SParameterFile('../PySIApp/Examples/SParameterExample/Sparq_demo_16.s4p')
+        sp=si.sp.SParameterFile('FourPortDut20.s4p')
         spresampled=si.sp.SParameters([f/4 for f in sp.f().Frequencies()],[d for d in sp])
         spresampled.WriteToFile('FourPortDUT.s4p')
     def testVNAFourPort(self):
@@ -107,8 +108,8 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
         
-        #import pickle
-        #pickle.dump(self.simdict,open("simresults.p","wb"))
+        import pickle
+        pickle.dump(self.simdict,open("simresults.p","wb"))
         
         f=spDict['Dut'].f()
         
@@ -117,30 +118,30 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
               si.m.calkit.LoadStandard(f),
               si.m.calkit.ThruStandard(f,100e-12)]
 
-        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(0,0),calStandards[0],0,'Short1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(0,0),calStandards[0],1,'Short2'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(0,0),calStandards[0],2,'Short3'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short4'].FrequencyResponse(0,0),calStandards[0],3,'Short4'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(0,0),calStandards[1],0,'Open1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(0,0),calStandards[1],1,'Open2'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(0,0),calStandards[1],2,'Open3'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open4'].FrequencyResponse(0,0),calStandards[1],3,'Open4'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(0,0),calStandards[2],0,'Load1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(0,0),calStandards[2],1,'Load2'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(0,0),calStandards[2],2,'Load3'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(0,0),calStandards[2],3,'Load4'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(0,0),spDict['Thru12'].FrequencyResponse(1,0),calStandards[3],0,1,'Thru121'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(0,1),calStandards[3],1,0,'Thru122'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(0,0),spDict['Thru13'].FrequencyResponse(1,0),calStandards[3],0,2,'Thru131'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(0,1),calStandards[3],2,0,'Thru133'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(0,0),spDict['Thru14'].FrequencyResponse(1,0),calStandards[3],0,3,'Thru141'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(1,1),spDict['Thru14'].FrequencyResponse(0,1),calStandards[3],3,0,'Thru144'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(0,0),spDict['Thru23'].FrequencyResponse(1,0),calStandards[3],1,2,'Thru232'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(0,1),calStandards[3],2,1,'Thru233'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(0,0),spDict['Thru24'].FrequencyResponse(1,0),calStandards[3],1,3,'Thru242'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(1,1),spDict['Thru24'].FrequencyResponse(0,1),calStandards[3],3,1,'Thru244'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(0,0),spDict['Thru34'].FrequencyResponse(1,0),calStandards[3],2,3,'Thru343'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(1,1),spDict['Thru34'].FrequencyResponse(0,1),calStandards[3],3,2,'Thru344')
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(1,1),calStandards[0],2,'Short3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short4'].FrequencyResponse(1,1),calStandards[0],3,'Short4'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(1,1),calStandards[1],2,'Open3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open4'].FrequencyResponse(1,1),calStandards[1],3,'Open4'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(1,1),calStandards[2],3,'Load4'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(1,1),spDict['Thru14'].FrequencyResponse(2,1),calStandards[3],0,3,'Thru141'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(2,2),spDict['Thru14'].FrequencyResponse(1,2),calStandards[3],3,0,'Thru144'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(2,2),spDict['Thru23'].FrequencyResponse(1,2),calStandards[3],2,1,'Thru233'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(1,1),spDict['Thru24'].FrequencyResponse(2,1),calStandards[3],1,3,'Thru242'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(2,2),spDict['Thru24'].FrequencyResponse(1,2),calStandards[3],3,1,'Thru244'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(1,1),spDict['Thru34'].FrequencyResponse(2,1),calStandards[3],2,3,'Thru343'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(2,2),spDict['Thru34'].FrequencyResponse(1,2),calStandards[3],3,2,'Thru344')
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
@@ -149,6 +150,34 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s4p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
+
+        if not SpAreEqual:
+            if PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-1),'s-parameters not equal')
     def testVNAFourPortTransferThru(self):
         ports=4
@@ -226,30 +255,30 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
               si.m.calkit.LoadStandard(f),
               si.m.calkit.ThruStandard(f,100e-12)]
 
-        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(0,0),calStandards[0],0,'Short1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(0,0),calStandards[0],1,'Short2'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(0,0),calStandards[0],2,'Short3'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Short4'].FrequencyResponse(0,0),calStandards[0],3,'Short4'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(0,0),calStandards[1],0,'Open1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(0,0),calStandards[1],1,'Open2'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(0,0),calStandards[1],2,'Open3'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open4'].FrequencyResponse(0,0),calStandards[1],3,'Open4'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(0,0),calStandards[2],0,'Load1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(0,0),calStandards[2],1,'Load2'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(0,0),calStandards[2],2,'Load3'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(0,0),calStandards[2],3,'Load4'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(0,0),spDict['Thru12'].FrequencyResponse(1,0),calStandards[3],0,1,'Thru121'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(0,1),calStandards[3],1,0,'Thru122'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(0,0),spDict['Thru34'].FrequencyResponse(1,0),calStandards[3],2,3,'Thru343'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(1,1),spDict['Thru34'].FrequencyResponse(0,1),calStandards[3],3,2,'Thru344'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(0,0),spDict['Thru23'].FrequencyResponse(1,0),calStandards[3],1,2,'Thru232'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(0,1),calStandards[3],2,1,'Thru233'),
-#             si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(0,0),spDict['Thru24'].FrequencyResponse(1,0),calStandards[3],1,3,'Thru242'),
-#             si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(1,1),spDict['Thru24'].FrequencyResponse(0,1),calStandards[3],3,1,'Thru244'),
-#             si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(0,0),spDict['Thru13'].FrequencyResponse(1,0),calStandards[3],0,2,'Thru131'),
-#             si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(0,1),calStandards[3],2,0,'Thru133'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(0,0),spDict['Thru14'].FrequencyResponse(1,0),calStandards[3],0,3,'Thru141'),
-            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(1,1),spDict['Thru14'].FrequencyResponse(0,1),calStandards[3],3,0,'Thru144')
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(1,1),calStandards[0],2,'Short3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short4'].FrequencyResponse(1,1),calStandards[0],3,'Short4'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(1,1),calStandards[1],2,'Open3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open4'].FrequencyResponse(1,1),calStandards[1],3,'Open4'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(1,1),calStandards[2],3,'Load4'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
+#            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
+#            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(1,1),spDict['Thru14'].FrequencyResponse(2,1),calStandards[3],0,3,'Thru141'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(2,2),spDict['Thru14'].FrequencyResponse(1,2),calStandards[3],3,0,'Thru144'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(2,2),spDict['Thru23'].FrequencyResponse(1,2),calStandards[3],2,1,'Thru233'),
+#            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(1,1),spDict['Thru24'].FrequencyResponse(2,1),calStandards[3],1,3,'Thru242'),
+#            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(2,2),spDict['Thru24'].FrequencyResponse(1,2),calStandards[3],3,1,'Thru244'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(1,1),spDict['Thru34'].FrequencyResponse(2,1),calStandards[3],2,3,'Thru343'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(2,2),spDict['Thru34'].FrequencyResponse(1,2),calStandards[3],3,2,'Thru344')
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
@@ -258,7 +287,22 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,PySIAppTestHel
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s4p')
-        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-1),'s-parameters not equal')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
+        if not SpAreEqual:
+            if PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-4),'s-parameters not equal')
 
 if __name__ == "__main__":
     unittest.main()
