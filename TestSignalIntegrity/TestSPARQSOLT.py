@@ -19,6 +19,8 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         unittest.TestCase.__init__(self,methodName)
         PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         RoutineWriterTesterHelper.__init__(self)
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQSolt, 'simdict'):
             TestSPARQSolt.simdict=dict()
@@ -1750,6 +1752,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
     def testCalkitWrite(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
         calkit = si.m.calkit.CalibrationKit()
         calkit.WriteToFile('default.cstd')
         

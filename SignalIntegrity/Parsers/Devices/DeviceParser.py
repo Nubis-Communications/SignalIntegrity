@@ -171,7 +171,12 @@ class DeviceFactory(object):
             # pragma: silent exclude indent
             except:
                 #print 'device '+name+' could not be instantiated with arguments: '+' '.join(argsList)
-                raise PySIExceptionDeviceParser('device '+name+' could not be instantiated with arguments: '+' '.join(argsList))
+                try:
+                    f=[0]
+                    eval(device.func)
+                except:
+                    raise PySIExceptionDeviceParser('device '+name+' could not be instantiated with arguments: '+' '.join(argsList))
+                raise PySIExceptionDeviceParser('frequency dependent device '+name+' could not be instantiated because no frequencies provided')
             # pragma: include
             return True
         return False

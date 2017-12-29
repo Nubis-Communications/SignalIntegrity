@@ -1,8 +1,9 @@
 import unittest
 
 import SignalIntegrity as si
+from TestHelpers import SParameterCompareHelper
 
-class TestExceptions(unittest.TestCase):
+class TestExceptions(unittest.TestCase,SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
     def testSystemDescriptionCheckConnections(self):
@@ -117,6 +118,62 @@ class TestExceptions(unittest.TestCase):
         with self.assertRaises(si.PySIException) as cm:
             wf=si.td.wf.Waveform().ReadFromFile('IHopeThisFileDoesntExist.txt')
         self.assertEqual(cm.exception.parameter,'WaveformFile')
+    def testSParameterNumericalError(self):
+        sp=si.p.SystemSParametersNumericParser(f=[0])
+        sp.AddLines(['device T1 2 tline zc 40.0 td 3e-10',
+                     'device T2 2 tline zc 55.0 td 4e-10',
+                     'device T3 4 tline zc 50.0 td 6e-10',
+                     'port 1 T3 1',
+                     'connect T3 1 T1 1',
+                     'port 2 T3 3',
+                     'connect T3 3 T2 1',
+                     'port 3 T3 2',
+                     'connect T3 2 T1 2',
+                     'port 4 T3 4',
+                     'connect T3 4 T2 2'])
+        try:
+            spBlock=sp.SParameters(solvetype='block')
+            blockSucceeded=True
+        except:
+            blockSucceeded=False
+
+        try:
+            spDirect=sp.SParameters(solvetype='direct')
+            directSucceeded=True
+        except:
+            directSucceeded=False
+
+        # originally, I thought that when the direct method succeeded, that there was something wrong
+        # with the block method.  But there was a condition number check on the block method and the
+        # condition number was poor - I added a check in the direct method and now the direct method fails.
+        # The correct assertion is that they both fail
+        
+#         self.assertTrue(directSucceeded,'this used to work - something really broke')
+#         self.assertTrue(blockSucceeded,'direct succeed, but block failed - a known bug waiting to be fixed')
+# 
+#         if (blockSucceeded and directSucceeded):
+#             self.assertTrue(self.SParametersAreEqual(spBlock, spDirect, 1e-4))
+#         # if I made it here, this bug is now fixed
+
+        self.assertTrue((not blockSucceeded) and (not directSucceeded),'this calculation should fail because of poor condition number')
+
+    def testSParameterExceptionNoFrequency(self):
+        sp=si.p.SystemSParametersNumericParser()
+        sp.AddLines(['device T1 2 tline zc 40.0 td 3e-10',
+                     'device T2 2 tline zc 55.0 td 4e-10',
+                     'device T3 4 tline zc 50.0 td 6e-10',
+                     'port 1 T3 1',
+                     'connect T3 1 T1 1',
+                     'port 2 T3 3',
+                     'connect T3 3 T2 1',
+                     'port 3 T3 2',
+                     'connect T3 2 T1 2',
+                     'port 4 T3 4',
+                     'connect T3 4 T2 2'])
+        with self.assertRaises(si.PySIException) as cm:
+            sp.SParameters(solvetype='direct')
+        
+        self.assertEquals(cm.exception.message,'frequency dependent device tline could not be instantiated because no frequencies provided','wrong device parser exception')
 
 if __name__ == '__main__':
     unittest.main()

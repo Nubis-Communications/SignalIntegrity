@@ -10,6 +10,7 @@ from pickle import mloads
 
 class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
     def testVirtualProbeDC2008(self):
+        si.td.wf.Waveform.adaptionStrategy='SinX'
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         os.chdir('.//DesignCon2008//')

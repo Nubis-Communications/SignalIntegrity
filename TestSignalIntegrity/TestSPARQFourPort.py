@@ -10,18 +10,23 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
     plot=False
     debug=False
     checkPictures=True
+    usePickle=False
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         RoutineWriterTesterHelper.__init__(self)
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQFourPort, 'simdict'):
-            try:
-                import pickle
-                TestSPARQFourPort.simdict=pickle.load(open("simresults.p","rb"))
-            except:
-                TestSPARQFourPort.simdict=dict()
+            TestSPARQFourPort.simdict=dict()
+            if TestSPARQFourPort.usePickle:
+                try:
+                    import pickle
+                    TestSPARQFourPort.simdict=pickle.load(open("simresults.p","rb"))
+                except:
+                    pass
         if filename in TestSPARQFourPort.simdict:
             return TestSPARQFourPort.simdict[filename]
         TestSPARQFourPort.simdict[filename] = self.SimulationResultsChecker(filename)
@@ -103,9 +108,11 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
-        import pickle
-        pickle.dump(self.simdict,open("simresults.p","wb"))
+
+        if TestSPARQFourPort.usePickle:
+            if not os.path.exists('simresults.p'):
+                import pickle
+                pickle.dump(self.simdict,open("simresults.p","wb"))
         
         f=spDict['Dut'].f()
         

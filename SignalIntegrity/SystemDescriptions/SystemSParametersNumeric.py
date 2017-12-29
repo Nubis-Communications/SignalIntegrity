@@ -28,6 +28,12 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
             n=self.NodeVector()
             # pragma: silent exclude
             try:
+                # I really hate this
+                # without this check, there is a gray zone where the matrix is really uninvertible
+                # yet, produces total garbage without raising the exception.
+                # TODO: have Kavi take a look at this.
+                if linalg.cond((matrix(identity(len(n)))-\
+                    matrix(self.WeightsMatrix())).getI(),p=-2) < 1e-12: raise LinAlgError
             # pragma: include outdent
                 SCI=((matrix(identity(len(n)))-\
                     matrix(self.WeightsMatrix())).getI()).tolist()
