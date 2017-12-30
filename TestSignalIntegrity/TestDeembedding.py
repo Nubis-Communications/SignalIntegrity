@@ -213,8 +213,15 @@ class TestDeembedding(unittest.TestCase):
         self.assertEqual(cm.exception.parameter,'Numeric')
         self.assertEqual(cm.exception.message,'under-constrained system')
         os.remove('system.s2p')
-        
-        
+    def testF12(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=si.fd.EvenlySpacedFrequencyList(20e9,20)
+        with self.assertRaises(si.PySIException) as cm:
+            si.p.DeembedderNumericParser(f).AddLines(['system file cable.s2p',
+                'unknown U1 2','device T1 2 tline zc 50.0 td 0.0','device O1 1 open','device O2 1 open',
+                'port 1 U1 1','connect T1 1 U1 2','connect O2 1 T1 2','port 2 O1 1']).Deembed()
+        self.assertEqual(cm.exception.parameter,'Numeric')
+        self.assertEqual(cm.exception.message,'cannot invert F12')        
 
 if __name__ == '__main__':
     unittest.main()
