@@ -4,8 +4,11 @@ import SignalIntegrity as si
 from numpy import linalg
 from numpy import matrix
 import os
+from TestHelpers import ResponseTesterHelper
 
-class TestDeembedding(unittest.TestCase):
+class TestDeembedding(unittest.TestCase,ResponseTesterHelper):
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
     def testOnePortFixtureDeembedding(self):
         Su=si.dev.TerminationZ(30)
         D=[[1.,2.],[3.,4.]]
@@ -221,7 +224,17 @@ class TestDeembedding(unittest.TestCase):
                 'unknown U1 2','device T1 2 tline zc 50.0 td 0.0','device O1 1 open','device O2 1 open',
                 'port 1 U1 1','connect T1 1 U1 2','connect O2 1 T1 2','port 2 O1 1']).Deembed()
         self.assertEqual(cm.exception.parameter,'Numeric')
-        self.assertEqual(cm.exception.message,'cannot invert F12')        
+        self.assertEqual(cm.exception.message,'cannot invert F12')    
+    def testMultipleParser(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=si.fd.EvenlySpacedFrequencyList(20e9,20)
+        res=si.p.DeembedderNumericParser(f).AddLines(['system file cable.s2p','unknown U1 1','unknown U2 1',
+                                                      'port 1 U1 1','port 2 U2 1']).Deembed()
+        self.assertTrue(isinstance(res,list),'test should have provided multiple results - it did not')
+        self.assertTrue(len(res)==2,'test should have provided exactly two results - it did not')
+        filenamePrefix='_'.join(self.id().split('.')[-2:])
+        self.CheckSParametersResult(res[0],filenamePrefix+'_0.s1p','first result incorrect')
+        self.CheckSParametersResult(res[0],filenamePrefix+'_1.s1p','second result incorrect')
 
 if __name__ == '__main__':
     unittest.main()
