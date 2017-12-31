@@ -36,7 +36,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteFrequencyDomain(self):
         fileName="../SignalIntegrity/FrequencyDomain/FrequencyDomain.py"
         className='FrequencyDomain'
-        defName=['__init__','__getitem__','__len__','FrequencyList',
+        defName=['__init__','__getitem__','__setitem__','__len__','FrequencyList',
         'Frequencies','Values','ReadFromFile','WriteToFile']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFrequencyResponse_Basic(self):
@@ -98,7 +98,7 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteWaveform_Values(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"
         className='Waveform'
-        defName=['Values','__init__','__len__','__getitem__','Times','TimeDescriptor',]
+        defName=['Values','__init__','__len__','__getitem__','__setitem__','Times','TimeDescriptor',]
         self.WriteClassCode(fileName,className,defName)
     def testWriteWaveform_File(self):
         fileName="../SignalIntegrity/TimeDomain/Waveform/Waveform.py"

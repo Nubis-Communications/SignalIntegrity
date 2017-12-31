@@ -8,6 +8,8 @@
 # Copyright:   (c) peter.pupalaikis 2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
+import unittest
+
 from TestConversions import *
 from TestDeembedding import *
 from TestFrequencyDependentSParameters import *
@@ -39,6 +41,7 @@ from TestDescriptors import *
 from TestAdaptDecimate import *
 from TestSPARQSOLT import *
 from TestSPARQFourPort import *
+from TDRSimulationFourPortScaled import *
 
 if __name__ == '__main__':
     unittest.main()

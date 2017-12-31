@@ -20,6 +20,9 @@ class FrequencyDomain(object):
         self.m_f=FrequencyList(f)
         self.m_resp=resp
     def __getitem__(self,item): return self.m_resp[item]
+    def __setitem__(self,item,value):
+        self.m_resp[item]=value
+        return self
     def __len__(self): return len(self.m_resp)
     def FrequencyList(self):
         return self.m_f
