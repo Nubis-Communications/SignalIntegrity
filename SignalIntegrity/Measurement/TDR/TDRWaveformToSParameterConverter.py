@@ -10,7 +10,6 @@
 import copy
 import math
 
-from SignalIntegrity.TimeDomain.Waveform import Waveform
 from SignalIntegrity.TimeDomain.Filters import WaveformTrimmer
 from SignalIntegrity.SParameters.SParameters import SParameters
 
@@ -18,16 +17,14 @@ class TDRWaveformToSParameterConverter(object):
     sigmaMultiple=5
     def __init__(self,
                  WindowHalfWidthTime=0,
-                 WindowRaisedCosineDurationLeft=0,
-                 WindowRaisedCosineDurationRight=0,
+                 WindowRaisedCosineDuration=0,
                  Step=True,
                  Length=0,
                  Sigma=0,
                  Inverted=False
                  ):
         self.whwt=WindowHalfWidthTime
-        self.wrcdl=WindowRaisedCosineDurationLeft
-        self.wrcdr=WindowRaisedCosineDurationRight
+        self.wrcdr=WindowRaisedCosineDuration
         self.step=Step
         self.length=Length
         self.sigma=Sigma

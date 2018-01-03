@@ -38,6 +38,8 @@ class ErrorTerms(object):
         self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)]
                  for _ in range(self.numPorts)]
         return self
+    def __getitem__(self,item):
+        return self.ET[item]
     def ReflectCalibration(self,hatGamma,Gamma,m):
         A=[[1.,Gamma[r]*hatGamma[r],-Gamma[r]] for r in range(len(Gamma))]
         B=[[hatGamma[r]] for r in range(len(Gamma))]
@@ -46,7 +48,7 @@ class ErrorTerms(object):
         Es=EdEsDeltaS[1][0]
         DeltaS=EdEsDeltaS[2][0]
         Er=Ed*Es-DeltaS
-        self.ET[m][m]=[Ed,Er,Es]
+        self[m][m]=[Ed,Er,Es]
         return self
     def ThruCalibration(self,b1a1,b2a1,S,n,m):
         # pragma: silent exclude
@@ -55,8 +57,8 @@ class ErrorTerms(object):
             b2a1=[b2a1]
             S=[S]
         # pragma: include
-        [Ed,Er,Es]=self.ET[m][m]
-        Ex=self.ET[n][m][0]
+        [Ed,Er,Es]=self[m][m]
+        Ex=self[n][m][0]
         A=zeros((2*len(b1a1),2)).tolist()
         B=zeros((2*len(b1a1),1)).tolist()
         for i in range(len(b1a1)):
@@ -70,32 +72,32 @@ class ErrorTerms(object):
             B[2*i+1][0]=(1-Es*Sm[0][0])*(b2a1[i]-Ex)
         ElEt=(matrix(A).getI()*matrix(B)).tolist()
         (El,Et)=(ElEt[0][0],ElEt[1][0])
-        self.ET[n][m]=[Ex,Et,El]
+        self[n][m]=[Ex,Et,El]
         return self
     def ExCalibration(self,b2a1,n,m):
-        [Ex,Et,El]=self.ET[n][m]
+        [Ex,Et,El]=self[n][m]
         Ex=b2a1
-        self.ET[n][m]=[Ex,Et,El]
+        self[n][m]=[Ex,Et,El]
         return self
     def TransferThruCalibration(self):
         for otherPort in range(self.numPorts):
             for drivenPort in range(self.numPorts):
                 if (otherPort != drivenPort):
-                    if all(self.ET[otherPort][drivenPort][1:])==0.:
+                    if all(self[otherPort][drivenPort][1:])==0.:
                         for mid in range(self.numPorts):
-                            if all(self.ET[otherPort][drivenPort][1:])==0.:
+                            if all(self[otherPort][drivenPort][1:])==0.:
                                 if ((mid != otherPort) and
                                     (mid != drivenPort) and
-                                    (any(self.ET[otherPort][mid][1:])!=0.) and
-                                    (any(self.ET[mid][drivenPort][1:])!=0.)):
-                                    (Exl,Etl,Ell)=self.ET[otherPort][mid]
-                                    (Exr,Etr,Elr)=self.ET[mid][drivenPort]
-                                    (Edm,Erm,Esm)=self.ET[mid][mid]
-                                    (Edo,Ero,Eso)=self.ET[otherPort][otherPort]
-                                    (Ex,Et,El)=self.ET[otherPort][drivenPort]
+                                    (any(self[otherPort][mid][1:])!=0.) and
+                                    (any(self[mid][drivenPort][1:])!=0.)):
+                                    (Exl,Etl,Ell)=self[otherPort][mid]
+                                    (Exr,Etr,Elr)=self[mid][drivenPort]
+                                    (Edm,Erm,Esm)=self[mid][mid]
+                                    (Edo,Ero,Eso)=self[otherPort][otherPort]
+                                    (Ex,Et,El)=self[otherPort][drivenPort]
                                     Et=Etl*Etr/Erm
                                     El=Eso
-                                    self.ET[otherPort][drivenPort]=[Ex,Et,El]
+                                    self[otherPort][drivenPort]=[Ex,Et,El]
         return self
     def Fixture(self,m):
         E=[[zeros((self.numPorts,self.numPorts),complex).tolist(),
@@ -103,7 +105,7 @@ class ErrorTerms(object):
            [zeros((self.numPorts,self.numPorts),complex).tolist(),
             zeros((self.numPorts,self.numPorts),complex).tolist()]]
         for n in range(self.numPorts):
-            ETn=self.ET[n][m]
+            ETn=self[n][m]
             E[0][0][m][n]=ETn[0]
             E[0][1][n][n]=ETn[1]
             E[1][1][n][n]=ETn[2]
@@ -111,7 +113,7 @@ class ErrorTerms(object):
         return E
     def DutCalculation(self,sRaw):
         if self.numPorts==1:
-            (Ed,Er,Es)=tuple(self.ET[0][0])
+            (Ed,Er,Es)=self[0][0]
             gamma=sRaw[0][0]
             Gamma=(gamma-Ed)/((gamma-Ed)*Es+Er)
             return Gamma

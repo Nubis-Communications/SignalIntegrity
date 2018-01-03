@@ -56,16 +56,16 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-        
+
             for p in range(ports):
                 portName=str(p+1)
                 A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
                 B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
                 f=A.Frequencies()
                 spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
-        
+
         for firstPort in range(ports):
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
@@ -85,7 +85,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     fr=transferMatrices.FrequencyResponses()
 
                     for o in range(len(portNames)):
@@ -103,20 +103,20 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
-        
+
         if TestSPARQFourPortScaled.usePickle:
             if not os.path.exists('simresults.p'):
                 import pickle
@@ -125,9 +125,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -160,7 +160,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -369,16 +369,16 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-        
+
             for p in range(ports):
                 portName=str(p+1)
                 A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
                 B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
                 f=A.Frequencies()
                 spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
-        
+
         for firstPort in range(ports):
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
@@ -398,7 +398,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     fr=transferMatrices.FrequencyResponses()
 
                     for o in range(len(portNames)):
@@ -416,15 +416,15 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
@@ -437,9 +437,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -472,7 +472,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -518,10 +518,10 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for p in range(ports):
                 portName=str(p+1)
-                
+
                 wf=outputWaveforms[outputNames.index('V'+portName)]
                 a1=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                 A=a1.FrequencyContent()
@@ -549,7 +549,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                     AD=ad.FrequencyContent()
@@ -579,13 +579,13 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 wf=outputWaveforms[outputNames.index('V'+otherPortName)]
@@ -605,9 +605,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -640,7 +640,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -686,10 +686,10 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for p in range(ports):
                 portName=str(p+1)
-                
+
                 wf=outputWaveforms[outputNames.index('V'+portName)]
                 a1=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                 A=a1.FrequencyContent()
@@ -717,7 +717,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                     AD=ad.FrequencyContent()
@@ -747,13 +747,13 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 wf=outputWaveforms[outputNames.index('V'+otherPortName)]
@@ -773,9 +773,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -808,7 +808,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -856,12 +856,12 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for p in range(ports):
                 portName=str(p+1)
                 fc=tdr.Convert(outputWaveforms[outputNames.index('V'+portName)])
                 spDict[reflectName+portName]=si.sp.SParameters(fc.Frequencies(),[[[fc[n]]] for n in range(len(fc.Frequencies()))])
-                                
+
                 wf=outputWaveforms[outputNames.index('V'+portName)]
                 a1=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                 A=a1.FrequencyContent()
@@ -869,7 +869,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                 B=b1.FrequencyContent()
                 f=A.Frequencies()
                 spDict[reflectName+portName+'old']=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
-                
+
                 self.assertTrue(self.SParametersAreEqual(spDict[reflectName+portName], spDict[reflectName+portName+'old'], 1e-4))
 
         for firstPort in range(ports):
@@ -880,7 +880,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 #                 [[131_A1,133_A1],
 #                  [131_A3,133_A3]]
                 portNames=[firstPortName,secondPortName]
-                
+
                 S=[[None for _ in range(2)] for _ in range(2)]
 
                 for d in range(len(portNames)):
@@ -892,13 +892,13 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     wfList=[outputWaveforms[outputNames.index('V'+name)] for name in portNames]
                     fc=tdr.Convert(wfList,d)
-                    
+
                     for o in range(len(portNames)):
                         S[o][d]=fc[o]
-                    
+
                 spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[[[S[0][0][n],S[0][1][n]],[S[1][0][n],S[1][1][n]]]
                                                     for n in range(len(f))])
 
@@ -913,7 +913,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                     AD=ad.FrequencyContent()
@@ -945,7 +945,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
@@ -954,7 +954,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
             wfList=[outputWaveforms[outputNames.index('V'+name)] for name in portNames]
             fc=tdr.Convert(wfList,drivenPort)
-            
+
             for otherPort in range(ports):
                 S[otherPort][drivenPort]=fc[otherPort]
 
@@ -966,13 +966,13 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 wf=outputWaveforms[outputNames.index('V'+otherPortName)]
@@ -991,9 +991,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                                             for n in range(len(f))])
 
         self.assertTrue(self.SParametersAreEqual(spDict['Dut'], spDict['Dutold'], 1e-4))
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -1010,7 +1010,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(ports,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
         DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
@@ -1051,7 +1051,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         ports=2
         reflectNames=['Short','Open','Load']
         spDict=dict()
-        tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,Length=20e-9)
+        tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,Length=20e-9,WindowRaisedCosineDuration=100e-12)
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
@@ -1119,9 +1119,131 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml)
+        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms().WriteToFile('xferNoneTDR')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
+    def testTDRTwoPortRefinedTransferThru(self):
+        ports=3
+        reflectNames=['Short','Open','Load']
+        spDict=dict()
+        tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,Length=20e-9,WindowRaisedCosineDuration=100e-12)
+
+        for reflectName in reflectNames:
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            for p in range(ports):
+                portName=str(p+1)
+                spDict[reflectName+portName]=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('V'+portName)])
+                f=spDict[reflectName+portName].m_f
+
+        for firstPort in range(ports):
+            firstPortName=str(firstPort+1)
+            for secondPort in range(firstPort+1,ports):
+                secondPortName=str(secondPort+1)
+                portNames=[firstPortName,secondPortName]
+
+                wfl=[]
+
+                for d in range(len(portNames)):
+                    drivenPortName=portNames[d]
+
+                    simulationName=firstPortName+secondPortName+drivenPortName
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    sourceNames=result[0]
+                    outputNames=result[1]
+                    transferMatrices=result[2]
+                    outputWaveforms=result[3]
+
+                    wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
+
+                spDict['Thru'+firstPortName+secondPortName]=tdr.RawMeasuredSParameters(wfl)
+
+
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(1,1),calStandards[0],2,'Short3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(1,1),calStandards[1],2,'Open3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(2,2),spDict['Thru23'].FrequencyResponse(1,2),calStandards[3],2,1,'Thru233'),
+            ]
+
+        cm3=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
+
+        ports=2
+
+        cm2=si.m.cal.Calibration(2,f)
+        cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
+        cm2.WriteToFile('xferThruTDR')
+
+        wfl=[]
+        portNames=[str(p+1) for p in range(ports)]
+
+        for drivenPort in range(ports):
+            drivenPortName=str(drivenPort+1)
+
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
+
+        spDict['Dut']=tdr.RawMeasuredSParameters(wfl)
+
+        f=spDict['Dut'].f()
+
+        DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
         DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
@@ -1167,10 +1289,10 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for p in range(ports):
                 portName=str(p+1)
-                
+
                 wf=outputWaveforms[outputNames.index('A'+portName)]+outputWaveforms[outputNames.index('B'+portName)]
                 a1=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                 A=a1.FrequencyContent()
@@ -1198,7 +1320,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     wf=outputWaveforms[outputNames.index('A'+drivenPortName)]+outputWaveforms[outputNames.index('B'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
                     AD=ad.FrequencyContent()
@@ -1228,13 +1350,13 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 wf=outputWaveforms[outputNames.index('A'+otherPortName)]+outputWaveforms[outputNames.index('B'+otherPortName)]
@@ -1249,7 +1371,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
 #         import pickle
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
-        
+
         for r in range(ports):
             for c in range(ports):    
                 Poly=si.spl.Spline(DutA[r][c].Frequencies(),DutA[r][c].Content())
@@ -1264,9 +1386,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -1299,7 +1421,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -1335,6 +1457,600 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
+    def testVNATwoPortDiagonalA(self):
+        ports=2
+        reflectNames=['Short','Open','Load']
+        spDict=dict()
+
+        for reflectName in reflectNames:
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for p in range(ports):
+                portName=str(p+1)
+                A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
+                B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
+                f=A.Frequencies()
+                spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
+
+        for firstPort in range(ports):
+            firstPortName=str(firstPort+1)
+            for secondPort in range(firstPort+1,ports):
+                secondPortName=str(secondPort+1)
+#                 13
+#                 [[131_A1,133_A1],
+#                  [131_A3,133_A3]]
+                portNames=[firstPortName,secondPortName]
+                A=[[None for _ in range(2)] for _ in range(2)]
+                B=[[None for _ in range(2)] for _ in range(2)]
+
+                for d in range(len(portNames)):
+                    drivenPortName=portNames[d]
+                    simulationName=firstPortName+secondPortName+drivenPortName
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    sourceNames=result[0]
+                    outputNames=result[1]
+                    transferMatrices=result[2]
+                    outputWaveforms=result[3]
+
+                    fr=transferMatrices.FrequencyResponses()
+
+                    for o in range(len(portNames)):
+                        otherPortName=portNames[o]
+                        A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        f=A[o][d].Frequencies()
+
+                for r in range(2):
+                    for c in range(2):
+                        for n in range(len(f)):
+                            if r!=c:
+                                A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
+                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                                                    for n in range(len(f))])
+
+        DutA=[[None for _ in range(ports)] for _ in range(ports)]
+        DutB=[[None for _ in range(ports)] for _ in range(ports)]
+
+        for drivenPort in range(ports):
+            drivenPortName=str(drivenPort+1)
+
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for otherPort in range(ports):
+                otherPortName=str(otherPort+1)
+                DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+
+        if TestSPARQFourPortScaled.usePickle:
+            if not os.path.exists('simresults.p'):
+                import pickle
+                pickle.dump(self.simdict,open("simresults.p","wb"))
+
+        for r in range(2):
+            for c in range(2):
+                for n in range(len(f)):
+                    if r!=c:
+                        DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
+                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+                                            for n in range(len(f))])
+
+        f=spDict['Dut'].f()
+
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
+            ]
+
+        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms().WriteToFile('xferNoneDiagonalA')
+
+        DUTCalcSp=cm.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(SpAreEqual,'s-parameters not equal')
+
+    def testVNATwoPortBAInverse(self):
+        ports=2
+        reflectNames=['Short','Open','Load']
+        spDict=dict()
+
+        for reflectName in reflectNames:
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for p in range(ports):
+                portName=str(p+1)
+                A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
+                B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
+                f=A.Frequencies()
+                spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
+
+        for firstPort in range(ports):
+            firstPortName=str(firstPort+1)
+            for secondPort in range(firstPort+1,ports):
+                secondPortName=str(secondPort+1)
+#                 13
+#                 [[131_A1,133_A1],
+#                  [131_A3,133_A3]]
+                portNames=[firstPortName,secondPortName]
+                A=[[None for _ in range(2)] for _ in range(2)]
+                B=[[None for _ in range(2)] for _ in range(2)]
+
+                for d in range(len(portNames)):
+                    drivenPortName=portNames[d]
+                    simulationName=firstPortName+secondPortName+drivenPortName
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    sourceNames=result[0]
+                    outputNames=result[1]
+                    transferMatrices=result[2]
+                    outputWaveforms=result[3]
+
+                    fr=transferMatrices.FrequencyResponses()
+
+                    for o in range(len(portNames)):
+                        otherPortName=portNames[o]
+                        A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        f=A[o][d].Frequencies()
+
+                for r in range(2):
+                    for c in range(2):
+                        for n in range(len(f)):
+                            if r!=c:
+                                A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
+                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                                                    for n in range(len(f))])
+
+        DutA=[[None for _ in range(ports)] for _ in range(ports)]
+        DutB=[[None for _ in range(ports)] for _ in range(ports)]
+
+        for drivenPort in range(ports):
+            drivenPortName=str(drivenPort+1)
+
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for otherPort in range(ports):
+                otherPortName=str(otherPort+1)
+                DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+
+        if TestSPARQFourPortScaled.usePickle:
+            if not os.path.exists('simresults.p'):
+                import pickle
+                pickle.dump(self.simdict,open("simresults.p","wb"))
+
+        for r in range(2):
+            for c in range(2):
+                for n in range(len(f)):
+                    if r!=c:
+                        DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
+                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+                                            for n in range(len(f))])
+
+        f=spDict['Dut'].f()
+
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
+            ]
+
+        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms().WriteToFile('xferNoneBAInverse')
+
+        DUTCalcSp=cm.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(SpAreEqual,'s-parameters not equal')
+
+    def testVNATwoPortTransferThruDiagonalA(self):
+        ports=3
+        reflectNames=['Short','Open','Load']
+        spDict=dict()
+
+        for reflectName in reflectNames:
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for p in range(ports):
+                portName=str(p+1)
+                A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
+                B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
+                f=A.Frequencies()
+                spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
+
+        for firstPort in range(ports):
+            firstPortName=str(firstPort+1)
+            for secondPort in range(firstPort+1,ports):
+                secondPortName=str(secondPort+1)
+#                 13
+#                 [[131_A1,133_A1],
+#                  [131_A3,133_A3]]
+                portNames=[firstPortName,secondPortName]
+                A=[[None for _ in range(2)] for _ in range(2)]
+                B=[[None for _ in range(2)] for _ in range(2)]
+
+                for d in range(len(portNames)):
+                    drivenPortName=portNames[d]
+                    simulationName=firstPortName+secondPortName+drivenPortName
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    sourceNames=result[0]
+                    outputNames=result[1]
+                    transferMatrices=result[2]
+                    outputWaveforms=result[3]
+
+                    fr=transferMatrices.FrequencyResponses()
+
+                    for o in range(len(portNames)):
+                        otherPortName=portNames[o]
+                        A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        f=A[o][d].Frequencies()
+
+                for r in range(2):
+                    for c in range(2):
+                        for n in range(len(f)):
+                            if r!=c:
+                                A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
+                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                                                    for n in range(len(f))])
+
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(1,1),calStandards[0],2,'Short3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(1,1),calStandards[1],2,'Open3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(2,2),spDict['Thru23'].FrequencyResponse(1,2),calStandards[3],2,1,'Thru233'),
+            ]
+
+        cm3=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
+
+        ports=2
+
+        cm2=si.m.cal.Calibration(2,f)
+        cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
+        cm2.WriteToFile('xferThruDiagonalA')
+
+        DutA=[[None for _ in range(ports)] for _ in range(ports)]
+        DutB=[[None for _ in range(ports)] for _ in range(ports)]
+
+        for drivenPort in range(ports):
+            drivenPortName=str(drivenPort+1)
+
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for otherPort in range(ports):
+                otherPortName=str(otherPort+1)
+                DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+
+#         import pickle
+#         pickle.dump(self.simdict,open("simresults.p","wb"))
+
+        for r in range(2):
+            for c in range(2):
+                for n in range(len(f)):
+                    if r!=c:
+                        DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
+                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+                                            for n in range(len(f))])
+
+        f=spDict['Dut'].f()
+
+        DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(SpAreEqual,'s-parameters not equal')
+
+    def testVNATwoPortTransferThruBAInv(self):
+        ports=3
+        reflectNames=['Short','Open','Load']
+        spDict=dict()
+
+        for reflectName in reflectNames:
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for p in range(ports):
+                portName=str(p+1)
+                A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
+                B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
+                f=A.Frequencies()
+                spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
+
+        for firstPort in range(ports):
+            firstPortName=str(firstPort+1)
+            for secondPort in range(firstPort+1,ports):
+                secondPortName=str(secondPort+1)
+#                 13
+#                 [[131_A1,133_A1],
+#                  [131_A3,133_A3]]
+                portNames=[firstPortName,secondPortName]
+                A=[[None for _ in range(2)] for _ in range(2)]
+                B=[[None for _ in range(2)] for _ in range(2)]
+
+                for d in range(len(portNames)):
+                    drivenPortName=portNames[d]
+                    simulationName=firstPortName+secondPortName+drivenPortName
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    sourceNames=result[0]
+                    outputNames=result[1]
+                    transferMatrices=result[2]
+                    outputWaveforms=result[3]
+
+                    fr=transferMatrices.FrequencyResponses()
+
+                    for o in range(len(portNames)):
+                        otherPortName=portNames[o]
+                        A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        f=A[o][d].Frequencies()
+
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
+                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                                                    for n in range(len(f))])
+
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(1,1),calStandards[0],2,'Short3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(1,1),calStandards[1],2,'Open3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(2,2),spDict['Thru23'].FrequencyResponse(1,2),calStandards[3],2,1,'Thru233'),
+            ]
+
+        cm3=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
+
+        ports=2
+
+        cm2=si.m.cal.Calibration(2,f)
+        cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
+        cm2.WriteToFile('xferThruBAInverse')
+
+        DutA=[[None for _ in range(ports)] for _ in range(ports)]
+        DutB=[[None for _ in range(ports)] for _ in range(ports)]
+
+        for drivenPort in range(ports):
+            drivenPortName=str(drivenPort+1)
+
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+
+            fr=transferMatrices.FrequencyResponses()
+
+            for otherPort in range(ports):
+                otherPortName=str(otherPort+1)
+                DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+
+#         import pickle
+#         pickle.dump(self.simdict,open("simresults.p","wb"))
+
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
+                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+                                            for n in range(len(f))])
+
+        f=spDict['Dut'].f()
+
+        DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
+        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(SpAreEqual,'s-parameters not equal')
+
     def testAAATryToFix(self):
         return
         result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut4Scaled.xml')
@@ -1342,7 +2058,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         V4=outputWaveforms[outputNames.index('V4')]
         A4=outputWaveforms[outputNames.index('A4')]
         B4=outputWaveforms[outputNames.index('B4')]
@@ -1361,8 +2077,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         plt.grid(True)
         plt.show()
 
-        
-        
         plt.clf()
         plt.title('V4 compare')
         plt.xlabel('time (ns)')
