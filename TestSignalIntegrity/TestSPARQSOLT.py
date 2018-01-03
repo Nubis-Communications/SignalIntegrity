@@ -408,7 +408,6 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spRawDUT=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
         pass
 
-
     def SParameterRegressionChecker(self,sp,spfilename):
         currentDirectory=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))        
@@ -828,8 +827,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
         return
-        
-        
+
         cl=[si.m.cal.ReflectCalibrationMeasurement(spRawShort,si.m.calkit.std.ShortStandard(f),1,'s'),
             si.m.cal.ReflectCalibrationMeasurement(spRawOpen,si.m.calkit.std.OpenStandard(f),1,'o'),
             si.m.cal.ReflectCalibrationMeasurement(spRawLoad,si.m.calkit.std.LoadStandard(f),1,'l')]
@@ -1242,9 +1240,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
-        
+
         wfList=['Short','Open','Load','Dut']
         spDict=dict()
 
@@ -1294,9 +1292,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
-        
+
         spDict=dict()
 
         wf=tdrWaveforms['VThru11']
@@ -1327,7 +1325,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Thru']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
                                              [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
                                             for n in range(len(f))])
-        
+
         wf=tdrWaveforms['VDut11']
         incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
         incwffc11=incwf11.FrequencyContent()
@@ -1448,9 +1446,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
-        
+
         spDict=dict()
 
         wf=tdrWaveforms['VThru11']
@@ -1481,7 +1479,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Thru']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
                                              [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
                                             for n in range(len(f))])
-        
+
         wf=tdrWaveforms['VEx11']
         incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
         incwffc11=incwf11.FrequencyContent()
@@ -1510,7 +1508,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Ex']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
                                              [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
                                             for n in range(len(f))])
-        
+
         wf=tdrWaveforms['VDut11']
         incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
         incwffc11=incwf11.FrequencyContent()
@@ -1614,9 +1612,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
-        
+
         spDict=dict()
 
         wf=tdrWaveforms['VThru11']
@@ -1647,7 +1645,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Thru']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
                                              [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
                                             for n in range(len(f))])
-        
+
         wf=tdrWaveforms['VEx11']
         incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
         incwffc11=incwf11.FrequencyContent()
@@ -1676,7 +1674,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Ex']=si.sp.SParameters(f,[[[refwffc11[n]/incwffc11[n],refwffc12[n]/incwffc12[n]],
                                              [refwffc21[n]/incwffc21[n],refwffc22[n]/incwffc22[n]]]
                                             for n in range(len(f))])
-        
+
         wf=tdrWaveforms['VDut11']
         incwf11=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<10e-12 else 0. for (t,v) in zip(wf.Times(),wf.Values())])
         incwffc11=incwf11.FrequencyContent()
@@ -1776,7 +1774,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         EX21=[et[n].ET[1][0][0] for n in range(len(et))]
         ET21=[et[n].ET[1][0][1] for n in range(len(et))]
         EL21=[et[n].ET[1][0][2] for n in range(len(et))]
-        
+
         from numpy import matrix,identity
 
         DUT=[(matrix([[(spDict['Dut'][n][0][0]-ED1[n])/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])/ET12[n]],
@@ -1796,7 +1794,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         calkit = si.m.calkit.CalibrationKit()
         calkit.WriteToFile('default.cstd')
-        
+
         # cal constants for an Agilent 85052D 3.5mm cal kit
         calkit.Constants.openC0=49.43e-15            # % C0 (fF) - OPEN
         calkit.Constants.openC1=-310.13e-27          # % C1 (1e-27 F/Hz) - OPEN
@@ -1819,9 +1817,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         calkit.Constants.thruOffsetDelay=94.75e-12   # % offset delay (pS) - THRU
         calkit.Constants.thruOffsetZ0=50.            # % real(Zo) of offset length - THRU
         calkit.Constants.thruOffsetLoss=2.52e9       # % offset loss (GOhm/s) - THRU
-      
+
         calkit.WriteToFile('Agilent85052D.cstd', 'Agilent 85052D 3.5mm cal kit')
-        
+
         calkit = si.m.calkit.CalibrationKit('Agilent85052D.cstd',si.fd.FrequencyList().SetEvenlySpaced(20e9,200))
 
         stdPrefix='Agilent85052D_200_20GHz_'
@@ -1884,9 +1882,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         fr=transferMatrices.FrequencyResponses()
-        
+
         spDict=dict()
 
         AShort1=fr[outputNames.index('AShort1')][sourceNames.index('VGLeft')]
@@ -1927,7 +1925,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Thru']=si.sp.SParameters(f,[(matrix([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]])*
                                             matrix([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
         ADut21=fr[outputNames.index('ADut21')][sourceNames.index('VGLeft')]
         ADut12=fr[outputNames.index('ADut12')][sourceNames.index('VGRight')]
@@ -1939,7 +1937,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]])*
                                             matrix([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
         AEx21=fr[outputNames.index('AEx21')][sourceNames.index('VGLeft')]
         AEx12=fr[outputNames.index('AEx12')][sourceNames.index('VGRight')]
@@ -1984,9 +1982,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         fr=transferMatrices.FrequencyResponses()
-        
+
         spDict=dict()
 
         AShort1=fr[outputNames.index('AShort1')][sourceNames.index('VGLeft')]
@@ -2027,7 +2025,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Thru']=si.sp.SParameters(f,[(matrix([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]])*
                                             matrix([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
         ADut21=fr[outputNames.index('ADut21')][sourceNames.index('VGLeft')]
         ADut12=fr[outputNames.index('ADut12')][sourceNames.index('VGRight')]
@@ -2039,11 +2037,11 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]])*
                                             matrix([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
         AEx21=fr[outputNames.index('AEx21')][sourceNames.index('VGLeft')]
         AEx12=fr[outputNames.index('AEx12')][sourceNames.index('VGRight')]
-        AEx22=fr[outputNames.index('AEx22')][sourceNames.index('VGRight')]     
+        AEx22=fr[outputNames.index('AEx22')][sourceNames.index('VGRight')]
         BEx11=fr[outputNames.index('BEx11')][sourceNames.index('VGLeft')]
         BEx21=fr[outputNames.index('BEx21')][sourceNames.index('VGLeft')]
         BEx12=fr[outputNames.index('BEx12')][sourceNames.index('VGRight')]
@@ -2053,7 +2051,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -2068,11 +2066,11 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(1,1),spDict['Thru'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru1'),
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(2,2),spDict['Thru'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru2'),
             si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(2,1),0,1,'Ex1'),
-            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(1,2),1,0,'Ex2')            
+            si.m.cal.XtalkCalibrationMeasurement(spDict['Ex'].FrequencyResponse(1,2),1,0,'Ex2')
             ]
 
         cm=si.m.cal.Calibration(2,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
@@ -2085,6 +2083,9 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
+        allfuncs.remove('__getitem__')
+        allfuncs.remove('__len__')
+        allfuncs.remove('WriteToFile')
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
 

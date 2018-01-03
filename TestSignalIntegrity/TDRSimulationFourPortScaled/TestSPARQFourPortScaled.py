@@ -206,16 +206,16 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-        
+
             for p in range(ports):
                 portName=str(p+1)
                 A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
                 B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
                 f=A.Frequencies()
                 spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
-        
+
         for firstPort in range(ports):
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
@@ -235,7 +235,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                     outputNames=result[1]
                     transferMatrices=result[2]
                     outputWaveforms=result[3]
-                    
+
                     fr=transferMatrices.FrequencyResponses()
 
                     for o in range(len(portNames)):
@@ -243,7 +243,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                         A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
-                
+
                 for r in range(2):
                     for c in range(2):
                         if r != c:
@@ -259,26 +259,26 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-                
+
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-            
+
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
-        
+
         if TestSPARQFourPortScaled.usePickle:
             if not os.path.exists('simresults.p'):
                 import pickle
                 pickle.dump(self.simdict,open("simresults.p","wb"))
 
-        
+
         for r in range(ports):
             for c in range(ports):
                 if r != c:
@@ -288,9 +288,9 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -323,7 +323,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -1119,7 +1119,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms().WriteToFile('xferNoneTDR')
+        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneTDR')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -1305,9 +1305,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
                 secondPortName=str(secondPort+1)
-#                 13
-#                 [[131_A1,133_A1],
-#                  [131_A3,133_A3]]
                 portNames=[firstPortName,secondPortName]
                 A=[[None for _ in range(2)] for _ in range(2)]
                 B=[[None for _ in range(2)] for _ in range(2)]
@@ -1482,9 +1479,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
                 secondPortName=str(secondPort+1)
-#                 13
-#                 [[131_A1,133_A1],
-#                  [131_A3,133_A3]]
+
                 portNames=[firstPortName,secondPortName]
                 A=[[None for _ in range(2)] for _ in range(2)]
                 B=[[None for _ in range(2)] for _ in range(2)]
@@ -1567,7 +1562,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms().WriteToFile('xferNoneDiagonalA')
+        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneDiagonalA')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -1714,7 +1709,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms().WriteToFile('xferNoneBAInverse')
+        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneBAInverse')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -1776,9 +1771,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
                 secondPortName=str(secondPort+1)
-#                 13
-#                 [[131_A1,133_A1],
-#                  [131_A3,133_A3]]
                 portNames=[firstPortName,secondPortName]
                 A=[[None for _ in range(2)] for _ in range(2)]
                 B=[[None for _ in range(2)] for _ in range(2)]
@@ -1824,6 +1816,8 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+#             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+#             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
@@ -1856,9 +1850,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                 otherPortName=str(otherPort+1)
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
-
-#         import pickle
-#         pickle.dump(self.simdict,open("simresults.p","wb"))
 
         for r in range(2):
             for c in range(2):
@@ -1932,9 +1923,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
                 secondPortName=str(secondPort+1)
-#                 13
-#                 [[131_A1,133_A1],
-#                  [131_A3,133_A3]]
                 portNames=[firstPortName,secondPortName]
                 A=[[None for _ in range(2)] for _ in range(2)]
                 B=[[None for _ in range(2)] for _ in range(2)]
@@ -2006,9 +1994,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                 otherPortName=str(otherPort+1)
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
-
-#         import pickle
-#         pickle.dump(self.simdict,open("simresults.p","wb"))
 
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()

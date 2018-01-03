@@ -50,16 +50,16 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-        
+
             for p in range(ports):
                 portName=str(p+1)
                 A=fr[outputNames.index('A'+reflectName+portName)][sourceNames.index('VG'+portName)]
                 B=fr[outputNames.index('B'+reflectName+portName)][sourceNames.index('VG'+portName)]
                 f=A.Frequencies()
                 spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
-        
+
         thruConnections=[[[1,2],[3,4]],[[1,3],[2,4]],[[1,4],[2,3]]]
         for thruConnection in thruConnections:
             thruConnectionName=str(thruConnection[0][0])+str(thruConnection[0][1])+str(thruConnection[1][0])+str(thruConnection[1][1])
@@ -68,9 +68,9 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-            
+
             for thruPorts in thruConnection:
                 port1Name=str(thruPorts[0])
                 port2Name=str(thruPorts[1])                
@@ -93,9 +93,9 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         fr=transferMatrices.FrequencyResponses()
-        
+
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
         DutB=[[None for _ in range(ports)] for _ in range(ports)]
         for otherPort in range(ports):
@@ -113,9 +113,9 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             if not os.path.exists('simresults.p'):
                 import pickle
                 pickle.dump(self.simdict,open("simresults.p","wb"))
-        
+
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -148,7 +148,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
@@ -193,16 +193,16 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-        
+
             for p in range(ports):
                 portName=str(p+1)
                 A=fr[outputNames.index('A'+reflectName+portName)][sourceNames.index('VG'+portName)]
                 B=fr[outputNames.index('B'+reflectName+portName)][sourceNames.index('VG'+portName)]
                 f=A.Frequencies()
                 spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
-        
+
         thruConnections=[[[1,2],[3,4]],[[1,3],[2,4]],[[1,4],[2,3]]]
         for thruConnection in thruConnections:
             thruConnectionName=str(thruConnection[0][0])+str(thruConnection[0][1])+str(thruConnection[1][0])+str(thruConnection[1][1])
@@ -211,9 +211,9 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             outputNames=result[1]
             transferMatrices=result[2]
             outputWaveforms=result[3]
-            
+
             fr=transferMatrices.FrequencyResponses()
-            
+
             for thruPorts in thruConnection:
                 port1Name=str(thruPorts[0])
                 port2Name=str(thruPorts[1])                
@@ -236,9 +236,9 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=result[3]
-        
+
         fr=transferMatrices.FrequencyResponses()
-        
+
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
         DutB=[[None for _ in range(ports)] for _ in range(ports)]
         for otherPort in range(ports):
@@ -252,7 +252,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
         f=spDict['Dut'].f()
-        
+
         calStandards=[si.m.calkit.std.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
@@ -285,7 +285,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
