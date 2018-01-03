@@ -6,7 +6,7 @@ class ErrorTerms(object):
            [zeros((self.numPorts,self.numPorts),complex).tolist(),
             zeros((self.numPorts,self.numPorts),complex).tolist()]]
         for n in range(self.numPorts):
-            ETn=self.ET[n][m]
+            ETn=self[n][m]
             E[0][0][m][n]=ETn[0]
             E[0][1][n][n]=ETn[1]
             E[1][1][n][n]=ETn[2]
@@ -14,7 +14,7 @@ class ErrorTerms(object):
         return E
     def DutCalculation(self,sRaw):
         if self.numPorts==1:
-            (Ed,Er,Es)=tuple(self.ET[0][0])
+            (Ed,Er,Es)=self[0][0]
             gamma=sRaw[0][0]
             Gamma=(gamma-Ed)/((gamma-Ed)*Es+Er)
             return Gamma

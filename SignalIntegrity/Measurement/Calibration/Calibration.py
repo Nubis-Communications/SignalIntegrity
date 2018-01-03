@@ -9,6 +9,7 @@
 '''
 from SignalIntegrity.Measurement.Calibration.ErrorTerms import ErrorTerms
 from SignalIntegrity.SParameters.SParameters import SParameters
+from numpy import hstack,vstack,matrix
 
 class Calibration(object):
     FillInTransferThru=True
@@ -19,6 +20,14 @@ class Calibration(object):
         self.calibrationMatrix=[[[] for _ in range(self.ports)]
                                 for _ in range(self.ports)]
         self.AddMeasurements(calibrationList)
+    def WriteToFile(self,filename):
+        for p in range(self.ports):
+            SParameters(self.f,[vstack((hstack((matrix(self.ET[n].Fixture(p)[0][0]),
+                                            matrix(self.ET[n].Fixture(p)[0][1]))),
+                                      hstack((matrix(self.ET[n].Fixture(p)[1][0]),
+                                            matrix(self.ET[n].Fixture(p)[1][1]))))).tolist()
+                               for n in range(len(self.ET))]).WriteToFile(filename+str(p+1))
+        return self
     def AddMeasurements(self,calibrationList=[]):
         self.ET=None
         for calibrationMeasurement in calibrationList:
