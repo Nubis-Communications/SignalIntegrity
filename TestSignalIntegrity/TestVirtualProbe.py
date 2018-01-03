@@ -15,6 +15,8 @@ class TestVirtualProbe(unittest.TestCase,CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
         CallbackTesterHelper.__init__(self)
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testVirtualProbeOneMeasOneOut(self):
         D=si.sd.SystemDescription()
         D.AddDevice('T',1,si.dev.TerminationZ(50))

@@ -11,6 +11,8 @@ class TestSubcircuit(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterH
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testShuntZFourPortSubCircuitNetlistGenerator(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['var $Rsh$ 50.','device R 2 R $Rsh$',

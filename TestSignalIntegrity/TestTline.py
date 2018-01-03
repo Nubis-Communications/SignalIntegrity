@@ -6,6 +6,8 @@ import os
 from TestHelpers import *
 
 class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testTline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*20e6 for n in range(100)]

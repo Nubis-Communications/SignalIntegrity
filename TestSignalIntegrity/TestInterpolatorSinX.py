@@ -20,6 +20,8 @@ PlotRegression=True
 class TestInterpolatorSinX(unittest.TestCase,ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testDelaySinX(self):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
