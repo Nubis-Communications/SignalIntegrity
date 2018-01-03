@@ -417,6 +417,47 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
             if not self.relearn:
                 self.assertTrue(False, spfilename + ' not found')
         regression=si.sp.SParameterFile(spfilename)
+        SpAreEqual=self.SParametersAreEqual(sp, regression,1e-3)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(regression.m_P):
+                    for c in range(regression.m_P):
+                        plt.semilogy(regression.f(),[abs(sp[n][r][c]-regression[n][r][c]) for n in range(len(regression))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(regression.m_P):
+                    for c in range(regression.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(sp.FrequencyResponse(r+1,c+1).Frequencies(),sp.FrequencyResponse(r+1,c+1).Values('dB'),label='S'+str(r+1)+str(c+1)+' calculated')
+                        plt.plot(regression.FrequencyResponse(r+1,c+1).Frequencies(),regression.FrequencyResponse(r+1,c+1).Values('dB'),label='S'+str(r+1)+str(c+1)+' regression')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+                for r in range(regression.m_P):
+                    for c in range(regression.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(sp.FrequencyResponse(r+1,c+1).Frequencies(),sp.FrequencyResponse(r+1,c+1).Values('deg'),label='S'+str(r+1)+str(c+1)+' calculated')
+                        plt.plot(regression.FrequencyResponse(r+1,c+1).Frequencies(),regression.FrequencyResponse(r+1,c+1).Values('deg'),label='S'+str(r+1)+str(c+1)+' regression')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
         self.assertTrue(self.SParametersAreEqual(sp, regression,1e-3),spfilename + ' incorrect')
         os.chdir(currentDirectory)
     def NameForTest(self):

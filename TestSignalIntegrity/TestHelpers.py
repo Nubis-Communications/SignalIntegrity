@@ -68,6 +68,16 @@ class ResponseTesterHelper(SParameterCompareHelper):
                 plt.semilogy(regression.Times(),[abs(wf[k]-regression[k]) for k in range(len(regression))])
                 plt.grid(True)
                 plt.show()
+
+                plt.clf()
+                plt.title(fileName)
+                plt.xlabel('time (s)')
+                plt.ylabel('amplitude')
+                plt.plot(wf.Times(),wf.Values(),label='calculated')
+                plt.plot(regression.Times(),regression.Values(),label='regression')
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
         os.chdir(path)
         self.assertTrue(wfsAreEqual,text + ' incorrect')
     def GetWaveformResult(self,fileName):

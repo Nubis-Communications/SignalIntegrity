@@ -18,6 +18,9 @@ from TestHelpers import ResponseTesterHelper
 from TestHelpers import SourcesTesterHelper
 
 class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def testRLCOnePort(self):
         # one port impedance calculation based on s11
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -504,7 +507,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         self.assertTrue(R+maxEstimatedError<Rcalc,'calculated error bounds incorrect')
 
     def testTransientCurrent(self):
-        fileNameBase= '_'.join(self.id().split('.'))
+        fileNameBase= '_'.join(self.id().split('.')[-3:])
         snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
             'device R1 1 R 5.0',
             'device D2 4 currentcontrolledvoltagesource 1.0',
@@ -598,7 +601,8 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
 
     def testVRM(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        fileNameBase= '_'.join(self.id().split('.'))
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+        fileNameBase= '_'.join(self.id().split('.')[-3:])
         snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
             'device L1 2 L 0.00022',
             'device C1 1 C 4.7e-06',
@@ -644,7 +648,6 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         tm=snp.TransferMatrices()
         self.CheckSParametersResult(tm.SParameters(),fileNameBase+'_TransferMatrices.s6p','transfer matrices')
         VS1=si.td.wf.Waveform().ReadFromFile('pw.txt')
-        si.td.wf.Waveform.adaptionStrategy='Linear'
         td=VS1.TimeDescriptor()
         CG2=si.td.wf.PulseWaveform(td,-0.2,1e-3,1e-3)
         tmp=si.td.f.TransferMatricesProcessor(tm)
@@ -731,7 +734,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
 
     def testDerivIntegral(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        fileNameBase= '_'.join(self.id().split('.'))
+        fileNameBase= '_'.join(self.id().split('.')[-3:])
         Vout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Vout.txt')
         Il=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Il.txt')
         Iout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRM_Iout.txt')
@@ -768,7 +771,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
 
     def testVRMParasitics(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        fileNameBase= '_'.join(self.id().split('.'))
+        fileNameBase= '_'.join(self.id().split('.')[-3:])
         snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
             'device L1 2 L 0.00022',
             'device C1 1 C 4.7e-06',

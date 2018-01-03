@@ -195,6 +195,169 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                         plt.show()
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-1),'s-parameters not equal')
+    def testVNAFourPortAssumeDiagonalA(self):
+        ports=4
+        reflectNames=['Short','Open','Load']
+        spDict=dict()
+
+        for reflectName in reflectNames:
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+            
+            fr=transferMatrices.FrequencyResponses()
+        
+            for p in range(ports):
+                portName=str(p+1)
+                A=fr[outputNames.index('A'+portName)][sourceNames.index('VG'+portName)]
+                B=fr[outputNames.index('B'+portName)][sourceNames.index('VG'+portName)]
+                f=A.Frequencies()
+                spDict[reflectName+portName]=si.sp.SParameters(f,[[[B[n]/A[n]]] for n in range(len(f))])
+        
+        for firstPort in range(ports):
+            firstPortName=str(firstPort+1)
+            for secondPort in range(firstPort+1,ports):
+                secondPortName=str(secondPort+1)
+#                 13
+#                 [[131_A1,133_A1],
+#                  [131_A3,133_A3]]
+                portNames=[firstPortName,secondPortName]
+                A=[[None for _ in range(2)] for _ in range(2)]
+                B=[[None for _ in range(2)] for _ in range(2)]
+
+                for d in range(len(portNames)):
+                    drivenPortName=portNames[d]
+                    simulationName=firstPortName+secondPortName+drivenPortName
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    sourceNames=result[0]
+                    outputNames=result[1]
+                    transferMatrices=result[2]
+                    outputWaveforms=result[3]
+                    
+                    fr=transferMatrices.FrequencyResponses()
+
+                    for o in range(len(portNames)):
+                        otherPortName=portNames[o]
+                        A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                        f=A[o][d].Frequencies()
+                
+                for r in range(2):
+                    for c in range(2):
+                        if r != c:
+                            for n in range(len(A[r][c])):
+                                A[r][c][n]=0.
+
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
+                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                                                    for n in range(len(f))])
+
+        DutA=[[None for _ in range(ports)] for _ in range(ports)]
+        DutB=[[None for _ in range(ports)] for _ in range(ports)]
+
+        for drivenPort in range(ports):
+            drivenPortName=str(drivenPort+1)
+                
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            sourceNames=result[0]
+            outputNames=result[1]
+            transferMatrices=result[2]
+            outputWaveforms=result[3]
+            
+            fr=transferMatrices.FrequencyResponses()
+            
+            for otherPort in range(ports):
+                otherPortName=str(otherPort+1)
+                DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+                DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
+        
+        if TestSPARQFourPortScaled.usePickle:
+            if not os.path.exists('simresults.p'):
+                import pickle
+                pickle.dump(self.simdict,open("simresults.p","wb"))
+
+        
+        for r in range(ports):
+            for c in range(ports):
+                if r != c:
+                    for n in range(len(DutA[r][c])):
+                        DutA[r][c][n]=0.
+
+        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
+                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+                                            for n in range(len(f))])
+        
+        f=spDict['Dut'].f()
+        
+        calStandards=[si.m.calkit.std.ShortStandard(f),
+              si.m.calkit.OpenStandard(f),
+              si.m.calkit.LoadStandard(f),
+              si.m.calkit.ThruStandard(f,100e-12)]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short3'].FrequencyResponse(1,1),calStandards[0],2,'Short3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short4'].FrequencyResponse(1,1),calStandards[0],3,'Short4'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open3'].FrequencyResponse(1,1),calStandards[1],2,'Open3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open4'].FrequencyResponse(1,1),calStandards[1],3,'Open4'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(1,1),calStandards[2],3,'Load4'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(1,1),spDict['Thru12'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(1,1),spDict['Thru13'].FrequencyResponse(2,1),calStandards[3],0,2,'Thru131'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru13'].FrequencyResponse(2,2),spDict['Thru13'].FrequencyResponse(1,2),calStandards[3],2,0,'Thru133'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(1,1),spDict['Thru14'].FrequencyResponse(2,1),calStandards[3],0,3,'Thru141'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru14'].FrequencyResponse(2,2),spDict['Thru14'].FrequencyResponse(1,2),calStandards[3],3,0,'Thru144'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(1,1),spDict['Thru23'].FrequencyResponse(2,1),calStandards[3],1,2,'Thru232'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru23'].FrequencyResponse(2,2),spDict['Thru23'].FrequencyResponse(1,2),calStandards[3],2,1,'Thru233'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(1,1),spDict['Thru24'].FrequencyResponse(2,1),calStandards[3],1,3,'Thru242'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru24'].FrequencyResponse(2,2),spDict['Thru24'].FrequencyResponse(1,2),calStandards[3],3,1,'Thru244'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(1,1),spDict['Thru34'].FrequencyResponse(2,1),calStandards[3],2,3,'Thru343'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru34'].FrequencyResponse(2,2),spDict['Thru34'].FrequencyResponse(1,2),calStandards[3],3,2,'Thru344')
+            ]
+
+        cm=si.m.cal.Calibration(4,f,ml)
+        
+        DUTCalcSp=cm.DutCalculation(spDict['Dut'])
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
+        DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
+        self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s4p')
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-1),'s-parameters not equal')    
     def testVNAFourPortTransferThru(self):
         ports=4
         reflectNames=['Short','Open','Load']
