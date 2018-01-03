@@ -3,11 +3,14 @@ import SignalIntegrity as si
 from TestHelpers import *
 import numpy as np
 
-class AAATestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper,CallbackTesterHelper):
+class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper,CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         CallbackTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def testSymbolicSimulatorExample1Old(self):
         sd=si.sd.SystemDescription()
         sd.AddDevice('S',2)

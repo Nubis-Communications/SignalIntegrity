@@ -9,7 +9,8 @@ class TestSParameterFile(unittest.TestCase,SParameterCompareHelper,CallbackTeste
     def __init__(self, methodName='runTest'):
         CallbackTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testSParameterFileFourPort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)

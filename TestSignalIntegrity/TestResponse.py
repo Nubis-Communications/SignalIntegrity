@@ -8,6 +8,8 @@ import cmath
 import matplotlib.pyplot as plt
 
 class TestResponse(unittest.TestCase,ResponseTesterHelper):
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testResampleResponseCompareSpline(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)

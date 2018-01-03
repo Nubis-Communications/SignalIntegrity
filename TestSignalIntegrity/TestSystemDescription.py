@@ -9,6 +9,8 @@ import sys
 import os
 
 class TestSystemDescription(unittest.TestCase):
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testRedirect(self):
         old_stdout = sys.stdout
         testString = "Hi - this is a test"

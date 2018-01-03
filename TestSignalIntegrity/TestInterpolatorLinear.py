@@ -18,6 +18,8 @@ PlotTestInterpolatorLinear=False
 PlotRegression=True
 
 class TestInterpolatorLinear(unittest.TestCase,ResponseTesterHelper):
+    def id(self):
+        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testDelayLinear(self):
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

@@ -1870,7 +1870,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.PySIAppTestHelper.plotErrors and False:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1896,7 +1896,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                         plt.grid(True)
                         plt.show()
 
-        self.assertTrue(SpAreEqual,'s-parameters not equal')
+        self.assertTrue(SpAreEqual,'this is a known failure - cannot do VNA transfer thru assuming diagonal A')
 
     def testVNATwoPortTransferThruBAInv(self):
         ports=3
