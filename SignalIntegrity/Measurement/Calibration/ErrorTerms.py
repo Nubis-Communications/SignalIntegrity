@@ -75,7 +75,7 @@ class ErrorTerms(object):
         self[n][m]=[Ex,Et,El]
         return self
     def ExCalibration(self,b2a1,n,m):
-        [Ex,Et,El]=self[n][m]
+        [_,Et,El]=self[n][m]
         Ex=b2a1
         self[n][m]=[Ex,Et,El]
         return self
@@ -90,10 +90,10 @@ class ErrorTerms(object):
                                     (mid != drivenPort) and
                                     (any(self[otherPort][mid][1:])!=0.) and
                                     (any(self[mid][drivenPort][1:])!=0.)):
-                                    (Exl,Etl,Ell)=self[otherPort][mid]
-                                    (Exr,Etr,Elr)=self[mid][drivenPort]
-                                    (Edm,Erm,Esm)=self[mid][mid]
-                                    (Edo,Ero,Eso)=self[otherPort][otherPort]
+                                    (_,Etl,_)=self[otherPort][mid]
+                                    (_,Etr,_)=self[mid][drivenPort]
+                                    (_,Erm,_)=self[mid][mid]
+                                    (_,_,Eso)=self[otherPort][otherPort]
                                     (Ex,Et,El)=self[otherPort][drivenPort]
                                     Et=Etl*Etr/Erm
                                     El=Eso

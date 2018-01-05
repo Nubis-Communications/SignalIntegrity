@@ -1221,7 +1221,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         ports=2
 
-        cm2=si.m.cal.Calibration(2,f)
+        cm2=si.m.cal.Calibration(ports,f)
         cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
         cm2.WriteToFile('xferThruTDR')
 
@@ -1503,9 +1503,8 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
                 for r in range(2):
                     for c in range(2):
-                        for n in range(len(f)):
-                            if r!=c:
-                                A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+                        if r!=c:
+                            A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
                 spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
                                                     matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
@@ -1537,9 +1536,8 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for r in range(2):
             for c in range(2):
-                for n in range(len(f)):
-                    if r!=c:
-                        DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+                if r!=c:
+                    DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
@@ -1624,9 +1622,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             firstPortName=str(firstPort+1)
             for secondPort in range(firstPort+1,ports):
                 secondPortName=str(secondPort+1)
-#                 13
-#                 [[131_A1,133_A1],
-#                  [131_A3,133_A3]]
                 portNames=[firstPortName,secondPortName]
                 A=[[None for _ in range(2)] for _ in range(2)]
                 B=[[None for _ in range(2)] for _ in range(2)]
@@ -1647,12 +1642,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
                         A[o][d]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
-
-                for r in range(2):
-                    for c in range(2):
-                        for n in range(len(f)):
-                            if r!=c:
-                                A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
                 spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
                                                     matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
@@ -1681,12 +1670,6 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
             if not os.path.exists('simresults.p'):
                 import pickle
                 pickle.dump(self.simdict,open("simresults.p","wb"))
-
-        for r in range(2):
-            for c in range(2):
-                for n in range(len(f)):
-                    if r!=c:
-                        DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
@@ -1794,9 +1777,8 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
                 for r in range(2):
                     for c in range(2):
-                        for n in range(len(f)):
-                            if r!=c:
-                                A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+                        if r!=c:
+                            A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
                 spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
                                                     matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
@@ -1828,7 +1810,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         ports=2
 
-        cm2=si.m.cal.Calibration(2,f)
+        cm2=si.m.cal.Calibration(ports,f)
         cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
         cm2.WriteToFile('xferThruDiagonalA')
 
@@ -1853,9 +1835,8 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         for r in range(2):
             for c in range(2):
-                for n in range(len(f)):
-                    if r!=c:
-                        DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
+                if r!=c:
+                    DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
@@ -1972,7 +1953,7 @@ class TestSPARQFourPortScaled(unittest.TestCase,SParameterCompareHelper,si.test.
 
         ports=2
 
-        cm2=si.m.cal.Calibration(2,f)
+        cm2=si.m.cal.Calibration(ports,f)
         cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
         cm2.WriteToFile('xferThruBAInverse')
 
