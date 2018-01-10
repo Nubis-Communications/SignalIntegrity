@@ -1433,7 +1433,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
     def testWriteErrorTermsCodeCalibration(self):
         fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['__init__','Initialize','ReflectCalibration','ThruCalibration','ExCalibration','TransferThruCalibration']
+        defName=['ReflectCalibration','ThruCalibration','ExCalibration','TransferThruCalibration']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteErrorTermsCodeDut(self):
         fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"

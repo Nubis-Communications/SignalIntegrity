@@ -80,24 +80,29 @@ class ErrorTerms(object):
         self[n][m]=[Ex,Et,El]
         return self
     def TransferThruCalibration(self):
-        for otherPort in range(self.numPorts):
-            for drivenPort in range(self.numPorts):
-                if (otherPort != drivenPort):
+        didOne=True
+        while didOne:
+            didOne=False
+            for otherPort in range(self.numPorts):
+                for drivenPort in range(self.numPorts):
+                    if (otherPort == drivenPort):
+                        continue
                     if all(self[otherPort][drivenPort][1:])==0.:
                         for mid in range(self.numPorts):
-                            if all(self[otherPort][drivenPort][1:])==0.:
-                                if ((mid != otherPort) and
-                                    (mid != drivenPort) and
-                                    (any(self[otherPort][mid][1:])!=0.) and
-                                    (any(self[mid][drivenPort][1:])!=0.)):
-                                    (_,Etl,_)=self[otherPort][mid]
-                                    (_,Etr,_)=self[mid][drivenPort]
-                                    (_,Erm,_)=self[mid][mid]
-                                    (_,_,Eso)=self[otherPort][otherPort]
-                                    (Ex,Et,El)=self[otherPort][drivenPort]
-                                    Et=Etl*Etr/Erm
-                                    El=Eso
-                                    self[otherPort][drivenPort]=[Ex,Et,El]
+                            if ((mid != otherPort) and
+                                (mid != drivenPort) and
+                                (any(self[otherPort][mid][1:])!=0.) and
+                                (any(self[mid][drivenPort][1:])!=0.)):
+                                (_,Etl,_)=self[otherPort][mid]
+                                (_,Etr,_)=self[mid][drivenPort]
+                                (_,Erm,_)=self[mid][mid]
+                                (_,_,Eso)=self[otherPort][otherPort]
+                                (Ex,Et,El)=self[otherPort][drivenPort]
+                                Et=Etl*Etr/Erm
+                                El=Eso
+                                self[otherPort][drivenPort]=[Ex,Et,El]
+                                didOne=True
+                                continue
         return self
     def Fixture(self,m):
         E=[[zeros((self.numPorts,self.numPorts),complex).tolist(),

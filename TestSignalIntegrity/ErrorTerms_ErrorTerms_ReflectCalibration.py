@@ -1,15 +1,4 @@
 class ErrorTerms(object):
-    def __init__(self,ET=None):
-        self.ET=ET
-        if not ET is None:
-            self.numPorts=len(ET)
-        else:
-            self.numPorts=None
-    def Initialize(self,numPorts):
-        self.numPorts=numPorts
-        self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)]
-                 for _ in range(self.numPorts)]
-        return self
 ...
     def ReflectCalibration(self,hatGamma,Gamma,m):
         A=[[1.,Gamma[r]*hatGamma[r],-Gamma[r]] for r in range(len(Gamma))]
@@ -45,23 +34,28 @@ class ErrorTerms(object):
         self[n][m]=[Ex,Et,El]
         return self
     def TransferThruCalibration(self):
-        for otherPort in range(self.numPorts):
-            for drivenPort in range(self.numPorts):
-                if (otherPort != drivenPort):
+        didOne=True
+        while didOne:
+            didOne=False
+            for otherPort in range(self.numPorts):
+                for drivenPort in range(self.numPorts):
+                    if (otherPort == drivenPort):
+                        continue
                     if all(self[otherPort][drivenPort][1:])==0.:
                         for mid in range(self.numPorts):
-                            if all(self[otherPort][drivenPort][1:])==0.:
-                                if ((mid != otherPort) and
-                                    (mid != drivenPort) and
-                                    (any(self[otherPort][mid][1:])!=0.) and
-                                    (any(self[mid][drivenPort][1:])!=0.)):
-                                    (_,Etl,_)=self[otherPort][mid]
-                                    (_,Etr,_)=self[mid][drivenPort]
-                                    (_,Erm,_)=self[mid][mid]
-                                    (_,_,Eso)=self[otherPort][otherPort]
-                                    (Ex,Et,El)=self[otherPort][drivenPort]
-                                    Et=Etl*Etr/Erm
-                                    El=Eso
-                                    self[otherPort][drivenPort]=[Ex,Et,El]
+                            if ((mid != otherPort) and
+                                (mid != drivenPort) and
+                                (any(self[otherPort][mid][1:])!=0.) and
+                                (any(self[mid][drivenPort][1:])!=0.)):
+                                (_,Etl,_)=self[otherPort][mid]
+                                (_,Etr,_)=self[mid][drivenPort]
+                                (_,Erm,_)=self[mid][mid]
+                                (_,_,Eso)=self[otherPort][otherPort]
+                                (Ex,Et,El)=self[otherPort][drivenPort]
+                                Et=Etl*Etr/Erm
+                                El=Eso
+                                self[otherPort][drivenPort]=[Ex,Et,El]
+                                didOne=True
+                                continue
         return self
 ...
