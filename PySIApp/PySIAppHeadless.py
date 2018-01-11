@@ -10,7 +10,7 @@ import xml.etree.ElementTree as et
 from Tkinter import ALL
 
 from CalculationProperties import CalculationProperties
-from Files import FileParts
+from Files import FileParts,ConvertFileNameToRelativePath
 from Schematic import Schematic
 
 class DrawingHeadless(object):
@@ -54,6 +54,32 @@ class DrawingHeadless(object):
                         self.originx = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originy':
                         self.originy = int(drawingPropertyElement.text)
+    def xml(self):
+        drawingElement=et.Element('drawing')
+        drawingPropertiesElement=et.Element('drawing_properties')
+        drawingPropertiesElementList=[]
+        drawingProperty=et.Element('grid')
+        drawingProperty.text=str(self.grid)
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('originx')
+        drawingProperty.text=str(self.originx)
+        drawingPropertiesElementList.append(drawingProperty)
+        drawingProperty=et.Element('originy')
+        drawingProperty.text=str(self.originy)
+        drawingPropertiesElementList.append(drawingProperty)
+#         drawingProperty=et.Element('width')
+#         drawingProperty.text=str(self.canvas.winfo_width())
+#         drawingPropertiesElementList.append(drawingProperty)
+#         drawingProperty=et.Element('height')
+#         drawingProperty.text=str(self.canvas.winfo_height())
+#         drawingPropertiesElementList.append(drawingProperty)
+#         drawingProperty=et.Element('geometry')
+#         drawingProperty.text=self.parent.root.geometry()
+#         drawingPropertiesElementList.append(drawingProperty)
+        drawingPropertiesElement.extend(drawingPropertiesElementList)
+        schematicPropertiesElement=self.schematic.xml()
+        drawingElement.extend([drawingPropertiesElement,schematicPropertiesElement])
+        return drawingElement
 
 class PySIAppHeadless(object):
     def __init__(self):
@@ -61,14 +87,14 @@ class PySIAppHeadless(object):
         # python path
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
-        
+
         self.installdir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
         self.calculationProperties=CalculationProperties(self)
 
     def NullCommand(self):
         pass
-    
+
     def OpenProjectFile(self,filename):
         if filename is None:
             filename=''
@@ -91,7 +117,17 @@ class PySIAppHeadless(object):
         except:
             return False
         return True
-    
+
+    def SaveProjectToFile(self,filename):
+        self.fileparts=FileParts(filename)
+        os.chdir(self.fileparts.AbsoluteFilePath())
+        self.fileparts=FileParts(filename)
+        projectElement=et.Element('Project')
+        drawingElement=self.Drawing.xml()
+        calculationPropertiesElement=self.calculationProperties.xml()
+        projectElement.extend([drawingElement,calculationPropertiesElement])
+        et.ElementTree(projectElement).write(filename)
+
     def config(self,cursor=None):
         pass
 

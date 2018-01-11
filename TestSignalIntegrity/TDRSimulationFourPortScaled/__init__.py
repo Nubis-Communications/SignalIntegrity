@@ -1,1 +1,1 @@
-from TestSPARQFourPortScaled import TestSPARQFourPortScaled
+from TestSPARQFourPortScaledTest import TestSPARQFourPortScaledTest
