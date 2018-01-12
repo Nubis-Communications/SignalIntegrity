@@ -22,7 +22,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
     debug=False
     checkPictures=True
     epsilon=50e-12
-    usePickle=True
+    usePickle=False
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def __init__(self, methodName='runTest'):
