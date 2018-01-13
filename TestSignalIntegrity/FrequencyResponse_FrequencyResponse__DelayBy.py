@@ -14,6 +14,8 @@ class FrequencyResponse(FrequencyDomain):
         # the fractional delay is based on the minimum adjustment to the phase of
         # the last point to make that point real
         theta = self._DelayBy(-TD).Response('rad')[self.FrequencyList().N]
+        # do not make this adjustment if the phase is of a tiny magnitude!
+        if self.Response('dB')[self.FrequencyList().N]<-90: theta=0.
         if theta < -math.pi/2.: theta=-(math.pi+theta)
         elif theta > math.pi/2.: theta = math.pi-theta
         else: theta = -theta
