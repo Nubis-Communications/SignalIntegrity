@@ -468,13 +468,13 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         f=si.fd.EvenlySpacedFrequencyList(500.e6,50)
         sp = si.p.SimulatorNumericParser(f)
         netListLines=['device R1 2 R 50.0',
-                      'device T1 2 tline zc 50.0 td 5e-10',
+                      'device T1 2 tline zc 50.0 td 1e-9',
                       'device I 4 currentcontrolledvoltagesource 1.0',
                       'device R3 1 R 50.0',
                       'device R4 1 R 50.0',
                       'device D3 4 directionalcoupler',
                       'voltagesource VG2 1',
-                      'device T2 2 tline zc 50.0 td 5e-10',
+                      'device T2 2 tline zc 50.0 td 1e-9',
                       'connect VG2 1 R1 1',
                       'connect R1 2 T2 1',
                       'connect T1 1 D3 2',
@@ -493,8 +493,8 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                       'output I 4']
         sp.AddLines(netListLines+['device R2 1 ground'])
         tm=sp.TransferMatrices()
-        td=si.td.wf.TimeDescriptor(-50.5e-9,112,1e9)
-        iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-1e-9,PulseWidth=1e-9)
+        td=si.td.wf.TimeDescriptor(-52e-9,129,1e9)
+        iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-2e-9,PulseWidth=1e-9)
         tmp=si.td.f.TransferMatricesProcessor(tm)
         # The output waveforms are in order V, A, B, I
         owf=tmp.ProcessWaveforms([iwf])[0]
@@ -554,13 +554,13 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         f=si.fd.EvenlySpacedFrequencyList(500.e6,50)
         sp = si.p.SimulatorNumericParser(f)
         netListLines=['device R1 2 R 40.0',
-                      'device T1 2 tline zc 60.0 td 5e-10',
+                      'device T1 2 tline zc 60.0 td 1e-9',
                       'device I 4 currentcontrolledvoltagesource 1.0',
                       'device R3 1 R 50.0',
                       'device R4 1 R 50.0',
                       'device D3 4 directionalcoupler',
                       'voltagesource VG2 1',
-                      'device T2 2 tline zc 55.0 td 5e-10',
+                      'device T2 2 tline zc 55.0 td 1e-9',
                       'connect VG2 1 R1 1',
                       'connect R1 2 T2 1',
                       'connect T1 1 D3 2',
@@ -579,8 +579,8 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                       'output I 4']
         sp.AddLines(netListLines+['device R2 1 ground'])
         tm=sp.TransferMatrices()
-        td=si.td.wf.TimeDescriptor(-50.5e-9,112,1e9)
-        iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-1e-9,PulseWidth=1e-9)
+        td=si.td.wf.TimeDescriptor(-52e-9,129,1e9)
+        iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-2e-9,PulseWidth=1e-9)
         tmp=si.td.f.TransferMatricesProcessor(tm)
         # The output waveforms are in order V, A, B, I
         owf=tmp.ProcessWaveforms([iwf])[0]
@@ -748,7 +748,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-4),'s-parameters not equal')
-        
+
     def testVNASOLPerfectDelay(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -1039,13 +1039,13 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         f=si.fd.EvenlySpacedFrequencyList(500.e6,50)
         sp = si.p.SimulatorNumericParser(f)
         netListLines=['device R1 2 R 40.0',
-                      'device T1 2 tline zc 60.0 td 5e-10',
+                      'device T1 2 tline zc 60.0 td 1e-9',
                       'device I 4 currentcontrolledvoltagesource 1.0',
                       'device R3 1 R 50.0',
                       'device R4 1 R 50.0',
                       'device D3 4 directionalcoupler',
                       'voltagesource VG2 1',
-                      'device T2 2 tline zc 55.0 td 5e-10',
+                      'device T2 2 tline zc 55.0 td 1e-9',
                       'connect VG2 1 R1 1',
                       'connect R1 2 T2 1',
                       'connect T1 1 D3 2',
@@ -1064,8 +1064,8 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                       'output I 4']
         sp.AddLines(netListLines+['device R2 1 shortstd'])
         tm=sp.TransferMatrices()
-        td=si.td.wf.TimeDescriptor(-50.5e-9,112,1e9)
-        iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-1e-9,PulseWidth=1e-9)
+        td=si.td.wf.TimeDescriptor(-52e-9,129,1e9)
+        iwf=si.td.wf.PulseWaveform(td,Amplitude=1.,StartTime=-2e-9,PulseWidth=1e-9)
         tmp=si.td.f.TransferMatricesProcessor(tm)
         # The output waveforms are in order V, A, B, I
         owf=tmp.ProcessWaveforms([iwf])[0]
