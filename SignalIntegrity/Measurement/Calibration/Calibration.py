@@ -24,15 +24,18 @@ class Calibration(object):
         return self.ET[item]
     def __len__(self):
         return len(self.f)
-    def WriteToFile(self,filename):
+    def Fixtures(self):
         self.CalculateErrorTerms()
-        for p in range(self.ports):
-            SParameters(self.f,[
+        return [SParameters(self.f,[
                 vstack((hstack((matrix(self[n].Fixture(p)[0][0]),
                                 matrix(self[n].Fixture(p)[0][1]))),
                         hstack((matrix(self[n].Fixture(p)[1][0]),
                                 matrix(self[n].Fixture(p)[1][1]))))).tolist()
-                    for n in range(len(self))]).WriteToFile(filename+str(p+1))
+                    for n in range(len(self))]) for p in range(self.ports)]
+    def WriteToFile(self,filename):
+        Fixture=self.Fixtures()
+        for p in range(self.ports):
+            Fixture[p].WriteToFile(filename+str(p+1))
         return self
     def AddMeasurements(self,calibrationList=[]):
         self.ET=None

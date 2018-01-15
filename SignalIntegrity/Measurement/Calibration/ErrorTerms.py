@@ -116,7 +116,7 @@ class ErrorTerms(object):
             E[1][1][n][n]=ETn[2]
         E[1][0][m][m]=1.
         return E
-    def DutCalculation(self,sRaw):
+    def DutCalculationAlternate(self,sRaw):
         if self.numPorts==1:
             (Ed,Er,Es)=self[0][0]
             gamma=sRaw[0][0]
@@ -137,3 +137,13 @@ class ErrorTerms(object):
                     B[r][m]=bprime[r][0]
             S=(matrix(B)*matrix(A).getI()).tolist()
             return S
+    def DutCalculation(self,sRaw):
+        B=[[(sRaw[r][c]-self[r][c][0])/self[r][c][1] for c in range(len(sRaw))]
+           for r in  range(len(sRaw))]
+        A=[[B[r][c]*self[r][c][2]+(1 if r==c else 0) for c in range(len(sRaw))]
+           for r in range(len(sRaw))]
+        S=(matrix(B)*matrix(A).getI()).tolist()
+        # pragma: silent exclude
+        if len(S)==1: return S[0][0]
+        # pragma: include
+        return S

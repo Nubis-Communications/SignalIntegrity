@@ -1108,7 +1108,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneTDR')
+        cm=si.m.cal.Calibration(ports,f,ml)
+        Fixture=cm.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferNoneTDR'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -1212,7 +1215,9 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         cm2=si.m.cal.Calibration(ports,f)
         cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
-        cm2.WriteToFile('xferThruTDR')
+        Fixture=cm2.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferThruTDR'+str(p+1)+'.s'+str(ports*2)+'p')
 
         wfl=[]
         portNames=[str(p+1) for p in range(ports)]
@@ -1544,7 +1549,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneDiagonalA')
+        cm=si.m.cal.Calibration(ports,f,ml)
+        Fixture=cm.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferNoneDiagonalA'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -1671,7 +1679,14 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneBAInverse')
+        cm=si.m.cal.Calibration(ports,f,ml)
+        Fixture=cm.Fixtures()
+        cm.WriteToFile('testFixtureWrite')
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'testFixtureWrite'+str(p+1)+'.s'+str(ports*2)+'p')
+            os.remove('testFixtureWrite'+str(p+1)+'.s'+str(ports*2)+'p')
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferNoneBAInverse'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -1792,7 +1807,9 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         cm2=si.m.cal.Calibration(ports,f)
         cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
-        cm2.WriteToFile('xferThruDiagonalA')
+        Fixture=cm2.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferThruDiagonalA'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
         DutB=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1935,7 +1952,9 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         cm2=si.m.cal.Calibration(ports,f)
         cm2.ET=[si.m.cal.ErrorTerms([[cm3.ET[n][r][c] for c in range(ports)] for r in range(ports)]) for n in range(len(f))]
-        cm2.WriteToFile('xferThruBAInverse')
+        Fixture=cm2.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferThruBAInverse'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
         DutB=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1996,42 +2015,6 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
                         plt.show()
 
         self.assertTrue(SpAreEqual,'s-parameters not equal')
-
-    def testAAATryToFix(self):
-        return
-        result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut4Scaled.xml')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
-
-        V4=outputWaveforms[outputNames.index('V4')]
-        A4=outputWaveforms[outputNames.index('A4')]
-        B4=outputWaveforms[outputNames.index('B4')]
-        si.td.wf.Waveform.adaptionStrategy='Linear'
-        V4add=A4+B4
-
-        import matplotlib.pyplot as plt
-        plt.clf()
-        plt.title('A4 and B4 compare')
-        plt.xlabel('time (ns)')
-        plt.ylabel('amplitude (V)')
-        plt.plot(V4.Times('ns'),V4.Values(),label='V4')
-        plt.plot(A4.Times('ns'),A4.Values(),label='A4')
-        plt.plot(B4.Times('ns'),B4.Values(),label='B4')
-        plt.legend(loc='upper right')
-        plt.grid(True)
-        plt.show()
-
-        plt.clf()
-        plt.title('V4 compare')
-        plt.xlabel('time (ns)')
-        plt.ylabel('amplitude (V)')
-        plt.plot(V4.Times('ns'),V4.Values(),label='from sim')
-        plt.plot(V4add.Times('ns'),V4add.Values(),label='added manually')
-        plt.legend(loc='upper right')
-        plt.grid(True)
-        plt.show()
 
     def ConvertToNoGain(self):
         ports=4
@@ -2174,7 +2157,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneTDRNoGain')
+        cm=si.m.cal.Calibration(ports,f,ml)
+        Fixture=cm.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferNoneTDRNoGain'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
@@ -2302,7 +2288,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru12'].FrequencyResponse(2,2),spDict['Thru12'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
-        cm=si.m.cal.Calibration(ports,f,ml).WriteToFile('xferNoneBAInverseNoGain')
+        cm=si.m.cal.Calibration(ports,f,ml)
+        Fixture=cm.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],'xferNoneBAInverseNoGain'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
