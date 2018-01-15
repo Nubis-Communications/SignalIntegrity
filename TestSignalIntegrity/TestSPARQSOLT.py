@@ -153,7 +153,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         incwffc=incwf.FrequencyContent()
         spRawShort=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         owf=tmp.ProcessWaveforms([iwf])[0]
         refwf=si.td.wf.Waveform(owf.TimeDescriptor(),[0 if abs(t)<1e-12 else v for (t,v) in zip(owf.Times(),owf.Values())])
         incwf=owf-refwf
@@ -195,7 +195,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
-        
+
     def testVNASOLPerfect(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

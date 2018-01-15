@@ -163,9 +163,12 @@ class Waveform(object):
         from SignalIntegrity.FrequencyDomain.FrequencyContent import FrequencyContent
         # pragma: include
         X=fft.fft(self.Values())
-        fd=self.TimeDescriptor().FrequencyList()
-        return FrequencyContent(fd,[X[n]/(fd.N*2)*(1. if (n==0 or n==fd.N) else 2.) for n in range(fd.N+1)]).\
-            _DelayBy(self.TimeDescriptor().H)
+        td=self.TimeDescriptor()
+        K=int(td.N)
+        Keven=(K/2)*2 == K
+        fd=td.FrequencyList()
+        return FrequencyContent(fd,[X[n]/K*(1. if (n==0 or ((n==fd.N) and Keven))
+            else 2.) for n in range(fd.N+1)])._DelayBy(self.TimeDescriptor().H)
     def Integral(self,c=0.,addPoint=True):
         td=copy(self.TimeDescriptor())
         i=[0 for k in range(len(self))]
