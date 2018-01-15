@@ -69,7 +69,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         incwffc=incwf.FrequencyContent()
         spRawShort=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         owf=tmp.ProcessWaveforms([iwf])[0]
         refwf=si.td.wf.Waveform(owf.TimeDescriptor(),[0 if abs(t)<1e-12 else v for (t,v) in zip(owf.Times(),owf.Values())])
         incwf=owf-refwf
@@ -236,7 +236,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         incwffc=wfList[1].FrequencyContent()
         spRawShort=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         wfList=tmp.ProcessWaveforms([iwf])
         refwffc=wfList[2].FrequencyContent()
         incwffc=wfList[1].FrequencyContent()
@@ -321,7 +321,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         incwffc=wfList[1].FrequencyContent()
         spRawShort=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         wfList=tmp.ProcessWaveforms([iwf])
         refwffc=wfList[2].FrequencyContent()
         incwffc=wfList[1].FrequencyContent()
@@ -504,7 +504,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         incwffc=incwf.FrequencyContent()
         spRawShort=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         owf=tmp.ProcessWaveforms([iwf])[0]
         refwf=si.td.wf.Waveform(owf.TimeDescriptor(),[0 if abs(t)<1e-12 else v for (t,v) in zip(owf.Times(),owf.Values())])
         incwf=owf-refwf
@@ -532,6 +532,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         calStandards=[si.m.calkit.std.ShortStandard(f),si.m.calkit.OpenStandard(f),si.m.calkit.LoadStandard(f)]
         et=[si.m.cal.ErrorTerms().Initialize(1) for _ in range(len(f))]
         Gamma=[[[0.]] for _ in range(len(f))]
+        GammaAlt=[[[0.]] for _ in range(len(f))]
         for n in range(len(et)):
             et[n].ReflectCalibration([spRawShort[n][0][0],
                                    spRawOpen[n][0][0],
@@ -541,8 +542,11 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[2][n][0][0]],
                                   0)
             Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            GammaAlt[n]=[[et[n].DutCalculationAlternate(spRawDUT[n])]]
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
+        DUTCalcAltSp=si.sp.SParameters(f,GammaAlt)
+        self.SParameterRegressionChecker(DUTCalcAltSp, self.NameForTest()+'Alternate_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
@@ -619,7 +623,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
             plt.legend(loc='upper right')
             plt.show()
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         owf=tmp.ProcessWaveforms([iwf])[0]
         refwf=si.td.wf.Waveform(owf.TimeDescriptor(),[0 if abs(t)<1e-12 else v for (t,v) in zip(owf.Times(),owf.Values())])
         incwf=owf-refwf
@@ -790,7 +794,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         incwffc=wfList[1].FrequencyContent()
         spRawShort=si.sp.SParameters(refwffc.FrequencyList(),[[[r/i]] for (r,i) in zip(refwffc.Values(),incwffc.Values())])
 
-        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 R 5e9']).TransferMatrices())
+        tmp = si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(f).AddLines(netListLines+['device R2 1 open']).TransferMatrices())
         wfList=tmp.ProcessWaveforms([iwf])
         refwffc=wfList[2].FrequencyContent()
         incwffc=wfList[1].FrequencyContent()
@@ -1404,6 +1408,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                       si.m.calkit.ThruStandard(f,100e-12)]
         et=[si.m.cal.ErrorTerms().Initialize(2) for _ in range(len(f))]
         DUT=[[[0.,0.],[0.,0.]] for _ in range(len(f))]
+        DUTAlt=[[[0.,0.],[0.,0.]] for _ in range(len(f))]
         for n in range(len(et)):
             et[n].ReflectCalibration([spDict['Short1'][n][0][0],spDict['Open1'][n][0][0],spDict['Load1'][n][0][0]],
                 [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],0)
@@ -1412,10 +1417,11 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
             et[n].ThruCalibration(spDict['Thru'][n][0][0],spDict['Thru'][n][1][0],calStandards[3][n],1,0)
             et[n].ThruCalibration(spDict['Thru'][n][1][1],spDict['Thru'][n][0][1],calStandards[3][n],0,1)
             DUT[n]=et[n].DutCalculation(spDict['Dut'][n])
+            DUTAlt[n]=et[n].DutCalculationAlternate(spDict['Dut'][n])
         DUTCalcSp=si.sp.SParameters(f,DUT)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.SParameterFile('BMYchebySParameters.s2p').Resample(DUTCalcSp.f())
-        DUTActualSp=si.m.calkit.ThruStandard(f,100e-12)
+        DUTCalcAlternateSp=si.sp.SParameters(f,DUTAlt)
+        self.SParameterRegressionChecker(DUTCalcAlternateSp, self.NameForTest()+'Alternate_Calc.s2p')
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
@@ -1438,7 +1444,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
     def testWriteErrorTermsCodeDut(self):
         fileName="../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['DutCalculation','Fixture']
+        defName=['DutCalculation','DutCalculationAlternate','Fixture']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testTDRSimulationSOLT2(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.xml')
@@ -2086,6 +2092,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         allfuncs.remove('__getitem__')
         allfuncs.remove('__len__')
         allfuncs.remove('WriteToFile')
+        allfuncs.remove('Fixtures')
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
 
