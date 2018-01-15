@@ -62,9 +62,9 @@ class TimeDescriptor(object):
     def DelayBy(self,D):
         return TimeDescriptor(self.H+D,self.N,self.Fs)
     def FrequencyList(self):
-        K=self.N
+        K=int(self.N)
         N=K/2
-        Fe=self.Fs/2.
+        Fe=float(self.Fs)*N/K
         return EvenlySpacedFrequencyList(Fe,N)
     def Intersection(self,other):
         return TimeDescriptor(
