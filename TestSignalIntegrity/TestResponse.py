@@ -79,55 +79,6 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
 ##        tdspres1.WriteToFile('tdspres1czt2.s4p')
 ##        tdspres2.WriteToFile('tdspres2czt2.s4p')
         self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
-    def testArrayOfMatrices(self):
-        data=si.sp.ArrayOfMatrices([[[1,2],[3,4]],[[5,6],[7,8]],[[9,10],[11,12]]])
-        data2=si.sp.MatrixOfArrays(data)
-        data3=si.sp.ArrayOfMatrices(data2)
-        f=[1,2,3]
-        f2=si.fd.FrequencyList(f)
-        f3=si.fd.FrequencyList(f2)
-        pass
-    def testResampleResponseCompareSpline2(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
-        tdspres1=tdsp.Resample(newf)
-
-        tdresp = si.sp.ArrayOfMatrices(tdsp).MatrixOfArrays()
-        tdrespf = tdsp.f()
-
-        for r in range(tdresp.NumRows()):
-            for c in range(tdresp.NumCols()):
-                tdresp.SetArray(r,c,si.fd.FrequencyResponse(tdrespf,tdresp.GetArray(r,c)).Resample(newf).Response())
-
-        tddres2=tdresp.ArrayOfMatrices()
-
-        tdspres2 = si.sp.SParameters(newf,tddres2)
-
-##        tdspres1.WriteToFile('tdspres1spline2.s4p')
-##        tdspres2.WriteToFile('tdspres2spline2.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
-
-    def testResampleResponseCompareSpline3(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        newf=si.fd.EvenlySpacedFrequencyList(100*100e6,100)
-        tdsp=si.sp.SParameterFile('TestDut.s4p',50.)
-        tdspres1=tdsp.Resample(newf)
-
-        tdresp = si.sp.ArrayOfMatrices(tdsp)
-        tdrespf = tdsp.f()
-
-        tddres2=si.sp.EmptyArrayOfMatrices(4,4,len(newf))
-
-        for r in range(tdresp.NumRows()):
-            for c in range(tdresp.NumCols()):
-                tddres2.SetArray(r,c,si.fd.FrequencyResponse(tdrespf,tdresp.GetArray(r,c)).Resample(newf).Response())
-
-        tdspres2 = si.sp.SParameters(newf,tddres2)
-
-##        tdspres1.WriteToFile('tdspres1spline3.s4p')
-##        tdspres2.WriteToFile('tdspres2spline3.s4p')
-        self.assertTrue(self.SParametersAreEqual(tdspres1,tdspres2,0.001),self.id()+'result not same')
     def testResampleResponseFilter(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         filtersp=si.sp.SParameterFile('filter.s2p',50.)
