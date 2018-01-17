@@ -12,6 +12,7 @@ import math
 
 from SignalIntegrity.TimeDomain.Filters import WaveformTrimmer
 from SignalIntegrity.SParameters.SParameters import SParameters
+from SignalIntegrity.Wavelets.WaveletDenoiser import WaveletDenoiser
 
 class TDRWaveformToSParameterConverter(object):
     sigmaMultiple=5
@@ -41,7 +42,7 @@ class TDRWaveformToSParameterConverter(object):
             wfList=[wf*WaveformTrimmer(0,wf.TimeDescriptor().N-lengthSamples)
                 for wf in wfList]
         if self.step:
-            wfList=[wf.Derivative(removePoint=False) for wf in wfList]
+            wfList=[wf.Derivative(removePoint=False)*(1./wf.TimeDescriptor().Fs) for wf in wfList]
         if self.inverted:
             wfList=[wf*-1. for wf in wfList]
         incwf=copy.deepcopy(wfList[incidentIndex])
@@ -64,8 +65,8 @@ class TDRWaveformToSParameterConverter(object):
                 incwf[k]=0.
         wfList[incidentIndex]=wfList[incidentIndex]-incwf
         if not self.sigma == 0:
-            wfList=[self.WaveletDenoise(wf) for wf in wfList]
-            incwf=self.WaveletDenoise(incwf)
+            wfList=[WaveletDenoiser.DenoisedWaveform(wf,isDerivative=self.step,mult=5) for wf in wfList]
+            incwf=WaveletDenoiser.DenoisedWaveform(incwf,isDerivative=self.step,mult=5)
         incwffc=incwf.FrequencyContent()
         res=[wf.FrequencyContent() for wf in wfList]
         for fc in res:
@@ -96,17 +97,3 @@ class TDRWaveformToSParameterConverter(object):
         return SParameters(f,
             [[[S[r][c][n] for c in range(ports)] for r in range(ports)]
             for n in range(len(f))])
-    def WaveletDenoise(self,wf):
-        from SignalIntegrity.Wavelets import WaveletDaubechies4
-        w=WaveletDaubechies4()
-        threshold=self.sigmaMultiple*self.sigma
-        irl=len(wf)
-        nirl=int(pow(2.,math.ceil(math.log(float(irl))/math.log(2.))))
-        wf=wf._Pad(nirl)
-        y=wf.Values()
-        Y=w.DWT(y)
-        Y=[0. if abs(Yv) <= threshold else Yv for Yv in Y]
-        y=w.IDWT(Y)
-        wf.m_y=y
-        wf=wf._Pad(irl)
-        return wf

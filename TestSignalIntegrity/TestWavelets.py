@@ -35,32 +35,94 @@ class TestWavelets(unittest.TestCase):
         K=pow(2,10)
         Fs=1.
         sigma=0.1
-        nwf=si.td.wf.NoiseWaveform(si.td.wf.TimeDescriptor(0,K+1,Fs),sigma)
-        dnwf=nwf.Derivative()
-        w=si.wl.WaveletDaubechies4()
-        X=w.DWT(dnwf.Values())
-        T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30)]
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('denoising')
-#         plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
-#         plt.loglog(dnwf.Times(),T,label='threshold')
-#         plt.xlabel('samples')
-#         plt.ylabel('amplitude')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
-#         plt.show()
-        dnwfDenoised=si.wl.WaveletDenoiser.DenoisedDerivativeCalc(dnwf, 30, 5)
-        print dnwf.TimeDescriptor().Fs
-        wfDenoised=dnwfDenoised.Integral()*dnwf.TimeDescriptor().Fs
-        wfNoisy=nwf
-#         plt.clf()
-#         plt.title('denoising')
-#         plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
-#         plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
-#         plt.xlabel('time')
-#         plt.ylabel('amplitude')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
-#         plt.show()
+        trys=10
+        for _ in range(trys):
+            nwf=si.td.wf.NoiseWaveform(si.td.wf.TimeDescriptor(0,K+1,Fs),sigma)
+            dnwf=nwf.Derivative()
+            w=si.wl.WaveletDaubechies4()
+            X=w.DWT(dnwf.Values())
+            T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30)]
+    #         import matplotlib.pyplot as plt
+    #         plt.clf()
+    #         plt.title('denoising')
+    #         plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
+    #         plt.loglog(dnwf.Times(),T,label='threshold')
+    #         plt.xlabel('samples')
+    #         plt.ylabel('amplitude')
+    #         plt.legend(loc='upper right')
+    #         plt.grid(True)
+    #         plt.show()
+            dnwfDenoised=si.wl.WaveletDenoiser.DenoisedWaveform(dnwf, 30, 5)
+            wfDenoised=dnwfDenoised.Integral()*dnwf.TimeDescriptor().Fs
+            wfNoisy=nwf
+    #         plt.clf()
+    #         plt.title('denoising')
+    #         plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
+    #         plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
+    #         plt.xlabel('time')
+    #         plt.ylabel('amplitude')
+    #         plt.legend(loc='upper right')
+    #         plt.grid(True)
+    #         plt.show()
+            if all([x==0. for x in wfDenoised.Values()]):
+                return # test passed
+        self.fail('wavelet denoising didnt work')
+    def testDenoiseImpulsive(self):
+        K=pow(2,10)
+        Fs=1.
+        sigma=0.1
+        trys=10
+        for _ in range(trys):
+            nwf=si.td.wf.NoiseWaveform(si.td.wf.TimeDescriptor(0,K,Fs),sigma)
+            w=si.wl.WaveletDaubechies4()
+            X=w.DWT(nwf.Values())
+            T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30,isDerivative=False)]
+            import matplotlib.pyplot as plt
+    #         plt.clf()
+    #         plt.title('denoising')
+    #         plt.loglog(nwf.Times(),[abs(x) for x in X],label='dwt')
+    #         plt.loglog(nwf.Times(),T,label='threshold')
+    #         plt.xlabel('samples')
+    #         plt.ylabel('amplitude')
+    #         plt.legend(loc='upper right')
+    #         plt.grid(True)
+    #         plt.show()
+            wfDenoised=si.wl.WaveletDenoiser.DenoisedWaveform(nwf, 30, 5,isDerivative=False)
+            wfNoisy=nwf
+    #         plt.clf()
+    #         plt.title('denoising')
+    #         plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
+    #         plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
+    #         plt.xlabel('time')
+    #         plt.ylabel('amplitude')
+    #         plt.legend(loc='upper right')
+    #         plt.grid(True)
+    #         plt.show()
+            if all([x==0. for x in wfDenoised.Values()]):
+                return # test passed
+        self.fail('wavelet denoising didnt work')
 
+    def testDerivativeThresholdCalcHaar(self):
+        K=pow(2,10)
+        Fs=1.
+        sigma=0.1
+        trys=10
+        for _ in range(trys):
+            nwf=si.td.wf.NoiseWaveform(si.td.wf.TimeDescriptor(0,K+1,Fs),sigma)
+            dnwf=nwf.Derivative()
+            w=si.wl.WaveletHaar()
+            X=w.DWT(dnwf.Values())
+            T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30)]
+#             import matplotlib.pyplot as plt
+#             plt.clf()
+#             plt.title('denoising')
+#             plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
+#             plt.loglog(dnwf.Times(),T,label='threshold')
+#             plt.xlabel('samples')
+#             plt.ylabel('amplitude')
+#             plt.legend(loc='upper right')
+#             plt.grid(True)
+#             plt.show()
+            if all([abs(x) < t for (x,t) in zip(X,T)]):
+                return # test passed
+        self.fail('wavelet denoising didnt work')

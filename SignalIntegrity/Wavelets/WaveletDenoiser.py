@@ -9,26 +9,48 @@
 '''
 from Wavelets import WaveletDaubechies4
 from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
 
 import math,cmath
 from numpy import std,log2
 
 class WaveletDenoiser(object):
     @staticmethod
-    def DenoisedDerivativeCalc(wf,pct=30,mult=5.):
+    def DenoisedWaveform(wf,pct=30.,mult=5.,isDerivative=True):
         w=WaveletDaubechies4()
-        X=w.DWT(wf.Values())
-        T=[T*mult for T in WaveletDenoiser.DerivativeThresholdCalc(X,w.h,pct)]
-        dwf =  Waveform(wf.TimeDescriptor(),[0 if x < t else x for (x,t) in zip(X,T)])
+        Ki=wf.TimeDescriptor().N
+        Kf=int(pow(2,math.ceil(log2(wf.TimeDescriptor().N))))
+        PadLeft=Kf-Ki
+        pct=pct*Ki/Kf
+        pwf=wf*WaveformTrimmer(-PadLeft,0)
+        X=w.DWT(pwf.Values())
+        T=WaveletDenoiser.DerivativeThresholdCalc(X,w.h,pct,isDerivative)
+        # pragma: silent exclude
+#         import matplotlib.pyplot as plt
+#         plt.clf()
+#         plt.title('denoising')
+#         plt.loglog([k for k in range(len(X))],[abs(x) for x in X],label='dwt')
+#         plt.loglog([k for k in range(len(X))],[t*mult for t in T],label='threshold')
+#         plt.xlabel('samples')
+#         plt.ylabel('amplitude')
+#         plt.legend(loc='upper right')
+#         plt.grid(True)
+#         plt.show()
+        # pragma: include
+        dwf =  Waveform(pwf.TimeDescriptor(),w.IDWT([0 if abs(x) < t*mult else x for (x,t) in zip(X,T)]))
+        dwf=dwf*WaveformTrimmer(PadLeft,0)
         return dwf
     @staticmethod
-    def DerivativeThresholdCalc(X,h,pct):
+    def DerivativeThresholdCalc(X,h,pct=30.,isDerivative=True):
         L=len(h)
         K=len(X)
         N=K/2
         B=int(log2(K)-log2(L))+1
-        E=[math.sqrt(2.*(1-math.cos(math.pi*n/N))) for n in range(N+1)]
-        TS=WaveletDenoiser.DWTNoiseShapeCalc(E,h)
+        if isDerivative:
+            E=[math.sqrt(2.*(1-math.cos(math.pi*n/N))) for n in range(N+1)]
+            TS=WaveletDenoiser.DWTNoiseShapeCalc(E,h)
+        else:
+            TS=[1 for n in range(N+1)]
         P=int(math.floor(pct/100.*K/2.))
         sigmaw=std(X[K-P:K])
         sigma=sigmaw*math.sqrt(N)/TS[B-1]
