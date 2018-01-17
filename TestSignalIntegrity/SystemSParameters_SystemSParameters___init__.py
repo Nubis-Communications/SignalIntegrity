@@ -19,8 +19,7 @@ class SystemSParameters(SystemDescription):
         if not isinstance(ToN,list):
             nv = self.NodeVector()
             ToN = nv
-            FromN = nv
-        elif not isinstance(FromN,list):
+        if not isinstance(FromN,list):
             FromN=ToN
         PWM = [[0]*len(FromN) for r in range(len(ToN))]
         for d in range(len(self)):
