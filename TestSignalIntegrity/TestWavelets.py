@@ -127,3 +127,19 @@ class TestWavelets(unittest.TestCase):
             if all([abs(x) < t for (x,t) in zip(X,T)]):
                 return # test passed
         self.fail('wavelet denoising didnt work')
+    def testIntegralDerivative(self):
+        stepwf=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(-5.5e-9,100,1e9)).OffsetBy(1.0)
+        derivwf=stepwf.Derivative(scale=False,c=stepwf[0])
+        integwf=derivwf.Integral(scale=False,c=stepwf[0])
+        self.assertTrue(stepwf==integwf,'integral of derivative not same')
+#         import matplotlib.pyplot as plt
+#         plt.clf()
+#         plt.title('compare')
+#         plt.plot(stepwf.Times('ns'),stepwf.Values(),label='original step')
+#         plt.plot(derivwf.Times('ns'),derivwf.Values(),label='derivative')
+#         plt.plot(integwf.Times('ns'),integwf.Values(),label='integral of derivative')        
+#         plt.xlabel('time (ns)')
+#         plt.ylabel('amplitude')
+#         plt.legend(loc='upper right')
+#         plt.grid(True)
+#         plt.show()

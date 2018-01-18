@@ -169,29 +169,31 @@ class Waveform(object):
         fd=td.FrequencyList()
         return FrequencyContent(fd,[X[n]/K*(1. if (n==0 or ((n==fd.N) and Keven))
             else 2.) for n in range(fd.N+1)])._DelayBy(self.TimeDescriptor().H)
-    def Integral(self,c=0.,addPoint=True):
+    def Integral(self,c=0.,addPoint=True,scale=True):
         td=copy(self.TimeDescriptor())
         i=[0 for k in range(len(self))]
+        T=1./td.Fs if scale else 1.
         for k in range(len(i)):
             if k==0:
-                i[k]=(self[k]*3-c)*1./(2.*td.Fs)
+                i[k]=self[k]*T+c
             else:
-                i[k]=i[k-1]+(self[k]*3-self[k-1])*1./(2.*td.Fs)
+                i[k]=i[k-1]+self[k]*T
         td.H=td.H+(1./2.)*(1./td.Fs)
         if addPoint:
             td.N=td.N+1
             td.H=td.H=td.H-1./td.Fs
             i=[c]+i
         return Waveform(td,i)
-    def Derivative(self,c=0.,removePoint=True):
+    def Derivative(self,c=0.,removePoint=True,scale=True):
         td=copy(self.TimeDescriptor())
         vl=copy(self.Values())
         v=self.Values()
+        T=1./td.Fs if scale else 1.
         for k in range(len(vl)):
             if k==0:
                 vl[k]=0.
             else:
-                vl[k]=(v[k]-v[k-1])*td.Fs
+                vl[k]=(v[k]-v[k-1])/T
         td.H=td.H-(1./2.)*(1./td.Fs)
         if removePoint:
             td.N=td.N-1
