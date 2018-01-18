@@ -121,7 +121,7 @@ class ErrorTerms(object):
             (Ed,Er,Es)=self[0][0]
             gamma=sRaw[0][0]
             Gamma=(gamma-Ed)/((gamma-Ed)*Es+Er)
-            return Gamma
+            return [[Gamma]]
         else:
             A=zeros((self.numPorts,self.numPorts),complex).tolist()
             B=zeros((self.numPorts,self.numPorts),complex).tolist()
@@ -143,7 +143,4 @@ class ErrorTerms(object):
         A=[[B[r][c]*self[r][c][2]+(1 if r==c else 0) for c in range(len(sRaw))]
            for r in range(len(sRaw))]
         S=(matrix(B)*matrix(A).getI()).tolist()
-        # pragma: silent exclude
-        if len(S)==1: return S[0][0]
-        # pragma: include
         return S

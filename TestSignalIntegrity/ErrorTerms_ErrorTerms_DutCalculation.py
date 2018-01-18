@@ -17,7 +17,7 @@ class ErrorTerms(object):
             (Ed,Er,Es)=self[0][0]
             gamma=sRaw[0][0]
             Gamma=(gamma-Ed)/((gamma-Ed)*Es+Er)
-            return Gamma
+            return [[Gamma]]
         else:
             A=zeros((self.numPorts,self.numPorts),complex).tolist()
             B=zeros((self.numPorts,self.numPorts),complex).tolist()

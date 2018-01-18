@@ -105,7 +105,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -189,7 +189,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -266,7 +266,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -351,7 +351,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -541,8 +541,8 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
-            GammaAlt[n]=[[et[n].DutCalculationAlternate(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
+            GammaAlt[n]=et[n].DutCalculationAlternate(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTCalcAltSp=si.sp.SParameters(f,GammaAlt)
@@ -746,7 +746,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -824,7 +824,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -1029,7 +1029,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -1231,7 +1231,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spRawDUT[n])]]
+            Gamma[n]=et[n].DutCalculation(spRawDUT[n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSP=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
@@ -1270,7 +1270,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
                                    calStandards[1][n][0][0],
                                    calStandards[2][n][0][0]],
                                   0)
-            Gamma[n]=[[et[n].DutCalculation(spDict['Dut'][n])]]
+            Gamma[n]=et[n].DutCalculation(spDict['Dut'][n])
         DUTCalcSp=si.sp.SParameters(f,Gamma)
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         DUTActualSp=si.sp.SParameters(f,[si.dev.TerminationZ(20.0) for _ in f])
