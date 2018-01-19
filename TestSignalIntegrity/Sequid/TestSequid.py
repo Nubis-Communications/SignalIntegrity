@@ -30,6 +30,28 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
+    def PlotTikZ(self,filename):
+        from matplotlib2tikz import save as tikz_save
+        tikz_save(filename,figure=self.f,show_info=False)
+        texfile=open(filename,'rU')
+        lines=[]
+        for line in texfile:
+            line=line.replace('\xe2\x88\x92','-')
+            lines.append(str(line))
+        texfile.close()
+        texfile=open(filename,'w')
+        for line in lines:
+            texfile.write(line)
+        texfile.close()
+    def ReadSequidFileXls(self,filename):
+        book=xlrd.open_workbook(filename,encoding_override='ascii')
+        sheet=book.sheet_by_index(0)
+        (rows,cols)=(sheet.nrows,sheet.ncols)
+        times=[c.value for c in sheet.col_slice(0,2,rows-2)]
+        volts=[c.value for c in sheet.col_slice(3,2,rows-2)]
+        Fs=1./mean([times[k]-times[k-1] for k in range(1,len(times))])
+        wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(times[0],len(times),Fs),volts)
+        return wf
     def testSequidSOLOnePort(self):
         ports=1
         reflectNames=['Short','Open','Load']
@@ -37,96 +59,75 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
 
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Length=50e-9,
-                                                      WindowHalfWidthTime=1e-9,
-                                                      WindowRaisedCosineDuration=1e-9,
-                                                      Sigma=1.
-                                                      )
+              WindowHalfWidthTime=1e-9,
+              WindowRaisedCosineDuration=1e-9,
+              Denoise=True,
+              fd=si.fd.EvenlySpacedFrequencyList(16e9,800)
+              )
 
         for reflectName in reflectNames+dutNames:
-            book=xlrd.open_workbook(reflectName+'200.xls',encoding_override='ascii')
-            sheet=book.sheet_by_index(0)
-            (rows,cols)=(sheet.nrows,sheet.ncols)
-            times=[c.value for c in sheet.col_slice(0,2,rows-2)]
-            volts=[c.value for c in sheet.col_slice(3,2,rows-2)]
-            Fs=1./mean([times[k]-times[k-1] for k in range(1,len(times))])
-            wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(times[0],len(times),Fs),volts)
+            wf=self.ReadSequidFileXls(reflectName+'200.xls')
             rmf=tdr.RawMeasuredSParameters(wf)
-
-            limit=16.e9
-            for n in range(len(rmf)):
-                if rmf.m_f[n]<=limit:
-                    nlimit=n
-
-            rmf=si.sp.SParameters([rmf.m_f[nn] for nn in range(nlimit)],[rmf.m_d[nn] for nn in range(nlimit)])
 
             spDict[reflectName]=rmf
             spDict[reflectName+'wf']=wf
 
         plotthem=False
-        if plotthem:
-            import matplotlib.pyplot as plt
-            plt.clf()
-            plt.title('waveforms')
-            for reflectName in reflectNames:
-                wf=spDict[reflectName+'wf']
-                plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
-            plt.xlabel('time (ns)')
-            plt.ylabel('amplitude')
-            plt.legend(loc='upper right')
-            plt.grid(True)
-            plt.show()
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('waveforms')
+        for reflectName in reflectNames:
+            wf=spDict[reflectName+'wf']
+            plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
 
-            import matplotlib.pyplot as plt
-            plt.clf()
-            plt.title('derivatives')
-            for reflectName in reflectNames:
-                wf=spDict[reflectName+'wf'].Derivative(scale=False)
-                plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
-            plt.xlabel('time (ns)')
-            plt.ylabel('amplitude')
-            plt.legend(loc='upper right')
-            plt.grid(True)
-            plt.show()
+        plt.clf()
+        plt.title('derivatives')
+        for reflectName in reflectNames:
+            wf=spDict[reflectName+'wf'].Derivative(scale=False)
+            plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
 
-            import matplotlib.pyplot as plt
-            plt.clf()
-            plt.title('s11 magnitude')
-            for reflectName in reflectNames:
-                resp=spDict[reflectName].FrequencyResponse(1,1)
-                plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label=reflectName)
-            plt.xlabel('frequency (GHz)')
-            plt.ylabel('magnitude (dB)')
-            plt.legend(loc='upper right')
-            plt.grid(True)
-            plt.show()
+        plt.clf()
+        plt.title('s11 magnitude')
+        for reflectName in reflectNames:
+            resp=spDict[reflectName].FrequencyResponse(1,1)
+            plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label=reflectName)
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
 
-            import matplotlib.pyplot as plt
-            plt.clf()
-            plt.title('s11 phase')
-            for reflectName in reflectNames:
-                resp=spDict[reflectName].FrequencyResponse(1,1)
-                plt.plot(resp.Frequencies('GHz'),resp.Values('deg'),label=reflectName)
-            plt.xlabel('frequency (GHz)')
-            plt.ylabel('phase (deg)')
-            plt.legend(loc='upper right')
-            plt.grid(True)
-            plt.show()
+        plt.clf()
+        plt.title('s11 phase')
+        for reflectName in reflectNames:
+            resp=spDict[reflectName].FrequencyResponse(1,1)
+            plt.plot(resp.Frequencies('GHz'),resp.Values('deg'),label=reflectName)
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('phase (deg)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
 
         dutName='LPFilter'
 
         f=spDict[dutName].f()
 
         ck=si.m.calkit.CalibrationKit('CalKitFile.cstd',f)
-#         calStandards=[si.m.calkit.std.ShortStandard(f),
-#               si.m.calkit.OpenStandard(f),
-#               si.m.calkit.LoadStandard(f),
-#               si.m.calkit.ThruStandard(f,100e-12)]
+        #ck.WriteStandardsToFiles('Anritsu')
 
-        calStandards=[ck.shortStandard,ck.openStandard,ck.loadStandard]
-
-        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Open'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
-            si.m.cal.ReflectCalibrationMeasurement(spDict['Load'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short'].FrequencyResponse(1,1),ck.shortStandard,0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open'].FrequencyResponse(1,1),ck.openStandard,0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load'].FrequencyResponse(1,1),ck.loadStandard,0,'Load1'),
             ]
 
         cm=si.m.cal.Calibration(ports,f,ml)
@@ -135,10 +136,9 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             self.SParameterRegressionChecker(Fixture[p],'sequidTDR'+str(p+1)+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict[dutName])
-        return
-
 
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
+        return
         #DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
         #self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s1p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)

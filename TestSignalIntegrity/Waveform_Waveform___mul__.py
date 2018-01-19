@@ -6,6 +6,6 @@ class Waveform(object):
             return other.TrimWaveform(self)
         elif isinstance(other,WaveformDecimator):
             return other.DecimateWaveform(self)
-        elif isinstance(other,float):
-            return Waveform(self.m_t,[v*other for v in self.Values()])
+        elif isinstance(other,(float,int,complex)):
+            return Waveform(self.m_t,[v*other.real for v in self.Values()])
 ...

@@ -21,15 +21,19 @@ class TDRWaveformToSParameterConverter(object):
                  WindowRaisedCosineDuration=0,
                  Step=True,
                  Length=0,
-                 Sigma=0,
-                 Inverted=False
+                 Denoise=False,
+                 DenoisePercent=30.,
+                 Inverted=False,
+                 fd=None
                  ):
         self.whwt=WindowHalfWidthTime
         self.wrcdr=WindowRaisedCosineDuration
         self.step=Step
         self.length=Length
-        self.sigma=Sigma
+        self.denoise=Denoise
+        self.denoisePercent=DenoisePercent
         self.inverted=Inverted
+        self.fd=fd
     def Convert(self,wfListProvided,incidentIndex=0):
         # pragma: silent exclude
         wfList=copy.deepcopy(wfListProvided)
@@ -42,9 +46,16 @@ class TDRWaveformToSParameterConverter(object):
             wfList=[wf*WaveformTrimmer(0,wf.TimeDescriptor().N-lengthSamples)
                 for wf in wfList]
         if self.step:
-            wfList=[wf.Derivative(removePoint=False)*(1./wf.TimeDescriptor().Fs) for wf in wfList]
+            wfList=[wf.Derivative(removePoint=False)*(1./wf.TimeDescriptor().Fs)
+                    for wf in wfList]
         if self.inverted:
             wfList=[wf*-1. for wf in wfList]
+        if self.denoise:
+            wfList=[WaveletDenoiser.DenoisedWaveform(
+                wf,isDerivative=self.step,
+                mult=self.sigmaMultiple,
+                pct=self.denoisePercent)
+                    for wf in wfList]
         incwf=copy.deepcopy(wfList[incidentIndex])
         maxValueIndex=0
         maxValue=incwf[0]
@@ -64,11 +75,8 @@ class TDRWaveformToSParameterConverter(object):
             else:
                 incwf[k]=0.
         wfList[incidentIndex]=wfList[incidentIndex]-incwf
-        if not self.sigma == 0:
-            wfList=[WaveletDenoiser.DenoisedWaveform(wf,isDerivative=self.step,mult=5) for wf in wfList]
-            incwf=WaveletDenoiser.DenoisedWaveform(incwf,isDerivative=self.step,mult=5)
-        incwffc=incwf.FrequencyContent()
-        res=[wf.FrequencyContent() for wf in wfList]
+        incwffc=incwf.FrequencyContent(self.fd)
+        res=[wf.FrequencyContent(self.fd) for wf in wfList]
         for fc in res:
             for n in range(len(fc)):
                 fc[n]=fc[n]/incwffc[n]

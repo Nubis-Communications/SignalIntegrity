@@ -80,10 +80,10 @@ class FrequencyDomain(object):
     def __eq__(self,other):
         if self.FrequencyList() != other.FrequencyList():
             return False # pragma: no cover
-        if len(self.Response()) != len(other.Response()):
+        if len(self.Values()) != len(other.Values()):
             return False # pragma: no cover
-        for k in range(len(self.Response())):
-            if abs(self.Response()[k] - other.Response()[k]) > 1e-5:
+        for k in range(len(self.Values())):
+            if abs(self.Values()[k] - other.Values()[k]) > 1e-5:
                 return False # pragma: no cover
         return True
     def __ne__(self,other):

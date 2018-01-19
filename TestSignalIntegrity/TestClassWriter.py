@@ -595,6 +595,5 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className=''
         defName=['MixedModeConverterVoltage']
         self.WriteClassCode(fileName,className,defName)
-
 if __name__ == '__main__':
     unittest.main()

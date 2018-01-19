@@ -2476,7 +2476,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
         ports=3
         reflectNames=['Short','Open','Load']
         spDict=dict()
-        tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=True,Inverted=True,Length=100e-9,WindowRaisedCosineDuration=100e-12,WindowHalfWidthTime=40e-12,Sigma=1.)
+        tdr=si.m.tdr.TDRWaveformToSParameterConverter(
+            Step=True,Inverted=True,Length=100e-9,
+            WindowRaisedCosineDuration=100e-12,
+            WindowHalfWidthTime=40e-12,Denoise=True)
 
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'

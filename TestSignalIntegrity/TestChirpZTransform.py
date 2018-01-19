@@ -34,6 +34,13 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         sf2=sf.Resample(f2)
         sf3=sf.Resample(si.fd.EvenlySpacedFrequencyList(Fe,Np))
         self.assertTrue(self.SParametersAreEqual(sf2,sf3,0.001),self.id()+'result not same')
+    def testFrequencyContentCZT(self):
+        td=si.td.wf.TimeDescriptor(-1e-9,1000,20e9)
+        wf=si.td.wf.PulseWaveform(td,PulseWidth=1e9)
+        fd=td.FrequencyList()
+        fc1=wf.FrequencyContent()
+        fc2=wf.FrequencyContent(fd)
+        self.assertEqual(fc1, fc2, 'frequency content not correct')
 
 if __name__ == '__main__':
     unittest.main()

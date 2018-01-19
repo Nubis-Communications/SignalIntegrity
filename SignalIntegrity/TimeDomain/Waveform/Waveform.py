@@ -12,7 +12,7 @@ from copy import copy
 
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
-from SignalIntegrity.PySIException import PySIExceptionWaveformFile
+from SignalIntegrity.PySIException import PySIExceptionWaveformFile,PySIExceptionWaveform
 
 class Waveform(object):
     adaptionStrategy='SinX'
@@ -58,15 +58,25 @@ class Waveform(object):
                 [s,o]=AdaptedWaveforms([self,other])
                 return Waveform(s.TimeDescriptor(),[s[k]+o[k] for k in range(len(s))])
                 #return awf[0]+awf[1]
-        elif isinstance(other,float):
-            return Waveform(self.m_t,[v+other for v in self.Values()])
-    def __sub__(self,other):
-        if self.TimeDescriptor() == other.TimeDescriptor():
-            return Waveform(self.TimeDescriptor(),[self[k]-other[k] for k in range(len(self))])
+        elif isinstance(other,(float,int,complex)):
+            return Waveform(self.m_t,[v+other.real for v in self.Values()])
+        # pragma: silent exclude
         else:
-            [s,o]=AdaptedWaveforms([self,other])
-            return Waveform(s.TimeDescriptor(),[s[k]-o[k] for k in range(len(s))])
-            #return awf[0]-awf[1]
+            raise PySIExceptionWaveform('cannot add waveform to type '+str(other.__class__.__name__))
+        # pragma: include
+    def __sub__(self,other):
+        if isinstance(other,Waveform):
+            if self.TimeDescriptor() == other.TimeDescriptor():
+                return Waveform(self.TimeDescriptor(),[self[k]-other[k] for k in range(len(self))])
+            else:
+                [s,o]=AdaptedWaveforms([self,other])
+                return Waveform(s.TimeDescriptor(),[s[k]-o[k] for k in range(len(s))])
+        elif isinstance(other,(float,int,complex)):
+            return Waveform(self.m_t,[v-other.real for v in self.Values()])
+        # pragma: silent exclude
+        else:
+            raise PySIExceptionWaveform('cannot subtract type' + +str(other.__class__.__name__) + ' from waveform')
+        # pragma: include
     def __radd__(self, other):
         if other == 0:
             return self
@@ -84,8 +94,19 @@ class Waveform(object):
             return other.TrimWaveform(self)
         elif isinstance(other,WaveformDecimator):
             return other.DecimateWaveform(self)
-        elif isinstance(other,float):
-            return Waveform(self.m_t,[v*other for v in self.Values()])
+        elif isinstance(other,(float,int,complex)):
+            return Waveform(self.m_t,[v*other.real for v in self.Values()])
+        # pragma: silent exclude
+        else:
+            raise PySIExceptionWaveform('cannot multiply waveform by type '+str(other.__class__.__name__))
+        # pragma: include
+    def __truediv__(self,other):
+        if isinstance(other,(float,int,complex)):
+            return Waveform(self.m_t,[v/other.real for v in self.Values()])
+        # pragma: silent exclude
+        else:
+            raise PySIExceptionWaveform('cannot divide waveform by type '+str(other.__class__.__name__))
+        # pragma: include
     def ReadFromFile(self,fileName):
         # pragma: silent exclude outdent
         try:
@@ -158,17 +179,27 @@ class Waveform(object):
                 v = (time - self.m_t[i-1])/(self.m_t[i]-self.m_t[i-1])*\
                 (self.m_y[i]-self.m_y[i-1])+self.m_y[i-1]
                 return v
-    def FrequencyContent(self):
+    def FrequencyContent(self,fd=None):
         # pragma: silent exclude
         from SignalIntegrity.FrequencyDomain.FrequencyContent import FrequencyContent
+        from SignalIntegrity.ChirpZTransform.ChirpZTransform import CZT
         # pragma: include
-        X=fft.fft(self.Values())
         td=self.TimeDescriptor()
-        K=int(td.N)
-        Keven=(K/2)*2 == K
-        fd=td.FrequencyList()
+        if fd is None:
+            X=fft.fft(self.Values())
+            K=int(td.N)
+            Keven=(K/2)*2 == K
+            fd=td.FrequencyList()
+        else:
+            # pragma: silent exclude
+            if not fd.EvenlySpaced():
+                raise PySIExceptionWaveform('cannot generate frequency content')
+            # pragma: include
+            K=fd.N*2
+            Keven=True
+            X=CZT(self.Values(),td.Fs,0,fd.Fe,fd.N,True)
         return FrequencyContent(fd,[X[n]/K*(1. if (n==0 or ((n==fd.N) and Keven))
-            else 2.) for n in range(fd.N+1)])._DelayBy(self.TimeDescriptor().H)
+            else 2.) for n in range(fd.N+1)])._DelayBy(td.H)
     def Integral(self,c=0.,addPoint=True,scale=True):
         td=copy(self.TimeDescriptor())
         i=[0 for k in range(len(self))]
