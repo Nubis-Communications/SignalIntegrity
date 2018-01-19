@@ -10,8 +10,8 @@ import os
 
 from numpy import matrix,mean
 import math
+import xlrd
 
-import pandas as pd
 from SignalIntegrity.Measurement import CalKit
 
 class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
@@ -43,21 +43,22 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
                                                       )
 
         for reflectName in reflectNames+dutNames:
-            df=pd.read_excel(reflectName+'200.xls')
-            (rows,cols)=df.shape
-            times=[r*10.e-12 for r in range(rows-1)]
-            volts=[df.iloc[r+1,2] for r in range(rows-1)]
+            book=xlrd.open_workbook(reflectName+'200.xls',encoding_override='ascii')
+            sheet=book.sheet_by_index(0)
+            (rows,cols)=(sheet.nrows,sheet.ncols)
+            times=[c.value for c in sheet.col_slice(0,2,rows-2)]
+            volts=[c.value for c in sheet.col_slice(3,2,rows-2)]
             Fs=1./mean([times[k]-times[k-1] for k in range(1,len(times))])
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(times[0],len(times),Fs),volts)
             rmf=tdr.RawMeasuredSParameters(wf)
-            
+
             limit=16.e9
             for n in range(len(rmf)):
                 if rmf.m_f[n]<=limit:
                     nlimit=n
-            
+
             rmf=si.sp.SParameters([rmf.m_f[nn] for nn in range(nlimit)],[rmf.m_d[nn] for nn in range(nlimit)])
-            
+
             spDict[reflectName]=rmf
             spDict[reflectName+'wf']=wf
 
@@ -74,7 +75,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             plt.legend(loc='upper right')
             plt.grid(True)
             plt.show()
-    
+
             import matplotlib.pyplot as plt
             plt.clf()
             plt.title('derivatives')
@@ -86,7 +87,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             plt.legend(loc='upper right')
             plt.grid(True)
             plt.show()
-    
+
             import matplotlib.pyplot as plt
             plt.clf()
             plt.title('s11 magnitude')
@@ -98,7 +99,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             plt.legend(loc='upper right')
             plt.grid(True)
             plt.show()
-    
+
             import matplotlib.pyplot as plt
             plt.clf()
             plt.title('s11 phase')
@@ -120,7 +121,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
 #               si.m.calkit.OpenStandard(f),
 #               si.m.calkit.LoadStandard(f),
 #               si.m.calkit.ThruStandard(f,100e-12)]
-        
+
         calStandards=[ck.shortStandard,ck.openStandard,ck.loadStandard]
 
         ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
@@ -135,7 +136,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
 
         DUTCalcSp=cm.DutCalculation(spDict[dutName])
         return
-    
+
 
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         #DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
