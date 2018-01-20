@@ -7,6 +7,8 @@ class Waveform(object):
             self.m_t=x
             if isinstance(y,list):
                 self.m_y=y
+            elif isinstance(y,(float,int,complex)):
+                self.m_y=[y.real for k in range(x.N)]
             else:
                 self.m_y=[0 for k in range(x.N)]
         else:

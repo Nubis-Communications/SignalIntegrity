@@ -582,14 +582,14 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
                 ZsourceImpedance.append(Zsource)
             except Exception as e:
                 raise e
-        Zloadfd=si.fd.FrequencyContent(si.fd.GenericFrequencyList(ZloadFrequencies),ZloadImpedance)
-        Zsourcefd=si.fd.FrequencyContent(si.fd.GenericFrequencyList(ZsourceFrequencies),ZsourceImpedance)
+        Zloadfd=si.fd.FrequencyDomain(si.fd.GenericFrequencyList(ZloadFrequencies),ZloadImpedance)
+        Zsourcefd=si.fd.FrequencyDomain(si.fd.GenericFrequencyList(ZsourceFrequencies),ZsourceImpedance)
 
         plot=False
         if plot:
             import matplotlib.pyplot as plt
-            zsy=Zsourcefd.Content('mag')
-            zly=Zloadfd.Content('mag')
+            zsy=Zsourcefd.Values('mag')
+            zly=Zloadfd.Values('mag')
             zsf=Zsourcefd.Frequencies()
             zlf=Zloadfd.Frequencies()
             plt.subplot(1,1,1)

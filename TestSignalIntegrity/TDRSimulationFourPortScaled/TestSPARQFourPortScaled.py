@@ -1368,12 +1368,12 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             for c in range(ports):    
                 Poly=si.spl.Spline(DutA[r][c].Frequencies(),DutA[r][c].Content())
                 newresp=[Poly.Evaluate(fr) for fr in f]
-                DutA[r][c]=si.fd.FrequencyContent(f,newresp)
+                DutA[r][c]=si.fd.FrequencyDomain(f,newresp)
         for r in range(ports):
             for c in range(ports):    
                 Poly=si.spl.Spline(DutB[r][c].Frequencies(),DutB[r][c].Content())
                 newresp=[Poly.Evaluate(fr) for fr in f]
-                DutB[r][c]=si.fd.FrequencyContent(f,newresp)
+                DutB[r][c]=si.fd.FrequencyDomain(f,newresp)
 
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()

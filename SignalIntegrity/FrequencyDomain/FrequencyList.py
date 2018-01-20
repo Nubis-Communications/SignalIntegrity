@@ -64,13 +64,14 @@ class FrequencyList(object):
             return EvenlySpacedFrequencyList(self.Fe*d,self.N)
         else:
             return GenericFrequencyList([v*d for v in self.List])
-    def TimeDescriptor(self):
+    def TimeDescriptor(self,Keven=True):
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
         # pragma: include
         N=self.N
-        Fs=2.*self.Fe
         K=2*N
+        if not Keven: K=K+1
+        Fs=self.Fe*K/N
         return TimeDescriptor(-K/2./Fs,K,Fs)
     def __eq__(self,other):
         if self.m_EvenlySpaced != other.m_EvenlySpaced:

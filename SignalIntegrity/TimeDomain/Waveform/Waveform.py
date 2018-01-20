@@ -24,6 +24,8 @@ class Waveform(object):
             self.m_t=x
             if isinstance(y,list):
                 self.m_y=y
+            elif isinstance(y,(float,int,complex)):
+                self.m_y=[y.real for k in range(x.N)]
             else:
                 self.m_y=[0 for k in range(x.N)]
         else:
@@ -100,7 +102,7 @@ class Waveform(object):
         else:
             raise PySIExceptionWaveform('cannot multiply waveform by type '+str(other.__class__.__name__))
         # pragma: include
-    def __truediv__(self,other):
+    def __div__(self,other):
         if isinstance(other,(float,int,complex)):
             return Waveform(self.m_t,[v/other.real for v in self.Values()])
         # pragma: silent exclude
@@ -182,24 +184,8 @@ class Waveform(object):
     def FrequencyContent(self,fd=None):
         # pragma: silent exclude
         from SignalIntegrity.FrequencyDomain.FrequencyContent import FrequencyContent
-        from SignalIntegrity.ChirpZTransform.ChirpZTransform import CZT
         # pragma: include
-        td=self.TimeDescriptor()
-        if fd is None:
-            X=fft.fft(self.Values())
-            K=int(td.N)
-            Keven=(K/2)*2 == K
-            fd=td.FrequencyList()
-        else:
-            # pragma: silent exclude
-            if not fd.EvenlySpaced():
-                raise PySIExceptionWaveform('cannot generate frequency content')
-            # pragma: include
-            K=fd.N*2
-            Keven=True
-            X=CZT(self.Values(),td.Fs,0,fd.Fe,fd.N,True)
-        return FrequencyContent(fd,[X[n]/K*(1. if (n==0 or ((n==fd.N) and Keven))
-            else 2.) for n in range(fd.N+1)])._DelayBy(td.H)
+        return FrequencyContent(self,fd)
     def Integral(self,c=0.,addPoint=True,scale=True):
         td=copy(self.TimeDescriptor())
         i=[0 for k in range(len(self))]

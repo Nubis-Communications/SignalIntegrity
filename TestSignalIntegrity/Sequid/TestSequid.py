@@ -13,6 +13,7 @@ import math
 import xlrd
 
 from SignalIntegrity.Measurement import CalKit
+from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDRWaveformToSParameterConverter
 
 class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
@@ -56,6 +57,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         ports=1
         reflectNames=['Short','Open','Load']
         dutNames=['BPFilter','LPFilter']
+        TDRWaveformToSParameterConverter.sigmaMultiple=50
 
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Length=50e-9,
@@ -67,10 +69,15 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
 
         for reflectName in reflectNames+dutNames:
             wf=self.ReadSequidFileXls(reflectName+'200.xls')
+
             rmf=tdr.RawMeasuredSParameters(wf)
 
             spDict[reflectName]=rmf
             spDict[reflectName+'wf']=wf
+            spDict[reflectName+'denoised']=tdr.denoisedDerivatives[0].Integral(scale=False,c=wf[0],addPoint=True)
+            spDict[reflectName+'incidentResponse']=tdr.IncidentFrequencyContent
+            spDict[reflectName+'reflectResponse']=tdr.ReflectFrequencyContent[0]
+            spDict[reflectName+'extractionWindow']=tdr.ExtractionWindow
 
         plotthem=False
         import matplotlib.pyplot as plt
@@ -79,6 +86,8 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         for reflectName in reflectNames:
             wf=spDict[reflectName+'wf']
             plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
+            wf=spDict[reflectName+'denoised']
+            plt.plot(wf.Times('ns'),wf.Values(),label=reflectName+' denoised')
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
@@ -90,6 +99,12 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         for reflectName in reflectNames:
             wf=spDict[reflectName+'wf'].Derivative(scale=False)
             plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
+        xw=spDict[reflectNames[0]+'extractionWindow']
+        plt.plot(xw.Times('ns'),xw.Values(),label='incident extractor')
+        rxw=si.td.wf.Waveform(xw.TimeDescriptor(),1.0)-xw
+        plt.plot(rxw.Times('ns'),rxw.Values(),label='reflect extractor')
+
+        plt.plot()
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
@@ -103,6 +118,17 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label=reflectName)
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.title('incident spectral density')
+        for reflectName in reflectNames:
+            resp=spDict[reflectName+'incidentResponse']
+            plt.plot(resp.Frequencies('GHz'),[v+90 for v in resp.PSD()],label=reflectName)
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dBm/GHz)')
         plt.legend(loc='upper right')
         plt.grid(True)
         if plotthem: plt.show()
