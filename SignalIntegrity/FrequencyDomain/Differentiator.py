@@ -13,9 +13,9 @@ from SignalIntegrity.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
 class Differentiator(FrequencyResponse):
     def __init__(self,fl):
         td=fl.TimeDescriptor()
-        resp=[0 for k in range(td.N)]
-        resp[td.N/2]=td.Fs
-        resp[td.N/2+1]=-resp[td.N/2]
+        resp=[0 for k in range(td.K)]
+        resp[td.K/2]=td.Fs
+        resp[td.K/2+1]=-resp[td.K/2]
         ir=ImpulseResponse(td,resp)
         fr=ir.FrequencyResponse()
         FrequencyResponse.__init__(self,fl,fr.Response())

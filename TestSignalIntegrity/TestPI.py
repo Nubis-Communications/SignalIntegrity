@@ -675,7 +675,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         vl=Vl.Values()
         il[0]=0.
         T=1./Vl.TimeDescriptor().Fs
-        K=Vl.TimeDescriptor().N
+        K=Vl.TimeDescriptor().K
         for k in range(1,K):
             il[k]=(vl[k]+L/T*il[k-1])/(L/T+R)
         Ilcalc=si.td.wf.Waveform(Vl.TimeDescriptor(),il)
@@ -833,7 +833,7 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         Vout=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Vout.txt')
         Vin=si.td.wf.Waveform().ReadFromFile('Waveform_TestPI_TestPI_testVRMParasitics_Vin.txt')
         Vlcalc=Vin-Vout
-        K=Vlcalc.TimeDescriptor().N
+        K=Vlcalc.TimeDescriptor().K
         T=1./Vlcalc.TimeDescriptor().Fs
         L=220e-6
         R=.1

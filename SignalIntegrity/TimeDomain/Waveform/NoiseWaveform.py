@@ -12,4 +12,4 @@ import numpy
 
 class NoiseWaveform(Waveform):
     def __init__(self,td,sigma,mean=0.0):
-        Waveform.__init__(self,td,numpy.random.normal(mean,sigma,td.N).tolist())
+        Waveform.__init__(self,td,numpy.random.normal(mean,sigma,td.K).tolist())

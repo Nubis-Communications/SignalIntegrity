@@ -16,7 +16,7 @@ class WaveformTrimmer(FilterDescriptor):
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
-        K=wf.TimeDescriptor().N
+        K=wf.TimeDescriptor().K
         TL=self.TrimLeft()
         TT=self.TrimTotal()
         return Waveform(wf.TimeDescriptor()*self,

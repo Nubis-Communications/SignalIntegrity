@@ -50,7 +50,7 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
         sigmafe=4.*Amplitude/math.sqrt(2.)*math.pow(10.,-snrdB/20.)
         td=si.td.wf.TimeDescriptor(-KaddBothSides/Fsa,K+KaddBothSides*2,Fsa)
         wfa=si.td.wf.Waveform(td,[Amplitude*math.sin(2.*math.pi*fin*t) for t in td.Times()])
-        wfna=si.td.wf.Waveform(td,np.random.normal(0,sigmafe,td.N).tolist())
+        wfna=si.td.wf.Waveform(td,np.random.normal(0,sigmafe,td.K).tolist())
         del KaddBothSides
         del fin
         del vdiv
@@ -120,7 +120,7 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
         #snrdBadc=90
 
         sigmaadc=4.*Amplitude/math.sqrt(2.)*math.pow(10.,-snrdBadc/20.)
-        wfnadc=si.td.wf.Waveform(wfnafe.TimeDescriptor(),np.random.normal(0,sigmaadc,wfnafe.TimeDescriptor().N).tolist())
+        wfnadc=si.td.wf.Waveform(wfnafe.TimeDescriptor(),np.random.normal(0,sigmaadc,wfnafe.TimeDescriptor().K).tolist())
         sigmaadcActual = np.std(wfnadc.Values())
         wfnadc=si.td.wf.Waveform(wfnafe.TimeDescriptor(),[wfnadc.Values()[k]*sigmaadc/sigmaadcActual for k in range(len(wfnadc.Values()))])
         sigmaadcActual = np.std(wfnadc.Values())

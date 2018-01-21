@@ -13,16 +13,16 @@ from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyL
 class TimeDescriptor(object):
     def __init__(self,HorOffset,NumPts,SampleRate):
         self.H = HorOffset
-        self.N = NumPts
+        self.K = NumPts
         self.Fs=SampleRate
     def __len__(self):
-        return self.N
+        return self.K
     def __getitem__(self,item):
         return item/self.Fs+self.H
     def __eq__(self,other):
         if abs(self.Fs - other.Fs) > 1e-15: return False
         if abs(self.H - other.H) > .00001*1./self.Fs: return False
-        if self.N != other.N: return False
+        if self.K != other.K: return False
         return True
     def __ne__(self,other):
         return not self == other
@@ -42,7 +42,7 @@ class TimeDescriptor(object):
     def ApplyFilter(self,F):
         return TimeDescriptor(
             HorOffset=self.H+(F.S-F.D)/self.Fs,
-            NumPts=int(max(0,(self.N-F.S)*F.U)),
+            NumPts=int(max(0,(self.K-F.S)*F.U)),
             SampleRate=self.Fs*F.U)
     def __mul__(self,F):
         return self.ApplyFilter(F)
@@ -50,31 +50,31 @@ class TimeDescriptor(object):
         if isinstance(other,FilterDescriptor):
             return TimeDescriptor(
                 HorOffset=self.H+other.U/self.Fs*(other.D-other.S),
-                NumPts=self.N/other.U+other.S,
+                NumPts=self.K/other.U+other.S,
                 SampleRate=self.Fs/other.U)
         elif isinstance(other,TimeDescriptor):
             UpsampleFactor=self.Fs/other.Fs
             return FilterDescriptor(
                 UpsampleFactor,
-                DelaySamples=other.N-self.N/UpsampleFactor-
+                DelaySamples=other.K-self.K/UpsampleFactor-
                     (self.H-other.H)*other.Fs,
-                StartupSamples=other.N-self.N/UpsampleFactor)
+                StartupSamples=other.K-self.K/UpsampleFactor)
     def DelayBy(self,D):
-        return TimeDescriptor(self.H+D,self.N,self.Fs)
+        return TimeDescriptor(self.H+D,self.K,self.Fs)
     def FrequencyList(self):
-        K=int(self.N)
+        K=int(self.K)
         N=K/2
         Fe=float(self.Fs)*N/K
         return EvenlySpacedFrequencyList(Fe,N)
     def Intersection(self,other):
         return TimeDescriptor(
             HorOffset=max(self.H,other.H),
-            NumPts=max(0,min(self.TimeOfPoint(self.N),
-                other.TimeOfPoint(other.N))-max(self.H,other.H))*self.Fs,
+            NumPts=max(0,min(self.TimeOfPoint(self.K),
+                other.TimeOfPoint(other.K))-max(self.H,other.H))*self.Fs,
             SampleRate=self.Fs)
     def TimeOfPoint(self,k):
         return self.H+float(k)/self.Fs
     def Print(self):
         print 'HorOffset:  '+str(self.H)
-        print 'NumPts:     '+str(self.N)
+        print 'NumPts:     '+str(self.K)
         print 'SampleRate: '+str(self.Fs)

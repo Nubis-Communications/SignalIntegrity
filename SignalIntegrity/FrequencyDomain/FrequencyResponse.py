@@ -53,7 +53,7 @@ class FrequencyResponse(FrequencyDomain):
         if isinstance(td,float) or isinstance(td,int):
             Fs=float(td)
             td=fd.TimeDescriptor()
-            td = TimeDescriptor(0.,2*int(math.ceil(Fs*td.N/2./td.Fs)),Fs)
+            td = TimeDescriptor(0.,2*int(math.ceil(Fs*td.K/2./td.Fs)),Fs)
         evenlySpaced = fd.CheckEvenlySpaced()
         if not evenlySpaced and td is None: return None
         if not evenlySpaced and not td is None:
@@ -71,8 +71,8 @@ class FrequencyResponse(FrequencyDomain):
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
             td=fd.TimeDescriptor()
-            tp=[Y[k].real for k in range(td.N/2)]
-            tn=[Y[k].real for k in range(td.N/2,td.N)]
+            tp=[Y[k].real for k in range(td.K/2)]
+            tn=[Y[k].real for k in range(td.K/2,td.K)]
             Y=tn+tp
             return ImpulseResponse(td,Y)
         if evenlySpaced and td is None and adjustDelay:

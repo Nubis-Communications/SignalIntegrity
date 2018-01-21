@@ -25,7 +25,7 @@ class FrequencyContent(FrequencyDomain):
         td=wf.TimeDescriptor()
         if fd is None:
             X=fft.fft(wf.Values())
-            K=int(td.N)
+            K=int(td.K)
             Keven=(K/2)*2 == K
             fd=td.FrequencyList()
         else:
@@ -44,7 +44,7 @@ class FrequencyContent(FrequencyDomain):
     def Content(self,unit=None):
         return self.Values(unit)
     def Waveform(self,td=None):
-        K=self.td.N
+        K=self.td.K
         Keven=(K/2)*2==K
         X=self.Values()
         X=[X[n]*K*\
@@ -72,10 +72,10 @@ class FrequencyContent(FrequencyDomain):
             wf=wf.Adapt(td)
         return wf
     def PSD(self):
-        K=self.td.N
+        K=self.td.K
         Keven=(K/2)*2==K
         X=self.Values('dB')
-        Deltaf=self.m_f.Fe/self.td.N
+        Deltaf=self.m_f.Fe/self.td.K
         adder=13.010-10*math.log10(Deltaf)
         X=[X[n]+adder+(6. if (n==0 or ((n==self.m_f.N) and Keven)) else 0.0)
            for n in range(self.m_f.N+1)]

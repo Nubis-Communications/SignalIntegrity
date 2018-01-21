@@ -14,9 +14,9 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)
         wf.adaptionStrategy='Linear'
-        tda=si.td.wf.TimeDescriptor(td.H+20.76543/td.Fs,td.N/50-10,td.Fs/50.0)
+        tda=si.td.wf.TimeDescriptor(td.H+20.76543/td.Fs,td.K/50-10,td.Fs/50.0)
         wfdes=si.td.wf.SineWaveform(tda)
-        
+
         ad=tda/wf.TimeDescriptor()
         f=ad.D-int(ad.D)
         if not f==0.0:
@@ -25,7 +25,7 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
         else:
             wffd=wf
         td=wffd.TimeDescriptor()
-        
+
         ad=tda/wffd.TimeDescriptor()
         df=int(round(1/ad.U))
         dph= int(round(ad.TrimLeft())) % df
@@ -33,7 +33,7 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
         dv=[v[k*df+dph] for k in range((len(v)-dph)/df)]
         tdd=si.td.wf.TimeDescriptor(td.H+dph/td.Fs,len(dv),td.Fs/df)
         wfd=si.td.wf.Waveform(tdd,dv)
-        
+
         ad=tda/wfd.TimeDescriptor()
         tr=si.td.f.WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),
                            max(0,int(round(ad.TrimRight()))))
@@ -63,9 +63,9 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)
         wf.adaptionStrategy='Linear'
-        tda=si.td.wf.TimeDescriptor(td.H+20.76543/td.Fs,td.N/50-10,td.Fs/50.0)
+        tda=si.td.wf.TimeDescriptor(td.H+20.76543/td.Fs,td.K/50-10,td.Fs/50.0)
         wfdes=si.td.wf.SineWaveform(tda)
-        
+
         wfa=wf.Adapt(tda)
 
         fb=tda/wfa.TimeDescriptor()
@@ -92,9 +92,9 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)
         wf.adaptionStrategy='Linear'
-        tda=si.td.wf.TimeDescriptor(td.H+130.76543/td.Fs,td.N*0.08-20,80e6)
+        tda=si.td.wf.TimeDescriptor(td.H+130.76543/td.Fs,td.K*0.08-20,80e6)
         wfdes=si.td.wf.SineWaveform(tda)
-        
+
         wfa=wf.Adapt(tda)
 
         fb=tda/wfa.TimeDescriptor()

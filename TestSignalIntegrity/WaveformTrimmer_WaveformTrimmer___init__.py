@@ -2,7 +2,7 @@ class WaveformTrimmer(FilterDescriptor):
     def __init__(self,TrimLeft,TrimRight):
         FilterDescriptor.__init__(self,1,TrimRight,TrimLeft+TrimRight)
     def TrimWaveform(self,wf):
-        K=wf.TimeDescriptor().N
+        K=wf.TimeDescriptor().K
         TL=self.TrimLeft()
         TT=self.TrimTotal()
         return Waveform(wf.TimeDescriptor()*self,

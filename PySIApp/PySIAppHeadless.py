@@ -193,7 +193,7 @@ class PySIAppHeadless(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.calculationProperties.userSampleRate))
+            si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().K,self.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
@@ -245,7 +245,7 @@ class PySIAppHeadless(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().N,self.calculationProperties.userSampleRate))
+            si.td.wf.TimeDescriptor(wf.TimeDescriptor().H,wf.TimeDescriptor().K,self.calculationProperties.userSampleRate))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 

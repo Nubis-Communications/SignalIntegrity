@@ -149,7 +149,7 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fd=td.FrequencyList()
         wf=si.td.wf.Waveform(td)
         for n in range(fd.N+1):
-            amplitude = (1. if 0 < n < fd.N else 0.5)*2./td.N
+            amplitude = (1. if 0 < n < fd.N else 0.5)*2./td.K
             wf=wf+si.td.wf.SineWaveform(td,Amplitude=amplitude,Frequency=fd[n],Phase=90.)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
@@ -167,12 +167,28 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
 #         plt.legend(loc='upper right')
 #         plt.grid(True)
 #         plt.show()
+    def testSumOfSines3(self):
+        td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
+        fd=td.FrequencyList()
+        wf=sum([si.td.wf.SineWaveform(td,Frequency=fd[n],Phase=90.) for n in range(fd.N+1)])
+        fc=wf.FrequencyContent()
+        wf2=fc.Waveform()
+        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+    def testSumOfSines4(self):
+        td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
+        fd=td.FrequencyList()
+        wf=si.td.wf.Waveform(td)
+        for n in range(fd.N+1):
+            wf=si.td.wf.SineWaveform(td,Frequency=fd[n],Phase=90.).__radd__(wf)
+        fc=wf.FrequencyContent()
+        wf2=fc.Waveform()
+        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
     def testSumOfSinesByDefinition(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
         fd=td.FrequencyList()
         wf=si.td.wf.Waveform(td)
         for n in range(fd.N+1):
-            amplitude = (1. if 0 < n < fd.N else 0.5)*2./td.N
+            amplitude = (1. if 0 < n < fd.N else 0.5)*2./td.K
             wf=wf+si.td.wf.SineWaveform(td,Amplitude=amplitude,Frequency=fd[n],Phase=90.)
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition()

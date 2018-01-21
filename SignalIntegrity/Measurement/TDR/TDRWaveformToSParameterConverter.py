@@ -61,7 +61,7 @@ class TDRWaveformToSParameterConverter(object):
         if self.length!=0:
             lengthSamples=int(self.length*
                 wfList[incidentIndex].TimeDescriptor().Fs+0.5)
-            wfList=[wf*WaveformTrimmer(0,wf.TimeDescriptor().N-lengthSamples)
+            wfList=[wf*WaveformTrimmer(0,wf.TimeDescriptor().K-lengthSamples)
                 for wf in wfList]
         # pragma: silent exclude
         self.TrimmedDenoisedDerivatives=copy.deepcopy(wfList)

@@ -53,7 +53,7 @@ class ImpulseResponse(Waveform):
             return self.FrequencyResponse().Resample(fd)
     def _AdjustLength(self):
         td = self.TimeDescriptor()
-        PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.N+0.5)))
+        PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.K+0.5)))
         NegativePoints = int(max(0,math.floor(-td.H*td.Fs+0.5)))
         P=max(PositivePoints,NegativePoints)*2
         return self._Pad(P)
@@ -122,4 +122,4 @@ class ImpulseResponse(Waveform):
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
         td=self.TimeDescriptor()
-        return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.N-1),self.Values())
+        return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.K-1),self.Values())

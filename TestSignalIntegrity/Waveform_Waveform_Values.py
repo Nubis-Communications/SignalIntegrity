@@ -8,9 +8,9 @@ class Waveform(object):
             if isinstance(y,list):
                 self.m_y=y
             elif isinstance(y,(float,int,complex)):
-                self.m_y=[y.real for k in range(x.N)]
+                self.m_y=[y.real for k in range(x.K)]
             else:
-                self.m_y=[0 for k in range(x.N)]
+                self.m_y=[0 for k in range(x.K)]
         else:
             self.m_t=None
             self.m_y=None

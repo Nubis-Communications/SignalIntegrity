@@ -149,7 +149,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         f=frc.FrequencyList()
         irc=self.irc()
         t=irc.TimeDescriptor()
-        cs=[1./t.N*sum([abs(frc[n])*(2. if 0<n<f.N else 1.)*math.cos(2.*math.pi*f[n]*t[k]+cmath.phase(frc[n])) for n in range(len(f))]) for k in range(len(t))]
+        cs=[1./t.K*sum([abs(frc[n])*(2. if 0<n<f.N else 1.)*math.cos(2.*math.pi*f[n]*t[k]+cmath.phase(frc[n])) for n in range(len(f))]) for k in range(len(t))]
         irc2=si.td.wf.ImpulseResponse(t,cs)
         self.Checkit(self.id(),irc2,irc,False)
     def testfrcWriteRead(self):

@@ -18,8 +18,8 @@ class WaveletDenoiser(object):
     @staticmethod
     def DenoisedWaveform(wf,pct=30.,mult=5.,isDerivative=True):
         w=WaveletDaubechies4()
-        Ki=wf.TimeDescriptor().N
-        Kf=int(pow(2,math.ceil(log2(wf.TimeDescriptor().N))))
+        Ki=wf.TimeDescriptor().K
+        Kf=int(pow(2,math.ceil(log2(wf.TimeDescriptor().K))))
         PadLeft=Kf-Ki
         pct=pct*Ki/Kf
         pwf=wf*WaveformTrimmer(-PadLeft,0)

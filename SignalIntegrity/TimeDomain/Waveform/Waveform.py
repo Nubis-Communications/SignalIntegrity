@@ -25,9 +25,9 @@ class Waveform(object):
             if isinstance(y,list):
                 self.m_y=y
             elif isinstance(y,(float,int,complex)):
-                self.m_y=[y.real for k in range(x.N)]
+                self.m_y=[y.real for k in range(x.K)]
             else:
-                self.m_y=[0 for k in range(x.N)]
+                self.m_y=[0 for k in range(x.K)]
         else:
             self.m_t=None
             self.m_y=None
@@ -80,8 +80,8 @@ class Waveform(object):
             raise PySIExceptionWaveform('cannot subtract type' + +str(other.__class__.__name__) + ' from waveform')
         # pragma: include
     def __radd__(self, other):
-        if other == 0:
-            return self
+        if other is 0:
+            return Waveform(self)
         else:
             return self.__add__(other)
     def __mul__(self,other):
@@ -130,7 +130,7 @@ class Waveform(object):
         with open(fileName,"w") as f:
             td=self.TimeDescriptor()
             f.write(str(td.H)+'\n')
-            f.write(str(int(td.N))+'\n')
+            f.write(str(int(td.K))+'\n')
             f.write(str(td.Fs)+'\n')
             for v in self.Values():
                 f.write(str(v)+'\n')
@@ -197,7 +197,7 @@ class Waveform(object):
                 i[k]=i[k-1]+self[k]*T
         td.H=td.H+(1./2.)*(1./td.Fs)
         if addPoint:
-            td.N=td.N+1
+            td.K=td.K+1
             td.H=td.H=td.H-1./td.Fs
             i=[c]+i
         return Waveform(td,i)
@@ -213,7 +213,7 @@ class Waveform(object):
                 vl[k]=(v[k]-v[k-1])/T
         td.H=td.H-(1./2.)*(1./td.Fs)
         if removePoint:
-            td.N=td.N-1
+            td.K=td.K-1
             td.H=td.H+1./td.Fs
             vl=vl[1:]
         return Waveform(td,vl)
@@ -222,7 +222,7 @@ class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):
         if not td is None:
             HorOffset=td.H
-            NumPts=td.N
+            NumPts=td.K
             SampleRate=td.Fs
         else:
             HorOffset=0.0
