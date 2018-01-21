@@ -2,7 +2,7 @@ class ImpulseResponse(Waveform):
 ...
     def TrimToThreshold(self,threshold):
         x=self.Values()
-        td=self.TimeDescriptor()
+        td=self.td
         maxabsx=max(self.Values('abs'))
         minv=maxabsx*threshold
         for k in range(len(x)):

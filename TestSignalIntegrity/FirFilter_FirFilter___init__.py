@@ -7,7 +7,7 @@ class FirFilter(object):
     def FilterDescriptor(self):
         return self.m_fd
     def FilterWaveform(self,wf):
-        td = wf.TimeDescriptor()*self.FilterDescriptor()
+        td = wf.td*self.FilterDescriptor()
         filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
         return Waveform(td,filteredwf)
     def Print(self):

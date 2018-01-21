@@ -18,63 +18,63 @@ class Waveform(object):
     adaptionStrategy='SinX'
     def __init__(self,x=None,y=None):
         if isinstance(x,Waveform):
-            self.m_t=x.m_t
-            self.m_y=x.m_y
+            self.td=x.td
+            self.x=x.x
         elif isinstance(x,TimeDescriptor):
-            self.m_t=x
+            self.td=x
             if isinstance(y,list):
-                self.m_y=y
+                self.x=y
             elif isinstance(y,(float,int,complex)):
-                self.m_y=[y.real for k in range(x.K)]
+                self.x=[y.real for k in range(x.K)]
             else:
-                self.m_y=[0 for k in range(x.K)]
+                self.x=[0 for k in range(x.K)]
         else:
-            self.m_t=None
-            self.m_y=None
+            self.td=None
+            self.x=None
     def __len__(self):
-        return len(self.m_y)
+        return len(self.x)
     def __getitem__(self,item):
-        return self.m_y[item]
+        return self.x[item]
     def __setitem__(self,item,value):
-        self.m_y[item]=value
+        self.x[item]=value
         return self
     def Times(self,unit=None):
-        return self.m_t.Times(unit)
+        return self.td.Times(unit)
     def TimeDescriptor(self):
-        return self.m_t
+        return self.td
     def Values(self,unit=None):
         if unit==None:
-            return self.m_y
+            return self.x
         elif unit =='abs':
-            return [abs(y) for y in self.m_y]
+            return [abs(y) for y in self.x]
     def OffsetBy(self,v):
-        self.m_y = [y+v for y in self.m_y]
+        self.x = [y+v for y in self.x]
         return self
     def DelayBy(self,d):
-        return Waveform(self.TimeDescriptor().DelayBy(d),self.Values())
+        return Waveform(self.td.DelayBy(d),self.x)
     def __add__(self,other):
         if isinstance(other,Waveform):
-            if self.TimeDescriptor() == other.TimeDescriptor():
-                return Waveform(self.TimeDescriptor(),[self[k]+other[k] for k in range(len(self))])
+            if self.td == other.td:
+                return Waveform(self.td,[self[k]+other[k] for k in range(len(self))])
             else:
                 [s,o]=AdaptedWaveforms([self,other])
-                return Waveform(s.TimeDescriptor(),[s[k]+o[k] for k in range(len(s))])
+                return Waveform(s.td,[s[k]+o[k] for k in range(len(s))])
                 #return awf[0]+awf[1]
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.m_t,[v+other.real for v in self.Values()])
+            return Waveform(self.td,[v+other.real for v in self.x])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot add waveform to type '+str(other.__class__.__name__))
         # pragma: include
     def __sub__(self,other):
         if isinstance(other,Waveform):
-            if self.TimeDescriptor() == other.TimeDescriptor():
-                return Waveform(self.TimeDescriptor(),[self[k]-other[k] for k in range(len(self))])
+            if self.td == other.td:
+                return Waveform(self.td,[self[k]-other[k] for k in range(len(self))])
             else:
                 [s,o]=AdaptedWaveforms([self,other])
-                return Waveform(s.TimeDescriptor(),[s[k]-o[k] for k in range(len(s))])
+                return Waveform(s.td,[s[k]-o[k] for k in range(len(s))])
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.m_t,[v-other.real for v in self.Values()])
+            return Waveform(self.td,[v-other.real for v in self.x])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot subtract type' + +str(other.__class__.__name__) + ' from waveform')
@@ -97,14 +97,14 @@ class Waveform(object):
         elif isinstance(other,WaveformDecimator):
             return other.DecimateWaveform(self)
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.m_t,[v*other.real for v in self.Values()])
+            return Waveform(self.td,[v*other.real for v in self.x])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot multiply waveform by type '+str(other.__class__.__name__))
         # pragma: include
     def __div__(self,other):
         if isinstance(other,(float,int,complex)):
-            return Waveform(self.m_t,[v/other.real for v in self.Values()])
+            return Waveform(self.td,[v/other.real for v in self.x])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot divide waveform by type '+str(other.__class__.__name__))
@@ -119,8 +119,8 @@ class Waveform(object):
                 NumPts=int(float(data[1])+0.5)
                 SampleRate=float(data[2])
                 Values=[float(data[k+3]) for k in range(NumPts)]
-            self.m_t=TimeDescriptor(HorOffset,NumPts,SampleRate)
-            self.m_y=Values
+            self.td=TimeDescriptor(HorOffset,NumPts,SampleRate)
+            self.x=Values
         # pragma: silent exclude indent
         except IOError:
             raise PySIExceptionWaveformFile(fileName+' not found')
@@ -128,20 +128,20 @@ class Waveform(object):
         return self
     def WriteToFile(self,fileName):
         with open(fileName,"w") as f:
-            td=self.TimeDescriptor()
+            td=self.td
             f.write(str(td.H)+'\n')
             f.write(str(int(td.K))+'\n')
             f.write(str(td.Fs)+'\n')
-            for v in self.Values():
+            for v in self.x:
                 f.write(str(v)+'\n')
         return self
     def __eq__(self,other):
-        if self.TimeDescriptor() != other.TimeDescriptor():
+        if self.td != other.td:
             return False
-        if len(self.Values()) != len(other.Values()):
+        if len(self.x) != len(other.x):
             return False
-        for k in range(len(self.Values())):
-            if abs(self.Values()[k]-other.Values()[k])>1e-6:
+        for k in range(len(self.x)):
+            if abs(self.x[k]-other.x[k])>1e-6:
                 return False
         return True
     def __ne__(self,other):
@@ -157,29 +157,29 @@ class Waveform(object):
         from SignalIntegrity.Rat import Rat
         # pragma: include
         wf=self
-        (upsampleFactor,decimationFactor)=Rat(td.Fs/wf.TimeDescriptor().Fs)
+        (upsampleFactor,decimationFactor)=Rat(td.Fs/wf.td.Fs)
         if upsampleFactor>1:
             wf=wf*(InterpolatorSinX(upsampleFactor) if wf.adaptionStrategy=='SinX'
                 else InterpolatorLinear(upsampleFactor))
-        ad=td/wf.TimeDescriptor()
+        ad=td/wf.td
         f=ad.D-int(ad.D)
         if not f==0.0:
             wf=wf*(FractionalDelayFilterSinX(f,True) if wf.adaptionStrategy=='SinX'
                 else FractionalDelayFilterLinear(f,True))
-            ad=td/wf.TimeDescriptor()
+            ad=td/wf.td
         if decimationFactor>1:
             decimationPhase=int(round(ad.TrimLeft())) % decimationFactor
             wf=wf*WaveformDecimator(decimationFactor,decimationPhase)
-            ad=td/wf.TimeDescriptor()
+            ad=td/wf.td
         tr=WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),
                            max(0,int(round(ad.TrimRight()))))
         wf=wf*tr
         return wf
     def Measure(self,time):
-        for i in range(len(self.m_t)):
-            if self.m_t[i] > time:
-                v = (time - self.m_t[i-1])/(self.m_t[i]-self.m_t[i-1])*\
-                (self.m_y[i]-self.m_y[i-1])+self.m_y[i-1]
+        for k in range(len(self.td)):
+            if self.td[k] > time:
+                v = (time - self.td[k-1])/(self.td[k]-self.td[k-1])*\
+                (self[k]-self[k-1])+self[k-1]
                 return v
     def FrequencyContent(self,fd=None):
         # pragma: silent exclude
@@ -187,7 +187,7 @@ class Waveform(object):
         # pragma: include
         return FrequencyContent(self,fd)
     def Integral(self,c=0.,addPoint=True,scale=True):
-        td=copy(self.TimeDescriptor())
+        td=copy(self.td)
         i=[0 for k in range(len(self))]
         T=1./td.Fs if scale else 1.
         for k in range(len(i)):
@@ -202,9 +202,9 @@ class Waveform(object):
             i=[c]+i
         return Waveform(td,i)
     def Derivative(self,c=0.,removePoint=True,scale=True):
-        td=copy(self.TimeDescriptor())
-        vl=copy(self.Values())
-        v=self.Values()
+        td=copy(self.td)
+        vl=copy(self.x)
+        v=self.x
         T=1./td.Fs if scale else 1.
         for k in range(len(vl)):
             if k==0:

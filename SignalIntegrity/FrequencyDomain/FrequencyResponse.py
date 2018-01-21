@@ -143,7 +143,7 @@ class FrequencyResponse(FrequencyDomain):
     def _FractionalDelayTime(self):
         ir = self.ImpulseResponse(None,adjustDelay=False)
         idx = ir.Values('abs').index(max(ir.Values('abs')))
-        TD = ir.Times()[idx] # the time of the main peak
+        TD = ir.td[idx] # the time of the main peak
         # calculate the frequency response with this delay taken out
         # the fractional delay is based on the minimum adjustment to the phase of
         # the last point to make that point real
@@ -165,5 +165,5 @@ class FrequencyResponse(FrequencyDomain):
         Ni=int(min(math.floor(fd.Fe*fdp.N/fdp.Fe),fdp.N))
         Fei=Ni*fdp.Fe/fdp.N
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
-            CZT(ir.DelayBy(-TD).Values(),ir.TimeDescriptor().Fs,0,Fei,Ni,speedy)).\
+            CZT(ir.DelayBy(-TD).Values(),ir.td.Fs,0,Fei,Ni,speedy)).\
             _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)

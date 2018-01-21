@@ -18,7 +18,7 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: include
     def ProcessWaveforms(self,wfl,td=None):
         if td is None:
-            td = [wflm.TimeDescriptor().Fs for wflm in wfl]
+            td = [wflm.td.Fs for wflm in wfl]
         ir = self.TransferMatrices.ImpulseResponses(td)
         result=[]
         for o in range(len(ir)):

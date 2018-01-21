@@ -23,6 +23,6 @@ class ImpulseResponse(Waveform):
         else:
             x=[0 for p in range((P-K)/2)]
             x=x+self.Values()+x
-        td = self.TimeDescriptor()
+        td = self.td
         return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
 ...

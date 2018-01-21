@@ -16,19 +16,19 @@ class AdaptedWaveforms(object):
         from SignalIntegrity.TimeDomain.Filters.InterpolatorLinear import FractionalDelayFilterLinear
         strategy=wfl[0].adaptionStrategy
         #upsample all of the waveforms first
-        ufl=[int(round(wfl[0].TimeDescriptor().Fs/wf.TimeDescriptor().Fs)) for wf in wfl]
+        ufl=[int(round(wfl[0].td.Fs/wf.td.Fs)) for wf in wfl]
         wfl=[wf if uf == 1 else wf*
             (InterpolatorSinX(uf) if strategy=='SinX' else InterpolatorLinear(uf))
             for (uf,wf) in zip(ufl,wfl)]
-        adl=[wfl[0].TimeDescriptor()/wf.TimeDescriptor() for wf in wfl]
+        adl=[wfl[0].td/wf.td for wf in wfl]
         fdl=[ad.D-int(ad.D) for ad in adl]
         wfl=[wf if fd == 0.0 else wf*
             (FractionalDelayFilterSinX(fd,True) if strategy=='SinX' else FractionalDelayFilterLinear(fd,True))
             for (fd,wf) in zip(fdl,wfl)]
-        overlapping=wfl[0].TimeDescriptor()
-        for wf in wfl[1:]: overlapping=overlapping.Intersection(wf.TimeDescriptor())
+        overlapping=wfl[0].td
+        for wf in wfl[1:]: overlapping=overlapping.Intersection(wf.td)
         # overlapping now contains the overlapping waveform
-        adl=[overlapping/wf.TimeDescriptor() for wf in wfl]
+        adl=[overlapping/wf.td for wf in wfl]
         trl=[WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),max(0,int(round(ad.TrimRight())))) for ad in adl]
         self.awfl=[wf*tr for (wf,tr) in zip(wfl,trl)]
     def __getitem__(self,item):

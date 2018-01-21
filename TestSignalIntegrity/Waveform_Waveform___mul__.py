@@ -7,5 +7,5 @@ class Waveform(object):
         elif isinstance(other,WaveformDecimator):
             return other.DecimateWaveform(self)
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.m_t,[v*other.real for v in self.Values()])
+            return Waveform(self.td,[v*other.real for v in self.x])
 ...

@@ -19,7 +19,7 @@ class ImpulseResponse(Waveform):
     def __init__(self,t=None,td=None):
         Waveform.__init__(self,t,td)
     def DelayBy(self,d):
-        return ImpulseResponse(self.TimeDescriptor().DelayBy(d),self.Values())
+        return ImpulseResponse(self.td.DelayBy(d),self.Values())
     def FrequencyResponse(self,fd=None,adjustLength=True):
         """Produces the frequency response
 
@@ -44,15 +44,15 @@ class ImpulseResponse(Waveform):
         # pragma: include
         if not fd and not adjustLength:
             X=fft.fft(self.Values())
-            fd=self.TimeDescriptor().FrequencyList()
+            fd=self.td.FrequencyList()
             return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)]).\
-                _DelayBy(self.TimeDescriptor().H)
+                _DelayBy(self.td.H)
         if not fd and adjustLength:
             return self._AdjustLength().FrequencyResponse(None,adjustLength=False)
         if fd:
             return self.FrequencyResponse().Resample(fd)
     def _AdjustLength(self):
-        td = self.TimeDescriptor()
+        td = self.td
         PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.K+0.5)))
         NegativePoints = int(max(0,math.floor(-td.H*td.Fs+0.5)))
         P=max(PositivePoints,NegativePoints)*2
@@ -80,10 +80,10 @@ class ImpulseResponse(Waveform):
         else:
             x=[0 for p in range((P-K)/2)]
             x=x+self.Values()+x
-        td = self.TimeDescriptor()
+        td = self.td
         return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
     def _FractionalDelayTime(self):
-        td=self.TimeDescriptor()
+        td=self.td
         TD=-(-td.H*td.Fs-math.floor(-td.H*td.Fs+0.5))/td.Fs
         return TD
     def Resample(self,td):
@@ -91,7 +91,7 @@ class ImpulseResponse(Waveform):
         return fr.ImpulseResponse(td)
     def TrimToThreshold(self,threshold):
         x=self.Values()
-        td=self.TimeDescriptor()
+        td=self.td
         maxabsx=max(self.Values('abs'))
         minv=maxabsx*threshold
         for k in range(len(x)):
@@ -121,5 +121,5 @@ class ImpulseResponse(Waveform):
             endidx-startidx+1,td.Fs),
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
-        td=self.TimeDescriptor()
+        td=self.td
         return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.K-1),self.Values())

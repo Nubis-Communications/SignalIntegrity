@@ -360,7 +360,7 @@ class SParametersDialog(Toplevel):
                 ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False))
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
                 print 'Integrate'
-                ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False)*ir.TimeDescriptor().Fs)
+                ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False)*ir.td.Fs)
 
             y=ir.Values()
 
@@ -373,7 +373,7 @@ class SParametersDialog(Toplevel):
 
             if self.showCausalityViolations.get():
                 self.causalityViolations=[]
-                Ts=1./ir.TimeDescriptor().Fs/1e-9
+                Ts=1./ir.td.Fs/1e-9
                 for k in range(len(x)):
                     if x[k]<=-Ts and abs(y[k])>0:
                         dotsize=max(min(20.,abs(y[k])/0.1*20.),1e-15)
@@ -392,7 +392,7 @@ class SParametersDialog(Toplevel):
             self.bottomLeftPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
 
             firFilter=ir.FirFilter()
-            stepWaveformTimeDescriptor=ir.TimeDescriptor()/firFilter.FilterDescriptor()
+            stepWaveformTimeDescriptor=ir.td/firFilter.FilterDescriptor()
             stepWaveform=si.td.wf.StepWaveform(stepWaveformTimeDescriptor)
             stepResponse=stepWaveform*firFilter
             y=stepResponse.Values()

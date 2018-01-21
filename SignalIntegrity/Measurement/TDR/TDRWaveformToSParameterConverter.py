@@ -60,8 +60,8 @@ class TDRWaveformToSParameterConverter(object):
         # pragma: silent include
         if self.length!=0:
             lengthSamples=int(self.length*
-                wfList[incidentIndex].TimeDescriptor().Fs+0.5)
-            wfList=[wf*WaveformTrimmer(0,wf.TimeDescriptor().K-lengthSamples)
+                wfList[incidentIndex].td.Fs+0.5)
+            wfList=[wf*WaveformTrimmer(0,wf.td.K-lengthSamples)
                 for wf in wfList]
         # pragma: silent exclude
         self.TrimmedDenoisedDerivatives=copy.deepcopy(wfList)
@@ -76,9 +76,9 @@ class TDRWaveformToSParameterConverter(object):
             if incwf[k]>maxValue:
                 maxValue=incwf[k]
                 maxValueIndex=k
-        sideSamples=int(self.whwt*incwf.TimeDescriptor().Fs)
-        raisedCosineSamples=int(self.wrcdr*incwf.TimeDescriptor().Fs)
-        extractionWindow=Waveform(incwf.TimeDescriptor())
+        sideSamples=int(self.whwt*incwf.td.Fs)
+        raisedCosineSamples=int(self.wrcdr*incwf.td.Fs)
+        extractionWindow=Waveform(incwf.td)
         for k in range(len(incwf)):
             if k<=maxValueIndex+sideSamples:
                 extractionWindow[k]=1.0
@@ -91,7 +91,7 @@ class TDRWaveformToSParameterConverter(object):
         # pragma: silent exclude
         self.ExtractionWindow=copy.deepcopy(extractionWindow)
         # pragma: silent include
-        incwf=Waveform(incwf.TimeDescriptor(),[x*w for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
+        incwf=Waveform(incwf.td,[x*w for (x,w) in zip(incwf.x,extractionWindow.x)])
         wfList[incidentIndex]=wfList[incidentIndex]-incwf
         # pragma: silent exclude
         self.IncidentWaveform=copy.deepcopy(incwf)

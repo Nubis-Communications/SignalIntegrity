@@ -22,7 +22,7 @@ from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 
 class FrequencyContent(FrequencyDomain):
     def __init__(self,wf,fd=None):
-        td=wf.TimeDescriptor()
+        td=wf.td
         if fd is None:
             X=fft.fft(wf.Values())
             K=int(td.K)

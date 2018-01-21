@@ -33,11 +33,11 @@ class SParameterManipulation(object):
                 if ir is None:
                     return False
                 else:
-                    x=ir.Times()
-                    Ts=1./ir.TimeDescriptor().Fs
-                    for k in range(len(x)):
-                        if x[k]<=-Ts:
-                            if abs(ir.m_y[k])>threshold:
+                    t=ir.td
+                    Ts=1./ir.td.Fs
+                    for k in range(len(t)):
+                        if t[k]<=-Ts:
+                            if abs(ir[k])>threshold:
                                 return False
         return True
     def EnforceCausality(self):
@@ -46,11 +46,11 @@ class SParameterManipulation(object):
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
                 ir=fr.ImpulseResponse()
                 if ir is not None:
-                    x=ir.Times()
-                    Ts=1./ir.TimeDescriptor().Fs
-                    for k in range(len(x)):
-                        if x[k]<=-Ts:
-                            ir.m_y[k]=0.
+                    t=ir.td
+                    Ts=1./ir.td.Fs
+                    for k in range(len(t)):
+                        if t[k]<=-Ts:
+                            ir[k]=0.
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()
                     for n in range(len(frv)):
@@ -70,7 +70,7 @@ class SParameterManipulation(object):
                     Y=w.DWT(y)
                     Y=[0. if abs(Yv) <= threshold else Yv for Yv in Y]
                     y=w.IDWT(Y)
-                    ir.m_y=y
+                    ir.x=y
                     ir=ir._Pad(irl)
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()

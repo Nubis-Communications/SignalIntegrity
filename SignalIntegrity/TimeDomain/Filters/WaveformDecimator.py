@@ -18,5 +18,5 @@ class WaveformDecimator(FilterDescriptor):
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include       
-        td=wf.TimeDescriptor()*self
+        td=wf.td*self
         return Waveform(td,[wf[k*self.df+self.dph] for k in range(td.K)])

@@ -35,7 +35,7 @@ class InterpolatorLinear(FirFilter):
         us=[0. for k in range(len(wf)*fd.U)]
         for k in range(len(wf)):
             us[k*fd.U]=wf.Values()[k]
-        return FirFilter.FilterWaveform(self,Waveform(wf.TimeDescriptor(),us))
+        return FirFilter.FilterWaveform(self,Waveform(wf.td,us))
 
 class InterpolatorFractionalDelayFilterLinear(object):
     def __init__(self,U,F,accountForDelay=True):
