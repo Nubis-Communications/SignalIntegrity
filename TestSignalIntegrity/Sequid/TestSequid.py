@@ -31,9 +31,9 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
-    def PlotTikZ(self,filename):
+    def PlotTikZ(self,filename,plot2save):
         from matplotlib2tikz import save as tikz_save
-        tikz_save(filename,figure=self.f,show_info=False)
+        tikz_save(filename,figure=plot2save,show_info=False)
         texfile=open(filename,'rU')
         lines=[]
         for line in texfile:
@@ -78,10 +78,12 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             spDict[reflectName+'incidentResponse']=tdr.IncidentFrequencyContent
             spDict[reflectName+'reflectResponse']=tdr.ReflectFrequencyContent[0]
             spDict[reflectName+'extractionWindow']=tdr.ExtractionWindow
+            spDict[reflectName+'denoisedDerivative']=tdr.TrimmedDenoisedDerivatives[0]
 
         plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
+        plt.figure(1)
         plt.title('waveforms')
         for reflectName in reflectNames:
             wf=spDict[reflectName+'wf']
@@ -92,6 +94,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
+        #self.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -103,8 +106,21 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         plt.plot(xw.Times('ns'),xw.Values(),label='incident extractor')
         rxw=si.td.wf.Waveform(xw.TimeDescriptor(),1.0)-xw
         plt.plot(rxw.Times('ns'),rxw.Values(),label='reflect extractor')
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
 
-        plt.plot()
+        plt.clf()
+        plt.title('denoised derivatives')
+        for reflectName in reflectNames:
+            wf=spDict[reflectName+'denoisedDerivative']
+            plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
+        xw=spDict[reflectNames[0]+'extractionWindow']
+        plt.plot(xw.Times('ns'),xw.Values(),label='incident extractor')
+        rxw=si.td.wf.Waveform(xw.TimeDescriptor(),1.0)-xw
+        plt.plot(rxw.Times('ns'),rxw.Values(),label='reflect extractor')
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
@@ -123,12 +139,33 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         if plotthem: plt.show()
 
         plt.clf()
-        plt.title('incident spectral density')
+        plt.title('incident spectral density (relative to ideal unit step)')
         for reflectName in reflectNames:
             resp=spDict[reflectName+'incidentResponse']
-            plt.plot(resp.Frequencies('GHz'),[v+90 for v in resp.PSD()],label=reflectName)
+            impulsewf=si.td.wf.Waveform(resp.td)
+            impulsewf[0]=1.0
+            impulsewffc=impulsewf.FrequencyContent()
+            #plt.plot(impulsewffc.Frequencies('GHz'),[v+90 for v in impulsewffc.Values('dBmPerHz')],label=reflectName+' ideal')
+            plt.plot(resp.Frequencies('GHz'),
+                [(v-i) for (v,i) in zip(resp.Values('dBmPerHz'),impulsewffc.Values('dBmPerHz'))],label=reflectName)
         plt.xlabel('frequency (GHz)')
-        plt.ylabel('magnitude (dBm/GHz)')
+        plt.ylabel('magnitude (dB/GHz)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.title('reflected spectral density (relative to ideal unit step)')
+        for reflectName in reflectNames:
+            resp=spDict[reflectName+'reflectResponse']
+            impulsewf=si.td.wf.Waveform(resp.td)
+            impulsewf[0]=1.0
+            impulsewffc=impulsewf.FrequencyContent()
+            #plt.plot(impulsewffc.Frequencies('GHz'),[v+90 for v in impulsewffc.Values('dBmPerHz')],label=reflectName+' ideal')
+            plt.plot(resp.Frequencies('GHz'),
+                [(v-i) for (v,i) in zip(resp.Values('dBmPerHz'),impulsewffc.Values('dBmPerHz'))],label=reflectName)
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB/GHz)')
         plt.legend(loc='upper right')
         plt.grid(True)
         if plotthem: plt.show()

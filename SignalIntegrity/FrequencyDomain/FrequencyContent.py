@@ -21,6 +21,11 @@ from SignalIntegrity.ChirpZTransform.ChirpZTransform import CZT
 from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 
 class FrequencyContent(FrequencyDomain):
+    R=50.0
+    P=1e-3
+    LogRP10=10.*math.log10(R*P)
+    dB3=20*math.log10(math.sqrt(2))
+    dB6=20*math.log10(0.5)
     def __init__(self,wf,fd=None):
         td=wf.td
         if fd is None:
@@ -36,13 +41,34 @@ class FrequencyContent(FrequencyDomain):
             K=fd.N*2
             Keven=True
             X=CZT(wf.Values(),td.Fs,0,fd.Fe,fd.N,True)
-            td=TimeDescriptor(td.H,fd.N*2,fd.Fe/2.)
+            td=TimeDescriptor(td.H,fd.N*2,fd.Fe*2.)
         FrequencyDomain.__init__(self,fd,[X[n]/K*\
             (1. if (n==0 or ((n==fd.N) and Keven)) else 2.)*\
             cmath.exp(-1j*2.*math.pi*fd[n]*td.H) for n in range(fd.N+1)])
         self.td=td
     def Content(self,unit=None):
         return self.Values(unit)
+    def Values(self,unit=None):
+        if unit=='rms':
+            K=self.td.K
+            Keven=(K/2)*2==K
+            A=FrequencyDomain.Values(self,'mag')
+            return [A[n]/(1 if (n==0 or ((n==self.m_f.N) and Keven))
+                    else math.sqrt(2)) for n in range(len(A))]
+        elif unit=='dBm':
+            return [-3000. if r < 1e-15 else 20.*math.log10(r)-self.LogRP10
+                        for r in self.Values('rms')]
+        elif unit=='dBmPerHz':
+            K=self.td.K
+            Keven=(K/2)*2==K
+            Deltaf=self.m_f.Fe/self.m_f.N
+            adder=-10*math.log10(Deltaf)
+            dBm=self.Values('dBm')
+            return [dBm[n]+adder+
+                    (self.dB3 if (n==0 or ((n==self.m_f.N) and Keven))
+                    else 0) for n in range(len(dBm))]
+        else:
+            return FrequencyDomain.Values(self,unit)
     def Waveform(self,td=None):
         K=self.td.K
         Keven=(K/2)*2==K
@@ -71,12 +97,3 @@ class FrequencyContent(FrequencyDomain):
         if not td is None:
             wf=wf.Adapt(td)
         return wf
-    def PSD(self):
-        K=self.td.K
-        Keven=(K/2)*2==K
-        X=self.Values('dB')
-        Deltaf=self.m_f.Fe/self.td.K
-        adder=13.010-10*math.log10(Deltaf)
-        X=[X[n]+adder+(6. if (n==0 or ((n==self.m_f.N) and Keven)) else 0.0)
-           for n in range(self.m_f.N+1)]
-        return X

@@ -1,6 +1,7 @@
 import unittest
 import SignalIntegrity as si
 import os
+import math
 from TestHelpers import SParameterCompareHelper
 
 class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
@@ -184,7 +185,7 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         wf2=fc.Waveform()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
     def testSumOfSinesByDefinition(self):
-        td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
+        td=si.td.wf.TimeDescriptor(-1e-9,20,10e9)
         fd=td.FrequencyList()
         wf=si.td.wf.Waveform(td)
         for n in range(fd.N+1):
@@ -193,7 +194,19 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-        wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-1.05e-9,PulseWidth=100e-12)
+        wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-0.05e-9,PulseWidth=100e-12)
+        self.assertEquals(wf2,wfImpulse,'not equal to impulse')
+    def testSumOfSinesByDefinitionOdd(self):
+        td=si.td.wf.TimeDescriptor(-1e-9,21,10e9)
+        fd=td.FrequencyList()
+        wf=si.td.wf.Waveform(td)
+        for n in range(fd.N+1):
+            amplitude = (1. if 0 < n else 0.5)*2./td.K
+            wf=wf+si.td.wf.SineWaveform(td,Amplitude=amplitude,Frequency=fd[n],Phase=90.)
+        fc=wf.FrequencyContent()
+        wf2=fc.WaveformFromDefinition()
+        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-0.05e-9,PulseWidth=100e-12)
         self.assertEquals(wf2,wfImpulse,'not equal to impulse')
     def testNoiseWaveform(self):
         td=si.td.wf.TimeDescriptor(-1e-9,100,10e9)
@@ -259,8 +272,37 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
 #         plt.legend(loc='upper right')
 #         plt.grid(True)
 #         plt.show()
-
-
+    def testNoisePSD(self):
+        vrms=707e-9
+        td=si.td.wf.TimeDescriptor(0.,10000,20e9)
+        fd=td.FrequencyList()
+        nwf=si.td.wf.NoiseWaveform(td,sigma=vrms)
+        fc=nwf.FrequencyContent()
+        expected=20*math.log10(vrms)+13.0103
+        psd=fc.Values('dBmPerHz')
+        total=10*math.log10(sum([pow(10.,(p+10*math.log10(fd.Fe/fd.N))/10.) for p in psd]))
+        #print total,expected
+        self.assertAlmostEqual(total, expected, delta=0.5, msg='psd incorrect')
+#         import matplotlib.pyplot as plt
+#         plt.clf()
+#         plt.title('spectral density')
+#         plt.plot(fc.Frequencies('GHz'),psd,label='noise density')
+#         plt.plot(fc.Frequencies('GHz'),[expected-10*math.log10(10e9) for _ in range(len(fc))])
+#         plt.xlabel('frequency (GHz)')
+#         plt.ylabel('magnitude (dBm/GHz)')
+#         plt.legend(loc='upper right')
+#         plt.grid(True)
+#         plt.show()
+    def testImpulsePSD(self):
+        fd=si.fd.EvenlySpacedFrequencyList(0.5,2)
+        td=fd.TimeDescriptor(Keven=True)
+        wf=si.td.wf.PulseWaveform(td,StartTime=-0.5,PulseWidth=1.0)
+        fc=wf.FrequencyContent()
+        wf2=fc.WaveformFromDefinition()
+        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        psd=fc.Values('dBmPerHz')
+        for p in psd:
+            self.assertAlmostEqual(p, 10.0, 1, 'psd incorrect') 
 
 if __name__ == '__main__':
     unittest.main()
