@@ -1,31 +1,4 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-import math
-import cmath
-
-from numpy import fft
-
-from SignalIntegrity.PySIException import PySIExceptionWaveform
-from SignalIntegrity.FrequencyDomain.FrequencyDomain import FrequencyDomain
-from SignalIntegrity.Splines import Spline
-from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
-from SignalIntegrity.TimeDomain.Waveform.SineWaveform import SineWaveform
-from SignalIntegrity.ChirpZTransform.ChirpZTransform import CZT
-from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
-
 class FrequencyContent(FrequencyDomain):
-    R=50.0
-    P=1e-3
-    LogRP10=10.*math.log10(R*P)
-    dB3=20*math.log10(math.sqrt(2))
-    dB6=20*math.log10(0.5)
     def __init__(self,wf,fd=None):
         td=wf.td
         if fd is None:
@@ -34,10 +7,6 @@ class FrequencyContent(FrequencyDomain):
             Keven=(K/2)*2 == K
             fd=td.FrequencyList()
         else:
-            # pragma: silent exclude
-            if not fd.EvenlySpaced():
-                raise PySIExceptionWaveform('cannot generate frequency content')
-            # pragma: include
             K=fd.N*2
             Keven=True
             X=CZT(wf.Values(),td.Fs,0,fd.Fe,fd.N,True)

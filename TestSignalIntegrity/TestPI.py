@@ -542,9 +542,9 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         plot=False
         if plot:
             import matplotlib.pyplot as plt
-            voy=Voutfd.Content('dB')
-            ioy=Ioutfd.Content('dB')
-            vivoy=VinMinusVoutfd.Content('dB')
+            voy=Voutfd.Values('dB')
+            ioy=Ioutfd.Values('dB')
+            vivoy=VinMinusVoutfd.Values('dB')
             vof=Voutfd.Frequencies('MHz')
             iof=Ioutfd.Frequencies('MHz')
             vivof=VinMinusVoutfd.Frequencies('MHz')
@@ -574,10 +574,10 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         ZsourceImpedance=[]
         for n in range(len(Voutfd)):
             try:
-                Zload=Voutfd.Content()[n]/Ioutfd.Content()[n]
+                Zload=Voutfd.Values()[n]/Ioutfd.Values()[n]
                 ZloadFrequencies.append(Voutfd.Frequencies()[n])
                 ZloadImpedance.append(Zload)
-                Zsource=VinMinusVoutfd.Content()[n]/Ioutfd.Content()[n]
+                Zsource=VinMinusVoutfd.Values()[n]/Ioutfd.Values()[n]
                 ZsourceFrequencies.append(Voutfd.Frequencies()[n])
                 ZsourceImpedance.append(Zsource)
             except Exception as e:

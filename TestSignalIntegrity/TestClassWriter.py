@@ -595,5 +595,14 @@ class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
         className=''
         defName=['MixedModeConverterVoltage']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteFrequencyContent(self):
+        fileName="../SignalIntegrity/FrequencyDomain/FrequencyContent.py"
+        className='FrequencyContent'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+
 if __name__ == '__main__':
     unittest.main()
