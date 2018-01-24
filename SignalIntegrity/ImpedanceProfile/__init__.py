@@ -1,1 +1,2 @@
 from ImpedanceProfile import *
+from ImpedanceProfileWaveform import ImpedanceProfileWaveform

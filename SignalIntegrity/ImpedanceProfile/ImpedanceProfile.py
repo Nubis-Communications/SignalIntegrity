@@ -21,25 +21,23 @@ class ImpedanceProfile(object):
         self.m_Td = 1./(2.*sp.f()[N])
         self.m_rho = []
         self.m_Z0 = sp.m_Z0
-        S11 = [sp[n][port-1][port-1] for n in range(N+1)]
-        z = [cmath.exp(1j*2.*math.pi*n/(2.*N)) for n in range(N+1)]
-        for m in range(sections):
-            acc=S11[n].real + S11[n].real
-            for n in range(1,N-1):
-                acc = acc + 2.*S11[n].real
-            rho = 1/(2.*N)*acc
+        S11 = sp.Response(port,port)
+        zn2 = [cmath.exp(-1j*2.*math.pi*n/N*1/2) for n in range(N+1)]
+        for _ in range(sections):
+            rho = 1/(2.*N)*(S11[0].real + S11[N].real +
+                 sum([2.*S11[n].real for n in range(1,N)]))
             self.m_rho.append(rho)
-            for n in range(N+1):
-                nS11 = (-S11[n]+S11[n]*rho*rho/(z[n]*z[n])-rho/(z[n]*z[n])+rho)
-                nS11 = nS11/(rho*rho+S11[n]*rho/(z[n]*z[n])-S11[n]*rho-1./(z[n]*z[n]))
-                S11[n]=nS11
+            rho2=rho*rho
+            S11=[(-S11[n]+S11[n]*rho2*zn2[n]-rho*zn2[n]+rho)/
+                (rho2+S11[n]*rho*zn2[n]-S11[n]*rho-zn2[n])
+                for n in range(N+1)]
     def __getitem__(self,item):
         return self.m_rho[item]
     def __len__(self):
         return len(self.m_rho)
     def SParameters(self,f):
         N = len(f)-1
-        Td=1./(2.*f[N])
+        Td=1./(4.*f[N])
         Gsp=[]
         for n in range(N+1):
             gamma = 1j*2.*math.pi*f[n]*Td

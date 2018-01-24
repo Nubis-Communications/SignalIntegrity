@@ -3,7 +3,7 @@ import os
 
 class PySIAppTestHelper:
     relearn=True
-    plotErrors=True
+    plotErrors=False
     def __init__(self,path):
         self.path=path
     def FileNameForTest(self,filename):
@@ -71,6 +71,29 @@ class PySIAppTestHelper:
                 plt.legend(loc='upper right')
                 plt.grid(True)
                 plt.show()
+
+                for r in range(regression.m_P):
+                    for c in range(regression.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1)+' Magnitude')
+                        plt.plot(sp.FrequencyResponse(r+1,c+1).Frequencies(),sp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(regression.FrequencyResponse(r+1,c+1).Frequencies(),regression.FrequencyResponse(r+1,c+1).Values('dB'),label='regression')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1)+' Phase')
+                        plt.plot(sp.FrequencyResponse(r+1,c+1).Frequencies(),sp.FrequencyResponse(r+1,c+1).Values('deg'),label='calculated')
+                        plt.plot(regression.FrequencyResponse(r+1,c+1).Frequencies(),regression.FrequencyResponse(r+1,c+1).Values('deg'),label='regression')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
         self.assertTrue(SpAreEqual,spfilename + ' incorrect')
         os.chdir(currentDirectory)
 
