@@ -31,19 +31,6 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
-    def PlotTikZ(self,filename,plot2save):
-        from matplotlib2tikz import save as tikz_save
-        tikz_save(filename,figure=plot2save,show_info=False)
-        texfile=open(filename,'rU')
-        lines=[]
-        for line in texfile:
-            line=line.replace('\xe2\x88\x92','-')
-            lines.append(str(line))
-        texfile.close()
-        texfile=open(filename,'w')
-        for line in lines:
-            texfile.write(line)
-        texfile.close()
     def ReadSequidFileXls(self,filename):
         book=xlrd.open_workbook(filename,encoding_override='ascii')
         sheet=book.sheet_by_index(0)

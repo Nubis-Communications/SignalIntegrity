@@ -105,7 +105,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
             spDict[str(e)]=self.AssembleLine(ZSingle)
         spDict['all']=self.AssembleLine(Zc)
 
-        plotthem=True
+        plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
         plt.figure(1)
@@ -156,22 +156,34 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper):
 
         plt.clf()
         plt.figure(1)
-        plt.title('waveforms')
+        #plt.title('impedance')
 #         for e in range(len(Zc)):
 #             wf=spDict[str(e)].FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
 #             plt.plot(wf.Times('ns'),wf.Values(),label=str(e))
         wf=spDict['all'].FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
         wfApprox=spDict['all'].FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
+        wfActual=si.td.wf.Waveform(wf.td,50.0)
         for k in range(len(wf)):
             wf[k]=50*(1+wf[k])/(1-wf[k])
             wfApprox[k]=50+2*50*wfApprox[k]
-        plt.plot(wf.Times('ns'),wf.Values(),label='Z estimated')
-        plt.plot(wf.Times('ns'),wf.Values(),label='Z approx')
+            if wfActual.td[k]>0.:
+                e=int(wfActual.td[k]/(50e-12*4))
+                if e < len(Zc):
+                    wfActual[k]=Zc[e]
+        wf.td=si.td.wf.TimeDescriptor(wf.td.H/2,wf.td.K,wf.td.Fs*2)
+        wfApprox.td=si.td.wf.TimeDescriptor(wfApprox.td.H/2,wfApprox.td.K,wfApprox.td.Fs*2)
+        wfActual.td=si.td.wf.TimeDescriptor(wfActual.td.H/2,wfActual.td.K,wfActual.td.Fs*2)
+        plt.plot(wf.Times('ns'),wf.Values(),label='Z estimated',color='black')
+        plt.plot(wfApprox.Times('ns'),wfApprox.Values(),label='Z approximated',linestyle='--',color='black')
+        plt.plot(wfActual.Times('ns'),wfActual.Values(),label='Z actual',linewidth=2,color='black')
+        plt.xlim(0.0,1)
+        plt.ylim(44,61)
         plt.xlabel('time (ns)')
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
-        plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
 

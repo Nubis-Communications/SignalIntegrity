@@ -15,6 +15,20 @@ from cStringIO import StringIO
 
 import SignalIntegrity as si
 
+def PlotTikZ(filename,plot2save):
+    from matplotlib2tikz import save as tikz_save
+    tikz_save(filename,figure=plot2save.gcf(),show_info=False)
+    texfile=open(filename,'rU')
+    lines=[]
+    for line in texfile:
+        line=line.replace('\xe2\x88\x92','-')
+        lines.append(str(line))
+    texfile.close()
+    texfile=open(filename,'w')
+    for line in lines:
+        texfile.write(line)
+    texfile.close()
+
 class SParameterCompareHelper(object):
     def SParametersAreEqual(self,lhs,rhs,epsilon):
         if lhs.m_P != rhs.m_P: return False
