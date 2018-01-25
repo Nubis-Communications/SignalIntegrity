@@ -22,6 +22,13 @@ class ImpedanceProfile(object):
         self.m_rho = []
         self.m_Z0 = sp.m_Z0
         S11 = sp.Response(port,port)
+        # pragma: silent exclude
+        # consider adding this code to deal with non-real Nyquist point
+        fr=sp.FrequencyResponse(port,port)
+        self.m_fracD=-fr._FractionalDelayTime()
+        fr=fr._DelayBy(self.m_fracD)
+        S11 = fr.Values()
+        # pragma: include
         zn2 = [cmath.exp(-1j*2.*math.pi*n/N*1/2) for n in range(N+1)]
         for _ in range(sections):
             rho = 1/(2.*N)*(S11[0].real + S11[N].real +

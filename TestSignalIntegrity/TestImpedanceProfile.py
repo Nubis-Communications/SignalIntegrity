@@ -387,6 +387,151 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
 
+    def AssembleNastyLine(self,Zc,Tds):
+        netListLine=[]
+        td=si.td.wf.TimeDescriptor(0,200,20e9)
+        for (z,e,Td) in zip(Zc,range(len(Zc)),Tds):
+            netListLine.append('device T'+str(e)+' 2 tline zc '+str(z)+' td '+str(Td))
+        for e in range(1,len(Zc)):
+            netListLine.append('connect T'+str(e-1)+' 2 T'+str(e)+' 1')
+        netListLine.append('device R1 1 R 50')
+        netListLine.append('connect T'+str(len(Zc)-1)+' 2 R1 1')
+        netListLine.append('port 1 T0 1')
+        sp=si.p.SystemSParametersNumericParser(f=td.FrequencyList()).AddLines(netListLine).SParameters()
+        sp.SetReferenceImpedance(50.0)
+        return sp
+    def testAssembleNastyLine(self):
+        Zc = [50.,55.,52.,45.,60.]
+        td=si.td.wf.TimeDescriptor(0,200,20e9)
+        TdIdeal=1./td.Fs/2*4
+        TdAdjust=[.1*TdIdeal,-.2*TdIdeal,0.,.3*TdIdeal,-.1*TdIdeal]
+        Td=[TdIdeal+Tdi for Tdi in TdAdjust]
+#         Td=[TdIdeal for _ in range(len(Zc))]
+#         Td[0]=Td[0]/8
+        TdTime=[0]+[sum(Td[:e]) for e in range(1,len(Td))]
+        sp=self.AssembleNastyLine(Zc,Td)
+
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+
+        plotthem=False
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.figure(1)
+        plt.title('waveforms')
+        td=sp.FrequencyResponse(1,1).ImpulseResponse().td
+        impulsewf=si.td.wf.Waveform(td,[1 if abs(t)<= 25e-12 else 0 for t in td.Times()])
+        wf=sp.FrequencyResponse(1,1).ImpulseResponse()*si.td.f.RaisedCosineFilter()
+        plt.plot(wf.Times('ns'),wf.Values(),label='all')
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.figure(1)
+        plt.title('waveforms')
+        wf=(sp.FrequencyResponse(1,1).ImpulseResponse()+impulsewf).Integral(addPoint=True,scale=False)*si.td.f.RaisedCosineFilter()
+        plt.plot(wf.Times('ns'),wf.Values(),label='all')
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.figure(1)
+        plt.title('waveforms')
+#         for e in range(len(Zc)):
+#             wf=spDict[str(e)].FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
+#             plt.plot(wf.Times('ns'),wf.Values(),label=str(e))
+        wf=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)*si.td.f.RaisedCosineFilter()
+        plt.plot(wf.Times('ns'),wf.Values(),label='all')
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.figure(1)
+        #plt.title('impedance')
+#         for e in range(len(Zc)):
+#             wf=spDict[str(e)].FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
+#             plt.plot(wf.Times('ns'),wf.Values(),label=str(e))
+        wf=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
+        wfApprox=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(addPoint=True,scale=False)
+        Z0=50.0
+        wfActual=si.td.wf.Waveform(wf.td,Z0)
+        for k in range(len(wf)):
+            wf[k]=Z0*(1+wf[k])/(1-wf[k])
+            wfApprox[k]=Z0+2*Z0*wfApprox[k]
+            t=wfActual.td[k]/2.
+            foundOne=False
+            for m in range(len(Td)):
+                if (t>TdTime[m]) and (t <= (TdTime[m]+Td[m])):
+                    e=m
+                    foundOne=True
+            if foundOne:
+                wfActual[k]=Zc[e]
+        wf.td=si.td.wf.TimeDescriptor(wf.td.H/2,wf.td.K,wf.td.Fs*2)
+        wfApprox.td=si.td.wf.TimeDescriptor(wfApprox.td.H/2,wfApprox.td.K,wfApprox.td.Fs*2)
+        wfActual.td=si.td.wf.TimeDescriptor(wfActual.td.H/2,wfActual.td.K,wfActual.td.Fs*2)
+        plt.plot(wf.Times('ns'),wf.Values(),label='Z estimated',color='black')
+        plt.plot(wfApprox.Times('ns'),wfApprox.Values(),label='Z approximated',linestyle='--',color='black')
+        plt.plot(wfActual.Times('ns'),wfActual.Values(),label='Z actual',linewidth=2,color='black')
+        plt.xlim(0.0,1)
+        plt.ylim(44,61)
+        plt.xlabel('time (ns)')
+        plt.ylabel('Z (Ohms)')
+        plt.legend(loc='upper right')
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        if plotthem: plt.show()
+
+        plotthem=False
+        Z0=50.
+        plt.clf()
+        sp.SetReferenceImpedance(Z0)
+        td=sp.m_f.TimeDescriptor()
+        ip=si.ip.ImpedanceProfile(sp,td.K/2,1)
+        ipwf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(ip.DelaySection()/2,len(ip),1./ip.DelaySection()),ip.Z())
+        plt.plot(ipwf.Times('ns'),ipwf.Values(),label='Z calculated',color='black')
+        plt.plot(wfActual.Times('ns'),wfActual.Values(),label='Z actual',linewidth=2,color='black')
+        plt.xlim(0.0,1)
+        plt.ylim(44,61)
+        plt.xlabel('time (ns)')
+        plt.ylabel('Z (Ohms)')
+        plt.legend(loc='upper right')
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        if plotthem: plt.show()
+
+        wfExact=si.ip.ImpedanceProfileWaveform(sp,includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)
+        wfEstimated=si.ip.ImpedanceProfileWaveform(sp,method='estimated',includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)
+        wfApprox=si.ip.ImpedanceProfileWaveform(sp,method='approximate',includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)
+
+        plotthem=False
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.plot(wfExact.Times('ps'),wfExact.Values(),label='Z exact',color='black',marker='o')
+        plt.plot(wfEstimated.Times('ps'),wfEstimated.Values(),label='Z estimated',color='black')
+        plt.plot(wfApprox.Times('ps'),wfApprox.Values(),label='Z approximated',linestyle='--',color='black')
+        plt.plot(wfActual.Times('ps'),wfActual.Values(),label='Z actual',linewidth=2,color='black')
+        plt.xlim(0.0,1000)
+        plt.ylim(44,61)
+        plt.xlabel('time (ps)')
+        plt.ylabel('Z (Ohms)')
+        plt.legend(loc='upper right')
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        if plotthem: plt.show()
+
 
 if __name__ == "__main__":
     unittest.main()
