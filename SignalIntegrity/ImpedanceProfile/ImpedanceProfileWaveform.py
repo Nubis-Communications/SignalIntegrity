@@ -42,8 +42,7 @@ class ImpedanceProfileWaveform(Waveform):
         if not align == 'middle':
             tdip.H=tdip.H-1./(tdsp.Fs*4)
         if method == 'exact':
-            ip=ImpedanceProfile(sp,tdip.K,port)
-            Z=[sp.m_Z0*(1+rho)/(1-rho) for rho in ip]
+            Z=ImpedanceProfile(sp,tdip.K,port).Z()
         elif method == 'estimated' or method == 'approximate':
             rho=sp.FrequencyResponse(port,port).ImpulseResponse().\
                 Integral(addPoint=True,scale=False)

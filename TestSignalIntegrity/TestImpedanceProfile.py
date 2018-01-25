@@ -20,9 +20,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         return '_'.join(self.id().split('.')[-2:])
     def testImpedanceProfileCable(self):
         sp = si.sp.SParameterFile('cable.s2p',50.)
-        ip = si.ip.ImpedanceProfile(sp,100,2)
-        Z0 = 50.
-        Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
+        Zc = si.ip.ImpedanceProfile(sp,100,2).Z()
         """
         import matplotlib.pyplot as plt
         plt.plot(Zc)
@@ -47,7 +45,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
             Gsp.append(G)
         sp = si.sp.SParameters(f,Gsp,Z0)
         ip = si.ip.ImpedanceProfile(sp,len(Zc),1)
-        Zc2 = [-Z0*(rho+1.)/(rho-1) for rho in ip]
+        Zc2 =ip.Z()
         """
         import matplotlib.pyplot as plt
         plt.plot(Zc)
@@ -61,8 +59,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
     def testCableDeembed(self):
         sp = si.sp.SParameterFile('cable.s2p',50.)
         ip = si.ip.ImpedanceProfile(sp,12,1)
-        Z0 = 50.
-        Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
+        Zc = ip.Z()
         """
         import matplotlib.pyplot as plt
         plt.plot(Zc)
@@ -71,7 +68,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         spls=ip.SParameters(sp.f())
         spls.WriteToFile('cableLeftSide.s2p')
         ip = si.ip.ImpedanceProfile(sp,12,2)
-        Zc = [-Z0*(rho+1.)/(rho-1) for rho in ip]
+        Zc = ip.Z()
         """
         import matplotlib.pyplot as plt
         plt.plot(Zc)
@@ -195,7 +192,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.legend(loc='upper right')
         #plt.grid(True)
         from TestHelpers import PlotTikZ
-        PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         Z0=50.
@@ -204,7 +201,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         sp=spDict['all']
         sp.SetReferenceImpedance(Z0)
         td=sp.m_f.TimeDescriptor()
-        ipwf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0+1/(td.Fs*4),td.K/2,td.Fs*2),[Z0*(1+rho)/(1-rho) for rho in si.ip.ImpedanceProfile(spDict['all'],td.K/2,1)])
+        ipwf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0+1/(td.Fs*4),td.K/2,td.Fs*2),si.ip.ImpedanceProfile(spDict['all'],td.K/2,1).Z())
         plt.plot(ipwf.Times('ns'),ipwf.Values(),label='Z calculated',color='black')
         plt.plot(wfActual.Times('ns'),wfActual.Values(),label='Z actual',linewidth=2,color='black')
         plt.xlim(0.0,1)
@@ -233,11 +230,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         wfEstimated=si.ip.ImpedanceProfileWaveform(sp,method='estimated',includePortZ=False,align='interface')
         wfApprox=si.ip.ImpedanceProfileWaveform(sp,method='approximate',includePortZ=False,align='interface')
 
-        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
-        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
-        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
-        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
-
         plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
@@ -254,6 +246,11 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         from TestHelpers import PlotTikZ
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
+
+        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
+        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
+        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
+        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
 
     def testImpedanceProfileWaveformPortZAlignedInterface(self):
         Zc = [50.,55.,52.,45.,60.]
@@ -273,11 +270,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         wfEstimated=si.ip.ImpedanceProfileWaveform(sp,method='estimated',includePortZ=True,align='interface')
         wfApprox=si.ip.ImpedanceProfileWaveform(sp,method='approximate',includePortZ=True,align='interface')
 
-        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
-        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
-        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
-        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
-
         plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
@@ -294,6 +286,11 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         from TestHelpers import PlotTikZ
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
+
+        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
+        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
+        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
+        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
 
     def testImpedanceProfileWaveformNoPortZAlignedMiddle(self):
         Zc = [50.,55.,52.,45.,60.]
@@ -313,11 +310,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         wfEstimated=si.ip.ImpedanceProfileWaveform(sp,method='estimated',includePortZ=False,align='middle')
         wfApprox=si.ip.ImpedanceProfileWaveform(sp,method='approximate',includePortZ=False,align='middle')
 
-        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
-        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
-        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
-        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
-
         plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
@@ -334,6 +326,11 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         from TestHelpers import PlotTikZ
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
+
+        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
+        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
+        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
+        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
 
     def testImpedanceProfileWaveformPortZAlignedMiddle(self):
         Zc = [50.,55.,52.,45.,60.]
@@ -353,11 +350,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         wfEstimated=si.ip.ImpedanceProfileWaveform(sp,method='estimated',includePortZ=True,align='middle')
         wfApprox=si.ip.ImpedanceProfileWaveform(sp,method='approximate',includePortZ=True,align='middle')
 
-        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
-        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
-        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
-        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
-
         plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
@@ -375,11 +367,25 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
+        self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
+        self.WaveformRegressionChecker(wfExact, 'Waveform_'+self.NameForTest()+'_Exact.txt')
+        self.WaveformRegressionChecker(wfEstimated, 'Waveform_'+self.NameForTest()+'_Estimated.txt')
+        self.WaveformRegressionChecker(wfApprox, 'Waveform_'+self.NameForTest()+'_Approx.txt')
+
     def testWriteImpedanceProfileWaveform(self):
         fileName="../SignalIntegrity/ImpedanceProfile/ImpedanceProfileWaveform.py"
         className='ImpedanceProfileWaveform'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
+
+    def testWriteImpedanceProfile(self):
+        fileName="../SignalIntegrity/ImpedanceProfile/ImpedanceProfile.py"
+        className='ImpedanceProfile'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
 
 
 if __name__ == "__main__":
