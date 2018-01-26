@@ -7,11 +7,13 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from SignalIntegrity.Devices.TerminationG import TerminationG
+
+from SignalIntegrity.Devices.SeriesZ import SeriesZ
 from numpy import math
 
-def TerminationC(C,f,Z0=None,df=0.,esr=0.):
-    G=C*2.*math.pi*f*(1j+df)
-    try: G=G+1/esr
-    except: pass
-    return TerminationG(G,Z0)
+"""
+    Series resistance due to skin-effect
+    specified as Ohms/sqrt(Hz)
+"""
+def SeriesRse(f,Rse,Z0=None):
+    return SeriesZ(Rse*math.sqrt(f),Z0)

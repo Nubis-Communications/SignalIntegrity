@@ -1,9 +1,8 @@
-from SignalIntegrity.Devices.SeriesZ import SeriesZ
+from SignalIntegrity.Devices.SeriesG import SeriesG
 from numpy import math
 
-def SeriesC(C,f,Z0=None):
-    try:
-        Z=1./(C*1j*2.*math.pi*f)
-    except ZeroDivisionError:
-        Z=1e15
-    return SeriesZ(Z,Z0)
+def SeriesC(C,f,Z0=None,df=0.,esr=0.):
+    G=C*2.*math.pi*f*(1j+df)
+    try: G=G+1/esr
+    except: pass
+    return SeriesG(G,Z0)

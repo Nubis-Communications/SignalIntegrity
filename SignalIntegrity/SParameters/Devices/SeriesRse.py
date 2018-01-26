@@ -10,11 +10,13 @@
 from SignalIntegrity.SParameters.SParameters import SParameters
 import SignalIntegrity.Devices as dev
 
-class SeriesC(SParameters):
-    def __init__(self,f,C,Z0=50.,df=0.,esr=0.):
-        self.m_C=C
-        self.m_df=df
-        self.m_esr=esr
+"""
+    Series resistance due to skin-effect
+    specified as Ohms/sqrt(Hz)
+"""
+class SeriesRse(SParameters):
+    def __init__(self,f,Rse,Z0=50.):
+        self.m_Rse=Rse
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
-        return dev.SeriesC(self.m_C,self.m_f[n],self.m_Z0,self.m_df,self.m_esr)
+        return dev.SeriesRse(self.m_f[n],self.m_Rse,self.m_Z0)

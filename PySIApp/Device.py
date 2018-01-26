@@ -123,9 +123,11 @@ class DeviceResistor(Device):
 
 class DeviceCapacitor(Device):
     def __init__(self,propertiesList,partPicture):
-        Device.__init__(self,[PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyDefaultReferenceDesignator('C?'),PartPropertyCapacitance()]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('Capacitors'),PartPropertyPartName('Capacitor'),PartPropertyDefaultReferenceDesignator('C?'),PartPropertyCapacitance(),PartPropertyDissipationFactor(),PartPropertyESR()]+propertiesList,partPicture)
     def NetListLine(self):
-        return Device.NetListLine(self)+' C '+self[PartPropertyCapacitance().propertyName].PropertyString(stype='raw')
+        return Device.NetListLine(self)+' C '+self[PartPropertyCapacitance().propertyName].PropertyString(stype='raw')+\
+            ('' if self[PartPropertyDissipationFactor().propertyName] is None else ' '+self[PartPropertyDissipationFactor().propertyName].NetListProperty())+\
+            ('' if self[PartPropertyESR().propertyName] is None else ' '+self[PartPropertyESR().propertyName].NetListProperty())
 
 class DeviceInductor(Device):
     def __init__(self,propertiesList,partPicture):
@@ -398,14 +400,15 @@ class DeviceTransmissionLine(Device):
 
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
-        pprp=PartPropertyResistance()
-        Device.__init__(self,[PartPropertyCategory('TransmissionLines'),PartPropertyPartName('Telegrapher'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyResistance(resistance=0.0),PartPropertyInductance(),PartPropertyConductance(),PartPropertyCapacitance(),PartPropertySections()]+propertiesList,partPicture)
+        Device.__init__(self,[PartPropertyCategory('TransmissionLines'),PartPropertyPartName('Telegrapher'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyResistance(resistance=0.0),PartPropertyResistanceSkinEffect(),PartPropertyInductance(),PartPropertyConductance(),PartPropertyCapacitance(),PartPropertyDissipationFactor(),PartPropertySections()]+propertiesList,partPicture)
     def NetListLine(self):
         return Device.NetListLine(self)+' telegrapher '+\
             self[PartPropertyResistance().propertyName].NetListProperty()+' '+\
+            ('' if self[PartPropertyResistanceSkinEffect().propertyName] is None else self[PartPropertyResistanceSkinEffect().propertyName].NetListProperty()+' ')+\
             self[PartPropertyInductance().propertyName].NetListProperty()+' '+\
             self[PartPropertyConductance().propertyName].NetListProperty()+' '+\
             self[PartPropertyCapacitance().propertyName].NetListProperty()+' '+\
+            ('' if self[PartPropertyDissipationFactor().propertyName] is None else self[PartPropertyDissipationFactor().propertyName].NetListProperty()+' ')+\
             self[PartPropertySections().propertyName].NetListProperty()
 
 class DeviceTelegrapherFourPort(Device):

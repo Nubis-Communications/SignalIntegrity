@@ -3,8 +3,12 @@ class DeviceFactory(object):
         self.deviceList=[
         ParserDevice('file',None,True,{'':None},True,
                     "SParameterFile(arg[''],50.).Resample(f)"),
-        ParserDevice('c',1,True,{'':None},True,"TerminationC(f,float(arg['']))"),
-        ParserDevice('c',2,True,{'':None},True,"SeriesC(f,float(arg['']))"),
+        ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
+                     "TerminationC(f,float(arg['']),float(arg['z0']),\
+                     float(arg['df']),float(arg['esr']))"),
+        ParserDevice('c',2,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
+                     "SeriesC(f,float(arg['']),float(arg['z0']),float(arg['df']),\
+                     float(arg['esr']))"),
         ParserDevice('l',1,True,{'':None},True,"TerminationL(f,float(arg['']))"),
         ParserDevice('l',2,True,{'':None},True,"SeriesL(f,float(arg['']))"),
         ParserDevice('r',1,True,{'':None},False,"TerminationZ(float(arg['']))"),
@@ -47,10 +51,10 @@ class DeviceFactory(object):
                     float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
                      "TLine(f,ports,float(arg['zc']),float(arg['td']))"),
-        ParserDevice('telegrapher',2,False,{'r':0.,'l':0.,'c':0.,'g':0.,'z0':50.,
-                    'sect':1},True,"ApproximateTwoPortTLine(f, float(arg['r']),\
-                    float(arg['l']),float(arg['g']),float(arg['c']),float(arg['z0']),\
-                    int(arg['sect']))"),
+        ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,'g':0.,
+                    'z0':50.,'sect':1},True,"ApproximateTwoPortTLine(f,\
+                    float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
+                    float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,
                     'ln':0.,'cn':0.,'gn':0.,'lm':0.,'cm':0.,'gm':0.,'z0':50.,'sect':1},
                      True,"ApproximateFourPortTLine(f, float(arg['rp']),\

@@ -194,9 +194,21 @@ class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
         PartProperty.__init__(self,'resistance',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
 
+class PartPropertyResistanceSkinEffect(PartProperty):
+    def __init__(self,resistance=0.,keyword='rse',descriptionPrefix=''):
+        PartProperty.__init__(self,'skineffectresistance',type='float',unit='Ohm/sqrt(Hz)',keyword=keyword,description=descriptionPrefix+'skin effect (Ohms/sqrt(Hz)))',value=resistance,visible=False,keywordVisible=False)
+
 class PartPropertyCapacitance(PartProperty):
     def __init__(self,capacitance=1e-12,keyword='c',descriptionPrefix=''):
         PartProperty.__init__(self,'capacitance',type='float',unit='F',keyword=keyword,description=descriptionPrefix+'capacitance (F)',value=capacitance,visible=True,keywordVisible=False)
+
+class PartPropertyDissipationFactor(PartProperty):
+    def __init__(self,df=0.,keyword='df',descriptionPrefix=''):
+        PartProperty.__init__(self,'dissipationfactor',type='float',unit=' ',keyword=keyword,description=descriptionPrefix+'dissipation factor',value=df,visible=False,keywordVisible=True)
+
+class PartPropertyESR(PartProperty):
+    def __init__(self,esr=0.,keyword='esr',descriptionPrefix=''):
+        PartProperty.__init__(self,'effectiveseriesresistance',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'ESR (Ohms)',value=esr,visible=False,keywordVisible=True)
 
 class PartPropertyInductance(PartProperty):
     def __init__(self,inductance=1e-9,keyword='l',descriptionPrefix=''):
