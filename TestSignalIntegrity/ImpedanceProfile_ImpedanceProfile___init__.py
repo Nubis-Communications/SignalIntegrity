@@ -4,12 +4,24 @@ class ImpedanceProfile(object):
         self.m_Td = 1./(4.*sp.f()[N])
         self.m_rho = []
         self.m_Z0 = sp.m_Z0
-        S11 = sp.Response(port,port)
+        fr=sp.FrequencyResponse(port,port)
+        self.m_fracD=fr._FractionalDelayTime()
+        fr=fr._DelayBy(-self.m_fracD)
+        S11 = fr.Values()
         zn2 = [cmath.exp(-1j*2.*math.pi*n/N*1/2) for n in range(N+1)]
+        finished=False
+        rho=0.0
         for _ in range(sections):
+            if finished:
+                self.m_rho.append(rho)
+                continue
             rho = 1/(2.*N)*(S11[0].real + S11[N].real +
                  sum([2.*S11[n].real for n in range(1,N)]))
+            rho=max(-self.rhoLimit,min(rho,self.rhoLimit))
             self.m_rho.append(rho)
+            if abs(rho)==self.rhoLimit:
+                finished=True
+                continue
             rho2=rho*rho
             S11=[(-S11[n]+S11[n]*rho2*zn2[n]-rho*zn2[n]+rho)/
                 (rho2+S11[n]*rho*zn2[n]-S11[n]*rho-zn2[n])
@@ -19,7 +31,8 @@ class ImpedanceProfile(object):
     def __len__(self):
         return len(self.m_rho)
     def Z(self):
-        return [self.m_Z0*(1+rho)/(1-rho) for rho in self]
+        return [max(0.,min(self.m_Z0*(1+rho)/(1-rho),self.ZLimit))
+            for rho in self]
     def DelaySection(self):
         return self.m_Td
     def SParameters(self,f):
