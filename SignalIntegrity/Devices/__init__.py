@@ -26,8 +26,10 @@ from VoltageAmplifier import *
 from CurrentAmplifier import *
 from TransresistanceAmplifier import *
 from TransconductanceAmplifier import *
-from TLineFourPort import *
-from TLineTwoPort import *
+from TLineTwoPort import TLineTwoPort
+from TLineFourPort import TLineFourPort
+from TLineFourPortLossless import *
+from TLineTwoPortLossless import *
 from OperationalAmplifier import OperationalAmplifier
 from DirectionalCoupler import DirectionalCoupler
 from SeriesRse import SeriesRse

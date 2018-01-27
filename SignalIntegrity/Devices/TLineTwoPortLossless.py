@@ -7,11 +7,10 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-import cmath
+import math
 
-def TLineTwoPort(Zc,gamma,Z0):
-    p=(Zc-Z0)/(Zc+Z0)
-    L=cmath.exp(gamma)
-    S1=(p*(1.-L*L))/(1.-p*p*L*L)
-    S2=((1.-p*p)*L)/(1.-p*p*L*L)
-    return [[S1,S2],[S2,S1]]
+from TLineTwoPort import TLineTwoPort
+
+def TLineTwoPortLossless(Zc,Td,f,Z0):
+    gamma=-1j*2.*math.pi*f*Td
+    return TLineTwoPort(Zc,gamma,Z0)

@@ -1,4 +1,4 @@
-from SParameterFile import *
-from SParameters import *
-from RLGC import *
+from SParameterFile import SParameterFile
+from SParameters import SParameters
+from RLGC import RLGC
 import Devices as dev

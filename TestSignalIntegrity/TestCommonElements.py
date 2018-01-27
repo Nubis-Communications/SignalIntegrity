@@ -319,14 +319,14 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         regression=si.sp.dev.Mutual(si.fd.EvenlySpacedFrequencyList(2e9,200),1e-9)
         self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
     def testFrequencyDependentTLineFourPortResampling(self):
-        sp=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(1e9,100),4,25,1e-9)
+        sp=si.sp.dev.TLineLossless(si.fd.EvenlySpacedFrequencyList(1e9,100),4,25,1e-9)
         sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
-        regression=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(2e9,200),4,25,1e-9)
+        regression=si.sp.dev.TLineLossless(si.fd.EvenlySpacedFrequencyList(2e9,200),4,25,1e-9)
         self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
     def testFrequencyDependentTLineTwoPortResampling(self):
-        sp=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(1e9,100),2,75,1e-9)
+        sp=si.sp.dev.TLineLossless(si.fd.EvenlySpacedFrequencyList(1e9,100),2,75,1e-9)
         sp2=sp.Resample(si.fd.EvenlySpacedFrequencyList(2e9,200))
-        regression=si.sp.dev.TLine(si.fd.EvenlySpacedFrequencyList(2e9,200),2,75,1e-9)
+        regression=si.sp.dev.TLineLossless(si.fd.EvenlySpacedFrequencyList(2e9,200),2,75,1e-9)
         self.assertTrue(self.SParametersAreEqual(sp2,regression,0.00001),'incorrect')
     def testDeviceFourPortShuntCode(self):
         self.WriteCode('TestCommonElements.py','testDeviceShuntFourPort(self)',self.standardHeader)

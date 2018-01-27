@@ -1003,7 +1003,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
@@ -1116,7 +1116,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
@@ -1240,7 +1240,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
@@ -1557,7 +1557,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
@@ -1691,7 +1691,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
@@ -1984,7 +1984,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
@@ -2435,7 +2435,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
@@ -2582,7 +2582,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
 
         DUTCalcSp=cm2.DutCalculation(spDict['Dut'])
 #         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s2p')
-        DUTActualSp=si.sp.dev.TLine(f,2,40,300e-12)
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,40,300e-12)
 #         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 

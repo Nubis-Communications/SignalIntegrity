@@ -23,8 +23,8 @@ class MixedModeTLine(SParameters):
         self.m_spdl=[]
         self.m_sspn.AddDevice('MM1',4,MixedModeConverter())
         self.m_sspn.AddDevice('MM2',4,MixedModeConverter())
-        self.m_sspn.AddDevice('D',2), self.m_spdl.append(('D',dev.TLine(f,2,Zd/2.,Td,Z0)))
-        self.m_sspn.AddDevice('C',2), self.m_spdl.append(('C',dev.TLine(f,2,Zc*2.,Tc,Z0)))
+        self.m_sspn.AddDevice('D',2), self.m_spdl.append(('D',dev.TLineLossless(f,2,Zd/2.,Td,Z0)))
+        self.m_sspn.AddDevice('C',2), self.m_spdl.append(('C',dev.TLineLossless(f,2,Zc*2.,Tc,Z0)))
         self.m_sspn.ConnectDevicePort('MM1',3,'D',1)
         self.m_sspn.ConnectDevicePort('MM2',3,'D',2)
         self.m_sspn.ConnectDevicePort('MM1',4,'C',1)

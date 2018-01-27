@@ -168,7 +168,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         #fileNameBase = self.id().split('.')[2].replace('test','')
         #spFileName = fileNameBase +'_1.s4p'
         #self.CheckSParametersResult(spmodel,spFileName,' incorrect')
-        spmodel2=si.sp.dev.TLine(f,4,50.,1e-9)
+        spmodel2=si.sp.dev.TLineLossless(f,4,50.,1e-9)
         #spFileName2 = fileNameBase +'_2.s4p'
         #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
@@ -193,7 +193,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         #fileNameBase = self.id().split('.')[2].replace('test','')
         #spFileName = fileNameBase +'_1.s4p'
         #self.CheckSParametersResult(spmodel,spFileName,' incorrect')
-        spmodel2=si.sp.dev.TLine(f,4,50.,1e-9)
+        spmodel2=si.sp.dev.TLineLossless(f,4,50.,1e-9)
         #spFileName2 = fileNameBase +'_2.s4p'
         #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')
@@ -213,7 +213,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         #fileNameBase = self.id().split('.')[2].replace('test','')
         #spFileName = fileNameBase +'_1.s4p'
         #self.CheckSParametersResult(spmodel,spFileName,' incorrect')
-        spmodel2=si.sp.dev.TLine(f,4,50.,1e-9)
+        spmodel2=si.sp.dev.TLineLossless(f,4,50.,1e-9)
         #spFileName2 = fileNameBase +'_2.s4p'
         #self.CheckSParametersResult(spmodel2,spFileName2,' incorrect')
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.00001),self.id()+' result not same')

@@ -7,8 +7,8 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-import cmath
 import math
+from TLineFourPort import TLineFourPort
 # transmission line
 #
 #           +-----------------------+
@@ -27,20 +27,6 @@ import math
 # ports 3 and 4 are the outer conductor
 # when two ports, ports 3 and 4 are assumed grounded
 
-def TLineFourPort(Zc,gamma,Z0):
-    p=(Zc-Z0)/(Zc+Z0)
-    a=(1.-3.*p)/(p-3.)
-    """
-    this calculation for a is the same as:
-    a=(Zc-2.*Z0)/(Zc+2.*Z0) or
-    a=(Zc/2.-Z0)/(Zc/2.+Z0)
-    """
-    Y=cmath.exp(gamma)
-    D=2.*(1-Y*Y*a*a)
-    S1=(1.-Y*Y*a*a+a*(1.-Y*Y))/D
-    S2=(1.-a*a)*Y/D
-    S3=((1.-Y*Y*a*a)-a*(1.-Y*Y))/D
-    return [[S1,S2,S3,-S2],
-            [S2,S1,-S2,S3],
-            [S3,-S2,S1,S2],
-            [-S2,S3,S2,S1]]
+def TLineFourPortLossless(Zc,Td,f,Z0):
+    gamma=-1j*2.*math.pi*f*Td
+    return TLineFourPort(Zc,gamma,Z0)

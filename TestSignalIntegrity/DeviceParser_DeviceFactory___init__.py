@@ -50,9 +50,9 @@ class DeviceFactory(object):
                     'zi':1e8,'z0':50.},False,"TransconductanceAmplifier(ports,\
                     float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
-                     "TLine(f,ports,float(arg['zc']),float(arg['td']))"),
+                     "TLineLossless(f,ports,float(arg['zc']),float(arg['td']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,'g':0.,
-                    'z0':50.,'sect':1},True,"ApproximateTwoPortTLine(f,\
+                    'z0':50.,'sect':0},True,"TLineTwoPortRLGC(f,\
                     float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
                     float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,

@@ -53,7 +53,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
         if not os.path.exists(fileName):
             fr.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
-        regression=si.sp.FrequencyResponse().ReadFromFile(fileName)
+        regression=si.fd.FrequencyResponse().ReadFromFile(fileName)
         os.chdir(path)
         self.assertTrue(regression == fr,text + ' incorrect')
     def GetFrequencyResponseResult(self,fileName):
@@ -61,7 +61,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             return None
-        regression=si.sp.FrequencyResponse().ReadFromFile(fileName)
+        regression=si.fd.FrequencyResponse().ReadFromFile(fileName)
         os.chdir(path)
         return regression
     def CheckWaveformResult(self,wf,fileName,text):

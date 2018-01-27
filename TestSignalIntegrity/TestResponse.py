@@ -351,7 +351,7 @@ class TestResponse(unittest.TestCase,ResponseTesterHelper):
         re=fr.Response('real')
         im=fr.Response('imag')
         corr=[v[0]+1j*v[1] for v in zip(re,im)]
-        regression=si.sp.FrequencyResponse(fr.FrequencyList(),corr)
+        regression=si.fd.FrequencyResponse(fr.FrequencyList(),corr)
         calc=fr
         self.assertTrue(regression == calc,'real/imag incorrect')
     def testResponsedeg(self):

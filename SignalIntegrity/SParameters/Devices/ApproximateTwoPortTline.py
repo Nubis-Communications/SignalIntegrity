@@ -8,7 +8,6 @@
  this material whatsoever.
 '''
 from numpy import linalg
-import math
 
 from SignalIntegrity.Conversions import S2T
 from SignalIntegrity.Conversions import T2S
@@ -19,11 +18,7 @@ class ApproximateTwoPortTLine(SParameters):
         self.m_K=K
         from SignalIntegrity.Devices import SeriesZ
         from SignalIntegrity.Devices import SeriesG
-        from SignalIntegrity.Devices import SeriesC
-        from SignalIntegrity.Devices import SeriesL
         from SignalIntegrity.Devices import Ground
-        from SignalIntegrity.Devices import Mutual
-        from SignalIntegrity.Devices import SeriesRse
         import SignalIntegrity.SParameters.Devices as dev
         from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
         self.m_sspn=SystemSParametersNumeric()
