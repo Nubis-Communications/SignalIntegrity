@@ -35,7 +35,7 @@ def TLineFourPort(Zc,gamma,Z0):
     a=(Zc-2.*Z0)/(Zc+2.*Z0) or
     a=(Zc/2.-Z0)/(Zc/2.+Z0)
     """
-    Y=cmath.exp(gamma)
+    Y=cmath.exp(-gamma)
     D=2.*(1-Y*Y*a*a)
     S1=(1.-Y*Y*a*a+a*(1.-Y*Y))/D
     S2=(1.-a*a)*Y/D

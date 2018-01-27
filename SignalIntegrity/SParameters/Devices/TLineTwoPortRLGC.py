@@ -7,7 +7,7 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-import math
+import math,cmath
 
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Devices.TLineTwoPort import TLineTwoPort
@@ -32,9 +32,9 @@ class TLineTwoPortRLGC(SParameters):
             Z=self.R+self.Rse*math.sqrt(f)+1j*2*math.pi*f*self.L
             Y=self.G+2.*math.pi*f*self.C*(1j+self.df)
             try:
-                Zc=Z/Y
+                Zc=cmath.sqrt(Z/Y)
             except:
                 Zc=self.m_Z0
-            gamma=Z*Y
+            gamma=cmath.sqrt(Z*Y)
             return TLineTwoPort(Zc,gamma,self.m_Z0)
         else: return self.m_approx[n]
