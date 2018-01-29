@@ -27,7 +27,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         #guess=[19.29331239903912,1.0169921429695769e-07,6.183111656296168e-10,0.007419799613583727,0.0001040252514702244,0.00037025795321293044]
         self.m_fitter=si.fit.RLGCSolver(sp,guess,self.PrintProgress)
         self.m_fitter.Solve()
-        print self.m_fitter.Results().tolist()
+        print self.m_fitter.Results()
     def PrintProgress(self,iteration):
         print self.m_fitter.m_iteration,self.m_fitter.m_filterOutput
     def testCompareApproxWithEquation(self):

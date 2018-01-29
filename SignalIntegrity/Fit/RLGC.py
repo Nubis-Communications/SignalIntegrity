@@ -1,14 +1,19 @@
 '''
-Created on Jan 26, 2018
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
 
-@author: pete
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
 '''
-from LevMar import LevMar
-from Matrix import Matrix
 
 import SignalIntegrity.SParameters.Devices as dev
 import math,cmath
 from SignalIntegrity.SParameters.SParameters import SParameters
+from LevMar import LevMar
+
+from numpy import zeros
 
 class RLGCSolver(LevMar):
     def __init__(self,sp,guess,callback=None):
@@ -16,41 +21,17 @@ class RLGCSolver(LevMar):
         self.m_sp=sp
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
-        LevMar.Initialize(self, Matrix([[g] for g in guess]), Matrix(v))
+        LevMar.Initialize(self, [[g] for g in guess], v)
     def Results(self):
         return self.m_x
     def fF(self,x):
-        R=x[0][0]
-        L=x[1][0]
-        G=x[2][0]
-        C=x[3][0]
-        Rse=x[4][0]
-        df=x[5][0]
+        (R,L,G,C,Rse,df)=(x[0][0],x[1][0],x[2][0],x[3][0],x[4][0],x[5][0])
         fList=[0.0000001 if f==0 else f for f in self.m_sp.m_f]
-        approximate=False
-        if approximate:
-            tline=dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, self.m_sp.m_Z0, self.m_Sections)
-        else:
-            fList=[0.0001 if f==0 else f for f in self.m_sp.m_f]
-            Z0=self.m_sp.m_Z0
-            seriesZ=[R+Rse*math.sqrt(f)+1j*2.*math.pi*f*L for f in fList]
-            shuntY=[G+2.*math.pi*f*C*(1j+df) for f in fList]
-            Zc=[cmath.sqrt(z/y) for (z,y) in zip(seriesZ,shuntY)]
-            gamma=[cmath.sqrt(z*y) for (z,y) in zip(seriesZ,shuntY)]
-            rho=[(zc-Z0)/(zc+Z0) for zc in Zc]
-            D=[1-r*r*cmath.exp(-2.*g) for (r,g) in zip(rho,gamma)]
-            S11=[r*(1-cmath.exp(-2*g))/d for (r,g,d) in zip(rho,gamma,D)]
-            S12=[(1.-r*r)*cmath.exp(-g)/d for (r,g,d) in zip(rho,gamma,D)]
-            tline=SParameters(fList,[[[s11,s12],[s12,s11]] for (s11,s12) in zip(S11,S12)])
+        tline=dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, self.m_sp.m_Z0,0)
         v=self.VectorizeSp(tline)
-        return Matrix(v)
+        return v
     def fJ(self,x,Fx=None):
-        R=x[0][0]
-        L=x[1][0]
-        G=x[2][0]
-        C=x[3][0]
-        Rse=x[4][0]
-        df=x[5][0]
+        (R,L,G,C,Rse,df)=(x[0][0],x[1][0],x[2][0],x[3][0],x[4][0],x[5][0])
         fList=[0.0001 if f==0 else f for f in self.m_sp.m_f]
         Z0=self.m_sp.m_Z0
         Z=[R+Rse*math.sqrt(f)+1j*2.*math.pi*f*L for f in fList]
@@ -109,9 +90,9 @@ class RLGCSolver(LevMar):
         Fx=vS
         if Fx is None:
             Fx=self.fF(x)
-        M = x.rows()
+        M = len(x)
         R = len(Fx)
-        J = Matrix.initialized(0,R,M)
+        J = zeros((R,M)).tolist()
         for m in range(M):
             pFpxm=vdS[m]
             for r in range(R):
@@ -123,6 +104,6 @@ class RLGCSolver(LevMar):
         return v
     @staticmethod
     def AdjustVariablesAfterIteration(x):
-        for r in range(x.rows()):
+        for r in range(len(x)):
             x[r][0]=abs(x[r][0].real)
         return x

@@ -1,18 +1,17 @@
-#-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
-#
-# Author:      peter.pupalaikis
-#
-# Created:     22/12/2014
-# Copyright:   (c) peter.pupalaikis 2014
-# Licence:     <your licence>
-#-------------------------------------------------------------------------------
+'''
+ Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+ Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+ All Rights Reserved.
 
-from Matrix import Matrix
+ Explicit license in accompanying README.txt file.  If you don't have that file
+ or do not agree to the terms in that file, then you are not licensed to use
+ this material whatsoever.
+'''
+
 import math
-
+from numpy import zeros,matrix
 from SignalIntegrity.CallBacker import CallBacker
+import copy
 
 class LevMar(CallBacker):
     def __init__(self,callback=None):
@@ -38,7 +37,7 @@ class LevMar(CallBacker):
             Fx=self.fF(x)
         M = x.rows()
         R = Fx.rows()
-        J = Matrix.initialized(0,R,M)
+        J = zeros((R,M)).tolist()
         for m in range(M):
             pFpxm=self.fPartialFPartialx(x,m,Fx)
             for r in range(R):
@@ -48,10 +47,10 @@ class LevMar(CallBacker):
     def AdjustVariablesAfterIteration(x):
         return x
     def Initialize(self,x,y,w=None):
-        self.m_x = x.copy()
-        self.m_y = y.copy()
+        self.m_x = copy.copy(x)
+        self.m_y = copy.copy(y)
         if w is None:
-            self.m_sumw=y.rows()
+            self.m_sumw=len(y)
             self.m_W=1.0
         else:
             self.m_W = Matrix.diag(w)
@@ -59,8 +58,9 @@ class LevMar(CallBacker):
             for r in range(w.rows()):
                 self.m_sumw = self.m_sumw + w[r][0]
         self.m_Fx = self.fF(self.m_x)
-        self.m_r=self.m_Fx-self.m_y
-        self.m_mse=math.sqrt((self.m_r.H()*self.m_W*self.m_r)[0][0].real/self.m_sumw)
+        self.m_r=(matrix(self.m_Fx)-matrix(self.m_y)).tolist()
+        self.m_mse=math.sqrt((matrix(self.m_r).getH()*
+            self.m_W*matrix(self.m_r)).tolist()[0][0].real/self.m_sumw)
         self.m_lambdaTracking = [self.m_lambda]
         self.m_mseTracking = [self.m_mse]
         self.m_J = None
@@ -72,33 +72,25 @@ class LevMar(CallBacker):
         if self.m_Fx is None:
             self.m_Fx=self.fF(self.m_x)
         if self.m_r is None:
-            self.m_r=self.m_Fx-self.m_y
+            self.m_r=(matrix(self.m_Fx)-matrix(self.m_y)).tolist()
         if self.m_J is None:
             self.m_J=self.fJ(self.m_x,self.m_Fx)
         if self.m_H is None:
-            self.m_H=self.m_J.H()*self.m_W*self.m_J
+            self.m_H=(matrix(self.m_J).getH()*self.m_W*matrix(self.m_J)).tolist()
         if self.m_D is None:
-            self.m_D=Matrix.initialized(0,self.m_H.rows(),self.m_H.cols())
-            for r in range(self.m_D.rows()):
+            self.m_D=zeros((len(self.m_H),len(self.m_H[0]))).tolist()
+            for r in range(len(self.m_D)):
                 self.m_D[r][r]=self.m_H[r][r]
         if self.m_JHWr is None:
-            self.m_JHWr = self.m_J.H()*self.m_W*self.m_r
-        try:
-            Deltax=(self.m_H+self.m_D*self.m_lambda).I()*self.m_JHWr
-        except:
-            self.m_epsilon = self.m_epsilon*10.
-            self.m_Fx = None
-            self.m_r = None
-            self.m_J = None
-            self.m_H = None
-            self.m_D = None
-            self.m_JHWr = None
-            return
-        newx=self.m_x-Deltax
+            self.m_JHWr = (matrix(self.m_J).getH()*self.m_W*matrix(self.m_r)).tolist()
+        Deltax=((matrix(self.m_H)+matrix(self.m_D)*
+                self.m_lambda).getI()*matrix(self.m_JHWr)).tolist()
+        newx=(matrix(self.m_x)-matrix(Deltax)).tolist()
         newx=self.AdjustVariablesAfterIteration(newx)
         newFx = self.fF(newx)
-        newr=newFx-self.m_y
-        newmse=math.sqrt((newr.H()*self.m_W*newr)[0][0].real/self.m_sumw)
+        newr=(matrix(newFx)-matrix(self.m_y)).tolist()
+        newmse=math.sqrt((matrix(newr).getH()*self.m_W*
+            matrix(newr)).tolist()[0][0].real/self.m_sumw)
         if newmse < self.m_mse:
             self.m_mse = newmse
             self.m_x = newx
