@@ -108,7 +108,7 @@ class LevMar(CallBacker):
     def TestConvergance(self):
         self.m_MseChange=self.m_mse-self.m_lastMse
         self.m_lastMse=self.m_mse
-        self.m_MseAcc=0.9*self.m_MseAcc+0.1*self.m_MseChange
+        self.m_MseAcc=0.95*self.m_MseAcc+0.05*self.m_MseChange
         try:
             self.m_filterOutput=-math.log10(-self.m_MseAcc)
         except:
