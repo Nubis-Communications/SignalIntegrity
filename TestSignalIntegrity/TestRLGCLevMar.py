@@ -30,16 +30,18 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         self.m_fitter.Solve()
         print self.m_fitter.Results()
     def testRLGCTestFitExact(self):
+        return
         (R,L,G,C,Rse,df)=[1.,114.241e-9,0,43.922e-12,80e-6,100e-6]
         Z0=50.
         fList=[f for f in si.fd.EvenlySpacedFrequencyList(40e9,1000)[1:]]
-        sp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
+        self.sp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
         guess=[1.,114.241e-9,0,43.922e-12,80e-6,100e-6]
-        #guess=[0.,114.241e-9,0,43.922e-12,0,0]
-        guess=[0,200e-9,0,50e-12,0,0]
+        guess=[0.,115e-9,0,40e-12,0,0]
+        #guess=[0,200e-9,0,50e-12,0,0]
         #guess=[19.29331239903912,1.0169921429695769e-07,6.183111656296168e-10,0.007419799613583727,0.0001040252514702244,0.00037025795321293044]
-        self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PrintProgress)
-        self.m_fitter.m_ConverganceThreshold=4
+        self.plotInitialized=False
+        self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
+        self.m_fitter.m_ConverganceThreshold=6
         self.m_fitter.Solve()
         print self.m_fitter.Results()
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
@@ -52,15 +54,36 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
                 plt.title('s-parameter compare')
                 plt.xlabel('frequency (Hz)')
                 plt.ylabel('amplitude')
-                for r in range(sp.m_P):
-                    for c in range(sp.m_P):
-                        plt.semilogy(sp.f(),[abs(fitsp[n][r][c]-sp[n][r][c]) for n in range(len(sp))],label='S'+str(r+1)+str(c+1))
+                for r in range(self.sp.m_P):
+                    for c in range(self.sp.m_P):
+                        plt.semilogy(self.sp.f(),[abs(fitsp[n][r][c]-self.sp[n][r][c]) for n in range(len(self.sp))],label='S'+str(r+1)+str(c+1))
                 plt.legend(loc='upper right')
                 plt.grid(True)
                 plt.show()
-        self.assertTrue(self.SParametersAreEqual(sp, fitsp, 0.001),'RLGC fit did not succeed')
+        self.assertTrue(SpAreEqual,'RLGC fit did not succeed')
     def PrintProgress(self,iteration):
         print self.m_fitter.m_iteration,self.m_fitter.m_mse,self.m_fitter.m_filterOutput
+    def PlotResult(self,iteration):
+        self.PrintProgress(iteration)
+        import matplotlib.pyplot as plt
+        if not self.plotInitialized:
+            plt.gcf()
+            plt.clf()
+            plt.title('s-parameter compare')
+            plt.xlabel('frequency (Hz)')
+            plt.ylabel('amplitude')
+            plt.legend(loc='upper right')
+            plt.grid(True)
+            self.plotInitialized=False
+        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
+        print R
+        fList=self.m_fitter.f
+        Z0=self.m_fitter.Z0
+        fitsp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
+        for r in range(fitsp.m_P):
+            for c in range(fitsp.m_P):
+                plt.semilogy(self.sp.f(),[abs(fitsp[n][r][c]-self.sp[n][r][c]) for n in range(len(fitsp))],label='S'+str(r+1)+str(c+1))
+        plt.show(block=False)
     def testCompareApproxWithEquation(self):
         return
         Z0=50.
