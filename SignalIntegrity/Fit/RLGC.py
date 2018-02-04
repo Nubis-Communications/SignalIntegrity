@@ -85,14 +85,14 @@ class RLGCFitter(LevMar):
             (-e2-r2*e4+1.+r2*e2)/((r2*e2-1)*(r2*e2-1))*dr
                 for (r,r2,r3,r4,e,e2,e3,e4,dg,dr) in
                     zip(self.rho,self.rho2,rho3,rho4,self.eg,
-                        self.e2g,e3g,e4g,dgamma[a],drho[a])]
-                            for a in range(6)]
+                        self.e2g,e3g,e4g,dgammadx,drhodx)]
+                            for (dgammadx,drhodx) in zip(dgamma,drho)]
         dS12=[[(e3*r4-e-e3*r2+e*r2)/((r2*e2-1)*(r2*e2-1))*dg+
             (-2.*e*r+2.*e3*r)/((r2*e2-1)*(r2*e2-1))*dr
                 for (r,r2,r3,r4,e,e2,e3,e4,dg,dr) in
                     zip(self.rho,self.rho2,rho3,rho4,self.eg,
-                        self.e2g,e3g,e4g,dgamma[a],drho[a])]
-                            for a in range(6)]
+                        self.e2g,e3g,e4g,dgammadx,drhodx)]
+                            for (dgammadx,drhodx) in zip(dgamma,drho)]
         dS=[[[[dS11[a][n],dS12[a][n]],[dS12[a][n],dS11[a][n]]]
                 for n in range(len(self.f))]
                     for a in range(6)]
