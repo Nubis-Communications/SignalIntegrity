@@ -25,6 +25,8 @@ class SystemDescription(object):
         self[di][Port-1].A = AName
         self[di][Port-1].B = BName
     def CheckConnections(self):
+        if len(self)==0:
+            raise PySIExceptionSystemDescription('no devices')
         if not all([self[d][p].IsConnected()
             for d in range(len(self)) for p in range(len(self[d]))]):
             raise PySIExceptionSystemDescription('unconnected device ports')
