@@ -1,1 +1,1 @@
-from SubCircuit import *
+from SubCircuit import SubCircuit

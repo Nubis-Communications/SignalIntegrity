@@ -103,20 +103,11 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Tc=math.sqrt((Ls+Lm)*Cs)
         spmodel=si.sp.dev.ApproximateFourPortTLine(
             f,
-                0.0,Ls,Cs,0.0,
-                0.0,Ls,Cs,0.0,
-                Lm,Cm,0.0,50.,10000)
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                Cm,0.0,0.0,Lm,50.,10000)
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.05),self.id()+' result not same')
-        """
-        import matplotlib.pyplot as plt
-        for r in range(4):
-            for c in range(4):
-                y=[20*math.log(abs(sf[n][r][c]+0.001),10) for n in range(len(f))]
-                plt.subplot(4,4,r*4+c+1)
-                plt.plot(f,y)
-        plt.show()
-        """
     def testTline4(self):
         """
         this test checks that a four port transmission line approximated as 10,000
@@ -142,9 +133,9 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Tc=math.sqrt((Ls+Lm)*Cs)
         spmodel=si.sp.dev.ApproximateFourPortTLine(
             f,
-                0.0,Ls,Cs,0.0,
-                0.0,Ls,Cs,0.0,
-                Lm,Cm,0.0,50.,10000)
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                Cm,0.0,0.0,Lm,50.,10000)
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
     def testTline5(self):
@@ -365,6 +356,79 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         #self.CheckSParametersResult(spc3,'mutual3.s4p','assembled mutual not same')
         self.assertTrue(self.SParametersAreEqual(spc1,spc2,1e-6),'Mutual not same')
         self.assertTrue(self.SParametersAreEqual(spc1,spc3,1e-6),'Mutual not same')
+    def testBalancedFourPortTLineSParameters(self):
+        """
+        This test generates symbolically the s-parameters of the balanced four port
+        network with the s-parameters of the even and odd mode transmission lines connected
+        to mixed mode converters
+        """
+        sdp=si.p.SystemDescriptionParser()
+        # Ports 1 2 3 4 are + - D C of mixed mode converter
+        sdp.AddLines(['device L 4 mixedmode','device R 4 mixedmode',
+            'device TE 2','device TO 2',
+            'port 1 L 1','port 2 L 2','port 3 R 1','port 4 R 2',
+            'connect L 3 TO 1','connect R 3 TO 2',
+            'connect L 4 TE 1','connect R 4 TE 2'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
+#        ssps.DocStart()
+        ssps.LaTeXSolution(size='big')
+#        ssps.DocEnd()
+        ssps.Emit()
+        self.CheckSymbolicResult(self.id(), ssps, self.id())
+    def testTline8(self):
+        """
+        this test checks that a four port transmission line approximated as 10,000
+        sections of RLGC sections with 1/10,000th of the supplied series resistance
+        and inductance, shunt capacitance and conductance, and mutual inductance and
+        capacitance is the same the mixed mode model with the differential and common-mode
+        impedance and propagation time corresponding to RLGC.
+        """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
+        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        Ls=58.5e-9
+        Cs=20e-12
+        Lm=13.5e-9
+        Cm=1.11111111111e-12
+        Zd=2.*math.sqrt((Ls-Lm)/(Cs+2.*Cm))
+        Zc=0.5*math.sqrt((Ls+Lm)/Cs)
+        Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
+        Tc=math.sqrt((Ls+Lm)*Cs)
+        spmodel=si.sp.dev.TLineFourPortRLGC(
+            f,
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                Cm,0.0,0.0,Lm,50.,100000)
+        spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
+    def testTline9(self):
+        """
+        this test checks that a four port transmission line approximated as 10,000
+        sections of RLGC sections with 1/10,000th of the supplied series resistance
+        and inductance, shunt capacitance and conductance, and mutual inductance and
+        capacitance is the same the mixed mode model with the differential and common-mode
+        impedance and propagation time corresponding to RLGC.
+        """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        f=[(n+1)*200e6 for n in range(50)]
+        #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
+        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        Ls=58.5e-9
+        Cs=20e-12
+        Lm=13.5e-9
+        Cm=1.11111111111e-12
+        Zd=2.*math.sqrt((Ls-Lm)/(Cs+2.*Cm))
+        Zc=0.5*math.sqrt((Ls+Lm)/Cs)
+        Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
+        Tc=math.sqrt((Ls+Lm)*Cs)
+        spmodel=si.sp.dev.TLineFourPortRLGC(
+            f,
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                0.0,0.0,Ls,0.0,Cs,0.0,
+                Cm,0.0,0.0,Lm,50.,0)
+        spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
+        self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
 
 if __name__ == '__main__':
     unittest.main()

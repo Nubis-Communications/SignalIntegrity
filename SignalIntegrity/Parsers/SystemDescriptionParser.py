@@ -7,11 +7,8 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from SignalIntegrity.SystemDescriptions import SystemDescription
-from Devices.DeviceParser import DeviceParser
 from ParserFile import ParserFile
 from ParserArgs import ParserArgs
-from SignalIntegrity.Helpers.LineSplitter import LineSplitter
 
 class SystemDescriptionParser(ParserFile,ParserArgs):
     def __init__(self,f=None,args=None):
@@ -33,6 +30,10 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
             self.AddLine(line)
         return self
     def _ProcessLine(self,line,exclusionList):
+        # pragma: silent exclude
+        from Devices.DeviceParser import DeviceParser
+        from SignalIntegrity.Helpers.LineSplitter import LineSplitter
+        # pragma: include
         lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: # pragma: no cover
             return
@@ -61,6 +62,9 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                     int(lineList[i*3+1]),self.m_addThru)
         else: self.m_ul.append(line)
     def _ProcessLines(self,exclusionList=[]):
+        # pragma: silent exclude
+        from SignalIntegrity.SystemDescriptions import SystemDescription
+        # pragma: include
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]
         for line in self.m_lines: self._ProcessLine(line,exclusionList)

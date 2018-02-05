@@ -10,13 +10,6 @@
 from numpy import zeros
 import copy
 
-from SignalIntegrity.SParameters import SParameterFile
-from SignalIntegrity.SubCircuits import SubCircuit
-from SignalIntegrity.Devices import *
-from SignalIntegrity.SParameters.Devices import *
-from SignalIntegrity.PySIException import PySIExceptionDeviceParser
-from SignalIntegrity.Measurement.CalKit.Standards import *
-
 class ParserDevice(object):
     def __init__(self,devicename,ports,arginname,defaults,frequencyDependent,func):
         self.devicename=devicename
@@ -83,13 +76,14 @@ class DeviceFactory(object):
                     'z0':50.,'sect':0},True,"TLineTwoPortRLGC(f,\
                     float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
                     float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']))"),
-        ParserDevice('telegrapher',4,False,{'rp':0.,'lp':0.,'cp':0.,'gp':0.,'rn':0.,
-                    'ln':0.,'cn':0.,'gn':0.,'lm':0.,'cm':0.,'gm':0.,'z0':50.,'sect':1},
-                     True,"ApproximateFourPortTLine(f, float(arg['rp']),\
-                     float(arg['lp']),float(arg['cp']),float(arg['gp']),\
-                     float(arg['rn']),float(arg['ln']),float(arg['cn']),\
-                     float(arg['gn']),float(arg['lm']),float(arg['cm']),\
-                     float(arg['gm']),float(arg['z0']),int(arg['sect']))"),
+        ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
+                    'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
+                    'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':1},
+                     True,"TLineFourPortRLGC(f, float(arg['rp']),float(arg['rsep']),\
+                     float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
+                     float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
+                     float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
+                     float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']))"),
         ParserDevice('opamp',3,False,{'zi':1e8,'zd':1e8,'zo':0.,'gain':1e8,'z0':50.},
                      False,"OperationalAmplifier(float(arg['zi']),float(arg['zd']),\
                      float(arg['zo']),float(arg['gain']),float(arg['z0']))"),
@@ -114,6 +108,43 @@ class DeviceFactory(object):
     def __len__(self):
         return len(self.deviceList)
     def MakeDevice(self,ports,argsList,f):
+        # pragma: silent exclude
+        from SignalIntegrity.SParameters import SParameterFile
+        from SignalIntegrity.Devices.CurrentAmplifier import CurrentAmplifier
+        from SignalIntegrity.Devices.CurrentControlledCurrentSource import CurrentControlledCurrentSource
+        from SignalIntegrity.Devices.CurrentControlledVoltageSource import CurrentControlledVoltageSource
+        from SignalIntegrity.Devices.DirectionalCoupler import DirectionalCoupler
+        from SignalIntegrity.Devices.Ground import Ground
+        from SignalIntegrity.Devices.IdealTransformer import IdealTransformer
+        from SignalIntegrity.Devices.MixedModeConverter import MixedModeConverter
+        from SignalIntegrity.Devices.Open import Open
+        from SignalIntegrity.Devices.OperationalAmplifier import OperationalAmplifier
+        from SignalIntegrity.Devices.SeriesZ import SeriesZ
+        from SignalIntegrity.Devices.TerminationZ import TerminationZ
+        from SignalIntegrity.Devices.MixedModeConverter import MixedModeConverterVoltage
+        from SignalIntegrity.Devices.Thru import Thru
+        from SignalIntegrity.Devices.VoltageAmplifier import VoltageAmplifier
+        from SignalIntegrity.Devices.ShuntZ import ShuntZ
+        from SignalIntegrity.Devices.Tee import Tee
+        from SignalIntegrity.Devices.TransconductanceAmplifier import TransconductanceAmplifier
+        from SignalIntegrity.Devices.TransresistanceAmplifier import TransresistanceAmplifier
+        from SignalIntegrity.Devices.VoltageControlledVoltageSource import VoltageControlledVoltageSource
+        from SignalIntegrity.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
+        from SignalIntegrity.SParameters.Devices.Mutual import Mutual
+        from SignalIntegrity.SParameters.Devices.SeriesC import SeriesC
+        from SignalIntegrity.SParameters.Devices.SeriesL import SeriesL
+        from SignalIntegrity.SParameters.Devices.TerminationC import TerminationC
+        from SignalIntegrity.SParameters.Devices.TerminationL import TerminationL
+        from SignalIntegrity.SParameters.Devices.TLineLossless import TLineLossless
+        from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGC import TLineTwoPortRLGC
+        from SignalIntegrity.PySIException import PySIExceptionDeviceParser
+        from SignalIntegrity.Measurement.CalKit.Standards.ShortStandard import ShortStandard
+        from SignalIntegrity.Measurement.CalKit.Standards.OpenStandard import OpenStandard
+        from SignalIntegrity.Measurement.CalKit.Standards.LoadStandard import LoadStandard
+        from SignalIntegrity.Measurement.CalKit.Standards.ThruStandard import ThruStandard
+        from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
+        from SignalIntegrity.SParameters.Devices.TLineFourPortRLGC import TLineFourPortRLGC
+        # pragma: include
         self.dev=None
         argsList=' '.join(argsList).split()
         if len(argsList) == 0:
@@ -174,9 +205,7 @@ class DeviceFactory(object):
                 self.frequencyDependent=device.frequencyDependent
             # pragma: silent exclude indent
             except:
-                #print 'device '+name+' could not be instantiated with arguments: '+' '.join(argsList)
                 try:
-                    f=[0]
                     eval(device.func)
                 except:
                     raise PySIExceptionDeviceParser('device '+name+' could not be instantiated with arguments: '+' '.join(argsList))
@@ -188,6 +217,10 @@ class DeviceFactory(object):
 class DeviceParser():
     deviceFactory=DeviceFactory()
     def __init__(self,f,ports,argsList):
+        # pragma: silent exclude
+        from SignalIntegrity.PySIException import PySIExceptionDeviceParser
+        from SignalIntegrity.SubCircuits.SubCircuit import SubCircuit
+        # pragma: include
         self.m_f=f
         self.m_sp=None
         self.m_spf=None

@@ -9,3 +9,4 @@ from ApproximateTwoPortTline import ApproximateTwoPortTLine
 from TLineTwoPortRLGC import TLineTwoPortRLGC
 from MixedModeTline import MixedModeTLine
 from SeriesRse import SeriesRse
+from TLineFourPortRLGC import TLineFourPortRLGC
