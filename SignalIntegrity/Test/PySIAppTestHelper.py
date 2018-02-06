@@ -126,6 +126,7 @@ class PySIAppTestHelper:
         spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
         sp=result[0]
         self.SParameterRegressionChecker(sp, spfilename)
+        return result
     def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
         result=pysi.Simulate()

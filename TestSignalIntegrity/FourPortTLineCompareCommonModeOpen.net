@@ -1,0 +1,13 @@
+device T1 2 tline zc 50.0 td 1e-10
+device O1 1 open
+device O2 1 open
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+port 1 MM1 1
+port 2 MM2 1
+port 3 MM1 2
+port 4 MM2 2
+connect MM1 3 T1 1
+connect T1 2 MM2 3
+connect MM2 4 O1 1
+connect MM1 4 O2 1
