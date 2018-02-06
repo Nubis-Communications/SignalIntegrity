@@ -4,13 +4,16 @@ import SignalIntegrity as si
 import math
 import os
 from TestHelpers import *
+from SignalIntegrity.Test.PySIAppTestHelper import PySIAppTestHelper
 
-class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,RoutineWriterTesterHelper):
+class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,RoutineWriterTesterHelper,si.test.PySIAppTestHelper):
+    checkPictures=True
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
         ResponseTesterHelper.__init__(self)
         SourcesTesterHelper.__init__(self)
         RoutineWriterTesterHelper.__init__(self)
+        PySIAppTestHelper.__init__(self,os.getcwd())
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):
@@ -423,6 +426,11 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
-
+    def testFourPortTLinePySIApp(self):
+        resultTLineModel=self.SParameterResultsChecker('FourPortTLineCompare.xml')
+        resultTLineXfrmr=self.SParameterResultsChecker('FourPortTLineCompareIdealXfrmr.xml')
+        resultTLineCommonModeOpen=self.SParameterResultsChecker('FourPortTLineCompareCommonModeOpen.xml')
+        self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineXfrmr[0], 1e-5),'four port model not same as ideal transformer model')
+        self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineCommonModeOpen[0], 1e-5),'four port model not same as common mode open model')
 if __name__ == '__main__':
     unittest.main()

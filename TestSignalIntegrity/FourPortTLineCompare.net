@@ -1,0 +1,5 @@
+device T1 4 tline zc 100.0 td 1e-10
+port 1 T1 1
+port 2 T1 2
+port 3 T1 3
+port 4 T1 4
