@@ -302,7 +302,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
         psd=fc.Values('dBmPerHz')
         for p in psd:
-            self.assertAlmostEqual(p, 10.0, 1, 'psd incorrect') 
+            self.assertAlmostEqual(p, 10.0, 1, 'psd incorrect')
+    def testUnevenlySpaced(self):
+        td=si.td.wf.TimeDescriptor(-1e-9,100,1e9)
+        wf=si.td.wf.Waveform(td)
+        wf[2]=1.0
+        fd=si.fd.FrequencyList(td.FrequencyList()[1:])
+        with self.assertRaises(si.PySIExceptionWaveform) as cm:
+            fc=wf.FrequencyContent(fd)
+        self.assertEqual(cm.exception.parameter,'Waveform')
 
 if __name__ == '__main__':
     unittest.main()

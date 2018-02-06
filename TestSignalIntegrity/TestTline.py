@@ -407,6 +407,27 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         className=''
         defName=['TLineTwoPort']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineFourPortDev(self):
+        fileName="../SignalIntegrity/Devices/TLineFourPort.py"
+        className=''
+        defName=['TLineFourPort']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineTwoPortRLGC(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineTwoPortRLGC.py"
+        className='TLineTwoPortRLGC'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineTwoPortRLGCApproximate(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineTwoPortRLGCApproximate.py"
+        className='TLineTwoPortRLGCApproximate'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
     def testWriteTLineDifferentialRLGC(self):
         fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGC.py"
         className='TLineDifferentialRLGC'
@@ -415,7 +436,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
-    def testWriteApproximateDifferentialTLineRLGC(self):
+    def testWriteTLineDifferentialRLGCApproximate(self):
         fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCApproximate.py"
         className='TLineDifferentialRLGCApproximate'
         firstDef='__init__'

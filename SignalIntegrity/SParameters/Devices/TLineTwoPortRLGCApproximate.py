@@ -14,30 +14,22 @@ class TLineTwoPortRLGCApproximate(SParameters):
         self.m_K=K
         # pragma: silent exclude
         from SignalIntegrity.Devices import SeriesZ
-        from SignalIntegrity.Devices import SeriesG
-        from SignalIntegrity.Devices import Ground
-        import SignalIntegrity.SParameters.Devices as dev
+        from SignalIntegrity.Devices import TerminationG
+        from SignalIntegrity.SParameters.Devices.TerminationC import TerminationC
+        from SignalIntegrity.SParameters.Devices.SeriesL import SeriesL
+        from SignalIntegrity.SParameters.Devices.SeriesRse import SeriesRse
         from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
+        from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include
-        self.m_sspn=SystemSParametersNumeric()
-        self.m_spdl=[]
-        self.m_sspn.AddDevice('R',2,SeriesZ(R/K,Z0))
-        self.m_sspn.AddDevice('Rse',2)
-        self.m_spdl.append(('Rse',dev.SeriesRse(f,Rse/K,Z0)))
-        self.m_sspn.AddDevice('L',2),
-        self.m_spdl.append(('L',dev.SeriesL(f,L/K,Z0)))
-        self.m_sspn.AddDevice('C',2),
-        self.m_spdl.append(('C',dev.SeriesC(f,C/K,Z0,df)))
-        self.m_sspn.AddDevice('GD',1,Ground())
-        self.m_sspn.AddDevice('G',2,SeriesG(G/K,Z0))
-        self.m_sspn.AddPort('R',1,1)
-        self.m_sspn.ConnectDevicePort('R',2,'Rse',1)
-        self.m_sspn.ConnectDevicePort('Rse',2,'L',1)
-        self.m_sspn.ConnectDevicePort('L',2,'G',1)
-        self.m_sspn.ConnectDevicePort('G',1,'C',1)
-        self.m_sspn.ConnectDevicePort('C',2,'GD',1)
-        self.m_sspn.ConnectDevicePort('G',2,'GD',1)
-        self.m_sspn.AddPort('G',1,2)
+        sdp=SystemDescriptionParser().AddLines(['device R 2','device Rse 2',
+        'device L 2','device C 1','device G 1','connect R 2 Rse 1',
+        'connect Rse 2 L 1','connect L 2 G 1 C 1','port 1 R 1 2 G 1'])
+        self.m_sspn=SystemSParametersNumeric(sdp.SystemDescription())
+        self.m_sspn.AssignSParameters('R',SeriesZ(R/K,Z0))
+        self.m_sspn.AssignSParameters('G',TerminationG(G/K,Z0))
+        self.m_spdl=[('Rse',SeriesRse(f,Rse/K,Z0)),
+                     ('L',SeriesL(f,L/K,Z0)),
+                     ('C',TerminationC(f,C/K,Z0,df))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         # pragma: silent exclude

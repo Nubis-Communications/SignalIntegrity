@@ -1,15 +1,3 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-import cmath
-import math
-
 def TLineFourPort(Zc,gamma,Z0):
     """       +-----------------------+
              / \                       \
@@ -23,11 +11,6 @@ def TLineFourPort(Zc,gamma,Z0):
     ports 3 and 4 are the outer conductor"""
     p=(Zc-Z0)/(Zc+Z0)
     a=(1.-3.*p)/(p-3.)
-    # pragma: silent exclude
-#     this calculation for a is the same as:
-#     a=(Zc-2.*Z0)/(Zc+2.*Z0) or
-#     a=(Zc/2.-Z0)/(Zc/2.+Z0)
-    # pragma: include
     Y=cmath.exp(-gamma)
     D=2.*(1-Y*Y*a*a)
     S1=(1.-Y*Y*a*a+a*(1.-Y*Y))/D
