@@ -11,7 +11,7 @@ class DeviceFactory(object):
         ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
             'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
             'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':1},
-            True,"TLineFourPortRLGC(f, float(arg['rp']),float(arg['rsep']),\
+            True,"TLineDifferentialRLGC(f, float(arg['rp']),float(arg['rsep']),\
             float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\

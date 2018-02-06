@@ -23,8 +23,10 @@ class TLineTwoPortRLGC(SParameters):
             self.C=C
             self.df=df
         else:
-            import SignalIntegrity.SParameters.Devices as dev
-            self.m_approx=dev.ApproximateTwoPortTline.ApproximateTwoPortTLine(f,R,Rse,L,G,C,df,Z0,K)
+            # pragma: silent exclude
+            from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
+            # pragma: include
+            self.m_approx=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         if self.m_K==0:

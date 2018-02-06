@@ -4,9 +4,9 @@ from TerminationC import TerminationC
 from TerminationL import TerminationL
 from TLineLossless import TLineLossless
 from Mutual import Mutual
-from ApproximateFourPortTline import ApproximateFourPortTLine
-from ApproximateTwoPortTline import ApproximateTwoPortTLine
+from TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
 from TLineTwoPortRLGC import TLineTwoPortRLGC
 from MixedModeTline import MixedModeTLine
 from SeriesRse import SeriesRse
-from TLineFourPortRLGC import TLineFourPortRLGC
+from TLineDifferentialRLGC import TLineDifferentialRLGC
+from TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate

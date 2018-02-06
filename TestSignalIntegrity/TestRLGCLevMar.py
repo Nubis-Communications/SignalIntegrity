@@ -89,7 +89,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         Z0=50.
         (R,L,G,C,Rse,df)=[0.,114.241e-9,0,43.922e-12,80e-6,100e-6]
         fList=si.fd.EvenlySpacedFrequencyList(40e9,2000)
-        model1=si.sp.dev.ApproximateTwoPortTLine(fList, R, Rse, L, G, C, df, Z0, 100000)
+        model1=si.sp.dev.TLineTwoPortRLGCApproximate(fList, R, Rse, L, G, C, df, Z0, 100000)
         seriesZ=[Rse*math.sqrt(f)+1j*2.*math.pi*f*L for f in fList]
         shuntY=[G+2.*math.pi*f*C*(1j+df) for f in fList]
         gamma=[cmath.sqrt(z*y) for (z,y) in zip(seriesZ,shuntY)]

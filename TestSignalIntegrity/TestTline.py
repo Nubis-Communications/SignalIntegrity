@@ -5,32 +5,14 @@ import math
 import os
 from TestHelpers import *
 
-class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
+class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,RoutineWriterTesterHelper):
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
+        ResponseTesterHelper.__init__(self)
+        SourcesTesterHelper.__init__(self)
+        RoutineWriterTesterHelper.__init__(self)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
-    def testTline(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        f=[(n+1)*20e6 for n in range(100)]
-        #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
-        SP=si.dev.ApproximateFourPortTLine(
-            f,
-                10.,5.85e-8,2e-11,0.01,
-                10.,5.85e-8,2e-11,0.01,
-                1.35e-8,1.111e-12,1e-30,50,100)
-        sf=si.sp.SParameters(f,SP)
-        fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
-        if not os.path.exists(fileName):
-            sf.WriteToFile(fileName)
-            self.assertTrue(False,fileName + 'does not exist')
-        regression = si.sp.SParameterFile(fileName,50.)
-        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same: '+str(fileName))
-        import matplotlib.pyplot as plt
-##        for r in range(4):
-##            for c in range(4):
-##                y=[20*math.log(abs(SP[n][r][c]),10) for n in range(len(f))]
-##                plt.subplot(4,4,r*4+c+1)
-##                plt.plot(f,y)
-##        plt.show()
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):
         sspp=si.p.SystemSParametersNumericParser(f)
         sspp.AddLines(['device D1 4 tline zc 50. td 1.e-9',
@@ -52,33 +34,6 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
             'connect D4 4 G 1'
             ])
         return sspp.SParameters()
-    def testTline2(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        f=[(n+1)*20e6 for n in range(100)]
-        #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
-        SP=si.dev.ApproximateFourPortTLine(
-            f,
-                0.00001,5.85e-8,2e-11,0.00001,
-                0.00001,5.85e-8,2e-11,0.00001,
-                1.35e-8,1.111e-12,0.00001,50,1000)
-        sf=si.sp.SParameters(f,SP)
-        #sf=self.FourPortTLineModel(f,50.,1.e-9,50.,1.e-9)
-        #sf=si.sp.SParameters(f,[si.p.dev.Tlinef(f,4,50.,1.e-9).SParameters(n) for n in range(len(f))])
-        fileName='_'.join(self.id().split('.'))+'.s'+str(sf.m_P)+'p'
-        if not os.path.exists(fileName):
-            sf.WriteToFile(fileName)
-            self.assertTrue(False,fileName + 'does not exist')
-        regression = si.sp.SParameterFile(fileName,50.)
-        self.assertTrue(self.SParametersAreEqual(sf,regression,0.001),self.id()+'result not same: '+str(fileName))
-        """
-        import matplotlib.pyplot as plt
-        for r in range(4):
-            for c in range(4):
-                y=[20*math.log(abs(sf[n][r][c]+0.001),10) for n in range(len(f))]
-                plt.subplot(4,4,r*4+c+1)
-                plt.plot(f,y)
-        plt.show()
-        """
     def testTline3(self):
         """
         this test checks that a four port transmission line approximated as 10,000
@@ -101,7 +56,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Zc=0.5*math.sqrt((Ls+Lm)/Cs)
         Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
         Tc=math.sqrt((Ls+Lm)*Cs)
-        spmodel=si.sp.dev.ApproximateFourPortTLine(
+        spmodel=si.sp.dev.TLineDifferentialRLGCApproximate(
             f,
                 0.0,0.0,Ls,0.0,Cs,0.0,
                 0.0,0.0,Ls,0.0,Cs,0.0,
@@ -131,7 +86,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Zc=0.5*math.sqrt((Ls+Lm)/Cs)
         Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
         Tc=math.sqrt((Ls+Lm)*Cs)
-        spmodel=si.sp.dev.ApproximateFourPortTLine(
+        spmodel=si.sp.dev.TLineDifferentialRLGCApproximate(
             f,
                 0.0,0.0,Ls,0.0,Cs,0.0,
                 0.0,0.0,Ls,0.0,Cs,0.0,
@@ -395,7 +350,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Zc=0.5*math.sqrt((Ls+Lm)/Cs)
         Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
         Tc=math.sqrt((Ls+Lm)*Cs)
-        spmodel=si.sp.dev.TLineFourPortRLGC(
+        spmodel=si.sp.dev.TLineDifferentialRLGC(
             f,
                 0.0,0.0,Ls,0.0,Cs,0.0,
                 0.0,0.0,Ls,0.0,Cs,0.0,
@@ -422,13 +377,52 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper):
         Zc=0.5*math.sqrt((Ls+Lm)/Cs)
         Td=math.sqrt((Ls-Lm)*(Cs+2.*Cm))
         Tc=math.sqrt((Ls+Lm)*Cs)
-        spmodel=si.sp.dev.TLineFourPortRLGC(
+        spmodel=si.sp.dev.TLineDifferentialRLGC(
             f,
                 0.0,0.0,Ls,0.0,Cs,0.0,
                 0.0,0.0,Ls,0.0,Cs,0.0,
                 Cm,0.0,0.0,Lm,50.,0)
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
+    def testWriteTLineLosslessSp(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineLossless.py"
+        className='TLineLossless'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineTwoPortLosslessDev(self):
+        fileName="../SignalIntegrity/Devices/TLineTwoPortLossless.py"
+        className=''
+        defName=['TLineTwoPortLossless']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineFourPortLosslessDev(self):
+        fileName="../SignalIntegrity/Devices/TLineFourPortLossless.py"
+        className=''
+        defName=['TLineFourPortLossless']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineTwoPortDev(self):
+        fileName="../SignalIntegrity/Devices/TLineTwoPort.py"
+        className=''
+        defName=['TLineTwoPort']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineDifferentialRLGC(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGC.py"
+        className='TLineDifferentialRLGC'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteApproximateDifferentialTLineRLGC(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCApproximate.py"
+        className='TLineDifferentialRLGCApproximate'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == '__main__':
     unittest.main()

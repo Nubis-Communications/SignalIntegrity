@@ -13,6 +13,7 @@ class DeviceFactory(object):
         ParserDevice('l',2,True,{'':None},True,"SeriesL(f,float(arg['']))"),
         ParserDevice('r',1,True,{'':None},False,"TerminationZ(float(arg['']))"),
         ParserDevice('r',2,True,{'':None},False,"SeriesZ(float(arg['']))"),
+        ParserDevice('rse',2,True,{'':None},False,"SeriesRse(float(arg['']))"),
         ParserDevice('shunt','2-4',True,{'':None},False,
             "ShuntZ(ports,float(arg['']))"),
         ParserDevice('m',4,True,{'':None},True,"Mutual(f,float(arg['']))"),

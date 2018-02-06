@@ -11,17 +11,17 @@ import math,cmath
 
 from SignalIntegrity.SParameters.SParameters import SParameters
 
-class TLineFourPortRLGC(SParameters):
+class TLineDifferentialRLGC(SParameters):
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
                          Cm, dfm, Gm, Lm, Z0, K=0):
         # pragma: silent exclude
         from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
-        from SignalIntegrity.SParameters.Devices.ApproximateFourPortTline import ApproximateFourPortTLine
+        from SignalIntegrity.SParameters.Devices.TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
         # pragma: include
         self.m_K=K
-        balanced = Rp==Rn and Rsep==Rsen and Lp==Ln and Gp==Gn and Cp==Cn
-        if K==0 and balanced:
+        self.balanced = Rp==Rn and Rsep==Rsen and Lp==Ln and Gp==Gn and Cp==Cn
+        if K==0 and self.balanced:
             self.Rp=Rp;     self.Rn=Rn
             self.Rsep=Rsep; self.Rsen=Rsen
             self.Lp=Lp;     self.Ln=Ln
@@ -43,7 +43,7 @@ class TLineFourPortRLGC(SParameters):
                           'connect R 4 TE 2'])
             self.sd=sdp.SystemDescription()
         else:
-            self.m_approx=ApproximateFourPortTLine(f,
+            self.m_approx=TLineDifferentialRLGCApproximate(f,
                     Rp, Rsep, Lp, Gp, Cp, dfp,
                     Rn, Rsen, Ln, Gn, Cn, dfn,
                     Cm, dfm, Gm, Lm, Z0, K)
@@ -53,7 +53,7 @@ class TLineFourPortRLGC(SParameters):
         from SignalIntegrity.Devices.TLineTwoPort import TLineTwoPort
         from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
         # pragma: include
-        if self.m_K==0:
+        if self.m_K==0 and self.balanced:
             f=self.m_f[n]
             Ze=self.Rp+self.Rsep*math.sqrt(f)+1j*2*math.pi*f*(self.Lp+self.Lm)
             Ye=self.Gp+2.*math.pi*f*self.Cp*(1j+self.dfp)
