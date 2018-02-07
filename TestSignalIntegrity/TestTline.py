@@ -431,6 +431,14 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineTwoPortRLGCAnalytic(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineTwoPortRLGCAnalytic.py"
+        className='TLineTwoPortRLGCAnalytic'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
     def testWriteTLineDifferentialRLGC(self):
         fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGC.py"
         className='TLineDifferentialRLGC'
@@ -442,6 +450,22 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
     def testWriteTLineDifferentialRLGCApproximate(self):
         fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCApproximate.py"
         className='TLineDifferentialRLGCApproximate'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineDifferentialRLGCUncoupled(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCUncoupled.py"
+        className='TLineDifferentialRLGCUncoupled'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTLineDifferentialRLGCBalanced(self):
+        fileName="../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCBalanced.py"
+        className='TLineDifferentialRLGCBalanced'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)

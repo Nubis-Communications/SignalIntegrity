@@ -13,30 +13,17 @@ from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.Devices.TLineTwoPort import TLineTwoPort
 
 class TLineTwoPortRLGC(SParameters):
-    def __init__(self,f, R, Rse, L, G, C, df, Z0, K=0):
-        self.m_K=K
+    def __init__(self,f,R,Rse,L,G,C,df,Z0,K=0):
         if K==0:
-            self.R=R
-            self.Rse=Rse
-            self.L=L
-            self.G=G
-            self.C=C
-            self.df=df
+            # pragma: silent exclude
+            from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCAnalytic import TLineTwoPortRLGCAnalytic
+            # pragma: include
+            self.sp=TLineTwoPortRLGCAnalytic(f,R,Rse,L,G,C,df,Z0)
         else:
             # pragma: silent exclude
             from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
             # pragma: include
-            self.m_approx=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K)
+            self.sp=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
-        if self.m_K==0:
-            f=self.m_f[n]
-            Z=self.R+self.Rse*math.sqrt(f)+1j*2*math.pi*f*self.L
-            Y=self.G+2.*math.pi*f*self.C*(1j+self.df)
-            try:
-                Zc=cmath.sqrt(Z/Y)
-            except:
-                Zc=self.m_Z0
-            gamma=cmath.sqrt(Z*Y)
-            return TLineTwoPort(Zc,gamma,self.m_Z0)
-        else: return self.m_approx[n]
+        return self.sp[n]
