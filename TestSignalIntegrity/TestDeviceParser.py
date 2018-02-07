@@ -20,7 +20,7 @@ class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
         unittest.TestCase.__init__(self,methodName)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
-    def Tester(self,idName,deviceName,ports,**args):
+    def Tester(self,idName,deviceName,ports,pr=None,**args):
         fileNameBase='TestDeviceParser_'+self.id().split('.')[2]
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         spFileName = fileNameBase +'.s'+str(ports)+'p'
@@ -38,6 +38,8 @@ class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
             lines.append('port '+str(p+1)+' D '+str(p+1))
         ssnp.AddLines(lines)
         sp=ssnp.SParameters()
+        if not pr is None:
+            sp.PortReorder(pr)
         self.CheckSParametersResult(sp,spFileName,spFileName+' incorrect')
     def testFile(self):
         self.Tester(self.id(),'file',2,default='filter.s2p')
@@ -374,9 +376,9 @@ class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
     def testTelegrapher2LC(self):
         self.Tester(self.id(),'telegrapher',2,c='20e-12',l='50e-9',sect='10000')
     def testTelegrapher4Default(self):
-        self.Tester(self.id(),'telegrapher',4)
+        self.Tester(self.id(),'telegrapher',4,[1,3,2,4])
     def testTelegrapher4LC(self):
-        self.Tester(self.id(),'telegrapher',4,lp='58.5e-9',cp='20e-12',ln='58.5e-9',cn='20e-12',lm='13.5e-9',cm='1.111e-12',sect='10000')
+        self.Tester(self.id(),'telegrapher',4,[1,3,2,4],lp='58.5e-9',cp='20e-12',ln='58.5e-9',cn='20e-12',lm='13.5e-9',cm='1.111e-12',sect='10000')
     def testDirectionalCoupler3(self):
         self.Tester(self.id(),'directionalcoupler',3)
     def testDirectionalCoupler4(self):

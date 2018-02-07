@@ -30,8 +30,8 @@ class MixedModeTLine(SParameters):
         self.m_sspn.ConnectDevicePort('MM1',4,'C',1)
         self.m_sspn.ConnectDevicePort('MM2',4,'C',2)
         self.m_sspn.AddPort('MM1',1,1)
-        self.m_sspn.AddPort('MM2',1,2)
-        self.m_sspn.AddPort('MM1',2,3)
+        self.m_sspn.AddPort('MM1',2,2)
+        self.m_sspn.AddPort('MM2',1,3)
         self.m_sspn.AddPort('MM2',2,4)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):

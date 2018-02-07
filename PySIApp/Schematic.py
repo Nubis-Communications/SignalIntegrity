@@ -42,6 +42,12 @@ class Schematic(object):
                     except NameError: # part picture doesn't exist
                         returnedDevice=None
                     if not returnedDevice is None:
+                        # hack to fix port numbering of old four port transmission lines
+                        from Device import DeviceTelegrapherFourPort
+                        if isinstance(returnedDevice,DeviceTelegrapherFourPort):
+                            if returnedDevice.partPicture.current.pinList[1].pinNumber==3:
+                                returnedDevice.partPicture.current.pinList[1].pinNumber=2
+                                returnedDevice.partPicture.current.pinList[2].pinNumber=3
                         self.deviceList.append(returnedDevice)
             elif child.tag == 'wires':
                 self.wireList.InitFromXml(child)

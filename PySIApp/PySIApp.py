@@ -766,7 +766,7 @@ class PySIApp(Frame):
         else:
             self.Drawing.stateMachine.NoProject(True)
         self.config(cursor='left_ptr')
-        
+
     def onAbout(self):
         AboutDialog(self)
 

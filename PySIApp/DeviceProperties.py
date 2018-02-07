@@ -36,7 +36,7 @@ class DeviceProperty(Frame):
         propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
         keywordVisibleCheckBox = Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
         keywordVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
-        propertyLabel = Label(self,width=25,text=self.partProperty.description+': ',anchor='e')
+        propertyLabel = Label(self,width=35,text=self.partProperty.description+': ',anchor='e')
         propertyLabel.pack(side=LEFT, expand=NO, fill=X)
         self.propertyEntry = Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)

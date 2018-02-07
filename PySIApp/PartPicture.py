@@ -374,6 +374,23 @@ class PartPicture(object):
         canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
         p=[ct.Translate((lx,my+grid/2)),ct.Translate((rx-grid/4,my+grid/2))]
         canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+    def DrawDifferentialTransmissionLine(self,canvas,grid,drawingOrigin):
+        my=(drawingOrigin[1]+self.origin[1])*grid+grid+grid/2
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # the oval at the front of the line
+        p=[ct.Translate((lx-grid/4,my-grid/2-grid/2)),ct.Translate((lx+grid/4,my+grid/2+grid/2))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],outline=self.color)
+        # the arc at the back of the line
+        p=[ct.Translate((rx-grid/2,my-grid/2-grid/2)),ct.Translate((rx,my+grid/2+grid/2))]
+        r=self.ArcConverter(-90, 180, int(ct.rotationAngle), ct.mirroredVertically, ct.mirroredHorizontally)
+        canvas.create_arc(p[0][0],p[0][1],p[1][0],p[1][1],start=r[0],extent=r[1],style='arc',outline=self.color)
+        # the lines connecting the ovals
+        p=[ct.Translate((lx,my-grid/2-grid/2)),ct.Translate((rx-grid/4,my-grid/2-grid/2))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        p=[ct.Translate((lx,my+grid/2+grid/2)),ct.Translate((rx-grid/4,my+grid/2+grid/2))]
+        canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
     def DrawCharacterInMiddle(self,canvas,grid,drawingOrigin,c):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         lx=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid
@@ -1499,6 +1516,17 @@ class PartPictureTransmissionLineFourPort(PartPicture):
 class PartPictureVariableTransmissionLineFourPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureTransmissionLineFourPort'],4)
+
+class PartPictureTransmissionLineDifferential(PartPicture):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(0,2),'l',False,True,True),PartPin(3,(4,1),'r',False,True,True),PartPin(4,(4,2),'r',False,True,True)],[(1.0,0.5),(3.0,1.5)],[(0,0),(4,3)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawDifferentialTransmissionLine(canvas,grid,drawingOrigin)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableTransmissionLineDifferential(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureTransmissionLineDifferential'],4)
 
 class PartPictureStim(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

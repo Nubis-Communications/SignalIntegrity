@@ -34,7 +34,7 @@ class TLineDifferentialRLGCApproximate(SParameters):
          'connect rn 2 rsen 1','connect rsen 2 ln 1',
          'connect lp 2 lm 1','connect ln 2 lm 3',
          'connect lm 2 gp 1 cp 1 gm 1 cm 1','connect lm 4 gn 1 cn 1 gm 2 cm 2',
-         'port 1 rp 1 2 lm 2 3 rn 1 4 lm 4'])
+         'port 1 rp 1 2 rn 1 3 lm 2 4 lm 4'])
         self.m_sspn=SystemSParametersNumeric(sdp.SystemDescription())
         self.m_sspn.AssignSParameters('rp',SeriesZ(Rp/K,Z0))
         self.m_sspn.AssignSParameters('gp',TerminationG(Gp/K,Z0))
@@ -52,5 +52,5 @@ class TLineDifferentialRLGCApproximate(SParameters):
             self.m_sspn.AssignSParameters(ds[0],ds[1][n])
         sp=self.m_sspn.SParameters()
         if sp == 1: return sp
-        lp=[1,3]; rp=[2,4]
+        lp=[1,2]; rp=[3,4]
         return T2S(linalg.matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)

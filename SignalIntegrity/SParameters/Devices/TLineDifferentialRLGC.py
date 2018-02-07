@@ -11,6 +11,9 @@ import math,cmath
 
 from SignalIntegrity.SParameters.SParameters import SParameters
 
+"""
+    ports are 1,2,3,4 is +1,-1, +2, -2
+"""
 class TLineDifferentialRLGC(SParameters):
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
@@ -35,8 +38,7 @@ class TLineDifferentialRLGC(SParameters):
             sdp.AddLines(['device L 4 mixedmode',
                           'device R 4 mixedmode',
                           'device TE 2','device TO 2',
-                          'port 1 L 1','port 2 R 1',
-                          'port 3 L 2','port 4 R 2',
+                          'port 1 L 1 2 L 2 3 R 1 4 R 2',
                           'connect L 3 TO 1',
                           'connect R 3 TO 2',
                           'connect L 4 TE 1',

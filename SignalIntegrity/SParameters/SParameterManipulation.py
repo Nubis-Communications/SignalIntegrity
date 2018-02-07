@@ -76,3 +76,10 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+    def PortReorder(self,pr):
+        pr=[p-1 for p in pr] # convert to 1 based indices
+        self.m_d=[[[self.m_d[n][pr[r]][pr[c]]
+                for c in range(len(pr))]
+                    for r in range(len(pr))]
+                        for n in range(len(self.m_d))]
+        return self
