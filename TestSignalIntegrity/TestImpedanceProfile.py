@@ -556,7 +556,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         sp=self.AssembleNastyLineOpen(Zc,Td)
 
         si.td.wf.Waveform.adaptionStrategy='Linear'
-
+        si.td.f.RaisedCosineFilter(1).Print()
         wfExact=si.ip.ImpedanceProfileWaveform(sp,includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)
         wfEstimated=si.ip.ImpedanceProfileWaveform(sp,method='estimated',includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)
         wfApprox=si.ip.ImpedanceProfileWaveform(sp,method='approximate',includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)

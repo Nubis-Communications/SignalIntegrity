@@ -13,7 +13,7 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         ResponseTesterHelper.__init__(self)
         SourcesTesterHelper.__init__(self)
         RoutineWriterTesterHelper.__init__(self)
-        PySIAppTestHelper.__init__(self,os.getcwd())
+        PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):
@@ -453,5 +453,19 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         resultTLineCommonModeOpen=self.SParameterResultsChecker('FourPortTLineCompareCommonModeOpen.xml')
         self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineXfrmr[0], 1e-5),'four port model not same as ideal transformer model')
         self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineCommonModeOpen[0], 1e-5),'four port model not same as common mode open model')
+    def testWriteRseSp(self):
+        fileName="../SignalIntegrity/SParameters/Devices/SeriesRse.py"
+        className='SeriesRse'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteRse(self):
+        fileName="../SignalIntegrity/Devices/SeriesRse.py"
+        className=''
+        defName=['SeriesRse']
+        self.WriteClassCode(fileName,className,defName)
+
 if __name__ == '__main__':
     unittest.main()
