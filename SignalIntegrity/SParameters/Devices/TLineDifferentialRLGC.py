@@ -9,10 +9,12 @@
 '''
 from SignalIntegrity.SParameters.SParameters import SParameters
 
+import math
 """
     ports are 1,2,3,4 is +1,-1, +2, -2
 """
 class TLineDifferentialRLGC(SParameters):
+    rtFraction=.01
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
                          Cm, dfm, Gm, Lm, Z0, K=0):
@@ -22,6 +24,13 @@ class TLineDifferentialRLGC(SParameters):
             # pragma: silent exclude
             from SignalIntegrity.SParameters.Devices.TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
             # pragma: include
+            if K==0:
+                # max possible electrical length
+                Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm))
+                Rt=0.45/f[-1] # fastest risetime
+                # sections such that fraction of risetime less than round trip
+                # electrical length of one section
+                K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
             self.sp=TLineDifferentialRLGCApproximate(f,
                         Rp, Rsep, Lp, Gp, Cp, dfp,
                         Rn, Rsen, Ln, Gn, Cn, dfn,
