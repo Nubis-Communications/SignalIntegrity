@@ -37,8 +37,6 @@ class TLineTwoPortRLGCApproximate(SParameters):
         from SignalIntegrity.Conversions import S2T
         from SignalIntegrity.Conversions import T2S
         # pragma: include
-        for ds in self.m_spdl:
-            self.m_sspn.AssignSParameters(ds[0],ds[1][n])
+        for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
         sp=self.m_sspn.SParameters()
-        if sp == 1: return sp
         return T2S(linalg.matrix_power(S2T(sp),self.m_K))

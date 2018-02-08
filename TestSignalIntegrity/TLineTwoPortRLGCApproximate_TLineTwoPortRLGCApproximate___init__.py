@@ -12,8 +12,6 @@ class TLineTwoPortRLGCApproximate(SParameters):
                      ('C',TerminationC(f,C/K,Z0,df))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
-        for ds in self.m_spdl:
-            self.m_sspn.AssignSParameters(ds[0],ds[1][n])
+        for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
         sp=self.m_sspn.SParameters()
-        if sp == 1: return sp
         return T2S(linalg.matrix_power(S2T(sp),self.m_K))

@@ -14,16 +14,12 @@ from SignalIntegrity.Devices.TLineTwoPort import TLineTwoPort
 
 class TLineTwoPortRLGC(SParameters):
     def __init__(self,f,R,Rse,L,G,C,df,Z0,K=0):
-        if K==0:
-            # pragma: silent exclude
-            from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCAnalytic import TLineTwoPortRLGCAnalytic
-            # pragma: include
-            self.sp=TLineTwoPortRLGCAnalytic(f,R,Rse,L,G,C,df,Z0)
-        else:
-            # pragma: silent exclude
-            from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
-            # pragma: include
-            self.sp=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K)
+        # pragma: silent exclude
+        from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCAnalytic import TLineTwoPortRLGCAnalytic
+        from SignalIntegrity.SParameters.Devices.TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
+        # pragma: include
+        if K==0: self.sp=TLineTwoPortRLGCAnalytic(f,R,Rse,L,G,C,df,Z0)
+        else: self.sp=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         return self.sp[n]
