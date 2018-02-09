@@ -1855,8 +1855,6 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
         self.WriteClassCode(fileName,className,defName)
         defName=['ReadFromFile']
         self.WriteClassCode(fileName,className,defName)
-        defName=['WriteToFile']
-        self.WriteClassCode(fileName,className,defName)
     def testWriteOffsetCode(self):
         fileName="../SignalIntegrity/Measurement/CalKit/Standards/Offset.py"
         className='Offset'

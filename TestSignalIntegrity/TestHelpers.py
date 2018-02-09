@@ -127,6 +127,8 @@ class SourcesTesterHelper(object):
         self.assertTrue(regression == comparison,Text + ' incorrect with ' + fileName)
 
 class RoutineWriterTesterHelper(object):
+    maxNumLines=67
+    maxLineLength=88
     def __init__(self, methodName='runTest'):
         self.standardHeader = ['import SignalIntegrity as si\n','\n']
     def CheckRoutineWriterResult(self,fileName,sourceCode,Text):
@@ -309,6 +311,8 @@ class RoutineWriterTesterHelper(object):
         with open(outputFileName, 'rU') as regressionFile:
             regression = regressionFile.readlines()
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
+        self.assertTrue(max([len(line) for line in regression])<=self.maxLineLength,outputFileName + ' has line that is too long')
+        self.assertTrue(len(regression)<=self.maxNumLines,outputFileName + ' has too many lines')
         if lineDefs:
             if not os.path.exists(lineDefFileName):
                 with open(lineDefFileName, 'w') as outputFile:
