@@ -186,7 +186,22 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         className='RLGCFitter'
         defName=['fJ']
         self.WriteClassCode(fileName,className,defName)
-
+    def testWriteLevMarInit(self):
+        fileName="../SignalIntegrity/Fit/LevMar.py"
+        className='LevMar'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        allfuncs.remove('Iterate')
+        allfuncs.remove('TestConvergence')
+        allfuncs.remove('Solve')
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteLevMarSolve(self):
+        fileName="../SignalIntegrity/Fit/LevMar.py"
+        className='LevMar'
+        defName=['Solve','Iterate','TestConvergence']
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
