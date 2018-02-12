@@ -1,0 +1,39 @@
+device R1 2 R 40.0
+device T1 2 tline zc 55.0 td 1e-10
+device R2 1 R 65.0
+device Is 4 currentcontrolledvoltagesource 1.0
+device Il 4 currentcontrolledvoltagesource 1.0
+voltagesource VG1 1
+device D1 4 directionalcoupler
+device D2 4 directionalcoupler
+device R3 1 R 50.0
+device R4 1 R 50.0
+device R5 1 R 50.0
+device R6 1 R 50.0
+connect R1 1 VG1 1
+output R1 2
+connect R1 2 D1 1
+connect T1 1 Is 2
+connect D2 1 T1 2
+output R2 1
+connect R2 1 Il 2
+connect D1 2 Is 1
+connect D2 2 Il 1
+output R3 1
+connect R3 1 D1 3
+output R4 1
+connect R4 1 D1 4
+output D2 3
+connect D2 3 R5 1
+output D2 4
+connect D2 4 R6 1
+device Is_2 1 ground
+device Is_3 1 open
+connect Is 3 Is_2 1
+connect Is 4 Is_3 1
+output Is 4
+device Il_2 1 ground
+device Il_3 1 open
+connect Il 3 Il_2 1
+connect Il 4 Il_3 1
+output Il 4

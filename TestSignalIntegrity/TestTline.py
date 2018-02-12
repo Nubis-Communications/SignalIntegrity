@@ -6,7 +6,9 @@ import os
 from TestHelpers import *
 from SignalIntegrity.Test.PySIAppTestHelper import PySIAppTestHelper
 
-class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,RoutineWriterTesterHelper,si.test.PySIAppTestHelper):
+class TestTline(unittest.TestCase,ResponseTesterHelper,
+                SourcesTesterHelper,RoutineWriterTesterHelper,
+                si.test.PySIAppTestHelper):
     checkPictures=True
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
@@ -490,6 +492,67 @@ class TestTline(unittest.TestCase,ResponseTesterHelper,SourcesTesterHelper,Routi
         className=''
         defName=['SeriesRse']
         self.WriteClassCode(fileName,className,defName)
+    def testTransmissionLineSimulation(self):
+        (sourceNames,outputNames,transferMatrices,outputWaveforms)=self.SimulationResultsChecker('TransmissionLineSimulation')
+        wfdict={name:wf for (name,wf) in zip(outputNames,outputWaveforms)}
+        V=1.
+        Zs=40.
+        Zl=65.
+        Zc=55.
+        Z0=50.
+        K0=math.sqrt(Z0)
+        Kc=math.sqrt(Zc)
+        td=wfdict['Vs'].TimeDescriptor()
+        # Test our understanding of the definition of waves in the Z0 reference impedance
+        wfdict['Fsexp']=si.td.wf.Waveform(td,[1/2./K0*(v+i*Z0) for (v,i) in zip(wfdict['Vs'].Values(),wfdict['Is'].Values())])
+        wfdict['Rsexp']=si.td.wf.Waveform(td,[1/2./K0*(v-i*Z0) for (v,i) in zip(wfdict['Vs'].Values(),wfdict['Is'].Values())])
+        self.assertTrue(wfdict['Fsexp'],wfdict['Fs'])
+        self.assertTrue(wfdict['Rsexp'],wfdict['Rs'])
+        wfdict['Flexp']=si.td.wf.Waveform(td,[1/2./K0*(v+i*Z0) for (v,i) in zip(wfdict['Vl'].Values(),wfdict['Il'].Values())])
+        wfdict['Rlexp']=si.td.wf.Waveform(td,[1/2./K0*(v-i*Z0) for (v,i) in zip(wfdict['Vl'].Values(),wfdict['Il'].Values())])
+        self.assertTrue(wfdict['Flexp'],wfdict['Fl'])
+        self.assertTrue(wfdict['Rlexp'],wfdict['Rl'])
+        # Test our understanding of the definition of waves in the Zc reference impedance
+        GsZc=(Zs-Zc)/(Zs+Zc)
+        GlZc=(Zl-Zc)/(Zl+Zc)
+        wfdict['FsZc']=si.td.wf.Waveform(td,[1/2./Kc*(v+i*Zc) for (v,i) in zip(wfdict['Vs'].Values(),wfdict['Is'].Values())])
+        wfdict['RsZc']=si.td.wf.Waveform(td,[1/2./Kc*(v-i*Zc) for (v,i) in zip(wfdict['Vs'].Values(),wfdict['Is'].Values())])
+        wfdict['FlZc']=si.td.wf.Waveform(td,[1/2./Kc*(v+i*Zc) for (v,i) in zip(wfdict['Vl'].Values(),wfdict['Il'].Values())])
+        wfdict['RlZc']=si.td.wf.Waveform(td,[1/2./Kc*(v-i*Zc) for (v,i) in zip(wfdict['Vl'].Values(),wfdict['Il'].Values())])
+        m1=1./Kc*Zc/(Zs+Zc)*V
+        # time zero is point 1
+        self.assertAlmostEqual(wfdict['FsZc'][1], m1, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][1], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][1], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][1], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][2], 0,  12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][2], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][2], m1, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][2], m1*GlZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][3], m1*GlZc*GsZc,  12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][3], m1*GlZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][3], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][3], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][4], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][4], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][4], m1*GlZc*GsZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][4], m1*GlZc*GsZc*GlZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][5], m1*GlZc*GsZc*GlZc*GsZc,  12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][5], m1*GlZc*GsZc*GlZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][5], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][5], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][6], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][6], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][6], m1*GlZc*GsZc*GlZc*GsZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][6], m1*GlZc*GsZc*GlZc*GsZc*GlZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][7], m1*GlZc*GsZc*GlZc*GsZc*GlZc*GsZc,  12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][7], m1*GlZc*GsZc*GlZc*GsZc*GlZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][7], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][7], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FsZc'][8], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RsZc'][8], 0, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['FlZc'][8], m1*GlZc*GsZc*GlZc*GsZc*GlZc*GsZc, 12, 'simulation incorrect')
+        self.assertAlmostEqual(wfdict['RlZc'][8], m1*GlZc*GsZc*GlZc*GsZc*GlZc*GsZc*GlZc, 12, 'simulation incorrect')
 
 if __name__ == '__main__':
     unittest.main()
