@@ -35,6 +35,26 @@ class TDRWaveformToSParameterConverter(object):
         self.denoisePercent=DenoisePercent
         self.inverted=Inverted
         self.fd=fd
+    def RawMeasuredSParameters(self,wfList):
+        # pragma: silent exclude
+        wfList=copy.deepcopy(wfList)
+        if not isinstance(wfList, list):
+            wfList=[wfList]
+        # pragma: silent include
+        ports=len(wfList)
+        S=[[None for _ in range(ports)] for _ in range(ports)]
+        for d in range(ports):
+            # pragma: silent exclude
+            if not isinstance(wfList[d],list):
+                wfList[d]=[wfList[d]]
+            # pragma: include
+            fc=self.Convert(wfList[d],d)
+            for o in range(ports):
+                S[o][d]=fc[o]
+        f=S[0][0].Frequencies()
+        return SParameters(f,
+            [[[S[r][c][n] for c in range(ports)] for r in range(ports)]
+            for n in range(len(f))])
     def Convert(self,wfListProvided,incidentIndex=0):
         # pragma: silent exclude
         wfList=copy.deepcopy(wfListProvided)
@@ -97,7 +117,6 @@ class TDRWaveformToSParameterConverter(object):
         self.IncidentWaveform=copy.deepcopy(incwf)
         self.ReflectWaveforms=copy.deepcopy(wfList)
         # pragma: silent include    
-        #incwffc=si.td.wf.ImpulseResponse(incwf).FrequencyResponse()
         incwffc=incwf.FrequencyContent(self.fd)
         res=[wf.FrequencyContent(self.fd) for wf in wfList]
         # pragma: silent exclude
@@ -112,23 +131,3 @@ class TDRWaveformToSParameterConverter(object):
             res=res[0]
         # pragma: include
         return res
-    def RawMeasuredSParameters(self,wfList):
-        # pragma: silent exclude
-        wfList=copy.deepcopy(wfList)
-        if not isinstance(wfList, list):
-            wfList=[wfList]
-        # pragma: silent include
-        ports=len(wfList)
-        S=[[None for _ in range(ports)] for _ in range(ports)]
-        for d in range(ports):
-            # pragma: silent exclude
-            if not isinstance(wfList[d],list):
-                wfList[d]=[wfList[d]]
-            # pragma: include
-            fc=self.Convert(wfList[d],d)
-            for o in range(ports):
-                S[o][d]=fc[o]
-        f=S[0][0].Frequencies()
-        return SParameters(f,
-            [[[S[r][c][n] for c in range(ports)] for r in range(ports)]
-            for n in range(len(f))])

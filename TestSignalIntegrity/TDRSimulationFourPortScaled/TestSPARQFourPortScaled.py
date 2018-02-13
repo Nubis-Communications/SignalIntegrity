@@ -17,7 +17,8 @@ import math
 # you must set usePickle to True for it to perform this caching.  It cuts the time from about
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
-class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestSPARQFourPortScaledTest(unittest.TestCase,
+        SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -2619,6 +2620,20 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,SParameterCompareHelper,si.t
             if not os.path.exists('simresults.p'):
                 import pickle
                 pickle.dump(self.simdict,open("simresults.p","wb"))
+    def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):
+        fileName='../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
+        className='TDRWaveformToSParameterConverter'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        allfuncs.remove('Convert')
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTDRWaveformToSParameterConverterClassCodeConvert(self):
+        fileName='../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
+        className='TDRWaveformToSParameterConverter'
+        defName=['Convert']
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
     unittest.main()

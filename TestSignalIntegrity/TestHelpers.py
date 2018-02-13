@@ -312,7 +312,7 @@ class RoutineWriterTesterHelper(object):
             regression = regressionFile.readlines()
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
         self.assertTrue(max([len(line) for line in regression])<=self.maxLineLength,outputFileName + ' has line that is too long')
-        self.assertTrue(len(regression)<=self.maxNumLines,outputFileName + ' has too many lines')
+        self.assertTrue(len(regression)<=self.maxNumLines,outputFileName + ' has too many lines: '+str(len(regression)))
         if lineDefs:
             if not os.path.exists(lineDefFileName):
                 with open(lineDefFileName, 'w') as outputFile:
