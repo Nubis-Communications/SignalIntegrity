@@ -1,13 +1,15 @@
-\begin{equation} \mathbf{S} = \left(\begin{array}{cc}
-\frac{Zl}{Zl+2\cdot Z0} & 0 \\ 0 & \frac{Zr}{Zr+2\cdot Z0}
-\end{array}\right) + \left(\begin{array}{cccccc} 0 & 0 & 0 &
-\frac{2\cdot Z0}{Zl+2\cdot Z0} & 0 & 0 \\ \frac{2\cdot Z0}{Zr+2\cdot
-Z0} & 0 & 0 & 0 & 0 & 0 \end{array}\right) \cdot \left[ \mathbb{I}  -
-\left(\begin{array}{cccccc} 0 & -\frac{1}{3} & \frac{2}{3} & 0 & 0 &
+\begin{equation} \mathbf{Wi} =  \left[ \mathbb{I}  -
+\left(\begin{smallmatrix} 0 & -\frac{1}{3} & \frac{2}{3} & 0 & 0 &
 \frac{2}{3} \\ \frac{Zr}{Zr+2\cdot Z0} & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 &
 0 & \frac{Zl}{Zl+2\cdot Z0} & 0 & 0 \\ 0 & \frac{2}{3} & -\frac{1}{3}
 & 0 & 0 & \frac{2}{3} \\ 0 & \frac{2}{3} & \frac{2}{3} & 0 & 0 &
 -\frac{1}{3} \\ 0 & 0 & 0 & 0 & \frac{ Zm -Z0}{ Zm +Z0} & 0
-\end{array}\right) \right]^{-1} \cdot\left(\begin{array}{cc} 0 & 0 \\
-0 & \frac{2\cdot Z0}{Zr+2\cdot Z0} \\ \frac{2\cdot Z0}{Zl+2\cdot Z0} &
-0 \\ 0 & 0 \\ 0 & 0 \\ 0 & 0 \end{array}\right) \end{equation}
+\end{smallmatrix}\right) \right]^{-1}  \end{equation}
+\begin{equation} \mathbf{S} = \left(\begin{smallmatrix}
+\frac{Zl}{Zl+2\cdot Z0} & 0 \\ 0 & \frac{Zr}{Zr+2\cdot Z0}
+\end{smallmatrix}\right) + \left(\begin{smallmatrix} 0 & 0 & 0 &
+\frac{2\cdot Z0}{Zl+2\cdot Z0} & 0 & 0 \\ \frac{2\cdot Z0}{Zr+2\cdot
+Z0} & 0 & 0 & 0 & 0 & 0 \end{smallmatrix}\right) \cdot \mathbf{Wi}
+\cdot\left(\begin{smallmatrix} 0 & 0 \\ 0 & \frac{2\cdot Z0}{Zr+2\cdot
+Z0} \\ \frac{2\cdot Z0}{Zl+2\cdot Z0} & 0 \\ 0 & 0 \\ 0 & 0 \\ 0 & 0
+\end{smallmatrix}\right) \end{equation}

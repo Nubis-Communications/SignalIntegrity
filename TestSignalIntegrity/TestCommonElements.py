@@ -347,8 +347,10 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device Sl 2','device Sr 2','device Sm 2',
                       'connect Sl 2 Sr 2 Sm 2','port 1 Sl 1 2 Sr 1 3 Sm 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
-            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.LaTeXSolution().Emit()
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}',
+            size='small')
+        ssps.LaTeXSolution(size='big').Emit()
+        # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Network Three Port Symbolic')
     def testTeeNetworkSymbolicImpedances(self):
         sdp=si.p.SystemDescriptionParser()
@@ -359,8 +361,9 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sd.AssignSParameters('Sr',si.sy.SeriesZ('Zr'))
         sd.AssignSParameters('Sm',si.sy.SeriesZ('Zm'))
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
-            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.LaTeXSolution().Emit()
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}',
+            size='small')
+        ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Network with Impedances Three Port Symbolic')
     def testTeeNetworkGroundedCenterSymbolic(self):
@@ -368,8 +371,9 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sdp.AddLines(['device Sl 2','device Sr 2','device Sm 2','device g 1 ground',
                       'connect Sl 2 Sr 2 Sm 2','connect Sm 1 g 1','port 1 Sl 1 2 Sr 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
-            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.LaTeXSolution().Emit()
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}',
+            size='small')
+        ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Network Center Grounded Two Port Symbolic')
     def testTeeNetworkGroundedCenterSymbolicImpedances(self):
@@ -381,8 +385,9 @@ class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTest
         sd.AssignSParameters('Sr',si.sy.SeriesZ('Zr'))
         sd.AssignSParameters('Sm',si.sy.ShuntZ(1,'Zm'))
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
-            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        ssps.LaTeXSolution().Emit()
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}',
+            size='small')
+        ssps.LaTeXSolution(size='big').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Network Center Grounded with Impedances Three Port Symbolic')
     def testTeeNetworkSymbolicCode(self):

@@ -8,5 +8,6 @@ sd.AssignSParameters('Sl',si.sy.SeriesZ('Zl'))
 sd.AssignSParameters('Sr',si.sy.SeriesZ('Zr'))
 sd.AssignSParameters('Sm',si.sy.SeriesZ('Zm'))
 ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
-    eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-ssps.LaTeXSolution().Emit()
+    eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}',
+    size='small')
+ssps.LaTeXSolution(size='big').Emit()
