@@ -3,4 +3,3 @@ def Y2S(Y,Z0=None,K=None):
     I=matrix(identity(len(Y)))
     Y=matrix(Y)
     return (K.getI()*(I+Z0*Y).getI()*(I-Z0*Y)*K).tolist()
-

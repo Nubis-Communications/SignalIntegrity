@@ -1,16 +1,27 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Ideal Transformer
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-# ports 1 and 2 are the primary
-# ports 3 and 4 are the secondary
-# the dot is on ports 1 and 3
-# a is the turns ratio (secondary/primary
+## IdealTransformer
+#
+# @param a float (optional) turns ratio (defaults to 1)
+#
+# @return the s-parameter matrix of an ideal transformer
+#
+# Ports 1 and 2 are the primary.
+#
+# Ports 3 and 4 are the secondary.
+#
+# The dot is on ports 1 and 3.
+#
+# a is the turns ratio specified as (secondary/primary) windings
 def IdealTransformer(a=1.):
     a=float(a)
     D=a*a+1.

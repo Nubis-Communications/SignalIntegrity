@@ -231,6 +231,7 @@ class RoutineWriterTesterHelper(object):
         inClass= className is ''
         inDef=False
         addingLines=False
+        strippingDoc=False
         sourceCode=[]
         indent=0
         lineDef=[]
@@ -246,11 +247,13 @@ class RoutineWriterTesterHelper(object):
                         inClass = True
                         inDef = False
                         addingLines = True
+                        strippingDoc=False
                         lineNumber=1
                     else:
                         inClass = False
                         inDef = False
                         addingLines = False
+                        strippingDoc=False
                 elif "def" == line.lstrip(' ').split(' ')[0]:
                     if inClass:
                         thisDefName=line.lstrip(' ').split(' ')[1].split('(')[0]
@@ -260,21 +263,21 @@ class RoutineWriterTesterHelper(object):
                             defMacro=''.join(ch for ch in defMacro if ch.isalpha())
                             defLine='\\def\\'+defMacro+'{'+str(lineNumber)+'}\n'
                             lineDef=lineDef+[defLine]
-                            """
-                            if not addingLines:
-                                sourceCode.append("...")
-                            """
                             addingLines=True
+                            strippingDoc=False
                         else:
                             if addingLines:
                                 sourceCode.append("...\n")
                                 lineNumber=lineNumber+1
                             inDef=False
                             addingLines=False
+                            strippingDoc=False
                     else:
                         inDef=False
                         addingLines=False
+                        strippingDoc=False
                 elif pragmaLine:
+                        strippingDoc=False
                         tokens=line.split()
                         pindex=tokens.index('pragma:')
                         tokens=[tokens[i] for i in range(pindex,len(tokens))]
@@ -297,13 +300,14 @@ class RoutineWriterTesterHelper(object):
                             elif token == 'indent':
                                 indent = indent-4
                         continue
-                elif '##' == line.lstrip(' ').split(' ')[0]:
-                    addingLines=False
                 else:
                     if addingLines:
-                        if not inDef:
+                        if '##' == line.lstrip(' ').split(' ')[0]:
+                            strippingDoc=True
+                        if not inDef and not strippingDoc:
                             addingLines=False
-                if addingLines is True:
+                            strippingDoc=False
+                if addingLines and not strippingDoc:
                     sourceCode.append(line[indent:])
                     lineNumber=lineNumber+1
         if not os.path.exists(outputFileName):
