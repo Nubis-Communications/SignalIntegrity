@@ -1,17 +1,43 @@
 '''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
+    Provides M+1 points from fs to fe of the chirp z transform of the vector x
 '''
+#
+#  Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+#  Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+#  All Rights Reserved.
+#
+#  Explicit license in accompanying README.txt file.  If you don't have that file
+#  or do not agree to the terms in that file, then you are not licensed to use
+#  this material whatsoever.
+
 from numpy import fft
 import cmath
 import math
 from numpy import empty
-
+## Computes the chirp-z transform
+#
+# @param x an input vector (list) of real time-domain samples
+# @param Fs the sample rate of the the data samples in x
+# @param fs the start frequency for the result
+# @param fe the end frequency for the result
+# @param M the number of points in the result (-1)
+# @param highSpeed (optional, defaults to True) whether to use the high-speed,
+# but unreadable version.  The readable, low-speed version is the definition
+# is used for testing.
+#
+# Technically, the chirp-z transform can evaluate the z-transform at equi-angularly
+# spaced points on a somewhat arbitrary arc, but here, we use it to compute equi-angularly
+# spaced points on the rim of the unit circle, and as such, it is used simply to resample
+# data.  Usually, we set fs=0 and the result is an M+1 point DFT of the waveform from 0 to
+# fs, without the same limitations imposed as the standard DFT.
+#
+# The equation for the czt is:
+#
+# \f$m\in 0 \ldots M\f$
+#
+# \f$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m}
+# {M}\cdot F_{e}}\f$
+#
 def CZT(x,Fs,fs,fe,M,highSpeed=True):
     M=int(M); K=len(x); fs=float(fs); Fs=float(Fs); fe=float(fe)
     theta0=fs/Fs; phi0=(fe-fs)/Fs*1./M; A0=1.; W0=1.

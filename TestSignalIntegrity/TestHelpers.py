@@ -297,6 +297,8 @@ class RoutineWriterTesterHelper(object):
                             elif token == 'indent':
                                 indent = indent-4
                         continue
+                elif '##' == line.lstrip(' ').split(' ')[0]:
+                    addingLines=False
                 else:
                     if addingLines:
                         if not inDef:

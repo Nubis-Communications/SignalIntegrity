@@ -1,21 +1,39 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+    Performs Device Deembedding Numerically
+"""
+#  Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+#  Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+#  All Rights Reserved.
+# 
+#  Explicit license in accompanying README.txt file.  If you don't have that file
+#  or do not agree to the terms in that file, then you are not licensed to use
+#  this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import matrix
 from numpy import identity
 
 from Deembedder import Deembedder
 from SignalIntegrity.PySIException import PySIExceptionNumeric
 
+## Numeric Deembedder
+# 
+# Performs numerical device deembedding
+#
 class DeembedderNumeric(Deembedder):
+    ## Constructor
+    #
+    # @param sd instance of class SystemDescription
+    #
     def __init__(self,sd=None):
         Deembedder.__init__(self,sd)
+    ## Calculates the unknown s-parameters
+    #
+    # @param sk instance of class SParameters containing the s-parameters of
+    # the known device
+    #
+    # calculates unknown devices in the system, effectively deembedding the
+    # surrounding network
+    #
     def CalculateUnknown(self,Sk):
         Bmsd=self.PortANames()
         Amsd=self.PortBNames()

@@ -9,4 +9,3 @@ def ABCD2S(ABCD,Z0=None,K=None):
     C21=matrix([[0,0],[1.0/(2.0*K2),-Z02/(2.0*K2)]])
     C22=matrix([[1.0/(2.0*K1),Z01/(2.0*K1)],[0,0]])
     return array((C21+C22*ABCD)*((C11+C12*ABCD).getI())).tolist()
-

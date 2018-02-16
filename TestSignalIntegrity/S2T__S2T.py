@@ -13,4 +13,3 @@ def S2T(S,lp=None,rp=None):
         TR.append(I[rp[r]-1])
         TR.append(S[rp[r]-1])
     return array(matrix(TL)*matrix(TR).getI()).tolist()
-

@@ -6,4 +6,3 @@ def ReferenceImpedance(S,Z0f,Z0i=None,Kf=None,Ki=None):
     Kf=matrix(Ki)*matrix(Kf).getI()
     S=matrix(S)
     return (Kf*(I-p).getI()*(S-p)*(I-p*S).getI()*(I-p)*Kf.getI()).tolist()
-
