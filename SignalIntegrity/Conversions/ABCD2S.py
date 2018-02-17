@@ -15,6 +15,7 @@ from numpy import array
 from Z0KHelper import Z0KHelper
 
 ##
+# @param ABCD list of list representing ABCD matrix to convert
 # @param Z0 (optional, defaults to None) the reference impedance
 # @param K (optional, defaults to None) scaling factor
 #

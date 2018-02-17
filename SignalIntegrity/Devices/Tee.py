@@ -1,14 +1,23 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+Tee
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import empty
 
+## Tee
+#
+# @param P (optional) integer number of ports for the tee (default is three).
+# @return the list of list s-parameter matrix for a tee connection.
+#
+# A tee connection is a dot in a schematic.
+#
 def Tee(P=None):
     if P is None:
         P=3
@@ -18,6 +27,7 @@ def Tee(P=None):
         mat.itemset((r,r),(2.0-P)/P)
     return mat.tolist()
 # pragma: silent exclude
+
 def TeeThreePortSafe(Z,Z0=50.):
     D=3*(Z+Z0)
     DiagEle=(3*Z-Z0)/D

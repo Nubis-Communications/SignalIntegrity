@@ -14,6 +14,7 @@ from numpy import array
 from numpy import identity
 
 ##
+# @param S list of list representing s-parameter matrix to convert
 # @param lp (optional) a list of left port numbers
 # @param rp (optional) a list of right port numbers
 #

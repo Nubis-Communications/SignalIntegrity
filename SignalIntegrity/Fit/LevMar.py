@@ -1,20 +1,63 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
+"""
+ Levenberg-Marquardt Algorithm
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
 import math
 from numpy import zeros,matrix
 from SignalIntegrity.CallBacker import CallBacker
 import copy
 
+## LevMar
+#
+# Implements the Levenberg-Marquardt algorithm for non-linear fitting
+#
+# To use this class, you derive your class for fitting some arbitrary
+# function to some data from LeVmar.  The function must contain, at a minimum, an
+# __init__ function for construction and a function fF(self,x), which implements
+# the function y=f(x) where ideally x is a vector of numbers and y is a vector of
+# numbers in matrix form.  In other words, if you are fitting a 3 variable function
+# f(a0,a1,a2)=y - you are trying to find the best values of a0, a1, and a2 that
+# cause f(a0,a1,a2) to be the closes to y in a least-squares sense, then your
+# x would be something like [[a0],[a1],[a2]] and your y would look similar.  In
+# this way, x is a 3x1 element matrix.
+#
+# During the fit, LevMar will call the function fJ, which in turn calls fPartialFPartialx
+# with x and m being the index of the variable in x to take the derivative with respect
+# to. If your derived class does not overload fJ and/or fPartialFPartialx, LevMar will
+# compute a numerical derivative using the value self.m_epsilon as the delta.  If
+# you have analytic derivatives and don't want derivatives calculated numerically,
+# you overload fJ and return a matrix that is R x M where R is the number of elements
+# in y and M is the number of elements in x where each J[r][m] is the partial derivative
+# of F with respect x[m] at element r of the output.
+#
+#
 class LevMar(CallBacker):
+    ## Constructor
+    #
+    # @param callback a callback function to call during calculation
+    #
     def __init__(self,callback=None):
+        ## 
+        # @var m_lambda
+        # starting value for lambda
+        # @var m_lambdamin
+        # minimum value of lambda
+        # @var m_lambdamax
+        # maximum value of lambda
+        # @var m_lambdaMultiplier
+        # amount to multiply by lambda on successful iterations (and amount to divide lambda by on unsuccessful ones)
+        # @var m_epsilon
+        # delta used for numerical derivative calculation
+        # @var m_iteration
+        # iteration number
+        #
         self.m_lambda=1
         self.m_lambdamin=1e-15
         self.m_lambdamax=1e9
@@ -23,8 +66,21 @@ class LevMar(CallBacker):
         self.m_iteration=0
         self.m_ConverganceThreshold=7
         CallBacker.__init__(self,callback)
+    ## fF
+    #
+    # @param x list of lists representing matrix x
+    # @return F(x) in the overloaded function
+    #
+    # if the function is not overloaded in the derived class, raises an exception
     def fF(self,x):
         raise
+    ## fPartialFPartialx
+    #
+    # @param x list of lists matrix x
+    # @param m index of element in x which to take partial derivative with respect to
+    # @param Fx optional previously calculated F(x) to avoid double calculation
+    # @return the partial derivative of F(x) with respect to element m in x
+    #
     def fPartialFPartialx(self,x,m,Fx=None):
         xplusDeltax = x.copy()
         xplusDeltax[m][0]=x[m][0]+self.m_epsilon
@@ -32,6 +88,18 @@ class LevMar(CallBacker):
             Fx = self.fF(x)
         dFx = (self.fF(xplusDeltax)-Fx)/self.m_epsilon
         return dFx
+    ## fJ
+    # @param x list of lists matrix x
+    # @param Fx optional previously calculated F(x) to avoid double calculation
+    # @return the Jacobian matrix 
+    #
+    # The Jacobian matrix is R x M where R is the number of elements in F(x) and M
+    # is the number of elements in x where each J[r][m] is the partial derivative
+    # of F with respect x[m] at element r of the output.
+    #
+    # This function can be overloaded in the derived class if analytic partial derivatives are
+    # known, otherwise numerical partial derivatives are calculated using fPartialFPartialx()
+    #
     def fJ(self,x,Fx=None):
         if Fx is None:
             Fx=self.fF(x)
@@ -44,8 +112,30 @@ class LevMar(CallBacker):
                 J[r][m]=pFpxm[r][0]
         return J
     @staticmethod
+    ## AdjustVariablesAfterIteration
+    #
+    # @param x list of lists matrix x
+    #
+    # x contains the new variables produced as a result of an iteration
+    #
+    # if not overridden, nothing happens, but if this function is overridden in the derived class,
+    # it provides an opportunity to make adjustments to the variables.  Examples are things like making
+    # variables real when during iteration they could become complex or making variables positive.
+    # The good thing about this function is that these adjustments are made prior to making decisions
+    # on the success of the iteration meaning that sometime the x resulting from an iteration reduces
+    # mean-squared error between F(x) and y, but the x values are invalid and only valid after adjustment.
+    # If, after the adjustment, the mean-squared error is not reduced, the iteration fails.
     def AdjustVariablesAfterIteration(x):
         return x
+    ## Intialize
+    #
+    # @param x list of lists matrix x
+    # @param y list of lists matrix y
+    # @param w (optional) list of lists weights matrix w
+    #
+    # Initializes the fitter for optimizing the values of F(x) such that they equal y in a weighted
+    # least-squares sense, with w providing the weights.
+    #
     def Initialize(self,x,y,w=None):
         self.m_x = copy.copy(x)
         self.m_y = copy.copy(y)
@@ -67,6 +157,13 @@ class LevMar(CallBacker):
         self.m_H = None
         self.m_D = None
         self.m_JHWr = None
+    ## Iterate
+    #
+    # Usually, this function should not be used.  It can be used to take each iteration manually
+    #
+    # Usually Solve() is used, which takes these iterations, but tests convergence and decides
+    # when the iterating should end.
+    #
     def Iterate(self):
         self.m_iteration=self.m_iteration+1
         if self.m_Fx is None:
@@ -109,6 +206,10 @@ class LevMar(CallBacker):
                 self.m_lambdaMultiplier,self.m_lambdamax)
         self.m_lambdaTracking.append(self.m_lambda)
         self.m_mseTracking.append(self.m_mse)
+    ## TestConvergence
+    #
+    # @return boolean whether converged and iterations should end.
+    #
     def TestConvergence(self):
         self.m_MseChange=self.m_mse-self.m_lastMse
         self.m_lastMse=self.m_mse
@@ -124,6 +225,10 @@ class LevMar(CallBacker):
         if self.m_lambda == self.m_lambdamax:
             return True
         return False
+    ## Solve
+    #
+    # Solves for x such that F(x) equals y in a weighted least-squares sense.
+    #
     def Solve(self):
         self.Iterate()
         self.m_lastMse=self.m_mse
@@ -131,4 +236,3 @@ class LevMar(CallBacker):
         while not self.TestConvergence():
             self.CallBack(self.m_iteration)
             self.Iterate()
-

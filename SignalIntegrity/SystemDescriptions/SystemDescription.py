@@ -186,7 +186,7 @@ class SystemDescription(object):
     ## Assigns s-parameters to a device
     #
     # @param DeviceName string name of a device in the system
-    # @Param SParameters an s-parameter matrix
+    # @param SParameters an s-parameter matrix
     #
     # Assigns the specified s-parameters to a device
     def AssignSParameters(self,DeviceName,SParameters):

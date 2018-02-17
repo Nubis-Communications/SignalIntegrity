@@ -14,6 +14,8 @@ from numpy import array
 from numpy import identity
 
 ##
+#
+# @param T list of list representing T-parameter matrix to convert
 # @param lp (optional) a list of left port numbers
 # @param rp (optional) a list of right port numbers
 #

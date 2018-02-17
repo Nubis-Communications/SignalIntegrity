@@ -28,7 +28,7 @@ class DeembedderNumeric(Deembedder):
         Deembedder.__init__(self,sd)
     ## Calculates the unknown s-parameters
     #
-    # @param sk instance of class SParameters containing the s-parameters of
+    # @param Sk instance of class SParameters containing the s-parameters of
     # the known device
     #
     # calculates unknown devices in the system, effectively deembedding the

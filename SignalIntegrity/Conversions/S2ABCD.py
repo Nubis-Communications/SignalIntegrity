@@ -14,7 +14,9 @@ from numpy import array
 
 from Z0KHelper import Z0KHelper
 
-##
+## S2ABCD
+#
+# @param S list of list representing s-parameter matrix to convert
 # @param Z0 (optional, defaults to None) the reference impedance
 # @param K (optional, defaults to None) scaling factor
 #

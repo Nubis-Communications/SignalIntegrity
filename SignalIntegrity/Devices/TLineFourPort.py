@@ -1,15 +1,40 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Ideal Four-port Transmission Line
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 import cmath
-import math
 
+## TLineFourPort
+#
+# @param Zc float or complex characteristic impedance
+# @param gamma float or complex propagation constant
+# @param Z0 float or complex reference impedance Z0
+#
+# @return the s-parameter matrix of a four-port transmission line
+#
+# This is actually an oddball construction and should not be confused with a typical differential
+# transmission line.
+#
+# The symbol looks like a two-port transmission line with it's outer conductor exposed as ports on each
+# side.
+#
+# Port 1 is the left side and port 2 is the right side of the two-port transmission line.
+#
+# Port 3 is the left, exposed, outer conductor and port 4 is the right, exposed outer conductor.
+#
+# @note this device is functionally equivalent to the two-port transmission line TLineTwoPort() when
+# ports 3 and 4 are grounded.
+#
+# todo Make Z0 optional defaulting to 50 Ohms
+# todo fix the ASCII line art.
+#
 def TLineFourPort(Zc,gamma,Z0):
     """       +-----------------------+
              / \                       \

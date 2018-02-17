@@ -1,12 +1,14 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+Frequency Response
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import fft
 import math
 import cmath
@@ -19,9 +21,32 @@ from SignalIntegrity.Splines import Spline
 from SignalIntegrity.ChirpZTransform import CZT
 from SignalIntegrity.Rat import Rat
 
+## FrequencyResponse
+#
+# Frequency response view of a waveform assumed computed from the FrequencyResponse() method
+# of a class ImpulseResponse, which is itself derived from the class Waveform.  In other words,
+# it would contain complex frequency-domain values that, if multiplied by the values in an
+# instance of class FrequencyContent, would filter the waveform in the frequency-domain.
+#
+# @see ImpulseResponse
+#
 class FrequencyResponse(FrequencyDomain):
+    ## Constructor
+    #
+    # @param f instance of class FrequencyList
+    # @param resp list of complex values
+    #
+    # It is assumed that the frequencies and the response provided were generated from
+    # the FrequencyResponse() method of the class ImpulseResponse.
     def __init__(self,f=None,resp=None):
         FrequencyDomain.__init__(self,f,resp)
+    ## Response
+    #
+    # @param unit string defining the desired units for the response.
+    # @return list of frequency response values in the unit specified.
+    #
+    # @see FrequencyDomain.Values() for valid units.
+    #
     def Response(self,unit=None):
         return self.Values(unit)
     def _DelayBy(self,TD):
@@ -29,26 +54,32 @@ class FrequencyResponse(FrequencyDomain):
         return FrequencyResponse(fd,
         [self.Response()[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD)
             for n in range(fd.N+1)])
+    ## ImpulseResponse
+    #
+    #  @param td (optional) instance of class TimeDescriptor.
+    #  @param adjustDelay (optional) bool whether to adjust the delay.
+    #  @return instance of class ImpulseResponse corresponding to the frequency response.
+    #
+    # If the optional time descriptor is supplied, the resulting impulse response is resampled
+    # onto that time descriptor.
+    #
+    #Notes:
+    #    internally, the frequency response is either evenly spaced or not.
+    #
+    #    whether evenly spaced, whether a time descriptor is specified and
+    #    whether to adjust delay determines all possibilities.
+    #
+    #    | evenly spaced | time descriptor | adjust delay | Situation                                         |
+    #    |:------------: |:---------------:|:------------:|:---------------------------------------------------                                          |
+    #    |  False        | False           | X            | Cannot be done                                    |
+    #    |  False        | True            | X            | Spline resamples to time descriptor               |
+    #    |  True         | False           | False        | generic impulse response                          |
+    #    |  True         | False           | True         | impulse response with delay adjusted              |
+    #    |  True         | True            | X            | CZT resamples to td - ad forced to T              |
+    #
+    # Much of these options are meant for internal use.  Mostly you should simply use ImpulseResponse()
+    # with the default arguments.
     def ImpulseResponse(self,td=None,adjustDelay=True):
-        """Produces the impulse response
-
-        Args:
-            td (TimeDescriptor) (optional) desired time descriptor.
-            adjustDelay (bool) (optional) whether to adjust the delay.
-
-        Notes:
-            internally, the frequency response is either evenly spaced or not.
-
-            whether evenly spaced, whether a time descriptor is specified and
-            whether to adjust delay determines all possibilities.
-
-            es  td  ad
-            F   F   X   Cannot be done
-            F   T   X   Spline resamples to td and returns es=T,td=F,ad
-            T   F   F   generic impulse response
-            T   F   T   impulse response with delay adjusted
-            T   T   X   CZT resamples to td - ad forced to T
-        """
         fd = self.FrequencyList()
         if isinstance(td,float) or isinstance(td,int):
             Fs=float(td)
@@ -128,6 +159,22 @@ class FrequencyResponse(FrequencyDomain):
         Poly=Spline(fd,self.Response())
         newresp=[Poly.Evaluate(f) if f <= fd[-1] else 0.0001 for f in fdp]
         return FrequencyResponse(fdp,newresp)
+    ## Resample
+    #
+    # @param fdp instance of class FrequencyDescriptor to resample to
+    # @return instance of class FrequencyResponse containing resampled self
+    #
+    # Resampling first attempts to find a ratio of numbers of points
+    # to resample to.  If a reasonable ratio is found, pure DFT and IDFT
+    # methods are utilized along with padding and decimation.
+    #
+    # Otherwise, the chirp z transform is used to resample.
+    #
+    # If the points are unevenly spaced, there is no choice but to resample with
+    # splines.
+    #
+    # @see FrequencyResponse.ResampleCZT()
+    # @see Spline
     def Resample(self,fdp):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
@@ -156,6 +203,16 @@ class FrequencyResponse(FrequencyDomain):
         # calculate the fractional delay
         TD=theta/2./math.pi/self.FrequencyList()[-1]
         return TD
+    ## ResampleCZT
+    #
+    # @param fdp instance of class FrequencyDescriptor to resample to
+    # @param speedy (optional) bool whether to use the fast version of the CZT()
+    # @return instance of class FrequencyResponse containing resampled self
+    #
+    # Uses the chirp z transform is used to resample.
+    #
+    # @see FrequencyResponse.Resample()
+    # @see CZT()
     def ResampleCZT(self,fdp,speedy=True):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()

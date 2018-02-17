@@ -14,6 +14,8 @@ from numpy import identity
 from Z0KHelper import Z0KHelper
 
 ## Converts Y-parameters to s-parameters
+#
+# @param Y list of list representing Y-parameter matrix to convert
 # @param Z0 (optional, defaults to None) the reference impedance
 # @param K (optional, defaults to None) scaling factor
 #
