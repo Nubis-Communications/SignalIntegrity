@@ -1826,7 +1826,7 @@ class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,
 
         calkit.WriteToFile('Agilent85052D.cstd', 'Agilent 85052D 3.5mm cal kit')
 
-        calkit = si.m.calkit.CalibrationKit('Agilent85052D.cstd',si.fd.FrequencyList().SetEvenlySpaced(20e9,200))
+        calkit = si.m.calkit.CalibrationKit('Agilent85052D.cstd',si.fd.EvenlySpacedFrequencyList(20e9,200))
 
         stdPrefix='Agilent85052D_200_20GHz_'
         calkit.WriteStandardsToFiles(stdPrefix)

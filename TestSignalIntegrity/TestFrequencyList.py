@@ -97,8 +97,8 @@ class TestFrequencyList(unittest.TestCase,SParameterCompareHelper):
         N=100
         gfl=si.fd.GenericFrequencyList([float(n)/N*Fe for n in range(N+1)])
         esfl=si.fd.EvenlySpacedFrequencyList(Fe,N)
-        gflf=gfl.Frequencies('KHz')
-        eslf=esfl.Frequencies('KHz')
+        gflf=gfl.Frequencies('kHz')
+        eslf=esfl.Frequencies('kHz')
         self.assertTrue(all([abs(gflf[n]-eslf[n])<1e-6 for n in range(len(gflf))]),self.id()+' result incorrect')
     def testValuesMHz(self):
         Fe=10e9
