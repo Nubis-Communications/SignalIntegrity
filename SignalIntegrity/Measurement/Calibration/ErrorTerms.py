@@ -1,15 +1,19 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ ErrorTerms
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import matrix,zeros,identity
 from numpy.linalg import det
 
+## ErrorTerms
+#
 # Error terms are, for P ports, a P x P matrix of lists of three error terms.
 # For the diagonal elements, the three error terms are ED, ER, and ES in that order
 # for the off diagonal elements, the three error terms are EX, ET and EL in that order
@@ -27,19 +31,48 @@ from numpy.linalg import det
 # ET[r][c][2]=ELrc
 #
 class ErrorTerms(object):
+    ## Constructor
+    #
+    # @param ET (optional) instance of class ErrorTerms
+    #
     def __init__(self,ET=None):
         self.ET=ET
         if not ET is None:
             self.numPorts=len(ET)
         else:
             self.numPorts=None
+    ## Initialize
+    #
+    # @param numPorts integer number of ports for the error terms
+    #
+    # Initializes the number of ports and all of the three error terms for
+    # each row and column of the error terms to zero.
+    #
     def Initialize(self,numPorts):
         self.numPorts=numPorts
         self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)]
                  for _ in range(self.numPorts)]
         return self
+    ## overloads [item]
+    #
+    # @param item integer row of the error term matrix to access
+    #
+    # this is typically used to access an error term where self[o][d][i]
+    # would access the ith error term for port o with port d driven.
+    #
     def __getitem__(self,item):
         return self.ET[item]
+    ## ReflectCalibration
+    #
+    # @param hatGamma list of complex measurements of reflect standards
+    # @param Gamma list of complex actual values of the reflect standards
+    # @param m integer index of port
+    # @return self
+    #
+    # computes the directivity, reverse transmission, and source match terms
+    # for a given port and frequency from a list of measurements and actual standard
+    # values and updates itself.
+    #
     def ReflectCalibration(self,hatGamma,Gamma,m):
         A=[[1.,Gamma[r]*hatGamma[r],-Gamma[r]] for r in range(len(Gamma))]
         B=[[hatGamma[r]] for r in range(len(Gamma))]
@@ -50,6 +83,19 @@ class ErrorTerms(object):
         Er=Ed*Es-DeltaS
         self[m][m]=[Ed,Er,Es]
         return self
+    ## ThruCalibration
+    #
+    # @param b1a1 list or single complex value for ratio of reflect to incident at driven port.
+    # @param b2a1 list or single complex value for ratio of reflect to incident at undriven port.
+    # @param S list or single list of list matrix representing s-parameters of thru standard
+    # @param n integer index of undriven port
+    # @param m integer index of driven port
+    # @return self
+    #
+    # Computes the forward transmission and load match terms
+    # for a given driven and undriven port and frequency from a list of measurements and actual
+    # standard values and updates itself.
+    #
     def ThruCalibration(self,b1a1,b2a1,S,n,m):
         # pragma: silent exclude
         if not isinstance(b1a1,list):
@@ -74,11 +120,28 @@ class ErrorTerms(object):
         (El,Et)=(ElEt[0][0],ElEt[1][0])
         self[n][m]=[Ex,Et,El]
         return self
+    ## ExCalibration
+    #
+    # @param b2a1 single complex value for ratio of reflect to incident at undriven port.
+    # @param n integer index of undriven port
+    # @param m integer index of driven port
+    # @return self
+    #
+    # Computes the crosstalk term
+    # for a given driven and undriven port and frequency from a list of measurements and actual
+    # standard values and updates itself.
+    #
     def ExCalibration(self,b2a1,n,m):
         [_,Et,El]=self[n][m]
         Ex=b2a1
         self[n][m]=[Ex,Et,El]
         return self
+    ## TransferThruCalibration
+    #
+    # After all of the thru calibration calculations have been performed, it looks to see if there
+    # are any port combinations where a thru was not connected and attempts to perform the 'transfer
+    # thru' calibration that uses other thru measurements to form the thru calibration for a given
+    # port combination.
     def TransferThruCalibration(self):
         didOne=True
         while didOne:

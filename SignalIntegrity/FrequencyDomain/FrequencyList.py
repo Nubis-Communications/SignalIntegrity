@@ -171,7 +171,7 @@ class FrequencyList(object):
             return GenericFrequencyList([v*d for v in self.List])
     ## TimeDescriptor
     #
-    # @param Keven @type boolean (optional)
+    # @param Keven boolean (optional)
     # Whether N is from an even K points in the time domain (i.e. K/2) or from an odd K points in the time-domain
     # (i.e. (K+1)/2).  Defaults to True.
     # @return an instance of class TimeDescriptor that corresponds to the time descriptor that would
