@@ -1,18 +1,27 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Numeric Deembedder Housekeeping Functions
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from SystemSParameters import SystemSParameters
+from SignalIntegrity.SystemDescriptions.SystemSParameters import SystemSParameters
 
 class Deembedder(SystemSParameters):
+    """housekeeping base class for deembedders"""
     def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
     def AddUnknown(self,Name,Ports):
+        """Adds a device to the system with the given name and number of ports
+        The type is 'unknown'
+        @param Name string name of device to add
+        @param Ports integer number of ports in the device
+        This is like a call on the SystemDescription class to AddDevice()
+        with the type set to 'unknown'."""
         self.AddDevice(Name,Ports,SParams=None,Type='unknown')
     def DutANames(self):
         return [p.A for d in self for p in d if d.Type=='unknown']

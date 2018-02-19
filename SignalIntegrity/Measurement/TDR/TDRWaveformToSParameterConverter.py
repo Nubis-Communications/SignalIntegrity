@@ -1,12 +1,14 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Conversion of TDR waveforms to raw measured s-parameters
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 import copy
 import math
 
@@ -16,6 +18,7 @@ from SignalIntegrity.Wavelets.WaveletDenoiser import WaveletDenoiser
 from SignalIntegrity.TimeDomain.Waveform import Waveform
 
 class TDRWaveformToSParameterConverter(object):
+    """Class for converting TDR waveforms to raw measured s-parameters"""
     sigmaMultiple=5.
     def __init__(self,
                  WindowHalfWidthTime=0,
@@ -27,6 +30,24 @@ class TDRWaveformToSParameterConverter(object):
                  Inverted=False,
                  fd=None
                  ):
+        """Constructor
+        @param WindowHalfWidthTime (optional) float amount of time in extraction window on
+        each side of incident wave (defaults to 0).
+        @param WindowRaisedCosineDuration (optional) float amount of time to tape extraction
+        window with raised cosine (defaults to 0).
+        @param Step (optional) boolean True if waveforms are steps, False if waveforms are
+        impulses (defaults to True).
+        @param Length (optional) float length of time to clip waveform to (defaults to 0).
+        @param Denoise (optiona) boolean whether to perform wavelet denoising (defaults to False).
+        @param DenoisePercent (optional) percent of end portion of the waveform used
+        during denoising for noise statistics estimation (defaults to 30 percent).
+        @param Inverted (optional) boolean whether the waveform is invertede
+        (defaults to False).
+        @param fd (optional) instance of class FrequencyDescriptor used to define desired
+        frequencies for the s-parameters (defaults to None).
+        @note if fd is None or not provided, then the frequencies will correspond to
+        the time descriptor of the trimmed waveform.
+        """
         self.whwt=WindowHalfWidthTime
         self.wrcdr=WindowRaisedCosineDuration
         self.step=Step
@@ -36,6 +57,20 @@ class TDRWaveformToSParameterConverter(object):
         self.inverted=Inverted
         self.fd=fd
     def RawMeasuredSParameters(self,wfList):
+        """RawMeasuredSParameters
+        @param wfList list of lists of waveforms of measurements.
+        @return instance of class SParameters containing the raw measured
+        s-parameters of the DUT.
+
+        Each element at index d in wfList is a list of waveforms where
+        the zero based dth waveform contains the incident and the others don't.
+        (i.e. they are the waveforms measured at the ports of the DUT when zero
+        based port d is driven).
+
+        For a P port DUT, wfList must be PxP.
+        @note for one port measurements, wfList can be a single measurement (as opposed
+        to a 1x1 list of list of one element).
+        """
         # pragma: silent exclude
         wfList=copy.deepcopy(wfList)
         if not isinstance(wfList, list):

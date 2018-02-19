@@ -1,7 +1,14 @@
+"""
+ @package si
+ Signal Integrity Toolbox
+ 
+ Use it as:
+ 
+ Import SignalIntegrity as si
+"""
 import SystemDescriptions as sd
 import Conversions as cvt
 import Devices as dev
-#from SignalIntegrity import SParameters as sp
 import SParameters as sp
 import Splines as spl
 import Parsers as p

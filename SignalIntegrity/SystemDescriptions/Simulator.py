@@ -1,12 +1,14 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Simulator Base Class for Housekeeping Functions for Simulation
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import matrix
 from numpy import identity
 
@@ -18,6 +20,7 @@ from SignalIntegrity.Devices import Ground
 from SignalIntegrity.PySIException import PySIExceptionSimulator
 
 class Simulator(SystemSParameters,object):
+    """Base class for dealing with housekeeping for simulations."""
     def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
         self.m_ol = sd.m_ol if hasattr(sd, 'm_ol') else None
@@ -28,17 +31,28 @@ class Simulator(SystemSParameters,object):
             raise PySIExceptionSimulator('no sources')
     @property
     def pOutputList(self):
+        """property containing list of output waveforms
+        @return the list of string names of the output waveforms
+        """
         return self.m_ol
     @pOutputList.setter
     def pOutputList(self,ol=None):
         if not ol is None: self.m_ol = ol
         return self
     def AddVoltageSource(self,Name,Ports):
+        """Adds a one or two port voltage source to the system.
+        @param Name string name of voltage source device.
+        @param Ports integer number of ports in the voltage source
+        Ports can be 1 or 2."""
         if Ports == 1: self.AddDevice(Name,Ports,Ground(),'voltage source')
         elif Ports == 2: self.AddDevice(Name,Ports,Thru(),'voltage source')
         stimNumber=len(self.StimsPrime())+1
         for p in range(Ports): self.AssignM(Name,p+1,'m'+str(stimNumber+p))
     def AddCurrentSource(self,Name,Ports):
+        """Adds a one or two port current source to the system.
+        @param Name string name of current source device.
+        @param Ports integer number of ports in the current source
+        Ports can be 1 or 2."""
         if Ports == 1: self.AddDevice(Name,Ports,Open(),'current source')
         elif Ports == 2: self.AddDevice(Name,Ports,[[1.,0.],[0.,1.]],'current source')
         stimNumber=len(self.StimsPrime())+1

@@ -14,30 +14,25 @@ from SignalIntegrity.Measurement.CalKit.Standards.TerminationPolynomial import T
 from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
 from SignalIntegrity.SParameters.SParameters import SParameters
 
-## ShortStandard
-#
-# class providing the s-parameters of a short standard as commonly defined
-# for a calibration kit.
-#
 class ShortStandard(SParameters):
-    ## Constructor
-    #
-    # @param f list of frequencies
-    # @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
-    # @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
-    # @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
-    # @param L0 (optional) float polynomial coefficient for inductance of short termination
-    # @param L1 (optional) float polynomial coefficient for inductance of short termination
-    # @param L2 (optional) float polynomial coefficient for inductance of short termination
-    # @param L3 (optional) float polynomial coefficient for inductance of short termination
-    #
-    # The result is that the class becomes the base-class SParameters with the s-parameters
-    # of a short standard.
-    #
-    # Termination inductance polynomial is L0+f*(L1+f*(L2+f*L3)).
-    #
+    """Class providing the s-parameters of a short standard as commonly defined
+    for a calibration kit."""
     def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
                  L0=0.0,L1=0.0,L2=0.0,L3=0.0):
+        """Constructor
+        @param f list of frequencies
+        @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
+        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
+        @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
+        @param L0 (optional) float polynomial coefficient for inductance of short termination
+        @param L1 (optional) float polynomial coefficient for inductance of short termination
+        @param L2 (optional) float polynomial coefficient for inductance of short termination
+        @param L3 (optional) float polynomial coefficient for inductance of short termination
+        The result is that the class becomes the base-class SParameters with the s-parameters
+        of a short standard.
+
+        Termination inductance polynomial is L0+f*(L1+f*(L2+f*L3)).
+        """
         # pragma: silent exclude
         from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include

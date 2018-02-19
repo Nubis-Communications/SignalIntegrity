@@ -9,6 +9,3 @@ class SystemDescriptionSymbolic(SystemSParameters,Symbolic):
         self._AddEq('\\left[ '+self._Identity()+' - '+sW+'\\right] \\cdot '+\
             sn+' = '+sm)
         return self
-
-
-

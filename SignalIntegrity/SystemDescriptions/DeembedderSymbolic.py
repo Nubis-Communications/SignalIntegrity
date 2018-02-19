@@ -1,23 +1,46 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Symbolic Deembedder
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from Deembedder import Deembedder
-from Symbolic import Symbolic
-from SignalIntegrity.SystemDescriptions import Device
+from SignalIntegrity.SystemDescriptions.Deembedder import Deembedder
+from SignalIntegrity.SystemDescriptions.Symbolic import Symbolic
+from SignalIntegrity.SystemDescriptions.Device import Device
+
 from numpy import matrix
 
 class DeembedderSymbolic(Deembedder,Symbolic):
+    """class for producing symbolic solutions to deembedding problems.
+    """
     def __init__(self,sd=None,**args):
+        """Constructor
+
+        @param sd (optional) instance of class SystemDescription
+        @param args (optional) named arguments (name = value)
+
+        Named arguments passed to the Symbolic class
+
+        @see Symbolic
+        """
         Deembedder.__init__(self,sd)
         Symbolic.__init__(self,**args)
         self.m_Sk = args['known'] if 'known' in args else 'Sk'
     def SymbolicSolution(self):
+        """Generates a symbolic solution to a deembedding problem described
+        in a Deembedder class.
+
+        @return self
+
+        The solution is held in the Symbolic class.
+
+        @see Symbolic
+        """
         Bmsd=self.PortANames()
         Amsd=self.PortBNames()
         Adut=self.DutANames()

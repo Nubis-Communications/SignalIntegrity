@@ -1,12 +1,14 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ s-parameter file
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import empty
 from numpy import array
 import cmath
@@ -18,7 +20,16 @@ from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
 from SignalIntegrity.PySIException import PySIExceptionSParameterFile
 
 class SParameterFile(SParameters):
+    """class for s-parameters read from a file"""
     def __init__(self,name,Z0=None):
+        """Constructor
+        @param name string file name of s-parameter file to read.
+        @param Z0 (optional) real or complex reference impedance desired (defaults to 50 Ohms).
+        Reads the s-parameter file and produces an instance of its base class SParameters.
+
+        If the reference impedance of the Touchstone 1.0 file read is not the reference
+        impedance specified, then the reference impedance of the s-parameters are converted
+        to the reference impedance specified."""
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude

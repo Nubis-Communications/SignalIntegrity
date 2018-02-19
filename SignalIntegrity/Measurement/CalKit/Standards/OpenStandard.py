@@ -14,30 +14,25 @@ from SignalIntegrity.Measurement.CalKit.Standards.TerminationPolynomial import T
 from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
 from SignalIntegrity.SParameters.SParameters import SParameters
 
-## OpenStandard
-#
-# class providing the s-parameters of an open standard as commonly defined
-# for a calibration kit.
-#
 class OpenStandard(SParameters):
-    ## Constructor
-    #
-    # @param f list of frequencies
-    # @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
-    # @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
-    # @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
-    # @param C0 (optional) float polynomial coefficient for capacitance of open termination
-    # @param C1 (optional) float polynomial coefficient for capacitance of open termination
-    # @param C2 (optional) float polynomial coefficient for capacitance of open termination
-    # @param C3 (optional) float polynomial coefficient for capacitance of open termination
-    #
-    # The result is that the class becomes the base-class SParameters with the s-parameters
-    # of a open standard.
-    #
-    # Termination capacitance polynomial is C0+f*(C1+f*(C2+f*C3)).
-    #
+    """class providing the s-parameters of an open standard as commonly defined
+    for a calibration kit."""
     def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
                  C0=0.0,C1=0.0,C2=0.0,C3=0.0):
+        """Constructor
+        @param f list of frequencies
+        @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
+        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
+        @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
+        @param C0 (optional) float polynomial coefficient for capacitance of open termination
+        @param C1 (optional) float polynomial coefficient for capacitance of open termination
+        @param C2 (optional) float polynomial coefficient for capacitance of open termination
+        @param C3 (optional) float polynomial coefficient for capacitance of open termination
+        The result is that the class becomes the base-class SParameters with the s-parameters
+        of a open standard.
+
+        Termination capacitance polynomial is C0+f*(C1+f*(C2+f*C3)).
+        """
         # pragma: silent exclude
         from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include

@@ -1,23 +1,37 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Symbolic Simulator
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from SystemSParametersSymbolic import SystemSParametersSymbolic
-from Simulator import Simulator
+from SignalIntegrity.SystemDescriptions.SystemSParametersSymbolic import SystemSParametersSymbolic
+from SignalIntegrity.SystemDescriptions.Simulator import Simulator
 from SignalIntegrity.Helpers import Matrix2LaTeX
 from SignalIntegrity.Helpers import MatrixMultiply
 from SignalIntegrity.Helpers import SubscriptedVector
 
 class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
+    """class for producing symbolic solutions to simulation problems."""
     def __init__(self,sd=None,**args):
+        """Constructor
+        @param sd (optional) instance of class SystemDescription
+        @param args (optional) named arguments (name = value)
+        Named arguments passed to the Symbolic class
+        @see Symbolic
+        """
         SystemSParametersSymbolic.__init__(self,sd,**args)
         Simulator.__init__(self, sd)
     def LaTeXTransferMatrix(self):
+        """Calculates and stores internally a symbolic representation
+        of the transfer matrix in LaTeX.
+        @return self
+        @see Symbolic
+        """
         self.Check()
         self._LaTeXSi()
         veosi = MatrixMultiply(
@@ -47,6 +61,13 @@ class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
         self._AddEq(line)
         return self
     def LaTeXEquations(self):
+        """Calculates and stores internally a symbolic representation
+        of the system equation and transfer matrix in LaTeX.
+        @return self
+        @see Symbolic for how to extract the stored result
+        @see LaTeXTransferMatrix()
+        @see LaTeXSystemEquation()
+        """
         self.LaTeXSystemEquation()
         self.LaTeXTransferMatrix()
         return self

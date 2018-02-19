@@ -15,24 +15,19 @@ from SignalIntegrity.Devices.TerminationZ import TerminationZ
 
 from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
 
-## LoadStandard
-#
-# class providing the s-parameters of a load standard as commonly defined
-# for a calibration kit.
-#
 class LoadStandard(SParameters):
-    ## Constructor
-    #
-    # @param f list of frequencies
-    # @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
-    # @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
-    # @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
-    # @param terminationZ0 (optional) float real impedance of termination.
-    #
-    # The result is that the class becomes the base-class SParameters with the s-parameters
-    # of a load standard.
+    """Class providing the s-parameters of a load standard as commonly defined for a calibration kit."""
     def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
                  terminationZ0=50.0):
+        """Constructor
+        @param f list of frequencies
+        @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
+        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
+        @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
+        @param terminationZ0 (optional) float real impedance of termination.
+        The result is that the class becomes the base-class SParameters with the s-parameters
+        of a load standard.
+        """
         # pragma: silent exclude
         from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include

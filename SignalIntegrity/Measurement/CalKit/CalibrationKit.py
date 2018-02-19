@@ -1,65 +1,81 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ calibration kits and constants
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from SignalIntegrity.Measurement.CalKit.Standards.ShortStandard import ShortStandard
 from SignalIntegrity.Measurement.CalKit.Standards.OpenStandard import OpenStandard
 from SignalIntegrity.Measurement.CalKit.Standards.LoadStandard import LoadStandard
 from SignalIntegrity.Measurement.CalKit.Standards.ThruStandard import ThruStandard
 from SignalIntegrity.SParameters.SParameterFile import SParameterFile
-# Calibration Kit File Format
-#
-# % DESCRIPTION [Enter manufacturer and model number of calkit]
-# % 
-# % C0 (fF) - OPEN
-# % C1 (1e-27 F/Hz) - OPEN
-# % C2 (1e-36 F/Hz^2) - OPEN
-# % C3 (1e-45 F/Hz^3) - OPEN
-# % offset delay (pS) - OPEN
-# % real(Zo) of offset length - OPEN
-# % offset loss (GOhm/s) - OPEN
-# % L0 (pH) - SHORT
-# % L1 (1e-24 H/Hz) - SHORT
-# % L2 (1e-33 H/Hz^2) - SHORT
-# % L3 (1e-42 H/Hz^3) - SHORT
-# % offset delay (pS) - SHORT
-# % real(Zo) of offset length - SHORT
-# % offset loss (GOhm/s) - SHORT
-# % load resistance (Ohm) - LOAD
-# % offset delay (pS) - LOAD
-# % real(Zo) of offset length - LOAD
-# % offset loss (GOhm/s) - LOAD
-# % offset delay (pS) - THRU
-# % real(Zo) of offset length - THRU
-# % offset loss (GOhm/s) - THRU
-# 63.170000 
-# -1178.000000
-# 109.600000
-# -2.146000
-# 14.490000
-# 50.000000
-# 1.300000
-# 0.000000
-# 0.000000
-# 0.000000
-# 0.000000
-# 16.684000
-# 50.000000
-# 1.300000
-# 50.000000
-# 0.000000
-# 50.000000
-# 1.300000
-# 57.960000
-# 50.000000
-# 0.000000
+
+
 class CalibrationConstants(object):
+    """Class for holding, reading and writing calibration constants for a calibration kit
+
+    Calibration Constants File Format
+
+    @verbatim
+    % DESCRIPTION [Enter manufacturer and model number of calkit]
+    % 
+    % C0 (fF) - OPEN
+    % C1 (1e-27 F/Hz) - OPEN
+    % C2 (1e-36 F/Hz^2) - OPEN
+    % C3 (1e-45 F/Hz^3) - OPEN
+    % offset delay (pS) - OPEN
+    % real(Zo) of offset length - OPEN
+    % offset loss (GOhm/s) - OPEN
+    % L0 (pH) - SHORT
+    % L1 (1e-24 H/Hz) - SHORT
+    % L2 (1e-33 H/Hz^2) - SHORT
+    % L3 (1e-42 H/Hz^3) - SHORT
+    % offset delay (pS) - SHORT
+    % real(Zo) of offset length - SHORT
+    % offset loss (GOhm/s) - SHORT
+    % load resistance (Ohm) - LOAD
+    % offset delay (pS) - LOAD
+    % real(Zo) of offset length - LOAD
+    % offset loss (GOhm/s) - LOAD
+    % offset delay (pS) - THRU
+    % real(Zo) of offset length - THRU
+    % offset loss (GOhm/s) - THRU
+    63.170000 
+    -1178.000000
+    109.600000
+    -2.146000
+    14.490000
+    50.000000
+    1.300000
+    0.000000
+    0.000000
+    0.000000
+    0.000000
+    16.684000
+    50.000000
+    1.300000
+    50.000000
+    0.000000
+    50.000000
+    1.300000
+    57.960000
+    50.000000
+    0.000000
+    @endverbatim
+    """
     def __init__(self):
+        """Constructor
+        Initializes the calibration constants such that the calibration kit contains:
+        - open standard - a perfect, lossless, lengthless open
+        - short standard - a perfect, lossless, lengthless short
+        - load standard - a perfect, lossless, lengthless 50 Ohm termination
+        - thru standard - a perfect, lossless, lengthless 50 Ohm thru
+        """
         self.openC0=0.              # % C0 (fF) - OPEN
         self.openC1=0.              # % C1 (1e-27 F/Hz) - OPEN
         self.openC2=0.              # % C2 (1e-36 F/Hz^2) - OPEN
@@ -81,8 +97,11 @@ class CalibrationConstants(object):
         self.thruOffsetDelay=0.     # % offset delay (pS) - THRU
         self.thruOffsetZ0=50.       # % real(Zo) of offset length - THRU
         self.thruOffsetLoss=0.      # % offset loss (GOhm/s) - THRU
-
     def ReadFromFile(self,filename):
+        """The file is read from the disk and the constants stored internally.
+        @param filename string name of calibration constant file to read.
+        @return self
+        """
         with open(filename) as f:
             lines=f.readlines()
         actualLines=[]
@@ -133,6 +152,13 @@ class CalibrationConstants(object):
         self.thruOffsetLoss=float(actualLines[20])*1e9
         return self
     def WriteToFile(self,filename,calkitname=None):
+        """The calibration constants are written to a file.
+        @param filename string name of calibration constant file to write
+        @param calkitname (optional) string containing header information to be placed after the DESCRIPTION:
+        in the header information.
+        @return self 
+        @see CalibrationConstants
+        """
         line=[]
         if not calkitname is None:
             line.append('% DESCRIPTION: '+calkitname+'\n')
@@ -184,9 +210,97 @@ class CalibrationConstants(object):
         with open(filename,'w') as f:
             f.writelines(line)
         return self
+    ## @var openC0
+    # float Capacitance polynomial term for f^0 for open standard in F.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-15.
+    ## @var openC1
+    # float Capacitance polynomial term for f^1 for open standard in F/Hz.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-27.
+    ## @var openC2
+    # float Capacitance polynomial term for f^2 for open standard in F/Hz^2.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-36.
+    ## @var openC3
+    # float Capacitance polynomial term for f^3 for open standard in F/Hz^3.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-45.
+    ## @var openOffsetDelay
+    # float open offset electrical length in s.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-12.
+    ## @var openOffsetZ0
+    # float real characteristic impedance of offset to open in Ohms.
+    ## @var openOffsetLoss
+    # float open offset loss in Ohm/s at f0=1 GHz.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # /1e9.
+    ## @var shortL0
+    # float Inductance polynomial term for f^0 for short standard in H.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-12.
+    ## @var shortL1
+    # float Inductance polynomial term for f^1 for short standard in H/Hz.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-24.
+    ## @var shortL2
+    # float Inductance polynomial term for f^2 for short standard in H/Hz^2.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-33.
+    ## @var shortL3
+    # float Inductance polynomial term for f^3 for short standard in H/Hz^3.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-42.
+    ## @var shortOffsetDelay
+    # float short offset electrical length in s.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-12.
+    ## @var shortOffsetZ0
+    # float real characteristic impedance of offset to short in Ohms.
+    ## @var shortOffsetLoss
+    # float short offset loss in Ohm/s at f0=1 GHz.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # /1e9.
+    ## @var loadZ
+    # float load resistance in Ohms.
+    ## @var loadOffsetDelay
+    # float load offset electrical length in s.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-12.
+    ## @var loadOffsetZ0
+    # float real characteristic impedance of offset to load in Ohms.
+    ## @var loadOffsetLoss
+    # float load offset loss in Ohm/s at f0=1 GHz.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # /1e9.
+    ## @var thruOffsetDelay
+    # float thru offset electrical length in s.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # *1e-12.
+    ## @var thruOffsetZ0
+    # float real characteristic impedance of offset to thru in Ohms.
+    ## @var thruOffsetLoss
+    # float thru offset loss in Ohm/s at f0=1 GHz.
+    # @note the internal storage is in the correct units and is the value in the calibration contants file
+    # /1e9.
 
 class CalibrationKit(object):
+    """Class for holding a calibration kit derived from calibration constants"""
     def __init__(self,filename=None,f=None):
+        """Constructor
+        @param filename (optional) string filename of calibration constants file to read.
+        @param f (optional) list of frequencies to define the calibration standards for.
+        The calibration constants are initialized to their default as specified in CalibrationConstants.__init__().
+
+        If a filename is specified, the calibration constants are read from the disk.
+
+        If frequencies are provided, the frequencies are initialized and the calibration standards are initialized
+        to have the s-parameters of the standards as defined by the frequencies and calibration constants.
+
+        No calibration standards are generated yet if no frequencies are provided.
+        @see IntializeFrequency
+        """
         self.Constants=CalibrationConstants()
         self.m_f=None
         if not filename is None:
@@ -194,6 +308,17 @@ class CalibrationKit(object):
         if not f is None:
             self.InitializeFrequency(f)
     def InitializeFrequency(self,f):
+        """Initializes frequencies
+        @param f list of frequencies
+        Calibration standards are initialized to have the s-parameters of the standards as defined by the
+        frequencies and calibration constants.
+
+        Once intialized, the s-parameters of the calibration standards can be accessed and used.
+        @see openStandard
+        @see shortStandard
+        @see loadStandard
+        @see thruStandard
+        """
         self.m_f=f
         self.openStandard=OpenStandard(self.m_f,self.Constants.openOffsetDelay,
             self.Constants.openOffsetZ0,self.Constants.openOffsetLoss,
@@ -210,20 +335,92 @@ class CalibrationKit(object):
             self.Constants.thruOffsetZ0,self.Constants.thruOffsetLoss)
         return self
     def ReadFromFile(self,filename):
+        """Reads the calibration constants from a file
+        @param filename string name of file to read calibration constants from
+        @return self
+        @see CalibrationConstants.ReadFromFile()
+        @see CalibrationConstants for file format
+        """
         self.Constants=CalibrationConstants().ReadFromFile(filename)
         return self
     def WriteToFile(self,filename,calkitname=None):
+        """Write calibration constants to a file
+        @param filename string name of calibration constant file to write
+        @param calkitname (optional) string containing header information to be placed after the DESCRIPTION:
+        in the header information.
+        @return self
+        @see CalibrationConstants.WriteToFile()
+        """
         self.Constants.WriteToFile(filename, calkitname)
         return self
     def WriteStandardsToFiles(self,filenamePrefix):
+        """Writes the standards to s-parameter files.
+        @param filenamePrefix string name of prefix for standards file names
+        @return self
+        Each standard is prefixed with the filenamePrefix provided concatenated with:
+        - 'Short.s1p' - for the short standard.
+        - 'Open.s1p' - for the open standard.
+        - 'Load.s1p' - for the load standard.
+        - 'Thru.s2p' - for the thru standard
+        @attention the member variables for the standards must exist.
+        @see shortStandard
+        @see openStandard
+        @see loadStandard
+        @see thruStandard
+        """
         self.shortStandard.WriteToFile(filenamePrefix+'Short')
         self.openStandard.WriteToFile(filenamePrefix+'Open')
         self.loadStandard.WriteToFile(filenamePrefix+'Load')
         self.thruStandard.WriteToFile(filenamePrefix+'Thru')
         return self
     def ReadStandardsFromFiles(self,filenamePrefix):
+        """Reads the standards from s-parameter files.
+        @param filenamePrefix string name of prefix for standards file names
+        @return self
+        Each standard is prefixed with the filenamePrefix provided concatenated with:
+        - 'Short.s1p' - for the short standard.
+        - 'Open.s1p' - for the open standard.
+        - 'Load.s1p' - for the load standard.
+        - 'Thru.s2p' - for the thru standard
+        @attention This decouples the standards from the calibration constants and is not preferred.
+        @see shortStandard
+        @see openStandard
+        @see loadStandard
+        @see thruStandard 
+        """
         self.shortStandard=SParameterFile(filenamePrefix+'Short.s1p')
         self.openStandard=SParameterFile(filenamePrefix+'Open.s1p')
         self.loadStandard=SParameterFile(filenamePrefix+'Load.s1p')
         self.thruStandard=SParameterFile(filenamePrefix+'Thru.s2p')
         return self
+    ## @var openStandard
+    # instance of class SParameters containing s-parameters of an open standard corresponding to frequencies
+    # provided and calibration constants.
+    # @attention this only defined if the class was initialized with a frequency list or a call was made to
+    # InitializeFrequency()
+    #
+    ## @var shortStandard
+    # instance of class SParameters containing s-parameters of a short standard corresponding to frequencies
+    # provided and calibration constants.
+    # @attention this only defined if the class was initialized with a frequency list or a call was made to
+    # InitializeFrequency()
+    #
+    ## @var loadStandard
+    # instance of class SParameters containing s-parameters of a load standard corresponding to frequencies
+    # provided and calibration constants.
+    # @attention this only defined if the class was initialized with a frequency list or a call was made to
+    # InitializeFrequency()
+    #
+    ## @var thruStandard
+    # instance of class SParameters containing s-parameters of a thru standard corresponding to frequencies
+    # provided and calibration constants.
+    # @attention this only defined if the class was initialized with a frequency list or a call was made to
+    # InitializeFrequency()
+    #
+    ## @var Constants
+    # instance of class CalibrationConstants containing the calibration constants.
+    #
+    ## @var m_f
+    #
+    # list of frequencies
+    #

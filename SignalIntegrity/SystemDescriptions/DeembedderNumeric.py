@@ -12,29 +12,25 @@
 from numpy import matrix
 from numpy import identity
 
-from Deembedder import Deembedder
+from SignalIntegrity.SystemDescriptions.Deembedder import Deembedder
 from SignalIntegrity.PySIException import PySIExceptionNumeric
 
-## Numeric Deembedder
-# 
-# Performs numerical device deembedding
-#
 class DeembedderNumeric(Deembedder):
-    ## Constructor
-    #
-    # @param sd instance of class SystemDescription
-    #
+    """Performs numerical device deembedding"""
     def __init__(self,sd=None):
+        """Constructor
+        @param sd (optional) instance of class SystemDescription
+        """
         Deembedder.__init__(self,sd)
-    ## Calculates the unknown s-parameters
-    #
-    # @param Sk instance of class SParameters containing the s-parameters of
-    # the known device
-    #
-    # calculates unknown devices in the system, effectively deembedding the
-    # surrounding network
-    #
     def CalculateUnknown(self,Sk):
+        """Calculates the unknown s-parameters
+
+        @param Sk instance of class SParameters containing the s-parameters of
+        the known device
+
+        calculates unknown devices in the system, effectively deembedding the
+        surrounding network
+        """
         Bmsd=self.PortANames()
         Amsd=self.PortBNames()
         Adut=self.DutANames()

@@ -1,25 +1,39 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ Computes Systems of Interconnected s-parameter blocks numerically
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import matrix
 from numpy import identity
 from numpy import linalg
 
 from SignalIntegrity.Helpers.AllZeroMatrix import *
-from SignalIntegrity.SystemDescriptions import SystemSParameters
-from Numeric import Numeric
+from SignalIntegrity.SystemDescriptions.SystemSParameters import SystemSParameters
+from SignalIntegrity.SystemDescriptions.Numeric import Numeric
 from SignalIntegrity.PySIException import PySIExceptionNumeric
 
 class SystemSParametersNumeric(SystemSParameters,Numeric):
+    """Class for computing s-parameters of interconnected systems"""
     def __init__(self,sd=None):
+        """ Constructor
+        @param sd (optional) instance of class SystemDescription
+        """
         SystemSParameters.__init__(self,sd)
     def SParameters(self,**args):
+        """Calculates and returns the s-parameters.
+        @param args named arguments (name=value).
+        @return list of list s-parameter matrix containing the matrix for this frequency.
+        the named arguments possible are:
+        - 'solvetype' - either 'block' for the block solution or 'direct' for
+        the direct solution.
+        @todo document this better
+        """
         from numpy.linalg.linalg import LinAlgError
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         AN=self.PortBNames()

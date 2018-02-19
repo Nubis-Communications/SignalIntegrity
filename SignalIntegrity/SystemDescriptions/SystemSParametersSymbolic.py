@@ -1,19 +1,27 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from SignalIntegrity.Helpers.AllZeroMatrix import AllZeroMatrix
-from SystemDescriptionSymbolic import SystemDescriptionSymbolic
+from SignalIntegrity.SystemDescriptions.SystemDescriptionSymbolic import SystemDescriptionSymbolic
 from Device import Device
 from SignalIntegrity.Helpers.AllZeroMatrix import *
 
 class SystemSParametersSymbolic(SystemDescriptionSymbolic):
+    """Class for solving symbolically the s-parameters of interconnected systems."""
     def __init__(self,sd=None,**args):
+        """Constructor
+        @param sd (optional) instance of class SystemDescription
+        @param args (optional) named arguments (name = value)
+        Named arguments passed to the Symbolic class
+        @see Symbolic
+        """
         SystemDescriptionSymbolic.__init__(self,sd,**args)
     def _LaTeXSi(self):
         sW=self._LaTeXMatrix(self.WeightsMatrix())
@@ -21,6 +29,22 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
             ' - '+sW+' \\right]^{-1}')
         return self
     def LaTeXSolution(self,**args):
+        """Calculates and stores internally a symbolic representation
+        of the LaTeX s-parameter solution for the network.
+        @param args named arguments (name=value).
+        @return self
+        the named arguments possible are:
+        - 'solvetype' - (optional) either 'block' for the block solution or 'direct' for
+        the direct solution (defaults to 'block').
+        - 'size' - either 'normal', 'big', or 'biggest' (defaults to 'normal').
+        @see Symbolic
+        Here, 'size' is used depending on the size of the solution.
+        If the size is normal, then the block solution is output in matrix form
+        on one line.  If the size is big, the inverse of (I-Wxx) is shown on one line
+        and Wxx is used on the next single line solution, as this tends to become
+        large sometimes.  The biggest size is used when the solution is really large
+        and it basically defines each matrix in the block solution on its own line
+        and then writes the final result using the names of the matrices."""
         # pragma: silent exclude
         self.CheckConnections()
         # pragma: include

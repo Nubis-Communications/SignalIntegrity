@@ -235,87 +235,86 @@ class RoutineWriterTesterHelper(object):
         sourceCode=[]
         indent=0
         lineDef=[]
-        with open(fileName, 'rU') as inputFile:
-            lineNumber=1
-            for line in inputFile:
-                if len(line.split())>=2:
-                    pragmaLine = ('pragma:' == line.split()[1])
+        inputFile = DocStripped(fileName)
+        lineNumber=1
+        for line in inputFile:
+            if len(line.split())>=2:
+                pragmaLine = ('pragma:' == line.split()[1])
+            else:
+                pragmaLine = False
+            if "class" == line.lstrip(' ').split(' ')[0]:
+                if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
+                    inClass = True
+                    inDef = False
+                    addingLines = True
+                    strippingDoc=False
+                    lineNumber=1
                 else:
-                    pragmaLine = False
-                if "class" == line.lstrip(' ').split(' ')[0]:
-                    if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
-                        inClass = True
-                        inDef = False
-                        addingLines = True
+                    inClass = False
+                    inDef = False
+                    addingLines = False
+                    strippingDoc=False
+            elif "def" == line.lstrip(' ').split(' ')[0]:
+                if inClass:
+                    thisDefName=line.lstrip(' ').split(' ')[1].split('(')[0]
+                    if any(d == thisDefName for d in defName):
+                        inDef=True
+                        defMacro=className+'_'+thisDefName+'_Num'
+                        defMacro=''.join(ch for ch in defMacro if ch.isalpha())
+                        defLine='\\def\\'+defMacro+'{'+str(lineNumber)+'}\n'
+                        lineDef=lineDef+[defLine]
+                        addingLines=True
                         strippingDoc=False
-                        lineNumber=1
                     else:
-                        inClass = False
-                        inDef = False
-                        addingLines = False
-                        strippingDoc=False
-                elif "def" == line.lstrip(' ').split(' ')[0]:
-                    if inClass:
-                        thisDefName=line.lstrip(' ').split(' ')[1].split('(')[0]
-                        if any(d == thisDefName for d in defName):
-                            inDef=True
-                            defMacro=className+'_'+thisDefName+'_Num'
-                            defMacro=''.join(ch for ch in defMacro if ch.isalpha())
-                            defLine='\\def\\'+defMacro+'{'+str(lineNumber)+'}\n'
-                            lineDef=lineDef+[defLine]
-                            addingLines=True
-                            strippingDoc=False
-                        else:
-                            if addingLines:
-                                sourceCode.append("...\n")
-                                lineNumber=lineNumber+1
-                            inDef=False
-                            addingLines=False
-                            strippingDoc=False
-                    else:
+                        if addingLines:
+                            sourceCode.append("...\n")
+                            lineNumber=lineNumber+1
                         inDef=False
                         addingLines=False
                         strippingDoc=False
-                elif pragmaLine:
-                        strippingDoc=False
-                        tokens=line.split()
-                        pindex=tokens.index('pragma:')
-                        tokens=[tokens[i] for i in range(pindex,len(tokens))]
-                        silent=False
-                        for token in tokens:
-                            if token == 'silent':
-                                silent=True
-                            if token == 'exclude':
-                                if inDef:
-                                    if addingLines:
-                                        if not silent:
-                                            sourceCode.append("...\n")
-                                            lineNumber=lineNumber+1
-                                    addingLines = False
-                            elif token == 'include':
-                                if inDef:
-                                    addingLines = True
-                            elif token == 'outdent':
-                                indent = indent+4
-                            elif token == 'indent':
-                                indent = indent-4
-                        continue
                 else:
-                    if addingLines:
-                        if '##' == line.lstrip(' ').split(' ')[0]:
-                            strippingDoc=True
-                        if not inDef and not strippingDoc:
-                            addingLines=False
-                            strippingDoc=False
-                if addingLines and not strippingDoc:
-                    sourceCode.append(line[indent:])
-                    lineNumber=lineNumber+1
+                    inDef=False
+                    addingLines=False
+                    strippingDoc=False
+            elif pragmaLine:
+                    strippingDoc=False
+                    tokens=line.split()
+                    pindex=tokens.index('pragma:')
+                    tokens=[tokens[i] for i in range(pindex,len(tokens))]
+                    silent=False
+                    for token in tokens:
+                        if token == 'silent':
+                            silent=True
+                        if token == 'exclude':
+                            if inDef:
+                                if addingLines:
+                                    if not silent:
+                                        sourceCode.append("...\n")
+                                        lineNumber=lineNumber+1
+                                addingLines = False
+                        elif token == 'include':
+                            if inDef:
+                                addingLines = True
+                        elif token == 'outdent':
+                            indent = indent+4
+                        elif token == 'indent':
+                            indent = indent-4
+                    continue
+            else:
+                if addingLines:
+                    if '##' == line.lstrip(' ').split(' ')[0]:
+                        strippingDoc=True
+                    if not inDef and not strippingDoc:
+                        addingLines=False
+                        strippingDoc=False
+            if addingLines and not strippingDoc:
+                sourceCode.append(line[indent:])
+                lineNumber=lineNumber+1
         if not os.path.exists(outputFileName):
             with open(outputFileName, 'w') as outputFile:
                 for line in sourceCode:
                     outputFile.write(line)
-        with open(outputFileName, 'rU') as regressionFile:
-            regression = regressionFile.readlines()
+        regression=DocStripped(outputFileName).doc
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
         self.assertTrue(max([len(line) for line in regression])<=self.maxLineLength,outputFileName + ' has line that is too long')
         self.assertTrue(len(regression)<=self.maxNumLines,outputFileName + ' has too many lines: '+str(len(regression)))
@@ -349,5 +348,24 @@ class CallbackTesterHelper(object):
         return [self.numProgress,self.firstProgress,self.lastProgress]
     def CheckCallbackTesterResults(self,correct):
         return correct == self.CallBackTesterResults()
+
+class DocStripped(object):
+    def __init__(self,filename):
+        self.doc=[]
+        inDocString=False
+        with open(filename, 'rU') as inputFile:
+            for line in inputFile:
+                if line.count('"""')==1:
+                    inDocString=not inDocString
+                    continue
+                elif line.count('"""')==2:
+                    continue
+                if not inDocString:
+                    self.doc.append(line)
+    def __len__(self):
+        return len(self.doc)
+    def __getitem__(self,item):
+        return self.doc[item]
+
 
 
