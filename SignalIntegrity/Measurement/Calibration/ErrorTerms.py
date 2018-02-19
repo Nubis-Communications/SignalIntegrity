@@ -170,6 +170,16 @@ class ErrorTerms(object):
                                 didOne=True
                                 continue
         return self
+    ## Fixture
+    #
+    # @param m driven port
+    # @return a list of list s-parameter matrix
+    #
+    # For a P port measurement, the s-parameters are for a 2*P port
+    # fixture containing the error terms when port m driven going between
+    # the insrument ports and the DUT ports where
+    # the first P ports are the instrument port connections and the remaining
+    # ports connect to the DUT.
     def Fixture(self,m):
         E=[[zeros((self.numPorts,self.numPorts),complex).tolist(),
             zeros((self.numPorts,self.numPorts),complex).tolist()],
@@ -182,6 +192,13 @@ class ErrorTerms(object):
             E[1][1][n][n]=ETn[2]
         E[1][0][m][m]=1.
         return E
+    ## DutCalculationAlternate
+    #
+    # @param sRaw list of list s-parameter matrix of raw measured DUT
+    # @return list of list s-parameter matrix of calibrated DUT measurement
+    #
+    # This provides a DUT calculation according to the Wittwer method.
+    #
     def DutCalculationAlternate(self,sRaw):
         if self.numPorts==1:
             (Ed,Er,Es)=self[0][0]
@@ -203,6 +220,13 @@ class ErrorTerms(object):
                     B[r][m]=bprime[r][0]
             S=(matrix(B)*matrix(A).getI()).tolist()
             return S
+    ## DutCalculation
+    #
+    # @param sRaw list of list s-parameter matrix of raw measured DUT
+    # @return list of list s-parameter matrix of calibrated DUT measurement
+    #
+    # This provides a newer, simpler DUT calculation
+    #
     def DutCalculation(self,sRaw):
         B=[[(sRaw[r][c]-self[r][c][0])/self[r][c][1] for c in range(len(sRaw))]
            for r in  range(len(sRaw))]

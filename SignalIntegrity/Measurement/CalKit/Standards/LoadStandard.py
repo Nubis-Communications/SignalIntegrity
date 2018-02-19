@@ -1,12 +1,13 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
-
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
+"""
+Load Standard
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
 from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 from SignalIntegrity.SParameters.SParameters import SParameters
@@ -14,7 +15,22 @@ from SignalIntegrity.Devices.TerminationZ import TerminationZ
 
 from SignalIntegrity.Measurement.CalKit.Standards.Offset import Offset
 
+## LoadStandard
+#
+# class providing the s-parameters of a load standard as commonly defined
+# for a calibration kit.
+#
 class LoadStandard(SParameters):
+    ## Constructor
+    #
+    # @param f list of frequencies
+    # @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
+    # @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
+    # @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
+    # @param terminationZ0 (optional) float real impedance of termination.
+    #
+    # The result is that the class becomes the base-class SParameters with the s-parameters
+    # of a load standard.
     def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
                  terminationZ0=50.0):
         # pragma: silent exclude

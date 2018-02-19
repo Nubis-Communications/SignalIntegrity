@@ -1,12 +1,14 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+SParameters
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import empty
 from numpy import array
 import cmath
@@ -21,7 +23,17 @@ from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
 from SParameterManipulation import SParameterManipulation
 from SignalIntegrity.PySIException import PySIExceptionSParameterFile
 
+## SParameters
+#
+# class containing s-parameters
+#
 class SParameters(SParameterManipulation):
+    ## Constructor
+    #
+    # @param f list of frequencies
+    # @param data list of list of list matrices were each element is a list of list s-parameter matrix.
+    # @param Z0 (optional) real or complex reference impedance
+    #
     def __init__(self,f,data,Z0=50.0):
         self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
         self.m_f=FrequencyList(f)
@@ -30,12 +42,48 @@ class SParameters(SParameterManipulation):
         else:
             mat=self[0]
             if not mat is None: self.m_P=len(mat[0])
+    ## overloads [item]
+    #
+    # @param item integer index of list of list s-parameter matrix
+    # @return list of list s-parameter matrix at index location
+    #
     def __getitem__(self,item): return self.m_d[item]
+    ## overloads len()
+    #
+    # @return the number of frequencies in the s-parameters
+    #
     def __len__(self): return len(self.m_f)
+    ## f
+    #
+    # @return list of frequencies
+    #
     def f(self): return self.m_f
+    ## Response
+    #
+    # @param ToP integer receive port
+    # @param FromP integer driven port
+    # @return list of complex as the frequency response at port ToP due to waves driven at FromP.
+    #
+    # @see FrequencyResponse()
+    #
     def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self]
+    ## FrequencyResponse
+    #
+    # @param ToP integer receive port
+    # @param FromP integer driven port
+    # @return instance of class FrequencyResponse as the frequency response at port ToP due to waves driven at FromP.
+    #
     def FrequencyResponse(self,ToP,FromP):
         return FrequencyResponse(self.f(),self.Response(ToP,FromP))
+    ## WriteToFile
+    #
+    # @param name string filename to write to
+    # @param formatString (optional) string containing the # format
+    #
+    # Writes the file in the Touchstone 1.0 format using the format string provided.
+    #
+    # If no format string is provided, uses '# MHz MA S R 50.0'
+    #
     def WriteToFile(self,name,formatString=None):
         # pragma: silent exclude
         try:
@@ -93,6 +141,11 @@ class SParameters(SParameterManipulation):
             spfile.write(pline)
         spfile.close()
         return self
+    ## Resample
+    #
+    # @param fl list of frequencies to resample to.
+    # @return instance of class SParameters containing resampled s-parameters
+    #
     def Resample(self,fl):
         if self.m_d is None:
             self.m_f=fl
@@ -106,6 +159,13 @@ class SParameters(SParameterManipulation):
                 for n in range(len(fl)):
                     SR[n][o][i]=res[n]
         return SParameters(fl,SR,self.m_Z0)
+    ## SetReferenceImpedance
+    #
+    # @param Z0 real or complex reference impedance
+    # @return self
+    #
+    # Transforms the reference impedance of self to the new reference impedance Z0.
+    #
     def SetReferenceImpedance(self,Z0):
         if Z0 != self.m_Z0:
             for n in range(len(self.m_f)):
