@@ -1,6 +1,3 @@
-"""
-Series Impedance
-"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -25,11 +22,11 @@ def SeriesZZ0K(Z,Z0=None,K=None):
     return [[S11,S12],[S21,S22]]
 # pragma: include
 
-## SeriesZ
-#
-# @param Z float or complex impedance
-# @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
-# @return the list of list s-parameter matrix for a series impedance
-#
 def SeriesZ(Z,Z0=50.):
+    """AtPackage si.dev.SeriesZ
+    Series Impedance
+    @param Z float or complex impedance
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+    @return the list of list s-parameter matrix for a series impedance
+    """
     return [[Z/(Z+2.*Z0),2.*Z0/(Z+2.*Z0)],[2*Z0/(Z+2.*Z0),Z/(Z+2.*Z0)]]

@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def CurrentAmplifier(P,G,Zi,Zo,Z0=50.):
-    """@package si.dev.CurrentAmplifier
+    """AtPackage si.dev.CurrentAmplifier
     2-4 Port Current Amplifiers
     @param P integer number of ports (2-4)
     @param G float current gain
@@ -28,7 +28,7 @@ def CurrentAmplifier(P,G,Zi,Zo,Z0=50.):
         return CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.)
 
 def CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.):
-    """@package si.dev.CurrentAmplifierFourPort
+    """AtPackage si.dev.CurrentAmplifierFourPort
     Four port current amplifier
     @param G float current gain
     @param Zi float or complex input impedance
@@ -63,7 +63,7 @@ def CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.):
             [S41,S42,S43,S44]]
 
 def CurrentAmplifierThreePort(G,Zi,Zo,Z0=50.):
-    """@package si.dev.CurrentAmplifierThreePort
+    """AtPackage si.dev.CurrentAmplifierThreePort
     Three port curent amplifier
     @param G float current gain
     @param Zi float or complex input impedance
@@ -94,7 +94,7 @@ def CurrentAmplifierThreePort(G,Zi,Zo,Z0=50.):
             [S31,S32,S33]]
 
 def CurrentAmplifierTwoPort(G,Zi,Zo,Z0=50.):
-    """@package si.dev.CurrentAmplifierTwoPort
+    """AtPackage si.dev.CurrentAmplifierTwoPort
     Two port current amplifier
     @param G float current gain
     @param Zi float or complex input impedance

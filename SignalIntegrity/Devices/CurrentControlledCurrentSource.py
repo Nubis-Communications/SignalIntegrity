@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def CurrentControlledCurrentSource(G):
-    """@package si.dev.CurrentControlledCurrentSource
+    """AtPackage si.dev.CurrentControlledCurrentSource
     Current controlled current source
     @param G float or complex current gain
     @return list of list s-parameter matrix of a current controlled current source

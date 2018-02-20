@@ -1,6 +1,3 @@
-"""
-Tee
-"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -11,14 +8,13 @@ Tee
 
 from numpy import empty
 
-## Tee
-#
-# @param P (optional) integer number of ports for the tee (default is three).
-# @return the list of list s-parameter matrix for a tee connection.
-#
-# A tee connection is a dot in a schematic.
-#
 def Tee(P=None):
+    """AtPackage si.dev.Tee
+    Tee device
+    @param P (optional) integer number of ports for the tee (default is three).
+    @return the list of list s-parameter matrix for a tee connection.
+    @remark A tee connection is a dot in a schematic.
+    """
     if P is None:
         P=3
     mat=empty((P,P))

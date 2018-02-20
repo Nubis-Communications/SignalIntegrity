@@ -1,11 +1,3 @@
-"""
- @package si
- Signal Integrity Toolbox
- 
- Use it as:
- 
- Import SignalIntegrity as si
-"""
 import SystemDescriptions as sd
 import Conversions as cvt
 import Devices as dev

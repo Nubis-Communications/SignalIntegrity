@@ -1,6 +1,3 @@
-"""
- Reference Impedance Transformer
-"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -11,18 +8,17 @@
 
 import cmath
 
-## ReferenceImpedanceTransformer
-#
-# @param Z0f real or complex output reference impedance.
-# @param Z0i real or complex input reference impedance.
-# @param Kf (optional) real or complex scaling factor for the output (defaults to sqrt(Z0f))
-# @param Ki (optional) real or complex scaling factor for the input (defaults to sqrt(Z0i))
-# @return the list of list s-parameter matrix for a reference impedance transformer.
-#
-# @todo put Z0i=50.0 in the input arguments and remove check within the code
-# @todo needs port numbering
-#
 def ReferenceImpedanceTransformer(Z0f,Z0i=None,Kf=None,Ki=None):
+    """AtPackage si.dev.ReferenceImpedanceTransformer
+    Reference impedance transformer
+    @param Z0f real or complex output reference impedance.
+    @param Z0i real or complex input reference impedance.
+    @param Kf (optional) real or complex scaling factor for the output (defaults to sqrt(Z0f))
+    @param Ki (optional) real or complex scaling factor for the input (defaults to sqrt(Z0i))
+    @return the list of list s-parameter matrix for a reference impedance transformer.
+    @todo put Z0i=50.0 in the input arguments and remove check within the code
+    @todo needs port numbering
+    """
     Z0f=float(Z0f.real)+float(Z0f.imag)*1j
     if Z0i is None:
         Z0i=50.0

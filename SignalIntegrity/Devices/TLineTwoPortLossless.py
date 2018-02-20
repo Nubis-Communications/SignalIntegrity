@@ -1,6 +1,3 @@
-"""
- Ideal Lossless Two-port Transmission Line
-"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -13,13 +10,13 @@ import math
 
 from TLineTwoPort import TLineTwoPort
 
-## TLineTwoPortLossless
-#
-# @param Zc float or complex characteristic impedance
-# @param Td float electrical length (or time delay through the device)
-# @param f float frequency
-# @param Z0 float or complex characteristic impedance
-# @return list of list s-parameters of two-port lossless transmission line
-#
 def TLineTwoPortLossless(Zc,Td,f,Z0):
+    """AtPackage si.dev.TLineTwoPortLossless
+    Ideal Lossless Two-port Transmission Line
+    @param Zc float or complex characteristic impedance
+    @param Td float electrical length (or time delay through the device)
+    @param f float frequency
+    @param Z0 float or complex characteristic impedance
+    @return list of list s-parameters of two-port lossless transmission line
+    """
     return TLineTwoPort(Zc,1j*2.*math.pi*f*Td,Z0)

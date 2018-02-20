@@ -1,5 +1,3 @@
-"""@package si.dev
-list of list s-parameter matrices for devices"""
 from Ground import Ground
 from MixedModeConverter import MixedModeConverter,MixedModeConverterVoltage
 from Mutual import Mutual,MutualOld

@@ -1,6 +1,3 @@
-"""
- Four-port Shunt Device
-"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -11,17 +8,15 @@
 
 from numpy import matrix
 
-## ShuntDeviceFourPort
-#
-# @param D list of list s-parameter matrix of two-port shunt device
-# @return list of list s-parameter matrix of four-port shunt device
-#
-# ports 1 and 3 are connected to port 1 of the device D provided.
-#
-# ports 2 and 4 are connected to port 2 of the device D provided. 
-#
-# @todo check the port numbering
 def ShuntDeviceFourPort(D):
+    """AtPackage si.dev.ShuntDeviceFourPort
+    Four-port Shunt Device
+    @param D list of list s-parameter matrix of two-port shunt device
+    @return list of list s-parameter matrix of four-port shunt device
+    @remark ports 1 and 3 are connected to port 1 of the device D provided.\n
+    ports 2 and 4 are connected to port 2 of the device D provided.\n
+    @todo check the port numbering
+    """
     D11=D[0][0]
     D12=D[0][1]
     D21=D[1][0]
