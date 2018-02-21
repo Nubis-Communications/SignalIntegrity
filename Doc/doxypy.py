@@ -361,7 +361,8 @@ class Doxypy(object):
 		@returns the modified python code
 		""" 
 		f = open(filename, 'r')
-		
+		self.output=["'''"+filename.split('/')[-1].split('.')[0]+"'''"]
+		self.__flushBuffer()
 		for line in f:
 			self.parseLine(line.rstrip('\r\n'))
 		if self.fsm.current_state == "DEFCLASS":
