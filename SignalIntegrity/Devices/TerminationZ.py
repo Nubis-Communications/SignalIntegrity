@@ -9,7 +9,7 @@
 from SignalIntegrity.Conversions import Z0KHelper
 
 def TerminationZ(Z,Z0=None,K=None):
-    """AtPackage si.dev.TerminationZ
+    """TerminationZ
     Termination impedance
     @param Z float or complex impedance.
     @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms).

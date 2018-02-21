@@ -9,7 +9,7 @@
 from numpy import matrix
 
 def ShuntDeviceFourPort(D):
-    """AtPackage si.dev.ShuntDeviceFourPort
+    """ShuntDeviceFourPort
     Four-port Shunt Device
     @param D list of list s-parameter matrix of two-port shunt device
     @return list of list s-parameter matrix of four-port shunt device

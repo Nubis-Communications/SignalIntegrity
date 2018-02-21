@@ -23,7 +23,7 @@ def SeriesZZ0K(Z,Z0=None,K=None):
 # pragma: include
 
 def SeriesZ(Z,Z0=50.):
-    """AtPackage si.dev.SeriesZ
+    """SeriesZ
     Series Impedance
     @param Z float or complex impedance
     @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)

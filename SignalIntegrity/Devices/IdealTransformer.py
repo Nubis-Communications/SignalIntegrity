@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def IdealTransformer(a=1.):
-    """ AtPackage si.dev.IdealTransformer
+    """ IdealTransformer
     Ideal Transformer
     @param a float (optional) turns ratio (defaults to 1)
     @return the s-parameter matrix of an ideal transformer

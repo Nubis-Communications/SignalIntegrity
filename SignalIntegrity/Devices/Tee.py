@@ -9,7 +9,7 @@
 from numpy import empty
 
 def Tee(P=None):
-    """AtPackage si.dev.Tee
+    """Tee
     Tee device
     @param P (optional) integer number of ports for the tee (default is three).
     @return the list of list s-parameter matrix for a tee connection.

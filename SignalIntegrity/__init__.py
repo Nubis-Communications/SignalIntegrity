@@ -1,3 +1,5 @@
+"""@namespace SignalIntegrity
+Signal Integrity Tools"""
 import SystemDescriptions as sd
 import Conversions as cvt
 import Devices as dev

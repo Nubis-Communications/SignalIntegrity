@@ -7,12 +7,12 @@
 # this material whatsoever.
 
 def VoltageControlledCurrentSource(G,Z0=50):
-    """AtPackage si.dev.VoltageControlledCurrentSource
+    """VoltageControlledCurrentSource
     Voltage controlled current source
     @param G float or complex transconductance
     @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms)
     @return list of list s-parameter matrix of a voltage controlled current source
-    @remarrk
+    @remark
     The four port voltage controlled current source has
     the voltage sense element sensing the voltage difference between the plus terminal
     at port 1 and the minus terminal at port 2.\n

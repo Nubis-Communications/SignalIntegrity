@@ -12,7 +12,7 @@ capability to abort.
 
 class CallBacker(object):
     """CallBacker
-    @private
+
     To use callbacks, a class is derived from CallBacker.
 
     Either the constructor of the derived class or some other mechanism should

@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def CurrentControlledVoltageSource(G,Z0=50.):
-    """ AtPackage si.dev.CurrentControlledVoltageSource
+    """ CurrentControlledVoltageSource
     Current controlled voltage source
     @param G float or complex transresistance.
     @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms).

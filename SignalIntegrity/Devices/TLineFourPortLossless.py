@@ -10,7 +10,7 @@ import math
 from TLineFourPort import TLineFourPort
 
 def TLineFourPortLossless(Zc,Td,f,Z0):
-    """AtPackage si.dev.TLineFourPortLossless
+    """TLineFourPortLossless
     Ideal Lossless Four-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param Td float electrical length (or time delay through the device)

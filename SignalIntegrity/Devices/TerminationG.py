@@ -9,7 +9,7 @@
 from SignalIntegrity.Devices.TerminationZ import TerminationZ
 
 def TerminationG(G,Z0=50.):
-    """AtPackage si.dev.TerminationG
+    """TerminationG
     Termination conductance
     @param G float conductance.
     @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms).

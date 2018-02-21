@@ -1,5 +1,5 @@
 """
- Frequency Content
+ Frequency content
 """
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
@@ -22,44 +22,44 @@ from SignalIntegrity.TimeDomain.Waveform.SineWaveform import SineWaveform
 from SignalIntegrity.ChirpZTransform.ChirpZTransform import CZT
 from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 
-## FrequencyContent
-#
-# Frequency content view of a waveform.  In other words, it assumes that a waveform is an actual waveform and
-# contains the complex values of sinusoids that, if added together, would make up the waveform.  This is the
-# opposite of the FrequencyResponse() view.
-#
-# @see FrequencyResponse
-#
 class FrequencyContent(FrequencyDomain):
+    """Handles frequency content of waveforms.
+
+    This is the frequency content view of a waveform.  In other words, it assumes that a waveform is an actual waveform and
+    contains the complex values of sinusoids that, if added together, would make up the waveform.  This is the
+    opposite of the FrequencyResponse() view.
+
+    @see FrequencyResponse
+    """
     R=50.0
     P=1e-3
     LogRP10=10.*math.log10(R*P)
     dB3=20*math.log10(math.sqrt(2))
     dB6=20*math.log10(0.5)
-    ## Constructor
-    #
-    # @param wf in instance of class Waveform
-    # @param fd (optional) an instance of class FrequencyDescriptor (defaults to None)
-    #
-    # initializes itself internally by computing the frequency content of the waveform.
-    #
-    # If fd is None then the frequency descriptor is simply the frequency descriptor corresponding to the time
-    # descriptor of the waveform and the frequency content is computed from the DFT.
-    #
-    # Otherwise, the CZT is used to compute the frequency content and the time descriptor corresponds to the
-    # frequency descriptor.
-    #
-    # the time descriptor and frequency descriptor are retained so a waveform can be obtained from the frequency content.
-    #
-    # @note the frequency content is scaled differently from the raw DFT or CZT outputs in that the absolute value of each
-    # complex number in the frequency content represents the amplitude of a cosine wave.  This is not true with the raw
-    # DFT output and scaling things this way helps in the proper interpretation of the frequency content without having
-    # to think about the vagaries of the DFT.
-    #
-    # @see TimeDescriptor
-    # @see FrequencyDescriptor
-    # @see ChirpZTransform
     def __init__(self,wf,fd=None):
+        """Constructor
+        @param wf in instance of class Waveform
+        @param fd (optional) an instance of class FrequencyDescriptor (defaults to None)
+        @remark
+        initializes itself internally by computing the frequency content of the waveform.
+
+        If fd is None then the frequency descriptor is simply the frequency descriptor corresponding to the time
+        descriptor of the waveform and the frequency content is computed from the DFT.
+
+        Otherwise, the CZT is used to compute the frequency content and the time descriptor corresponds to the
+        frequency descriptor.
+
+        the time descriptor and frequency descriptor are retained so a waveform can be obtained from the frequency content.
+
+        @note the frequency content is scaled differently from the raw DFT or CZT outputs in that the absolute value of each
+        complex number in the frequency content represents the amplitude of a cosine wave.  This is not true with the raw
+        DFT output and scaling things this way helps in the proper interpretation of the frequency content without having
+        to think about the vagaries of the DFT.
+
+        @see TimeDescriptor
+        @see FrequencyDescriptor
+        @see ChirpZTransform
+        """
         td=wf.td
         if fd is None:
             X=fft.fft(wf.Values())
@@ -79,23 +79,22 @@ class FrequencyContent(FrequencyDomain):
             (1. if (n==0 or ((n==fd.N) and Keven)) else 2.)*\
             cmath.exp(-1j*2.*math.pi*fd[n]*td.H) for n in range(fd.N+1)])
         self.td=td
-    ## Values
-    #
-    # @param unit (optional) string containing the unit for the values desired.
-    # @return a list of complex values representing the frequency content.
-    #
-    # Valid frequency content units are:
-    #
-    # - 'rms' - the root-mean-squared (rms) value.
-    # - 'dBm' - the values in decibels were 0 dBm corresponds to the voltage needed to deliver
-    # 1 mW to a 50 Ohm load.  It's computed as 20*Log(rms)+13.010.
-    # - 'dBmPerHz' - the spectral density in dBm/Hz.
-    #
-    # If no unit is specified, the complex frequency content is returned.
-    # If no valid frequency content units are found, then it defers to the FrequencyDomain base class.
-    #
-    # @see FrequencyDomain.
     def Values(self,unit=None):
+        """frequency content values
+        @param unit (optional) string containing the unit for the values desired.
+        @return a list of complex values representing the frequency content.
+        @remark
+        Valid frequency content units are:\n
+        - 'rms' - the root-mean-squared (rms) value.
+        - 'dBm' - the values in decibels were 0 dBm corresponds to the voltage needed to deliver
+        1 mW to a 50 Ohm load.  It's computed as 20*Log(rms)+13.010.
+        - 'dBmPerHz' - the spectral density in dBm/Hz.
+
+        If no unit is specified, the complex frequency content is returned.
+        If no valid frequency content units are found, then it defers to the FrequencyDomain base class.
+
+        @see FrequencyDomain.
+        """
         if unit=='rms':
             Keven=(self.td.K/2)*2==self.td.K
             A=FrequencyDomain.Values(self,'mag')
@@ -113,16 +112,15 @@ class FrequencyContent(FrequencyDomain):
                     (self.dB3 if (n==0 or ((n==self.m_f.N) and Keven))
                     else 0) for n in range(len(dBm))]
         else: return FrequencyDomain.Values(self,unit)
-    ## Waveform
-    #
-    # @param td (optional) instance of class TimeDescriptor declaring the time descriptor of the waveform to produce.
-    # @return wf instance of class Waveform corresponding to the frequency content.
-    #
-    # If td is None then the time descriptor corresponding to the frequency descriptor is used.
-    #
-    # The waveform produced is essentially the inverse process of class initialization.
-    #
     def Waveform(self,td=None):
+        """Computes the time-domain waveform using IDFT methods
+        @param td (optional) instance of class TimeDescriptor declaring the time descriptor of the waveform to produce.
+        @return wf instance of class Waveform corresponding to the frequency content.
+        @note
+        If td is None then the time descriptor corresponding to the frequency descriptor is used.\n
+        The waveform produced is essentially the inverse process of class initialization.\n
+        @see WaveformFromDefinition()
+        """
         Keven=(self.td.K/2)*2==self.td.K
         X=self.Values()
         X=[X[n]*self.td.K*\
@@ -139,21 +137,18 @@ class FrequencyContent(FrequencyDomain):
         if not td is None:
             wf=wf.Adapt(td)
         return wf
-    ## WaveformFromDefinition
-    #
-    # @param td instance of class TimeDescriptor declaring the time descriptor of the waveform to produce.
-    # @return wf instance of class Waveform corresponding to the frequency content.
-    #
-    #
-    # If td is None then the time descriptor corresponding to the frequency descriptor is used.
-    #
-    # The waveform produced is essentially the inverse process of class initialization.
-    #
-    # This function should produce the exact same result as the Waveform() method, and is slow, but clearly
-    # written out to see how the waveform is produced by summing sinusoids.  It used to essentially document
-    # the class.
-    #
     def WaveformFromDefinition(self,td=None):
+        """Computes the time-domain waveform using sums of cosines
+        @param td instance of class TimeDescriptor declaring the time descriptor of the waveform to produce.
+        @return wf instance of class Waveform corresponding to the frequency content.
+        @note
+        If td is None then the time descriptor corresponding to the frequency descriptor is used.\n
+        The waveform produced is essentially the inverse process of __init__().\n
+        This function should produce the exact same result as the Waveform() method, and is slow, but clearly
+        written out to see how the waveform is produced by summing sinusoids.  It used to essentially document
+        the class.\n
+        @see Waveform().
+        """
         absX=self.Values('mag')
         theta=self.Values('deg')
         wf=Waveform(self.td)

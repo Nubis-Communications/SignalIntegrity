@@ -1,5 +1,5 @@
 """
-Converts s-parameters to ABCD parameters
+s-parameters to ABCD parameter conversions
 """
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
@@ -14,19 +14,15 @@ from numpy import array
 
 from Z0KHelper import Z0KHelper
 
-## S2ABCD
-#
-# @param S list of list representing s-parameter matrix to convert
-# @param Z0 (optional, defaults to None) the reference impedance
-# @param K (optional, defaults to None) scaling factor
-#
-# Converts s-parameters to ABCD parameters
-#
-# Supports only two-port devices.
-#
-# @see Z0KHelper to see how the reference impedance
-# and scaling factor are determined.
 def S2ABCD(S,Z0=None,K=None):
+    """Converts s-parameters to ABCD parameters.
+    @param S list of list representing s-parameter matrix to convert
+    @param Z0 (optional) float or complex or list of reference impedance (defaults to None).
+    @param K (optional) float or complex or list of scaling factor (defaults to None).
+    @note
+    Supports only two-port devices.\n
+    @see Z0KHelper to see how the reference impedance
+    and scaling factor are determined."""
     (Z0,K)=Z0KHelper((Z0,K),len(S))
     Z01=Z0.item(0,0)
     Z02=Z0.item(1,1)

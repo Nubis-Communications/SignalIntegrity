@@ -1,3 +1,4 @@
+"""series skin-effect resistance"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -10,8 +11,7 @@ from SignalIntegrity.Devices.SeriesZ import SeriesZ
 from numpy import math
 
 def SeriesRse(f,Rse,Z0=None):
-    """AtPackage si.dev.SeriesRse
-    Series Skin-effect Resistance
+    """Series Skin-effect Resistance
     @param Rse float resistance specified as Ohms/sqrt(Hz)
     @param f float frequency
     @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)

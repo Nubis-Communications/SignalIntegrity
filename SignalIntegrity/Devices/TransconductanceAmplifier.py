@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def TransconductanceAmplifier(P,G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransconductanceAmplifier
+    """TransconductanceAmplifier
     2-4 Port Transconductance Amplifiers
     @param P integer number of ports (2-4)
     @param G float transconductance gain
@@ -28,7 +28,7 @@ def TransconductanceAmplifier(P,G,Zi,Zo,Z0=50.):
         return TransconductanceAmplifierFourPort(G,Zi,Zo,Z0=50.)
 
 def TransconductanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransconductanceAmplifierFourPort
+    """TransconductanceAmplifierFourPort
     Four port transconductance amplifier
     @param G float transconductance gain
     @param Zi float or complex input impedance
@@ -63,7 +63,7 @@ def TransconductanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
             [S41,S42,S43,S44]]
 
 def TransconductanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransconductanceAmplifierThreePort
+    """TransconductanceAmplifierThreePort
     Three port transconductance amplifier
     @param G float transconductance gain
     @param Zi float or complex input impedance
@@ -94,7 +94,7 @@ def TransconductanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
 
 
 def TransconductanceAmplifierTwoPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransconductanceAmplifierTwoPort
+    """TransconductanceAmplifierTwoPort
     Two port transconductance amplifier
     @param G float transconductance gain
     @param Zi float or complex input impedance

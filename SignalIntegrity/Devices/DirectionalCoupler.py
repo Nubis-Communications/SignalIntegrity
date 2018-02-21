@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def DirectionalCoupler(ports):
-    """AtPackage si.dev.DirectionalCoupler
+    """DirectionalCoupler
     Directional Coupler
     @param ports integer number of ports (3 or 4)
     @return s-parameter matrix of a three or four port directional coupler

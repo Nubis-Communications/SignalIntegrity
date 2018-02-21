@@ -9,7 +9,6 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-from numpy import fft
 import math
 import cmath
 
@@ -17,74 +16,62 @@ from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
 
-## FrequencyDomain
-#
-# base class for frequency domain elements.  This class handles all kinds of utility things
-# common to all frequency-domain classes.
-#
 class FrequencyDomain(object):
-    ## Constructor
-    #
-    ##
-    # @var m_f
-    # instance of class FrequencyList
-    # @var m_resp
-    # list of complex values containing the frequency domain elements corresponding
-    # to the frequencies in m_f.
-    #
+    """base class for frequency domain elements.  This class handles all kinds of utility things
+    common to all frequency-domain classes.
+    """
     def __init__(self,f=None,resp=None):
+        """Constructor
+        @param f (optional) instance of class FrequencyList
+        @param resp (optional) list of complex frequency content or response
+        """
         self.m_f=FrequencyList(f)
         self.m_resp=resp
-    ## overloads [item]
-    #
-    # @param item integer index of the item 
-    # @return a complex frequency element
-    #
     def __getitem__(self,item): return self.m_resp[item]
-    ## overloads [item]=
-    #
-    # @param item integer index of the item
-    # @param value complex value of the frequency domain element
+    """
+    @param item integer index of the item 
+    @return a complex frequency element
+    """
     def __setitem__(self,item,value):
+        """overloads [item]=
+        @param item integer index of the item
+        @param value complex value of the frequency domain element
+        """
         self.m_resp[item]=value
         return self
-    ## overloads len()
-    #
-    # @return the number of elements
     def __len__(self): return len(self.m_resp)
-    ## FrequencyList
-    #
-    # @return the frequenc list in m_f
-    #
+    """overloads len()
+    @return the number of elements
+    """
     def FrequencyList(self):
+        """FrequencyList
+        @return the frequency list in m_f
+        """
         return self.m_f
-    ## Frequencies
-    #
-    # @param unit (optional) string containing the unit for the frequencies
-    #
-    # @see FrequencyList for information on valid unit strings.
-    #
     def Frequencies(self,unit=None):
+        """Frequencies
+        @param unit (optional) string containing the unit for the frequencies
+        @see FrequencyList for information on valid unit strings.
+        """
         return self.m_f.Frequencies(unit)
-    ## Values
-    #
-    # @param unit (optional) string containing the unit for the frequencies
-    # @return list of complex values corresponding to the frequency-domain elements in the
-    # units specified.
-    #
-    # Valid unit strings are:
-    #
-    # - 'dB' - values in decibels.
-    # - 'mag' - values in absolute magnitude.
-    # - 'rad' - the argument or phase in radians.
-    # - 'deg' - the argument or phase in degrees.
-    # - 'real' - the real part of the values.
-    # - 'imag' - the imaginary part of the values.
-    #
-    # Returns the list of complex values if no unit specified.
-    #
-    # Returns None if the unit is invalid.
     def Values(self,unit=None):
+        """Values
+        @param unit (optional) string containing the unit for the frequencies
+        @return list of complex values corresponding to the frequency-domain elements in the
+        units specified.
+        @remark
+        Valid unit strings are:
+        - 'dB' - values in decibels.
+        - 'mag' - values in absolute magnitude.
+        - 'rad' - the argument or phase in radians.
+        - 'deg' - the argument or phase in degrees.
+        - 'real' - the real part of the values.
+        - 'imag' - the imaginary part of the values.
+
+        Returns the list of complex values if no unit specified.
+        
+        Returns None if the unit is invalid.
+        """
         if unit==None:
             return self.m_resp
         elif unit =='dB':
@@ -102,14 +89,11 @@ class FrequencyDomain(object):
             return [self.m_resp[n].real for n in range(len(self.m_f))]
         elif unit == 'imag':
             return [self.m_resp[n].imag for n in range(len(self.m_f))]
-    ## ReadFromFile
-    #
-    # @param fileName string file name to read
-    # @return self
-    #
-    # reads in frequency domain content from the file specified.
-    #
     def ReadFromFile(self,fileName):
+        """reads in frequency domain content from the file specified.
+        @param fileName string file name to read
+        @return self
+        """
         with open(fileName,"rU") as f:
             data=f.readlines()
         if data[0].strip('\n')!='UnevenlySpaced':
@@ -126,14 +110,11 @@ class FrequencyDomain(object):
             self.m_f=GenericFrequencyList(f)
             self.m_resp=resp
         return self
-    ## WriteToFile
-    #
-    # @param fileName string file name to write
-    # @return self
-    #
-    # write the frequency domain content to the file specified.
-    #
     def WriteToFile(self,fileName):
+        """write the frequency domain content to the file specified.
+        @param fileName string file name to write
+        @return self
+        """
         fl=self.FrequencyList()
         with open(fileName,"w") as f:
             if fl.CheckEvenlySpaced():
@@ -147,12 +128,11 @@ class FrequencyDomain(object):
                     f.write(str(fl[n])+' '+str(self.Response()[n].real)+' '+
                     str(self.Response()[n].imag)+'\n')
         return self
-    ## overloads ==
-    #
-    # @param other an instance of a class derived from FrequencyDomain.
-    # @return whether self == other
-    #
     def __eq__(self,other):
+        """overloads ==
+        @param other an instance of a class derived from FrequencyDomain.
+        @return whether self == other
+        """
         if self.FrequencyList() != other.FrequencyList():
             return False # pragma: no cover
         if len(self.Values()) != len(other.Values()):
@@ -161,10 +141,15 @@ class FrequencyDomain(object):
             if abs(self.Values()[k] - other.Values()[k]) > 1e-5:
                 return False # pragma: no cover
         return True
-    ## overloads !=
-    #
-    # @param other an instance of a class derived from FrequencyDomain.
-    # @return whether self != other
-    #
     def __ne__(self,other):
+        """overloads !=
+        @param other an instance of a class derived from FrequencyDomain.
+        @return whether self != other
+        """
         return not self == other
+    ##
+    # @var m_f
+    # instance of class FrequencyList
+    # @var m_resp
+    # list of complex values containing the frequency domain elements corresponding
+    # to the frequencies in m_f.

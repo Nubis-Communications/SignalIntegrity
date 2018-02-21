@@ -10,7 +10,7 @@ import cmath
 
 
 def TLineFourPort(Zc,gamma,Z0):
-    """AtPackage si.dev.TLineFourPort
+    """TLineFourPort
     Ideal Four-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param gamma float or complex propagation constant

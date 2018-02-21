@@ -23,7 +23,7 @@ class SParameterManipulation(object):
         """Enforces passivity on the s-parameters.
         @param maxSingularValue (optional) float maximum singular value allowed
         Enforces passivity by clipping all singular values to a maximum value.
-        
+
         the optional maximum value allows for adjusting devices with gain to a maximum
         value.  For passive devices, the maximum singular value is the default value of 1.
         """

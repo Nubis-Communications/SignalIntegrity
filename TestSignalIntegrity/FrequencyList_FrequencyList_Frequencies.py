@@ -18,8 +18,7 @@ class FrequencyList(object):
         self.Fe=fl[-1]
         self.m_EvenlySpaced=False
         return self
-    def EvenlySpaced(self):
-        return self.m_EvenlySpaced
+    def EvenlySpaced(self): return self.m_EvenlySpaced
     def Frequencies(self,unit=None):
         if unit == None:
             return self.List

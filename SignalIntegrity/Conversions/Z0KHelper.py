@@ -1,5 +1,5 @@
 """
- Helps in resolving reference impedance and scaling factor
+ resolution of reference impedance and scaling factor
 """
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
@@ -12,26 +12,25 @@ from numpy import matrix
 from numpy import diag
 from numpy import sqrt
 
-## Resolves reference impedance and scaling factor from a specification
-#
-# @param Z0K tuple containing (Z0,K) - the reference impedance and scaling factor
-# @param P integer number of ports
-#
-# This very useful function helps resolve all of the possibilities for
-# specification of reference impedance and scaling factor under the multitude
-# of possibilities on how it can be provided to various conversion functions
-#
-# It operates by selecting the best possible choices with the specification
-# of the least information.
-#
-# If Z0 is not specified, the default 50 Ohms is selected and if the
-# scaling factor is not specified, the default sqrt(Z0) is chosen.
-# These are provided in matrix form when needed and complex when needed
-#
-# both Z0 and K may be specified as lists, in which case they represent
-# port reference impedance and scaling factors
-#
 def Z0KHelper(Z0K,P):
+    """Resolves reference impedance and scaling factor from a specification
+    @param Z0K tuple containing (Z0,K) - the reference impedance and scaling factor
+    @param P integer number of ports
+    @remark
+    This very useful function helps resolve all of the possibilities for
+    specification of reference impedance and scaling factor under the multitude
+    of possibilities on how it can be provided to various conversion functions
+
+    It operates by selecting the best possible choices with the specification
+    of the least information.
+
+    If Z0 is not specified, the default 50 Ohms is selected and if the
+    scaling factor is not specified, the default sqrt(Z0) is chosen.
+    These are provided in matrix form when needed and complex when needed
+
+    both Z0 and K may be specified as lists, in which case they represent
+    port reference impedance and scaling factors
+    """
     (Z0,K)=Z0K
     if Z0 is None:
         Z0=matrix(diag([50.0]*P))

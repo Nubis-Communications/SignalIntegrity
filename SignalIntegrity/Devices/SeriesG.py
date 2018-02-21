@@ -9,7 +9,7 @@
 from SignalIntegrity.Devices.SeriesZ import SeriesZ
 
 def SeriesG(G,Z0=50.):
-    """AtPackage si.dev.SeriesG
+    """SeriesG
     Series Conductance
     @param G float conductance
     @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)

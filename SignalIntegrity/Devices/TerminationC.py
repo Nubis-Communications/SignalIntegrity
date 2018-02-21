@@ -1,3 +1,4 @@
+"""one-port capacitance"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
@@ -10,8 +11,7 @@ from SignalIntegrity.Devices.TerminationG import TerminationG
 from numpy import math
 
 def TerminationC(C,f,Z0=None,df=0.,esr=0.):
-    """AtPackage si.dev.TerminationC
-    Termination capacitance
+    """termination (one-port) capacitance
     @param C float capacitance
     @param f float frequency
     @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)

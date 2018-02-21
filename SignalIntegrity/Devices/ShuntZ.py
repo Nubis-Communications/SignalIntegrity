@@ -22,7 +22,7 @@ def ShuntZZ0K(Z,Z0=None,K=None):
     return (partial*1./(Z01*Z02+Z*(Z01+Z02))).tolist()
 
 def ShuntZ(ports,Z,Z0=50.):
-    """AtPackage si.dev.ShuntZ
+    """ShuntZ
     Shunt impedance
     @param ports integer number of ports
     @param Z real or complex impedance of two-port impedance.
@@ -37,7 +37,7 @@ def ShuntZ(ports,Z,Z0=50.):
     elif ports == 4: return ShuntZFourPort(Z,Z0)
 # pragma: include
 def ShuntZTwoPort(Z,Z0=50.):
-    """AtPackage si.dev.ShuntZTwoPort
+    """ShuntZTwoPort
     Two port shunt impedance
     @param Z real or complex impedance of two-port impedance.
     @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).
@@ -49,7 +49,7 @@ def ShuntZTwoPort(Z,Z0=50.):
         [2.*Z0*Z/(Z0*Z0+2.*Z*Z0),-Z0*Z0/(Z0*Z0+2.*Z*Z0)]]
 # pragma: silent exclude
 def ShuntZFourPort(Z,Z0=50.):
-    """AtPackage si.dev.ShuntZFourPort
+    """ShuntZFourPort
     Four port shunt impedance
     @param Z real or complex impedance of two-port impedance.
     @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).
@@ -65,7 +65,7 @@ def ShuntZFourPort(Z,Z0=50.):
         [Z0/D,(2.*Z+Z0)/D,Z0/D,-Z0/D]]
 
 def ShuntZThreePort(Z,Z0=50.):
-    """AtPackage si.dev.ShuntZThreePort
+    """ShuntZThreePort
     Three port shunt impedance
     @param Z real or complex impedance of two-port impedance.
     @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).

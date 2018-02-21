@@ -13,50 +13,39 @@ from SignalIntegrity.Measurement.Calibration.ErrorTerms import ErrorTerms
 from SignalIntegrity.SParameters.SParameters import SParameters
 from numpy import hstack,vstack,matrix
 
-## Calibration
-#
-# This class generates calibrated s-parameter measurements
-#
 class Calibration(object):
+    """Generates calibrated s-parameter measurements"""
     FillInTransferThru=True
-    ## Constructor
-    #
-    # @param ports number of ports in the calibration.
-    # @param f instance of class FrequencyList (or list of frequencies).
-    # @param calibrationList (optional) list of instances of class CalibrationMeasurement
-    #
-    # @see CalibrationMeasurement
-    #
     def __init__(self,ports,f,calibrationList=[]):
+        """Constructor
+        @param ports number of ports in the calibration.
+        @param f instance of class FrequencyList (or list of frequencies).
+        @param calibrationList (optional) list of instances of class CalibrationMeasurement
+        @see CalibrationMeasurement
+        """
         self.ports=ports
         self.f=f
         self.ET=None
         self.calibrationMatrix=[[[] for _ in range(self.ports)]
                                 for _ in range(self.ports)]
         self.AddMeasurements(calibrationList)
-    ## overloads [item]
-    #
-    # @param item integer row of error terms matrix to access
-    # @return a row of the error terms matrix
-    #
-    # This method is used when access the error terms matrix like self[r][c] which
-    # would acess an instance of class ErrorTerms for receive port r and driven port c.
-    #
-    # @see ErrorTerms
-    #
-    def __getitem__(self,item):
-        return self.ET[item]
-    ## overloads len()
-    #
-    # @return the number of rows in the error terms (which is the number of ports).
-    #
-    def __len__(self):
-        return len(self.f)
-    ## Fixtures
-    #
-    # @return the error terms as fixtures
-    #
+    def __getitem__(self,item): return self.ET[item]
+    """overloads [item]
+    @param item integer row of error terms matrix to access
+    @return a row of the error terms matrix
+    @remark
+    This method is used when access the error terms matrix like self[r][c] which
+    would acess an instance of class ErrorTerms for receive port r and driven port c.
+    @see ErrorTerms
+    """
+    def __len__(self): return len(self.f)
+    """overloads len()
+    @return the number of rows in the error terms (which is the number of ports).
+    """
     def Fixtures(self):
+        """Fixtures
+        @return the error terms as fixtures
+        """
         self.CalculateErrorTerms()
         return [SParameters(self.f,[
                 vstack((hstack((matrix(self[n].Fixture(p)[0][0]),
@@ -64,24 +53,18 @@ class Calibration(object):
                         hstack((matrix(self[n].Fixture(p)[1][0]),
                                 matrix(self[n].Fixture(p)[1][1]))))).tolist()
                     for n in range(len(self))]) for p in range(self.ports)]
-    ## WriteToFile
-    #
-    # @param filename name of the file to write the error terms to.
-    #
-    # Writes the error terms to a file
-    #
     def WriteToFile(self,filename):
+        """Writes the error terms to a file
+        @param filename name of the file to write the error terms to.
+        """
         Fixture=self.Fixtures()
         for p in range(self.ports):
             Fixture[p].WriteToFile(filename+str(p+1))
         return self
-    ## AddMeasurments
-    #
-    # @param calibrationList list of instances of class CalibrationMeasurement
-    #
-    # Adds calibration measurements to the calibration.
-    #
     def AddMeasurements(self,calibrationList=[]):
+        """Adds calibration measurements
+        @param calibrationList list of instances of class CalibrationMeasurement.
+        """
         self.ET=None
         for calibrationMeasurement in calibrationList:
             if calibrationMeasurement.type=='reflect':
@@ -96,14 +79,12 @@ class Calibration(object):
                 self.calibrationMatrix[otherPort][portDriven].\
                     append(calibrationMeasurement)
         return self
-    ## CalculateErrorTerms
-    #
-    # @param force (optional) boolean whether to force it to calculate the error terms.
-    #
-    # If error terms have not been calculated or force, then the error terms are calculated
-    # from instances of CalibrationMeasurement provided during the calibration.
-    #
     def CalculateErrorTerms(self,force=False):
+        """Calculates the error terms
+        @param force (optional) boolean whether to force it to calculate the error terms.
+        @remark
+        If error terms have not been calculated or force, then the error terms are calculated
+        from instances of CalibrationMeasurement provided during the calibration."""
         if (not self.ET is None) and (not force):
             return self
         self.ET=[ErrorTerms().Initialize(self.ports) for _ in range(len(self))]
@@ -140,14 +121,13 @@ class Calibration(object):
             for n in range(len(self.f)):
                 self[n].TransferThruCalibration()
         return self
-    ## DutCalculation
-    #
-    # @param sRaw instance of class SParameters of the raw measurement of the DUT.
-    # @return instance of class SParameters of the calibrated DUT measurement.
-    #
-    # converts the raw measured s-parameters of the DUT into calibrated s-parameter
-    # measurements. 
     def DutCalculation(self,sRaw):
+        """calculates the Dut.\n
+        converts the raw measured s-parameters of the DUT into calibrated s-parameter
+        measurements.
+        @param sRaw instance of class SParameters of the raw measurement of the DUT.
+        @return instance of class SParameters of the calibrated DUT measurement.
+        """
         self.CalculateErrorTerms()
         return SParameters(self.f,[self[n].DutCalculation(sRaw[n])
                                    for n in range(len(self))])

@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def Ground():
-    """AtPackage si.dev.Ground
+    """Ground
     Ground
     @returns the list of list s-parameter matrix of ground.
     this is simply a 1x1 matrix containing -1 or [[-1]]

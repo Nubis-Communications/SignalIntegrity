@@ -1,21 +1,37 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""Mixed mode differential transmission line"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
-from numpy import linalg
-import math
-
-from SignalIntegrity.Conversions import S2T
-from SignalIntegrity.Conversions import T2S
 from SignalIntegrity.SParameters.SParameters import SParameters
 
 class MixedModeTLine(SParameters):
+    """s-parameters of a mixed-mode, balanced transmission line"""
     def __init__(self,f,Zd,Td,Zc,Tc,Z0=50.):
+        """Constructor
+        The port numbering is ports 1 and 2 are the plus and minus terminals on
+        one side of the line and ports 3 and 4 are the plus and minus terminals
+        on the other side of the line.
+    
+        @param f list of float frequencies
+        @param Zd float or complex differential mode impedance
+        @param Td float differential (or odd-mode) electrical length (the
+        differential-mode propagation time.
+        @param Zc float or complex common-mode impedance
+        @param Tc float common (or even-mode) electrical length (the common-mode
+        propagation time.
+        @param Z0 (optional) float or complex reference impedance (defaults to 50 Ohms).
+        @note The differential mode impedance is twice the odd-mode impedance.\n
+        The common-mode impedance is half the even-mode impedance.\n
+        @note The model is appropriate for a balanced transmission line.\n
+        @note The s-parameters provided are single-ended.
+        @note This device builds a model internally and only solves the model
+        on each access to __getitem__().
+        """
         import SignalIntegrity.SParameters.Devices as dev
         from SignalIntegrity.Devices.MixedModeConverter import MixedModeConverter
         from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
@@ -35,5 +51,8 @@ class MixedModeTLine(SParameters):
         self.m_sspn.AddPort('MM2',2,4)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
+        """overloads [n]
+        @return list of list s-parameter matrix for the nth frequency element
+        """
         for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
         return self.m_sspn.SParameters()

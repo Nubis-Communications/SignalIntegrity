@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def TransresistanceAmplifier(P,G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransresistanceAmplifier
+    """TransresistanceAmplifier
     2-4 Port Transresistance Amplifiers
     @param P integer number of ports (2-4)
     @param G float transresistance gain
@@ -29,7 +29,7 @@ def TransresistanceAmplifier(P,G,Zi,Zo,Z0=50.):
         return TransresistanceAmplifierFourPort(G,Zi,Zo,Z0=50.)
 
 def TransresistanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransresistanceAmplifierFourPort
+    """TransresistanceAmplifierFourPort
     Four port transresistance amplifier
     @param G float transresistance gain
     @param Zi float or complex input impedance
@@ -64,7 +64,7 @@ def TransresistanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
             [S41,S42,S43,S44]]
 
 def TransresistanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransresistanceAmplifierThreePort
+    """TransresistanceAmplifierThreePort
     Three port transresistance amplifier
     @param G float transresistance gain
     @param Zi float or complex input impedance
@@ -94,7 +94,7 @@ def TransresistanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
             [S31,S32,S33]]
 
 def TransresistanceAmplifierTwoPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.TransresistanceAmplifierTwoPort
+    """TransresistanceAmplifierTwoPort
     Two port transresistance amplifier
     @param G float transresistance gain
     @param Zi float or complex input impedance

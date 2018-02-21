@@ -1,5 +1,5 @@
 """
-Converts admittance parameters to s-parameters
+ admittance parameters to s-parameter conversion
 """
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
@@ -13,17 +13,13 @@ from numpy import identity
 
 from Z0KHelper import Z0KHelper
 
-## Converts Y-parameters to s-parameters
-#
-# @param Y list of list representing Y-parameter matrix to convert
-# @param Z0 (optional, defaults to None) the reference impedance
-# @param K (optional, defaults to None) scaling factor
-#
-# Converts Y-parameters to s-parameters
-#
-# @see Z0KHelper to see how the reference impedance
-# and scaling factor are determined.
 def Y2S(Y,Z0=None,K=None):
+    """Converts Y-parameters to s-parameters
+    @param Y list of list representing Y-parameter matrix to convert
+    @param Z0 (optional) float or complex or list of reference impedance (defaults to None).
+    @param K (optional) float or complex or list of scaling factor (defaults to None).
+    @see Z0KHelper to see how the reference impedance
+    and scaling factor are determined."""
     (Z0,K)=Z0KHelper((Z0,K),len(Y))
     I=matrix(identity(len(Y)))
     Y=matrix(Y)

@@ -1,25 +1,46 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""
+ deembedded s-parameters from netlists
+"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from SignalIntegrity.Parsers.DeembedderParser import DeembedderParser
-from SignalIntegrity.SystemDescriptions import DeembedderNumeric
-from SignalIntegrity.SParameters import SParameters
+from SignalIntegrity.SystemDescriptions.DeembedderNumeric import DeembedderNumeric
+from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.PySIException import PySIExceptionDeembedder
 from SignalIntegrity.CallBacker import CallBacker
 
 class DeembedderNumericParser(DeembedderParser,CallBacker):
+    """generates deembedd s-parameters from a netlist"""
     def __init__(self, f=None, args=None, callback=None):
+        """constructor
+
+        frequencies may be provided at construction time (or not for symbolic solutions).
+
+        @param f (optional) list of frequencies
+        @param args (optional) string arguments for the circuit.
+        @param callback (optional) function taking one argument as a callback
+
+        Arguments are provided on a line as pairs of names and values separated by a space.
+
+        The optional callback is used as described in the class CallBacker.
+
+        """
         DeembedderParser.__init__(self, f, args)
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
         # pragma: include
     def Deembed(self,systemSParameters=None):
+        """computes deembedded s-parameters of a netlist.
+        @param systemSParameters (optional) instance of class SParameters referring
+        to the s-parameters of the system 
+        @return instance of class SParameters of the unknown devices in the network.
+        """
         self._ProcessLines()
         self.m_sd.CheckConnections()
         NumUnknowns=len(self.m_sd.UnknownNames())

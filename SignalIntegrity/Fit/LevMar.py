@@ -40,20 +40,6 @@ class LevMar(CallBacker):
         """Constructor
         @param callback a callback function to call during calculation
         """
-        ## 
-        # @var m_lambda
-        # starting value for lambda
-        # @var m_lambdamin
-        # minimum value of lambda
-        # @var m_lambdamax
-        # maximum value of lambda
-        # @var m_lambdaMultiplier
-        # amount to multiply by lambda on successful iterations (and amount to divide lambda by on unsuccessful ones)
-        # @var m_epsilon
-        # delta used for numerical derivative calculation
-        # @var m_iteration
-        # iteration number
-        #
         self.m_lambda=1
         self.m_lambdamin=1e-15
         self.m_lambdamax=1e9
@@ -221,3 +207,17 @@ class LevMar(CallBacker):
         while not self.TestConvergence():
             self.CallBack(self.m_iteration)
             self.Iterate()
+    ## 
+    # @var m_lambda
+    # starting value for lambda
+    # @var m_lambdamin
+    # minimum value of lambda
+    # @var m_lambdamax
+    # maximum value of lambda
+    # @var m_lambdaMultiplier
+    # amount to multiply by lambda on successful iterations (and amount to divide lambda by on unsuccessful ones)
+    # @var m_epsilon
+    # delta used for numerical derivative calculation
+    # @var m_iteration
+    # iteration number
+    #

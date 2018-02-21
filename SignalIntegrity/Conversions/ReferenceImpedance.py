@@ -13,19 +13,16 @@ from numpy import identity
 
 from Z0KHelper import Z0KHelper
 
-## Changes the reference impedance and scaling factor
-#
-# @param S s-parameter matrix to convert
-# @param Z0f the reference impedance to convert to
-# @param Z0i (optional) the reference impedance of the s-parameters (assumed 50 Ohms)
-# @param Kf (optional) assumed to be sqrt(Z0f)
-# @param Ki (optional) assumed to be sqrt(Z0i)
-#
-# @return the converted s-parameters
-#
-# @see Z0KHelper to see how the reference impedance
-# and scaling factor are determined.
 def ReferenceImpedance(S,Z0f,Z0i=None,Kf=None,Ki=None):
+    """Changes the reference impedance and scaling factor
+    @param S s-parameter matrix to convert
+    @param Z0f the reference impedance to convert to
+    @param Z0i (optional) the reference impedance of the s-parameters (assumed 50 Ohms)
+    @param Kf (optional) assumed to be sqrt(Z0f)
+    @param Ki (optional) assumed to be sqrt(Z0i)
+    @return the converted s-parameters
+    @see Z0KHelper to see how the reference impedance
+    and scaling factor are determined."""
     (Z0f,Kf)=Z0KHelper((Z0f,Kf),len(S))
     (Z0i,Ki)=Z0KHelper((Z0i,Ki),len(S))
     I=matrix(identity(len(S)))

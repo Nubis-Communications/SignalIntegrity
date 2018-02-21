@@ -9,7 +9,7 @@
 import cmath
 
 def IdealTransmissionLine(rho,gamma):
-    """AtPackage si.dev.IdealTransmissionLine
+    """IdealTransmissionLine
     Ideal Transmission Line
     @param rho float or complex reflection coefficient
     @param gamma float or complex propagation constant

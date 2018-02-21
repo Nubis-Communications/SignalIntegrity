@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def VoltageControlledVoltageSource(G):
-    """AtPackage si.dev.VoltageControlledVoltageSource
+    """VoltageControlledVoltageSource
     Voltage controlled voltage source
     @param G float or complex voltage gain
     @return list of list s-parameter matrix of a voltage controlled voltage source

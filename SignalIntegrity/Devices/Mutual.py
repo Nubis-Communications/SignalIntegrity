@@ -23,7 +23,7 @@ def MutualOld(Ll,Lr,M,f,Z0=None,K=None):
     return array(Y2S(array(YM).tolist(),Z0,K)).tolist()
 
 def Mutual(Ll,Lr,M,f,Z0=None,K=None):
-    """AtPackage si.dev.Mutual
+    """Mutual
     Mutual Inductance
     @param Ll float self inductance of left leg
     @param Lr float self inductance of right leg
@@ -32,7 +32,7 @@ def Mutual(Ll,Lr,M,f,Z0=None,K=None):
     @param Z0 (optional) float or complex reference impedance (assumed 50 Ohms)
     @param K (optional) float or complex scaling factor (actually unused).
     @return list of list representing s-parameter matrix of a mutual inductance
-    The device is four port.\n
+    @remark The device is four port.\n
     The left leg is from port 1 to 2.\n
     The right leg is from port 3 to 4.\n
     The arrow for the mutual points to ports 1 and 3.\n

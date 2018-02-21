@@ -1,19 +1,39 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""RLGC uncoupled differential transmission line"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from SignalIntegrity.SParameters.SParameters import SParameters
 
-"""
-    ports are 1,2,3,4 is +1,-1, +2, -2
-"""
 class TLineDifferentialRLGCUncoupled(SParameters):
+    """s-parameters of analytic uncoupled differential RLGC (telegrapher's) transmission
+    line."""
     def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K=0):
+        """Constructor
+
+        ports are 1,2,3,4 is +1,-1, +2, -2
+
+        @param f list of float frequencies
+        @param Rp float DC resistance of positive leg (Ohms)
+        @param Rsep float skin-effect resistance of positive leg (Ohms/sqrt(Hz))
+        @param Lp float inductance of positive leg (H)
+        @param Gp float DC conductance of positive leg to ground (S)
+        @param Cp float capacitance of positive leg to ground (F)
+        @param dfp float dissipation factor (loss-tangent) of capacitance of positive leg to ground
+        @param Rn float DC resistance of negative leg (Ohms)
+        @param Rsen float skin-effect resistance of negative leg (Ohms/sqrt(Hz))
+        @param Ln float inductance of negative leg (H)
+        @param Gn float DC conductance of negative leg to ground (S)
+        @param Cn float capacitance of negative leg to ground (F)
+        @param dfn float dissipation factor (loss-tangent) of capacitance of negative leg to ground
+        @param Z0 float reference impedance
+        @param K integer number of sections
+        @todo remove K which is not needed.
+        """
         # pragma: silent exclude
         from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser
         from SignalIntegrity.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
@@ -27,6 +47,9 @@ class TLineDifferentialRLGCUncoupled(SParameters):
                      ('TO',TLineTwoPortRLGC(f,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
+        """overloads [n]
+        @return list of list s-parameter matrix for the nth frequency element
+        """
         for ds in self.m_spdl:
             self.m_sspn.AssignSParameters(ds[0],ds[1][n])
         return self.m_sspn.SParameters()

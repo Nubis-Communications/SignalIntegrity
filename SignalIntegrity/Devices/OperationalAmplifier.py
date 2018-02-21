@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def OperationalAmplifier(Zi,Zd,Zo,G,Z0=50.):
-    """AtPackage si.dev.OperationalAmplifier
+    """OperationalAmplifier
     Operational Amplifier
     @param Zi real or complex input impedance between each plus and minus input port
     to ground.

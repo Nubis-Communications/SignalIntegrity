@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def Thru():
-    """AtPackage si.dev.Thru
+    """Thru
     Thru device
     @returns the list of list s-parameter matrix of an ideal thru.
     @remark this is simply a 2x2 matrix [[0,1][1,0]]

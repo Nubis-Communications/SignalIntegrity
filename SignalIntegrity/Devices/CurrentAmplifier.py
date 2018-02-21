@@ -1,13 +1,13 @@
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.
-# 
+#
 # Explicit license in accompanying README.txt file.  If you don't have that file
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
 def CurrentAmplifier(P,G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.CurrentAmplifier
+    """CurrentAmplifier
     2-4 Port Current Amplifiers
     @param P integer number of ports (2-4)
     @param G float current gain
@@ -28,7 +28,7 @@ def CurrentAmplifier(P,G,Zi,Zo,Z0=50.):
         return CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.)
 
 def CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.CurrentAmplifierFourPort
+    """CurrentAmplifierFourPort
     Four port current amplifier
     @param G float current gain
     @param Zi float or complex input impedance
@@ -63,7 +63,7 @@ def CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.):
             [S41,S42,S43,S44]]
 
 def CurrentAmplifierThreePort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.CurrentAmplifierThreePort
+    """CurrentAmplifierThreePort
     Three port curent amplifier
     @param G float current gain
     @param Zi float or complex input impedance
@@ -94,7 +94,7 @@ def CurrentAmplifierThreePort(G,Zi,Zo,Z0=50.):
             [S31,S32,S33]]
 
 def CurrentAmplifierTwoPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.CurrentAmplifierTwoPort
+    """CurrentAmplifierTwoPort
     Two port current amplifier
     @param G float current gain
     @param Zi float or complex input impedance

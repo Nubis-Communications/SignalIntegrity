@@ -7,7 +7,7 @@
 # this material whatsoever.
 
 def VoltageAmplifier(P,G,Zi,Zo,Z0=50):
-    """AtPackage si.dev.VoltageAmplifier
+    """VoltageAmplifier
     2-4 Port Voltage Amplifiers
     @param P integer number of ports (2-4)
     @param G float voltage gain
@@ -30,7 +30,7 @@ def VoltageAmplifier(P,G,Zi,Zo,Z0=50):
 
 
 def VoltageAmplifierFourPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.VoltageAmplifierFourPort
+    """VoltageAmplifierFourPort
     Four port voltage amplifier
     @param G float voltage gain
     @param Zi float or complex input impedance
@@ -65,7 +65,7 @@ def VoltageAmplifierFourPort(G,Zi,Zo,Z0=50.):
             [S41,S42,S43,S44]]
 
 def VoltageAmplifierThreePort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.VoltageAmplifierThreePort
+    """VoltageAmplifierThreePort
     Three port voltage amplifier
     @param G float voltage gain
     @param Zi float or complex input impedance
@@ -95,7 +95,7 @@ def VoltageAmplifierThreePort(G,Zi,Zo,Z0=50.):
             [S31,S32,S33]]
 
 def VoltageAmplifierTwoPort(G,Zi,Zo,Z0=50.):
-    """AtPackage si.dev.VoltageAmplifierTwoPort
+    """VoltageAmplifierTwoPort
     Two port voltage amplifier
     @param G float voltage gain
     @param Zi float or complex input impedance

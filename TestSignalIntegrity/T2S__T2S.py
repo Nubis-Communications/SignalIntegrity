@@ -14,4 +14,3 @@ def T2S(T,lp=None,rp=None):
             SL.append(T[2*lp.index(p+1)])
             SR.append(T[2*lp.index(p+1)+1])
     return array(matrix(SL)*matrix(SR).getI()).tolist()
-

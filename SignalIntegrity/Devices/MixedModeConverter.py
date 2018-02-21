@@ -9,7 +9,7 @@
 import math
 
 def MixedModeConverterVoltage():
-    """AtPackage si.dev.MixedModeConverterVoltage
+    """MixedModeConverterVoltage
     Voltage mixed-mode converter
     @return the s-paramater matrix of a voltage mixed-mode converter.
     Ports 1 2 3 4 are + - D C
@@ -27,7 +27,7 @@ def MixedModeConverterVoltage():
 # pragma: silent exclude
 
 def MixedModeConverter():
-    """AtPackage si.dev.MixedModeConverter
+    """MixedModeConverter
     Standard mixed-mode converter
     @return the s-paramater matrix of a the standard mixed-mode converter.
     Ports 1 2 3 4 are + - D C

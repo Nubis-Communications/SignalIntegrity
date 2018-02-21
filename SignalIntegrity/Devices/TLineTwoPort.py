@@ -10,7 +10,7 @@
 import cmath
 
 def TLineTwoPort(Zc,gamma,Z0):
-    """AtPackage si.dev.TLineTwoPort
+    """TLineTwoPort
     Ideal Two-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param gamma float or complex propagation constant

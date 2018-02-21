@@ -9,7 +9,7 @@
 import cmath
 
 def ReferenceImpedanceTransformer(Z0f,Z0i=None,Kf=None,Ki=None):
-    """AtPackage si.dev.ReferenceImpedanceTransformer
+    """ReferenceImpedanceTransformer
     Reference impedance transformer
     @param Z0f real or complex output reference impedance.
     @param Z0i real or complex input reference impedance.
