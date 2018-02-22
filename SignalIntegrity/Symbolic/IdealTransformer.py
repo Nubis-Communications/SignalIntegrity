@@ -1,13 +1,28 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 def IdealTransformer(a=1):
+    """symbolic ideal transformer
+
+    Ports 1 and 2 are the primary.
+
+    Ports 3 and 4 are the secondary.
+
+    The dot is on ports 1 and 3.
+
+    a is the turns ratio specified as (secondary/primary) windings
+
+    @param a integer, float or string turns ratio\n
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.IdealTransformer
+    """
     if isinstance(a,str):
         try:
             a=int(a)

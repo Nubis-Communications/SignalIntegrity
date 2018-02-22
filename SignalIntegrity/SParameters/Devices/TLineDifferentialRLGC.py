@@ -1,4 +1,4 @@
-"""differential RLGC transmission line"""
+"""differential telegraphers transmission line"""
 # Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
 # Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
 # All Rights Reserved.

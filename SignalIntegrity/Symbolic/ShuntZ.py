@@ -1,13 +1,23 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 def ShuntZ(P,Z):
+    """symbolic shunt impedance
+    @param P integer number of ports (1,2,3,4)
+    if ports are 1, then returns SignalIntegrity.Symbolic.ShuntZ.ShuntZOnePort \n
+    if ports are 2, then returns SignalIntegrity.Symbolic.ShuntZ.ShuntZTwoPort \n
+    if ports are 3, then returns SignalIntegrity.Symbolic.ShuntZ.ShuntZThreePort \n
+    if ports are 4, then returns SignalIntegrity.Symbolic.ShuntZ.ShuntZFourPort \n
+    @param Z string impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    """
     if P==1:
         return ShuntZOnePort(Z)
     elif P==2:
@@ -18,6 +28,16 @@ def ShuntZ(P,Z):
         return ShuntZFourPort(Z)
 
 def ShuntZFourPort(Z):
+    """symbolic four port shunt impedance
+    @param Z string impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.ShuntZ.ShuntZFourPort
+    @remark Ports 1 and 3 are connected to port 1 of the device D provided.\n
+    Ports 2 and 4 are connected to port 2 of the device D provided.\n
+    @todo check the port numbering
+    """
     D='2\\cdot \\left('+Z+'+Z0\\right)'
     return [['\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
             ['\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}'],
@@ -25,17 +45,46 @@ def ShuntZFourPort(Z):
             ['\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}']]
 
 def ShuntZThreePort(Z):
+    """symbolic three port shunt impedance
+    @param Z string impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.ShuntZ.ShuntZThreePort
+    @remark Ports 1 and 2 are connected together and to port 1 impedance.\n
+    Port 3 is the other port of the impedance.\n
+    @todo check the port numbering
+    """
     D='2\\cdot '+Z+'+3\\cdot Z0'
     return [['\\frac{-Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+2\\cdot Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}'],
             ['\\frac{2\\cdot '+Z+'+2\\cdot Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}'],
             ['\\frac{2\\cdot Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}','\\frac{2\\cdot '+Z+'-Z0}{'+D+'}']]
 
 def ShuntZTwoPort(Z):
+    """symbolic two port shunt impedance
+    @param Z string impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.ShuntZ.ShuntZTwoPort
+    @remark Ports 1 and 2 are connected together and to one side of the impedance.\n
+    The other side of the impedance is tied to ground.
+    """
     D='2\\cdot '+Z+' +Z0'
     return [['\\frac{-Z0}{'+D+'}','\\frac{2\\cdot '+Z+'}{'+D+'}'],
             ['\\frac{2\\cdot '+Z+'}{'+D+'}','\\frac{-Z0}{'+D+'}']]
 
 def ShuntZOnePort(Z):
+    """symbolic four port shunt impedance
+
+    This is simply a termination impedance to ground.
+
+    @param Z string impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.TerminationZ.TerminationZ
+    """
     return [['\\frac{ '+Z+' -Z0}{ '+Z+' +Z0}']]
 
 

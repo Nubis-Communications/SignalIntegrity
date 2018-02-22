@@ -1,16 +1,28 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+"""telegraphers numerical approximate transmission line"""
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from SignalIntegrity.SParameters.SParameters import SParameters
 
 class TLineTwoPortRLGCApproximate(SParameters):
     def __init__(self,f, R, Rse, L, G, C, df, Z0, K):
+        """Constructor
+        @param f list of float frequencies
+        @param R float DC series resistance (Ohms)
+        @param Rse float series skin-effect resistance (Ohms/sqrt(Hz))
+        @param L float series inductance (H)
+        @param G float DC conductance to ground (S)
+        @param C float capacitance to ground (F)
+        @param df float dissipation factor (loss-tangent) of capacitance to ground
+        @param Z0 float reference impedance
+        @param K integer number of sections (defaults to zero)
+        @todo put the calulation for K=0 from the differential transmission line in here.
+        """
         self.m_K=K
         # pragma: silent exclude
         from SignalIntegrity.Devices import SeriesZ
@@ -32,6 +44,9 @@ class TLineTwoPortRLGCApproximate(SParameters):
                      ('C',TerminationC(f,C/K,Z0,df))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
+        """overloads [n]
+        @return list of list s-parameter matrix for the nth frequency element
+        """
         # pragma: silent exclude
         from numpy import linalg
         from SignalIntegrity.Conversions import S2T

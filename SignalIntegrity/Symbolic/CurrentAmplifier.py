@@ -1,13 +1,24 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 def CurrentAmplifier(P,G,Zi,Zo):
+    """symbolic 2,3, and 4 port current amplifier
+    @param P integer number of ports (2,3,4)\n
+    if ports are 2, then returns SignalIntegrity.Symbolic.CurrentAmplifier.CurrentAmplifierTwoPort\n
+    if ports are 3, then returns SignalIntegrity.Symbolic.CurrentAmplifier.CurrentAmplifierThreePort\n
+    if ports are 4, then returns SignalIntegrity.Symbolic.CurrentAmplifier.CurrentAmplifierFourPort
+    @param G string current gain
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    """
     if P==2:
         return CurrentAmplifierTwoPort(G,Zi,Zo)
     elif P==3:
@@ -16,6 +27,15 @@ def CurrentAmplifier(P,G,Zi,Zo):
         return CurrentAmplifierFourPort(G,Zi,Zo)
 
 def CurrentAmplifierFourPort(G,Zi,Zo):
+    """symbolic four port current amplifier
+    @param G string current gain
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.CurrentAmplifier.CurrentAmplifierFourPort
+    """
     return [['\\frac{'+Zi+'}{'+Zi+'+2\\cdot Z0}','\\frac{2\\cdot Z0}{'+Zi+'+2\\cdot Z0}','0','0'],
             ['\\frac{2\\cdot Z0}{'+Zi+'+2\\cdot Z0}','\\frac{'+Zi+'}{'+Zi+'+2\\cdot Z0}','0','0'],
             ['\\frac{2\\cdot '+Zo+'\\cdot Z0\\cdot '+G+'}{\\left('+Zi+'+2\\cdot Z0\\right)\\cdot\left('+Zo+'+2\\cdot Z0\\right)}',
@@ -26,6 +46,15 @@ def CurrentAmplifierFourPort(G,Zi,Zo):
             '\\frac{2\\cdot Z0}{'+Zo+'+2\\cdot Z0}','\\frac{'+Zo+'}{'+Zo+'+2\\cdot Z0}']]
 
 def CurrentAmplifierThreePort(G,Zi,Zo):
+    """symbolic three port current amplifier
+    @param G string current gain
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.CurrentAmplifier.CurrentAmplifierThreePort
+    """
     D='3\\cdot Z0^2+\\left(2\\cdot '+Zo+'+2\\cdot '+Zi+'-'+G+'\\cdot '+Zo+'\\right)\\cdot Z0+'+Zo+'\\cdot '+Zi
     S11='\\frac{'+Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zi+'-'+G+'\\cdot '+Zo+'\\right)-Z0^2}{'+D+'}'
     S12='\\frac{2\\cdot Z0^2}{'+D+'}'
@@ -41,5 +70,14 @@ def CurrentAmplifierThreePort(G,Zi,Zo):
             [S31,S32,S33]]
 
 def CurrentAmplifierTwoPort(G,Zi,Zo):
+    """symbolic two port current amplifier
+    @param G string current gain
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Devices.CurrentAmplifier.CurrentAmplifierTwoPort
+    """
     return [['\\frac{'+Zi+' - Z0}{'+Zi+' + Z0}','0'],
             ['\\frac{2\\cdot '+G+' \\cdot '+Zo+' \\cdot Z0}{\\left( '+Zi+' +Z0\\right)\\cdot\\left( '+Zo+' + Z0\\right)}','\\frac{'+Zo+' - Z0}{'+Zo+' + Z0}']]

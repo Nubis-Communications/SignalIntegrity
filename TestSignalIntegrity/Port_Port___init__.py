@@ -21,4 +21,3 @@ class Port(object):
                 print repr('B').rjust(4),repr(self.B).rjust(4)
             else:
                 print repr('M').rjust(4),repr(self.M).rjust(4)
-

@@ -12,7 +12,6 @@ import unittest
 
 from TestConversions import *
 from TestDeembedding import *
-from TestFrequencyDependentSParameters import *
 from TestRefImp import *
 from TestSParameterFile import *
 from TestSplines import *

@@ -1,13 +1,19 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+#
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 def Tee(P=3):
+    """symbolic Tee
+    @param P (optional) integer number of ports (defaults to three)\n
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic equivalent of SignalIntegrity.Devices.Tee.Tee
+    """
     D=str(P)
     DiagEle='-\\frac{'+str(-(2-P))+'}{'+D+'}'
     OffDiagEle='\\frac{2}{'+D+'}'

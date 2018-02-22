@@ -7,10 +7,8 @@
 # this material whatsoever.
 
 def IdealTransformer(a=1.):
-    """ IdealTransformer
-    Ideal Transformer
-    @param a float (optional) turns ratio (defaults to 1)
-    @return the s-parameter matrix of an ideal transformer
+    """Ideal Transformer
+
     Ports 1 and 2 are the primary.
 
     Ports 3 and 4 are the secondary.
@@ -18,6 +16,9 @@ def IdealTransformer(a=1.):
     The dot is on ports 1 and 3.
 
     a is the turns ratio specified as (secondary/primary) windings
+
+    @param a float (optional) turns ratio (defaults to 1)
+    @return the s-parameter matrix of an ideal transformer
     """
     a=float(a)
     D=a*a+1.
