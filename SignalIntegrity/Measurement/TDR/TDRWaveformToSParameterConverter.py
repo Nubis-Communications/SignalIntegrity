@@ -73,14 +73,14 @@ class TDRWaveformToSParameterConverter(object):
         """
         # pragma: silent exclude
         wfList=copy.deepcopy(wfList)
-        if not isinstance(wfList, list):
+        if isinstance(wfList, Waveform):
             wfList=[wfList]
         # pragma: silent include
         ports=len(wfList)
         S=[[None for _ in range(ports)] for _ in range(ports)]
         for d in range(ports):
             # pragma: silent exclude
-            if not isinstance(wfList[d],list):
+            if isinstance(wfList[d],Waveform):
                 wfList[d]=[wfList[d]]
             # pragma: include
             fc=self.Convert(wfList[d],d)
@@ -93,7 +93,7 @@ class TDRWaveformToSParameterConverter(object):
     def Convert(self,wfListProvided,incidentIndex=0):
         # pragma: silent exclude
         wfList=copy.deepcopy(wfListProvided)
-        if not isinstance(wfList, list):
+        if isinstance(wfList, Waveform):
             wfList=[wfList]
         # pragma: silent include
         if self.step:
@@ -146,7 +146,7 @@ class TDRWaveformToSParameterConverter(object):
         # pragma: silent exclude
         self.ExtractionWindow=copy.deepcopy(extractionWindow)
         # pragma: silent include
-        incwf=Waveform(incwf.td,[x*w for (x,w) in zip(incwf.x,extractionWindow.x)])
+        incwf=Waveform(incwf.td,[x*w for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
         wfList[incidentIndex]=wfList[incidentIndex]-incwf
         # pragma: silent exclude
         self.IncidentWaveform=copy.deepcopy(incwf)
@@ -162,7 +162,7 @@ class TDRWaveformToSParameterConverter(object):
             for n in range(len(fc)):
                 fc[n]=fc[n]/incwffc[n]
         # pragma: silent exclude
-        if (len(res)==1) and (not isinstance(wfListProvided,list)):
+        if (len(res)==1) and (isinstance(wfListProvided,Waveform)):
             res=res[0]
         # pragma: include
         return res

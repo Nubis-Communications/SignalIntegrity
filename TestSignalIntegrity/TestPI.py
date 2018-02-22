@@ -574,10 +574,10 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
         ZsourceImpedance=[]
         for n in range(len(Voutfd)):
             try:
-                Zload=Voutfd.Values()[n]/Ioutfd.Values()[n]
+                Zload=Voutfd[n]/Ioutfd[n]
                 ZloadFrequencies.append(Voutfd.Frequencies()[n])
                 ZloadImpedance.append(Zload)
-                Zsource=VinMinusVoutfd.Values()[n]/Ioutfd.Values()[n]
+                Zsource=VinMinusVoutfd[n]/Ioutfd[n]
                 ZsourceFrequencies.append(Voutfd.Frequencies()[n])
                 ZsourceImpedance.append(Zsource)
             except Exception as e:

@@ -75,7 +75,7 @@ class ImpulseResponse(Waveform):
         if P==K:
             x = self.Values()
         elif P<K:
-            x=[self.Values()[k] for k in range((K-P)/2,K-(K-P)/2)]
+            x=[self[k] for k in range((K-P)/2,K-(K-P)/2)]
         else:
             x=[0 for p in range((P-K)/2)]
             x=x+self.Values()+x

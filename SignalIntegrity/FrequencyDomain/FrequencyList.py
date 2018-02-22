@@ -15,7 +15,7 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-class FrequencyList(object):
+class FrequencyList(list):
     """base class for lists of frequencies."""
     def __init__(self,f=None):
         """Constructor
@@ -25,7 +25,7 @@ class FrequencyList(object):
         @param f (optional) list of frequencies or instance of class FrequencyList
         """
         if isinstance(f,FrequencyList):
-            self.List=f.List
+            list.__init__(self,f)
             self.N=f.N
             self.Fe=f.Fe
             self.m_EvenlySpaced=f.m_EvenlySpaced
@@ -42,7 +42,7 @@ class FrequencyList(object):
         """
         self.Fe=Fe
         self.N=N
-        self.List=[Fe/N*n for n in range(N+1)]
+        list.__init__(self,[Fe/N*n for n in range(N+1)])
         self.m_EvenlySpaced=True
         return self
     def SetList(self,fl):
@@ -56,7 +56,7 @@ class FrequencyList(object):
         an instance of class FrequencyList, as it mimics this list behavior.  In this case, it will
         install it as if the FrequencyList instance was simply a list of frequencies.
         """
-        self.List=fl
+        list.__init__(self,fl)
         self.N=len(fl)-1
         self.Fe=fl[-1]
         self.m_EvenlySpaced=False
@@ -82,7 +82,7 @@ class FrequencyList(object):
         if the unit supplied is otherwise invalid, None is returned.
         """
         if unit == None:
-            return self.List
+            return list(self)
         elif isinstance(unit,float):
             return (self/unit).Frequencies()
         elif unit == 'GHz':
@@ -104,29 +104,11 @@ class FrequencyList(object):
         if self.m_EvenlySpaced:
             return True
         for n in range(self.N+1):
-            if abs(self.List[n]-self.Fe/self.N*n) > epsilon:
+            if abs(self[n]-self.Fe/self.N*n) > epsilon:
                 self.m_EvenlySpaced=False
                 return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
-    def __getitem__(self,item): return self.List[item]
-    """overloads [item]
-    @param item integer index of frequency to return
-    @return a frequency from the list of frequencies at the index specified
-    """
-    def __setitem__(self,item,value):
-        """ overloads [item]=value
-        @param item integer index of frequency element.
-        @param value float item to set the frequency value to.
-        @note this is a private function and should not be used as it may affect whether
-        the frequency list contains evenly spaced frequencies, but using this function does
-        not affect any of the internal flags."""
-        self.List[item]=value
-        return value
-    def __len__(self): return len(self.List)
-    """overloads len()
-    @return integer number of frequency elements
-    """
     def __div__(self,d):
         """overloads /
         @param d float frequency to divide each frequency by.
@@ -135,7 +117,7 @@ class FrequencyList(object):
         if self.EvenlySpaced():
             return EvenlySpacedFrequencyList(self.Fe/d,self.N)
         else:
-            return GenericFrequencyList([v/d for v in self.List])
+            return GenericFrequencyList([v/d for v in self])
     def __mul__(self,d):
         """overloads *
         @param d float frequency to multiply each frequency by.
@@ -144,7 +126,7 @@ class FrequencyList(object):
         if self.EvenlySpaced():
             return EvenlySpacedFrequencyList(self.Fe*d,self.N)
         else:
-            return GenericFrequencyList([v*d for v in self.List])
+            return GenericFrequencyList([v*d for v in self])
     def TimeDescriptor(self,Keven=True):
         """associated time descriptor
         @param Keven boolean (optional)
@@ -175,8 +157,8 @@ class FrequencyList(object):
         if abs(self.Fe - other.Fe) > 1e-5:
             return False
         if not self.m_EvenlySpaced:
-            for k in range(len(self.List)):
-                if abs(self.List[k]-other.List[k])>1e-6:
+            for k in range(len(self)):
+                if abs(self[k]-other[k])>1e-6:
                     return False
         return True
     def __ne__(self,other):
@@ -187,8 +169,6 @@ class FrequencyList(object):
         """
         return not self == other
     ##
-    # @var List 
-    # list of frequencies
     # @var N
     # integer number (-1) of frequency list elements (i.e. the number of frequency elements
     # is N+1.

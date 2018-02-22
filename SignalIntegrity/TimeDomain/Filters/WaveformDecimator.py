@@ -6,7 +6,7 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-from FilterDescriptor import FilterDescriptor
+from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 
 class WaveformDecimator(FilterDescriptor):
     """decimates waveforms"""

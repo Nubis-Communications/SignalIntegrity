@@ -6,51 +6,43 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-from numpy import fft
 from copy import copy
 
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.PySIException import PySIExceptionWaveformFile,PySIExceptionWaveform
 
-class Waveform(object):
+class Waveform(list):
     adaptionStrategy='SinX'
     def __init__(self,x=None,y=None):
         if isinstance(x,Waveform):
             self.td=x.td
-            self.x=x.x
+            list.__init__(self,x)
         elif isinstance(x,TimeDescriptor):
             self.td=x
             if isinstance(y,list):
-                self.x=y
+                list.__init__(self,y)
             elif isinstance(y,(float,int,complex)):
-                self.x=[y.real for k in range(x.K)]
+                list.__init__(self,[y.real for _ in range(x.K)])
             else:
-                self.x=[0 for k in range(x.K)]
+                list.__init__(self,[0 for _ in range(x.K)])
         else:
             self.td=None
-            self.x=None
-    def __len__(self):
-        return len(self.x)
-    def __getitem__(self,item):
-        return self.x[item]
-    def __setitem__(self,item,value):
-        self.x[item]=value
-        return self
+            list.__init__(self,[])
     def Times(self,unit=None):
         return self.td.Times(unit)
     def TimeDescriptor(self):
         return self.td
     def Values(self,unit=None):
         if unit==None:
-            return self.x
+            return list(self)
         elif unit =='abs':
-            return [abs(y) for y in self.x]
+            return [abs(y) for y in self]
     def OffsetBy(self,v):
-        self.x = [y+v for y in self.x]
+        list.__init__(self,[y+v for y in self])
         return self
     def DelayBy(self,d):
-        return Waveform(self.td.DelayBy(d),self.x)
+        return Waveform(self.td.DelayBy(d),self)
     def __add__(self,other):
         if isinstance(other,Waveform):
             if self.td == other.td:
@@ -60,7 +52,7 @@ class Waveform(object):
                 return Waveform(s.td,[s[k]+o[k] for k in range(len(s))])
                 #return awf[0]+awf[1]
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v+other.real for v in self.x])
+            return Waveform(self.td,[v+other.real for v in self])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot add waveform to type '+str(other.__class__.__name__))
@@ -73,7 +65,7 @@ class Waveform(object):
                 [s,o]=AdaptedWaveforms([self,other])
                 return Waveform(s.td,[s[k]-o[k] for k in range(len(s))])
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v-other.real for v in self.x])
+            return Waveform(self.td,[v-other.real for v in self])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot subtract type' + +str(other.__class__.__name__) + ' from waveform')
@@ -96,14 +88,14 @@ class Waveform(object):
         elif isinstance(other,WaveformDecimator):
             return other.DecimateWaveform(self)
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v*other.real for v in self.x])
+            return Waveform(self.td,[v*other.real for v in self])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot multiply waveform by type '+str(other.__class__.__name__))
         # pragma: include
     def __div__(self,other):
         if isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v/other.real for v in self.x])
+            return Waveform(self.td,[v/other.real for v in self])
         # pragma: silent exclude
         else:
             raise PySIExceptionWaveform('cannot divide waveform by type '+str(other.__class__.__name__))
@@ -119,7 +111,7 @@ class Waveform(object):
                 SampleRate=float(data[2])
                 Values=[float(data[k+3]) for k in range(NumPts)]
             self.td=TimeDescriptor(HorOffset,NumPts,SampleRate)
-            self.x=Values
+            list.__init__(self,Values)
         # pragma: silent exclude indent
         except IOError:
             raise PySIExceptionWaveformFile(fileName+' not found')
@@ -131,16 +123,16 @@ class Waveform(object):
             f.write(str(td.H)+'\n')
             f.write(str(int(td.K))+'\n')
             f.write(str(td.Fs)+'\n')
-            for v in self.x:
+            for v in self:
                 f.write(str(v)+'\n')
         return self
     def __eq__(self,other):
         if self.td != other.td:
             return False
-        if len(self.x) != len(other.x):
+        if len(self) != len(other):
             return False
-        for k in range(len(self.x)):
-            if abs(self.x[k]-other.x[k])>1e-6:
+        for k in range(len(self)):
+            if abs(self[k]-other[k])>1e-6:
                 return False
         return True
     def __ne__(self,other):
@@ -202,14 +194,13 @@ class Waveform(object):
         return Waveform(td,i)
     def Derivative(self,c=0.,removePoint=True,scale=True):
         td=copy(self.td)
-        vl=copy(self.x)
-        v=self.x
+        vl=copy(self)
         T=1./td.Fs if scale else 1.
         for k in range(len(vl)):
             if k==0:
                 vl[k]=0.
             else:
-                vl[k]=(v[k]-v[k-1])/T
+                vl[k]=(self[k]-self[k-1])/T
         td.H=td.H-(1./2.)*(1./td.Fs)
         if removePoint:
             td.K=td.K-1

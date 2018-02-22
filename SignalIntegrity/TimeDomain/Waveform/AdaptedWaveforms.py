@@ -6,8 +6,16 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-class AdaptedWaveforms(object):
+class AdaptedWaveforms(list):
+    """waveforms adapted to common time axis"""
     def __init__(self,wfl):
+        """Constructor
+
+        insternally adapts all of the waveforms provided and keeps them internally in
+        a list.
+
+        @param wfl list of instances of class Waveform to be adapted
+        """
         from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
         from SignalIntegrity.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX
@@ -29,8 +37,4 @@ class AdaptedWaveforms(object):
         # overlapping now contains the overlapping waveform
         adl=[overlapping/wf.td for wf in wfl]
         trl=[WaveformTrimmer(max(0,int(round(ad.TrimLeft()))),max(0,int(round(ad.TrimRight())))) for ad in adl]
-        self.awfl=[wf*tr for (wf,tr) in zip(wfl,trl)]
-    def __getitem__(self,item):
-        return self.awfl[item]
-    def __len__(self):
-        return len(self.awfl)
+        list.__init__(self,[wf*tr for (wf,tr) in zip(wfl,trl)])

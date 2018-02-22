@@ -66,7 +66,7 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
         # now we need to measure the noise waveform and adjust the noise to match
         # what is stated
         sigmafeActual =np.std(wfna.Values())
-        wfna=si.td.wf.Waveform(wfna.TimeDescriptor(),[wfna.Values()[k]*sigmafe/sigmafeActual for k in range(len(wfna.Values()))])
+        wfna=si.td.wf.Waveform(wfna.TimeDescriptor(),[wfna[k]*sigmafe/sigmafeActual for k in range(len(wfna.Values()))])
         sigmafeActual=np.std(wfna.Values())
         del sigmafeActual
         del k
@@ -122,7 +122,7 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
         sigmaadc=4.*Amplitude/math.sqrt(2.)*math.pow(10.,-snrdBadc/20.)
         wfnadc=si.td.wf.Waveform(wfnafe.TimeDescriptor(),np.random.normal(0,sigmaadc,wfnafe.TimeDescriptor().K).tolist())
         sigmaadcActual = np.std(wfnadc.Values())
-        wfnadc=si.td.wf.Waveform(wfnafe.TimeDescriptor(),[wfnadc.Values()[k]*sigmaadc/sigmaadcActual for k in range(len(wfnadc.Values()))])
+        wfnadc=si.td.wf.Waveform(wfnafe.TimeDescriptor(),[wfnadc[k]*sigmaadc/sigmaadcActual for k in range(len(wfnadc.Values()))])
         sigmaadcActual = np.std(wfnadc.Values())
         del sigmaadc
         del sigmaadcActual
@@ -138,9 +138,9 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
         # form the decimated waveforms
         VILV=4
 
-        wfd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wf.Times()[d],len(wf)/VILV,wf.TimeDescriptor().Fs/VILV),[wf.Values()[kd*VILV+d] for kd in range(len(wf)/VILV)]) for d in range(VILV)]
-        wfnd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfn.Times()[d],len(wfn)/VILV,wfn.TimeDescriptor().Fs/VILV),[wfn.Values()[kd*VILV+d] for kd in range(len(wfn)/VILV)]) for d in range(VILV)]
-        wfsd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfs.Times()[d],len(wfs)/VILV,wfs.TimeDescriptor().Fs/VILV),[wfs.Values()[kd*VILV+d] for kd in range(len(wfs)/VILV)]) for d in range(VILV)]
+        wfd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wf.Times()[d],len(wf)/VILV,wf.TimeDescriptor().Fs/VILV),[wf[kd*VILV+d] for kd in range(len(wf)/VILV)]) for d in range(VILV)]
+        wfnd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfn.Times()[d],len(wfn)/VILV,wfn.TimeDescriptor().Fs/VILV),[wfn[kd*VILV+d] for kd in range(len(wfn)/VILV)]) for d in range(VILV)]
+        wfsd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfs.Times()[d],len(wfs)/VILV,wfs.TimeDescriptor().Fs/VILV),[wfs[kd*VILV+d] for kd in range(len(wfs)/VILV)]) for d in range(VILV)]
 
         wfavg=wfd[0]*(1./VILV)
         wfnavg=wfnd[0]*(1./VILV)

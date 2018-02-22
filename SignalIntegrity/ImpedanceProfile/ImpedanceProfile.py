@@ -14,13 +14,13 @@ from SignalIntegrity.Conversions import S2T
 from SignalIntegrity.Conversions import T2S
 from numpy import matrix
 
-class ImpedanceProfile(object):
+class ImpedanceProfile(list):
     rhoLimit=0.99
     ZLimit=10e3
     def __init__(self,sp,sections,port):
+        list.__init__(self,[])
         N = len(sp)-1
         self.m_Td = 1./(4.*sp.f()[N])
-        self.m_rho = []
         self.m_Z0 = sp.m_Z0
         fr=sp.FrequencyResponse(port,port)
         self.m_fracD=fr._FractionalDelayTime()
@@ -31,12 +31,12 @@ class ImpedanceProfile(object):
         rho=0.0
         for _ in range(sections):
             if finished:
-                self.m_rho.append(rho)
+                self.append(rho)
                 continue
             rho = 1/(2.*N)*(S11[0].real + S11[N].real +
                  sum([2.*S11[n].real for n in range(1,N)]))
             rho=max(-self.rhoLimit,min(rho,self.rhoLimit))
-            self.m_rho.append(rho)
+            self.append(rho)
             if abs(rho)==self.rhoLimit:
                 finished=True
                 continue
@@ -44,10 +44,6 @@ class ImpedanceProfile(object):
             S11=[(-S11[n]+S11[n]*rho2*zn2[n]-rho*zn2[n]+rho)/
                 (rho2+S11[n]*rho*zn2[n]-S11[n]*rho-zn2[n])
                 for n in range(N+1)]
-    def __getitem__(self,item):
-        return self.m_rho[item]
-    def __len__(self):
-        return len(self.m_rho)
     def Z(self):
         return [max(0.,min(self.m_Z0*(1+rho)/(1-rho),self.ZLimit))
             for rho in self]

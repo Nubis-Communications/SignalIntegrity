@@ -29,6 +29,7 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
                     pass
         if filename in TestSPARQFourPort.simdict:
             return TestSPARQFourPort.simdict[filename]
+        print "In TestSPARQFourPort, performing the sim for: "+filename
         TestSPARQFourPort.simdict[filename] = self.SimulationResultsChecker(filename)
         return TestSPARQFourPort.simdict[filename]
     def NameForTest(self):

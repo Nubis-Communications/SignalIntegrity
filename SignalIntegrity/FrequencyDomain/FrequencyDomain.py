@@ -16,7 +16,7 @@ from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.FrequencyDomain.FrequencyList import GenericFrequencyList
 
-class FrequencyDomain(object):
+class FrequencyDomain(list):
     """base class for frequency domain elements.  This class handles all kinds of utility things
     common to all frequency-domain classes.
     """
@@ -26,23 +26,8 @@ class FrequencyDomain(object):
         @param resp (optional) list of complex frequency content or response
         """
         self.m_f=FrequencyList(f)
-        self.m_resp=resp
-    def __getitem__(self,item): return self.m_resp[item]
-    """
-    @param item integer index of the item 
-    @return a complex frequency element
-    """
-    def __setitem__(self,item,value):
-        """overloads [item]=
-        @param item integer index of the item
-        @param value complex value of the frequency domain element
-        """
-        self.m_resp[item]=value
-        return self
-    def __len__(self): return len(self.m_resp)
-    """overloads len()
-    @return the number of elements
-    """
+        if not resp is None:
+            list.__init__(self,resp)
     def FrequencyList(self):
         """FrequencyList
         @return the frequency list in m_f
@@ -73,22 +58,22 @@ class FrequencyDomain(object):
         Returns None if the unit is invalid.
         """
         if unit==None:
-            return self.m_resp
+            return list(self)
         elif unit =='dB':
-            return [-3000. if (abs(self.m_resp[n]) < 1e-15) else
-                     20.*math.log10(abs(self.m_resp[n]))
+            return [-3000. if (abs(self[n]) < 1e-15) else
+                     20.*math.log10(abs(self[n]))
                         for n in range(len(self.m_f))]
         elif unit == 'mag':
-            return [abs(self.m_resp[n]) for n in range(len(self.m_f))]
+            return [abs(self[n]) for n in range(len(self.m_f))]
         elif unit == 'rad':
-            return [cmath.phase(self.m_resp[n]) for n in range(len(self.m_f))]
+            return [cmath.phase(self[n]) for n in range(len(self.m_f))]
         elif unit == 'deg':
-            return [cmath.phase(self.m_resp[n])*180./math.pi
+            return [cmath.phase(self[n])*180./math.pi
                         for n in range(len(self.m_f))]
         elif unit == 'real':
-            return [self.m_resp[n].real for n in range(len(self.m_f))]
+            return [self[n].real for n in range(len(self.m_f))]
         elif unit == 'imag':
-            return [self.m_resp[n].imag for n in range(len(self.m_f))]
+            return [self[n].imag for n in range(len(self.m_f))]
     def ReadFromFile(self,fileName):
         """reads in frequency domain content from the file specified.
         @param fileName string file name to read
@@ -102,13 +87,13 @@ class FrequencyDomain(object):
             frl=[line.split(' ') for line in data[2:]]
             resp=[float(fr[0])+1j*float(fr[1]) for fr in frl]
             self.m_f=EvenlySpacedFrequencyList(Fe,N)
-            self.m_resp=resp
+            list.__init__(self,resp)
         else:
             frl=[line.split(' ') for line in data[1:]]
             f=[float(fr[0]) for fr in frl]
             resp=[float(fr[1])+1j*float(fr[2]) for fr in frl]
             self.m_f=GenericFrequencyList(f)
-            self.m_resp=resp
+            list.__init__(self,resp)
         return self
     def WriteToFile(self,fileName):
         """write the frequency domain content to the file specified.
@@ -135,10 +120,10 @@ class FrequencyDomain(object):
         """
         if self.FrequencyList() != other.FrequencyList():
             return False # pragma: no cover
-        if len(self.Values()) != len(other.Values()):
+        if len(self) != len(other):
             return False # pragma: no cover
-        for k in range(len(self.Values())):
-            if abs(self.Values()[k] - other.Values()[k]) > 1e-5:
+        for k in range(len(self)):
+            if abs(self[k] - other[k]) > 1e-5:
                 return False # pragma: no cover
         return True
     def __ne__(self,other):
@@ -150,6 +135,3 @@ class FrequencyDomain(object):
     ##
     # @var m_f
     # instance of class FrequencyList
-    # @var m_resp
-    # list of complex values containing the frequency domain elements corresponding
-    # to the frequencies in m_f.

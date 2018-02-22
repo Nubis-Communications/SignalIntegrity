@@ -1,4 +1,4 @@
-class Waveform(object):
+class Waveform(list):
     def Adapt(self,td):
         wf=self
         (upsampleFactor,decimationFactor)=Rat(td.Fs/wf.td.Fs)

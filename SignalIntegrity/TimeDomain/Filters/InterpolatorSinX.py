@@ -7,7 +7,7 @@
  or do not agree to the terms in that file, then you are not licensed to use
  this material whatsoever.
 '''
-from FirFilter import FirFilter
+from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
 
 import math
 
@@ -86,7 +86,7 @@ class InterpolatorSinX(FirFilter):
         fd=self.FilterDescriptor()
         us=[0. for k in range(len(wf)*fd.U)]
         for k in range(len(wf)):
-            us[k*fd.U]=wf.Values()[k]
+            us[k*fd.U]=wf[k]
         return FirFilter.FilterWaveform(self,Waveform(wf.td,us))
 
 class InterpolatorFractionalDelayFilterSinX(object):
@@ -108,7 +108,7 @@ class InterpolatorFractionalDelayFilterSinX(object):
         self.usf = InterpolatorSinX(U)
     def FilterWaveform(self,wf):
         """overloads base class FilterWaveform
-        @param instance of class Waveform of waveform to process
+        @param wf instance of class Waveform of waveform to process
         @return instance of class Waveform of wf upsampled and fractionally delayed
         """
         return self.usf.FilterWaveform(self.fdf.FilterWaveform(wf))

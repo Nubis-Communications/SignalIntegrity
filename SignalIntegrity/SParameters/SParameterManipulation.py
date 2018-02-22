@@ -93,7 +93,9 @@ class SParameterManipulation(object):
                     Y=w.DWT(y)
                     Y=[0. if abs(Yv) <= threshold else Yv for Yv in Y]
                     y=w.IDWT(Y)
-                    ir.x=y
+                    #ir.x=y
+                    # @todo get rid of this hack
+                    ir.__init__(ir.TimeDescriptor(),y)
                     ir=ir._Pad(irl)
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()

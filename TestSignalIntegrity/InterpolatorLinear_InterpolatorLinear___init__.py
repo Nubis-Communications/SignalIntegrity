@@ -8,6 +8,6 @@ class InterpolatorLinear(FirFilter):
         fd=self.FilterDescriptor()
         us=[0. for k in range(len(wf)*fd.U)]
         for k in range(len(wf)):
-            us[k*fd.U]=wf.Values()[k]
+            us[k*fd.U]=wf[k]
         return FirFilter.FilterWaveform(self,Waveform(wf.td,us))
 
