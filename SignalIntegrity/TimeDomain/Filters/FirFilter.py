@@ -1,24 +1,39 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from numpy import convolve
 #from PySICppLib import PySIConvolve
 
 class FirFilter(object):
+    """base filter class for all FIR filters"""
     def __init__(self,fd,ft):
+        """Constructor
+        @param fd instance of class FilterDescriptor describing the time axis effects
+        of this filter.
+        @param ft list of float filter taps
+        """
         self.m_fd = fd
         self.m_ft=ft
     def FilterTaps(self):
+        """return the filter taps
+        @return list of float filter taps
+        """
         return self.m_ft
     def FilterDescriptor(self):
+        """returns the filter descriptor
+        @return instance of class FilterDescriptor
+        """
         return self.m_fd
     def FilterWaveform(self,wf):
+        """filters a waveform
+        @param wf instance of class Waveform
+        @return instance of class Waveform containing this filter applied to wf
+        """
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
@@ -29,5 +44,6 @@ class FirFilter(object):
         filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
         return Waveform(td,filteredwf)
     def Print(self):
+        """prints an ASCII description of the filter"""
         self.FilterDescriptor().Print()
         print str(self.FilterTaps())

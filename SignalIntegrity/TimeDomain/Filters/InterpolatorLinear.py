@@ -1,16 +1,30 @@
-'''
- Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
- Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
- All Rights Reserved.
+# Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL
+# Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy,
+# All Rights Reserved.
+# 
+# Explicit license in accompanying README.txt file.  If you don't have that file
+# or do not agree to the terms in that file, then you are not licensed to use
+# this material whatsoever.
 
- Explicit license in accompanying README.txt file.  If you don't have that file
- or do not agree to the terms in that file, then you are not licensed to use
- this material whatsoever.
-'''
 from FirFilter import FirFilter
 
 class FractionalDelayFilterLinear(FirFilter):
+    """linear fractional delay filter"""
     def __init__(self,F,accountForDelay=True):
+        """Constructor
+
+        applies a two-tap linear interpolating filter.
+
+        @param F float amount of delay to apply.  The delay is in samples of the input waveform.
+        @param accountForDelay (optional) boolean whether to account for the delay
+        @remark
+        if accountForDelay, then the filter provides a sample phase adjustment, meaning
+        that there is no actual delay applied to the waveform, but the time axis under
+        the waveform is shifted.  This is the usual way to apply this filter and is used
+        to adapt waveforms on different time axes to each other.\n
+        if not accountForDelay, then the filter actually delays waveforms by the delay
+        specified.
+        """
         # pragma: silent exclude
         from FilterDescriptor import FilterDescriptor
         # pragma: include
@@ -19,7 +33,14 @@ class FractionalDelayFilterLinear(FirFilter):
             [1-F,F] if F >= 0 else [-F,1+F])
 
 class InterpolatorLinear(FirFilter):
+    """linear interpolating filter"""
     def __init__(self,U):
+        """Constructor
+
+        applies a linear interpolating filter.
+
+        @param U integer upsample factor of the filter.
+        """
         # pragma: silent exclude
         from FilterDescriptor import FilterDescriptor
         # pragma: include
@@ -28,6 +49,14 @@ class InterpolatorLinear(FirFilter):
             [float(u+1)/float(U) for u in range(U)]+
             [1-float(u+1)/float(U) for u in range(U-1)])
     def FilterWaveform(self,wf):
+        """overloads base class FilterWaveform
+        @param wf instance of class Waveform
+        @return instance of class Waveform containing the upsampled, interpolated wf
+        @remark
+        This method first classically upsamples the waveform by inserting zeros
+        between the samples and then passes the upsampled waveform through the linear
+        interpolation filter.
+        """
         # pragma: silent exclude
         from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
@@ -38,8 +67,25 @@ class InterpolatorLinear(FirFilter):
         return FirFilter.FilterWaveform(self,Waveform(wf.td,us))
 
 class InterpolatorFractionalDelayFilterLinear(object):
+    """combination linear fractional delay and interpolating filter"""
     def __init__(self,U,F,accountForDelay=True):
+        """Constructor
+        @param U integer upsample factor of the filter.
+        @param F float amount of delay to apply.  The delay is in samples of the input waveform.
+        @param accountForDelay (optional) boolean whether to account for the delay
+        @remark
+        if accountForDelay, then the filter provides a sample phase adjustment, meaning
+        that there is no actual delay applied to the waveform, but the time axis under
+        the waveform is shifted.  This is the usual way to apply this filter and is used
+        to adapt waveforms on different time axes to each other.\n
+        if not accountForDelay, then the filter actually delays waveforms by the delay
+        specified.
+        """
         self.fdf = FractionalDelayFilterLinear(F,accountForDelay)
         self.usf = InterpolatorLinear(U)
     def FilterWaveform(self,wf):
+        """overloads base class FilterWaveform
+        @param instance of class Waveform of waveform to process
+        @return instance of class Waveform of wf upsampled and fractionally delayed
+        """
         return self.usf.FilterWaveform(self.fdf.FilterWaveform(wf))
