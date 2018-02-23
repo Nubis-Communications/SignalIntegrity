@@ -40,7 +40,7 @@ from TestDescriptors import *
 from TestAdaptDecimate import *
 from TestSPARQSOLT import *
 from TestSPARQFourPort import *
-#from TDRSimulationFourPortScaled import *
+from TDRSimulationFourPortScaled import *
 from Sequid import *
 
 if __name__ == '__main__':
