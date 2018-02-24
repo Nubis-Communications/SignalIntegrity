@@ -409,7 +409,7 @@ class DeviceTelegrapherTwoPort(Device):
                               PartPropertyConductance(),
                               PartPropertyCapacitance(),
                               PartPropertyDissipationFactor(),
-                              PartPropertySections()]+propertiesList,partPicture)
+                              PartPropertySections(sections=0)]+propertiesList,partPicture)
     def NetListLine(self):
         return Device.NetListLine(self)+' telegrapher '+\
             self[PartPropertyResistance().propertyName].NetListProperty()+' '+\
@@ -441,7 +441,7 @@ class DeviceTelegrapherFourPort(Device):
                               PartPropertyInductance(keyword='lm',descriptionPrefix='mutual '),
                               PartPropertyCapacitance(keyword='cm',descriptionPrefix='mutual '),
                               PartPropertyDissipationFactor(keyword='dfm',descriptionPrefix='mutual '),
-                              PartPropertySections()]+propertiesList,partPicture)
+                              PartPropertySections(sections=0)]+propertiesList,partPicture)
     def NetListLine(self):
         nl=Device.NetListLine(self)+' telegrapher '
         nl=nl+self.PartPropertyByKeyword('rp').NetListProperty()+' '
@@ -485,7 +485,7 @@ class DeviceVoltageOutputProbe(Device):
 
 class DeviceCurrentOutputProbe(Device):
     def __init__(self):
-        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
+        Device.__init__(self,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyDefaultReferenceDesignator('IO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
             PartPropertyTransresistance(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableCurrentProbe())
         self[PartPropertyTransresistance().propertyName].visible=False
         self[PartPropertyVoltageOffset().propertyName].visible=False
