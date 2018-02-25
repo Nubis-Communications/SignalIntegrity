@@ -146,7 +146,8 @@ class TDRWaveformToSParameterConverter(object):
         # pragma: silent exclude
         self.ExtractionWindow=copy.deepcopy(extractionWindow)
         # pragma: silent include
-        incwf=Waveform(incwf.td,[x*w for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
+        incwf=Waveform(incwf.td,[x*w 
+            for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
         wfList[incidentIndex]=wfList[incidentIndex]-incwf
         # pragma: silent exclude
         self.IncidentWaveform=copy.deepcopy(incwf)

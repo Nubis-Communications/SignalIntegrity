@@ -12,7 +12,7 @@
 from SignalIntegrity.FrequencyDomain.FrequencyList import FrequencyList
 from numpy import zeros
 
-class TransferMatrices(object):
+class TransferMatrices(list):
     """Class that is used for processing waveforms in simulation."""
     def __init__(self,f,d):
         """Constructor
@@ -31,7 +31,7 @@ class TransferMatrices(object):
         for a frequency is produced by the two classes SimulatorNumeric and VirtualProbeNumeric.
         """
         self.f=FrequencyList(f)
-        self.Matrices=d
+        list.__init__(self,d)
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
     def SParameters(self):
@@ -51,11 +51,11 @@ class TransferMatrices(object):
         from SignalIntegrity.SParameters.SParameters import SParameters
         # pragma: include
         if self.Inputs == self.Outputs:
-            return SParameters(self.f,self.Matrices)
+            return SParameters(self.f,self)
         else:
             squareMatrices=[]
             P=max(self.Inputs,self.Outputs)
-            for transferMatrix in self.Matrices:
+            for transferMatrix in self:
                 squareMatrix=zeros((P,P),complex).tolist()
                 for r in range(len(transferMatrix)):
                     for c in range(len(transferMatrix[0])):
@@ -73,7 +73,7 @@ class TransferMatrices(object):
         from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
         # pragma: include
         return FrequencyResponse(self.f,[Matrix[o-1][i-1]
-            for Matrix in self.Matrices])
+            for Matrix in self])
     def FrequencyResponses(self):
         """frequency responses of filters
         @return list of list of instances of class FrequencyResponse

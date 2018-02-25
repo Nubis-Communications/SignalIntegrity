@@ -1,13 +1,13 @@
-class TransferMatrices(object):
+class TransferMatrices(list):
     def __init__(self,f,d):
         self.f=FrequencyList(f)
-        self.Matrices=d
+        list.__init__(self,d)
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
 ...
     def FrequencyResponse(self,o,i):
         return FrequencyResponse(self.f,[Matrix[o-1][i-1]
-            for Matrix in self.Matrices])
+            for Matrix in self])
     def FrequencyResponses(self):
         return [[self.FrequencyResponse(o+1,s+1)
             for s in range(self.Inputs)] for o in range(self.Outputs)]

@@ -35,7 +35,8 @@ class TDRWaveformToSParameterConverter(object):
                 extractionWindow[k]=(math.cos(f*math.pi)+1.)/2.
             else:
                 extractionWindow[k]=0.
-        incwf=Waveform(incwf.td,[x*w for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
+        incwf=Waveform(incwf.td,[x*w 
+            for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
         wfList[incidentIndex]=wfList[incidentIndex]-incwf
         incwffc=incwf.FrequencyContent(self.fd)
         res=[wf.FrequencyContent(self.fd) for wf in wfList]
