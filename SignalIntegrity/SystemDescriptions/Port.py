@@ -7,13 +7,27 @@
 # this material whatsoever.
 
 class Port(object):
+    """port connections of a device
+    
+    a port defines the node names of the incident, reflect and stimulus
+    on a port of a device."""
     def __init__(self):
+        """Constructor"""
         self.A=''
         self.B=''
         self.M=''
     def IsConnected(self):
+        """whether a device port is connected
+        @return boolean whether port is connected to anything.
+        """
         return self.A != ''
     def Print(self,level=0):
+        """print an ascii description of the port connections
+        @param level (optional) level to print at.  This affects the indentation.
+        when called to just print a port, use the default argument, otherwise, when
+        it's printed by printing a system description, it will be indented for each
+        port in each device.
+        """
         if level==0:
             print '\n','Node','Name'
         for t in range(3):

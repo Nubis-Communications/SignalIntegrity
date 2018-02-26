@@ -1,7 +1,7 @@
-class SystemDescription(object):
+class SystemDescription(list):
 ...
     def AddDevice(self,Name,Ports,SParams=None,Type='device'):
-        self.Data.append(Device(Name,Ports,Type))
+        self.append(Device(Name,Ports,Type))
         if isinstance(SParams,list):
             self.AssignSParameters(Name,SParams)
 ...

@@ -14,14 +14,14 @@ from Device import Device
 from UniqueNameFactory import UniqueNameFactory
 from SignalIntegrity.PySIException import PySIExceptionSystemDescription
 
-class SystemDescription(object):
+class SystemDescription(list):
     """Allows the construction of system descriptions for use with all of the
     classes that solve schematics and netlists
 
     Often, this class will be used to construct the system description and
     then passed to another class for problem solution
 
-    A system description is an array of devices, which in turn are an array
+    A system description is fundamentally a list of devices, which in turn are lists
     of ports and port connections."""
     def __init__(self,sd=None):
         """Constructor
@@ -29,23 +29,13 @@ class SystemDescription(object):
         Initializes a system description
         """
         if not sd is None:
-            self.Data = sd.Data
+            list.__init__(self,list(sd))
             self.m_UniqueDevice=sd.m_UniqueDevice
             self.m_UniqueNode=sd.m_UniqueNode
         else:
-            self.Data = []
+            list.__init__(self,[])
             self.m_UniqueDevice=UniqueNameFactory('#')
             self.m_UniqueNode=UniqueNameFactory('n')
-    def __getitem__(self,item):
-        """overrides [item]
-        @param item integer index of device in system
-        @return a device at the index provided
-        """
-        return self.Data[item]
-    def __len__(self):
-        """overrides len()
-        @return the number of devices"""
-        return len(self.Data)
     def AddDevice(self,Name,Ports,SParams=None,Type='device'):
         """Adds a device to the system
         @param Name string name of device to add
@@ -60,7 +50,7 @@ class SystemDescription(object):
             raise PySIExceptionSystemDescription(
                 'duplicate device name: '+str(Name))
         # pragma: include
-        self.Data.append(Device(Name,Ports,Type))
+        self.append(Device(Name,Ports,Type))
         if isinstance(SParams,list):
             self.AssignSParameters(Name,SParams)
     def AssignM(self,DeviceN,DeviceP,MName):

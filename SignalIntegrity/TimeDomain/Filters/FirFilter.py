@@ -6,10 +6,12 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
+from SignalIntegrity.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
+
 from numpy import convolve
 #from PySICppLib import PySIConvolve
 
-class FirFilter(object):
+class FirFilter(WaveformProcessor):
     """base filter class for all FIR filters"""
     def __init__(self,fd,ft):
         """Constructor
@@ -19,6 +21,16 @@ class FirFilter(object):
         """
         self.m_fd = fd
         self.m_ft=ft
+    def ProcessWaveform(self, wf):
+        """process waveform
+
+        FIR filters process waveforms by filtering them.
+
+        @param wf instance of class Waveform to filter
+        @return instance of class Waveform containing this filter applied to wf
+        @see FilterWaveform
+        """
+        return self.FilterWaveform(wf)
     def FilterTaps(self):
         """return the filter taps
         @return list of float filter taps

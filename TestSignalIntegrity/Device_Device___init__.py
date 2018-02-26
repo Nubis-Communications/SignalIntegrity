@@ -1,13 +1,9 @@
-class Device(object):
+class Device(list):
     def __init__(self,Name,Ports,Type='device'):
         self.Name = Name
-        self.Ports = [Port() for p in range(Ports)]
+        list.__init__(self,[Port() for _ in range(Ports)])
         self.SParameters = self.SymbolicMatrix(Name,Ports)
         self.Type=Type
-    def __getitem__(self,item):
-        return self.Ports[item]
-    def __len__(self):
-        return len(self.Ports)
     def AssignSParameters(self,SParameters):
         self.SParameters=SParameters
     @staticmethod

@@ -134,7 +134,7 @@ class TimeDescriptor(object):
                 StartupSamples=other.K-self.K/UpsampleFactor)
     def DelayBy(self,D):
         """delays by time
-        @param float delay time
+        @param D float delay time
         @return instance of class TimeDescriptor containing self delayed by the time.
         @note does not affect self.
         """

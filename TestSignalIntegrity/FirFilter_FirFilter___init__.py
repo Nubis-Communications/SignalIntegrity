@@ -1,7 +1,9 @@
-class FirFilter(object):
+class FirFilter(WaveformProcessor):
     def __init__(self,fd,ft):
         self.m_fd = fd
         self.m_ft=ft
+    def ProcessWaveform(self, wf):
+        return self.FilterWaveform(wf)
     def FilterTaps(self):
         return self.m_ft
     def FilterDescriptor(self):

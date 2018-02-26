@@ -84,6 +84,7 @@ class Waveform(list):
         return Waveform(self.td.DelayBy(d),self.Values())
     def __add__(self,other):
         """overloads +
+        @param other instance of class Waveform or float, int, complex to add.
         @return instance of class Waveform with other added to self
         @note does not affect self
         @note
@@ -111,6 +112,7 @@ class Waveform(list):
         # pragma: include
     def __sub__(self,other):
         """overloads -
+        @param other instance of class Waveform or float, int, complex to subtract.
         @return instance of class Waveform with other subtracted from self
         @note does not affect self
         @note
@@ -138,6 +140,7 @@ class Waveform(list):
     def __radd__(self, other):
         """radd version
         this is used for summing waveforms in a list and is required.
+        @param other instance of class Waveform or float, int, complex to add.
         @return self+other
         @see Waveform.__add__()
         """
@@ -147,28 +150,23 @@ class Waveform(list):
             return self.__add__(other)
     def __mul__(self,other):
         """overloads *
+        @param other instance of class WaveformProcessor or float, int, complex to multiply by.
         @return instance of class Waveform with other multiplied by self
         @note does not affect self
         @note Waveform multiplication is an abstraction in some cases. The result for types
         of other is:
-        - FirFilter - returns self filtered by the FirFilter.
-        - WaveformTrimmer - returns self trimmed by the WaveformTrimmer.
-        - WaveformDecimator - returns self decimated by the WaveformDecimator.
+        - WaveformProcessor - returns self processed by the instance of WaveformProcessor.
         - float,int,complex - returns the Waveform produced by multiplying all of the values in
         self multiplied by the constant value supplied.
+        @note The most obvious type of WaveformProcessor is a FirFilter, but there are others like
+        WaveformTrimmer and WaveformDecimator.
         @throw PySIExceptionWaveform if other cannot be multiplied.
         """
         # pragma: silent exclude
-        from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
-        from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
-        from SignalIntegrity.TimeDomain.Filters.WaveformDecimator import WaveformDecimator
+        from SignalIntegrity.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
         # pragma: include
-        if isinstance(other,FirFilter):
-            return other.FilterWaveform(self)
-        elif isinstance(other,WaveformTrimmer):
-            return other.TrimWaveform(self)
-        elif isinstance(other,WaveformDecimator):
-            return other.DecimateWaveform(self)
+        if isinstance(other,WaveformProcessor):
+            return other.ProcessWaveform(self)
         elif isinstance(other,(float,int,complex)):
             return Waveform(self.td,[v*other.real for v in self])
         # pragma: silent exclude
@@ -177,6 +175,7 @@ class Waveform(list):
         # pragma: include
     def __div__(self,other):
         """overloads /
+        @param other instance of float, int, complex to divide by.
         @return instance of class Waveform with other divided into it.
         @note only handles float, int, complex where the constant values are divided into the
         values in self.
@@ -192,7 +191,7 @@ class Waveform(list):
         # pragma: include
     def ReadFromFile(self,fileName):
         """reads a waveform from a file
-        @param filename string name of file to read
+        @param fileName string name of file to read
         @return self
         @note this DOES affect self
         """
@@ -214,7 +213,7 @@ class Waveform(list):
         return self
     def WriteToFile(self,fileName):
         """writes a waveform to a file
-        @param filename string name of file to write
+        @param fileName string name of file to write
         @return self
         """
         with open(fileName,"w") as f:
@@ -227,7 +226,7 @@ class Waveform(list):
         return self
     def __eq__(self,other):
         """overloads ==
-        @param instance of other waveform.
+        @param other instance of other waveform.
         @return boolean whether the waveforms are equal to each other.
         @note an epsilon of 1e-6 is used for the compare.
         """
@@ -241,17 +240,17 @@ class Waveform(list):
         return True
     def __ne__(self,other):
         """overloads !=
-        @param instance of other waveform.
+        @param other instance of other waveform.
         @return boolean whether the waveforms are not equal to each other.
         """
         return not self == other
     def Adapt(self,td):
         """adapts waveform to time descriptor
-        
+
         Waveform adaption is performed using upsampling, decimation, fractional delay,
         and waveform point trimming.
 
-        @param instance of class TimeDescriptor to adapt waveform to
+        @param td instance of class TimeDescriptor to adapt waveform to
         @return instance of class Waveform containing self adapted to the time descriptor
         @note does not affect self.
         @note the static member variable adaptionStrategy determines how to interpolate.  'SinX' means

@@ -376,7 +376,7 @@ class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
     def testTelegrapher2LC(self):
         self.Tester(self.id(),'telegrapher',2,c='20e-12',l='50e-9',sect='10000')
     def testTelegrapher4Default(self):
-        self.Tester(self.id(),'telegrapher',4,[1,3,2,4])
+        self.Tester(self.id(),'telegrapher',4,[1,3,2,4],sect='1')
     def testTelegrapher4LC(self):
         self.Tester(self.id(),'telegrapher',4,[1,3,2,4],lp='58.5e-9',cp='20e-12',ln='58.5e-9',cn='20e-12',lm='13.5e-9',cm='1.111e-12',sect='10000')
     def testDirectionalCoupler3(self):

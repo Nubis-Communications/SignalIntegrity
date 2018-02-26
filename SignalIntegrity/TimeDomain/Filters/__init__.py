@@ -6,3 +6,4 @@ from WaveformTrimmer import *
 from WaveformDecimator import *
 from TransferMatricesProcessor import *
 from RaisedCosineFilter import RaisedCosineFilter
+from WaveformProcessor import WaveformProcessor

@@ -17,11 +17,6 @@ def OperationalAmplifier(Zi,Zd,Zo,G,Z0=50.):
     @param Z0 (optional) real or complex reference impedance (default is 50 Ohms).
     @return the list of list s-parameter matrix of the s-parameters of a three port op-amp.
     Port 1 is - input, port 2 is + input and port 3 is output
-    @attention This device is completely wrong and should not be used.  The documentation
-    is correct, but the s-parameters are such that Zi is the series impedance between port
-    1 and the op-amp input, which is incorrect.  The input impedance should be port 1 to 
-    ground, as indicated (this is the same for port 2).
-    @todo Fix the operational amplifier, which is completely wrong and should not be used.
     """
     S11=((-2.*Zi-Zd)*Z0*Z0+Zi*Zi*Zd)/((2.*Zi+Zd)*Z0*Z0+(2.*Zi*Zd+2.*Zi*Zi)*Z0+Zi*Zi*Zd)
     S12=(2.*Zi*Zi*Z0)/((2.*Zi+Zd)*Z0*Z0+(2.*Zi*Zd+2.*Zi*Zi)*Z0+Zi*Zi*Zd)

@@ -1,6 +1,6 @@
-class DeviceFactory(object):
+class DeviceFactory(list):
     def __init__(self):
-        self.deviceList=[
+        list.__init__(self,[
         ParserDevice('file',None,True,{'':None},True,
             "SParameterFile(arg[''],50.).Resample(f)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
@@ -52,5 +52,5 @@ class DeviceFactory(object):
             float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
         ParserDevice('opamp',3,False,{'zi':1e8,'zd':1e8,'zo':0.,'gain':1e8,'z0':50.},
             False,"OperationalAmplifier(float(arg['zi']),float(arg['zd']),\
-            float(arg['zo']),float(arg['gain']),float(arg['z0']))")]
+            float(arg['zo']),float(arg['gain']),float(arg['z0']))")])
 ...

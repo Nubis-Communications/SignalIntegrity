@@ -1,6 +1,8 @@
-class WaveformTrimmer(FilterDescriptor):
+class WaveformTrimmer(FilterDescriptor,WaveformProcessor):
     def __init__(self,TrimLeft,TrimRight):
         FilterDescriptor.__init__(self,1,TrimRight,TrimLeft+TrimRight)
+    def ProcessWaveform(self, wf):
+        return self.TrimWaveform(wf)
     def TrimWaveform(self,wf):
         K=wf.td.K
         TL=self.TrimLeft()

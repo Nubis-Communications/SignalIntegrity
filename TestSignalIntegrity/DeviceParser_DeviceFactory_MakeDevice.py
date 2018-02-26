@@ -1,4 +1,4 @@
-class DeviceFactory(object):
+class DeviceFactory(list):
 ...
     def MakeDevice(self,ports,argsList,f):
         self.dev=None

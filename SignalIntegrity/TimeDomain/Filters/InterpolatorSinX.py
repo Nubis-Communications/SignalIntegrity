@@ -8,6 +8,7 @@
  this material whatsoever.
 '''
 from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
+from SignalIntegrity.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 
 import math
 
@@ -89,7 +90,7 @@ class InterpolatorSinX(FirFilter):
             us[k*fd.U]=wf[k]
         return FirFilter.FilterWaveform(self,Waveform(wf.td,us))
 
-class InterpolatorFractionalDelayFilterSinX(object):
+class InterpolatorFractionalDelayFilterSinX(WaveformProcessor):
     """combination sinx/x fractional delay and interpolating filter"""
     def __init__(self,U,F,accountForDelay=True):
         """Constructor
@@ -106,6 +107,17 @@ class InterpolatorFractionalDelayFilterSinX(object):
         """
         self.fdf = FractionalDelayFilterSinX(F,accountForDelay)
         self.usf = InterpolatorSinX(U)
+    def ProcessWaveform(self, wf):
+        """process waveform
+
+        waveforms are processed with both an interpolation and fractional delay filter.
+
+        @param wf instance of class Waveform to filter
+        @return instance of class Waveform of wf upsampled and fractionally delayed
+
+        @see FilterWaveform
+        """
+        return self.FilterWaveform(wf)
     def FilterWaveform(self,wf):
         """overloads base class FilterWaveform
         @param wf instance of class Waveform of waveform to process

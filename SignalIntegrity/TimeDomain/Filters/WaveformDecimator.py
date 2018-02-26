@@ -6,9 +6,10 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
+from SignalIntegrity.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 
-class WaveformDecimator(FilterDescriptor):
+class WaveformDecimator(FilterDescriptor,WaveformProcessor):
     """decimates waveforms"""
     def __init__(self,decimationFactor,decimationPhase=0):
         """Constructor
@@ -19,6 +20,16 @@ class WaveformDecimator(FilterDescriptor):
         self.df=decimationFactor
         self.dph=decimationPhase
         FilterDescriptor.__init__(self,1./decimationFactor,0,decimationPhase)
+    def ProcessWaveform(self, wf):
+        """process waveform
+
+        Waveform decimators process waveforms by decimating them.
+
+        @param wf instance of class Waveform to filter
+        @return intance of class Waveform the decimated waveform
+        @see DecimateWaveform
+        """
+        return self.DecimateWaveform(wf)
     def DecimateWaveform(self,wf):
         """decimates a waveform
         @param wf instance of class Waveform of waveform to be decimated

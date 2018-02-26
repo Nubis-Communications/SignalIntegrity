@@ -6,9 +6,10 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
+from SignalIntegrity.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 
-class WaveformTrimmer(FilterDescriptor):
+class WaveformTrimmer(FilterDescriptor,WaveformProcessor):
     """trims waveforms"""
     def __init__(self,TrimLeft,TrimRight):
         """Constructor
@@ -16,6 +17,16 @@ class WaveformTrimmer(FilterDescriptor):
         @param TrimRight integer number of points to trim from the right of waveform
         """
         FilterDescriptor.__init__(self,1,TrimRight,TrimLeft+TrimRight)
+    def ProcessWaveform(self, wf):
+        """process waveform
+
+        Waveform trimmers process waveforms by trimming or padding them.
+
+        @param wf instance of class Waveform to filter
+        @return instance of class Waveform containing trimmed waveform
+        @see TrimWaveform
+        """
+        return self.TrimWaveform(wf)
     def TrimWaveform(self,wf):
         """trim a waveform
         @param wf instance of class Waveform of waveform to trim

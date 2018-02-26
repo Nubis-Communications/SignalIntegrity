@@ -1,7 +1,7 @@
-class DeviceFactory(object):
+class DeviceFactory(list):
 ...
     def __init__Contd(self):
-        self.deviceList=self.deviceList+[
+        list.__init__(self,list(self+[
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,
@@ -10,7 +10,7 @@ class DeviceFactory(object):
             float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
             'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
-            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':1},
+            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':0},
             True,"TLineDifferentialRLGC(f, float(arg['rp']),float(arg['rsep']),\
             float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
@@ -29,5 +29,5 @@ class DeviceFactory(object):
             float(arg['tz0']))"),
         ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0},
             True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']))")
-        ]
+        ]))
 ...

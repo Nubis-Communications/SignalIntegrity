@@ -19,12 +19,6 @@ def OperationalAmplifier(Zi,Zd,Zo,G):
     @param G string gain of the op-amp.
     @return list of list of string s-parameter matrix
     containing LaTeX or ASCII strings for each element.
-    
-    @attention This device is completely wrong and should not be used.  The documentation
-    is correct, but the s-parameters are such that Zi is the series impedance between port
-    1 and the op-amp input, which is incorrect.  The input impedance should be port 1 to 
-    ground, as indicated (this is the same for port 2).
-    @todo Fix the operational amplifier, which is completely wrong and should not be used.
     @note strings can be any valid LaTeX
     @note this is the symbolic version of SignalIntegrity.Devices.OperationalAmplifier.OperationalAmplifier
     """
