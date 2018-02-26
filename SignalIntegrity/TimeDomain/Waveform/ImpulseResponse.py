@@ -15,28 +15,63 @@ from SignalIntegrity.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 from SignalIntegrity.TimeDomain.Filters.FirFilter import FirFilter
 
 class ImpulseResponse(Waveform):
+    """impulse response of a filter as a waveform"""
     def __init__(self,t=None,td=None):
+        """constructor
+        @param t instance of class TimeDescriptor describing time-axis of impulse response
+        @param td list of float representing time-domain values
+        """
         Waveform.__init__(self,t,td)
     def DelayBy(self,d):
+        """delays the impulse response
+
+        delays the impulse response by modifying the time-axis under the response.
+
+        @param d float time to delay the response by.
+        """
         return ImpulseResponse(self.td.DelayBy(d),self.Values())
     def FrequencyResponse(self,fd=None,adjustLength=True):
-        """Produces the frequency response
+        """produces the frequency response
 
-        Args:
-            fd (FrequencyDescriptor) (optional) the desired frequency descriptor.
-            adjustLength (bool) (optional) whether to adjust the length.
-                defaults to True
+        impulse responses and frequency responses are equivalent and can be converted back
+        and forth into each other.  This method converts the impulse response to its corresponding
+        frequency domain equivalent.
 
-        Notes:
-            All impulse responses are evenly spaced
+        @attention users of this function should only either supply the fd argument or not.  Not
+        supplying the argument provides the generic frequency response associated with this impulse
+        response such that self.FrequencyResponse().ImpulseResponse() provides the same answer.
 
-            whether a frequency descriptor is specified and whether
-            to adjust length determines all possibilities of what can happen.
+        Supplying fd supplies the resulting frequency response resampled onto another frequency scale.
 
-            fd  al
-            F   F   generic frequency response
-            F   T   frequency response with length adjusted
-            T   X   CZT resamples to fd (length is adjusted first)
+        @param fd (optional) instance of class FrequencyDescriptor (defaults to None).
+        @param adjustLength (optional) bool whether to adjust the length. (defaults to True).
+
+        @note All impulse responses are evenly spaced
+
+        @note whether a frequency descriptor is specified and whether to adjust length determines
+        all possibilities of what can happen:
+
+        | fd        | adjustLength | Generates:                              |
+        |:---------:|:------------:|:---------------------------------------:|
+        | None      |   False      | generic frequency response              |
+        | None      |   True       | frequency response with length adjusted |
+        | provided  |   don't care | CZT resamples to fd (adjusts length)    |
+
+        The frequency descriptor, if provided, provides the frequency points to resample to, otherwise
+        the frequency descriptor associated with the internal time descriptor inherent to the impulse
+        response is used.
+
+        Length adjustment means that although the impulse response may start at time zero, or some
+        other time, the assumption is that there are an equal number of points for negative and positve
+        time and that time zero is in the center of these points.
+
+        This assumption for length adjustment is what allows an impulse response to be filled in with
+        positive only times, but allow an equality to exist between all frequency responses and impulse
+        responses.
+
+        Basically, the time adjustment can be seen as calculating the number of points before time zero
+        and the number of points after time zero and calculating the total number of points in the waveform
+        (for the purposes of frequency response calculation) as the max of these two numbers multiplied by two.
         """
         # pragma: silent exclude
         from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
@@ -51,6 +86,14 @@ class ImpulseResponse(Waveform):
         if fd:
             return self.FrequencyResponse().Resample(fd)
     def _AdjustLength(self):
+        """adjusts the length of the impulse response
+
+        Calculates the number of points in the impulse response as twice the maximimum of the positive and
+        negative time-domain points.
+
+        @return instance of class ImpulseResponse with the impulse centered at time zero, an even number of
+        points, and an equal number of points before and after time zero.
+        """
         td = self.td
         PositivePoints = int(max(0,math.floor(td.H*td.Fs+td.K+0.5)))
         NegativePoints = int(max(0,math.floor(-td.H*td.Fs+0.5)))
@@ -59,17 +102,21 @@ class ImpulseResponse(Waveform):
     def _Pad(self,P):
         """Pads the impulse response
 
-        Args:
-            P (int) the desired number of time points.
+        The impulse response is padded to P points with an equal number of points before and after
+        time zero.
 
-        Notes:
-            P must be even - not checked - it must add equal points to the left
+        @param P integer number of points to pad the impulse response to.
+        @return an instance of class ImpulseResponse with the zero padded points.
+        @attention P must be even - not checked - it must add equal points to the left
             and right of the impulse response.
-            K is the number of points in the selfs frequency response
+        @note
+        if K is the number of points in the selfs frequency response then:
 
-            if P==K, the original response is returned
-            if P<K, the response is truncated to P time points
-            if P>K, the response is zero padded to P time points
+        | P and K  | outcome
+        |:--------:|:--------------------------------------------:|
+        | P==K     | the original response is returned            |
+        | P<K      | the response is truncated to P time points   |
+        | P>K      | the response is zero padded to P time points |
         """
         K=len(self)
         if P==K:
@@ -82,13 +129,38 @@ class ImpulseResponse(Waveform):
         td = self.td
         return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
     def _FractionalDelayTime(self):
+        """fractional delay time of impulse response
+
+        returns the fraction of the sample time since time zero containing the first positive point in the
+        impulse response.
+
+        @return fractional number of samples of delay.
+
+        @note this can be a positive or negative number and will be the between -0.5 and 0.5
+        """
         td=self.td
         TD=-(-td.H*td.Fs-math.floor(-td.H*td.Fs+0.5))/td.Fs
         return TD
     def Resample(self,td):
+        """resamples the impulse response to a specified time descriptor
+        @param td instance of class TimeDescriptor containing new time descriptor.
+        @return an instance of class ImpulseResponse containing impulse response with new
+        time descriptor.
+        """
         fr=self.FrequencyResponse()
         return fr.ImpulseResponse(td)
     def TrimToThreshold(self,threshold):
+        """truncates an impulse response, keeping only the values above or equal to specified threshold.
+
+        This is useful for reducing computational complexity in processing.
+
+        @param threshold float threshold to apply to the values in the waveform.
+        @attention the threshold specified is a fraction of the maximum absolute value of the values
+        in the waveform.
+        @note that absolute values are utilized in value/threshold comparison.
+        @note the trimming is performed by finding the lowest and highest time value above or equal
+        to the threshold - all values between these times are retained.
+        """
         x=self.Values()
         td=self.td
         maxabsx=max(self.Values('abs'))
@@ -120,5 +192,9 @@ class ImpulseResponse(Waveform):
             endidx-startidx+1,td.Fs),
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
+        """FIR filter equivalent of impulse response for processing
+        
+        @return an instance of class FirFilter that can be convolved with a waveform
+        """
         td=self.td
         return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.K-1),self.Values())
