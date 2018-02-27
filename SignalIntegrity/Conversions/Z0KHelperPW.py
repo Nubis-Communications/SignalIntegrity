@@ -13,9 +13,9 @@ from numpy import matrix
 from numpy import diag
 from numpy import sqrt
 
-def Z0KHelperPW(Z0K,P):
+def Z0KHelperPW(Z0,P):
     """Resolves reference impedance and scaling factor from a specification for power waves
-    @param Z0K tuple containing (Z0,K) - the reference impedance and scaling factor
+    @param Z0 - the reference impedance
     @param P integer number of ports
     @remark
     This very useful function helps resolve all of the possibilities for
@@ -25,28 +25,18 @@ def Z0KHelperPW(Z0K,P):
     It operates by selecting the best possible choices with the specification
     of the least information.
 
-    If Z0 is not specified, the default 50 Ohms is selected and if the
-    scaling factor is not specified, the default sqrt(Z0) is chosen.
+    If Z0 is not specified, the default 50 Ohms is selected.
+    The scaling factor is calculated as sqrt(|Re(Z0)|).
     These are provided in matrix form when needed and complex when needed
 
     both Z0 and K may be specified as lists, in which case they represent
     port reference impedance and scaling factors
-
-    @todo Figure out whether these are different from the non-power wave case.
-    It seems awfully similar.  I think that the scaling factor should involve a real
-    part of Z0 and maybe I forgot to fully implement this.
     """
-    (Z0,K)=Z0K
     if Z0 is None:
         Z0=matrix(diag([50.0]*P))
     elif isinstance(Z0,list):
         Z0=matrix(diag([float(i.real)+float(i.imag)*1j for i in Z0]))
     elif isinstance(Z0.real,float) or isinstance(Z0.real,int):
         Z0=matrix(diag([float(Z0.real)+float(Z0.imag)*1j]*P))
-    if K is None:
-        K=sqrt(abs(Z0.real))
-    elif isinstance(K,list):
-        K=matrix(diag([float(i.real)+float(i.imag)*1j for i in K]))
-    elif isinstance(K.real,float) or isinstance(K.real,int):
-        K=matrix(diag([float(K.real)+float(K.imag)*1j]*P))
+    K=sqrt(abs(Z0.real))
     return (Z0,K)

@@ -4,8 +4,11 @@ import SignalIntegrity as si
 from numpy import linalg
 from numpy import array
 from numpy import matrix
+from numpy import sqrt
 
-class TestConversions(unittest.TestCase):
+from TestHelpers import RoutineWriterTesterHelper
+
+class TestConversions(unittest.TestCase,RoutineWriterTesterHelper):
     def testABCD2SDefault(self):
         R=100
         ABCD=[[1,-R],[0,1]]
@@ -234,24 +237,30 @@ class TestConversions(unittest.TestCase):
         Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw)
         difference = linalg.norm(array(Swcalc)-array(Sw))
         self.assertTrue(difference<0.006,'Sp2Sw incorrect with different Z0, Kw specified, default Kp')
+    @unittest.expectedFailure
     def testSw2SpComplexDifferentZ0wZ0pKwKp(self):
+        """failure is expected because Kp is now forced to be sqrt(abs(Re(Z0))) for power waves"""
         Sw=[[-0.13-0.459*1j,0.039-0.487*1j],[0.827+2.14*1j,-0.888+0.555*1j]]
         Sp=[[0.308+0.108*1j,0.074-0.012*1j],[-0.205-5.548*1j,0.34+1.078*1j]]
         Z0w=[0.724+0.559*1j,0.994+0.223*1j]
         Z0p=[0.567+0.04*1j,0.752+0.912*1j]
         Kw=[0.354-0.982*1j,-0.448+0.176*1j]
         Kp=[0.451,0.057]
-        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw,Kp)
+        self.assertFalse(linalg.norm(array([sqrt(abs(Z0.real)) for Z0 in Z0p])-array(Kp))<0.008,"Kp was stated properly")
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw)
         difference = linalg.norm(array(Spcalc)-array(Sp))
         self.assertTrue(difference<0.008,'Sw2Sp incorrect with different Z0, Kw, Kp specified')
+    @unittest.expectedFailure
     def testSp2SwComplexDifferentZ0wZ0pKwKpKw(self):
+        """failure is expected because Kp is now forced to be sqrt(abs(Re(Z0))) for power waves"""
         Sw=[[-0.13-0.459*1j,0.039-0.487*1j],[0.827+2.14*1j,-0.888+0.555*1j]]
         Sp=[[0.308+0.108*1j,0.074-0.012*1j],[-0.205-5.548*1j,0.34+1.078*1j]]
         Z0w=[0.724+0.559*1j,0.994+0.223*1j]
         Z0p=[0.567+0.04*1j,0.752+0.912*1j]
         Kw=[0.354-0.982*1j,-0.448+0.176*1j]
         Kp=[0.451,0.057]
-        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw,Kp)
+        self.assertFalse(linalg.norm(array([sqrt(abs(Z0.real)) for Z0 in Z0p])-array(Kp))<0.008,"Kp was stated properly")
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw)
         difference = linalg.norm(array(Swcalc)-array(Sw))
         self.assertTrue(difference<0.008,'Sp2Sw incorrect with different Z0, Kw, Kp specified')
     def testSw2SpComplexSingleZ0SameZ0wZ0pDefaultKpKw(self):
@@ -309,7 +318,7 @@ class TestConversions(unittest.TestCase):
         Z0w=-0.468+0.68*1j
         Kw=0.423+0.804*1j
         Kp=0.753
-        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw,Kp)
+        Spcalc=si.cvt.Sw2Sp(Sw,Z0w,Z0p,Kw)
         difference = linalg.norm(array(Spcalc)-array(Sp))
         self.assertTrue(difference<0.005,'Sw2Sp incorrect with different single Z0w, Z0p, Kw default Kp')
     def testSp2SwComplexSingleDifferentZ0wZ0pKwKp(self):
@@ -319,9 +328,19 @@ class TestConversions(unittest.TestCase):
         Z0w=-0.468+0.68*1j
         Kw=0.423+0.804*1j
         Kp=0.753
-        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw,Kp)
+        Swcalc=si.cvt.Sp2Sw(Sp,Z0w,Z0p,Kw)
         difference = linalg.norm(array(Swcalc)-array(Sw))
         self.assertTrue(difference<0.005,'Sp2Sw incorrect with different single Z0w, Z0p, Kw default Kp ')
+    def testWriteZ0KHelperCode(self):
+        fileName="../SignalIntegrity/Conversions/Z0KHelper.py"
+        className=''
+        defName=['Z0KHelper']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteZ0KHelperPWCode(self):
+        fileName="../SignalIntegrity/Conversions/Z0KHelperPW.py"
+        className=''
+        defName=['Z0KHelperPW']
+        self.WriteClassCode(fileName,className,defName)
 
 
 

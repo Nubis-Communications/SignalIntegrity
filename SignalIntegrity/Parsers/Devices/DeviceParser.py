@@ -292,11 +292,13 @@ class DeviceFactory(list):
             # pragma: include
             return True
         return False
+    # pragma: silent exclude
     ##
     # @var dev
     # instance of class SParameters or list of list matrix when not frequency dependent.
     # @var frequencyDependent
     # boolean whether dev is frequency dependent.
+    # pragma: include
 
 class DeviceParser():
     """contains s-parameters of devices made from a netlist line"""
@@ -306,18 +308,24 @@ class DeviceParser():
 
         makes a device from a set of arguments
 
-        The device is assigned to self.m_spf if frequencyDependent and assumed to be an instance of class SParameters.
-        Otherwise, it is assigned to self.m_sp and is assumed to be a list of list matrix.
+        The device is assigned to self.m_spf if frequencyDependent and assumed
+        to be an instance of class SParameters.
+        Otherwise, it is assigned to self.m_sp and is assumed to be a list of
+        list matrix.
 
-        The intent of this class is that "Parser" classes use this DeviceParser to parse netlist lines that have 'device'
-        as the first token.  It keeps these s-parameters and assigns them as it loops over the frequencies generating numeric
+        The intent of this class is that "Parser" classes use this DeviceParser
+        to parse netlist lines that have 'device'
+        as the first token.  It keeps these s-parameters and assigns them as
+        it loops over the frequencies generating numeric
         solutions.
 
         @param f list of frequencies
         @param ports integer number of ports
-        @param argsList list of arguments.  The name of the device is the first argument.
-        If the device has no keyword for the argument, then that argument is next.  Otherwise, besides
-        the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the
+        @param argsList list of arguments.  The name of the device is the
+        first argument.
+        If the device has no keyword for the argument, then that argument is next. 
+        Otherwise, besides the name and the argument with no keyword, the
+        remaining arguments come in keyword/value pairs where the
         keyword is a string and the value is the value of the keyword.
         @return None
         @throw PySIExceptionDeviceParser if the device cannot be created.
@@ -347,6 +355,7 @@ class DeviceParser():
             #print 'device not found: '+' '.join(argsList)
             raise PySIExceptionDeviceParser('device not found: '+' '.join(argsList))
         return
+    # pragma: silent exclude
     ##
     # @var m_sp
     # None if device is frequency dependent otherwise an instance of class SParameters
@@ -354,4 +363,4 @@ class DeviceParser():
     # None if device is not frequency dependent otherwise a list of list s-parameter matrix
     # @var m_f
     # list of frequencies
-
+    # pragma: include
