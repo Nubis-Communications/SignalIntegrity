@@ -10,7 +10,7 @@
 # this material whatsoever.
 
 from SignalIntegrity.SystemDescriptions.SystemSParameters import SystemSParameters
-from Symbolic import Symbolic
+from SignalIntegrity.SystemDescriptions.Symbolic import Symbolic
 from SignalIntegrity.Helpers import SubscriptedVector
 
 class SystemDescriptionSymbolic(SystemSParameters,Symbolic):
