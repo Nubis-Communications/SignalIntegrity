@@ -21,7 +21,7 @@ tmfr=tm.FrequencyResponses()
 import matplotlib.pyplot as plt
 for i in range(len(innames)):
     for o in range(len(outnames)):
-        plt.subplot(len(outnames),len(innames),o*2+i+1)
+        plt.subplot(len(outnames),len(innames),o*len(innames)+i+1)
         plt.plot(tmfr[o][i].Frequencies('GHz'),tmfr[o][i].Response('dB'),
             label=outnames[o]+' due to '+innames[i],color='black')
         plt.legend(loc='upper right',labelspacing=0.1)
@@ -81,11 +81,11 @@ plt.xlim(0,15)
 plt.ylim(-60,30)
 plt.show()
 plt.cla()
+
+wfn=si.td.wf.NoiseWaveform(tdi,20e-3)
 ###################################################
 tmp=si.td.f.TransferMatricesProcessor(tm)
-wfn=si.td.wf.NoiseWaveform(tdi,20e-3)
-wfolist=[wf*usf
-    for wf in tmp.ProcessWaveforms([wfi,wfn])]
+wfolist=[wf*usf for wf in tmp.ProcessWaveforms([wfi,wfn])]
 
 plt.plot(wfolist[0].Times('ns'),
          wfolist[0].Values(),label='Vt',color='black')
@@ -98,7 +98,7 @@ plt.xlabel('time (ns)')
 plt.ylabel('amplitude (V)')
 plt.show()
 plt.cla()
-###################################################
+
 times=[(t-Td/1e-9)%(3*ui/1e-9) for t in wfolist[1].Times('ns')]
 values = wfolist[1].Values()
 
@@ -114,7 +114,7 @@ for k in range(len(times)):
 
 for e in range(len(pltt)):
     plt.plot(pltt[e],pltv[e],color='black')
-plt.ylim(-0.00,0.5)
-plt.xlim(0.1,0.5)
+plt.ylim(-0.00,0.5); plt.xlim(0.1,0.5)
+plt.xlabel('time (ns)'); plt.ylabel('amplitude (V)')
 plt.show()
 plt.cla()

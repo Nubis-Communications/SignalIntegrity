@@ -40,7 +40,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         import matplotlib.pyplot as plt
         for i in range(len(innames)):
             for o in range(len(outnames)):
-                plt.subplot(len(outnames),len(innames),o*2+i+1)
+                plt.subplot(len(outnames),len(innames),o*len(innames)+i+1)
                 plt.plot(tmfr[o][i].Frequencies('GHz'),tmfr[o][i].Response('dB'),
                     label=outnames[o]+' due to '+innames[i],color='black')
                 plt.legend(loc='upper right',labelspacing=0.1)
@@ -166,6 +166,23 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         wfi=wfi*rcf
         # pragma: silent exclude
         wfi.WriteToFile('SimulatorNumericParserExampleWaveform.txt')
+
+        tdt=si.td.wf.TimeDescriptor(0.0,10e-9*Fs,Fs)
+        trimmerfd=tdt/wfi.TimeDescriptor()
+        trimmer=si.td.f.WaveformTrimmer(int(trimmerfd.TrimLeft()),int(trimmerfd.TrimRight()))
+        wfiplot=wfi*trimmer
+
+        plt.plot(wfiplot.Times('ns'),
+                 wfiplot.Values(),label='Vs',color='black')
+        #plt.legend(loc='upper right',labelspacing=0.1)
+        plt.xlim(0 ,10)
+        plt.ylim(-0.05,1.05)
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude (V)')
+        PlotTikZ('SimulatorNumericParserExampleInputWaveform.tex',plt)
+        plt.show()
+        plt.cla()
+
         # pragma: include
         fci=wfi.FrequencyContent()
 
@@ -180,11 +197,11 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         # pragma: include
         plt.show()
         plt.cla()
+
+        wfn=si.td.wf.NoiseWaveform(tdi,20e-3)
         ###################################################
         tmp=si.td.f.TransferMatricesProcessor(tm)
-        wfn=si.td.wf.NoiseWaveform(tdi,20e-3)
-        wfolist=[wf*usf
-            for wf in tmp.ProcessWaveforms([wfi,wfn])]
+        wfolist=[wf*usf for wf in tmp.ProcessWaveforms([wfi,wfn])]
 
         # pragma: silent exclude
         wfotemp=copy.deepcopy(wfolist)
@@ -213,7 +230,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         # pragma: include
         plt.show()
         plt.cla()
-        ###################################################
+
         times=[(t-Td/1e-9)%(3*ui/1e-9) for t in wfolist[1].Times('ns')]
         values = wfolist[1].Values()
 
@@ -229,8 +246,8 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
 
         for e in range(len(pltt)):
             plt.plot(pltt[e],pltv[e],color='black')
-        plt.ylim(-0.00,0.5)
-        plt.xlim(0.1,0.5)
+        plt.ylim(-0.00,0.5); plt.xlim(0.1,0.5)
+        plt.xlabel('time (ns)'); plt.ylabel('amplitude (V)')
         # pragma: silent exclude
         PlotTikZ('SimulatorNumericParserExampleEyeDiagram.tex',plt)
         # pragma: include

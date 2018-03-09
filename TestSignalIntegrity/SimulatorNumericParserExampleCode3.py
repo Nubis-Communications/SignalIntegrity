@@ -33,3 +33,5 @@ plt.xlim(0,15)
 plt.ylim(-60,30)
 plt.show()
 plt.cla()
+
+wfn=si.td.wf.NoiseWaveform(tdi,20e-3)
