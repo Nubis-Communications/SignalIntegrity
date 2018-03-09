@@ -20,4 +20,4 @@ class NoiseWaveform(Waveform):
         @param sigma float non-zero value of the rms value of the noise
         @param mean (optional) float containing the mean value of the waveform
         """
-        Waveform.__init__(self,td,numpy.random.normal(mean,sigma,td.K).tolist())
+        Waveform.__init__(self,td,numpy.random.normal(mean,sigma,int(td.K)).tolist())

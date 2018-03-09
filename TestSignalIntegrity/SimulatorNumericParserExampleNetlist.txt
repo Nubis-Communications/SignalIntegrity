@@ -1,0 +1,11 @@
+device T 2 telegrapher r 0.1 rse 0.001 l 6.765e-08 c 2.23636363636e-11 df 0.001
+voltagesource Vs 1
+voltagesource Vn 2
+device Rt 2 R 65
+device Rr 1 R 60
+connect Vs 1 Vn 1
+connect Vn 2 Rt 1
+connect Rt 2 T 1
+connect T 2 Rr 1
+output T 1
+output T 2

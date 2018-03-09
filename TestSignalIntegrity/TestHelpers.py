@@ -141,8 +141,9 @@ class RoutineWriterTesterHelper(object):
             self.assertTrue(False, fileName + ' not found')
         regression=[]
         with open(fileName, 'rU') as regressionFile:
-            for line in regressionFile:
-                regression.append(line)
+            regression = regressionFile.readlines()
+#             for line in regressionFile:
+#                 regression.append(line)
         self.assertTrue(regression == sourceCode,Text + ' incorrect')
     def WriteCode(self,fileName,Routine,headerLines,printFuncName=False):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -184,7 +185,12 @@ class RoutineWriterTesterHelper(object):
                         if printFuncName:
                             sourceCode.append(line[indent:])
                         else:
-                            sourceCode.append(line[indent+4:])
+                            lineToAppend=line[indent+4:]
+                            if len(lineToAppend)==0:
+                                lineToAppend='\n'
+                            if lineToAppend[-1]!='\n':
+                                lineToAppend=lineToAppend+'\n'
+                            sourceCode.append(lineToAppend)
         scriptName = Routine.replace('test','').replace('(self)','')
         scriptFileName=scriptName + 'Code.py'
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
