@@ -106,8 +106,8 @@ class FrequencyResponse(FrequencyDomain):
             return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD)
         if evenlySpaced and not td is None:
             # if td is a float and not a time descriptor, it's assumed to be a
-            # sample rate.  In this case, we fill in the number of points in a
-            # time descriptor representing the time content of self
+            # sample rate.  In this case, the number of points in a
+            # time descriptor are filled in representing the time content of self
             return self.Resample(td.FrequencyList()).ImpulseResponse()
     def _Pad(self,P):
         """Pads the frequency response
