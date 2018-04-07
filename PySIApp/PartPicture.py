@@ -48,7 +48,8 @@ class PartPicture(object):
                 self.rotationPoint=pinList[0].pinConnectionPoint
             else:
                 self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2,(innerBox[0][1]+innerBox[1][1])/2)
-        else: self.rotationPoint = rotationPoint
+        else:
+            self.rotationPoint = rotationPoint
         self.origin=origin
         self.pinListSupplied = pinList
         self.innerBoxSupplied = innerBox
@@ -1516,7 +1517,7 @@ class PartPictureVariableTransmissionLineFourPort(PartPictureVariable):
 
 class PartPictureTransmissionLineDifferential(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(0,2),'l',False,True,True),PartPin(3,(4,1),'r',False,True,True),PartPin(4,(4,2),'r',False,True,True)],[(1.0,0.5),(3.0,1.5)],[(0,0),(4,3)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+        PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(0,2),'l',False,True,True),PartPin(3,(4,1),'r',False,True,True),PartPin(4,(4,2),'r',False,True,True)],[(1.0,0.5),(3.0,2.5)],[(0,0),(4,3)],(2,0),orientation,mirroredHorizontally,mirroredVertically,(2,1))
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawDifferentialTransmissionLine(canvas,grid,drawingOrigin)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
