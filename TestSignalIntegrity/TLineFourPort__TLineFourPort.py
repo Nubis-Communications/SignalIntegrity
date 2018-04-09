@@ -1,14 +1,4 @@
 def TLineFourPort(Zc,gamma,Z0):
-    """       +-----------------------+
-             / \                       \
-      1 ----+-  |     Z    Td           +----- 2
-             \ /                       /
-           +--+-----------------------+--+
-           |                             |
-      3 ---+                             +---- 4
-
-    ports 1 and 2 are the input and output
-    ports 3 and 4 are the outer conductor"""
     p=(Zc-Z0)/(Zc+Z0)
     a=(1.-3.*p)/(p-3.)
     Y=cmath.exp(-gamma)

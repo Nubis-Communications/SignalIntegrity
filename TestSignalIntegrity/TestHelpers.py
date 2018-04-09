@@ -320,7 +320,7 @@ class RoutineWriterTesterHelper(object):
             with open(outputFileName, 'w') as outputFile:
                 for line in sourceCode:
                     outputFile.write(line)
-        regression=DocStripped(outputFileName).doc
+        regression=DocStripped(outputFileName,False).doc
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
         self.assertTrue(max([len(line) for line in regression])<=self.maxLineLength,outputFileName + ' has line that is too long: ')
         self.assertTrue(len(regression)<=self.maxNumLines,outputFileName + ' has too many lines: '+str(len(regression)))
@@ -356,11 +356,14 @@ class CallbackTesterHelper(object):
         return correct == self.CallBackTesterResults()
 
 class DocStripped(object):
-    def __init__(self,filename):
+    def __init__(self,filename,strip=True):
         self.doc=[]
         inDocString=False
         with open(filename, 'rU') as inputFile:
             for line in inputFile:
+                if not strip:
+                    self.doc.append(line)
+                    continue
                 if line.count('"""')==1:
                     inDocString=not inDocString
                     continue

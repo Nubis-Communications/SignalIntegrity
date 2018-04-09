@@ -111,40 +111,23 @@ class FrequencyResponse(FrequencyDomain):
             return self.Resample(td.FrequencyList()).ImpulseResponse()
     def _Pad(self,P):
         """Pads the frequency response
-
-        Args:
-            P+1 (int) the desired number of frequency points.
-
-        Notes:
-            N+1 is the number of points in the selfs frequency response
-
-            if P==N, the original response is returned
-            if P<N, the response is truncated to P+1 frequency points
-            if P>N, the response is zero padded to P+1 frequency points
+        @param P int number of frequency points to pad to (-1)
+        @note N+1 is the number of points in the selfs frequency response.
+        if P==N, the original response is returned.
+        if P<N, the response is truncated to P+1 frequency points.
+        if P>N, the response is zero padded to P+1 frequency points.
         """
         fd=self.FrequencyList()
-        if P == fd.N:
-            # pad amount equals amount already
-            X=self.Response()
-        # the response needs to be padded
-        elif P < fd.N:
-            # padding truncates response
-            X=[self.Response()[n] for n in range(P+1)]
-        else:
-            # padding adds zeros to the response
-            X=self.Response()+[0 for n in range(P-fd.N)]
+        if P == fd.N: X=self.Response()
+        elif P < fd.N: X=[self.Response()[n] for n in range(P+1)]
+        else: X=self.Response()+[0 for n in range(P-fd.N)]
         return FrequencyResponse(EvenlySpacedFrequencyList(P*fd.Fe/fd.N,P),X)
     def _Decimate(self,D):
         """decimates the frequency response
-
-        Args:
-            D (int) the decimation factor.
-
-        Notes:
-            D is assumed >= 1
-            N+1 is the number of points in the selfs frequency response
-
-            N/D+1 is the number of points in the decimated frequency response
+        @param D integer decimation factor.
+        @note D is assumed >= 1.
+        N+1 is the number of points in the selfs frequency response.
+        N/D+1 is the number of points in the decimated frequency response.
         """
         fd=self.FrequencyList()
         X=[self.Response()[n*D] for n in range(fd.N/D+1)]
