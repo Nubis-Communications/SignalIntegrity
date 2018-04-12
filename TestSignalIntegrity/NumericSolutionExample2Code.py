@@ -1,5 +1,4 @@
 import SignalIntegrity as si
-
 sspn = si.sd.SystemSParametersNumeric()
 sspn.AddDevice('L', 2)  # add two-port left device
 sspn.AddDevice('R', 2)  # add two-port right device

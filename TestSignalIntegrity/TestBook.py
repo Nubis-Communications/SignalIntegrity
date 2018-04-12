@@ -1041,13 +1041,13 @@ class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
     def testSymbolicSolutionParserExample2Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionParserExample2(self)',self.standardHeader)
     def testNumericSolutionExample2Code(self):
-        self.WriteCode('TestBook.py','testNumericSolutionExample2(self)',self.standardHeader)
+        self.WriteCode('TestBook.py','testNumericSolutionExample2(self)',[self.standardHeader[0]])
     def testNumericSolutionExample2aCode(self):
-        self.WriteCode('TestBook.py','testNumericSolutionExample2a(self)',self.standardHeader)
+        self.WriteCode('TestBook.py','testNumericSolutionExample2a(self)',[self.standardHeader[0]])
     def testNumericSolutionParserExample2Code(self):
-        self.WriteCode('TestBook.py','testNumericSolutionParserExample2(self)',self.standardHeader)
+        self.WriteCode('TestBook.py','testNumericSolutionParserExample2(self)',[self.standardHeader[0]])
     def testNumericSolutionParserFileExample2Code(self):
-        self.WriteCode('TestBook.py','testNumericSolutionParserFileExample2(self)',self.standardHeader)
+        self.WriteCode('TestBook.py','testNumericSolutionParserFileExample2(self)',[self.standardHeader[0]])
     def testSymbolicSolutionParserFileExample3Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionParserFileExample3(self)',self.standardHeader)
     def testSystemDescriptionExampleCode(self):
