@@ -3,11 +3,11 @@ class SystemSParameters(SystemDescription):
         SystemDescription.__init__(self,sd)
     def PortANames(self):
         return [x[1] for x in sorted
-                ([(self[d].Name.strip('P'),self[d][0].A)
+                ([(int(self[d].Name.strip('P')),self[d][0].A)
                   for d in range(len(self)) if self[d].Name[0]=='P'])]
     def PortBNames(self):
         return [x[1] for x in sorted
-                ([(self[d].Name.strip('P'),self[d][0].B)
+                ([(int(self[d].Name.strip('P')),self[d][0].B)
                   for d in range(len(self)) if self[d].Name[0]=='P'])]
     def OtherNames(self,K):
         return list(set(self.NodeVector())-set(K))
