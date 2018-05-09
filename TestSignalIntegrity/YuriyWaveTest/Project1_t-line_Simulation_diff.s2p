@@ -1,0 +1,37 @@
+# Hz S MA R 50
+!Touchstone multiport model file <C:\Users\Yuriy\Documents\Simbeor THz Solutions\!Getting Started 2016\Project1\Results\Project1_t-line_Simulation_diff.s2p>
+!Created on 04 May 18, at 06:53:51.
+!Created with Simbeor THz 2017.02(64bit) of Simberian Inc. built on Dec 25 2017
+
+!Output from MultiportParameters of Simbeor.
+!Multiport parameters: DataOrigin=Simulation DataOriginName="Project1.t-line.Simulation(1)"
+!LinearNetworkData: EMPTY;
+
+!Uncomment the following lines with keywords in square brakets to support IBIS forum specification 2.0.
+![Version] 2.0 !This line should be the first in file, preceeding the line starting with #.
+![Number of Ports] 2
+![Number of Frequencies] 10
+![Two-Port Data Order] 21_12
+![Reference] 50 50
+
+!!!!Multiport descriptor profile: InputCount=2 TotalPortCount=2
+!DescriptorOutline={DescriptorType=SMatrix InputSpace=Terminal NormalizationType=Generalized NormalizationCommonZo=50 Ohm OutputFormat=MagnitudeAngle ListOfZo=(1:50)(2:25)}
+!InputProfile={Name="Input1" IsTLineInput=True InputNumber=1 PortCount=1 FirstPortNumber=1 InputSpace=Terminal BlockType=SBlock NormalizationType=Generalized Zo=50}
+!InputProfile={Name="Input2" IsTLineInput=True InputNumber=2 PortCount=1 FirstPortNumber=2 InputSpace=Terminal BlockType=SBlock NormalizationType=Generalized Zo=25}
+
+!!!Global port number to input_name/local_port_number correspondence:
+!Port 1 -> "Input1"/local_port_1 (terminal)
+!Port 2 -> "Input2"/local_port_1 (terminal)
+!!!!End of descriptor profile.
+
+!Frequency Hz |S[1,1]| arg(S[1,1]) |S[2,1]| arg(S[2,1]) |S[1,2]| arg(S[1,2]) |S[2,2]| arg(S[2,2])
+ 1000000000 0.335142338825064 70.2677562933278 0.9230988323423 -53.5189111345763 0.9230988323423 -53.5189111345763 0.350808251703911 1.10330708951056
+ 2111111111 0.337174484174031 -43.2185640507376 0.912541541701498 -111.916774081814 0.912541541701498 -111.916774081814 0.351068953061531 -1.7567542013609
+ 3222222222 0.310179167471238 -160.826945419779 0.908818123805565 -170.75033109942 0.908818123805565 -170.75033109942 0.334225433599962 -0.60130210547353
+ 4333333333 0.314690773576361 78.4238639900668 0.895185346451635 130.410781957947 0.895185346451635 130.410781957947 0.347563654576917 1.43467980271091
+ 5444444444 0.318674002940579 -34.6329942541334 0.885163341499828 72.2820498128967 0.885163341499828 72.2820498128967 0.352497815401917 -1.2569216050091
+ 6555555555 0.293139365978768 -151.407031090241 0.883164105575857 13.7679444358597 0.883164105575857 13.7679444358597 0.335530373531937 -0.823186888906234
+ 7666666666 0.297277835114813 87.6508766614677 0.872354129569258 -44.9599543547925 0.872354129569258 -44.9599543547925 0.34549453943705 1.51405150199986
+ 8777777777 0.304126958763463 -25.3061598843819 0.862577144164863 -103.019762153975 0.862577144164863 -103.019762153975 0.353330500866319 -0.863935631703915
+ 9888888888 0.279472601793054 -141.25325664368 0.861223001808936 -161.362507610503 0.861223001808936 -161.362507610503 0.336981988065954 -1.01499578435636
+ 11000000000 0.281811798729419 97.4473723655694 0.852376473720793 139.956406906442 0.852376473720793 139.956406906442 0.343634082161139 1.49757478947288

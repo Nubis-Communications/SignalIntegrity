@@ -1,0 +1,1 @@
+from TestYuriyNormalization import TestYuriyNormalizationTest
