@@ -13,6 +13,7 @@ import math
 from numpy import zeros,matrix
 from SignalIntegrity.CallBacker import CallBacker
 import copy
+from SignalIntegrity.Fit.FitConvergence import FitConvergenceMgr
 
 class LevMar(CallBacker):
     """Implements the Levenberg-Marquardt algorithm for non-linear fitting
@@ -40,7 +41,7 @@ class LevMar(CallBacker):
         """Constructor
         @param callback a callback function to call during calculation
         """
-        self.m_lambda=1
+        self.m_lambda=1000
         self.m_lambdamin=1e-15
         self.m_lambdamax=1e9
         self.m_lambdaMultiplier = 10.
@@ -133,6 +134,7 @@ class LevMar(CallBacker):
         self.m_H = None
         self.m_D = None
         self.m_JHWr = None
+        self.ccm=FitConvergenceMgr()
     def Iterate(self):
         """Performs one iteration.
 
@@ -180,6 +182,8 @@ class LevMar(CallBacker):
         else:
             self.m_lambda = min(self.m_lambda*
                 self.m_lambdaMultiplier,self.m_lambdamax)
+
+        self.ccm.IterationResults(self.ccm._IterationsTaken+1, self.m_mse, self.m_lambda)
         self.m_lambdaTracking.append(self.m_lambda)
         self.m_mseTracking.append(self.m_mse)
     def TestConvergence(self):
@@ -204,9 +208,10 @@ class LevMar(CallBacker):
         self.Iterate()
         self.m_lastMse=self.m_mse
         self.m_MseAcc=self.m_lastMse
-        while not self.TestConvergence():
+        while self.ccm.Continue():
             self.CallBack(self.m_iteration)
             self.Iterate()
+
     ## 
     # @var m_lambda
     # starting value for lambda
