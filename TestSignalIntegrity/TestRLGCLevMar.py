@@ -30,6 +30,48 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         print self.m_fitter.Results()
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
         fitsp=si.sp.dev.TLineTwoPortRLGC(sp.f(), R, Rse, L, G, C, df, sp.m_Z0)
+
+        printFitCurves=False
+        if printFitCurves:
+            self.m_fitter.ccm.PlotConvergence()
+
+        ccm=self.m_fitter.ccm
+
+        iterations=range(len(ccm._LogMseTracker))
+
+        import matplotlib.pyplot as plt
+        from TestHelpers import PlotTikZ
+
+        plt.clf()
+        plt.xlabel('iteration')
+        plt.ylabel('log(mse)')
+        plt.plot(iterations,ccm._FilteredLogMseTracker,label='filtered')
+        plt.plot(iterations,ccm._LogMseTracker,label='mse')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #PlotTikZ('ConverganceMse.tex',plt)
+        #plt.show()
+
+        plt.clf()
+        plt.xlabel('iteration')
+        plt.ylabel('log(lambda)')
+        plt.plot(iterations,ccm._LogLambdaTracker,label='lambda')
+        plt.plot(iterations,ccm._FilteredLogLambdaTracker,label='filtered')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #PlotTikZ('ConverganceLambda.tex',plt)
+        #plt.show()
+
+        plt.clf()
+        plt.xlabel('iteration')
+        plt.ylabel('deltas')
+        plt.semilogy(iterations,ccm._FilteredLogDeltaMseTracker,label='log(mse)')
+        plt.semilogy(iterations,ccm._FilteredLogDeltaLambdaTracker,label='log(lambda)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #PlotTikZ('ConverganceDeltas.tex',plt)
+        #plt.show()
+
         SpAreEqual=self.SParametersAreEqual(sp, fitsp,0.15)
         self.SParameterRegressionChecker(fitsp, '_'.join(self.id().split('.')[-2:])+'.s2p')
         if not SpAreEqual:
