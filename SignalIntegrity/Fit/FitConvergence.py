@@ -11,147 +11,164 @@
 
 import math
 
+class SimpleIIRFilter(object):
+    def __init__(self,timeconstant):
+        self.coef=1.-math.exp(-1./timeconstant)
+        self.first=True
+        self.output=0.
+        self.delta=0.
+    def Output(self,inputValue=None):
+        if inputValue is None:
+            return self.output
+        if self.first:
+            self.first=False
+            newOutput=inputValue
+            self.output=inputValue
+        else:
+            newOutput=inputValue*self.coef+self.output*(1-self.coef)
+        self.delta=newOutput-self.output
+        self.output=newOutput
+        return self.output
+    def Delta(self):
+        return self.delta
+
+class TwoTapBoxcarFilter(object):
+    def __init__(self):
+        self.z0=0.
+        self.z1=0.
+        self.output=0.
+    def Output(self,inputValue=None):
+        if inputValue is None:
+            return self.output
+        self.z1=self.z0
+        self.z0=inputValue
+        output=(self.z0+self.z1)/2.
+        self.delta=output-self.output
+        self.output=output
+        return self.output
+    def Delta(self):
+        return self.delta
+
 class FitConvergenceMgr(object):
-    def __init__(
-            self,
-            tolerance = 0,
-            maxIterations = 1000,
-            lambdaStart = 100,
-            lambdaChange = 10,
-            lambdaMax = 1e10,
-            lambdaMin = 1e-10,
-            lambdaTimeConstant = 50,
-            mseTimeConstant = 50,
-            lambdaUnchanging = 2.5,
-            mseUnchanging = 2.5,
-            bOptimizeAfterMSEMet = False,
-            iIterationsAllowedAfterMSEMet = 2
-        ):
-            self.Initialize(
-                tolerance,
-                maxIterations,
-                lambdaStart,
-                lambdaChange,
-                lambdaMax,
-                lambdaMin,
-                lambdaTimeConstant,
-                mseTimeConstant,
-                lambdaUnchanging,
-                mseUnchanging,
-                bOptimizeAfterMSEMet,
-                iIterationsAllowedAfterMSEMet
-            )
+    def __init__(self):
+            self.Initialize()
 
     def Initialize(
             self,
-            tolerance = .0004,
-            maxIterations = 100,
-            lambdaStart = 1e3,
-            lambdaChange = 10,
-            lambdaMax = 1e10,
-            lambdaMin = 1e-10,
-            lambdaTimeConstant = 5,
-            mseTimeConstant = 5,
-            lambdaUnchanging = 2.5,
-            mseUnchanging = 1.5,
-            bOptimizeAfterMSEMet = False,
-            iIterationsAllowedAfterMSEMet = 2
+            tolerance = 1e-6,
+            maxIterations = 10000,
+            lambdaTimeConstant = 50,
+            mseTimeConstant = 50,
+            mseUnchanging = 0.001,
+            lambdaUnchanging=0.005
         ):
             self._maxIterations = maxIterations
             self._tolerance = tolerance
             self._lambdaTimeConstant = lambdaTimeConstant
-            self._mseTimeConstant = mseTimeConstant
-            self._lambdaUnchanging = lambdaUnchanging
+            self._lambdaUnchanging = 5
+            self._mseTimeConstant=mseTimeConstant
             self._mseUnchanging = mseUnchanging
-            self._lambdaMax = lambdaMax
-            self._lambdaMin = lambdaMin
-            self._lambdaStart = lambdaStart
-            self._lambdaChange = lambdaChange
-            self._bOptimizeAfterMSEMet = bOptimizeAfterMSEMet
-            self._iIterationsAllowedAfterMSEMet = iIterationsAllowedAfterMSEMet
+            self._lambdaUnchanging = lambdaUnchanging
 
-            self._ValuesTracked = 0
-
-            self._MseTracker=[]
-            self._LambdaTracker=[]
-
-            self._mseCoef=1.-math.exp(-1./self._mseTimeConstant)
-            self._lamdaCoef=1.-math.exp(-1./self._lambdaTimeConstant)
-
-            self._LatestMse = 0
-            self._LatestLambda = 0
-
-            self._MseFilterOutput = 0
-            self._LambdaFilterOutput = 0
+            self.mseFilter=SimpleIIRFilter(mseTimeConstant)
+            self.lambdaFilter=SimpleIIRFilter(lambdaTimeConstant)
+            self.deltaMseFilter=TwoTapBoxcarFilter()
+            self.deltaLambdaFilter=TwoTapBoxcarFilter()
 
             self._IterationsTaken = 0
-            self._IterationsTakenAfterMSEMet = 0
+
+            self._Mse = 1e-10
+            self._Lambda = 100.
+
+            self._LogMse=0.
+            self._LogLambda=0.
+
+            self._FilteredLogMse=0.
+            self._FilteredLogLambda=0.
+            self._FilteredLogDeltaMse=0.
+            self._FilteredLogDeltaLambda=0.
+            self._LogDeltaMse=0.
+            self._LogDeltaLambda=0.
+
+            self._LogMseTracker=[]
+            self._LogLambdaTracker=[]
+            self._LogDeltaMseTracker=[]
+            self._LogDeltaLambdaTracker=[]
+            self._FilteredLogMseTracker=[]
+            self._FilteredLogLambdaTracker=[]
+            self._FilteredLogDeltaMseTracker=[]
+            self._FilteredLogDeltaLambdaTracker=[]
 
     def IterationResults(
             self,
-            iterationNumber,
             newMse,
             newLambda
         ):
-        self._LatestMse = max(newMse,1e-10)
-        self._LatestLambda = max(newLambda,1e-10)
 
-        self._IterationsTaken = iterationNumber
+        newMse=max(newMse,1e-10)
 
+        self._Mse = newMse
+        self._Lambda = newLambda
 
-        logmse=math.log10(self._LatestMse)
-        loglambda=math.log10(self._LatestLambda)
+        del newMse
+        del newLambda
 
-        self._MseFilterOutput=logmse*self._mseCoef+self._MseFilterOutput*(1.-self._mseCoef)
-        self._LambdaFilterOutput=loglambda*self._lamdaCoef+self._LambdaFilterOutput*(1-self._lamdaCoef)
+        self._LogMse=math.log10(self._Mse)
+        self._LogLambda=math.log10(self._Lambda)
 
-        self._LambdaTracker.append(loglambda)
-        self._MseTracker.append(logmse)
+        self._FilteredLogMse=self.deltaMseFilter.Output(self.mseFilter.Output(self._LogMse))
+        self._FilteredLogLambda=self.deltaLambdaFilter.Output(self.lambdaFilter.Output(self._LogLambda))
+        self._FilteredLogDeltaMse=abs(self.deltaLambdaFilter.Delta())
+        self._FilteredLogDeltaLambda=abs(self.deltaMseFilter.Delta())
 
-        self._ValuesTracked=self._ValuesTracked+1
+        self._IterationsTaken = self._IterationsTaken + 1
 
-    def LambdaInLimits(self,Lambda):
-        return ((Lambda < self._lambdaMax) and (Lambda > self._lambdaMin))
+        self._LogMseTracker.append(self._LogMse)
+        self._LogLambdaTracker.append(self._LogLambda)
+        self._FilteredLogMseTracker.append(self._FilteredLogMse)
+        self._FilteredLogLambdaTracker.append(self._FilteredLogLambda)
+        self._FilteredLogDeltaMseTracker.append(self._FilteredLogDeltaMse)
+        self._FilteredLogDeltaLambdaTracker.append(self._FilteredLogDeltaLambda)
 
     def Continue(self):
         IterationsExhausted = (self._IterationsTaken >= self._maxIterations)
-        LambdaOkay = self.LambdaInLimits(self._LatestLambda)
 
-        if (self._ValuesTracked > self._lambdaTimeConstant):
-            LambdaFilterThresholdMet = abs(math.log10(self._LatestLambda) - self._LambdaFilterOutput) < self._lambdaUnchanging
+        MseToleranceMet = (self._Mse < self._tolerance)
+
+        if (self._IterationsTaken > self._lambdaTimeConstant):
+            LambdaFilterThresholdMet = self._FilteredLogDeltaLambda < self._lambdaUnchanging
         else: LambdaFilterThresholdMet = False
 
-        if (self._ValuesTracked > self._mseTimeConstant):
-            MseFilterThresholdMet =  abs(math.log10(self._LatestMse) - self._MseFilterOutput) < self._mseUnchanging
+        if (self._IterationsTaken > self._mseTimeConstant):
+            MseFilterThresholdMet =  self._FilteredLogDeltaMse < self._mseUnchanging
         else: MseFilterThresholdMet = False
 
-        MseFilterThresholdMet=False
-        LambdaFilterThresholdMet=False
-
-        MseToleranceMet = (self._LatestMse < self._tolerance)
-
-        ## if OptimizeAfterMSEMet = true, then when the MSEToleranceMet, do some more specific amount of iterations
-        ## to see if we can converge to a better solution.  This allows us to keep the required MSE value low and
-        ## still get good convergence when locally available
-        IterationsExhaustedAfterMSEMet = False
-        if (MseToleranceMet and self._bOptimizeAfterMSEMet):
-            IterationsExhaustedAfterMSEMet = (self._IterationsTakenAfterMSEMet >= self._iIterationsAllowedAfterMSEMet)
-            self._IterationsTakenAfterMSEMet=self._IterationsTakenAfterMSEMet+1
+        lambdaOkay=True
 
         Stop = (
             IterationsExhausted                                         or
-            IterationsExhaustedAfterMSEMet                              or
-            (not LambdaOkay)                                            or
+            (not lambdaOkay)                                            or
             (LambdaFilterThresholdMet and MseFilterThresholdMet)        or
-            (MseToleranceMet and not self._bOptimizeAfterMSEMet)
+            MseToleranceMet
         )
-        
-        if Stop:
-            print "will stop:"
-            if IterationsExhausted: print 'iterations exhausted'
-            if IterationsExhaustedAfterMSEMet: print 'iterations exhausted after mse met'
-            if not LambdaOkay: print 'lambda not okay'
-            if (LambdaFilterThresholdMet and MseFilterThresholdMet): print 'lambda and mse filter met'
-            if (MseToleranceMet and not self._bOptimizeAfterMSEMet): print 'mse tolerance met'
 
         return not Stop
+
+    def PlotConvergence(self):
+            iterations=range(len(self._LogMseTracker))
+
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.title('mse convergance')
+            plt.xlabel('iteration')
+            plt.ylabel('mse')
+            plt.plot(iterations,self._LogMseTracker,label='logmse')
+            plt.plot(iterations,self._LogLambdaTracker,label='loglambda')
+            plt.plot(iterations,self._FilteredLogLambdaTracker,label='floglambda')
+            plt.plot(iterations,self._FilteredLogMseTracker,label='flogmse')
+            plt.plot(iterations,self._FilteredLogDeltaMseTracker,label='flogdeltamse')
+            plt.plot(iterations,self._FilteredLogDeltaLambdaTracker,label='flogdeltalambda')
+
+            plt.legend(loc='upper right')
+            plt.grid(True)
+            plt.show()

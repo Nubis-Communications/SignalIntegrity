@@ -44,10 +44,9 @@ class LevMar(CallBacker):
         self.m_lambda=1000
         self.m_lambdamin=1e-15
         self.m_lambdamax=1e9
-        self.m_lambdaMultiplier = 10.
+        self.m_lambdaMultiplier = 2.
         self.m_epsilon = 1e-19
-        self.m_iteration=0
-        self.m_ConverganceThreshold=7
+        self.ccm=FitConvergenceMgr()
         CallBacker.__init__(self,callback)
     def fF(self,x):
         """implements F(x)
@@ -143,7 +142,6 @@ class LevMar(CallBacker):
         Usually Solve() is used, which takes these iterations, but tests convergence and decides
         when the iterating should end.
         """
-        self.m_iteration=self.m_iteration+1
         if self.m_Fx is None:
             self.m_Fx=self.fF(self.m_x)
         if self.m_r is None:
@@ -182,34 +180,16 @@ class LevMar(CallBacker):
         else:
             self.m_lambda = min(self.m_lambda*
                 self.m_lambdaMultiplier,self.m_lambdamax)
-
-        self.ccm.IterationResults(self.ccm._IterationsTaken+1, self.m_mse, self.m_lambda)
+        self.ccm.IterationResults(self.m_mse, self.m_lambda)
         self.m_lambdaTracking.append(self.m_lambda)
         self.m_mseTracking.append(self.m_mse)
-    def TestConvergence(self):
-        """@private TestConvergence
-        @return boolean whether converged and iterations should end."""
-        self.m_MseChange=self.m_mse-self.m_lastMse
-        self.m_lastMse=self.m_mse
-        self.m_MseAcc=0.95*self.m_MseAcc+0.05*self.m_MseChange
-        try:
-            self.m_filterOutput=-math.log10(-self.m_MseAcc)
-        except:
-            self.m_filterOutput=0.
-        if self.m_filterOutput > self.m_ConverganceThreshold:
-            return True
-        if self.m_lambda == self.m_lambdamin:
-            return True
-        if self.m_lambda == self.m_lambdamax:
-            return True
-        return False
     def Solve(self):
         """Solves for x such that F(x) equals y in a weighted least-squares sense."""
         self.Iterate()
         self.m_lastMse=self.m_mse
         self.m_MseAcc=self.m_lastMse
         while self.ccm.Continue():
-            self.CallBack(self.m_iteration)
+            self.CallBack(self.ccm._IterationsTaken)
             self.Iterate()
 
     ## 

@@ -43,6 +43,7 @@ from TestSPARQFourPort import *
 from TDRSimulationFourPortScaled import *
 from Sequid import *
 from YuriyWaveTest import *
+from TestRLGCLevMar import *
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,12 +1,11 @@
 class LevMar(CallBacker):
     def __init__(self,callback=None):
-        self.m_lambda=1
+        self.m_lambda=1000
         self.m_lambdamin=1e-15
         self.m_lambdamax=1e9
-        self.m_lambdaMultiplier = 10.
+        self.m_lambdaMultiplier = 2.
         self.m_epsilon = 1e-19
-        self.m_iteration=0
-        self.m_ConverganceThreshold=7
+        self.ccm=FitConvergenceMgr()
         CallBacker.__init__(self,callback)
     def fF(self,x):
         raise
@@ -52,4 +51,5 @@ class LevMar(CallBacker):
         self.m_H = None
         self.m_D = None
         self.m_JHWr = None
+        self.ccm=FitConvergenceMgr()
 ...
