@@ -6,12 +6,8 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-import SignalIntegrity.SParameters.Devices as dev
 import math,cmath
-from SignalIntegrity.SParameters.SParameters import SParameters
 from LevMar import LevMar
-
-from numpy import zeros
 
 class RLGCFitter(LevMar):
     def __init__(self,sp,guess,callback=None):
@@ -97,10 +93,8 @@ class RLGCFitter(LevMar):
         vdS=[self.VectorizeSp(ds) for ds in dS]
         return [[vdS[m][r][0] for m in range(len(x))] for r in range(len(Fx))]
     def VectorizeSp(self,sp):
-        spd=[M for M in sp]
-        v=[[spd[n][r][c]] for n in range(len(spd))
-           for r in range(len(spd[0]))
-                for c in range(len(spd[0]))]
+        N=range(len(sp));P=range(len(sp[0]))
+        v=[[sp[n][r][c]] for n in N for r in P for c in P]
         return v
     @staticmethod
     def AdjustVariablesAfterIteration(x):

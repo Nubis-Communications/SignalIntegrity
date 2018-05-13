@@ -8,7 +8,7 @@ import SignalIntegrity as si
 import math
 import cmath
 import os
-from numpy import zeros,matrix
+from numpy import matrix
 from TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
 
 class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTesterHelper,SParameterCompareHelper):
@@ -279,5 +279,12 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+    runProfiler=False
+    if runProfiler:
+        import cProfile
+        cProfile.run('unittest.main()','stats')
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        unittest.main()
