@@ -44,6 +44,7 @@ from TDRSimulationFourPortScaled import *
 from Sequid import *
 from YuriyWaveTest import *
 from TestRLGCLevMar import *
+from TestNewtonsMethod import *
 
 if __name__ == '__main__':
     unittest.main()

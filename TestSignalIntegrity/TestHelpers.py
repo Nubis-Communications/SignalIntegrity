@@ -163,7 +163,7 @@ class RoutineWriterTesterHelper(object):
                         addingLines = True
                         includingLines = True
                         if printFuncName:
-                            line = line.replace('test','').replace('self','')
+                            line = line.replace('test','').replace('self,','')
                             sourceCode.append(line[indent:])
                         continue
                 if addingLines:
