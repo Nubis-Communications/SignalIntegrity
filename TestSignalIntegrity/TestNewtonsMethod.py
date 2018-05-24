@@ -55,6 +55,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
                 X[i][k]=self.newtonSqrtIterate(Y[k],X[i-1][k],1)
 
         import matplotlib.pyplot as plt
+        plt.cla()
         for i in range(len(X)):
             plt.semilogy(Y,[abs(x-math.sqrt(y)) for (x,y) in zip(X[i],Y)],label='iteration '+str(i),color='black')
         #plt.legend(loc='upper right',labelspacing=0.1)
@@ -76,6 +77,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
                 X[i][k]=self.newtonSqrtIterate(Y[k],X[i-1][k],1)
 
         import matplotlib.pyplot as plt
+        plt.cla()
         for i in range(len(X)):
             plt.semilogy(Y,[abs(x-math.sqrt(y)) for (x,y) in zip(X[i],Y)],label='iteration '+str(i),color='black')
         #plt.legend(loc='upper right',labelspacing=0.1)
@@ -100,6 +102,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
                 X[i][k]=self.newtonSqrtIterate(Y[k],X[i-1][k],1)
 
         import matplotlib.pyplot as plt
+        plt.cla()
         for i in range(len(X)):
             plt.semilogy(Y,[abs(x-math.sqrt(y)) for (x,y) in zip(X[i],Y)],label='iteration '+str(i),color='black')
         #plt.legend(loc='upper right',labelspacing=0.1)
@@ -146,7 +149,6 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteNewtonSquareRoot(self):
         import os
         self.WriteCode(os.path.basename(__file__).split('.')[0]+'.py', 'newtonSquareRoot', [], printFuncName=True)
-
     def testCableLinearFit(self):
         import math
         from numpy import matrix
@@ -166,6 +168,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         print '\[\sigma = '+ str(sigma)+'\]'
         # pragma: silent exclude
         import matplotlib.pyplot as plt
+        plt.cla()
         plt.plot(f,[20*math.log10(y) for y in mS21],label='S21',color='black')
         plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='gray')
         plt.legend(loc='upper right',labelspacing=0.1)

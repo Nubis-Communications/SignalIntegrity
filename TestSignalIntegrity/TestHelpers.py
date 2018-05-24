@@ -193,7 +193,7 @@ class RoutineWriterTesterHelper(object):
                             if lineToAppend[-1]!='\n':
                                 lineToAppend=lineToAppend+'\n'
                             sourceCode.append(lineToAppend)
-        scriptName = Routine.replace('test','').replace('self,','').replace('self','')
+        scriptName = Routine.replace('test','').replace('(self)','').replace('(self,)','')
         scriptFileName=scriptName + 'Code.py'
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
         old_stdout = sys.stdout
