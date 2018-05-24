@@ -15,13 +15,15 @@ from cStringIO import StringIO
 
 import SignalIntegrity as si
 
-def PlotTikZ(filename,plot2save):
+def PlotTikZ(filename,plot2save,scale=None):
     from matplotlib2tikz import save as tikz_save
     tikz_save(filename,figure=plot2save.gcf(),show_info=False)
     texfile=open(filename,'rU')
     lines=[]
     for line in texfile:
         line=line.replace('\xe2\x88\x92','-')
+        if not scale is None:
+            line=line.replace('begin{tikzpicture}','begin{tikzpicture}[scale='+str(scale)+']')
         lines.append(str(line))
     texfile.close()
     texfile=open(filename,'w')
@@ -163,7 +165,7 @@ class RoutineWriterTesterHelper(object):
                         addingLines = True
                         includingLines = True
                         if printFuncName:
-                            line = line.replace('test','').replace('self,','')
+                            line = line.replace('test','').replace('self,','').replace('self','')
                             sourceCode.append(line[indent:])
                         continue
                 if addingLines:
@@ -191,7 +193,7 @@ class RoutineWriterTesterHelper(object):
                             if lineToAppend[-1]!='\n':
                                 lineToAppend=lineToAppend+'\n'
                             sourceCode.append(lineToAppend)
-        scriptName = Routine.replace('test','').replace('(self)','')
+        scriptName = Routine.replace('test','').replace('self,','').replace('self','')
         scriptFileName=scriptName + 'Code.py'
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
         old_stdout = sys.stdout

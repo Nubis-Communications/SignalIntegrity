@@ -7,6 +7,8 @@ import unittest
 
 import math
 from TestHelpers import PlotTikZ,RoutineWriterTesterHelper
+import SignalIntegrity as si
+from numpy import matrix
 
 class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
     def fsqrt(self,y,x):
@@ -144,6 +146,37 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteNewtonSquareRoot(self):
         import os
         self.WriteCode(os.path.basename(__file__).split('.')[0]+'.py', 'newtonSquareRoot', [], printFuncName=True)
+
+    def testCableLinearFit(self):
+        import math
+        from numpy import matrix
+        sp=si.sp.SParameterFile('cable.s2p')
+        s21=sp.FrequencyResponse(2,1)
+        f=s21.Frequencies('GHz')
+        mS21=s21.Values('mag')
+        K=len(f)
+        X=[[1,x,math.sqrt(x)] for x in f]
+        a=(matrix(X).getI()*[[y] for y in mS21]).tolist()
+        yf=(matrix(X)*matrix(a)).tolist()
+        r=(matrix(yf)-matrix(y)).tolist()
+        sigma=math.sqrt(((matrix(r).H*matrix(r)).tolist()[0][0])/K)
+        print '\[a_0 = '+ str(a[0][0])+'\]'
+        print '\[a_1 = '+ str(a[1][0])+'/GHz\]'
+        print '\[a_2 = '+ str(a[2][0])+ '/\sqrt{GHz}\]'
+        print '\[\sigma = '+ str(sigma)+'\]'
+        # pragma: silent exclude
+        import matplotlib.pyplot as plt
+        plt.plot(f,[20*math.log10(y) for y in mS21],label='S21',color='black')
+        plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='gray')
+        plt.legend(loc='upper right',labelspacing=0.1)
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        PlotTikZ('CableFitted.tex',plt)
+        #plt.show()
+        plt.cla()
+    def testWriteNewtonCableFit(self):
+        import os
+        self.WriteCode(os.path.basename(__file__).split('.')[0]+'.py', 'testCableLinearFit', [], printFuncName=False)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
