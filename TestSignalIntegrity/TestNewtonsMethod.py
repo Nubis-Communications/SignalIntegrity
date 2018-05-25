@@ -169,7 +169,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         # pragma: silent exclude
         import matplotlib.pyplot as plt
         plt.cla()
-        plt.plot(f,[20*math.log10(y) for y in mS21],label='S21',color='black')
+        plt.plot(f,[20*math.log10(y) for y in mS21],label='$\\left|S_{21}\\right|$',color='black')
         plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='gray')
         plt.legend(loc='upper right',labelspacing=0.1)
         plt.xlabel('frequency (GHz)')
@@ -180,7 +180,33 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
     def testWriteNewtonCableFit(self):
         import os
         self.WriteCode(os.path.basename(__file__).split('.')[0]+'.py', 'testCableLinearFit', [], printFuncName=False)
-
+    def testCableLinearConstrainedFit(self):
+        import math
+        from numpy import matrix
+        sp=si.sp.SParameterFile('cable.s2p')
+        s21=sp.FrequencyResponse(2,1)
+        f=s21.Frequencies('GHz')
+        mS21=s21.Values('mag')
+        K=len(f)
+        X=[[x,math.sqrt(x)] for x in f]
+        a=(matrix(X).getI()*[[y-1.0] for y in mS21]).tolist()
+        yf=[[y[0]+1.0] for y in (matrix(X)*matrix(a)).tolist()]
+        r=(matrix(yf)-matrix([[y] for y in mS21])).tolist()
+        sigma=math.sqrt(((matrix(r).H*matrix(r)).tolist()[0][0])/K)
+        print '\[a_1 = '+ str(a[0][0])+'/GHz\]'
+        print '\[a_2 = '+ str(a[1][0])+ '/\sqrt{GHz}\]'
+        print '\[\sigma = '+ str(sigma)+'\]'
+        # pragma: silent exclude
+        import matplotlib.pyplot as plt
+        plt.cla()
+        plt.plot(f,[20*math.log10(y) for y in mS21],label='$\\left|S_{21}\\right|$',color='black')
+        plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='gray')
+        plt.legend(loc='upper right',labelspacing=0.1)
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        PlotTikZ('CableFittedConstrained.tex',plt)
+        #plt.show()
+        plt.cla()
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
