@@ -19,8 +19,8 @@ class RLGCFitter(LevMar):
         self.dYdRse=self.zeros
         self.dYdL=self.zeros
         self.dYdG=self.ones
-    def fF(self,x):
-        (R,L,G,C,Rse,df)=(x[0][0],x[1][0],x[2][0],x[3][0],x[4][0],x[5][0])
+    def fF(self,a):
+        (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
         self.Z=[R+Rse*math.sqrt(f)+1j*2.*math.pi*f*L for f in self.f]
         self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
         self.gamma=[cmath.sqrt(z*y) for (z,y) in zip(self.Z,self.Y)]

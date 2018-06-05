@@ -7,31 +7,31 @@ class LevMar(CallBacker):
         self.m_epsilon = 1e-19
         self.ccm=FitConvergenceMgr()
         CallBacker.__init__(self,callback)
-    def fF(self,x):
+    def fF(self,a):
         raise
-    def fPartialFPartialx(self,x,m,Fx=None):
-        xplusDeltax = x.copy()
-        xplusDeltax[m][0]=x[m][0]+self.m_epsilon
-        if Fx is None:
-            Fx = self.fF(x)
-        dFx = (self.fF(xplusDeltax)-Fx)/self.m_epsilon
-        return dFx
-    def fJ(self,x,Fx=None):
-        if Fx is None:
-            Fx=self.fF(x)
-        M = x.rows()
-        R = Fx.rows()
+    def fPartialFPartiala(self,a,m,Fa=None):
+        aplusDeltaa = a.copy()
+        aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
+        if Fa is None:
+            Fa = self.fF(a)
+        dFa = (self.fF(aplusDeltaa)-Fa)/self.m_epsilon
+        return dFa
+    def fJ(self,a,Fa=None):
+        if Fa is None:
+            Fa=self.fF(a)
+        M = a.rows()
+        R = Fa.rows()
         J = zeros((R,M)).tolist()
         for m in range(M):
-            pFpxm=self.fPartialFPartialx(x,m,Fx)
+            pFpam=self.fPartialFPartiala(a,m,Fa)
             for r in range(R):
-                J[r][m]=pFpxm[r][0]
+                J[r][m]=pFpam[r][0]
         return J
     @staticmethod
-    def AdjustVariablesAfterIteration(x):
-        return x
-    def Initialize(self,x,y,w=None):
-        self.m_x = copy.copy(x)
+    def AdjustVariablesAfterIteration(a):
+        return a
+    def Initialize(self,a,y,w=None):
+        self.m_a = copy.copy(a)
         self.m_y = copy.copy(y)
         if w is None:
             self.m_sumw=len(y)
@@ -41,8 +41,8 @@ class LevMar(CallBacker):
             self.m_sumw = 0
             for r in range(w.rows()):
                 self.m_sumw = self.m_sumw + w[r][0]
-        self.m_Fx = self.fF(self.m_x)
-        self.m_r=(matrix(self.m_Fx)-matrix(self.m_y)).tolist()
+        self.m_Fa = self.fF(self.m_a)
+        self.m_r=(matrix(self.m_Fa)-matrix(self.m_y)).tolist()
         self.m_mse=math.sqrt((matrix(self.m_r).getH()*
             self.m_W*matrix(self.m_r)).tolist()[0][0].real/self.m_sumw)
         self.m_lambdaTracking = [self.m_lambda]

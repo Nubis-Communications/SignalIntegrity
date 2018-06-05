@@ -20,22 +20,22 @@ class LevMar(CallBacker):
 
     To use this class, you derive your class for fitting some arbitrary
     function to some data from LeVmar.  The function must contain, at a minimum, an
-    __init__ function for construction and a function fF(self,x), which implements
-    the function y=f(x) where ideally x is a vector of numbers and y is a vector of
+    __init__ function for construction and a function fF(self,a), which implements
+    the function y=f(a) where ideally a is a vector of numbers and y is a vector of
     numbers in matrix form.  In other words, if you are fitting a 3 variable function
     f(a0,a1,a2)=y - you are trying to find the best values of a0, a1, and a2 that
     cause f(a0,a1,a2) to be the closes to y in a least-squares sense, then your
-    x would be something like [[a0],[a1],[a2]] and your y would look similar.  In
-    this way, x is a 3x1 element matrix.
+    a would be something like [[a0],[a1],[a2]] and your y would look similar.  In
+    this way, a is a 3x1 element matrix.
 
-    During the fit, LevMar will call the function fJ, which in turn calls fPartialFPartialx
-    with x and m being the index of the variable in x to take the derivative with respect
-    to. If your derived class does not overload fJ and/or fPartialFPartialx, LevMar will
+    During the fit, LevMar will call the function fJ, which in turn calls fPartialFPartiala
+    with a and m being the index of the variable in a to take the derivative with respect
+    to. If your derived class does not overload fJ and/or fPartialFPartiala, LevMar will
     compute a numerical derivative using the value self.m_epsilon as the delta.  If
     you have analytic derivatives and don't want derivatives calculated numerically,
-    you overload fJ and return a matrix that is R x M where R is the number of elements
-    in y and M is the number of elements in x where each J[r][m] is the partial derivative
-    of F with respect x[m] at element r of the output.
+    you overload fJ and return a matrix that is R a M where R is the number of elements
+    in y and M is the number of elements in a where each J[r][m] is the partial derivative
+    of F with respect a[m] at element r of the output.
     """
     def __init__(self,callback=None):
         """Constructor
@@ -48,72 +48,72 @@ class LevMar(CallBacker):
         self.m_epsilon = 1e-19
         self.ccm=FitConvergenceMgr()
         CallBacker.__init__(self,callback)
-    def fF(self,x):
-        """implements F(x)
-        @param x list of lists representing matrix x
-        @return F(x) in the overloaded function
+    def fF(self,a):
+        """implements F(a)
+        @param a list of lists representing matrix a
+        @return F(a) in the overloaded function
         if the function is not overloaded in the derived class, raises an exception
         @throw raise if not overloaded.
         """
         raise
-    def fPartialFPartialx(self,x,m,Fx=None):
-        """partial derivative of F(x) with respsect to x[m]
-        @param x list of lists matrix x
-        @param m index of element in x which to take partial derivative with respect to
-        @param Fx optional previously calculated F(x) to avoid double calculation
-        @return the partial derivative of F(x) with respect to element m in x
+    def fPartialFPartiala(self,a,m,Fa=None):
+        """partial derivative of F(a) with respect to a[m]
+        @param a list of lists matrix a
+        @param m index of element in a which to take partial derivative with respect to
+        @param Fa optional previously calculated F(a) to avoid double calculation
+        @return the partial derivative of F(a) with respect to element m in a
         """
-        xplusDeltax = x.copy()
-        xplusDeltax[m][0]=x[m][0]+self.m_epsilon
-        if Fx is None:
-            Fx = self.fF(x)
-        dFx = (self.fF(xplusDeltax)-Fx)/self.m_epsilon
-        return dFx
-    def fJ(self,x,Fx=None):
+        aplusDeltaa = a.copy()
+        aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
+        if Fa is None:
+            Fa = self.fF(a)
+        dFa = (self.fF(aplusDeltaa)-Fa)/self.m_epsilon
+        return dFa
+    def fJ(self,a,Fa=None):
         """Calculates the Jacobian matrix.
-        @param x list of lists matrix x
-        @param Fx optional previously calculated F(x) to avoid double calculation
+        @param a list of lists matrix a
+        @param Fa optional previously calculated F(a) to avoid double calculation
         @return the Jacobian matrix 
-        The Jacobian matrix is R x M where R is the number of elements in F(x) and M
-        is the number of elements in x where each J[r][m] is the partial derivative
-        of F with respect x[m] at element r of the output.
+        The Jacobian matrix is R x M where R is the number of elements in F(a) and M
+        is the number of elements in a where each J[r][m] is the partial derivative
+        of F with respect a[m] at element r of the output.
 
         This function can be overloaded in the derived class if analytic partial derivatives are
-        known, otherwise numerical partial derivatives are calculated using fPartialFPartialx()
+        known, otherwise numerical partial derivatives are calculated using fPartialFPartiala()
         """
-        if Fx is None:
-            Fx=self.fF(x)
-        M = x.rows()
-        R = Fx.rows()
+        if Fa is None:
+            Fa=self.fF(a)
+        M = a.rows()
+        R = Fa.rows()
         J = zeros((R,M)).tolist()
         for m in range(M):
-            pFpxm=self.fPartialFPartialx(x,m,Fx)
+            pFpam=self.fPartialFPartiala(a,m,Fa)
             for r in range(R):
-                J[r][m]=pFpxm[r][0]
+                J[r][m]=pFpam[r][0]
         return J
     @staticmethod
-    def AdjustVariablesAfterIteration(x):
+    def AdjustVariablesAfterIteration(a):
         """AdjustVariablesAfterIteration
-        @param x list of lists matrix x
-        x contains the new variables produced as a result of an iteration
+        @param a list of lists matrix a
+        a contains the new variables produced as a result of an iteration
 
         if not overridden, nothing happens, but if this function is overridden in the derived class,
         it provides an opportunity to make adjustments to the variables.  Examples are things like making
         variables real when during iteration they could become complex or making variables positive.
         The good thing about this function is that these adjustments are made prior to making decisions
-        on the success of the iteration meaning that sometime the x resulting from an iteration reduces
-        mean-squared error between F(x) and y, but the x values are invalid and only valid after adjustment.
+        on the success of the iteration meaning that sometime the a resulting from an iteration reduces
+        mean-squared error between F(a) and y, but the a values are invalid and only valid after adjustment.
         If, after the adjustment, the mean-squared error is not reduced, the iteration fails.
         """
-        return x
-    def Initialize(self,x,y,w=None):
-        """Initializes the fitter for optimizing the values of F(x) such that they equal y in a weighted
+        return a
+    def Initialize(self,a,y,w=None):
+        """Initializes the fitter for optimizing the values of F(a) such that they equal y in a weighted
         least-squares sense, with w providing the weights.
-        @param x list of lists matrix x
+        @param a list of lists matrix a
         @param y list of lists matrix y
         @param w (optional) list of lists weights matrix w
         """
-        self.m_x = copy.copy(x)
+        self.m_a = copy.copy(a)
         self.m_y = copy.copy(y)
         if w is None:
             self.m_sumw=len(y)
@@ -123,8 +123,8 @@ class LevMar(CallBacker):
             self.m_sumw = 0
             for r in range(w.rows()):
                 self.m_sumw = self.m_sumw + w[r][0]
-        self.m_Fx = self.fF(self.m_x)
-        self.m_r=(matrix(self.m_Fx)-matrix(self.m_y)).tolist()
+        self.m_Fa = self.fF(self.m_a)
+        self.m_r=(matrix(self.m_Fa)-matrix(self.m_y)).tolist()
         self.m_mse=math.sqrt((matrix(self.m_r).getH()*
             self.m_W*matrix(self.m_r)).tolist()[0][0].real/self.m_sumw)
         self.m_lambdaTracking = [self.m_lambda]
@@ -142,12 +142,12 @@ class LevMar(CallBacker):
         Usually Solve() is used, which takes these iterations, but tests convergence and decides
         when the iterating should end.
         """
-        if self.m_Fx is None:
-            self.m_Fx=self.fF(self.m_x)
+        if self.m_Fa is None:
+            self.m_Fa=self.fF(self.m_a)
         if self.m_r is None:
-            self.m_r=(matrix(self.m_Fx)-matrix(self.m_y)).tolist()
+            self.m_r=(matrix(self.m_Fa)-matrix(self.m_y)).tolist()
         if self.m_J is None:
-            self.m_J=self.fJ(self.m_x,self.m_Fx)
+            self.m_J=self.fJ(self.m_a,self.m_Fa)
         if self.m_H is None:
             self.m_H=(matrix(self.m_J).getH()*self.m_W*
                       matrix(self.m_J)).tolist()
@@ -158,20 +158,20 @@ class LevMar(CallBacker):
         if self.m_JHWr is None:
             self.m_JHWr = (matrix(self.m_J).getH()*
             self.m_W*matrix(self.m_r)).tolist()
-        Deltax=((matrix(self.m_H)+matrix(self.m_D)*
+        Deltaa=((matrix(self.m_H)+matrix(self.m_D)*
                 self.m_lambda).getI()*matrix(self.m_JHWr)).tolist()
-        newx=(matrix(self.m_x)-matrix(Deltax)).tolist()
-        newx=self.AdjustVariablesAfterIteration(newx)
-        newFx = self.fF(newx)
-        newr=(matrix(newFx)-matrix(self.m_y)).tolist()
+        newa=(matrix(self.m_a)-matrix(Deltaa)).tolist()
+        newa=self.AdjustVariablesAfterIteration(newa)
+        newFa = self.fF(newa)
+        newr=(matrix(newFa)-matrix(self.m_y)).tolist()
         newmse=math.sqrt((matrix(newr).getH()*self.m_W*
             matrix(newr)).tolist()[0][0].real/self.m_sumw)
         if newmse < self.m_mse:
             self.m_mse = newmse
-            self.m_x = newx
+            self.m_a = newa
             self.m_lambda = max(self.m_lambda/
                 self.m_lambdaMultiplier,self.m_lambdamin)
-            self.m_Fx = newFx
+            self.m_Fa = newFa
             self.m_r = newr
             self.m_J = None
             self.m_H = None
@@ -184,7 +184,7 @@ class LevMar(CallBacker):
         self.m_lambdaTracking.append(self.m_lambda)
         self.m_mseTracking.append(self.m_mse)
     def Solve(self):
-        """Solves for x such that F(x) equals y in a weighted least-squares sense."""
+        """Solves for a such that F(a) equals y in a weighted least-squares sense."""
         self.Iterate()
         self.m_lastMse=self.m_mse
         self.m_MseAcc=self.m_lastMse
