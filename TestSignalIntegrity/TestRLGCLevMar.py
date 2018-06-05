@@ -20,16 +20,17 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def testRLGCFit(self):
-        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        self.sp=si.sp.SParameterFile('cableForRLGC.s2p')
         guess=[1.,114.241e-9,0,43.922e-12,80e-6,100e-6]
         guess=[0.,114.241e-9,0,43.922e-12,0,0]
         #guess=[0,200e-9,0,50e-12,0,0]
         #guess=[19.29331239903912,1.0169921429695769e-07,6.183111656296168e-10,0.007419799613583727,0.0001040252514702244,0.00037025795321293044]
-        self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PrintProgress)
+        self.plotInitialized=False
+        self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
         self.m_fitter.Solve()
         print self.m_fitter.Results()
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
-        fitsp=si.sp.dev.TLineTwoPortRLGC(sp.f(), R, Rse, L, G, C, df, sp.m_Z0)
+        fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(), R, Rse, L, G, C, df, self.sp.m_Z0)
 
         printFitCurves=False
         if printFitCurves:
@@ -72,7 +73,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         #PlotTikZ('ConverganceDeltas.tex',plt)
         #plt.show()
 
-        SpAreEqual=self.SParametersAreEqual(sp, fitsp,0.15)
+        SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,0.15)
         self.SParameterRegressionChecker(fitsp, '_'.join(self.id().split('.')[-2:])+'.s2p')
         if not SpAreEqual:
             if si.test.PySIAppTestHelper.plotErrors:
@@ -81,21 +82,21 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
                 plt.title('s-parameter compare')
                 plt.xlabel('frequency (Hz)')
                 plt.ylabel('amplitude')
-                for r in range(sp.m_P):
-                    for c in range(sp.m_P):
-                        plt.semilogy(sp.f(),[abs(fitsp[n][r][c]-sp[n][r][c]) for n in range(len(sp))],label='S'+str(r+1)+str(c+1))
+                for r in range(self.sp.m_P):
+                    for c in range(self.sp.m_P):
+                        plt.semilogy(self.sp.f(),[abs(fitsp[n][r][c]-self.sp[n][r][c]) for n in range(len(self.sp))],label='S'+str(r+1)+str(c+1))
                 plt.legend(loc='upper right')
                 plt.grid(True)
                 plt.show()
 
-                for r in range(sp.m_P):
-                    for c in range(sp.m_P):
+                for r in range(self.sp.m_P):
+                    for c in range(self.sp.m_P):
                         plt.clf()
                         plt.title('s-parameter compare')
                         plt.xlabel('frequency (Hz)')
                         plt.ylabel('amplitude')
                         plt.plot(fitsp.f(),fitsp.FrequencyResponse(r,c).Values('dB'),label='Fitted S'+str(r+1)+str(c+1))
-                        plt.plot(sp.f(),sp.FrequencyResponse(r,c).Values('dB'),label='Actual S'+str(r+1)+str(c+1))
+                        plt.plot(self.sp.f(),self.sp.FrequencyResponse(r,c).Values('dB'),label='Actual S'+str(r+1)+str(c+1))
                         plt.legend(loc='upper right')
                         plt.grid(True)
                         plt.show()
@@ -143,23 +144,31 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         return
         import matplotlib.pyplot as plt
         if not self.plotInitialized:
+            plt.ion()
+            plt.show()
             plt.gcf()
-            plt.clf()
             plt.title('s-parameter compare')
             plt.xlabel('frequency (Hz)')
             plt.ylabel('amplitude')
             plt.legend(loc='upper right')
             plt.grid(True)
-            self.plotInitialized=False
+            self.plotInitialized=True
+            self.skipper=0
+        self.skipper=self.skipper+1
+        if self.skipper!=4:
+            return
+        plt.clf()
+        self.skipper=0
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
-        print R
         fList=self.m_fitter.f
         Z0=self.m_fitter.Z0
         fitsp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
         for r in range(fitsp.m_P):
             for c in range(fitsp.m_P):
                 plt.semilogy(self.sp.f(),[abs(fitsp[n][r][c]-self.sp[n][r][c]) for n in range(len(fitsp))],label='S'+str(r+1)+str(c+1))
-        plt.show(block=False)
+        plt.legend(loc='upper right')
+        plt.draw()
+        plt.pause(0.001)
     def testCompareApproxWithEquation(self):
         return
         Z0=50.
@@ -277,6 +286,22 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         className='LevMar'
         defName=['Solve','Iterate']
         self.WriteClassCode(fileName,className,defName)
+    def testAAAPlotDynamicUpdate(self):
+        return
+        import numpy as np
+        from matplotlib import pyplot as plt
+
+        plt.axis([-50,50,0,10000])
+        plt.ion()
+        plt.show()
+
+        x = np.arange(-50, 51)
+        for pow in range(1,5):   # plot x^1, x^2, ..., x^4
+            y = [Xi**pow for Xi in x]
+            plt.plot(x, y)
+            plt.draw()
+            plt.pause(0.001)
+            raw_input("Press [enter] to continue.")
 
 if __name__ == "__main__":
     runProfiler=False
