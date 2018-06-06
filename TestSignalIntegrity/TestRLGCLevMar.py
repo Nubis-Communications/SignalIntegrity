@@ -265,12 +265,12 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         fileName="../SignalIntegrity/Fit/RLGC.py"
         className='RLGCFitter'
         defName=['__init__','fF']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteRLGCfJCode(self):
         fileName="../SignalIntegrity/Fit/RLGC.py"
         className='RLGCFitter'
         defName=['fJ']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteLevMarInit(self):
         fileName="../SignalIntegrity/Fit/LevMar.py"
         className='LevMar'
@@ -280,12 +280,12 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         allfuncs.remove('Iterate')
         allfuncs.remove('Solve')
         defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteLevMarSolve(self):
         fileName="../SignalIntegrity/Fit/LevMar.py"
         className='LevMar'
         defName=['Solve','Iterate']
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testAAAPlotDynamicUpdate(self):
         return
         import numpy as np
