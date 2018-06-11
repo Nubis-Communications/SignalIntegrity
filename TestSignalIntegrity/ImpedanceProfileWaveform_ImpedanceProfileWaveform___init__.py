@@ -10,7 +10,6 @@ class ImpedanceProfileWaveform(Waveform):
             ip=ImpedanceProfile(sp,tdip.K,port)
             Z=ip.Z()
             delayAdjust=ip.m_fracD
-
         elif method == 'estimated' or method == 'approximate':
             fr=sp.FrequencyResponse(port,port)
             rho=fr.ImpulseResponse().Integral(addPoint=True,scale=False)
