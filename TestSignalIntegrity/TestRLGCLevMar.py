@@ -19,19 +19,45 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def testWriteRLGCFit(self):
+        import os
+        self.WriteCode(os.path.basename(__file__).split('.')[0]+'.py', 'TlineFit', [], printFuncName=True)
+    def TlineFit(self,sp):
+        stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
+        threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
+        for k in range(len(stepResponse)):
+            if stepResponse[k]>threshold: break
+        dly=stepResponse.Times()[k]
+        rho=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=False).Measure(dly)
+        Z0=sp.m_Z0*(1.+rho)/(1.-rho)
+        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
+        (R,L,G,C,Rse,df)=[r[0] for r in si.fit.RLGCFitter(sp,guess).Solve().Results()]
+        return si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)
+    def testFitExample(self):
+        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        fitsp=self.TlineFit(sp)
+        SpAreEqual=self.SParametersAreEqual(sp, fitsp,0.15)
+        self.SParameterRegressionChecker(fitsp, '_'.join(self.id().split('.')[-2:])+'.s2p')
+        self.assertTrue(SpAreEqual,'RLGC fit did not succeed')
     def testRLGCFit(self):
         self.sp=si.sp.SParameterFile('cableForRLGC.s2p')
-        guess=[1.,114.241e-9,0,43.922e-12,80e-6,100e-6]
-        guess=[0.,114.241e-9,0,43.922e-12,0,0]
-        #guess=[0,200e-9,0,50e-12,0,0]
-        #guess=[19.29331239903912,1.0169921429695769e-07,6.183111656296168e-10,0.007419799613583727,0.0001040252514702244,0.00037025795321293044]
+        stepResponse=self.sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
+        threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
+        for k in range(len(stepResponse)):
+            if stepResponse[k]>threshold: break
+        dly=stepResponse.Times()[k]
+        rho=self.sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=False).Measure(dly)
+        Z0=self.sp.m_Z0*(1.+rho)/(1.-rho)
+        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
+        #pragma: silent exclude
         self.plotInitialized=False
+        #pragma: include
         self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
-        self.m_fitter.Solve()
         print self.m_fitter.Results()
-        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
-        fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(), R, Rse, L, G, C, df, self.sp.m_Z0)
-
+        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
+        print self.m_fitter.Results()
+        fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
+        #pragma: silent exclude
         printFitCurves=False
         if printFitCurves:
             self.m_fitter.ccm.PlotConvergence()
@@ -102,7 +128,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
                         plt.show()
 
         self.assertTrue(SpAreEqual,'RLGC fit did not succeed')
-
+        #pragma: include
     def testRLGCTestFitExact(self):
         (R,L,G,C,Rse,df)=[1.,114.241e-9,0,43.922e-12,80e-6,100e-6]
         Z0=50.
@@ -286,7 +312,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         className='LevMar'
         defName=['Solve','Iterate']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
-    def testAAAPlotDynamicUpdate(self):
+    def testPlotDynamicUpdate(self):
         return
         import numpy as np
         from matplotlib import pyplot as plt

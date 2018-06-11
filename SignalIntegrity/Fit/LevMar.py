@@ -191,6 +191,7 @@ class LevMar(CallBacker):
         while self.ccm.Continue():
             self.CallBack(self.ccm._IterationsTaken)
             self.Iterate()
+        return self
 
     ## 
     # @var m_lambda
