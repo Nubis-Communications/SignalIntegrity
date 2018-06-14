@@ -5,10 +5,15 @@
 # Explicit license in accompanying README.txt file.  If you don't have that file
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
+import math
+from numpy import matrix,identity
 
 from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.ImpedanceProfile.ImpedanceProfile import ImpedanceProfile
+from SignalIntegrity.Conversions import S2T,T2S
+from SignalIntegrity.SParameters.SParameters import SParameters
+from SignalIntegrity.Devices.TLineTwoPortLossless import TLineTwoPortLossless
 """
     computes the impedance profile waveform from a set of s-parameters using the
     port specified.
@@ -71,3 +76,10 @@ class ImpedanceProfileWaveform(Waveform):
             Z=[sp.m_Z0]+Z
         if adjustForDelay: tdip.H=tdip.H+delayAdjust/2
         Waveform.__init__(self,tdip,Z)
+    def PeeledSParameters(self,timelen,f):
+        Ts=1./self.td.Fs; sections=int(math.floor(timelen/Ts+0.5))
+        tp1=[identity(2) for n in range(len(f))]
+        for k in range(sections):
+            tp1=[tp1[n]*matrix(S2T(TLineTwoPortLossless(self[k],Ts,f[n])))
+                for n in range(len(f))]
+        return SParameters(f,[T2S(tp.tolist()) for tp in tp1])

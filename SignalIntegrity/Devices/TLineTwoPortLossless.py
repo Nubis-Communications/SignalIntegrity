@@ -10,13 +10,13 @@ import math
 
 from TLineTwoPort import TLineTwoPort
 
-def TLineTwoPortLossless(Zc,Td,f,Z0):
+def TLineTwoPortLossless(Zc,Td,f,Z0=50.):
     """TLineTwoPortLossless
     Ideal Lossless Two-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param Td float electrical length (or time delay through the device)
     @param f float frequency
-    @param Z0 float or complex characteristic impedance
+    @param Z0 (optional) float or complex characteristic impedance
     @return list of list s-parameters of two-port lossless transmission line
     """
     return TLineTwoPort(Zc,1j*2.*math.pi*f*Td,Z0)

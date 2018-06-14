@@ -32,6 +32,7 @@ class SParameterManipulation(object):
             for si in range(len(s)):
                 s[si]=min(maxSingularValue,s[si])
             self.m_d[n]=dot(u,dot(diag(s),vh)).tolist()
+        return self
     def IsCausal(self,threshold=0.):
         """Checks whether the s-parameters are causal.
         @param threshold positive float threshold for causality detection
@@ -73,6 +74,7 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        return self
     def WaveletDenoise(self,threshold=0.0001):
         """Denoises the s-parameters
         @param threshold (optional) float threshold for the wavelets (defaults to 0.0001).
@@ -101,6 +103,7 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        return self
     def PortReorder(self,pr):
         """Reorders the ports to port ordering of the port numbers supplied.
         @param pr list of integer one-based port numbers
