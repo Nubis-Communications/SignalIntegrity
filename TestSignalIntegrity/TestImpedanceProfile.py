@@ -593,29 +593,20 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
     def DeembedLaunch(self,sp,timelen):
-        port1Impedance=si.ip.ImpedanceProfileWaveform(sp,port=1,
-            method='estimated',adjustForDelay=False,includePortZ=False)
-        port2Impedance=si.ip.ImpedanceProfileWaveform(sp,port=2,
-            method='estimated',adjustForDelay=False,includePortZ=False)
-
-        sp1=port1Impedance.PeeledSParameters(timelen, sp.f())
-        sp2=port2Impedance.PeeledSParameters(timelen, sp.f())
-        # pragma: silent exclude
-        port1peeled=si.ip.ImpedanceProfileWaveform(sp1,port=1,
-            method='estimated',adjustForDelay=False,includePortZ=False)
-        port2peeled=si.ip.ImpedanceProfileWaveform(sp2,port=1,
-            method='estimated',adjustForDelay=False,includePortZ=False)
-        # pragma: include
+        spp=[si.ip.ImpedanceProfileWaveform(sp,port=p+1,
+            method='estimated',adjustForDelay=False,includePortZ=False).
+                PeeledSParameters(timelen, sp.f())
+                    for p in range(2)]
 
         sddn=si.sd.DeembedderNumeric(si.p.DeembedderParser().AddLines(['unknown S 2',
             'device D1 2','device D2 2','connect D1 2 S 1','connect D2 2 S 2',
             'port 1 D1 1 2 D2 1']).SystemDescription())
         spd=[]
         for n in range(len(sp)):
-            sddn.AssignSParameters('D1',sp1[n]); sddn.AssignSParameters('D2',sp2[n])
+            for p in range(2):
+                sddn.AssignSParameters('D'+str(p+1),spp[p][n])
             spd.append(sddn.CalculateUnknown(sp[n]))
         return si.sp.SParameters(sp.f(),spd)
-        # pragma: silent exclude
     def testPeelCableforRLGC(self):
         sp=si.sp.SParameterFile('cableForRLGC.s2p')
         port1Impedance=si.ip.ImpedanceProfileWaveform(sp,port=1,
