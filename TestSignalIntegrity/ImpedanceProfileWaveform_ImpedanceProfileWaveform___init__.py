@@ -34,4 +34,3 @@ class ImpedanceProfileWaveform(Waveform):
             Z=[sp.m_Z0]+Z
         if adjustForDelay: tdip.H=tdip.H+delayAdjust/2
         Waveform.__init__(self,tdip,Z)
-...

@@ -8,6 +8,7 @@ from numpy import array
 import os
 from TestHelpers import *
 from SignalIntegrity.Test.PySIAppTestHelper import PySIAppTestHelper
+
 class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -592,21 +593,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         from TestHelpers import PlotTikZ
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
-    def DeembedLaunch(self,sp,timelen):
-        spp=[si.ip.ImpedanceProfileWaveform(sp,port=p+1,
-            method='estimated',adjustForDelay=False,includePortZ=False).
-                PeeledSParameters(timelen, sp.f())
-                    for p in range(2)]
-
-        sddn=si.sd.DeembedderNumeric(si.p.DeembedderParser().AddLines(['unknown S 2',
-            'device D1 2','device D2 2','connect D1 2 S 1','connect D2 2 S 2',
-            'port 1 D1 1 2 D2 1']).SystemDescription())
-        spd=[]
-        for n in range(len(sp)):
-            for p in range(2):
-                sddn.AssignSParameters('D'+str(p+1),spp[p][n])
-            spd.append(sddn.CalculateUnknown(sp[n]))
-        return si.sp.SParameters(sp.f(),spd)
     def testPeelCableforRLGC(self):
         sp=si.sp.SParameterFile('cableForRLGC.s2p')
         port1Impedance=si.ip.ImpedanceProfileWaveform(sp,port=1,
@@ -615,15 +601,15 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
             method='estimated',adjustForDelay=False,includePortZ=False)
 
         timelen=66e-12
-        sp1=port1Impedance.PeeledSParameters(timelen, sp.f())
-        sp2=port2Impedance.PeeledSParameters(timelen, sp.f())
+        sp1=si.ip.PeeledPortSParameters(sp,1,timelen)
+        sp2=si.ip.PeeledPortSParameters(sp,2,timelen)
 
         port1peeled=si.ip.ImpedanceProfileWaveform(sp1,port=1,
             method='estimated',adjustForDelay=False,includePortZ=False)
         port2peeled=si.ip.ImpedanceProfileWaveform(sp2,port=1,
             method='estimated',adjustForDelay=False,includePortZ=False)
 
-        plotthem=True
+        plotthem=False
         import matplotlib.pyplot as plt
         plt.clf()
         plt.plot(port1Impedance.Times('ps'),port1Impedance.Values(),label='port 1',color='black')
@@ -671,13 +657,44 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
 
         dsp=dsp.EnforceCausality()
         self.SParameterRegressionChecker(dsp, self.NameForTest()+'_deembedded_causal.s2p')
-    def testZZZDeembedLaunch(self):
+    def testZZZLaunchDeembeddingExample(self):
         # ZZZ to make sure it occurs last, since it depends on other measurement
-        sp=si.sp.SParameterFile('cableForRLGC.s2p',66e-12)
-        dsp=self.DeembedLaunch(sp,66e-12)
+        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        dsp=self.DeembedLaunch(sp,[66e-12,66e-12])
         self.SParameterRegressionChecker(dsp, 'TestImpedanceProfile_testPeelCableforRLGC_deembedded.s2p')
-    def testWriteDeembedLaunch(self):
-        self.WriteCode(os.path.basename(__file__).split('.')[0]+'.py', 'DeembedLaunch', [], printFuncName=True)
+    def DeembedLaunch(self,sp,timelen):
+        spp=[si.ip.PeeledPortSParameters(sp,p+1,timelen[p]) for p in range(2)]
+        sddn=si.sd.DeembedderNumeric(si.p.DeembedderParser().AddLines(['unknown S 2',
+            'device D1 2','device D2 2','connect D1 2 S 1','connect D2 2 S 2',
+            'port 1 D1 1 2 D2 1']).SystemDescription())
+        spd=[]
+        for n in range(len(sp)):
+            for p in range(2):
+                sddn.AssignSParameters('D'+str(p+1),spp[p][n])
+            spd.append(sddn.CalculateUnknown(sp[n]))
+        return si.sp.SParameters(sp.f(),spd)
+    def PeelLaunch(self,sp,timelen):
+        spp=[si.ip.PeeledPortSParameters(sp,p+1,timelen[p])
+            for p in range(sp.m_P)]
+        sddp=si.p.DeembedderParser().AddLine('unknown S '+str(sp.m_P))
+        for p in range(sp.m_P):
+            ps=str(p+1)
+            sddp.AddLines(['device D'+ps+' 2','connect D'+ps+' 2 S '+ps,'port '+ps+' D'+ps+' 1'])
+        sddn=si.sd.DeembedderNumeric(sddp.SystemDescription()); spd=[]
+        for n in range(len(sp)):
+            for p in range(sp.m_P): sddn.AssignSParameters('D'+str(p+1),spp[p][n])
+            spd.append(sddn.CalculateUnknown(sp[n]))
+        return si.sp.SParameters(sp.f(),spd)
+    def testWritePeeledLaunches(self):
+        fileName="../SignalIntegrity/ImpedanceProfile/PeeledLaunches.py"
+        className='PeeledLaunches'
+        defName=['__init__']
+        self.WriteClassCode(fileName, className, defName)
+    def testZZZLaunchDeembeddingExample2(self):
+        # ZZZ to make sure it occurs last, since it depends on other measurement
+        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        dsp=si.ip.PeeledLaunches(sp,[66e-12,66e-12])
+        self.SParameterRegressionChecker(dsp, 'TestImpedanceProfile_testPeelCableforRLGC_deembedded.s2p')
 
 if __name__ == "__main__":
     unittest.main()

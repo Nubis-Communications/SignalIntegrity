@@ -49,6 +49,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.m_sd = None
         if len(line) == 0: return
         self.m_lines.append(line)
+        return self
     def AddLines(self,lines):
         """adds a list of lines of a netlist
         @param lines list of strings representing lines of a netlist
