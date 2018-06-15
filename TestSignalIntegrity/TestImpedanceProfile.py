@@ -690,11 +690,111 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         className='PeeledLaunches'
         defName=['__init__']
         self.WriteClassCode(fileName, className, defName)
+    def testWritePeeledPortSParameters(self):
+        fileName="../SignalIntegrity/ImpedanceProfile/PeeledPortSParameters.py"
+        className='PeeledPortSParameters'
+        defName=['__init__']
+        self.WriteClassCode(fileName, className, defName)
     def testZZZLaunchDeembeddingExample2(self):
         # ZZZ to make sure it occurs last, since it depends on other measurement
         sp=si.sp.SParameterFile('cableForRLGC.s2p')
         dsp=si.ip.PeeledLaunches(sp,[66e-12,66e-12])
         self.SParameterRegressionChecker(dsp, 'TestImpedanceProfile_testPeelCableforRLGC_deembedded.s2p')
+    def testStepResponseGamma(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,50)
+        td=si.td.wf.TimeDescriptor(-3.5e-9,11.5e-9*20e9,20e9)
+        openStepWf=si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(fl).
+            AddLines(['voltagesource VG1 1','device R1 2 R 50.0','device T1 2 tline zc 50.0 td 1e-09',
+             'device O1 1 open','connect R1 1 VG1 1','output T1 1','connect T1 1 R1 2',
+             'connect O1 1 T1 2']).TransferMatrices()).\
+             ProcessWaveforms([si.td.wf.StepWaveform(td)])[0]
+        shortStepWf=si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(fl).
+            AddLines(['voltagesource VG1 1','device R1 2 R 50.0','device T1 2 tline zc 50.0 td 1e-09',
+             'device O1 1 ground','connect R1 1 VG1 1','output T1 1','connect T1 1 R1 2',
+             'connect O1 1 T1 2']).TransferMatrices()).\
+             ProcessWaveforms([si.td.wf.StepWaveform(td)])[0]
+        loadStepWf=si.td.f.TransferMatricesProcessor(si.p.SimulatorNumericParser(fl).
+            AddLines(['voltagesource VG1 1','device R1 2 R 50.0','device T1 2 tline zc 50.0 td 1e-09',
+             'device O1 1 R 50','connect R1 1 VG1 1','output T1 1','connect T1 1 R1 2',
+             'connect O1 1 T1 2']).TransferMatrices()).\
+             ProcessWaveforms([si.td.wf.StepWaveform(td)])[0]
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        openSpIp=si.p.SystemSParametersNumericParser(fl).\
+            AddLines(['device T1 2 tline zc 50.0 td 1e-09','device O1 1 open',
+                      'port 1 T1 1','connect T1 2 O1 1']).SParameters().FrequencyResponse(1,1).ImpulseResponse()
+        openSpSp=openSpIp.Integral(scale=False)
+        shortSpIp=si.p.SystemSParametersNumericParser(fl).\
+            AddLines(['device T1 2 tline zc 50.0 td 1e-09','device O1 1 ground',
+                      'port 1 T1 1','connect T1 2 O1 1']).SParameters().FrequencyResponse(1,1).ImpulseResponse()
+        shortSpSp=shortSpIp.Integral(scale=False)
+        loadSpIp=si.p.SystemSParametersNumericParser(fl).\
+            AddLines(['device T1 2 tline zc 50.0 td 1e-09','device O1 1 R 50',
+                      'port 1 T1 1','connect T1 2 O1 1']).SParameters().FrequencyResponse(1,1).ImpulseResponse()
+        loadSpSp=loadSpIp.Integral(scale=False)
+
+        openStepWf=si.td.wf.Waveform(openStepWf.td,[math.floor(v*2.+0.5)/2. for v in openStepWf])
+        shortStepWf=si.td.wf.Waveform(shortStepWf.td,[math.floor(v*2.+0.5)/2. for v in shortStepWf])
+        loadStepWf=si.td.wf.Waveform(loadStepWf.td,[math.floor(v*2.+0.5)/2. for v in loadStepWf])
+        openSpIp=si.td.wf.Waveform(openSpIp.td,[math.floor(v+0.5) for v in openSpIp])
+        shortSpIp=si.td.wf.Waveform(shortSpIp.td,[math.floor(v+0.5) for v in shortSpIp])
+        loadSpIp=si.td.wf.Waveform(loadSpIp.td,[math.floor(v+0.5) for v in loadSpIp])
+        openSpSp=si.td.wf.Waveform(openSpSp.td,[math.floor(v+0.5) for v in openSpSp])
+        shortSpSp=si.td.wf.Waveform(loadSpSp.td,[math.floor(v+0.5) for v in shortSpSp])
+        loadSpSp=si.td.wf.Waveform(loadSpSp.td,[math.floor(v+0.5) for v in loadSpSp])
+
+        plotthem=False
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.plot(openStepWf.Times('ns'),openStepWf.Values(),label='open',color='black')
+        plt.plot(loadStepWf.Times('ns'),loadStepWf.Values(),label='load',color='black')
+        plt.plot(shortStepWf.Times('ns'),shortStepWf.Values(),label='short',color='black')
+        plt.xlim(-1.0,5.0)
+        plt.ylim(-0.2,1.2)
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude (V)')
+        plt.legend(loc='upper left')
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        #PlotTikZ('GammaStepResponse.tex', plt)
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.plot(openSpIp.Times('ns'),openSpIp.Values(),label='open',color='black')
+        plt.plot(loadSpIp.Times('ns'),loadSpIp.Values(),label='load',color='black')
+        plt.plot(shortSpIp.Times('ns'),shortSpIp.Values(),label='short',color='black')
+        plt.xlim(-1.0,5.0)
+        plt.ylim(-1.2,1.2)
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude (V)')
+        plt.legend(loc='upper left')
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        #PlotTikZ('GammaSParameterImpulseResponse.tex', plt)
+        if plotthem: plt.show()
+
+        plt.clf()
+        plt.plot(openSpSp.Times('ns'),openSpSp.Values(),label='open',color='black')
+        plt.plot(loadSpSp.Times('ns'),loadSpSp.Values(),label='load',color='black')
+        plt.plot(shortSpSp.Times('ns'),shortSpSp.Values(),label='short',color='black')
+        plt.xlim(-1.0,5.0)
+        plt.ylim(-1.2,1.2)
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude (V)')
+        plt.legend(loc='upper left')
+        #plt.grid(True)
+        from TestHelpers import PlotTikZ
+        #PlotTikZ('GammaSParameterImpulseResponseIntegrated.tex', plt)
+        if plotthem: plt.show()
+
+        self.WaveformRegressionChecker(openStepWf,self.NameForTest()+'_openStepWf')
+        self.WaveformRegressionChecker(shortStepWf,self.NameForTest()+'_shortStepWf')
+        self.WaveformRegressionChecker(loadStepWf,self.NameForTest()+'_loadStepWf')
+        self.WaveformRegressionChecker(openSpIp,self.NameForTest()+'_openSpIp')
+        self.WaveformRegressionChecker(shortSpIp,self.NameForTest()+'_shortSpIp')
+        self.WaveformRegressionChecker(loadSpIp,self.NameForTest()+'_loadSpIp')
+        self.WaveformRegressionChecker(openSpSp,self.NameForTest()+'_openSpSp')
+        self.WaveformRegressionChecker(shortSpSp,self.NameForTest()+'_shortSpSp')
+        self.WaveformRegressionChecker(loadSpSp,self.NameForTest()+'_loadSpSp')
 
 if __name__ == "__main__":
     unittest.main()
