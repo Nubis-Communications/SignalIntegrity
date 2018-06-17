@@ -27,8 +27,7 @@ class PeeledPortSParameters(SParameters):
         @param port integer 1 based port to calculate
         @param timelen float time to peel
         """
-        ip=ImpedanceProfileWaveform(sp,port,
-            method='estimated',includePortZ=False)
+        ip=ImpedanceProfileWaveform(sp,port,method='estimated',includePortZ=False)
         Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))
         tp1=[identity(2) for n in range(len(sp.f()))]
         for k in range(sections):
