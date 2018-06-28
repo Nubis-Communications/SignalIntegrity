@@ -51,6 +51,27 @@ class Wavelet(object):
 		r=math.log(float(x))/math.log(2.)
 		return int(round(r))
 
+class WaveletDaubechies16(Wavelet):
+	def __init__(self):
+		Wavelet.__init__(self,[h*math.sqrt(2.)/2
+			for h in [0.07695562,0.44246725,0.95548615,0.82781653,
+					-0.02238574,-0.40165863,0.000668194,0.18207636,
+					-0.0245639,-0.06235021,0.01977216,0.01236884,
+					-0.00688771926,-0.000554004549,0.000955229711,-0.000166137261]])
+
+class WaveletDaubechies14(Wavelet):
+	def __init__(self):
+		Wavelet.__init__(self,[h*math.sqrt(2.)/2
+			for h in [0.11009943,0.56079128,1.03114849,0.66437248,-0.20351382,
+					-0.31683501,0.1008467,0.11400345,-0.05378245,-0.02343994,
+					0.01774979,0.000607514995,-0.00254790472,0.000500226853]])
+
+class WaveletDaubechies8(Wavelet):
+	def __init__(self):
+		Wavelet.__init__(self,[h*math.sqrt(2.)/2
+			for h in [0.32580343,1.01094572,0.8922014,-0.03957503,
+					-0.26450717,0.0436163,0.0465036,-0.01498699]])
+
 class WaveletDaubechies4(Wavelet):
 	def __init__(self):
 		Wavelet.__init__(self,[h*math.sqrt(2.)/2

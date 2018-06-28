@@ -23,24 +23,21 @@ class TDRWaveformToSParameterConverter(object):
             if incwf[k]>maxValue:
                 maxValue=incwf[k]
                 maxValueIndex=k
-        sideSamples=int(self.whwt*incwf.td.Fs)
+        forwardSamples=int(self.wfhwt*incwf.td.Fs)
+        reverseSamples=int(self.wrhwt*incwf.td.Fs)
         raisedCosineSamples=int(self.wrcdr*incwf.td.Fs)
-        extractionWindow=Waveform(incwf.td)
-        for k in range(len(incwf)):
-            if k<=maxValueIndex+sideSamples:
-                extractionWindow[k]=1.0
-            elif k<=maxValueIndex+sideSamples+raisedCosineSamples:
-                si=k-(maxValueIndex+sideSamples)
-                f=float(si)/raisedCosineSamples
-                extractionWindow[k]=(math.cos(f*math.pi)+1.)/2.
-            else:
-                extractionWindow[k]=0.
+        (incidentExtractionWindow,reflectExtractionWindow)=self._ExtractionWindows(
+            incwf.td,forwardSamples,reverseSamples,raisedCosineSamples,maxValueIndex)
         incwf=Waveform(incwf.td,[x*w 
-            for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
-        wfList[incidentIndex]=wfList[incidentIndex]-incwf
+            for (x,w) in zip(incwf.Values(),incidentExtractionWindow.Values())])
+        wfList=[Waveform(wf.td,[x*w
+            for (x,w) in zip(wf.Values(),reflectExtractionWindow.Values())])
+                for wf in wfList]
+        #wfList[incidentIndex]=wfList[incidentIndex]-incwf
         incwffc=incwf.FrequencyContent(self.fd)
         res=[wf.FrequencyContent(self.fd) for wf in wfList]
         for fc in res:
             for n in range(len(fc)):
                 fc[n]=fc[n]/incwffc[n]
         return res
+...

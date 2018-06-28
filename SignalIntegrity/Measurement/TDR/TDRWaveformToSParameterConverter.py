@@ -20,8 +20,10 @@ from SignalIntegrity.TimeDomain.Waveform import Waveform
 class TDRWaveformToSParameterConverter(object):
     """Class for converting TDR waveforms to raw measured s-parameters"""
     sigmaMultiple=5.
+    taper=True
     def __init__(self,
-                 WindowHalfWidthTime=0,
+                 WindowForwardHalfWidthTime=0,
+                 WindowReverseHalfWidthTime=None,
                  WindowRaisedCosineDuration=0,
                  Step=True,
                  Length=0,
@@ -31,8 +33,10 @@ class TDRWaveformToSParameterConverter(object):
                  fd=None
                  ):
         """Constructor
-        @param WindowHalfWidthTime (optional) float amount of time in extraction window on
-        each side of incident wave (defaults to 0).
+        @param WindowForwardHalfWidthTime (optional) float amount of time in extraction window on
+        forward side of incident wave (defaults to 0).
+        @param WindowReverseHalfWidthTime (optional) float amount of time in extraction window on
+        reverse side of incident wave (defaults to None).
         @param WindowRaisedCosineDuration (optional) float amount of time to tape extraction
         window with raised cosine (defaults to 0).
         @param Step (optional) boolean True if waveforms are steps, False if waveforms are
@@ -47,8 +51,11 @@ class TDRWaveformToSParameterConverter(object):
         frequencies for the s-parameters (defaults to None).
         @note if fd is None or not provided, then the frequencies will correspond to
         the time descriptor of the trimmed waveform.
+        @note if WindowReverseHalfWidthTime is None, then it defaults to the WindowForwardHalfWidthTime
         """
-        self.whwt=WindowHalfWidthTime
+        self.wfhwt=WindowForwardHalfWidthTime
+        self.wrhwt = self.wfhwt if WindowReverseHalfWidthTime is None\
+            else WindowReverseHalfWidthTime
         self.wrcdr=WindowRaisedCosineDuration
         self.step=Step
         self.length=Length
@@ -131,24 +138,21 @@ class TDRWaveformToSParameterConverter(object):
             if incwf[k]>maxValue:
                 maxValue=incwf[k]
                 maxValueIndex=k
-        sideSamples=int(self.whwt*incwf.td.Fs)
+        forwardSamples=int(self.wfhwt*incwf.td.Fs)
+        reverseSamples=int(self.wrhwt*incwf.td.Fs)
         raisedCosineSamples=int(self.wrcdr*incwf.td.Fs)
-        extractionWindow=Waveform(incwf.td)
-        for k in range(len(incwf)):
-            if k<=maxValueIndex+sideSamples:
-                extractionWindow[k]=1.0
-            elif k<=maxValueIndex+sideSamples+raisedCosineSamples:
-                si=k-(maxValueIndex+sideSamples)
-                f=float(si)/raisedCosineSamples
-                extractionWindow[k]=(math.cos(f*math.pi)+1.)/2.
-            else:
-                extractionWindow[k]=0.
+        (incidentExtractionWindow,reflectExtractionWindow)=self._ExtractionWindows(
+            incwf.td,forwardSamples,reverseSamples,raisedCosineSamples,maxValueIndex)
         # pragma: silent exclude
-        self.ExtractionWindow=copy.deepcopy(extractionWindow)
+        self.IncidentExtractionWindow=copy.deepcopy(incidentExtractionWindow)
+        self.ReflectExtractionWindow=copy.deepcopy(reflectExtractionWindow)
         # pragma: silent include
         incwf=Waveform(incwf.td,[x*w 
-            for (x,w) in zip(incwf.Values(),extractionWindow.Values())])
-        wfList[incidentIndex]=wfList[incidentIndex]-incwf
+            for (x,w) in zip(incwf.Values(),incidentExtractionWindow.Values())])
+        wfList=[Waveform(wf.td,[x*w
+            for (x,w) in zip(wf.Values(),reflectExtractionWindow.Values())])
+                for wf in wfList]
+        #wfList[incidentIndex]=wfList[incidentIndex]-incwf
         # pragma: silent exclude
         self.IncidentWaveform=copy.deepcopy(incwf)
         self.ReflectWaveforms=copy.deepcopy(wfList)
@@ -167,3 +171,35 @@ class TDRWaveformToSParameterConverter(object):
             res=res[0]
         # pragma: include
         return res
+    def _ExtractionWindows(self,td,forwardSamples,reverseSamples,
+            raisedCosineSamples,maxValueIndex):
+        incidentExtractionWindow=Waveform(td)
+        reflectExtractionWindow=Waveform(td)
+        for k in range(td.K):
+            if k<maxValueIndex-reverseSamples-raisedCosineSamples:
+                incidentExtractionWindow[k]=0.0
+                reflectExtractionWindow[k]=0.0
+            elif k<maxValueIndex-reverseSamples and raisedCosineSamples>0:
+                si=k-(maxValueIndex-reverseSamples)
+                f=float(si)/raisedCosineSamples
+                incidentExtractionWindow[k]=(math.cos(f*math.pi)+1.)/2.
+                reflectExtractionWindow[k]=0.0
+            elif k<=maxValueIndex+forwardSamples:
+                incidentExtractionWindow[k]=1.0
+                reflectExtractionWindow[k]=0.0
+            elif k<=maxValueIndex+forwardSamples+raisedCosineSamples and raisedCosineSamples>0:
+                si=k-(maxValueIndex+forwardSamples)
+                f=float(si)/raisedCosineSamples
+                incidentExtractionWindow[k]=(math.cos(f*math.pi)+1.)/2.
+                reflectExtractionWindow[k]=1.-incidentExtractionWindow[k]
+            elif k>=td.K-1-raisedCosineSamples and raisedCosineSamples>0:
+                si=k-(td.K-1-raisedCosineSamples)
+                f=float(si)/raisedCosineSamples
+                incidentExtractionWindow[k]=0.
+                reflectExtractionWindow[k]=(math.cos(f*math.pi)+1.)/2.
+            else:
+                incidentExtractionWindow[k]=0.
+                reflectExtractionWindow[k]=1.
+        if not self.taper:
+            reflectExtractionWindow=Waveform(td,[1.0-v for v in incidentExtractionWindow])
+        return (incidentExtractionWindow,reflectExtractionWindow)

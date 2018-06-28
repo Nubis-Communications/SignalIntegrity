@@ -14,7 +14,8 @@ import xlrd
 
 from SignalIntegrity.Measurement import CalKit
 from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDRWaveformToSParameterConverter
-
+from SignalIntegrity.Wavelets import WaveletDaubechies16
+from SignalIntegrity.Wavelets.WaveletDenoiser import WaveletDenoiser
 class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
     plot=False
@@ -48,11 +49,14 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
 
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Length=50e-9,
-              WindowHalfWidthTime=1e-9,
-              WindowRaisedCosineDuration=1e-9,
+            WindowReverseHalfWidthTime=3e-9,
+            WindowForwardHalfWidthTime=1e-9,
+            WindowRaisedCosineDuration=1e-9,
               Denoise=True,
               fd=si.fd.EvenlySpacedFrequencyList(16e9,800)
               )
+        tdr.taper=False
+        WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
 
         for reflectName in reflectNames+dutNames:
             wf=self.ReadSequidFileXls(reflectName+'200.xls')
@@ -64,8 +68,14 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
             spDict[reflectName+'denoised']=tdr.denoisedDerivatives[0].Integral(scale=False,c=wf[0],addPoint=True)
             spDict[reflectName+'incidentResponse']=tdr.IncidentFrequencyContent
             spDict[reflectName+'reflectResponse']=tdr.ReflectFrequencyContent[0]
-            spDict[reflectName+'extractionWindow']=tdr.ExtractionWindow
+            spDict[reflectName+'incidentExtractionWindow']=tdr.IncidentExtractionWindow
+            spDict[reflectName+'reflectExtractionWindow']=tdr.ReflectExtractionWindow
             spDict[reflectName+'denoisedDerivative']=tdr.TrimmedDenoisedDerivatives[0]
+            self.WaveformRegressionChecker(spDict[reflectName+'wf'],self.NameForTest()+reflectName+'wf')
+            self.WaveformRegressionChecker(spDict[reflectName+'denoised'],self.NameForTest()+reflectName+'denoised')
+            self.WaveformRegressionChecker(spDict[reflectName+'incidentExtractionWindow'],self.NameForTest()+reflectName+'extractionWindow')
+            #self.WaveformRegressionChecker(spDict[reflectName+'reflectExtractionWindow'],self.NameForTest()+reflectName+'reflectExtractionWindow')
+            self.WaveformRegressionChecker(spDict[reflectName+'denoisedDerivative'],self.NameForTest()+reflectName+'denoisedDerivative')
 
         plotthem=False
         import matplotlib.pyplot as plt
@@ -89,9 +99,9 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         for reflectName in reflectNames:
             wf=spDict[reflectName+'wf'].Derivative(scale=False)
             plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
-        xw=spDict[reflectNames[0]+'extractionWindow']
+        xw=spDict[reflectNames[0]+'incidentExtractionWindow']
         plt.plot(xw.Times('ns'),xw.Values(),label='incident extractor')
-        rxw=si.td.wf.Waveform(xw.TimeDescriptor(),1.0)-xw
+        rxw=spDict[reflectNames[0]+'reflectExtractionWindow']
         plt.plot(rxw.Times('ns'),rxw.Values(),label='reflect extractor')
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')
@@ -104,9 +114,9 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         for reflectName in reflectNames:
             wf=spDict[reflectName+'denoisedDerivative']
             plt.plot(wf.Times('ns'),wf.Values(),label=reflectName)
-        xw=spDict[reflectNames[0]+'extractionWindow']
+        xw=spDict[reflectNames[0]+'incidentExtractionWindow']
         plt.plot(xw.Times('ns'),xw.Values(),label='incident extractor')
-        rxw=si.td.wf.Waveform(xw.TimeDescriptor(),1.0)-xw
+        rxw=spDict[reflectNames[0]+'reflectExtractionWindow']
         plt.plot(rxw.Times('ns'),rxw.Values(),label='reflect extractor')
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude')

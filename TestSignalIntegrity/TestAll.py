@@ -45,6 +45,7 @@ from Sequid import *
 from YuriyWaveTest import *
 from TestRLGCLevMar import *
 from TestNewtonsMethod import *
+from ScientificPulserSampler import *
 
 if __name__ == '__main__':
     unittest.main()

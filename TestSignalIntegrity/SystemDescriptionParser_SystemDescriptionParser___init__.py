@@ -12,6 +12,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.m_sd = None
         if len(line) == 0: return
         self.m_lines.append(line)
+        return self
     def AddLines(self,lines):
         self.m_sd = None
         for line in lines:

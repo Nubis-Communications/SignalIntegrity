@@ -1,6 +1,7 @@
 class TDRWaveformToSParameterConverter(object):
     def __init__(self,
-                 WindowHalfWidthTime=0,
+                 WindowForwardHalfWidthTime=0,
+                 WindowReverseHalfWidthTime=None,
                  WindowRaisedCosineDuration=0,
                  Step=True,
                  Length=0,
@@ -9,7 +10,9 @@ class TDRWaveformToSParameterConverter(object):
                  Inverted=False,
                  fd=None
                  ):
-        self.whwt=WindowHalfWidthTime
+        self.wfhwt=WindowForwardHalfWidthTime
+        self.wrhwt = self.wfhwt if WindowReverseHalfWidthTime is None\
+            else WindowReverseHalfWidthTime
         self.wrcdr=WindowRaisedCosineDuration
         self.step=Step
         self.length=Length

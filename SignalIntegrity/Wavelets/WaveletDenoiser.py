@@ -6,7 +6,7 @@
 # or do not agree to the terms in that file, then you are not licensed to use
 # this material whatsoever.
 
-from Wavelets import WaveletDaubechies4
+from Wavelets import WaveletDaubechies16
 from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
 
@@ -14,9 +14,10 @@ import math,cmath
 from numpy import std,log2
 
 class WaveletDenoiser(object):
+    wavelet=WaveletDaubechies16()
     @staticmethod
     def DenoisedWaveform(wf,pct=30.,mult=5.,isDerivative=True):
-        w=WaveletDaubechies4()
+        w=WaveletDenoiser.wavelet
         Ki=wf.td.K
         Kf=int(pow(2,math.ceil(log2(wf.td.K))))
         PadLeft=Kf-Ki

@@ -16,7 +16,7 @@ def TLineTwoPortLossless(Zc,Td,f,Z0=50.):
     @param Zc float or complex characteristic impedance
     @param Td float electrical length (or time delay through the device)
     @param f float frequency
-    @param Z0 (optional) float or complex characteristic impedance
+    @param Z0 (optional) float or complex characteristic impedance (defaults to 50)
     @return list of list s-parameters of two-port lossless transmission line
     """
     return TLineTwoPort(Zc,1j*2.*math.pi*f*Td,Z0)

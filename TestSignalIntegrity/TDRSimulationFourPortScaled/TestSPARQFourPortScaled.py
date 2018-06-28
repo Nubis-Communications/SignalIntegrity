@@ -2333,7 +2333,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         ports=3
         reflectNames=['Short','Open','Load']
         spDict=dict()
-        tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=True,Inverted=True,Length=20e-9,WindowRaisedCosineDuration=100e-12,WindowHalfWidthTime=40e-12)
+        tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=True,Inverted=True,Length=20e-9,WindowRaisedCosineDuration=100e-12,WindowForwardHalfWidthTime=40e-12)
         sigma=707e-6/math.sqrt(100.)
         sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
@@ -2480,7 +2480,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=True,Inverted=True,Length=100e-9,
             WindowRaisedCosineDuration=100e-12,
-            WindowHalfWidthTime=40e-12,Denoise=True)
+            WindowForwardHalfWidthTime=40e-12,Denoise=True)
 
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
@@ -2627,6 +2627,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
         allfuncs.remove('Convert')
+        allfuncs.remove('_ExtractionWindows')
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTDRWaveformToSParameterConverterClassCodeConvert(self):
