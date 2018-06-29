@@ -1247,11 +1247,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         self.OutputCalFile('ScientificTDRScopeOnWafer', spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
 
     def testScientificPulserSamplerScopeWfOnWafer2(self):
-        pass
-        wfList=[('.\Measurements2\M1--Short--00000.txt','Short'),
-                ('.\Measurements2\M2--Open--00000.txt','Open'),
-                ('.\Measurements2\M3--Load--00000.txt','Load')]
-
+        wfList=[('Measurements2/M1--Short--00000.txt','Short'),
+                ('Measurements2/M2--Open--00000.txt','Open'),
+                ('Measurements2/M3--Load--00000.txt','Load')]
         wfDict=dict()
         for (filename,meas) in wfList:
             with open(filename) as f:
@@ -1442,9 +1440,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
 
     def testScientificPulserSamplerScopeWfSocketed(self):
         pass
-        wfList=[('.\MeasurementsSocketed\M1--Short--00000.txt','Short'),
-                ('.\MeasurementsSocketed\M2--Open--00000.txt','Open'),
-                ('.\MeasurementsSocketed\M3--Load--00000.txt','Load')]
+        wfList=[('MeasurementsSocketed/M1--Short--00000.txt','Short'),
+                ('MeasurementsSocketed/M2--Open--00000.txt','Open'),
+                ('MeasurementsSocketed/M3--Load--00000.txt','Load')]
 
         wfDict=dict()
         for (filename,meas) in wfList:
@@ -1639,9 +1637,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
 
     def testScientificPulserSamplerScopeWfSocketedPerfect(self):
         pass
-        wfList=[('.\MeasurementsSocketed\M1--Short--00000.txt','Short'),
-                ('.\MeasurementsSocketed\M2--Open--00000.txt','Open'),
-                ('.\MeasurementsSocketed\M3--Load--00000.txt','Load')]
+        wfList=[('MeasurementsSocketed/M1--Short--00000.txt','Short'),
+                ('MeasurementsSocketed/M2--Open--00000.txt','Open'),
+                ('MeasurementsSocketed/M3--Load--00000.txt','Load')]
 
         wfDict=dict()
         for (filename,meas) in wfList:
