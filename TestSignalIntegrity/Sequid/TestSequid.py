@@ -25,6 +25,9 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
     usePickle=False
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        si.m.tdr.TDRWaveformToSParameterConverter.taper=True
+        si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)

@@ -27,6 +27,9 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
     usePickle=False
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        si.m.tdr.TDRWaveformToSParameterConverter.taper=True
+        si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -2480,7 +2483,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=True,Inverted=True,Length=100e-9,
             WindowRaisedCosineDuration=100e-12,
+            WindowReverseHalfWidthTime=5e-9,
             WindowForwardHalfWidthTime=40e-12,Denoise=True)
+        tdr.taper=False
+        si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
 
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
