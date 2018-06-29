@@ -9,6 +9,10 @@ from TestHelpers import *
 from pickle import mloads
 
 class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
+    def tearDown(self):
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def testVirtualProbeDC2008(self):
         si.td.wf.Waveform.adaptionStrategy='SinX'
         fileNameBase=self.id().split('.')[0]+'_'+self.id().split('.')[2]

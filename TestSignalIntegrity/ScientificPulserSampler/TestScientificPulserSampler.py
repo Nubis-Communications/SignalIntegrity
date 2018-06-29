@@ -25,6 +25,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
     usePickle=False
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)

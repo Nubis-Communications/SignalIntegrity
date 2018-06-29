@@ -21,6 +21,8 @@ class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         si.td.wf.Waveform.adaptionStrategy='SinX'
+    def tearDown(self):
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def testRLCOnePort(self):
         # one port impedance calculation based on s11
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

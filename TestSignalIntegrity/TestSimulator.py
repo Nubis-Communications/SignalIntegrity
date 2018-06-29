@@ -11,6 +11,8 @@ class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHe
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         si.td.wf.Waveform.adaptionStrategy='SinX'
+    def tearDown(self):
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def testSymbolicSimulatorExample1Old(self):
         sd=si.sd.SystemDescription()
         sd.AddDevice('S',2)

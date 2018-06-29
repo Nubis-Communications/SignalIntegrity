@@ -8,8 +8,8 @@ class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTest
     def __init__(self, methodName='runTest'):
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-
-
+    def tearDown(self):
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def testAdaptDecimatebyHand(self):
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)

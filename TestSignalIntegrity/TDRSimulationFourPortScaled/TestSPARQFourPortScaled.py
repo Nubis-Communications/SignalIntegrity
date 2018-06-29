@@ -30,6 +30,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
     def tearDown(self):
         si.m.tdr.TDRWaveformToSParameterConverter.taper=True
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
+        si.td.wf.Waveform.adaptionStrategy='SinX'
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
