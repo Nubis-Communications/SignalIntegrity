@@ -1,4 +1,4 @@
-% This file was created by matplotlib2tikz v0.5.11.
+% This file was created by matplotlib2tikz v0.6.17.
 \begin{tikzpicture}
 
 \begin{axis}[
@@ -8,10 +8,14 @@ ylabel={amplitude},
 xmin=-0.1, xmax=0.9,
 ymin=-1, ymax=7,
 axis on top,
+tick pos=both,
 legend style={at={(0.03,0.97)}, anchor=north west},
 legend cell align={left},
 legend entries={{Short denoised step},{Open denoised step},{Load denoised step}}
 ]
+\addlegendimage{no markers, blue}
+\addlegendimage{no markers, green!50.0!black}
+\addlegendimage{no markers, red}
 \addplot [blue]
 table {%
 -1.8605 7.71612152185968e-05
@@ -1166,7 +1170,7 @@ table {%
 -0.0245000000000007 -0.0555879319630643
 -0.0205000000000007 -0.0579566621031298
 -0.0165000000000007 -0.0545289828902641
--0.0125000000000007 0.00602666471031697
+-0.0125000000000007 0.00602666471031699
 -0.00850000000000074 0.279949117927948
 -0.00450000000000076 0.910661499134282
 -0.000500000000000774 1.79594668953314

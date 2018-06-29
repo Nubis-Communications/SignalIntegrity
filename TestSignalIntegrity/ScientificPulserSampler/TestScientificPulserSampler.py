@@ -16,69 +16,6 @@ import xlrd
 from SignalIntegrity.Measurement import CalKit
 from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDRWaveformToSParameterConverter
 
-def ExtractWaveform(filename,Fref,NS,DS,NP,DP):
-    Fref=float(Fref)
-    Fs=Fref*NS/DS
-    Fp=Fref*NP/DP
-    Ts=1./Fs
-    Tp=1./Fp
-    S=NS*DP
-    P=DS*NP
-    G=gcd(S,P)
-    S=S/G
-    P=P/G
-    # S samples equals P pulses exactly
-    Tseq=Tp/S
-    Fseq=1./Tseq
-    Ie=[(k*P)%S for k in range(S)]
-    for k in range(len(Ie)):
-        if Ie[k]==1:
-            M=k
-
-    with open(filename,'rb') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',',quotechar='\'', quoting=csv.QUOTE_MINIMAL)
-        raw = [row[1] for row in reader]
-        raw = [float(ele) for ele in raw[1:]]
-        mraw=numpy.mean(raw)
-        raw = [ele-mraw for ele in raw]
-
-    wfraw=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.0,len(raw),Fs),raw)
-
-    C=len(wfraw)/S
-    
-    T=C*S
-    
-    wffolded=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0,S,Fseq),[0 for _ in range(S)])
-    for t in range(T):
-        ci=((t%S)*P)%S
-        wffolded[ci]=wffolded[ci]+wfraw[t]/C
-
-    #wffolded=si.wl.WaveletDenoiser().DenoisedWaveform(wffolded,isDerivative=False,mult=3)
-#     wffc=wffolded.FrequencyContent()
-#     f=wffc.Frequencies('GHz')
-#     for n in range(len(f)):
-#         if f[n]>100.0:
-#             wffc[n]=0.0
-#     wffolded=wffc.Waveform()
-    armed=False
-    last=0.
-    threshold=-0.2
-    for k in range(len(wffolded)):
-        if armed:
-            if wffolded[k]>last:
-                delay=wffolded.Times()[k-1]
-                break
-        elif wffolded[k]<threshold:
-            armed=True
-        last=wffolded[k]
-
-    zoomedtd=si.td.wf.TimeDescriptor(delay-0.4e-9,10000,wffolded.TimeDescriptor().Fs)
-    wftrimmerfd=zoomedtd/wffolded.TimeDescriptor()
-    wftrimmer=si.td.f.WaveformTrimmer(int(wftrimmerfd.TrimLeft()),int(wftrimmerfd.TrimRight()))
-    wffolded=wffolded*wftrimmer
-    wffolded.td.H=-0.4e-9
-    return wffolded
-
 class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
     relearn=True
     plot=False
@@ -94,7 +31,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
-        return '_'.join(self.id().split('.')[-2:])
+        return self.id().split('.')[-1][4:]
     def OutputCalFile(self,outputFileName,shortwf,openwf,loadwf,dutwf=None,baselinewf=None):
         files = [('B1','baseline'),
                  ('C1_1','short'),
@@ -437,7 +374,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         incwf.td.Fs=500e9
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-80000)
         incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,80e9))
-        incwf.WriteToFile(self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
         plt.clf()
         plt.title('s11 magnitude')
@@ -507,13 +445,13 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         cm=si.m.cal.Calibration(ports,f,ml)
         Fixture=cm.Fixtures()
         for p in range(ports):
-            self.SParameterRegressionChecker(Fixture[p],'ScientificTDR50'+str(p+1)+'.s'+str(ports*2)+'p')
+            self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'.s'+str(ports*2)+'p')
 
         DUTCalcSp=cm.DutCalculation(spDict[dutName])
 
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
         
-        self.OutputCalFile('ScientificTDR50',
+        self.OutputCalFile(self.NameForTest(),
                            spDict['CalibratedShort50_2denoisedDerivative'],
                            spDict['CalibratedOpen50_0denoisedDerivative'],
                            spDict['CalibratedLoad50_1denoisedDerivative'],
@@ -638,7 +576,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         incwf.td.Fs=500e9
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-80000)
         incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,80e9))
-        incwf.WriteToFile(self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
         plotthem=True
         import matplotlib.pyplot as plt
@@ -756,9 +695,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         cm=si.m.cal.Calibration(ports,f,ml)
         Fixture=cm.Fixtures()
         for p in range(ports):
-            self.SParameterRegressionChecker(Fixture[p],'ScientificTDROnWafer'+str(p+1)+'.s'+str(ports*2)+'p')
+            self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'.s'+str(ports*2)+'p')
 
-        self.OutputCalFile('ScientificTDROnWafer', spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
+        self.OutputCalFile(self.NameForTest(), spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
         #DUTCalcSp=cm.DutCalculation(spDict[dutName])
 
         #self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s1p')
@@ -1313,7 +1252,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         wf.adaptionStrategy='linear'
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-200000)
         incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,800e9))
-        incwf.WriteToFile(self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
         plt.clf()
         plt.figure(1)
@@ -1434,9 +1374,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
 
         Fixture=cm.Fixtures()
         for p in range(ports):
-            self.SParameterRegressionChecker(Fixture[p],'ScientificTDRScopeOnWafer2'+str(p+1)+'.s'+str(ports*2)+'p')
+            self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'.s'+str(ports*2)+'p')
 
-        self.OutputCalFile('ScientificTDRScopeOnWafer2', spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
+        self.OutputCalFile(self.NameForTest(), spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
 
     def testScientificPulserSamplerScopeWfSocketed(self):
         pass
@@ -1508,7 +1448,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         wf.adaptionStrategy='linear'
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-200000)
         incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,800e9))
-        incwf.WriteToFile(self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
         plotthem=False
         import matplotlib.pyplot as plt
@@ -1631,9 +1572,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
 
         Fixture=cm.Fixtures()
         for p in range(ports):
-            self.SParameterRegressionChecker(Fixture[p],'ScientificTDRScopeSocketed'+str(p+1)+'.s'+str(ports*2)+'p')
+            self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'.s'+str(ports*2)+'p')
 
-        self.OutputCalFile('ScientificTDRScopeSocketed', spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
+        self.OutputCalFile(self.NameForTest(), spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
 
     def testScientificPulserSamplerScopeWfSocketedPerfect(self):
         pass
@@ -1707,7 +1648,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         wf.adaptionStrategy='linear'
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-200000)
         incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,800e9))
-        incwf.WriteToFile(self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
+        self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
         plt.clf()
         plt.figure(1)
@@ -1828,9 +1770,9 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
 
         Fixture=cm.Fixtures()
         for p in range(ports):
-            self.SParameterRegressionChecker(Fixture[p],'ScientificTDRScopeSocketedPerfect'+str(p+1)+'.s'+str(ports*2)+'p')
+            self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'.s'+str(ports*2)+'p')
 
-        self.OutputCalFile('ScientificTDRScopeSocketedPerfect', spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
+        self.OutputCalFile(self.NameForTest(), spDict['ShortdenoisedDerivative'], spDict['OpendenoisedDerivative'], spDict['LoaddenoisedDerivative'])
 
 if __name__ == "__main__":
     unittest.main()
