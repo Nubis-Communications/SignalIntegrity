@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-88.html#next">Prev</a> DeviceParser</span>
+<span class="up"><a class="up" name="up" href="PySIHelp.html">Up</a> Main page</span>
+<span class="next"><a class="next" name="next"> </a></span>
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-15"></a>Waveform<a class="Label" name="sec:Waveform"> </a>
+</h1>
+<div class="Standard">
+A Waveform consists of a sequence of points representing either voltage or current. It is defined by:
+</div>
+<ul>
+<li>
+The <i>horizontal offset</i>. The horizontal offset is simply the time of the first point in the waveform.
+</li>
+<li>
+The number of points in the waveform.
+</li>
+<li>
+The sample rate.
+</li>
+<li>
+A sequence of points representing voltage or current.
+</li>
+
+</ul>
+<div class="Standard">
+Thus, for a horizontal offset <span class="formula"><i>h</i></span>, a number of points <span class="formula"><i>K</i></span>, and a sample rate <span class="formula"><i>Fs</i></span> and a sequence of <span class="formula"><i>K</i></span> points, for <span class="formula"><i>k</i> ∈ 0…<i>K</i> − 1</span>, we have the voltage or current value specified as <span class="formula"><i>v</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> and a time <span class="formula"><i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> where:
+</div>
+<div class="Standard">
+<div class="formula">
+<i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>k</i></span><span class="ignored">)/(</span><span class="denominator"><i>K</i></span><span class="ignored">)</span></span>⋅<span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Fs</i></span><span class="ignored">)</span></span> + <i>h</i>
+</div>
+
+</div>
+<div class="Standard">
+A waveform file is a text file where the first line contains the horizontal offset, in seconds, the second line contains the integer number of points in the waveform, the third line contains the sample rate in samples per second, and the remaining lines contain the waveform values.
+</div>
+
+</div>
+</body>
+</html>

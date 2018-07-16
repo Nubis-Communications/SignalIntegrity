@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-22.html#next">Prev</a> Stimuli</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-8.html">Up</a> Virtual Probing</span>
+<span class="next">Virtual Probing <a class="next" name="next" href="PySIHelp-Subsection-24.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-23"></a>Setting Calculation Properties for Virtual Probing<a class="Label" name="sub:Setting-Calculation-Properties-for-Virtual-Probing"> </a>
+</h2>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png"/>
+
+</div>
+<div class="Standard">
+To set the calculation properties for virtual probing, see <a class="Reference" href="PySIHelp-Subsubsection-49.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>.
+</div>
+<div class="Standard">
+The calculation properties determine how the transfer parameters are calculated. Transfer parameters are frequency responses that define transfer characteristics from an input waveform to an output waveform. Input waveforms come from measurement probes and output waveforms are provided at output probe locations in the circuit. An output waveform is a linear combination of input waveforms applied to filters that are the time-domain equivalent of the frequency responses.
+</div>
+<div class="Standard">
+The frequency responses are calculated to the end frequency withe the frequency spacing specified, and the filters are calculated by taking the inverse-FFT of these frequency responses. As such, they end up having a sample rate that is twice the end frequency and an impulse response length that is the inverse of the frequency resolution and a number of points that are twice the number of frequency points.
+</div>
+<div class="Standard">
+The base sample rate should be set to the sample rate that you want the virtual calculation to run at, which is twice the end frequency.
+</div>
+<div class="Standard">
+These impulse responses generated for the filters are always centered on time zero, meaning half of the impulse response is before time zero and half is after.
+</div>
+<div class="Standard">
+Assuming that all of the s-parameters have been sampled sufficiently, meaning to the right end frequency and most importantly, with the proper spacing to provide an impulse response that does not have time-aliasing effects, then it is possible to specify an appropriate impulse response length in the calculation properties. But with the tool in its current state, there is no way to guarantee this - you must set it to a value that makes sense. But the key is that it must be long enough. If it is too short, the simulator produces incorrect waveforms. If it is too long, it just needs to do extra work.
+</div>
+<div class="Standard">
+The advice here is to set the impulse response length to a number that is twice the length of a finite impulse response (FIR) filter in time as how long you think the impulse response of the longest filter should be. Then, after the simulation completes, you should <a class="Reference" href="PySIHelp-Subsubsection-14.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> from the <a class="Reference" href="PySIHelp-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a> to make sure that this occurred.
+</div>
+<div class="Standard">
+To try to get some feeling on how the properties should be set, we can invoke the <a class="Reference" href="PySIHelp-Subsubsection-50.html#Control-Help:S-parameter-Viewer">S-parameter Viewer↓</a> and use the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a> to examine the s-parameter files in the system and invoking <a class="Reference" href="PySIHelp-Subsubsection-3.html#Control-Help:Resample">Resample↓</a> to see what the impulse responses look like resampled onto the desired calculation properties. But remember that your system contains many sets of such files that may cause the impulse response lengths needed for the transfer parameters to be different than what any individual s-parameter file shows.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-22.html#next">Prev</a> Stimuli</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-8.html">Up</a> Virtual Probing</span>
+<span class="next">Virtual Probing <a class="next" name="next" href="PySIHelp-Subsection-24.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-33.html#next">Prev</a> Parts</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Subsection-33.html">Up</a> Parts</span>
+<span class="next">Add Port <a class="next" name="next" href="PySIHelp-Subsubsection-30.html#prev">Next</a></span>
+</div>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-29"></a>Add Part<a class="Label" name="Control-Help:Add-Part"> </a>
+</h3>
+<div class="Standard">
+<table>
+<tr>
+<td align="center" valign="top">
+<i>Dialog</i>
+</td>
+<td align="center" valign="top">
+<a class="Reference" href="PySIHelp-Section-11.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Menu System</i>
+</td>
+<td align="center" valign="top">
+<a class="Reference" href="PySIHelp-Subsection-33.html#sub:Parts">Parts↑</a> ▸ Add Part
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Navigation</i>
+</td>
+<td align="center" valign="top">
+Alt+P,A
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Key Binding</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Toolbar</i>
+</td>
+<td align="center" valign="top">
+<img class="embedded" src="edit-add-2.png" alt="figure edit-add-2.png"/>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Availability</i>
+</td>
+<td align="center" valign="top">
+Always
+</td>
+
+</tr>
+
+</table>
+
+</div>
+<div class="Standard">
+This adds one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↓</a> to the schematic.
+</div>
+<div class="Standard">
+The most useful and generic type of part for s-parameter files is the <a class="Reference" href="PySIHelp-Subsection-38.html#sub:File-1">File↓</a> part.
+</div>
+<div class="Standard">
+When you add a part, you first see the part picker, which lists all of the part categories:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPicker.png" alt="figure PartPicker.png"/>
+
+</div>
+<div class="Standard">
+By selecting a part category, you find the parts listed in that category:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPickerCategory.png" alt="figure PartPickerCategory.png"/>
+
+</div>
+<div class="Standard">
+You select a part and press OK to bring up the part properties dialog:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertyVoltageAmplifier.png" alt="figure PartPropertyVoltageAmplifier.png"/>
+
+</div>
+<div class="Standard">
+In the part properties dialog, you see the part properties at the top, followed by the part orientation settings, followed by a picture of the part as it will be shown in the schematic.
+</div>
+<div class="Standard">
+The part properties are shown with two checkboxes, followed by a label, followed by the value. When first opened for a part, the default values are shown.
+</div>
+<div class="Standard">
+The first checkbox determines whether the property is to be shown in the schematic.
+</div>
+<div class="Standard">
+The second checkbox determines whether the keyword for the property is displayed (unchecking this box just shows the value).
+</div>
+<div class="Standard">
+The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). PySIApp never uses scientific notation or anything like that. Also, if the number has units, the units are shown.
+</div>
+<div class="Standard">
+To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the value that is already there. If you double-click, the entry is cleared and you can enter an entirely new value.
+</div>
+<div class="Standard">
+The units never need to be entered (but can be).
+</div>
+<div class="Standard">
+Numbers can be entered with exponents or with the engineering notation suffix. For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or 10e7.
+</div>
+<div class="Standard">
+The reference designator is entered by PySIApp and is always unique at the time of entry. In that sense, it does not need to be modified or viewed in the schematic.
+</div>
+<div class="Standard">
+The orientation of a part can be altered through rotation and mirroring. The rotation shown is always for a rotation in the counter-clockwise direction, but usually one just presses the toggle button until it looks right. Mirroring vertically or horizontally is accomplished by checking the boxes.
+</div>
+<div class="Standard">
+You have no control over the exact placement of the text displayed with each part. It is placed justified properly depending on the orientation.
+</div>
+<div class="Standard">
+For many parts, there are alternate part pictures available. These are chosen by simply clicking inside the the part picture area of the dialog. For example, for the voltage amplifier shown, there is an alternate picture that has the voltage reference reversed at the input. Clicking in the part picture changes the picture to the following:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertyVoltageAmplifierAlt.png" alt="figure PartPropertyVoltageAmplifierAlt.png"/>
+
+</div>
+<div class="Standard">
+After you are satisfied with all of the part property settings and the orientation, press okay. The part properties dialog disappears and, when hovered over the canvas, you will see that your mouse cursor has now changed to a finger to indicate that the part can now be placed. left-clicking now has the part shown and selected:
+</div>
+<div class="Standard">
+<img class="embedded" src="VoltageAmplifierAltSelected.png" alt="figure VoltageAmplifierAltSelected.png"/>
+
+</div>
+<div class="Standard">
+Keeping the button pressed, the part remains selected and can be precisely placed.
+</div>
+<div class="Standard">
+Note that until a part is connected, you will see red x’s wherever the unconnected pins are on the device.
+</div>
+<div class="Standard">
+To change the part properties after the part has been placed, simply double-click on the part to bring up the part properties, or select the device and use the <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> command.
+</div>
+<div class="Standard">
+If at any time in the process of adding a part, you press the Cancel button (or &lt;escape&gt;), the part addition is aborted and you return to the schematic with no new part added.
+</div>
+<div class="Standard">
+<div class="ovalbox" style="width: 100%;">
+Back to <a class="Reference" href="PySIHelp-Subsection-33.html#sub:Parts">Parts↑</a>. Back to <a class="Reference" href="PySIHelp-Section-11.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>.
+</div>
+
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-33.html#next">Prev</a> Parts</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Subsection-33.html">Up</a> Parts</span>
+<span class="next">Add Port <a class="next" name="next" href="PySIHelp-Subsubsection-30.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

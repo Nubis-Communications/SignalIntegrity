@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-3.html#next">Prev</a> Setting Calculation Properties</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-5.html">Up</a> S-parameter Generation</span>
+<span class="next">S-parameter Generation Example <a class="next" name="next" href="PySIHelp-Subsection-5.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4"></a>Calculating S-parameters<a class="Label" name="sub:Calculating-S-parameters"> </a>
+</h2>
+<div class="Standard">
+After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters are calculated using either the <a class="Reference" href="PySIHelp-Subsubsection-52.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a> command or the <a class="Reference" href="PySIHelp-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+</div>
+<div class="Standard">
+Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for s-parameter calculation. This criteria for the schematic regarding elements are that the schematic must:
+</div>
+<ul>
+<li>
+have at least one <a class="Reference" href="PySIHelp-Subsection-59.html#sub:Port">Port↓</a> element (see <a class="Reference" href="PySIHelp-Subsubsection-30.html#Control-Help:Add-Port">Add Port↓</a>)
+</li>
+<li>
+not have any other elements that don’t make sense for s-parameter generation including:<ul>
+<li>
+output probes
+</li>
+<li>
+measure probes
+</li>
+<li>
+stims
+</li>
+<li>
+unknown devices
+</li>
+<li>
+system devices
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<div class="Standard">
+In calculating the s-parameters, the first step is to convert the schematic shown into a <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="PySIHelp-Subsubsection-21.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+</div>
+<div class="Standard">
+The net list is passed to a <b>SystemSParametersNumericParser</b> class as described in the PySI book after which the s-parameters are extracted.
+</div>
+<div class="Standard">
+During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="PySIHelp-Subsubsection-49.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
+</div>
+<div class="Standard">
+Then, for each frequency point, the s-parameters are generated of the schematic.
+</div>
+<div class="Standard">
+Sometimes, things go wrong and an error is generated. See <a class="Reference" href="PySIHelp-Section-14.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
+</div>
+<div class="Standard">
+If everything goes correctly, a dialog will open with the ability to view the s-parameters calculated and save them to a file in the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-3.html#next">Prev</a> Setting Calculation Properties</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-5.html">Up</a> S-parameter Generation</span>
+<span class="next">S-parameter Generation Example <a class="next" name="next" href="PySIHelp-Subsection-5.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

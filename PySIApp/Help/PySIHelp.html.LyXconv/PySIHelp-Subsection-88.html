@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-87.html#next">Prev</a> Numeric</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-14.html">Up</a> Errors and Exceptions</span>
+<span class="next">Waveform <a class="next" name="next" href="PySIHelp-Section-15.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-88"></a>DeviceParser<a class="Label" name="sub:DeviceParser"> </a>
+</h2>
+<div class="Standard">
+This error class is for errors parsing <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↑</a> lines with the <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a> keyword.
+</div>
+<div class="Standard">
+<b>Mandatory Keywords Not Supplied</b>
+</div>
+<div class="Standard">
+This error message states that mandatory keywords and values were not supplied to the device parser for a particular <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a> line in the <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>. This would be an internal error to the application because you cannot really control this.
+</div>
+<div class="Standard">
+The keyword error looks like: [’keyword1’,’keyword2’,…] for ’deviceName’ where ’keyword1’ and ’keyword2’ are representative of keywords that must be defined for the device and ’deviceName’ is representative of the name of the device.
+</div>
+<div class="Standard">
+If a keyword is ’’, then the device takes an argument without a keyword (the keyword is inherent - see <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a>).
+</div>
+<div class="Standard">
+For example, an error message that says that the keywords not supplied are: [’’] for file, this means that the file name (which is not specified with a keyword) was not supplied.
+</div>
+<div class="Standard">
+When entering netlists by hand, it is easy to forget a mandatory keyword, but in PySIApp, this is difficult since the application creates the netlist entry from the instantiated part in the schematic.
+</div>
+<div class="Standard">
+<b>Arguments Must Come in Keyword Pairs</b>
+</div>
+<div class="Standard">
+This error message states that the netlist <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a> line in the <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and that it was expecting the arguments to come in keyword/value pairs. This would be an internal error to the application because you cannot really control this.
+</div>
+<div class="Standard">
+<b>Device Could Not Be Instantiated</b>
+</div>
+<div class="Standard">
+This error message states that the netlist <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a> line in the <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and the result of trying to create a device with the given name and arguments failed. This would be an internal error to the application because you cannot really control this.
+</div>
+<div class="Standard">
+<b>Device Not Found</b>
+</div>
+<div class="Standard">
+This error message states that the netlist <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a> line in the <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and that the device name specified is unknown. This would be an internal error to the application because you cannot really control this.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-87.html#next">Prev</a> Numeric</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-14.html">Up</a> Errors and Exceptions</span>
+<span class="next">Waveform <a class="next" name="next" href="PySIHelp-Section-15.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

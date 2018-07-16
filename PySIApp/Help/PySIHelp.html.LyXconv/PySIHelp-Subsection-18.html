@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-17.html#next">Prev</a> Deembedding Calculation</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-7.html">Up</a> Deembedding</span>
+<span class="next">Virtual Probing <a class="next" name="next" href="PySIHelp-Section-8.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-18"></a>Deembedding Example<a class="Label" name="sub:Deembedding-Example"> </a>
+</h2>
+<div class="Standard">
+In this example, we will deembed a cable from the measurement of a cable cascaded with a filter. To generate this example, we created the cascaded cable and filter using <a class="Reference" href="PySIHelp-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="CascCableFilter.png" alt="figure CascCableFilter.png"/>
+
+</div>
+<div class="Standard">
+We saved the results of this calculation to the file CascCableFilter.s2p.
+</div>
+<div class="Standard">
+We start this example with a blank project:
+</div>
+<div class="Standard">
+<img class="embedded" src="BlanckCanvas.png" alt="figure BlanckCanvas.png"/>
+
+</div>
+<div class="Standard">
+Using <a class="Reference" href="PySIHelp-Subsubsection-29.html#Control-Help:Add-Part">Add Part↓</a>, we select a two port file device:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPickerTwoPortFile.png" alt="figure PartPickerTwoPortFile.png"/>
+
+</div>
+<div class="Standard">
+We browse to the file cable.s2p in the Examples directory:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertiesTwoPortFile.png" alt="figure PartPropertiesTwoPortFile.png"/>
+
+</div>
+<div class="Standard">
+Pressing OK places the part in the schematic and we drag it to a good location:
+</div>
+<div class="Standard">
+<img class="embedded" src="CableInSchematic.png" alt="figure CableInSchematic.png"/>
+
+</div>
+<div class="Standard">
+Next, we add the unknown filter device using <a class="Reference" href="PySIHelp-Subsubsection-34.html#Control-Help:Add-Unknown">Add Unknown↓</a>.
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPickerTwoPortUnknown.png" alt="figure PartPickerTwoPortUnknown.png"/>
+
+</div>
+<div class="Standard">
+We enter Filter as the name of the unknown:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertiesTwoPortUnknown.png" alt="figure PartPropertiesTwoPortUnknown.png"/>
+
+</div>
+<div class="Standard">
+Pressing OK places the part in the schematic and we drag it and connect it to the cable:
+</div>
+<div class="Standard">
+<img class="embedded" src="CableUnknownInSchematic.png" alt="figure CableUnknownInSchematic.png"/>
+
+</div>
+<div class="Standard">
+Next, we use <a class="Reference" href="PySIHelp-Subsubsection-30.html#Control-Help:Add-Port">Add Port↓</a> to add ports to the schematic. The properties dialog for the port shows port 1, so we use it as is. Pressing OK places the port in the schematic and we drag it so it is connected to the cable.
+</div>
+<div class="Standard">
+<img class="embedded" src="PortCableFilterInSchematic.png" alt="figure PortCableFilterInSchematic.png"/>
+
+</div>
+<div class="Standard">
+Using <a class="Reference" href="PySIHelp-Subsubsection-30.html#Control-Help:Add-Port">Add Port↓</a> again, we have the part properties showing port 2. In the part properties dialog, select the mirror horizontally checkbox: 
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertiesPort2.png" alt="figure PartPropertiesPort2.png"/>
+
+</div>
+<div class="Standard">
+Press OK and drag the port so it is connected to the unknown filter:
+</div>
+<div class="Standard">
+<img class="embedded" src="PortCableFilterPortInSchematic.png" alt="figure PortCableFilterPortInSchematic.png"/>
+
+</div>
+<div class="Standard">
+Almost done. We now add the system device by using <a class="Reference" href="PySIHelp-Subsubsection-35.html#Control-Help:Add-System">Add System↓</a> and selecting a two port system:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPickerTwoPortSystem.png" alt="figure PartPickerTwoPortSystem.png"/>
+
+</div>
+<div class="Standard">
+Browse to the CascCableFilter.s2p file:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertiesTwoPortSystem.png" alt="figure PartPropertiesTwoPortSystem.png"/>
+
+</div>
+<div class="Standard">
+Press OK and place it anywhere in the schematic:
+</div>
+<div class="Standard">
+<img class="embedded" src="PortCableFilterPortSystemInSchematic.png" alt="figure PortCableFilterPortSystemInSchematic.png"/>
+
+</div>
+<div class="Standard">
+Assuming that the CascCableFilter.s2p file has the appropriate frequencies, we would want to retain them for the deembedding calculation, so we use <a class="Reference" href="PySIHelp-Subsubsection-50.html#Control-Help:S-parameter-Viewer">S-parameter Viewer↓</a> and select the CasCableFilter.s2p file for viewing:
+</div>
+<div class="Standard">
+<img class="embedded" src="CascCableFilterInSParameterViewer.png" alt="figure CascCableFilterInSParameterViewer.png"/>
+
+</div>
+<div class="Standard">
+Here we can see that the end frequency is 20 GHz and the impulse response length is 50 ns.
+</div>
+<div class="Standard">
+We close this dialog and use <a class="Reference" href="PySIHelp-Subsubsection-49.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> and set the end frequency and impulse response length appropriately:
+</div>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesForDeembeddingExample.png" alt="figure CalculationPropertiesForDeembeddingExample.png"/>
+
+</div>
+<div class="Standard">
+We not that this amounts to one thousand frequency points to 20 GHz.
+</div>
+<div class="Standard">
+Notice now that <a class="Reference" href="PySIHelp-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> and <a class="Reference" href="PySIHelp-Subsubsection-55.html#Control-Help:Deembed">Deembed↓</a> are now enabled.
+</div>
+<div class="Standard">
+<img class="embedded" src="DeembeddingCalculationEnabled.png" alt="figure DeembeddingCalculationEnabled.png"/>
+
+</div>
+<div class="Standard">
+Use <a class="Reference" href="PySIHelp-Subsubsection-55.html#Control-Help:Deembed">Deembed↓</a> to start the calculation. Once the calculation is complete, the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a> is opened with the result of the deembedding. Use <a class="Reference" href="PySIHelp-Subsubsection-2.html#Control-Help:Save-S-parameter-File">Save S-parameter File↓</a> to save the result to a file.
+</div>
+<div class="Standard">
+<img class="embedded" src="DeembeddingResultInSParameterViewer.png" alt="figure DeembeddingResultInSParameterViewer.png"/>
+
+</div>
+<div class="Standard">
+Note that I selected S21 for viewing in the above dialog, and pressed unwrap to remove the 593.7 ps of delay from the phase.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-17.html#next">Prev</a> Deembedding Calculation</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-7.html">Up</a> Deembedding</span>
+<span class="next">Virtual Probing <a class="next" name="next" href="PySIHelp-Section-8.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-15.html#next">Prev</a> Defining the System</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-7.html">Up</a> Deembedding</span>
+<span class="next">Deembedding Calculation <a class="next" name="next" href="PySIHelp-Subsection-17.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-16"></a>Setting Calculation Properties for Deembedding<a class="Label" name="sub:Setting-Calculation-Properties-for-Deembedding"> </a>
+</h2>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png"/>
+
+</div>
+<div class="Standard">
+To set the calculation properties for deembedding, see <a class="Reference" href="PySIHelp-Subsubsection-49.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>.
+</div>
+<div class="Standard">
+The calculation properties determine how the deembedded s-parameters are calculated, specifically the frequency points that are calculated. The calculation properties are the same set for all of the PySI applications. With regard to deembedding, the elements of particular interest are the end frequency, which is the last frequency in the s-parameter calculation, and the frequency points, which are the number of frequency points that will be present in the final s-parameters calculated.
+</div>
+<div class="Standard">
+<div class="Ovalbox" style="width: 100%;">
+You will have a problem if the end frequency specified extends beyond any of the s-parameters defined in your schematic because the application extrapolates s-parameters by setting all of the results to zero beyond the end frequency. This means that the deembedding operation will almost certainly fail at these points.
+</div>
+
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-15.html#next">Prev</a> Defining the System</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-7.html">Up</a> Deembedding</span>
+<span class="next">Deembedding Calculation <a class="next" name="next" href="PySIHelp-Subsection-17.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

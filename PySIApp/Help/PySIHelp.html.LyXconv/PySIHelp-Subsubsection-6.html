@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsubsection-5.html#next">Prev</a> Enforce Causality</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Subsection-27.html">Up</a> S-Parameter Viewer Calculation Menu</span>
+<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="PySIHelp-Subsection-28.html#prev">Next</a></span>
+</div>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-6"></a>Wavelet Denoise<a class="Label" name="Control-Help:Wavelet-Denoise"> </a>
+</h3>
+<div class="Standard">
+<table>
+<tr>
+<td align="center" valign="top">
+<i>Dialog</i>
+</td>
+<td align="center" valign="top">
+S-parameter Viewer Dialog
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Menu System</i>
+</td>
+<td align="center" valign="top">
+Calculate ▸ Wavelet Denoise
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Navigation</i>
+</td>
+<td align="center" valign="top">
+Alt+C,W
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Key Binding</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Toolbar</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Availability</i>
+</td>
+<td align="center" valign="top">
+When s-parameter files are being viewed
+</td>
+
+</tr>
+
+</table>
+
+</div>
+<div class="Standard">
+This denoises the s-parameters by performing the discrete wavelet transform (DWT) on the impulse response, removing any wavelet coefficients that are small and performing the IDWT to restore the impulse response.
+</div>
+<div class="Standard">
+Wavelet denoising is inappropriate on:
+</div>
+<ul>
+<li>
+already clean s-parameters
+</li>
+<li>
+s-parameters for systems that produce oscillatory impulse responses (like many types of filters).
+</li>
+
+</ul>
+<div class="Standard">
+This command is not available (and does not make sense) when viewing transfer parameters.
+</div>
+<div class="Standard">
+Note that sometimes wavelet denoising causes causality and/or passivity violations. See <a class="Reference" href="PySIHelp-Subsubsection-9.html#Control-Help:Show-Causality-Violations">Show Causality Violations↓</a> and <a class="Reference" href="PySIHelp-Subsubsection-8.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations↓</a>.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsubsection-5.html#next">Prev</a> Enforce Causality</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Subsection-27.html">Up</a> S-Parameter Viewer Calculation Menu</span>
+<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="PySIHelp-Subsection-28.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

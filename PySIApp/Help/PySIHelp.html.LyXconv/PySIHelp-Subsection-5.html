@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-4.html#next">Prev</a> Calculating S-parameters</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-5.html">Up</a> S-parameter Generation</span>
+<span class="next">Simulation <a class="next" name="next" href="PySIHelp-Section-6.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5"></a>S-parameter Generation Example<a class="Label" name="sub:S-parameter-Generation-Example"> </a>
+</h2>
+<div class="Standard">
+In this example we will generate the mixed-mode s-parameters of a differential transmission line.
+</div>
+<div class="Standard">
+We start by opening the file provided in the examples. The file is included with the PySIApp and can be found at ./Examples/SParameterGenerationExample.xml:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExample.png" alt="figure SParameterGenerationExample.png"/>
+
+</div>
+<div class="Standard">
+Here we see three devices and four ports. 
+</div>
+<div class="Standard">
+To build this example, we first create a <a class="Reference" href="PySIHelp-Subsubsection-16.html#Control-Help:New-Project">New Project↓</a>.
+</div>
+<div class="Standard">
+We added the devices by executing <a class="Reference" href="PySIHelp-Subsubsection-29.html#Control-Help:Add-Part">Add Part↓</a>, opening the Files category, and selecting the Four Port <a class="Reference" href="PySIHelp-Subsection-38.html#sub:File-1">File↓</a> device.
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPickerFourPortFile.png" alt="figure PartPickerFourPortFile.png"/>
+
+</div>
+<div class="Standard">
+In the part properties dialog, we select the file: Sparq_demo_16.s4p.
+</div>
+<div class="Standard">
+<img class="embedded" src="FourPortFileProperties.png" alt="figure FourPortFileProperties.png"/>
+
+</div>
+<div class="Standard">
+<img class="embedded" src="SparqDemo16Selection.png" alt="figure SparqDemo16Selection.png"/>
+
+</div>
+<div class="Standard">
+We also selected the left-most checkbox on the file name property so that it displays in the schematic.
+</div>
+<div class="Standard">
+Pressing OK and clicking the mouse causes the part to appear in the schematic.
+</div>
+<div class="Standard">
+At this point, our schematic looks like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleStep1.png" alt="figure SParameterGenerationExampleStep1.png"/>
+
+</div>
+<div class="Standard">
+Notice the red x’s showing where the part pins are unconnected. Also note that the part is blue and the status message says <i>Part Selected</i>.
+</div>
+<div class="Standard">
+We then add the mixed-mode converter devices by again executing <a class="Reference" href="PySIHelp-Subsubsection-29.html#Control-Help:Add-Part">Add Part↓</a>, opening the Miscellaneous category, and selecting the <a class="Reference" href="PySIHelp-Subsection-46.html#sub:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>.
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPickerPowerMixedModeConverter.png" alt="figure PartPickerPowerMixedModeConverter.png"/>
+
+</div>
+<div class="Standard">
+This part has no properties.
+</div>
+<div class="Standard">
+Pressing OK and clicking the mouse causes the part to appear in the schematic.
+</div>
+<div class="Standard">
+At this point, our schematic looks like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleStep2.png" alt="figure SParameterGenerationExampleStep2.png"/>
+
+</div>
+<div class="Standard">
+Since we are converting single-ended to mixed-mode s-parameters, we need to hook the positive and negative ports of the left and right sides of the four-port device to the mixed-mode converters. But we don’t really know for sure where the positive and negative ports are on this device.
+</div>
+<div class="Standard">
+To find out, we select our four port device and invoke <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a>. This brings up the part properties dialog again for the file device:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleFileProperties.png" alt="figure SParameterGenerationExampleFileProperties.png"/>
+
+</div>
+<div class="Standard">
+Next to the file name, we see the view button. Pressing this brings up the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
+</div>
+<div class="Standard">
+The s-parameters to view are selected from the box of buttons in the lower left. Selecting s31, we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleS31.png" alt="figure SParameterGenerationExampleS31.png"/>
+
+</div>
+<div class="Standard">
+and selecting s41 we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleS41.png" alt="figure SParameterGenerationExampleS41.png"/>
+
+</div>
+<div class="Standard">
+s31 is clearly the positive thru response for the single-ended ports 1 and 3 and s41 is clearly the ac-coupled response of the other input port to output port 3. There is no indication necessarily of which ports are inputs our outputs (i.e. on the left or right of the device) and no indication which of the input or output ports should be designated plus or minus, but it is safe to choose ports 1 and 2 as the left plus and minus ports and ports 3 and 4 as the right plus and minus ports (note that we should look at s42 and s41 to confirm this).
+</div>
+<div class="Standard">
+We will need two mixed-mode converters. We have one already, so we drag it over and connect the plus and minus ports to ports 3 and 4 of our four-port transmission line as shown:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleStep3.png" alt="figure SParameterGenerationExampleStep3.png"/>
+
+</div>
+<div class="Standard">
+It’s easy to get another mixed-mode converter on the other side. Just invoke <a class="Reference" href="PySIHelp-Subsubsection-38.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> with the mixed-mode converter selected and when the cursor changes to a finger, just click on the left of the file device to place a copy of the part. Since it is the wrong orientation, invoke <a class="Reference" href="PySIHelp-Subsubsection-40.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to flip it around and drag it into position as shown:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleStep4.png" alt="figure SParameterGenerationExampleStep4.png"/>
+
+</div>
+<div class="Standard">
+Now we invoke <a class="Reference" href="PySIHelp-Subsubsection-30.html#Control-Help:Add-Port">Add Port↓</a> to add a <a class="Reference" href="PySIHelp-Subsection-59.html#sub:Port">Port↓</a> to the circuit. When we do this, we see the part properties dialog for the port:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertiesPort.png" alt="figure PartPropertiesPort.png"/>
+
+</div>
+<div class="Standard">
+Note that the port number 1 has already been filled in. Press OK and click and drag the port into place:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleStep5.png" alt="figure SParameterGenerationExampleStep5.png"/>
+
+</div>
+<div class="Standard">
+It is customary for mixed-mode s-parameters to have ports 1, 2, 3, and 4 to be D1, D2, C1, C2 where the D and C refer to the differential- and common-mode and the 1 and 2 refer to the left and right side of the transmission line. So we invoke <a class="Reference" href="PySIHelp-Subsubsection-38.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> and click the mouse and drag the new port to the right side of the device. Use <a class="Reference" href="PySIHelp-Subsubsection-40.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to flip the port around and place it as shown:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleStep6.png" alt="figure SParameterGenerationExampleStep6.png"/>
+
+</div>
+<div class="Standard">
+The rest of the ports are added in a similar manner:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExample.png" alt="figure SParameterGenerationExample.png"/>
+
+</div>
+<div class="Standard">
+The next step is to set the <a class="Reference" href="PySIHelp-Subsubsection-49.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. By default they look like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png"/>
+
+</div>
+<div class="Standard">
+When we looked at the s-parameters, we can see that the end frequency is 20 GHz and the impulse response length is 100 ns. It looks like the 100 ns impulse response length might be excessive, so we use 50 ns. We double click in the impulse response length entry box and type 50n and press enter. Now we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="CalculationProperties50ns.png" alt="figure CalculationProperties50ns.png"/>
+
+</div>
+<div class="Standard">
+Note that, in general, we really don’t want to think of the number of frequency points in an s-parameter file. Instead, we choose to think in terms of impulse response length. In this example, this happens to mean one thousand frequency points.
+</div>
+<div class="Standard">
+Before calculating the s-parameters, it’s also good to look at the <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↓</a>. Invoking <a class="Reference" href="PySIHelp-Subsubsection-21.html#Control-Help:Export-Netlist">Export Netlist↓</a>, we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleNetListDialog.png" alt="figure SParameterGenerationExampleNetListDialog.png"/>
+
+</div>
+<div class="Standard">
+If you’ve read the book that accompanies the PySI software, this netlist should be familiar to you. If you press OK, you can save this netlist to a file, if you wanted to.
+</div>
+<div class="Standard">
+To calculate the s-parameters, invoke <a class="Reference" href="PySIHelp-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="PySIHelp-Subsubsection-52.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a>. There should not be any errors (if there are, see <a class="Reference" href="PySIHelp-Section-14.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a>) and you should see the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleResultS11.png" alt="figure SParameterGenerationExampleResultS11.png"/>
+
+</div>
+<div class="Standard">
+You can select the s-parameters you want to view from the buttons at the lower-left and save the results to a file if you want:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleResultSave.png" alt="figure SParameterGenerationExampleResultSave.png"/>
+
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-4.html#next">Prev</a> Calculating S-parameters</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-5.html">Up</a> S-parameter Generation</span>
+<span class="next">Simulation <a class="next" name="next" href="PySIHelp-Section-6.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

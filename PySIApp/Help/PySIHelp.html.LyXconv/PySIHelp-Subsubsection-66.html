@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-04-01"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsubsection-65.html#next">Prev</a> No Outputs</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Subsection-86.html">Up</a> VirtualProbe</span>
+<span class="next">Numerical Error <a class="next" name="next" href="PySIHelp-Subsubsection-67.html#prev">Next</a></span>
+</div>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-66"></a>No Sources
+</h3>
+<div class="Standard">
+There are no sources in the circuit. In the context of <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a class="Reference" href="PySIHelp-Subsection-62.html#sub:Stim">Stim↑</a> defined by a <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↑</a> line defining a <a class="Reference" href="PySIHelp-Subsection-78.html#sub:stim">stim↑</a> prior to enabling the <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> calculation, but it does not check whether the stim is actually connected to anything.
+</div>
+<div class="Standard">
+By looking at your schematic, you can examine unconnected stims, because they will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a stim makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
+</div>
+<div class="Standard">
+Stims also require that the end of the arrow is connected directly to a device port. This is because unlike waves which are present along a wire, stims represent waves that emanate from a device port. Unfortunately, the schematic editor allows you to make this mistake.
+</div>
+<div class="Standard">
+Also, stims must be connected to only one device port. While the schematic editor allows device ports to be connected directly together, when a stim is connected to a device port, the device port must be separated from others in the schematic by a small piece of wire.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsubsection-65.html#next">Prev</a> No Outputs</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Subsection-86.html">Up</a> VirtualProbe</span>
+<span class="next">Numerical Error <a class="next" name="next" href="PySIHelp-Subsubsection-67.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

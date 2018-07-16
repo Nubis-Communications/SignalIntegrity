@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-06-27"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>PySI Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-24.html#next">Prev</a> Virtual Probing</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-8.html">Up</a> Virtual Probing</span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="PySIHelp-Section-9.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-25"></a>Virtual Probing Example<a class="Label" name="sub:Virtual-Probing-Example"> </a>
+</h2>
+<div class="Standard">
+In this example, we are not going to explain how to draw the entire example in the schematic editor. Many of the other examples step you through this process. We will examine a canned example found in the folder ./Examples/VirtualProbingExample/VirtualProbeExample.xml.
+</div>
+<div class="Standard">
+When we open this example using <a class="Reference" href="PySIHelp-Subsubsection-17.html#Control-Help:Open-Project">Open Project↓</a>, we see the following:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExample.png" alt="figure VirtualProbingExample.png"/>
+
+</div>
+<div class="Standard">
+This example demonstrates many possible examples of virtual probing simultaneously. The top network containing inductors, a capacitor and a resistor is a <i>probe loading model</i>. This is a circuit which describes the effect that a probe has when inserted into a system. These models are generally published by manufacturers of high-frequency probes used for oscilloscopes. The probe loading model shown is for a single-ended probe.
+</div>
+<div class="Standard">
+The circuit beneath the probe loading model is the circuit being measured. Ignoring the stimuli for the moment, this circuit is for a 50 Ω differential source driving a differential transmission line represented by a four-port s-parameter <a class="Reference" href="PySIHelp-Subsection-38.html#sub:File-1">File↓</a> device. The s-parameters are contained in the file Sparq_demo_16.s4p. Notice that the probe loading model is connected to the circuit at the input termination.
+</div>
+<div class="Standard">
+The final circuit at the bottom is an exact duplicate of the previously described circuit section except that it does not have the probe loading model connected.
+</div>
+<div class="Standard">
+In the probe loading model section where the probe is connected to the circuit, we have a <a class="Reference" href="PySIHelp-Subsection-60.html#sub:Measure-Probe">Measure Probe↓</a> device (see <a class="Reference" href="PySIHelp-Subsection-20.html#sub:Measure-Probes">Measure Probes↑</a> for more information). The measure probe is shows an input file name of VirtualProbingExampleSimulation_Vprobe.txt which is presumably a <a class="Reference" href="PySIHelp-Section-15.html#sec:Waveform">Waveform↓</a> file containing a waveform measured (by, for example an oscilloscope) while probing a circuit like the middle circuit section. In fact, in this contrived example, it is the output waveform of a PySI <a class="Reference" href="PySIHelp-Section-6.html#sec:Simulation">Simulation↑</a> simulated under exactly these conditions.
+</div>
+<div class="Standard">
+Invoke <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> with the measure probe selected and press view to view the waveform in the <a class="Reference" href="PySIHelp-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeVprobeWaveform.png" alt="figure VirtualProbeVprobeWaveform.png"/>
+
+</div>
+<div class="Standard">
+Throughout the rest of the schematic, we see various <a class="Reference" href="PySIHelp-Subsection-61.html#sub:Output-Probe">Output Probe↓</a> devices (see <a class="Reference" href="PySIHelp-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a> for more information). I will talk about these in a bit, but for now notice one interesting thing about the output probes named Voutloaded and Vout. These are in between two back-to-back <a class="Reference" href="PySIHelp-Subsection-47.html#sub:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a> devices. These devices placed back-to-pack expose the plus and minus terminals of a single-ended line on each side and the differential- and common-mode lines in the middle. These devices connected in this arrangement have no effect on the circuit (the two plus pins or the two minus pins could even be shorted together if you wanted). Thus, these output probes are probing the differential output at the output termination.
+</div>
+<div class="Standard">
+Note that these output probes have keyword/values of td -1.43ns and gain 0.5. The gain is the gain applied to the output waveform. Since the input waveform is a single-ended measurement it is half the size of the differential waveform. We want to see relative changes is size, so we put the differential waveforms on the same relative scale as the single-ended waveforms. The time delay of -1.43 ns is to account for the delay through the channel. This was estimated by examining the s-parameters of the file Sparq_demo_16.s4p. You can do that by selecting the four-port file<a class="Reference" href="PySIHelp-Subsection-38.html#sub:File-1">File↓</a> device, double-clicking on it to invoke <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> and then pressing view to invoke the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
+</div>
+<div class="Standard">
+Selecting S31, we have:
+</div>
+<div class="Standard">
+<img class="embedded" src="SparqDemo16S31.png" alt="figure SparqDemo16S31.png"/>
+
+</div>
+<div class="Standard">
+and by selecting S41, we have:
+</div>
+<div class="Standard">
+<img class="embedded" src="SparqDemo16S32.png" alt="figure SparqDemo16S32.png"/>
+
+</div>
+<div class="Standard">
+Since there are multiple spikes in the impulse response, the differential time delay through the channels is roughly the time of the positive going spike in the S31 that goes with the negative going spike in the S32.
+</div>
+<div class="Standard">
+Regarding the <a class="Reference" href="PySIHelp-Subsection-22.html#sub:Stimuli">Stimuli↑</a>, we see four dependent stimuli and one independent stimuli. The dependent stimuli are connected to the pin of each <a class="Reference" href="PySIHelp-Subsection-44.html#sub:Ground">Ground↓</a> device representing the transmitters (remember, a voltage source looks like a short with waves emanating from it). These grounds are connected through a small piece of wire to the pins of 50 Ω resistors. (see <a class="Reference" href="PySIHelp-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for why this small piece of wire is necessary). A <a class="Reference" href="PySIHelp-Subsection-62.html#sub:Stim">Stim↓</a> is connected with the arrow touching each pin of the grounds, meaning the stimulus emanates from the grounds.
+</div>
+<div class="Standard">
+An independent stimulus is all the way to the left with wires connecting the arrow tip of the independent stimulus to the back of each of the stims. This means that the other stimuli depend on this stimulus. Note that in each of the circuit sections, the weights of the two bottom stims are -1.0 (the others are 1.0 and not shown). This means that the top stim in each circuit is the same as the independent stimulus and the bottom stim in each circuit is the negative of the independent stimulus. What we are saying here is that the waves emanating from the differential transmitters are balanced. See <a class="Reference" href="PySIHelp-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for a discussion of this topic.
+</div>
+<div class="Standard">
+Now that we understand all of the interconnections, let’s understand what is the intent of this system.
+</div>
+<div class="Standard">
+We are providing a measured waveform Vprobe, and have output probes called:
+</div>
+<ul>
+<li>
+Vmeas - the measured input waveform at the transmitter. This waveform can be considered as the input waveform to the backplane with the probe loading the circuit.
+</li>
+<li>
+Voutloaded - the waveform at the receiver to be produced by Virtual Probing. This waveform is the output waveform with the probe loading the circuit.
+</li>
+<li>
+Vin - the waveform at the transmitter in the bottom circuit to be produced by Virtual Probing. This waveform is the input waveform to the circuit if the probe were not loading the circuit.
+</li>
+<li>
+Vout - the waveform at the receiver to be produced by Virtual Probing. This waveform is the output waveform without the probe loading the circuit.
+</li>
+
+</ul>
+<div class="Standard">
+Virtual Probe is being asked to provide these waveforms given a single, single-ended measurement at the transmitter.
+</div>
+<div class="Standard">
+So the problem being solved is three-fold:
+</div>
+<ul>
+<li>
+Voutloaded provides for a measurement in a different circuit location (the receiver) given a measurement taken at the transmitter.
+</li>
+<li>
+Vin provides for a measurement in the same system with the probe loading effects removed. In other words, it provides what the measurement would be were the probe perfect. In a sense, it is a deembedding of the loading effects of the probe.
+</li>
+<li>
+Vout provides for a measurement of the output waveform from a system, without the probe loading the system. This measurement is usually the actual goal. Note that this could be used for compliance testing of systems without having the actual backplane - and in fact could be used for monte-carlo testing of compliance if run with many different backplanes whose existance is virtual - in the form of s-parameter files. (These backplanes might not even exist and might be the product of other signal integrity analysis tools). All we would need to get right for this compliance testing would be a model of the probe and probing structure connected to the transmitter.
+</li>
+
+</ul>
+<div class="Standard">
+The first measurement we will take will be to see the effect of the probe loading in the measurement of the input waveform. So, select the two output probes at the output and move them off their connection points as shown.
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExampleProbeLoadingEffect.png" alt="figure VirtualProbingExampleProbeLoadingEffect.png"/>
+
+</div>
+<div class="Standard">
+Before creating the output waveforms, you need to check that the calculation properties are appropriate. See <a class="Reference" href="PySIHelp-Subsection-23.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↑</a> for more information. Here we use the following settings:
+</div>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png"/>
+
+</div>
+<div class="Standard">
+Invoke  <a class="Reference" href="PySIHelp-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="PySIHelp-Subsubsection-54.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="PySIHelp-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeProbeLoadingWaveforms.png" alt="figure VirtualProbeProbeLoadingWaveforms.png"/>
+
+</div>
+<div class="Standard">
+Amazingly, the new input waveform without the probe loading effects looks much better.
+</div>
+<div class="Standard">
+It’s always a good idea to invoke <a class="Reference" href="PySIHelp-Subsubsection-14.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> to view the transfer parameters in the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>. Selecting Vin due to Vprobe, we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeProbeLoadingTransferParameters.png" alt="figure VirtualProbeProbeLoadingTransferParameters.png"/>
+
+</div>
+<div class="Standard">
+This is the filter that was created to convert the probed waveform to the waveform that would be present without the probe loading effects. Here we see a resonance at around 1 GHz accounting for a resonant cavity in the probes response (this would not be a great probe in real life). We see this resonance in the impulse and step response and fortunately it dies down before 10 ns, so the calculation settings are okay for this situation.
+</div>
+<div class="Standard">
+Now let’s go back to the schematic and view the output waveform. Disconnect the Vin output probe and connect the Voutloaded output probe like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExampleProbingAtDifferentPoint.png" alt="figure VirtualProbingExampleProbingAtDifferentPoint.png"/>
+
+</div>
+<div class="Standard">
+Invoke  <a class="Reference" href="PySIHelp-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="PySIHelp-Subsubsection-54.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="PySIHelp-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExampleProbingAtDifferentPointWaveforms.png" alt="figure VirtualProbingExampleProbingAtDifferentPointWaveforms.png"/>
+
+</div>
+<div class="Standard">
+Note that because we applied the -1.43 ns delay and the half gain, they resemble each other. This is an example of using virtual probing to simply probe at a different location in the circuit than is actually being probed.
+</div>
+<div class="Standard">
+This portion of the example does not give us what we really want. We want to see what the output waveform would be were the probe not loading the system. For this, we go back to the schematic, and disconnect the two output probes at the input and connect the output probes at the output, like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeOutputsOnly.png" alt="figure VirtualProbeOutputsOnly.png"/>
+
+</div>
+<div class="Standard">
+Invoke  <a class="Reference" href="PySIHelp-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="PySIHelp-Subsubsection-54.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="PySIHelp-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeOutputsOnlyWaveforms.png" alt="figure VirtualProbeOutputsOnlyWaveforms.png"/>
+
+</div>
+<div class="Standard">
+Here we see a not so negligible difference between the output waveforms with and without the probe loading accounted for.
+</div>
+<div class="Standard">
+Here, we were able to probe at the input and produce an output waveform at the receiver that is independent of the probe effects. In fact, if we simply probe the transmitter driving a known termination with known probe effects, we could have gotten this same result. Furthermore, we’d be able to replace the four-port backplane with varieties of corner cases to test compliance, for example.
+</div>
+<div class="Standard">
+Invoke <a class="Reference" href="PySIHelp-Subsubsection-14.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> to view the transfer parameters in the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>. Selecting Vout due to Vprobe, we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeOutputsOnlyTransferParameters.png" alt="figure VirtualProbeOutputsOnlyTransferParameters.png"/>
+
+</div>
+<div class="Standard">
+In the end, you can connect all of the output probes and run the calculation and save all of the waveforms by invoking <a class="Reference" href="PySIHelp-Subsubsection-11.html#Control-Help:Save-Waveforms">Save Waveforms↓</a> from the <a class="Reference" href="PySIHelp-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a> and save all of the transfer parameters by invoking <a class="Reference" href="PySIHelp-Subsubsection-2.html#Control-Help:Save-S-parameter-File">Save S-parameter File↓</a> in the <a class="Reference" href="PySIHelp-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>. Note that the transfer parameters will be an .s4p file with only S11, S21, S31, and S41 defined according to the ordering of the transfer parameters shown.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-24.html#next">Prev</a> Virtual Probing</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-8.html">Up</a> Virtual Probing</span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="PySIHelp-Section-9.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>
