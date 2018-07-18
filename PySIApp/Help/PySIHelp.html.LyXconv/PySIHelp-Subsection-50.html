@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-49.html#next">Prev</a> Telegrapher - Two Port</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-49.html#next">Prev</a> Transmission Line</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Source <a class="next" name="next" href="PySIHelp-Subsection-51.html#prev">Next</a></span>
+<span class="next">Telegrapher - Four Port <a class="next" name="next" href="PySIHelp-Subsection-51.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-50"></a>Telegrapher - Four Port<a class="Label" name="sub:Telegrapher---Four-Port"> </a>
+<a class="toc" name="toc-Subsection-50"></a>Telegrapher - Two Port<a class="Label" name="sub:Telegrapher---Two-Port"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TelegrapherFourPort.png" alt="figure TelegrapherFourPort.png" style="max-width: 152px; max-height: 214px;"/>
+<img class="embedded" src="TelegrapherTwoPort.png" alt="figure TelegrapherTwoPort.png" style="max-width: 152px; max-height: 124px;"/>
 
 </div>
 <div class="Standard">
@@ -1101,6 +1101,24 @@ Units
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 (Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Transmission Lines
 </td>
 
 </tr>
@@ -1154,205 +1172,115 @@ sect
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1
+0
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-mutual capacitance
+capacitance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-cm
+c
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 F
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 pF
+<span class="formula">1.0 <span class="mathrm"> pF</span></span>
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-mutual inductance
+dissipation factor
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-lm
+df
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-H
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 fH
+0
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-mutual conductance
+conductance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-gm
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-S
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 S
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-negative capacitance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-cn
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-F
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 pF
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-negative conductance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-gn
+g
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 S
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 S
+<span class="formula">0 <span class="mathrm"> S</span></span>
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-negative inductance
+inductance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ln
+l
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 H
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 fH
+<span class="formula">1.0 <span class="mathrm"> fH</span></span>
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-negative resistance
+resistance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-rn
+r
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-Ohms
+<span class="formula">Ω</span>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-50 Ohms
+<span class="formula">50 Ω</span>
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-positive capacitance
+skin-effect resistance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-cp
+rse
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-F
+<span class="formula">Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm">Hz</span></span><span class="ignored">)</span></span></span>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 pF
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-positive conductance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-gp
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-S
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 S
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-positive inductance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-lp
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-H
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 fH
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-positive resistance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-rp
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Ohms
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-50 Ohms
+<span class="formula">0 Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm"> Hz</span></span><span class="ignored">)</span></span></span>
 </td>
 
 </tr>
@@ -1361,14 +1289,17 @@ Ohms
 
 </div>
 <div class="Standard">
-The telegrapher four-port is a model of a differential transmission line based on the telegrapher circuit.
+The telegrapher two-port is a model of a single-ended transmission line based on the telegrapher circuit.
 </div>
 <div class="Standard">
 If sections are set to 1 (the default), then the circuit is the lumped element model as shown below:
 </div>
 <div class="Standard">
-<img class="embedded" src="TelegrapherFourPortEquivalent.png" alt="figure TelegrapherFourPortEquivalent.png" style="max-width: 642px; max-height: 442px;"/>
+<img class="embedded" src="TelegrapherTwoPortEquivalent.png" alt="figure TelegrapherTwoPortEquivalent.png" style="max-width: 514px; max-height: 207px;"/>
 
+</div>
+<div class="Standard">
+In the model, not shown is the skin-effect resistance, a resistance proportional to the square-root of frequency that is implied with the resistance r. Also not shown is the dissipation factor, or loss-tangent, which is the dissipation factor of the capacitance c.
 </div>
 <div class="Standard">
 Otherwise, if sections are large, then the model is created by cascading the sections with parameters that are divided by the number of sections. In other words, the parameters are for the total line, and each section has a value of the parameter divided by the number of sections.
@@ -1376,10 +1307,13 @@ Otherwise, if sections are large, then the model is created by cascading the sec
 <div class="Standard">
 This is used to approximated distributed parameters.
 </div>
+<div class="Standard">
+If zero sections are specified (the default), an analytic solution is provided based on complete distribution of the parameters specified.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-49.html#next">Prev</a> Telegrapher - Two Port</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-49.html#next">Prev</a> Transmission Line</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Source <a class="next" name="next" href="PySIHelp-Subsection-51.html#prev">Next</a></span>
+<span class="next">Telegrapher - Four Port <a class="next" name="next" href="PySIHelp-Subsection-51.html#prev">Next</a></span>
 </div>
 
 </div>

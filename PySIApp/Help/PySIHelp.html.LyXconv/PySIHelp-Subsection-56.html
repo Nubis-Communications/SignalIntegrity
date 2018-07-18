@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-55.html#next">Prev</a> Voltage Sine Generator</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-55.html#next">Prev</a> Voltage Step Generator</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Pulse Generator <a class="next" name="next" href="PySIHelp-Subsection-57.html#prev">Next</a></span>
+<span class="next">Voltage Sine Generator <a class="next" name="next" href="PySIHelp-Subsection-57.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-56"></a>Current Step Generator<a class="Label" name="sub:Current-Step-Generator"> </a>
+<a class="toc" name="toc-Subsection-56"></a>Voltage Pulse Generator<a class="Label" name="sub:Voltage-Pulse-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="CurrentStepGeneratorOnePort.png" alt="figure CurrentStepGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="CurrentStepGeneratorTwoPort.png" alt="figure CurrentStepGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="VoltagePulseGeneratorOnePort.png" alt="figure VoltagePulseGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
+<img class="embedded" src="VoltagePulseGeneratorTwoPort.png" alt="figure VoltagePulseGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1119,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-CG?
+VG?
 </td>
 
 </tr>
@@ -1152,10 +1152,10 @@ float
 a
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-A
+V
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 A
+1.0 V
 </td>
 
 </tr>
@@ -1174,6 +1174,24 @@ S/s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 40.0 GS/s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+pulse width
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+w
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 ns
 </td>
 
 </tr>
@@ -1236,18 +1254,18 @@ s
 
 </div>
 <div class="Standard">
-The current step generator is used in <a class="Reference" href="PySIHelp-Section-6.html#sec:Simulation">Simulation↑</a> applications to provide a current step <a class="Reference" href="PySIHelp-Section-15.html#sec:Waveform">Waveform↓</a> to the system.
+The voltage pulse generator is used in <a class="Reference" href="PySIHelp-Section-6.html#sec:Simulation">Simulation↑</a> applications to provide a voltage pulse <a class="Reference" href="PySIHelp-Section-15.html#sec:Waveform">Waveform↓</a> to the system.
 </div>
 <div class="Standard">
 The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
 </div>
 <div class="Standard">
-The waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the remaining duration of the waveform.
+The waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the duration specified by the pulse width.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-55.html#next">Prev</a> Voltage Sine Generator</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-55.html#next">Prev</a> Voltage Step Generator</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Pulse Generator <a class="next" name="next" href="PySIHelp-Subsection-57.html#prev">Next</a></span>
+<span class="next">Voltage Sine Generator <a class="next" name="next" href="PySIHelp-Subsection-57.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-61.html#next">Prev</a> Output Probe</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-61.html#next">Prev</a> Port</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="PySIHelp-Subsection-63.html#prev">Next</a></span>
+<span class="next">Voltage Output Probe <a class="next" name="next" href="PySIHelp-Subsection-63.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-62"></a>Stim<a class="Label" name="sub:Stim"> </a>
+<a class="toc" name="toc-Subsection-62"></a>Voltage Measure Probe<a class="Label" name="sub:Measure-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="Stim.png" alt="figure Stim.png" style="max-width: 106px; max-height: 72px;"/>
+<img class="embedded" src="MeasureProbe.png" alt="figure MeasureProbe.png" style="max-width: 106px; max-height: 90px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-M?
+VM?
 </td>
 
 </tr>
@@ -1142,19 +1142,19 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-weight
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-weight
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0
+None
 </td>
 
 </tr>
@@ -1163,58 +1163,18 @@ weight
 
 </div>
 <div class="Standard">
-The stim is used only in <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications to specify sources of stimulus in the system. See <a class="Reference" href="PySIHelp-Subsection-22.html#sub:Stimuli">Stimuli↑</a> where this is explained in the context of setting up a virtual probing application.
+The measure probe is used in <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications to specify measurements actually made in the system. See <a class="Reference" href="PySIHelp-Subsection-20.html#sub:Measure-Probes">Measure Probes↑</a>.
 </div>
 <div class="Standard">
-It defines a source of waves in a system.
+The file specified is for a <a class="Reference" href="PySIHelp-Section-15.html#sec:Waveform">Waveform↓</a> file containing the actual measurement.
 </div>
 <div class="Standard">
-The stim is an arrow with two pins - one at the head of the arrow and one at the tail. The one at the tail is usually not connected so it does not show up with a red x at the connection point when unconnected.
-</div>
-<div class="Standard">
-There are three types of situations for a stim:
-</div>
-<ul>
-<li>
-independent stims - stims that define a source of wave emanation from a device pin whose waves are not related to any other waves in the system.
-</li>
-<li>
-dependent stims - stims that define a source of wave emanation from a device pin but that are interrelated in some way with another.
-</li>
-<li>
-defining stims - stims that define other stims. These are the stims that other dependent stims depend on.
-</li>
-
-</ul>
-<div class="Standard">
-If an independent or dependent stim is placed in a circuit, the arrow must connect directly to one and only one device port pin. It cannot be connected in the middle of a net and cannot be connected to two device pins directly connected together. This is because these stims define wave emanation from a device pin and if the arrow were connected to more than one device port, or in the middle of a wire, the device pin specified would be ambiguous.
-</div>
-<div class="Standard">
-A defining stim must have it’s arrow on a net containing only the tails of other dependent stims. This net can be formed by placing the arrow of a defining stim directly on the tails of other independent stims, or through wires connecting to the dependent stims, but again, the wire can only be connecting the arrow of a defining stim to the tails of one or more dependent stims with nothing else on the net.
-</div>
-<div class="Standard">
-When a defining stim exists in the circuit, the netlist will contain a <i>stimdef</i> statement. The stimdef will define the relationship between the defining stims and the dependent stims determined by the weight property value for the stim.
-</div>
-<div class="Standard">
-<div class="Ovalbox" style="width: 100%;">
-<img class="embedded" src="warning.png" alt="figure warning.png" style="width: 38px; max-width: 128px; height: 38px; max-height: 128px;"/>
-At the time that this manual was written, the application software does not handle a rare special case properly - currently it requires that if there is at least one defining stim in the system, that all other stims beside the defining stims are dependent (i.e. there are no independent stims). To work around this (unlikely) situation (until the software is changed), if there is a defining stim in the system, and you have some stims that you want to be independent, then just place a new defining stim behind each independent stim (i.e. instantiate a new defining stim and place the arrow on the tail of the independent stim making it dependent). Then everything will work properly.
-</div>
-
-</div>
-<div class="Standard">
-As stims define sources of wave emanation, they <i>constrain</i> the solution to the system. In some sense, you can view the solution of determining the waves emanating from each stim with respect to each <a class="Reference" href="PySIHelp-Subsection-60.html#sub:Measure-Probe">Measure Probe↑</a>. Thus, for a properly constrained system, you should have a number of measure probes equal to the number of independent stims in the system (if there is no defining stim), or equal to the number of defining stims (see note above). You have an overconstrained system if you have more measurement probes and an underconstrained system if you have less.
-</div>
-<div class="Standard">
-That is actually the purpose of the defining stim - to reduce the number of unknowns by enforcing a relationship between waves emanating from device ports.
-</div>
-<div class="Standard">
-Note that the reference designator of the stim is not used for anything. See <a class="Reference" href="PySIHelp-Subsection-78.html#sub:stim">stim↓</a> under <a class="Reference" href="PySIHelp-Section-13.html#sec:Netlist">Netlist↓</a> for more information.
+The <a class="Reference" href="PySIHelp-Section-15.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-61.html#next">Prev</a> Output Probe</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-61.html#next">Prev</a> Port</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="PySIHelp-Subsection-63.html#prev">Next</a></span>
+<span class="next">Voltage Output Probe <a class="next" name="next" href="PySIHelp-Subsection-63.html#prev">Next</a></span>
 </div>
 
 </div>

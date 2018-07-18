@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-75.html#next">Prev</a> port</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Section-13.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-13.html">Up</a> Netlist</span>
-<span class="next">output <a class="next" name="next" href="PySIHelp-Subsection-77.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="PySIHelp-Subsection-77.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-76"></a>meas<a class="Label" name="sub:meas"> </a>
+<a class="toc" name="toc-Subsection-76"></a>device<a class="Label" name="sub:device"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>meas</i> specifies a <a class="Reference" href="PySIHelp-Subsection-60.html#sub:Measure-Probe">Measure Probe↑</a> and it’s connection to a device pin.
+A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
 </div>
 <div class="Standard">
-This should only appear in <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications and there must be at least one statement like this.
+The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
 </div>
 <div class="Standard">
-The syntax is the keyword <i>meas</i> followed by a reference designator and pin number.
+Following this is often optional keyword pairs specifying the arguments for the device.
 </div>
 <div class="Standard">
-The reference designators refer to one of the <a class="Reference" href="PySIHelp-Section-12.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="PySIHelp-Subsection-73.html#sub:device">device↑</a> command elsewhere in the netlist.
+Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="PySIHelp-Subsection-39.html#sub:Resistor">Resistor↑</a> whose only argument is the resistance.
 </div>
 <div class="Standard">
-The pin numbers refer to a pin of the device.
-</div>
-<div class="Standard">
-If in your schematic, a <a class="Reference" href="PySIHelp-Subsection-60.html#sub:Measure-Probe">Measure Probe↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="PySIHelp-Subsection-74.html#sub:connect">connect↑</a> netlist lines.)
-</div>
-<div class="Standard">
-Note that the reference designator (i.e. the name) and the filename of the <a class="Reference" href="PySIHelp-Section-15.html#sec:Waveform">Waveform↓</a> associated with the <a class="Reference" href="PySIHelp-Subsection-60.html#sub:Measure-Probe">Measure Probe↑</a> do not appear in the netlist as it is unimportant for the calculations. Instead, the application keeps track of this information during netlist generation for use in managing the calculation.
+If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="PySIHelp-Section-14.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="PySIHelp-Subsection-91.html#sub:DeviceParser">DeviceParser↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-75.html#next">Prev</a> port</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Section-13.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-13.html">Up</a> Netlist</span>
-<span class="next">output <a class="next" name="next" href="PySIHelp-Subsection-77.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="PySIHelp-Subsection-77.html#prev">Next</a></span>
 </div>
 
 </div>

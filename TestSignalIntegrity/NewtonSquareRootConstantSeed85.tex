@@ -1,4 +1,4 @@
-% This file was created by matplotlib2tikz v0.5.11.
+% This file was created by matplotlib2tikz v0.6.17.
 \begin{tikzpicture}
 
 \begin{axis}[
@@ -7,9 +7,10 @@ ylabel={absolute error},
 xmin=0.5, xmax=1,
 ymin=1e-15, ymax=1,
 ymode=log,
-axis on top
+axis on top,
+tick pos=both
 ]
-\addplot [black]
+\addplot [black, forget plot]
 table {%
 0.5 0.142893218813452
 0.5005 0.14253975376704
@@ -1012,7 +1013,7 @@ table {%
 0.999 0.149499874937461
 0.9995 0.149749968742185
 };
-\addplot [black]
+\addplot [black, forget plot]
 table {%
 0.5 0.012010865872276
 0.5005 0.0119515184729226
@@ -2015,7 +2016,7 @@ table {%
 0.999 0.0131471838860683
 0.9995 0.0131912077284031
 };
-\addplot [black]
+\addplot [black, forget plot]
 table {%
 0.5 0.000100304101555371
 0.5005 9.92747136038252e-05
@@ -2376,7 +2377,7 @@ table {%
 0.678 1.05019782314919e-07
 0.6785 1.00270147407322e-07
 0.679 9.5685929846212e-08
-0.6795 9.12630986338314e-08
+0.6795 9.12630987448537e-08
 0.68 8.69976799489081e-08
 0.6805 8.28857560364327e-08
 0.681 7.89234654297033e-08
@@ -3018,7 +3019,7 @@ table {%
 0.999 8.53448605948604e-05
 0.9995 8.58924315527698e-05
 };
-\addplot [black]
+\addplot [black, forget plot]
 table {%
 0.5 7.11313064005736e-09
 0.5005 6.96440982661528e-09
@@ -4021,7 +4022,7 @@ table {%
 0.999 3.6433838168648e-09
 0.9995 3.68936048378288e-09
 };
-\addplot [black]
+\addplot [black, forget plot]
 table {%
 0.5 0
 0.5005 0
@@ -5024,7 +5025,7 @@ table {%
 0.999 0
 0.9995 0
 };
-\addplot [black]
+\addplot [black, forget plot]
 table {%
 0.5 1.11022302462516e-16
 0.5005 0

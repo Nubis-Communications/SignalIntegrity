@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1084,7 +1084,7 @@ a:visited {
 In this example, we will step through the simulation of an RLC network. this example will highlight a few things about simulation that you need to be aware of.
 </div>
 <div class="Standard">
-The circuit we will simulate will be a series 100 nH <a class="Reference" href="PySIHelp-Subsection-41.html#sub:Inductor">Inductor↓</a>, 1 pF <a class="Reference" href="PySIHelp-Subsection-40.html#sub:Capacitor">Capacitor↓</a>, and 50 Ohm <a class="Reference" href="PySIHelp-Subsection-39.html#sub:Resistor">Resistor↓</a>. We will simulate with a step voltage applied to the input to the circuit through a <a class="Reference" href="PySIHelp-Subsection-53.html#sub:Voltage-Step-Generator">Voltage Step Generator↓</a> and probe initially the voltage at the 50 Ohm termination <a class="Reference" href="PySIHelp-Subsection-39.html#sub:Resistor">Resistor↓</a>.
+The circuit we will simulate will be a series 100 nH <a class="Reference" href="PySIHelp-Subsection-41.html#sub:Inductor">Inductor↓</a>, 1 pF <a class="Reference" href="PySIHelp-Subsection-40.html#sub:Capacitor">Capacitor↓</a>, and 50 Ohm <a class="Reference" href="PySIHelp-Subsection-39.html#sub:Resistor">Resistor↓</a>. We will simulate with a step voltage applied to the input to the circuit through a <a class="Reference" href="PySIHelp-Subsection-55.html#sub:Voltage-Step-Generator">Voltage Step Generator↓</a> and probe initially the voltage at the 50 Ohm termination <a class="Reference" href="PySIHelp-Subsection-39.html#sub:Resistor">Resistor↓</a>.
 </div>
 <div class="Standard">
 When we open PySIApp, we have a blank canvas:
@@ -1101,7 +1101,7 @@ We invoke <a class="Reference" href="PySIHelp-Subsubsection-29.html#Control-Help
 
 </div>
 <div class="Standard">
-Select the Generators category, and select the One Port <a class="Reference" href="PySIHelp-Subsection-53.html#sub:Voltage-Step-Generator">Voltage Step Generator↓</a>:
+Select the Generators category, and select the One Port <a class="Reference" href="PySIHelp-Subsection-55.html#sub:Voltage-Step-Generator">Voltage Step Generator↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="PartPickerOnePortVoltageGenerator.png" alt="figure PartPickerOnePortVoltageGenerator.png" style="max-width: 467px; max-height: 308px;"/>
@@ -1175,7 +1175,7 @@ or by clicking in the middle of a wire and dragging:
 
 </div>
 <div class="Standard">
-Now, use <a class="Reference" href="PySIHelp-Subsubsection-31.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> to add some probing points to the circuit. When we invoke <a class="Reference" href="PySIHelp-Subsubsection-31.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a>, we see the part properties dialog for the <a class="Reference" href="PySIHelp-Subsection-61.html#sub:Output-Probe">Output Probe↓</a>:
+Now, use <a class="Reference" href="PySIHelp-Subsubsection-31.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> to add some probing points to the circuit. When we invoke <a class="Reference" href="PySIHelp-Subsubsection-31.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a>, we see the part properties dialog for the <a class="Reference" href="PySIHelp-Subsection-63.html#sub:Output-Probe">Voltage Output Probe↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="SimulatorExampleStep10.png" alt="figure SimulatorExampleStep10.png" style="max-width: 394px; max-height: 492px;"/>
@@ -1210,7 +1210,7 @@ Use <a class="Reference" href="PySIHelp-Subsubsection-48.html#Control-Help:Pan">
 
 </div>
 <div class="Standard">
-Select the <a class="Reference" href="PySIHelp-Subsection-61.html#sub:Output-Probe">Output Probe↓</a> and use <a class="Reference" href="PySIHelp-Subsubsection-38.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> to place another probe at the resistor. Use <a class="Reference" href="PySIHelp-Subsubsection-40.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to change the orientation, and <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> to change the reference designator to Vout.
+Select the <a class="Reference" href="PySIHelp-Subsection-63.html#sub:Output-Probe">Voltage Output Probe↓</a> and use <a class="Reference" href="PySIHelp-Subsubsection-38.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> to place another probe at the resistor. Use <a class="Reference" href="PySIHelp-Subsubsection-40.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to change the orientation, and <a class="Reference" href="PySIHelp-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> to change the reference designator to Vout.
 </div>
 <div class="Standard">
 <img class="embedded" src="SimulatorExampleStep15.png" alt="figure SimulatorExampleStep15.png" style="max-width: 468px; max-height: 268px;"/>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-62.html#next">Prev</a> Stim</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-62.html#next">Prev</a> Voltage Measure Probe</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Controlled Current Source <a class="next" name="next" href="PySIHelp-Subsection-64.html#prev">Next</a></span>
+<span class="next">Stim <a class="next" name="next" href="PySIHelp-Subsection-64.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-63"></a>Voltage Controlled Voltage Source<a class="Label" name="sub:Voltage-Controlled-Voltage-Source"> </a>
+<a class="toc" name="toc-Subsection-63"></a>Voltage Output Probe<a class="Label" name="sub:Output-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageControlledVoltageSource.png" alt="figure VoltageControlledVoltageSource.png" style="max-width: 202px; max-height: 152px;"/>
-<img class="embedded" src="VoltageControlledVoltageSourceAlt.png" alt="figure VoltageControlledVoltageSourceAlt.png" style="max-width: 202px; max-height: 152px;"/>
+<img class="embedded" src="OutputProbe.png" alt="figure OutputProbe.png" style="max-width: 100px; max-height: 92px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
+VO?
 </td>
 
 </tr>
@@ -1143,7 +1142,43 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-gain
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage offset
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+offset
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+V
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 V
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1164,18 +1199,15 @@ gain
 
 </div>
 <div class="Standard">
-This is a voltage source that is proportional to the voltage across the voltage measurement terminals with the proportionality set by the gain.
+The output probe is used in <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="PySIHelp-Section-6.html#sec:Simulation">Simulation↑</a> applications to specify output waveforms to be produced as a result of the calculation. See <a class="Reference" href="PySIHelp-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="PySIHelp-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>.
 </div>
 <div class="Standard">
-The input impedance of the voltage measurement pins is infinite.
-</div>
-<div class="Standard">
-The output impedance of the voltage source is zero.
+When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-62.html#next">Prev</a> Stim</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-62.html#next">Prev</a> Voltage Measure Probe</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Controlled Current Source <a class="next" name="next" href="PySIHelp-Subsection-64.html#prev">Next</a></span>
+<span class="next">Stim <a class="next" name="next" href="PySIHelp-Subsection-64.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -1,53 +1,85 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polygon lc="black">48,-40 54,-48 48,-56 42,-48 48,-40</polygon>
-%  <polyline lc="black">30.5,-43 33.5,-43</polyline>
-%  <polyline lc="black">32,-41.5 32,-44.5</polyline>
-%  <polyline lc="black">30.5,-53 33.5,-53</polyline>
-%  <polyline lc="black">46.5,-43 49.5,-43</polyline>
-%  <polyline lc="black">48,-41.5 48,-44.5</polyline>
-%  <polyline lc="black">46.5,-53 49.5,-53</polyline>
-%  <rect x="24" y="-40" w="32" h="-16" lc="black"/>
-%  <polyline lc="black">32,-64 32,-56</polyline>
-%  <polyline lw="2" lc="red">31,-63 33,-65</polyline>
-%  <polyline lw="2" lc="red">33,-63 31,-65</polyline>
-%  <polyline lc="black">32,-32 32,-40</polyline>
-%  <polyline lw="2" lc="red">31,-31 33,-33</polyline>
-%  <polyline lw="2" lc="red">33,-31 31,-33</polyline>
-%  <polyline lc="black">48,-64 48,-56</polyline>
-%  <polyline lw="2" lc="red">47,-63 49,-65</polyline>
-%  <polyline lw="2" lc="red">49,-63 47,-65</polyline>
-%  <polyline lc="black">48,-32 48,-40</polyline>
-%  <polyline lw="2" lc="red">47,-31 49,-33</polyline>
-%  <polyline lw="2" lc="red">49,-31 47,-33</polyline>
-%  <text x="60" y="-55.5" t="gain 1.0 " h="3" halign="l" lc="black"/>
-%  <text x="60" y="-53" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
-%  <text x="60" y="-50.5" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
-%  <text x="60" y="-48" t="D1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">20,-20 32,-28 20,-36 20,-20</polyline>
+%  <polyline lc="black">16,-28 20,-28</polyline>
+%  <polyline lw="2.00" lc="red">15.5,-27.5 16.5,-28.5</polyline>
+%  <polyline lw="2.00" lc="red">16.5,-27.5 15.5,-28.5</polyline>
+%  <polyline lc="black">36,-28 32,-28</polyline>
+%  <polyline lw="2.00" lc="red">35.5,-27.5 36.5,-28.5</polyline>
+%  <polyline lw="2.00" lc="red">36.5,-27.5 35.5,-28.5</polyline>
+%  <text x="24" y="-19" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="24" y="-15.75" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-12.5" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-9.25" t="D1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">53.25,-25.5 54.75,-25.5</polyline>
+%  <polyline lc="black">54,-24.75 54,-26.25</polyline>
+%  <polyline lc="black">53.25,-30.5 54.75,-30.5</polyline>
+%  <polyline lc="black">58,-24 64,-24</polyline>
+%  <polyline lc="black">58,-32 64,-32</polyline>
+%  <polyline lc="black">52,-20 64,-28 52,-36 52,-20</polyline>
+%  <polyline lc="black">48,-32 52,-32</polyline>
+%  <polyline lw="2.00" lc="red">47.5,-31.5 48.5,-32.5</polyline>
+%  <polyline lw="2.00" lc="red">48.5,-31.5 47.5,-32.5</polyline>
+%  <polyline lc="black">48,-24 52,-24</polyline>
+%  <polyline lw="2.00" lc="red">47.5,-23.5 48.5,-24.5</polyline>
+%  <polyline lw="2.00" lc="red">48.5,-23.5 47.5,-24.5</polyline>
+%  <polyline lc="black">64,-32 60,-32</polyline>
+%  <polyline lw="2.00" lc="red">63.5,-31.5 64.5,-32.5</polyline>
+%  <polyline lw="2.00" lc="red">64.5,-31.5 63.5,-32.5</polyline>
+%  <polyline lc="black">64,-24 60,-24</polyline>
+%  <polyline lw="2.00" lc="red">63.5,-23.5 64.5,-24.5</polyline>
+%  <polyline lw="2.00" lc="red">64.5,-23.5 63.5,-24.5</polyline>
+%  <text x="56" y="-19" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="56" y="-15.75" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-12.5" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-9.25" t="D2" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.30mm, draw=black] (48,-40) -- (54,-48) -- (48,-56) -- (42,-48) -- (48,-40) -- cycle;
-\path[line width=0.30mm, draw=black] (30.5,-43) -- (33.5,-43);
-\path[line width=0.30mm, draw=black] (32,-41.5) -- (32,-44.5);
-\path[line width=0.30mm, draw=black] (30.5,-53) -- (33.5,-53);
-\path[line width=0.30mm, draw=black] (46.5,-43) -- (49.5,-43);
-\path[line width=0.30mm, draw=black] (48,-41.5) -- (48,-44.5);
-\path[line width=0.30mm, draw=black] (46.5,-53) -- (49.5,-53);
-\path[line width=0.30mm, draw=black] (24,-56) rectangle +(32,16);
-\path[line width=0.30mm, draw=black] (32,-64) -- (32,-56);
-\path[line width=0.6mm, draw=red] (31,-63) -- (33,-65);
-\path[line width=0.6mm, draw=red] (33,-63) -- (31,-65);
-\path[line width=0.30mm, draw=black] (32,-32) -- (32,-40);
-\path[line width=0.6mm, draw=red] (31,-31) -- (33,-33);
-\path[line width=0.6mm, draw=red] (33,-31) -- (31,-33);
-\path[line width=0.30mm, draw=black] (48,-64) -- (48,-56);
-\path[line width=0.6mm, draw=red] (47,-63) -- (49,-65);
-\path[line width=0.6mm, draw=red] (49,-63) -- (47,-65);
-\path[line width=0.30mm, draw=black] (48,-32) -- (48,-40);
-\path[line width=0.6mm, draw=red] (47,-31) -- (49,-33);
-\path[line width=0.6mm, draw=red] (49,-31) -- (47,-33);
-\draw[black] (60,-55.5) node[anchor=base west]{gain 1.0 };
-\draw[black] (60,-53) node[anchor=base west]{zi 100.0 MOhm};
-\draw[black] (60,-50.5) node[anchor=base west]{zo 0 Ohm};
-\draw[black] (60,-48) node[anchor=base west]{D1};
+\path[line width=0mm] (12.46,-38.00) rectangle +(55.08,33.10);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (20.00,-20.00) -- (32.00,-28.00) -- (20.00,-36.00) -- (20.00,-20.00);
+\path[line width=0.30mm, draw=L] (16.00,-28.00) -- (20.00,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (15.50,-27.50) -- (16.50,-28.50);
+\path[line width=0.60mm, draw=L] (16.50,-27.50) -- (15.50,-28.50);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (36.00,-28.00) -- (32.00,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (35.50,-27.50) -- (36.50,-28.50);
+\path[line width=0.60mm, draw=L] (36.50,-27.50) -- (35.50,-28.50);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (24.00,-19.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{gain 1.0 }};
+\draw[T] (24.00,-15.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zi 100.0 MOhm}};
+\draw[T] (24.00,-12.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zo 0 Ohm}};
+\draw[T] (24.00,-9.25) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{D1}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (53.25,-25.50) -- (54.75,-25.50);
+\path[line width=0.30mm, draw=L] (54.00,-24.75) -- (54.00,-26.25);
+\path[line width=0.30mm, draw=L] (53.25,-30.50) -- (54.75,-30.50);
+\path[line width=0.30mm, draw=L] (58.00,-24.00) -- (64.00,-24.00);
+\path[line width=0.30mm, draw=L] (58.00,-32.00) -- (64.00,-32.00);
+\path[line width=0.30mm, draw=L] (52.00,-20.00) -- (64.00,-28.00) -- (52.00,-36.00) -- (52.00,-20.00);
+\path[line width=0.30mm, draw=L] (48.00,-32.00) -- (52.00,-32.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (47.50,-31.50) -- (48.50,-32.50);
+\path[line width=0.60mm, draw=L] (48.50,-31.50) -- (47.50,-32.50);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (48.00,-24.00) -- (52.00,-24.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (47.50,-23.50) -- (48.50,-24.50);
+\path[line width=0.60mm, draw=L] (48.50,-23.50) -- (47.50,-24.50);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (64.00,-32.00) -- (60.00,-32.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (63.50,-31.50) -- (64.50,-32.50);
+\path[line width=0.60mm, draw=L] (64.50,-31.50) -- (63.50,-32.50);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (64.00,-24.00) -- (60.00,-24.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (63.50,-23.50) -- (64.50,-24.50);
+\path[line width=0.60mm, draw=L] (64.50,-23.50) -- (63.50,-24.50);
+\draw[T] (56.00,-19.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{gain 1.0 }};
+\draw[T] (56.00,-15.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zi 100.0 MOhm}};
+\draw[T] (56.00,-12.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zo 0 Ohm}};
+\draw[T] (56.00,-9.25) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{D2}};
 \end{tikzpicture}%

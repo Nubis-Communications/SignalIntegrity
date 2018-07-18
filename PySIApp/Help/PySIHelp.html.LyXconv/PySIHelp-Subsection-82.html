@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,20 +1073,203 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Section-14.html#next">Prev</a> Errors and Exceptions</span>
-<span class="up"><a class="up" name="up" href="PySIHelp-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">incorrect extension in s-parameter file name <a class="next" name="next" href="PySIHelp-Subsubsection-58.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-81.html#next">Prev</a> stim</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-13.html">Up</a> Netlist</span>
+<span class="next">unknown <a class="next" name="next" href="PySIHelp-Subsection-83.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-82"></a>SParameterFile<a class="Label" name="sub:SParameterFile"> </a>
+<a class="toc" name="toc-Subsection-82"></a>stimdef<a class="Label" name="sub:stimdef"> </a>
 </h2>
 <div class="Standard">
-An s-parameter file was specified for reading and it could not be read
+A netlist line beginning with the keyword <i>stimdef</i> specifies the relationship between defining and dependent stims in the schematic (see <a class="Reference" href="PySIHelp-Subsection-64.html#sub:Stim">Stim↑</a>).
+</div>
+<div class="Standard">
+This should only appear in <a class="Reference" href="PySIHelp-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications.
+</div>
+<div class="Standard">
+A <i>stimdef</i> statement will only appear if there is a defining stim in the schematic.
+</div>
+<div class="Standard">
+The syntax is the keyword <i>stimdef</i> followed by a python list-based matrix definition where the form:
+</div>
+<div class="Standard">
+<div class="formula">
+<span class="symbol">[</span><span class="symbol">[</span><i>d</i><sub>11</sub>, <i>d</i><sub>12</sub>, …, <i>d</i><sub>1<i>C</i></sub><span class="symbol">]</span>, <span class="symbol">[</span><i>d</i><sub>21</sub>, <i>d</i><sub>22</sub>, …, <i>d</i><sub>2<i>C</i></sub><span class="symbol">]</span>, …, <span class="symbol">[</span><i>d</i><sub><i>R</i>1</sub>, <i>d</i><sub><i>R</i>2</sub>, …, <i>d</i><sub><i>RC</i></sub><span class="symbol">]</span><span class="symbol">]</span>
+</div>
+
+</div>
+<div class="Standard">
+which is equivalent to a <span class="formula"><i>R</i> × <i>C</i></span> matrix <span class="formula"><b>D</b></span>:
+</div>
+<div class="Standard">
+<div class="formula">
+<span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>d</i><sub>11</sub>
+</span>
+<span class="arraycell align-c">
+<i>d</i><sub>12</sub>
+</span>
+<span class="arraycell align-c">
+…
+</span>
+<span class="arraycell align-c">
+<i>d</i><sub>1<i>C</i></sub>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>d</i><sub>21</sub>
+</span>
+<span class="arraycell align-c">
+<i>d</i><sub>22</sub>
+</span>
+<span class="arraycell align-c">
+…
+</span>
+<span class="arraycell align-c">
+<i>d</i><sub>2<i>C</i></sub>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+⋮
+</span>
+<span class="arraycell align-c">
+⋮
+</span>
+<span class="arraycell align-c">
+⋱
+</span>
+<span class="arraycell align-c">
+⋮
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>d</i><sub><i>R</i>1</sub>
+</span>
+<span class="arraycell align-c">
+<i>d</i><sub><i>R</i>2</sub>
+</span>
+<span class="arraycell align-c">
+…
+</span>
+<span class="arraycell align-c">
+<i>d</i><sub><i>RC</i></sub>
+</span>
+
+</span>
+</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>
+</div>
+
+</div>
+<div class="Standard">
+The matrix is such that for a <span class="formula"><i>C</i></span> element vector of dependent stims <span class="formula"><b>m</b></span> (with the elements <span class="formula"><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>m</i><sub>1</sub>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>m</i><sub>2</sub>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+⋮
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>m</i><sub><i>C</i></sub>
+</span>
+
+</span>
+</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span>), as listed in the netlist for the dependent stims and an <span class="formula"><i>R</i></span> element vector of defining stims <span class="formula"><b>d</b></span> (see <a class="Reference" href="PySIHelp-Subsection-81.html#sub:stim">stim↑</a> for the netlist statement for the stim and <a class="Reference" href="PySIHelp-Subsection-64.html#sub:Stim">Stim↑</a> for a description of dependent and defining stims), that the stimdef defines <span class="formula"><b>D</b></span> such that:
+</div>
+<div class="Standard">
+<div class="formula">
+<b>d</b> = <b>D</b>⋅<b>m</b>
+</div>
+
+</div>
+<div class="Standard">
+When no stimdef statement appears, there are <span class="formula"><i>C</i></span> unknowns (and there must be at least <span class="formula"><i>C</i></span> <a class="Reference" href="PySIHelp-Subsection-62.html#sub:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="PySIHelp-Subsection-79.html#sub:meas">meas↑</a> in the netlist). If a stimdef statement appears, there are <span class="formula"><i>R</i></span> unknowns (and there must be at least <span class="formula"><i>R</i></span> <a class="Reference" href="PySIHelp-Subsection-62.html#sub:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="PySIHelp-Subsection-79.html#sub:meas">meas↑</a> in the netlist).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Section-14.html#next">Prev</a> Errors and Exceptions</span>
-<span class="up"><a class="up" name="up" href="PySIHelp-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">incorrect extension in s-parameter file name <a class="next" name="next" href="PySIHelp-Subsubsection-58.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-81.html#next">Prev</a> stim</span>
+<span class="up"><a class="up" name="up" href="PySIHelp-Section-13.html">Up</a> Netlist</span>
+<span class="next">unknown <a class="next" name="next" href="PySIHelp-Subsection-83.html#prev">Next</a></span>
 </div>
 
 </div>

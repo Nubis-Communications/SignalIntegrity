@@ -328,6 +328,94 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
             plt.draw()
             plt.pause(0.001)
             raw_input("Press [enter] to continue.")
+    def testRLGCFitEyal(self):
+        sp=si.sp.SParameterFile('RF Cable 0004 edited.s4p')
+        self.sp=si.sp.SParameters(sp.m_f,[[[s[r+2][c+2] for c in range(2)] for r in range(2)] for s in sp])
+        dly=4.7e-9;Z0=50.
+        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.01,0.]
+        #pragma: silent exclude
+        self.plotInitialized=False
+        #pragma: include
+        self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
+        print self.m_fitter.Results()
+        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
+        si.sp.dev.TLineTwoPortRLGC([20e6*k for k in range(int(67e9/20e6+1.5))],R,Rse,L,G,C,df,self.sp.m_Z0).WriteToFile('Eyal2.s2p')
+        print self.m_fitter.Results()
+        fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
+        #pragma: silent exclude
+        printFitCurves=False
+        if printFitCurves:
+            self.m_fitter.ccm.PlotConvergence()
+
+        ccm=self.m_fitter.ccm
+
+        iterations=range(len(ccm._LogMseTracker))
+
+        import matplotlib.pyplot as plt
+        from TestHelpers import PlotTikZ
+
+        plt.clf()
+        plt.xlabel('iteration')
+        plt.ylabel('log(mse)')
+        plt.plot(iterations,ccm._FilteredLogMseTracker,label='filtered')
+        plt.plot(iterations,ccm._LogMseTracker,label='mse')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #PlotTikZ('ConverganceMse.tex',plt)
+        #plt.show()
+
+        plt.clf()
+        plt.xlabel('iteration')
+        plt.ylabel('log(lambda)')
+        plt.plot(iterations,ccm._LogLambdaTracker,label='lambda')
+        plt.plot(iterations,ccm._FilteredLogLambdaTracker,label='filtered')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #PlotTikZ('ConverganceLambda.tex',plt)
+        #plt.show()
+
+        plt.clf()
+        plt.xlabel('iteration')
+        plt.ylabel('deltas')
+        plt.semilogy(iterations,ccm._FilteredLogDeltaMseTracker,label='log(mse)')
+        plt.semilogy(iterations,ccm._FilteredLogDeltaLambdaTracker,label='log(lambda)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        #PlotTikZ('ConverganceDeltas.tex',plt)
+        #plt.show()
+
+        si.test.PySIAppTestHelper.plotErrors=True
+        SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,0.15)
+        self.SParameterRegressionChecker(fitsp, '_'.join(self.id().split('.')[-2:])+'.s2p')
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(self.sp.m_P):
+                    for c in range(self.sp.m_P):
+                        plt.semilogy(self.sp.f(),[abs(fitsp[n][r][c]-self.sp[n][r][c]) for n in range(len(self.sp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(self.sp.m_P):
+                    for c in range(self.sp.m_P):
+                        plt.clf()
+                        plt.title('s-parameter compare')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude')
+                        plt.plot(fitsp.f(),fitsp.FrequencyResponse(r,c).Values('dB'),label='Fitted S'+str(r+1)+str(c+1))
+                        plt.plot(self.sp.f(),self.sp.FrequencyResponse(r,c).Values('dB'),label='Actual S'+str(r+1)+str(c+1))
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(SpAreEqual,'RLGC fit did not succeed')
+        #pragma: include
+
 
 if __name__ == "__main__":
     runProfiler=False

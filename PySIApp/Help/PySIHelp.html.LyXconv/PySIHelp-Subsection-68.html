@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-67.html#next">Prev</a> Voltage Amplifier</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-67.html#next">Prev</a> Voltage Controlled Current Source</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transconductance Amplifier <a class="next" name="next" href="PySIHelp-Subsection-69.html#prev">Next</a></span>
+<span class="next">Voltage Amplifier <a class="next" name="next" href="PySIHelp-Subsection-69.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-68"></a>Current Amplifier<a class="Label" name="sub:Current-Amplifier"> </a>
+<a class="toc" name="toc-Subsection-68"></a>Current Controlled Voltage Source<a class="Label" name="sub:Current-Controlled-Voltage-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="CurrentAmplifier.png" alt="figure CurrentAmplifier.png" style="max-width: 239px; max-height: 152px;"/>
-<img class="embedded" src="CurrentAmplifierAlt.png" alt="figure CurrentAmplifierAlt.png" style="max-width: 239px; max-height: 152px;"/>
+<img class="embedded" src="CurrentControlledVoltageSource.png" alt="figure CurrentControlledVoltageSource.png" style="max-width: 223px; max-height: 152px;"/>
+<img class="embedded" src="CurrentControlledVoltageSourceAlt.png" alt="figure CurrentControlledVoltageSourceAlt.png" style="max-width: 223px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1143,42 +1143,6 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-output impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zo
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Ohm
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 MOhm
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-input impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zi
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Ohm
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 Ohm
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1200,12 +1164,18 @@ gain
 
 </div>
 <div class="Standard">
-The current amplifier is like a <a class="Reference" href="PySIHelp-Subsection-64.html#sub:Current-Controlled-Current-Source">Current Controlled Current Source↑</a> except that the input impedance of the current sense is settable and the output impedance of the current source is settable.
+This is a voltage source that is proportional to the current through the current measurement terminals with the proportionality set by the gain.
+</div>
+<div class="Standard">
+The input impedance of the current measurement pins is zero.
+</div>
+<div class="Standard">
+The output impedance of the voltage source is zero.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-67.html#next">Prev</a> Voltage Amplifier</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-67.html#next">Prev</a> Voltage Controlled Current Source</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transconductance Amplifier <a class="next" name="next" href="PySIHelp-Subsection-69.html#prev">Next</a></span>
+<span class="next">Voltage Amplifier <a class="next" name="next" href="PySIHelp-Subsection-69.html#prev">Next</a></span>
 </div>
 
 </div>

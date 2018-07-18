@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-48.html#next">Prev</a> Transmission Line</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-48.html#next">Prev</a> Voltage Mixed Mode Converter</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Telegrapher - Four Port <a class="next" name="next" href="PySIHelp-Subsection-50.html#prev">Next</a></span>
+<span class="next">Telegrapher - Two Port <a class="next" name="next" href="PySIHelp-Subsection-50.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-49"></a>Telegrapher - Two Port<a class="Label" name="sub:Telegrapher---Two-Port"> </a>
+<a class="toc" name="toc-Subsection-49"></a>Transmission Line<a class="Label" name="sub:Transmission-Line"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TelegrapherTwoPort.png" alt="figure TelegrapherTwoPort.png" style="max-width: 152px; max-height: 124px;"/>
+<img class="embedded" src="TlineTwoPort.png" alt="figure TlineTwoPort.png" style="max-width: 152px; max-height: 94px;"/>
+<img class="embedded" src="TlineFourPort.png" alt="figure TlineFourPort.png" style="max-width: 152px; max-height: 114px;"/>
 
 </div>
 <div class="Standard">
@@ -1142,91 +1143,37 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-sections
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-int
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-sect
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-capacitance
+characteristic impedance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-c
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-F
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 pF
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-conductance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-g
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-S
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 S
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-inductance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-l
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-H
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 fH
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-resistance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-r
+zc
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 Ohms
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-50 Ohms
+50.0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+time delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
 </td>
 
 </tr>
@@ -1235,25 +1182,18 @@ Ohms
 
 </div>
 <div class="Standard">
-The telegrapher two-port is a model of a single-ended transmission line based on the telegrapher circuit.
+This is a one- and two-port ideal transmission line with given characteristic impedance and delay.
 </div>
 <div class="Standard">
-If sections are set to 1 (the default), then the circuit is the lumped element model as shown below:
+The four-port ideal transmission line only transmits the differential mode.
 </div>
 <div class="Standard">
-<img class="embedded" src="TelegrapherTwoPortEquivalent.png" alt="figure TelegrapherTwoPortEquivalent.png" style="max-width: 514px; max-height: 207px;"/>
-
-</div>
-<div class="Standard">
-Otherwise, if sections are large, then the model is created by cascading the sections with parameters that are divided by the number of sections. In other words, the parameters are for the total line, and each section has a value of the parameter divided by the number of sections.
-</div>
-<div class="Standard">
-This is used to approximated distributed parameters.
+A two-port ideal transmission line with zero delay is simply and ideal thru (no matter what the characteristic impedance).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-48.html#next">Prev</a> Transmission Line</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-48.html#next">Prev</a> Voltage Mixed Mode Converter</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-12.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Telegrapher - Four Port <a class="next" name="next" href="PySIHelp-Subsection-50.html#prev">Next</a></span>
+<span class="next">Telegrapher - Two Port <a class="next" name="next" href="PySIHelp-Subsection-50.html#prev">Next</a></span>
 </div>
 
 </div>

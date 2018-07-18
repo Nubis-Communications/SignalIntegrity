@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-07-16"/>
+<meta name="create-date" content="2018-07-18"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,41 +1073,20 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-84.html#next">Prev</a> SystemDescription</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Section-14.html#next">Prev</a> Errors and Exceptions</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">VirtualProbe <a class="next" name="next" href="PySIHelp-Subsection-86.html#prev">Next</a></span>
+<span class="next">incorrect extension in s-parameter file name <a class="next" name="next" href="PySIHelp-Subsubsection-58.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-85"></a>Simulator<a class="Label" name="sub:Simulator"> </a>
+<a class="toc" name="toc-Subsection-85"></a>SParameterFile<a class="Label" name="sub:SParameterFile"> </a>
 </h2>
 <div class="Standard">
-<b>No Outputs</b>
-</div>
-<div class="Standard">
-There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.
-</div>
-<div class="Standard">
-By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-<b>No Sources</b>
-</div>
-<div class="Standard">
-There are no sources in the circuit. This type of error ought to be impossible to create from the application because the application checks for the existence of at least one source prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. If it is not connected, it ought to generate an Unconnected Device Ports error.
-</div>
-<div class="Standard">
-By looking at your schematic, you can see this, because unconnected sources will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a source makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-<b>Numerical Error</b>
-</div>
-<div class="Standard">
-This is the same error as Cannot Invert I-W or I-Wxx while calculating the simulator transfer parameters. It indicates pathological problems in the system described.
+An s-parameter file was specified for reading and it could not be read
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="PySIHelp-Subsection-84.html#next">Prev</a> SystemDescription</span>
+<span class="prev"><a class="prev" name="prev" href="PySIHelp-Section-14.html#next">Prev</a> Errors and Exceptions</span>
 <span class="up"><a class="up" name="up" href="PySIHelp-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">VirtualProbe <a class="next" name="next" href="PySIHelp-Subsection-86.html#prev">Next</a></span>
+<span class="next">incorrect extension in s-parameter file name <a class="next" name="next" href="PySIHelp-Subsubsection-58.html#prev">Next</a></span>
 </div>
 
 </div>
