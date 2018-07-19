@@ -7,6 +7,7 @@
 # this material whatsoever.
 
 from copy import copy
+import math
 
 from TimeDescriptor import TimeDescriptor
 from AdaptedWaveforms import AdaptedWaveforms
@@ -299,13 +300,13 @@ class Waveform(list):
         @return value at time specified
         @note will return None if time is not within the waveform
         @note linearly interpolates nearest point
-        @todo this function can use a little work in providing some safety.
         """
-        for k in range(len(self.td)):
-            if self.td[k] > time:
-                v = (time - self.td[k-1])/(self.td[k]-self.td[k-1])*\
-                (self[k]-self[k-1])+self[k-1]
-                return v
+        sample=(time-self.td.H)*self.td.Fs
+        k=int(math.floor(sample))
+        if k < 0 or k > (self.td.K-1): return None
+        frac=sample-k
+        res=frac*(self[k+1]-self[k])+self[k]
+        return res
     def FrequencyContent(self,fd=None):
         """frequency content
         provides the frequency content equivalent of the waveform.
