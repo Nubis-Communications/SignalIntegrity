@@ -415,7 +415,24 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
 
         self.assertTrue(SpAreEqual,'RLGC fit did not succeed')
         #pragma: include
-
+    def testRLGCFit2(self):
+        self.sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        stepResponse=self.sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
+        threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
+        for k in range(len(stepResponse)):
+            if stepResponse[k]>threshold: break
+        dly=stepResponse.Times()[k]
+        rho=self.sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=False).Measure(dly)
+        Z0=self.sp.m_Z0*(1.+rho)/(1.-rho)
+        L=dly*Z0; C=dly/Z0; guess=[0.,0.,C,0.,0.,L,L+1e-9,100e3,0.1]
+        #pragma: silent exclude
+        self.plotInitialized=False
+        #pragma: include
+        self.m_fitter=si.fit.RLGCFitter2(self.sp,guess,self.PlotResult)
+        print self.m_fitter.Results()
+        (R,G,C,Rse,df,L0,Linf,fm,b)=[r[0] for r in self.m_fitter.Solve().Results()]
+        print self.m_fitter.Results()
+        raise
 
 if __name__ == "__main__":
     runProfiler=False
