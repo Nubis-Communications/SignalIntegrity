@@ -1,0 +1,5 @@
+device D54 3 file Diplexer.s3p
+device R14 1 R 50.0
+port 1 D54 1
+port 2 D54 2
+connect R14 1 D54 3
