@@ -21,6 +21,9 @@ import sys
 
 import xml.etree.ElementTree as et
 
+import matplotlib
+matplotlib.use('TkAgg')
+
 from PartPicture import PartPicture
 from PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
 from Device import DeviceList,DeviceListUnknown,DeviceListSystem
