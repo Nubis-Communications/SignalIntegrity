@@ -21,6 +21,9 @@ import sys
 
 import xml.etree.ElementTree as et
 
+import matplotlib
+matplotlib.use('TkAgg')
+
 from PartPicture import PartPicture
 from PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
 from Device import DeviceList,DeviceListUnknown,DeviceListSystem
@@ -66,25 +69,6 @@ class PySIApp(Frame):
 
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
-
-        # I believe this is totally obsolete
-#         sys.path.append(self.installdir+'/..')
-#         foundSignalIntegrity=False
-#         while not foundSignalIntegrity:
-#             foundSignalIntegrity = True
-#             try:
-#                 import SignalIntegrity as si
-#             except ImportError:
-#                 foundSignalIntegrity = False
-#                 if tkMessageBox.askokcancel('SignalIntegrity Package',
-#                     'In order to run this application, I need to know where the '+\
-#                     'SignalIntegrity package is.  Please browse to the directory where '+\
-#                     'it\'s installed.\n'+'You should only need to do this once'):
-#                         dirname = askdirectory(parent=self.root,initialdir=os.path.dirname(os.path.abspath(__file__)),
-#                             title='Please select a directory')
-#                         sys.path.append(dirname)
-#                 else:
-#                     exit()
 
         self.helpSystemKeys = HelpSystemKeys(self.installdir)
         # status bar

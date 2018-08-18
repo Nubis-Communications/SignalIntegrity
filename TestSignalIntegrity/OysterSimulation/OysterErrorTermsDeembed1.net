@@ -1,0 +1,8 @@
+device D1 4 file OysterDeembeddingFixture.s4p
+device D2 4 file TestOysterTest_testOysterTwoPortOysterFixtureFile1.s4p
+connect D2 3 D1 1
+connect D1 2 D2 4
+port 3 D1 3
+port 4 D1 4
+port 1 D2 1
+port 2 D2 2

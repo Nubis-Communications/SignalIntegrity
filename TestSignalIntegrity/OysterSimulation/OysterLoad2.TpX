@@ -1,0 +1,61 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="36" y="-12" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">32,-16 36,-16</polyline>
+%  <text x="34" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">32,-24 36,-24</polyline>
+%  <text x="34" y="-22" t="2" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">48,-16 44,-16</polyline>
+%  <text x="46" y="-14" t="3" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">48,-24 44,-24</polyline>
+%  <text x="46" y="-22" t="4" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-10" t="OysterErrorTermsDeembed2.s4p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">26,-22 28,-24 26,-26</polyline>
+%  <polyline lc="black">32,-24 28,-24</polyline>
+%  <text x="26" y="-24" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">28,-16 27,-18 26,-14 25,-18 24,-14 23,-18 22,-14 21,-18 20,-16</polyline>
+%  <polyline lc="black">20,-16 16,-16</polyline>
+%  <polygon fill="black">16,-18.5 16,-13.5 13.5,-16 16,-18.5</polygon>
+%  <polyline lc="black">32,-16 28,-16</polyline>
+%  <text x="22" y="-12" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">52,-16 53,-18 54,-14 55,-18 56,-14 57,-18 58,-14 59,-18 60,-16</polyline>
+%  <polyline lc="black">60,-16 64,-16</polyline>
+%  <polygon fill="black">64,-18.5 64,-13.5 66.5,-16 64,-18.5</polygon>
+%  <polyline lc="black">48,-16 52,-16</polyline>
+%  <text x="58" y="-12" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">52,-24 53,-22 54,-26 55,-22 56,-26 57,-22 58,-26 59,-22 60,-24</polyline>
+%  <polyline lc="black">60,-24 64,-24</polyline>
+%  <polygon fill="black">64,-21.5 64,-26.5 66.5,-24 64,-21.5</polygon>
+%  <polyline lc="black">48,-24 52,-24</polyline>
+%  <text x="58" y="-30" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (36,-28) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (32,-16) -- (36,-16);
+\draw[black] (34,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (32,-24) -- (36,-24);
+\draw[black] (34,-22) node[anchor=base]{2};
+\path[line width=0.30mm, draw=black] (48,-16) -- (44,-16);
+\draw[black] (46,-14) node[anchor=base]{3};
+\path[line width=0.30mm, draw=black] (48,-24) -- (44,-24);
+\draw[black] (46,-22) node[anchor=base]{4};
+\draw[black] (40,-10) node[anchor=base]{OysterErrorTermsDeembed2.s4p};
+\path[line width=0.30mm, draw=black] (26,-22) -- (28,-24) -- (26,-26);
+\path[line width=0.30mm, draw=black] (32,-24) -- (28,-24);
+\draw[black] (26,-24) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (28,-16) -- (27,-18) -- (26,-14) -- (25,-18) -- (24,-14) -- (23,-18) -- (22,-14) -- (21,-18) -- (20,-16);
+\path[line width=0.30mm, draw=black] (20,-16) -- (16,-16);
+\path[line width=0.30mm, fill=black] (16,-18.5) -- (16,-13.5) -- (13.5,-16) -- (16,-18.5) -- cycle;
+\path[line width=0.30mm, draw=black] (32,-16) -- (28,-16);
+\draw[black] (22,-12) node[anchor=base]{50.0 Ohm};
+\path[line width=0.30mm, draw=black] (52,-16) -- (53,-18) -- (54,-14) -- (55,-18) -- (56,-14) -- (57,-18) -- (58,-14) -- (59,-18) -- (60,-16);
+\path[line width=0.30mm, draw=black] (60,-16) -- (64,-16);
+\path[line width=0.30mm, fill=black] (64,-18.5) -- (64,-13.5) -- (66.5,-16) -- (64,-18.5) -- cycle;
+\path[line width=0.30mm, draw=black] (48,-16) -- (52,-16);
+\draw[black] (58,-12) node[anchor=base]{50.0 Ohm};
+\path[line width=0.30mm, draw=black] (52,-24) -- (53,-22) -- (54,-26) -- (55,-22) -- (56,-26) -- (57,-22) -- (58,-26) -- (59,-22) -- (60,-24);
+\path[line width=0.30mm, draw=black] (60,-24) -- (64,-24);
+\path[line width=0.30mm, fill=black] (64,-21.5) -- (64,-26.5) -- (66.5,-24) -- (64,-21.5) -- cycle;
+\path[line width=0.30mm, draw=black] (48,-24) -- (52,-24);
+\draw[black] (58,-28) node[anchor=north]{50.0 Ohm};
+\end{tikzpicture}%

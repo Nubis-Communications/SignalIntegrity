@@ -184,3 +184,4 @@ class PySIAppTestHelper:
             sp=sps[i]
             spfilename=spfilenames[i]+'.s'+str(sp.m_P)+'p'
             self.SParameterRegressionChecker(sp, spfilename)
+        return result
