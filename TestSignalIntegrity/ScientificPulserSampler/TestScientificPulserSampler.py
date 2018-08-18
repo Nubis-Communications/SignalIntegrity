@@ -1253,7 +1253,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         incwf=si.td.wf.Waveform(xw.td,[v*w for (v,w) in zip(wf,xw)])
         wf.adaptionStrategy='linear'
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-200000)
-        incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,800e9))
+        incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-60e-9,150000,800e9))
         self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
         self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
@@ -1449,7 +1449,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         incwf=si.td.wf.Waveform(xw.td,[v*w for (v,w) in zip(wf,xw)])
         wf.adaptionStrategy='linear'
         incwf=incwf*si.td.f.WaveformTrimmer(-50000,-200000)
-        incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-20e-9,100000,800e9))
+        incwf=incwf.Adapt(si.td.wf.TimeDescriptor(-50e-9,150000,800e9))
         self.WaveformRegressionChecker(incwf, self.NameForTest()+'_incwf.txt')
         self.WaveformRegressionChecker(incwf.Integral(scale=False), self.NameForTest()+'_stepwf.txt')
 
