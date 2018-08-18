@@ -1,0 +1,159 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="124" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">120,-20 124,-20</polyline>
+%  <text x="122" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">136,-20 132,-20</polyline>
+%  <text x="134" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="128" y="-14" t="Cable1_resampled.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="96" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">92,-20 96,-20</polyline>
+%  <text x="94" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">108,-20 104,-20</polyline>
+%  <text x="106" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="100" y="-14" t="Adapter.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="172" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">184,-20 180,-20</polyline>
+%  <text x="182" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">168,-20 172,-20</polyline>
+%  <text x="170" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="176" y="-14" t="Cable2_resampled.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="200" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">212,-20 208,-20</polyline>
+%  <text x="210" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">196,-20 200,-20</polyline>
+%  <text x="198" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="204" y="-14" t="Adapter.s2p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">14,-18 16,-20 14,-22</polyline>
+%  <polyline lc="black">20,-20 16,-20</polyline>
+%  <text x="14" y="-20" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">302,-18 300,-20 302,-22</polyline>
+%  <polyline lc="black">296,-20 300,-20</polyline>
+%  <text x="302" y="-20" t="2" h="3" halign="l" lc="black"/>
+%  <text x="152" y="-40" t="S" h="3" halign="c" lc="black"/>
+%  <rect x="148" y="-36" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">144,-40 148,-40</polyline>
+%  <text x="146" y="-38" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">160,-40 156,-40</polyline>
+%  <text x="158" y="-38" t="2" h="3" halign="c" lc="black"/>
+%  <text x="152" y="-34" t="TestOysterTest_testOysterIdealThruRecovery_RawCalc.s2p" h="3" halign="c" lc="black"/>
+%  <text x="152" y="-20" t="?" h="3" halign="c" lc="black"/>
+%  <rect x="148" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">144,-20 148,-20</polyline>
+%  <text x="146" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">160,-20 156,-20</polyline>
+%  <text x="158" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <rect x="28" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">24,-20 28,-20</polyline>
+%  <text x="26" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">40,-20 36,-20</polyline>
+%  <text x="38" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-14" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="264" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">276,-20 272,-20</polyline>
+%  <text x="274" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">260,-20 264,-20</polyline>
+%  <text x="262" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="268" y="-14" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="68" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">64,-20 68,-20</polyline>
+%  <text x="66" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">80,-20 76,-20</polyline>
+%  <text x="78" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="72" y="-14" t="SemiRigidCable2.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="228" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">240,-20 236,-20</polyline>
+%  <text x="238" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">224,-20 228,-20</polyline>
+%  <text x="226" y="-18" t="2" h="3" halign="c" lc="black"/>
+%  <text x="232" y="-14" t="SemiRigidCable2.s2p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">144,-20 136,-20</polyline>
+%  <polyline lc="black">120,-20 108,-20</polyline>
+%  <polyline lc="black">196,-20 184,-20</polyline>
+%  <polyline lc="black">168,-20 160,-20</polyline>
+%  <polyline lc="black">20,-20 24,-20</polyline>
+%  <polyline lc="black">276,-20 296,-20</polyline>
+%  <polyline lc="black">40,-20 64,-20</polyline>
+%  <polyline lc="black">80,-20 92,-20</polyline>
+%  <polyline lc="black">212,-20 224,-20</polyline>
+%  <polyline lc="black">240,-20 260,-20</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (124,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (120,-20) -- (124,-20);
+\draw[black] (122,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (136,-20) -- (132,-20);
+\draw[black] (134,-18) node[anchor=base]{2};
+\draw[black] (128,-14) node[anchor=base]{Cable1\textunderscore resampled.s2p};
+\path[line width=0.30mm, draw=black] (96,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (92,-20) -- (96,-20);
+\draw[black] (94,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (108,-20) -- (104,-20);
+\draw[black] (106,-18) node[anchor=base]{2};
+\draw[black] (100,-14) node[anchor=base]{Adapter.s2p};
+\path[line width=0.30mm, draw=black] (172,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (184,-20) -- (180,-20);
+\draw[black] (182,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (168,-20) -- (172,-20);
+\draw[black] (170,-18) node[anchor=base]{2};
+\draw[black] (176,-14) node[anchor=base]{Cable2\textunderscore resampled.s2p};
+\path[line width=0.30mm, draw=black] (200,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (212,-20) -- (208,-20);
+\draw[black] (210,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (196,-20) -- (200,-20);
+\draw[black] (198,-18) node[anchor=base]{2};
+\draw[black] (204,-14) node[anchor=base]{Adapter.s2p};
+\path[line width=0.30mm, draw=black] (14,-18) -- (16,-20) -- (14,-22);
+\path[line width=0.30mm, draw=black] (20,-20) -- (16,-20);
+\draw[black] (14,-20) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (302,-18) -- (300,-20) -- (302,-22);
+\path[line width=0.30mm, draw=black] (296,-20) -- (300,-20);
+\draw[black] (302,-20) node[anchor=base west]{2};
+\draw[black] (152,-40) node[anchor=base]{S};
+\path[line width=0.30mm, draw=black] (148,-44) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (144,-40) -- (148,-40);
+\draw[black] (146,-38) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (160,-40) -- (156,-40);
+\draw[black] (158,-38) node[anchor=base]{2};
+\draw[black] (152,-34) node[anchor=base]{TestOysterTest\textunderscore testOysterIdealThruRecovery\textunderscore RawCalc.s2p};
+\draw[black] (152,-20) node[anchor=base]{?};
+\path[line width=0.30mm, draw=black] (148,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (144,-20) -- (148,-20);
+\draw[black] (146,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (160,-20) -- (156,-20);
+\draw[black] (158,-18) node[anchor=base]{2};
+\path[line width=0.30mm, draw=black] (28,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (24,-20) -- (28,-20);
+\draw[black] (26,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (40,-20) -- (36,-20);
+\draw[black] (38,-18) node[anchor=base]{2};
+\draw[black] (32,-14) node[anchor=base]{TeledyneRelayClosed.s2p};
+\path[line width=0.30mm, draw=black] (264,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (276,-20) -- (272,-20);
+\draw[black] (274,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (260,-20) -- (264,-20);
+\draw[black] (262,-18) node[anchor=base]{2};
+\draw[black] (268,-14) node[anchor=base]{TeledyneRelayClosed.s2p};
+\path[line width=0.30mm, draw=black] (68,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (64,-20) -- (68,-20);
+\draw[black] (66,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (80,-20) -- (76,-20);
+\draw[black] (78,-18) node[anchor=base]{2};
+\draw[black] (72,-14) node[anchor=base]{SemiRigidCable2.s2p};
+\path[line width=0.30mm, draw=black] (228,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (240,-20) -- (236,-20);
+\draw[black] (238,-18) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (224,-20) -- (228,-20);
+\draw[black] (226,-18) node[anchor=base]{2};
+\draw[black] (232,-14) node[anchor=base]{SemiRigidCable2.s2p};
+\path[line width=0.30mm, draw=black] (144,-20) -- (136,-20);
+\path[line width=0.30mm, draw=black] (120,-20) -- (108,-20);
+\path[line width=0.30mm, draw=black] (196,-20) -- (184,-20);
+\path[line width=0.30mm, draw=black] (168,-20) -- (160,-20);
+\path[line width=0.30mm, draw=black] (20,-20) -- (24,-20);
+\path[line width=0.30mm, draw=black] (276,-20) -- (296,-20);
+\path[line width=0.30mm, draw=black] (40,-20) -- (64,-20);
+\path[line width=0.30mm, draw=black] (80,-20) -- (92,-20);
+\path[line width=0.30mm, draw=black] (212,-20) -- (224,-20);
+\path[line width=0.30mm, draw=black] (240,-20) -- (260,-20);
+\end{tikzpicture}%

@@ -65,9 +65,9 @@ class TestOysterTest(unittest.TestCase,
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
-            WindowRaisedCosineDuration=100e-12,
-            WindowReverseHalfWidthTime=500e-12,
-            WindowForwardHalfWidthTime=1e-9,Denoise=False,
+            WindowRaisedCosineDuration=50e-12,
+            WindowReverseHalfWidthTime=800e-12,
+            WindowForwardHalfWidthTime=500e-12,Denoise=False,
             fd=f)
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
 
@@ -118,6 +118,7 @@ class TestOysterTest(unittest.TestCase,
         spDict[baseName+'_IncidentExtractionWindow']=tdr.IncidentExtractionWindow
         spDict[baseName+'_ReflectExtractionWindow']=tdr.ReflectExtractionWindow
         spDict[baseName+'_denoisedDerivative']=tdr.TrimmedDenoisedDerivatives[0]
+        self.SParameterRegressionChecker(spDict[baseName], self.NameForTest()+'_'+baseName+'_RawSp.s1p')
 
         reflectName='Open'
         portName='2'
@@ -420,9 +421,9 @@ class TestOysterTest(unittest.TestCase,
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
-            WindowRaisedCosineDuration=100e-12,
-            WindowReverseHalfWidthTime=500e-12,
-            WindowForwardHalfWidthTime=1e-9,Denoise=False,
+            WindowRaisedCosineDuration=50e-12,
+            WindowReverseHalfWidthTime=800e-12,
+            WindowForwardHalfWidthTime=500e-12,Denoise=False,
             fd=f)
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
 
@@ -490,9 +491,9 @@ class TestOysterTest(unittest.TestCase,
         TDRWaveformToSParameterConverter.sigmaMultiple=5
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
-            WindowRaisedCosineDuration=100e-12,
-            WindowReverseHalfWidthTime=500e-12,
-            WindowForwardHalfWidthTime=1e-9,Denoise=True,
+            WindowRaisedCosineDuration=50e-12,
+            WindowReverseHalfWidthTime=800e-12,
+            WindowForwardHalfWidthTime=500e-12,Denoise=False,
             fd=f)
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
 
@@ -541,9 +542,9 @@ class TestOysterTest(unittest.TestCase,
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
-            WindowRaisedCosineDuration=100e-12,
-            WindowReverseHalfWidthTime=500e-12,
-            WindowForwardHalfWidthTime=1e-9,Denoise=True,
+            WindowRaisedCosineDuration=50e-12,
+            WindowReverseHalfWidthTime=800e-12,
+            WindowForwardHalfWidthTime=500e-12,Denoise=False,
             fd=f)
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
 
@@ -618,9 +619,9 @@ class TestOysterTest(unittest.TestCase,
         TDRWaveformToSParameterConverter.sigmaMultiple=5
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
-            WindowRaisedCosineDuration=100e-12,
-            WindowReverseHalfWidthTime=500e-12,
-            WindowForwardHalfWidthTime=1e-9,Denoise=True,
+            WindowRaisedCosineDuration=50e-12,
+            WindowReverseHalfWidthTime=800e-12,
+            WindowForwardHalfWidthTime=500e-12,Denoise=False,
             fd=f)
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
 
@@ -655,6 +656,96 @@ class TestOysterTest(unittest.TestCase,
                     plt.grid(True)
                     plt.show()
 
+    def testOysterIdealThruRecovery(self):
+        pass
+        ports=2
+        f=si.fd.EvenlySpacedFrequencyList(40e9,8000)
+        spDict=dict()
+        tdr=si.m.tdr.TDRWaveformToSParameterConverter(
+            Step=False,Inverted=False,Length=50e-9,
+            WindowRaisedCosineDuration=50e-12,
+            WindowReverseHalfWidthTime=800e-12,
+            WindowForwardHalfWidthTime=500e-12,Denoise=False,
+            fd=f)
+        si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
+
+        #sigma=1e-18
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+
+        result = self.GetSimulationResultsCheck('OysterSimulationTwoPort.xml')
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        outputWaveforms=self.NoisyWaveforms(result[3])
+
+        spDict['Short1']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Short')])
+        spDict['Short2']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Short')])
+        spDict['Open1']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Open')])
+        spDict['Open2']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Open')])
+        spDict['Load1']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Load')])
+        spDict['Load2']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Load')])
+        spDict['Thru']=tdr.RawMeasuredSParameters([[outputWaveforms[outputNames.index('Thru11')],outputWaveforms[outputNames.index('Thru12')]],
+                                                   [outputWaveforms[outputNames.index('Thru21')],outputWaveforms[outputNames.index('Thru22')]]])
+        spDict['DUT']=tdr.RawMeasuredSParameters([[outputWaveforms[outputNames.index('IThru11')],outputWaveforms[outputNames.index('IThru12')]],
+                                                   [outputWaveforms[outputNames.index('IThru21')],outputWaveforms[outputNames.index('IThru22')]]])
+
+        calStandards=[self.SParameterResultsChecker('OysterFixtureShort.xml')[0],
+              self.SParameterResultsChecker('OysterFixtureOpen.xml')[0],
+              self.SParameterResultsChecker('OysterFixtureLoad.xml')[0],
+              self.SParameterResultsChecker('OysterFixtureThru.xml')[0]]
+
+        ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Open2'].FrequencyResponse(1,1),calStandards[1],1,'Open2'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load1'].FrequencyResponse(1,1),calStandards[2],0,'Load1'),
+            si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(1,1),spDict['Thru'].FrequencyResponse(2,1),calStandards[3],0,1,'Thru121'),
+            si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(2,2),spDict['Thru'].FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
+            ]
+
+        cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
+        Fixture=cm.Fixtures()
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'OysterFixtureFile'+str(p+1)+'.s'+str(ports*2)+'p')
+
+        DUTRawCalcSp=cm.DutCalculation(spDict['DUT'])
+        self.SParameterRegressionChecker(DUTRawCalcSp, self.NameForTest()+'_RawCalc.s2p')
+
+        DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureIdealThruDeembed.xml')[1][0]
+        DUTActualSp=si.sp.dev.TLineLossless(f,2,50.,0.)
+        SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
+
+        si.test.PySIAppTestHelper.plotErrors=True
+
+        if not SpAreEqual:
+            if si.test.PySIAppTestHelper.plotErrors:
+                import matplotlib.pyplot as plt
+                plt.clf()
+                plt.title('s-parameter compare')
+                plt.xlabel('frequency (Hz)')
+                plt.ylabel('amplitude')
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.semilogy(DUTActualSp.f(),[abs(DUTCalcSp[n][r][c]-DUTActualSp[n][r][c]) for n in range(len(DUTActualSp))],label='S'+str(r+1)+str(c+1))
+                plt.legend(loc='upper right')
+                plt.grid(True)
+                plt.show()
+
+                for r in range(DUTActualSp.m_P):
+                    for c in range(DUTActualSp.m_P):
+                        plt.clf()
+                        plt.title('S'+str(r+1)+str(c+1))
+                        plt.plot(DUTCalcSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTCalcSp.FrequencyResponse(r+1,c+1).Values('dB'),label='calculated')
+                        plt.plot(DUTActualSp.FrequencyResponse(r+1,c+1).Frequencies(),DUTActualSp.FrequencyResponse(r+1,c+1).Values('dB'),label='actual')
+                        plt.xlabel('frequency (Hz)')
+                        plt.ylabel('amplitude (dB)')
+                        plt.ylim(ymin=-60,ymax=30)
+                        plt.legend(loc='upper right')
+                        plt.grid(True)
+                        plt.show()
+
+        self.assertTrue(SpAreEqual,'s-parameters not equal')
 
     def testZZZZRunAfterAllTestsCompleted(self):
         if TestOysterTest.usePickle:

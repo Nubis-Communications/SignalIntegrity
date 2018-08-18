@@ -61,6 +61,7 @@ class ThruCalibrationMeasurement(CalibrationMeasurement):
         @param otherPort integer port number of the other undriven port
         @param name (optional) string representing the name of the measurement.
         @note the name is not actually used for anything.
+        @note It is assumed that the standard is being driven from port 1 of the standard
         """
         CalibrationMeasurement.__init__(self,'thru',name)
         self.b1a1=b1a1

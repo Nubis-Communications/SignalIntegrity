@@ -107,11 +107,13 @@ class SParameterManipulation(object):
     def PortReorder(self,pr):
         """Reorders the ports to port ordering of the port numbers supplied.
         @param pr list of integer one-based port numbers
-        @return self
+        @return new instance of reordered s-parameters
         """
+        import copy
+        sp=copy.deepcopy(self)
         pr=[p-1 for p in pr] # convert to 0 based indices
-        self.m_d=[[[self.m_d[n][pr[r]][pr[c]]
+        sp.m_d=[[[sp.m_d[n][pr[r]][pr[c]]
                 for c in range(len(pr))]
                     for r in range(len(pr))]
-                        for n in range(len(self.m_d))]
-        return self
+                        for n in range(len(sp.m_d))]
+        return sp

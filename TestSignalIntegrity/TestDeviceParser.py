@@ -39,7 +39,7 @@ class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
         ssnp.AddLines(lines)
         sp=ssnp.SParameters()
         if not pr is None:
-            sp.PortReorder(pr)
+            sp=sp.PortReorder(pr)
         self.CheckSParametersResult(sp,spFileName,spFileName+' incorrect')
     def testFile(self):
         self.Tester(self.id(),'file',2,default='filter.s2p')
