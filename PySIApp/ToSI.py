@@ -67,6 +67,11 @@ def nextLower1245(v):
 def nextLower12458(v):
     return nextLower(v,[1.,2.,4.,5.,8.])
 
+def nextHigherInteger(v):
+    return nextHigher(v,[1.+float(m)/100. for m in range(1000)])
+
+def nextLowerInteger(v):
+    return nextLower(v,[1.+float(m)/100. for m in range(1000)])
 
 def ToSI(d,sa=''):
 
