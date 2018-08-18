@@ -8,6 +8,9 @@
 # Copyright:   (c) peter.pupalaikis 2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
+import matplotlib
+matplotlib.use('Tkagg')
+
 import unittest
 
 from TestConversions import *
