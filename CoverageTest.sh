@@ -4,8 +4,8 @@ export PYTHONPATH=$PYTHONPATH:~/Work/PySI/TestSignalIntegrity
 export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7
 export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages
 cd ~/Work/PySI
-python-coverage -o '/usr/*' -x ~/Work/PySI/TestSignalIntegrity/TestAll.py > /dev/null
-python-coverage html -d CoverageReport
+python-coverage run ~/Work/PySI/TestSignalIntegrity/TestAll.py > /dev/null
+python-coverage html --omit='/usr/*' -d CoverageReport
 python-coverage erase
 #read -p "Press [Enter] key to continue..."
 firefox file:///home/peterp/Work/PySI/CoverageReport/index.html > /dev/null
