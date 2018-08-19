@@ -291,10 +291,10 @@
 %  <text x="198" y="-110" t="2" h="3" halign="c" lc="black"/>
 %  <text x="192" y="-106" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
 %  <rect x="308" y="-108" w="8" h="-8" lc="black"/>
-%  <polyline lc="black">304,-112 308,-112</polyline>
-%  <text x="306" y="-110" t="1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">320,-112 316,-112</polyline>
-%  <text x="318" y="-110" t="2" h="3" halign="c" lc="black"/>
+%  <text x="318" y="-110" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">304,-112 308,-112</polyline>
+%  <text x="306" y="-110" t="2" h="3" halign="c" lc="black"/>
 %  <text x="312" y="-106" t="SemiRigidCable2.s2p" h="3" halign="c" lc="black"/>
 %  <rect x="420" y="-108" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">432,-112 428,-112</polyline>
@@ -1069,10 +1069,10 @@
 \draw[black] (198,-110) node[anchor=base]{2};
 \draw[black] (192,-106) node[anchor=base]{TeledyneRelayClosed.s2p};
 \path[line width=0.30mm, draw=black] (308,-116) rectangle +(8,8);
-\path[line width=0.30mm, draw=black] (304,-112) -- (308,-112);
-\draw[black] (306,-110) node[anchor=base]{1};
 \path[line width=0.30mm, draw=black] (320,-112) -- (316,-112);
-\draw[black] (318,-110) node[anchor=base]{2};
+\draw[black] (318,-110) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (304,-112) -- (308,-112);
+\draw[black] (306,-110) node[anchor=base]{2};
 \draw[black] (312,-106) node[anchor=base]{SemiRigidCable2.s2p};
 \path[line width=0.30mm, draw=black] (420,-116) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (432,-112) -- (428,-112);

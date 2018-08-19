@@ -156,8 +156,8 @@ connect D34 1 R9 2
 connect R9 1 D81 2
 connect D34 2 D35 1
 connect D35 2 D36 1
-connect D36 2 D37 1
-connect D37 2 D38 2
+connect D36 2 D37 2
+connect D37 1 D38 2
 connect D39 2 D38 1
 connect D39 1 D40 2
 output R10 1
