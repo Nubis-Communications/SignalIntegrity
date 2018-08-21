@@ -1,0 +1,4 @@
+device D7 2 file TeledyneRelayClosed_upsampled.s2p
+device D8 1 file Short6_upsampled.s1p
+port 1 D7 1
+connect D7 2 D8 1
