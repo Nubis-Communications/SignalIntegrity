@@ -1,8 +1,7 @@
 class InterpolatorSinX(FirFilter):
     def __init__(self,U):
-        S=64
         F=0.
-        FirFilter.__init__(self,FilterDescriptor(U,S+F,2*S),SinX(S,U,F))
+        FirFilter.__init__(self,FilterDescriptor(U,self.S+F,2*self.S),SinX(self.S,U,F))
     def FilterWaveform(self,wf):
         fd=self.FilterDescriptor()
         us=[0. for k in range(len(wf)*fd.U)]

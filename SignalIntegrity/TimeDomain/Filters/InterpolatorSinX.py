@@ -31,6 +31,7 @@ def SinX(S,U,F):
 
 class FractionalDelayFilterSinX(FirFilter):
     """sinx/x fractional delay filter"""
+    S=64
     def __init__(self,F,accountForDelay=True):
         """Constructor
 
@@ -46,19 +47,20 @@ class FractionalDelayFilterSinX(FirFilter):
         if not accountForDelay, then the filter actually delays waveforms by the delay
         specified.
         @remark
-        The filter is hard-coded to have 64 samples on each side of a center sample.
+        The filter is hard-coded  in a static member to have 64 samples on each side of a center sample.
         In other words, it is 2*64+1=129 samples in length.
         """
         # pragma: silent exclude
         from FilterDescriptor import FilterDescriptor
         # pragma: include
-        S=64
         U=1
         FirFilter.__init__(self,
-            FilterDescriptor(U,S+F if accountForDelay else S,2*S),SinX(S,U,F))
+            FilterDescriptor(U,self.S+F if accountForDelay else self.S,2*self.S),
+                SinX(self.S,U,F))
 
 class InterpolatorSinX(FirFilter):
     """sinx/x interpolating filter"""
+    S=64
     def __init__(self,U):
         """Constructor
 
@@ -69,9 +71,8 @@ class InterpolatorSinX(FirFilter):
         # pragma: silent exclude
         from FilterDescriptor import FilterDescriptor
         # pragma: include
-        S=64
         F=0.
-        FirFilter.__init__(self,FilterDescriptor(U,S+F,2*S),SinX(S,U,F))
+        FirFilter.__init__(self,FilterDescriptor(U,self.S+F,2*self.S),SinX(self.S,U,F))
     def FilterWaveform(self,wf):
         """overloads base class FilterWaveform
         @param wf instance of class Waveform

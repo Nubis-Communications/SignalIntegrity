@@ -20,8 +20,13 @@ class ImpulseResponse(Waveform):
         """constructor
         @param t instance of class TimeDescriptor describing time-axis of impulse response
         @param td list of float representing time-domain values
+        @remark note that t can be an instance of waveform and td None which causes the impulse response
+        to be instantiated dircectly from a waveform.
         """
-        Waveform.__init__(self,t,td)
+        if isinstance(t,Waveform):
+            Waveform.__init__(self,t.td,t)
+        else:
+            Waveform.__init__(self,t,td)
     def DelayBy(self,d):
         """delays the impulse response
 

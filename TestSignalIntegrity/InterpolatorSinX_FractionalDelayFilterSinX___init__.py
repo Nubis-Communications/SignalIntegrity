@@ -1,7 +1,7 @@
 class FractionalDelayFilterSinX(FirFilter):
     def __init__(self,F,accountForDelay=True):
-        S=64
         U=1
         FirFilter.__init__(self,
-            FilterDescriptor(U,S+F if accountForDelay else S,2*S),SinX(S,U,F))
+            FilterDescriptor(U,self.S+F if accountForDelay else self.S,2*self.S),
+                SinX(self.S,U,F))
 
