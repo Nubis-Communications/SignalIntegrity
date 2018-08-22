@@ -116,22 +116,22 @@ def FromSI(string,unit=None):
     except ValueError:
         if unit is not None and unit != '':
             string=string.split(unit)[0]
+        try:
+            return float(string)
+        except ValueError:
+            string=string.replace(' ','')
+            if len(string) == 0:
+                return 0.
+            modifier=string[-1]
+            therest=string[:-1]
             try:
-                return float(string)
+                man=float(therest)
             except ValueError:
-                string=string.replace(' ','')
-                if len(string) == 0:
-                    return 0.
-                modifier=string[-1]
-                therest=string[:-1]
-                try:
-                    man=float(therest)
-                except ValueError:
-                    return None
-                Prefixes = ['y','z','a','f','p','n','u','m','',
-                            'k','M','G','T','P','E','Z','Y']
-                if modifier in Prefixes:
-                    exp=math.pow(10.,(Prefixes.index(modifier)-Prefixes.index(''))*3)
-                    return man*exp
+                return None
+            Prefixes = ['y','z','a','f','p','n','u','m','',
+                        'k','M','G','T','P','E','Z','Y']
+            if modifier in Prefixes:
+                exp=math.pow(10.,(Prefixes.index(modifier)-Prefixes.index(''))*3)
+                return man*exp
     return None
 
