@@ -1,61 +1,61 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <rect x="208" y="-92" w="8" h="-8" lc="black"/>
-%  <polyline lc="black">204,-96 208,-96</polyline>
-%  <text x="206" y="-94" t="1" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">220,-96 216,-96</polyline>
-%  <text x="218" y="-94" t="2" h="3" halign="c" lc="black"/>
-%  <text x="212" y="-90" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
-%  <rect x="248" y="-92" w="8" h="-8" lc="black"/>
-%  <polyline lc="black">244,-96 248,-96</polyline>
-%  <text x="246" y="-94" t="1" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">260,-96 256,-96</polyline>
-%  <text x="258" y="-94" t="2" h="3" halign="c" lc="black"/>
-%  <text x="252" y="-90" t="SemiRigidCable2.s2p" h="3" halign="c" lc="black"/>
-%  <rect x="284" y="-92" w="8" h="-8" lc="black"/>
-%  <polyline lc="black">296,-96 292,-96</polyline>
-%  <text x="294" y="-94" t="1" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">280,-96 284,-96</polyline>
-%  <text x="282" y="-94" t="2" h="3" halign="c" lc="black"/>
-%  <text x="288" y="-90" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">174,-94 176,-96 174,-98</polyline>
-%  <polyline lc="black">180,-96 176,-96</polyline>
-%  <text x="174" y="-96" t="1" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">326,-94 324,-96 326,-98</polyline>
-%  <polyline lc="black">320,-96 324,-96</polyline>
-%  <text x="326" y="-96" t="2" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">180,-96 204,-96</polyline>
-%  <polyline lc="black">220,-96 244,-96</polyline>
-%  <polyline lc="black">260,-96 280,-96</polyline>
-%  <polyline lc="black">296,-96 320,-96</polyline>
+%  <rect x="40" y="-12" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">36,-16 40,-16</polyline>
+%  <text x="38" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">52,-16 48,-16</polyline>
+%  <text x="50" y="-14" t="2" h="3" halign="c" lc="black"/>
+%  <text x="44" y="-10" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="80" y="-12" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">76,-16 80,-16</polyline>
+%  <text x="78" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">92,-16 88,-16</polyline>
+%  <text x="90" y="-14" t="2" h="3" halign="c" lc="black"/>
+%  <text x="84" y="-10" t="SemiRigidCable2.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="116" y="-12" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">128,-16 124,-16</polyline>
+%  <text x="126" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">112,-16 116,-16</polyline>
+%  <text x="114" y="-14" t="2" h="3" halign="c" lc="black"/>
+%  <text x="120" y="-10" t="TeledyneRelayClosed.s2p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">6,-14 8,-16 6,-18</polyline>
+%  <polyline lc="black">12,-16 8,-16</polyline>
+%  <text x="6" y="-16" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">158,-14 156,-16 158,-18</polyline>
+%  <polyline lc="black">152,-16 156,-16</polyline>
+%  <text x="158" y="-16" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">12,-16 36,-16</polyline>
+%  <polyline lc="black">52,-16 76,-16</polyline>
+%  <polyline lc="black">92,-16 112,-16</polyline>
+%  <polyline lc="black">128,-16 152,-16</polyline>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.30mm, draw=black] (208,-100) rectangle +(8,8);
-\path[line width=0.30mm, draw=black] (204,-96) -- (208,-96);
-\draw[black] (206,-94) node[anchor=base]{1};
-\path[line width=0.30mm, draw=black] (220,-96) -- (216,-96);
-\draw[black] (218,-94) node[anchor=base]{2};
-\draw[black] (212,-90) node[anchor=base]{TeledyneRelayClosed.s2p};
-\path[line width=0.30mm, draw=black] (248,-100) rectangle +(8,8);
-\path[line width=0.30mm, draw=black] (244,-96) -- (248,-96);
-\draw[black] (246,-94) node[anchor=base]{1};
-\path[line width=0.30mm, draw=black] (260,-96) -- (256,-96);
-\draw[black] (258,-94) node[anchor=base]{2};
-\draw[black] (252,-90) node[anchor=base]{SemiRigidCable2.s2p};
-\path[line width=0.30mm, draw=black] (284,-100) rectangle +(8,8);
-\path[line width=0.30mm, draw=black] (296,-96) -- (292,-96);
-\draw[black] (294,-94) node[anchor=base]{1};
-\path[line width=0.30mm, draw=black] (280,-96) -- (284,-96);
-\draw[black] (282,-94) node[anchor=base]{2};
-\draw[black] (288,-90) node[anchor=base]{TeledyneRelayClosed.s2p};
-\path[line width=0.30mm, draw=black] (174,-94) -- (176,-96) -- (174,-98);
-\path[line width=0.30mm, draw=black] (180,-96) -- (176,-96);
-\draw[black] (174,-96) node[anchor=base east]{1};
-\path[line width=0.30mm, draw=black] (326,-94) -- (324,-96) -- (326,-98);
-\path[line width=0.30mm, draw=black] (320,-96) -- (324,-96);
-\draw[black] (326,-96) node[anchor=base west]{2};
-\path[line width=0.30mm, draw=black] (180,-96) -- (204,-96);
-\path[line width=0.30mm, draw=black] (220,-96) -- (244,-96);
-\path[line width=0.30mm, draw=black] (260,-96) -- (280,-96);
-\path[line width=0.30mm, draw=black] (296,-96) -- (320,-96);
+\path[line width=0.30mm, draw=black] (40,-20) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (36,-16) -- (40,-16);
+\draw[black] (38,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (52,-16) -- (48,-16);
+\draw[black] (50,-14) node[anchor=base]{2};
+\draw[black] (44,-10) node[anchor=base]{TeledyneRelayClosed.s2p};
+\path[line width=0.30mm, draw=black] (80,-20) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (76,-16) -- (80,-16);
+\draw[black] (78,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (92,-16) -- (88,-16);
+\draw[black] (90,-14) node[anchor=base]{2};
+\draw[black] (84,-10) node[anchor=base]{SemiRigidCable2.s2p};
+\path[line width=0.30mm, draw=black] (116,-20) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (128,-16) -- (124,-16);
+\draw[black] (126,-14) node[anchor=base]{1};
+\path[line width=0.30mm, draw=black] (112,-16) -- (116,-16);
+\draw[black] (114,-14) node[anchor=base]{2};
+\draw[black] (120,-10) node[anchor=base]{TeledyneRelayClosed.s2p};
+\path[line width=0.30mm, draw=black] (6,-14) -- (8,-16) -- (6,-18);
+\path[line width=0.30mm, draw=black] (12,-16) -- (8,-16);
+\draw[black] (6,-16) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (158,-14) -- (156,-16) -- (158,-18);
+\path[line width=0.30mm, draw=black] (152,-16) -- (156,-16);
+\draw[black] (158,-16) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (12,-16) -- (36,-16);
+\path[line width=0.30mm, draw=black] (52,-16) -- (76,-16);
+\path[line width=0.30mm, draw=black] (92,-16) -- (112,-16);
+\path[line width=0.30mm, draw=black] (128,-16) -- (152,-16);
 \end{tikzpicture}%

@@ -19,3 +19,4 @@ from Rat import *
 import Measurement as m
 import Test as test
 import Fit as fit
+import Oyster as oy

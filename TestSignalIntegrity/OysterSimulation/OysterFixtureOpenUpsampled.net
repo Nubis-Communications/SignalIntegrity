@@ -1,4 +1,0 @@
-device D10 2 file TeledyneRelayClosed_upsampled.s2p
-device D11 1 file Open6_upsampled.s1p
-port 1 D10 1
-connect D10 2 D11 1

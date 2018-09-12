@@ -201,10 +201,19 @@ class Waveform(list):
         # pragma: include
             with open(fileName,"rU") as f:
                 data=f.readlines()
-                HorOffset=float(data[0])
-                NumPts=int(float(data[1])+0.5)
-                SampleRate=float(data[2])
-                Values=[float(data[k+3]) for k in range(NumPts)]
+                # pragma: silent exclude outdent
+                if len(data)==1:
+                    data=data[0].split()
+                    NumPts=int(float(data[0])+0.5)
+                    HorOffset=float(data[1])
+                    SampleRate=1./(float(data[3])-HorOffset)
+                    Values=[float(data[k*2+2]) for k in range(NumPts)]
+                else:
+                    # pragma: silent include
+                    HorOffset=float(data[0])
+                    NumPts=int(float(data[1])+0.5)
+                    SampleRate=float(data[2])
+                    Values=[float(data[k+3]) for k in range(NumPts)]
             self.td=TimeDescriptor(HorOffset,NumPts,SampleRate)
             list.__init__(self,Values)
         # pragma: silent exclude indent
