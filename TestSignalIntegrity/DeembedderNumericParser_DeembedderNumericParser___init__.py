@@ -1,6 +1,7 @@
-class DeembedderNumericParser(DeembedderParser,CallBacker):
-    def __init__(self, f=None, args=None, callback=None):
+class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
+    def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
         DeembedderParser.__init__(self, f, args)
+        self.sf = None
     def Deembed(self,systemSParameters=None):
         self._ProcessLines()
         self.m_sd.CheckConnections()
@@ -15,6 +16,6 @@ class DeembedderNumericParser(DeembedderParser,CallBacker):
             unl=DeembedderNumeric(self.m_sd).CalculateUnknown(system)
             if NumUnknowns == 1: unl=[unl]
             for u in range(NumUnknowns): result[u].append(unl[u])
-        sf=[SParameters(self.m_f,r) for r in result]
-        if len(sf)==1: return sf[0]
-        return sf
+        self.sf=[SParameters(self.m_f,r) for r in result]
+        if len(self.sf)==1: self.sf=self.sf[0]
+        return self.sf

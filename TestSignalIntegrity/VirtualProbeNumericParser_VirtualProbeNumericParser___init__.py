@@ -1,6 +1,7 @@
-class VirtualProbeNumericParser(VirtualProbeParser,CallBacker):
-    def __init__(self, f=None, args=None, callback=None):
+class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
+    def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
         VirtualProbeParser.__init__(self, f, args)
+        self.transferMatrices = None
         self.m_tm=None
     def TransferMatrices(self):
         self.SystemDescription()
@@ -12,4 +13,5 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker):
                 self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             tm=VirtualProbeNumeric(self.m_sd).TransferMatrix()
             result.append(tm)
-        return TransferMatrices(self.m_f,result)
+        self.transferMatrices=TransferMatrices(self.m_f,result)
+        return self.transferMatrices

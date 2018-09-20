@@ -269,7 +269,10 @@ class Simulator(object):
         fd=si.fd.EvenlySpacedFrequencyList(
             self.parent.calculationProperties.endFrequency,
             self.parent.calculationProperties.frequencyPoints)
-        snp=si.p.SimulatorNumericParser(fd)
+        cacheFileName=None
+        if self.parent.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.parent.fileparts.FileNameTitle()
+        snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=10.0)
         try:
@@ -342,11 +345,15 @@ class Simulator(object):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity as si
+        cacheFileName=None
+        if self.parent.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.parent.fileparts.FileNameTitle()
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.parent.calculationProperties.endFrequency,
-                self.parent.calculationProperties.frequencyPoints))
-        snp.AddLines(netListText)       
+                self.parent.calculationProperties.frequencyPoints),
+            cacheFileName=cacheFileName)
+        snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=10.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
@@ -363,7 +370,7 @@ class Simulator(object):
         except si.PySIException as e:
             tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
-        
+
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()

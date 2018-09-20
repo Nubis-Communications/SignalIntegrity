@@ -12,6 +12,7 @@ from Tkinter import ALL
 from CalculationProperties import CalculationProperties
 from Files import FileParts,ConvertFileNameToRelativePath
 from Schematic import Schematic
+from Preferences import Preferences
 
 class DrawingHeadless(object):
     def __init__(self,parent):
@@ -87,7 +88,7 @@ class PySIAppHeadless(object):
         # python path
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
-
+        self.preferences=Preferences()
         self.installdir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
         self.calculationProperties=CalculationProperties(self)
@@ -134,10 +135,14 @@ class PySIAppHeadless(object):
     def CalculateSParameters(self):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
+        cacheFileName=None
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
-                self.calculationProperties.frequencyPoints))
+                self.calculationProperties.frequencyPoints),
+                cacheFileName=cacheFileName)
         spnp.AddLines(netList)
         try:
             sp=spnp.SParameters()
@@ -152,7 +157,9 @@ class PySIAppHeadless(object):
         fd=si.fd.EvenlySpacedFrequencyList(
             self.calculationProperties.endFrequency,
             self.calculationProperties.frequencyPoints)
-        snp=si.p.SimulatorNumericParser(fd)
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
+        snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
@@ -201,10 +208,13 @@ class PySIAppHeadless(object):
         netList=self.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity as si
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
-                self.calculationProperties.frequencyPoints))
+                self.calculationProperties.frequencyPoints),
+            cacheFileName=cacheFileName)
         snp.AddLines(netListText)       
         try:
             transferMatrices=snp.TransferMatrices()
@@ -219,7 +229,7 @@ class PySIAppHeadless(object):
             sourceNames=netList.MeasureNames()
         except si.PySIException as e:
             return None
-        
+
         try:
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
         except si.PySIException as e:
@@ -252,10 +262,13 @@ class PySIAppHeadless(object):
     def Deembed(self):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
-                self.calculationProperties.frequencyPoints))
+                self.calculationProperties.frequencyPoints),
+                cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 
         try:
@@ -266,7 +279,7 @@ class PySIAppHeadless(object):
         unknownNames=dnp.m_sd.UnknownNames()
         if len(unknownNames)==1:
             sp=[sp]
-        
+
         return (unknownNames,sp)
 
         filename=[]
@@ -275,5 +288,4 @@ class PySIAppHeadless(object):
             filename=unknownNames[u]+extension
             if self.fileparts.filename != '':
                 filename.append(self.fileparts.filename+'_'+filename)
-                
         return (unknownNames,sp,filename)

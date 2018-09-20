@@ -1,6 +1,7 @@
-class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
-    def __init__(self,f=None,args=None,callback=None):
+class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
+    def __init__(self,f=None,args=None,callback=None,cacheFileName=None):
         SystemDescriptionParser.__init__(self,f,args)
+        self.sf = None
     def SParameters(self,solvetype='block'):
         self.SystemDescription()
         self.m_sd.CheckConnections()
@@ -11,5 +12,5 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
                 self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(SystemSParametersNumeric(self.m_sd).SParameters(
                 solvetype=solvetype))
-        sf = SParameters(self.m_f, result)
-        return sf
+        self.sf = SParameters(self.m_f, result)
+        return self.sf

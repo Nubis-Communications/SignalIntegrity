@@ -28,12 +28,17 @@ class AppearanceConfiguration(XMLConfiguration):
         self.dict['FontSize']=XMLPropertyDefaultInt('FontSize',12)
         self.dict['Color']=ColorConfiguration()
 
+class CacheConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self)
+        self.dict['CacheResults']=XMLPropertyDefaultBool('CacheResults',False)
+
 class LastFilesConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self)
         self.dict['Name']=XMLPropertyDefaultString('Name')
         self.dict['Directory']=XMLPropertyDefaultString('Directory')
-        
+
 class ProjectFilesConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self)
@@ -47,4 +52,5 @@ class PreferencesFile(ProjectFileBase):
         ProjectFileBase.__init__(self,os.path.basename(__file__).split('.')[0])
         self.dict['ProjectFiles']=ProjectFilesConfiguration()
         self.dict['Appearance']=AppearanceConfiguration()
+        self.dict['Cache']=CacheConfiguration()
 

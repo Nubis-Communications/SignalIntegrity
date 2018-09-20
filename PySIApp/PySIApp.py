@@ -605,10 +605,14 @@ class PySIApp(Frame):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
+        cacheFileName=None
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
-                self.calculationProperties.frequencyPoints))
+                self.calculationProperties.frequencyPoints),
+            cacheFileName=cacheFileName)
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=10.0)
         try:
@@ -635,12 +639,16 @@ class PySIApp(Frame):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
+        cacheFileName=None
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
-                self.calculationProperties.frequencyPoints))
+                self.calculationProperties.frequencyPoints),
+                cacheFileName=cacheFileName)
         dnp.AddLines(netList)
-        
+
         progressDialog = ProgressDialog(self,self.installdir,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=10.0)
         try:
             sp=progressDialog.GetResult()

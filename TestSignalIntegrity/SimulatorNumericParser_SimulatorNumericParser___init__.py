@@ -1,6 +1,7 @@
-class SimulatorNumericParser(SimulatorParser,CallBacker):
-    def __init__(self, f=None, args=None,  callback=None):
+class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
+    def __init__(self, f=None, args=None,  callback=None, cacheFileName=None):
         SimulatorParser.__init__(self, f, args)
+        self.transferMatrices = None
     def TransferMatrices(self):
         self.SystemDescription()
         self.m_sd.CheckConnections()
@@ -11,4 +12,5 @@ class SimulatorNumericParser(SimulatorParser,CallBacker):
                 self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             tm=SimulatorNumeric(self.m_sd).TransferMatrix()
             result.append(tm)
-        return TransferMatrices(self.m_f,result)
+        self.transferMatrices=TransferMatrices(self.m_f,result)
+        return self.transferMatrices

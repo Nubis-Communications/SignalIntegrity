@@ -14,10 +14,11 @@ from SignalIntegrity.SystemDescriptions import SimulatorNumeric
 from SignalIntegrity.FrequencyDomain.TransferMatrices import TransferMatrices
 from SignalIntegrity.PySIException import PySIExceptionSimulator
 from SignalIntegrity.CallBacker import CallBacker
+from SignalIntegrity.ResultsCache import LinesCache
 
-class SimulatorNumericParser(SimulatorParser,CallBacker):
+class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
     """performs numeric simulations from netlists"""
-    def __init__(self, f=None, args=None,  callback=None):
+    def __init__(self, f=None, args=None,  callback=None, cacheFileName=None):
         """constructor
 
         frequencies may be provided at construction time (or not for symbolic solutions).
@@ -25,15 +26,20 @@ class SimulatorNumericParser(SimulatorParser,CallBacker):
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
+        @param cacheFileName (optional) string name of file used to cache results
 
         Arguments are provided on a line as pairs of names and values separated by a space.
 
         The optional callback is used as described in the class CallBacker.
 
+        The use of the cacheFileName is described in the class LineCache
+
         """
         SimulatorParser.__init__(self, f, args)
+        self.transferMatrices = None
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
+        LinesCache.__init__(self,'TransferMatrices',cacheFileName)
         # pragma: include
     def TransferMatrices(self):
         """calculates transfer matrices for simulation
@@ -47,6 +53,13 @@ class SimulatorNumericParser(SimulatorParser,CallBacker):
         TransferMatrices are used with a TransferMatricesProcessor to process waveforms for
         simulation.
         """
+        # pragma: silent exclude
+        if not self.transferMatrices is None:
+            return self.transferMatrices
+        if self.CheckCache():
+            self.CallBack(100.0)
+            return self.transferMatrices
+        # pragma: include
         self.SystemDescription()
         self.m_sd.CheckConnections()
         spc=self.m_spc
@@ -62,4 +75,8 @@ class SimulatorNumericParser(SimulatorParser,CallBacker):
                 if not self.CallBack(progress):
                     raise PySIExceptionSimulator('calculation aborted')
             # pragma: include
-        return TransferMatrices(self.m_f,result)
+        self.transferMatrices=TransferMatrices(self.m_f,result)
+        # pragma: silent exclude
+        self.CacheResult()
+        # pragma: include
+        return self.transferMatrices

@@ -132,7 +132,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterSimulationTwoPort.xml')
+        result = self.SimulationResultsChecker('OysterSimulationTwoPort.xml')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]

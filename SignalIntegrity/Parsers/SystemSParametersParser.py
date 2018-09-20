@@ -14,11 +14,11 @@ from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionPar
 from SignalIntegrity.SParameters import SParameters
 from SignalIntegrity.PySIException import PySIExceptionSParameters
 from SignalIntegrity.CallBacker import CallBacker
-from copy_reg import constructor
+from SignalIntegrity.ResultsCache import LinesCache
 
-class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
+class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""
-    def __init__(self,f=None,args=None,callback=None):
+    def __init__(self,f=None,args=None,callback=None,cacheFileName=None):
         """constructor
 
         frequencies may be provided at construction time (or not for symbolic solutions).
@@ -26,6 +26,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
+        @param cacheFileName (optional) string name of file used to cache results
 
         Arguments are provided on a line as pairs of names and values separated by a space.
 
@@ -33,8 +34,10 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
 
         """
         SystemDescriptionParser.__init__(self,f,args)
+        self.sf = None
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
+        LinesCache.__init__(self,'SParameters',cacheFileName)
         # pragma: include
     def SParameters(self,solvetype='block'):
         """compute the s-parameters of the netlist.
@@ -48,6 +51,13 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
         but the direct method did not - but this possibility is thought to be impossible
         now.
         """
+        # pragma: silent exclude
+        if not self.sf is None:
+            return self.sf
+        if self.CheckCache():
+            self.CallBack(100.0)
+            return self.sf
+        # pragma: include
         self.SystemDescription()
         self.m_sd.CheckConnections()
         spc=self.m_spc
@@ -63,5 +73,8 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker):
                 if not self.CallBack(progress):
                     raise PySIExceptionSParameters('calculation aborted')
             # pragma: include
-        sf = SParameters(self.m_f, result)
-        return sf
+        self.sf = SParameters(self.m_f, result)
+        # pragma: silent exclude
+        self.CacheResult()
+        # pragma: include
+        return self.sf

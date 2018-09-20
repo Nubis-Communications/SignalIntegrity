@@ -14,10 +14,11 @@ from SignalIntegrity.SystemDescriptions.DeembedderNumeric import DeembedderNumer
 from SignalIntegrity.SParameters.SParameters import SParameters
 from SignalIntegrity.PySIException import PySIExceptionDeembedder
 from SignalIntegrity.CallBacker import CallBacker
+from SignalIntegrity.ResultsCache import LinesCache
 
-class DeembedderNumericParser(DeembedderParser,CallBacker):
+class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
     """generates deembedd s-parameters from a netlist"""
-    def __init__(self, f=None, args=None, callback=None):
+    def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
         """constructor
 
         frequencies may be provided at construction time (or not for symbolic solutions).
@@ -25,15 +26,19 @@ class DeembedderNumericParser(DeembedderParser,CallBacker):
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
+        @param cacheFileName (optional) string name of file used to cache results
 
         Arguments are provided on a line as pairs of names and values separated by a space.
 
         The optional callback is used as described in the class CallBacker.
 
+        The use of the cacheFileName is described in the class LineCache
         """
         DeembedderParser.__init__(self, f, args)
+        self.sf = None
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
+        LinesCache.__init__(self,'SParameters',cacheFileName)
         # pragma: include
     def Deembed(self,systemSParameters=None):
         """computes deembedded s-parameters of a netlist.
@@ -41,6 +46,13 @@ class DeembedderNumericParser(DeembedderParser,CallBacker):
         to the s-parameters of the system 
         @return instance of class SParameters of the unknown devices in the network.
         """
+        # pragma: silent exclude
+        if not self.sf is None:
+            return self.sf
+        if self.CheckCache():
+            self.CallBack(100.0)
+            return self.sf
+        # pragma: include
         self._ProcessLines()
         self.m_sd.CheckConnections()
         NumUnknowns=len(self.m_sd.UnknownNames())
@@ -60,6 +72,9 @@ class DeembedderNumericParser(DeembedderParser,CallBacker):
                 if not self.CallBack(progress):
                     raise PySIExceptionDeembedder('calculation aborted')
             # pragma: include
-        sf=[SParameters(self.m_f,r) for r in result]
-        if len(sf)==1: return sf[0]
-        return sf
+        self.sf=[SParameters(self.m_f,r) for r in result]
+        if len(self.sf)==1: self.sf=self.sf[0]
+        # pragma: silent exclude
+        self.CacheResult()
+        # pragma: include
+        return self.sf
