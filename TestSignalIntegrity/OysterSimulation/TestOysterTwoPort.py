@@ -853,46 +853,13 @@ class TestOysterTest(unittest.TestCase,
                     plt.legend(loc='upper right')
                     plt.grid(True)
                     plt.show()
-    def PutWaveform(self,oyster,wf):
-        import win32com.client as win32
-        import array
-        oyster.PutMeasurement(
-            win32.VARIANT(win32.pythoncom.VT_R8 | win32.pythoncom.VT_BYREF | win32.pythoncom.VT_ARRAY,
-            array.array('d',wf.Times())),
-            win32.VARIANT(win32.pythoncom.VT_R8 | win32.pythoncom.VT_BYREF | win32.pythoncom.VT_ARRAY,
-            array.array('d',wf.Values())))
-    def PutSettings(self,oyster,sdict):
-        for key in sdict:
-            attr=key
-            value=sdict[key]
-            from win32com.client.dynamic import _GetDescInvokeType
-            import pythoncom
-            if oyster.__LazyMap__(attr):
-                if attr in oyster._olerepr_.propMapPut:
-                    entry = oyster._olerepr_.propMapPut[attr]
-                    invoke_type = _GetDescInvokeType(entry, pythoncom.INVOKE_PROPERTYPUT)
-                    oyster._oleobj_.Invoke(entry.dispid, 0, invoke_type, 0, value)
-    def GetOysterSParameterResult(self,oyster):
-        import win32com.client as win32
-        import array
-        numPorts=oyster.NumPortsInMeasurement
-        numPoints=oyster.NumPoints
-        Fe=oyster.EndFrequency
-        sp=si.sp.SParameters(si.fd.EvenlySpacedFrequencyList(Fe,numPoints),[[[0.0 for _ in range(numPorts)] for _ in range(numPorts)] for _ in range(numPoints+1)])
-        for r in range(numPorts):
-            for c in range(numPorts):
-                resrvar=oyster.NewResults('s['+str(r+1)+']['+str(c+1)+'],Real')
-                rescvar=oyster.NewResults('s['+str(r+1)+']['+str(c+1)+'],Imag')
-                for n in range(numPoints+1):
-                    sp[n][r][c]=resrvar[n][1]+1j*rescvar[n][1]
-        return sp
     def testComObject(self):
         pass
         import os
         # uncomment next two lines for debugging
         #print os.getpid()
         #raw_input('press key to continue')
-        import win32com.client as win32
+
         Short1=si.td.wf.Waveform().ReadFromFile('OysterSimulationTwoPort_Short.txt')
         Short2=Short1
         Short3=Short1
@@ -959,15 +926,17 @@ class TestOysterTest(unittest.TestCase,
                                            2:{1:{'wf':Dut1212,'name':'Dut1212'},
                                               2:{'wf':Dut1222,'name':'Dut1222'}}}
                 }
-        oyster = win32.Dispatch(r'OysterSparameterCalcSvr.OysterCalc')
+        oyster = si.oy.SParameterCalculator()
+
+        oyster.Calibrate(wfDict)
 
         oysterExpertSettings = {
             'InputIsAnImpulse':'True',
             'IncidentEdgeTime':800e-12,
             'ModelName':'RP4004E',
             'SerialNumber':'123456',
-            'IncidentEdgeTime':800e-12,
-            'IncidentEdgeSides':500-12,
+            'InputImpulseLeftWidth':800e-12,
+            'InputImpulseRightWidth':500e-12,
             'CalibrationFilesPath':str(os.getcwd()),
             'WaveletDenoisingEnabled':'False',
             'UseOMP':'True',
@@ -977,6 +946,8 @@ class TestOysterTest(unittest.TestCase,
             'CableFileNames':str(os.getcwd())+'\\Cable1_resampled.s2p,'+str(os.getcwd())+'\\Cable2_resampled.s2p,'+str(os.getcwd())+'\\Cable1_resampled.s2p,'+str(os.getcwd())+'\\Cable2_resampled.s2p',
             'DebugMode':'False'
             }
+ 
+        oyster.PutSettings(oysterExpertSettings)
 
         dutMeasurementSettings = {
             'NumPortsInMeasurement':2,
@@ -984,264 +955,10 @@ class TestOysterTest(unittest.TestCase,
             'EndFrequency':40e9,
             }
 
+        oyster.PutSettings(dutMeasurementSettings)
 
-        self.PutSettings(oyster, oysterExpertSettings)
-        self.PutSettings(oyster, dutMeasurementSettings)
-
-        #self.DebugMode = 'True'
-
-#     [propget, id(49), helpstring("property ResultType")] HRESULT ResultType([out, retval] BSTR* pVal);
-#     [propput, id(49), helpstring("property ResultType")] HRESULT ResultType([in] BSTR newVal);
-#     [propget, id(50), helpstring("property ResultIncidentPort")] HRESULT ResultIncidentPort([out, retval] LONG* pVal);
-#     [propput, id(50), helpstring("property ResultIncidentPort")] HRESULT ResultIncidentPort([in] LONG newVal);
-#     [propget, id(51), helpstring("property ResultReflectPort")] HRESULT ResultReflectPort([out, retval] LONG* pVal);
-#     [propput, id(51), helpstring("property ResultReflectPort")] HRESULT ResultReflectPort([in] LONG newVal);
-#     [propget, id(52), helpstring("property ResultStatus")] HRESULT ResultStatus([out, retval] BSTR* pVal);
-#     [propget, id(53), helpstring("property ResultNumPoints")] HRESULT ResultNumPoints([out, retval] LONG* pVal);
-#     [propget, id(54), helpstring("property ResultNumPorts")] HRESULT ResultNumPorts([out, retval] LONG* pVal);
-#     
-#     [id(56), helpstring("method ClearDutMeasures")] HRESULT ClearDutMeasures(void);
-#     [id(57), helpstring("method ClearCalibrationMeasures")] HRESULT ClearCalibrationMeasures(void);
-#     [propget, id(60), helpstring("property ResultFileName")] HRESULT ResultFileName([out, retval] BSTR* pVal);
-#     [propput, id(60), helpstring("property ResultFileName")] HRESULT ResultFileName([in] BSTR newVal);
-#     [id(61), helpstring("method WriteResultToFile")] HRESULT WriteResultToFile(void);
-#     [propget, id(62), helpstring("property EnforcePassivity")] HRESULT EnforcePassivity([out, retval] BSTR* pVal);
-#     [propput, id(62), helpstring("property EnforcePassivity")] HRESULT EnforcePassivity([in] BSTR newVal);
-#     [propget, id(65), helpstring("property DeEmbedFixture")] HRESULT DeEmbedFixture([out, retval] BSTR* pVal);
-#     [propput, id(65), helpstring("property DeEmbedFixture")] HRESULT DeEmbedFixture([in] BSTR newVal);
-#     [propget, id(66), helpstring("property FixtureFileName")] HRESULT FixtureFileName([out, retval] BSTR* pVal);
-#     [propput, id(66), helpstring("property FixtureFileName")] HRESULT FixtureFileName([in] BSTR newVal);
-#     [propget, id(67), helpstring("property EnforceReciprocity")] HRESULT EnforceReciprocity([out, retval] BSTR* pVal);
-#     [propput, id(67), helpstring("property EnforceReciprocity")] HRESULT EnforceReciprocity([in] BSTR newVal);
-#     [propget, id(72), helpstring("property DutToConverterPinDefinitions")] HRESULT DutToConverterPinDefinitions([out, retval] BSTR* pVal);
-#     [propput, id(72), helpstring("property DutToConverterPinDefinitions")] HRESULT DutToConverterPinDefinitions([in] BSTR newVal);
-#     [propget, id(73), helpstring("property UserPortDefinitions")] HRESULT UserPortDefinitions([out, retval] BSTR* pVal);
-#     [propput, id(73), helpstring("property UserPortDefinitions")] HRESULT UserPortDefinitions([in] BSTR newVal);
-#     [propget, id(74), helpstring("property ConvertToUserSParameters")] HRESULT ConvertToUserSParameters([out, retval] BSTR* pVal);
-#     [propput, id(74), helpstring("property ConvertToUserSParameters")] HRESULT ConvertToUserSParameters([in] BSTR newVal);    
-#     [propget, id(75), helpstring("property AccumulateResults")] HRESULT AccumulateResults([out, retval] BSTR* pVal);
-#     [propput, id(75), helpstring("property AccumulateResults")] HRESULT AccumulateResults([in] BSTR newVal);
-#     [propget, id(76), helpstring("property AccumulationCount")] HRESULT AccumulationCount([out, retval] LONG* pVal);
-#     [propget, id(77), helpstring("property AccumulationCountMax")] HRESULT AccumulationCountMax([out, retval] LONG* pVal);
-#     [propput, id(77), helpstring("property AccumulationCountMax")] HRESULT AccumulationCountMax([in] LONG newVal);
-#     [id(78), helpstring("method ClearDutAccumulation")] HRESULT ClearDutAccumulation(void);
-#     [propget, id(79), helpstring("property RelaySettings")] HRESULT RelaySettings([out, retval] BSTR* pVal);
-#     [propget, id(80), helpstring("property IsCalibrationMeasurement")] HRESULT IsCalibrationMeasurement([out, retval] BSTR* pVal);
-#     [propget, id(81), helpstring("property IsDutMeasurement")] HRESULT IsDutMeasurement([out, retval] BSTR* pVal);
-#     [propget, id(83), helpstring("property WaveletDenoisingType")] HRESULT WaveletDenoisingType([out, retval] LONG* pVal);
-#     [propput, id(83), helpstring("property WaveletDenoisingType")] HRESULT WaveletDenoisingType([in] LONG newVal);
-#     [propget, id(84), helpstring("property WindowEnabled")] HRESULT WindowEnabled([out, retval] BSTR* pVal);
-#     [propput, id(84), helpstring("property WindowEnabled")] HRESULT WindowEnabled([in] BSTR newVal);
-#     [propget, id(85), helpstring("property WindowLength")] HRESULT WindowLength([out, retval] DOUBLE* pVal);
-#     [propput, id(85), helpstring("property WindowLength")] HRESULT WindowLength([in] DOUBLE newVal);
-#     [propget, id(86), helpstring("property WaveletDenoisingAutoThresholdBandTimePercent")] HRESULT WaveletDenoisingAutoThresholdBandTimePercent([out, retval] DOUBLE* pVal);
-#     [propput, id(86), helpstring("property WaveletDenoisingAutoThresholdBandTimePercent")] HRESULT WaveletDenoisingAutoThresholdBandTimePercent([in] DOUBLE newVal);
-#     [propget, id(87), helpstring("property WaveletDenoisingAutoThresholdSDevMultiplier")] HRESULT WaveletDenoisingAutoThresholdSDevMultiplier([out, retval] DOUBLE* pVal);
-#     [propput, id(87), helpstring("property WaveletDenoisingAutoThresholdSDevMultiplier")] HRESULT WaveletDenoisingAutoThresholdSDevMultiplier([in] DOUBLE newVal);
-#     [propget, id(89), helpstring("property ManualCalUseCalKit")] HRESULT ManualCalUseCalKit([out, retval] BSTR* pVal);
-#     [propput, id(89), helpstring("property ManualCalUseCalKit")] HRESULT ManualCalUseCalKit([in] BSTR newVal);
-#     [propget, id(90), helpstring("property ManualCalKitFileName")] HRESULT ManualCalKitFileName([out, retval] BSTR* pVal);
-#     [propput, id(90), helpstring("property ManualCalKitFileName")] HRESULT ManualCalKitFileName([in] BSTR newVal);
-#     [propget, id(91), helpstring("property ManualCalStandardFileNames")] HRESULT ManualCalStandardFileNames([out, retval] BSTR* pVal);
-#     [propput, id(91), helpstring("property ManualCalStandardFileNames")] HRESULT ManualCalStandardFileNames([in] BSTR newVal);
-#     [propget, id(96), helpstring("property UserConnectionString")] HRESULT UserConnectionString([out, retval] BSTR* pVal);
-#     [propget, id(97), helpstring("property UserConnectionStringDefault")] HRESULT UserConnectionStringDefault([out, retval] BSTR* pVal);
-#     [propget, id(99), helpstring("property SaveStepsToFileCalOnly")] HRESULT SaveStepsToFileCalOnly([out, retval] BSTR* pVal);
-#     [propput, id(99), helpstring("property SaveStepsToFileCalOnly")] HRESULT SaveStepsToFileCalOnly([in] BSTR newVal);
-#     [propget, id(100), helpstring("property SaveStepsToFileCompleteFileName")] HRESULT SaveStepsToFileCompleteFileName([out, retval] BSTR* pVal);
-#     [propput, id(100), helpstring("property SaveStepsToFileCompleteFileName")] HRESULT SaveStepsToFileCompleteFileName([in] BSTR newVal);
-#     [id(101), helpstring("method SaveStepsToFile")] HRESULT SaveStepsToFile(void);
-#     [id(102), helpstring("method ReadStepsFromFile")] HRESULT ReadStepsFromFile(void);
-#     [propget, id(103), helpstring("property GeneratePossibleFrequencyNumPoints")] HRESULT GeneratePossibleFrequencyNumPoints([in] DOUBLE dDesiredEndFrequency, [out, retval] VARIANT* pVal);
-#     [propget, id(104), helpstring("property MaxNumPoints")] HRESULT MaxNumPoints([out, retval] LONG* pVal);
-#     [propput, id(104), helpstring("property MaxNumPoints")] HRESULT MaxNumPoints([in] LONG newVal);
-#     [propget, id(105), helpstring("property MaxEndFrequency")] HRESULT MaxEndFrequency([out, retval] DOUBLE* pVal);
-#     [propput, id(105), helpstring("property MaxEndFrequency")] HRESULT MaxEndFrequency([in] DOUBLE newVal);
-#     [propget, id(106), helpstring("property CausalityEnforcementEnabled")] HRESULT CausalityEnforcementEnabled([out, retval] BSTR* pVal);
-#     [propput, id(106), helpstring("property CausalityEnforcementEnabled")] HRESULT CausalityEnforcementEnabled([in] BSTR newVal);
-#     [propget, id(107), helpstring("property CausalityMaxImpulseLength")] HRESULT CausalityMaxImpulseLength([out, retval] DOUBLE* pVal);
-#     [propput, id(107), helpstring("property CausalityMaxImpulseLength")] HRESULT CausalityMaxImpulseLength([in] DOUBLE newVal);
-#     [propget, id(108), helpstring("property CausalityPhasesToCheck")] HRESULT CausalityPhasesToCheck([out, retval] LONG* pVal);
-#     [propput, id(108), helpstring("property CausalityPhasesToCheck")] HRESULT CausalityPhasesToCheck([in] LONG newVal);
-#     [propget, id(109), helpstring("property CausalityEnforcementUseFastMethod")] HRESULT CausalityEnforcementUseFastMethod([out, retval] BSTR* pVal);
-#     [propput, id(109), helpstring("property CausalityEnforcementUseFastMethod")] HRESULT CausalityEnforcementUseFastMethod([in] BSTR newVal);
-#     [propget, id(110), helpstring("property DirectCZT")] HRESULT DirectCZT([out, retval] BSTR* pVal);
-#     [propput, id(110), helpstring("property DirectCZT")] HRESULT DirectCZT([in] BSTR newVal);
-#     [propget, id(111), helpstring("property FastCZTAlgorithmType")] HRESULT FastCZTAlgorithmType([out, retval] LONG* pVal);
-#     [propput, id(111), helpstring("property FastCZTAlgorithmType")] HRESULT FastCZTAlgorithmType([in] LONG newVal);
-#     [propget, id(112), helpstring("property UseManualCal")] HRESULT UseManualCal([out, retval] BSTR* pVal);
-#     [propput, id(112), helpstring("property UseManualCal")] HRESULT UseManualCal([in] BSTR newVal);
-#     [propget, id(116), helpstring("property AdapterFileNames")] HRESULT AdapterFileNames([out, retval] BSTR* pVal);
-#     [propput, id(116), helpstring("property AdapterFileNames")] HRESULT AdapterFileNames([in] BSTR newVal);
-#     [propget, id(117), helpstring("property UseDirectSParameterMeasurement")] HRESULT UseDirectSParameterMeasurement([out, retval] BSTR* pVal);
-#     [propput, id(117), helpstring("property UseDirectSParameterMeasurement")] HRESULT UseDirectSParameterMeasurement([in] BSTR newVal);
-#     [id(118), helpstring("method PutMeasuredSParameters")] HRESULT PutMeasuredSParameters([in] BSTR FileNameAndPortnumbers);
-#     [id(119), helpstring("method SelfTest")] HRESULT SelfTest([in] BSTR ArgList, [in] BSTR LogName, [out] BOOL * pSucceeded);
-#     [propget, id(120), helpstring("property NewResults")] HRESULT NewResults([in] BSTR ResultString, [out, retval] VARIANT* pVal);
-#     [propget, id(121), helpstring("property CalibratedStepResponseRiseTime")] HRESULT CalibratedStepResponseRiseTime([out, retval] DOUBLE* pVal);
-#     [propput, id(121), helpstring("property CalibratedStepResponseRiseTime")] HRESULT CalibratedStepResponseRiseTime([in] DOUBLE newVal);
-#     [id(122), helpstring("method GetListOfRequiredAndNeededMeasurements")] HRESULT GetListOfRequiredAndNeededMeasurements([out, retval] BSTR* sResult);
-#     [propget, id(123), helpstring("property AbortFlag")] HRESULT AbortFlag([out, retval] BOOL* pVal);
-#     [propput, id(123), helpstring("property AbortFlag")] HRESULT AbortFlag([in] BOOL newVal);
-#     [propget, id(124), helpstring("property CalibratedStepResponseUpSampleStep")] HRESULT CalibratedStepResponseUpSampleStep([out, retval] BSTR* pVal);
-#     [propput, id(124), helpstring("property CalibratedStepResponseUpSampleStep")] HRESULT CalibratedStepResponseUpSampleStep([in] BSTR newVal);
-#     [propget, id(125), helpstring("property UpSampleFactor")] HRESULT UpSampleFactor([out, retval] LONG* pVal);
-#     [propput, id(125), helpstring("property UpSampleFactor")] HRESULT UpSampleFactor([in] LONG newVal);
-#     [id(126), helpstring("method InstallSParametersFromFile")] HRESULT InstallSParametersFromFile([in] BSTR spFileName);
-#     [propget, id(127), helpstring("property UpSamplerSampleDistance")] HRESULT UpSamplerSampleDistance([out, retval] LONG* pVal);
-#     [propput, id(127), helpstring("property UpSamplerSampleDistance")] HRESULT UpSamplerSampleDistance([in] LONG newVal);
-#     [propget, id(130), helpstring("property WindowTDRNumPointsInTransition")] HRESULT WindowTDRNumPointsInTransition([out, retval] LONG* pVal);
-#     [propput, id(130), helpstring("property WindowTDRNumPointsInTransition")] HRESULT WindowTDRNumPointsInTransition([in] LONG newVal);
-#     [propget, id(132), helpstring("property CacheAlways")] HRESULT CacheAlways([out, retval] BSTR* pVal);
-#     [propput, id(132), helpstring("property CacheAlways")] HRESULT CacheAlways([in] BSTR newVal);
-#     [propget, id(133), helpstring("property ResampleToBase")] HRESULT ResampleToBase([out, retval] BSTR* pVal);
-#     [propput, id(133), helpstring("property ResampleToBase")] HRESULT ResampleToBase([in] BSTR newVal);
-#     [propget, id(134), helpstring("property CableShrinkageFactorPercentString")] HRESULT CableShrinkageFactorPercentString([out, retval] BSTR* pVal);
-#     [propput, id(134), helpstring("property CableShrinkageFactorPercentString")] HRESULT CableShrinkageFactorPercentString([in] BSTR newVal);
-#     [propget, id(135), helpstring("property CableShrinkageApply")] HRESULT CableShrinkageApply([out, retval] BSTR* pVal);
-#     [propput, id(135), helpstring("property CableShrinkageApply")] HRESULT CableShrinkageApply([in] BSTR newVal);
-#     [propget, id(138), helpstring("property ParkedRelaySetting")] HRESULT ParkedRelaySetting([out, retval] BSTR* pVal);
-#     [propget, id(139), helpstring("property DUTCalculatorStatusString")] HRESULT DUTCalculatorStatusString([out, retval] BSTR* pVal);
-#     [propget, id(140), helpstring("property PercentageTaskLeft")] HRESULT PercentageTaskLeft([out, retval] DOUBLE* pVal);
-#     [propget, id(141), helpstring("property AllNecessaryFilesArePresentStatus")] HRESULT AllNecessaryFilesArePresentStatus([out, retval] BSTR* pVal);
-#     [propget, id(143), helpstring("property SecondTierCalibrationUserEnabled")] HRESULT SecondTierCalibrationUserEnabled([out, retval] BSTR* pVal);
-#     [propput, id(143), helpstring("property SecondTierCalibrationUserEnabled")] HRESULT SecondTierCalibrationUserEnabled([in] BSTR newVal);
-#     [propget, id(144), helpstring("property SecondTierCalibrationFilePath")] HRESULT SecondTierCalibrationFilePath([out, retval] BSTR* pVal);
-#     [propput, id(144), helpstring("property SecondTierCalibrationFilePath")] HRESULT SecondTierCalibrationFilePath([in] BSTR newVal);
-#     [propget, id(145), helpstring("property SecondTierCalibrationFileName")] HRESULT SecondTierCalibrationFileName([out, retval] BSTR* pVal);
-#     [propput, id(145), helpstring("property SecondTierCalibrationFileName")] HRESULT SecondTierCalibrationFileName([in] BSTR newVal);
-#     [propget, id(146), helpstring("property SecondTierCalibrationFileType")] HRESULT SecondTierCalibrationFileType([out, retval] BSTR* pVal);
-#     [propput, id(146), helpstring("property SecondTierCalibrationFileType")] HRESULT SecondTierCalibrationFileType([in] BSTR newVal);
-#     [propget, id(150), helpstring("property SecondTierCalibrationWriteResult")] HRESULT SecondTierCalibrationWriteResult([out, retval] BSTR* pVal);
-#     [propput, id(150), helpstring("property SecondTierCalibrationWriteResult")] HRESULT SecondTierCalibrationWriteResult([in] BSTR newVal);
-#     [propget, id(151), helpstring("property WaveletSmoothingEnabled")] HRESULT WaveletSmoothingEnabled([out, retval] BSTR* pVal);
-#     [propput, id(151), helpstring("property WaveletSmoothingEnabled")] HRESULT WaveletSmoothingEnabled([in] BSTR newVal);
-#     [propget, id(152), helpstring("property WaveletSmoothingType")] HRESULT WaveletSmoothingType([out, retval] LONG* pVal);
-#     [propput, id(152), helpstring("property WaveletSmoothingType")] HRESULT WaveletSmoothingType([in] LONG newVal);
-#     [propget, id(153), helpstring("property WaveletSmoothingLevels")] HRESULT WaveletSmoothingLevels([out, retval] LONG* pVal);
-#     [propput, id(153), helpstring("property WaveletSmoothingLevels")] HRESULT WaveletSmoothingLevels([in] LONG newVal);
-#     [propget, id(154), helpstring("property WaveletSmoothingThresholdPercentMax")] HRESULT WaveletSmoothingThresholdPercentMax([out, retval] DOUBLE* pVal);
-#     [propput, id(154), helpstring("property WaveletSmoothingThresholdPercentMax")] HRESULT WaveletSmoothingThresholdPercentMax([in] DOUBLE newVal);
-#     [propget, id(155), helpstring("property WaveletSmoothingPhasesToCheck")] HRESULT WaveletSmoothingPhasesToCheck([out, retval] LONG* pVal);
-#     [propput, id(155), helpstring("property WaveletSmoothingPhasesToCheck")] HRESULT WaveletSmoothingPhasesToCheck([in] LONG newVal);
-#     [propget, id(156), helpstring("property BaselineFilterEnabled")] HRESULT BaselineFilterEnabled([out, retval] BSTR* pVal);
-#     [propput, id(156), helpstring("property BaselineFilterEnabled")] HRESULT BaselineFilterEnabled([in] BSTR newVal);
-#     [propget, id(157), helpstring("property BaselineFilterCutoff")] HRESULT BaselineFilterCutoff([out, retval] DOUBLE* pVal);
-#     [propput, id(157), helpstring("property BaselineFilterCutoff")] HRESULT BaselineFilterCutoff([in] DOUBLE newVal);
-#     [propget, id(158), helpstring("property BaselineFilterCoefficients")] HRESULT BaselineFilterCoefficients([out, retval] LONG* pVal);
-#     [propput, id(158), helpstring("property BaselineFilterCoefficients")] HRESULT BaselineFilterCoefficients([in] LONG newVal);
-#     [propget, id(159), helpstring("property WindowMaxLengthCalibration")] HRESULT WindowMaxLengthCalibration([out, retval] DOUBLE* pVal);
-#     [propput, id(159), helpstring("property WindowMaxLengthCalibration")] HRESULT WindowMaxLengthCalibration([in] DOUBLE newVal);
-#     [propget, id(160), helpstring("property WindowMaxLengthMeasurement")] HRESULT WindowMaxLengthMeasurement([out, retval] DOUBLE* pVal);
-#     [propput, id(160), helpstring("property WindowMaxLengthMeasurement")] HRESULT WindowMaxLengthMeasurement([in] DOUBLE newVal);    
-#     [propget, id(163), helpstring("property ReferenceImpedanceResult")] HRESULT ReferenceImpedanceResult([out, retval] DOUBLE* pVal);
-#     [propput, id(163), helpstring("property ReferenceImpedanceResult")] HRESULT ReferenceImpedanceResult([in] DOUBLE newVal);
-#     [propget, id(164), helpstring("property CausalityImpulseResponseLimitingEnabled")] HRESULT CausalityImpulseResponseLimitingEnabled([out, retval] BSTR* pVal);
-#     [propput, id(164), helpstring("property CausalityImpulseResponseLimitingEnabled")] HRESULT CausalityImpulseResponseLimitingEnabled([in] BSTR newVal);
-#     [propget, id(165), helpstring("property CausalityMaxNegativeImpulseLength")] HRESULT CausalityMaxNegativeImpulseLength([out, retval] DOUBLE* pVal);
-#     [propput, id(165), helpstring("property CausalityMaxNegativeImpulseLength")] HRESULT CausalityMaxNegativeImpulseLength([in] DOUBLE newVal);
-#     [propget, id(166), helpstring("property CausalityMaxImpulseLengthPossible")] HRESULT CausalityMaxImpulseLengthPossible([out, retval] DOUBLE* pVal);
-#     [propput, id(166), helpstring("property CausalityMaxImpulseLengthPossible")] HRESULT CausalityMaxImpulseLengthPossible([in] DOUBLE newVal);
-#     [propget, id(167), helpstring("property DutSparqPortMapping")] HRESULT DutSparqPortMapping([out, retval] BSTR* pVal);
-#     [propput, id(167), helpstring("property DutSparqPortMapping")] HRESULT DutSparqPortMapping([in] BSTR newVal);
-#     [propget, id(168), helpstring("property CSTCFilePath")] HRESULT CSTCFilePath([out, retval] BSTR* pVal);
-#     [propput, id(168), helpstring("property CSTCFilePath")] HRESULT CSTCFilePath([in] BSTR newVal);
-#     [propget, id(169), helpstring("property CSTCFileName")] HRESULT CSTCFileName([out, retval] BSTR* pVal);
-#     [propput, id(169), helpstring("property CSTCFileName")] HRESULT CSTCFileName([in] BSTR newVal);
-#     [propget, id(170), helpstring("property CSTCType")] HRESULT CSTCType([out, retval] BSTR* pVal);
-#     [propput, id(170), helpstring("property CSTCType")] HRESULT CSTCType([in] BSTR newVal);
-#     [propget, id(171), helpstring("property CSTCWaveletSmoothingEnabled")] HRESULT CSTCWaveletSmoothingEnabled([out, retval] BSTR* pVal);
-#     [propput, id(171), helpstring("property CSTCWaveletSmoothingEnabled")] HRESULT CSTCWaveletSmoothingEnabled([in] BSTR newVal);
-#     [propget, id(172), helpstring("property CSTCWaveletSmoothingPhasesToCheck")] HRESULT CSTCWaveletSmoothingPhasesToCheck([out, retval] LONG* pVal);
-#     [propput, id(172), helpstring("property CSTCWaveletSmoothingPhasesToCheck")] HRESULT CSTCWaveletSmoothingPhasesToCheck([in] LONG newVal);
-#     [propget, id(173), helpstring("property CSTCWaveletSmoothingType")] HRESULT CSTCWaveletSmoothingType([out, retval] LONG* pVal);
-#     [propput, id(173), helpstring("property CSTCWaveletSmoothingType")] HRESULT CSTCWaveletSmoothingType([in] LONG newVal);
-#     [propget, id(174), helpstring("property CSTCWaveletSmoothingLevels")] HRESULT CSTCWaveletSmoothingLevels([out, retval] LONG* pVal);
-#     [propput, id(174), helpstring("property CSTCWaveletSmoothingLevels")] HRESULT CSTCWaveletSmoothingLevels([in] LONG newVal);
-#     [propget, id(175), helpstring("property CSTCWaveletSmoothingThresholdPercentMax")] HRESULT CSTCWaveletSmoothingThresholdPercentMax([out, retval] DOUBLE* pVal);
-#     [propput, id(175), helpstring("property CSTCWaveletSmoothingThresholdPercentMax")] HRESULT CSTCWaveletSmoothingThresholdPercentMax([in] DOUBLE newVal);
-#     [propget, id(176), helpstring("property CSTCCausalityImpulseResponseLimitingEnabled")] HRESULT CSTCCausalityImpulseResponseLimitingEnabled([out, retval] BSTR* pVal);
-#     [propput, id(176), helpstring("property CSTCCausalityImpulseResponseLimitingEnabled")] HRESULT CSTCCausalityImpulseResponseLimitingEnabled([in] BSTR newVal);
-#     [propget, id(177), helpstring("property CSTCCausalityMaxImpulseLength")] HRESULT CSTCCausalityMaxImpulseLength([out, retval] DOUBLE* pVal);
-#     [propput, id(177), helpstring("property CSTCCausalityMaxImpulseLength")] HRESULT CSTCCausalityMaxImpulseLength([in] DOUBLE newVal);
-#     [propget, id(178), helpstring("property CSTCNumPorts")] HRESULT CSTCNumPorts([out, retval] LONG* pVal);
-#     [propput, id(178), helpstring("property CSTCNumPorts")] HRESULT CSTCNumPorts([in] LONG newVal);
-#     [propget, id(179), helpstring("property CSTCNumPoints")] HRESULT CSTCNumPoints([out, retval] LONG* pVal);
-#     [propput, id(179), helpstring("property CSTCNumPoints")] HRESULT CSTCNumPoints([in] LONG newVal);
-#     [propget, id(180), helpstring("property CSTCEndFrequency")] HRESULT CSTCEndFrequency([out, retval] DOUBLE* pVal);
-#     [propput, id(180), helpstring("property CSTCEndFrequency")] HRESULT CSTCEndFrequency([in] DOUBLE newVal);
-#     [id(181), helpstring("method ConvertSecondTierCalibration")] HRESULT ConvertSecondTierCalibration(void);
-#     [propget, id(182), helpstring("property CalculateErrors")] HRESULT CalculateErrors([out, retval] BSTR* pVal);
-#     [propput, id(182), helpstring("property CalculateErrors")] HRESULT CalculateErrors([in] BSTR newVal);
-#     [propget, id(184), helpstring("property GatingEnabled")] HRESULT GatingEnabled([out, retval] BSTR* pVal);
-#     [propput, id(184), helpstring("property GatingEnabled")] HRESULT GatingEnabled([in] BSTR newVal);
-#     [propget, id(185), helpstring("property GatingPeeling")] HRESULT GatingPeeling([out, retval] BSTR* pVal);
-#     [propput, id(185), helpstring("property GatingPeeling")] HRESULT GatingPeeling([in] BSTR newVal);
-#     [propget, id(186), helpstring("property GatingZc")] HRESULT GatingZc([out, retval] BSTR* pVal);
-#     [propput, id(186), helpstring("property GatingZc")] HRESULT GatingZc([in] BSTR newVal);
-#     [propget, id(187), helpstring("property GatingTd")] HRESULT GatingTd([out, retval] BSTR* pVal);
-#     [propput, id(187), helpstring("property GatingTd")] HRESULT GatingTd([in] BSTR newVal);
-#     [propget, id(188), helpstring("property GatingLdB")] HRESULT GatingLdB([out, retval] BSTR* pVal);
-#     [propput, id(188), helpstring("property GatingLdB")] HRESULT GatingLdB([in] BSTR newVal);
-#     [propget, id(189), helpstring("property GatingElementsPath")] HRESULT GatingElementsPath([out, retval] BSTR* pVal);
-#     [propput, id(189), helpstring("property GatingElementsPath")] HRESULT GatingElementsPath([in] BSTR newVal);
-#     [propget, id(190), helpstring("property SParameterFileNameAndIndices")] HRESULT SParameterFileNameAndIndices([out, retval] BSTR* pVal);
-#     [propput, id(190), helpstring("property SParameterFileNameAndIndices")] HRESULT SParameterFileNameAndIndices([in] BSTR newVal);
-#     [propget, id(191), helpstring("property SParameterMeasurementFileReadStatusIsValid")] HRESULT SParameterMeasurementFileReadStatusIsValid([out, retval] BSTR* pVal);
-#     [id(192), helpstring("method PutSParameterMeasurements")] HRESULT PutSParameterMeasurements(void);
-#     [propget, id(195), helpstring("property WriteToFileFrequencyFormat")] HRESULT WriteToFileFrequencyFormat([out, retval] BSTR* pVal);
-#     [propput, id(195), helpstring("property WriteToFileFrequencyFormat")] HRESULT WriteToFileFrequencyFormat([in] BSTR newVal);
-#     [propget, id(196), helpstring("property WriteToFileSparameterFormat")] HRESULT WriteToFileSparameterFormat([out, retval] BSTR* pVal);
-#     [propput, id(196), helpstring("property WriteToFileSparameterFormat")] HRESULT WriteToFileSparameterFormat([in] BSTR newVal);
-#     [propget, id(197), helpstring("property WriteToFileStatus")] HRESULT WriteToFileStatus([out, retval] BSTR* pVal);
-#     [propget, id(198), helpstring("property ReadTwoPortFixtures")] HRESULT ReadTwoPortFixtures([out, retval] BSTR* pVal);
-#     [propput, id(198), helpstring("property ReadTwoPortFixtures")] HRESULT ReadTwoPortFixtures([in] BSTR newVal);
-#     [propget, id(199), helpstring("property IsMixedModeConfiguration")] HRESULT IsMixedModeConfiguration([out, retval] BSTR* pVal);
-#     [propget, id(200), helpstring("property LEDsToTurnOn")] HRESULT LEDsToTurnOn([out, retval] BSTR* pVal);
-#     [id(201), helpstring("method SParameterImporterModeConversion")] HRESULT SParameterImporterModeConversion(void);
-#     [propget, id(202), helpstring("property IsModeConversionStringValid")] HRESULT IsModeConversionStringValid([out, retval] BSTR* pVal);
-#     [propget, id(203), helpstring("property SParameterImporterInUse")] HRESULT SParameterImporterInUse([out, retval] BSTR* pVal);
-#     [propget, id(204), helpstring("property ImporterInputDutToConverterPinDefinitions")] HRESULT ImporterInputDutToConverterPinDefinitions([out, retval] BSTR* pVal);
-#     [propget, id(205), helpstring("property ImporterInputUserPortDefinitions")] HRESULT ImporterInputUserPortDefinitions([out, retval] BSTR* pVal);
-#     [propget, id(206), helpstring("property ImporterSerialNumber")] HRESULT ImporterSerialNumber([out, retval] BSTR* pVal);
-#     [propget, id(207), helpstring("property ImporterMode")] HRESULT ImporterMode([out, retval] BSTR* pVal);
-#     [propget, id(208), helpstring("property SaveStepsToFileStatus")] HRESULT SaveStepsToFileStatus([out, retval] BSTR* pVal);    
-#     [propget, id(209), helpstring("property ImporterUniformFrequencySpacing")] HRESULT ImporterUniformFrequencySpacing([out, retval] BSTR* pVal);
-#     [id(211), helpstring("method SParameterImporterPerformGating")] HRESULT SParameterImporterPerformGating(void);
-#     
-#     [propget, id(248), helpstring("property WriteToFilePutHeaderInformation")] HRESULT WriteToFilePutHeaderInformation([out, retval] BSTR* pVal);
-#     [propput, id(248), helpstring("property WriteToFilePutHeaderInformation")] HRESULT WriteToFilePutHeaderInformation([in] BSTR newVal);
-#     [propget, id(249), helpstring("property AcquisitionOnlyMode")] HRESULT AcquisitionOnlyMode([out, retval] BSTR* pVal);
-#     [propput, id(249), helpstring("property AcquisitionOnlyMode")] HRESULT AcquisitionOnlyMode([in] BSTR newVal);
-#     [propget, id(252), helpstring("property InputIsAnImpulse")] HRESULT InputIsAnImpulse([out, retval] BSTR* pVal);
-#     [propput, id(252), helpstring("property InputIsAnImpulse")] HRESULT InputIsAnImpulse([in] BSTR newVal);
-#     [propget, id(253), helpstring("property InputImpulseLeftWidth")] HRESULT InputImpulseLeftWidth([out, retval] DOUBLE* pVal);
-#     [propput, id(253), helpstring("property InputImpulseLeftWidth")] HRESULT InputImpulseLeftWidth([in] DOUBLE newVal);
-#     [propget, id(254), helpstring("property InputImpulseRightWidth")] HRESULT InputImpulseRightWidth([out, retval] DOUBLE* pVal);
-#     [propput, id(254), helpstring("property InputImpulseRightWidth")] HRESULT InputImpulseRightWidth([in] DOUBLE newVal);
-
-        numSwitchSettings = oyster.NumSwitchSettingsRequired
-        for s in range(numSwitchSettings):
-            oyster.SwitchSettingNumber = s
-            relaySettings=oyster.RelaySettings
-            measurementName = oyster.MeasurementName
-            pulserString=oyster.PulsersToTurnOn
-            pulserList=[int(p) for p in pulserString.split(',')]
-            samplerString=oyster.SamplersToMeasure
-            samplersList=[[int(sa) for sa in p.split(',')] for p in samplerString.split(';')]
-            for d in range(len(pulserList)):
-                drivenPort=pulserList[d]
-                oyster.DrivenPort=drivenPort
-                for m in range(len(samplersList[d])):
-                    #print s,d,m
-                    measuredPort=samplersList[d][m]
-                    oyster.MeasuredPort=measuredPort
-                    print relaySettings+' driven: '+str(drivenPort)+' meas: '+str(measuredPort)+' name: '+wfDict[relaySettings][drivenPort][measuredPort]['name']
-                    self.PutWaveform(oyster,wfDict[relaySettings][drivenPort][measuredPort]['wf'])
-        oyster.Calculate()
-        #oyster.ResultFileName = self.NameForTest()
-        #oyster.WriteResultToFile()
-        sp = self.GetOysterSParameterResult(oyster)
+        oyster.Calibrate(wfDict)
+        sp = oyster.SParameterResult(wfDict)
         self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
     def testCis(self):
         return

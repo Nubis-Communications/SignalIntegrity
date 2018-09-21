@@ -1,1 +1,2 @@
 from LeCroyScope import LeCroyScope
+from SParameterCalculator import SParameterCalculator
