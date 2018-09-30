@@ -9,6 +9,9 @@ import os
 from TestHelpers import *
 from SignalIntegrity.Test.PySIAppTestHelper import PySIAppTestHelper
 
+import matplotlib
+matplotlib.use('Tkagg')
+
 class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -596,7 +599,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         #PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
     def testPeelCableforRLGC(self):
-        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        sp=si.sp.SParameterFile('cableForRLGCCausal.s2p')
         port1Impedance=si.ip.ImpedanceProfileWaveform(sp,port=1,
             method='estimated',adjustForDelay=False,includePortZ=False)
         port2Impedance=si.ip.ImpedanceProfileWaveform(sp,port=2,
@@ -661,7 +664,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         self.SParameterRegressionChecker(dsp, self.NameForTest()+'_deembedded_causal.s2p')
     def testZZZLaunchDeembeddingExample(self):
         # ZZZ to make sure it occurs last, since it depends on other measurement
-        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        sp=si.sp.SParameterFile('cableForRLGCCausal.s2p')
         dsp=self.DeembedLaunch(sp,[66e-12,66e-12])
         self.SParameterRegressionChecker(dsp, 'TestImpedanceProfile_testPeelCableforRLGC_deembedded.s2p')
     def DeembedLaunch(self,sp,timelen):
@@ -698,7 +701,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         self.WriteClassCode(fileName, className, defName)
     def testZZZLaunchDeembeddingExample2(self):
         # ZZZ to make sure it occurs last, since it depends on other measurement
-        sp=si.sp.SParameterFile('cableForRLGC.s2p')
+        sp=si.sp.SParameterFile('cableForRLGCCausal.s2p')
         dsp=si.ip.PeeledLaunches(sp,[66e-12,66e-12])
         self.SParameterRegressionChecker(dsp, 'TestImpedanceProfile_testPeelCableforRLGC_deembedded.s2p')
     def testStepResponseGamma(self):

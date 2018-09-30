@@ -21,13 +21,18 @@ class PeeledPortSParameters(SParameters):
     calculates the impedance profile looking into a port of a device and then assembles
     a transmission line as a cascade of small transmission line sections
     """
-    def __init__(self,sp,port,timelen):
+    def __init__(self,sp,port,timelen,method='estimated'):
         """Constructor
         @param sp instance of class SParameters of the device
         @param port integer 1 based port to calculate
         @param timelen float time to peel
+        @param method string determining method for computing impedance profile
+        @remark methods include:
+        'estimated' (default) estimate the impedance profile from simulated step response.
+        'approximate' use the approximation based on the simulated step response.
+        'exact' use the impedance peeling algorithm.
         """
-        ip=ImpedanceProfileWaveform(sp,port,method='estimated',includePortZ=False)
+        ip=ImpedanceProfileWaveform(sp,port,method,includePortZ=False)
         Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))
         tp1=[identity(2) for n in range(len(sp.f()))]
         for k in range(sections):

@@ -15,8 +15,21 @@ from SignalIntegrity.Parsers import DeembedderParser
 from SignalIntegrity.SystemDescriptions import DeembedderNumeric
 
 class PeeledLaunches(SParameters):
-    def __init__(self,sp,timelen):
-        spp=[PeeledPortSParameters(sp,p+1,timelen[p]) for p in range(sp.m_P)]
+    """S-parameters with launches peeled from them.
+    Calculates the impedance profile looking into each port for various time lengths,
+    assembles these impedance profiles into s-parameters and deembeds them from the ports.
+    """
+    def __init__(self,sp,timelen,method='estimated'):
+        """Constructor
+        @param sp instance of class SParameters of the device
+        @param timelen list of float times to peel, one for each port
+        @param method string determining method for computing impedance profile
+        @remark methods include:
+        'estimated' (default) estimate the impedance profile from simulated step response.
+        'approximate' use the approximation based on the simulated step response.
+        'exact' use the impedance peeling algorithm.
+        """
+        spp=[PeeledPortSParameters(sp,p+1,timelen[p],method) for p in range(sp.m_P)]
         sddp=DeembedderParser().AddLine('unknown S '+str(sp.m_P))
         for ps in [str(p+1) for p in range(sp.m_P)]:
             sddp.AddLines(['device D'+ps+' 2','connect D'+ps+' 2 S '+ps,

@@ -1,6 +1,6 @@
 class PeeledLaunches(SParameters):
-    def __init__(self,sp,timelen):
-        spp=[PeeledPortSParameters(sp,p+1,timelen[p]) for p in range(sp.m_P)]
+    def __init__(self,sp,timelen,method='estimated'):
+        spp=[PeeledPortSParameters(sp,p+1,timelen[p],method) for p in range(sp.m_P)]
         sddp=DeembedderParser().AddLine('unknown S '+str(sp.m_P))
         for ps in [str(p+1) for p in range(sp.m_P)]:
             sddp.AddLines(['device D'+ps+' 2','connect D'+ps+' 2 S '+ps,

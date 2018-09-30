@@ -1,6 +1,6 @@
 class PeeledPortSParameters(SParameters):
-    def __init__(self,sp,port,timelen):
-        ip=ImpedanceProfileWaveform(sp,port,method='estimated',includePortZ=False)
+    def __init__(self,sp,port,timelen,method='estimated'):
+        ip=ImpedanceProfileWaveform(sp,port,method,includePortZ=False)
         Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))
         tp1=[identity(2) for n in range(len(sp.f()))]
         for k in range(sections):
