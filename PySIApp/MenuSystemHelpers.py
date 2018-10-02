@@ -83,6 +83,7 @@ class KeyBindElement(object):
 
 class Doer(object):
     inHelp=False
+    controlHelpUrlBase=None
     def __init__(self,command,active=True):
         self.active=active
         self.command=command
@@ -118,9 +119,9 @@ class Doer(object):
         return self
     def Execute(self,*args):
         if self.inHelp and self.helpEnabled:
-            if not self.url is None:
+            if not self.url is None and not self.controlHelpUrlBase is None:
                 import webbrowser
-                url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+self.url
+                url = Doer.controlHelpUrlBase+'/Help/PySIHelp.html.LyXconv/'+self.url
                 url=url.replace('\\','/')
                 webbrowser.open(url)
             return

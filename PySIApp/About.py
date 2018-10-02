@@ -16,7 +16,7 @@ from ScrolledText import ScrolledText
 class CreditsDialog(Toplevel):
     def __init__(self,parent):
         self.parent=parent
-        textToShow = ['for now, PySI has been entirely written by:','','\t Peter J. Pupalaikis \t <PeterP@LeCroy.com>']
+        textToShow = [' for now, PySI has been entirely written by:','','\t Peter J. Pupalaikis \t <PeterP@LeCroy.com>']
         Toplevel.__init__(self, parent)
         self.img = PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
@@ -88,7 +88,7 @@ class AboutDialog(Toplevel):
         msg = Message(self,text="version: %s" % (versionString),justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
         copyrightSymbol=u"\u00A9"
-        copyrightText=u"%s 2012-2016 Peter J. Pupalaikis" % (copyrightSymbol)
+        copyrightText=u"%s 2018 Teledyne LeCroy" % (copyrightSymbol)
         msg = Message(self,text=copyrightText,justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
         hyperLink = Button(self,text="https://github.com/TeledyneLeCroy/PySI", command=self.onHyper, borderwidth=0)

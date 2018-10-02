@@ -47,10 +47,17 @@ class ProjectFilesConfiguration(XMLConfiguration):
         self.dict['LastFile']=XMLProperty('LastFile',[LastFilesConfiguration() for _ in range(4)],'array')
         self.dict['AskToSaveCurrentFile']=XMLPropertyDefaultBool('AskToSaveCurrentFile',True)
 
+class OnlineHelpConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self)
+        self.dict['UseOnlineHelp']=XMLPropertyDefaultBool('UseOnlineHelp',True)
+        self.dict['URL']=XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/PySI/PySIApp')
+
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,os.path.basename(__file__).split('.')[0])
         self.dict['ProjectFiles']=ProjectFilesConfiguration()
         self.dict['Appearance']=AppearanceConfiguration()
         self.dict['Cache']=CacheConfiguration()
+        self.dict['OnlineHelp']=OnlineHelpConfiguration()
 

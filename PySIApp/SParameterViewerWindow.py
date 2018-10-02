@@ -646,7 +646,11 @@ class SParametersDialog(Toplevel):
         if helpfile is None:
             tkMessageBox.showerror('Help System','Cannot find or open this help element')
             return
-        url = os.path.dirname(os.path.abspath(__file__))+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        if self.parent.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
+            helpdir=self.parent.preferences.GetValue('OnlineHelp.URL')
+        else:
+            helpdir=self.parent.installdir
+        url=helpdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
         webbrowser.open(url)
 
     def onControlHelp(self):

@@ -71,6 +71,12 @@ class PySIApp(Frame):
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
         self.helpSystemKeys = HelpSystemKeys(self.installdir)
+
+        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
+            Doer.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
+        else:
+            Doer.controlHelpUrlBase=self.installdir
+
         # status bar
         self.statusbar=StatusBar(self)
 
@@ -692,7 +698,11 @@ class PySIApp(Frame):
         if helpfile is None:
             tkMessageBox.showerror('Help System','Cannot find the help system')
             return
-        url = self.installdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
+            helpdir=self.preferences.GetValue('OnlineHelp.URL')
+        else:
+            helpdir=self.installdir
+        url=helpdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
         webbrowser.open(url)
 
     def onControlHelp(self):
