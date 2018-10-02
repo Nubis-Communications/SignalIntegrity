@@ -1,0 +1,49 @@
+\hypertarget{namespaceSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX}{}\section{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+SinX Namespace Reference}
+\label{namespaceSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX}\index{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+SinX@{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+SinX}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX}{Fractional\+Delay\+Filter\+SinX}
+\begin{DoxyCompactList}\small\item\em sinx/x fractional delay filter \end{DoxyCompactList}\item 
+class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX}{Interpolator\+Fractional\+Delay\+Filter\+SinX}
+\begin{DoxyCompactList}\small\item\em combination sinx/x fractional delay and interpolating filter \end{DoxyCompactList}\item 
+class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX}{Interpolator\+SinX}
+\begin{DoxyCompactList}\small\item\em sinx/x interpolating filter \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_aa77f169f9a12eba766c2ffeafe467c5f}{SinX} (S, U, F)
+\begin{DoxyCompactList}\small\item\em calculates the sin\+X/X filter taps for Sinx filters \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}InterpolatorSinX\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_aa77f169f9a12eba766c2ffeafe467c5f}\label{namespaceSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_aa77f169f9a12eba766c2ffeafe467c5f}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+SinX@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+SinX}!SinX@{SinX}}
+\index{SinX@{SinX}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+SinX@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+SinX}}
+\subsubsection{\texorpdfstring{Sin\+X()}{SinX()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+Sin\+X.\+SinX (\begin{DoxyParamCaption}\item[{}]{S,  }\item[{}]{U,  }\item[{}]{F }\end{DoxyParamCaption})}
+
+
+
+calculates the sin\+X/X filter taps for Sinx filters 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S} & integer side samples for filter (without upsampling) \\
+\hline
+{\em U} & integer upsample factor \\
+\hline
+{\em F} & float fractional delay \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+The filter is 2$\ast$\+S$\ast$\+U+1 in length, meaning it has S$\ast$U samples on each side of a center sample point. 
+\end{DoxyRemark}
+
+
+Definition at line 26 of file Interpolator\+Sin\+X.\+py.
+

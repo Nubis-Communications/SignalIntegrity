@@ -1,0 +1,8 @@
+<map id="Waveform" name="Waveform">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml" title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified..." alt="" coords="5,321,188,413"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" title="impulse response of a filter as a waveform " alt="" coords="213,292,375,443"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" title="noise waveform " alt="" coords="400,329,516,406"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" title="pulse waveform " alt="" coords="541,329,655,406"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" title="sinewave waveform " alt="" coords="680,329,788,406"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" title="step waveform " alt="" coords="813,329,922,406"/>
+</map>

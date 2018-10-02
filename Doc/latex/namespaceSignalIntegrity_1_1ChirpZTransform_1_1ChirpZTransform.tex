@@ -1,0 +1,49 @@
+\hypertarget{namespaceSignalIntegrity_1_1ChirpZTransform_1_1ChirpZTransform}{}\section{Signal\+Integrity.\+Chirp\+Z\+Transform.\+Chirp\+Z\+Transform Namespace Reference}
+\label{namespaceSignalIntegrity_1_1ChirpZTransform_1_1ChirpZTransform}\index{Signal\+Integrity.\+Chirp\+Z\+Transform.\+Chirp\+Z\+Transform@{Signal\+Integrity.\+Chirp\+Z\+Transform.\+Chirp\+Z\+Transform}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1ChirpZTransform_1_1ChirpZTransform_a0198512a0c89499890c4375cfe968473}{C\+ZT} (x, Fs, fs, fe, M, high\+Speed=True)
+\begin{DoxyCompactList}\small\item\em Provides M+1 points from fs to fe of the chirp z transform of the vector x. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}ChirpZTransform\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1ChirpZTransform_1_1ChirpZTransform_a0198512a0c89499890c4375cfe968473}\label{namespaceSignalIntegrity_1_1ChirpZTransform_1_1ChirpZTransform_a0198512a0c89499890c4375cfe968473}} 
+\index{Signal\+Integrity\+::\+Chirp\+Z\+Transform\+::\+Chirp\+Z\+Transform@{Signal\+Integrity\+::\+Chirp\+Z\+Transform\+::\+Chirp\+Z\+Transform}!C\+ZT@{C\+ZT}}
+\index{C\+ZT@{C\+ZT}!Signal\+Integrity\+::\+Chirp\+Z\+Transform\+::\+Chirp\+Z\+Transform@{Signal\+Integrity\+::\+Chirp\+Z\+Transform\+::\+Chirp\+Z\+Transform}}
+\subsubsection{\texorpdfstring{C\+Z\+T()}{CZT()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Chirp\+Z\+Transform.\+Chirp\+Z\+Transform.\+C\+ZT (\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{Fs,  }\item[{}]{fs,  }\item[{}]{fe,  }\item[{}]{M,  }\item[{}]{high\+Speed = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+Provides M+1 points from fs to fe of the chirp z transform of the vector x. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & an input vector (list) of real time-\/domain samples \\
+\hline
+{\em Fs} & the sample rate of the the data samples in x \\
+\hline
+{\em fs} & the start frequency for the result \\
+\hline
+{\em fe} & the end frequency for the result \\
+\hline
+{\em M} & the number of points in the result (-\/1) \\
+\hline
+{\em high\+Speed} & (optional, defaults to True) whether to use the high-\/speed, but unreadable version. The readable, low-\/speed version is the definition is used for testing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+Technically, the chirp-\/z transform can evaluate the z-\/transform at equi-\/angularly spaced points on a somewhat arbitrary arc, but here, we use it to compute equi-\/angularly spaced points on the rim of the unit circle, and as such, it is used simply to resample data. Usually, we set fs=0 and the result is an M+1 point D\+FT of the waveform from 0 to fs, without the same limitations imposed as the standard D\+FT.~\newline
+ The equation for the czt is\+:
+\end{DoxyRemark}
+$m\in 0 \ldots M$
+
+$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m} {M}\cdot F_{e}}$ 
+
+Definition at line 43 of file Chirp\+Z\+Transform.\+py.
+

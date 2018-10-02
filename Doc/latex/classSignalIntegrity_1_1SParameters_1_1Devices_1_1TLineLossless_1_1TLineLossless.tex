@@ -1,0 +1,99 @@
+\hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless}{}\section{T\+Line\+Lossless Class Reference}
+\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless}\index{T\+Line\+Lossless@{T\+Line\+Lossless}}
+
+
+s-\/parameters of ideal lossless single-\/ended transmission line  
+
+
+
+
+Inheritance diagram for T\+Line\+Lossless\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for T\+Line\+Lossless\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless_a392b53d98394dd9067924804c683ea5c}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, P, Zc, Td, Z0=50.)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless_ab7a6da5139e0878b590d68292aaa70f2}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, n)
+\begin{DoxyCompactList}\small\item\em overloads \mbox{[}n\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+s-\/parameters of ideal lossless single-\/ended transmission line 
+
+Definition at line 17 of file T\+Line\+Lossless.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless_a392b53d98394dd9067924804c683ea5c}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless_a392b53d98394dd9067924804c683ea5c}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{P,  }\item[{}]{Zc,  }\item[{}]{Td,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of float frequencies \\
+\hline
+{\em P} & integer number of ports (either 2 or 4) \\
+\hline
+{\em Zc} & float or complex characteristic impedance \\
+\hline
+{\em Td} & float electrical length (propagation time) \\
+\hline
+{\em Z0} & (optional) float or complex reference impedance (defaults to 50 Ohms) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+if two ports are specified, \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPortLossless}{Signal\+Integrity.\+Devices.\+T\+Line\+Two\+Port\+Lossless} is used.~\newline
+ Otherwise, if four ports are specified, \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineFourPortLossless}{Signal\+Integrity.\+Devices.\+T\+Line\+Four\+Port\+Lossless} is used~\newline
+
+\end{DoxyNote}
+
+
+Definition at line 31 of file T\+Line\+Lossless.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless_ab7a6da5139e0878b590d68292aaa70f2}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless_ab7a6da5139e0878b590d68292aaa70f2}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Lossless\+::\+T\+Line\+Lossless}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+overloads \mbox{[}n\mbox{]} 
+
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix for the nth frequency element 
+\end{DoxyReturn}
+
+
+Definition at line 38 of file T\+Line\+Lossless.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+S\+Parameters/\+Devices/T\+Line\+Lossless.\+py\end{DoxyCompactItemize}

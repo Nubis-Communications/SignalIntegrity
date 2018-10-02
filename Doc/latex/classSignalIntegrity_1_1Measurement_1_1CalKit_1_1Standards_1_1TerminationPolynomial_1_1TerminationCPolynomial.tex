@@ -1,0 +1,125 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial}{}\section{Termination\+C\+Polynomial Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial}\index{Termination\+C\+Polynomial@{Termination\+C\+Polynomial}}
+
+
+Class for capacitive terminations for open calibration standards.  
+
+
+
+
+Inheritance diagram for Termination\+C\+Polynomial\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Termination\+C\+Polynomial\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_aec9ef08a9bd3bdd31ca01580d655143d}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, C0=0.\+0, C1=0.\+0, C2=0.\+0, C3=0.\+0, Z0=50.)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_a03914e112a09cbcbc1c25192a1048d0a}{PolynomialC} (self, n)
+\begin{DoxyCompactList}\small\item\em Evaluate capacitance polynomial. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_ab7a6da5139e0878b590d68292aaa70f2}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, n)
+\begin{DoxyCompactList}\small\item\em Overrides \mbox{[}n\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for capacitive terminations for open calibration standards. 
+
+Definition at line 43 of file Termination\+Polynomial.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_aec9ef08a9bd3bdd31ca01580d655143d}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_aec9ef08a9bd3bdd31ca01580d655143d}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{C0 = {\ttfamily 0.0},  }\item[{}]{C1 = {\ttfamily 0.0},  }\item[{}]{C2 = {\ttfamily 0.0},  }\item[{}]{C3 = {\ttfamily 0.0},  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of frequencies for the s-\/parameters \\
+\hline
+{\em C0} & (optional) float polynomial term for f$^\wedge$0 (defaults to 0.\+0). \\
+\hline
+{\em C1} & (optional) float polynomial term for f$^\wedge$1 (defaults to 0.\+0). \\
+\hline
+{\em C2} & (optional) float polynomial term for f$^\wedge$2 (defaults to 0.\+0). \\
+\hline
+{\em C3} & (optional) float polynomial term for f$^\wedge$3 (defaults to 0.\+0). \\
+\hline
+{\em Z0} & (optional) real or complex reference impedance Z0 (defaults to 50 Ohms). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 53 of file Termination\+Polynomial.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_ab7a6da5139e0878b590d68292aaa70f2}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_ab7a6da5139e0878b590d68292aaa70f2}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+Overrides \mbox{[}n\mbox{]}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & integer index of s-\/parameter frequency to evaluate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix for frequency at index n 
+\end{DoxyReturn}
+
+
+Definition at line 69 of file Termination\+Polynomial.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_a03914e112a09cbcbc1c25192a1048d0a}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial_a03914e112a09cbcbc1c25192a1048d0a}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial}!PolynomialC@{PolynomialC}}
+\index{PolynomialC@{PolynomialC}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Termination\+Polynomial\+::\+Termination\+C\+Polynomial}}
+\subsubsection{\texorpdfstring{Polynomial\+C()}{PolynomialC()}}
+{\footnotesize\ttfamily def PolynomialC (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+Evaluate capacitance polynomial. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & integer index of frequency \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float polynomial evaluated at frequency f\mbox{[}n\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 61 of file Termination\+Polynomial.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+Cal\+Kit/\+Standards/Termination\+Polynomial.\+py\end{DoxyCompactItemize}

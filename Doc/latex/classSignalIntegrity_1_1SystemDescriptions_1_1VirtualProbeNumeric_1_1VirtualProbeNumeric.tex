@@ -1,0 +1,92 @@
+\hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric}{}\section{Virtual\+Probe\+Numeric Class Reference}
+\label{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric}\index{Virtual\+Probe\+Numeric@{Virtual\+Probe\+Numeric}}
+
+
+class for performing virtual probing numerically.  
+
+
+
+
+Inheritance diagram for Virtual\+Probe\+Numeric\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Virtual\+Probe\+Numeric\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric_a2fa2ae61a4511a760e2d2047ec07eb05}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, sd=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric_aecf838369a0d4e9037ba351539bd8eb1}{Transfer\+Matrix} (self)
+\begin{DoxyCompactList}\small\item\em returns a transfer matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+class for performing virtual probing numerically. 
+
+\begin{DoxyNote}{Note}
+For the purposes of this class, the numerical virtual probe work has been performed by returning the transfer matrix. Transfer matrices built over many frequencies are then utilized in the actual waveform processing for the virtual probe processing. 
+\end{DoxyNote}
+
+
+Definition at line 27 of file Virtual\+Probe\+Numeric.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric_a2fa2ae61a4511a760e2d2047ec07eb05}\label{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric_a2fa2ae61a4511a760e2d2047ec07eb05}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{sd = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sd} & (optional) instance of class \hyperlink{namespaceSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription}{System\+Description} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 32 of file Virtual\+Probe\+Numeric.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric_aecf838369a0d4e9037ba351539bd8eb1}\label{classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric_aecf838369a0d4e9037ba351539bd8eb1}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric}!Transfer\+Matrix@{Transfer\+Matrix}}
+\index{Transfer\+Matrix@{Transfer\+Matrix}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Virtual\+Probe\+Numeric\+::\+Virtual\+Probe\+Numeric}}
+\subsubsection{\texorpdfstring{Transfer\+Matrix()}{TransferMatrix()}}
+{\footnotesize\ttfamily def Transfer\+Matrix (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+returns a transfer matrix. 
+
+\begin{DoxyReturn}{Returns}
+list of list transfer matrix that for O output waveforms and I input waveforms is OxI and be considered as multiplied by a vector of input waveforms to produce a vector of output waveforms.
+\end{DoxyReturn}
+The transfer matrix provided is for a single frequency. 
+
+Definition at line 42 of file Virtual\+Probe\+Numeric.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+System\+Descriptions/Virtual\+Probe\+Numeric.\+py\end{DoxyCompactItemize}

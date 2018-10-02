@@ -1,0 +1,199 @@
+\hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent}{}\section{Frequency\+Content Class Reference}
+\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent}\index{Frequency\+Content@{Frequency\+Content}}
+
+
+Handles frequency content of waveforms.  
+
+
+
+
+Inheritance diagram for Frequency\+Content\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Frequency\+Content\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a6206b0356859e0b87ba95eefb298c2bf}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, wf, fd=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a3dc7b1e5eba8fb649156094dfdf7a893}{Values} (self, unit=None)
+\begin{DoxyCompactList}\small\item\em frequency content values \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_af833a7687c414346de1e2ffab6b47d5c}{Waveform} (self, td=None)
+\begin{DoxyCompactList}\small\item\em Computes the time-\/domain waveform using I\+D\+FT methods. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a8dfcef6517e6699a8b78a2bf9c796230}{Waveform\+From\+Definition} (self, td=None)
+\begin{DoxyCompactList}\small\item\em Computes the time-\/domain waveform using sums of cosines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Handles frequency content of waveforms. 
+
+This is the frequency content view of a waveform. In other words, it assumes that a waveform is an actual waveform and contains the complex values of sinusoids that, if added together, would make up the waveform. This is the opposite of the Frequency\+Response() view.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse}{Frequency\+Response} 
+\end{DoxySeeAlso}
+
+
+Definition at line 36 of file Frequency\+Content.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a6206b0356859e0b87ba95eefb298c2bf}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a6206b0356859e0b87ba95eefb298c2bf}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{wf,  }\item[{}]{fd = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wf} & in instance of class Waveform \\
+\hline
+{\em fd} & (optional) an instance of class Frequency\+Descriptor (defaults to None) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+initializes itself internally by computing the frequency content of the waveform.
+\end{DoxyRemark}
+If fd is None then the frequency descriptor is simply the frequency descriptor corresponding to the time descriptor of the waveform and the frequency content is computed from the D\+FT.
+
+Otherwise, the C\+ZT is used to compute the frequency content and the time descriptor corresponds to the frequency descriptor.
+
+the time descriptor and frequency descriptor are retained so a waveform can be obtained from the frequency content.
+
+\begin{DoxyNote}{Note}
+the frequency content is scaled differently from the raw D\+FT or C\+ZT outputs in that the absolute value of each complex number in the frequency content represents the amplitude of a cosine wave. This is not true with the raw D\+FT output and scaling things this way helps in the proper interpretation of the frequency content without having to think about the vagaries of the D\+FT.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+Time\+Descriptor 
+
+Frequency\+Descriptor 
+
+\hyperlink{namespaceSignalIntegrity_1_1ChirpZTransform}{Chirp\+Z\+Transform} 
+\end{DoxySeeAlso}
+
+
+Definition at line 66 of file Frequency\+Content.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a3dc7b1e5eba8fb649156094dfdf7a893}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a3dc7b1e5eba8fb649156094dfdf7a893}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}!Values@{Values}}
+\index{Values@{Values}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}}
+\subsubsection{\texorpdfstring{Values()}{Values()}}
+{\footnotesize\ttfamily def Values (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{unit = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+frequency content values 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & (optional) string containing the unit for the values desired. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a list of complex values representing the frequency content. 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Valid frequency content units are\+:~\newline
+
+\begin{DoxyItemize}
+\item \textquotesingle{}rms\textquotesingle{} -\/ the root-\/mean-\/squared (rms) value.
+\item \textquotesingle{}d\+Bm\textquotesingle{} -\/ the values in decibels were 0 d\+Bm corresponds to the voltage needed to deliver 1 mW to a 50 Ohm load. It\textquotesingle{}s computed as 20$\ast$\+Log(rms)+13.010.
+\item \textquotesingle{}d\+Bm\+Per\+Hz\textquotesingle{} -\/ the spectral density in d\+Bm/\+Hz.
+\end{DoxyItemize}
+\end{DoxyRemark}
+If no unit is specified, the complex frequency content is returned. If no valid frequency content units are found, then it defers to the \hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyDomain}{Frequency\+Domain} base class.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyDomain}{Frequency\+Domain}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 102 of file Frequency\+Content.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_af833a7687c414346de1e2ffab6b47d5c}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_af833a7687c414346de1e2ffab6b47d5c}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}!Waveform@{Waveform}}
+\index{Waveform@{Waveform}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}}
+\subsubsection{\texorpdfstring{Waveform()}{Waveform()}}
+{\footnotesize\ttfamily def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{td = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Computes the time-\/domain waveform using I\+D\+FT methods. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em td} & (optional) instance of class Time\+Descriptor declaring the time descriptor of the waveform to produce. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+wf instance of class Waveform corresponding to the frequency content. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If td is None then the time descriptor corresponding to the frequency descriptor is used.~\newline
+ The waveform produced is essentially the inverse process of class initialization.~\newline
+ 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a8dfcef6517e6699a8b78a2bf9c796230}{Waveform\+From\+Definition()} 
+\end{DoxySeeAlso}
+
+
+Definition at line 129 of file Frequency\+Content.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a8dfcef6517e6699a8b78a2bf9c796230}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_a8dfcef6517e6699a8b78a2bf9c796230}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}!Waveform\+From\+Definition@{Waveform\+From\+Definition}}
+\index{Waveform\+From\+Definition@{Waveform\+From\+Definition}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Content\+::\+Frequency\+Content}}
+\subsubsection{\texorpdfstring{Waveform\+From\+Definition()}{WaveformFromDefinition()}}
+{\footnotesize\ttfamily def Waveform\+From\+Definition (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{td = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Computes the time-\/domain waveform using sums of cosines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em td} & instance of class Time\+Descriptor declaring the time descriptor of the waveform to produce. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+wf instance of class Waveform corresponding to the frequency content. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If td is None then the time descriptor corresponding to the frequency descriptor is used.~\newline
+ The waveform produced is essentially the inverse process of {\bfseries init}().~\newline
+ This function should produce the exact same result as the \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_af833a7687c414346de1e2ffab6b47d5c}{Waveform()} method, and is slow, but clearly written out to see how the waveform is produced by summing sinusoids. It used to essentially document the class.~\newline
+ 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent_af833a7687c414346de1e2ffab6b47d5c}{Waveform()}. 
+\end{DoxySeeAlso}
+
+
+Definition at line 158 of file Frequency\+Content.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Frequency\+Domain/Frequency\+Content.\+py\end{DoxyCompactItemize}

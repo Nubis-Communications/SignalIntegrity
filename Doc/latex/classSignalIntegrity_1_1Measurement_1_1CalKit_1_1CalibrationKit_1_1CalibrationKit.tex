@@ -1,0 +1,331 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit}{}\section{Calibration\+Kit Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit}\index{Calibration\+Kit@{Calibration\+Kit}}
+
+
+Class for holding a calibration kit derived from calibration constants.  
+
+
+
+
+Inherits object.
+
+
+
+Collaboration diagram for Calibration\+Kit\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a7c969c556643c62769436aaee9bee342}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, filename=None, f=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}{Initialize\+Frequency} (self, f)
+\begin{DoxyCompactList}\small\item\em Initializes frequencies. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a3dc78f8134b7196685f6b0b5ace5e33b}{Read\+From\+File} (self, filename)
+\begin{DoxyCompactList}\small\item\em Reads the calibration constants from a file. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_ac68713cc133371d7a733dd318b5669d3}{Write\+To\+File} (self, filename, calkitname=None)
+\begin{DoxyCompactList}\small\item\em Write calibration constants to a file. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_ab30dce63eb90ca31d9bea9036710996a}{Write\+Standards\+To\+Files} (self, filename\+Prefix)
+\begin{DoxyCompactList}\small\item\em Writes the standards to s-\/parameter files. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a749305349102d6e6bfd1babeb152046f}{Read\+Standards\+From\+Files} (self, filename\+Prefix)
+\begin{DoxyCompactList}\small\item\em Reads the standards from s-\/parameter files. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a198b8c2c77ea9f9815a181ddeda1c320}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a198b8c2c77ea9f9815a181ddeda1c320}} 
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a198b8c2c77ea9f9815a181ddeda1c320}{Constants}
+\begin{DoxyCompactList}\small\item\em instance of class \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants}{Calibration\+Constants} containing the calibration constants. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a40a26fb5046a51e40dd1b61c78d72ace}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a40a26fb5046a51e40dd1b61c78d72ace}} 
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a40a26fb5046a51e40dd1b61c78d72ace}{m\+\_\+f}
+\begin{DoxyCompactList}\small\item\em list of frequencies \end{DoxyCompactList}\item 
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_adfa88578140d393e4fc3d5e6976c4586}{open\+Standard}
+\begin{DoxyCompactList}\small\item\em instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of an open standard corresponding to frequencies provided and calibration constants. \end{DoxyCompactList}\item 
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a094c01f8f3b9b22b8759481b3d5bdb85}{short\+Standard}
+\begin{DoxyCompactList}\small\item\em instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of a short standard corresponding to frequencies provided and calibration constants. \end{DoxyCompactList}\item 
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_af4b585ef48fed700d70b2bee7e5ffdbe}{load\+Standard}
+\begin{DoxyCompactList}\small\item\em instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of a load standard corresponding to frequencies provided and calibration constants. \end{DoxyCompactList}\item 
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a63691e31dc0a91dbcfe40635f9c87599}{thru\+Standard}
+\begin{DoxyCompactList}\small\item\em instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of a thru standard corresponding to frequencies provided and calibration constants. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for holding a calibration kit derived from calibration constants. 
+
+Definition at line 296 of file Calibration\+Kit.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a7c969c556643c62769436aaee9bee342}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a7c969c556643c62769436aaee9bee342}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename = {\ttfamily None},  }\item[{}]{f = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & (optional) string filename of calibration constants file to read. \\
+\hline
+{\em f} & (optional) list of frequencies to define the calibration standards for. The calibration constants are initialized to their default as specified in \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants_ae64f0875afe3067b97ba370b354b9213}{Calibration\+Constants.\+\_\+\+\_\+init\+\_\+\+\_\+()}.\\
+\hline
+\end{DoxyParams}
+If a filename is specified, the calibration constants are read from the disk.
+
+If frequencies are provided, the frequencies are initialized and the calibration standards are initialized to have the s-\/parameters of the standards as defined by the frequencies and calibration constants.
+
+No calibration standards are generated yet if no frequencies are provided. \begin{DoxySeeAlso}{See also}
+Intialize\+Frequency 
+\end{DoxySeeAlso}
+
+
+Definition at line 311 of file Calibration\+Kit.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!Initialize\+Frequency@{Initialize\+Frequency}}
+\index{Initialize\+Frequency@{Initialize\+Frequency}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{Initialize\+Frequency()}{InitializeFrequency()}}
+{\footnotesize\ttfamily def Initialize\+Frequency (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f }\end{DoxyParamCaption})}
+
+
+
+Initializes frequencies. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of frequencies \hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1Calibration}{Calibration} standards are initialized to have the s-\/parameters of the standards as defined by the frequencies and calibration constants.\\
+\hline
+\end{DoxyParams}
+Once intialized, the s-\/parameters of the calibration standards can be accessed and used. \begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_adfa88578140d393e4fc3d5e6976c4586}{open\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a094c01f8f3b9b22b8759481b3d5bdb85}{short\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_af4b585ef48fed700d70b2bee7e5ffdbe}{load\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a63691e31dc0a91dbcfe40635f9c87599}{thru\+Standard} 
+\end{DoxySeeAlso}
+
+
+Definition at line 330 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a3dc78f8134b7196685f6b0b5ace5e33b}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a3dc78f8134b7196685f6b0b5ace5e33b}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!Read\+From\+File@{Read\+From\+File}}
+\index{Read\+From\+File@{Read\+From\+File}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{Read\+From\+File()}{ReadFromFile()}}
+{\footnotesize\ttfamily def Read\+From\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename }\end{DoxyParamCaption})}
+
+
+
+Reads the calibration constants from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & string name of file to read calibration constants from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants_a3dc78f8134b7196685f6b0b5ace5e33b}{Calibration\+Constants.\+Read\+From\+File()} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants}{Calibration\+Constants} for file format 
+\end{DoxySeeAlso}
+
+
+Definition at line 353 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a749305349102d6e6bfd1babeb152046f}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a749305349102d6e6bfd1babeb152046f}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!Read\+Standards\+From\+Files@{Read\+Standards\+From\+Files}}
+\index{Read\+Standards\+From\+Files@{Read\+Standards\+From\+Files}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{Read\+Standards\+From\+Files()}{ReadStandardsFromFiles()}}
+{\footnotesize\ttfamily def Read\+Standards\+From\+Files (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename\+Prefix }\end{DoxyParamCaption})}
+
+
+
+Reads the standards from s-\/parameter files. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename\+Prefix} & string name of prefix for standards file names \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self Each standard is prefixed with the filename\+Prefix provided concatenated with\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}Short.\+s1p\textquotesingle{} -\/ for the short standard.
+\item \textquotesingle{}Open.\+s1p\textquotesingle{} -\/ for the open standard.
+\item \textquotesingle{}Load.\+s1p\textquotesingle{} -\/ for the load standard.
+\item \textquotesingle{}Thru.\+s2p\textquotesingle{} -\/ for the thru standard 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\begin{DoxyAttention}{Attention}
+This decouples the standards from the calibration constants and is not preferred. 
+\end{DoxyAttention}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a094c01f8f3b9b22b8759481b3d5bdb85}{short\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_adfa88578140d393e4fc3d5e6976c4586}{open\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_af4b585ef48fed700d70b2bee7e5ffdbe}{load\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a63691e31dc0a91dbcfe40635f9c87599}{thru\+Standard} 
+\end{DoxySeeAlso}
+
+
+Definition at line 403 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_ab30dce63eb90ca31d9bea9036710996a}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_ab30dce63eb90ca31d9bea9036710996a}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!Write\+Standards\+To\+Files@{Write\+Standards\+To\+Files}}
+\index{Write\+Standards\+To\+Files@{Write\+Standards\+To\+Files}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{Write\+Standards\+To\+Files()}{WriteStandardsToFiles()}}
+{\footnotesize\ttfamily def Write\+Standards\+To\+Files (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename\+Prefix }\end{DoxyParamCaption})}
+
+
+
+Writes the standards to s-\/parameter files. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename\+Prefix} & string name of prefix for standards file names \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self Each standard is prefixed with the filename\+Prefix provided concatenated with\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}Short.\+s1p\textquotesingle{} -\/ for the short standard.
+\item \textquotesingle{}Open.\+s1p\textquotesingle{} -\/ for the open standard.
+\item \textquotesingle{}Load.\+s1p\textquotesingle{} -\/ for the load standard.
+\item \textquotesingle{}Thru.\+s2p\textquotesingle{} -\/ for the thru standard 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\begin{DoxyAttention}{Attention}
+the member variables for the standards must exist. 
+\end{DoxyAttention}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a094c01f8f3b9b22b8759481b3d5bdb85}{short\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_adfa88578140d393e4fc3d5e6976c4586}{open\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_af4b585ef48fed700d70b2bee7e5ffdbe}{load\+Standard} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a63691e31dc0a91dbcfe40635f9c87599}{thru\+Standard} 
+\end{DoxySeeAlso}
+
+
+Definition at line 382 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_ac68713cc133371d7a733dd318b5669d3}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_ac68713cc133371d7a733dd318b5669d3}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!Write\+To\+File@{Write\+To\+File}}
+\index{Write\+To\+File@{Write\+To\+File}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{Write\+To\+File()}{WriteToFile()}}
+{\footnotesize\ttfamily def Write\+To\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename,  }\item[{}]{calkitname = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Write calibration constants to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & string name of calibration constant file to write \\
+\hline
+{\em calkitname} & (optional) string containing header information to be placed after the D\+E\+S\+C\+R\+I\+P\+T\+I\+ON\+: in the header information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants_ac68713cc133371d7a733dd318b5669d3}{Calibration\+Constants.\+Write\+To\+File()} 
+\end{DoxySeeAlso}
+
+
+Definition at line 364 of file Calibration\+Kit.\+py.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_af4b585ef48fed700d70b2bee7e5ffdbe}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_af4b585ef48fed700d70b2bee7e5ffdbe}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!load\+Standard@{load\+Standard}}
+\index{load\+Standard@{load\+Standard}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{load\+Standard}{loadStandard}}
+{\footnotesize\ttfamily load\+Standard}
+
+
+
+instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of a load standard corresponding to frequencies provided and calibration constants. 
+
+\begin{DoxyAttention}{Attention}
+this only defined if the class was initialized with a frequency list or a call was made to \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}{Initialize\+Frequency()} 
+\end{DoxyAttention}
+
+
+Definition at line 340 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_adfa88578140d393e4fc3d5e6976c4586}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_adfa88578140d393e4fc3d5e6976c4586}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!open\+Standard@{open\+Standard}}
+\index{open\+Standard@{open\+Standard}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{open\+Standard}{openStandard}}
+{\footnotesize\ttfamily open\+Standard}
+
+
+
+instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of an open standard corresponding to frequencies provided and calibration constants. 
+
+\begin{DoxyAttention}{Attention}
+this only defined if the class was initialized with a frequency list or a call was made to \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}{Initialize\+Frequency()} 
+\end{DoxyAttention}
+
+
+Definition at line 332 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a094c01f8f3b9b22b8759481b3d5bdb85}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a094c01f8f3b9b22b8759481b3d5bdb85}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!short\+Standard@{short\+Standard}}
+\index{short\+Standard@{short\+Standard}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{short\+Standard}{shortStandard}}
+{\footnotesize\ttfamily short\+Standard}
+
+
+
+instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of a short standard corresponding to frequencies provided and calibration constants. 
+
+\begin{DoxyAttention}{Attention}
+this only defined if the class was initialized with a frequency list or a call was made to \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}{Initialize\+Frequency()} 
+\end{DoxyAttention}
+
+
+Definition at line 336 of file Calibration\+Kit.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a63691e31dc0a91dbcfe40635f9c87599}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a63691e31dc0a91dbcfe40635f9c87599}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}!thru\+Standard@{thru\+Standard}}
+\index{thru\+Standard@{thru\+Standard}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Calibration\+Kit\+::\+Calibration\+Kit}}
+\subsubsection{\texorpdfstring{thru\+Standard}{thruStandard}}
+{\footnotesize\ttfamily thru\+Standard}
+
+
+
+instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing s-\/parameters of a thru standard corresponding to frequencies provided and calibration constants. 
+
+\begin{DoxyAttention}{Attention}
+this only defined if the class was initialized with a frequency list or a call was made to \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit_a068ffbf43377a9e28cccb8b6013772ea}{Initialize\+Frequency()} 
+\end{DoxyAttention}
+
+
+Definition at line 343 of file Calibration\+Kit.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+Cal\+Kit/Calibration\+Kit.\+py\end{DoxyCompactItemize}

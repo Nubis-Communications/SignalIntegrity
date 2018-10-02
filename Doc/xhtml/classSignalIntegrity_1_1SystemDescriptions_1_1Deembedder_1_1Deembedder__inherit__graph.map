@@ -1,0 +1,6 @@
+<map id="Deembedder" name="Deembedder">
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title="Performs numerical device deembedding. " alt="" coords="5,704,157,796"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title="class for producing symbolic solutions to deembedding problems. " alt="" coords="182,704,333,796"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations " alt="" coords="98,277,241,443"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="90,5,249,229"/>
+</map>

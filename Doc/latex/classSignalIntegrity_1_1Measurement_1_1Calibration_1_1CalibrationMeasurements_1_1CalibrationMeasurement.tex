@@ -1,0 +1,87 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement}{}\section{Calibration\+Measurement Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement}\index{Calibration\+Measurement@{Calibration\+Measurement}}
+
+
+\hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration}{Calibration} Measurements.  
+
+
+
+
+Inheritance diagram for Calibration\+Measurement\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Calibration\+Measurement\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement_a1ddf400813e458d6de6ee54246f050e7}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, type, name=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration}{Calibration} Measurements. 
+
+Teledyne Le\+Croy Inc. (\char`\"{}\+C\+O\+M\+P\+A\+N\+Y\char`\"{}) C\+O\+N\+F\+I\+D\+E\+N\+T\+I\+AL Unpublished Copyright (c) 2015-\/2016 Peter J. Pupalaikis and Teledyne Le\+Croy, All Rights Reserved.
+
+Explicit license in accompanying R\+E\+A\+D\+M\+E.\+txt file. If you don\textquotesingle{}t have that file or do not agree to the terms in that file, then you are not licensed to use this material whatsoever Base class for calibration measurements 
+
+Definition at line 16 of file Calibration\+Measurements.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement_a1ddf400813e458d6de6ee54246f050e7}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement_a1ddf400813e458d6de6ee54246f050e7}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+Measurements\+::\+Calibration\+Measurement@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+Measurements\+::\+Calibration\+Measurement}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+Measurements\+::\+Calibration\+Measurement@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+Measurements\+::\+Calibration\+Measurement}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{type,  }\item[{}]{name = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & string representing the type of the measurement. \\
+\hline
+{\em name} & (optional) string representing the name of the measurement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+The name of the measurement is not used for anything, but can be used to identify the name of a calibration measurement externally.
+\end{DoxyRemark}
+valid types of calibration measurements are\+:
+
+
+\begin{DoxyItemize}
+\item \textquotesingle{}reflect\textquotesingle{} -\/ a reflect measurement taken on a port with a reflect standard (like short, open, or load).
+\item \textquotesingle{}thru\textquotesingle{} -\/ a thru calibration measurement taken between two ports.
+\item \textquotesingle{}xtalk\textquotesingle{} -\/ a crosstalk calibration measurement typically taken between two ports that are completely unconnected. \begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ReflectCalibrationMeasurement}{Reflect\+Calibration\+Measurement} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ThruCalibrationMeasurement}{Thru\+Calibration\+Measurement} 
+
+\hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1XtalkCalibrationMeasurement}{Xtalk\+Calibration\+Measurement} 
+\end{DoxySeeAlso}
+
+\end{DoxyItemize}
+
+Definition at line 36 of file Calibration\+Measurements.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+Calibration/Calibration\+Measurements.\+py\end{DoxyCompactItemize}

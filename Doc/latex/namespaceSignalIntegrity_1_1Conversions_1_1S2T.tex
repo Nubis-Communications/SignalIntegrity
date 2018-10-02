@@ -1,0 +1,50 @@
+\hypertarget{namespaceSignalIntegrity_1_1Conversions_1_1S2T}{}\section{Signal\+Integrity.\+Conversions.\+S2T Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Conversions_1_1S2T}\index{Signal\+Integrity.\+Conversions.\+S2T@{Signal\+Integrity.\+Conversions.\+S2T}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Conversions_1_1S2T_a73cb3d43c1c889387cc71f299bbc6cf3}{S2T} (S, lp=None, rp=None)
+\begin{DoxyCompactList}\small\item\em Converts s-\/parameters to generalized T-\/parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}S2T\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Conversions_1_1S2T_a73cb3d43c1c889387cc71f299bbc6cf3}\label{namespaceSignalIntegrity_1_1Conversions_1_1S2T_a73cb3d43c1c889387cc71f299bbc6cf3}} 
+\index{Signal\+Integrity\+::\+Conversions\+::\+S2T@{Signal\+Integrity\+::\+Conversions\+::\+S2T}!S2T@{S2T}}
+\index{S2T@{S2T}!Signal\+Integrity\+::\+Conversions\+::\+S2T@{Signal\+Integrity\+::\+Conversions\+::\+S2T}}
+\subsubsection{\texorpdfstring{S2\+T()}{S2T()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Conversions.\+S2\+T.\+S2T (\begin{DoxyParamCaption}\item[{}]{S,  }\item[{}]{lp = {\ttfamily None},  }\item[{}]{rp = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Converts s-\/parameters to generalized T-\/parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S} & list of list representing s-\/parameter matrix to convert \\
+\hline
+{\em lp} & (optional) a list of left port numbers \\
+\hline
+{\em rp} & (optional) a list of right port numbers \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+if no list of left and right ports are specified, it assumes that the first P/2-\/1 port are on the left and the remaining ports are on the right 
+
+Supports multi-\/port devices 
+\end{DoxyNote}
+\begin{DoxyAttention}{Attention}
+The number of ports must be even 
+
+The port number in the lists are one-\/based (not zero-\/based) 
+\end{DoxyAttention}
+\begin{DoxyNote}{Note}
+The reference impedance and scaling factor associated with the s-\/parameters is unchanged. 
+\end{DoxyNote}
+
+
+Definition at line 31 of file S2\+T.\+py.
+

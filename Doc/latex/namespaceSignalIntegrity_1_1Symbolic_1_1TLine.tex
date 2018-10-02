@@ -1,0 +1,175 @@
+\hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1TLine}{}\section{Signal\+Integrity.\+Symbolic.\+T\+Line Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Symbolic_1_1TLine}\index{Signal\+Integrity.\+Symbolic.\+T\+Line@{Signal\+Integrity.\+Symbolic.\+T\+Line}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_ab6b9daac20a1c798e782aa9af3a6e44f}{T\+Line} (P, rho, gamma)
+\begin{DoxyCompactList}\small\item\em symbolic two-\/port transmission \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a6e67758dfbb8c37100cd86a52783b20c}{T\+Line\+Rho} (Zc, ports=2)
+\begin{DoxyCompactList}\small\item\em string representation of rho from the characteristic impedance \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a1789044d24922e3256a701fa4cca3717}{T\+Line\+Gamma} (Td)
+\begin{DoxyCompactList}\small\item\em string representation of gamma from the propagation time \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a03366e71575a7dda96f6cba322d2ffce}{T\+Line\+Two\+Port} (rho, gamma)
+\begin{DoxyCompactList}\small\item\em symbolic single-\/ended two-\/port transmission line \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a43ac4b6d4a984f5b43421e22cbf6a92c}{T\+Line\+Four\+Port} (rho, gamma)
+\begin{DoxyCompactList}\small\item\em symbolic single-\/ended four-\/port transmission line \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}TLine\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_ab6b9daac20a1c798e782aa9af3a6e44f}\label{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_ab6b9daac20a1c798e782aa9af3a6e44f}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}!T\+Line@{T\+Line}}
+\index{T\+Line@{T\+Line}!Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}}
+\subsubsection{\texorpdfstring{T\+Line()}{TLine()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line (\begin{DoxyParamCaption}\item[{}]{P,  }\item[{}]{rho,  }\item[{}]{gamma }\end{DoxyParamCaption})}
+
+
+
+symbolic two-\/port transmission 
+
+symbolic two and four port single-\/ended transmission line based on rho and gamma
+
+
+\begin{DoxyParams}{Parameters}
+{\em P} & integer number of ports (2 or 4)~\newline
+ for two ports, returns \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a03366e71575a7dda96f6cba322d2ffce}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Two\+Port}~\newline
+ for four ports, return \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a43ac4b6d4a984f5b43421e22cbf6a92c}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Four\+Port}~\newline
+ \\
+\hline
+{\em rho} & string reflection coefficient \\
+\hline
+{\em gamma} & string gamma \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+use \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a6e67758dfbb8c37100cd86a52783b20c}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Rho} if you want to enter the string representation of rho based on the characteristic impedance. 
+
+use \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a1789044d24922e3256a701fa4cca3717}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Gamma} if you want to enter the string representation of gamma based on a time delay 
+\end{DoxyNote}
+
+
+Definition at line 28 of file T\+Line.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a43ac4b6d4a984f5b43421e22cbf6a92c}\label{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a43ac4b6d4a984f5b43421e22cbf6a92c}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}!T\+Line\+Four\+Port@{T\+Line\+Four\+Port}}
+\index{T\+Line\+Four\+Port@{T\+Line\+Four\+Port}!Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}}
+\subsubsection{\texorpdfstring{T\+Line\+Four\+Port()}{TLineFourPort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Four\+Port (\begin{DoxyParamCaption}\item[{}]{rho,  }\item[{}]{gamma }\end{DoxyParamCaption})}
+
+
+
+symbolic single-\/ended four-\/port transmission line 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rho} & string reflection coefficient \\
+\hline
+{\em gamma} & string gamma \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+use \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a6e67758dfbb8c37100cd86a52783b20c}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Rho} if you want to enter the string representation of rho based on the characteristic impedance. 
+
+use \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a1789044d24922e3256a701fa4cca3717}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Gamma} if you want to enter the string representation of gamma based on a time delay 
+
+this is the symbolic version of \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineFourPort_a9068bc032d12fa66cf6a8526f3b6d8ff}{Signal\+Integrity.\+Devices.\+T\+Line\+Four\+Port.\+T\+Line\+Four\+Port} except that by default it\textquotesingle{}s base on rho for symbolic simplicity (Zc complicates the look of things). 
+\end{DoxyNote}
+
+
+Definition at line 91 of file T\+Line.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a1789044d24922e3256a701fa4cca3717}\label{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a1789044d24922e3256a701fa4cca3717}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}!T\+Line\+Gamma@{T\+Line\+Gamma}}
+\index{T\+Line\+Gamma@{T\+Line\+Gamma}!Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}}
+\subsubsection{\texorpdfstring{T\+Line\+Gamma()}{TLineGamma()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Gamma (\begin{DoxyParamCaption}\item[{}]{Td }\end{DoxyParamCaption})}
+
+
+
+string representation of gamma from the propagation time 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Td} & string propagation time \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string La\+TeX representation of gamma (as a function of frequency) 
+\end{DoxyReturn}
+
+
+Definition at line 52 of file T\+Line.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a6e67758dfbb8c37100cd86a52783b20c}\label{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a6e67758dfbb8c37100cd86a52783b20c}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}!T\+Line\+Rho@{T\+Line\+Rho}}
+\index{T\+Line\+Rho@{T\+Line\+Rho}!Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}}
+\subsubsection{\texorpdfstring{T\+Line\+Rho()}{TLineRho()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Rho (\begin{DoxyParamCaption}\item[{}]{Zc,  }\item[{}]{ports = {\ttfamily 2} }\end{DoxyParamCaption})}
+
+
+
+string representation of rho from the characteristic impedance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Zc} & string characteristic impedance \\
+\hline
+{\em ports} & (optional) integer number of ports (defaults to two). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string La\+TeX representation of rho 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+that rho is different for a four-\/port single-\/ended transmission line. 
+\end{DoxyNote}
+
+
+Definition at line 41 of file T\+Line.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a03366e71575a7dda96f6cba322d2ffce}\label{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a03366e71575a7dda96f6cba322d2ffce}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}!T\+Line\+Two\+Port@{T\+Line\+Two\+Port}}
+\index{T\+Line\+Two\+Port@{T\+Line\+Two\+Port}!Signal\+Integrity\+::\+Symbolic\+::\+T\+Line@{Signal\+Integrity\+::\+Symbolic\+::\+T\+Line}}
+\subsubsection{\texorpdfstring{T\+Line\+Two\+Port()}{TLineTwoPort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Two\+Port (\begin{DoxyParamCaption}\item[{}]{rho,  }\item[{}]{gamma }\end{DoxyParamCaption})}
+
+
+
+symbolic single-\/ended two-\/port transmission line 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rho} & string reflection coefficient \\
+\hline
+{\em gamma} & string gamma \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+use \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a6e67758dfbb8c37100cd86a52783b20c}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Rho} if you want to enter the string representation of rho based on the characteristic impedance. 
+
+use \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1TLine_a1789044d24922e3256a701fa4cca3717}{Signal\+Integrity.\+Symbolic.\+T\+Line.\+T\+Line\+Gamma} if you want to enter the string representation of gamma based on a time delay 
+
+this is the symbolic version of \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPort_a7bd18f7b4b86ece0e8648407add746d4}{Signal\+Integrity.\+Devices.\+T\+Line\+Two\+Port.\+T\+Line\+Two\+Port} except that by default it\textquotesingle{}s base on rho for symbolic simplicity (Zc complicates the look of things). 
+\end{DoxyNote}
+
+
+Definition at line 69 of file T\+Line.\+py.
+

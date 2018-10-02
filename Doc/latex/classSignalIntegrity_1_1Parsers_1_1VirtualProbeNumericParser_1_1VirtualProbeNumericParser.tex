@@ -1,0 +1,101 @@
+\hypertarget{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser}{}\section{Virtual\+Probe\+Numeric\+Parser Class Reference}
+\label{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser}\index{Virtual\+Probe\+Numeric\+Parser@{Virtual\+Probe\+Numeric\+Parser}}
+
+
+performs numeric virtual probing from netlists  
+
+
+
+
+Inheritance diagram for Virtual\+Probe\+Numeric\+Parser\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Virtual\+Probe\+Numeric\+Parser\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser_a5ce77900c33ce9b681aebb5c527ab92a}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, f=None, args=None, callback=None, cache\+File\+Name=None)
+\begin{DoxyCompactList}\small\item\em constructor \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser_a836e87421e9e21a6676da06625b644b1}{Transfer\+Matrices} (self)
+\begin{DoxyCompactList}\small\item\em calculates transfer matrices for virtual probing \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+performs numeric virtual probing from netlists 
+
+Definition at line 22 of file Virtual\+Probe\+Numeric\+Parser.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser_a5ce77900c33ce9b681aebb5c527ab92a}\label{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser_a5ce77900c33ce9b681aebb5c527ab92a}} 
+\index{Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser@{Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser@{Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f = {\ttfamily None},  }\item[{}]{args = {\ttfamily None},  }\item[{}]{callback = {\ttfamily None},  }\item[{}]{cache\+File\+Name = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+constructor 
+
+frequencies may be provided at construction time (or not for symbolic solutions).
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & (optional) list of frequencies \\
+\hline
+{\em args} & (optional) string arguments for the circuit. \\
+\hline
+{\em cache\+File\+Name} & (optional) string name of file used to cache results\\
+\hline
+\end{DoxyParams}
+Arguments are provided on a line as pairs of names and values separated by a space.
+
+The optional callback is used as described in the class \hyperlink{namespaceSignalIntegrity_1_1CallBacker}{Call\+Backer}.
+
+The use of the cache\+File\+Name is described in the class Line\+Cache 
+
+Definition at line 39 of file Virtual\+Probe\+Numeric\+Parser.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser_a836e87421e9e21a6676da06625b644b1}\label{classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser_a836e87421e9e21a6676da06625b644b1}} 
+\index{Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser@{Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser}!Transfer\+Matrices@{Transfer\+Matrices}}
+\index{Transfer\+Matrices@{Transfer\+Matrices}!Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser@{Signal\+Integrity\+::\+Parsers\+::\+Virtual\+Probe\+Numeric\+Parser\+::\+Virtual\+Probe\+Numeric\+Parser}}
+\subsubsection{\texorpdfstring{Transfer\+Matrices()}{TransferMatrices()}}
+{\footnotesize\ttfamily def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices}{Transfer\+Matrices} (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+calculates transfer matrices for virtual probing 
+
+Virtual probing, insofar as this class is concerned means generating transfer matrices for processing waveforms with.
+
+\begin{DoxyReturn}{Returns}
+instance of class Transfer\+Matrices
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Transfer\+Matrices are used with a Transfer\+Matrices\+Processor to process waveforms for virtual probing. 
+\end{DoxyRemark}
+
+
+Definition at line 59 of file Virtual\+Probe\+Numeric\+Parser.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Parsers/Virtual\+Probe\+Numeric\+Parser.\+py\end{DoxyCompactItemize}

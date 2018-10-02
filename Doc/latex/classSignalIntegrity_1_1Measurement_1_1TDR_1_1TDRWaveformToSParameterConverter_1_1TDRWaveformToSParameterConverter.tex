@@ -1,0 +1,112 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter}{}\section{T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter}\index{T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter@{T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter}}
+
+
+Class for converting \hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1TDR}{T\+DR} waveforms to raw measured s-\/parameters.  
+
+
+
+
+Inherits object.
+
+
+
+Collaboration diagram for T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter_a85d11b8192fdd839d48a2d7e1abf4a5d}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, Window\+Forward\+Half\+Width\+Time=0, Window\+Reverse\+Half\+Width\+Time=None, Window\+Raised\+Cosine\+Duration=0, Step=True, Length=0, Denoise=False, Denoise\+Percent=30., Inverted=False, fd=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter_a6ff074fa355062d77a954060b9107410}{Raw\+Measured\+S\+Parameters} (self, wf\+List)
+\begin{DoxyCompactList}\small\item\em Raw\+Measured\+S\+Parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for converting \hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1TDR}{T\+DR} waveforms to raw measured s-\/parameters. 
+
+Definition at line 24 of file T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter_a85d11b8192fdd839d48a2d7e1abf4a5d}\label{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter_a85d11b8192fdd839d48a2d7e1abf4a5d}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter@{Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter@{Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Window\+Forward\+Half\+Width\+Time = {\ttfamily 0},  }\item[{}]{Window\+Reverse\+Half\+Width\+Time = {\ttfamily None},  }\item[{}]{Window\+Raised\+Cosine\+Duration = {\ttfamily 0},  }\item[{}]{Step = {\ttfamily True},  }\item[{}]{Length = {\ttfamily 0},  }\item[{}]{Denoise = {\ttfamily False},  }\item[{}]{Denoise\+Percent = {\ttfamily 30.},  }\item[{}]{Inverted = {\ttfamily False},  }\item[{}]{fd = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Window\+Forward\+Half\+Width\+Time} & (optional) float amount of time in extraction window on forward side of incident wave (defaults to 0). \\
+\hline
+{\em Window\+Reverse\+Half\+Width\+Time} & (optional) float amount of time in extraction window on reverse side of incident wave (defaults to None). \\
+\hline
+{\em Window\+Raised\+Cosine\+Duration} & (optional) float amount of time to tape extraction window with raised cosine (defaults to 0). \\
+\hline
+{\em Step} & (optional) boolean True if waveforms are steps, False if waveforms are impulses (defaults to True). \\
+\hline
+{\em Length} & (optional) float length of time to clip waveform to (defaults to 0). \\
+\hline
+{\em Denoise} & (optiona) boolean whether to perform wavelet denoising (defaults to False). \\
+\hline
+{\em Denoise\+Percent} & (optional) percent of end portion of the waveform used during denoising for noise statistics estimation (defaults to 30 percent). \\
+\hline
+{\em Inverted} & (optional) boolean whether the waveform is invertede (defaults to False). \\
+\hline
+{\em fd} & (optional) instance of class Frequency\+Descriptor used to define desired frequencies for the s-\/parameters (defaults to None). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+if fd is None or not provided, then the frequencies will correspond to the time descriptor of the trimmed waveform. 
+
+if Window\+Reverse\+Half\+Width\+Time is None, then it defaults to the Window\+Forward\+Half\+Width\+Time 
+\end{DoxyNote}
+
+
+Definition at line 59 of file T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter_a6ff074fa355062d77a954060b9107410}\label{classSignalIntegrity_1_1Measurement_1_1TDR_1_1TDRWaveformToSParameterConverter_1_1TDRWaveformToSParameterConverter_a6ff074fa355062d77a954060b9107410}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter@{Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter}!Raw\+Measured\+S\+Parameters@{Raw\+Measured\+S\+Parameters}}
+\index{Raw\+Measured\+S\+Parameters@{Raw\+Measured\+S\+Parameters}!Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter@{Signal\+Integrity\+::\+Measurement\+::\+T\+D\+R\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter\+::\+T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter}}
+\subsubsection{\texorpdfstring{Raw\+Measured\+S\+Parameters()}{RawMeasuredSParameters()}}
+{\footnotesize\ttfamily def Raw\+Measured\+S\+Parameters (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{wf\+List }\end{DoxyParamCaption})}
+
+
+
+Raw\+Measured\+S\+Parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wf\+List} & list of lists of waveforms of measurements. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} containing the raw measured s-\/parameters of the D\+UT.
+\end{DoxyReturn}
+Each element at index d in wf\+List is a list of waveforms where the zero based dth waveform contains the incident and the others don\textquotesingle{}t. (i.\+e. they are the waveforms measured at the ports of the D\+UT when zero based port d is driven).
+
+For a P port D\+UT, wf\+List must be PxP. \begin{DoxyNote}{Note}
+for one port measurements, wf\+List can be a single measurement (as opposed to a 1x1 list of list of one element). 
+\end{DoxyNote}
+
+
+Definition at line 85 of file T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+T\+D\+R/T\+D\+R\+Waveform\+To\+S\+Parameter\+Converter.\+py\end{DoxyCompactItemize}

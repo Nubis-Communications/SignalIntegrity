@@ -1,0 +1,100 @@
+\hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic}{}\section{T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic Class Reference}
+\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic}\index{T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic@{T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic}}
+
+
+s-\/parameters of analytic single-\/ended telegraphers transmission line  
+
+
+
+
+Inheritance diagram for T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic_a7bb4433ce4f16bca3d1fba761e3a1f9c}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, R, Rse, L, G, C, df, Z0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic_ab7a6da5139e0878b590d68292aaa70f2}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, n)
+\begin{DoxyCompactList}\small\item\em overloads \mbox{[}n\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+s-\/parameters of analytic single-\/ended telegraphers transmission line 
+
+Definition at line 18 of file T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic_a7bb4433ce4f16bca3d1fba761e3a1f9c}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic_a7bb4433ce4f16bca3d1fba761e3a1f9c}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{R,  }\item[{}]{Rse,  }\item[{}]{L,  }\item[{}]{G,  }\item[{}]{C,  }\item[{}]{df,  }\item[{}]{Z0 }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of float frequencies \\
+\hline
+{\em R} & float DC series resistance (Ohms) \\
+\hline
+{\em Rse} & float series skin-\/effect resistance (Ohms/sqrt(Hz)) \\
+\hline
+{\em L} & float series inductance (H) \\
+\hline
+{\em G} & float DC conductance to ground (S) \\
+\hline
+{\em C} & float capacitance to ground (F) \\
+\hline
+{\em df} & float dissipation factor (loss-\/tangent) of capacitance to ground \\
+\hline
+{\em Z0} & float reference impedance \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 30 of file T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic_ab7a6da5139e0878b590d68292aaa70f2}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic_ab7a6da5139e0878b590d68292aaa70f2}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+overloads \mbox{[}n\mbox{]} 
+
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix for the nth frequency element 
+\end{DoxyReturn}
+
+
+Definition at line 38 of file T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+S\+Parameters/\+Devices/T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic.\+py\end{DoxyCompactItemize}

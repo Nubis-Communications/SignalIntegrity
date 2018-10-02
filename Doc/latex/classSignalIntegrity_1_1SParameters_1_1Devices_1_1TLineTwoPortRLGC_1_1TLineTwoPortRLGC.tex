@@ -1,0 +1,107 @@
+\hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC}{}\section{T\+Line\+Two\+Port\+R\+L\+GC Class Reference}
+\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC}\index{T\+Line\+Two\+Port\+R\+L\+GC@{T\+Line\+Two\+Port\+R\+L\+GC}}
+
+
+s-\/parameters of single-\/ended \hyperlink{namespaceSignalIntegrity_1_1SParameters_1_1RLGC}{R\+L\+GC} (telegraphers) transmission line  
+
+
+
+
+Inheritance diagram for T\+Line\+Two\+Port\+R\+L\+GC\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for T\+Line\+Two\+Port\+R\+L\+GC\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC_a44ea5b94b16c4f9a8ae2b0266c7434d8}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, R, Rse, L, G, C, df, Z0, K=0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC_ab7a6da5139e0878b590d68292aaa70f2}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, n)
+\begin{DoxyCompactList}\small\item\em overloads \mbox{[}n\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+s-\/parameters of single-\/ended \hyperlink{namespaceSignalIntegrity_1_1SParameters_1_1RLGC}{R\+L\+GC} (telegraphers) transmission line 
+
+Definition at line 19 of file T\+Line\+Two\+Port\+R\+L\+G\+C.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC_a44ea5b94b16c4f9a8ae2b0266c7434d8}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC_a44ea5b94b16c4f9a8ae2b0266c7434d8}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{R,  }\item[{}]{Rse,  }\item[{}]{L,  }\item[{}]{G,  }\item[{}]{C,  }\item[{}]{df,  }\item[{}]{Z0,  }\item[{}]{K = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of float frequencies \\
+\hline
+{\em R} & float DC series resistance (Ohms) \\
+\hline
+{\em Rse} & float series skin-\/effect resistance (Ohms/sqrt(Hz)) \\
+\hline
+{\em L} & float series inductance (H) \\
+\hline
+{\em G} & float DC conductance to ground (S) \\
+\hline
+{\em C} & float capacitance to ground (F) \\
+\hline
+{\em df} & float dissipation factor (loss-\/tangent) of capacitance to ground \\
+\hline
+{\em Z0} & float reference impedance \\
+\hline
+{\em K} & (optional) integer number of sections (defaults to zero) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+K=0 specifies the analytic transmission line calculation \hyperlink{namespaceSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic}{T\+Line\+Two\+Port\+R\+L\+G\+C\+Analytic}.~\newline
+ Otherwise, non-\/zero K specifies the numerical approximation \hyperlink{namespaceSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate}{T\+Line\+Two\+Port\+R\+L\+G\+C\+Approximate}.~\newline
+
+\end{DoxyNote}
+
+
+Definition at line 34 of file T\+Line\+Two\+Port\+R\+L\+G\+C.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC_ab7a6da5139e0878b590d68292aaa70f2}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC_ab7a6da5139e0878b590d68292aaa70f2}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+T\+Line\+Two\+Port\+R\+L\+G\+C\+::\+T\+Line\+Two\+Port\+R\+L\+GC}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+overloads \mbox{[}n\mbox{]} 
+
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix for the nth frequency element 
+\end{DoxyReturn}
+
+
+Definition at line 46 of file T\+Line\+Two\+Port\+R\+L\+G\+C.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+S\+Parameters/\+Devices/T\+Line\+Two\+Port\+R\+L\+G\+C.\+py\end{DoxyCompactItemize}

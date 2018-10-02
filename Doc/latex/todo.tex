@@ -1,0 +1,63 @@
+
+\begin{DoxyRefList}
+\item[\label{todo__todo000001}%
+\Hypertarget{todo__todo000001}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1Mutual_afd907d0061f13783b261b76e3dbd45d4}{Signal\+Integrity\+:\+:Devices\+:\+:Mutual.Mutual} (Ll, Lr, M, f, Z0=None, K=None)]use Z0\+K\+Helper to resolve reference impedance and scaling factor. Currently K is not used. 
+
+remove old mutual inductance code  
+\item[\label{todo__todo000002}%
+\Hypertarget{todo__todo000002}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ReferenceImpedanceTransformer_a9e41bb15210406f67383bb87c8009440}{Signal\+Integrity\+:\+:Devices\+:\+:Reference\+Impedance\+Transformer.Reference\+Impedance\+Transformer} (Z0f, Z0i=None, Kf=None, Ki=None)]put Z0i=50.\+0 in the input arguments and remove check within the code 
+
+needs port numbering  
+\item[\label{todo__todo000003}%
+\Hypertarget{todo__todo000003}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1SeriesG_ae20ca521cee3c128cc38dc8cca9e5e62}{Signal\+Integrity\+:\+:Devices\+:\+:SeriesG.SeriesG} (G, Z0=50.)]return actual s-\/parameters of series conductance, even when conductance is zero (as opposed to the weird numerical approximation).  
+\item[\label{todo__todo000004}%
+\Hypertarget{todo__todo000004}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntDevice_aa029c69b0ed8735ab01138a19ee9f1df}{Signal\+Integrity\+:\+:Devices\+:\+:Shunt\+Device.Shunt\+Device\+Four\+Port} (D)]check the port numbering  
+\item[\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a071383dcde5ba797b9f5882b739c77ee}{Signal\+Integrity\+:\+:Devices\+:\+:ShuntZ.Shunt\+Z\+Four\+Port} (Z, Z0=50.)]check the port numbering  
+\item[\label{todo__todo000006}%
+\Hypertarget{todo__todo000006}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a4f6b7665037fa8b00407684e513e7e37}{Signal\+Integrity\+:\+:Devices\+:\+:ShuntZ.Shunt\+Z\+Three\+Port} (Z, Z0=50.)]check the port numbering  
+\item[\label{todo__todo000007}%
+\Hypertarget{todo__todo000007}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineFourPort_a9068bc032d12fa66cf6a8526f3b6d8ff}{Signal\+Integrity\+:\+:Devices\+:\+:T\+Line\+Four\+Port.T\+Line\+Four\+Port} (Zc, gamma, Z0)]Make Z0 optional defaulting to 50 Ohms 
+
+fix the A\+S\+C\+II line art.  
+\item[\label{todo__todo000008}%
+\Hypertarget{todo__todo000008}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineFourPortLossless_a1eacb2d951a947630c694ea6e3d6754b}{Signal\+Integrity\+:\+:Devices\+:\+:T\+Line\+Four\+Port\+Lossless.T\+Line\+Four\+Port\+Lossless} (Zc, Td, f, Z0)]Make Z0 optional defaulting to 50 Ohms  
+\item[\label{todo__todo000009}%
+\Hypertarget{todo__todo000009}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPort_a7bd18f7b4b86ece0e8648407add746d4}{Signal\+Integrity\+:\+:Devices\+:\+:T\+Line\+Two\+Port.T\+Line\+Two\+Port} (Zc, gamma, Z0)]Make Z0 optional defaulting to 50 Ohms  
+\item[\label{todo__todo000014}%
+\Hypertarget{todo__todo000014}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a0516bd7ba5f76dc0247fd30f6aacdffc}{Signal\+Integrity\+:\+:Symbolic\+:\+:ShuntZ.Shunt\+Z\+Four\+Port} (Z)]check the port numbering  
+\item[\label{todo__todo000015}%
+\Hypertarget{todo__todo000015}%
+Member \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a58498d6d446784d31ce6915a18059b2b}{Signal\+Integrity\+:\+:Symbolic\+:\+:ShuntZ.Shunt\+Z\+Three\+Port} (Z)]check the port numbering  
+\item[\label{todo__todo000016}%
+\Hypertarget{todo__todo000016}%
+Member \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ab60d596fbc393fd58c3fafa9566c7ac7}{System\+Description.Add\+Port} (self, Device\+Name, Device\+Port, System\+Port, Add\+Thru=False)]Consider removing the Add\+Thru argument  
+\item[\label{todo__todo000017}%
+\Hypertarget{todo__todo000017}%
+Member \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric_a021c12a7e391dbcb5904bb9a1e3c6294}{System\+S\+Parameters\+Numeric.S\+Parameters} (self, args)]document this better  
+\item[\label{todo__todo000010}%
+\Hypertarget{todo__todo000010}%
+Member \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate_a58e1768a4b29f316e37bd98032fbf748}{T\+Line\+Differential\+R\+L\+G\+C\+Approximate.\+\_\+\+\_\+init\+\_\+\+\_\+} (self, f, Rp, Rsep, Lp, Gp, Cp, dfp, Rn, Rsen, Ln, Gn, Cn, dfn, Cm, dfm, Gm, Lm, Z0, K)]move the calculation for zero zections in to this class.  
+\item[\label{todo__todo000011}%
+\Hypertarget{todo__todo000011}%
+Member \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCBalanced_1_1TLineDifferentialRLGCBalanced_a487b1dcd331b164ab28d7a15e7da47d0}{T\+Line\+Differential\+R\+L\+G\+C\+Balanced.\+\_\+\+\_\+init\+\_\+\+\_\+} (self, f, R, Rse, L, G, C, df, Cm, dfm, Gm, Lm, Z0, K=0)]remove K which is not needed.  
+\item[\label{todo__todo000012}%
+\Hypertarget{todo__todo000012}%
+Member \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled_aa6650052dc2b466ac52639326346b20a}{T\+Line\+Differential\+R\+L\+G\+C\+Uncoupled.\+\_\+\+\_\+init\+\_\+\+\_\+} (self, f, Rp, Rsep, Lp, Gp, Cp, dfp, Rn, Rsen, Ln, Gn, Cn, dfn, Z0, K=0)]remove K which is not needed.  
+\item[\label{todo__todo000019}%
+\Hypertarget{todo__todo000019}%
+Member \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a146047cad8b2b4a9acc03e536eecf656}{Waveform.Derivative} (self, c=0., remove\+Point=True, scale=True)]remove argument c.  
+\item[\label{todo__todo000018}%
+\Hypertarget{todo__todo000018}%
+Member \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2410e463585763a64dcd8dfe62528134}{Waveform.Offset\+By} (self, v)]this is inconsistent and should be removed 
+\end{DoxyRefList}

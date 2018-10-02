@@ -1,0 +1,42 @@
+\hypertarget{namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelper}{}\section{Signal\+Integrity.\+Conversions.\+Z0\+K\+Helper Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelper}\index{Signal\+Integrity.\+Conversions.\+Z0\+K\+Helper@{Signal\+Integrity.\+Conversions.\+Z0\+K\+Helper}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelper_a76cad84a212511d022296a6b35a63c29}{Z0\+K\+Helper} (Z0K, P)
+\begin{DoxyCompactList}\small\item\em Resolves reference impedance and scaling factor from a specification. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Z0KHelper\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelper_a76cad84a212511d022296a6b35a63c29}\label{namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelper_a76cad84a212511d022296a6b35a63c29}} 
+\index{Signal\+Integrity\+::\+Conversions\+::\+Z0\+K\+Helper@{Signal\+Integrity\+::\+Conversions\+::\+Z0\+K\+Helper}!Z0\+K\+Helper@{Z0\+K\+Helper}}
+\index{Z0\+K\+Helper@{Z0\+K\+Helper}!Signal\+Integrity\+::\+Conversions\+::\+Z0\+K\+Helper@{Signal\+Integrity\+::\+Conversions\+::\+Z0\+K\+Helper}}
+\subsubsection{\texorpdfstring{Z0\+K\+Helper()}{Z0KHelper()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Conversions.\+Z0\+K\+Helper.\+Z0\+K\+Helper (\begin{DoxyParamCaption}\item[{}]{Z0K,  }\item[{}]{P }\end{DoxyParamCaption})}
+
+
+
+Resolves reference impedance and scaling factor from a specification. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z0K} & tuple containing (Z0,K) -\/ the reference impedance and scaling factor \\
+\hline
+{\em P} & integer number of ports \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+This very useful function helps resolve all of the possibilities for specification of reference impedance and scaling factor under the multitude of possibilities on how it can be provided to various conversion functions
+\end{DoxyRemark}
+It operates by selecting the best possible choices with the specification of the least information.
+
+If Z0 is not specified, the default 50 Ohms is selected and if the scaling factor is not specified, the default sqrt(\+Z0) is chosen. These are provided in matrix form when needed and complex when needed
+
+both Z0 and K may be specified as lists, in which case they represent port reference impedance and scaling factors 
+
+Definition at line 36 of file Z0\+K\+Helper.\+py.
+

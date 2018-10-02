@@ -1,0 +1,43 @@
+\hypertarget{namespaceSignalIntegrity_1_1Devices_1_1SeriesG}{}\section{Signal\+Integrity.\+Devices.\+SeriesG Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Devices_1_1SeriesG}\index{Signal\+Integrity.\+Devices.\+SeriesG@{Signal\+Integrity.\+Devices.\+SeriesG}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1SeriesG_ae20ca521cee3c128cc38dc8cca9e5e62}{SeriesG} (G, Z0=50.)
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1SeriesG}{SeriesG} Series Conductance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}SeriesG\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Devices_1_1SeriesG_ae20ca521cee3c128cc38dc8cca9e5e62}\label{namespaceSignalIntegrity_1_1Devices_1_1SeriesG_ae20ca521cee3c128cc38dc8cca9e5e62}} 
+\index{Signal\+Integrity\+::\+Devices\+::\+SeriesG@{Signal\+Integrity\+::\+Devices\+::\+SeriesG}!SeriesG@{SeriesG}}
+\index{SeriesG@{SeriesG}!Signal\+Integrity\+::\+Devices\+::\+SeriesG@{Signal\+Integrity\+::\+Devices\+::\+SeriesG}}
+\subsubsection{\texorpdfstring{Series\+G()}{SeriesG()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Devices.\+Series\+G.\+SeriesG (\begin{DoxyParamCaption}\item[{}]{G,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{namespaceSignalIntegrity_1_1Devices_1_1SeriesG}{SeriesG} Series Conductance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & float conductance \\
+\hline
+{\em Z0} & (optional) float of complex reference impedance (defaults to 50 Ohms) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the list of list s-\/parameter matrix for a series conductance 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This device will return the s-\/paramaters of a series impedance with impedance of 1/G. If G is zero, it uses an impedance equal to 1e25. 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000003}{Todo}]return actual s-\/parameters of series conductance, even when conductance is zero (as opposed to the weird numerical approximation). \end{DoxyRefDesc}
+
+
+Definition at line 22 of file Series\+G.\+py.
+

@@ -1,0 +1,151 @@
+\hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation}{}\section{S\+Parameter\+Manipulation Class Reference}
+\label{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation}\index{S\+Parameter\+Manipulation@{S\+Parameter\+Manipulation}}
+
+
+Class for manipulations on s-\/parameters involving passivity, causality, etc.  
+
+
+
+
+Inheritance diagram for S\+Parameter\+Manipulation\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for S\+Parameter\+Manipulation\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a39c856ddb77d77db3db1944a18fe6009}{Enforce\+Passivity} (self, max\+Singular\+Value=1.)
+\begin{DoxyCompactList}\small\item\em Enforces passivity on the s-\/parameters. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a4bb07518fdccfa71483dc4e98eb83083}{Is\+Causal} (self, threshold=0.)
+\begin{DoxyCompactList}\small\item\em Checks whether the s-\/parameters are causal. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_ab0534e987c24d15ff3bcba7ef74ec1d1}{Enforce\+Causality} (self)
+\begin{DoxyCompactList}\small\item\em Enforces causality by setting all of the values before time zero in the impulse responses of the s-\/parameters to zero. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a537884def79fedd9611365a1de55471f}{Wavelet\+Denoise} (self, threshold=0.\+0001)
+\begin{DoxyCompactList}\small\item\em Denoises the s-\/parameters. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a979f42e9c8bf72ce90999a24da8a839d}{Port\+Reorder} (self, pr)
+\begin{DoxyCompactList}\small\item\em Reorders the ports to port ordering of the port numbers supplied. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for manipulations on s-\/parameters involving passivity, causality, etc. 
+
+
+
+Definition at line 19 of file S\+Parameter\+Manipulation.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_ab0534e987c24d15ff3bcba7ef74ec1d1}\label{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_ab0534e987c24d15ff3bcba7ef74ec1d1}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}!Enforce\+Causality@{Enforce\+Causality}}
+\index{Enforce\+Causality@{Enforce\+Causality}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}}
+\subsubsection{\texorpdfstring{Enforce\+Causality()}{EnforceCausality()}}
+{\footnotesize\ttfamily def Enforce\+Causality (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Enforces causality by setting all of the values before time zero in the impulse responses of the s-\/parameters to zero. 
+
+
+
+Definition at line 68 of file S\+Parameter\+Manipulation.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a39c856ddb77d77db3db1944a18fe6009}\label{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a39c856ddb77d77db3db1944a18fe6009}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}!Enforce\+Passivity@{Enforce\+Passivity}}
+\index{Enforce\+Passivity@{Enforce\+Passivity}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}}
+\subsubsection{\texorpdfstring{Enforce\+Passivity()}{EnforcePassivity()}}
+{\footnotesize\ttfamily def Enforce\+Passivity (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{max\+Singular\+Value = {\ttfamily 1.} }\end{DoxyParamCaption})}
+
+
+
+Enforces passivity on the s-\/parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Singular\+Value} & (optional) float maximum singular value allowed Enforces passivity by clipping all singular values to a maximum value.\\
+\hline
+\end{DoxyParams}
+the optional maximum value allows for adjusting devices with gain to a maximum value. For passive devices, the maximum singular value is the default value of 1. 
+
+Definition at line 33 of file S\+Parameter\+Manipulation.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a4bb07518fdccfa71483dc4e98eb83083}\label{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a4bb07518fdccfa71483dc4e98eb83083}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}!Is\+Causal@{Is\+Causal}}
+\index{Is\+Causal@{Is\+Causal}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}}
+\subsubsection{\texorpdfstring{Is\+Causal()}{IsCausal()}}
+{\footnotesize\ttfamily def Is\+Causal (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{threshold = {\ttfamily 0.} }\end{DoxyParamCaption})}
+
+
+
+Checks whether the s-\/parameters are causal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em threshold} & positive float threshold for causality detection \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if the absolute value of all values in the impulse response of each s-\/parameter before time zero are less than the threshold provided otherwise returns False.
+\end{DoxyReturn}
+This is checked by generating the impulse response corresponding to the frequency response of each s-\/parameter from and to port combination. 
+
+Definition at line 50 of file S\+Parameter\+Manipulation.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a979f42e9c8bf72ce90999a24da8a839d}\label{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a979f42e9c8bf72ce90999a24da8a839d}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}!Port\+Reorder@{Port\+Reorder}}
+\index{Port\+Reorder@{Port\+Reorder}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}}
+\subsubsection{\texorpdfstring{Port\+Reorder()}{PortReorder()}}
+{\footnotesize\ttfamily def Port\+Reorder (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{pr }\end{DoxyParamCaption})}
+
+
+
+Reorders the ports to port ordering of the port numbers supplied. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pr} & list of integer one-\/based port numbers \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new instance of reordered s-\/parameters 
+\end{DoxyReturn}
+
+
+Definition at line 119 of file S\+Parameter\+Manipulation.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a537884def79fedd9611365a1de55471f}\label{classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation_a537884def79fedd9611365a1de55471f}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}!Wavelet\+Denoise@{Wavelet\+Denoise}}
+\index{Wavelet\+Denoise@{Wavelet\+Denoise}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameter\+Manipulation\+::\+S\+Parameter\+Manipulation}}
+\subsubsection{\texorpdfstring{Wavelet\+Denoise()}{WaveletDenoise()}}
+{\footnotesize\ttfamily def Wavelet\+Denoise (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{threshold = {\ttfamily 0.0001} }\end{DoxyParamCaption})}
+
+
+
+Denoises the s-\/parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em threshold} & (optional) float threshold for the wavelets (defaults to 0.\+0001). Denoises the s-\/parameter by computing the wavelet transform of the impulse response for each s-\/parameter from and to port combination and keeping only the wavelets whoe absolute value is above the threshold. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 90 of file S\+Parameter\+Manipulation.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+S\+Parameters/S\+Parameter\+Manipulation.\+py\end{DoxyCompactItemize}

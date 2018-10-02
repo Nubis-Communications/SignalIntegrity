@@ -1,0 +1,228 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration}{}\section{Calibration Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration}\index{Calibration@{Calibration}}
+
+
+Generates calibrated s-\/parameter measurements.  
+
+
+
+
+Inherits object.
+
+
+
+Collaboration diagram for Calibration\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a09488d31cef60d14cb3ebfe3f29b963b}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, ports, f, calibration\+List=\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_aab91ae2e037c39b631a69273c277bfe9}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, item)
+\begin{DoxyCompactList}\small\item\em overloads \mbox{[}item\mbox{]} \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a810fdc262754b6d21f5acd0e280d4daf}{\+\_\+\+\_\+len\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em overloads len() \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a083ffd246159ff7b709c6e158f43b76b}{Fixtures} (self)
+\begin{DoxyCompactList}\small\item\em Fixtures. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a46ccb545422874893d93095446f7c5ac}{Write\+To\+File} (self, filename)
+\begin{DoxyCompactList}\small\item\em Writes the error terms to a file. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_af59f1f79c72d4d05439ca44797972ba0}{Add\+Measurements} (self, calibration\+List=\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Adds calibration measurements. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a97348b9e4c449174b1e735563e3a8a9c}{Calculate\+Error\+Terms} (self, force=False)
+\begin{DoxyCompactList}\small\item\em Calculates the error terms. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_ac257ff0d436f9c02507349f82ece9e56}{Dut\+Calculation} (self, s\+Raw)
+\begin{DoxyCompactList}\small\item\em calculates the Dut. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Generates calibrated s-\/parameter measurements. 
+
+Definition at line 20 of file Calibration.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a09488d31cef60d14cb3ebfe3f29b963b}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a09488d31cef60d14cb3ebfe3f29b963b}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ports,  }\item[{}]{f,  }\item[{}]{calibration\+List = {\ttfamily \mbox{[}\mbox{]}} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ports} & number of ports in the calibration. \\
+\hline
+{\em f} & instance of class Frequency\+List (or list of frequencies). \\
+\hline
+{\em calibration\+List} & (optional) list of instances of class Calibration\+Measurement \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Calibration\+Measurement 
+\end{DoxySeeAlso}
+
+
+Definition at line 29 of file Calibration.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_aab91ae2e037c39b631a69273c277bfe9}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_aab91ae2e037c39b631a69273c277bfe9}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{item }\end{DoxyParamCaption})}
+
+
+
+overloads \mbox{[}item\mbox{]} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & integer row of error terms matrix to access \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a row of the error terms matrix 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+This method is used when access the error terms matrix like self\mbox{[}r\mbox{]}\mbox{[}c\mbox{]} which would acess an instance of class \hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1Calibration_1_1ErrorTerms}{Error\+Terms} for receive port r and driven port c. 
+\end{DoxyRemark}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1Measurement_1_1Calibration_1_1ErrorTerms}{Error\+Terms} 
+\end{DoxySeeAlso}
+
+
+Definition at line 45 of file Calibration.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a810fdc262754b6d21f5acd0e280d4daf}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a810fdc262754b6d21f5acd0e280d4daf}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!\+\_\+\+\_\+len\+\_\+\+\_\+@{\+\_\+\+\_\+len\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+len\+\_\+\+\_\+@{\+\_\+\+\_\+len\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+len\+\_\+\+\_\+()}{\_\_len\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+len\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+overloads len() 
+
+\begin{DoxyReturn}{Returns}
+the number of rows in the error terms (which is the number of ports). 
+\end{DoxyReturn}
+
+
+Definition at line 50 of file Calibration.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_af59f1f79c72d4d05439ca44797972ba0}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_af59f1f79c72d4d05439ca44797972ba0}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!Add\+Measurements@{Add\+Measurements}}
+\index{Add\+Measurements@{Add\+Measurements}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{Add\+Measurements()}{AddMeasurements()}}
+{\footnotesize\ttfamily def Add\+Measurements (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{calibration\+List = {\ttfamily \mbox{[}\mbox{]}} }\end{DoxyParamCaption})}
+
+
+
+Adds calibration measurements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em calibration\+List} & list of instances of class Calibration\+Measurement. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 76 of file Calibration.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a97348b9e4c449174b1e735563e3a8a9c}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a97348b9e4c449174b1e735563e3a8a9c}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!Calculate\+Error\+Terms@{Calculate\+Error\+Terms}}
+\index{Calculate\+Error\+Terms@{Calculate\+Error\+Terms}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{Calculate\+Error\+Terms()}{CalculateErrorTerms()}}
+{\footnotesize\ttfamily def Calculate\+Error\+Terms (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{force = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Calculates the error terms. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em force} & (optional) boolean whether to force it to calculate the error terms. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+If error terms have not been calculated or force, then the error terms are calculated from instances of Calibration\+Measurement provided during the calibration. 
+\end{DoxyRemark}
+
+
+Definition at line 97 of file Calibration.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_ac257ff0d436f9c02507349f82ece9e56}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_ac257ff0d436f9c02507349f82ece9e56}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!Dut\+Calculation@{Dut\+Calculation}}
+\index{Dut\+Calculation@{Dut\+Calculation}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{Dut\+Calculation()}{DutCalculation()}}
+{\footnotesize\ttfamily def Dut\+Calculation (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{s\+Raw }\end{DoxyParamCaption})}
+
+
+
+calculates the Dut. 
+
+~\newline
+ converts the raw measured s-\/parameters of the D\+UT into calibrated s-\/parameter measurements. 
+\begin{DoxyParams}{Parameters}
+{\em s\+Raw} & instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} of the raw measurement of the D\+UT. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} of the calibrated D\+UT measurement. 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file Calibration.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a083ffd246159ff7b709c6e158f43b76b}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a083ffd246159ff7b709c6e158f43b76b}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!Fixtures@{Fixtures}}
+\index{Fixtures@{Fixtures}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{Fixtures()}{Fixtures()}}
+{\footnotesize\ttfamily def Fixtures (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Fixtures. 
+
+\begin{DoxyReturn}{Returns}
+the error terms as fixtures 
+\end{DoxyReturn}
+
+
+Definition at line 55 of file Calibration.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a46ccb545422874893d93095446f7c5ac}\label{classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration_a46ccb545422874893d93095446f7c5ac}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}!Write\+To\+File@{Write\+To\+File}}
+\index{Write\+To\+File@{Write\+To\+File}!Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration@{Signal\+Integrity\+::\+Measurement\+::\+Calibration\+::\+Calibration\+::\+Calibration}}
+\subsubsection{\texorpdfstring{Write\+To\+File()}{WriteToFile()}}
+{\footnotesize\ttfamily def Write\+To\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename }\end{DoxyParamCaption})}
+
+
+
+Writes the error terms to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & name of the file to write the error terms to. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 67 of file Calibration.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+Calibration/Calibration.\+py\end{DoxyCompactItemize}

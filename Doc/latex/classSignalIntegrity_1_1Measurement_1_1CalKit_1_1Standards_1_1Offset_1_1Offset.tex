@@ -1,0 +1,74 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset}{}\section{Offset Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset}\index{Offset@{Offset}}
+
+
+class providing the s-\/parameters of an offset portion of the various calibration standards for a calibration kit.  
+
+
+
+
+Inheritance diagram for Offset\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Offset\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_af11a9605224eedf1e907737dfa12fd37}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, f\+List, offset\+Delay, offset\+Z0, offset\+Loss, f0=1e9)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+class providing the s-\/parameters of an offset portion of the various calibration standards for a calibration kit. 
+
+
+
+Definition at line 21 of file Offset.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_af11a9605224eedf1e907737dfa12fd37}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_af11a9605224eedf1e907737dfa12fd37}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Offset\+::\+Offset@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Offset\+::\+Offset}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Offset\+::\+Offset@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Offset\+::\+Offset}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f\+List,  }\item[{}]{offset\+Delay,  }\item[{}]{offset\+Z0,  }\item[{}]{offset\+Loss,  }\item[{}]{f0 = {\ttfamily 1e9} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+List} & list of frequencies \\
+\hline
+{\em offset\+Delay} & (optional) float electrical length of offset in s (defaults to 0 s) \\
+\hline
+{\em offset\+Z0} & (optional) float real characteristic impedance of offset (defaults to 50 Ohms) \\
+\hline
+{\em offset\+Loss} & (optional) float loss due to skin-\/effect defined in G\+Ohms/s at 1 G\+Hz (defaults to 0). \\
+\hline
+{\em f0} & (optional) float frequency where the offset loss is defined (defaults to 1e9). The result is that the class becomes the base-\/class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} with the s-\/parameters of an offset, which is a common portion of a calibration standard. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 35 of file Offset.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+Cal\+Kit/\+Standards/Offset.\+py\end{DoxyCompactItemize}

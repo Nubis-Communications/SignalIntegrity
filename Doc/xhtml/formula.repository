@@ -1,0 +1,2 @@
+\form#0:$m\in 0 \ldots M$
+\form#1:$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m} {M}\cdot F_{e}}$

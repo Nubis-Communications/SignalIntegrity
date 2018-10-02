@@ -1,0 +1,181 @@
+\hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ}{}\section{Signal\+Integrity.\+Symbolic.\+ShuntZ Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ}\index{Signal\+Integrity.\+Symbolic.\+ShuntZ@{Signal\+Integrity.\+Symbolic.\+ShuntZ}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_ab32ac03d15bb51423a95fdfaefb764f5}{ShuntZ} (P, Z)
+\begin{DoxyCompactList}\small\item\em symbolic shunt impedance \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a0516bd7ba5f76dc0247fd30f6aacdffc}{Shunt\+Z\+Four\+Port} (Z)
+\begin{DoxyCompactList}\small\item\em symbolic four port shunt impedance \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a58498d6d446784d31ce6915a18059b2b}{Shunt\+Z\+Three\+Port} (Z)
+\begin{DoxyCompactList}\small\item\em symbolic three port shunt impedance \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_af01ac02bd83d6d68a7e06134f2a2f4c5}{Shunt\+Z\+Two\+Port} (Z)
+\begin{DoxyCompactList}\small\item\em symbolic two port shunt impedance \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_abfb38e200fbf919b34ba4e0d78fee0da}{Shunt\+Z\+One\+Port} (Z)
+\begin{DoxyCompactList}\small\item\em symbolic four port shunt impedance \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}ShuntZ\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_ab32ac03d15bb51423a95fdfaefb764f5}\label{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_ab32ac03d15bb51423a95fdfaefb764f5}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}!ShuntZ@{ShuntZ}}
+\index{ShuntZ@{ShuntZ}!Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z()}{ShuntZ()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+ShuntZ (\begin{DoxyParamCaption}\item[{}]{P,  }\item[{}]{Z }\end{DoxyParamCaption})}
+
+
+
+symbolic shunt impedance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em P} & integer number of ports (1,2,3,4) if ports are 1, then returns \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_abfb38e200fbf919b34ba4e0d78fee0da}{Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+One\+Port} ~\newline
+ if ports are 2, then returns \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_af01ac02bd83d6d68a7e06134f2a2f4c5}{Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+Two\+Port} ~\newline
+ if ports are 3, then returns \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a58498d6d446784d31ce6915a18059b2b}{Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+Three\+Port} ~\newline
+ if ports are 4, then returns \hyperlink{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a0516bd7ba5f76dc0247fd30f6aacdffc}{Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+Four\+Port} ~\newline
+ \\
+\hline
+{\em Z} & string impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+\end{DoxyNote}
+
+
+Definition at line 22 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a0516bd7ba5f76dc0247fd30f6aacdffc}\label{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a0516bd7ba5f76dc0247fd30f6aacdffc}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}!Shunt\+Z\+Four\+Port@{Shunt\+Z\+Four\+Port}}
+\index{Shunt\+Z\+Four\+Port@{Shunt\+Z\+Four\+Port}!Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+Four\+Port()}{ShuntZFourPort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+Four\+Port (\begin{DoxyParamCaption}\item[{}]{Z }\end{DoxyParamCaption})}
+
+
+
+symbolic four port shunt impedance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & string impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+this is the symbolic version of \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a071383dcde5ba797b9f5882b739c77ee}{Signal\+Integrity.\+Devices.\+Shunt\+Z.\+Shunt\+Z\+Four\+Port} 
+\end{DoxyNote}
+\begin{DoxyRemark}{Remarks}
+Ports 1 and 3 are connected to port 1 of the device D provided.~\newline
+ Ports 2 and 4 are connected to port 2 of the device D provided.~\newline
+
+\end{DoxyRemark}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000014}{Todo}]check the port numbering \end{DoxyRefDesc}
+
+
+Definition at line 43 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_abfb38e200fbf919b34ba4e0d78fee0da}\label{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_abfb38e200fbf919b34ba4e0d78fee0da}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}!Shunt\+Z\+One\+Port@{Shunt\+Z\+One\+Port}}
+\index{Shunt\+Z\+One\+Port@{Shunt\+Z\+One\+Port}!Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+One\+Port()}{ShuntZOnePort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+One\+Port (\begin{DoxyParamCaption}\item[{}]{Z }\end{DoxyParamCaption})}
+
+
+
+symbolic four port shunt impedance 
+
+This is simply a termination impedance to ground.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & string impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+this is the symbolic version of \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1TerminationZ_ad2e7db90d88ac11a703080a4a68caf5c}{Signal\+Integrity.\+Devices.\+Termination\+Z.\+TerminationZ} 
+\end{DoxyNote}
+
+
+Definition at line 93 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a58498d6d446784d31ce6915a18059b2b}\label{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_a58498d6d446784d31ce6915a18059b2b}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}!Shunt\+Z\+Three\+Port@{Shunt\+Z\+Three\+Port}}
+\index{Shunt\+Z\+Three\+Port@{Shunt\+Z\+Three\+Port}!Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+Three\+Port()}{ShuntZThreePort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+Three\+Port (\begin{DoxyParamCaption}\item[{}]{Z }\end{DoxyParamCaption})}
+
+
+
+symbolic three port shunt impedance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & string impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+this is the symbolic version of \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a4f6b7665037fa8b00407684e513e7e37}{Signal\+Integrity.\+Devices.\+Shunt\+Z.\+Shunt\+Z\+Three\+Port} 
+\end{DoxyNote}
+\begin{DoxyRemark}{Remarks}
+Ports 1 and 2 are connected together and to port 1 impedance.~\newline
+ Port 3 is the other port of the impedance.~\newline
+
+\end{DoxyRemark}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000015}{Todo}]check the port numbering \end{DoxyRefDesc}
+
+
+Definition at line 61 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_af01ac02bd83d6d68a7e06134f2a2f4c5}\label{namespaceSignalIntegrity_1_1Symbolic_1_1ShuntZ_af01ac02bd83d6d68a7e06134f2a2f4c5}} 
+\index{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}!Shunt\+Z\+Two\+Port@{Shunt\+Z\+Two\+Port}}
+\index{Shunt\+Z\+Two\+Port@{Shunt\+Z\+Two\+Port}!Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ@{Signal\+Integrity\+::\+Symbolic\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+Two\+Port()}{ShuntZTwoPort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Symbolic.\+Shunt\+Z.\+Shunt\+Z\+Two\+Port (\begin{DoxyParamCaption}\item[{}]{Z }\end{DoxyParamCaption})}
+
+
+
+symbolic two port shunt impedance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & string impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list of string s-\/parameter matrix containing La\+TeX or A\+S\+C\+II strings for each element. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+strings can be any valid La\+TeX 
+
+this is the symbolic version of \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a632e682133ebf3a6d617516e754f9125}{Signal\+Integrity.\+Devices.\+Shunt\+Z.\+Shunt\+Z\+Two\+Port} 
+\end{DoxyNote}
+\begin{DoxyRemark}{Remarks}
+Ports 1 and 2 are connected together and to one side of the impedance.~\newline
+ The other side of the impedance is tied to ground. 
+\end{DoxyRemark}
+
+
+Definition at line 77 of file Shunt\+Z.\+py.
+

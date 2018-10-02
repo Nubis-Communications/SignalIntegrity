@@ -1,0 +1,664 @@
+\hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{}\section{Waveform Class Reference}
+\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}\index{Waveform@{Waveform}}
+
+
+base class for all waveforms  
+
+
+
+
+Inheritance diagram for Waveform\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Waveform\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_acde8672c68901fd28a5cb310b12689ae}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, x=None, y=None)
+\begin{DoxyCompactList}\small\item\em constructor \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a5ba53f81d111ea013ebb7f55ed99d959}{Times} (self, unit=None)
+\begin{DoxyCompactList}\small\item\em time values \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ab3bfca96556298bcd23762dfefbc7d6e}{Time\+Descriptor} (self)
+\begin{DoxyCompactList}\small\item\em time descriptor \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3dc7b1e5eba8fb649156094dfdf7a893}{Values} (self, unit=None)
+\begin{DoxyCompactList}\small\item\em values returns the list of waveform values \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2410e463585763a64dcd8dfe62528134}{Offset\+By} (self, v)
+\begin{DoxyCompactList}\small\item\em offset by a dc value \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_adc875e86caadbd6201fd6a3528526cad}{Delay\+By} (self, d)
+\begin{DoxyCompactList}\small\item\em delay waveform \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a547cf97e438ebc6734fd6d1ea2b21b6d}{\+\_\+\+\_\+add\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads + \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ae03b88268c88fb1edfdb3f5353478d7b}{\+\_\+\+\_\+sub\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads -\/ \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2e098fa2cfaf8d1874cf417836a3329e}{\+\_\+\+\_\+radd\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em radd version this is used for summing waveforms in a list and is required. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a96fd98a8997501189d60829abc0257cb}{\+\_\+\+\_\+mul\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads $\ast$ \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_afeae6ad6a777e389fe51032a0fd81882}{\+\_\+\+\_\+div\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads / \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_af1bc3f4d93eb8bdf97d312b495a7689d}{Read\+From\+File} (self, file\+Name)
+\begin{DoxyCompactList}\small\item\em reads a waveform from a file \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a9bc60dff701312ba7ddf47ee941bbc8f}{Write\+To\+File} (self, file\+Name)
+\begin{DoxyCompactList}\small\item\em writes a waveform to a file \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ad794ff077f2f05f228a7109f3670ac40}{\+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads == \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_aa0b54a20b36fcc55e1147de88d083072}{\+\_\+\+\_\+ne\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads != \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_af3655348c2535f82d246df872f0969e6}{Adapt} (self, td)
+\begin{DoxyCompactList}\small\item\em adapts waveform to time descriptor \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3ebba9b24670eb206a63950249f9b964}{Measure} (self, time)
+\begin{DoxyCompactList}\small\item\em measures a value at a given time \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3e2c4d7f2bc47844b2a80d3ddd1a04d0}{Frequency\+Content} (self, fd=None)
+\begin{DoxyCompactList}\small\item\em frequency content provides the frequency content equivalent of the waveform. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a47667b6657a67800a3a94d6cc492bdaa}{Integral} (self, c=0., add\+Point=True, scale=True)
+\begin{DoxyCompactList}\small\item\em integral of waveform \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a146047cad8b2b4a9acc03e536eecf656}{Derivative} (self, c=0., remove\+Point=True, scale=True)
+\begin{DoxyCompactList}\small\item\em derivative of waveform \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+base class for all waveforms 
+
+Definition at line 19 of file Waveform.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_acde8672c68901fd28a5cb310b12689ae}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_acde8672c68901fd28a5cb310b12689ae}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x = {\ttfamily None},  }\item[{}]{y = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+constructor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} or \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} \\
+\hline
+{\em y} & instance of float, int, or complex or list of such\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+here are the outcomes for this constructor\+:
+\end{DoxyNote}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering \textbf{ x type }&\PBS\centering \textbf{ y type }&\textbf{ outcome  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering \textbf{ x type }&\PBS\centering \textbf{ y type }&\textbf{ outcome  }\\\cline{1-3}
+\endhead
+\PBS\centering \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} &\PBS\centering don\textquotesingle{}t care &waveform is x provided (copy constructor) \\\cline{1-3}
+\PBS\centering \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} &\PBS\centering list &waveform with td=x and values in list provided \\\cline{1-3}
+\PBS\centering \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} &\PBS\centering int,float,complex &waveform with td=x and list of constants provided \\\cline{1-3}
+\PBS\centering \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} &\PBS\centering None &waveform with td=x and list of zeros \\\cline{1-3}
+\PBS\centering other (None) &\PBS\centering don\textquotesingle{}t care (None) &empty, uninitialized waveform \\\cline{1-3}
+\end{longtabu}
+
+
+Definition at line 36 of file Waveform.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a547cf97e438ebc6734fd6d1ea2b21b6d}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a547cf97e438ebc6734fd6d1ea2b21b6d}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+add\+\_\+\+\_\+@{\+\_\+\+\_\+add\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+add\+\_\+\+\_\+@{\+\_\+\+\_\+add\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+add\+\_\+\+\_\+()}{\_\_add\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+add\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads + 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} or float, int, complex to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} with other added to self 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+does not affect self 
+
+valid types of other to add are\+:
+\end{DoxyNote}
+
+\begin{DoxyItemize}
+\item \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} -\/ if the other waveform has the same time descriptor, returns the waveform with self and others values added together, otherwise adapts other to self and then adds them.
+\item float,int,complex -\/ adds the constant value to all values in self. 
+\begin{DoxyExceptions}{Exceptions}
+{\em Py\+S\+I\+Exception\+Waveform} & if other cannot be added. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1AdaptedWaveforms}{Adapted\+Waveforms} 
+\end{DoxySeeAlso}
+
+\end{DoxyItemize}
+
+Definition at line 109 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_afeae6ad6a777e389fe51032a0fd81882}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_afeae6ad6a777e389fe51032a0fd81882}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+div\+\_\+\+\_\+@{\+\_\+\+\_\+div\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+div\+\_\+\+\_\+@{\+\_\+\+\_\+div\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+div\+\_\+\+\_\+()}{\_\_div\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+div\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads / 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of float, int, complex to divide by. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} with other divided into it. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+only handles float, int, complex where the constant values are divided into the values in self. 
+
+should consider allowing a two waveforms to be divided, but frankly never came upon the need for that. 
+\end{DoxyNote}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Py\+S\+I\+Exception\+Waveform} & if other cannot be multiplied. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 199 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ad794ff077f2f05f228a7109f3670ac40}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ad794ff077f2f05f228a7109f3670ac40}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+eq\+\_\+\+\_\+@{\+\_\+\+\_\+eq\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+eq\+\_\+\+\_\+@{\+\_\+\+\_\+eq\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+eq\+\_\+\+\_\+()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads == 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of other waveform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean whether the waveforms are equal to each other. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+an epsilon of 1e-\/6 is used for the compare. 
+\end{DoxyNote}
+
+
+Definition at line 259 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a96fd98a8997501189d60829abc0257cb}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a96fd98a8997501189d60829abc0257cb}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+mul\+\_\+\+\_\+@{\+\_\+\+\_\+mul\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+mul\+\_\+\+\_\+@{\+\_\+\+\_\+mul\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+mul\+\_\+\+\_\+()}{\_\_mul\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+mul\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads $\ast$ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of class Waveform\+Processor or float, int, complex to multiply by. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} with other multiplied by self 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+does not affect self 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} multiplication is an abstraction in some cases. The result for types of other is\+:
+\begin{DoxyItemize}
+\item Waveform\+Processor -\/ returns self processed by the instance of Waveform\+Processor.
+\item float,int,complex -\/ returns the \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} produced by multiplying all of the values in self multiplied by the constant value supplied. 
+\end{DoxyItemize}
+
+The most obvious type of Waveform\+Processor is a Fir\+Filter, but there are others like Waveform\+Trimmer and Waveform\+Decimator. 
+\end{DoxyNote}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Py\+S\+I\+Exception\+Waveform} & if other cannot be multiplied. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 177 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_aa0b54a20b36fcc55e1147de88d083072}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_aa0b54a20b36fcc55e1147de88d083072}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+ne\+\_\+\+\_\+@{\+\_\+\+\_\+ne\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+ne\+\_\+\+\_\+@{\+\_\+\+\_\+ne\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+ne\+\_\+\+\_\+()}{\_\_ne\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+ne\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads != 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of other waveform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean whether the waveforms are not equal to each other. 
+\end{DoxyReturn}
+
+
+Definition at line 273 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2e098fa2cfaf8d1874cf417836a3329e}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2e098fa2cfaf8d1874cf417836a3329e}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+radd\+\_\+\+\_\+@{\+\_\+\+\_\+radd\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+radd\+\_\+\+\_\+@{\+\_\+\+\_\+radd\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+radd\+\_\+\+\_\+()}{\_\_radd\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+radd\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+radd version this is used for summing waveforms in a list and is required. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} or float, int, complex to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self+other 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a547cf97e438ebc6734fd6d1ea2b21b6d}{Waveform.\+\_\+\+\_\+add\+\_\+\+\_\+()} 
+\end{DoxySeeAlso}
+
+
+Definition at line 158 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ae03b88268c88fb1edfdb3f5353478d7b}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ae03b88268c88fb1edfdb3f5353478d7b}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!\+\_\+\+\_\+sub\+\_\+\+\_\+@{\+\_\+\+\_\+sub\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+sub\+\_\+\+\_\+@{\+\_\+\+\_\+sub\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+sub\+\_\+\+\_\+()}{\_\_sub\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+sub\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads -\/ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} or float, int, complex to subtract. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} with other subtracted from self 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+does not affect self 
+
+valid types of other to subtract are\+:
+\end{DoxyNote}
+
+\begin{DoxyItemize}
+\item \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} -\/ if the other waveform has the same time descriptor, returns the waveform with self and others values subtracted, otherwise adapts other to self and then subtracts them.
+\item float,int,complex -\/ subtracts the constant value from all values in self. 
+\begin{DoxyExceptions}{Exceptions}
+{\em Py\+S\+I\+Exception\+Waveform} & if other cannot be subtracted. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1AdaptedWaveforms}{Adapted\+Waveforms} 
+\end{DoxySeeAlso}
+
+\end{DoxyItemize}
+
+Definition at line 138 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_af3655348c2535f82d246df872f0969e6}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_af3655348c2535f82d246df872f0969e6}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Adapt@{Adapt}}
+\index{Adapt@{Adapt}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Adapt()}{Adapt()}}
+{\footnotesize\ttfamily def Adapt (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{td }\end{DoxyParamCaption})}
+
+
+
+adapts waveform to time descriptor 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} adaption is performed using upsampling, decimation, fractional delay, and waveform point trimming.
+
+
+\begin{DoxyParams}{Parameters}
+{\em td} & instance of class \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} to adapt waveform to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform}{Waveform} containing self adapted to the time descriptor 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+does not affect self. 
+
+the static member variable adaption\+Strategy determines how to interpolate. \textquotesingle{}SinX\textquotesingle{} means to use sinx/x interpolation, \textquotesingle{}Linear\textquotesingle{} means to use linear interpolation. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+Interpolator\+SinX 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX}{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+Sin\+X.\+Fractional\+Delay\+Filter\+SinX} 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX}{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+Sin\+X.\+Fractional\+Delay\+Filter\+SinX} 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear}{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+Linear.\+Interpolator\+Linear} 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear}{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Interpolator\+Linear.\+Fractional\+Delay\+Filter\+Linear} 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer}{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Waveform\+Trimmer.\+Waveform\+Trimmer} 
+
+\hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator}{Signal\+Integrity.\+Time\+Domain.\+Filters.\+Waveform\+Decimator.\+Waveform\+Decimator} 
+
+\hyperlink{namespaceSignalIntegrity_1_1Rat_1_1Rat}{Signal\+Integrity.\+Rat.\+Rat} 
+\end{DoxySeeAlso}
+
+
+Definition at line 296 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_adc875e86caadbd6201fd6a3528526cad}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_adc875e86caadbd6201fd6a3528526cad}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Delay\+By@{Delay\+By}}
+\index{Delay\+By@{Delay\+By}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Delay\+By()}{DelayBy()}}
+{\footnotesize\ttfamily def Delay\+By (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{d }\end{DoxyParamCaption})}
+
+
+
+delay waveform 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & float amount to delay by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class waveform containing self delay by d 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+does not affect self 
+\end{DoxyNote}
+
+
+Definition at line 92 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a146047cad8b2b4a9acc03e536eecf656}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a146047cad8b2b4a9acc03e536eecf656}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Derivative@{Derivative}}
+\index{Derivative@{Derivative}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Derivative()}{Derivative()}}
+{\footnotesize\ttfamily def Derivative (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{c = {\ttfamily 0.},  }\item[{}]{remove\+Point = {\ttfamily True},  }\item[{}]{scale = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+derivative of waveform 
+
+the derivative is calculated using the difference divided by the sample period.
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & (optional) this value is superfluous and not used. \\
+\hline
+{\em remove\+Point} & (optional) boolean whether to remove the first point. If the first point is not removed, it is zero. \\
+\hline
+{\em scale} & (optional) boolean whether to divide each difference by the sample period providing a true derivative. Otherwise, the values are simply subtracted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000019}{Todo}]remove argument c. \end{DoxyRefDesc}
+
+
+Definition at line 396 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3e2c4d7f2bc47844b2a80d3ddd1a04d0}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3e2c4d7f2bc47844b2a80d3ddd1a04d0}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Frequency\+Content@{Frequency\+Content}}
+\index{Frequency\+Content@{Frequency\+Content}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Frequency\+Content()}{FrequencyContent()}}
+{\footnotesize\ttfamily def Frequency\+Content (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{fd = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+frequency content provides the frequency content equivalent of the waveform. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & (optional) instance of class Frequency\+List providing frequencies to provide the content for (defaults to None) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class Frequency\+Content containing the frequency content of the waveform. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+if None is supplied for fd, the frequency content is provided using the frequency list corresponding to the time descriptor inherent to the waveform. In this way, self.\+Frequency\+Content().Waveform() equals self. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent}{Signal\+Integrity.\+Frequency\+Domain.\+Frequency\+Content} 
+
+\hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyList}{Signal\+Integrity.\+Frequency\+Domain.\+Frequency\+List} 
+\end{DoxySeeAlso}
+
+
+Definition at line 352 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a47667b6657a67800a3a94d6cc492bdaa}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a47667b6657a67800a3a94d6cc492bdaa}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Integral@{Integral}}
+\index{Integral@{Integral}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Integral()}{Integral()}}
+{\footnotesize\ttfamily def Integral (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{c = {\ttfamily 0.},  }\item[{}]{add\+Point = {\ttfamily True},  }\item[{}]{scale = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+integral of waveform 
+
+the integral is calculated using Riemann sums (as opposed to trapezoidal integration.
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & (optional) float value to add to the integral waveform \\
+\hline
+{\em add\+Point} & (optional) boolean whether to add a point to the waveform before the first point. the value added is c. \\
+\hline
+{\em scale} & (optional) boolean whether to multiply each sum by the sample period providing a true integral. Otherwise, the values are simply summed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 369 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3ebba9b24670eb206a63950249f9b964}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3ebba9b24670eb206a63950249f9b964}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Measure@{Measure}}
+\index{Measure@{Measure}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Measure()}{Measure()}}
+{\footnotesize\ttfamily def Measure (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{time }\end{DoxyParamCaption})}
+
+
+
+measures a value at a given time 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & float time to measure the value at. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value at time specified 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+will return None if time is not within the waveform 
+
+linearly interpolates nearest point 
+\end{DoxyNote}
+
+
+Definition at line 332 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2410e463585763a64dcd8dfe62528134}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a2410e463585763a64dcd8dfe62528134}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Offset\+By@{Offset\+By}}
+\index{Offset\+By@{Offset\+By}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Offset\+By()}{OffsetBy()}}
+{\footnotesize\ttfamily def Offset\+By (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{v }\end{DoxyParamCaption})}
+
+
+
+offset by a dc value 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & float amount to offset the waveform by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000018}{Todo}]this is inconsistent and should be removed \end{DoxyRefDesc}
+
+
+Definition at line 83 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_af1bc3f4d93eb8bdf97d312b495a7689d}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_af1bc3f4d93eb8bdf97d312b495a7689d}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Read\+From\+File@{Read\+From\+File}}
+\index{Read\+From\+File@{Read\+From\+File}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Read\+From\+File()}{ReadFromFile()}}
+{\footnotesize\ttfamily def Read\+From\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+reads a waveform from a file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & string name of file to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+this D\+O\+ES affect self 
+\end{DoxyNote}
+
+
+Definition at line 212 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ab3bfca96556298bcd23762dfefbc7d6e}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_ab3bfca96556298bcd23762dfefbc7d6e}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Time\+Descriptor@{Time\+Descriptor}}
+\index{Time\+Descriptor@{Time\+Descriptor}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Time\+Descriptor()}{TimeDescriptor()}}
+{\footnotesize\ttfamily def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor}{Time\+Descriptor} (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+time descriptor 
+
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} inherent to the waveform 
+\end{DoxyReturn}
+
+
+Definition at line 62 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a5ba53f81d111ea013ebb7f55ed99d959}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a5ba53f81d111ea013ebb7f55ed99d959}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Times@{Times}}
+\index{Times@{Times}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Times()}{Times()}}
+{\footnotesize\ttfamily def Times (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{unit = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+time values 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & (optional) string containing unit for time values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of time values 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor}{Time\+Descriptor} for valid time units and return type. 
+\end{DoxySeeAlso}
+
+
+Definition at line 57 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3dc7b1e5eba8fb649156094dfdf7a893}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a3dc7b1e5eba8fb649156094dfdf7a893}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Values@{Values}}
+\index{Values@{Values}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Values()}{Values()}}
+{\footnotesize\ttfamily def Values (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{unit = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+values returns the list of waveform values 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & (optional) string containing unit for values in list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+valid waveform units are\+:
+\begin{DoxyItemize}
+\item None -\/ simple list of values returned -\/\textquotesingle{}abs\textquotesingle{} -\/ list of absolute values returned 
+\end{DoxyItemize}
+\end{DoxyNote}
+
+
+Definition at line 72 of file Waveform.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a9bc60dff701312ba7ddf47ee941bbc8f}\label{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_a9bc60dff701312ba7ddf47ee941bbc8f}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}!Write\+To\+File@{Write\+To\+File}}
+\index{Write\+To\+File@{Write\+To\+File}!Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform@{Signal\+Integrity\+::\+Time\+Domain\+::\+Waveform\+::\+Waveform\+::\+Waveform}}
+\subsubsection{\texorpdfstring{Write\+To\+File()}{WriteToFile()}}
+{\footnotesize\ttfamily def Write\+To\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+writes a waveform to a file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & string name of file to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+
+
+Definition at line 244 of file Waveform.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Time\+Domain/\+Waveform/Waveform.\+py\end{DoxyCompactItemize}

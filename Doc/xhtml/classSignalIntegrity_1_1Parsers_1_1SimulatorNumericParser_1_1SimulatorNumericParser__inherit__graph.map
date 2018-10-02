@@ -1,0 +1,8 @@
+<map id="SimulatorNumericParser" name="SimulatorNumericParser">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions " alt="" coords="33,425,148,517"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions. " alt="" coords="5,145,176,355"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers " alt="" coords="36,5,145,97"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort..." alt="" coords="173,403,315,539"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" title="classdocs " alt="" coords="339,410,455,531"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" title="classdocs " alt="" coords="338,175,457,325"/>
+</map>

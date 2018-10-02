@@ -1,0 +1,57 @@
+\hypertarget{namespaceSignalIntegrity_1_1Devices_1_1Mutual}{}\section{Signal\+Integrity.\+Devices.\+Mutual Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Devices_1_1Mutual}\index{Signal\+Integrity.\+Devices.\+Mutual@{Signal\+Integrity.\+Devices.\+Mutual}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1Mutual_afd907d0061f13783b261b76e3dbd45d4}{Mutual} (Ll, Lr, M, f, Z0=None, K=None)
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1Mutual}{Mutual} \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1Mutual}{Mutual} Inductance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Mutual\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Devices_1_1Mutual_afd907d0061f13783b261b76e3dbd45d4}\label{namespaceSignalIntegrity_1_1Devices_1_1Mutual_afd907d0061f13783b261b76e3dbd45d4}} 
+\index{Signal\+Integrity\+::\+Devices\+::\+Mutual@{Signal\+Integrity\+::\+Devices\+::\+Mutual}!Mutual@{Mutual}}
+\index{Mutual@{Mutual}!Signal\+Integrity\+::\+Devices\+::\+Mutual@{Signal\+Integrity\+::\+Devices\+::\+Mutual}}
+\subsubsection{\texorpdfstring{Mutual()}{Mutual()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Devices.\+Mutual.\+Mutual (\begin{DoxyParamCaption}\item[{}]{Ll,  }\item[{}]{Lr,  }\item[{}]{M,  }\item[{}]{f,  }\item[{}]{Z0 = {\ttfamily None},  }\item[{}]{K = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{namespaceSignalIntegrity_1_1Devices_1_1Mutual}{Mutual} \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1Mutual}{Mutual} Inductance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Ll} & float self inductance of left leg \\
+\hline
+{\em Lr} & float self inductance of right leg \\
+\hline
+{\em M} & float mutual inductance between legs \\
+\hline
+{\em f} & float frequency \\
+\hline
+{\em Z0} & (optional) float or complex reference impedance (assumed 50 Ohms) \\
+\hline
+{\em K} & (optional) float or complex scaling factor (actually unused). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list representing s-\/parameter matrix of a mutual inductance 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+The device is four port.~\newline
+ The left leg is from port 1 to 2.~\newline
+ The right leg is from port 3 to 4.~\newline
+ The arrow for the mutual points to ports 1 and 3.~\newline
+
+\end{DoxyRemark}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]use Z0\+K\+Helper to resolve reference impedance and scaling factor. Currently K is not used. 
+
+remove old mutual inductance code \end{DoxyRefDesc}
+
+
+Definition at line 43 of file Mutual.\+py.
+

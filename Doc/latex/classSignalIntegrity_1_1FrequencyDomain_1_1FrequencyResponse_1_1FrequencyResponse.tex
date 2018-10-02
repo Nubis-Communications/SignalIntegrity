@@ -1,0 +1,222 @@
+\hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}{}\section{Frequency\+Response Class Reference}
+\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}\index{Frequency\+Response@{Frequency\+Response}}
+
+
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}{Frequency\+Response}.  
+
+
+
+
+Inheritance diagram for Frequency\+Response\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Frequency\+Response\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af89c1b84b55a8388acf19c91be67a97e}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, f=None, resp=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_ab4996cceccaa974296395d3039a9ca2a}{Response} (self, unit=None)
+\begin{DoxyCompactList}\small\item\em Response. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_aa301152e06c3881589eb5c70d53734f6}{Impulse\+Response} (self, td=None, adjust\+Delay=True)
+\begin{DoxyCompactList}\small\item\em the time-\/domain impulse response \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_a6aa7e8bdecb4f17e41d783d00a27fdd8}{Resample} (self, fdp)
+\begin{DoxyCompactList}\small\item\em Resamples to a different set of frequencies. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af61ffacaaef319b5b0752778bfe522e6}{Resample\+C\+ZT} (self, fdp, speedy=True)
+\begin{DoxyCompactList}\small\item\em Uses the chirp z transform is used to resample. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}{Frequency\+Response}. 
+
+Frequency response view of a waveform assumed computed from the Frequency\+Response() method of a class Impulse\+Response, which is itself derived from the class Waveform. In other words, it would contain complex frequency-\/domain values that, if multiplied by the values in an instance of class \hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent}{Frequency\+Content}, would filter the waveform in the frequency-\/domain. \begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_aa301152e06c3881589eb5c70d53734f6}{Impulse\+Response} 
+\end{DoxySeeAlso}
+
+
+Definition at line 35 of file Frequency\+Response.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af89c1b84b55a8388acf19c91be67a97e}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af89c1b84b55a8388acf19c91be67a97e}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f = {\ttfamily None},  }\item[{}]{resp = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & instance of class \hyperlink{namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyList}{Frequency\+List} \\
+\hline
+{\em resp} & list of complex values \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+It is assumed that the frequencies and the response provided were generated from the Frequency\+Response() method of the class Impulse\+Response. 
+\end{DoxyRemark}
+
+
+Definition at line 43 of file Frequency\+Response.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_aa301152e06c3881589eb5c70d53734f6}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_aa301152e06c3881589eb5c70d53734f6}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}!Impulse\+Response@{Impulse\+Response}}
+\index{Impulse\+Response@{Impulse\+Response}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}}
+\subsubsection{\texorpdfstring{Impulse\+Response()}{ImpulseResponse()}}
+{\footnotesize\ttfamily def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse}{Impulse\+Response} (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{td = {\ttfamily None},  }\item[{}]{adjust\+Delay = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+the time-\/domain impulse response 
+
+
+\begin{DoxyParams}{Parameters}
+{\em td} & (optional) instance of class Time\+Descriptor. \\
+\hline
+{\em adjust\+Delay} & (optional) bool whether to adjust the delay. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class Impulse\+Response corresponding to the frequency response. 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+If the optional time descriptor is supplied, the resulting impulse response is resampled onto that time descriptor. 
+\end{DoxyRemark}
+\begin{DoxyNote}{Note}
+internally, the frequency response is either evenly spaced or not.
+\end{DoxyNote}
+whether evenly spaced, whether a time descriptor is specified and whether to adjust delay determines all possibilities.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering \textbf{ evenly spaced }&\PBS\centering \textbf{ time descriptor }&\PBS\centering \textbf{ adjust delay }&\textbf{ Situation  }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering \textbf{ evenly spaced }&\PBS\centering \textbf{ time descriptor }&\PBS\centering \textbf{ adjust delay }&\textbf{ Situation  }\\\cline{1-4}
+\endhead
+\PBS\centering False &\PBS\centering False &\PBS\centering X &Cannot be done \\\cline{1-4}
+\PBS\centering False &\PBS\centering True &\PBS\centering X &Spline resamples to time descriptor \\\cline{1-4}
+\PBS\centering True &\PBS\centering False &\PBS\centering False &generic impulse response \\\cline{1-4}
+\PBS\centering True &\PBS\centering False &\PBS\centering True &impulse response with delay adjusted \\\cline{1-4}
+\PBS\centering True &\PBS\centering True &\PBS\centering X &C\+ZT resamples to td -\/ ad forced to T \\\cline{1-4}
+\end{longtabu}
+Much of these options are meant for internal use. Mostly you should simply use \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_aa301152e06c3881589eb5c70d53734f6}{Impulse\+Response()} with the default arguments. 
+
+Definition at line 83 of file Frequency\+Response.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_a6aa7e8bdecb4f17e41d783d00a27fdd8}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_a6aa7e8bdecb4f17e41d783d00a27fdd8}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}!Resample@{Resample}}
+\index{Resample@{Resample}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}}
+\subsubsection{\texorpdfstring{Resample()}{Resample()}}
+{\footnotesize\ttfamily def Resample (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{fdp }\end{DoxyParamCaption})}
+
+
+
+Resamples to a different set of frequencies. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fdp} & instance of class Frequency\+Descriptor to resample to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}{Frequency\+Response} containing resampled self 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Resampling first attempts to find a ratio of numbers of points to resample to. If a reasonable ratio is found, pure D\+FT and I\+D\+FT methods are utilized along with padding and decimation.
+\end{DoxyRemark}
+Otherwise, the chirp z transform is used to resample.
+
+If the points are unevenly spaced, there is no choice but to resample with splines.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af61ffacaaef319b5b0752778bfe522e6}{Frequency\+Response.\+Resample\+C\+Z\+T()} 
+
+Spline 
+\end{DoxySeeAlso}
+
+
+Definition at line 165 of file Frequency\+Response.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af61ffacaaef319b5b0752778bfe522e6}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_af61ffacaaef319b5b0752778bfe522e6}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}!Resample\+C\+ZT@{Resample\+C\+ZT}}
+\index{Resample\+C\+ZT@{Resample\+C\+ZT}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}}
+\subsubsection{\texorpdfstring{Resample\+C\+Z\+T()}{ResampleCZT()}}
+{\footnotesize\ttfamily def Resample\+C\+ZT (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{fdp,  }\item[{}]{speedy = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+Uses the chirp z transform is used to resample. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fdp} & instance of class Frequency\+Descriptor to resample to \\
+\hline
+{\em speedy} & (optional) bool whether to use the fast version of the C\+Z\+T() \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}{Frequency\+Response} containing resampled self 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_a6aa7e8bdecb4f17e41d783d00a27fdd8}{Frequency\+Response.\+Resample()} 
+
+C\+Z\+T() 
+\end{DoxySeeAlso}
+
+
+Definition at line 201 of file Frequency\+Response.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_ab4996cceccaa974296395d3039a9ca2a}\label{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse_ab4996cceccaa974296395d3039a9ca2a}} 
+\index{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}!Response@{Response}}
+\index{Response@{Response}!Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response@{Signal\+Integrity\+::\+Frequency\+Domain\+::\+Frequency\+Response\+::\+Frequency\+Response}}
+\subsubsection{\texorpdfstring{Response()}{Response()}}
+{\footnotesize\ttfamily def Response (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{unit = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Response. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unit} & string defining the desired units for the response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of frequency response values in the unit specified. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain_a3dc7b1e5eba8fb649156094dfdf7a893}{Frequency\+Domain.\+Values()} for valid units. 
+\end{DoxySeeAlso}
+
+
+Definition at line 51 of file Frequency\+Response.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Frequency\+Domain/Frequency\+Response.\+py\end{DoxyCompactItemize}

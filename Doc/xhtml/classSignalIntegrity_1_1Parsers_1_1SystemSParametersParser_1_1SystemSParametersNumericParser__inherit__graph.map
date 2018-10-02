@@ -1,0 +1,7 @@
+<map id="SystemSParametersNumericParser" name="SystemSParametersNumericParser">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions. " alt="" coords="5,204,176,413"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers " alt="" coords="36,35,145,127"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort..." alt="" coords="201,241,343,377"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" title="classdocs " alt="" coords="367,248,483,369"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" title="classdocs " alt="" coords="366,5,485,156"/>
+</map>

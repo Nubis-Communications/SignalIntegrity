@@ -1,0 +1,224 @@
+\hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{}\section{Filter\+Descriptor Class Reference}
+\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}\index{Filter\+Descriptor@{Filter\+Descriptor}}
+
+
+handles time axis effects of filtering  
+
+
+
+
+Inheritance diagram for Filter\+Descriptor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Filter\+Descriptor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a5661d52c9fb7ff469d450299f14df811}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, Upsample\+Factor, Delay\+Samples, Startup\+Samples)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_ad794ff077f2f05f228a7109f3670ac40}{\+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads == \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a96fd98a8997501189d60829abc0257cb}{\+\_\+\+\_\+mul\+\_\+\+\_\+} (self, other)
+\begin{DoxyCompactList}\small\item\em overloads $\ast$~\newline
+ multiplies two filter descriptors. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_ae1c78203caa83b9eb7ecb92152f3488f}{Before} (self, other)
+\begin{DoxyCompactList}\small\item\em calculates the effect of another filter before this one. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a29cf65c495a760f61e56af7b64342109}{After} (self, other)
+\begin{DoxyCompactList}\small\item\em calculates the effect of another filter after this one. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_aa755b1fade9a131f66c5a448181a158e}{Trim\+Left} (self)
+\begin{DoxyCompactList}\small\item\em waveform points trimmed from the left \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a284517d97da4a4e39890e41cbfa2a007}{Trim\+Right} (self)
+\begin{DoxyCompactList}\small\item\em waveform points trimmed from the right \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a8b3334081fe073524a4e0c068a61a3c6}{Trim\+Total} (self)
+\begin{DoxyCompactList}\small\item\em waveform points trimmed in total \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a0203fc9c617eec80ba28741251ee3b86}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a0203fc9c617eec80ba28741251ee3b86}} 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a0203fc9c617eec80ba28741251ee3b86}{Print} (self)
+\begin{DoxyCompactList}\small\item\em prints the filter descriptor in A\+S\+C\+II \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+handles time axis effects of filtering 
+
+Definition at line 12 of file Filter\+Descriptor.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a5661d52c9fb7ff469d450299f14df811}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a5661d52c9fb7ff469d450299f14df811}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Upsample\+Factor,  }\item[{}]{Delay\+Samples,  }\item[{}]{Startup\+Samples }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Upsample\+Factor} & integer or float upsample factor. This is the multiplicative factor that the filter will have on the sample rate of an applied waveform. \\
+\hline
+{\em Delay\+Samples} & integer or float samples that the filter applies to a waveform. \\
+\hline
+{\em Startup\+Samples} & integer or float the number of samples that must be removed from the filtered waveform due to filter startup effects. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 21 of file Filter\+Descriptor.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_ad794ff077f2f05f228a7109f3670ac40}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_ad794ff077f2f05f228a7109f3670ac40}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!\+\_\+\+\_\+eq\+\_\+\+\_\+@{\+\_\+\+\_\+eq\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+eq\+\_\+\+\_\+@{\+\_\+\+\_\+eq\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+eq\+\_\+\+\_\+()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads == 
+
+\begin{DoxyReturn}{Returns}
+boolean whether to filter descriptors are the same 
+\end{DoxyReturn}
+
+
+Definition at line 29 of file Filter\+Descriptor.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a96fd98a8997501189d60829abc0257cb}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a96fd98a8997501189d60829abc0257cb}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!\+\_\+\+\_\+mul\+\_\+\+\_\+@{\+\_\+\+\_\+mul\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+mul\+\_\+\+\_\+@{\+\_\+\+\_\+mul\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+mul\+\_\+\+\_\+()}{\_\_mul\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+mul\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+overloads $\ast$~\newline
+ multiplies two filter descriptors. 
+
+This is the same as calculating the effect of the two filters in cascade. 
+\begin{DoxyParams}{Parameters}
+{\em other} & an instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{Filter\+Descriptor} of another filter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{Filter\+Descriptor} of the cascaded filters 
+\end{DoxyReturn}
+
+
+Definition at line 41 of file Filter\+Descriptor.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a29cf65c495a760f61e56af7b64342109}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a29cf65c495a760f61e56af7b64342109}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!After@{After}}
+\index{After@{After}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{After()}{After()}}
+{\footnotesize\ttfamily def After (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+calculates the effect of another filter after this one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & an instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{Filter\+Descriptor} of another filter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{Filter\+Descriptor} of the other filter moved after this one 
+\end{DoxyReturn}
+
+
+Definition at line 62 of file Filter\+Descriptor.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_ae1c78203caa83b9eb7ecb92152f3488f}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_ae1c78203caa83b9eb7ecb92152f3488f}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!Before@{Before}}
+\index{Before@{Before}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{Before()}{Before()}}
+{\footnotesize\ttfamily def Before (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+
+
+calculates the effect of another filter before this one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & an instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{Filter\+Descriptor} of another filter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor}{Filter\+Descriptor} of the other filter moved before this one 
+\end{DoxyReturn}
+
+
+Definition at line 52 of file Filter\+Descriptor.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_aa755b1fade9a131f66c5a448181a158e}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_aa755b1fade9a131f66c5a448181a158e}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!Trim\+Left@{Trim\+Left}}
+\index{Trim\+Left@{Trim\+Left}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{Trim\+Left()}{TrimLeft()}}
+{\footnotesize\ttfamily def Trim\+Left (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+waveform points trimmed from the left 
+
+\begin{DoxyReturn}{Returns}
+the number of waveform points trimmed from the left by applying this filter 
+\end{DoxyReturn}
+
+
+Definition at line 71 of file Filter\+Descriptor.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a284517d97da4a4e39890e41cbfa2a007}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a284517d97da4a4e39890e41cbfa2a007}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!Trim\+Right@{Trim\+Right}}
+\index{Trim\+Right@{Trim\+Right}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{Trim\+Right()}{TrimRight()}}
+{\footnotesize\ttfamily def Trim\+Right (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+waveform points trimmed from the right 
+
+\begin{DoxyReturn}{Returns}
+the number of waveform points trimmed from the right by applying this filter 
+\end{DoxyReturn}
+
+
+Definition at line 77 of file Filter\+Descriptor.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a8b3334081fe073524a4e0c068a61a3c6}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor_a8b3334081fe073524a4e0c068a61a3c6}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}!Trim\+Total@{Trim\+Total}}
+\index{Trim\+Total@{Trim\+Total}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Filter\+Descriptor\+::\+Filter\+Descriptor}}
+\subsubsection{\texorpdfstring{Trim\+Total()}{TrimTotal()}}
+{\footnotesize\ttfamily def Trim\+Total (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+waveform points trimmed in total 
+
+\begin{DoxyReturn}{Returns}
+the total number of waveform points trimmed by applying this filter 
+\end{DoxyReturn}
+
+
+Definition at line 83 of file Filter\+Descriptor.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Time\+Domain/\+Filters/Filter\+Descriptor.\+py\end{DoxyCompactItemize}

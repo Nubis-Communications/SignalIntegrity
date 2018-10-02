@@ -1,0 +1,259 @@
+\hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters}{}\section{S\+Parameters Class Reference}
+\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters}\index{S\+Parameters@{S\+Parameters}}
+
+
+Class containing s-\/parameters.  
+
+
+
+
+Inheritance diagram for S\+Parameters\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for S\+Parameters\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a2590c40d1c3d840ed297c8f1ddcc74a4}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, data, Z0=50.\+0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_aab91ae2e037c39b631a69273c277bfe9}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, item)
+\begin{DoxyCompactList}\small\item\em overloads \mbox{[}item\mbox{]} \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a810fdc262754b6d21f5acd0e280d4daf}{\+\_\+\+\_\+len\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em overloads len() \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f} (self)
+\begin{DoxyCompactList}\small\item\em returns the frequencies of the s-\/parameters \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_ab43ea05f175742449365ff9a3abab7d7}{Response} (self, ToP, FromP)
+\begin{DoxyCompactList}\small\item\em Response. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a55a7157cd888766a891ff22694e62613}{Frequency\+Response} (self, ToP, FromP)
+\begin{DoxyCompactList}\small\item\em Frequency\+Response. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_add396ed0a719fa2c93037bc8486d2ff1}{Write\+To\+File} (self, name, format\+String=None)
+\begin{DoxyCompactList}\small\item\em Writes the s-\/parameters to a file. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a115ed63524d00ebadce833c2106fc7e9}{Resample} (self, fl)
+\begin{DoxyCompactList}\small\item\em Resamples the s-\/parameters onto a new frequency scale. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a98bb8cca60faa48d8aa1b2b667c36037}{Set\+Reference\+Impedance} (self, Z0)
+\begin{DoxyCompactList}\small\item\em Sets the reference impedance as specified. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containing s-\/parameters. 
+
+Definition at line 30 of file S\+Parameters.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a2590c40d1c3d840ed297c8f1ddcc74a4}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a2590c40d1c3d840ed297c8f1ddcc74a4}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{data,  }\item[{}]{Z0 = {\ttfamily 50.0} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of frequencies \\
+\hline
+{\em data} & list of list of list matrices were each element is a list of list s-\/parameter matrix. \\
+\hline
+{\em Z0} & (optional) real or complex reference impedance \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 37 of file S\+Parameters.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_aab91ae2e037c39b631a69273c277bfe9}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_aab91ae2e037c39b631a69273c277bfe9}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{item }\end{DoxyParamCaption})}
+
+
+
+overloads \mbox{[}item\mbox{]} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & integer index of list of list s-\/parameter matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix at index location 
+\end{DoxyReturn}
+
+
+Definition at line 50 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a810fdc262754b6d21f5acd0e280d4daf}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a810fdc262754b6d21f5acd0e280d4daf}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!\+\_\+\+\_\+len\+\_\+\+\_\+@{\+\_\+\+\_\+len\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+len\+\_\+\+\_\+@{\+\_\+\+\_\+len\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+len\+\_\+\+\_\+()}{\_\_len\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+len\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+overloads len() 
+
+\begin{DoxyReturn}{Returns}
+the number of frequencies in the s-\/parameters 
+\end{DoxyReturn}
+
+
+Definition at line 55 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!f@{f}}
+\index{f@{f}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{f()}{f()}}
+{\footnotesize\ttfamily def f (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+returns the frequencies of the s-\/parameters 
+
+\begin{DoxyReturn}{Returns}
+list of frequencies 
+\end{DoxyReturn}
+
+
+Definition at line 59 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a55a7157cd888766a891ff22694e62613}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a55a7157cd888766a891ff22694e62613}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!Frequency\+Response@{Frequency\+Response}}
+\index{Frequency\+Response@{Frequency\+Response}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{Frequency\+Response()}{FrequencyResponse()}}
+{\footnotesize\ttfamily def \hyperlink{classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse}{Frequency\+Response} (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ToP,  }\item[{}]{FromP }\end{DoxyParamCaption})}
+
+
+
+Frequency\+Response. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ToP} & integer receive port \\
+\hline
+{\em FromP} & integer driven port \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class Frequency\+Response as the frequency response at port ToP due to waves driven at FromP. 
+\end{DoxyReturn}
+
+
+Definition at line 74 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a115ed63524d00ebadce833c2106fc7e9}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a115ed63524d00ebadce833c2106fc7e9}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!Resample@{Resample}}
+\index{Resample@{Resample}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{Resample()}{Resample()}}
+{\footnotesize\ttfamily def Resample (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{fl }\end{DoxyParamCaption})}
+
+
+
+Resamples the s-\/parameters onto a new frequency scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fl} & list of frequencies to resample to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+instance of class \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters}{S\+Parameters} containing resampled s-\/parameters 
+\end{DoxyReturn}
+
+
+Definition at line 146 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_ab43ea05f175742449365ff9a3abab7d7}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_ab43ea05f175742449365ff9a3abab7d7}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!Response@{Response}}
+\index{Response@{Response}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{Response()}{Response()}}
+{\footnotesize\ttfamily def Response (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ToP,  }\item[{}]{FromP }\end{DoxyParamCaption})}
+
+
+
+Response. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ToP} & integer receive port \\
+\hline
+{\em FromP} & integer driven port \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of complex as the frequency response at port ToP due to waves driven at FromP. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a55a7157cd888766a891ff22694e62613}{Frequency\+Response()} 
+\end{DoxySeeAlso}
+
+
+Definition at line 67 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a98bb8cca60faa48d8aa1b2b667c36037}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a98bb8cca60faa48d8aa1b2b667c36037}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!Set\+Reference\+Impedance@{Set\+Reference\+Impedance}}
+\index{Set\+Reference\+Impedance@{Set\+Reference\+Impedance}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{Set\+Reference\+Impedance()}{SetReferenceImpedance()}}
+{\footnotesize\ttfamily def Set\+Reference\+Impedance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Z0 }\end{DoxyParamCaption})}
+
+
+
+Sets the reference impedance as specified. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z0} & real or complex reference impedance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self Transforms the reference impedance of self to the new reference impedance Z0. 
+\end{DoxyReturn}
+
+
+Definition at line 165 of file S\+Parameters.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_add396ed0a719fa2c93037bc8486d2ff1}\label{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_add396ed0a719fa2c93037bc8486d2ff1}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}!Write\+To\+File@{Write\+To\+File}}
+\index{Write\+To\+File@{Write\+To\+File}!Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters@{Signal\+Integrity\+::\+S\+Parameters\+::\+S\+Parameters\+::\+S\+Parameters}}
+\subsubsection{\texorpdfstring{Write\+To\+File()}{WriteToFile()}}
+{\footnotesize\ttfamily def Write\+To\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{name,  }\item[{}]{format\+String = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Writes the s-\/parameters to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & string filename to write to \\
+\hline
+{\em format\+String} & (optional) string containing the format Writes the file in the Touchstone 1.\+0 format using the format string provided.\\
+\hline
+\end{DoxyParams}
+If no format string is provided, uses \textquotesingle{} M\+Hz MA S R 50.\+0\textquotesingle{} 
+
+Definition at line 84 of file S\+Parameters.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+S\+Parameters/S\+Parameters.\+py\end{DoxyCompactItemize}

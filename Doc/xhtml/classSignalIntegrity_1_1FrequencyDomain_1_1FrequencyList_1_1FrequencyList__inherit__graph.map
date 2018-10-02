@@ -1,0 +1,4 @@
+<map id="FrequencyList" name="FrequencyList">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies. " alt="" coords="5,307,193,384"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced. " alt="" coords="218,307,367,384"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="ParserFile" name="ParserFile">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions. " alt="" coords="285,145,455,355"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" title="base class for netlist based deembedding solutions " alt="" coords="53,410,188,502"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions " alt="" coords="225,410,339,502"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist " alt="" coords="363,403,555,509"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" title="base class for netlist based virtual probing solutions " alt="" coords="579,410,710,502"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist " alt="" coords="5,565,188,657"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists " alt="" coords="212,565,376,657"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" title="performs numeric virtual probing from netlists " alt="" coords="555,557,735,664"/>
+</map>

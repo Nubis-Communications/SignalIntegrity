@@ -1,0 +1,147 @@
+\hypertarget{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ}{}\section{Signal\+Integrity.\+Devices.\+ShuntZ Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ}\index{Signal\+Integrity.\+Devices.\+ShuntZ@{Signal\+Integrity.\+Devices.\+ShuntZ}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a6715a0f359c1c81ef3ffdeaa211a562d}{ShuntZ} (ports, Z, Z0=50.)
+\begin{DoxyCompactList}\small\item\em \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ}{ShuntZ} Shunt impedance. \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a632e682133ebf3a6d617516e754f9125}{Shunt\+Z\+Two\+Port} (Z, Z0=50.)
+\begin{DoxyCompactList}\small\item\em Shunt\+Z\+Two\+Port Two port shunt impedance. \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a071383dcde5ba797b9f5882b739c77ee}{Shunt\+Z\+Four\+Port} (Z, Z0=50.)
+\begin{DoxyCompactList}\small\item\em Shunt\+Z\+Four\+Port Four port shunt impedance. \end{DoxyCompactList}\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a4f6b7665037fa8b00407684e513e7e37}{Shunt\+Z\+Three\+Port} (Z, Z0=50.)
+\begin{DoxyCompactList}\small\item\em Shunt\+Z\+Three\+Port Three port shunt impedance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}ShuntZ\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a6715a0f359c1c81ef3ffdeaa211a562d}\label{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a6715a0f359c1c81ef3ffdeaa211a562d}} 
+\index{Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}!ShuntZ@{ShuntZ}}
+\index{ShuntZ@{ShuntZ}!Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z()}{ShuntZ()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Devices.\+Shunt\+Z.\+ShuntZ (\begin{DoxyParamCaption}\item[{}]{ports,  }\item[{}]{Z,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ}{ShuntZ} Shunt impedance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ports} & integer number of ports \\
+\hline
+{\em Z} & real or complex impedance of two-\/port impedance. \\
+\hline
+{\em Z0} & (optional) real or complex reference impedance (defaults to 50 Ohms). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix of a shunt impedance.~\newline
+ 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a632e682133ebf3a6d617516e754f9125}{Shunt\+Z\+Two\+Port} 
+
+\hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a4f6b7665037fa8b00407684e513e7e37}{Shunt\+Z\+Three\+Port} 
+
+\hyperlink{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a071383dcde5ba797b9f5882b739c77ee}{Shunt\+Z\+Four\+Port} 
+\end{DoxySeeAlso}
+
+
+Definition at line 37 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a071383dcde5ba797b9f5882b739c77ee}\label{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a071383dcde5ba797b9f5882b739c77ee}} 
+\index{Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}!Shunt\+Z\+Four\+Port@{Shunt\+Z\+Four\+Port}}
+\index{Shunt\+Z\+Four\+Port@{Shunt\+Z\+Four\+Port}!Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+Four\+Port()}{ShuntZFourPort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Devices.\+Shunt\+Z.\+Shunt\+Z\+Four\+Port (\begin{DoxyParamCaption}\item[{}]{Z,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+Shunt\+Z\+Four\+Port Four port shunt impedance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & real or complex impedance of two-\/port impedance. \\
+\hline
+{\em Z0} & (optional) real or complex reference impedance (defaults to 50 Ohms). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix of a shunt impedance.~\newline
+ 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Ports 1 and 3 are connected to port 1 of the device D provided.~\newline
+ Ports 2 and 4 are connected to port 2 of the device D provided.~\newline
+
+\end{DoxyRemark}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000005}{Todo}]check the port numbering \end{DoxyRefDesc}
+
+
+Definition at line 65 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a4f6b7665037fa8b00407684e513e7e37}\label{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a4f6b7665037fa8b00407684e513e7e37}} 
+\index{Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}!Shunt\+Z\+Three\+Port@{Shunt\+Z\+Three\+Port}}
+\index{Shunt\+Z\+Three\+Port@{Shunt\+Z\+Three\+Port}!Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+Three\+Port()}{ShuntZThreePort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Devices.\+Shunt\+Z.\+Shunt\+Z\+Three\+Port (\begin{DoxyParamCaption}\item[{}]{Z,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+Shunt\+Z\+Three\+Port Three port shunt impedance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & real or complex impedance of two-\/port impedance. \\
+\hline
+{\em Z0} & (optional) real or complex reference impedance (defaults to 50 Ohms). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix of a shunt impedance.~\newline
+ 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Ports 1 and 2 are connected together and to port 1 impedance.~\newline
+ Port 3 is the other port of the impedance.~\newline
+
+\end{DoxyRemark}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000006}{Todo}]check the port numbering \end{DoxyRefDesc}
+
+
+Definition at line 82 of file Shunt\+Z.\+py.
+
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a632e682133ebf3a6d617516e754f9125}\label{namespaceSignalIntegrity_1_1Devices_1_1ShuntZ_a632e682133ebf3a6d617516e754f9125}} 
+\index{Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}!Shunt\+Z\+Two\+Port@{Shunt\+Z\+Two\+Port}}
+\index{Shunt\+Z\+Two\+Port@{Shunt\+Z\+Two\+Port}!Signal\+Integrity\+::\+Devices\+::\+ShuntZ@{Signal\+Integrity\+::\+Devices\+::\+ShuntZ}}
+\subsubsection{\texorpdfstring{Shunt\+Z\+Two\+Port()}{ShuntZTwoPort()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Devices.\+Shunt\+Z.\+Shunt\+Z\+Two\+Port (\begin{DoxyParamCaption}\item[{}]{Z,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+Shunt\+Z\+Two\+Port Two port shunt impedance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Z} & real or complex impedance of two-\/port impedance. \\
+\hline
+{\em Z0} & (optional) real or complex reference impedance (defaults to 50 Ohms). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix of a shunt impedance.~\newline
+ 
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Ports 1 and 2 are connected together and to one side of the impedance.~\newline
+ The other side of the impedance is tied to ground. 
+\end{DoxyRemark}
+
+
+Definition at line 51 of file Shunt\+Z.\+py.
+

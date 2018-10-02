@@ -1,0 +1,80 @@
+\hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard}{}\section{Open\+Standard Class Reference}
+\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard}\index{Open\+Standard@{Open\+Standard}}
+
+
+class providing the s-\/parameters of an open standard as commonly defined for a calibration kit.  
+
+
+
+
+Inheritance diagram for Open\+Standard\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Open\+Standard\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard_aac7db212cff48729c2956c6d050e941c}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, offset\+Delay=0.\+0, offset\+Z0=50.\+0, offset\+Loss=0.\+0, C0=0.\+0, C1=0.\+0, C2=0.\+0, C3=0.\+0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+class providing the s-\/parameters of an open standard as commonly defined for a calibration kit. 
+
+
+
+Definition at line 22 of file Open\+Standard.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard_aac7db212cff48729c2956c6d050e941c}\label{classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard_aac7db212cff48729c2956c6d050e941c}} 
+\index{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Open\+Standard\+::\+Open\+Standard@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Open\+Standard\+::\+Open\+Standard}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Open\+Standard\+::\+Open\+Standard@{Signal\+Integrity\+::\+Measurement\+::\+Cal\+Kit\+::\+Standards\+::\+Open\+Standard\+::\+Open\+Standard}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{offset\+Delay = {\ttfamily 0.0},  }\item[{}]{offset\+Z0 = {\ttfamily 50.0},  }\item[{}]{offset\+Loss = {\ttfamily 0.0},  }\item[{}]{C0 = {\ttfamily 0.0},  }\item[{}]{C1 = {\ttfamily 0.0},  }\item[{}]{C2 = {\ttfamily 0.0},  }\item[{}]{C3 = {\ttfamily 0.0} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of frequencies \\
+\hline
+{\em offset\+Delay} & (optional) float electrical length of offset in s (defaults to 0 s) \\
+\hline
+{\em offset\+Z0} & (optional) float real characteristic impedance of offset (defaults to 50 Ohms) \\
+\hline
+{\em offset\+Loss} & (optional) float loss due to skin-\/effect defined in G\+Ohms/s at 1 G\+Hz (defaults to 0). \\
+\hline
+{\em C0} & (optional) float polynomial coefficient for capacitance of open termination \\
+\hline
+{\em C1} & (optional) float polynomial coefficient for capacitance of open termination \\
+\hline
+{\em C2} & (optional) float polynomial coefficient for capacitance of open termination \\
+\hline
+{\em C3} & (optional) float polynomial coefficient for capacitance of open termination The result is that the class becomes the base-\/class \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters} with the s-\/parameters of a open standard.\\
+\hline
+\end{DoxyParams}
+Termination capacitance polynomial is C0+f$\ast$(C1+f$\ast$(C2+f$\ast$\+C3)). 
+
+Definition at line 39 of file Open\+Standard.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Measurement/\+Cal\+Kit/\+Standards/Open\+Standard.\+py\end{DoxyCompactItemize}

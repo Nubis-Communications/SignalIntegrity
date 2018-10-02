@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['raisedcosinefilter',['RaisedCosineFilter',['../classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml',1,'SignalIntegrity::TimeDomain::Filters::RaisedCosineFilter']]],
+  ['reflectcalibrationmeasurement',['ReflectCalibrationMeasurement',['../classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ReflectCalibrationMeasurement.xhtml',1,'SignalIntegrity::Measurement::Calibration::CalibrationMeasurements']]],
+  ['resultscache',['ResultsCache',['../classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml',1,'SignalIntegrity::ResultsCache']]]
+];

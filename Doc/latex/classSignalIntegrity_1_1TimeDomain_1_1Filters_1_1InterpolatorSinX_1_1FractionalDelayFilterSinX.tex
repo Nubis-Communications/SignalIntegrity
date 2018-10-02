@@ -1,0 +1,74 @@
+\hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX}{}\section{Fractional\+Delay\+Filter\+SinX Class Reference}
+\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX}\index{Fractional\+Delay\+Filter\+SinX@{Fractional\+Delay\+Filter\+SinX}}
+
+
+sinx/x fractional delay filter  
+
+
+
+
+Inheritance diagram for Fractional\+Delay\+Filter\+SinX\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Fractional\+Delay\+Filter\+SinX\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX_a71162faa904c7ea2018b89ebba16c33d}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, F, account\+For\+Delay=True)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+sinx/x fractional delay filter 
+
+Definition at line 37 of file Interpolator\+Sin\+X.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX_a71162faa904c7ea2018b89ebba16c33d}\label{classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX_a71162faa904c7ea2018b89ebba16c33d}} 
+\index{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+Sin\+X\+::\+Fractional\+Delay\+Filter\+SinX@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+Sin\+X\+::\+Fractional\+Delay\+Filter\+SinX}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+Sin\+X\+::\+Fractional\+Delay\+Filter\+SinX@{Signal\+Integrity\+::\+Time\+Domain\+::\+Filters\+::\+Interpolator\+Sin\+X\+::\+Fractional\+Delay\+Filter\+SinX}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{F,  }\item[{}]{account\+For\+Delay = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+applies sinx/x interpolating filter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em F} & float amount of delay to apply. The delay is in samples of the input waveform. \\
+\hline
+{\em account\+For\+Delay} & (optional) boolean whether to account for the delay \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+if account\+For\+Delay, then the filter provides a sample phase adjustment, meaning that there is no actual delay applied to the waveform, but the time axis under the waveform is shifted. This is the usual way to apply this filter and is used to adapt waveforms on different time axes to each other.~\newline
+ if not account\+For\+Delay, then the filter actually delays waveforms by the delay specified. 
+
+The filter is hard-\/coded in a static member to have 64 samples on each side of a center sample. In other words, it is 2$\ast$64+1=129 samples in length. 
+\end{DoxyRemark}
+
+
+Definition at line 57 of file Interpolator\+Sin\+X.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+Time\+Domain/\+Filters/Interpolator\+Sin\+X.\+py\end{DoxyCompactItemize}

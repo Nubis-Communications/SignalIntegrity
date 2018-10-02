@@ -1,0 +1,51 @@
+\hypertarget{namespaceSignalIntegrity_1_1Conversions_1_1T2S}{}\section{Signal\+Integrity.\+Conversions.\+T2S Namespace Reference}
+\label{namespaceSignalIntegrity_1_1Conversions_1_1T2S}\index{Signal\+Integrity.\+Conversions.\+T2S@{Signal\+Integrity.\+Conversions.\+T2S}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceSignalIntegrity_1_1Conversions_1_1T2S_a02e06c4e250ff3ba677bb01aca48573e}{T2S} (T, lp=None, rp=None)
+\begin{DoxyCompactList}\small\item\em Converts generalized T-\/parameters to s-\/parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}T2S\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSignalIntegrity_1_1Conversions_1_1T2S_a02e06c4e250ff3ba677bb01aca48573e}\label{namespaceSignalIntegrity_1_1Conversions_1_1T2S_a02e06c4e250ff3ba677bb01aca48573e}} 
+\index{Signal\+Integrity\+::\+Conversions\+::\+T2S@{Signal\+Integrity\+::\+Conversions\+::\+T2S}!T2S@{T2S}}
+\index{T2S@{T2S}!Signal\+Integrity\+::\+Conversions\+::\+T2S@{Signal\+Integrity\+::\+Conversions\+::\+T2S}}
+\subsubsection{\texorpdfstring{T2\+S()}{T2S()}}
+{\footnotesize\ttfamily def Signal\+Integrity.\+Conversions.\+T2\+S.\+T2S (\begin{DoxyParamCaption}\item[{}]{T,  }\item[{}]{lp = {\ttfamily None},  }\item[{}]{rp = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Converts generalized T-\/parameters to s-\/parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T} & list of list representing T-\/parameter matrix to convert \\
+\hline
+{\em lp} & (optional) a list of left port numbers \\
+\hline
+{\em rp} & (optional) a list of right port numbers \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+if no list of left and right ports are specified, it assumes that the first P/2-\/1 port are on the left and the remaining ports are on the right 
+\end{DoxyNote}
+\begin{DoxyRemark}{Remarks}
+Supports multi-\/port devices 
+\end{DoxyRemark}
+\begin{DoxyAttention}{Attention}
+The number of ports must be even 
+
+The port number in the lists are one-\/based (not zero-\/based) 
+\end{DoxyAttention}
+\begin{DoxyNote}{Note}
+The reference impedance and scaling factor associated with the s-\/parameters is unchanged. 
+\end{DoxyNote}
+
+
+Definition at line 30 of file T2\+S.\+py.
+

@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" title="Calibration Measurements. " alt="" coords="5,56,168,83"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ReflectCalibrationMeasurement.xhtml" title="A reflect measurement taken on a port with a reflect standard (like short, open, or load)..." alt="" coords="216,5,421,32"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ThruCalibrationMeasurement.xhtml" title="A thru calibration measurement taken between two ports. " alt="" coords="224,56,413,83"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1XtalkCalibrationMeasurement.xhtml" title="A crosstalk calibration measurement typically taken between two ports that are completely unconnected..." alt="" coords="222,107,415,133"/>
+</map>

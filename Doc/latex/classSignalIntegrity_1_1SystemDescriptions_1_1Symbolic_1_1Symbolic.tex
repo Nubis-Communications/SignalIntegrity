@@ -1,0 +1,195 @@
+\hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic}{}\section{Symbolic Class Reference}
+\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic}\index{Symbolic@{Symbolic}}
+
+
+base class for all symbolic solutions.  
+
+
+
+
+Inheritance diagram for Symbolic\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Symbolic\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a08e86ba9407219234b1aac9e41d76c92}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, args)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a26d16e796dfe67359239b0e44e7f6536}{Clear} (self)
+\begin{DoxyCompactList}\small\item\em Clears any stored symbolic result. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a5c05a815bb2ae10666889565108aec35}{Emit} (self)
+\begin{DoxyCompactList}\small\item\em Writes the result out to the standard output. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_ab88c31ece904e14dc6d42559745584ed}{Doc\+Start} (self)
+\begin{DoxyCompactList}\small\item\em Appends the document start string to symbolic result. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a91ac903754eabbc7f69d633a9304be70}{Doc\+End} (self)
+\begin{DoxyCompactList}\small\item\em Appends the document end string to symbolic result. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a58bef0ef4f1a5f810bd0014e5f66daf4}{Write\+To\+File} (self, name)
+\begin{DoxyCompactList}\small\item\em Writes the result to a file. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a4bf8a7b0df04ae9744c6946f02f1ec15}{Get} (self)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+base class for all symbolic solutions. 
+
+
+
+Definition at line 18 of file Symbolic.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a08e86ba9407219234b1aac9e41d76c92}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a08e86ba9407219234b1aac9e41d76c92}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{args }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & (optional) named args (name=value) named arguments understood are\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}size\textquotesingle{} -\/ \textquotesingle{}normal\textquotesingle{} or \textquotesingle{}small\textquotesingle{} (defaults to \textquotesingle{}normal\textquotesingle{})
+\item \textquotesingle{}docstart\textquotesingle{} -\/ string for start of La\+TeX document (defaults to a barebones article class document start.
+\item \textquotesingle{}docend\textquotesingle{} -\/ string for end of document (defaults to normal La\+TeX document end).
+\item \textquotesingle{}eqprefix\textquotesingle{} -\/ prefix for equation start (defaults to \textbackslash{}\mbox{[}).
+\item \textquotesingle{}eqsuffix\textquotesingle{} -\/ suffix for equation end (defaults to \textbackslash{}\mbox{]}).
+\item \textquotesingle{}eqenv\textquotesingle{} -\/ boolean whether to enclose the equation in the equation environment Here, the size refers to the sizes of the output matrices. \textquotesingle{}normal\textquotesingle{} means the normal size matrices and \textquotesingle{}small\textquotesingle{} means the \textbackslash{}smallmatrix environment. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 33 of file Symbolic.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a26d16e796dfe67359239b0e44e7f6536}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a26d16e796dfe67359239b0e44e7f6536}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!Clear@{Clear}}
+\index{Clear@{Clear}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily def Clear (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Clears any stored symbolic result. 
+
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+
+
+Definition at line 49 of file Symbolic.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a91ac903754eabbc7f69d633a9304be70}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a91ac903754eabbc7f69d633a9304be70}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!Doc\+End@{Doc\+End}}
+\index{Doc\+End@{Doc\+End}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{Doc\+End()}{DocEnd()}}
+{\footnotesize\ttfamily def Doc\+End (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Appends the document end string to symbolic result. 
+
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+For this to work properly, \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a91ac903754eabbc7f69d633a9304be70}{Doc\+End()} should be called after calculating the symbolic result. 
+\end{DoxyNote}
+
+
+Definition at line 73 of file Symbolic.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_ab88c31ece904e14dc6d42559745584ed}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_ab88c31ece904e14dc6d42559745584ed}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!Doc\+Start@{Doc\+Start}}
+\index{Doc\+Start@{Doc\+Start}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{Doc\+Start()}{DocStart()}}
+{\footnotesize\ttfamily def Doc\+Start (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Appends the document start string to symbolic result. 
+
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+For this to work properly, \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_ab88c31ece904e14dc6d42559745584ed}{Doc\+Start()} should be called prior to calculating the symbolic result. 
+\end{DoxyNote}
+
+
+Definition at line 65 of file Symbolic.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a5c05a815bb2ae10666889565108aec35}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a5c05a815bb2ae10666889565108aec35}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!Emit@{Emit}}
+\index{Emit@{Emit}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{Emit()}{Emit()}}
+{\footnotesize\ttfamily def Emit (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Writes the result out to the standard output. 
+
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file Symbolic.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a4bf8a7b0df04ae9744c6946f02f1ec15}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a4bf8a7b0df04ae9744c6946f02f1ec15}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!Get@{Get}}
+\index{Get@{Get}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{Get()}{Get()}}
+{\footnotesize\ttfamily def Get (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+list of \textbackslash{}n terminated lines containing the symbolic result. 
+\end{DoxyReturn}
+
+
+Definition at line 105 of file Symbolic.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a58bef0ef4f1a5f810bd0014e5f66daf4}\label{classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic_a58bef0ef4f1a5f810bd0014e5f66daf4}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}!Write\+To\+File@{Write\+To\+File}}
+\index{Write\+To\+File@{Write\+To\+File}!Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic@{Signal\+Integrity\+::\+System\+Descriptions\+::\+Symbolic\+::\+Symbolic}}
+\subsubsection{\texorpdfstring{Write\+To\+File()}{WriteToFile()}}
+{\footnotesize\ttfamily def Write\+To\+File (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{name }\end{DoxyParamCaption})}
+
+
+
+Writes the result to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & filename for file to write \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 96 of file Symbolic.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+System\+Descriptions/Symbolic.\+py\end{DoxyCompactItemize}

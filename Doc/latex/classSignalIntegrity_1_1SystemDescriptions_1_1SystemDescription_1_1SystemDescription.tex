@@ -1,0 +1,278 @@
+\hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription}{}\section{System\+Description Class Reference}
+\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription}\index{System\+Description@{System\+Description}}
+
+
+Allows the construction of system descriptions for use with all of the classes that solve schematics and netlists.  
+
+
+
+
+Inheritance diagram for System\+Description\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for System\+Description\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a2fa2ae61a4511a760e2d2047ec07eb05}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, sd=None)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a377579b9eda21744cf7c7b48df997367}{Add\+Device} (self, Name, Ports, S\+Params=None, Type=\textquotesingle{}device\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Adds a device to the system. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a9a01e1f7b412557a004a033def08ffbc}{AssignM} (self, DeviceN, DeviceP, M\+Name)
+\begin{DoxyCompactList}\small\item\em Assigns a stimulus to a device port. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a6e5e0722dbb334bdf62b794cc8bd1314}{Device\+Names} (self)
+\begin{DoxyCompactList}\small\item\em Returns a list of device names in the system. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a8f829e8e789d1684f55a6a6b40d0460e}{Index\+Of\+Device} (self, Device\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the index of a named device in the system. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_abc6647e2004523ee8d9b8c2bece038a3}{Check\+Connections} (self)
+\begin{DoxyCompactList}\small\item\em Checks the validity of the connections in the system. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ae236b6d7df408d3cd15ca3727c4daa81}{Connect\+Device\+Port} (self, FromN, FromP, ToN, ToP)
+\begin{DoxyCompactList}\small\item\em Connects one device port to another. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ab60d596fbc393fd58c3fafa9566c7ac7}{Add\+Port} (self, Device\+Name, Device\+Port, System\+Port, Add\+Thru=False)
+\begin{DoxyCompactList}\small\item\em Adds a system port at a specified device port. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a5b5faca00f07328bfc8e2fcf76347f06}{Assign\+S\+Parameters} (self, Device\+Name, S\+Parameters)
+\begin{DoxyCompactList}\small\item\em Assigns s-\/parameters to a device. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a0203fc9c617eec80ba28741251ee3b86}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a0203fc9c617eec80ba28741251ee3b86}} 
+def \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a0203fc9c617eec80ba28741251ee3b86}{Print} (self)
+\begin{DoxyCompactList}\small\item\em Prints out an A\+S\+C\+II description of the system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Allows the construction of system descriptions for use with all of the classes that solve schematics and netlists. 
+
+Often, this class will be used to construct the system description and then passed to another class for problem solution
+
+A system description is fundamentally a list of devices, which in turn are lists of ports and port connections. 
+
+Definition at line 28 of file System\+Description.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a2fa2ae61a4511a760e2d2047ec07eb05}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a2fa2ae61a4511a760e2d2047ec07eb05}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{sd = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sd} & (optional, defaults to None) instance of class \hyperlink{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription}{System\+Description} Initializes a system description \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 34 of file System\+Description.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a377579b9eda21744cf7c7b48df997367}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a377579b9eda21744cf7c7b48df997367}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Add\+Device@{Add\+Device}}
+\index{Add\+Device@{Add\+Device}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Add\+Device()}{AddDevice()}}
+{\footnotesize\ttfamily def Add\+Device (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Name,  }\item[{}]{Ports,  }\item[{}]{S\+Params = {\ttfamily None},  }\item[{}]{Type = {\ttfamily \textquotesingle{}device\textquotesingle{}} }\end{DoxyParamCaption})}
+
+
+
+Adds a device to the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Name} & string name of device to add \\
+\hline
+{\em Ports} & integer number of ports in the device \\
+\hline
+{\em S\+Params} & (optional) s-\/parameter matrix for device \\
+\hline
+{\em Type} & type of device defaults to \textquotesingle{}device\textquotesingle{} Adds a device to the system with the given name, s-\/parameters and number of ports The type is always \textquotesingle{}device\textquotesingle{} and should not be overridden except for one case where the device being added is an \textquotesingle{}unknown\textquotesingle{} to be solved for. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 52 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ab60d596fbc393fd58c3fafa9566c7ac7}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ab60d596fbc393fd58c3fafa9566c7ac7}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Add\+Port@{Add\+Port}}
+\index{Add\+Port@{Add\+Port}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Add\+Port()}{AddPort()}}
+{\footnotesize\ttfamily def Add\+Port (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Device\+Name,  }\item[{}]{Device\+Port,  }\item[{}]{System\+Port,  }\item[{}]{Add\+Thru = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Adds a system port at a specified device port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Device\+Name} & string name of device \\
+\hline
+{\em Device\+Port} & integer port number of device \\
+\hline
+{\em System\+Port} & integer port number \\
+\hline
+{\em Add\+Thru} & boolean whether to force a thru between the system port and the device port. Adds a system port to a device port for the solutions of s-\/parameters or for deembedding.\\
+\hline
+\end{DoxyParams}
+In the theory, sometimes it\textquotesingle{}s necessary to add a thru between a system port and a device port. But it turns out that this is only necessary when connecting a system port directly to a port of an unknown device in a deembedding problem. Although the ability to force the addition of a thru is retained, the code actually checks for this situation and adds a thru automatically so currently, there are no situations known where Add\+Thru needs to be set True.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000016}{Todo}]Consider removing the Add\+Thru argument \end{DoxyRefDesc}
+
+
+Definition at line 162 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a9a01e1f7b412557a004a033def08ffbc}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a9a01e1f7b412557a004a033def08ffbc}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!AssignM@{AssignM}}
+\index{AssignM@{AssignM}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Assign\+M()}{AssignM()}}
+{\footnotesize\ttfamily def AssignM (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{DeviceN,  }\item[{}]{DeviceP,  }\item[{}]{M\+Name }\end{DoxyParamCaption})}
+
+
+
+Assigns a stimulus to a device port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DeviceN} & string name of device \\
+\hline
+{\em DeviceP} & integer port number of device \\
+\hline
+{\em M\+Name} & string name of a stimulus Assigns a stimulus in name only as emanating from the device port specified \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 68 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a5b5faca00f07328bfc8e2fcf76347f06}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a5b5faca00f07328bfc8e2fcf76347f06}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Assign\+S\+Parameters@{Assign\+S\+Parameters}}
+\index{Assign\+S\+Parameters@{Assign\+S\+Parameters}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Assign\+S\+Parameters()}{AssignSParameters()}}
+{\footnotesize\ttfamily def Assign\+S\+Parameters (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Device\+Name,  }\item[{}]{S\+Parameters }\end{DoxyParamCaption})}
+
+
+
+Assigns s-\/parameters to a device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Device\+Name} & string name of a device in the system \\
+\hline
+{\em \hyperlink{namespaceSignalIntegrity_1_1SParameters}{S\+Parameters}} & an s-\/parameter matrix \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 180 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_abc6647e2004523ee8d9b8c2bece038a3}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_abc6647e2004523ee8d9b8c2bece038a3}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Check\+Connections@{Check\+Connections}}
+\index{Check\+Connections@{Check\+Connections}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Check\+Connections()}{CheckConnections()}}
+{\footnotesize\ttfamily def Check\+Connections (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Checks the validity of the connections in the system. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Py\+S\+I\+Exception\+System\+Description} & if there are no devices \\
+\hline
+{\em Py\+S\+I\+Exception\+System\+Description} & if any of the devices have unconnected device ports \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 102 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ae236b6d7df408d3cd15ca3727c4daa81}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_ae236b6d7df408d3cd15ca3727c4daa81}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Connect\+Device\+Port@{Connect\+Device\+Port}}
+\index{Connect\+Device\+Port@{Connect\+Device\+Port}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Connect\+Device\+Port()}{ConnectDevicePort()}}
+{\footnotesize\ttfamily def Connect\+Device\+Port (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{FromN,  }\item[{}]{FromP,  }\item[{}]{ToN,  }\item[{}]{ToP }\end{DoxyParamCaption})}
+
+
+
+Connects one device port to another. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em FromN} & string name of from device \\
+\hline
+{\em FromP} & integer port number of from device \\
+\hline
+{\em ToN} & string name of to device \\
+\hline
+{\em ToP} & integer port number of to device Makes a connection from one device port to another.\\
+\hline
+\end{DoxyParams}
+It\textquotesingle{}s okay if devices are already connected and multiple connections are allowed and are handled properly. 
+
+Definition at line 119 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a6e5e0722dbb334bdf62b794cc8bd1314}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a6e5e0722dbb334bdf62b794cc8bd1314}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Device\+Names@{Device\+Names}}
+\index{Device\+Names@{Device\+Names}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Device\+Names()}{DeviceNames()}}
+{\footnotesize\ttfamily def Device\+Names (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Returns a list of device names in the system. 
+
+\begin{DoxyReturn}{Returns}
+a list of the names of all of the devices in the system 
+\end{DoxyReturn}
+
+
+Definition at line 75 of file System\+Description.\+py.
+
+\mbox{\Hypertarget{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a8f829e8e789d1684f55a6a6b40d0460e}\label{classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription_a8f829e8e789d1684f55a6a6b40d0460e}} 
+\index{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}!Index\+Of\+Device@{Index\+Of\+Device}}
+\index{Index\+Of\+Device@{Index\+Of\+Device}!Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description@{Signal\+Integrity\+::\+System\+Descriptions\+::\+System\+Description\+::\+System\+Description}}
+\subsubsection{\texorpdfstring{Index\+Of\+Device()}{IndexOfDevice()}}
+{\footnotesize\ttfamily def Index\+Of\+Device (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Device\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the index of a named device in the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Device\+Name} & string name of a device \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer index of the named device 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Py\+S\+I\+Exception\+System\+Description} & if device not found \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 83 of file System\+Description.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+System\+Descriptions/System\+Description.\+py\end{DoxyCompactItemize}

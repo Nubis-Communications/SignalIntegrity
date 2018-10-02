@@ -1,0 +1,93 @@
+\hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL}{}\section{TerminationL Class Reference}
+\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL}\index{TerminationL@{TerminationL}}
+
+
+s-\/parameters of a termination (one-\/port) inductance  
+
+
+
+
+Inheritance diagram for TerminationL\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for TerminationL\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL_ad506006bc5bc92f9e3fdb69c52d64eba}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, \hyperlink{classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters_a32e7a34d6837fe949b413c852a0447f8}{f}, L, Z0=50.)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \hyperlink{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL_ab7a6da5139e0878b590d68292aaa70f2}{\+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, n)
+\begin{DoxyCompactList}\small\item\em overloads \mbox{[}n\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+s-\/parameters of a termination (one-\/port) inductance 
+
+Definition at line 17 of file Termination\+L.\+py.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL_ad506006bc5bc92f9e3fdb69c52d64eba}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL_ad506006bc5bc92f9e3fdb69c52d64eba}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{f,  }\item[{}]{L,  }\item[{}]{Z0 = {\ttfamily 50.} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & list of float frequencies \\
+\hline
+{\em L} & float inductance \\
+\hline
+{\em Z0} & (optional) float of complex reference impedance (defaults to 50 Ohms) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the list of list s-\/parameter matrix for a termination inductance 
+\end{DoxyReturn}
+
+
+Definition at line 25 of file Termination\+L.\+py.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL_ab7a6da5139e0878b590d68292aaa70f2}\label{classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL_ab7a6da5139e0878b590d68292aaa70f2}} 
+\index{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL}!\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+getitem\+\_\+\+\_\+@{\+\_\+\+\_\+getitem\+\_\+\+\_\+}!Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL@{Signal\+Integrity\+::\+S\+Parameters\+::\+Devices\+::\+Termination\+L\+::\+TerminationL}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+getitem\+\_\+\+\_\+()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+overloads \mbox{[}n\mbox{]} 
+
+\begin{DoxyReturn}{Returns}
+list of list s-\/parameter matrix for the nth frequency element 
+\end{DoxyReturn}
+
+
+Definition at line 32 of file Termination\+L.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Py\+S\+I/\+Signal\+Integrity/\+S\+Parameters/\+Devices/Termination\+L.\+py\end{DoxyCompactItemize}
