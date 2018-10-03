@@ -7,7 +7,8 @@ Handles Callbacks that allow progress reporting during long calculations and cap
 
 
 
-Inheritance diagram for Call\+Backer\+:\nopagebreak
+Inheritance diagram for Call\+Backer\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,7 +17,8 @@ Inheritance diagram for Call\+Backer\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Call\+Backer\+:\nopagebreak
+Collaboration diagram for Call\+Backer\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -39,9 +41,15 @@ def \hyperlink{classSignalIntegrity_1_1CallBacker_1_1CallBacker_ac93a2d2ea7a8765
 \subsection{Detailed Description}
 Handles Callbacks that allow progress reporting during long calculations and capability to abort. 
 
-Teledyne Le\+Croy Inc. (\char`\"{}\+C\+O\+M\+P\+A\+N\+Y\char`\"{}) C\+O\+N\+F\+I\+D\+E\+N\+T\+I\+AL Unpublished Copyright (c) 2015-\/2016 Peter J. Pupalaikis and Teledyne Le\+Croy, All Rights Reserved.
+Copyright (c) 2018 Teledyne Le\+Croy, all rights reserved worldwide.
 
-Explicit license in accompanying R\+E\+A\+D\+M\+E.\+txt file. If you don\textquotesingle{}t have that file or do not agree to the terms in that file, then you are not licensed to use this material whatsoever. \hyperlink{classSignalIntegrity_1_1CallBacker_1_1CallBacker}{Call\+Backer} \begin{DoxyVerb}To use callbacks, a class is derived from CallBacker.
+This file is part of Py\+SI.
+
+Py\+SI is free software\+: You can redistribute it and/or modify it under the terms of the G\+NU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+This program is distrbuted in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU General Public License for more details.
+
+You should have received a copy of the G\+NU General Public License along with this program. If not, see \href{https://www.gnu.org/licenses/}{\tt https\+://www.\+gnu.\+org/licenses/} \hyperlink{classSignalIntegrity_1_1CallBacker_1_1CallBacker}{Call\+Backer} \begin{DoxyVerb}To use callbacks, a class is derived from CallBacker.
 
 Either the constructor of the derived class or some other mechanism should
 provide means for supplying the callback function, which is installed in a
@@ -74,7 +82,7 @@ Here's a mini example derived class using CallBacker:
 \end{DoxyCode}
  
 
-Definition at line 47 of file Call\+Backer.\+py.
+Definition at line 54 of file Call\+Backer.\+py.
 
 
 
@@ -96,7 +104,7 @@ Constructor.
 \end{DoxyParams}
 
 
-Definition at line 53 of file Call\+Backer.\+py.
+Definition at line 60 of file Call\+Backer.\+py.
 
 
 
@@ -118,7 +126,7 @@ This function is called periodically, which in turn calls any installed callback
 \end{DoxyParams}
 
 
-Definition at line 62 of file Call\+Backer.\+py.
+Definition at line 69 of file Call\+Backer.\+py.
 
 \mbox{\Hypertarget{classSignalIntegrity_1_1CallBacker_1_1CallBacker_a9307eb7d2258b5f1df8bfc5f43effcab}\label{classSignalIntegrity_1_1CallBacker_1_1CallBacker_a9307eb7d2258b5f1df8bfc5f43effcab}} 
 \index{Signal\+Integrity\+::\+Call\+Backer\+::\+Call\+Backer@{Signal\+Integrity\+::\+Call\+Backer\+::\+Call\+Backer}!Install\+Callback@{Install\+Callback}}
@@ -137,7 +145,7 @@ This is an alternate way to supply the callback, if it cannot be installed durin
 \end{DoxyParams}
 
 
-Definition at line 74 of file Call\+Backer.\+py.
+Definition at line 81 of file Call\+Backer.\+py.
 
 \mbox{\Hypertarget{classSignalIntegrity_1_1CallBacker_1_1CallBacker_ac93a2d2ea7a87653318147244b98b31c}\label{classSignalIntegrity_1_1CallBacker_1_1CallBacker_ac93a2d2ea7a87653318147244b98b31c}} 
 \index{Signal\+Integrity\+::\+Call\+Backer\+::\+Call\+Backer@{Signal\+Integrity\+::\+Call\+Backer\+::\+Call\+Backer}!Remove\+Callback@{Remove\+Callback}}
@@ -151,7 +159,7 @@ Removes any callback previously installed.
 
 
 
-Definition at line 78 of file Call\+Backer.\+py.
+Definition at line 85 of file Call\+Backer.\+py.
 
 
 

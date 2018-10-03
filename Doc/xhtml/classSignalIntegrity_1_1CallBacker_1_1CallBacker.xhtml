@@ -78,12 +78,14 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for CallBacker:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1CallBacker_1_1CallBacker__inherit__graph.svg" width="1239" height="522"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1CallBacker_1_1CallBacker__inherit__graph.svg" width="1239" height="522"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for CallBacker:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1CallBacker_1_1CallBacker__coll__graph.svg" width="154" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1CallBacker_1_1CallBacker__coll__graph.svg" width="154" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -103,8 +105,11 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles Callbacks that allow progress reporting during long calculations and capability to abort. </p>
-<p>Teledyne LeCroy Inc. ("COMPANY") CONFIDENTIAL Unpublished Copyright (c) 2015-2016 Peter J. Pupalaikis and Teledyne LeCroy, All Rights Reserved.</p>
-<p>Explicit license in accompanying README.txt file. If you don't have that file or do not agree to the terms in that file, then you are not licensed to use this material whatsoever. <a class="el" href="classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort...">CallBacker</a> </p><pre class="fragment">To use callbacks, a class is derived from CallBacker.
+<p>Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.</p>
+<p>This file is part of PySI.</p>
+<p>PySI is free software: You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.</p>
+<p>This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a> <a class="el" href="classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort...">CallBacker</a> </p><pre class="fragment">To use callbacks, a class is derived from CallBacker.
 
 Either the constructor of the derived class or some other mechanism should
 provide means for supplying the callback function, which is installed in a
@@ -117,7 +122,7 @@ to abort.
 
 Here's a mini example derived class using CallBacker:
 </pre><div class="fragment"><div class="line"><span class="keyword">class </span>ProcessingClass(Callbacker):</div><div class="line">    <span class="keyword">def </span>__init__(self,callback=None):</div><div class="line">        ...</div><div class="line">        Callbacker.__init__(callback)</div><div class="line">        ...</div><div class="line">    <span class="keyword">def </span>LongProcessingFunction(self):</div><div class="line">        <span class="keywordflow">for</span> m <span class="keywordflow">in</span> range(100):</div><div class="line">            ...</div><div class="line">            do some calculating.</div><div class="line">            ...</div><div class="line">            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.CallBack(m):</div><div class="line">                process was aborted</div><div class="line">                <span class="keywordflow">return</span></div></div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00047">47</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00054">54</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5580a7fcf0bfd317a8f8c7c80eefdd69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5580a7fcf0bfd317a8f8c7c80eefdd69">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -153,7 +158,7 @@ Here's a mini example derived class using CallBacker:
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00053">53</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00060">60</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
 
 </div>
 </div>
@@ -192,7 +197,7 @@ Here's a mini example derived class using CallBacker:
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00062">62</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00069">69</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
 
 </div>
 </div>
@@ -230,7 +235,7 @@ Here's a mini example derived class using CallBacker:
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00074">74</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00081">81</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
 
 </div>
 </div>
@@ -252,7 +257,7 @@ Here's a mini example derived class using CallBacker:
 
 <p>Removes any callback previously installed. </p>
 
-<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00078">78</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CallBacker_8py_source.xhtml#l00085">85</a> of file <a class="el" href="CallBacker_8py_source.xhtml">CallBacker.py</a>.</p>
 
 </div>
 </div>

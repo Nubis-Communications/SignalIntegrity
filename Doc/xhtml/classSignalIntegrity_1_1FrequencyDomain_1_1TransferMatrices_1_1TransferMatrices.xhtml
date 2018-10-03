@@ -80,7 +80,8 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for TransferMatrices:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices__coll__graph.svg" width="180" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices__coll__graph.svg" width="180" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -104,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that is used for processing waveforms in simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00019">19</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00026">26</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7ecbd1152e5e88f11aacf19d825fb16c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ecbd1152e5e88f11aacf19d825fb16c">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -149,7 +150,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>The list of list of list matrices in d are such that each element in the list represents a list of list matrix for a given frequency. The list of list matrix for a frequency is the frequency response that converts inputs (columns) to outputs (rows). If d is an N+1 element list of RxC matrices, then for n in 0..N, d[n][r][c] represents the frequency response for a filter used to convert input C into output r.</dd></dl>
 <p>Generally, you don't deal with the structure of d as it is produced completely by the two classes SimulatorNumericParser and VirtualProbeNumericParser, and an element of d for a frequency is produced by the two classes SimulatorNumeric and VirtualProbeNumeric. </p>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00036">36</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00043">43</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
 
 </div>
 </div>
@@ -196,7 +197,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>instance of class <a class="el" href="namespaceSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse.xhtml">FrequencyResponse</a> corresponding to the frequency response of a filter used to convert input i to output o. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00077">77</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00084">84</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
 
 </div>
 </div>
@@ -221,7 +222,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section remark"><dt>Remarks</dt><dd>The return is a list of list like a matrix where each element in the matrix M is such that M[o][i] is the frequency response of a filter that would convert the input i to an output o. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSignalIntegrity_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices.xhtml#ae45a1bf3658b88340881c2be54c27dbe" title="frequency response of one filter ">FrequencyResponse()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00092">92</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00099">99</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
 
 </div>
 </div>
@@ -255,7 +256,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>list of list of instances of class ImpulseResponse </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>The return is a list of list like a matrix where each element in the matrix M is such that M[o][i] is the impulse response of a filter that would convert the input i to an output o. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00103">103</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00110">110</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
 
 </div>
 </div>
@@ -280,7 +281,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>that transfer matrices are actually very much like s-parameters because they provide the complex frequency-domain relationship between an input and output at the given frequencies. The only actual difference is that an s-parameter matrix must be square while transfer parameter matrices can be rectangular.</dd></dl>
 <p>s-parameters make it convenient for writing and viewing transfer matrices, so this format is provided. The transfer matrices converted to s-parameters will have a square matrix whose row and column length is the maximum of the row and column length of a transfer matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00054">54</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatrices_8py_source.xhtml#l00061">61</a> of file <a class="el" href="TransferMatrices_8py_source.xhtml">TransferMatrices.py</a>.</p>
 
 </div>
 </div>
