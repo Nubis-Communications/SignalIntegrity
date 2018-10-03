@@ -58,9 +58,12 @@ class LicenseDialog(Toplevel):
 
         Toplevel.__init__(self, parent)
         self.img = PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
+        self.gnuimg=PhotoImage(file=parent.parent.installdir+'/icons/png/gpl.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('License')
+        self.gnu=Button(self,image=self.gnuimg,command=self.onHyper)
+        self.gnu.pack(side=TOP,fill=BOTH,expand=YES)
         self.text=ScrolledText(self)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
@@ -72,7 +75,10 @@ class LicenseDialog(Toplevel):
         self.text.focus_set()
         self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
             self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
-        self.text.configure(state='disabled') 
+        self.text.configure(state='disabled')
+    def onHyper(self):
+        webbrowser.open_new(r"https://www.gnu.org/licenses/gpl-3.0.html")
+
 class AboutDialog(Toplevel):
     def __init__(self,parent):
         self.parent = parent
