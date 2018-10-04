@@ -1,3 +1,7 @@
+"""
+__init__.py
+"""
+
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
 #
 # This file is part of PySI.

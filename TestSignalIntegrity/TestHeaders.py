@@ -1,3 +1,7 @@
+"""
+TestHeaders.py
+"""
+
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
 #
 # This file is part of PySI.
@@ -86,7 +90,6 @@ class Test(unittest.TestCase):
                                     donequotes=True
                                     inquotes=False
                                     quotesLineEnd=lineNum
-                    
                     if donequotes:
                         quotedLineThreshold=0
                         if quotesLineStart > quotedLineThreshold:
@@ -124,7 +127,6 @@ class Test(unittest.TestCase):
                             if line[:1] == '#':
                                 licenseLineStart=lineNum
                                 inLicense=True
-                        
                         else:
                             if line[:1] != '#':
                                 licenseLineEnd=lineNum-1
@@ -156,6 +158,9 @@ class Test(unittest.TestCase):
                     realLines=[]
                     if donequotes:
                         realLines=realLines+lines[quotesLineStart:quotesLineEnd+1]
+                    else:
+                        realLines=realLines+['"""\n',str(file)+'\n','"""\n']
+                    realLines=realLines+['\n']
                     realLines=realLines+license
                     if doneLicense:
                         realLines=realLines+lines[licenseLineEnd+1:]

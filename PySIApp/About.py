@@ -1,3 +1,7 @@
+"""
+About.py
+"""
+
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
 #
 # This file is part of PySI.
@@ -82,16 +86,19 @@ class LicenseDialog(Toplevel):
 class AboutDialog(Toplevel):
     def __init__(self,parent):
         self.parent = parent
-        
+
         versionString='1.0.0'
-        
+
         Toplevel.__init__(self, parent)
 
         self.img = PhotoImage(file=parent.installdir+'/icons/png/AppIcon2.gif')
+        self.img2 = PhotoImage(file=parent.installdir+'/icons/png/tlecroy-logo-15.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('About PySIApp')
         self.focus_set()
+        lecroyLabel = Label(self,image=self.img2)
+        lecroyLabel.pack(side=TOP,expand=YES,fill=BOTH)
         iconLabel = Label(self, image=self.img)
         iconLabel.pack(side=TOP,expand=YES,fill=BOTH)
         msg = Message(self,text="PySIApp Signal and Power Integrity Tools",justify=CENTER, width=500)
