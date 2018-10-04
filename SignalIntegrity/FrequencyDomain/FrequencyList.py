@@ -7,6 +7,7 @@
  in data size, we often must know if the frequencies are evenly spaced and it's easier
  to know that when it is that class type.
 """
+
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
 #
 # This file is part of PySI.
