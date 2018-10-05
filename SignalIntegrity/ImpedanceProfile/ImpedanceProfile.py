@@ -92,6 +92,7 @@ class ImpedanceProfile(list):
             Gsp[n]=T2S(tacc.tolist())
         sp = SParameters(f,Gsp,self.m_Z0)
         return sp
+    # pragma: silent exclude
     ##
     # @var rhoLimit
     # static float upper limit on absolute value of rho before the impedance profile
@@ -110,4 +111,3 @@ class ImpedanceProfile(list):
     # @var m_fracD
     # float fractional delay time determined while converting the s-parameter file
     # to impulse response.
-

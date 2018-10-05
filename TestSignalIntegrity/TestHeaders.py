@@ -156,7 +156,13 @@ class TestHeadersTest(unittest.TestCase):
                             errors=True
                         else:
                             for licenseLineNum in range(len(license)):
-                                if lines[licenseLineStart+licenseLineNum]!=license[licenseLineNum]:
+                                actualLine=lines[licenseLineStart+licenseLineNum]
+                                licenseLine=license[licenseLineNum]
+                                if len(actualLine)==len(licenseLine)+1:
+                                    # thinking maybe it ends in \r\n instead of \n
+                                    if actualLine[-2:]=='\r\n':
+                                        actualLine=actualLine[:-2]+'\n'
+                                if actualLine!=licenseLine:
                                     print pythonFileName+' Error: license incorrect'
                                     errors=True
                                     break
