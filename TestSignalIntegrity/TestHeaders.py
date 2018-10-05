@@ -39,10 +39,16 @@ license=[
     '# You should have received a copy of the GNU General Public License along with this program.\n',
     '# If not, see <https://www.gnu.org/licenses/>\n']
 
-class Test(unittest.TestCase):
+class TestHeadersTest(unittest.TestCase):
     write=False
     test=True
     debugFile=None
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        pass
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
     def testFiles(self):
         errors=False
         thisDir=os.getcwd()
