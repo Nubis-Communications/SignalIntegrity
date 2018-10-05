@@ -65,7 +65,70 @@ $(function() {
 <div class="title">SignalIntegrity Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><p>'''README''' </p><h1>PySI Software Documentation</h1>
+<h2>Usage</h2>
+<p>PySI comes with a top-level Python package called <em><a class="el" href="namespaceSignalIntegrity.xhtml" title="Signal Integrity Tools. ">SignalIntegrity</a></em>. From within your scripts, you type: </p><pre class="fragment">import SignalIntegrity as si
+</pre><p>Then, all of the elements from within <a class="el" href="namespaceSignalIntegrity.xhtml" title="Signal Integrity Tools. ">SignalIntegrity</a> are accessible using si as the prefix. For example, the single frequency s-parameters of a current amplifier are found by call ing the function: </p><pre class="fragment">si.d.CurrentAmplifier()
+</pre><p>All of the namespaces for these packages are listed at <a href="http://teledynelecroy.github.io/PySI/Doc/xhtml/namespaces.xhtml">Packages</a>.</p>
+<p>All of the classes available to you are located at <a href="http://teledynelecroy.github.io/PySI/Doc/xhtml/annotated.xhtml">Class List</a> along with the <a href="http://teledynelecroy.github.io/PySI/Doc/xhtml/inherits.xhtml">Class Hierarchy</a>.</p>
+<p>The table of codes corresponding to each namespace is:</p>
+<table class="doxtable">
+<tr>
+<th align="left">code </th><th align="left">namespace </th><th align="left">Description  </th></tr>
+<tr>
+<td align="left">si </td><td align="left"><a class="el" href="namespaceSignalIntegrity.xhtml" title="Signal Integrity Tools. ">SignalIntegrity</a> </td><td align="left">Top of <a class="el" href="namespaceSignalIntegrity.xhtml" title="Signal Integrity Tools. ">SignalIntegrity</a> Package </td></tr>
+<tr>
+<td align="left">si.czt </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1ChirpZTransform.xhtml">SignalIntegrity.ChirpZTransform</a> </td><td align="left">Chirp z transform </td></tr>
+<tr>
+<td align="left">si.cvt </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Conversions.xhtml">SignalIntegrity.Conversions</a> </td><td align="left">Conversion Formulas </td></tr>
+<tr>
+<td align="left">si.d </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Devices.xhtml">SignalIntegrity.Devices</a> </td><td align="left">Single Frequency Devices </td></tr>
+<tr>
+<td align="left">si.fit </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Fit.xhtml">SignalIntegrity.Fit</a> </td><td align="left">Fitting Algorithms </td></tr>
+<tr>
+<td align="left">si.fd </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1FrequencyDomain.xhtml">SignalIntegrity.FrequencyDomain</a> </td><td align="left">Frequency Domain </td></tr>
+<tr>
+<td align="left">si.helper </td><td align="left">SignalIntegrity.Helper </td><td align="left">Helper functions and classes </td></tr>
+<tr>
+<td align="left">si.ip </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1ImpedanceProfile.xhtml">SignalIntegrity.ImpedanceProfile</a> </td><td align="left">Impedance profile </td></tr>
+<tr>
+<td align="left">si.m </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Measurement.xhtml">SignalIntegrity.Measurement</a> </td><td align="left">Measurment </td></tr>
+<tr>
+<td align="left">si.m.cal </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Measurement_1_1Calibration.xhtml">SignalIntegrity.Measurement.Calibration</a> </td><td align="left">Calibration algorithms </td></tr>
+<tr>
+<td align="left">si.m.calkit </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Measurement_1_1CalKit.xhtml">SignalIntegrity.Measurement.CalKit</a> </td><td align="left">Calibration kits </td></tr>
+<tr>
+<td align="left">si.m.tdr </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Measurement_1_1TDR.xhtml">SignalIntegrity.Measurement.TDR</a> </td><td align="left">Time-domain reflectometry </td></tr>
+<tr>
+<td align="left">si.p </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Parsers.xhtml">SignalIntegrity.Parsers</a> </td><td align="left">Netlist parsers </td></tr>
+<tr>
+<td align="left">si.p.dev </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Parsers_1_1Devices.xhtml">SignalIntegrity.Parsers.Devices</a> </td><td align="left">Netlist parser devices </td></tr>
+<tr>
+<td align="left">si.rat </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Rat.xhtml">SignalIntegrity.Rat</a> </td><td align="left">The RAT function </td></tr>
+<tr>
+<td align="left">si.sp </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1SParameters.xhtml">SignalIntegrity.SParameters</a> </td><td align="left">S-parameters </td></tr>
+<tr>
+<td align="left">si.sp.dev </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1SParameters_1_1Devices.xhtml">SignalIntegrity.SParameters.Devices</a> </td><td align="left">S-parameter devices </td></tr>
+<tr>
+<td align="left">si.spl </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Splines.xhtml">SignalIntegrity.Splines</a> </td><td align="left">Spline functions </td></tr>
+<tr>
+<td align="left">si.sub </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1SubCircuits.xhtml">SignalIntegrity.SubCircuits</a> </td><td align="left">Netlist Subcircuits </td></tr>
+<tr>
+<td align="left">si.sy </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Symbolic.xhtml">SignalIntegrity.Symbolic</a> </td><td align="left">Symbolic Solutions </td></tr>
+<tr>
+<td align="left">si.sd </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1SystemDescriptions.xhtml">SignalIntegrity.SystemDescriptions</a> </td><td align="left">System descriptions </td></tr>
+<tr>
+<td align="left">si.test </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Test.xhtml">SignalIntegrity.Test</a> </td><td align="left">Test helpers </td></tr>
+<tr>
+<td align="left">si.td </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1TimeDomain.xhtml">SignalIntegrity.TimeDomain</a> </td><td align="left">Time-domain </td></tr>
+<tr>
+<td align="left">si.td.f </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1TimeDomain_1_1Filters.xhtml">SignalIntegrity.TimeDomain.Filters</a> </td><td align="left">Filters </td></tr>
+<tr>
+<td align="left">si.td.wf </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform.xhtml">SignalIntegrity.TimeDomain.Waveform</a> </td><td align="left">Waveforms </td></tr>
+<tr>
+<td align="left">si.wl </td><td align="left"><a class="el" href="namespaceSignalIntegrity_1_1Wavelets.xhtml">SignalIntegrity.Wavelets</a> </td><td align="left">Wavelets </td></tr>
+</table>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
