@@ -32,6 +32,7 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
 
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
+        @param callback (optional) function taking one argument as a callback.
         @param cacheFileName (optional) string name of file used to cache results
 
         Arguments are provided on a line as pairs of names and values separated by a space.
