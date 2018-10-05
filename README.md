@@ -2,7 +2,8 @@
 
 [Go to the website for these tools]()
 
-[Link text](http://teledynelecroy.github.io/PySI/Images/Screenshot.png)
+![](http://teledynelecroy.github.io/PySI/Images/Screenshot.png)
+
 
 
 
