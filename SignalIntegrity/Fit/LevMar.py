@@ -212,6 +212,5 @@ class LevMar(CallBacker):
     # amount to multiply by lambda on successful iterations (and amount to divide lambda by on unsuccessful ones)
     # @var m_epsilon
     # delta used for numerical derivative calculation
-    # @var m_iteration
-    # iteration number
-    #
+    # @var ccm
+    # instance of class FitConvergenceMgr that monitors and determines convergence.

@@ -39,10 +39,16 @@ license=[
     '# You should have received a copy of the GNU General Public License along with this program.\n',
     '# If not, see <https://www.gnu.org/licenses/>\n']
 
-class Test(unittest.TestCase):
+class TestHeadersTest(unittest.TestCase):
     write=False
     test=True
     debugFile=None
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        pass
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
     def testFiles(self):
         errors=False
         thisDir=os.getcwd()
@@ -150,7 +156,13 @@ class Test(unittest.TestCase):
                             errors=True
                         else:
                             for licenseLineNum in range(len(license)):
-                                if lines[licenseLineStart+licenseLineNum]!=license[licenseLineNum]:
+                                actualLine=lines[licenseLineStart+licenseLineNum]
+                                licenseLine=license[licenseLineNum]
+                                if len(actualLine)==len(licenseLine)+1:
+                                    # thinking maybe it ends in \r\n instead of \n
+                                    if actualLine[-2:]=='\r\n':
+                                        actualLine=actualLine[:-2]+'\n'
+                                if actualLine!=licenseLine:
                                     print pythonFileName+' Error: license incorrect'
                                     errors=True
                                     break
