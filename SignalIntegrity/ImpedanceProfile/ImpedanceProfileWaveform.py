@@ -54,7 +54,7 @@ class ImpedanceProfileWaveform(Waveform):
         @param method (optional) string method for computation (defaults to 'exact')
         @param align (optional) string alignment of impedancance in waveform (defaults to 'middle')
         @param includePortZ (optional) boolean whether to put the port reference impedance as the first point. (defaults to True)
-        @param adjustForDelay(optional) boolean whether to adjust for the delay in the impulse response (defaults to True)
+        @param adjustForDelay (optional) boolean whether to adjust for the delay in the impulse response (defaults to True)
         @remark computation methods include:
         'exact' (default) - calculates  using reflection coefficient of first point computed from DFT and deembedding.
         (this method takes longer and can diverge due to buildup of numerical inaccuracies.)
