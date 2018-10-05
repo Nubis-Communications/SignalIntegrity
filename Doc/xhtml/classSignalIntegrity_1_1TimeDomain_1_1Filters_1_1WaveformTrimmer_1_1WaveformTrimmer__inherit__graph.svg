@@ -24,7 +24,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" target="_top" xlink:title="handles time axis effects of filtering ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" target="_top" xlink:title="FilterDescriptor.py. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-116.5 0,-283.5 83,-283.5 83,-116.5 0,-116.5"/>
 <text text-anchor="middle" x="41.5" y="-271.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FilterDescriptor</text>
 <polyline fill="none" stroke="#000000" points="0,-264.5 83,-264.5 "/>
@@ -53,7 +53,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" target="_top" xlink:title="base class for things that process waveforms ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" target="_top" xlink:title="WaveformProcessor.py. ">
 <polygon fill="#ffffff" stroke="#000000" points="101,-171.5 101,-228.5 214,-228.5 214,-171.5 101,-171.5"/>
 <text text-anchor="middle" x="157.5" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">WaveformProcessor</text>
 <polyline fill="none" stroke="#000000" points="101,-209.5 214,-209.5 "/>

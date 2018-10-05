@@ -1,4 +1,4 @@
 <map id="WaveformTrimmer" name="WaveformTrimmer">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" title="handles time axis effects of filtering " alt="" coords="5,5,116,229"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="base class for things that process waveforms " alt="" coords="140,79,291,156"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" title="FilterDescriptor.py. " alt="" coords="5,5,116,229"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py. " alt="" coords="140,79,291,156"/>
 </map>

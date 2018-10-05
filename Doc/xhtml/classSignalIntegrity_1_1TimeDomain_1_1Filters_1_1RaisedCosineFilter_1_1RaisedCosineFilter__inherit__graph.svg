@@ -47,7 +47,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" target="_top" xlink:title="base class for things that process waveforms ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" target="_top" xlink:title="WaveformProcessor.py. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-254.5 0,-311.5 113,-311.5 113,-254.5 0,-254.5"/>
 <text text-anchor="middle" x="56.5" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">WaveformProcessor</text>
 <polyline fill="none" stroke="#000000" points="0,-292.5 113,-292.5 "/>

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['waveform',['Waveform',['../classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml',1,'SignalIntegrity::TimeDomain::Waveform::Waveform']]],
-  ['waveformdecimator',['WaveformDecimator',['../classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml',1,'SignalIntegrity::TimeDomain::Filters::WaveformDecimator']]],
-  ['waveformprocessor',['WaveformProcessor',['../classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml',1,'SignalIntegrity::TimeDomain::Filters::WaveformProcessor']]],
-  ['waveformtrimmer',['WaveformTrimmer',['../classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml',1,'SignalIntegrity::TimeDomain::Filters::WaveformTrimmer']]]
+  ['virtualprobe',['VirtualProbe',['../classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml',1,'SignalIntegrity::SystemDescriptions::VirtualProbe']]],
+  ['virtualprobenumeric',['VirtualProbeNumeric',['../classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml',1,'SignalIntegrity::SystemDescriptions::VirtualProbeNumeric']]],
+  ['virtualprobenumericparser',['VirtualProbeNumericParser',['../classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml',1,'SignalIntegrity::Parsers::VirtualProbeNumericParser']]],
+  ['virtualprobeparser',['VirtualProbeParser',['../classSignalIntegrity_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml',1,'SignalIntegrity::Parsers::VirtualProbeParser']]],
+  ['virtualprobesymbolic',['VirtualProbeSymbolic',['../classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml',1,'SignalIntegrity::SystemDescriptions::VirtualProbeSymbolic']]]
 ];

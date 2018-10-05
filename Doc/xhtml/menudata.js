@@ -10,6 +10,7 @@ var menudata={children:[
 {text:"d",url:"namespacemembers.xhtml#index_d"},
 {text:"g",url:"namespacemembers.xhtml#index_g"},
 {text:"i",url:"namespacemembers.xhtml#index_i"},
+{text:"l",url:"namespacemembers.xhtml#index_l"},
 {text:"m",url:"namespacemembers.xhtml#index_m"},
 {text:"o",url:"namespacemembers.xhtml#index_o"},
 {text:"r",url:"namespacemembers.xhtml#index_r"},
@@ -24,6 +25,7 @@ var menudata={children:[
 {text:"d",url:"namespacemembers_func.xhtml#index_d"},
 {text:"g",url:"namespacemembers_func.xhtml#index_g"},
 {text:"i",url:"namespacemembers_func.xhtml#index_i"},
+{text:"l",url:"namespacemembers_func.xhtml#index_l"},
 {text:"m",url:"namespacemembers_func.xhtml#index_m"},
 {text:"o",url:"namespacemembers_func.xhtml#index_o"},
 {text:"r",url:"namespacemembers_func.xhtml#index_r"},
@@ -56,7 +58,8 @@ var menudata={children:[
 {text:"s",url:"functions_s.xhtml#index_s"},
 {text:"t",url:"functions_t.xhtml#index_t"},
 {text:"v",url:"functions_v.xhtml#index_v"},
-{text:"w",url:"functions_w.xhtml#index_w"}]},
+{text:"w",url:"functions_w.xhtml#index_w"},
+{text:"z",url:"functions_z.xhtml#index_z"}]},
 {text:"Functions",url:"functions_func.xhtml",children:[
 {text:"_",url:"functions_func.xhtml#index__"},
 {text:"a",url:"functions_func_a.xhtml#index_a"},
@@ -75,7 +78,8 @@ var menudata={children:[
 {text:"s",url:"functions_func_s.xhtml#index_s"},
 {text:"t",url:"functions_func_t.xhtml#index_t"},
 {text:"v",url:"functions_func_v.xhtml#index_v"},
-{text:"w",url:"functions_func_w.xhtml#index_w"}]},
+{text:"w",url:"functions_func_w.xhtml#index_w"},
+{text:"z",url:"functions_func_z.xhtml#index_z"}]},
 {text:"Variables",url:"functions_vars.xhtml",children:[
 {text:"c",url:"functions_vars.xhtml#index_c"},
 {text:"d",url:"functions_vars.xhtml#index_d"},
@@ -84,7 +88,9 @@ var menudata={children:[
 {text:"m",url:"functions_vars.xhtml#index_m"},
 {text:"n",url:"functions_vars.xhtml#index_n"},
 {text:"o",url:"functions_vars.xhtml#index_o"},
+{text:"r",url:"functions_vars.xhtml#index_r"},
 {text:"s",url:"functions_vars.xhtml#index_s"},
-{text:"t",url:"functions_vars.xhtml#index_t"}]}]}]},
+{text:"t",url:"functions_vars.xhtml#index_t"},
+{text:"z",url:"functions_vars.xhtml#index_z"}]}]}]},
 {text:"Files",url:"files.xhtml",children:[
 {text:"File List",url:"files.xhtml"}]}]}

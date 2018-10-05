@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['impedanceprofile',['ImpedanceProfile',['../classSignalIntegrity_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml',1,'SignalIntegrity::ImpedanceProfile::ImpedanceProfile']]],
   ['impedanceprofilewaveform',['ImpedanceProfileWaveform',['../classSignalIntegrity_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml',1,'SignalIntegrity::ImpedanceProfile::ImpedanceProfileWaveform']]],
   ['impulseresponse',['ImpulseResponse',['../classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml',1,'SignalIntegrity::TimeDomain::Waveform::ImpulseResponse']]],
   ['interpolatorfractionaldelayfilterlinear',['InterpolatorFractionalDelayFilterLinear',['../classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml',1,'SignalIntegrity::TimeDomain::Filters::InterpolatorLinear']]],

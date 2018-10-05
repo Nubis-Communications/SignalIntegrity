@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['z0khelper',['Z0KHelper',['../namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelper.xhtml#a76cad84a212511d022296a6b35a63c29',1,'SignalIntegrity::Conversions::Z0KHelper']]],
-  ['z0khelperpw',['Z0KHelperPW',['../namespaceSignalIntegrity_1_1Conversions_1_1Z0KHelperPW.xhtml#aa6cf56b735b0f26be271f84297b09c3b',1,'SignalIntegrity::Conversions::Z0KHelperPW']]],
-  ['z2s',['Z2S',['../namespaceSignalIntegrity_1_1Conversions_1_1Z2S.xhtml#a80c95ba77ea32ef71f24be0303687194',1,'SignalIntegrity::Conversions::Z2S']]]
+  ['y2s',['Y2S',['../namespaceSignalIntegrity_1_1Conversions_1_1Y2S.xhtml#ad5d295028fc49f2114fcad9581207b07',1,'SignalIntegrity::Conversions::Y2S']]]
 ];
