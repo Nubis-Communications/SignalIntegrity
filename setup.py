@@ -19,7 +19,7 @@ setup.py
 from setuptools import setup
 import os
 import unittest
-from TestSignalIntegrity import *
+from Test.TestSignalIntegrity import *
 
 install_requires=['numpy','matplotlib']
 
@@ -62,7 +62,7 @@ setup(
                 'SignalIntegrity.TimeDomain.Waveform',
                 'SignalIntegrity.Wavelets',
                 'PySIApp',
-                'TestSignalIntegrity',
+                'Test/TestSignalIntegrity',
                 'TestPySIApp'],
       data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
                   (pathToMoreIcons,
@@ -92,7 +92,7 @@ setup(
       entry_points={
         'console_scripts': [
             'PySI = PySIApp.PySIApp:main']},
-      test_suite='TestSignalIntegrity.TestAll'
+      test_suite='Test.TestSignalIntegrity.TestAll'
       )
 
 #       test_loader=unittest.TestLoader().loadTestsFromModule(TestSignalIntegrity.TestAll, use_load_tests=True),
