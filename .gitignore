@@ -1,0 +1,9 @@
+*~
+*#
+*.pyc
+*.aux
+*.log
+*.project
+*.pydevproject
+*.p
+PySI.egg-info/
