@@ -1,0 +1,25 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="16" y="-32" dx="16" dy="-16" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">16,-26 16,-38</polyline>
+%  <polyline lc="black">16,-16 16,-24</polyline>
+%  <polyline lw="2" lc="red">15,-15 17,-17</polyline>
+%  <polyline lw="2" lc="red">17,-15 15,-17</polyline>
+%  <polyline lc="black">16,-48 16,-40</polyline>
+%  <polyline lw="2" lc="red">15,-47 17,-49</polyline>
+%  <polyline lw="2" lc="red">17,-47 15,-49</polyline>
+%  <text x="28" y="-34.5" t="test.txt" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-32" t="CS1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (16,-32) ellipse (8mm and -8mm);
+\path[line width=0.30mm, draw=black, <-] (16,-26) -- (16,-38);
+\path[line width=0.30mm, draw=black] (16,-16) -- (16,-24);
+\path[line width=0.6mm, draw=red] (15,-15) -- (17,-17);
+\path[line width=0.6mm, draw=red] (17,-15) -- (15,-17);
+\path[line width=0.30mm, draw=black] (16,-48) -- (16,-40);
+\path[line width=0.6mm, draw=red] (15,-47) -- (17,-49);
+\path[line width=0.6mm, draw=red] (17,-47) -- (15,-49);
+\draw[black] (28,-34.5) node[anchor=base west]{test.txt};
+\draw[black] (28,-32) node[anchor=base west]{CS1};
+\end{tikzpicture}%

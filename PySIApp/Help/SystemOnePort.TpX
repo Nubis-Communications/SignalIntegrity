@@ -1,0 +1,17 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="40" y="-24" t="S" h="3" halign="c" lc="black"/>
+%  <rect x="32" y="-16" w="16" h="-16" lc="black"/>
+%  <polyline lc="black">24,-24 32,-24</polyline>
+%  <text x="28" y="-20" t="1" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-12" t="system.s1p" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-9.5" t="D1" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (40,-24) node[anchor=base]{S};
+\path[line width=0.30mm, draw=black] (32,-32) rectangle +(16,16);
+\path[line width=0.30mm, draw=black] (24,-24) -- (32,-24);
+\draw[black] (28,-20) node[anchor=base]{1};
+\draw[black] (40,-12) node[anchor=base]{system.s1p};
+\draw[black] (40,-9.5) node[anchor=base]{D1};
+\end{tikzpicture}%
