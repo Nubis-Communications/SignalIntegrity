@@ -38,7 +38,7 @@ setup(
                 'SignalIntegrity.ChirpZTransform',
                 'SignalIntegrity.Conversions',
                 'SignalIntegrity.Devices',
-                'SignalIntegrity.Fit'
+                'SignalIntegrity.Fit',
                 'SignalIntegrity.FrequencyDomain',
                 'SignalIntegrity.Helpers',
                 'SignalIntegrity.ImpedanceProfile',
@@ -63,7 +63,7 @@ setup(
                 'SignalIntegrity.Wavelets',
                 'PySIApp',
                 'Test/TestSignalIntegrity',
-                'TestPySIApp'],
+                'Test/TestPySIApp'],
       data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
                   (pathToMoreIcons,
                     [pathToMoreIcons+'/document-new-3.gif',
