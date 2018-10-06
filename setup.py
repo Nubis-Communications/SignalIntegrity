@@ -21,79 +21,86 @@ import os
 import unittest
 from Test.TestSignalIntegrity import *
 
-install_requires=['numpy','matplotlib']
+install_requires=['numpy','matplotlib','urllib3']
 
 pathToIcons='PySIApp/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
-pathToHelp='PySIApp/Help/PySIHelp.html.LyXconv'
+pathToHelp='http://teledynelecroy.github.io/PySI/PySIApp/Help/PySIHelp.html.LyXconv/PySIHelp-Section-1.html#toc-Section-1'
 
-setup(
-      name='PySI',
-      version='1.0',
-      description='signal integrity tools',
-      author='Peter J. Pupalaikis',
-      author_email='peterp@lecroy.com',
-      url='https://github.com/TeledyneLeCroy/PySI',
-      packages=['SignalIntegrity',
-                'SignalIntegrity.ChirpZTransform',
-                'SignalIntegrity.Conversions',
-                'SignalIntegrity.Devices',
-                'SignalIntegrity.Fit',
-                'SignalIntegrity.FrequencyDomain',
-                'SignalIntegrity.Helpers',
-                'SignalIntegrity.ImpedanceProfile',
-                'SignalIntegrity.Measurement',
-                'SignalIntegrity.Measurement.Calibration',
-                'SignalIntegrity.Measurement.CalKit',
-                'SignalIntegrity.Measurement.TDR',
-                'SignalIntegrity.Oyster',
-                'SignalIntegrity.Parsers',
-                'SignalIntegrity.Parsers.Devices',
-                'SignalIntegrity.Rat',
-                'SignalIntegrity.SParameters',
-                'SignalIntegrity.SParameters.Devices',
-                'SignalIntegrity.Splines',
-                'SignalIntegrity.SubCircuits',
-                'SignalIntegrity.Symbolic',
-                'SignalIntegrity.SystemDescriptions',
-                'SignalIntegrity.Test',
-                'SignalIntegrity.TimeDomain',
-                'SignalIntegrity.TimeDomain.Filters',
-                'SignalIntegrity.TimeDomain.Waveform',
-                'SignalIntegrity.Wavelets',
-                'PySIApp',
-                'Test/TestSignalIntegrity',
-                'Test/TestPySIApp'],
-      data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
-                  (pathToMoreIcons,
-                    [pathToMoreIcons+'/document-new-3.gif',
-                    pathToMoreIcons+'/document-open-2.gif',
-                    pathToMoreIcons+'/document-save-2.gif',
-                    pathToMoreIcons+'/tooloptions.gif',
-                    pathToMoreIcons+'/help-contents-5.gif',
-                    pathToMoreIcons+'/edit-add-2.gif',
-                    pathToMoreIcons+'/edit-delete-6.gif',
-                    pathToMoreIcons+'/draw-line-3.gif',
-                    pathToMoreIcons+'/edit-copy-3.gif',
-                    pathToMoreIcons+'/object-rotate-left-4.gif',
-                    pathToMoreIcons+'/object-flip-horizontal-3.gif',
-                    pathToMoreIcons+'/object-flip-vertical-3.gif',
-                    pathToMoreIcons+'/zoom-in-3.gif',
-                    pathToMoreIcons+'/zoom-out-3.gif',
-                    pathToMoreIcons+'/edit-move.gif',
-                    pathToMoreIcons+'/system-run-3.gif',
-                    pathToMoreIcons+'/help-3.gif',
-                    pathToMoreIcons+'/edit-undo-3.gif',
-                    pathToMoreIcons+'/edit-redo-3.gif'],
-                   ),
-                  (pathToHelp,[pathToHelp+'/'+x for x in os.listdir(pathToHelp)]),
-                  ('.', ['LICENSE.txt','README.txt'])],
-      install_requires=install_requires,
-      entry_points={
-        'console_scripts': [
-            'PySI = PySIApp.PySIApp:main']},
-      test_suite='Test.TestSignalIntegrity.TestAll'
-      )
+def _post_install(setup):
+    def _post_actions():
+        pass
+    _post_actions()
+    return setup
+
+setup=_post_install(
+    setup(
+        name='PySI',
+        version='1.0',
+        description='signal integrity tools',
+        author='Peter J. Pupalaikis',
+        author_email='peterp@lecroy.com',
+        url='https://github.com/TeledyneLeCroy/PySI',
+        packages=['SignalIntegrity',
+                  'SignalIntegrity.ChirpZTransform',
+                  'SignalIntegrity.Conversions',
+                  'SignalIntegrity.Devices',
+                  'SignalIntegrity.Fit',
+                  'SignalIntegrity.FrequencyDomain',
+                  'SignalIntegrity.Helpers',
+                  'SignalIntegrity.ImpedanceProfile',
+                  'SignalIntegrity.Measurement',
+                  'SignalIntegrity.Measurement.Calibration',
+                  'SignalIntegrity.Measurement.CalKit',
+                  'SignalIntegrity.Measurement.TDR',
+                  'SignalIntegrity.Oyster',
+                  'SignalIntegrity.Parsers',
+                  'SignalIntegrity.Parsers.Devices',
+                  'SignalIntegrity.Rat',
+                  'SignalIntegrity.SParameters',
+                  'SignalIntegrity.SParameters.Devices',
+                  'SignalIntegrity.Splines',
+                  'SignalIntegrity.SubCircuits',
+                  'SignalIntegrity.Symbolic',
+                  'SignalIntegrity.SystemDescriptions',
+                  'SignalIntegrity.Test',
+                  'SignalIntegrity.TimeDomain',
+                  'SignalIntegrity.TimeDomain.Filters',
+                  'SignalIntegrity.TimeDomain.Waveform',
+                  'SignalIntegrity.Wavelets',
+                  'PySIApp',
+                  'Test/TestSignalIntegrity',
+                  'Test/TestPySIApp'],
+        data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
+                    (pathToMoreIcons,
+                      [pathToMoreIcons+'/document-new-3.gif',
+                      pathToMoreIcons+'/document-open-2.gif',
+                      pathToMoreIcons+'/document-save-2.gif',
+                      pathToMoreIcons+'/tooloptions.gif',
+                      pathToMoreIcons+'/help-contents-5.gif',
+                      pathToMoreIcons+'/edit-add-2.gif',
+                      pathToMoreIcons+'/edit-delete-6.gif',
+                      pathToMoreIcons+'/draw-line-3.gif',
+                      pathToMoreIcons+'/edit-copy-3.gif',
+                      pathToMoreIcons+'/object-rotate-left-4.gif',
+                      pathToMoreIcons+'/object-flip-horizontal-3.gif',
+                      pathToMoreIcons+'/object-flip-vertical-3.gif',
+                      pathToMoreIcons+'/zoom-in-3.gif',
+                      pathToMoreIcons+'/zoom-out-3.gif',
+                      pathToMoreIcons+'/edit-move.gif',
+                      pathToMoreIcons+'/system-run-3.gif',
+                      pathToMoreIcons+'/help-3.gif',
+                      pathToMoreIcons+'/edit-undo-3.gif',
+                      pathToMoreIcons+'/edit-redo-3.gif'],
+                     ),
+                    ('.', ['LICENSE.txt','README.txt'])],
+        install_requires=install_requires,
+        entry_points={
+          'console_scripts': [
+              'PySI = PySIApp.PySIApp:main']},
+        test_suite='Test.TestSignalIntegrity.TestAll'
+        )
+    )
 
 #       test_loader=unittest.TestLoader().loadTestsFromModule(TestSignalIntegrity.TestAll, use_load_tests=True),
 #       test_suite='TestSignalIntegrity.TestAll'

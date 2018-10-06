@@ -61,6 +61,7 @@ class OnlineHelpConfiguration(XMLConfiguration):
         XMLConfiguration.__init__(self)
         self.dict['UseOnlineHelp']=XMLPropertyDefaultBool('UseOnlineHelp',True)
         self.dict['URL']=XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/PySI/PySIApp')
+        self.dict['RebuildHelpKeys']=XMLPropertyDefaultBool('RebuildHelpKeys',False)
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):

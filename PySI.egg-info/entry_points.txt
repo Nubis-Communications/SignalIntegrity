@@ -1,3 +1,0 @@
-[console_scripts]
-PySI = PySIApp.PySIApp:main
-

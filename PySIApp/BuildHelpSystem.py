@@ -20,14 +20,46 @@ import xml.etree.ElementTree as et
 import os
 
 class HelpSystemKeys(object):
-    def __init__(self,path=None):
+    def __init__(self,path=None,force=False):
+        self.dict={}
+        self.fileExists=False
+        self.helpKeysFileName=os.path.dirname(os.path.realpath(__file__))+'/helpkeys'
+        try:
+            self.Read(force)
+        except:
+            try:
+                self.Build(path)
+                if len(self.dict)>0:
+                    self.SaveToFile()
+            except:
+                return
+    def Read(self,force=False):
+        self.dict={}
+        if force:
+            raise ValueError
+        with open(self.helpKeysFileName,'r') as f:
+            lines=f.readlines()
+        for line in lines:
+            tokens=line.strip().split(' >>> ')
+            self.dict[tokens[0]]=tokens[1]
+    def SaveToFile(self):
+        try:
+            with open(self.helpKeysFileName,'w') as f:
+                for key in self.dict:
+                    f.write(str(key)+' >>> '+str(self.dict[key]+'\n'))
+        except:
+            return
+
+    def Build(self,path=None):
         if path is None:
             path=os.getcwd()
         path=path+'/Help/PySIHelp.html.LyXconv'
         self.dict={}
         filename=path+'/PySIHelp.html'
         try:
-            tree=et.parse(filename)
+            import urllib2
+            file=urllib2.urlopen(filename)
+            tree=et.parse(file)
             r=tree.getroot()
             self.Recurse(r,filename)
         except:
@@ -38,7 +70,9 @@ class HelpSystemKeys(object):
             while searchingSections:
                 filename=path+'/PySIHelp-'+stype+'-'+str(secIndex)+'.html'
                 try:
-                    tree=et.parse(filename)
+                    import urllib2
+                    file=urllib2.urlopen(filename)
+                    tree=et.parse(file)
                 except:
                     searchingSections=False
                     break

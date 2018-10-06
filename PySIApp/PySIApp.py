@@ -62,6 +62,14 @@ class PySIApp(Frame):
         sys.path=[thisFileDir]+sys.path
 
         self.preferences=Preferences()
+
+        self.installdir=os.path.dirname(os.path.abspath(__file__))
+
+        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
+            Doer.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
+        else:
+            Doer.controlHelpUrlBase=self.installdir
+
         self.root = Tk()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -70,7 +78,6 @@ class PySIApp(Frame):
 
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
-        self.installdir=os.path.dirname(os.path.abspath(__file__))
 
         versionString='1.0.0'
 
@@ -79,12 +86,7 @@ class PySIApp(Frame):
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
-        self.helpSystemKeys = HelpSystemKeys(self.installdir)
-
-        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            Doer.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
-        else:
-            Doer.controlHelpUrlBase=self.installdir
+        self.helpSystemKeys = HelpSystemKeys(Doer.controlHelpUrlBase,self.preferences.GetValue('OnlineHelp.RebuildHelpKeys'))
 
         # status bar
         self.statusbar=StatusBar(self)
