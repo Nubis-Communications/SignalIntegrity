@@ -58,6 +58,6 @@ from TestRLGCLevMar import *
 from TestNewtonsMethod import *
 from ScientificPulserSampler import *
 from TestHeaders import *
-
+from TestPySIApp import *
 if __name__ == '__main__':
     unittest.main()

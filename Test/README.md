@@ -1,23 +1,13 @@
 # PySI Tests
 
 
-Testing of PySI is accomplished through the use of the unittest framework.  There are a variety of unit tests along with regression results in [Test](https://github.com/TeledyneLeCroy/PySI/tree/master/Test).
+Testing of PySI is accomplished through the use of the unittest framework.  There are a variety of unit tests along with regression results in [Test](https://github.com/TeledyneLeCroy/PySI/tree/master/Test) and in the subdirectory [TestSignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestSignalIntegrity), which contains all of the tests
 
-There are two directories containing tests for testing of different things:
+For the most part, the [PySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/PySIApp) GUI based application is tested by hand, insofar as the GUI is concerned, but in [TestSignalIntegrity/TestPySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestPySIApp) are tests for testing a _headless_ version of PySIApp that can also be used within a scripted environment.  In other words, the headless version can be utilized to load a project file and obtain whatever results that project file produces.  This is a big aid to scripted applications and [TestSignalIntegrity/TestPySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestPySIApp) tests this headless application.
 
-* [TestSignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestSignalIntegrity) - for testing of the SignalIntegrity Library
-* [TestPySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestPySIApp) - for testing of the PySIApp application
+The [Test](https://github.com/TeledyneLeCroy/PySI/tree/master/Test) directory contains two scripts (for Linux and Windows).  The Linux script is a _bash_ script and has the extension '.sh'.  The Windows script is a batch file and has the extension '.bat'.  The script is CoverageTest and is the only test that ever really needs to be run. It runs all of the unit tests for the [SignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/SignalIntegrity) package.
 
-The [SignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/SignalIntegrity) package contains the library for scripted applications and is the back-end for all of the underlying calculations performed by the [PySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/PySIApp) GUI based application.
-
-For the most part, the [PySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/PySIApp) GUI based application is tested by hand, insofar as the GUI is concerned, but the [TestPySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestPySIApp) tests a _headless_ version of PySIApp that can also be used within a scripted environment.  In other words, the headless version can be utilized to load a project file and obtain whatever results that project file produces.  This is a big aid to scripted applications and [TestPySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/Test/TestPySIApp) tests this headless application.
-
-The [Test](https://github.com/TeledyneLeCroy/PySI/tree/master/Test) directory contains four scripts (two for Linux and two for Windows).  The Linux scripts are _bash_ scripts and have the extension '.sh'.  The Windows scripts are batch files and have the extension '.bat'.  These two sets of scripts are:
-
-* CoverageTest - the main coverage test that runs all of the unit tests for the [SignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/SignalIntegrity) package.
-* CoverageTestPySIApp - the coverage test that runs all of the unit tests for the headless PySIApp
-
-These tests are invoked like either:
+The script is invoked as either:
 
     bash CoverageTest.sh
 
@@ -65,7 +55,7 @@ In this way, you run the unit tests to see if everything is okay, and examine co
 
 In the coverage report, two directories worth of code are shown:
 
-* [PySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/PySIApp) - this cannot be tested with 100 percent coverage, but the file [PySIAppHeadless](https://github.com/TeledyneLeCroy/PySI/blob/master/PySIApp/PySIAppHeadless.py) should be tested at 100 percent coverage by [CoverageTestPySIApp.sh](https://github.com/TeledyneLeCroy/PySI/blob/master/Test/CoverageTestPySIApp.sh) or [CoverageTestPySIApp.bat](https://github.com/TeledyneLeCroy/PySI/blob/master/Test/CoverageTestPySIApp.bat).  Any other  coverage here is considered a bonus.
-* the [SignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/SignalIntegrity) package - This should be tested at 100 percent coverage.
+* [PySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/PySIApp) - this cannot be tested with 100 percent coverage, but the file [PySIAppHeadless](https://github.com/TeledyneLeCroy/PySI/blob/master/PySIApp/PySIAppHeadless.py) should be. Any other coverage of [PySIApp](https://github.com/TeledyneLeCroy/PySI/tree/master/PySIApp) here is considered a bonus.
+* [SignalIntegrity](https://github.com/TeledyneLeCroy/PySI/tree/master/SignalIntegrity) package - This should be tested at 100 percent coverage.
 
 The coverage of the test code is not currently shown.

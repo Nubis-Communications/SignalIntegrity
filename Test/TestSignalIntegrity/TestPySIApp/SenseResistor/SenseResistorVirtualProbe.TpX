@@ -92,9 +92,6 @@
 %  <polyline lw="3" lc="black">88,-80 92,-84</polyline>
 %  <polyline lc="black">92,-84 96,-88</polyline>
 %  <text x="88" y="-80" t="VOVP" h="3" halign="r" lc="black"/>
-%  <polyline lw="3" lc="black">88,-32 92,-28</polyline>
-%  <polyline lc="black">92,-28 96,-24</polyline>
-%  <text x="88" y="-34" t="VM" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">32,-64 24,-64</polyline>
 %  <polyline lc="black">128,-40 152,-40</polyline>
 %  <polyline lc="black">152,-40 152,-64</polyline>
@@ -216,9 +213,6 @@
 \path[line width=0.9mm, draw=black] (88,-80) -- (92,-84);
 \path[line width=0.30mm, draw=black] (92,-84) -- (96,-88);
 \draw[black] (88,-80) node[anchor=base east]{VOVP};
-\path[line width=0.9mm, draw=black] (88,-32) -- (92,-28);
-\path[line width=0.30mm, draw=black] (92,-28) -- (96,-24);
-\draw[black] (88,-32) node[anchor=north east]{VM};
 \path[line width=0.30mm, draw=black] (32,-64) -- (24,-64);
 \path[line width=0.30mm, draw=black] (128,-40) -- (152,-40);
 \path[line width=0.30mm, draw=black] (152,-40) -- (152,-64);

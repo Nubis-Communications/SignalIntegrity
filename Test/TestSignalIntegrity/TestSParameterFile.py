@@ -26,7 +26,10 @@ from TestHelpers import CallbackTesterHelper
 class TestSParameterFile(unittest.TestCase,SParameterCompareHelper,CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
         CallbackTesterHelper.__init__(self)
+        self.path=os.path.dirname(os.path.realpath(__file__))
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        os.chdir(self.path)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testSParameterFileFourPort(self):

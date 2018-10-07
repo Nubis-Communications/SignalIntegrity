@@ -23,6 +23,12 @@ import math
 from TestHelpers import SParameterCompareHelper
 
 class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
+    def __init__(self, methodName='runTest'):
+        self.path=os.path.dirname(os.path.realpath(__file__))
+        SParameterCompareHelper.__init__(self)
+        unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        os.chdir(self.path)
     def testCZTResampleSame(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)
