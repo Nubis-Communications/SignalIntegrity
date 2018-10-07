@@ -45,3 +45,54 @@ si.td.wf | SignalIntegrity.TimeDomain.Waveform | Waveforms
 si.wl | SignalIntegrity.Wavelets | Wavelets
 
 
+## Building the Package Documentation
+The package documentation is generated using a tool called [Doxygen](http://www.doxygen.nl/).
+Unfortunately, Doxygen is a tool made for C++ and Java and is not perfect for Python.  I chose it originally because it is capable of creating [LaTeX](https://www.latex-project.org/) documentation that was originally intended with my book - that idea was abandoned.  But still, it produces a very good documentation system.
+
+When properly set up, it is invoked from the [Doc](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc) directory using:
+
+    doxygen SignalIntegrityWindows
+
+
+or:
+
+
+    doxygen SignalIntegrityLinux
+
+
+depending on which platform you're on.
+
+This uses the configuration provided in the [SignalIntegrityWindows](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc/SignalIntegrityWindows) or [SignalIntegrityLinux](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc/SignalIntegrityLinux) configuration file and creates a directory called xhtml with the web documentation.  Both need to use a hack of [doxypy.py](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc/doxypy.py) that strips the triple quoted header required at the top of each Python file prior to processing.  This filter is specified in the [SignalIntegrityLinux](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc/SignalIntegrityLinux) as:
+
+    # The INPUT_FILTER tag can be used to specify a program that doxygen should
+    # invoke to filter for each input file. Doxygen will invoke the filter program
+    # by executing (via popen()) the command:
+    #
+    # <filter> <input-file>
+    #
+    # where <filter> is the value of the INPUT_FILTER tag, and <input-file> is the
+    # name of an input file. Doxygen will then use the output that the filter
+    # program writes to standard output. If FILTER_PATTERNS is specified, this tag
+    # will be ignored.
+    #
+    # Note that the filter must not add or remove lines; it is applied before the
+    # code is scanned, but not when the output code is generated. If lines are added
+    # or removed, the anchors will not be placed correctly.
+    #
+    # Note that for custom extensions or not directly supported extensions you also
+    # need to set EXTENSION_MAPPING for the extension otherwise the files are not
+    # properly processed by doxygen.
+    
+    INPUT_FILTER           = ./doxypy.py
+
+Usually, Doxygen can find the hacked doxypy.py in the /PySI/Doc/ directory - if it can't you might need to specify the path to this file directly.
+
+In [SignalIntegrityWindows](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc/SignalIntegrityWindows) this needs to be specified as:
+
+    INPUT_FILTER           = doxypy.bat
+
+Which uses the local [doxypy.bat](https://github.com/TeledyneLeCroy/PySI/tree/master/Doc/doxypy.bat), which simply calls the input filter file.
+
+In order to render any equations in the documentation, you must have [GhostScript](https://www.ghostscript.com/download/gsdnld.html) installed.
+
+Currently package documentation is modified only the branch gh-pages.  In other words, you should have another repository checked out on the gh-pages branch, generate this documentation, copy it to the gh-pages repository directory and check it in on gh-pages.
