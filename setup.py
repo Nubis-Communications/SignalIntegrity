@@ -93,7 +93,7 @@ setup=_post_install(
                       pathToMoreIcons+'/edit-undo-3.gif',
                       pathToMoreIcons+'/edit-redo-3.gif'],
                      ),
-                    ('.', ['LICENSE.txt','README.txt'])],
+                    ('.', ['LICENSE.txt','README.md'])],
         install_requires=install_requires,
         entry_points={
           'console_scripts': [
