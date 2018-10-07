@@ -48,8 +48,6 @@ class Test(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper):
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(self.path)
-    def TestFileName(self,filename):
-        return filename.replace('..', 'Up').replace('/','_').split('.')[0]
     def testFourPortTLineTest(self):
         self.SimulationResultsChecker('FourPortTLineTest.xml')
     def testFilterTest(self):
@@ -84,12 +82,12 @@ class Test(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper):
         self.SimulationResultsChecker('../../PySIApp/Examples/PulseGeneratorTest.xml')
     def testPySIAppExamplesStepGeneratorTest(self):
         self.SimulationResultsChecker('../../PySIApp/Examples/StepGeneratorTest.xml')
-    def testPySIAppPySIBookMeasurementTDRSimulationTest(self):
-        self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation.xml')
-    def testPySIAppPySIBookMeasurementTDRSimulationTest2(self):
-        self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation2.xml')
-    def testPySIAppPySIBookMeasurementTDRSimulationTest3(self):
-        self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation3.xml')
+#     def testPySIAppPySIBookMeasurementTDRSimulationTest(self):
+#         self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation.xml')
+#     def testPySIAppPySIBookMeasurementTDRSimulationTest2(self):
+#         self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation2.xml')
+#     def testPySIAppPySIBookMeasurementTDRSimulationTest3(self):
+#         self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation3.xml')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.xml',
@@ -124,16 +122,16 @@ class Test(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper):
             '../../../PySI/Test/TestSignalIntegrity/TestCurrentSense.xml',
             '../../../PySI/Test/TestSignalIntegrity/TestVRMParasitics.xml',
             '../../../PySI/Test/TestSignalIntegrity/TestVRM.xml',
-            '../../../PySI/PySIApp/FourPortTests/DifferentialTransmissionLineComparesMixedMode.xml',
-            '../../../PySI/PySIApp/FourPortTests/Mutual.xml',
-            '../../../PySI/PySIApp/FourPortTests/telegrapherFourPortTwoElements.xml',
-            '../../../PySI/PySIApp/FourPortTests/telegrapherFourPortCircuitOneSection.xml',
-            '../../../PySI/PySIApp/FourPortTests/DifferentialTransmissionLineCompares.xml',
-            '../../../PySI/PySIApp/FourPortTests/telegrapherFourPortElement.xml',
-            '../../../PySI/PySIApp/FourPortTests/TL_test_Circuit1_Pete.xml',
-            '../../../PySI/PySIApp/FourPortTests/telegrapherFourPort10000Elements.xml',
-            '../../../PySI/PySIApp/FourPortTests/DimaWay.xml',
-            '../../../PySI/PySIApp/FourPortTests/telegrapherFourPortCircuitTwoSections.xml',
+            'FourPortTests/DifferentialTransmissionLineComparesMixedMode.xml',
+            'FourPortTests/Mutual.xml',
+            'FourPortTests/telegrapherFourPortTwoElements.xml',
+            'FourPortTests/telegrapherFourPortCircuitOneSection.xml',
+            'FourPortTests/DifferentialTransmissionLineCompares.xml',
+            'FourPortTests/telegrapherFourPortElement.xml',
+            'FourPortTests/TL_test_Circuit1_Pete.xml',
+            'FourPortTests/telegrapherFourPort10000Elements.xml',
+            'FourPortTests/DimaWay.xml',
+            'FourPortTests/telegrapherFourPortCircuitTwoSections.xml',
             '../../../PySI/PySIApp/Examples/RLCTest.xml',
             '../../../PySI/PySIApp/Examples/telegrapherFourPort.xml',
             '../../../PySI/PySIApp/Examples/SParameterExample.xml',
@@ -155,11 +153,11 @@ class Test(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper):
             '../../../PySI/PySIApp/Examples/CascCableFilter.xml',
             '../../../PySI/PySIApp/Examples/StepGeneratorTest.xml',
             '../../../PySI/PySIApp/Examples/RLCTest2.xml',
-            '../../../PySI/PySIApp/VirtualProbeTests/comparison.xml',
-            '../../../PySI/PySIApp/VirtualProbeTests/Example2.xml',
-            '../../../PySI/PySIApp/VirtualProbeTests/SimpleCaseExample1.xml',
-            '../../../PySI/PySIApp/VirtualProbeTests/Example3DegreeOfFreedom.xml',
-            '../../../PySI/PySIApp/VirtualProbeTests/SimpleCase.xml',
+            'VirtualProbeTests/comparison.xml',
+            'VirtualProbeTests/Example2.xml',
+            'VirtualProbeTests/SimpleCaseExample1.xml',
+            'VirtualProbeTests/Example3DegreeOfFreedom.xml',
+            'VirtualProbeTests/SimpleCase.xml',
 #             '../../../PySIBook/TransmissionLines/TerminationDifferentialCenterTapUnbalanced.xml',
 #             '../../../PySIBook/TransmissionLines/FourPortMixedModeModelCompareTlines.xml',
 #             '../../../PySIBook/TransmissionLines/TerminationMixedMode.xml',
@@ -222,6 +220,7 @@ class Test(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper):
         ]
         for filename in filesList:
             self.setUp()
+            #print filename
             self.Preliminary(filename)
 
 if __name__ == "__main__":

@@ -1,0 +1,43 @@
+device T2 2 tline zc 45.0 td 1e-09
+device T3 2 tline zc 60.0 td 1.2e-09
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device T4 4 tline zc 45.0 td 1e-09
+device T5 4 tline zc 45.0 td 1e-09
+device T6 4 tline zc -22.5 td 1e-09
+device T7 4 tline zc 30.0 td 1.2e-09
+device G1 1 ground
+device G2 1 ground
+device R1 1 R 1000000.0
+device R2 1 R 1000000.0
+device R3 1 R 1000000.0
+device R4 1 R 1000000.0
+device MM3 4 mixedmode
+device MM4 4 mixedmode
+device T8 4 telegrapher rp 0.0 lp 5.85e-08 gp 0.0 cp 2e-11 rn 0.0 ln 5.85e-08 gn 0.0 cn 2e-11 lm 1.35e-08 gm 0.0 cm 1.11111111111e-12 sect 0
+port 1 MM1 3
+port 2 MM2 3
+port 3 MM1 4
+port 4 MM2 4
+port 5 T2 1
+port 6 T2 2
+port 7 T3 1
+port 8 T3 2
+connect MM1 1 T8 1
+connect MM1 2 T8 2
+connect T8 3 MM2 1
+connect T8 4 MM2 2
+connect MM4 1 T4 1
+connect T5 3 T6 3 R3 1 T4 3
+connect T4 2 MM3 1
+connect T6 4 R4 1 T4 4 T5 4
+connect MM4 2 T5 1
+connect T5 2 MM3 2
+connect T7 1 T6 1 R1 1
+connect T6 2 R2 1 T7 2
+connect G1 1 T7 3
+connect T7 4 G2 1
+port 9 MM4 3
+port 10 MM3 3
+port 11 MM4 4
+port 12 MM3 4
