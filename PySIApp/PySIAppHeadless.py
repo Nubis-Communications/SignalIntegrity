@@ -170,6 +170,7 @@ class PySIAppHeadless(object):
         fd=si.fd.EvenlySpacedFrequencyList(
             self.calculationProperties.endFrequency,
             self.calculationProperties.frequencyPoints)
+        cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
@@ -221,6 +222,7 @@ class PySIAppHeadless(object):
         netList=self.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity as si
+        cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
         snp=si.p.VirtualProbeNumericParser(
@@ -275,6 +277,7 @@ class PySIAppHeadless(object):
     def Deembed(self):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity as si
+        cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
         dnp=si.p.DeembedderNumericParser(
