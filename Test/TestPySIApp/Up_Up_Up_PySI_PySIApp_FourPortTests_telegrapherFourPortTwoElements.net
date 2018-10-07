@@ -1,8 +1,8 @@
 device T1 4 telegrapher rp 0.0 lp 5e-08 gp 1e-11 cp 2e-11 rn 0.0 ln 5e-08 gn 1e-11 cn 2e-11 lm 1e-15 gm 1e-11 cm 0.0 sect 1
 device T2 4 telegrapher rp 0.0 lp 5e-08 gp 1e-11 cp 2e-11 rn 0.0 ln 5e-08 gn 1e-11 cn 2e-11 lm 1e-15 gm 1e-11 cm 0.0 sect 1
 port 1 T1 1
-port 3 T1 3
-connect T1 2 T2 1
-connect T2 3 T1 4
-port 2 T2 2
+port 2 T2 3
+port 3 T1 2
 port 4 T2 4
+connect T1 3 T2 1
+connect T2 2 T1 4

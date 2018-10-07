@@ -1,11 +1,11 @@
-device T1 4 telegrapher rp 0.0 lp 5.85e-08 gp 0.0 cp 2e-11 rn 0.0 ln 5.85e-08 gn 0.0 cn 2e-11 lm 1.35e-08 gm 0.0 cm 1.11111111111e-12 sect 100000
 device MM1 4 mixedmode
 device MM2 4 mixedmode
-connect T1 1 MM2 1
-connect T1 3 MM2 2
-connect T1 2 MM1 1
-connect MM1 2 T1 4
+device T1 4 telegrapher rp 0.0 lp 5.85e-08 gp 0.0 cp 2e-11 rn 0.0 ln 5.85e-08 gn 0.0 cn 2e-11 lm 1.35e-08 gm 0.0 cm 1.11111111111e-12 sect 0
 port 1 MM2 3
 port 2 MM1 3
 port 3 MM2 4
 port 4 MM1 4
+connect T1 3 MM1 1
+connect T1 4 MM1 2
+connect T1 1 MM2 1
+connect MM2 2 T1 2

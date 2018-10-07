@@ -182,41 +182,41 @@ class Test(unittest.TestCase,SParameterCompareHelper):
     def testFilterTest(self):
         self.SimulationResultsChecker('FilterTest.xml')
     def testPySIAppExamplesRLCTest2(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/RLCTest2.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/RLCTest2.xml')
     def testPySIAppDeembedCableFilter(self):
-        self.DeembeddingResultsChecker('../PySIApp/Examples/DeembedCableFilter.xml')
+        self.DeembeddingResultsChecker('../../PySIApp/Examples/DeembedCableFilter.xml')
     def testPySIAppExampleSparameterExampleSParameterGenerationExample(self):
-        self.SParameterResultsChecker('../PySIApp/Examples/SParameterExample/SParameterGenerationExample.xml')
+        self.SParameterResultsChecker('../../PySIApp/Examples/SParameterExample/SParameterGenerationExample.xml')
     def testPySIAppExampleVirtualProbingExampleVirtualProbeExample(self):
-        self.VirtualProbeResultsChecker('../PySIApp/Examples/VirtualProbingExample/VirtualProbeExample.xml')
+        self.VirtualProbeResultsChecker('../../PySIApp/Examples/VirtualProbingExample/VirtualProbeExample.xml')
     def testOpenStub(self):
         self.SParameterResultsChecker('OpenStub.xml')
     def testPySIAppExampleCascCableFilter(self):
-        self.SParameterResultsChecker('../PySIApp/Examples/CascCableFilter.xml')
+        self.SParameterResultsChecker('../../PySIApp/Examples/CascCableFilter.xml')
     def testPySIAppExamplesRLCTest(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/RLCTest.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/RLCTest.xml')
     def testPySIAppExamplesRC(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/RC.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/RC.xml')
     def testPySIAppExampleTelegrapherFourPort(self):
-        self.SParameterResultsChecker('../PySIApp/Examples/telegrapherFourPort.xml')
+        self.SParameterResultsChecker('../../PySIApp/Examples/telegrapherFourPort.xml')
     def testPySIAppExampleTelegrapherTestTwoPort(self):
-        self.SParameterResultsChecker('../PySIApp/Examples/telegrapherTestTwoPort.xml')
+        self.SParameterResultsChecker('../../PySIApp/Examples/telegrapherTestTwoPort.xml')
     def testPySIAppExamplesSimulationExampleBMYcheby(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/SimulationExample/BMYcheby.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/SimulationExample/BMYcheby.xml')
     def testPySIAppExamplesSimulationExampleBMYchebySParameters(self):
-        self.SParameterResultsChecker('../PySIApp/Examples/SimulationExample/BMYchebySParameters.xml')
+        self.SParameterResultsChecker('../../PySIApp/Examples/SimulationExample/BMYchebySParameters.xml')
     def testPySIAppExamplesSimulationExampleInvCheby_8(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/SimulationExample/InvCheby_8.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/SimulationExample/InvCheby_8.xml')
     def testPySIAppExamplesPulseGeneratorTest(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/PulseGeneratorTest.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/PulseGeneratorTest.xml')
     def testPySIAppExamplesStepGeneratorTest(self):
-        self.SimulationResultsChecker('../PySIApp/Examples/StepGeneratorTest.xml')
+        self.SimulationResultsChecker('../../PySIApp/Examples/StepGeneratorTest.xml')
     def testPySIAppPySIBookMeasurementTDRSimulationTest(self):
-        self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation.xml')
+        self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation.xml')
     def testPySIAppPySIBookMeasurementTDRSimulationTest2(self):
-        self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation2.xml')
+        self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation2.xml')
     def testPySIAppPySIBookMeasurementTDRSimulationTest3(self):
-        self.SimulationResultsChecker('../../PySIBook/Measurement/TDRSimulation3.xml')
+        self.SimulationResultsChecker('../../../PySIBook/Measurement/TDRSimulation3.xml')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.xml',
@@ -229,25 +229,25 @@ class Test(unittest.TestCase,SParameterCompareHelper):
             'SystemDevices.xml',
             'Noise.xml',
             'OpenStub.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestVRMIstvan2.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VP/Measure.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VP/Calculate.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VP/Compare.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestVRMIstvan.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestVRMEquiv.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VRMWaveformCompare.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestCNaturalResponse.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestVRMModel.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/FeedbackNetwork.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/Measure5.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/Measure.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/Measure2.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/Measure4.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/Measure3.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/VPSteady/Measure6.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/LoadResistanceBWL.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestVRMEquivAC.xml',
-            '/home/peterp/Work/PySI/PowerIntegrity/TestVRM.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestVRMIstvan2.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VP/Measure.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VP/Calculate.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VP/Compare.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestVRMIstvan.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestVRMEquiv.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VRMWaveformCompare.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestCNaturalResponse.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestVRMModel.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/FeedbackNetwork.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/Measure5.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/Measure.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/Measure2.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/Measure4.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/Measure3.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/VPSteady/Measure6.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/LoadResistanceBWL.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestVRMEquivAC.xml',
+            '/home/peterp/Work/PySI/PySIApp/PowerIntegrity/TestVRM.xml',
             '/home/peterp/Work/PySI/Test/TestSignalIntegrity/TestCurrentSense.xml',
             '/home/peterp/Work/PySI/Test/TestSignalIntegrity/TestVRMParasitics.xml',
             '/home/peterp/Work/PySI/Test/TestSignalIntegrity/TestVRM.xml',
@@ -348,7 +348,7 @@ class Test(unittest.TestCase,SParameterCompareHelper):
             '/home/peterp/Work/PySIBook/Measurement/TDRSimulation2.xml',
         ]
         for filename in filesList:
-            filename=filename.replace('/home/peterp/Work','../..')
+            filename=filename.replace('/home/peterp/Work','../../..')
             self.Preliminary(filename)
 
 if __name__ == "__main__":
