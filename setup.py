@@ -16,7 +16,7 @@ setup.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from setuptools import setup
+from setuptools import setup,find_packages
 import os
 import unittest
 from Test.TestSignalIntegrity import *
@@ -37,39 +37,13 @@ setup=_post_install(
     setup(
         name='PySI',
         version='1.0',
+        license='GPLv3',
         description='signal integrity tools',
         author='Peter J. Pupalaikis',
         author_email='peterp@lecroy.com',
         url='https://github.com/TeledyneLeCroy/PySI',
-        packages=['SignalIntegrity',
-                  'SignalIntegrity.ChirpZTransform',
-                  'SignalIntegrity.Conversions',
-                  'SignalIntegrity.Devices',
-                  'SignalIntegrity.Fit',
-                  'SignalIntegrity.FrequencyDomain',
-                  'SignalIntegrity.Helpers',
-                  'SignalIntegrity.ImpedanceProfile',
-                  'SignalIntegrity.Measurement',
-                  'SignalIntegrity.Measurement.Calibration',
-                  'SignalIntegrity.Measurement.CalKit',
-                  'SignalIntegrity.Measurement.TDR',
-                  'SignalIntegrity.Oyster',
-                  'SignalIntegrity.Parsers',
-                  'SignalIntegrity.Parsers.Devices',
-                  'SignalIntegrity.Rat',
-                  'SignalIntegrity.SParameters',
-                  'SignalIntegrity.SParameters.Devices',
-                  'SignalIntegrity.Splines',
-                  'SignalIntegrity.SubCircuits',
-                  'SignalIntegrity.Symbolic',
-                  'SignalIntegrity.SystemDescriptions',
-                  'SignalIntegrity.Test',
-                  'SignalIntegrity.TimeDomain',
-                  'SignalIntegrity.TimeDomain.Filters',
-                  'SignalIntegrity.TimeDomain.Waveform',
-                  'SignalIntegrity.Wavelets',
-                  'PySIApp',
-                  'Test/TestSignalIntegrity'],
+        package_dir={'SignalIntegrity':'SignalIntegrity'},
+        packages=find_packages(''),
         data_files=[(pathToIcons, [pathToIcons+'/AppIcon2.gif']),
                     (pathToMoreIcons,
                       [pathToMoreIcons+'/document-new-3.gif',
