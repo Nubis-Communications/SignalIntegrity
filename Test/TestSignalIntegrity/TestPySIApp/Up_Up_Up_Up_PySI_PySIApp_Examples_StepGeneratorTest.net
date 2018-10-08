@@ -1,8 +1,0 @@
-device R1 2 R 50.0
-voltagesource VG1 1
-device L1 2 L 1e-07
-device G1 1 ground
-connect VG1 1 R1 1
-output R1 2
-connect R1 2 L1 1
-connect L1 2 G1 1
