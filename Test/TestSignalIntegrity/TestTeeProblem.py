@@ -30,7 +30,7 @@ class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHe
         RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def id(self):
-        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
+        return 'TestTeeProblem.'+'.'.join(unittest.TestCase.id(self).split('.')[-2:])
     def testTeeSystemDescription(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
