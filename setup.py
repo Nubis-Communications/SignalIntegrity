@@ -16,10 +16,15 @@ setup.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+
 from setuptools import setup,find_packages
 import os
 import unittest
-from Test.TestSignalIntegrity import *
+
+try:
+    from Test.TestSignalIntegrity import *
+except:
+    pass
 
 install_requires=['numpy','matplotlib','urllib3']
 
@@ -74,7 +79,4 @@ setup=_post_install(
         test_suite='Test.TestSignalIntegrity.TestAll'
         )
     )
-
-#       test_loader=unittest.TestLoader().loadTestsFromModule(TestSignalIntegrity.TestAll, use_load_tests=True),
-#       test_suite='TestSignalIntegrity.TestAll'
 
