@@ -4,7 +4,7 @@
 
 ***
 
-To install and run these tools, download the [zip file](https://github.com/TeledyneLeCroy/PySI/archive/master.zip) and extract to a directory somewhere, called PySI.  From within that directory, type:
+To install and run these tools, download the [zip file](https://github.com/TeledyneLeCroy/PySI/files/2458430/PySI-1.0.0.zip) and extract to a directory somewhere, called PySI.  From within that directory, type:
 
     pip install -e .
     PySI
