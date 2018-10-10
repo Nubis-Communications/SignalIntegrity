@@ -1,5 +1,6 @@
 """
-WaveletDenoiser.py
+WaveletDenoiser
+@see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
@@ -25,9 +26,33 @@ import math,cmath
 from numpy import std,log2
 
 class WaveletDenoiser(object):
+    """performs wavelet denoising\n
+    @see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)
+    """
     wavelet=WaveletDaubechies16()
     @staticmethod
     def DenoisedWaveform(wf,pct=30.,mult=5.,isDerivative=True):
+        """
+        Denoises a waveform.\n
+        The noise is estimated by the amount of noise in the last pct percent of the
+        last scale of the wavelet transform.  The threshold is set as a multiplier on
+        the noise, generally 5 is used.  Thus wavelets more than 5 times the noise floor
+        are kept, while all others are deleted (this is called hard-thresholding).\n
+        Usually this algorithm is used to denoise TDR waveforms, which are usually steps
+        and the denoising is performed on the derivative of the step waveform.  Therefore,
+        the noise threshold needs to be shaped based on the effect of the derivative on
+        the noise shape.  For impulsive waveforms, no derivative is performed and
+        isDerivative is set to False, causing a white noise threshold to be assumed.
+        @param wf instance of class Waveform to be denoised.
+        @param pct (optional) float percentage (defaults to 30).
+        @param mult (optional) float noise multiplier for threshold (defaults to 5).
+        @param isDerivative (optional) bool whether the waveform is a derivative
+        (defaults to True).
+        @return the denoised waveform.
+        @remark the algorithm assumes there is no signal in the last pct percent
+        of the last scale of the dwt
+        @see Wavelet
+        """
         w=WaveletDenoiser.wavelet
         Ki=wf.td.K
         Kf=int(pow(2,math.ceil(log2(wf.td.K))))
@@ -98,3 +123,8 @@ class WaveletDenoiser(object):
             acc=acc+pow(abs(E[n]),2)
         S[0]=math.sqrt(acc)
         return S
+    ##
+    # @var wavelet
+    # instance of derived Wavelet class as wavelet transformer.\n
+    # defaults to instance of WaveletDaubechies16
+    # 

@@ -1,5 +1,7 @@
 """
- Provides Symbolic Solutions to Virtual Probe Problems
+Provides Symbolic Solutions to Virtual Probe Problems
+@see [US patent 8,170,820 B2](https://patents.google.com/patent/US8170820B2)
+@see [US patent 7,660,685 B2](https://patents.google.com/patent/US7660685B2)
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
@@ -23,7 +25,11 @@ from SignalIntegrity.Helpers import Matrix2LaTeX
 from SignalIntegrity.Helpers import MatrixMultiply
 
 class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
-    """Class that provides symbolic solutions to virtual probe problems."""
+    """
+    Class that provides symbolic solutions to virtual probe problems.
+    @see [US patent 8,170,820 B2](https://patents.google.com/patent/US8170820B2)
+    @see [US patent 7,660,685 B2](https://patents.google.com/patent/US7660685B2)
+    """
     def __init__(self,sd=None,**args):
         """Constructor
         @param sd (optional) instance of class SystemDescription

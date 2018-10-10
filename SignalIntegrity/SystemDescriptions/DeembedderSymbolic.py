@@ -1,5 +1,6 @@
 """
- Symbolic Deembedder
+Symbolic Deembedder
+@see [US patent 8,566,058 B2](https://patents.google.com/patent/US8566058B2)
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
@@ -24,7 +25,9 @@ from SignalIntegrity.SystemDescriptions.Device import Device
 from numpy import matrix
 
 class DeembedderSymbolic(Deembedder,Symbolic):
-    """class for producing symbolic solutions to deembedding problems.
+    """
+    Produces symbolic solutions to deembedding problems.
+    @see [US patent 8,566,058 B2](https://patents.google.com/patent/US8566058B2)
     """
     def __init__(self,sd=None,**args):
         """Constructor

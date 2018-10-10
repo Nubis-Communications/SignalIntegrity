@@ -1,5 +1,6 @@
 """
-    Performs Device Deembedding Numerically
+Performs Device Deembedding Numerically
+@see [US patent 8,566,058 B2](https://patents.google.com/patent/US8566058B2)
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
@@ -24,7 +25,10 @@ from SignalIntegrity.SystemDescriptions.Deembedder import Deembedder
 from SignalIntegrity.PySIException import PySIExceptionNumeric
 
 class DeembedderNumeric(Deembedder):
-    """Performs numerical device deembedding"""
+    """
+    Performs numerical device deembedding
+    @see [US patent 8,566,058 B2](https://patents.google.com/patent/US8566058B2)
+    """
     def __init__(self,sd=None):
         """Constructor
         @param sd (optional) instance of class SystemDescription

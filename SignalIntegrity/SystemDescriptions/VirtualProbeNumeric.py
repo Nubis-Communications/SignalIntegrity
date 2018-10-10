@@ -1,5 +1,7 @@
 """
- Solves Virtual Probe Problems Numerically
+Solves Virtual Probe Problems Numerically
+@see [US patent 8,170,820 B2](https://patents.google.com/patent/US8170820B2)
+@see [US patent 7,660,685 B2](https://patents.google.com/patent/US7660685B2)
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
@@ -26,6 +28,8 @@ from SignalIntegrity.PySIException import PySIExceptionVirtualProbe
 
 class VirtualProbeNumeric(VirtualProbe):
     """class for performing virtual probing numerically.
+    @see [US patent 8,170,820 B2](https://patents.google.com/patent/US8170820B2)
+    @see [US patent 7,660,685 B2](https://patents.google.com/patent/US7660685B2)
     @note For the purposes of this class, the numerical virtual probe work
     has been performed by returning the transfer matrix.  Transfer matrices
     built over many frequencies are then utilized in the actual waveform
