@@ -42,7 +42,7 @@ class Wavelet(object):
 		"""
 		performs the discrete wavelet transform (DWT).
 		@param xi list of float input waveform values.
-		@requires length of xi must be a power of 2.
+		@warning length of xi must be a power of 2.
 		"""
 		x=list(xi)
 		N=len(x)
@@ -61,7 +61,7 @@ class Wavelet(object):
 		"""
 		peforms the inverse discrete wavelet transform (IDWT).
 		@param XI list of float wavelet transform.
-		@requires length of XI must be a power of 2.
+		@warning length of XI must be a power of 2.
 		"""
 		X=list(XI)
 		N=len(X)

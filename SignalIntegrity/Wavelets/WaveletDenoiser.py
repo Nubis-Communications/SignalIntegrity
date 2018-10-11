@@ -33,8 +33,8 @@ class WaveletDenoiser(object):
     @staticmethod
     def DenoisedWaveform(wf,pct=30.,mult=5.,isDerivative=True):
         """
-        Denoises a waveform.\n
-        The noise is estimated by the amount of noise in the last pct percent of the
+        Denoises a waveform.
+        @details The noise is estimated by the amount of noise in the last pct percent of the
         last scale of the wavelet transform.  The threshold is set as a multiplier on
         the noise, generally 5 is used.  Thus wavelets more than 5 times the noise floor
         are kept, while all others are deleted (this is called hard-thresholding).\n
