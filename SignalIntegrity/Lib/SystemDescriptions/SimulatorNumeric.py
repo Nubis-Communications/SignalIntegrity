@@ -21,9 +21,10 @@
 from numpy import matrix
 
 from SignalIntegrity.Lib.SystemDescriptions.Simulator import Simulator
+from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
 
 
-class SimulatorNumeric(Simulator):
+class SimulatorNumeric(Simulator,Numeric):
     """class for performing numeric simulations
     @note For the purposes of this class, the numerical simulation work
     has been performed by returning the transfer matrix.  Transfer matrices
@@ -43,7 +44,7 @@ class SimulatorNumeric(Simulator):
         The transfer matrix provided is for a single frequency."""
         self.Check()
         VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
-        SIPrime=matrix(self.SIPrime())
+        SIPrime=matrix(self.SIPrime(Left=VE_o))
         sm=matrix(self.SourceToStimsPrimeMatrix())
         Result=(VE_o*SIPrime*sm).tolist()
         return Result

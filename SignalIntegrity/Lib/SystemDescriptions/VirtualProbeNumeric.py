@@ -24,10 +24,11 @@ from numpy import matrix
 from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.VirtualProbe import VirtualProbe
-from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
-from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionVirtualProbe
+from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
+from SignalIntegrity.Lib.PySIException import PySIExceptionSimulator
+from SignalIntegrity.Lib.PySIException import PySIExceptionVirtualProbe
 
-class VirtualProbeNumeric(VirtualProbe):
+class VirtualProbeNumeric(VirtualProbe,Numeric):
     """class for performing virtual probing numerically.
     @see [US patent 8,170,820 B2](https://patents.google.com/patent/US8170820B2)
     @see [US patent 7,660,685 B2](https://patents.google.com/patent/US7660685B2)

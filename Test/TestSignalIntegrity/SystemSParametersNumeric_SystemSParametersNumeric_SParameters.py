@@ -8,8 +8,12 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         BN=self.PortANames()
         if solvetype == 'direct':
             n=self.NodeVector()
-            SCI=((matrix(identity(len(n)))-\
-                matrix(self.WeightsMatrix())).getI()).tolist()
+            PL=self.PermutationMatrix([n.index(BN[r])
+                for r in range(len(BN))], len(n))
+            PR=matrix(self.PermutationMatrix([n.index(AN[r])
+                for r in range(len(AN))], len(n))).transpose()
+            SCI=self.Dagger(matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                Left=PL,Right=PR).tolist()
             B=[[0]*len(BN) for p in range(len(BN))]
             for r in range(len(BN)):
                 for c in range(len(BN)):
@@ -25,7 +29,7 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         Wxa=self.WeightsMatrix(XN,AN)
         if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
             return matrix(Wba).tolist()
-...
         I=matrix(identity(len(Wxx)))
-        result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
+        result = matrix(Wba)+matrix(Wbx)*self.Dagger(I-matrix(Wxx),
+                Left=Wbx,Right=Wxa)*matrix(Wxa)
         return result.tolist()

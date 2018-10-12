@@ -51,15 +51,13 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
             n=self.NodeVector()
             # pragma: silent exclude
             try:
-                # I really hate this
-                # without this check, there is a gray zone where the matrix is really uninvertible
-                # yet, produces total garbage without raising the exception.
-                # TODO: have Kavi take a look at this.
-                if linalg.cond((matrix(identity(len(n)))-\
-                    matrix(self.WeightsMatrix())).getI(),p=-2) < 1e-12: raise LinAlgError
             # pragma: include outdent
-                SCI=((matrix(identity(len(n)))-\
-                    matrix(self.WeightsMatrix())).getI()).tolist()
+                PL=self.PermutationMatrix([n.index(BN[r])
+                    for r in range(len(BN))], len(n))
+                PR=matrix(self.PermutationMatrix([n.index(AN[r])
+                    for r in range(len(AN))], len(n))).transpose()
+                SCI=self.Dagger(matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                    Left=PL,Right=PR).tolist()
             # pragma: silent exclude indent
             except LinAlgError:
                 raise SignalIntegrityExceptionNumeric('cannot invert I-W')
@@ -79,43 +77,12 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         Wxa=self.WeightsMatrix(XN,AN)
         if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
             return matrix(Wba).tolist()
-        # pragma: exclude
-        XNnzcWbx=[XN[nzcWbx] for nzcWbx in NonZeroColumns(Wbx)]
-        XNzcWbx=[XN[zcWbx] for zcWbx in ZeroColumns(Wbx)]
-        XNnzrWxa=[XN[nzrWxa] for nzrWxa in NonZeroRows(Wxa)]
-        XNzrWxa=[XN[zrWxa] for zrWxa in ZeroRows(Wxa)]
-        Wxx11=self.WeightsMatrix(XNnzrWxa,XNnzcWbx)
-        Wxx12=self.WeightsMatrix(XNnzrWxa,XNzcWbx)
-        Wxx21=self.WeightsMatrix(XNzrWxa,XNnzcWbx)
-        Wxx22=self.WeightsMatrix(XNzrWxa,XNzcWbx)
-        Wbx1=self.WeightsMatrix(BN,XNnzcWbx)
-        Wbx2=self.WeightsMatrix(BN,XNzcWbx)
-        Wxa1=self.WeightsMatrix(XNnzrWxa,AN)
-        Wxa2=self.WeightsMatrix(XNzrWxa,AN)
-        I11=[[1 if roele == coele else 0 for coele in XNnzcWbx] for roele in XNnzrWxa]
-        I12=[[1 if roele == coele else 0 for coele in XNzcWbx] for roele in XNnzrWxa]
-        I21=[[1 if roele == coele else 0 for coele in XNnzcWbx] for roele in XNzrWxa]
-        I22=[[1 if roele == coele else 0 for coele in XNzcWbx] for roele in XNzrWxa]
-        if XNzcWbx != []:
-            if AllZeroMatrix((matrix(I12)-matrix(Wxx12)).tolist()):
-                result=matrix(Wba)+matrix(Wbx1)*(I11-matrix(Wxx11)).getI()*matrix(Wxa1)
-                return result.tolist()
-        if XNzrWxa != []:
-            if AllZeroMatrix((matrix(I21)-matrix(Wxx21)).tolist()):
-                I = matrix(identity(len(Wxx11)))
-                result=matrix(Wba)+matrix(Wbx1)*(I11-matrix(Wxx11)).getI()*matrix(Wxa1)
-                return result.tolist()
-        # pragma: include
         I=matrix(identity(len(Wxx)))
         # pragma: silent exclude
         try:
-            # I really hate this
-            # without this check, there is a gray zone where the matrix is really uninvertible
-            # yet, produces total garbage without raising the exception.
-            # TODO: have Kavi take a look at this.
-            if linalg.cond(I-matrix(Wxx),p=-2) < 1e-12: raise LinAlgError
         # pragma: include outdent
-            result = matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
+            result = matrix(Wba)+matrix(Wbx)*self.Dagger(I-matrix(Wxx),
+                    Left=Wbx,Right=Wxa)*matrix(Wxa)
         # pragma: silent exclude indent
         except LinAlgError:
             raise SignalIntegrityExceptionNumeric('cannot invert I-Wxx')

@@ -99,7 +99,7 @@ class Simulator(SystemSParameters,object):
             sn='m'+str(s+1)
             if sn in sv: sp.append(sn)
             else: return sp
-    def SIPrime(self,symbolic=False):
+    def SIPrime(self,symbolic=False,Left=None):
         from numpy.linalg.linalg import LinAlgError
         n=self.NodeVector()
         m=self.StimulusVector()
@@ -109,7 +109,13 @@ class Simulator(SystemSParameters,object):
             # pragma: silent exclude
             try:
             # pragma: include outdent
-                SI=(matrix(identity(len(n)))-matrix(self.WeightsMatrix())).getI().tolist()
+                # There is a permutation matrix such that SI*PR^T*PR*m
+                # where PR*m is m\prime and SI*PR^T is Si^\prime
+                PR=matrix(self.PermutationMatrix([m.index('m'+str(c+1))
+                            for c in range(len(mprime))], len(n))).transpose()
+                SI=self.Dagger(matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                    Left=Left,Right=PR).tolist()
+#                 SiPrime2=(SI*PR).tolist()
             # pragma: silent exclude indent
             except:
                 raise SignalIntegrityExceptionSimulator('numerical error - cannot invert matrix')
