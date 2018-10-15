@@ -7,7 +7,10 @@ class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
         self._LaTeXSi()
         veosi = MatrixMultiply(
             self.VoltageExtractionMatrix(self.pOutputList), self.SIPrime(True))
-        veosi = Matrix2LaTeX(veosi, self._SmallMatrix())
+        veosil = Matrix2LaTeX(veosi, self._SmallMatrix())
+        if len(veosi)==1:
+            if len(veosi[0])==1:
+                veosil='\\left('+veosil+'\\right)'
         on=Matrix2LaTeX(SubscriptedVector([D+str(P) for (D,P) in self.pOutputList]))
         sv=Matrix2LaTeX(SubscriptedVector(self.SourceVector()))
         ssm=self.SourceToStimsPrimeMatrix(False)
@@ -28,7 +31,7 @@ class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
             sm = ''
         else:
             sm=' \\cdot '+Matrix2LaTeX(self.SourceToStimsPrimeMatrix(True))
-        line = on + '=' + veosi+sm+'\\cdot '+sv
+        line = on + '=' + veosil+sm+'\\cdot '+sv
         self._AddEq(line)
         return self
     def LaTeXEquations(self):

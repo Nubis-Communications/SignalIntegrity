@@ -62,7 +62,8 @@ class VirtualProbeNumeric(VirtualProbe,Numeric):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            SIPrime=matrix(self.SIPrime())
+            SIPrime_m=matrix(self.SIPrime(Left=VE_m,Right=D))
+            SIPrime_o=matrix(self.SIPrime(Left=VE_o,Right=D))
         # pragma: silent exclude indent
         except SignalIntegrityExceptionSimulator as e:
             raise SignalIntegrityExceptionVirtualProbe(e.message)
@@ -70,7 +71,8 @@ class VirtualProbeNumeric(VirtualProbe,Numeric):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            Result=((VE_o*SIPrime*matrix(D))*(VE_m*SIPrime*matrix(D)).getI()).tolist()
+            Left=(VE_o*SIPrime_m*matrix(D))
+            Result=(Left*self.Dagger(VE_m*SIPrime_o*matrix(D),Left=Left)).tolist()
         # pragma: silent exclude indent
         except ValueError:
             raise SignalIntegrityExceptionVirtualProbe('incorrect matrix alignment')

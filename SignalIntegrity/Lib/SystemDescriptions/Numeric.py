@@ -25,7 +25,7 @@ class Numeric(object):
     alwaysUseSVD=False
     trySVD=True
     singularValueLimit=1e-10
-    conditionNumberLimit=1e-1
+    conditionNumberLimit=1e-10
     #conditionNumberLimit=1e-6
     def InstallSafeTees(self,Z=0.00001):
         """obsolete
@@ -39,16 +39,16 @@ class Numeric(object):
         """
         Special computation of \f$\mathbf{A}^\dagger\f$ where
         \f$\mathbf{L}\cdot\mathbf{A}^\dagger\cdot\mathbf{R}\f$ needs to be computed\n
-        @param A matrix A to be inverted
-        @param Left optional matrix that appears to the left of A^\dagger
-        @param Right optional matrix that appears to the right of A^\dagger
-        @return matrix A^\dagger
+        @param A matrix \f$\mathbf{A}\f$ to be inverted
+        @param Left optional matrix that appears to the left of \f$\mathbf{A}^\dagger\f$
+        @param Right optional matrix that appears to the right of \f$\mathbf{A}^\dagger\f$
+        @return matrix \f$\mathbf{A}^\dagger\f$
         @throw LinAlgError if matrix cannot be inverted
         @remark All matrices supplied can be either list of list or numpy matrix, but
         the return type is always a numpy matrix
         @details if trySVD if False and alwaysUseSVD is False, then the Left and Right
         arguments are ignored and an attempt is made at calculating the Moore-Penrose
-        pseudo-inverse of A.  if the condition number of the resulting inverse is less
+        pseudo-inverse of \f$\mathbf{A}\f$.  if the condition number of the resulting inverse is less
         than the conditionNumberLimit, then this method fails.\n
         If alwaysUseSVD is True or there is a failure and trySVD is True, then the svd
         is used.  The svd is not _better_ than the pseudo-inverse, per se, but it is able
@@ -83,18 +83,17 @@ class Numeric(object):
         """
         from numpy import linalg,matrix,identity,diag
         from numpy.linalg.linalg import LinAlgError,svd
-        if A is None:
-            return None
-        if isinstance(A,list):
-            A=matrix(A)
+        if A is None: return None
+        if isinstance(A,list): A=matrix(A)
         (R,C)=A.shape
         if not self.alwaysUseSVD:
             try:
                 # without this check, there is a gray zone where the matrix is really uninvertible
                 # yet, produces total garbage without raising the exception.
-                Adagger=A.getI()
-                if linalg.cond(Adagger,p=-2) < self.conditionNumberLimit:
+                if 1.0/linalg.cond(A) < self.conditionNumberLimit:
                     raise LinAlgError
+                
+                Adagger=A.getI()
                 return Adagger
 
             except:

@@ -99,7 +99,8 @@ class Simulator(SystemSParameters,object):
             sn='m'+str(s+1)
             if sn in sv: sp.append(sn)
             else: return sp
-    def SIPrime(self,symbolic=False,Left=None):
+        return sp
+    def SIPrime(self,symbolic=False,Left=None,Right=None):
         from numpy.linalg.linalg import LinAlgError
         n=self.NodeVector()
         m=self.StimulusVector()
@@ -108,13 +109,24 @@ class Simulator(SystemSParameters,object):
         else:
             # pragma: silent exclude
             try:
-            # pragma: include outdent
+
                 # There is a permutation matrix such that SI*PR^T*PR*m
                 # where PR*m is m\prime and SI*PR^T is Si^\prime
+                # pragma: include outdent
                 PR=matrix(self.PermutationMatrix([m.index('m'+str(c+1))
                             for c in range(len(mprime))], len(n))).transpose()
-                SI=self.Dagger(matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
-                    Left=Left,Right=PR).tolist()
+                if Right is None: Right = PR
+                else: Right = matrix(PR)*matrix(Right)
+                """
+                @todo Dagger should be called with Left (not None), but when I allow
+                this, it allows diabolical solutions where ground is not necessarily 0V
+                Until I can figure that out and fix it, make it so circuits will fail
+                without some kind of ground connection.
+                This is the way it was before Dagger was implemented anyway
+                """
+                SI=self.Dagger(
+                    matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                    Left=None,Right=Right).tolist()
 #                 SiPrime2=(SI*PR).tolist()
             # pragma: silent exclude indent
             except:

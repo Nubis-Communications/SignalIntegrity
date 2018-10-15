@@ -194,10 +194,15 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
             'port 1 D 1 2 D 3',
             'connect D 2 D 4 G 1'])
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
+        #sspn.trySVD=False
+        #oldConditionNumberLimit=sspn.conditionNumberLimit
+        #sspn.conditionNumberLimit=1e-10
         rescalc=sspn.SParameters()
+        #sspn.trySVD=True
+        #sspn.conditionNumberLimit=oldConditionNumberLimit
         rescorrect=si.dev.TransconductanceAmplifier(2,G,ZI,ZO)
         difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
-        self.assertTrue(difference<1e-10,'Transconductance Amplifier Two Port incorrect')
+        self.assertTrue(difference<1e-7,'Transconductance Amplifier Two Port incorrect')
     def testTransconductanceAmplifierTwoPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
         G=10. # gain
@@ -212,7 +217,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(2,G,ZI,ZO)
         difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
-        self.assertTrue(difference<1e-10,'Transconductance Amplifier Two Port incorrect')
+        self.assertTrue(difference<1e-7,'Transconductance Amplifier Two Port incorrect')
     def testTransconductanceAmplifierTwoPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
         G=10. # gain

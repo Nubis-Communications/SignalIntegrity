@@ -97,6 +97,15 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         with self.assertRaises(si.SignalIntegrityException) as cm:
             sn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
+    def testSimulatorNumericalErrorSymbolic(self):
+        sp=si.p.SimulatorParser()
+        sp.AddLines(['voltagesource VS1 1','device G1 1 ground','output G1 1','connect G1 1 VS1 1'])
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription())
+        ss.DocStart()
+        ss.LaTeXEquations()
+        ss.DocEnd()
+        ss.WriteToFile('SimulatorNumericalErrorSymbolic')
+        #self.assertEqual(cm.exception.parameter,'Simulator')
     def testVirtualProbeNoOutputProbes(self):
         sp=si.p.VirtualProbeParser()
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])

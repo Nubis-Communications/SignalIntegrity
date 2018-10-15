@@ -1,4 +1,4 @@
-class VirtualProbeNumeric(VirtualProbe):
+class VirtualProbeNumeric(VirtualProbe,Numeric):
     def __init__(self,sd=None):
         VirtualProbe.__init__(self,sd)
     def TransferMatrix(self):
@@ -8,6 +8,8 @@ class VirtualProbeNumeric(VirtualProbe):
             D=self.m_D
         VE_m=matrix(self.VoltageExtractionMatrix(self.m_ml))
         VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
-        SIPrime=matrix(self.SIPrime())
-        Result=((VE_o*SIPrime*matrix(D))*(VE_m*SIPrime*matrix(D)).getI()).tolist()
+        SIPrime_m=matrix(self.SIPrime(Left=VE_m,Right=D))
+        SIPrime_o=matrix(self.SIPrime(Left=VE_o,Right=D))
+        Left=(VE_o*SIPrime_m*matrix(D))
+        Result=(Left*self.Dagger(VE_m*SIPrime_o*matrix(D),Left=Left)).tolist()
         return Result

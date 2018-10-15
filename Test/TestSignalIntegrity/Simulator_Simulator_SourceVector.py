@@ -33,14 +33,22 @@ class Simulator(SystemSParameters,object):
             sn='m'+str(s+1)
             if sn in sv: sp.append(sn)
             else: return sp
-    def SIPrime(self,symbolic=False):
+        return sp
+    def SIPrime(self,symbolic=False,Left=None,Right=None):
         from numpy.linalg.linalg import LinAlgError
         n=self.NodeVector()
         m=self.StimulusVector()
         mprime=self.StimsPrime()
         if symbolic: SI=Device.SymbolicMatrix('Si',len(n))
         else:
-            SI=(matrix(identity(len(n)))-matrix(self.WeightsMatrix())).getI().tolist()
+            PR=matrix(self.PermutationMatrix([m.index('m'+str(c+1))
+                        for c in range(len(mprime))], len(n))).transpose()
+            if Right is None: Right = PR
+            else: Right = matrix(PR)*matrix(Right)
+            SI=self.Dagger(
+                matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                Left=None,Right=Right).tolist()
+              SiPrime2=(SI*PR).tolist()
         SiPrime=[[0]*len(mprime) for r in range(len(n))]
         for c in range(len(mprime)):
             for r in range(len(n)):
