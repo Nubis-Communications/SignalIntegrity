@@ -1,4 +1,4 @@
-class DeembedderNumeric(Deembedder):
+class DeembedderNumeric(Deembedder,Numeric):
     def __init__(self,sd=None):
         Deembedder.__init__(self,sd)
     def CalculateUnknown(self,Sk):
@@ -14,14 +14,14 @@ class DeembedderNumeric(Deembedder):
         if len(Internals)>0:# internal nodes
             G13=-matrix(self.WeightsMatrix(Bmsd,Internals))
             G23=-matrix(self.WeightsMatrix(Adut,Internals))
-            G33I=(matrix(identity(len(Internals)))-
-                  matrix(self.WeightsMatrix(Internals,Internals))).getI()
+            G33=matrix(identity(len(Internals)))-\
+                matrix(self.WeightsMatrix(Internals,Internals))
             G34=-matrix(self.WeightsMatrix(Internals,Amsd))
             G35=-matrix(self.WeightsMatrix(Internals,Bdut))
-            F11=G13*G33I*G34-G14
-            F12=G13*G33I*G35-G15
-            F21=G23*G33I*G34-G24
-            F22=G23*G33I*G35-G25
+            F11=G13*self.Dagger(G33,Left=G13,Right=G34)*G34-G14
+            F12=G13*self.Dagger(G33,Left=G13,Right=G35)*G35-G15
+            F21=G23*self.Dagger(G33,Left=G23,Right=G34)*G34-G24
+            F22=G23*self.Dagger(G33,Left=G23,Right=G35)*G35-G25
         else:# no internal nodes
             F11=-G14
             F12=-G15
@@ -30,11 +30,11 @@ class DeembedderNumeric(Deembedder):
         #if long and skinny F12 then
         #F12.getI()=(F12.transpose()*F12).getI()*F12.transpose()
         #if short and fat F12, F12.getI() is wrong
-        B=F12.getI()*(Sk-F11)
+        B=self.Dagger(F12,Right=(Sk-F11))*(Sk-F11)
         A=F21+F22*B
         AL=self.Partition(A)# partition for multiple unknown devices
         BL=self.Partition(B)
-        Su=[(BL[u]*AL[u].getI()).tolist() for u in range(len(AL))]
+        Su=[(BL[u]*self.Dagger(AL[u],Left=BL[u])).tolist() for u in range(len(AL))]
         if (len(Su)==1):# only one result
             return Su[0]# return the one result, not as a list
         return Su# return the list of results

@@ -24,8 +24,9 @@ from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.Deembedder import Deembedder
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionNumeric
+from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
 
-class DeembedderNumeric(Deembedder):
+class DeembedderNumeric(Deembedder,Numeric):
     """
     Performs numerical device deembedding
     @see [US patent 8,566,058 B2](https://patents.google.com/patent/US8566058B2)
@@ -65,18 +66,18 @@ class DeembedderNumeric(Deembedder):
             # pragma: silent exclude
             try:
             # pragma: include outdent
-                G33I=(matrix(identity(len(Internals)))-
-                      matrix(self.WeightsMatrix(Internals,Internals))).getI()
+                G33=matrix(identity(len(Internals)))-\
+                    matrix(self.WeightsMatrix(Internals,Internals))
+                G34=-matrix(self.WeightsMatrix(Internals,Amsd))
+                G35=-matrix(self.WeightsMatrix(Internals,Bdut))
+                F11=G13*self.Dagger(G33,Left=G13,Right=G34)*G34-G14
+                F12=G13*self.Dagger(G33,Left=G13,Right=G35)*G35-G15
+                F21=G23*self.Dagger(G33,Left=G23,Right=G34)*G34-G24
+                F22=G23*self.Dagger(G33,Left=G23,Right=G35)*G35-G25
             # pragma: silent exclude indent
             except:
                 raise SignalIntegrityExceptionNumeric('cannot invert G33')
             # pragma: include
-            G34=-matrix(self.WeightsMatrix(Internals,Amsd))
-            G35=-matrix(self.WeightsMatrix(Internals,Bdut))
-            F11=G13*G33I*G34-G14
-            F12=G13*G33I*G35-G15
-            F21=G23*G33I*G34-G24
-            F22=G23*G33I*G35-G25
         else:# no internal nodes
             F11=-G14
             F12=-G15
@@ -88,7 +89,7 @@ class DeembedderNumeric(Deembedder):
             #if long and skinny F12 then
             #F12.getI()=(F12.transpose()*F12).getI()*F12.transpose()
             #if short and fat F12, F12.getI() is wrong
-            B=F12.getI()*(Sk-F11)
+            B=self.Dagger(F12,Right=(Sk-F11))*(Sk-F11)
         # pragma: silent exclude indent
         except:
             raise SignalIntegrityExceptionNumeric('cannot invert F12')
@@ -99,7 +100,7 @@ class DeembedderNumeric(Deembedder):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            Su=[(BL[u]*AL[u].getI()).tolist() for u in range(len(AL))]
+            Su=[(BL[u]*self.Dagger(AL[u],Left=BL[u])).tolist() for u in range(len(AL))]
         # pragma: silent exclude indent
         except:
             raise SignalIntegrityExceptionNumeric('cannot invert A')
