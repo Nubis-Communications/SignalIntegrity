@@ -36,7 +36,13 @@ import os
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+import platform
+if platform.system() == 'Linux':
+    from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
+else:
+    from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 
@@ -110,7 +116,11 @@ class SimulatorDialog(Toplevel):
         #canvas.show()
         self.canvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
 
-        toolbar = NavigationToolbar2TkAgg( self.canvas, self )
+        if platform.system() == 'Linux':
+            toolbar = NavigationToolbar2TkAgg( self.canvas, self )
+        else:
+            toolbar = NavigationToolbar2Tk( self.canvas, self )
+
         toolbar.update()
         self.canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
