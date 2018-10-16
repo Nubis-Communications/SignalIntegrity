@@ -1,5 +1,5 @@
 class TLineDifferentialRLGCBalanced(SParameters):
-    def __init__(self,f,R,Rse,L,G,C,df,Cm,dfm,Gm,Lm,Z0,K=0):
+    def __init__(self,f,R,Rse,L,G,C,df,Cm,dfm,Gm,Lm,Z0=50.,K=0):
         sdp=SystemDescriptionParser()
         sdp.AddLines(['device L 4 mixedmode','device R 4 mixedmode','device TE 2',
                       'device TO 2','port 1 L 1 2 L 2 3 R 1 4 R 2','connect L 3 TO 1',

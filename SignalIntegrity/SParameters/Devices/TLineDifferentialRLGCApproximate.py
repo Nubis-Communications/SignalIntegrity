@@ -16,6 +16,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from numpy import linalg
+import math
 
 from SignalIntegrity.Conversions import S2T
 from SignalIntegrity.Conversions import T2S
@@ -27,7 +28,7 @@ class TLineDifferentialRLGCApproximate(SParameters):
     of sections specified."""
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
-                         Cm, dfm, Gm, Lm, Z0, K):
+                         Cm, dfm, Gm, Lm, Z0=50., K=0):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -49,10 +50,22 @@ class TLineDifferentialRLGCApproximate(SParameters):
         @param dfm float dissipation factor (loss-tangent) of mutual capacitance (F)
         @param Gm float mutual conductance (S)
         @param Lm float mutual inductance (H)
-        @param Z0 float reference impedance
-        @param K integer number of sections
-        @todo move the calculation for zero zections in to this class.
+        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+        @param K (optional) integer number of sections (defaults to 0)
+        @note If K=0 is specified, it is modified to a value that will provided a very good numerical
+        approximation.
+
+        The calculation is such that round-trip propagation time (twice the electrical length)
+        of any one small section is no more than one percent of the fastest possible risetime.
         """
+        if K==0:
+            """max possible electrical length"""
+            Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm))
+            Rt=0.45/f[-1] # fastest risetime
+            """sections such that fraction of risetime less than round trip electrical
+            length of one section"""
+            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+
         self.m_K=K
         # pragma: silent exclude
         from SignalIntegrity.Devices import SeriesG

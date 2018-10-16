@@ -20,7 +20,7 @@ from SignalIntegrity.SParameters.SParameters import SParameters
 class TLineDifferentialRLGCUncoupled(SParameters):
     """s-parameters of analytic uncoupled differential RLGC (telegrapher's) transmission
     line."""
-    def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K=0):
+    def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0=50.,K=0):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -38,9 +38,10 @@ class TLineDifferentialRLGCUncoupled(SParameters):
         @param Gn float DC conductance of negative leg to ground (S)
         @param Cn float capacitance of negative leg to ground (F)
         @param dfn float dissipation factor (loss-tangent) of capacitance of negative leg to ground
-        @param Z0 float reference impedance
-        @param K integer number of sections
-        @todo remove K which is not needed.
+        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+        @param K (optional) integer number of sections (defaults to 0).
+        If 0 is specified, then an analytic solution is provided otherwise an approximate solution is provided
+        with all parametric values divided into the integer number of sections.
         """
         # pragma: silent exclude
         from SignalIntegrity.Parsers.SystemDescriptionParser import SystemDescriptionParser

@@ -1,7 +1,12 @@
 class TLineDifferentialRLGCApproximate(SParameters):
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
-                         Cm, dfm, Gm, Lm, Z0, K):
+                         Cm, dfm, Gm, Lm, Z0=50., K=0):
+        if K==0:
+            Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm))
+            Rt=0.45/f[-1] # fastest risetime
+            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+
         self.m_K=K
         sdp=SystemDescriptionParser().AddLines([
         'device rsep 2','device rp 2','device lp 2','device gp 1','device cp 1',

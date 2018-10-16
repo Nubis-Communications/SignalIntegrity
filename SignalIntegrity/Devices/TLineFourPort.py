@@ -20,12 +20,12 @@ TLineFourPort.py
 import cmath
 
 
-def TLineFourPort(Zc,gamma,Z0):
+def TLineFourPort(Zc,gamma,Z0=50.):
     """TLineFourPort
     Ideal Four-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param gamma float or complex propagation constant
-    @param Z0 float or complex reference impedance Z0
+    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms).
     @return the s-parameter matrix of a four-port transmission line
     @remark This is actually an oddball construction and should not be confused with a typical differential
     transmission line.\n
@@ -35,10 +35,10 @@ def TLineFourPort(Zc,gamma,Z0):
     Port 3 is the left, exposed, outer conductor and port 4 is the right, exposed outer conductor.\n
     @note this device is functionally equivalent to the two-port transmission line TLineTwoPort() when
     ports 3 and 4 are grounded.
-    @todo Make Z0 optional defaulting to 50 Ohms
     @todo fix the ASCII line art.
     """
-    """       +-----------------------+
+    """
+              +-----------------------+
              / \                       \
       1 ----+-  |     Z    Td           +----- 2
              \ /                       /

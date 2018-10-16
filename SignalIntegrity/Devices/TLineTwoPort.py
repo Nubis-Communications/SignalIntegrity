@@ -18,14 +18,13 @@ TLineTwoPort.py
 # If not, see <https://www.gnu.org/licenses/>
 import cmath
 
-def TLineTwoPort(Zc,gamma,Z0):
+def TLineTwoPort(Zc,gamma,Z0=50.):
     """TLineTwoPort
     Ideal Two-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param gamma float or complex propagation constant
-    @param Z0 float or complex reference impedance Z0
+    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms).
     @return the s-parameter matrix of a two-port transmission line
-    @todo Make Z0 optional defaulting to 50 Ohms
     """
     p=(Zc-Z0)/(Zc+Z0)
     L=cmath.exp(-gamma)

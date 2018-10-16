@@ -15,10 +15,12 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+import math
+
 from SignalIntegrity.SParameters.SParameters import SParameters
 
 class TLineTwoPortRLGCApproximate(SParameters):
-    def __init__(self,f, R, Rse, L, G, C, df, Z0, K):
+    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0):
         """Constructor
         @param f list of float frequencies
         @param R float DC series resistance (Ohms)
@@ -27,10 +29,22 @@ class TLineTwoPortRLGCApproximate(SParameters):
         @param G float DC conductance to ground (S)
         @param C float capacitance to ground (F)
         @param df float dissipation factor (loss-tangent) of capacitance to ground
-        @param Z0 float reference impedance
-        @param K integer number of sections (defaults to zero)
-        @todo put the calulation for K=0 from the differential transmission line in here.
+        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+        @param K (optional) integer number of sections (defaults to zero)
+        @note If K=0 is specified, it is modified to a value that will provided a very good numerical
+        approximation.
+
+        The calculation is such that round-trip propagation time (twice the electrical length)
+        of any one small section is no more than one percent of the fastest possible risetime.
         """
+        if K==0:
+            """max possible electrical length"""
+            Td=math.sqrt(L*C)
+            Rt=0.45/f[-1] # fastest risetime
+            """sections such that fraction of risetime less than round trip
+            electrical length of one section"""
+            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+
         self.m_K=K
         # pragma: silent exclude
         from SignalIntegrity.Devices import SeriesZ

@@ -20,13 +20,13 @@ TLineFourPortLossless.py
 import math
 from TLineFourPort import TLineFourPort
 
-def TLineFourPortLossless(Zc,Td,f,Z0):
+def TLineFourPortLossless(Zc,Td,f,Z0=50.):
     """TLineFourPortLossless
     Ideal Lossless Four-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param Td float electrical length (or time delay through the device)
     @param f float frequency
-    @param Z0 float or complex characteristic impedance
+    @param Z0 (optional) float or complex characteristic impedance (defaults to 50 Ohms)
     @return list of list s-parameters of four-port lossless transmission line
     @remark
     This is actually an oddball construction and should not be confused with a typical differential
@@ -37,6 +37,5 @@ def TLineFourPortLossless(Zc,Td,f,Z0):
     Port 3 is the left, exposed, outer conductor and port 4 is the right, exposed outer conductor.\n
     @note this device is functionally equivalent to the two-port ideal lossless transmission line TLineFourPort() when
     ports 3 and 4 are grounded.
-    @todo Make Z0 optional defaulting to 50 Ohms
     """
     return TLineFourPort(Zc,1j*2.*math.pi*f*Td,Z0)

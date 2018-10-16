@@ -1,5 +1,10 @@
 class TLineTwoPortRLGCApproximate(SParameters):
-    def __init__(self,f, R, Rse, L, G, C, df, Z0, K):
+    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0):
+        if K==0:
+            Td=math.sqrt(L*C)
+            Rt=0.45/f[-1] # fastest risetime
+            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+
         self.m_K=K
         sdp=SystemDescriptionParser().AddLines(['device R 2','device Rse 2',
         'device L 2','device C 1','device G 1','connect R 2 Rse 1',

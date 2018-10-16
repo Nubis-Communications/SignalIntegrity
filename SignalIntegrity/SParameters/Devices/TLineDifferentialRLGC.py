@@ -24,7 +24,7 @@ class TLineDifferentialRLGC(SParameters):
     rtFraction=.01
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
-                         Cm, dfm, Gm, Lm, Z0, K=0):
+                         Cm, dfm, Gm, Lm, Z0=50., K=0):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -46,12 +46,12 @@ class TLineDifferentialRLGC(SParameters):
         @param dfm float dissipation factor (loss-tangent) of mutual capacitance (F)
         @param Gm float mutual conductance (S)
         @param Lm float mutual inductance (H)
-        @param Z0 float reference impedance
+        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
         @param K (optional) integer number of sections (defaults to zero)
         @note Regarding number of sections, an approximate solution will be computed
         as a distributed line with the number of sections specified using the class
         TLineDifferentialRLGCApproximate, unless the number provided is zero (the default).\n
-        
+
         If zero is specified, then tests will be made
         for the appropriate analytic model to use according to the following table:
 
@@ -64,7 +64,7 @@ class TLineDifferentialRLGC(SParameters):
         If, because of imbalance and coupling, the approximate model must be used, the number of
         sections changed from K=0 specified to a value that will provided a very good numerical
         approximation.
-        
+
         The calculation is such that round-trip propagation time (twice the electrical length)
         of any one small section is no more than one percent of the fastest possible risetime. 
         """
@@ -74,13 +74,6 @@ class TLineDifferentialRLGC(SParameters):
             # pragma: silent exclude
             from SignalIntegrity.SParameters.Devices.TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
             # pragma: include
-            if K==0:
-                # max possible electrical length
-                Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm))
-                Rt=0.45/f[-1] # fastest risetime
-                # sections such that fraction of risetime less than round trip
-                # electrical length of one section
-                K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
             self.sp=TLineDifferentialRLGCApproximate(f,
                         Rp, Rsep, Lp, Gp, Cp, dfp,
                         Rn, Rsen, Ln, Gn, Cn, dfn,

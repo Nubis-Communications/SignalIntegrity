@@ -1,5 +1,5 @@
 class TLineDifferentialRLGCUncoupled(SParameters):
-    def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K=0):
+    def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0=50.,K=0):
         sdp=SystemDescriptionParser()
         sdp.AddLines(['device TP 2','device TN 2',
                       'port 1 TP 1 2 TN 1 3 TP 2 4 TN 2'])

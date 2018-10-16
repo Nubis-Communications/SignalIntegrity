@@ -1,4 +1,4 @@
-def TLineFourPort(Zc,gamma,Z0):
+def TLineFourPort(Zc,gamma,Z0=50.):
     p=(Zc-Z0)/(Zc+Z0)
     a=(1.-3.*p)/(p-3.)
     Y=cmath.exp(-gamma)
