@@ -35,7 +35,6 @@ def TLineFourPort(Zc,gamma,Z0=50.):
     Port 3 is the left, exposed, outer conductor and port 4 is the right, exposed outer conductor.\n
     @note this device is functionally equivalent to the two-port transmission line TLineTwoPort() when
     ports 3 and 4 are grounded.
-    @todo fix the ASCII line art.
     """
     """
               +-----------------------+
