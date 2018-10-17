@@ -81,8 +81,8 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            result = matrix(Wba)+matrix(Wbx)*self.Dagger(I-matrix(Wxx),
-                    Left=Wbx,Right=Wxa)*matrix(Wxa)
+            # Wba+Wbx*[(I-Wxx)^-1]*Wxa
+            result = matrix(Wba)+self.Dagger(I-matrix(Wxx),Left=Wbx,Right=Wxa,Mul=True)
         # pragma: silent exclude indent
         except LinAlgError:
             raise SignalIntegrityExceptionNumeric('cannot invert I-Wxx')

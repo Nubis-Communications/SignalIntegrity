@@ -30,6 +30,6 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
             return matrix(Wba).tolist()
         I=matrix(identity(len(Wxx)))
-        result = matrix(Wba)+matrix(Wbx)*self.Dagger(I-matrix(Wxx),
-                Left=Wbx,Right=Wxa)*matrix(Wxa)
+        # Wba+Wbx*[(I-Wxx)^-1]*Wxa
+        result = matrix(Wba)+self.Dagger(I-matrix(Wxx),Left=Wbx,Right=Wxa,Mul=True)
         return result.tolist()

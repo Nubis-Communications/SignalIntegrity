@@ -47,7 +47,7 @@ class Simulator(SystemSParameters,object):
             else: Right = matrix(PR)*matrix(Right)
             SI=self.Dagger(
                 matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
-                Left=None,Right=Right).tolist()
+                Left=None,Right=None).tolist()
               SiPrime2=(SI*PR).tolist()
         SiPrime=[[0]*len(mprime) for r in range(len(n))]
         for c in range(len(mprime)):

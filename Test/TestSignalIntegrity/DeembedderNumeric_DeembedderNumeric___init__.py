@@ -18,10 +18,10 @@ class DeembedderNumeric(Deembedder,Numeric):
                 matrix(self.WeightsMatrix(Internals,Internals))
             G34=-matrix(self.WeightsMatrix(Internals,Amsd))
             G35=-matrix(self.WeightsMatrix(Internals,Bdut))
-            F11=G13*self.Dagger(G33,Left=G13,Right=G34)*G34-G14
-            F12=G13*self.Dagger(G33,Left=G13,Right=G35)*G35-G15
-            F21=G23*self.Dagger(G33,Left=G23,Right=G34)*G34-G24
-            F22=G23*self.Dagger(G33,Left=G23,Right=G35)*G35-G25
+            F11=self.Dagger(G33,Left=G13,Right=G34,Mul=True)-G14
+            F12=self.Dagger(G33,Left=G13,Right=G35,Mul=True)-G15
+            F21=self.Dagger(G33,Left=G23,Right=G34,Mul=True)-G24
+            F22=self.Dagger(G33,Left=G23,Right=G35,Mul=True)-G25
         else:# no internal nodes
             F11=-G14
             F12=-G15
@@ -30,11 +30,11 @@ class DeembedderNumeric(Deembedder,Numeric):
         #if long and skinny F12 then
         #F12.getI()=(F12.transpose()*F12).getI()*F12.transpose()
         #if short and fat F12, F12.getI() is wrong
-        B=self.Dagger(F12,Right=(Sk-F11))*(Sk-F11)
+        B=self.Dagger(F12,Right=(Sk-F11),Mul=True)
         A=F21+F22*B
         AL=self.Partition(A)# partition for multiple unknown devices
         BL=self.Partition(B)
-        Su=[(BL[u]*self.Dagger(AL[u],Left=BL[u])).tolist() for u in range(len(AL))]
+        Su=[self.Dagger(AL[u],Left=BL[u],Mul=True).tolist() for u in range(len(AL))]
         if (len(Su)==1):# only one result
             return Su[0]# return the one result, not as a list
         return Su# return the list of results

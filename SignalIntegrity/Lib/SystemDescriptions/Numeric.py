@@ -35,13 +35,15 @@ class Numeric(object):
         for d in range(len(self)):
             if '#' in self[d].Name:
                 self[d].AssignSParameters(TeeThreePortSafe(0.000000001))
-    def Dagger(self,A,Left=None,Right=None):
+    def Dagger(self,A,Left=None,Right=None,Mul=False):
         """
         Special computation of \f$\mathbf{A}^\dagger\f$ where
         \f$\mathbf{L}\cdot\mathbf{A}^\dagger\cdot\mathbf{R}\f$ needs to be computed\n
         @param A matrix \f$\mathbf{A}\f$ to be inverted
         @param Left optional matrix that appears to the left of \f$\mathbf{A}^\dagger\f$
         @param Right optional matrix that appears to the right of \f$\mathbf{A}^\dagger\f$
+        @param Mul (optional) whether to provide the result \f$\mathbf{L}\cdot\mathbf{A}^\dagger\cdot\mathbf{R}\f$.
+        Otherwise, by default, \$A^\dagger\f$ is returned.
         @return matrix \f$\mathbf{A}^\dagger\f$
         @throw LinAlgError if matrix cannot be inverted
         @remark All matrices supplied can be either list of list or numpy matrix, but
@@ -92,9 +94,23 @@ class Numeric(object):
                 # yet, produces total garbage without raising the exception.
                 if 1.0/linalg.cond(A) < self.conditionNumberLimit:
                     raise LinAlgError
-                
+
                 Adagger=A.getI()
-                return Adagger
+
+                if Mul:
+                    if Left is None: Left=1.
+                    elif isinstance(Left,list):
+                        Left=matrix(Left)
+                        if Left.shape == (1,1):
+                            Left=Left[0,0]
+                    if Right is None: Right=1.
+                    elif isinstance(Right,list):
+                        Right=matrix(Right)
+                        if Right.shape == (1,1):
+                            Right=Right[0,0]
+                    return Left*Adagger*Right
+                else:
+                    return Adagger
 
             except:
                 # the regular matrix inverse failed
@@ -104,10 +120,16 @@ class Numeric(object):
             try:
                 U,sigma,VH = svd(A,full_matrices=False)
                 sigma=sigma.tolist()
-                if Left is None: Left=identity(R)
-                elif isinstance(Left,list): Left=matrix(Left)
-                if Right is None: Right=identity(C)
-                elif isinstance(Right,list): Right=matrix(Right)
+                if Left is None: Left=1.
+                elif isinstance(Left,list):
+                    Left=matrix(Left)
+                    if Left.shape == (1,1):
+                        Left=Left[0,0]
+                if Right is None: Right=1.
+                elif isinstance(Right,list):
+                    Right=matrix(Right)
+                    if Right.shape == (1,1):
+                        Right=Right[0,0]
                 V=VH.getH()
                 lv=(Left*V).tolist()
                 UH=U.getH()
@@ -132,9 +154,12 @@ class Numeric(object):
                 for u,s in zip(sUsed,sigma):
                     if u and (s<self.singularValueLimit):
                         raise LinAlgError
-                sigmaInv=[1.0 if not sUsed[i] else 1./sigma[i]
+                sigmaInv=[1./self.singularValueLimit if (not sUsed[i] and s<self.singularValueLimit) else 1./sigma[i]
                         for i in range(len(sigma))]
-                return V*matrix(diag(sigmaInv))*UH
+                if Mul:
+                    return matrix(lv)*matrix(diag(sigmaInv))*matrix(uhr)
+                else:
+                    return V*matrix(diag(sigmaInv))*UH
             except:
                 raise LinAlgError
         else:
