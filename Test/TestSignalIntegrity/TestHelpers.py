@@ -25,7 +25,7 @@ import SignalIntegrity as si
 
 def PlotTikZ(filename,plot2save,scale=None):
     from matplotlib2tikz import save as tikz_save
-    tikz_save(filename,figure=plot2save.gcf(),show_info=False)
+    tikz_save(filename,figure=plot2save.gcf(),show_info=False,precision=6)
     texfile=open(filename,'rU')
     lines=[]
     for line in texfile:

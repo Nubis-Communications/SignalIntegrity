@@ -234,7 +234,7 @@ class SimulatorDialog(Toplevel):
             return
         try:
             from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.f,show_info=False)
+            tikz_save(filename,figure=self.f,show_info=False,precision=6)
             texfile=open(filename,'rU')
             lines=[]
             for line in texfile:
