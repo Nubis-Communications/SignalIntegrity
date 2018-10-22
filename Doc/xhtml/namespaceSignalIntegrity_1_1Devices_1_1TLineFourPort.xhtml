@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -74,14 +74,14 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9068bc032d12fa66cf6a8526f3b6d8ff"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPort.xhtml#a9068bc032d12fa66cf6a8526f3b6d8ff">TLineFourPort</a> (Zc, gamma, Z0)</td></tr>
-<tr class="memdesc:a9068bc032d12fa66cf6a8526f3b6d8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPort.xhtml">TLineFourPort</a> Ideal Four-port Transmission Line.  <a href="#a9068bc032d12fa66cf6a8526f3b6d8ff">More...</a><br /></td></tr>
-<tr class="separator:a9068bc032d12fa66cf6a8526f3b6d8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42f213ea25dcd272807461e04ecb25ec"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPort.xhtml#a42f213ea25dcd272807461e04ecb25ec">TLineFourPort</a> (Zc, gamma, Z0=50.)</td></tr>
+<tr class="memdesc:a42f213ea25dcd272807461e04ecb25ec"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPort.xhtml">TLineFourPort</a> Ideal Four-port Transmission Line.  <a href="#a42f213ea25dcd272807461e04ecb25ec">More...</a><br /></td></tr>
+<tr class="separator:a42f213ea25dcd272807461e04ecb25ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">TLineFourPort</pre> </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a9068bc032d12fa66cf6a8526f3b6d8ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9068bc032d12fa66cf6a8526f3b6d8ff">&#9670;&nbsp;</a></span>TLineFourPort()</h2>
+<a id="a42f213ea25dcd272807461e04ecb25ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42f213ea25dcd272807461e04ecb25ec">&#9670;&nbsp;</a></span>TLineFourPort()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -102,7 +102,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em>&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -117,7 +117,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">Zc</td><td>float or complex characteristic impedance </td></tr>
     <tr><td class="paramname">gamma</td><td>float or complex propagation constant </td></tr>
-    <tr><td class="paramname">Z0</td><td>float or complex reference impedance Z0 </td></tr>
+    <tr><td class="paramname">Z0</td><td>(optional) float or complex reference impedance Z0 (defaults to 50 Ohms). </td></tr>
   </table>
   </dd>
 </dl>
@@ -127,11 +127,7 @@ Functions</h2></td></tr>
  Port 1 is the left side and port 2 is the right side of the two-port transmission line.<br />
  Port 3 is the left, exposed, outer conductor and port 4 is the right, exposed outer conductor.<br />
  </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>this device is functionally equivalent to the two-port transmission line TLineTwoPort() when ports 3 and 4 are grounded. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.xhtml#_todo000007">Todo:</a></b></dt><dd><p class="startdd">Make Z0 optional defaulting to 50 Ohms </p>
-<p class="enddd">fix the ASCII line art. </p>
-</dd></dl>
-<pre class="fragment">+-----------------------+
+<dl class="section note"><dt>Note</dt><dd>this device is functionally equivalent to the two-port transmission line TLineTwoPort() when ports 3 and 4 are grounded.<pre class="fragment">          +-----------------------+
          / \                       \
   1 ----+-  |     Z    Td           +----- 2
          \ /                       /
@@ -141,8 +137,9 @@ Functions</h2></td></tr>
 
 ports 1 and 2 are the input and output
 ports 3 and 4 are the outer conductor
-</pre> 
-<p class="definition">Definition at line <a class="el" href="TLineFourPort_8py_source.xhtml#l00043">43</a> of file <a class="el" href="TLineFourPort_8py_source.xhtml">TLineFourPort.py</a>.</p>
+</pre> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TLineFourPort_8py_source.xhtml#l00042">42</a> of file <a class="el" href="TLineFourPort_8py_source.xhtml">TLineFourPort.py</a>.</p>
 
 </div>
 </div>

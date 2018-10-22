@@ -48,6 +48,7 @@ var menudata={children:[
 {text:"e",url:"functions_e.xhtml#index_e"},
 {text:"f",url:"functions_f.xhtml#index_f"},
 {text:"g",url:"functions_g.xhtml#index_g"},
+{text:"h",url:"functions_h.xhtml#index_h"},
 {text:"i",url:"functions_i.xhtml#index_i"},
 {text:"l",url:"functions_l.xhtml#index_l"},
 {text:"m",url:"functions_m.xhtml#index_m"},
@@ -69,6 +70,7 @@ var menudata={children:[
 {text:"e",url:"functions_func_e.xhtml#index_e"},
 {text:"f",url:"functions_func_f.xhtml#index_f"},
 {text:"g",url:"functions_func_g.xhtml#index_g"},
+{text:"h",url:"functions_func_h.xhtml#index_h"},
 {text:"i",url:"functions_func_i.xhtml#index_i"},
 {text:"l",url:"functions_func_l.xhtml#index_l"},
 {text:"m",url:"functions_func_m.xhtml#index_m"},
@@ -84,6 +86,8 @@ var menudata={children:[
 {text:"c",url:"functions_vars.xhtml#index_c"},
 {text:"d",url:"functions_vars.xhtml#index_d"},
 {text:"f",url:"functions_vars.xhtml#index_f"},
+{text:"g",url:"functions_vars.xhtml#index_g"},
+{text:"h",url:"functions_vars.xhtml#index_h"},
 {text:"l",url:"functions_vars.xhtml#index_l"},
 {text:"m",url:"functions_vars.xhtml#index_m"},
 {text:"n",url:"functions_vars.xhtml#index_n"},
@@ -91,6 +95,7 @@ var menudata={children:[
 {text:"r",url:"functions_vars.xhtml#index_r"},
 {text:"s",url:"functions_vars.xhtml#index_s"},
 {text:"t",url:"functions_vars.xhtml#index_t"},
+{text:"w",url:"functions_vars.xhtml#index_w"},
 {text:"z",url:"functions_vars.xhtml#index_z"}]}]}]},
 {text:"Files",url:"files.xhtml",children:[
 {text:"File List",url:"files.xhtml"}]}]}

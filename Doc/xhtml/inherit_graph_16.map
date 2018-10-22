@@ -1,6 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" href="$classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" title="base class for all symbolic solutions. " alt="" coords="220,81,296,108"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title="class for producing symbolic solutions to deembedding problems. " alt="" coords="641,5,791,32"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title="Produces symbolic solutions to deembedding problems. " alt="" coords="641,5,791,32"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation, system s&#45;parameters, deembedding and virtual probing applications. " alt="" coords="380,107,567,133"/>
 <area shape="rect" id="node4" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" title="Class for solving symbolically the s&#45;parameters of interconnected systems. " alt="" coords="617,107,815,133"/>
 <area shape="rect" id="node5" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" title="class for producing symbolic solutions to simulation problems. " alt="" coords="871,120,1001,147"/>

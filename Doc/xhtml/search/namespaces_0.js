@@ -67,6 +67,8 @@ var searchData=
   ['port',['Port',['../namespaceSignalIntegrity_1_1SystemDescriptions_1_1Port.xhtml',1,'SignalIntegrity::SystemDescriptions']]],
   ['pulsewaveform',['PulseWaveform',['../namespaceSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1PulseWaveform.xhtml',1,'SignalIntegrity::TimeDomain::Waveform']]],
   ['pysiapptesthelper',['PySIAppTestHelper',['../namespaceSignalIntegrity_1_1Test_1_1PySIAppTestHelper.xhtml',1,'SignalIntegrity::Test']]],
+  ['pysiconvolve',['PySIConvolve',['../namespaceSignalIntegrity_1_1PySICppLib_1_1PySIConvolve.xhtml',1,'SignalIntegrity::PySICppLib']]],
+  ['pysicpplib',['PySICppLib',['../namespaceSignalIntegrity_1_1PySICppLib.xhtml',1,'SignalIntegrity']]],
   ['pysiexception',['PySIException',['../namespaceSignalIntegrity_1_1PySIException.xhtml',1,'SignalIntegrity']]],
   ['raisedcosinefilter',['RaisedCosineFilter',['../namespaceSignalIntegrity_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter.xhtml',1,'SignalIntegrity::TimeDomain::Filters']]],
   ['rat',['Rat',['../namespaceSignalIntegrity_1_1Rat.xhtml',1,'SignalIntegrity.Rat'],['../namespaceSignalIntegrity_1_1Rat_1_1Rat.xhtml',1,'SignalIntegrity.Rat.Rat']]],

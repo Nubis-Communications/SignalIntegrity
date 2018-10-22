@@ -36,7 +36,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" target="_top" xlink:title="class for producing symbolic solutions to deembedding problems. ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" target="_top" xlink:title="Produces symbolic solutions to deembedding problems. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-221.5 0,-289.5 113,-289.5 113,-221.5 0,-221.5"/>
 <text text-anchor="middle" x="56.5" y="-277.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeembedderSymbolic</text>
 <polyline fill="none" stroke="#000000" points="0,-270.5 113,-270.5 "/>

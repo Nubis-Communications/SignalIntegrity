@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -90,9 +90,9 @@ Collaboration diagram for TLineTwoPortRLGC:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a44ea5b94b16c4f9a8ae2b0266c7434d8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml#a44ea5b94b16c4f9a8ae2b0266c7434d8">__init__</a> (self, <a class="el" href="classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, R, Rse, L, G, C, df, Z0, K=0)</td></tr>
-<tr class="memdesc:a44ea5b94b16c4f9a8ae2b0266c7434d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a44ea5b94b16c4f9a8ae2b0266c7434d8">More...</a><br /></td></tr>
-<tr class="separator:a44ea5b94b16c4f9a8ae2b0266c7434d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c1d63a55f58fd261d65d7021f6d8a7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml#ac5c1d63a55f58fd261d65d7021f6d8a7">__init__</a> (self, <a class="el" href="classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, R, Rse, L, G, C, df, Z0=50., K=0)</td></tr>
+<tr class="memdesc:ac5c1d63a55f58fd261d65d7021f6d8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ac5c1d63a55f58fd261d65d7021f6d8a7">More...</a><br /></td></tr>
+<tr class="separator:ac5c1d63a55f58fd261d65d7021f6d8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7a6da5139e0878b590d68292aaa70f2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml#ab7a6da5139e0878b590d68292aaa70f2">__getitem__</a> (self, n)</td></tr>
 <tr class="memdesc:ab7a6da5139e0878b590d68292aaa70f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">overloads [n]  <a href="#ab7a6da5139e0878b590d68292aaa70f2">More...</a><br /></td></tr>
 <tr class="separator:ab7a6da5139e0878b590d68292aaa70f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,10 +144,10 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>s-parameters of single-ended <a class="el" href="namespaceSignalIntegrity_1_1SParameters_1_1RLGC.xhtml">RLGC</a> (telegraphers) transmission line </p>
 
-<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml#l00027">27</a> of file <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml#l00028">28</a> of file <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a44ea5b94b16c4f9a8ae2b0266c7434d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44ea5b94b16c4f9a8ae2b0266c7434d8">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="ac5c1d63a55f58fd261d65d7021f6d8a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5c1d63a55f58fd261d65d7021f6d8a7">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +204,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em>, </td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -230,7 +230,7 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">G</td><td>float DC conductance to ground (S) </td></tr>
     <tr><td class="paramname">C</td><td>float capacitance to ground (F) </td></tr>
     <tr><td class="paramname">df</td><td>float dissipation factor (loss-tangent) of capacitance to ground </td></tr>
-    <tr><td class="paramname">Z0</td><td>float reference impedance </td></tr>
+    <tr><td class="paramname">Z0</td><td>(optional) float reference impedance (defaults to 50 Ohms) </td></tr>
     <tr><td class="paramname">K</td><td>(optional) integer number of sections (defaults to zero) </td></tr>
   </table>
   </dd>
@@ -239,7 +239,7 @@ Public Member Functions</h2></td></tr>
  Otherwise, non-zero K specifies the numerical approximation <a class="el" href="namespaceSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate.xhtml">TLineTwoPortRLGCApproximate</a>.<br />
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml#l00042">42</a> of file <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml#l00043">43</a> of file <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a>.</p>
 
 </div>
 </div>
@@ -273,12 +273,12 @@ Public Member Functions</h2></td></tr>
 <p>overloads [n] </p>
 <dl class="section return"><dt>Returns</dt><dd>list of list s-parameter matrix for the nth frequency element </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml#l00054">54</a> of file <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml#l00055">55</a> of file <a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>PySI/SignalIntegrity/SParameters/Devices/<a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a></li>
+<li>PySI-1.0.1/SignalIntegrity/SParameters/Devices/<a class="el" href="TLineTwoPortRLGC_8py_source.xhtml">TLineTwoPortRLGC.py</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

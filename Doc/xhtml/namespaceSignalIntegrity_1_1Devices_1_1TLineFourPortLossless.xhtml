@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -74,14 +74,14 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1eacb2d951a947630c694ea6e3d6754b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPortLossless.xhtml#a1eacb2d951a947630c694ea6e3d6754b">TLineFourPortLossless</a> (Zc, Td, f, Z0)</td></tr>
-<tr class="memdesc:a1eacb2d951a947630c694ea6e3d6754b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPortLossless.xhtml">TLineFourPortLossless</a> Ideal Lossless Four-port Transmission Line.  <a href="#a1eacb2d951a947630c694ea6e3d6754b">More...</a><br /></td></tr>
-<tr class="separator:a1eacb2d951a947630c694ea6e3d6754b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1007c1e49d610c07de1c7f0f002f29b3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPortLossless.xhtml#a1007c1e49d610c07de1c7f0f002f29b3">TLineFourPortLossless</a> (Zc, Td, f, Z0=50.)</td></tr>
+<tr class="memdesc:a1007c1e49d610c07de1c7f0f002f29b3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineFourPortLossless.xhtml">TLineFourPortLossless</a> Ideal Lossless Four-port Transmission Line.  <a href="#a1007c1e49d610c07de1c7f0f002f29b3">More...</a><br /></td></tr>
+<tr class="separator:a1007c1e49d610c07de1c7f0f002f29b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">TLineFourPortLossless</pre> </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a1eacb2d951a947630c694ea6e3d6754b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eacb2d951a947630c694ea6e3d6754b">&#9670;&nbsp;</a></span>TLineFourPortLossless()</h2>
+<a id="a1007c1e49d610c07de1c7f0f002f29b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1007c1e49d610c07de1c7f0f002f29b3">&#9670;&nbsp;</a></span>TLineFourPortLossless()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -108,7 +108,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em>&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -124,7 +124,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">Zc</td><td>float or complex characteristic impedance </td></tr>
     <tr><td class="paramname">Td</td><td>float electrical length (or time delay through the device) </td></tr>
     <tr><td class="paramname">f</td><td>float frequency </td></tr>
-    <tr><td class="paramname">Z0</td><td>float or complex characteristic impedance </td></tr>
+    <tr><td class="paramname">Z0</td><td>(optional) float or complex characteristic impedance (defaults to 50 Ohms) </td></tr>
   </table>
   </dd>
 </dl>
@@ -135,7 +135,6 @@ Functions</h2></td></tr>
  Port 3 is the left, exposed, outer conductor and port 4 is the right, exposed outer conductor.<br />
  </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>this device is functionally equivalent to the two-port ideal lossless transmission line TLineFourPort() when ports 3 and 4 are grounded. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.xhtml#_todo000008">Todo:</a></b></dt><dd>Make Z0 optional defaulting to 50 Ohms </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TLineFourPortLossless_8py_source.xhtml#l00044">44</a> of file <a class="el" href="TLineFourPortLossless_8py_source.xhtml">TLineFourPortLossless.py</a>.</p>
 

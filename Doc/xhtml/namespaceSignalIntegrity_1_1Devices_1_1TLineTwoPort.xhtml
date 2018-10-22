@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -74,14 +74,14 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7bd18f7b4b86ece0e8648407add746d4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPort.xhtml#a7bd18f7b4b86ece0e8648407add746d4">TLineTwoPort</a> (Zc, gamma, Z0)</td></tr>
-<tr class="memdesc:a7bd18f7b4b86ece0e8648407add746d4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPort.xhtml">TLineTwoPort</a> Ideal Two-port Transmission Line.  <a href="#a7bd18f7b4b86ece0e8648407add746d4">More...</a><br /></td></tr>
-<tr class="separator:a7bd18f7b4b86ece0e8648407add746d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c7d63774d38d11ff94ecaaf66ce8ecb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPort.xhtml#a3c7d63774d38d11ff94ecaaf66ce8ecb">TLineTwoPort</a> (Zc, gamma, Z0=50.)</td></tr>
+<tr class="memdesc:a3c7d63774d38d11ff94ecaaf66ce8ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceSignalIntegrity_1_1Devices_1_1TLineTwoPort.xhtml">TLineTwoPort</a> Ideal Two-port Transmission Line.  <a href="#a3c7d63774d38d11ff94ecaaf66ce8ecb">More...</a><br /></td></tr>
+<tr class="separator:a3c7d63774d38d11ff94ecaaf66ce8ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">TLineTwoPort</pre> </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a7bd18f7b4b86ece0e8648407add746d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bd18f7b4b86ece0e8648407add746d4">&#9670;&nbsp;</a></span>TLineTwoPort()</h2>
+<a id="a3c7d63774d38d11ff94ecaaf66ce8ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c7d63774d38d11ff94ecaaf66ce8ecb">&#9670;&nbsp;</a></span>TLineTwoPort()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -102,7 +102,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em>&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -117,12 +117,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">Zc</td><td>float or complex characteristic impedance </td></tr>
     <tr><td class="paramname">gamma</td><td>float or complex propagation constant </td></tr>
-    <tr><td class="paramname">Z0</td><td>float or complex reference impedance Z0 </td></tr>
+    <tr><td class="paramname">Z0</td><td>(optional) float or complex reference impedance Z0 (defaults to 50 Ohms). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the s-parameter matrix of a two-port transmission line </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.xhtml#_todo000009">Todo:</a></b></dt><dd>Make Z0 optional defaulting to 50 Ohms </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TLineTwoPort_8py_source.xhtml#l00032">32</a> of file <a class="el" href="TLineTwoPort_8py_source.xhtml">TLineTwoPort.py</a>.</p>
 

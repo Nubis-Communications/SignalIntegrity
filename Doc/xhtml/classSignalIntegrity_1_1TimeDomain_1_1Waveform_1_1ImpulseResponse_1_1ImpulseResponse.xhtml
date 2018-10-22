@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -173,7 +173,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>impulse response of a filter as a waveform </p>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00032">32</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00033">33</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ade7e2b05916c8bb56f58333b3fca239d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade7e2b05916c8bb56f58333b3fca239d">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -217,7 +217,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section remark"><dt>Remarks</dt><dd>note that t can be an instance of waveform and td None which causes the impulse response to be instantiated dircectly from a waveform. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00040">40</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00041">41</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 
 </div>
 </div>
@@ -257,7 +257,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00052">52</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00053">53</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 
 </div>
 </div>
@@ -280,7 +280,7 @@ Public Member Functions</h2></td></tr>
 <p>FIR filter equivalent of impulse response for processing. </p>
 <dl class="section return"><dt>Returns</dt><dd>an instance of class FirFilter that can be convolved with a waveform </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00224">224</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00225">225</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 
 </div>
 </div>
@@ -345,7 +345,7 @@ whether a frequency descriptor is specified and whether to adjust length determi
 <p>This assumption for length adjustment is what allows an impulse response to be filled in with positive only times, but allow an equality to exist between all frequency responses and impulse responses.</p>
 <p>Basically, the time adjustment can be seen as calculating the number of points before time zero and the number of points after time zero and calculating the total number of points in the waveform (for the purposes of frequency response calculation) as the max of these two numbers multiplied by two. </p>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00097">97</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00098">98</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 
 </div>
 </div>
@@ -384,7 +384,7 @@ whether a frequency descriptor is specified and whether to adjust length determi
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an instance of class <a class="el" href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" title="impulse response of a filter as a waveform ">ImpulseResponse</a> containing impulse response with new time descriptor. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00173">173</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00174">174</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 
 </div>
 </div>
@@ -427,12 +427,12 @@ whether a frequency descriptor is specified and whether to adjust length determi
 <dd>
 the trimming is performed by finding the lowest and highest time value above or equal to the threshold - all values between these times are retained. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00188">188</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ImpulseResponse_8py_source.xhtml#l00189">189</a> of file <a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>PySI/SignalIntegrity/TimeDomain/Waveform/<a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a></li>
+<li>PySI-1.0.1/SignalIntegrity/TimeDomain/Waveform/<a class="el" href="ImpulseResponse_8py_source.xhtml">ImpulseResponse.py</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

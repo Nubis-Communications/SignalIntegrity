@@ -11,6 +11,6 @@
 <area shape="rect" id="node10" href="$classSignalIntegrity_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" title="base class for netlist based deembedding solutions " alt="" coords="353,259,488,285"/>
 <area shape="rect" id="node11" href="$classSignalIntegrity_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions " alt="" coords="363,157,478,184"/>
 <area shape="rect" id="node12" href="$classSignalIntegrity_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" title="base class for netlist based virtual probing solutions " alt="" coords="355,5,486,32"/>
-<area shape="rect" id="node13" href="$classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" title="classdocs " alt="" coords="167,56,273,83"/>
-<area shape="rect" id="node14" href="$classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" title="classdocs " alt="" coords="375,56,466,83"/>
+<area shape="rect" id="node13" href="$classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching " alt="" coords="167,56,273,83"/>
+<area shape="rect" id="node14" href="$classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes. " alt="" coords="375,56,466,83"/>
 </map>

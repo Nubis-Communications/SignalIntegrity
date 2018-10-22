@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['cacheresult',['CacheResult',['../classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml#aa3ea9c7fb36e78bae6cefa0c2c58c2f3',1,'SignalIntegrity::ResultsCache::ResultsCache']]],
   ['calculateerrorterms',['CalculateErrorTerms',['../classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration.xhtml#a97348b9e4c449174b1e735563e3a8a9c',1,'SignalIntegrity::Measurement::Calibration::Calibration::Calibration']]],
   ['calculateunknown',['CalculateUnknown',['../classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml#a35720c536433da8712e515f3c4d6ecf6',1,'SignalIntegrity::SystemDescriptions::DeembedderNumeric::DeembedderNumeric']]],
   ['calibration',['Calibration',['../classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration.xhtml',1,'SignalIntegrity::Measurement::Calibration::Calibration']]],
@@ -9,8 +10,10 @@ var searchData=
   ['callback',['CallBack',['../classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml#ad1aebee41f7b067b9fc11c28f87b27ba',1,'SignalIntegrity::CallBacker::CallBacker']]],
   ['callbacker',['CallBacker',['../classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml',1,'SignalIntegrity::CallBacker']]],
   ['ccm',['ccm',['../classSignalIntegrity_1_1Fit_1_1LevMar_1_1LevMar.xhtml#aa3188a4e56e2eee537263f2fc19b504a',1,'SignalIntegrity::Fit::LevMar::LevMar']]],
+  ['checkcache',['CheckCache',['../classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml#acaed8551afefa9ad488b67b7a9a8ed40',1,'SignalIntegrity::ResultsCache::ResultsCache']]],
   ['checkconnections',['CheckConnections',['../classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml#abc6647e2004523ee8d9b8c2bece038a3',1,'SignalIntegrity::SystemDescriptions::SystemDescription::SystemDescription']]],
   ['checkevenlyspaced',['CheckEvenlySpaced',['../classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml#a903469a93e04d2e4604e4350f2096a2d',1,'SignalIntegrity::FrequencyDomain::FrequencyList::FrequencyList']]],
+  ['checktimes',['CheckTimes',['../classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml#a3f79588279cd652ca7edb2afa74063b1',1,'SignalIntegrity.ResultsCache.ResultsCache.CheckTimes()'],['../classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml#a3f79588279cd652ca7edb2afa74063b1',1,'SignalIntegrity.ResultsCache.LinesCache.CheckTimes()']]],
   ['clear',['Clear',['../classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml#a26d16e796dfe67359239b0e44e7f6536',1,'SignalIntegrity::SystemDescriptions::Symbolic::Symbolic']]],
   ['connectdeviceport',['ConnectDevicePort',['../classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml#ae236b6d7df408d3cd15ca3727c4daa81',1,'SignalIntegrity::SystemDescriptions::SystemDescription::SystemDescription']]],
   ['constants',['Constants',['../classSignalIntegrity_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit.xhtml#a198b8c2c77ea9f9815a181ddeda1c320',1,'SignalIntegrity::Measurement::CalKit::CalibrationKit::CalibrationKit']]],

@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 214)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-214 757,-214 757,4 -4,4"/>
-<!-- Node39 -->
+<!-- Node46 -->
 <g id="node1" class="node">
-<title>Node39</title>
+<title>Node46</title>
 <g id="a_node1"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" target="_top" xlink:title="base class for all symbolic solutions. ">
 <polygon fill="#ffffff" stroke="#000000" points="161,-133.5 161,-152.5 218,-152.5 218,-133.5 161,-133.5"/>
 <text text-anchor="middle" x="189.5" y="-140.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Symbolic</text>
@@ -21,15 +21,15 @@
 <!-- Node4 -->
 <g id="node2" class="node">
 <title>Node4</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" target="_top" xlink:title="class for producing symbolic solutions to deembedding problems. ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" target="_top" xlink:title="Produces symbolic solutions to deembedding problems. ">
 <polygon fill="#ffffff" stroke="#000000" points="476.5,-190.5 476.5,-209.5 589.5,-209.5 589.5,-190.5 476.5,-190.5"/>
 <text text-anchor="middle" x="533" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeembedderSymbolic</text>
 </a>
 </g>
 </g>
-<!-- Node39&#45;&gt;Node4 -->
+<!-- Node46&#45;&gt;Node4 -->
 <g id="edge1" class="edge">
-<title>Node39&#45;&gt;Node4</title>
+<title>Node46&#45;&gt;Node4</title>
 <path fill="none" stroke="#191970" d="M216.0678,-157.0006C233.4717,-165.48 256.9923,-175.6589 279,-181 345.5007,-197.1393 424.4174,-200.7092 476.4393,-201.0085"/>
 <polygon fill="#191970" stroke="#191970" points="217.5864,-153.8468 207.0767,-152.5061 214.4565,-160.1081 217.5864,-153.8468"/>
 </g>
@@ -42,9 +42,9 @@
 </a>
 </g>
 </g>
-<!-- Node39&#45;&gt;Node11 -->
+<!-- Node46&#45;&gt;Node11 -->
 <g id="edge2" class="edge">
-<title>Node39&#45;&gt;Node11</title>
+<title>Node46&#45;&gt;Node11</title>
 <path fill="none" stroke="#191970" d="M227.9372,-138.478C243.7806,-136.6141 262.6527,-134.3938 280.8014,-132.2587"/>
 <polygon fill="#191970" stroke="#191970" points="227.5237,-135.0024 218.0012,-139.6469 228.3417,-141.9544 227.5237,-135.0024"/>
 </g>

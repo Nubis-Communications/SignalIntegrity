@@ -12,14 +12,13 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<polygon fill="#bfbfbf" stroke="#000000" points="249,-116.5 249,-206.5 336,-206.5 336,-116.5 249,-116.5"/>
-<text text-anchor="middle" x="292.5" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LinesCache</text>
-<polyline fill="none" stroke="#000000" points="249,-187.5 336,-187.5 "/>
-<text text-anchor="middle" x="292.5" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="249,-168.5 336,-168.5 "/>
-<text text-anchor="start" x="257" y="-156.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
-<text text-anchor="start" x="257" y="-145.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ HashValue()</text>
-<text text-anchor="start" x="257" y="-134.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ FileTime()</text>
+<polygon fill="#bfbfbf" stroke="#000000" points="249,-116.5 249,-195.5 336,-195.5 336,-116.5 249,-116.5"/>
+<text text-anchor="middle" x="292.5" y="-183.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LinesCache</text>
+<polyline fill="none" stroke="#000000" points="249,-176.5 336,-176.5 "/>
+<text text-anchor="middle" x="292.5" y="-164.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="249,-157.5 336,-157.5 "/>
+<text text-anchor="start" x="257" y="-145.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
+<text text-anchor="start" x="257" y="-134.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ HashValue()</text>
 <text text-anchor="start" x="257" y="-123.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
 </g>
 <!-- Node2 -->
@@ -39,8 +38,8 @@
 <!-- Node0&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node0&#45;&gt;Node2</title>
-<path fill="none" stroke="#191970" d="M239.8683,-132.952C207.343,-115.3099 165.422,-92.5715 131.1839,-74.0004"/>
-<polygon fill="none" stroke="#191970" points="238.3198,-136.0938 248.7788,-137.7851 241.6574,-129.9406 238.3198,-136.0938"/>
+<path fill="none" stroke="#191970" d="M239.5438,-128.6529C211.571,-114.1994 176.6675,-96.1524 145.5,-80 141.7551,-78.0592 137.9082,-76.0644 134.0264,-74.0507"/>
+<polygon fill="none" stroke="#191970" points="238.2583,-131.9282 248.7491,-133.4088 241.4713,-125.7091 238.2583,-131.9282"/>
 </g>
 <!-- Node3 -->
 <g id="node4" class="node">
@@ -59,8 +58,8 @@
 <!-- Node0&#45;&gt;Node3 -->
 <g id="edge3" class="edge">
 <title>Node0&#45;&gt;Node3</title>
-<path fill="none" stroke="#191970" d="M258.8295,-107.6714C251.732,-96.3249 244.4305,-84.6521 237.9326,-74.264"/>
-<polygon fill="none" stroke="#191970" points="255.9299,-109.636 264.2004,-116.2579 261.8645,-105.9237 255.9299,-109.636"/>
+<path fill="none" stroke="#191970" d="M260.9491,-107.8434C253.5023,-96.4772 245.7151,-84.5915 238.777,-74.0017"/>
+<polygon fill="none" stroke="#191970" points="258.1497,-109.9573 266.5577,-116.4038 264.005,-106.1211 258.1497,-109.9573"/>
 </g>
 <!-- Node4 -->
 <g id="node5" class="node">
@@ -80,8 +79,8 @@
 <!-- Node0&#45;&gt;Node4 -->
 <g id="edge4" class="edge">
 <title>Node0&#45;&gt;Node4</title>
-<path fill="none" stroke="#191970" d="M326.1543,-107.6973C332.0463,-98.278 338.0795,-88.6328 343.6772,-79.6838"/>
-<polygon fill="none" stroke="#191970" points="323.1355,-105.9237 320.7996,-116.2579 329.0701,-109.636 323.1355,-105.9237"/>
+<path fill="none" stroke="#191970" d="M323.9883,-107.9389C330.1194,-98.5809 336.4836,-88.8672 342.4166,-79.8116"/>
+<polygon fill="none" stroke="#191970" points="320.995,-106.1211 318.4423,-116.4038 326.8503,-109.9573 320.995,-106.1211"/>
 </g>
 <!-- Node5 -->
 <g id="node6" class="node">
@@ -101,14 +100,14 @@
 <!-- Node0&#45;&gt;Node5 -->
 <g id="edge5" class="edge">
 <title>Node0&#45;&gt;Node5</title>
-<path fill="none" stroke="#191970" d="M345.3168,-134.0873C375.7757,-118.2774 414.7969,-98.0211 449.5,-80 452.5749,-78.4032 455.7188,-76.7705 458.8945,-75.1212"/>
-<polygon fill="none" stroke="#191970" points="343.4164,-131.1302 336.1532,-138.8436 346.6412,-137.3432 343.4164,-131.1302"/>
+<path fill="none" stroke="#191970" d="M345.4975,-130.8043C376.0153,-116.1811 415.0353,-97.2893 449.5,-80 452.5969,-78.4464 455.7589,-76.8491 458.9493,-75.2285"/>
+<polygon fill="none" stroke="#191970" points="343.8234,-127.7252 336.3138,-135.199 346.845,-134.0395 343.8234,-127.7252"/>
 </g>
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="classdocs ">
-<polygon fill="#ffffff" stroke="#000000" points="248,-243.5 248,-355.5 337,-355.5 337,-243.5 248,-243.5"/>
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching ">
+<polygon fill="#ffffff" stroke="#000000" points="248,-232.5 248,-355.5 337,-355.5 337,-232.5 248,-232.5"/>
 <text text-anchor="middle" x="292.5" y="-343.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ResultsCache</text>
 <polyline fill="none" stroke="#000000" points="248,-336.5 337,-336.5 "/>
 <text text-anchor="start" x="256" y="-324.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ filename</text>
@@ -118,15 +117,16 @@
 <text text-anchor="start" x="256" y="-283.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
 <text text-anchor="start" x="256" y="-272.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckCache()</text>
 <text text-anchor="start" x="256" y="-261.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CacheResult()</text>
-<text text-anchor="start" x="256" y="-250.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
+<text text-anchor="start" x="256" y="-250.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ FileTime()</text>
+<text text-anchor="start" x="256" y="-239.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node0 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node0</title>
-<path fill="none" stroke="#191970" d="M292.5,-233.2386C292.5,-224.2122 292.5,-215.1233 292.5,-206.5909"/>
-<polygon fill="none" stroke="#191970" points="289.0001,-233.3701 292.5,-243.3701 296.0001,-233.3702 289.0001,-233.3701"/>
+<path fill="none" stroke="#191970" d="M292.5,-221.9841C292.5,-212.8742 292.5,-203.8346 292.5,-195.502"/>
+<polygon fill="none" stroke="#191970" points="289.0001,-222.2653 292.5,-232.2654 296.0001,-222.2654 289.0001,-222.2653"/>
 </g>
 </g>
 </svg>

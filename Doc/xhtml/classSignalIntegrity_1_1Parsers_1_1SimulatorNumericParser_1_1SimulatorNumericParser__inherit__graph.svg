@@ -114,48 +114,48 @@
 <!-- Node5 -->
 <g id="node6" class="node">
 <title>Node5</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" target="_top" xlink:title="classdocs ">
-<polygon fill="#ffffff" stroke="#000000" points="250.5,-111 250.5,-201 337.5,-201 337.5,-111 250.5,-111"/>
-<text text-anchor="middle" x="294" y="-189" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LinesCache</text>
-<polyline fill="none" stroke="#000000" points="250.5,-182 337.5,-182 "/>
-<text text-anchor="middle" x="294" y="-170" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="250.5,-163 337.5,-163 "/>
-<text text-anchor="start" x="258.5" y="-151" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
-<text text-anchor="start" x="258.5" y="-140" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ HashValue()</text>
-<text text-anchor="start" x="258.5" y="-129" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ FileTime()</text>
-<text text-anchor="start" x="258.5" y="-118" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" target="_top" xlink:title="Caches results calculated based on netlist lines, as used in all of the parser classes. ">
+<polygon fill="#ffffff" stroke="#000000" points="250.5,-116.5 250.5,-195.5 337.5,-195.5 337.5,-116.5 250.5,-116.5"/>
+<text text-anchor="middle" x="294" y="-183.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LinesCache</text>
+<polyline fill="none" stroke="#000000" points="250.5,-176.5 337.5,-176.5 "/>
+<text text-anchor="middle" x="294" y="-164.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="250.5,-157.5 337.5,-157.5 "/>
+<text text-anchor="start" x="258.5" y="-145.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
+<text text-anchor="start" x="258.5" y="-134.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ HashValue()</text>
+<text text-anchor="start" x="258.5" y="-123.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node0 -->
 <g id="edge5" class="edge">
 <title>Node5&#45;&gt;Node0</title>
-<path fill="none" stroke="#191970" d="M243.9979,-103.1717C232.9626,-91.5127 221.5525,-79.4576 211.431,-68.764"/>
-<polygon fill="none" stroke="#191970" points="241.7621,-105.9011 251.1782,-110.7579 246.846,-101.0892 241.7621,-105.9011"/>
+<path fill="none" stroke="#191970" d="M249.4035,-108.8828C236.7153,-95.4775 223.1433,-81.1384 211.3352,-68.6628"/>
+<polygon fill="none" stroke="#191970" points="246.9286,-111.3596 256.3447,-116.2164 252.0125,-106.5477 246.9286,-111.3596"/>
 </g>
 <!-- Node6 -->
 <g id="node7" class="node">
 <title>Node6</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="classdocs ">
-<polygon fill="#ffffff" stroke="#000000" points="249.5,-265.5 249.5,-377.5 338.5,-377.5 338.5,-265.5 249.5,-265.5"/>
-<text text-anchor="middle" x="294" y="-365.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ResultsCache</text>
-<polyline fill="none" stroke="#000000" points="249.5,-358.5 338.5,-358.5 "/>
-<text text-anchor="start" x="257.5" y="-346.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ filename</text>
-<text text-anchor="start" x="257.5" y="-335.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ extra</text>
-<text text-anchor="start" x="257.5" y="-324.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ hash</text>
-<polyline fill="none" stroke="#000000" points="249.5,-317.5 338.5,-317.5 "/>
-<text text-anchor="start" x="257.5" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
-<text text-anchor="start" x="257.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckCache()</text>
-<text text-anchor="start" x="257.5" y="-283.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CacheResult()</text>
-<text text-anchor="start" x="257.5" y="-272.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching ">
+<polygon fill="#ffffff" stroke="#000000" points="249.5,-260 249.5,-383 338.5,-383 338.5,-260 249.5,-260"/>
+<text text-anchor="middle" x="294" y="-371" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ResultsCache</text>
+<polyline fill="none" stroke="#000000" points="249.5,-364 338.5,-364 "/>
+<text text-anchor="start" x="257.5" y="-352" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ filename</text>
+<text text-anchor="start" x="257.5" y="-341" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ extra</text>
+<text text-anchor="start" x="257.5" y="-330" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ hash</text>
+<polyline fill="none" stroke="#000000" points="249.5,-323 338.5,-323 "/>
+<text text-anchor="start" x="257.5" y="-311" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
+<text text-anchor="start" x="257.5" y="-300" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckCache()</text>
+<text text-anchor="start" x="257.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CacheResult()</text>
+<text text-anchor="start" x="257.5" y="-278" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ FileTime()</text>
+<text text-anchor="start" x="257.5" y="-267" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ CheckTimes()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node5 -->
 <g id="edge6" class="edge">
 <title>Node6&#45;&gt;Node5</title>
-<path fill="none" stroke="#191970" d="M294,-255.4583C294,-237.1856 294,-217.7786 294,-201.005"/>
-<polygon fill="none" stroke="#191970" points="290.5001,-255.4692 294,-265.4692 297.5001,-255.4693 290.5001,-255.4692"/>
+<path fill="none" stroke="#191970" d="M294,-249.6682C294,-231.1163 294,-211.8193 294,-195.5953"/>
+<polygon fill="none" stroke="#191970" points="290.5001,-249.8739 294,-259.8739 297.5001,-249.8739 290.5001,-249.8739"/>
 </g>
 </g>
 </svg>

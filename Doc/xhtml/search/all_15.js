@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y2s',['Y2S',['../namespaceSignalIntegrity_1_1Conversions_1_1Y2S.xhtml#ad5d295028fc49f2114fcad9581207b07',1,'SignalIntegrity::Conversions::Y2S']]]
+  ['xtalkcalibrationmeasurement',['XtalkCalibrationMeasurement',['../classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1XtalkCalibrationMeasurement.xhtml',1,'SignalIntegrity::Measurement::Calibration::CalibrationMeasurements']]]
 ];
