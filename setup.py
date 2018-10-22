@@ -2,7 +2,8 @@
 setup.py
 """
 
-# Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
+# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# All rights reserved worldwide.
 #
 # This file is part of PySI.
 #
@@ -41,7 +42,7 @@ def _post_install(setup):
 setup=_post_install(
     setup(
         name='PySI',
-        version='1.0',
+        version='1.0.1',
         license='GPLv3',
         description='signal integrity tools',
         author='Peter J. Pupalaikis',

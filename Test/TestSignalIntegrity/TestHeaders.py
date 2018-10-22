@@ -2,7 +2,8 @@
 TestHeaders.py
 """
 
-# Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
+# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# All rights reserved worldwide.
 #
 # This file is part of PySI.
 #
@@ -24,7 +25,8 @@ exclusionList=[
     'doxypy.py']
 
 license=[
-    '# Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.\n',
+    '# Copyright (c) 2018 Teledyne LeCroy, Inc.\n',
+    '# All rights reserved worldwide.\n',
     '#\n',
     '# This file is part of PySI.\n',
     '#\n',
@@ -52,7 +54,7 @@ class TestHeadersTest(unittest.TestCase):
     def testFiles(self):
         errors=False
         thisDir=os.getcwd()
-        rootDir=thisDir+'/../'
+        rootDir=thisDir+'/../..'
         for r, d, f in os.walk(rootDir):
             for file in f:
                 if file in exclusionList:

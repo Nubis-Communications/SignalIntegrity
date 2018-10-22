@@ -2,7 +2,8 @@
 About.py
 """
 
-# Copyright (c) 2018 Teledyne LeCroy, all rights reserved worldwide.
+# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# All rights reserved worldwide.
 #
 # This file is part of PySI.
 #
@@ -87,7 +88,7 @@ class AboutDialog(Toplevel):
     def __init__(self,parent):
         self.parent = parent
 
-        versionString='1.0.0'
+        versionString='1.0.1'
 
         Toplevel.__init__(self, parent)
 
