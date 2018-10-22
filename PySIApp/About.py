@@ -107,7 +107,7 @@ class AboutDialog(Toplevel):
         msg = Message(self,text="version: %s" % (versionString),justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
         copyrightSymbol=u"\u00A9"
-        copyrightText=u"%s 2018 Teledyne LeCroy" % (copyrightSymbol)
+        copyrightText=u"%s 2018 Teledyne LeCroy, Inc." % (copyrightSymbol)
         msg = Message(self,text=copyrightText,justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
         hyperLink = Button(self,text="https://github.com/TeledyneLeCroy/PySI", command=self.onHyper, borderwidth=0)
