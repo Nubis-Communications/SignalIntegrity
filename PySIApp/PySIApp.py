@@ -54,6 +54,7 @@ from About import AboutDialog
 from Preferences import Preferences
 from PreferencesDialog import PreferencesDialog
 from FilePicker import AskSaveAsFilename,AskOpenFileName
+from SignalIntegrity.__about__ import __version__
 
 class PySIApp(Frame):
     def __init__(self):
@@ -80,9 +81,7 @@ class PySIApp(Frame):
         Frame.__init__(self, self.root)
         self.pack(fill=BOTH, expand=YES)
 
-        versionString='1.0.0'
-
-        self.root.title('PySI - '+versionString)
+        self.root.title('PySI - '+__version__)
 
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)

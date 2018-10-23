@@ -33,7 +33,7 @@ class CalculationProperty(Frame):
         self.updateStringsCallback=updateStringsCallback
         self.pack(side=TOP,fill=X,expand=YES)
         self.string=StringVar()
-        self.label = Label(self,width=20,text=textLabel+': ',anchor='e')
+        self.label = Label(self,width=30,text=textLabel+': ',anchor='e')
         self.label.pack(side=LEFT, expand=NO, fill=X)
         self.entry = Entry(self,textvariable=self.string)
         self.entry.config(width=15)

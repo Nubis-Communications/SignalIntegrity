@@ -22,17 +22,18 @@ from Tkinter import TOP,BOTH,LEFT,YES,X,END,CENTER
 import webbrowser
 import textwrap
 from ScrolledText import ScrolledText
+from SignalIntegrity.__about__ import __version__,__url__,__copyright__,__description__,__author__,__email__
 
 class CreditsDialog(Toplevel):
     def __init__(self,parent):
         self.parent=parent
-        textToShow = [' for now, PySI has been entirely written by:','','\t Peter J. Pupalaikis \t <PeterP@LeCroy.com>']
+        textToShow = [' PySI was written by:','','\t {} \t <{}>'.format(__author__,__email__)]
         Toplevel.__init__(self, parent)
         self.img = PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('Credits')
-        self.text=ScrolledText(self)
+        self.text=ScrolledText(self,height=8,width=50)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')
@@ -88,8 +89,6 @@ class AboutDialog(Toplevel):
     def __init__(self,parent):
         self.parent = parent
 
-        versionString='1.0.1'
-
         Toplevel.__init__(self, parent)
 
         self.img = PhotoImage(file=parent.installdir+'/icons/png/AppIcon2.gif')
@@ -102,15 +101,13 @@ class AboutDialog(Toplevel):
         lecroyLabel.pack(side=TOP,expand=YES,fill=BOTH)
         iconLabel = Label(self, image=self.img)
         iconLabel.pack(side=TOP,expand=YES,fill=BOTH)
-        msg = Message(self,text="PySIApp Signal and Power Integrity Tools",justify=CENTER, width=500)
+        msg = Message(self,text=__description__,justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
-        msg = Message(self,text="version: %s" % (versionString),justify=CENTER, width=500)
+        msg = Message(self,text="version: %s" % (__version__),justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
-        copyrightSymbol=u"\u00A9"
-        copyrightText=u"%s 2018 Teledyne LeCroy, Inc." % (copyrightSymbol)
-        msg = Message(self,text=copyrightText,justify=CENTER, width=500)
+        msg = Message(self,text=__copyright__,justify=CENTER, width=500)
         msg.pack(side=TOP,expand=YES,fill=BOTH)
-        hyperLink = Button(self,text="https://github.com/TeledyneLeCroy/PySI", command=self.onHyper, borderwidth=0)
+        hyperLink = Button(self,text=__url__, command=self.onHyper, borderwidth=0)
         hyperLink.pack(side=TOP,expand=YES,fill=X)
         buttonsFrame = Frame(self)
         buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
@@ -130,4 +127,4 @@ class AboutDialog(Toplevel):
         LicenseDialog(self)
 
     def onHyper(self):
-        webbrowser.open_new(r"https://www.github.com/TeledyneLeCroy/PySI")
+        webbrowser.open_new(__url__)
