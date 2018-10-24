@@ -69,7 +69,7 @@ setup(
                  ),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    python_requires='>=2.7.15',
+    python_requires='>=2.7.11',
     entry_points={
       'console_scripts': [
           'PySI = PySIApp.PySIApp:main']},
