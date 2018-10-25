@@ -24,13 +24,10 @@ import SignalIntegrity as si
 from numpy import linalg
 from numpy import matrix
 from numpy import identity
-from TestHelpers import SourcesTesterHelper
-from TestHelpers import RoutineWriterTesterHelper
-from TestHelpers import ResponseTesterHelper
 
-class TestCommonElements(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper,ResponseTesterHelper):
+class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])

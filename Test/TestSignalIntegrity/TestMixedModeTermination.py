@@ -23,11 +23,10 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
-from TestHelpers import *
 
-class TestMixedModeTermination(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
+class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testTerminationMixedModeSymbolic(self):
         # pragma: exclude

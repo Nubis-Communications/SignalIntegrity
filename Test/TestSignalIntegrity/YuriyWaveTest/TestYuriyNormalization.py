@@ -19,14 +19,13 @@ TestYuriyNormalization.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from Test.TestSignalIntegrity.TestHelpers import SParameterCompareHelper
 import os
 
-class TestYuriyNormalizationTest(unittest.TestCase,SParameterCompareHelper):
+class TestYuriyNormalizationTest(unittest.TestCase,si.test.SParameterCompareHelper):
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testNormalization(self):
         regular=si.sp.SParameterFile('Project1_t-line_Simulation_same.s2p')

@@ -19,12 +19,10 @@ TestOysterTwoPort.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from Test.TestSignalIntegrity.TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
 import os
 
 from numpy import matrix,mean
 import math
-from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDRWaveformToSParameterConverter
 
 #------------------------------------------------------------------------------ 
 # this class tries to speed things up a bit using a pickle containing the simulation
@@ -38,7 +36,7 @@ from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDR
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
 class TestOysterTest(unittest.TestCase,
-        SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
+        si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -52,10 +50,10 @@ class TestOysterTest(unittest.TestCase,
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
         si.td.wf.Waveform.adaptionStrategy='SinX'
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestOysterTest, 'simdict'):
             TestOysterTest.simdict=dict()
@@ -873,7 +871,7 @@ class TestOysterTest(unittest.TestCase,
                     plt.grid(True)
                     plt.show()
     def testComObject(self):
-        pass
+        return
         import os
         # uncomment next two lines for debugging
         #print os.getpid()

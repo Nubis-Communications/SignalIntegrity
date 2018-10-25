@@ -21,12 +21,10 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
-from TestHelpers import SParameterCompareHelper
-from TestHelpers import CallbackTesterHelper
 
-class TestSParameterFile(unittest.TestCase,SParameterCompareHelper,CallbackTesterHelper):
+class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.test.CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
-        CallbackTesterHelper.__init__(self)
+        si.test.CallbackTesterHelper.__init__(self)
         self.path=os.path.dirname(os.path.realpath(__file__))
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):

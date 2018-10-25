@@ -18,10 +18,17 @@ TestClassWriter.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import SignalIntegrity as si
+import os
 
-from TestHelpers import RoutineWriterTesterHelper
-
-class TestWriteClass(unittest.TestCase,RoutineWriterTesterHelper):
+class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
+    def __init__(self, methodName='runTest'):
+        si.test.RoutineWriterTesterHelper.__init__(self)
+        unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        pass
     def testWriteFrequencyResponse_ImpulseResponse(self):
         fileName="../../SignalIntegrity/FrequencyDomain/FrequencyResponse.py"
         className='FrequencyResponse'

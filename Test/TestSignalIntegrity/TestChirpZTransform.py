@@ -21,12 +21,11 @@ import unittest
 import SignalIntegrity as si
 import os
 import math
-from TestHelpers import SParameterCompareHelper
 
-class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
+class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
         self.path=os.path.dirname(os.path.realpath(__file__))
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(self.path)
@@ -109,15 +108,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('step magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='step')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('step magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='step')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testFrequencyContentStepOdd(self):
         td=si.td.wf.TimeDescriptor(-1e-9,11,1e9)
@@ -125,15 +124,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('step magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='step')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('step magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='step')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testFrequencyContentImpulse(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,1e9)
@@ -142,15 +141,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('impulse magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='step')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('impulse magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='step')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testSumOfSines(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
@@ -161,14 +160,14 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('sum of sines')
-#         plt.plot(wf.Times('ns'),wf.Values(),label='sum')
-#         plt.xlabel('time (ns)')
-#         plt.ylabel('amplitude')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('sum of sines')
+        plt.plot(wf.Times('ns'),wf.Values(),label='sum')
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testSumOfSines2(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
@@ -182,16 +181,16 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
         wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-1.05e-9,PulseWidth=100e-12)
         self.assertEquals(wf2,wfImpulse,'not equal to impulse')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('sum of sines scaled')
-#         plt.plot(wf.Times('ns'),wf.Values(),label='sum')
-#         plt.plot(wf2.Times('ns'),wf2.Values(),label='from content')
-#         plt.plot(wfImpulse.Times('ns'),wfImpulse.Values(),label='impulse')
-#         plt.xlabel('time (ns)')
-#         plt.ylabel('amplitude')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('sum of sines scaled')
+        plt.plot(wf.Times('ns'),wf.Values(),label='sum')
+        plt.plot(wf2.Times('ns'),wf2.Values(),label='from content')
+        plt.plot(wfImpulse.Times('ns'),wfImpulse.Values(),label='impulse')
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testSumOfSines3(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
@@ -239,15 +238,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.Waveform(td)
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('impulse magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('impulse magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testNoiseWaveformByDefinition(self):
         td=si.td.wf.TimeDescriptor(-1e-9,100,10e9)
@@ -255,14 +254,14 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition(td)
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('impulse magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('impulse magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
 #         plt.grid(True)
     def testNoiseWaveformByDefinitionOdd(self):
         td=si.td.wf.TimeDescriptor(-1e-9,11,10e9)
@@ -270,15 +269,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition(td)
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('impulse magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('impulse magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testDCWaveform(self):
         td=si.td.wf.TimeDescriptor(-1e-9,100,10e9)
@@ -287,15 +286,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
         self.assertEquals(wf,wf2,'waveform not equal from frequency content')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('impulse magnitude')
-#         resp=fc
-#         plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dB)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('impulse magnitude')
+        resp=fc
+        plt.plot(resp.Frequencies('GHz'),resp.Values('dB'),label='noise')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dB)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testNoisePSD(self):
         vrms=707e-9
@@ -308,15 +307,15 @@ class TestChirpZTransform(unittest.TestCase,SParameterCompareHelper):
         total=10*math.log10(sum([pow(10.,(p+10*math.log10(fd.Fe/fd.N))/10.) for p in psd]))
         #print total,expected
         self.assertAlmostEqual(total, expected, delta=0.5, msg='psd incorrect')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('spectral density')
-#         plt.plot(fc.Frequencies('GHz'),psd,label='noise density')
-#         plt.plot(fc.Frequencies('GHz'),[expected-10*math.log10(10e9) for _ in range(len(fc))])
-#         plt.xlabel('frequency (GHz)')
-#         plt.ylabel('magnitude (dBm/GHz)')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('spectral density')
+        plt.plot(fc.Frequencies('GHz'),psd,label='noise density')
+        plt.plot(fc.Frequencies('GHz'),[expected-10*math.log10(10e9) for _ in range(len(fc))])
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('magnitude (dBm/GHz)')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
     def testImpulsePSD(self):
         fd=si.fd.EvenlySpacedFrequencyList(0.5,2)

@@ -19,13 +19,10 @@ TestAdaptDecimate.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from TestHelpers import *
-import numpy as np
-import math
 
-class TestAdaptDecimate(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
+class TestAdaptDecimate(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def tearDown(self):
         si.td.wf.Waveform.adaptionStrategy='SinX'

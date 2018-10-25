@@ -19,25 +19,22 @@ TestSPARQSOLT.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from TestHelpers import SParameterCompareHelper
 import os
 
-from SignalIntegrity.Test import PySIAppTestHelper
 import matplotlib.pyplot as plt
-from TestHelpers import RoutineWriterTesterHelper
 
 from numpy import matrix
 
-class TestSPARQSolt(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
     checkPictures=True
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def GetSimulationResultsCheck(self,filename):

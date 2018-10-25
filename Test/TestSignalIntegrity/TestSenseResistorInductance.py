@@ -22,9 +22,7 @@ import SignalIntegrity as si
 import math
 import os
 
-from TestHelpers import SourcesTesterHelper
-
-class Test(unittest.TestCase,SourcesTesterHelper):
+class Test(unittest.TestCase,si.test.SourcesTesterHelper):
     def testSenseResistorInductanceVirtualProbeSymbolic(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines([

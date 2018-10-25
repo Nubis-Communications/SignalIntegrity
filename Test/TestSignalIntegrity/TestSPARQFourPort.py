@@ -19,22 +19,21 @@ TestSPARQFourPort.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
 import os
 
 from numpy import matrix
 
-class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
     checkPictures=True
     usePickle=False
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def GetSimulationResultsCheck(self,filename):
@@ -326,6 +325,21 @@ class TestSPARQFourPort(unittest.TestCase,SParameterCompareHelper,si.test.PySIAp
                 plt.show()
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-4),'s-parameters not equal')
+    def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):
+        fileName='../../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
+        className='TDRWaveformToSParameterConverter'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        allfuncs.remove('Convert')
+        allfuncs.remove('_ExtractionWindows')
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteTDRWaveformToSParameterConverterClassCodeConvert(self):
+        fileName='../../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
+        className='TDRWaveformToSParameterConverter'
+        defName=['Convert']
+        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
     unittest.main()

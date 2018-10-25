@@ -576,7 +576,7 @@ class SParametersDialog(Toplevel):
 
         try:
             from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.topLeftFigure,show_info=False,precision=6)
+            tikz_save(filename,figure=self.topLeftFigure,show_info=False,float_format='%.6g')
             texfile=open(filename,'rU')
             lines=[]
             for line in texfile:
@@ -602,7 +602,7 @@ class SParametersDialog(Toplevel):
 
         try:
             from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.topRightFigure,show_info=False,precision=6)
+            tikz_save(filename,figure=self.topRightFigure,show_info=False,float_format='%.6g')
             texfile=open(filename,'rU')
             lines=[]
             for line in texfile:
@@ -628,7 +628,7 @@ class SParametersDialog(Toplevel):
 
         try:
             from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.bottomLeftFigure,show_info=False,precision=6)
+            tikz_save(filename,figure=self.bottomLeftFigure,show_info=False,float_format='%.6g')
             texfile=open(filename,'rU')
             lines=[]
             for line in texfile:
@@ -654,7 +654,7 @@ class SParametersDialog(Toplevel):
 
         try:
             from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.bottomRightFigure,show_info=False,precision=6)
+            tikz_save(filename,figure=self.bottomRightFigure,show_info=False,float_format='%.6g')
             texfile=open(filename,'rU')
             lines=[]
             for line in texfile:

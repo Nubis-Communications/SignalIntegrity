@@ -22,12 +22,10 @@ import os
 from cStringIO import StringIO
 import sys
 import SignalIntegrity as si
-from TestHelpers import RoutineWriterTesterHelper
-from TestHelpers import ResponseTesterHelper
 
-class Test(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper):
+class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])

@@ -25,9 +25,10 @@ from numpy import array
 from numpy import matrix
 from numpy import sqrt
 
-from TestHelpers import RoutineWriterTesterHelper
-
-class TestConversions(unittest.TestCase,RoutineWriterTesterHelper):
+class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self,methodName)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def testABCD2SDefault(self):
         R=100
         ABCD=[[1,-R],[0,1]]

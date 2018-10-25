@@ -22,9 +22,8 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
-from TestHelpers import SParameterCompareHelper
 
-class TestFrequencyList(unittest.TestCase,SParameterCompareHelper):
+class TestFrequencyList(unittest.TestCase,si.test.SParameterCompareHelper):
     def testGenericVsEvenlySpaced(self):
         Fe=10e9
         N=100

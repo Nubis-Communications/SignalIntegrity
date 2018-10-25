@@ -25,22 +25,20 @@ import cmath
 from numpy import linalg
 from numpy import array
 import os
-from TestHelpers import *
-from SignalIntegrity.Test.PySIAppTestHelper import PySIAppTestHelper
 
 import matplotlib
 matplotlib.use('Tkagg')
 
-class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestImpedanceProfile(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def tearDown(self):
         si.td.wf.Waveform.adaptionStrategy='SinX'
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testImpedanceProfileCable(self):
@@ -152,7 +150,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -167,7 +165,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -182,7 +180,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -216,8 +214,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         Z0=50.
@@ -235,7 +232,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
         if plotthem: plt.show()
     def testImpedanceProfileWaveformNoPortZAlignedInterface(self):
         Zc = [50.,55.,52.,45.,60.]
@@ -268,8 +264,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
@@ -308,8 +303,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
@@ -348,8 +342,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
@@ -388,8 +381,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         self.WaveformRegressionChecker(wfActual, 'Waveform_'+self.NameForTest()+'_Actual.txt')
@@ -451,7 +443,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -463,7 +455,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -478,7 +470,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -514,8 +506,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         plotthem=False
@@ -533,7 +524,6 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
         if plotthem: plt.show()
 
         wfExact=si.ip.ImpedanceProfileWaveform(sp,includePortZ=True,align='middle')*si.td.f.RaisedCosineFilter(1)
@@ -553,8 +543,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
     def AssembleNastyLineOpen(self,Zc,Tds):
@@ -614,8 +603,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
     def testPeelCableforRLGC(self):
         sp=si.sp.SParameterFile('cableForRLGCCausal.s2p')
@@ -645,8 +633,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -659,8 +646,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('Z (Ohms)')
         plt.legend(loc='upper right')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('SimulationExperimentImpedance.tex', plt)
+        #si.test.PlotTikZ('SimulationExperimentImpedance.tex', plt)
         if plotthem: plt.show()
 
         sspdn=si.p.DeembedderNumericParser(sp.f()).AddLines(['unknown S 2','device D1 2 tline zc 50 td 66e-12','device D2 2 tline zc 50 td 66e-12',
@@ -777,8 +763,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude (V)')
         plt.legend(loc='upper left')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('GammaStepResponse.tex', plt)
+        #si.test.PlotTikZ('GammaStepResponse.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -791,8 +776,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude (V)')
         plt.legend(loc='upper left')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('GammaSParameterImpulseResponse.tex', plt)
+        #si.test.PlotTikZ('GammaSParameterImpulseResponse.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -805,8 +789,7 @@ class TestImpedanceProfile(unittest.TestCase,SParameterCompareHelper,PySIAppTest
         plt.ylabel('amplitude (V)')
         plt.legend(loc='upper left')
         #plt.grid(True)
-        from TestHelpers import PlotTikZ
-        #PlotTikZ('GammaSParameterImpulseResponseIntegrated.tex', plt)
+        #si.test.PlotTikZ('GammaSParameterImpulseResponseIntegrated.tex', plt)
         if plotthem: plt.show()
 
         self.WaveformRegressionChecker(openStepWf,self.NameForTest()+'_openStepWf')

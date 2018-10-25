@@ -19,7 +19,7 @@ TestSPARQFourPortScaled.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from Test.TestSignalIntegrity.TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
+
 import os
 
 from numpy import matrix
@@ -37,7 +37,7 @@ import math
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
 class TestSPARQFourPortScaledTest(unittest.TestCase,
-        SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
+        si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -51,10 +51,10 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
         si.td.wf.Waveform.adaptionStrategy='SinX'
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQFourPortScaledTest, 'simdict'):
             TestSPARQFourPortScaledTest.simdict=dict()
@@ -2646,21 +2646,6 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
             if not os.path.exists('simresults.p'):
                 import pickle
                 pickle.dump(self.simdict,open("simresults.p","wb"))
-    def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):
-        fileName='../../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
-        className='TDRWaveformToSParameterConverter'
-        firstDef='__init__'
-        allfuncs=self.EntireListOfClassFunctions(fileName,className)
-        allfuncs.remove(firstDef)
-        allfuncs.remove('Convert')
-        allfuncs.remove('_ExtractionWindows')
-        defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteTDRWaveformToSParameterConverterClassCodeConvert(self):
-        fileName='../../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
-        className='TDRWaveformToSParameterConverter'
-        defName=['Convert']
-        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
     runProfiler=False

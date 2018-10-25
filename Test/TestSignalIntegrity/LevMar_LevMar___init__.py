@@ -8,19 +8,19 @@ class LevMar(CallBacker):
         self.ccm=FitConvergenceMgr()
         CallBacker.__init__(self,callback)
     def fF(self,a):
-        raise
+        raise PySIExceptionFitter('fF must be overloaded')
     def fPartialFPartiala(self,a,m,Fa=None):
-        aplusDeltaa = a.copy()
+        aplusDeltaa = copy.copy(a)
         aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
         if Fa is None:
             Fa = self.fF(a)
-        dFa = (self.fF(aplusDeltaa)-Fa)/self.m_epsilon
+        dFa = ((matrix(self.fF(aplusDeltaa))-matrix(Fa))/self.m_epsilon).tolist()
         return dFa
     def fJ(self,a,Fa=None):
         if Fa is None:
             Fa=self.fF(a)
-        M = a.rows()
-        R = Fa.rows()
+        M = len(a)
+        R = len(Fa)
         J = zeros((R,M)).tolist()
         for m in range(M):
             pFpam=self.fPartialFPartiala(a,m,Fa)

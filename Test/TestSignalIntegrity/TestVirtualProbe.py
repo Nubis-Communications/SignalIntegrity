@@ -20,20 +20,17 @@ TestVirtualProbe.py
 import unittest
 
 import SignalIntegrity as si
-from numpy import linalg
-from numpy import array
-from numpy import matrix
+from numpy import linalg,array,matrix
 import copy
 import math
 import os
-from TestHelpers import CallbackTesterHelper
 
 ##import matplotlib.pyplot as plt
 
-class TestVirtualProbe(unittest.TestCase,CallbackTesterHelper):
+class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
-        CallbackTesterHelper.__init__(self)
+        si.test.CallbackTesterHelper.__init__(self)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testVirtualProbeOneMeasOneOut(self):

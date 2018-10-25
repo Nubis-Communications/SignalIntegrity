@@ -18,16 +18,19 @@ TestVoltageAmplifier.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 
 import SignalIntegrity as si
-from numpy import linalg
-from numpy import matrix
-from TestHelpers import *
+from numpy import linalg,matrix
 
-class TestVoltageAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
+class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        pass
     def testVoltageAmplifierFourPort(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',

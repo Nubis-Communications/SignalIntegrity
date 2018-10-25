@@ -23,6 +23,7 @@ from numpy import zeros,matrix
 from SignalIntegrity.CallBacker import CallBacker
 import copy
 from SignalIntegrity.Fit.FitConvergence import FitConvergenceMgr
+from SignalIntegrity.PySIException import PySIExceptionFitter
 
 class LevMar(CallBacker):
     """Implements the Levenberg-Marquardt algorithm for non-linear fitting
@@ -64,7 +65,7 @@ class LevMar(CallBacker):
         if the function is not overloaded in the derived class, raises an exception
         @throw raise if not overloaded.
         """
-        raise
+        raise PySIExceptionFitter('fF must be overloaded')
     def fPartialFPartiala(self,a,m,Fa=None):
         """partial derivative of F(a) with respect to a[m]
         @param a list of lists matrix a
@@ -72,11 +73,11 @@ class LevMar(CallBacker):
         @param Fa optional previously calculated F(a) to avoid double calculation
         @return the partial derivative of F(a) with respect to element m in a
         """
-        aplusDeltaa = a.copy()
+        aplusDeltaa = copy.copy(a)
         aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
         if Fa is None:
             Fa = self.fF(a)
-        dFa = (self.fF(aplusDeltaa)-Fa)/self.m_epsilon
+        dFa = ((matrix(self.fF(aplusDeltaa))-matrix(Fa))/self.m_epsilon).tolist()
         return dFa
     def fJ(self,a,Fa=None):
         """Calculates the Jacobian matrix.
@@ -92,8 +93,8 @@ class LevMar(CallBacker):
         """
         if Fa is None:
             Fa=self.fF(a)
-        M = a.rows()
-        R = Fa.rows()
+        M = len(a)
+        R = len(Fa)
         J = zeros((R,M)).tolist()
         for m in range(M):
             pFpam=self.fPartialFPartiala(a,m,Fa)

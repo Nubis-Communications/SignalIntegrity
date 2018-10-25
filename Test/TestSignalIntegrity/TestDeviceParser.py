@@ -21,10 +21,9 @@ TestDeviceParser.py
 import unittest
 
 import os
-from TestHelpers import ResponseTesterHelper
 import SignalIntegrity as si
 
-class TestDeviceParser(unittest.TestCase,ResponseTesterHelper):
+class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
     def id(self):

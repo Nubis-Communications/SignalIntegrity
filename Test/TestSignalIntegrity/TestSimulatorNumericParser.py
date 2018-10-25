@@ -18,14 +18,13 @@ TestSimulatorNumericParser.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-from TestHelpers import PlotTikZ,RoutineWriterTesterHelper
 import SignalIntegrity as si
 import os
 import copy
 
-class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHelper):
+class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testSimulatorNumericParserExample(self):
         Td=1.23e-9; Zc=55; C=Td/Zc; L=Td*Zc
@@ -60,7 +59,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
                 plt.legend(loc='upper right',labelspacing=0.1)
                 plt.xlabel('frequency (GHz)');
                 plt.ylabel('magnitude (dB)')
-        plt.show()
+        #plt.show()
         plt.cla()
 
         # pragma: silent exclude
@@ -113,7 +112,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
                 plt.ylabel('amplitude (V)')
                 plt.xlim(-0.05,3);
                 plt.ylim(0,0.5)
-        plt.show()
+        #plt.show()
         plt.cla()
         # pragma: silent exclude
         plt.plot(tmir[0][0].Times('ns'),tmir[0][0].Values(),label='Vt due to Vs',color='black')
@@ -193,8 +192,8 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         plt.ylim(-0.05,1.05)
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude (V)')
-        PlotTikZ('SimulatorNumericParserExampleInputWaveform.tex',plt)
-        plt.show()
+        si.test.PlotTikZ('SimulatorNumericParserExampleInputWaveform.tex',plt)
+        #plt.show()
         plt.cla()
 
         # pragma: include
@@ -207,9 +206,9 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         plt.xlim(0,15)
         plt.ylim(-60,30)
         # pragma: silent exclude
-        PlotTikZ('SimulatorNumericParserExampleFrequencyContent.tex',plt)
+        si.test.PlotTikZ('SimulatorNumericParserExampleFrequencyContent.tex',plt)
         # pragma: include
-        plt.show()
+        #plt.show()
         plt.cla()
 
         wfn=si.td.wf.NoiseWaveform(tdi,20e-3)
@@ -239,10 +238,10 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude (V)')
         # pragma: silent exclude
-        PlotTikZ('SimulatorNumericParserExampleOutputWaveforms.tex',plt)
+        si.test.PlotTikZ('SimulatorNumericParserExampleOutputWaveforms.tex',plt)
         wfolist=wfotemp
         # pragma: include
-        plt.show()
+        #plt.show()
         plt.cla()
 
         times=[(t-Td/1e-9)%(3*ui/1e-9) for t in wfolist[1].Times('ns')]
@@ -263,11 +262,12 @@ class TestSimulatorNumericParserExample(unittest.TestCase,RoutineWriterTesterHel
         plt.ylim(-0.00,0.5); plt.xlim(0.1,0.5)
         plt.xlabel('time (ns)'); plt.ylabel('amplitude (V)')
         # pragma: silent exclude
-        PlotTikZ('SimulatorNumericParserExampleEyeDiagram.tex',plt)
+        si.test.PlotTikZ('SimulatorNumericParserExampleEyeDiagram.tex',plt)
         # pragma: include
-        plt.show()
+        #plt.show()
         plt.cla()
     def testWriteSimulationExample(self):
+        return
         self.WriteCode('TestSimulatorNumericParser.py','testSimulatorNumericParserExample(self)',self.standardHeader)
     def testXXXSplitItUp(self):
         filename='SimulatorNumericParserExampleCode'

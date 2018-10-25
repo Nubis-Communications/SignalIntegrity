@@ -20,23 +20,14 @@ TestInterpolatorSinX.py
 import unittest
 
 import SignalIntegrity as si
-from numpy import linalg
-from numpy import array
-from numpy import matrix
-from numpy import fft
-from numpy import convolve
-import copy
-import math
 import os
 
 import matplotlib.pyplot as plt
 
-from TestHelpers import *
-
 PlotTestInterpolator=False
 PlotRegression=True
 
-class TestInterpolatorSinX(unittest.TestCase,ResponseTesterHelper):
+class TestInterpolatorSinX(unittest.TestCase,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
     def id(self):
@@ -63,7 +54,7 @@ class TestInterpolatorSinX(unittest.TestCase,ResponseTesterHelper):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         CableTxPWf=si.td.wf.WaveformFileAmplitudeOnly('CableTxP.txt')
         CableTxPWfDelayed=CableTxPWf.DelayBy(0.0/CableTxPWf.TimeDescriptor().Fs)
-        CableTxPWfDelayed2=si.td.f.InterpolatorFractionalDelayFilterSinX(1,0.0).FilterWaveform(CableTxPWf)
+        CableTxPWfDelayed2=si.td.f.InterpolatorFractionalDelayFilterSinX(1,0.0).ProcessWaveform(CableTxPWf)
         if PlotTestInterpolator:
             plt.clf()
             plt.xlabel('time (ns)')

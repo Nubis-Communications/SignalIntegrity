@@ -23,9 +23,8 @@ import SignalIntegrity as si
 from numpy import linalg
 from numpy import matrix
 import os
-from TestHelpers import ResponseTesterHelper
 
-class TestDeembedding(unittest.TestCase,ResponseTesterHelper):
+class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
     def testOnePortFixtureDeembedding(self):
@@ -223,7 +222,7 @@ class TestDeembedding(unittest.TestCase,ResponseTesterHelper):
         difference = linalg.norm(matrix(SLcalc)-matrix(SL))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SL Unknown Fixture Deembedding equation incorrect')
     def testUnderconstrained(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=si.fd.EvenlySpacedFrequencyList(20e9,20)
         si.p.SystemSParametersNumericParser(f).AddLines(['device R1 2 R 50.0','device R2 2 R 50.0',
             'device R3 2 R 50.0','port 1 R1 1','connect R1 2 R2 1','connect R3 1 R2 2',
@@ -236,7 +235,7 @@ class TestDeembedding(unittest.TestCase,ResponseTesterHelper):
         self.assertEqual(cm.exception.message,'under-constrained system')
         os.remove('system.s2p')
     def testF12(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=si.fd.EvenlySpacedFrequencyList(20e9,20)
         with self.assertRaises(si.PySIException) as cm:
             si.p.DeembedderNumericParser(f).AddLines(['system file cable.s2p',
@@ -245,7 +244,7 @@ class TestDeembedding(unittest.TestCase,ResponseTesterHelper):
         self.assertEqual(cm.exception.parameter,'Numeric')
         self.assertEqual(cm.exception.message,'cannot invert F12')    
     def testMultipleParser(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=si.fd.EvenlySpacedFrequencyList(20e9,20)
         res=si.p.DeembedderNumericParser(f).AddLines(['system file cable.s2p','unknown U1 1','unknown U2 1',
                                                       'port 1 U1 1','port 2 U2 1']).Deembed()

@@ -22,19 +22,17 @@ import unittest
 import SignalIntegrity as si
 import math
 import os
-from TestHelpers import *
-from SignalIntegrity.Test.PySIAppTestHelper import PySIAppTestHelper
 
-class TestTline(unittest.TestCase,ResponseTesterHelper,
-                SourcesTesterHelper,RoutineWriterTesterHelper,
+class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
+                si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper,
                 si.test.PySIAppTestHelper):
     checkPictures=True
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
-        ResponseTesterHelper.__init__(self)
-        SourcesTesterHelper.__init__(self)
-        RoutineWriterTesterHelper.__init__(self)
-        PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.ResponseTesterHelper.__init__(self)
+        si.test.SourcesTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
+        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):

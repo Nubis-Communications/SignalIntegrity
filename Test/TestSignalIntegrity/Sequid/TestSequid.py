@@ -19,18 +19,13 @@ TestSequid.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from Test.TestSignalIntegrity.TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
 import os
 
 from numpy import matrix,mean
 import math
 import xlrd
 
-from SignalIntegrity.Measurement import CalKit
-from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDRWaveformToSParameterConverter
-from SignalIntegrity.Wavelets import WaveletDaubechies16
-from SignalIntegrity.Wavelets.WaveletDenoiser import WaveletDenoiser
-class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestSequidTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -43,10 +38,10 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         si.m.tdr.TDRWaveformToSParameterConverter.taper=True
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def ReadSequidFileXls(self,filename):
@@ -62,7 +57,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
         ports=1
         reflectNames=['Short','Open','Load']
         dutNames=['BPFilter','LPFilter']
-        TDRWaveformToSParameterConverter.sigmaMultiple=50
+        si.m.tdr.TDRWaveformToSParameterConverter.sigmaMultiple=50
 
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Length=50e-9,
@@ -73,7 +68,7 @@ class TestSequidTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTe
               fd=si.fd.EvenlySpacedFrequencyList(16e9,800)
               )
         tdr.taper=False
-        WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
+        si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies4()
 
         for reflectName in reflectNames+dutNames:
             wf=self.ReadSequidFileXls(reflectName+'200.xls')

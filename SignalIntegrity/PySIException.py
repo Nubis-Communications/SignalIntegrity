@@ -75,3 +75,7 @@ class PySIExceptionNumeric(PySIException):
 class PySIExceptionDeviceParser(PySIException):
     def __init__(self,message=''):
         PySIException.__init__(self,'DeviceParser',message)
+
+class PySIExceptionFitter(PySIException):
+    def __init__(self,message=''):
+        PySIException.__init__(self,'Fitter',message)

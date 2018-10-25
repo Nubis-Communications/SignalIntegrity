@@ -19,7 +19,6 @@ TestScientificPulserSampler.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from Test.TestSignalIntegrity.TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper,PlotTikZ
 import os
 import csv
 from numpy import mean,matrix
@@ -27,10 +26,7 @@ from fractions import gcd
 import math
 import xlrd
 
-from SignalIntegrity.Measurement import CalKit
-from SignalIntegrity.Measurement.TDR.TDRWaveformToSParameterConverter import TDRWaveformToSParameterConverter
-
-class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,si.test.PySIAppTestHelper,RoutineWriterTesterHelper):
+class TestScientificPulserSamplerTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -42,10 +38,10 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
     def tearDown(self):
         si.td.wf.Waveform.adaptionStrategy='SinX'
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def NameForTest(self):
         return self.id().split('.')[-1][4:]
     def OutputCalFile(self,outputFileName,shortwf,openwf,loadwf,dutwf=None,baselinewf=None):
@@ -189,7 +185,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -350,7 +346,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -505,7 +501,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         X=[[1.,float(l)] for l in range(0,66)]
@@ -609,7 +605,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -784,7 +780,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
@@ -920,7 +916,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         TDRWaveformToSParameterConverter.sigmaMultiple=5
@@ -1078,7 +1074,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         TDRWaveformToSParameterConverter.sigmaMultiple=400
@@ -1235,7 +1231,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         if plotthem: plt.show()
 
-        TDRWaveformToSParameterConverter.sigmaMultiple=400
+        si.m.tdr.TDRWaveformToSParameterConverter.sigmaMultiple=400
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Length=5e-9,
@@ -1284,7 +1280,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(-1.2,4)
         plt.ylim(-1,8)
-        PlotTikZ(self.NameForTest()+'_step.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_step.tex', plt)
         if plotthem: plt.show()
 
 
@@ -1304,7 +1300,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(-0.1,1.4)
         plt.ylim(-0.3,0.5)
-        PlotTikZ(self.NameForTest()+'_deriv.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_deriv.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1318,7 +1314,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,50)
         plt.ylim(-70,10)
-        PlotTikZ(self.NameForTest()+'_s11.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_s11.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1337,7 +1333,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,50)
         plt.ylim(0,14)
-        PlotTikZ(self.NameForTest()+'_incident.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_incident.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1356,7 +1352,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,50)
         plt.ylim(-60,20)
-        PlotTikZ(self.NameForTest()+'_reflect.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_reflect.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1370,7 +1366,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,50)
         plt.ylim(-200,200)
-        PlotTikZ(self.NameForTest()+'_phase.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_phase.tex', plt)
         if plotthem: plt.show()
 
         #dutName='DUTLp1'
@@ -1428,10 +1424,10 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
-        TDRWaveformToSParameterConverter.sigmaMultiple=400
+        si.m.tdr.TDRWaveformToSParameterConverter.sigmaMultiple=400
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Length=6e-9,
@@ -1483,7 +1479,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(-1,2.5)
         plt.ylim(-1,8)
-        PlotTikZ(self.NameForTest()+'_step.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_step.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1502,7 +1498,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(-0.3333,4.13)
         plt.ylim(-0.1,0.3)
-        PlotTikZ(self.NameForTest()+'_deriv.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_deriv.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1516,7 +1512,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(-70,10)
-        PlotTikZ(self.NameForTest()+'_s11.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_s11.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1534,7 +1530,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.legend(loc='upper right')
         plt.xlim(0,40)
         plt.ylim(0,12)
-        PlotTikZ(self.NameForTest()+'_incident.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_incident.tex', plt)
         plt.grid(False)
         if plotthem: plt.show()
 
@@ -1554,7 +1550,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(-60,10)
-        PlotTikZ(self.NameForTest()+'_reflect.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_reflect.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1568,7 +1564,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(-200,200)
-        PlotTikZ(self.NameForTest()+'_phase.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_phase.tex', plt)
         if plotthem: plt.show()
 
         #dutName='DUTLp1'
@@ -1631,7 +1627,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         if plotthem: plt.show()
 
-        TDRWaveformToSParameterConverter.sigmaMultiple=400
+        si.m.tdr.TDRWaveformToSParameterConverter.sigmaMultiple=400
         spDict=dict()
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Length=2.75e-9,
@@ -1680,7 +1676,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(-.1,0.9)
         plt.ylim(-1,7)
-        PlotTikZ(self.NameForTest()+'_step.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_step.tex', plt)
         if plotthem: plt.show()
 
 
@@ -1700,7 +1696,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(-0.2,0.9)
         plt.ylim(-0.1,0.3)
-        PlotTikZ(self.NameForTest()+'_deriv.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_deriv.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1714,7 +1710,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(-60,0)
-        PlotTikZ(self.NameForTest()+'_s11.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_s11.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1733,7 +1729,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(4,11)
-        PlotTikZ(self.NameForTest()+'_incident.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_incident.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1752,7 +1748,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(-50,10)
-        PlotTikZ(self.NameForTest()+'_reflect.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_reflect.tex', plt)
         if plotthem: plt.show()
 
         plt.clf()
@@ -1766,7 +1762,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,SParameterCompareHelper,
         plt.grid(False)
         plt.xlim(0,40)
         plt.ylim(-200,200)
-        PlotTikZ(self.NameForTest()+'_phase.tex', plt)
+        si.test.PlotTikZ(self.NameForTest()+'_phase.tex', plt)
         if plotthem: plt.show()
 
         #dutName='DUTLp1'

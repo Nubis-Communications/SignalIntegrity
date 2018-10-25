@@ -19,15 +19,14 @@ TestHiRes.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from TestHelpers import *
 import numpy as np
 import math
+import os
 
-class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper):
+class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-
 
     def testHiRes2(self):
         # pragma: exclude
@@ -195,7 +194,7 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
             #plt.plot(wfavg.Times('ns'),wfavg.Values(),label='averaged 10 GS/s streams')
             plt.plot(wfsavgus.Times('ns'),wfsavgus.Values(),label='upsampled averaged streams')
             plt.legend(loc='upper right')
-            plt.show()
+            #plt.show()
 
         if True:
             import matplotlib.pyplot as plt
@@ -205,7 +204,7 @@ class TestHiRes(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper
             plt.plot(wfn.Times('ns'),wfn.Values(),label='noise acquired at 40 GS/s input')
             plt.plot(wfnavgus.Times('ns'),wfnavgus.Values(),label='noise after averaging and upsampling')
             plt.legend(loc='upper right')
-            plt.show()
+            #plt.show()
 
         sigmai=np.std(wfn.Values())
         snri=20*math.log10(4.*Amplitude/math.sqrt(2.)/sigmai)

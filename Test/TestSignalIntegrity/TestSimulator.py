@@ -19,13 +19,13 @@ TestSimulator.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
-from TestHelpers import *
 import numpy as np
+import os
 
-class TestSimulator(unittest.TestCase,RoutineWriterTesterHelper,ResponseTesterHelper,SourcesTesterHelper,CallbackTesterHelper):
+class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper,si.test.CallbackTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
-        CallbackTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
+        si.test.CallbackTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

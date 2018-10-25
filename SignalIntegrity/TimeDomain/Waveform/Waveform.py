@@ -148,7 +148,7 @@ class Waveform(list):
             return Waveform(self.td,[v-other.real for v in self])
         # pragma: silent exclude
         else:
-            raise PySIExceptionWaveform('cannot subtract type' + +str(other.__class__.__name__) + ' from waveform')
+            raise PySIExceptionWaveform('cannot subtract type' + str(other.__class__.__name__) + ' from waveform')
         # pragma: include
     def __radd__(self, other):
         """radd version
@@ -207,6 +207,12 @@ class Waveform(list):
         @param fileName string name of file to read
         @return self
         @note this DOES affect self
+        @note the normal waveform format is one number per line starting with the
+        horizontal offset followed by the number of points followed by the sample
+        rate.  The remaining lines contain one waveform point per line.  This is
+        the format output by PySI.  However, if the data is all on one line, then
+        the format is assumed to be LeCroy MathPack format with the first point
+        being the number of points, and the remaining points being time and value.
         """
         # pragma: silent exclude
         try:
@@ -238,6 +244,9 @@ class Waveform(list):
         """writes a waveform to a file
         @param fileName string name of file to write
         @return self
+        @note the waveform format written is one number per line starting with the
+        horizontal offset followed by the number of points followed by the sample
+        rate.  The remaining lines contain one waveform point per line.
         """
         with open(fileName,"w") as f:
             td=self.td
@@ -253,9 +262,9 @@ class Waveform(list):
         @return boolean whether the waveforms are equal to each other.
         @note an epsilon of 1e-6 is used for the compare.
         """
-        if self.td != other.td:
-            return False
         if len(self) != len(other):
+            return False
+        if self.td != other.td:
             return False
         for k in range(len(self)):
             if abs(self[k]-other[k])>1e-6:

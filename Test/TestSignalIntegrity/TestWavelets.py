@@ -21,8 +21,6 @@ import unittest
 
 import SignalIntegrity as si
 from numpy import linalg
-from numpy import array
-from numpy import matrix
 import math
 
 class TestWavelets(unittest.TestCase):
@@ -62,27 +60,27 @@ class TestWavelets(unittest.TestCase):
             w=si.wl.WaveletDaubechies4()
             X=w.DWT(dnwf.Values())
             T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30)]
-    #         import matplotlib.pyplot as plt
-    #         plt.clf()
-    #         plt.title('denoising')
-    #         plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
-    #         plt.loglog(dnwf.Times(),T,label='threshold')
-    #         plt.xlabel('samples')
-    #         plt.ylabel('amplitude')
-    #         plt.legend(loc='upper right')
-    #         plt.grid(True)
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.title('denoising')
+            plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
+            plt.loglog(dnwf.Times(),T,label='threshold')
+            plt.xlabel('samples')
+            plt.ylabel('amplitude')
+            plt.legend(loc='upper right')
+            plt.grid(True)
     #         plt.show()
             dnwfDenoised=si.wl.WaveletDenoiser.DenoisedWaveform(dnwf, 30, 5)
             wfDenoised=dnwfDenoised.Integral()*dnwf.TimeDescriptor().Fs
             wfNoisy=nwf
-    #         plt.clf()
-    #         plt.title('denoising')
-    #         plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
-    #         plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
-    #         plt.xlabel('time')
-    #         plt.ylabel('amplitude')
-    #         plt.legend(loc='upper right')
-    #         plt.grid(True)
+            plt.clf()
+            plt.title('denoising')
+            plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
+            plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
+            plt.xlabel('time')
+            plt.ylabel('amplitude')
+            plt.legend(loc='upper right')
+            plt.grid(True)
     #         plt.show()
             if all([x==0. for x in wfDenoised.Values()]):
                 return # test passed
@@ -98,25 +96,25 @@ class TestWavelets(unittest.TestCase):
             X=w.DWT(nwf.Values())
             T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30,isDerivative=False)]
             import matplotlib.pyplot as plt
-    #         plt.clf()
-    #         plt.title('denoising')
-    #         plt.loglog(nwf.Times(),[abs(x) for x in X],label='dwt')
-    #         plt.loglog(nwf.Times(),T,label='threshold')
-    #         plt.xlabel('samples')
-    #         plt.ylabel('amplitude')
-    #         plt.legend(loc='upper right')
-    #         plt.grid(True)
+            plt.clf()
+            plt.title('denoising')
+            plt.loglog(nwf.Times(),[abs(x) for x in X],label='dwt')
+            plt.loglog(nwf.Times(),T,label='threshold')
+            plt.xlabel('samples')
+            plt.ylabel('amplitude')
+            plt.legend(loc='upper right')
+            plt.grid(True)
     #         plt.show()
             wfDenoised=si.wl.WaveletDenoiser.DenoisedWaveform(nwf, 30, 5,isDerivative=False)
             wfNoisy=nwf
-    #         plt.clf()
-    #         plt.title('denoising')
-    #         plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
-    #         plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
-    #         plt.xlabel('time')
-    #         plt.ylabel('amplitude')
-    #         plt.legend(loc='upper right')
-    #         plt.grid(True)
+            plt.clf()
+            plt.title('denoising')
+            plt.plot(wfNoisy.Times(),wfNoisy.Values(),label='noisy')
+            plt.plot(wfDenoised.Times(),wfDenoised.Values(),label='denoised')
+            plt.xlabel('time')
+            plt.ylabel('amplitude')
+            plt.legend(loc='upper right')
+            plt.grid(True)
     #         plt.show()
             if all([x==0. for x in wfDenoised.Values()]):
                 return # test passed
@@ -133,15 +131,15 @@ class TestWavelets(unittest.TestCase):
             w=si.wl.WaveletHaar()
             X=w.DWT(dnwf.Values())
             T=[t*5 for t in si.wl.WaveletDenoiser.DerivativeThresholdCalc(X,w.h,30)]
-#             import matplotlib.pyplot as plt
-#             plt.clf()
-#             plt.title('denoising')
-#             plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
-#             plt.loglog(dnwf.Times(),T,label='threshold')
-#             plt.xlabel('samples')
-#             plt.ylabel('amplitude')
-#             plt.legend(loc='upper right')
-#             plt.grid(True)
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.title('denoising')
+            plt.loglog(dnwf.Times(),[abs(x) for x in X],label='dwt')
+            plt.loglog(dnwf.Times(),T,label='threshold')
+            plt.xlabel('samples')
+            plt.ylabel('amplitude')
+            plt.legend(loc='upper right')
+            plt.grid(True)
 #             plt.show()
             if all([abs(x) < t for (x,t) in zip(X,T)]):
                 return # test passed
@@ -151,14 +149,20 @@ class TestWavelets(unittest.TestCase):
         derivwf=stepwf.Derivative(scale=False,c=stepwf[0])
         integwf=derivwf.Integral(scale=False,c=stepwf[0])
         self.assertTrue(stepwf==integwf,'integral of derivative not same')
-#         import matplotlib.pyplot as plt
-#         plt.clf()
-#         plt.title('compare')
-#         plt.plot(stepwf.Times('ns'),stepwf.Values(),label='original step')
-#         plt.plot(derivwf.Times('ns'),derivwf.Values(),label='derivative')
-#         plt.plot(integwf.Times('ns'),integwf.Values(),label='integral of derivative')        
-#         plt.xlabel('time (ns)')
-#         plt.ylabel('amplitude')
-#         plt.legend(loc='upper right')
-#         plt.grid(True)
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('compare')
+        plt.plot(stepwf.Times('ns'),stepwf.Values(),label='original step')
+        plt.plot(derivwf.Times('ns'),derivwf.Values(),label='derivative')
+        plt.plot(integwf.Times('ns'),integwf.Values(),label='integral of derivative')        
+        plt.xlabel('time (ns)')
+        plt.ylabel('amplitude')
+        plt.legend(loc='upper right')
+        plt.grid(True)
 #         plt.show()
+    def testInstantiateWaveletTransformers(self):
+        w=si.wl.WaveletDaubechies4()
+        w=si.wl.WaveletDaubechies8()
+        w=si.wl.WaveletDaubechies14()
+        w=si.wl.WaveletHaar()
+        

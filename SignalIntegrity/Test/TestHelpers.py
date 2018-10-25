@@ -22,11 +22,13 @@ import os
 import sys
 from cStringIO import StringIO
 
-import SignalIntegrity as si
+from SignalIntegrity.FrequencyDomain.FrequencyResponse import FrequencyResponse
+from SignalIntegrity.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.SParameters.SParameterFile import SParameterFile
 
 def PlotTikZ(filename,plot2save,scale=None):
     from matplotlib2tikz import save as tikz_save
-    tikz_save(filename,figure=plot2save.gcf(),show_info=False,precision=6)
+    tikz_save(filename,figure=plot2save.gcf(),show_info=False,float_format='%.6g')
     texfile=open(filename,'rU')
     lines=[]
     for line in texfile:
@@ -59,29 +61,29 @@ class SParameterCompareHelper(object):
 class ResponseTesterHelper(SParameterCompareHelper):
     plotErrors=True
     def CheckFrequencyResponseResult(self,fr,fileName,text):
-        path=os.getcwd()
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #path=os.getcwd()
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             fr.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
-        regression=si.fd.FrequencyResponse().ReadFromFile(fileName)
-        os.chdir(path)
+        regression=FrequencyResponse().ReadFromFile(fileName)
+        #os.chdir(path)
         self.assertTrue(regression == fr,text + ' incorrect')
     def GetFrequencyResponseResult(self,fileName):
-        path=os.getcwd()
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #path=os.getcwd()
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             return None
-        regression=si.fd.FrequencyResponse().ReadFromFile(fileName)
-        os.chdir(path)
+        regression=FrequencyResponse().ReadFromFile(fileName)
+        #os.chdir(path)
         return regression
     def CheckWaveformResult(self,wf,fileName,text):
-        path=os.getcwd()
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #path=os.getcwd()
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             wf.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
-        regression=si.td.wf.Waveform().ReadFromFile(fileName)
+        regression=Waveform().ReadFromFile(fileName)
         wfsAreEqual=(regression==wf)
         if not wfsAreEqual:
             if ResponseTesterHelper.plotErrors:
@@ -103,29 +105,29 @@ class ResponseTesterHelper(SParameterCompareHelper):
                 plt.legend(loc='upper right')
                 plt.grid(True)
                 plt.show()
-        os.chdir(path)
+        #os.chdir(path)
         self.assertTrue(wfsAreEqual,text + ' incorrect')
     def GetWaveformResult(self,fileName):
-        path=os.getcwd()
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #path=os.getcwd()
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             return None
-        regression=si.td.wf.Waveform().ReadFromFile(fileName)
-        os.chdir(path)
+        regression=Waveform().ReadFromFile(fileName)
+        #os.chdir(path)
         return regression
     def CheckSParametersResult(self,sp,fileName,text):
-        path=os.getcwd()
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #path=os.getcwd()
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             sp.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
-        regression=si.sp.SParameterFile(fileName,50.)
-        os.chdir(path)
+        regression=SParameterFile(fileName,50.)
+        #os.chdir(path)
         self.assertTrue(self.SParametersAreEqual(sp,regression,0.00001),text + ' incorrect')
 
 class SourcesTesterHelper(object):
     def CheckSymbolicResult(self,selfid,symbolic,Text):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         fileName = ('_'.join(selfid.split('.')[-1:])).replace('test','') + '.tex'
         if not os.path.exists(fileName):
             symbolic.WriteToFile(fileName)
@@ -143,7 +145,7 @@ class RoutineWriterTesterHelper(object):
     def __init__(self, methodName='runTest'):
         self.standardHeader = ['import SignalIntegrity as si\n','\n']
     def CheckRoutineWriterResult(self,fileName,sourceCode,Text):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
             sourceCodeFile=open(fileName,'w')
             for line in sourceCode:
@@ -157,7 +159,7 @@ class RoutineWriterTesterHelper(object):
 #                 regression.append(line)
         self.assertTrue(regression == sourceCode,Text + ' incorrect')
     def WriteCode(self,fileName,Routine,headerLines,printFuncName=False):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sourceCode = []
         sourceCode.extend(headerLines)
         addingLines = False
@@ -208,7 +210,7 @@ class RoutineWriterTesterHelper(object):
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
         execfile(scriptFileName)
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sys.stdout = old_stdout
         outputFileName = scriptName + '.po'
         if not os.path.exists(outputFileName):
@@ -221,7 +223,7 @@ class RoutineWriterTesterHelper(object):
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
     def EntireListOfClassFunctions(self,fileName,className):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         defName=[]
         inClass= className is ''
         with open(fileName, 'rU') as inputFile:
@@ -238,7 +240,7 @@ class RoutineWriterTesterHelper(object):
     def WriteClassCode(self,fileName,className,defName,checkNames=True,lineDefs=False):
         if isinstance(defName,str):
             defName=[defName]
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         outputFileName=fileName.split('/')[-1].split('.')[0]+'_'+className+'_'+defName[0]
         lineDefFileName=outputFileName+'_LineNums.tex'
         outputFileName=outputFileName+'.py'
@@ -294,29 +296,29 @@ class RoutineWriterTesterHelper(object):
                     addingLines=False
                     strippingDoc=False
             elif pragmaLine:
-                    strippingDoc=False
-                    tokens=line.split()
-                    pindex=tokens.index('pragma:')
-                    tokens=[tokens[i] for i in range(pindex,len(tokens))]
-                    silent=False
-                    for token in tokens:
-                        if token == 'silent':
-                            silent=True
-                        if token == 'exclude':
-                            if inDef:
-                                if addingLines:
-                                    if not silent:
-                                        sourceCode.append("...\n")
-                                        lineNumber=lineNumber+1
-                                addingLines = False
-                        elif token == 'include':
-                            if inDef:
-                                addingLines = True
-                        elif token == 'outdent':
-                            indent = indent+4
-                        elif token == 'indent':
-                            indent = indent-4
-                    continue
+                strippingDoc=False
+                tokens=line.split()
+                pindex=tokens.index('pragma:')
+                tokens=[tokens[i] for i in range(pindex,len(tokens))]
+                silent=False
+                for token in tokens:
+                    if token == 'silent':
+                        silent=True
+                    if token == 'exclude':
+                        if inDef:
+                            if addingLines:
+                                if not silent:
+                                    sourceCode.append("...\n")
+                                    lineNumber=lineNumber+1
+                            addingLines = False
+                    elif token == 'include':
+                        if inDef:
+                            addingLines = True
+                    elif token == 'outdent':
+                        indent = indent+4
+                    elif token == 'indent':
+                        indent = indent-4
+                continue
             else:
                 if addingLines:
                     if '##' == line.lstrip(' ').split(' ')[0]:

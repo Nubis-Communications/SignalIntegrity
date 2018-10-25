@@ -23,10 +23,7 @@ import SignalIntegrity as si
 import math
 import os
 
-from TestHelpers import ResponseTesterHelper
-from TestHelpers import SourcesTesterHelper
-
-class TestPI(unittest.TestCase,SourcesTesterHelper,ResponseTesterHelper):
+class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTesterHelper):
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         si.td.wf.Waveform.adaptionStrategy='SinX'

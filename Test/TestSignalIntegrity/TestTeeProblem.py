@@ -18,17 +18,19 @@ TestTeeProblem.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import sys
+import os
+from StringIO import StringIO
 
 import SignalIntegrity as si
 
 from numpy import linalg
 from numpy import matrix
 from numpy import identity
-from TestHelpers import *
 
-class TestTeeProblem(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
+class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def id(self):
         return 'TestTeeProblem.'+'.'.join(unittest.TestCase.id(self).split('.')[-2:])

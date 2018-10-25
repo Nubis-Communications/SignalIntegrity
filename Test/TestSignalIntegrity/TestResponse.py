@@ -21,12 +21,11 @@ import unittest
 import SignalIntegrity as si
 from numpy import empty
 import os
-from TestHelpers import *
 import math
 import cmath
 import matplotlib.pyplot as plt
 
-class TestResponse(unittest.TestCase,ResponseTesterHelper):
+class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testResampleResponseCompareSpline(self):

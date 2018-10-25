@@ -20,14 +20,11 @@ TestTransconductanceAmplifier.py
 import unittest
 
 import SignalIntegrity as si
-from numpy import linalg
-from numpy import matrix
-from TestHelpers import SourcesTesterHelper
-from TestHelpers import RoutineWriterTesterHelper
+from numpy import linalg,matrix
 
-class TestTransconductanceAmplifier(unittest.TestCase,SourcesTesterHelper,RoutineWriterTesterHelper):
+class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testTransconductanceAmplifierFourPort(self):
         sdp=si.p.SystemDescriptionParser()

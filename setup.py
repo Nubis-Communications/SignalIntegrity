@@ -19,21 +19,28 @@ setup.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from setuptools import setup,find_packages
+import codecs
 import os
 import unittest
 
-try:
-    from Test.TestSignalIntegrity import *
-except:
-    pass
-
-from SignalIntegrity.__about__ import __version__,__url__,__copyright__,__description__,__author__,__email__,__license__
+#https://packaging.python.org/single_source_version/
+base_dir = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "rb") as f:
+    for line in f:
+        if line[0]=='_' and '=' in line:
+            token=line.split('=')
+            keyValue=token[0].strip().strip('_')
+            dataValue=eval(token[1].strip().strip(os.linesep))
+            globals()['__'+keyValue+'__']=dataValue
 
 install_requires=['setuptools>=24.2.0','pip>=9.0.0','numpy>=1.13.0','matplotlib>=2.2.3','urllib3>=1.22.0']
 
 pathToIcons='PySIApp/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
 pathToHelp='http://teledynelecroy.github.io/PySI/PySIApp/Help/PySIHelp.html.LyXconv/PySIHelp-Section-1.html#toc-Section-1'
+
+with open(os.path.join(base_dir, "README.md"), "rb") as f:
+    readmeFile=f.read()
 
 setup(
     name='PySI',
@@ -69,9 +76,19 @@ setup(
                  ),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    python_requires='>=2.7.11',
+    python_requires='>=2.7.11,<3',
     entry_points={
       'console_scripts': [
           'PySI = PySIApp.PySIApp:main']},
-    test_suite='Test.TestSignalIntegrity.TestAll'
+    long_description=readmeFile,
+    long_description_content_type="text/markdown",
+    classifiers=[
+        __status__,
+        __license__,
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+        "Topic :: Scientific/Engineering",
+    ],
     )

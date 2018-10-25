@@ -24,12 +24,11 @@ import os
 
 import matplotlib.pyplot as plt
 
-from TestHelpers import *
-from pickle import mloads
-
-class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
+class TestVirtualProbeNumeric(unittest.TestCase,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def tearDown(self):
         si.td.wf.Waveform.adaptionStrategy='SinX'
     def testVirtualProbeDC2008(self):
@@ -44,6 +43,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
 ##        return
         vpp=si.p.VirtualProbeNumericParser(si.fd.EvenlySpacedFrequencyList(Fe,N)).File('comparison.txt')
         tm = vpp.TransferMatrices()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
         self.CheckSParametersResult(tm.SParameters(), './/DesignCon2008//VirtualProbeTransferMatrices.s6p', fileNameBase)
         #result.WriteToFile('vptm.s6p')
         #os.remove('vptm.s6p')
@@ -83,6 +83,7 @@ class TestVirtualProbeNumeric(unittest.TestCase,ResponseTesterHelper):
         tmp=si.td.f.TransferMatricesProcessor(tm)
         outputWf=tmp.ProcessWaveforms(inputWf)
         DiffIn=(inputWf[0]-inputWf[1])
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
         self.CheckWaveformResult(DiffIn,'.//DesignCon2008//Waveform_DiffIn.txt',fileNameBase)
         DiffOutTop=(outputWf[ol.index(('D20_2'))]-outputWf[ol.index(('D21_2'))]).DelayBy(-4.7e-9)
         self.CheckWaveformResult(DiffOutTop,'.//DesignCon2008//Waveform_DiffOutTop.txt',fileNameBase)

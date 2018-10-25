@@ -23,14 +23,13 @@ import math
 import cmath
 import os
 from numpy import matrix
-from TestHelpers import SParameterCompareHelper,RoutineWriterTesterHelper
 
-class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTesterHelper,SParameterCompareHelper):
+class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper,si.test.SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
-        RoutineWriterTesterHelper.__init__(self)
+        si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def testWriteRLGCFit(self):
@@ -81,7 +80,6 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         iterations=range(len(ccm._LogMseTracker))
 
         import matplotlib.pyplot as plt
-        from TestHelpers import PlotTikZ
 
         plt.clf()
         plt.xlabel('iteration')
@@ -90,7 +88,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         plt.plot(iterations,ccm._LogMseTracker,label='mse')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #PlotTikZ('ConverganceMse.tex',plt)
+        #si.test.PlotTikZ('ConverganceMse.tex',plt)
         #plt.show()
 
         plt.clf()
@@ -100,7 +98,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         plt.plot(iterations,ccm._FilteredLogLambdaTracker,label='filtered')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #PlotTikZ('ConverganceLambda.tex',plt)
+        #si.test.PlotTikZ('ConverganceLambda.tex',plt)
         #plt.show()
 
         plt.clf()
@@ -110,7 +108,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         plt.semilogy(iterations,ccm._FilteredLogDeltaLambdaTracker,label='log(lambda)')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #PlotTikZ('ConverganceDeltas.tex',plt)
+        #si.test.PlotTikZ('ConverganceDeltas.tex',plt)
         #plt.show()
 
         SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,0.15)
@@ -366,7 +364,6 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         iterations=range(len(ccm._LogMseTracker))
 
         import matplotlib.pyplot as plt
-        from TestHelpers import PlotTikZ
 
         plt.clf()
         plt.xlabel('iteration')
@@ -375,7 +372,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         plt.plot(iterations,ccm._LogMseTracker,label='mse')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #PlotTikZ('ConverganceMse.tex',plt)
+        #si.test.PlotTikZ('ConverganceMse.tex',plt)
         #plt.show()
 
         plt.clf()
@@ -385,7 +382,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         plt.plot(iterations,ccm._FilteredLogLambdaTracker,label='filtered')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #PlotTikZ('ConverganceLambda.tex',plt)
+        #si.test.PlotTikZ('ConverganceLambda.tex',plt)
         #plt.show()
 
         plt.clf()
@@ -395,7 +392,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,RoutineWriterTe
         plt.semilogy(iterations,ccm._FilteredLogDeltaLambdaTracker,label='log(lambda)')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #PlotTikZ('ConverganceDeltas.tex',plt)
+        #si.test.PlotTikZ('ConverganceDeltas.tex',plt)
         #plt.show()
 
         si.test.PySIAppTestHelper.plotErrors=True

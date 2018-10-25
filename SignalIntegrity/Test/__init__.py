@@ -18,3 +18,10 @@ __init__.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 from PySIAppTestHelper import PySIAppTestHelper
+from TestHelpers import PlotTikZ
+from TestHelpers import SParameterCompareHelper
+from TestHelpers import ResponseTesterHelper
+from TestHelpers import SourcesTesterHelper
+from TestHelpers import RoutineWriterTesterHelper
+from TestHelpers import CallbackTesterHelper
+from TestHelpers import DocStripped

@@ -20,11 +20,10 @@ TestNewtonsMethod.py
 import unittest
 
 import math
-from TestHelpers import PlotTikZ,RoutineWriterTesterHelper
 import SignalIntegrity as si
 from numpy import matrix
 
-class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
+class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def fsqrt(self,y,x):
         return 0.5*(x*x+y)/x
     def newtonSqrtIterate(self,y,x,I):
@@ -77,7 +76,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         plt.ylabel('absolute error')
         plt.xlim(0.5,1)
         plt.ylim(1e-15,1)
-        PlotTikZ('NewtonSquareRootConstantSeed1.tex',plt)
+        si.test.PlotTikZ('NewtonSquareRootConstantSeed1.tex',plt)
         #plt.show()
         plt.cla()
     def testNewtonSqrtConstantSeed85(self):
@@ -99,7 +98,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         plt.ylabel('absolute error')
         plt.xlim(0.5,1)
         plt.ylim(1e-15,1)
-        PlotTikZ('NewtonSquareRootConstantSeed85.tex',plt)
+        si.test.PlotTikZ('NewtonSquareRootConstantSeed85.tex',plt)
         #plt.show()
         plt.cla()
     def testNewtonSqrtConstantSeeded(self):
@@ -108,7 +107,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         I=6
         Y=[0.5+float(k)/K*0.5 for k in range(K)]
         SI=[int(math.floor(y*32))-16 for y in Y]
-        g=[seed[si] for si in SI]
+        g=[seed[s] for s in SI]
         import copy
         X=[copy.copy(g) for _ in range(I)]
         for i in range(1,I):
@@ -124,7 +123,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         plt.ylabel('absolute error')
         plt.xlim(0.5,1)
         plt.ylim(1e-15,1)
-        PlotTikZ('NewtonSquareRootSeeded.tex',plt)
+        si.test.PlotTikZ('NewtonSquareRootSeeded.tex',plt)
         #plt.show()
         plt.cla()
 
@@ -135,7 +134,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         plt.xlim(0.5,1)
         plt.ylim(0.7,1)
         plt.legend(loc='lower right',labelspacing=0.1)
-        PlotTikZ('NewtonSquareRootSeeds.tex',plt)
+        si.test.PlotTikZ('NewtonSquareRootSeeds.tex',plt)
         #plt.show()
         plt.cla()
 
@@ -166,6 +165,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
     def testCableLinearFit(self):
         import math
         from numpy import matrix
+        import SignalIntegrity as si
         sp=si.sp.SParameterFile('cable.s2p')
         s21=sp.FrequencyResponse(2,1)
         f=s21.Frequencies('GHz')
@@ -188,7 +188,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         plt.legend(loc='upper right',labelspacing=0.1)
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
-        PlotTikZ('CableFitted.tex',plt)
+        si.test.PlotTikZ('CableFitted.tex',plt)
         #plt.show()
         plt.cla()
     def testWriteNewtonCableFit(self):
@@ -218,7 +218,7 @@ class TestNewtonsMethodTests(unittest.TestCase,RoutineWriterTesterHelper):
         plt.legend(loc='upper right',labelspacing=0.1)
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
-        PlotTikZ('CableFittedConstrained.tex',plt)
+        si.test.PlotTikZ('CableFittedConstrained.tex',plt)
         #plt.show()
         plt.cla()
 if __name__ == "__main__":

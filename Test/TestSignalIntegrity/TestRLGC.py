@@ -25,8 +25,8 @@ import os
 class TestRLGC(unittest.TestCase):            
     def testRLGC(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        spf=si.spf.File('cable.s2p')
-        rlgc = si.spf.RLGC(spf)
+        spf=si.sp.SParameterFile('cable.s2p')
+        rlgc = si.sp.RLGC(spf,si.fd.FrequencyList(spf.m_f).TimeDescriptor())
         pass
 
 if __name__ == '__main__':
