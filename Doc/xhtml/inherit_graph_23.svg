@@ -12,7 +12,7 @@
 <!-- Node92 -->
 <g id="node1" class="node">
 <title>Node92</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" target="_top" xlink:title="FilterDescriptor.py. ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" target="_top" xlink:title="FilterDescriptor.py. ">
 <polygon fill="#ffffff" stroke="#000000" points="11.5,-156 11.5,-175 94.5,-175 94.5,-156 11.5,-156"/>
 <text text-anchor="middle" x="53" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FilterDescriptor</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node9 -->
 <g id="node2" class="node">
 <title>Node9</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" target="_top" xlink:title="decimates waveforms ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" target="_top" xlink:title="decimates waveforms ">
 <polygon fill="#ffffff" stroke="#000000" points="155.5,-137 155.5,-156 262.5,-156 262.5,-137 155.5,-137"/>
 <text text-anchor="middle" x="209" y="-144" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">WaveformDecimator</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node10 -->
 <g id="node3" class="node">
 <title>Node10</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" target="_top" xlink:title="trims waveforms ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" target="_top" xlink:title="trims waveforms ">
 <polygon fill="#ffffff" stroke="#000000" points="160,-175 160,-194 258,-194 258,-175 160,-175"/>
 <text text-anchor="middle" x="209" y="-182" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">WaveformTrimmer</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node0 -->
 <g id="node4" class="node">
 <title>Node0</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" target="_top" xlink:title="WaveformProcessor.py. ">
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" target="_top" xlink:title="WaveformProcessor.py. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-99 0,-118 106,-118 106,-99 0,-99"/>
 <text text-anchor="middle" x="53" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">WaveformProcessor</text>
 </a>
@@ -72,7 +72,7 @@
 <!-- Node1 -->
 <g id="node5" class="node">
 <title>Node1</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" target="_top" xlink:title="base filter class for all FIR filters ">
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" target="_top" xlink:title="base filter class for all FIR filters ">
 <polygon fill="#ffffff" stroke="#000000" points="184,-99 184,-118 234,-118 234,-99 184,-99"/>
 <text text-anchor="middle" x="209" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FirFilter</text>
 </a>
@@ -87,7 +87,7 @@
 <!-- Node7 -->
 <g id="node11" class="node">
 <title>Node7</title>
-<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml" target="_top" xlink:title="combination linear fractional delay and interpolating filter ">
+<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml" target="_top" xlink:title="combination linear fractional delay and interpolating filter ">
 <polygon fill="#ffffff" stroke="#000000" points="142,-49.5 142,-79.5 276,-79.5 276,-49.5 142,-49.5"/>
 <text text-anchor="start" x="150" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">InterpolatorFractionalDelay</text>
 <text text-anchor="middle" x="209" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FilterLinear</text>
@@ -103,7 +103,7 @@
 <!-- Node8 -->
 <g id="node12" class="node">
 <title>Node8</title>
-<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX.xhtml" target="_top" xlink:title="combination sinx/x fractional delay and interpolating filter ">
+<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX.xhtml" target="_top" xlink:title="combination sinx/x fractional delay and interpolating filter ">
 <polygon fill="#ffffff" stroke="#000000" points="142,-.5 142,-30.5 276,-30.5 276,-.5 142,-.5"/>
 <text text-anchor="start" x="150" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">InterpolatorFractionalDelay</text>
 <text text-anchor="middle" x="209" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FilterSinX</text>
@@ -119,7 +119,7 @@
 <!-- Node2 -->
 <g id="node6" class="node">
 <title>Node2</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear.xhtml" target="_top" xlink:title="linear fractional delay filter ">
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear.xhtml" target="_top" xlink:title="linear fractional delay filter ">
 <polygon fill="#ffffff" stroke="#000000" points="312,-175 312,-194 445,-194 445,-175 312,-175"/>
 <text text-anchor="middle" x="378.5" y="-182" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FractionalDelayFilterLinear</text>
 </a>
@@ -134,7 +134,7 @@
 <!-- Node3 -->
 <g id="node7" class="node">
 <title>Node3</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear.xhtml" target="_top" xlink:title="linear interpolating filter ">
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear.xhtml" target="_top" xlink:title="linear interpolating filter ">
 <polygon fill="#ffffff" stroke="#000000" points="332.5,-137 332.5,-156 424.5,-156 424.5,-137 332.5,-137"/>
 <text text-anchor="middle" x="378.5" y="-144" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">InterpolatorLinear</text>
 </a>
@@ -149,7 +149,7 @@
 <!-- Node4 -->
 <g id="node8" class="node">
 <title>Node4</title>
-<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX.xhtml" target="_top" xlink:title="sinx/x fractional delay filter ">
+<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX.xhtml" target="_top" xlink:title="sinx/x fractional delay filter ">
 <polygon fill="#ffffff" stroke="#000000" points="314.5,-99 314.5,-118 442.5,-118 442.5,-99 314.5,-99"/>
 <text text-anchor="middle" x="378.5" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FractionalDelayFilterSinX</text>
 </a>
@@ -164,7 +164,7 @@
 <!-- Node5 -->
 <g id="node9" class="node">
 <title>Node5</title>
-<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml" target="_top" xlink:title="sinx/x interpolating filter ">
+<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml" target="_top" xlink:title="sinx/x interpolating filter ">
 <polygon fill="#ffffff" stroke="#000000" points="335.5,-61 335.5,-80 421.5,-80 421.5,-61 335.5,-61"/>
 <text text-anchor="middle" x="378.5" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">InterpolatorSinX</text>
 </a>
@@ -179,7 +179,7 @@
 <!-- Node6 -->
 <g id="node10" class="node">
 <title>Node6</title>
-<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml" target="_top" xlink:title="raised cosine filter ">
+<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml" target="_top" xlink:title="raised cosine filter ">
 <polygon fill="#ffffff" stroke="#000000" points="328.5,-23 328.5,-42 428.5,-42 428.5,-23 328.5,-23"/>
 <text text-anchor="middle" x="378.5" y="-30" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">RaisedCosineFilter</text>
 </a>

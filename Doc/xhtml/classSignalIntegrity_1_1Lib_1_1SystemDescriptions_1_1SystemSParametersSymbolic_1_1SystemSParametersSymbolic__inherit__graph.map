@@ -1,0 +1,8 @@
+<map id="SystemSParametersSymbolic" name="SystemSParametersSymbolic">
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" title="class for producing symbolic solutions to simulation problems. " alt="" coords="5,888,169,995"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title="Class that provides symbolic solutions to virtual probe problems. " alt="" coords="193,888,357,995"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation, system s&#45;parameters, deembedding and virtual probing applications. " alt="" coords="87,608,274,700"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations " alt="" coords="27,336,169,501"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="19,5,177,229"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" title="base class for all symbolic solutions. " alt="" coords="194,277,333,560"/>
+</map>

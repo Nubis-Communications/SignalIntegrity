@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" target="_top" xlink:title="Calibration Measurements. ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" target="_top" xlink:title="Calibration Measurements. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-38.5 0,-57.5 122,-57.5 122,-38.5 0,-38.5"/>
 <text text-anchor="middle" x="61" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">CalibrationMeasurement</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ReflectCalibrationMeasurement.xhtml" target="_top" xlink:title="A reflect measurement taken on a port with a reflect standard (like short, open, or load)...">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ReflectCalibrationMeasurement.xhtml" target="_top" xlink:title="A reflect measurement taken on a port with a reflect standard (like short, open, or load)...">
 <polygon fill="#ffffff" stroke="#000000" points="158,-76.5 158,-95.5 312,-95.5 312,-76.5 158,-76.5"/>
 <text text-anchor="middle" x="235" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ReflectCalibrationMeasurement</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ThruCalibrationMeasurement.xhtml" target="_top" xlink:title="A thru calibration measurement taken between two ports. ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ThruCalibrationMeasurement.xhtml" target="_top" xlink:title="A thru calibration measurement taken between two ports. ">
 <polygon fill="#ffffff" stroke="#000000" points="164,-38.5 164,-57.5 306,-57.5 306,-38.5 164,-38.5"/>
 <text text-anchor="middle" x="235" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ThruCalibrationMeasurement</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1XtalkCalibrationMeasurement.xhtml" target="_top" xlink:title="A crosstalk calibration measurement typically taken between two ports that are completely unconnected...">
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1XtalkCalibrationMeasurement.xhtml" target="_top" xlink:title="A crosstalk calibration measurement typically taken between two ports that are completely unconnected...">
 <polygon fill="#ffffff" stroke="#000000" points="162.5,-.5 162.5,-19.5 307.5,-19.5 307.5,-.5 162.5,-.5"/>
 <text text-anchor="middle" x="235" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">XtalkCalibrationMeasurement</text>
 </a>

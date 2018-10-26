@@ -1,7 +1,0 @@
-<map id="VirtualProbe" name="VirtualProbe">
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically. " alt="" coords="5,983,148,1075"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title="Class that provides symbolic solutions to virtual probe problems. " alt="" coords="172,976,336,1083"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations. " alt="" coords="63,491,266,715"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations " alt="" coords="93,277,236,443"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="85,5,244,229"/>
-</map>

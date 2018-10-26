@@ -33,7 +33,8 @@ var menudata={children:[
 {text:"t",url:"namespacemembers_func.xhtml#index_t"},
 {text:"v",url:"namespacemembers_func.xhtml#index_v"},
 {text:"y",url:"namespacemembers_func.xhtml#index_y"},
-{text:"z",url:"namespacemembers_func.xhtml#index_z"}]}]}]},
+{text:"z",url:"namespacemembers_func.xhtml#index_z"}]},
+{text:"Variables",url:"namespacemembers_vars.xhtml"}]}]},
 {text:"Classes",url:"annotated.xhtml",children:[
 {text:"Class List",url:"annotated.xhtml"},
 {text:"Class Index",url:"classes.xhtml"},

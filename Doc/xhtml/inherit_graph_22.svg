@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" target="_top" xlink:title="base class for all waveforms ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" target="_top" xlink:title="base class for all waveforms ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-95.5 0,-114.5 62,-114.5 62,-95.5 0,-95.5"/>
 <text text-anchor="middle" x="31" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Waveform</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml" target="_top" xlink:title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified...">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml" target="_top" xlink:title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified...">
 <polygon fill="#ffffff" stroke="#000000" points="98,-190.5 98,-209.5 235,-209.5 235,-190.5 98,-190.5"/>
 <text text-anchor="middle" x="166.5" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ImpedanceProfileWaveform</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" target="_top" xlink:title="impulse response of a filter as a waveform ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" target="_top" xlink:title="impulse response of a filter as a waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="119,-152.5 119,-171.5 214,-171.5 214,-152.5 119,-152.5"/>
 <text text-anchor="middle" x="166.5" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ImpulseResponse</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" target="_top" xlink:title="noise waveform ">
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" target="_top" xlink:title="noise waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="123,-114.5 123,-133.5 210,-133.5 210,-114.5 123,-114.5"/>
 <text text-anchor="middle" x="166.5" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">NoiseWaveform</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node4 -->
 <g id="node5" class="node">
 <title>Node4</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" target="_top" xlink:title="pulse waveform ">
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" target="_top" xlink:title="pulse waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="123.5,-76.5 123.5,-95.5 209.5,-95.5 209.5,-76.5 123.5,-76.5"/>
 <text text-anchor="middle" x="166.5" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PulseWaveform</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node5 -->
 <g id="node6" class="node">
 <title>Node5</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" target="_top" xlink:title="sinewave waveform ">
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" target="_top" xlink:title="sinewave waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="126,-38.5 126,-57.5 207,-57.5 207,-38.5 126,-38.5"/>
 <text text-anchor="middle" x="166.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SineWaveform</text>
 </a>
@@ -96,7 +96,7 @@
 <!-- Node6 -->
 <g id="node7" class="node">
 <title>Node6</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" target="_top" xlink:title="step waveform ">
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" target="_top" xlink:title="step waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="125.5,-.5 125.5,-19.5 207.5,-19.5 207.5,-.5 125.5,-.5"/>
 <text text-anchor="middle" x="166.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">StepWaveform</text>
 </a>

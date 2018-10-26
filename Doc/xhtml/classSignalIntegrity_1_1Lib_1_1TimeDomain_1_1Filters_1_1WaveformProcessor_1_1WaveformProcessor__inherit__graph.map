@@ -1,0 +1,12 @@
+<map id="WaveformProcessor" name="WaveformProcessor">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" title="base filter class for all FIR filters " alt="" coords="372,131,523,296"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml" title="combination linear fractional delay and interpolating filter " alt="" coords="547,145,726,281"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX.xhtml" title="combination sinx/x fractional delay and interpolating filter " alt="" coords="750,145,929,281"/>
+<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" title="decimates waveforms " alt="" coords="953,153,1112,274"/>
+<area shape="rect" id="node11" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" title="trims waveforms " alt="" coords="1136,160,1287,267"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear.xhtml" title="linear fractional delay filter " alt="" coords="5,351,183,429"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear.xhtml" title="linear interpolating filter " alt="" coords="207,344,338,436"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX.xhtml" title="sinx/x fractional delay filter " alt="" coords="362,351,533,429"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml" title="sinx/x interpolating filter " alt="" coords="557,344,687,436"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml" title="raised cosine filter " alt="" coords="711,351,845,429"/>
+</map>

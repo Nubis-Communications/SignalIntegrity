@@ -1,0 +1,6 @@
+<map id="DeembedderSymbolic" name="DeembedderSymbolic">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml" title="housekeeping base class for deembedders " alt="" coords="15,549,154,715"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations " alt="" coords="13,277,156,443"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,164,229"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" title="base class for all symbolic solutions. " alt="" coords="178,491,317,773"/>
+</map>

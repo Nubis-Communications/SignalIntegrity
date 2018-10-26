@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration.xhtml" target="_top" xlink:title="Generates calibrated s&#45;parameter measurements. ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration.xhtml" target="_top" xlink:title="Generates calibrated s&#45;parameter measurements. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-19.5 63,-19.5 63,-.5 0,-.5"/>
 <text text-anchor="middle" x="31.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Calibration</text>
 </a>

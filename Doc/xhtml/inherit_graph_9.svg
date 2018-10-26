@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml" target="_top" xlink:title="base class for frequency domain elements. ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml" target="_top" xlink:title="base class for frequency domain elements. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-19.5 0,-38.5 96,-38.5 96,-19.5 0,-19.5"/>
 <text text-anchor="middle" x="48" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FrequencyDomain</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml" target="_top" xlink:title="Handles frequency content of waveforms. ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml" target="_top" xlink:title="Handles frequency content of waveforms. ">
 <polygon fill="#ffffff" stroke="#000000" points="137,-38.5 137,-57.5 234,-57.5 234,-38.5 137,-38.5"/>
 <text text-anchor="middle" x="185.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FrequencyContent</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml" target="_top" xlink:title="FrequencyResponse. ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml" target="_top" xlink:title="FrequencyResponse. ">
 <polygon fill="#ffffff" stroke="#000000" points="132,-.5 132,-19.5 239,-19.5 239,-.5 132,-.5"/>
 <text text-anchor="middle" x="185.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">FrequencyResponse</text>
 </a>

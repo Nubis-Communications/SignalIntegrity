@@ -12,7 +12,7 @@
 <!-- Node97 -->
 <g id="node1" class="node">
 <title>Node97</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1CallBacker_1_1CallBacker.xhtml" target="_top" xlink:title="Handles Callbacks that allow progress reporting during long calculations and capability to abort...">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" target="_top" xlink:title="Handles Callbacks that allow progress reporting during long calculations and capability to abort...">
 <polygon fill="#ffffff" stroke="#000000" points="279,-76.5 279,-95.5 344,-95.5 344,-76.5 279,-76.5"/>
 <text text-anchor="middle" x="311.5" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">CallBacker</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node98 -->
 <g id="node2" class="node">
 <title>Node98</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Fit_1_1LevMar_1_1LevMar.xhtml" target="_top" xlink:title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting. ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" target="_top" xlink:title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting. ">
 <polygon fill="#ffffff" stroke="#000000" points="445.5,-.5 445.5,-19.5 494.5,-19.5 494.5,-.5 445.5,-.5"/>
 <text text-anchor="middle" x="470" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LevMar</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" target="_top" xlink:title="generates deembedd s&#45;parameters from a netlist ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" target="_top" xlink:title="generates deembedd s&#45;parameters from a netlist ">
 <polygon fill="#ffffff" stroke="#000000" points="401.5,-76.5 401.5,-95.5 538.5,-95.5 538.5,-76.5 401.5,-76.5"/>
 <text text-anchor="middle" x="470" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeembedderNumericParser</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" target="_top" xlink:title="performs numeric simulations from netlists ">
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" target="_top" xlink:title="performs numeric simulations from netlists ">
 <polygon fill="#ffffff" stroke="#000000" points="408.5,-114.5 408.5,-133.5 531.5,-133.5 531.5,-114.5 408.5,-114.5"/>
 <text text-anchor="middle" x="470" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SimulatorNumericParser</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node4 -->
 <g id="node5" class="node">
 <title>Node4</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" target="_top" xlink:title="generates system s&#45;parameters from a netlist ">
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" target="_top" xlink:title="generates system s&#45;parameters from a netlist ">
 <polygon fill="#ffffff" stroke="#000000" points="398,-153 398,-183 542,-183 542,-153 398,-153"/>
 <text text-anchor="start" x="406" y="-171" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemSParametersNumeric</text>
 <text text-anchor="middle" x="470" y="-160" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Parser</text>
@@ -82,7 +82,7 @@
 <!-- Node5 -->
 <g id="node6" class="node">
 <title>Node5</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" target="_top" xlink:title="performs numeric virtual probing from netlists ">
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" target="_top" xlink:title="performs numeric virtual probing from netlists ">
 <polygon fill="#ffffff" stroke="#000000" points="402.5,-202.5 402.5,-221.5 537.5,-221.5 537.5,-202.5 402.5,-202.5"/>
 <text text-anchor="middle" x="470" y="-209.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">VirtualProbeNumericParser</text>
 </a>
@@ -97,7 +97,7 @@
 <!-- Node99 -->
 <g id="node7" class="node">
 <title>Node99</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" target="_top" xlink:title="process transfer matrices ">
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" target="_top" xlink:title="process transfer matrices ">
 <polygon fill="#ffffff" stroke="#000000" points="403,-38.5 403,-57.5 537,-57.5 537,-38.5 403,-38.5"/>
 <text text-anchor="middle" x="470" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TransferMatricesProcessor</text>
 </a>
@@ -112,7 +112,7 @@
 <!-- Node79 -->
 <g id="node8" class="node">
 <title>Node79</title>
-<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" target="_top" xlink:title="file handling base class for parsers ">
+<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" target="_top" xlink:title="file handling base class for parsers ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-133.5 0,-152.5 61,-152.5 61,-133.5 0,-133.5"/>
 <text text-anchor="middle" x="30.5" y="-140.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ParserFile</text>
 </a>
@@ -121,7 +121,7 @@
 <!-- Node80 -->
 <g id="node9" class="node">
 <title>Node80</title>
-<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" target="_top" xlink:title="Parses netlists and produces system descriptions. ">
+<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" target="_top" xlink:title="Parses netlists and produces system descriptions. ">
 <polygon fill="#ffffff" stroke="#000000" points="97,-133.5 97,-152.5 225,-152.5 225,-133.5 97,-133.5"/>
 <text text-anchor="middle" x="161" y="-140.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemDescriptionParser</text>
 </a>
@@ -142,7 +142,7 @@
 <!-- Node81 -->
 <g id="node10" class="node">
 <title>Node81</title>
-<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" target="_top" xlink:title="base class for netlist based deembedding solutions ">
+<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" target="_top" xlink:title="base class for netlist based deembedding solutions ">
 <polygon fill="#ffffff" stroke="#000000" points="261,-38.5 261,-57.5 362,-57.5 362,-38.5 261,-38.5"/>
 <text text-anchor="middle" x="311.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeembedderParser</text>
 </a>
@@ -157,7 +157,7 @@
 <!-- Node82 -->
 <g id="node11" class="node">
 <title>Node82</title>
-<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" target="_top" xlink:title="base class for netlist based simulation solutions ">
+<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" target="_top" xlink:title="base class for netlist based simulation solutions ">
 <polygon fill="#ffffff" stroke="#000000" points="268.5,-114.5 268.5,-133.5 354.5,-133.5 354.5,-114.5 268.5,-114.5"/>
 <text text-anchor="middle" x="311.5" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SimulatorParser</text>
 </a>
@@ -172,7 +172,7 @@
 <!-- Node83 -->
 <g id="node12" class="node">
 <title>Node83</title>
-<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" target="_top" xlink:title="base class for netlist based virtual probing solutions ">
+<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" target="_top" xlink:title="base class for netlist based virtual probing solutions ">
 <polygon fill="#ffffff" stroke="#000000" points="262.5,-228.5 262.5,-247.5 360.5,-247.5 360.5,-228.5 262.5,-228.5"/>
 <text text-anchor="middle" x="311.5" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">VirtualProbeParser</text>
 </a>
@@ -205,7 +205,7 @@
 <!-- Node0 -->
 <g id="node13" class="node">
 <title>Node0</title>
-<g id="a_node13"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching ">
+<g id="a_node13"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching ">
 <polygon fill="#ffffff" stroke="#000000" points="121.5,-190.5 121.5,-209.5 200.5,-209.5 200.5,-190.5 121.5,-190.5"/>
 <text text-anchor="middle" x="161" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ResultsCache</text>
 </a>
@@ -214,7 +214,7 @@
 <!-- Node1 -->
 <g id="node14" class="node">
 <title>Node1</title>
-<g id="a_node14"><a xlink:href="classSignalIntegrity_1_1ResultsCache_1_1LinesCache.xhtml" target="_top" xlink:title="Caches results calculated based on netlist lines, as used in all of the parser classes. ">
+<g id="a_node14"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" target="_top" xlink:title="Caches results calculated based on netlist lines, as used in all of the parser classes. ">
 <polygon fill="#ffffff" stroke="#000000" points="277.5,-190.5 277.5,-209.5 345.5,-209.5 345.5,-190.5 277.5,-190.5"/>
 <text text-anchor="middle" x="311.5" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LinesCache</text>
 </a>

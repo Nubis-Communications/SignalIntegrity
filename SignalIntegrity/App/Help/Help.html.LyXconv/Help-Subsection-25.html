@@ -1,0 +1,1269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2018-10-26"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<style type="text/css">
+/*
+*   eLyXer -- convert LyX source files to HTML output.
+*
+*   Copyright (C) 2009-2010 Alex Fernández
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see http://www.gnu.org/licenses/.
+*/
+/* --end--
+* Global CSS file for LyX documents.
+*/
+
+body {
+	font: 90% sans-serif;
+	background: #f9f9f9;
+	color: black;
+	margin: 0;
+	padding: 0;
+}
+
+#globalWrapper {
+	margin: 10px 5%;
+	padding: 20px;
+	background: #ffffff;
+	line-height: 1.5em;
+}
+
+/* Basic styles */
+a {
+	text-decoration: none;
+	background: none;
+}
+a:link {
+	color: #0030c0;
+}
+a:visited {
+	color: #603090;
+}
+a:active {
+	color: #ffa000;
+}
+a:hover {
+	text-decoration: underline;
+}
+h1 {
+	margin-top: 1em;
+	line-height: 1.5em;
+}
+h1.Part {
+	text-align: center;
+}
+h1.Part- {
+	text-align: center;
+}
+sup {
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-top;
+}
+sub {
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-bottom;
+}
+div.Standard {
+	margin: 1em 0;
+}
+div.Unindented {
+	margin: 0;
+}
+div.Indented {
+	text-indent: 30pt;
+	margin: 0;
+}
+div.Indented * {
+	text-indent: 0pt;
+}
+p.dir {
+	float: right;
+}
+p.printindex {
+	font-size: 0.90em;
+}
+a.printindex {
+	color: black;
+}
+table {
+	display: inline-table;
+	text-align: center;
+	border-collapse: collapse;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+tr.header {
+	border-bottom: thin solid #c0c0c0;
+	background: #ffffff;
+	font-weight: bold;
+}
+td {
+	padding: 1ex;
+	border: thin solid #f0f0f0;
+}
+td div.Standard {
+	margin: 0ex;
+	padding: 0ex;
+}
+div.caption div.Standard, div.table div.Standard {
+	margin: 0ex;
+	padding: 0ex;
+}
+td.numeric {
+	text-align: right;
+}
+td.empty {
+	text-align: center;
+}
+div.right {
+	text-align: right;
+}
+div.center {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+p.biblio {
+}
+div.Paragraph, div.Paragraph- {
+	font-weight: bold;
+	font-size: 103%;
+}
+span.versalitas, span.noun {
+	font-variant: small-caps;
+}
+span.sans {
+	font-family: sans-serif;
+}
+span.code {
+	font-family: monospace;
+}
+div.Plain {
+	display: inline;
+	width: auto;
+}
+h2 {
+	line-height: 1.4em;
+}
+span.Description-entry {
+	font-weight: bold;
+}
+span.List-entry {
+	display: inline-block;
+	width: 25%;
+	vertical-align: text-top;
+}
+span.List-contents {
+	display: inline-block;
+	width: 75%;
+	vertical-align: text-top;
+}
+div.Space {
+	display: none;
+}
+span.appendix {
+	display: none;
+}
+h1.biblio {
+}
+span.greyedout {
+	color: #808080;
+}
+div.Description, div.List, li {
+	margin: 1em 0;
+}
+li.nested {
+	list-style-type: none;
+}
+span.Info {
+	background: #f0f0f0;
+	border: thin solid #c0c0c0;
+}
+pre {
+	padding: 0em;
+	margin: 0em;
+	width: auto;
+	font-family: monospace;
+	line-height: 1.5em;
+}
+pre.LyX-Code {
+	margin: 0.5em 3em;
+}
+a.Label {
+	text-decoration: none;
+	color: #000000;
+}
+span.phantom {
+	color: #ffffff;
+}
+a.biblioentry {
+	color: black;
+}
+span.menuitem {
+	font-size: 105%;
+}
+span.normal {
+	font-style: normal;
+}
+div.PlainVisible {
+	width: auto;
+}
+div.indexgroup {
+	margin-left: 2em;
+}
+span.strong {
+	font-weight: bold;
+}
+
+/* Figures and Tables */
+img.embedded {
+	width: 100%;
+	_width: auto;
+}
+div.float {
+	margin-top: 1ex;
+	margin-bottom: 1ex;
+	text-align: center;
+}
+span.float {
+	margin-top: 1ex;
+	margin-bottom: 1ex;
+	text-align: center;
+}
+div.figure {
+	display: inline-block;
+	text-align: left;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.table {
+	display: inline-block;
+	text-align: left;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.algorithm {
+	display: inline-block;
+	text-align: left;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.caption {
+	text-align: center;
+	font-family: sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0.5ex;
+}
+img.figure {
+	width: 100%;
+	_width: auto;
+}
+div.multifigure {
+	padding: 1ex;
+	width: 100%;
+}
+div.multitable {
+	display: inline-block;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.multialgorithm {
+	display: inline-block;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.wrap-l, div.wrap-o, div.wrap-i {
+	margin: 2ex;
+	float: left;
+}
+div.wrap-r {
+	margin: 2ex;
+	float: right;
+}
+div.listing {
+	display: inline-block;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0.5ex;
+	border: thin solid #c0c0c0;
+}
+span.number-left {
+	float: left;
+	background: #f0f0f0;
+	width: 3em;
+	text-align: right;
+	margin-right: 1em;
+}
+span.number-right {
+	float: right;
+	background: #f0f0f0;
+	width: 3em;
+	text-align: right;
+	margin-left: 1em;
+}
+
+/* Header */
+h1.title {
+	text-align: center;
+}
+h2.author {
+	text-align: center;
+}
+h2.Date {
+	text-align: center;
+}
+div.abstract {
+	margin: 1em 3em;
+	text-align: left;
+	font-size: 0.95em;
+}
+p.abstract-message {
+	text-align: center;
+	font-weight: bold;
+}
+div.tocheader {
+	margin: 1em 0;
+	font-size: large;
+}
+a.toc {
+	color: black;
+}
+div.tocindent {
+	padding: 0 0 0 2em;
+}
+div.toc {
+	margin: 0.5em 0;
+	font-size: 0.95em;
+}
+div.fulltoc {
+	padding: 1em;
+}
+div.warning {
+	font-size: 120%;
+	color:#cc0000;
+}
+div.Institute {
+	text-align: center;
+}
+/*
+* Extras: colors, footnotes, boxes, spaces...
+*/
+
+/* Raw colors */
+span.red {
+	color: #c00000;
+}
+span.blue {
+	color: #0000c0;
+}
+span.green {
+	color: #00c000;
+}
+span.magenta {
+	color: #c000c0;
+}
+span.cyan {
+	color: #00c0c0;
+}
+span.yellow {
+	color: #c0c000;
+}
+span.white {
+	color: #ffffff;
+}
+
+/* Footnotes */
+span.SupFootMarker {
+	color: #0030c0;
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-top;
+}
+span.AlignFootMarker {
+	color: #0030c0;
+}
+div.EndFoot {
+	margin: 0.2ex;
+	background: #ffffff;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.MarginFoot {
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.HoverFoot {
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.FootOuter .HoverFoot {
+	display: none;
+	position: absolute;
+}
+span.FootOuter:hover .HoverFoot {
+	display: inline;
+	float: none;
+}
+span.Marginal {
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.Note {
+	display: none;
+}
+
+/* Boxes */
+div.framed {
+	outline-style: solid;
+}
+div.frameless {
+}
+div.Frameless {
+}
+div.Boxed {
+	outline-width: thin;
+	outline-style: solid;
+}
+div.Framed {
+	outline-width: thin;
+	outline-style: solid;
+	line-height: 200%;
+}
+div.Doublebox {
+	outline-style: double;
+}
+div.Shadowbox {
+	outline-style: outset;
+}
+div.Shaded {
+	outline-style: inset;
+}
+div.ovalbox {
+	outline-style: groove;
+}
+div.Ovalbox {
+	outline-style: ridge;
+}
+hr.line {
+	display: inline-block;
+}
+
+/* Spaces */
+span.hspace {
+	display: inline-block;
+}
+span.vspace {
+	display: inline-block;
+	vertical-align: text-top;
+}
+span.hfill {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	min-width: 20mm;
+	background: #fff0f0;
+}
+div.defskip {
+	display: block;
+	height: 1em;
+}
+div.smallskip {
+	display: block;
+	height: 0.5em;
+}
+div.medskip {
+	display: block;
+	height: 1em;
+}
+div.bigskip {
+	display: block;
+	height: 2em;
+}
+div.vfill {
+	display: block;
+	height: 30em;
+}
+
+/* Sizes */
+span.scriptstyle {
+	font-size: 0.75em;
+}
+span.scriptscriptstyle {
+	font-size: 0.60em;
+}
+
+/* Chunks */
+div.chunk {
+	width: auto;
+}
+span.chunkleft span.chunkright {
+	font-style: normal;
+}
+span.chunkdecl {
+	font-style: italic;
+	padding: 0em 2em;
+}
+span.chunkref {
+	font-style: italic;
+}
+
+/* Split Part Navigation */
+div.splitheader {
+	margin: 0em;
+	padding: 0.1em;
+	text-align: center;
+	background: #f9f9f9;
+	overflow: auto;
+}
+span.next {
+	float: right;
+	width: 30%;
+	text-align: right;
+}
+span.up {
+	display: inline-block;
+	width: 30%;
+	text-align: center;
+}
+span.prev {
+	float: left;
+	width: 30%;
+	text-align: left;
+}
+hr.footer {
+	margin-top: 2em;
+}
+div.footer {
+	font-size: 0.90em;
+	margin: 1em 0;
+}
+
+/* Change Tracking */
+span.inserted {
+	color: #0000ff;
+}
+span.deleted {
+	color: #ff0000;
+	text-decoration: line-through;
+}
+
+/* Google Charts */
+img.chart {
+	vertical-align: middle;
+}
+/* --end--
+* CSS file for LaTeX formulas.
+*/
+
+/* Formulas */
+.formula {
+	text-align: center;
+	font-family: "DejaVu Serif", serif;
+	margin: 1.2em 0;
+}
+span.formula {
+	white-space: nowrap;
+}
+div.formula {
+	padding: 0.5ex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Basic features */
+a.eqnumber {
+	display: inline-block;
+	float: right;
+	clear: right;
+	font-weight: bold;
+}
+span.unknown {
+	color: #800000;
+}
+span.ignored, span.arraydef {
+	display: none;
+}
+.formula i {
+	letter-spacing: 0.1ex;
+}
+
+/* Alignment */
+.align-left, .align-l {
+	text-align: left;
+}
+.align-right, .align-r {
+	text-align: right;
+}
+.align-center, .align-c {
+	text-align: center;
+}
+
+/* Structures */
+span.overline, span.bar {
+	text-decoration: overline;
+}
+.fraction, .fullfraction {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.fraction .fraction {
+	font-size: 80%;
+	line-height: 100%;
+}
+span.numerator {
+	display: block;
+}
+span.denominator {
+	display: block;
+	padding: 0ex;
+	border-top: thin solid;
+}
+sup.numerator, sup.unit {
+	font-size: 70%;
+	vertical-align: 80%;
+}
+sub.denominator, sub.unit {
+	font-size: 70%;
+	vertical-align: -20%;
+}
+span.sqrt {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0.1ex;
+}
+sup.root {
+	font-size: 70%;
+	position: relative;
+	left: 1.4ex;
+}
+span.radical {
+	display: inline-block;
+	padding: 0ex;
+	font-size: 150%;
+	vertical-align: top;
+}
+span.root {
+	display: inline-block;
+	border-top: thin solid;
+	padding: 0ex;
+	vertical-align: middle;
+}
+span.symbol {
+	font-size: 125%;
+}
+span.bigsymbol {
+	font-size: 150%;
+}
+span.largesymbol {
+	font-size: 175%;
+}
+span.hugesymbol {
+	font-size: 200%;
+}
+span.scripts {
+	display: inline-table;
+	vertical-align: middle;
+}
+.script {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+span.limits {
+	display: inline-table;
+	vertical-align: middle;
+}
+.limit {
+	display: table-row;
+	line-height: 95%;
+}
+sup.limit, sub.limit {
+	line-height: 150%;
+}
+span.symbolover {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 100%;
+	bottom: 0.5em;
+	width: 0px;
+}
+span.withsymbol {
+	display: inline-block;
+}
+span.symbolunder {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	float: right;
+	right: 80%;
+	top: 0.3em;
+	width: 0px;
+}
+
+/* Environments */
+span.array, span.bracketcases, span.binomial, span.environment {
+	display: inline-table;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0em;
+	vertical-align: middle;
+}
+span.arrayrow, span.binomrow {
+	display: table-row;
+	padding: 0ex;
+	border: 0ex;
+}
+span.arraycell, span.bracket, span.case, span.binomcell, span.environmentcell {
+	display: table-cell;
+	padding: 0ex 0.2ex;
+	line-height: 99%;
+	border: 0ex;
+}
+/*
+* CSS file for LaTeX formulas, extra stuff:
+* binomials, vertical braces, stackrel, fonts and colors.
+*/
+
+/* Inline binomials */
+span.binom {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 80%;
+}
+span.binomstack {
+	display: block;
+	padding: 0em;
+}
+
+/* Over- and underbraces */
+span.overbrace {
+	border-top: 2pt solid;
+}
+span.underbrace {
+	border-bottom: 2pt solid;
+}
+
+/* Stackrel */
+span.stackrel {
+	display: inline-block;
+	text-align: center;
+}
+span.upstackrel {
+	display: block;
+	padding: 0em;
+	font-size: 80%;
+	line-height: 64%;
+	position: relative;
+	top: 0.15em;
+
+}
+span.downstackrel {
+	display: block;
+	vertical-align: bottom;
+	padding: 0em;
+}
+
+/* Fonts */
+span.mathsf, span.textsf {
+	font-style: normal;
+	font-family: sans-serif;
+}
+span.mathrm, span.textrm {
+	font-style: normal;
+	font-family: serif;
+}
+span.text, span.textnormal {
+	font-style: normal;
+}
+span.textipa {
+	color: #008080;
+}
+span.fraktur {
+	font-family: "Lucida Blackletter", eufm10, blackletter;
+}
+span.blackboard {
+	font-family: Blackboard, msbm10, serif;
+}
+span.scriptfont {
+	font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
+	font-style: italic;
+}
+
+/* Colors */
+span.colorbox {
+	display: inline-block;
+	padding: 5px;
+}
+span.fbox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 2px;
+}
+span.boxed, span.framebox {
+	display: inline-block;
+	border: thin solid black;
+	padding: 5px;
+}
+
+/*
+* Obsolete definitions, kept for backwards compatibility.
+*/
+
+/* Footnotes */
+span.FootMarker {
+	color: #0030c0;
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-top;
+}
+span.Foot {
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.FootOuter .Foot {
+	display: none;
+	position: absolute;
+}
+span.FootOuter:hover .Foot {
+	display: inline;
+	float: none;
+}
+
+/* Dotted box */
+span.dotted {
+	border-top: thin dotted;
+}
+
+/* Obsolete aligned structures */
+span.numerator-l {
+	display: block;
+	text-align: left;
+}
+span.numerator-r {
+	display: block;
+	text-align: right;
+}
+span.numeratorl {
+	display: block;
+	text-align: left;
+}
+span.numeratorr {
+	display: block;
+	text-align: right;
+}
+span.framebox- {
+	display: inline-block;
+	border: thin solid black;
+	text-align: center;
+	padding: 5px;
+}
+span.framebox-l {
+	display: inline-block;
+	border: thin solid black;
+	text-align: left;
+	padding: 5px;
+}
+span.framebox-r {
+	display: inline-block;
+	border: thin solid black;
+	text-align: right;
+	padding: 5px;
+}
+td.formula-l {
+	text-align: left;
+	padding: 0.2ex;
+	border: 0ex;
+}
+td.formula-c {
+	text-align: center;
+	padding: 0.2ex;
+	border: 0ex;
+}
+td.formula-r {
+	text-align: right;
+	padding: 0.2ex;
+	border: 0ex;
+}
+
+/* Obsolete limits */
+sub.bigsymbol {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+sup.bigsymbol {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+
+/* Obsolete cases */
+table.cases {
+	display: inline-block;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0.2em;
+	border-left: thin solid;
+	vertical-align: middle;
+}
+table.cases tr td {
+	padding-left: 1ex;
+	padding-right: 1em;
+}
+
+/* Obsolete binomials */
+span.fullbinom {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+span.upbinom {
+	display: block;
+	padding: 0em;
+}
+span.downbinom {
+	display: block;
+	padding: 0em;
+}
+
+/* Obsolete environments */
+table.formula {
+	display: inline-block;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0em;
+	vertical-align: middle;
+}
+td.formula {
+	padding: 0.2ex;
+	border: 0ex;
+}
+table.environment {
+	display: inline-block;
+	text-align: right;
+	margin: 0;
+	vertical-align: middle;
+}
+table.environment tr td {
+	padding: 0 1em;
+}
+/*
+* CSS section for print.
+*/
+@media print {
+body {
+	font: 90% serif;
+	background: #ffffff;
+	color: black;
+	margin: 0;
+	padding: 0;
+}
+#globalWrapper {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: #ffffff;
+	line-height: 1.5em;
+}
+span.FootOuter .Foot {
+	display: block;
+	position: relative;
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.FootOuter .HoverFoot {
+	display: block;
+	position: relative;
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+a:visited {
+	color: #0030c0;
+}
+/* end of print CSS */
+}
+</style>
+<title>Help</title>
+</head>
+<body>
+<div id="globalWrapper">
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-24.html#next">Prev</a> Virtual Probing</span>
+<span class="up"><a class="up" name="up" href="Help-Section-8.html">Up</a> Virtual Probing</span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="Help-Section-9.html#prev">Next</a></span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-25"></a>Virtual Probing Example<a class="Label" name="sub:Virtual-Probing-Example"> </a>
+</h2>
+<div class="Standard">
+In this example, we are not going to explain how to draw the entire example in the schematic editor. Many of the other examples step you through this process. We will examine a canned example found in the folder ./Examples/VirtualProbingExample/VirtualProbeExample.xml.
+</div>
+<div class="Standard">
+When we open this example using <a class="Reference" href="Help-Subsubsection-17.html#Control-Help:Open-Project">Open Project↓</a>, we see the following:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExample.png" alt="figure VirtualProbingExample.png" style="max-width: 706px; max-height: 505px;"/>
+
+</div>
+<div class="Standard">
+This example demonstrates many possible examples of virtual probing simultaneously. The top network containing inductors, a capacitor and a resistor is a <i>probe loading model</i>. This is a circuit which describes the effect that a probe has when inserted into a system. These models are generally published by manufacturers of high-frequency probes used for oscilloscopes. The probe loading model shown is for a single-ended probe.
+</div>
+<div class="Standard">
+The circuit beneath the probe loading model is the circuit being measured. Ignoring the stimuli for the moment, this circuit is for a 50 Ω differential source driving a differential transmission line represented by a four-port s-parameter <a class="Reference" href="Help-Subsection-38.html#sub:File-1">File↓</a> device. The s-parameters are contained in the file Sparq_demo_16.s4p. Notice that the probe loading model is connected to the circuit at the input termination.
+</div>
+<div class="Standard">
+The final circuit at the bottom is an exact duplicate of the previously described circuit section except that it does not have the probe loading model connected.
+</div>
+<div class="Standard">
+In the probe loading model section where the probe is connected to the circuit, we have a <a class="Reference" href="Help-Subsection-62.html#sub:Measure-Probe">Voltage Measure Probe↓</a> device (see <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↑</a> for more information). The measure probe is shows an input file name of VirtualProbingExampleSimulation_Vprobe.txt which is presumably a <a class="Reference" href="Help-Section-15.html#sec:Waveform">Waveform↓</a> file containing a waveform measured (by, for example an oscilloscope) while probing a circuit like the middle circuit section. In fact, in this contrived example, it is the output waveform of a SignalIntegrityApp <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> simulated under exactly these conditions.
+</div>
+<div class="Standard">
+Invoke <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> with the measure probe selected and press view to view the waveform in the <a class="Reference" href="Help-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeVprobeWaveform.png" alt="figure VirtualProbeVprobeWaveform.png" style="max-width: 623px; max-height: 565px;"/>
+
+</div>
+<div class="Standard">
+Throughout the rest of the schematic, we see various <a class="Reference" href="Help-Subsection-63.html#sub:Output-Probe">Voltage Output Probe↓</a> devices (see <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a> for more information). I will talk about these in a bit, but for now notice one interesting thing about the output probes named Voutloaded and Vout. These are in between two back-to-back <a class="Reference" href="Help-Subsection-48.html#sub:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a> devices. These devices placed back-to-pack expose the plus and minus terminals of a single-ended line on each side and the differential- and common-mode lines in the middle. These devices connected in this arrangement have no effect on the circuit (the two plus pins or the two minus pins could even be shorted together if you wanted). Thus, these output probes are probing the differential output at the output termination.
+</div>
+<div class="Standard">
+Note that these output probes have keyword/values of td -1.43ns and gain 0.5. The gain is the gain applied to the output waveform. Since the input waveform is a single-ended measurement it is half the size of the differential waveform. We want to see relative changes is size, so we put the differential waveforms on the same relative scale as the single-ended waveforms. The time delay of -1.43 ns is to account for the delay through the channel. This was estimated by examining the s-parameters of the file Sparq_demo_16.s4p. You can do that by selecting the four-port file<a class="Reference" href="Help-Subsection-38.html#sub:File-1">File↓</a> device, double-clicking on it to invoke <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Edit-Properties">Edit Properties↓</a> and then pressing view to invoke the <a class="Reference" href="Help-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
+</div>
+<div class="Standard">
+Selecting S31, we have:
+</div>
+<div class="Standard">
+<img class="embedded" src="SparqDemo16S31.png" alt="figure SparqDemo16S31.png" style="max-width: 1033px; max-height: 727px;"/>
+
+</div>
+<div class="Standard">
+and by selecting S41, we have:
+</div>
+<div class="Standard">
+<img class="embedded" src="SparqDemo16S32.png" alt="figure SparqDemo16S32.png" style="max-width: 1033px; max-height: 727px;"/>
+
+</div>
+<div class="Standard">
+Since there are multiple spikes in the impulse response, the differential time delay through the channels is roughly the time of the positive going spike in the S31 that goes with the negative going spike in the S32.
+</div>
+<div class="Standard">
+Regarding the <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a>, we see four dependent stimuli and one independent stimuli. The dependent stimuli are connected to the pin of each <a class="Reference" href="Help-Subsection-44.html#sub:Ground">Ground↓</a> device representing the transmitters (remember, a voltage source looks like a short with waves emanating from it). These grounds are connected through a small piece of wire to the pins of 50 Ω resistors. (see <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for why this small piece of wire is necessary). A <a class="Reference" href="Help-Subsection-64.html#sub:Stim">Stim↓</a> is connected with the arrow touching each pin of the grounds, meaning the stimulus emanates from the grounds.
+</div>
+<div class="Standard">
+An independent stimulus is all the way to the left with wires connecting the arrow tip of the independent stimulus to the back of each of the stims. This means that the other stimuli depend on this stimulus. Note that in each of the circuit sections, the weights of the two bottom stims are -1.0 (the others are 1.0 and not shown). This means that the top stim in each circuit is the same as the independent stimulus and the bottom stim in each circuit is the negative of the independent stimulus. What we are saying here is that the waves emanating from the differential transmitters are balanced. See <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for a discussion of this topic.
+</div>
+<div class="Standard">
+Now that we understand all of the interconnections, let’s understand what is the intent of this system.
+</div>
+<div class="Standard">
+We are providing a measured waveform Vprobe, and have output probes called:
+</div>
+<ul>
+<li>
+Vmeas - the measured input waveform at the transmitter. This waveform can be considered as the input waveform to the backplane with the probe loading the circuit.
+</li>
+<li>
+Voutloaded - the waveform at the receiver to be produced by Virtual Probing. This waveform is the output waveform with the probe loading the circuit.
+</li>
+<li>
+Vin - the waveform at the transmitter in the bottom circuit to be produced by Virtual Probing. This waveform is the input waveform to the circuit if the probe were not loading the circuit.
+</li>
+<li>
+Vout - the waveform at the receiver to be produced by Virtual Probing. This waveform is the output waveform without the probe loading the circuit.
+</li>
+
+</ul>
+<div class="Standard">
+Virtual Probe is being asked to provide these waveforms given a single, single-ended measurement at the transmitter.
+</div>
+<div class="Standard">
+So the problem being solved is three-fold:
+</div>
+<ul>
+<li>
+Voutloaded provides for a measurement in a different circuit location (the receiver) given a measurement taken at the transmitter.
+</li>
+<li>
+Vin provides for a measurement in the same system with the probe loading effects removed. In other words, it provides what the measurement would be were the probe perfect. In a sense, it is a deembedding of the loading effects of the probe.
+</li>
+<li>
+Vout provides for a measurement of the output waveform from a system, without the probe loading the system. This measurement is usually the actual goal. Note that this could be used for compliance testing of systems without having the actual backplane - and in fact could be used for monte-carlo testing of compliance if run with many different backplanes whose existance is virtual - in the form of s-parameter files. (These backplanes might not even exist and might be the product of other signal integrity analysis tools). All we would need to get right for this compliance testing would be a model of the probe and probing structure connected to the transmitter.
+</li>
+
+</ul>
+<div class="Standard">
+The first measurement we will take will be to see the effect of the probe loading in the measurement of the input waveform. So, select the two output probes at the output and move them off their connection points as shown.
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExampleProbeLoadingEffect.png" alt="figure VirtualProbingExampleProbeLoadingEffect.png" style="max-width: 706px; max-height: 505px;"/>
+
+</div>
+<div class="Standard">
+Before creating the output waveforms, you need to check that the calculation properties are appropriate. See <a class="Reference" href="Help-Subsection-23.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↑</a> for more information. Here we use the following settings:
+</div>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png" style="max-width: 292px; max-height: 187px;"/>
+
+</div>
+<div class="Standard">
+Invoke  <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-54.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeProbeLoadingWaveforms.png" alt="figure VirtualProbeProbeLoadingWaveforms.png" style="max-width: 623px; max-height: 565px;"/>
+
+</div>
+<div class="Standard">
+Amazingly, the new input waveform without the probe loading effects looks much better.
+</div>
+<div class="Standard">
+It’s always a good idea to invoke <a class="Reference" href="Help-Subsubsection-14.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> to view the transfer parameters in the <a class="Reference" href="Help-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>. Selecting Vin due to Vprobe, we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeProbeLoadingTransferParameters.png" alt="figure VirtualProbeProbeLoadingTransferParameters.png" style="max-width: 1033px; max-height: 669px;"/>
+
+</div>
+<div class="Standard">
+This is the filter that was created to convert the probed waveform to the waveform that would be present without the probe loading effects. Here we see a resonance at around 1 GHz accounting for a resonant cavity in the probes response (this would not be a great probe in real life). We see this resonance in the impulse and step response and fortunately it dies down before 10 ns, so the calculation settings are okay for this situation.
+</div>
+<div class="Standard">
+Now let’s go back to the schematic and view the output waveform. Disconnect the Vin output probe and connect the Voutloaded output probe like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExampleProbingAtDifferentPoint.png" alt="figure VirtualProbingExampleProbingAtDifferentPoint.png" style="max-width: 706px; max-height: 505px;"/>
+
+</div>
+<div class="Standard">
+Invoke  <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-54.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbingExampleProbingAtDifferentPointWaveforms.png" alt="figure VirtualProbingExampleProbingAtDifferentPointWaveforms.png" style="max-width: 623px; max-height: 565px;"/>
+
+</div>
+<div class="Standard">
+Note that because we applied the -1.43 ns delay and the half gain, they resemble each other. This is an example of using virtual probing to simply probe at a different location in the circuit than is actually being probed.
+</div>
+<div class="Standard">
+This portion of the example does not give us what we really want. We want to see what the output waveform would be were the probe not loading the system. For this, we go back to the schematic, and disconnect the two output probes at the input and connect the output probes at the output, like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeOutputsOnly.png" alt="figure VirtualProbeOutputsOnly.png" style="max-width: 706px; max-height: 505px;"/>
+
+</div>
+<div class="Standard">
+Invoke  <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-54.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeOutputsOnlyWaveforms.png" alt="figure VirtualProbeOutputsOnlyWaveforms.png" style="max-width: 623px; max-height: 565px;"/>
+
+</div>
+<div class="Standard">
+Here we see a not so negligible difference between the output waveforms with and without the probe loading accounted for.
+</div>
+<div class="Standard">
+Here, we were able to probe at the input and produce an output waveform at the receiver that is independent of the probe effects. In fact, if we simply probe the transmitter driving a known termination with known probe effects, we could have gotten this same result. Furthermore, we’d be able to replace the four-port backplane with varieties of corner cases to test compliance, for example.
+</div>
+<div class="Standard">
+Invoke <a class="Reference" href="Help-Subsubsection-14.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> to view the transfer parameters in the <a class="Reference" href="Help-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>. Selecting Vout due to Vprobe, we see:
+</div>
+<div class="Standard">
+<img class="embedded" src="VirtualProbeOutputsOnlyTransferParameters.png" alt="figure VirtualProbeOutputsOnlyTransferParameters.png" style="max-width: 1033px; max-height: 669px;"/>
+
+</div>
+<div class="Standard">
+In the end, you can connect all of the output probes and run the calculation and save all of the waveforms by invoking <a class="Reference" href="Help-Subsubsection-11.html#Control-Help:Save-Waveforms">Save Waveforms↓</a> from the <a class="Reference" href="Help-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a> and save all of the transfer parameters by invoking <a class="Reference" href="Help-Subsubsection-2.html#Control-Help:Save-S-parameter-File">Save S-parameter File↓</a> in the <a class="Reference" href="Help-Section-9.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>. Note that the transfer parameters will be an .s4p file with only S11, S21, S31, and S41 defined according to the ordering of the transfer parameters shown.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-24.html#next">Prev</a> Virtual Probing</span>
+<span class="up"><a class="up" name="up" href="Help-Section-8.html">Up</a> Virtual Probing</span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="Help-Section-9.html#prev">Next</a></span>
+</div>
+
+</div>
+</body>
+</html>

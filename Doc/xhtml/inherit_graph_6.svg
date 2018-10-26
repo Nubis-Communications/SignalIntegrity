@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml" target="_top" xlink:title="device class factory that produces devices ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml" target="_top" xlink:title="device class factory that produces devices ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-19.5 80,-19.5 80,-.5 0,-.5"/>
 <text text-anchor="middle" x="40" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeviceFactory</text>
 </a>

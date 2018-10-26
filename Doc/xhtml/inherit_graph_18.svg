@@ -12,7 +12,7 @@
 <!-- Node48 -->
 <g id="node1" class="node">
 <title>Node48</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" target="_top" xlink:title="Class for manipulations on s&#45;parameters involving passivity, causality, etc. ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" target="_top" xlink:title="Class for manipulations on s&#45;parameters involving passivity, causality, etc. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-418.5 0,-437.5 123,-437.5 123,-418.5 0,-418.5"/>
 <text text-anchor="middle" x="61.5" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SParameterManipulation</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node49 -->
 <g id="node2" class="node">
 <title>Node49</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" target="_top" xlink:title="Class containing s&#45;parameters. ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" target="_top" xlink:title="Class containing s&#45;parameters. ">
 <polygon fill="#ffffff" stroke="#000000" points="180,-418.5 180,-437.5 254,-437.5 254,-418.5 180,-418.5"/>
 <text text-anchor="middle" x="217" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SParameters</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node50 -->
 <g id="node3" class="node">
 <title>Node50</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1ImpedanceProfile_1_1PeeledLaunches_1_1PeeledLaunches.xhtml" target="_top" xlink:title="S&#45;parameters with launches peeled from them. ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledLaunches_1_1PeeledLaunches.xhtml" target="_top" xlink:title="S&#45;parameters with launches peeled from them. ">
 <polygon fill="#ffffff" stroke="#000000" points="351.5,-532.5 351.5,-551.5 440.5,-551.5 440.5,-532.5 351.5,-532.5"/>
 <text text-anchor="middle" x="396" y="-539.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PeeledLaunches</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node51 -->
 <g id="node4" class="node">
 <title>Node51</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml" target="_top" xlink:title="s&#45;parameters of peeled impedance profile from port calculates the impedance profile looking into a po...">
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml" target="_top" xlink:title="s&#45;parameters of peeled impedance profile from port calculates the impedance profile looking into a po...">
 <polygon fill="#ffffff" stroke="#000000" points="335,-494.5 335,-513.5 457,-513.5 457,-494.5 335,-494.5"/>
 <text text-anchor="middle" x="396" y="-501.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PeeledPortSParameters</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node52 -->
 <g id="node5" class="node">
 <title>Node52</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1LoadStandard_1_1LoadStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a load standard as commonly defined for a calibration kit...">
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1LoadStandard_1_1LoadStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a load standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="357.5,-456.5 357.5,-475.5 434.5,-475.5 434.5,-456.5 357.5,-456.5"/>
 <text text-anchor="middle" x="396" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LoadStandard</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node53 -->
 <g id="node6" class="node">
 <title>Node53</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml" target="_top" xlink:title="class providing the s&#45;parameters of an offset portion of the various calibration standards for a cali...">
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml" target="_top" xlink:title="class providing the s&#45;parameters of an offset portion of the various calibration standards for a cali...">
 <polygon fill="#ffffff" stroke="#000000" points="374,-418.5 374,-437.5 418,-437.5 418,-418.5 374,-418.5"/>
 <text text-anchor="middle" x="396" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Offset</text>
 </a>
@@ -96,7 +96,7 @@
 <!-- Node55 -->
 <g id="node8" class="node">
 <title>Node55</title>
-<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard.xhtml" target="_top" xlink:title="class providing the s&#45;parameters of an open standard as commonly defined for a calibration kit...">
+<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard.xhtml" target="_top" xlink:title="class providing the s&#45;parameters of an open standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="356.5,-380.5 356.5,-399.5 435.5,-399.5 435.5,-380.5 356.5,-380.5"/>
 <text text-anchor="middle" x="396" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">OpenStandard</text>
 </a>
@@ -111,7 +111,7 @@
 <!-- Node56 -->
 <g id="node9" class="node">
 <title>Node56</title>
-<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1ShortStandard_1_1ShortStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a short standard as commonly defined for a calibration kit...">
+<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ShortStandard_1_1ShortStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a short standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="356.5,-342.5 356.5,-361.5 435.5,-361.5 435.5,-342.5 356.5,-342.5"/>
 <text text-anchor="middle" x="396" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ShortStandard</text>
 </a>
@@ -126,7 +126,7 @@
 <!-- Node1 -->
 <g id="node10" class="node">
 <title>Node1</title>
-<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial.xhtml" target="_top" xlink:title="Class for capacitive terminations for open calibration standards. ">
+<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial.xhtml" target="_top" xlink:title="Class for capacitive terminations for open calibration standards. ">
 <polygon fill="#ffffff" stroke="#000000" points="334.5,-798.5 334.5,-817.5 457.5,-817.5 457.5,-798.5 334.5,-798.5"/>
 <text text-anchor="middle" x="396" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationCPolynomial</text>
 </a>
@@ -141,7 +141,7 @@
 <!-- Node2 -->
 <g id="node11" class="node">
 <title>Node2</title>
-<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationLPolynomial.xhtml" target="_top" xlink:title="Class for inductive terminations for short calibration standards. ">
+<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationLPolynomial.xhtml" target="_top" xlink:title="Class for inductive terminations for short calibration standards. ">
 <polygon fill="#ffffff" stroke="#000000" points="335.5,-836.5 335.5,-855.5 456.5,-855.5 456.5,-836.5 335.5,-836.5"/>
 <text text-anchor="middle" x="396" y="-843.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationLPolynomial</text>
 </a>
@@ -156,7 +156,7 @@
 <!-- Node57 -->
 <g id="node12" class="node">
 <title>Node57</title>
-<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1MixedModeTline_1_1MixedModeTLine.xhtml" target="_top" xlink:title="s&#45;parameters of a mixed&#45;mode, balanced transmission line ">
+<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1MixedModeTline_1_1MixedModeTLine.xhtml" target="_top" xlink:title="s&#45;parameters of a mixed&#45;mode, balanced transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="350.5,-304.5 350.5,-323.5 441.5,-323.5 441.5,-304.5 350.5,-304.5"/>
 <text text-anchor="middle" x="396" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">MixedModeTLine</text>
 </a>
@@ -171,7 +171,7 @@
 <!-- Node58 -->
 <g id="node13" class="node">
 <title>Node58</title>
-<g id="a_node13"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1Mutual_1_1Mutual.xhtml" target="_top" xlink:title="s&#45;parameters of a mutual inductance ">
+<g id="a_node13"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Mutual_1_1Mutual.xhtml" target="_top" xlink:title="s&#45;parameters of a mutual inductance ">
 <polygon fill="#ffffff" stroke="#000000" points="373,-266.5 373,-285.5 419,-285.5 419,-266.5 373,-266.5"/>
 <text text-anchor="middle" x="396" y="-273.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Mutual</text>
 </a>
@@ -186,7 +186,7 @@
 <!-- Node59 -->
 <g id="node14" class="node">
 <title>Node59</title>
-<g id="a_node14"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1SeriesC_1_1SeriesC.xhtml" target="_top" xlink:title="s&#45;parameters of a series capacitance ">
+<g id="a_node14"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesC_1_1SeriesC.xhtml" target="_top" xlink:title="s&#45;parameters of a series capacitance ">
 <polygon fill="#ffffff" stroke="#000000" points="370,-228.5 370,-247.5 422,-247.5 422,-228.5 370,-228.5"/>
 <text text-anchor="middle" x="396" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SeriesC</text>
 </a>
@@ -201,7 +201,7 @@
 <!-- Node60 -->
 <g id="node15" class="node">
 <title>Node60</title>
-<g id="a_node15"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1SeriesL_1_1SeriesL.xhtml" target="_top" xlink:title="s&#45;parameters of a series inductance ">
+<g id="a_node15"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesL_1_1SeriesL.xhtml" target="_top" xlink:title="s&#45;parameters of a series inductance ">
 <polygon fill="#ffffff" stroke="#000000" points="371,-190.5 371,-209.5 421,-209.5 421,-190.5 371,-190.5"/>
 <text text-anchor="middle" x="396" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SeriesL</text>
 </a>
@@ -216,7 +216,7 @@
 <!-- Node61 -->
 <g id="node16" class="node">
 <title>Node61</title>
-<g id="a_node16"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1SeriesRse_1_1SeriesRse.xhtml" target="_top" xlink:title="s&#45;parameters of series skin&#45;effect Resistance ">
+<g id="a_node16"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesRse_1_1SeriesRse.xhtml" target="_top" xlink:title="s&#45;parameters of series skin&#45;effect Resistance ">
 <polygon fill="#ffffff" stroke="#000000" points="365,-152.5 365,-171.5 427,-171.5 427,-152.5 365,-152.5"/>
 <text text-anchor="middle" x="396" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SeriesRse</text>
 </a>
@@ -231,7 +231,7 @@
 <!-- Node62 -->
 <g id="node17" class="node">
 <title>Node62</title>
-<g id="a_node17"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationC_1_1TerminationC.xhtml" target="_top" xlink:title="s&#45;parameters of a termination (one&#45;port) capacitance ">
+<g id="a_node17"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TerminationC_1_1TerminationC.xhtml" target="_top" xlink:title="s&#45;parameters of a termination (one&#45;port) capacitance ">
 <polygon fill="#ffffff" stroke="#000000" points="358.5,-114.5 358.5,-133.5 433.5,-133.5 433.5,-114.5 358.5,-114.5"/>
 <text text-anchor="middle" x="396" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationC</text>
 </a>
@@ -246,7 +246,7 @@
 <!-- Node63 -->
 <g id="node18" class="node">
 <title>Node63</title>
-<g id="a_node18"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL.xhtml" target="_top" xlink:title="s&#45;parameters of a termination (one&#45;port) inductance ">
+<g id="a_node18"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL.xhtml" target="_top" xlink:title="s&#45;parameters of a termination (one&#45;port) inductance ">
 <polygon fill="#ffffff" stroke="#000000" points="359.5,-76.5 359.5,-95.5 432.5,-95.5 432.5,-76.5 359.5,-76.5"/>
 <text text-anchor="middle" x="396" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationL</text>
 </a>
@@ -261,7 +261,7 @@
 <!-- Node64 -->
 <g id="node19" class="node">
 <title>Node64</title>
-<g id="a_node19"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGC_1_1TLineDifferentialRLGC.xhtml" target="_top" xlink:title="s&#45;parameters of differential RLGC (telegrapher&#39;s) transmission line ">
+<g id="a_node19"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGC_1_1TLineDifferentialRLGC.xhtml" target="_top" xlink:title="s&#45;parameters of differential RLGC (telegrapher&#39;s) transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="338,-38.5 338,-57.5 454,-57.5 454,-38.5 338,-38.5"/>
 <text text-anchor="middle" x="396" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGC</text>
 </a>
@@ -276,7 +276,7 @@
 <!-- Node65 -->
 <g id="node20" class="node">
 <title>Node65</title>
-<g id="a_node20"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml" target="_top" xlink:title="s&#45;parameters of differential RLGC (telegrapher&#39;s) transmission line calculated by approximating distr...">
+<g id="a_node20"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml" target="_top" xlink:title="s&#45;parameters of differential RLGC (telegrapher&#39;s) transmission line calculated by approximating distr...">
 <polygon fill="#ffffff" stroke="#000000" points="311,-.5 311,-19.5 481,-19.5 481,-.5 311,-.5"/>
 <text text-anchor="middle" x="396" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGCApproximate</text>
 </a>
@@ -291,7 +291,7 @@
 <!-- Node66 -->
 <g id="node21" class="node">
 <title>Node66</title>
-<g id="a_node21"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCBalanced_1_1TLineDifferentialRLGCBalanced.xhtml" target="_top" xlink:title="s&#45;parameters of analytic balanced differential RLGC (telegrapher&#39;s) transmission line. ">
+<g id="a_node21"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCBalanced_1_1TLineDifferentialRLGCBalanced.xhtml" target="_top" xlink:title="s&#45;parameters of analytic balanced differential RLGC (telegrapher&#39;s) transmission line. ">
 <polygon fill="#ffffff" stroke="#000000" points="318,-760.5 318,-779.5 474,-779.5 474,-760.5 318,-760.5"/>
 <text text-anchor="middle" x="396" y="-767.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGCBalanced</text>
 </a>
@@ -306,7 +306,7 @@
 <!-- Node67 -->
 <g id="node22" class="node">
 <title>Node67</title>
-<g id="a_node22"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled.xhtml" target="_top" xlink:title="s&#45;parameters of analytic uncoupled differential RLGC (telegrapher&#39;s) transmission line...">
+<g id="a_node22"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled.xhtml" target="_top" xlink:title="s&#45;parameters of analytic uncoupled differential RLGC (telegrapher&#39;s) transmission line...">
 <polygon fill="#ffffff" stroke="#000000" points="315,-722.5 315,-741.5 477,-741.5 477,-722.5 315,-722.5"/>
 <text text-anchor="middle" x="396" y="-729.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGCUncoupled</text>
 </a>
@@ -321,7 +321,7 @@
 <!-- Node68 -->
 <g id="node23" class="node">
 <title>Node68</title>
-<g id="a_node23"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless.xhtml" target="_top" xlink:title="s&#45;parameters of ideal lossless single&#45;ended transmission line ">
+<g id="a_node23"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless.xhtml" target="_top" xlink:title="s&#45;parameters of ideal lossless single&#45;ended transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="356,-684.5 356,-703.5 436,-703.5 436,-684.5 356,-684.5"/>
 <text text-anchor="middle" x="396" y="-691.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineLossless</text>
 </a>
@@ -336,7 +336,7 @@
 <!-- Node69 -->
 <g id="node24" class="node">
 <title>Node69</title>
-<g id="a_node24"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml" target="_top" xlink:title="s&#45;parameters of single&#45;ended RLGC (telegraphers) transmission line ">
+<g id="a_node24"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml" target="_top" xlink:title="s&#45;parameters of single&#45;ended RLGC (telegraphers) transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="343.5,-646.5 343.5,-665.5 448.5,-665.5 448.5,-646.5 343.5,-646.5"/>
 <text text-anchor="middle" x="396" y="-653.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineTwoPortRLGC</text>
 </a>
@@ -351,7 +351,7 @@
 <!-- Node70 -->
 <g id="node25" class="node">
 <title>Node70</title>
-<g id="a_node25"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml" target="_top" xlink:title="s&#45;parameters of analytic single&#45;ended telegraphers transmission line ">
+<g id="a_node25"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml" target="_top" xlink:title="s&#45;parameters of analytic single&#45;ended telegraphers transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="326,-608.5 326,-627.5 466,-627.5 466,-608.5 326,-608.5"/>
 <text text-anchor="middle" x="396" y="-615.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineTwoPortRLGCAnalytic</text>
 </a>
@@ -366,7 +366,7 @@
 <!-- Node71 -->
 <g id="node26" class="node">
 <title>Node71</title>
-<g id="a_node26"><a xlink:href="classSignalIntegrity_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml" target="_top" xlink:title="class for s&#45;parameters read from a file ">
+<g id="a_node26"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml" target="_top" xlink:title="class for s&#45;parameters read from a file ">
 <polygon fill="#ffffff" stroke="#000000" points="354,-570.5 354,-589.5 438,-589.5 438,-570.5 354,-570.5"/>
 <text text-anchor="middle" x="396" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SParameterFile</text>
 </a>
@@ -381,7 +381,7 @@
 <!-- Node54 -->
 <g id="node7" class="node">
 <title>Node54</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a thru standard as commonly defined for a calibration kit...">
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a thru standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="517,-418.5 517,-437.5 592,-437.5 592,-418.5 517,-418.5"/>
 <text text-anchor="middle" x="554.5" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ThruStandard</text>
 </a>
@@ -396,7 +396,7 @@
 <!-- Node0 -->
 <g id="node27" class="node">
 <title>Node0</title>
-<g id="a_node27"><a xlink:href="classSignalIntegrity_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationPolynomial.xhtml" target="_top" xlink:title="Base class for terminations for calibration standards. ">
+<g id="a_node27"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationPolynomial.xhtml" target="_top" xlink:title="Base class for terminations for calibration standards. ">
 <polygon fill="#ffffff" stroke="#000000" points="159,-817.5 159,-836.5 275,-836.5 275,-817.5 159,-817.5"/>
 <text text-anchor="middle" x="217" y="-824.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationPolynomial</text>
 </a>

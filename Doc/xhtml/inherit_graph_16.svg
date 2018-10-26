@@ -12,7 +12,7 @@
 <!-- Node46 -->
 <g id="node1" class="node">
 <title>Node46</title>
-<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" target="_top" xlink:title="base class for all symbolic solutions. ">
+<g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" target="_top" xlink:title="base class for all symbolic solutions. ">
 <polygon fill="#ffffff" stroke="#000000" points="161,-133.5 161,-152.5 218,-152.5 218,-133.5 161,-133.5"/>
 <text text-anchor="middle" x="189.5" y="-140.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Symbolic</text>
 </a>
@@ -21,7 +21,7 @@
 <!-- Node4 -->
 <g id="node2" class="node">
 <title>Node4</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" target="_top" xlink:title="Produces symbolic solutions to deembedding problems. ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" target="_top" xlink:title="Produces symbolic solutions to deembedding problems. ">
 <polygon fill="#ffffff" stroke="#000000" points="476.5,-190.5 476.5,-209.5 589.5,-209.5 589.5,-190.5 476.5,-190.5"/>
 <text text-anchor="middle" x="533" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeembedderSymbolic</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node11 -->
 <g id="node3" class="node">
 <title>Node11</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" target="_top" xlink:title="Solves system descriptions in the most basic manner common to all of the simulation, system s&#45;parameters, deembedding and virtual probing applications. ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" target="_top" xlink:title="Solves system descriptions in the most basic manner common to all of the simulation, system s&#45;parameters, deembedding and virtual probing applications. ">
 <polygon fill="#ffffff" stroke="#000000" points="281,-114.5 281,-133.5 421,-133.5 421,-114.5 281,-114.5"/>
 <text text-anchor="middle" x="351" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemDescriptionSymbolic</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node12 -->
 <g id="node4" class="node">
 <title>Node12</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" target="_top" xlink:title="Class for solving symbolically the s&#45;parameters of interconnected systems. ">
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" target="_top" xlink:title="Class for solving symbolically the s&#45;parameters of interconnected systems. ">
 <polygon fill="#ffffff" stroke="#000000" points="459,-114.5 459,-133.5 607,-133.5 607,-114.5 459,-114.5"/>
 <text text-anchor="middle" x="533" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemSParametersSymbolic</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node13 -->
 <g id="node5" class="node">
 <title>Node13</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" target="_top" xlink:title="class for producing symbolic solutions to simulation problems. ">
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" target="_top" xlink:title="class for producing symbolic solutions to simulation problems. ">
 <polygon fill="#ffffff" stroke="#000000" points="649,-104.5 649,-123.5 747,-123.5 747,-104.5 649,-104.5"/>
 <text text-anchor="middle" x="698" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SimulatorSymbolic</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node14 -->
 <g id="node6" class="node">
 <title>Node14</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" target="_top" xlink:title="Class that provides symbolic solutions to virtual probe problems. ">
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" target="_top" xlink:title="Class that provides symbolic solutions to virtual probe problems. ">
 <polygon fill="#ffffff" stroke="#000000" points="643,-57.5 643,-76.5 753,-76.5 753,-57.5 643,-57.5"/>
 <text text-anchor="middle" x="698" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">VirtualProbeSymbolic</text>
 </a>
@@ -96,7 +96,7 @@
 <!-- Node0 -->
 <g id="node7" class="node">
 <title>Node0</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" target="_top" xlink:title="Allows the construction of system descriptions for use with all of the classes that solve schematics ...">
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" target="_top" xlink:title="Allows the construction of system descriptions for use with all of the classes that solve schematics ...">
 <polygon fill="#ffffff" stroke="#000000" points="0,-95.5 0,-114.5 100,-114.5 100,-95.5 0,-95.5"/>
 <text text-anchor="middle" x="50" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemDescription</text>
 </a>
@@ -105,7 +105,7 @@
 <!-- Node1 -->
 <g id="node8" class="node">
 <title>Node1</title>
-<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" target="_top" xlink:title="base class for housekeeping involving system s&#45;parameters calculations ">
+<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" target="_top" xlink:title="base class for housekeeping involving system s&#45;parameters calculations ">
 <polygon fill="#ffffff" stroke="#000000" points="136,-95.5 136,-114.5 243,-114.5 243,-95.5 136,-95.5"/>
 <text text-anchor="middle" x="189.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemSParameters</text>
 </a>
@@ -126,7 +126,7 @@
 <!-- Node2 -->
 <g id="node9" class="node">
 <title>Node2</title>
-<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml" target="_top" xlink:title="housekeeping base class for deembedders ">
+<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml" target="_top" xlink:title="housekeeping base class for deembedders ">
 <polygon fill="#ffffff" stroke="#000000" points="315,-152.5 315,-171.5 387,-171.5 387,-152.5 315,-152.5"/>
 <text text-anchor="middle" x="351" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Deembedder</text>
 </a>
@@ -141,7 +141,7 @@
 <!-- Node5 -->
 <g id="node11" class="node">
 <title>Node5</title>
-<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" target="_top" xlink:title="Base class for dealing with housekeeping for simulations. ">
+<g id="a_node11"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" target="_top" xlink:title="Base class for dealing with housekeeping for simulations. ">
 <polygon fill="#ffffff" stroke="#000000" points="322,-76.5 322,-95.5 380,-95.5 380,-76.5 322,-76.5"/>
 <text text-anchor="middle" x="351" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Simulator</text>
 </a>
@@ -156,7 +156,7 @@
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
-<g id="a_node15"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" target="_top" xlink:title="Class for computing s&#45;parameters of interconnected systems. ">
+<g id="a_node15"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" target="_top" xlink:title="Class for computing s&#45;parameters of interconnected systems. ">
 <polygon fill="#ffffff" stroke="#000000" points="279,-38.5 279,-57.5 423,-57.5 423,-38.5 279,-38.5"/>
 <text text-anchor="middle" x="351" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SystemSParametersNumeric</text>
 </a>
@@ -177,7 +177,7 @@
 <!-- Node3 -->
 <g id="node10" class="node">
 <title>Node3</title>
-<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" target="_top" xlink:title="Performs numerical device deembedding. ">
+<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" target="_top" xlink:title="Performs numerical device deembedding. ">
 <polygon fill="#ffffff" stroke="#000000" points="478.5,-152.5 478.5,-171.5 587.5,-171.5 587.5,-152.5 478.5,-152.5"/>
 <text text-anchor="middle" x="533" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">DeembedderNumeric</text>
 </a>
@@ -198,7 +198,7 @@
 <!-- Node6 -->
 <g id="node12" class="node">
 <title>Node6</title>
-<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1SimulatorNumeric_1_1SimulatorNumeric.xhtml" target="_top" xlink:title="class for performing numeric simulations ">
+<g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorNumeric_1_1SimulatorNumeric.xhtml" target="_top" xlink:title="class for performing numeric simulations ">
 <polygon fill="#ffffff" stroke="#000000" points="485.5,-38.5 485.5,-57.5 580.5,-57.5 580.5,-38.5 485.5,-38.5"/>
 <text text-anchor="middle" x="533" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SimulatorNumeric</text>
 </a>
@@ -213,7 +213,7 @@
 <!-- Node8 -->
 <g id="node13" class="node">
 <title>Node8</title>
-<g id="a_node13"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml" target="_top" xlink:title="Base class for virtual probing. ">
+<g id="a_node13"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml" target="_top" xlink:title="Base class for virtual probing. ">
 <polygon fill="#ffffff" stroke="#000000" points="498,-.5 498,-19.5 568,-19.5 568,-.5 498,-.5"/>
 <text text-anchor="middle" x="533" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">VirtualProbe</text>
 </a>
@@ -234,7 +234,7 @@
 <!-- Node9 -->
 <g id="node14" class="node">
 <title>Node9</title>
-<g id="a_node14"><a xlink:href="classSignalIntegrity_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" target="_top" xlink:title="class for performing virtual probing numerically. ">
+<g id="a_node14"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" target="_top" xlink:title="class for performing virtual probing numerically. ">
 <polygon fill="#ffffff" stroke="#000000" points="644.5,-.5 644.5,-19.5 751.5,-19.5 751.5,-.5 644.5,-.5"/>
 <text text-anchor="middle" x="698" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">VirtualProbeNumeric</text>
 </a>
