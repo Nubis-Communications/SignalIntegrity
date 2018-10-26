@@ -5,13 +5,13 @@ setup.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -35,15 +35,15 @@ with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "rb") as f:
 
 install_requires=['setuptools>=24.2.0','pip>=9.0.0','numpy>=1.13.0','matplotlib>=2.2.3','urllib3>=1.22.0']
 
-pathToIcons='PySIApp/icons/png'
+pathToIcons='SignalIntegrity/App/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
-pathToHelp='http://teledynelecroy.github.io/PySI/PySIApp/Help/PySIHelp.html.LyXconv/PySIHelp-Section-1.html#toc-Section-1'
+pathToHelp='http://teledynelecroy.github.io/SignalIntegrity/Help/PySIHelp.html.LyXconv/PySIHelp-Section-1.html#toc-Section-1'
 
 with open(os.path.join(base_dir, "README.md"), "rb") as f:
     readmeFile=f.read()
 
 setup(
-    name='PySI',
+    name=__project__,
     version=__version__,
     license=__license__,
     description=__description__,
@@ -79,7 +79,7 @@ setup(
     python_requires='>=2.7.11,<3',
     entry_points={
       'console_scripts': [
-          'PySI = PySIApp.PySIApp:main']},
+          'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main']},
     long_description=readmeFile,
     long_description_content_type="text/markdown",
     classifiers=[

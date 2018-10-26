@@ -1,0 +1,38 @@
+device L1 2 L 4.4e-07
+device C1 1 C 0.0004
+device R1 1 R 0.207
+device D1 4 currentcontrolledvoltagesource 1.0
+device G1 1 ground
+device O1 1 open
+voltagesource VS1 1
+device R3 2 R 0.01
+device O5 1 open
+device D2 4 voltagecontrolledvoltagesource 1.0
+device G2 1 ground
+currentsource CG1 1
+device D3 4 currentcontrolledvoltagesource 1.0
+device G3 1 ground
+device O4 1 open
+device D4 4 currentcontrolledvoltagesource 1.0
+device G4 1 ground
+device O2 1 open
+connect D1 2 L1 1
+connect L1 2 R3 1
+connect C1 1 D4 2
+connect R1 1 D3 2 CG1 1
+output VS1 1
+connect VS1 1 D1 1 D2 2
+connect D1 3 G1 1
+output D1 4
+connect D1 4 O1 1
+output O5 1
+connect O5 1 D2 4
+output D3 1
+connect D3 1 D2 1 D4 1 R3 2
+connect D2 3 G2 1
+connect G3 1 D3 3
+output O4 1
+connect O4 1 D3 4
+connect D4 3 G4 1
+output O2 1
+connect O2 1 D4 4

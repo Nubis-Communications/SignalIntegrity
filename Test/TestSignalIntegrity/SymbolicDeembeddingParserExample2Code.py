@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 dp=si.p.DeembedderParser()
 dp.AddLines(['device L 2','unknown U 2','device R 2',

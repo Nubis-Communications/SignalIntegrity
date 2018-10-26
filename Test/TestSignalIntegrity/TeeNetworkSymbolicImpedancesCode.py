@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 sdp=si.p.SystemDescriptionParser()
 sdp.AddLines(['device Sl 2','device Sr 2','device Sm 2',

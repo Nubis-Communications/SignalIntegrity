@@ -1,2 +1,2 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 

@@ -24,8 +24,7 @@ class DeviceFactory(list):
                         if not any(ports == int(acceptablePort)
                                    for acceptablePort in acceptablePorts):
                             continue
-            if device.devicename != name:
-                    continue
+            if device.devicename != name: continue
             # this is the device, try to make it
             if device.arginname:
                 if len(argsList) > 0:

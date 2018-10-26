@@ -5,20 +5,20 @@ TestOysterTwoPort.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import os
 
 from numpy import matrix,mean
@@ -36,7 +36,7 @@ import math
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
 class TestOysterTest(unittest.TestCase,
-        si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
+        si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -52,7 +52,7 @@ class TestOysterTest(unittest.TestCase,
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestOysterTest, 'simdict'):
@@ -315,10 +315,10 @@ class TestOysterTest(unittest.TestCase,
         DUTActualSp=self.SParameterResultsChecker('OysterDut.xml')[0]
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
-        si.test.PySIAppTestHelper.plotErrors=False
+        si.test.SignalIntegrityAppTestHelper.plotErrors=False
 
         if True:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -388,10 +388,10 @@ class TestOysterTest(unittest.TestCase,
  
         SpAreEqual=self.SParametersAreEqual(DUTCalcNewSp, DUTActualSp,1e-2)
  
-        si.test.PySIAppTestHelper.plotErrors=False
+        si.test.SignalIntegrityAppTestHelper.plotErrors=False
  
         if True:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -457,10 +457,10 @@ class TestOysterTest(unittest.TestCase,
 
         SpAreEqual=self.SParametersAreEqual(DUTCalcNewerSp, DUTActualSp,1e-2)
 
-        si.test.PySIAppTestHelper.plotErrors=False
+        si.test.SignalIntegrityAppTestHelper.plotErrors=False
 
         if True:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -544,9 +544,9 @@ class TestOysterTest(unittest.TestCase,
         DUTCalcNewerSp=cm.DutCalculation(sp)
         self.SParameterRegressionChecker(DUTCalcNewerSp, self.NameForTest()+'_'+wfName+'Calc.s1p')
 
-        si.test.PySIAppTestHelper.plotErrors=False
+        si.test.SignalIntegrityAppTestHelper.plotErrors=False
 
-        if si.test.PySIAppTestHelper.plotErrors:
+        if si.test.SignalIntegrityAppTestHelper.plotErrors:
             import matplotlib.pyplot as plt
             for r in range(DUTCalcNewerSp.m_P):
                 for c in range(DUTCalcNewerSp.m_P):
@@ -668,9 +668,9 @@ class TestOysterTest(unittest.TestCase,
         DUTCalcNewerSp=cm.DutCalculation(sp)
         self.SParameterRegressionChecker(DUTCalcNewerSp, self.NameForTest()+'_'+wfName+'Calc.s2p')
 
-        si.test.PySIAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
 
-        if si.test.PySIAppTestHelper.plotErrors:
+        if si.test.SignalIntegrityAppTestHelper.plotErrors:
             import matplotlib.pyplot as plt
             for r in range(DUTCalcNewerSp.m_P):
                 for c in range(DUTCalcNewerSp.m_P):
@@ -714,9 +714,9 @@ class TestOysterTest(unittest.TestCase,
 
             res[n]=cm.DutCalculation(sp)
 
-        si.test.PySIAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
 
-        if si.test.PySIAppTestHelper.plotErrors:
+        if si.test.SignalIntegrityAppTestHelper.plotErrors:
             import matplotlib.pyplot as plt
             for r in range(DUTCalcNewerSp.m_P):
                 for c in range(DUTCalcNewerSp.m_P):
@@ -797,10 +797,10 @@ class TestOysterTest(unittest.TestCase,
         DUTActualSp=si.sp.dev.TLineLossless(f,2,50.,0.)
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
-        si.test.PySIAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -854,9 +854,9 @@ class TestOysterTest(unittest.TestCase,
             result=pysi.Deembed()
             res[n]=result[1][0]
 
-        si.test.PySIAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
 
-        if si.test.PySIAppTestHelper.plotErrors:
+        if si.test.SignalIntegrityAppTestHelper.plotErrors:
             import matplotlib.pyplot as plt
             for r in range(res[0].m_P):
                 for c in range(res[0].m_P):

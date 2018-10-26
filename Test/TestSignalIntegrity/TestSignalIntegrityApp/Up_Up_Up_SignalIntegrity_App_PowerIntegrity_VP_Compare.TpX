@@ -1,0 +1,65 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="8" y="-20" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">7.25,-17.5 8.75,-17.5</polyline>
+%  <polyline lc="black">8,-16.75 8,-18.25</polyline>
+%  <polyline lc="black">7.25,-22.5 8.75,-22.5</polyline>
+%  <polyline lc="black">8,-24 8,-28</polyline>
+%  <polygon fill="black">5.5,-28 10.5,-28 8,-30.5 5.5,-28</polygon>
+%  <polyline lc="black">8,-12 8,-16</polyline>
+%  <text x="14" y="-20" t="Il_calc" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">9,-7 7,-9</polyline>
+%  <polyline lc="black">9,-9 7,-7</polyline>
+%  <polyline lc="black">8,-12 8,-8</polyline>
+%  <polyline lw="3" lc="black">12,-8 10,-10</polyline>
+%  <polyline lc="black">10,-10 8,-12</polyline>
+%  <text x="12" y="-8" t="Il_calc" h="3" halign="l" lc="black"/>
+%  <ellipse x="28" y="-20" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">27.25,-17.5 28.75,-17.5</polyline>
+%  <polyline lc="black">28,-16.75 28,-18.25</polyline>
+%  <polyline lc="black">27.25,-22.5 28.75,-22.5</polyline>
+%  <polyline lc="black">28,-24 28,-28</polyline>
+%  <polygon fill="black">25.5,-28 30.5,-28 28,-30.5 25.5,-28</polygon>
+%  <polyline lc="black">28,-12 28,-16</polyline>
+%  <text x="34" y="-20" t="Il_meas" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">29,-7 27,-9</polyline>
+%  <polyline lc="black">29,-9 27,-7</polyline>
+%  <polyline lc="black">28,-12 28,-8</polyline>
+%  <polyline lw="3" lc="black">32,-8 30,-10</polyline>
+%  <polyline lc="black">30,-10 28,-12</polyline>
+%  <text x="32" y="-8" t="Il_meas" h="3" halign="l" lc="black"/>
+%  <ellipse x="8" y="-12" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="28" y="-12" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (8,-20) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (7.25,-17.5) -- (8.75,-17.5);
+\path[line width=0.30mm, draw=black] (8,-16.75) -- (8,-18.25);
+\path[line width=0.30mm, draw=black] (7.25,-22.5) -- (8.75,-22.5);
+\path[line width=0.30mm, draw=black] (8,-24) -- (8,-28);
+\path[line width=0.30mm, fill=black] (5.5,-28) -- (10.5,-28) -- (8,-30.5) -- (5.5,-28) -- cycle;
+\path[line width=0.30mm, draw=black] (8,-12) -- (8,-16);
+\draw[black] (14,-20) node[anchor=base west]{Il\textunderscore calc};
+\path[line width=0.30mm, draw=black] (9,-7) -- (7,-9);
+\path[line width=0.30mm, draw=black] (9,-9) -- (7,-7);
+\path[line width=0.30mm, draw=black] (8,-12) -- (8,-8);
+\path[line width=0.9mm, draw=black] (12,-8) -- (10,-10);
+\path[line width=0.30mm, draw=black] (10,-10) -- (8,-12);
+\draw[black] (12,-8) node[anchor=base west]{Il\textunderscore calc};
+\path[line width=0.30mm, draw=black] (28,-20) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (27.25,-17.5) -- (28.75,-17.5);
+\path[line width=0.30mm, draw=black] (28,-16.75) -- (28,-18.25);
+\path[line width=0.30mm, draw=black] (27.25,-22.5) -- (28.75,-22.5);
+\path[line width=0.30mm, draw=black] (28,-24) -- (28,-28);
+\path[line width=0.30mm, fill=black] (25.5,-28) -- (30.5,-28) -- (28,-30.5) -- (25.5,-28) -- cycle;
+\path[line width=0.30mm, draw=black] (28,-12) -- (28,-16);
+\draw[black] (34,-20) node[anchor=base west]{Il\textunderscore meas};
+\path[line width=0.30mm, draw=black] (29,-7) -- (27,-9);
+\path[line width=0.30mm, draw=black] (29,-9) -- (27,-7);
+\path[line width=0.30mm, draw=black] (28,-12) -- (28,-8);
+\path[line width=0.9mm, draw=black] (32,-8) -- (30,-10);
+\path[line width=0.30mm, draw=black] (30,-10) -- (28,-12);
+\draw[black] (32,-8) node[anchor=base west]{Il\textunderscore meas};
+\path[line width=0.30mm, draw=black, fill=black] (8,-12) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (28,-12) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

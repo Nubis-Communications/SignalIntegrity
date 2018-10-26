@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 from numpy import array
 D=si.sd.SystemDescription()

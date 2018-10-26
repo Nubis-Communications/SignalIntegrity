@@ -5,13 +5,13 @@ TestDeviceParser.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -21,7 +21,7 @@ TestDeviceParser.py
 import unittest
 
 import os
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -52,7 +52,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testFile(self):
         self.Tester(self.id(),'file',2,default='filter.s2p')
     def testFileNotFound(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'file',2,default='filterNonExistent.s2p')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTerminationC(self):
@@ -60,11 +60,11 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testSeriesC(self):
         self.Tester(self.id(),'C',2,default='100e-12')
     def testSeriesCExtraArguments(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'C',2,default='100e-12',extra='whattheheck')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCWrongPorts(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'c',3,default='100e-12')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTerminationL(self):
@@ -72,7 +72,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testSeriesL(self):
         self.Tester(self.id(),'L',2,default='100e-9')
     def testLWrongPorts(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'L',3,default='100e-9')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTerminationR(self):
@@ -80,7 +80,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testSeriesR(self):
         self.Tester(self.id(),'R',2,default='50.')
     def testRWrongPorts(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'R',3,default='50.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testShunt2(self):
@@ -90,7 +90,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testShunt4(self):
         self.Tester(self.id(),'shunt',4,default='100.')
     def testShunt5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'shunt',5,default='100.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testMutual(self):
@@ -98,13 +98,13 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testGround(self):
         self.Tester(self.id(),'ground',1)
     def testGroundWrongPorts(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'ground',2)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testOpen(self):
         self.Tester(self.id(),'open',1)
     def testThruWrongPorts(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'thru',1)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testThru(self):
@@ -132,243 +132,243 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
     def testIdealTransformerTurnsRatio(self):
         self.Tester(self.id(),'idealtransformer',4,default='2')
     def testVoltageControlledVoltageSourceNoGain(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltagecontrolledvoltagesource',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageControlledVoltageSourceGainDefault(self):
         self.Tester(self.id(),'voltagecontrolledvoltagesource',4,default='1.')
     def testVoltageControlledCurrentSourceNoGain(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltagecontrolledcurrentsource',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageControlledCurrentSourceGainDefault(self):
         self.Tester(self.id(),'voltagecontrolledcurrentsource',4,default='1.')
     def testCurrentControlledCurrentSourceNoGain(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentcontrolledcurrentsource',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentControlledCurrentSourceGainDefault(self):
         self.Tester(self.id(),'currentcontrolledcurrentsource',4,default='1.')
     def testCurrentControlledVoltageSourceNoGain(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentcontrolledvoltagesource',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentControlledVoltageSourceGainDefault(self):
         self.Tester(self.id(),'currentcontrolledvoltagesource',4,default='1.')
     def testVoltageAmplifierNoGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',1)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGainDefault1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',1,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',1,gain='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierNoGain2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',2)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGainDefault2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',2,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGain2(self):
         self.Tester(self.id(),'voltageamplifier',2,gain='1.')
     def testVoltageAmplifierNoGain3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',3)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGainDefault3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',3,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGain3(self):
         self.Tester(self.id(),'voltageamplifier',3,gain='1.')
     def testVoltageAmplifierNoGain4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGainDefault4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',4,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGain4(self):
         self.Tester(self.id(),'voltageamplifier',4,gain='1.')
     def testVoltageAmplifierNoGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',5)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGainDefault5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',5,default='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testVoltageAmplifierGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'voltageamplifier',5,gain='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierNoGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',1)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGainDefault1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',1,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',1,gain='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierNoGain2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',2)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGainDefault2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',2,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGain2(self):
         self.Tester(self.id(),'currentamplifier',2,gain='1.')
     def testCurrentAmplifierNoGain3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',3)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGainDefault3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',3,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGain3(self):
         self.Tester(self.id(),'currentamplifier',3,gain='1.')
     def testCurrentAmplifierNoGain4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGainDefault4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',4,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGain4(self):
         self.Tester(self.id(),'currentamplifier',4,gain='1.')
     def testCurrentAmplifierNoGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',5)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGainDefault5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',5,default='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testCurrentAmplifierGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'currentamplifier',5,gain='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierNoGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',1)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGainDefault1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',1,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',1,gain='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierNoGain2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',2)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGainDefault2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',2,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGain2(self):
         self.Tester(self.id(),'transresistanceamplifier',2,gain='1.')
     def testTransresistanceAmplifierNoGain3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',3)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGainDefault3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',3,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGain3(self):
         self.Tester(self.id(),'transresistanceamplifier',3,gain='1.')
     def testTransresistanceAmplifierNoGain4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGainDefault4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',4,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGain4(self):
         self.Tester(self.id(),'transresistanceamplifier',4,gain='1.')
     def testTransresistanceAmplifierNoGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',5)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGainDefault5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',5,default='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransresistanceAmplifierGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transresistanceamplifier',5,gain='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierNoGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',1)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGainDefault1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',1,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGain1(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',1,gain='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierNoGain2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',2)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGainDefault2(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',2,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGain2(self):
         self.Tester(self.id(),'transconductanceamplifier',2,gain='1.')
     def testTransconductanceAmplifierNoGain3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',3)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGainDefault3(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',3,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGain3(self):
         self.Tester(self.id(),'transconductanceamplifier',3,gain='1.')
     def testTransconductanceAmplifierNoGain4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',4)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGainDefault4(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',4,default='1.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGain4(self):
         self.Tester(self.id(),'transconductanceamplifier',4,gain='1.')
     def testTransconductanceAmplifierNoGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',5)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGainDefault5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',5,default='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTransconductanceAmplifierGain5(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'transconductanceamplifier',5,gain='5.')
         self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTline2Default(self):

@@ -5,27 +5,29 @@ TestSPARQSOLT.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import os
 
 import matplotlib.pyplot as plt
 
 from numpy import matrix
 
-class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
+class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
+                    si.test.SignalIntegrityAppTestHelper,
+                    si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -33,7 +35,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Py
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -435,7 +437,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Py
         SpAreEqual=self.SParametersAreEqual(sp, regression,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1453,12 +1455,12 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Py
         sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
         self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
     def testWriteErrorTermsCodeCalibration(self):
-        fileName="../../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
         defName=['ReflectCalibration','ThruCalibration','ExCalibration','TransferThruCalibration']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteErrorTermsCodeDut(self):
-        fileName="../../SignalIntegrity/Measurement/Calibration/ErrorTerms.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
         defName=['DutCalculation','DutCalculationAlternate','Fixture']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
@@ -1857,7 +1859,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Py
         self.SParameterRegressionChecker(calkit.loadStandard, self.NameForTest()+'_LoadStandard.s1p')
         self.SParameterRegressionChecker(calkit.thruStandard, self.NameForTest()+'_ThruStandard.s2p')
     def testWriteCalibrationKitCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/CalibrationKit.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/CalibrationKit.py"
         className='CalibrationKit'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -1865,34 +1867,34 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Py
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteCalibrationConstantsCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/CalibrationKit.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/CalibrationKit.py"
         className='CalibrationConstants'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
         defName=['ReadFromFile']
         self.WriteClassCode(fileName,className,defName)
     def testWriteOffsetCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/Standards/Offset.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/Offset.py"
         className='Offset'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
     def testWriteThruStandardCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/Standards/ThruStandard.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/ThruStandard.py"
         className='ThruStandard'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
     def testWriteShortStandardCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/Standards/ShortStandard.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/ShortStandard.py"
         className='ShortStandard'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
     def testWriteOpenStandardCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/Standards/OpenStandard.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/OpenStandard.py"
         className='OpenStandard'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
     def testWriteLoadStandardCode(self):
-        fileName="../../SignalIntegrity/Measurement/CalKit/Standards/LoadStandard.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/LoadStandard.py"
         className='LoadStandard'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
@@ -2098,7 +2100,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Py
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testWriteCalibrationCode(self):
-        fileName="../../SignalIntegrity/Measurement/Calibration/Calibration.py"
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/Calibration.py"
         className='Calibration'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)

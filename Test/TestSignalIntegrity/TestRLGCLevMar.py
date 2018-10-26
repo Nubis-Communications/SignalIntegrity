@@ -5,30 +5,30 @@ TestRLGCLevMar.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import math
 import cmath
 import os
 from numpy import matrix
 
-class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper,si.test.SParameterCompareHelper):
+class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper,si.test.SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -114,7 +114,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.Routine
         SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,0.15)
         self.SParameterRegressionChecker(fitsp, '_'.join(self.id().split('.')[-2:])+'.s2p')
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -162,7 +162,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.Routine
             self.m_fitter.ccm.PlotConvergence()
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -300,17 +300,17 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.Routine
         (Rx,Rsex,Lx)=(matrix([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList]).getI()*matrix([[z] for z in Z])).tolist()
         print(Rx[0].real,Rsex[0].real,Lx[0].real)
     def testWriteRLGCfFCode(self):
-        fileName="../../SignalIntegrity/Fit/RLGC.py"
+        fileName="../../SignalIntegrity/Lib/Fit/RLGC.py"
         className='RLGCFitter'
         defName=['__init__','fF']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteRLGCfJCode(self):
-        fileName="../../SignalIntegrity/Fit/RLGC.py"
+        fileName="../../SignalIntegrity/Lib/Fit/RLGC.py"
         className='RLGCFitter'
         defName=['fJ']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteLevMarInit(self):
-        fileName="../../SignalIntegrity/Fit/LevMar.py"
+        fileName="../../SignalIntegrity/Lib/Fit/LevMar.py"
         className='LevMar'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -320,7 +320,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.Routine
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteLevMarSolve(self):
-        fileName="../../SignalIntegrity/Fit/LevMar.py"
+        fileName="../../SignalIntegrity/Lib/Fit/LevMar.py"
         className='LevMar'
         defName=['Solve','Iterate']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
@@ -395,11 +395,11 @@ class TestRLGCLevMar(unittest.TestCase,si.test.PySIAppTestHelper,si.test.Routine
         #si.test.PlotTikZ('ConverganceDeltas.tex',plt)
         #plt.show()
 
-        si.test.PySIAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
         SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,0.15)
         self.SParameterRegressionChecker(fitsp, '_'.join(self.id().split('.')[-2:])+'.s2p')
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')

@@ -8,7 +8,7 @@ class LevMar(CallBacker):
         self.ccm=FitConvergenceMgr()
         CallBacker.__init__(self,callback)
     def fF(self,a):
-        raise PySIExceptionFitter('fF must be overloaded')
+        raise SignalIntegrityExceptionFitter('fF must be overloaded')
     def fPartialFPartiala(self,a,m,Fa=None):
         aplusDeltaa = copy.copy(a)
         aplusDeltaa[m][0]=a[m][0]+self.m_epsilon

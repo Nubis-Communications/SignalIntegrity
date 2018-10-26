@@ -5,20 +5,20 @@ TestSPARQFourPortScaled.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 import os
 
@@ -37,7 +37,8 @@ import math
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
 class TestSPARQFourPortScaledTest(unittest.TestCase,
-        si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
+        si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper,
+        si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -53,7 +54,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQFourPortScaledTest, 'simdict'):
@@ -188,7 +189,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -345,7 +346,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -494,7 +495,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -662,7 +663,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -830,7 +831,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1032,7 +1033,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1145,7 +1146,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1269,7 +1270,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1445,7 +1446,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1586,7 +1587,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1720,7 +1721,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -1873,7 +1874,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors and False:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors and False:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -2013,7 +2014,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -2047,14 +2048,14 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            from PySIApp.PySIAppHeadless import PySIAppHeadless
-            pysi=PySIAppHeadless()
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            pysi=SignalIntegrityAppHeadless()
             filename='TDRSimulationFourPort'+reflectName+'Scaled.xml'
             self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
 
             #change gains of probes to unity
             for device in pysi.Drawing.schematic.deviceList:
-                from PySIApp.Device import DeviceOutput
+                from SignalIntegrity.App.Device import DeviceOutput
                 if isinstance(device,DeviceOutput):
                     for prop in device.propertiesList:
                         if prop.keyword=='gain':
@@ -2074,13 +2075,13 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     filename='TDRSimulationFourPortThru'+simulationName+'Scaled.xml'
-                    from PySIApp.PySIAppHeadless import PySIAppHeadless
-                    pysi=PySIAppHeadless()
+                    from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+                    pysi=SignalIntegrityAppHeadless()
                     self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
 
                     #change gains of probes to unity
                     for device in pysi.Drawing.schematic.deviceList:
-                        from PySIApp.Device import DeviceOutput
+                        from SignalIntegrity.App.Device import DeviceOutput
                         if isinstance(device,DeviceOutput):
                             for prop in device.propertiesList:
                                 if prop.keyword=='gain':
@@ -2094,13 +2095,13 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
             filename='TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml'
-            from PySIApp.PySIAppHeadless import PySIAppHeadless
-            pysi=PySIAppHeadless()
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            pysi=SignalIntegrityAppHeadless()
             self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
 
             #change gains of probes to unity
             for device in pysi.Drawing.schematic.deviceList:
-                from PySIApp.Device import DeviceOutput
+                from SignalIntegrity.App.Device import DeviceOutput
                 if isinstance(device,DeviceOutput):
                     for prop in device.propertiesList:
                         if prop.keyword=='gain':
@@ -2194,7 +2195,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -2325,7 +2326,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-4)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -2464,7 +2465,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -2614,7 +2615,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')

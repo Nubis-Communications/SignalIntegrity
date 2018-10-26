@@ -5,25 +5,26 @@ TestSPARQFourPort.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import os
 
 from numpy import matrix
 
-class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.test.PySIAppTestHelper,si.test.RoutineWriterTesterHelper):
+class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
+                        si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
@@ -32,7 +33,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.tes
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
-        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -54,7 +55,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.tes
         return '_'.join(self.id().split('.')[-2:])
     def testResampleCheby(self):
         return
-        sp=si.sp.SParameterFile('../PySIApp/Examples/SParameterExample/Sparq_demo_16.s4p')
+        sp=si.sp.SParameterFile('../../App/Examples/SParameterExample/Sparq_demo_16.s4p')
         sp=si.sp.SParameterFile('FourPortDut20.s4p')
         spresampled=si.sp.SParameters([f/4 for f in sp.f().Frequencies()],[d for d in sp])
         spresampled.WriteToFile('FourPortDUT.s4p')
@@ -175,7 +176,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.tes
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
 
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -311,7 +312,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.tes
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s4p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
         if not SpAreEqual:
-            if si.test.PySIAppTestHelper.plotErrors:
+            if si.test.SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
                 plt.title('s-parameter compare')
@@ -326,7 +327,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.tes
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-4),'s-parameters not equal')
     def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):
-        fileName='../../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
+        fileName='../../SignalIntegrity/Lib/Measurement/TDR/TDRWaveformToSParameterConverter.py'
         className='TDRWaveformToSParameterConverter'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -336,7 +337,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,si.tes
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTDRWaveformToSParameterConverterClassCodeConvert(self):
-        fileName='../../SignalIntegrity/Measurement/TDR/TDRWaveformToSParameterConverter.py'
+        fileName='../../SignalIntegrity/Lib/Measurement/TDR/TDRWaveformToSParameterConverter.py'
         className='TDRWaveformToSParameterConverter'
         defName=['Convert']
         self.WriteClassCode(fileName,className,defName)

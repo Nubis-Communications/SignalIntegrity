@@ -5,20 +5,20 @@ TestSimulator.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import numpy as np
 import os
 
@@ -113,17 +113,17 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
     def testSymbolicSimulatorExample1aCode(self):
         self.WriteCode('TestSimulator.py','testSymbolicSimulatorExample1a(self)',self.standardHeader)
     def testWriteSimulator_Basic(self):
-        fileName="../../SignalIntegrity/SystemDescriptions/Simulator.py"
+        fileName="../../SignalIntegrity/Lib/SystemDescriptions/Simulator.py"
         className='Simulator'
         defName=['__init__','pOutputList','AddVoltageSource','AddCurrentSource']
         self.WriteClassCode(fileName,className,defName)
     def testWriteSimulator_Other(self):
-        fileName="../../SignalIntegrity/SystemDescriptions/Simulator.py"
+        fileName="../../SignalIntegrity/Lib/SystemDescriptions/Simulator.py"
         className='Simulator'
         defName=['SourceVector','SourceToStimsPrimeMatrix','StimsPrime','SIPrime','VoltageExtractionMatrix']
         self.WriteClassCode(fileName,className,defName)
     def testWriteTransferMatrices_Basic(self):
-        fileName="../../SignalIntegrity/FrequencyDomain/TransferMatrices.py"
+        fileName="../../SignalIntegrity/Lib/FrequencyDomain/TransferMatrices.py"
         className='TransferMatrices'
         defName=['SParameters','__init__']
         self.WriteClassCode(fileName,className,defName)
@@ -1132,7 +1132,7 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         snp=si.p.SimulatorNumericParser(f,callback=self.CallbackTester)
         snp.AddLines(['voltagesource VG1 1','device R1 1 R 50.0','device C1 2 C 1e-12',
                       'connect C1 1 VG1 1','output R1 1','connect R1 1 C1 2'])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             tm=snp.TransferMatrices()
         self.assertEqual(cm.exception.parameter,'Simulator')
         self.assertTrue(self.CheckCallbackTesterResults([3,0.,10.]),'simulator transfer matrix processing abort callback incorrect')
@@ -1157,7 +1157,7 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         self.InitCallbackTester(abortOn=1)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(HO,Kw,Fs))
         tmp=si.td.f.TransferMatricesProcessor(tm,callback=self.CallbackTester)
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             srs=tmp.ProcessWaveforms([stepin])
         self.assertFalse(cm.exception == 1.343)
         self.assertEqual(cm.exception,'Simulator')       

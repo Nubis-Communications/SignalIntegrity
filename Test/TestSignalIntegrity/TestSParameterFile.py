@@ -5,20 +5,20 @@ TestSParameterFile.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import math
 import os
 
@@ -186,7 +186,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         try:
             sf=si.sp.SParameterFile('TestDutcmp.s4p',50.)
-        except si.PySIException as e:
+        except si.SignalIntegrityException as e:
             if e.parameter == 'SParameterFile':
                 return
         self.fail(self.id()+'result not same')
@@ -567,7 +567,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         parser=si.p.SystemSParametersNumericParser(freq,callback=self.CallbackTester)
         parser.AddLine('device D1 2 file cable.s2p')
         parser.AddLine('port 1 D1 1 2 D1 2')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             parser.SParameters()
         self.assertEqual(cm.exception.parameter,'S-Parameters')
         self.assertTrue(self.CheckCallbackTesterResults([50,0.,24.5]),'S-parameter parser callback abort incorrect')
@@ -673,7 +673,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             si.sp.SParameters(freq,parser.Deembed(system))
         self.assertEqual(cm.exception.parameter,'Deembedder')
         os.remove(systemSParametersFileName)
@@ -694,45 +694,45 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         # this is to test writing without an extension
         if os.path.exists('TestDutCmp.s4p'):
             os.remove('TestDutCmp.s4p')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sf.WriteToFile('TestDutCmp.45p')
-        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+        self.assertEqual(cm.exception,si.SignalIntegrityExceptionSParameterFile())
     def testExtensionNo4(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)
         # this is to test writing without an extension
         if os.path.exists('TestDutCmp.s4p'):
             os.remove('TestDutCmp.s4p')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sf.WriteToFile('TestDutCmp.sXp')
-        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+        self.assertEqual(cm.exception,si.SignalIntegrityExceptionSParameterFile())
     def testExtensionNoP(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)
         # this is to test writing without an extension
         if os.path.exists('TestDutCmp.s4p'):
             os.remove('TestDutCmp.s4p')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sf.WriteToFile('TestDutCmp.s45')
-        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile)
+        self.assertEqual(cm.exception,si.SignalIntegrityExceptionSParameterFile)
     def testExtensionNotLongEnough(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50)
         # this is to test writing without an extension
         if os.path.exists('TestDutCmp.s4p'):
             os.remove('TestDutCmp.s4p')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sf.WriteToFile('TestDutCmp.x')
-        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+        self.assertEqual(cm.exception,si.SignalIntegrityExceptionSParameterFile())
     def testExtensionWrongPorts(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)
         # this is to test writing without an extension
         if os.path.exists('TestDutCmp.s4p'):
             os.remove('TestDutCmp.s4p')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sf.WriteToFile('TestDutCmp.s3p')
-        self.assertEqual(cm.exception,si.PySIExceptionSParameterFile())
+        self.assertEqual(cm.exception,si.SignalIntegrityExceptionSParameterFile())
     def testSParameterFileFourPortReferenceImpedance(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',30.)

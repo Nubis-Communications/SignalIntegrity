@@ -1,6 +1,6 @@
 import math
 from numpy import matrix
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 sp=si.sp.SParameterFile('cable.s2p')
 s21=sp.FrequencyResponse(2,1)
 f=s21.Frequencies('GHz')

@@ -5,13 +5,13 @@ TestConversions.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,7 +19,7 @@ TestConversions.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 from numpy import linalg
 from numpy import array
 from numpy import matrix
@@ -352,12 +352,12 @@ class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         difference = linalg.norm(array(Swcalc)-array(Sw))
         self.assertTrue(difference<0.005,'Sp2Sw incorrect with different single Z0w, Z0p, Kw default Kp ')
     def testWriteZ0KHelperCode(self):
-        fileName="../../SignalIntegrity/Conversions/Z0KHelper.py"
+        fileName="../../SignalIntegrity/Lib/Conversions/Z0KHelper.py"
         className=''
         defName=['Z0KHelper']
         self.WriteClassCode(fileName,className,defName)
     def testWriteZ0KHelperPWCode(self):
-        fileName="../../SignalIntegrity/Conversions/Z0KHelperPW.py"
+        fileName="../../SignalIntegrity/Lib/Conversions/Z0KHelperPW.py"
         className=''
         defName=['Z0KHelperPW']
         self.WriteClassCode(fileName,className,defName)

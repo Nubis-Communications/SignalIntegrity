@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 sdp=si.p.SystemDescriptionParser().AddLines([
     'device MM 4 mixedmode',

@@ -5,13 +5,13 @@ TestTline.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,20 +19,20 @@ TestTline.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import math
 import os
 
 class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
                 si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper,
-                si.test.PySIAppTestHelper):
+                si.test.SignalIntegrityAppTestHelper):
     checkPictures=True
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
         si.test.ResponseTesterHelper.__init__(self)
         si.test.SourcesTesterHelper.__init__(self)
         si.test.RoutineWriterTesterHelper.__init__(self)
-        si.test.PySIAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):
@@ -407,7 +407,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         spmodel2=si.sp.dev.MixedModeTLine(f,Zd,Td,Zc,Tc)
         self.assertTrue(self.SParametersAreEqual(spmodel,spmodel2,0.005),self.id()+' result not same')
     def testWriteTLineLosslessSp(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineLossless.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineLossless.py"
         className='TLineLossless'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -415,27 +415,27 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineTwoPortLosslessDev(self):
-        fileName="../../SignalIntegrity/Devices/TLineTwoPortLossless.py"
+        fileName="../../SignalIntegrity/Lib/Devices/TLineTwoPortLossless.py"
         className=''
         defName=['TLineTwoPortLossless']
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineFourPortLosslessDev(self):
-        fileName="../../SignalIntegrity/Devices/TLineFourPortLossless.py"
+        fileName="../../SignalIntegrity/Lib/Devices/TLineFourPortLossless.py"
         className=''
         defName=['TLineFourPortLossless']
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineTwoPortDev(self):
-        fileName="../../SignalIntegrity/Devices/TLineTwoPort.py"
+        fileName="../../SignalIntegrity/Lib/Devices/TLineTwoPort.py"
         className=''
         defName=['TLineTwoPort']
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineFourPortDev(self):
-        fileName="../../SignalIntegrity/Devices/TLineFourPort.py"
+        fileName="../../SignalIntegrity/Lib/Devices/TLineFourPort.py"
         className=''
         defName=['TLineFourPort']
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineTwoPortRLGC(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineTwoPortRLGC.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineTwoPortRLGC.py"
         className='TLineTwoPortRLGC'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -443,7 +443,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineTwoPortRLGCApproximate(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineTwoPortRLGCApproximate.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineTwoPortRLGCApproximate.py"
         className='TLineTwoPortRLGCApproximate'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -451,7 +451,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineTwoPortRLGCAnalytic(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineTwoPortRLGCAnalytic.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineTwoPortRLGCAnalytic.py"
         className='TLineTwoPortRLGCAnalytic'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -459,7 +459,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineDifferentialRLGC(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGC.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineDifferentialRLGC.py"
         className='TLineDifferentialRLGC'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -467,7 +467,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineDifferentialRLGCApproximate(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCApproximate.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineDifferentialRLGCApproximate.py"
         className='TLineDifferentialRLGCApproximate'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -475,7 +475,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineDifferentialRLGCUncoupled(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCUncoupled.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineDifferentialRLGCUncoupled.py"
         className='TLineDifferentialRLGCUncoupled'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -483,21 +483,21 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteTLineDifferentialRLGCBalanced(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/TLineDifferentialRLGCBalanced.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/TLineDifferentialRLGCBalanced.py"
         className='TLineDifferentialRLGCBalanced'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
-    def testFourPortTLinePySIApp(self):
+    def testFourPortTLineSignalIntegrityApp(self):
         resultTLineModel=self.SParameterResultsChecker('FourPortTLineCompare.xml')
         resultTLineXfrmr=self.SParameterResultsChecker('FourPortTLineCompareIdealXfrmr.xml')
         resultTLineCommonModeOpen=self.SParameterResultsChecker('FourPortTLineCompareCommonModeOpen.xml')
         self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineXfrmr[0], 1e-5),'four port model not same as ideal transformer model')
         self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineCommonModeOpen[0], 1e-5),'four port model not same as common mode open model')
     def testWriteRseSp(self):
-        fileName="../../SignalIntegrity/SParameters/Devices/SeriesRse.py"
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/SeriesRse.py"
         className='SeriesRse'
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
@@ -505,7 +505,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName)
     def testWriteRse(self):
-        fileName="../../SignalIntegrity/Devices/SeriesRse.py"
+        fileName="../../SignalIntegrity/Lib/Devices/SeriesRse.py"
         className=''
         defName=['SeriesRse']
         self.WriteClassCode(fileName,className,defName)

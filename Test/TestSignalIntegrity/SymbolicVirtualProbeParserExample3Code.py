@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 vpp=si.p.VirtualProbeParser()
 vpp.AddLines(['device T 2','device C 4','device R 2','connect T 1 C 1',

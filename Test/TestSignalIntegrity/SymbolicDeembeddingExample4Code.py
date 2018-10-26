@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 ds=si.sd.DeembedderSymbolic(size='small')
 ds.AddDevice('F',4)

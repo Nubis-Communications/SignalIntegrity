@@ -5,13 +5,13 @@ TestLevMarNumeric.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,7 +19,7 @@ TestLevMarNumeric.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 from numpy import linalg,matrix
 
 class QuadraticFitter(si.fit.LevMar):
@@ -63,7 +63,7 @@ class TestLevMarNumericTest(unittest.TestCase):
         x=[[0],[1],[2],[3],[4],[5]]
         y=[[sum([a[m][0]*pow(xv[0],m) for m in range(len(a))])] for xv in x]
         qf=QuadraticFitterIllFormed()
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             qf.Initialize([[1] for _ in a], x, y)
             qf.Solve()
         self.assertEquals(cm.exception.parameter,'Fitter')

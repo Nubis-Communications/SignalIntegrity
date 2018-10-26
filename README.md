@@ -1,12 +1,12 @@
-# PySI Signal and Power Integrity Tools
+# SignalIntegrity: Signal and Power Integrity Tools
 
-[Go to the official website for these tools](https://github.com/TeledyneLeCroy/PySI/wiki)
+[Go to the official website for these tools](https://github.com/TeledyneLeCroy/SignalIntegrity/wiki)
 
 ***
-[Download the latest release](https://github.com/TeledyneLeCroy/PySI/releases/tag/v1.0.0)
+[Download the latest release](https://github.com/TeledyneLeCroy/SignalIntegrity/releases/tag/v1.0.0)
 ***
 
-![](http://teledynelecroy.github.io/PySI/Images/Screenshot.png)
+![](http://teledynelecroy.github.io/SignalIntegrity/Images/Screenshot.png)
 
 
 

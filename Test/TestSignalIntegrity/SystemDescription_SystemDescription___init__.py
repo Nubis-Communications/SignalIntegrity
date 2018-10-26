@@ -22,10 +22,10 @@ class SystemDescription(list):
         self[di][Port-1].B = BName
     def CheckConnections(self):
         if len(self)==0:
-            raise PySIExceptionSystemDescription('no devices')
+            raise SignalIntegrityExceptionSystemDescription('no devices')
         if not all([self[d][p].IsConnected()
             for d in range(len(self)) for p in range(len(self[d]))]):
-            raise PySIExceptionSystemDescription('unconnected device ports')
+            raise SignalIntegrityExceptionSystemDescription('unconnected device ports')
 ...
     def AssignSParameters(self,DeviceName,SParameters):
         self[self.IndexOfDevice(DeviceName)].AssignSParameters(SParameters)

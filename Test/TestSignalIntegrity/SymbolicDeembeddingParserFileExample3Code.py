@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 dp=si.p.DeembedderParser().File('SymbolicDeembedding3.txt')
 ds = si.sd.DeembedderSymbolic(dp.SystemDescription(),size='small')

@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 ss=si.sd.SimulatorSymbolic()
 ss.AddDevice('S',2)

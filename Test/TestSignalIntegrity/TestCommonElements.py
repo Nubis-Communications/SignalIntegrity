@@ -5,13 +5,13 @@ TestCommonElements.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,7 +19,7 @@ TestCommonElements.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 from numpy import linalg
 from numpy import matrix
@@ -215,7 +215,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         sspn.AssignSParameters('D',si.dev.ShuntZFourPort(Z))
         #sspn.InstallSafeTees()
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             rescalc=sspn.SParameters()
         self.assertEqual(cm.exception.parameter,'Numeric')
         #rescorrect=si.dev.ShuntZThreePort(Z)
@@ -314,7 +314,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
             eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ssps.AssignSParameters('D',self.WrongShuntZTwoPort('Z'))
         self.assertEqual(cm.exception.parameter,'SystemDescription')
         #ssps.LaTeXSolution().Emit()

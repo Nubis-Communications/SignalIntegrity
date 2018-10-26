@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 ssps = si.sd.SystemDescriptionSymbolic()
 ssps.AddDevice('L', 2)  # add two-port left device

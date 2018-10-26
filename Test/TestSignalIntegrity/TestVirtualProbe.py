@@ -5,13 +5,13 @@ TestVirtualProbe.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,7 +19,7 @@ TestVirtualProbe.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 from numpy import linalg,array,matrix
 import copy
 import math
@@ -365,7 +365,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
         vpp.m_ml = None
         vpp.m_ol = None
         vpp.m_D = None
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             vpp.TransferMatrices()
         self.assertEqual(cm.exception,'VirtualProbe') 
         self.assertTrue(self.CheckCallbackTesterResults([50, 0.0, 24.623115577889447]),'virtual probe transfer matrix callback abort incorrect')

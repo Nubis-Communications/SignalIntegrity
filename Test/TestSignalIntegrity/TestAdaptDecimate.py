@@ -5,22 +5,22 @@ TestAdaptDecimate.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
-class TestAdaptDecimate(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
+class TestAdaptDecimateTest(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -75,7 +75,7 @@ class TestAdaptDecimate(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.t
             for k in range(len(wfa)):
                 self.assertAlmostEqual(wfa[k], wfdes[k],delta=1e-5,msg='desired waveform not the same by: '+str(abs(wfa[k]-wfdes[k])))
 
-    def testAdaptDecimatePySI(self):
+    def testAdaptDecimate(self):
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)
         wf.adaptionStrategy='Linear'
@@ -104,7 +104,7 @@ class TestAdaptDecimate(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.t
             for k in range(len(wfa)):
                 self.assertAlmostEqual(wfa[k], wfdes[k],delta=1e-5,msg='desired waveform not the same by: '+str(abs(wfa[k]-wfdes[k])))
 
-    def testUpsampleDecimatePySI(self):
+    def testUpsampleDecimate(self):
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)
         wf.adaptionStrategy='Linear'

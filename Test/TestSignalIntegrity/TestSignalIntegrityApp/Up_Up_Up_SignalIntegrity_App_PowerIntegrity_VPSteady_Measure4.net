@@ -1,0 +1,75 @@
+device L1 2 L 4.4e-07
+device C1 1 C 0.0004
+device R1 1 R 0.207
+device R3 2 R 0.01
+currentsource CG1 1
+device D5 4 voltagecontrolledvoltagesource 100.0
+device C2 2 C 1e-06
+device R2 2 R 5000.0
+device G5 1 ground
+device D6 4 voltagecontrolledvoltagesource 1.0
+device G6 1 ground
+voltagesource VG2 1
+device G7 1 ground
+device C3 2 C 1.1e-07
+device R4 2 R 100.0
+device G8 1 ground
+device D7 4 voltagecontrolledvoltagesource 1.0
+device G9 1 ground
+device D8 4 voltagecontrolledvoltagesource 1.0
+device G10 1 ground
+device R5 2 R 100.0
+device C4 1 C 1e-06
+device D9 4 voltagecontrolledvoltagesource 1.0
+device G11 1 ground
+device G12 1 ground
+device Ic 4 currentcontrolledvoltagesource 1.0
+device Il 4 currentcontrolledvoltagesource 1.0
+device Io 4 currentcontrolledvoltagesource 1.0
+device Vl 4 voltagecontrolledvoltagesource 1.0
+connect Il 2 L1 1
+connect L1 2 R3 1
+connect Ic 2 C1 1
+connect R1 1 CG1 1 Io 2
+output Vl 2
+connect Vl 2 R3 2 Ic 1 D6 1 D7 1 Io 1
+output D5 4
+connect D5 4 Vl 1 Il 1
+connect D5 1 G7 1
+output C2 2
+connect C2 2 R2 1 D5 2
+connect D8 4 D5 3
+connect G5 1 C2 1
+connect R2 2 D6 4
+connect D6 2 D7 2 D8 3 D9 4
+connect D6 3 G6 1
+connect R5 2 VG2 1
+output R4 1
+connect R4 1 C3 1 D8 2
+connect C3 2 D7 4
+connect G8 1 R4 2
+connect D7 3 G9 1
+connect G10 1 D8 1
+connect C4 1 R5 1 D9 2
+connect G11 1 D9 1
+connect D9 3 G12 1
+device Ic_2 1 ground
+device Ic_3 1 open
+connect Ic 3 Ic_2 1
+connect Ic 4 Ic_3 1
+output Ic 4
+device Il_2 1 ground
+device Il_3 1 open
+connect Il 3 Il_2 1
+connect Il 4 Il_3 1
+output Il 4
+device Io_2 1 ground
+device Io_3 1 open
+connect Io 3 Io_2 1
+connect Io 4 Io_3 1
+output Io 4
+device Vl_2 1 ground
+device Vl_3 1 open
+connect Vl 3 Vl_2 1
+connect Vl 4 Vl_3 1
+output Vl 4

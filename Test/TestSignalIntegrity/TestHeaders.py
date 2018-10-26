@@ -5,13 +5,13 @@ TestHeaders.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -28,13 +28,13 @@ license=[
     '# Copyright (c) 2018 Teledyne LeCroy, Inc.\n',
     '# All rights reserved worldwide.\n',
     '#\n',
-    '# This file is part of PySI.\n',
+    '# This file is part of SignalIntegrity.\n',
     '#\n',
-    '# PySI is free software: You can redistribute it and/or modify it under the terms of the\n',
-    '# GNU General Public License as published by the Free Software Foundation, either version\n',
-    '# 3 of the License, or any later version.\n',
+    '# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms\n',
+    '# of the GNU General Public License as published by the Free Software Foundation, either\n',
+    '# version 3 of the License, or any later version.\n',
     '#\n',
-    '# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;\n',
+    '# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;\n',
     '# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n',
     '# See the GNU General Public License for more details.\n',
     '#\n',

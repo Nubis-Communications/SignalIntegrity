@@ -5,13 +5,13 @@ TestDeembedding.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,7 +19,7 @@ TestDeembedding.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 from numpy import linalg
 from numpy import matrix
 import os
@@ -227,7 +227,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         si.p.SystemSParametersNumericParser(f).AddLines(['device R1 2 R 50.0','device R2 2 R 50.0',
             'device R3 2 R 50.0','port 1 R1 1','connect R1 2 R2 1','connect R3 1 R2 2',
             'port 2 R3 2']).SParameters().WriteToFile('system.s2p')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             si.p.DeembedderNumericParser(f).AddLines(['unknown U1 2','unknown U2 2',
                 'system file system.s2p','device R1 2 R 50.0','port 1 U1 1','connect U1 2 R1 1',
                 'connect R1 2 U2 1','port 2 U2 2']).Deembed()
@@ -237,7 +237,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
     def testF12(self):
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=si.fd.EvenlySpacedFrequencyList(20e9,20)
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             si.p.DeembedderNumericParser(f).AddLines(['system file cable.s2p',
                 'unknown U1 2','device T1 2 tline zc 50.0 td 0.0','device O1 1 open','device O2 1 open',
                 'port 1 U1 1','connect T1 1 U1 2','connect O2 1 T1 2','port 2 O1 1']).Deembed()

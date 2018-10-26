@@ -5,13 +5,13 @@ TestExceptions.py
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
-# This file is part of PySI.
+# This file is part of SignalIntegrity.
 #
-# PySI is free software: You can redistribute it and/or modify it under the terms of the
-# GNU General Public License as published by the Free Software Foundation, either version
-# 3 of the License, or any later version.
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
 #
-# This program is distrbuted in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
 #
@@ -19,7 +19,7 @@ TestExceptions.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
@@ -33,16 +33,16 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         try:
             ssps.LaTeXSolution().Emit()
-        except si.PySIException as e:
-            if e == si.PySIExceptionSystemDescription:
+        except si.SignalIntegrityException as e:
+            if e == si.SignalIntegrityExceptionSystemDescription:
                 pass
     def testSystemDescriptionCheckConnections2(self):
         sdp=si.p.SystemDescriptionParser()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
         try:
             ssps.LaTeXSolution().Emit()
-        except si.PySIException as e:
-            if e == si.PySIExceptionSystemDescription:
+        except si.SignalIntegrityException as e:
+            if e == si.SignalIntegrityExceptionSystemDescription:
                 pass
     def testSystemDescriptionCheckConnections3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -51,7 +51,7 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
             'connect ZI 1 DV 2','connect ZI 2 DV 1'])
         #sdp.SystemDescription().Print()
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription())
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ssps.LaTeXSolution().Emit()
         self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSystemDescriptionWrongDevice(self):
@@ -59,7 +59,7 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 2 ZI 2 3 ZO 2 4 DV 3',
             'connect Z 1 DV 2','connect ZI 2 DV 1'])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sdp.SystemDescription().Print()
         self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSystemDescriptionWrongConnection(self):
@@ -67,34 +67,34 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 2 ZI 2 3 ZO 2 4 DV 3',
             'connect ZI 3 DV 2','connect ZI 2 DV 1'])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sdp.SystemDescription().Print()
         self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSystemDescriptionDuplicateName(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device DV 2'])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sdp.SystemDescription().Print()
         self.assertEqual(cm.exception.parameter,'SystemDescription')
     def testSimulatorNoOutputProbes(self):
         sp=si.p.SimulatorParser()
         sp.AddLines(['voltagesource VS1 1','device G1 1 ground','connect G1 1 VS1 1'])
         ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
     def testSimulatorNoSources(self):
         sp=si.p.SimulatorParser()
         sp.AddLines(['device R1 1 R 50.0','device R2 1 R 50.0','output R2 1','connect R2 1 R1 1'])
         ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
     def testSimulatorNumericalError(self):
         sp=si.p.SimulatorParser()
         sp.AddLines(['voltagesource VS1 1','device G1 1 ground','output G1 1','connect G1 1 VS1 1'])
         sn=si.sd.SimulatorNumeric(sp.SystemDescription())
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
     def testVirtualProbeNoOutputProbes(self):
@@ -102,7 +102,7 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1'])
         ss=si.sd.VirtualProbeSymbolic(sp.SystemDescription(),size='small')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
     def testVirtualProbeNoStims(self):
@@ -110,7 +110,7 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','meas T 1','output R 1'])
         ss=si.sd.VirtualProbeSymbolic(sp.SystemDescription(),size='small')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
     def testVirtualProbeNoMeasures(self):
@@ -118,14 +118,14 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','output R 1'])
         ss=si.sd.VirtualProbeSymbolic(sp.SystemDescription(),size='small')
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
     def testVirtualProbeNumericalError(self):
         sp=si.p.VirtualProbeParser()
         sp.AddLines(['device T 1','device C 1','device R 1','device G 1 ground','connect T 1 C 1','connect G 1 R 1','stim m1 T 1','meas T 1','output R 1'])
         sn=si.sd.VirtualProbeNumeric(sp.SystemDescription())
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
     def testVirtualProbeWrongStimdef(self):
@@ -133,15 +133,15 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         #sp.AddLines(['device T 1','device C 2','device R 1','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1'])
         sp.AddLines(['device T 1 termination','device C 2 thru','device R 1 termination','connect T 1 C 1','connect C 2 R 1','stim m1 T 1','meas T 1','output R 1','stimdef [[1.,1.],[1.,1.]]'])
         vpn=si.sd.VirtualProbeNumeric(sp.SystemDescription())
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             vpn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'VirtualProbe')
     def testSParameterFileWrongExtension(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sp=si.sp.SParameterFile('test.txt')
         self.assertEqual(cm.exception.parameter,'SParameterFile')
     def testWaveformFileNonexsistent(self):
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             wf=si.td.wf.Waveform().ReadFromFile('IHopeThisFileDoesntExist.txt')
         self.assertEqual(cm.exception.parameter,'WaveformFile')
     def testSParameterNumericalError(self):
@@ -195,34 +195,34 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
                      'connect T3 2 T1 2',
                      'port 4 T3 4',
                      'connect T3 4 T2 2'])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             sp.SParameters(solvetype='direct')
         
         self.assertEquals(cm.exception.message,'frequency dependent device tline could not be instantiated because no frequencies provided','wrong device parser exception')
     def testWaveformExceptionAddIllegal(self):
         """test exception generated by adding waveform to something illegal"""
         wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.0,5,1e9),[1.,2.,3.,4.,5.])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             wf=wf+"string"
-        self.assertEquals(cm.exception.parameter,si.PySIExceptionWaveform().parameter)
+        self.assertEquals(cm.exception.parameter,si.SignalIntegrityExceptionWaveform().parameter)
     def testWaveformExceptionMulIllegal(self):
         """test exception generated by multiplying waveform by something illegal"""
         wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.0,5,1e9),[1.,2.,3.,4.,5.])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             wf=wf*"string"
-        self.assertEquals(cm.exception.parameter,si.PySIExceptionWaveform().parameter)
+        self.assertEquals(cm.exception.parameter,si.SignalIntegrityExceptionWaveform().parameter)
     def testWaveformExceptionDivIllegal(self):
         """test exception generated by dividing waveform by something illegal"""
         wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.0,5,1e9),[1.,2.,3.,4.,5.])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             wf=wf/"string"
-        self.assertEquals(cm.exception.parameter,si.PySIExceptionWaveform().parameter)
+        self.assertEquals(cm.exception.parameter,si.SignalIntegrityExceptionWaveform().parameter)
     def testWaveformExceptionSubIllegal(self):
         """test exception generated by subtracting from waveform something illegal"""
         wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.0,5,1e9),[1.,2.,3.,4.,5.])
-        with self.assertRaises(si.PySIException) as cm:
+        with self.assertRaises(si.SignalIntegrityException) as cm:
             wf=wf-"string"
-        self.assertEquals(cm.exception.parameter,si.PySIExceptionWaveform().parameter)
+        self.assertEquals(cm.exception.parameter,si.SignalIntegrityExceptionWaveform().parameter)
     def testWaveformCompareDescriptor(self):
         """test waveform comparison with different descriptor"""
         wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.0,5,1e9),[1.,2.,3.,4.,5.])

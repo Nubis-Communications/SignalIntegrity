@@ -18,5 +18,6 @@ class DeviceParser():
                 self.m_sp=self.deviceFactory.dev
         else:
             #print 'device not found: '+' '.join(argsList)
-            raise PySIExceptionDeviceParser('device not found: '+' '.join(argsList))
+            raise SignalIntegrityExceptionDeviceParser(
+                'device not found: '+' '.join(argsList))
         return

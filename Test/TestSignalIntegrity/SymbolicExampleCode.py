@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 symbolic = si.sd.Symbolic()
 symbolic.DocStart()

@@ -1,4 +1,4 @@
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 Td=1.23e-9; Zc=55; C=Td/Zc; L=Td*Zc
 Rse=0.001; df=.001; R=.1;
