@@ -37,7 +37,7 @@ install_requires=['setuptools>=24.2.0','pip>=9.0.0','numpy>=1.13.0','matplotlib>
 
 pathToIcons='SignalIntegrity/App/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
-pathToHelp='http://teledynelecroy.github.io/SignalIntegrity/Help/PySIHelp.html.LyXconv/PySIHelp-Section-1.html#toc-Section-1'
+pathToHelp='http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App/Help/Help.html.LyXconv/Help-Section-1.html#toc-Section-1'
 
 with open(os.path.join(base_dir, "README.md"), "rb") as f:
     readmeFile=f.read()
