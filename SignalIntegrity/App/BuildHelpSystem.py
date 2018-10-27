@@ -54,9 +54,9 @@ class HelpSystemKeys(object):
     def Build(self,path=None):
         if path is None:
             path=os.getcwd()
-        path=path+'/Help/PySIHelp.html.LyXconv'
+        path=path+'/Help/Help.html.LyXconv'
         self.dict={}
-        filename=path+'/PySIHelp.html'
+        filename=path+'/Help.html'
         try:
             import urllib2
             file=urllib2.urlopen(filename)
@@ -69,7 +69,7 @@ class HelpSystemKeys(object):
             secIndex=1
             searchingSections=True
             while searchingSections:
-                filename=path+'/PySIHelp-'+stype+'-'+str(secIndex)+'.html'
+                filename=path+'/Help-'+stype+'-'+str(secIndex)+'.html'
                 try:
                     import urllib2
                     file=urllib2.urlopen(filename)

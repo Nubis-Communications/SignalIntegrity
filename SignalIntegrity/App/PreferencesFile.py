@@ -61,7 +61,7 @@ class OnlineHelpConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self)
         self.dict['UseOnlineHelp']=XMLPropertyDefaultBool('UseOnlineHelp',True)
-        self.dict['URL']=XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/SignalIntegrity/App')
+        self.dict['URL']=XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App')
         self.dict['RebuildHelpKeys']=XMLPropertyDefaultBool('RebuildHelpKeys',False)
 
 class PreferencesFile(ProjectFileBase):

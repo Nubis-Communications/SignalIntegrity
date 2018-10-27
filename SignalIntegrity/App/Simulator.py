@@ -259,7 +259,7 @@ class SimulatorDialog(Toplevel):
             helpdir=self.parent.parent.preferences.GetValue('OnlineHelp.URL')
         else:
             helpdir=self.parent.parent.installdir
-        url=helpdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        url=helpdir+'/Help/Help.html.LyXconv/'+helpfile
         webbrowser.open(url)
 
     def onControlHelp(self):

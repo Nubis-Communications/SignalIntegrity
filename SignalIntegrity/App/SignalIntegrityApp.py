@@ -713,7 +713,7 @@ class SignalIntegrityApp(Frame):
             helpdir=self.preferences.GetValue('OnlineHelp.URL')
         else:
             helpdir=self.installdir
-        url=helpdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        url=helpdir+'/Help/Help.html.LyXconv/'+helpfile
         webbrowser.open(url)
 
     def onControlHelp(self):

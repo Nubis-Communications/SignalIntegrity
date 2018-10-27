@@ -131,7 +131,7 @@ class Doer(object):
         if self.inHelp and self.helpEnabled:
             if not self.url is None and not self.controlHelpUrlBase is None:
                 import webbrowser
-                url = Doer.controlHelpUrlBase+'/Help/PySIHelp.html.LyXconv/'+self.url
+                url = Doer.controlHelpUrlBase+'/Help/Help.html.LyXconv/'+self.url
                 url=url.replace('\\','/')
                 webbrowser.open(url)
             return

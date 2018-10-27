@@ -678,7 +678,7 @@ class SParametersDialog(Toplevel):
             helpdir=self.parent.preferences.GetValue('OnlineHelp.URL')
         else:
             helpdir=self.parent.installdir
-        url=helpdir+'/Help/PySIHelp.html.LyXconv/'+helpfile
+        url=helpdir+'/Help/Help.html.LyXconv/'+helpfile
         webbrowser.open(url)
 
     def onControlHelp(self):
