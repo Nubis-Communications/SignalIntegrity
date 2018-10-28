@@ -17,32 +17,32 @@ The table of codes corresponding to each namespace is:
 
 code | namespace | Description
 :--- | :--- | :---
-si | SignalIntegrity | Top of SignalIntegrity Package
-si.czt | SignalIntegrity.ChirpZTransform | Chirp z transform
-si.cvt | SignalIntegrity.Conversions | Conversion Formulas
-si.d | SignalIntegrity.Devices | Single Frequency Devices
-si.fit | SignalIntegrity.Fit | Fitting Algorithms
-si.fd | SignalIntegrity.FrequencyDomain | Frequency Domain
-si.helper | SignalIntegrity.Helper | Helper functions and classes
-si.ip | SignalIntegrity.ImpedanceProfile | Impedance profile
-si.m | SignalIntegrity.Measurement | Measurment
-si.m.cal | SignalIntegrity.Measurement.Calibration | Calibration algorithms
-si.m.calkit | SignalIntegrity.Measurement.CalKit | Calibration kits
-si.m.tdr | SignalIntegrity.Measurement.TDR | Time-domain reflectometry
-si.p | SignalIntegrity.Parsers | Netlist parsers
-si.p.dev | SignalIntegrity.Parsers.Devices | Netlist parser devices
-si.rat | SignalIntegrity.Rat | The RAT function
-si.sp | SignalIntegrity.SParameters | S-parameters
-si.sp.dev | SignalIntegrity.SParameters.Devices | S-parameter devices
-si.spl | SignalIntegrity.Splines | Spline functions
-si.sub | SignalIntegrity.SubCircuits | Netlist Subcircuits
-si.sy | SignalIntegrity.Symbolic | Symbolic Solutions
-si.sd | SignalIntegrity.SystemDescriptions | System descriptions
-si.test | SignalIntegrity.Test | Test helpers
-si.td | SignalIntegrity.TimeDomain | Time-domain
-si.td.f | SignalIntegrity.TimeDomain.Filters | Filters
-si.td.wf | SignalIntegrity.TimeDomain.Waveform | Waveforms
-si.wl | SignalIntegrity.Wavelets | Wavelets
+si | SignalIntegrity.Lib | Top of SignalIntegrity.Lib Package
+si.czt | SignalIntegrity.Lib.ChirpZTransform | Chirp z transform
+si.cvt | SignalIntegrity.Lib.Conversions | Conversion Formulas
+si.d | SignalIntegrity.Lib.Devices | Single Frequency Devices
+si.fit | SignalIntegrity.Lib.Fit | Fitting Algorithms
+si.fd | SignalIntegrity.Lib.FrequencyDomain | Frequency Domain
+si.helper | SignalIntegrity.Lib.Helper | Helper functions and classes
+si.ip | SignalIntegrity.Lib.ImpedanceProfile | Impedance profile
+si.m | SignalIntegrity.Lib.Measurement | Measurment
+si.m.cal | SignalIntegrity.Lib.Measurement.Calibration | Calibration algorithms
+si.m.calkit | SignalIntegrity.Lib.Measurement.CalKit | Calibration kits
+si.m.tdr | SignalIntegrity.Lib.Measurement.TDR | Time-domain reflectometry
+si.p | SignalIntegrity.Lib.Parsers | Netlist parsers
+si.p.dev | SignalIntegrity.Lib.Parsers.Devices | Netlist parser devices
+si.rat | SignalIntegrity.Lib.Rat | The RAT function
+si.sp | SignalIntegrity.Lib.SParameters | S-parameters
+si.sp.dev | SignalIntegrity.Lib.SParameters.Devices | S-parameter devices
+si.spl | SignalIntegrity.Lib.Splines | Spline functions
+si.sub | SignalIntegrity.Lib.SubCircuits | Netlist Subcircuits
+si.sy | SignalIntegrity.Lib.Symbolic | Symbolic Solutions
+si.sd | SignalIntegrity.Lib.SystemDescriptions | System descriptions
+si.test | SignalIntegrity.Lib.Test | Test helpers
+si.td | SignalIntegrity.Lib.TimeDomain | Time-domain
+si.td.f | SignalIntegrity.Lib.TimeDomain.Filters | Filters
+si.td.wf | SignalIntegrity.Lib.TimeDomain.Waveform | Waveforms
+si.wl | SignalIntegrity.Lib.Wavelets | Wavelets
 
 
 ## Building the Package Documentation
