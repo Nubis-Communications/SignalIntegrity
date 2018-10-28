@@ -255,7 +255,7 @@ class TestOysterTest(unittest.TestCase,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(False)
-        #PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()

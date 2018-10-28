@@ -69,7 +69,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('magnitude (dB)')
         #plt.xlim(0,20)
         #plt.ylim(-25,5)
-        #PlotTikZ('SimulatorNumericParserExampleFrequencyResponse00.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleFrequencyResponse00.tex',plt)
         plt.cla()
 
         plt.plot(tmfr[1][0].Frequencies('GHz'),tmfr[1][0].Response('dB'),label='Vr due to Vs',color='black')
@@ -78,7 +78,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('magnitude (dB)')
         #plt.xlim(0,20)
         #plt.ylim(-25,5)
-        #PlotTikZ('SimulatorNumericParserExampleFrequencyResponse10.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleFrequencyResponse10.tex',plt)
         plt.cla()
 
         plt.plot(tmfr[0][1].Frequencies('GHz'),tmfr[0][1].Response('dB'),label='Vt due to Vn',color='black')
@@ -87,7 +87,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('magnitude (dB)')
         #plt.xlim(0,20)
         #plt.ylim(-25,5)
-        #PlotTikZ('SimulatorNumericParserExampleFrequencyResponse01.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleFrequencyResponse01.tex',plt)
         plt.cla()
 
         plt.plot(tmfr[1][1].Frequencies('GHz'),tmfr[1][1].Response('dB'),label='Vr due to Vn',color='black')
@@ -96,7 +96,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('magnitude (dB)')
         #plt.xlim(0,20)
         #plt.ylim(-25,5)
-        #PlotTikZ('SimulatorNumericParserExampleFrequencyResponse11.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleFrequencyResponse11.tex',plt)
         plt.cla()
         # pragma: include
         #######################################
@@ -121,7 +121,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('amplitude (V)')
         plt.xlim(-0.05,3)
         plt.ylim(0,0.5)
-        #PlotTikZ('SimulatorNumericParserExampleImpulseResponse00.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleImpulseResponse00.tex',plt)
         plt.cla()
 
         plt.plot(tmir[1][0].Times('ns'),tmir[1][0].Values(),label='Vr due to Vs',color='black')
@@ -130,7 +130,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('amplitude (V)')
         plt.xlim(-0.05,3)
         plt.ylim(0,0.5)
-        #PlotTikZ('SimulatorNumericParserExampleImpulseResponse10.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleImpulseResponse10.tex',plt)
         plt.cla()
 
         plt.plot(tmir[0][1].Times('ns'),tmir[0][1].Values(),label='Vt due to Vn',color='black')
@@ -139,7 +139,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('amplitude (V)')
         plt.xlim(-0.05,3)
         plt.ylim(0,0.5)
-        #PlotTikZ('SimulatorNumericParserExampleImpulseResponse01.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleImpulseResponse01.tex',plt)
         plt.cla()
 
         plt.plot(tmir[1][1].Times('ns'),tmir[1][1].Values(),label='Vr due to Vn',color='black')
@@ -148,7 +148,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         plt.ylabel('amplitude (V)')
         plt.xlim(-0.05,3)
         plt.ylim(0,0.5)
-        #PlotTikZ('SimulatorNumericParserExampleImpulseResponse11.tex',plt)
+        #si.test.PlotTikZ('SimulatorNumericParserExampleImpulseResponse11.tex',plt)
         plt.cla()
         # pragma: include
         ##################################################

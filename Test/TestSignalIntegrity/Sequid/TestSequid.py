@@ -105,7 +105,7 @@ class TestSequidTest(unittest.TestCase,si.test.SParameterCompareHelper,
         plt.ylabel('amplitude')
         plt.legend(loc='upper right')
         plt.grid(True)
-        #self.PlotTikZ('waveforms.tex', plt.gcf())
+        #si.test.PlotTikZ('waveforms.tex', plt.gcf())
         if plotthem: plt.show()
 
         plt.clf()
