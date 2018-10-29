@@ -326,7 +326,7 @@ If you want, go right to the
 \begin_inset CommandInset href
 LatexCommand href
 name "Table of Contents"
-target "PySIHelp.html"
+target "Help.html"
 
 \end_inset
 
