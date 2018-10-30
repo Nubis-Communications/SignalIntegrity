@@ -82,7 +82,7 @@ class Preferences(PreferencesFile):
                 return dirString+'/'+nameString
         else:
             return None
-    
+
     def GetRecentFileList(self):
         lastFiles=self.GetValue('ProjectFiles.LastFile')
         if lastFiles is None:

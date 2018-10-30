@@ -52,9 +52,9 @@ class LastFilesConfiguration(XMLConfiguration):
 class ProjectFilesConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self)
-        self.dict['OpenLastFile']=XMLPropertyDefaultBool('OpenLastFIle',True)
+        self.dict['OpenLastFile']=XMLPropertyDefaultBool('OpenLastFile',True)
         self.dict['RetainLastFilesOpened']=XMLPropertyDefaultBool('RetainLastFilesOpened',True)
-        self.dict['LastFile']=XMLProperty('LastFile',[LastFilesConfiguration() for _ in range(4)],'array')
+        self.dict['LastFile']=XMLProperty('LastFile',[LastFilesConfiguration() for _ in range(4)],'array',LastFilesConfiguration())
         self.dict['AskToSaveCurrentFile']=XMLPropertyDefaultBool('AskToSaveCurrentFile',True)
 
 class OnlineHelpConfiguration(XMLConfiguration):
