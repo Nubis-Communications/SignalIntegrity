@@ -1,6 +1,7 @@
 """
 Symbolic.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -61,7 +62,7 @@ class Symbolic():
         """Writes the result out to the standard output
         @return self
         """
-        for line in self.m_lines: print line
+        for line in self.m_lines: print(line)
         return self
     def DocStart(self):
         """Appends the document start string to symbolic result.

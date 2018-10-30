@@ -15,7 +15,7 @@ class Symbolic():
         self.m_lines=[]
         return self
     def Emit(self):
-        for line in self.m_lines: print line
+        for line in self.m_lines: print(line)
         return self
     def DocStart(self):
         self._AddLine(self.m_docStart)

@@ -1,6 +1,7 @@
 """
 SParameterCalculator.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -62,7 +63,7 @@ class SParameterCalculator(object):
                             #print s,d,m
                             measuredPort=samplersList[d][m]
                             self.comObject.MeasuredPort=measuredPort
-                            print relaySettings+' driven: '+str(drivenPort)+' meas: '+str(measuredPort)+' name: '+wfDict[relaySettings][drivenPort][measuredPort]['name']
+                            print(relaySettings+' driven: '+str(drivenPort)+' meas: '+str(measuredPort)+' name: '+wfDict[relaySettings][drivenPort][measuredPort]['name'])
                             self.PutWaveform(wfDict[relaySettings][drivenPort][measuredPort]['wf'])
         self.comObject.Calculate()
         numPorts=self.comObject.NumPortsInMeasurement
@@ -102,7 +103,7 @@ class SParameterCalculator(object):
                         #print s,d,m
                         measuredPort=samplersList[d][m]
                         self.comObject.MeasuredPort=measuredPort
-                        print relaySettings+' driven: '+str(drivenPort)+' meas: '+str(measuredPort)+' name: '+wfDict[relaySettings][drivenPort][measuredPort]['name']
+                        print(relaySettings+' driven: '+str(drivenPort)+' meas: '+str(measuredPort)+' name: '+wfDict[relaySettings][drivenPort][measuredPort]['name'])
                         self.PutWaveform(wfDict[relaySettings][drivenPort][measuredPort]['wf'])
         if calculate: self.comObject.Calculate()
 

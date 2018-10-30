@@ -1,6 +1,7 @@
 """
 Converts power-wave s-parameters to pseudo-wave s-parameters
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,8 +20,8 @@ Converts power-wave s-parameters to pseudo-wave s-parameters
 # If not, see <https://www.gnu.org/licenses/>
 from numpy import matrix
 
-from Z0KHelper import Z0KHelper
-from Z0KHelperPW import Z0KHelperPW
+from .Z0KHelper import Z0KHelper
+from .Z0KHelperPW import Z0KHelperPW
 
 def Sp2Sw(Sp,Z0w=None,Z0p=None,Kw=None):
     """Converts power-wave s-parameters to pseudo-wave s-parameters

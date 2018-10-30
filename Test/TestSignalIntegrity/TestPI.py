@@ -1,6 +1,7 @@
 """
 TestPI.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -850,7 +851,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         Rc=200e-3
 
         A=T*T/(T*T+Lc*C+Rc*C*T)
-        print A
+        print(A)
         il=[0. for k in range(len(Vlcalc))]
         vl=Vlcalc.Values()
         il[0]=vl[0]*T/(L+R*T)

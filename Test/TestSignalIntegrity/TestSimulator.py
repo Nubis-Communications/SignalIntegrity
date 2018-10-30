@@ -1,6 +1,7 @@
 """
 TestSimulator.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -781,7 +782,7 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
                     line = line + ' '+str(round(aw[m].Measure(t)*1000.,6))+' mA'
                 else:
                     line = line + ' '+str(round(aw[m].Measure(t),6))+' V'
-            print line
+            print(line)
     def testSimulatorTlineFourPortCurrentProbes2(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -884,7 +885,7 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
                     line = line + ' '+str(round(aw[m].Measure(t)*1000.,6))+' mA'
                 else:
                     line = line + ' '+str(round(aw[m].Measure(t),6))+' V'
-            print line
+            print(line)
     def testSimulatorTlineFourPortModelCheck(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

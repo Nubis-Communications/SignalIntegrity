@@ -1,1 +1,2 @@
-from TestSequid import TestSequidTest
+from __future__ import absolute_import
+from .TestSequid import TestSequidTest

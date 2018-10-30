@@ -1,6 +1,7 @@
 """
 Device.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,8 +20,8 @@ Device.py
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 
-from PartProperty import *
-from PartPicture import *
+from .PartProperty import *
+from .PartPicture import *
 
 import math
 

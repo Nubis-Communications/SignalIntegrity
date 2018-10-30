@@ -1,6 +1,8 @@
 """
 Device.py
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -18,7 +20,7 @@ Device.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from Port import Port
+from .Port import Port
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSystemDescription
 
 class Device(list):
@@ -81,13 +83,13 @@ class Device(list):
         device.
         """
         if level==0:
-            print '\n','Name','Port','Node','Name'
+            print('\n','Name','Port','Node','Name')
         for p in range(len(self)):
             if p==0:
-                print repr(self.Name).rjust(4),
+                print(repr(self.Name).rjust(4), end=' ')
             else:
                 if level==1:
-                    print repr('').strip('\'').rjust(6),
-                print repr('').strip('\'').rjust(4),
-            print repr(p+1).rjust(4),
+                    print(repr('').strip('\'').rjust(6), end=' ')
+                print(repr('').strip('\'').rjust(4), end=' ')
+            print(repr(p+1).rjust(4), end=' ')
             self[p].Print(level+1)

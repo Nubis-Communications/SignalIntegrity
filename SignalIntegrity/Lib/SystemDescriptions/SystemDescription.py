@@ -1,6 +1,8 @@
 """
 SystemDescription.py
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,8 +21,8 @@ SystemDescription.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.Lib.Devices import Tee
 from SignalIntegrity.Lib.Devices import Thru
-from Device import Device
-from UniqueNameFactory import UniqueNameFactory
+from .Device import Device
+from .UniqueNameFactory import UniqueNameFactory
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSystemDescription
 
 class SystemDescription(list):
@@ -178,7 +180,7 @@ class SystemDescription(list):
         self[self.IndexOfDevice(DeviceName)].AssignSParameters(SParameters)
     def Print(self):
         """Prints out an ASCII description of the system"""
-        print '\n','Device','Name','Port','Node','Name'
+        print('\n','Device','Name','Port','Node','Name')
         for d in range(len(self)):
-            print repr(d+1).rjust(6),
+            print(repr(d+1).rjust(6), end=' ')
             self[d].Print(1)

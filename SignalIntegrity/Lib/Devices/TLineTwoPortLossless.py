@@ -1,6 +1,7 @@
 """
 TLineTwoPortLossless.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -20,7 +21,7 @@ TLineTwoPortLossless.py
 
 import math
 
-from TLineTwoPort import TLineTwoPort
+from .TLineTwoPort import TLineTwoPort
 
 def TLineTwoPortLossless(Zc,Td,f,Z0=50.):
     """TLineTwoPortLossless

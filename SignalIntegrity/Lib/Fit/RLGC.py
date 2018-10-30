@@ -1,6 +1,7 @@
 """
 RLGC.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,7 +20,7 @@ RLGC.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math,cmath
-from LevMar import LevMar
+from .LevMar import LevMar
 
 class RLGCFitter(LevMar):
     def __init__(self,sp,guess,callback=None):

@@ -1,6 +1,7 @@
 """
 CalculationProperties.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -21,9 +22,9 @@ from Tkinter import *
 import xml.etree.ElementTree as et
 import tkMessageBox
 
-from PlotWindow import *
-from ToSI import *
-from PartProperty import *
+from .PlotWindow import *
+from .ToSI import *
+from .PartProperty import *
 
 class CalculationProperty(Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback):

@@ -1,6 +1,7 @@
 """
 Port.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -41,17 +42,17 @@ class Port(object):
         port in each device.
         """
         if level==0:
-            print '\n','Node','Name'
+            print('\n','Node','Name')
         for t in range(3):
             if not t==0:
                 if level >= 2:
-                    print repr('').strip('\'').rjust(6),
+                    print(repr('').strip('\'').rjust(6), end=' ')
                 if level >= 1:
-                    print repr('').strip('\'').rjust(4),
-                    print repr('').strip('\'').rjust(4),
+                    print(repr('').strip('\'').rjust(4), end=' ')
+                    print(repr('').strip('\'').rjust(4), end=' ')
             if t==0:
-                print repr('A').rjust(4),repr(self.A).rjust(4)
+                print(repr('A').rjust(4),repr(self.A).rjust(4))
             elif t==1:
-                print repr('B').rjust(4),repr(self.B).rjust(4)
+                print(repr('B').rjust(4),repr(self.B).rjust(4))
             else:
-                print repr('M').rjust(4),repr(self.M).rjust(4)
+                print(repr('M').rjust(4),repr(self.M).rjust(4))

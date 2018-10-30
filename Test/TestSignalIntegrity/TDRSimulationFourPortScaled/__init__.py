@@ -1,1 +1,2 @@
-from TestSPARQFourPortScaled import TestSPARQFourPortScaledTest
+from __future__ import absolute_import
+from .TestSPARQFourPortScaled import TestSPARQFourPortScaledTest

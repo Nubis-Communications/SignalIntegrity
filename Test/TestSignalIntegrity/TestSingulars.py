@@ -1,6 +1,7 @@
 """
 TestSingulars.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -39,13 +40,13 @@ class TestSingularsTest(unittest.TestCase):
         ssps.DocStart()
         ssps.LaTeXSolution(solvetype='direct')
         ssps.LaTeXSystemEquation()
-        print ssps.DeviceNames()
+        print(ssps.DeviceNames())
         ANodes=ssps.PortBNames()
         BNodes=ssps.PortANames()
         OtherNodes=ssps.OtherNames(ANodes+BNodes)
         RemoveNodes=ANodes+OtherNodes
         A11=ssps.WeightsMatrix(BNodes,BNodes)
-        print ssps._LaTeXMatrix(A11)
+        print(ssps._LaTeXMatrix(A11))
         #return
         A12=ssps.WeightsMatrix(BNodes,RemoveNodes)
         A21=ssps.WeightsMatrix(RemoveNodes,BNodes)

@@ -1,1 +1,2 @@
-from TestOysterTwoPort import TestOysterTest
+from __future__ import absolute_import
+from .TestOysterTwoPort import TestOysterTest

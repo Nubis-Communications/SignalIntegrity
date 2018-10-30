@@ -1,6 +1,7 @@
 """
 TLineFourPortLossless.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,7 +20,7 @@ TLineFourPortLossless.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math
-from TLineFourPort import TLineFourPort
+from .TLineFourPort import TLineFourPort
 
 def TLineFourPortLossless(Zc,Td,f,Z0=50.):
     """TLineFourPortLossless

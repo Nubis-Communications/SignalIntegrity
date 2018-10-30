@@ -1,1 +1,2 @@
-from TestSignalIntegrityApp import TestSignalIntegrityAppTest
+from __future__ import absolute_import
+from .TestSignalIntegrityApp import TestSignalIntegrityAppTest

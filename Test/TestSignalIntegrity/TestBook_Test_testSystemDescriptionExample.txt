@@ -1,5 +1,5 @@
 
-Device Name Port Node Name
+ Device Name Port Node Name
      1  'L'    1  'A' 'n1'
                   'B' 'n2'
                   'M'   ''

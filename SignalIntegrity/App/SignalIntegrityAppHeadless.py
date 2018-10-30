@@ -1,6 +1,7 @@
 """
 SignalIntegrityAppHeadless.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -23,10 +24,10 @@ import sys
 import xml.etree.ElementTree as et
 from Tkinter import ALL
 
-from CalculationProperties import CalculationProperties
-from Files import FileParts,ConvertFileNameToRelativePath
-from Schematic import Schematic
-from Preferences import Preferences
+from .CalculationProperties import CalculationProperties
+from .Files import FileParts,ConvertFileNameToRelativePath
+from .Schematic import Schematic
+from .Preferences import Preferences
 
 class DrawingHeadless(object):
     def __init__(self,parent):

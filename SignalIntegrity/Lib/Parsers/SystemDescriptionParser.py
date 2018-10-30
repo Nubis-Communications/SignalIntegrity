@@ -1,6 +1,7 @@
 """
  produces system descriptions from netlists
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -90,7 +91,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         a device has been declared.
         """
         # pragma: silent exclude
-        from Devices.DeviceParser import DeviceParser
+        from .Devices.DeviceParser import DeviceParser
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         # pragma: include
         lineList=self.ReplaceArgs(LineSplitter(line))

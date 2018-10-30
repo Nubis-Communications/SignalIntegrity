@@ -1,5 +1,5 @@
 
-Device Name Port Node Name
+ Device Name Port Node Name
      1 'D1'    1  'A' 'n7'
                   'B' 'n8'
                   'M'   ''
@@ -37,7 +37,7 @@ Device Name Port Node Name
                   'B' 'n11'
                   'M' 'm3'
 
-Name Port Node Name
+ Name Port Node Name
 'D1'    1  'A' 'n7'
            'B' 'n8'
            'M'   ''
@@ -45,7 +45,7 @@ Name Port Node Name
            'B' 'n3'
            'M'   ''
 
-Node Name
+ Node Name
  'A' 'n7'
  'B' 'n8'
  'M'   ''

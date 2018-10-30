@@ -1,6 +1,7 @@
 """
 FirFilter.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -70,4 +71,4 @@ class FirFilter(WaveformProcessor):
     def Print(self):
         """prints an ASCII description of the filter"""
         self.FilterDescriptor().Print()
-        print str(self.FilterTaps())
+        print(str(self.FilterTaps()))

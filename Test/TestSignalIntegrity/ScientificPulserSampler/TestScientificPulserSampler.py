@@ -1,6 +1,7 @@
 """
 TestScientificPulserSampler.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -321,7 +322,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
         DP=1
 
         for reflectName in reflectNames+dutNames:
-            print reflectName
+            print(reflectName)
             wf=self.ReadScientificFileXls(reflectName+'.csv',Fref,NS,DS,NP,DP,-0.05e-9,5000)
 
             rmf=tdr.RawMeasuredSParameters(wf)
@@ -498,7 +499,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
                     if (wf[k]>0.01) and (wf[k+1] < wf[k]):
                         delay=times[k]
                         delays.append(delay)
-                        print delay
+                        print(delay)
                         break
         plt.xlabel('time (ps)')
         plt.ylabel('amplitude')
@@ -521,7 +522,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
         if plotthem: plt.show()
 
 
-        print 'propagation velocity: '+str(m/2.)+' ps/mm'
+        print('propagation velocity: '+str(m/2.)+' ps/mm')
     
     def testNoise(self):
         return

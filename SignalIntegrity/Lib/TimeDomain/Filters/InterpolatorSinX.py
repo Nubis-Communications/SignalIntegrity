@@ -1,6 +1,7 @@
 """
 InterpolatorSinX.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -61,7 +62,7 @@ class FractionalDelayFilterSinX(FirFilter):
         In other words, it is 2*64+1=129 samples in length.
         """
         # pragma: silent exclude
-        from FilterDescriptor import FilterDescriptor
+        from .FilterDescriptor import FilterDescriptor
         # pragma: include
         U=1
         FirFilter.__init__(self,
@@ -79,7 +80,7 @@ class InterpolatorSinX(FirFilter):
         @param U integer upsample factor of the filter.
         """
         # pragma: silent exclude
-        from FilterDescriptor import FilterDescriptor
+        from .FilterDescriptor import FilterDescriptor
         # pragma: include
         F=0.
         FirFilter.__init__(self,FilterDescriptor(U,self.S+F,2*self.S),SinX(self.S,U,F))

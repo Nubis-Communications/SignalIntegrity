@@ -1,6 +1,7 @@
 """
 Waveform.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -21,8 +22,8 @@ Waveform.py
 from copy import copy
 import math
 
-from TimeDescriptor import TimeDescriptor
-from AdaptedWaveforms import AdaptedWaveforms
+from .TimeDescriptor import TimeDescriptor
+from .AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile,SignalIntegrityExceptionWaveform
 
 class Waveform(list):

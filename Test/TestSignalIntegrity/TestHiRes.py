@@ -1,6 +1,7 @@
 """
 TestHiRes.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -209,11 +210,11 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         sigmai=np.std(wfn.Values())
         snri=20*math.log10(4.*Amplitude/math.sqrt(2.)/sigmai)
         enobi=(snri-1.76)/6.02
-        print snri,enobi
+        print(snri,enobi)
         sigmaf=np.std(wfnavgus.Values())
         snrf=20*math.log10(4.*Amplitude/math.sqrt(2.)/sigmaf)
         enobf=(snrf-1.76)/6.02
-        print snrf,enobf
+        print(snrf,enobf)
 
 if __name__ == "__main__":
     unittest.main()

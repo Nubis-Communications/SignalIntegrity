@@ -1,6 +1,7 @@
 """
 TimeDescriptor.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -187,6 +188,6 @@ class TimeDescriptor(object):
         return self.H+float(k)/self.Fs
     def Print(self):
         """prints an ascii version of the time descriptor"""
-        print 'HorOffset:  '+str(self.H)
-        print 'NumPts:     '+str(self.K)
-        print 'SampleRate: '+str(self.Fs)
+        print('HorOffset:  '+str(self.H))
+        print('NumPts:     '+str(self.K))
+        print('SampleRate: '+str(self.Fs))

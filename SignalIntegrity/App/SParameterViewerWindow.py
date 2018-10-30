@@ -1,6 +1,8 @@
 """
 SParameterViewerWindow.py
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -26,13 +28,13 @@ import os
 import tkMessageBox
 
 
-from PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
-from Files import FileParts
-from MenuSystemHelpers import Doer
+from .PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
+from .Files import FileParts
+from .MenuSystemHelpers import Doer
 
-from FilePicker import AskOpenFileName,AskSaveAsFilename
+from .FilePicker import AskOpenFileName,AskSaveAsFilename
 
-from ToSI import ToSI,FromSI
+from .ToSI import ToSI,FromSI
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -384,10 +386,10 @@ class SParametersDialog(Toplevel):
 
         if ir is not None:
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:2]=='i/' or self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
-                print 'Integrate'
+                print('Integrate')
                 ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False))
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
-                print 'Integrate'
+                print('Integrate')
                 ir=si.td.wf.ImpulseResponse(ir.Integral(addPoint=False)*ir.td.Fs)
 
             y=ir.Values()

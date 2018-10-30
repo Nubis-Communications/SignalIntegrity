@@ -30,7 +30,7 @@ class SystemDescription(list):
     def AssignSParameters(self,DeviceName,SParameters):
         self[self.IndexOfDevice(DeviceName)].AssignSParameters(SParameters)
     def Print(self):
-        print '\n','Device','Name','Port','Node','Name'
+        print('\n','Device','Name','Port','Node','Name')
         for d in range(len(self)):
-            print repr(d+1).rjust(6),
+            print(repr(d+1).rjust(6), end=' ')
             self[d].Print(1)

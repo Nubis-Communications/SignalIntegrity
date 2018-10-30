@@ -1,6 +1,7 @@
 """
 PreferencesFile.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -17,8 +18,8 @@ PreferencesFile.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
-from ProjectFileBase import ProjectFileBase,XMLProperty
+from .ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
+from .ProjectFileBase import ProjectFileBase,XMLProperty
 
 import os
 
@@ -41,7 +42,7 @@ class AppearanceConfiguration(XMLConfiguration):
 class CacheConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self)
-        self.dict['CacheResults']=XMLPropertyDefaultBool('CacheResults',False)
+        self.dict['CacheResults']=XMLPropertyDefaultBool('CacheResults',True)
 
 class LastFilesConfiguration(XMLConfiguration):
     def __init__(self):

@@ -16,13 +16,13 @@ class Device(list):
                 for c in range(Columns)] for r in range(Rows)]
     def Print(self,level=0):
         if level==0:
-            print '\n','Name','Port','Node','Name'
+            print('\n','Name','Port','Node','Name')
         for p in range(len(self)):
             if p==0:
-                print repr(self.Name).rjust(4),
+                print(repr(self.Name).rjust(4), end=' ')
             else:
                 if level==1:
-                    print repr('').strip('\'').rjust(6),
-                print repr('').strip('\'').rjust(4),
-            print repr(p+1).rjust(4),
+                    print(repr('').strip('\'').rjust(6), end=' ')
+                print(repr('').strip('\'').rjust(4), end=' ')
+            print(repr(p+1).rjust(4), end=' ')
             self[p].Print(level+1)

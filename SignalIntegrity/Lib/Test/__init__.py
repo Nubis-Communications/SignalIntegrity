@@ -1,6 +1,7 @@
 """
 __init__.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -17,11 +18,11 @@ __init__.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SignalIntegrityAppTestHelper import SignalIntegrityAppTestHelper
-from TestHelpers import PlotTikZ
-from TestHelpers import SParameterCompareHelper
-from TestHelpers import ResponseTesterHelper
-from TestHelpers import SourcesTesterHelper
-from TestHelpers import RoutineWriterTesterHelper
-from TestHelpers import CallbackTesterHelper
-from TestHelpers import DocStripped
+from .SignalIntegrityAppTestHelper import SignalIntegrityAppTestHelper
+from .TestHelpers import PlotTikZ
+from .TestHelpers import SParameterCompareHelper
+from .TestHelpers import ResponseTesterHelper
+from .TestHelpers import SourcesTesterHelper
+from .TestHelpers import RoutineWriterTesterHelper
+from .TestHelpers import CallbackTesterHelper
+from .TestHelpers import DocStripped

@@ -1,6 +1,7 @@
 """
 PreferencesDialog.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -17,8 +18,8 @@ PreferencesDialog.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor
-from MenuSystemHelpers import Doer
+from .CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor
+from .MenuSystemHelpers import Doer
 
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):

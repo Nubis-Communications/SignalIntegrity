@@ -1,6 +1,7 @@
 """
 LeCroyScope.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -58,7 +59,7 @@ class LeCroyScope():
                     if dev.serial_number == serialNumber:
                         LeCroyScope.instrument=usbtmc.Instrument(dev)
                         LeCroyScope.instrument.write('CHDR OFF')
-                        print LeCroyScope.instrument.ask('*IDN?')
+                        print(LeCroyScope.instrument.ask('*IDN?'))
                         #LeCroyScope.instrument.write('*RST')
                         LeCroyScope.instrument.timeout=250000
                         LeCroyScope.isConnected = True
@@ -78,7 +79,7 @@ class LeCroyScope():
                     LeCroyScope.instrument.chunk_size=1024*1024
                     LeCroyScope.instrument.timeout=250000
                     LeCroyScope.instrument.write('CHDR OFF')
-                    print LeCroyScope.instrument.query('*IDN?')
+                    print(LeCroyScope.instrument.query('*IDN?'))
                     #LeCroyScope.instrument.write('*RST')
                     LeCroyScope.isConnected = True
                     LeCroyScope.serialNumber = serialNumber
@@ -215,7 +216,7 @@ def main():
     plt.plot(wf.Times('us'),wf.Values(),label='data')
     plt.legend(loc='upper right')
     plt.show()
-    print 'done'
+    print('done')
     pass
 
     

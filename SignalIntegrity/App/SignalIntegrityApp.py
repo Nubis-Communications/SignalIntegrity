@@ -1,6 +1,7 @@
 """
 SignalIntegrityApp.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -34,26 +35,26 @@ import xml.etree.ElementTree as et
 import matplotlib
 matplotlib.use('TkAgg')
 
-from PartPicture import PartPicture
-from PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
-from Device import DeviceList,DeviceListUnknown,DeviceListSystem
-from Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
-from DeviceProperties import DevicePropertiesDialog
-from DevicePicker import DevicePickerDialog
-from Schematic import Drawing,Wire,Vertex
-from CalculationProperties import CalculationProperties
-from Simulator import Simulator
-from NetList import NetListDialog
-from SParameterViewerWindow import SParametersDialog
-from Files import FileParts,ConvertFileNameToRelativePath
-from History import History
-from MenuSystemHelpers import Doer,StatusBar
-from BuildHelpSystem import HelpSystemKeys
-from ProgressDialog import ProgressDialog
-from About import AboutDialog
-from Preferences import Preferences
-from PreferencesDialog import PreferencesDialog
-from FilePicker import AskSaveAsFilename,AskOpenFileName
+from SignalIntegrity.App.PartPicture import PartPicture
+from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
+from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
+from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
+from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
+from SignalIntegrity.App.DevicePicker import DevicePickerDialog
+from SignalIntegrity.App.Schematic import Drawing,Wire,Vertex
+from SignalIntegrity.App.CalculationProperties import CalculationProperties
+from SignalIntegrity.App.Simulator import Simulator
+from SignalIntegrity.App.NetList import NetListDialog
+from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
+from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
+from SignalIntegrity.App.History import History
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
+from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
+from SignalIntegrity.App.ProgressDialog import ProgressDialog
+from SignalIntegrity.App.About import AboutDialog
+from SignalIntegrity.App.Preferences import Preferences
+from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
+from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.__about__ import __version__,__project__
 
 class SignalIntegrityApp(Frame):
@@ -477,8 +478,8 @@ class SignalIntegrityApp(Frame):
         NetListDialog(self,self.Drawing.schematic.NetList().Text())
 
     def onExportTpX(self):
-        from TpX import TpX
-        from TikZ import TikZ
+        from .TpX import TpX
+        from .TikZ import TikZ
         self.Drawing.stateMachine.Nothing()
         filename=AskSaveAsFilename(filetypes=[('tpx', '.TpX')],
                                    defaultextension='.TpX',

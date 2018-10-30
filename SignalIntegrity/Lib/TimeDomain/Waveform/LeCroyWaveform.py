@@ -1,6 +1,7 @@
 """
 LeCroyWaveform.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -18,8 +19,8 @@ LeCroyWaveform.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from TimeDescriptor import TimeDescriptor
-from AdaptedWaveforms import AdaptedWaveforms
+from .TimeDescriptor import TimeDescriptor
+from .AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile
 
 from struct import unpack

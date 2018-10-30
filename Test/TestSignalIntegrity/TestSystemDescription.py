@@ -1,6 +1,7 @@
 """
 TestSystemDescription.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -34,8 +35,8 @@ class TestSystemDescription(unittest.TestCase):
         old_stdout = sys.stdout
         testString = "Hi - this is a test"
         sys.stdout = mystdout = StringIO()
-        print "This should not print"
-        print testString
+        print("This should not print")
+        print(testString)
         sys.stdout = old_stdout
         #print "This should"
         #print mystdout.getvalue()
@@ -86,30 +87,30 @@ class TestSystemDescription(unittest.TestCase):
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
         # pragma: include
-        print 'node vector:'
+        print('node vector:')
         print(n)
-        print 'weights matrix:'
+        print('weights matrix:')
         print(array(W))
-        print 'stimulus vector:'
+        print('stimulus vector:')
         print(m)
         AN=SC.PortBNames()
         BN=SC.PortANames()
-        print 'AN:'
+        print('AN:')
         print(AN)
-        print 'BN:'
+        print('BN:')
         print(BN)
         XN=SC.OtherNames(AN+BN)
         Wba=SC.WeightsMatrix(BN,AN)
         Wbx=SC.WeightsMatrix(BN,XN)
         Wxa=SC.WeightsMatrix(XN,AN)
         Wxx=SC.WeightsMatrix(XN,XN)
-        print 'Wba'
+        print('Wba')
         print(Wba)
-        print 'Wbx'
+        print('Wbx')
         print(Wbx)
-        print 'Wxa'
+        print('Wxa')
         print(Wxa)
-        print 'Wxx'
+        print('Wxx')
         print(Wxx)
         # pragma: exclude
         sys.stdout = old_stdout

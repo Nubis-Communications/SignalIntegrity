@@ -1,6 +1,7 @@
 """
 DeviceProperties.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -22,12 +23,12 @@ from Tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
 import tkMessageBox
 import copy
 
-from FilePicker import AskOpenFileName
-from PartProperty import PartPropertyFileName,PartPropertyWaveformFileName
-from Files import FileParts
-from SParameterViewerWindow import SParametersDialog
-from Simulator import SimulatorDialog
-from Device import Device
+from .FilePicker import AskOpenFileName
+from .PartProperty import PartPropertyFileName,PartPropertyWaveformFileName
+from .Files import FileParts
+from .SParameterViewerWindow import SParametersDialog
+from .Simulator import SimulatorDialog
+from .Device import Device
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):

@@ -1,6 +1,7 @@
 """
 TestSPARQFourPort.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -48,7 +49,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
                     pass
         if filename in TestSPARQFourPort.simdict:
             return TestSPARQFourPort.simdict[filename]
-        print "In TestSPARQFourPort, performing the sim for: "+filename
+        print("In TestSPARQFourPort, performing the sim for: "+filename)
         TestSPARQFourPort.simdict[filename] = self.SimulationResultsChecker(filename)
         return TestSPARQFourPort.simdict[filename]
     def NameForTest(self):

@@ -1,6 +1,8 @@
 """
 ProjectFileBase.py
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -96,7 +98,7 @@ class XMLProperty(object):
         return self
     def Print(self):
         for item in self.dict:
-            print self.dict[item]
+            print(self.dict[item])
     def PrintFullInformation(self,prefix):
         if 'type' in self.dict:
             propertyType=self.dict['type']
@@ -110,7 +112,7 @@ class XMLProperty(object):
             for i in range(len(propertyValue)):
                 propertyValue[i].PrintFullInformation(prefix+'['+str(i)+']')
         else:
-            print prefix + ' <' + propertyType + '> = ' + propertyValue
+            print(prefix + ' <' + propertyType + '> = ' + propertyValue)
 
     def GetPropertyValue(self,path):
         if path in self.dict:
@@ -166,14 +168,15 @@ class XMLConfiguration(object):
             name=child.tag
             if name[len(name)-len('Configuration'):]=='Configuration':
                 prefix=name[:-len('Configuration')]
-                temp=__import__(module)
-                self.dict[prefix]=eval('temp.'+name+'().InitFromXML(child,module)')
+                self.dict[prefix].InitFromXML(child,module)
+                #temp=__import__(module)
+                #self.dict[prefix]=eval('temp.'+name+'().InitFromXML(child,module)')
             else:
                 self.dict[name]=XMLProperty(name).InitFromXML(child,module)
         return self
     def Print(self):
         for item in self.dict:
-            print item
+            print(item)
             self.dict[item].Print()
     
     def PrintFullInformation(self,prefix):
@@ -220,7 +223,7 @@ class ProjectFileBase(object):
             lines=lines+self.dict[item].OutputXML(self.indent)
         lines=lines+['</Project>']
         for line in lines:
-            print line
+            print(line)
         return self
 
     def Write(self,filename):
@@ -248,15 +251,16 @@ class ProjectFileBase(object):
             name=child.tag
             if name[len(name)-len('Configuration'):]=='Configuration':
                 prefix=name[:-len('Configuration')]
-                temp=__import__(self.module)
-                self.dict[prefix]=eval('temp.'+name+'().InitFromXML(child,self.module)')
+                #temp=__import__(self.module)
+                #self.dict[prefix]=eval('temp.'+name+'().InitFromXML(child,self.module)')
+                self.dict[prefix].InitFromXML(child,self.module)
             else:
                 self.dict[name]=XMLProperty(name).InitFromXML(child,self.module)
         return self
 
     def Print(self):
         for item in self.dict:
-            print item
+            print(item)
             self.dict[item].Print()
 
     def PrintFullInformation(self):
