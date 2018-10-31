@@ -23,8 +23,8 @@ from ProjectFileBase import ProjectFileBase,XMLProperty
 import os
 
 class Color(XMLConfiguration):
-    def __init__(self,name):
-        XMLConfiguration.__init__(self,name)
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Color')
         self.Add(XMLPropertyDefaultString('Background'))
         self.Add(XMLPropertyDefaultString('Foreground'))
         self.Add(XMLPropertyDefaultString('ActiveBackground'))
@@ -33,33 +33,33 @@ class Color(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Plot'))
 
 class Appearance(XMLConfiguration):
-    def __init__(self,name):
-        XMLConfiguration.__init__(self,name)
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
-        self.SubDir(Color('Color'))
+        self.SubDir(Color())
 
 class Cache(XMLConfiguration):
-    def __init__(self,name):
-        XMLConfiguration.__init__(self,name)
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Cache')
         self.Add(XMLPropertyDefaultBool('CacheResults',False))
 
 class LastFiles(XMLConfiguration):
-    def __init__(self,name):
-        XMLConfiguration.__init__(self,name)
+    def __init__(self):
+        XMLConfiguration.__init__(self,'LastFiles')
         self.Add(XMLPropertyDefaultString('Name'))
         self.Add(XMLPropertyDefaultString('Directory'))
 
 class ProjectFiles(XMLConfiguration):
-    def __init__(self,name):
-        XMLConfiguration.__init__(self,name)
+    def __init__(self):
+        XMLConfiguration.__init__(self,'ProjectFiles')
         self.Add(XMLPropertyDefaultBool('OpenLastFile',True))
         self.Add(XMLPropertyDefaultBool('RetainLastFilesOpened',True))
-        self.Add(XMLProperty('LastFile',[LastFiles('LastFiles') for _ in range(4)],'array',LastFiles('LastFiles')))
+        self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',LastFiles()))
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
 
 class OnlineHelp(XMLConfiguration):
-    def __init__(self,name):
-        XMLConfiguration.__init__(self,name)
+    def __init__(self):
+        XMLConfiguration.__init__(self,'OnlineHelp')
         self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
         self.Add(XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App'))
         self.Add(XMLPropertyDefaultBool('RebuildHelpKeys',False))
@@ -67,8 +67,8 @@ class OnlineHelp(XMLConfiguration):
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self)
-        self.SubDir(ProjectFiles('ProjectFiles'))
-        self.SubDir(Appearance('Appearance'))
-        self.SubDir(Cache('Cache'))
-        self.SubDir(OnlineHelp('OnlineHelp'))
+        self.SubDir(ProjectFiles())
+        self.SubDir(Appearance())
+        self.SubDir(Cache())
+        self.SubDir(OnlineHelp())
 
