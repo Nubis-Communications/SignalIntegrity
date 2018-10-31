@@ -36,33 +36,28 @@ class XMLProperty(object):
 
     def OutputXML(self,indent):
         lines=[]
-        lines=lines+[indent+'<'+self.dict['name']+'>']
         if 'value' in self.dict:
             elementPropertyValue = self.dict['value']
         else:
             elementPropertyValue = None
-
         if isinstance(elementPropertyValue,list):
-            lines=lines+[indent+ProjectFileBase.indent+'<value>']
+            lines=lines+[indent+'<'+self.dict['name']+'>']
             for item in elementPropertyValue:
-                lines=lines+item.OutputXML(indent+ProjectFileBase.indent+ProjectFileBase.indent)
-            lines=lines+[indent+ProjectFileBase.indent+'</value>']
+                lines=lines+item.OutputXML(indent+ProjectFileBase.indent)
+            lines=lines+[indent+'</'+self.dict['name']+'>']
         else:
-            lines=lines+[indent+ProjectFileBase.indent+'<value>'+elementPropertyValue+'</value>']
-        lines=lines+[indent+'</'+self.dict['name']+'>']
+            lines=lines+[indent+'<'+self.dict['name']+'>'+elementPropertyValue+'</'+self.dict['name']+'>']
         return lines
 
     def InitFromXML(self,element):
         try:
-            self.dict['name']=element.tag
-            for elementProperty in element:
-                if 'type' in self.dict and elementProperty.tag == 'value' and self.dict['type']=='array':
-                    self.dict[elementProperty.tag] = []
-                    for child in elementProperty:
-                        import copy
-                        self.dict['value'].append(copy.deepcopy(self.dict['arrayType']).InitFromXML(child))
-                else:
-                    self.dict[elementProperty.tag] = elementProperty.text
+            if 'type' in self.dict and self.dict['type']=='array':
+                self.dict['value']=[]
+                for child in element:
+                    import copy
+                    self.dict['value'].append(copy.deepcopy(self.dict['arrayType']).InitFromXML(child))
+            else:
+                self.dict['value'] = element.text
             return self.UpdateValue()
         except:
             return self
