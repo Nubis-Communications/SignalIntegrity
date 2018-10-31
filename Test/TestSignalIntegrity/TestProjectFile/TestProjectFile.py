@@ -37,7 +37,7 @@ class TestProjectFileTest(unittest.TestCase):
 
     def testProjectFile(self):
         pf=Preferences()
-        pass
+        pf.SaveToFile()
 
 
 if __name__ == "__main__":

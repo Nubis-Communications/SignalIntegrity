@@ -66,7 +66,7 @@ class OnlineHelpConfiguration(XMLConfiguration):
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
-        ProjectFileBase.__init__(self,os.path.basename(__file__).split('.')[0])
+        ProjectFileBase.__init__(self)
         self.dict['ProjectFiles']=ProjectFilesConfiguration()
         self.dict['Appearance']=AppearanceConfiguration()
         self.dict['Cache']=CacheConfiguration()
