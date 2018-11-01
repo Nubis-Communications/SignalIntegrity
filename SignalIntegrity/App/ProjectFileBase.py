@@ -173,7 +173,7 @@ class XMLConfiguration(object):
         return self
     def Print(self):
         for item in self.dict:
-            print item
+            print (item)
             self.dict[item].Print()
 
     def PrintFullInformation(self,prefix):

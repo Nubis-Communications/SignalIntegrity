@@ -18,7 +18,7 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .ImpedanceProfile import *
+from .ImpedanceProfile import ImpedanceProfile
 from .ImpedanceProfileWaveform import ImpedanceProfileWaveform
 from .PeeledPortSParameters import PeeledPortSParameters
 from .PeeledLaunches import PeeledLaunches
