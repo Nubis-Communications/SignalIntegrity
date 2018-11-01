@@ -17,8 +17,8 @@ PreferencesFile.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
-from ProjectFileBase import ProjectFileBase,XMLProperty
+from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
+from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
 import os
 
@@ -67,6 +67,7 @@ class OnlineHelp(XMLConfiguration):
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self)
+        self.Add(XMLPropertyDefaultString('Version',None))
         self.SubDir(ProjectFiles())
         self.SubDir(Appearance())
         self.SubDir(Cache())

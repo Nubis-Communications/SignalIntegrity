@@ -24,7 +24,7 @@ class XMLProperty(object):
         self.dict={}
         if not propertyValue == None:
             if propertyType == None:
-                self.Default(propertyName,propertyValue,'string')
+                self.Default(propertyName,propertyValue,'string',arrayType)
             else:
                 self.Default(propertyName,propertyValue,propertyType,arrayType)
     def Default(self,propertyName,propertyValue,propertyType,arrayType):

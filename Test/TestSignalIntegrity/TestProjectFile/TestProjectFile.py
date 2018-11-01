@@ -35,8 +35,8 @@ class TestProjectFileTest(unittest.TestCase):
         pass
 
 
-    def testProjectFile(self):
-        pf=Preferences()
+    def testProjectFileOldSurvival(self):
+        pf=Preferences('preferencesOldStyle.xml')
         pf.SaveToFile()
 
 
