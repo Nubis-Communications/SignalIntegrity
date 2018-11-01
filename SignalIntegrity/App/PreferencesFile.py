@@ -23,53 +23,54 @@ from .ProjectFileBase import ProjectFileBase,XMLProperty
 
 import os
 
-class ColorConfiguration(XMLConfiguration):
+class Color(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self)
-        self.dict['Background']=XMLPropertyDefaultString('Background')
-        self.dict['Foreground']=XMLPropertyDefaultString('Foreground')
-        self.dict['ActiveBackground']=XMLPropertyDefaultString('ActiveBackground')
-        self.dict['ActiveForeground']=XMLPropertyDefaultString('ActiveForeground')
-        self.dict['DisabledForeground']=XMLPropertyDefaultString('DisabledForeground')
-        self.dict['Plot']=XMLPropertyDefaultString('Plot')
+        XMLConfiguration.__init__(self,'Color')
+        self.Add(XMLPropertyDefaultString('Background'))
+        self.Add(XMLPropertyDefaultString('Foreground'))
+        self.Add(XMLPropertyDefaultString('ActiveBackground'))
+        self.Add(XMLPropertyDefaultString('ActiveForeground'))
+        self.Add(XMLPropertyDefaultString('DisabledForeground'))
+        self.Add(XMLPropertyDefaultString('Plot'))
 
-class AppearanceConfiguration(XMLConfiguration):
+class Appearance(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self)
-        self.dict['FontSize']=XMLPropertyDefaultInt('FontSize',12)
-        self.dict['Color']=ColorConfiguration()
+        XMLConfiguration.__init__(self,'Appearance')
+        self.Add(XMLPropertyDefaultInt('FontSize',12))
+        self.SubDir(Color())
 
-class CacheConfiguration(XMLConfiguration):
+class Cache(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self)
-        self.dict['CacheResults']=XMLPropertyDefaultBool('CacheResults',True)
+        XMLConfiguration.__init__(self,'Cache')
+        self.Add(XMLPropertyDefaultBool('CacheResults',False))
 
-class LastFilesConfiguration(XMLConfiguration):
+class LastFiles(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self)
-        self.dict['Name']=XMLPropertyDefaultString('Name')
-        self.dict['Directory']=XMLPropertyDefaultString('Directory')
+        XMLConfiguration.__init__(self,'LastFiles')
+        self.Add(XMLPropertyDefaultString('Name'))
+        self.Add(XMLPropertyDefaultString('Directory'))
 
-class ProjectFilesConfiguration(XMLConfiguration):
+class ProjectFiles(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self)
-        self.dict['OpenLastFile']=XMLPropertyDefaultBool('OpenLastFIle',True)
-        self.dict['RetainLastFilesOpened']=XMLPropertyDefaultBool('RetainLastFilesOpened',True)
-        self.dict['LastFile']=XMLProperty('LastFile',[LastFilesConfiguration() for _ in range(4)],'array')
-        self.dict['AskToSaveCurrentFile']=XMLPropertyDefaultBool('AskToSaveCurrentFile',True)
+        XMLConfiguration.__init__(self,'ProjectFiles')
+        self.Add(XMLPropertyDefaultBool('OpenLastFile',True))
+        self.Add(XMLPropertyDefaultBool('RetainLastFilesOpened',True))
+        self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',LastFiles()))
+        self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
 
-class OnlineHelpConfiguration(XMLConfiguration):
+class OnlineHelp(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self)
-        self.dict['UseOnlineHelp']=XMLPropertyDefaultBool('UseOnlineHelp',True)
-        self.dict['URL']=XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App')
-        self.dict['RebuildHelpKeys']=XMLPropertyDefaultBool('RebuildHelpKeys',False)
+        XMLConfiguration.__init__(self,'OnlineHelp')
+        self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
+        self.Add(XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App'))
+        self.Add(XMLPropertyDefaultBool('RebuildHelpKeys',False))
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
-        ProjectFileBase.__init__(self,os.path.basename(__file__).split('.')[0])
-        self.dict['ProjectFiles']=ProjectFilesConfiguration()
-        self.dict['Appearance']=AppearanceConfiguration()
-        self.dict['Cache']=CacheConfiguration()
-        self.dict['OnlineHelp']=OnlineHelpConfiguration()
+        ProjectFileBase.__init__(self)
+        self.Add(XMLPropertyDefaultString('Version',None))
+        self.SubDir(ProjectFiles())
+        self.SubDir(Appearance())
+        self.SubDir(Cache())
+        self.SubDir(OnlineHelp())
 

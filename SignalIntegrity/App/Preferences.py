@@ -24,26 +24,38 @@ from .PreferencesFile import PreferencesFile
 import os,errno
 import platform
 
+from SignalIntegrity.__about__ import __version__
+
 class Preferences(PreferencesFile):
-    def __init__(self):
+    def __init__(self,preferencesFileName=None):
         PreferencesFile.__init__(self)
-        thisOS=platform.system()
-        if thisOS == 'Linux':
-            pathToPreferencesFile = os.path.expanduser('~')+'/.signalintegrity'
+        self.fileExists=False
+        if preferencesFileName is None:
+            thisOS=platform.system()
+            if thisOS == 'Linux':
+                pathToPreferencesFile = os.path.expanduser('~')+'/.signalintegrity'
+            else:
+                pathToPreferencesFile = '/LeCroy/SignalIntegrity'
+            self.preferencesFileName=pathToPreferencesFile+'/preferences'
+            try:
+                os.makedirs(pathToPreferencesFile)
+            except OSError, e:
+                if e.errno != errno.EEXIST:
+                    return
         else:
-            pathToPreferencesFile = '/LeCroy/SignalIntegrity'
-        self.preferencesFileName=pathToPreferencesFile+'/preferences'
-        try:
-            os.makedirs(pathToPreferencesFile)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                return
+            self.preferencesFileName=preferencesFileName
         try:
             self.Read(self.preferencesFileName)
+            self.fileExists=not (self.GetValue('Version') is None)
         except:
+            self.fileExists=False
+        if not self.fileExists:
             try:
+                PreferencesFile.__init__(self)
+                self.SetValue('Version', __version__)
                 self.Write(self.preferencesFileName)
             except:
+                self.fileExists=False
                 return
         self.fileExists=True
     def SaveToFile(self):
@@ -83,7 +95,7 @@ class Preferences(PreferencesFile):
                 return dirString+'/'+nameString
         else:
             return None
-    
+
     def GetRecentFileList(self):
         lastFiles=self.GetValue('ProjectFiles.LastFile')
         if lastFiles is None:
