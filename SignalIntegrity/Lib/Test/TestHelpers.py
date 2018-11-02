@@ -20,14 +20,17 @@ TestHelpers.py
 
 import os
 import sys
-from cStringIO import StringIO
+from io import StringIO
 
-from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
-from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
-from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
+from Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
+from Lib.TimeDomain.Waveform.Waveform import Waveform
+from Lib.SParameters.SParameterFile import SParameterFile
 
 def PlotTikZ(filename,plot2save,scale=None):
-    from matplotlib2tikz import save as tikz_save
+    try:
+        from matplotlib2tikz import save as tikz_save
+    except:
+        return
     tikz_save(filename,figure=plot2save.gcf(),show_info=False,float_format='%.6g')
     texfile=open(filename,'rU')
     lines=[]
@@ -209,7 +212,7 @@ class RoutineWriterTesterHelper(object):
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
-        execfile(scriptFileName)
+        exec(open('./'+scriptFileName).read())
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sys.stdout = old_stdout
         outputFileName = scriptName + '.po'

@@ -18,9 +18,9 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Toplevel,Frame,Button
-from Tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
-from ScrolledText import ScrolledText
+from tkinter import Toplevel,Frame,Button
+from tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
+from tkinter import scrolledtext
 
 from .FilePicker import AskSaveAsFilename
 from .PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyWeight
@@ -236,7 +236,7 @@ class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
         Frame.__init__(self,parent)
         self.title = 'NetList'
-        self.text=ScrolledText(self)
+        self.text=scrolledtext.ScrolledText(self)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')

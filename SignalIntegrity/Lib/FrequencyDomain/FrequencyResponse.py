@@ -22,13 +22,13 @@ from numpy import fft
 import math
 import cmath
 
-from SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
-from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
-from SignalIntegrity.Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
-from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
-from SignalIntegrity.Lib.Splines import Spline
-from SignalIntegrity.Lib.ChirpZTransform import CZT
-from SignalIntegrity.Lib.Rat import Rat
+from Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
+from Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+from Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
+from Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+from Lib.Splines import Spline
+from Lib.ChirpZTransform import CZT
+from Lib.Rat import Rat
 
 class FrequencyResponse(FrequencyDomain):
     """FrequencyResponse
@@ -106,8 +106,8 @@ class FrequencyResponse(FrequencyDomain):
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
             td=fd.TimeDescriptor()
-            tp=[Y[k].real for k in range(td.K/2)]
-            tn=[Y[k].real for k in range(td.K/2,td.K)]
+            tp=[Y[k].real for k in range(td.K//2)]
+            tn=[Y[k].real for k in range(td.K//2,td.K)]
             Y=tn+tp
             return ImpulseResponse(td,Y)
         if evenlySpaced and td is None and adjustDelay:
@@ -139,8 +139,8 @@ class FrequencyResponse(FrequencyDomain):
         N/D+1 is the number of points in the decimated frequency response.
         """
         fd=self.FrequencyList()
-        X=[self.Response()[n*D] for n in range(fd.N/D+1)]
-        return FrequencyResponse(EvenlySpacedFrequencyList(fd.N/D*D/fd.N*fd.Fe,fd.N/D),X)
+        X=[self.Response()[n*D] for n in range(fd.N//D+1)]
+        return FrequencyResponse(EvenlySpacedFrequencyList(fd.N//D*D//fd.N*fd.Fe,fd.N//D),X)
     def _SplineResample(self,fdp):
         fd=self.FrequencyList()
         Poly=Spline(fd,self.Response())
@@ -207,4 +207,4 @@ class FrequencyResponse(FrequencyDomain):
         Fei=Ni*fdp.Fe/fdp.N
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
             CZT(ir.DelayBy(-TD).Values(),ir.td.Fs,0,Fei,Ni,speedy)).\
-            _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)
+            _Pad(fdp.N)._DelayBy(-fd.N//2./fd.Fe+TD)

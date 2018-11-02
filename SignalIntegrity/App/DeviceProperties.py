@@ -18,9 +18,9 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
-from Tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
-import tkMessageBox
+from tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
+from tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
+from tkinter import messagebox
 import copy
 
 from .FilePicker import AskOpenFileName
@@ -118,7 +118,7 @@ class DeviceProperty(Frame):
                 try:
                     sp=si.sp.SParameterFile(filename)
                 except si.SignalIntegrityException as e:
-                    tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+                    messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                     return
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
                 spd.grab_set()
@@ -129,7 +129,7 @@ class DeviceProperty(Frame):
                 try:
                     wf=self.parent.device.Waveform()
                 except si.SignalIntegrityException as e:
-                    tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+                    messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
                     return
                 sd=SimulatorDialog(self.parent.parent)
                 sd.title(filenametoshow)
@@ -300,7 +300,7 @@ class DeviceProperties(Frame):
         try:
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
         fileParts=copy.copy(self.parent.parent.fileparts)
         fileParts.filename=fileParts.filename+'_'+referenceDesignator
@@ -315,7 +315,7 @@ class DeviceProperties(Frame):
         try:
             wf=device.Waveform()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+            messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
             return
         sim=self.parent.parent.simulator
         sd=sim.SimulatorDialog()

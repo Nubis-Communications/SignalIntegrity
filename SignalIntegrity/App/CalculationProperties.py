@@ -18,9 +18,10 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import *
+from tkinter import Frame,Label,Entry,StringVar,Toplevel,PhotoImage
+from tkinter import TOP,YES,NO,X,LEFT
 import xml.etree.ElementTree as et
-import tkMessageBox
+from tkinter import messagebox
 
 from .PlotWindow import *
 from .ToSI import *

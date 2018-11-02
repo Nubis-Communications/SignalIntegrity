@@ -17,7 +17,7 @@ ParserArgs.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
+from Lib.Helpers.LineSplitter import LineSplitter
 
 class ParserArgs():
     def AssignArguments(self,args):
@@ -36,11 +36,11 @@ class ParserArgs():
     def ProcessVariables(self,lineList):
         if lineList[0] == 'var':
             variables=dict([(lineList[i*2+1],lineList[i*2+2])
-                for i in range((len(lineList)-1)/2)])
+                for i in range((len(lineList)-1)//2)])
             for key in self.m_args:
                 if key in variables:
                     variables[key]=self.m_args[key]
-            self.m_vars=dict(self.m_vars.items()+variables.items())
+            self.m_vars=dict(list(self.m_vars.items())+list(variables.items()))
             return True
         else:
             return False

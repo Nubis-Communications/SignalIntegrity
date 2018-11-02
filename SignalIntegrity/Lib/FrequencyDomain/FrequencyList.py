@@ -50,8 +50,8 @@ class FrequencyList(list):
         frequency is f[n]=n/N*Fe
         """
         self.Fe=Fe
-        self.N=N
-        list.__init__(self,[Fe/N*n for n in range(N+1)])
+        self.N=int(N)
+        list.__init__(self,[Fe/N*n for n in range(self.N+1)])
         self.m_EvenlySpaced=True
         return self
     def SetList(self,fl):
@@ -118,7 +118,7 @@ class FrequencyList(list):
                 return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
-    def __div__(self,d):
+    def __truediv__(self,d):
         """overloads /
         @param d float frequency to divide each frequency by.
         @return an instance of class FrequencyList containing self divided by the amount specified.

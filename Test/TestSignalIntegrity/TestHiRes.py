@@ -74,7 +74,6 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         del fin
         del vdiv
         del td
-        del t
 
         # wfa and wfna are analog and noise waveforms
         # process these waveforms through the noise filter
@@ -88,7 +87,6 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         wfna=si.td.wf.Waveform(wfna.TimeDescriptor(),[wfna[k]*sigmafe/sigmafeActual for k in range(len(wfna.Values()))])
         sigmafeActual=np.std(wfna.Values())
         del sigmafeActual
-        del k
 
         # wfa and wfna are analog waveforms
         # wfa is the analog input waveform
@@ -145,7 +143,6 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         sigmaadcActual = np.std(wfnadc.Values())
         del sigmaadc
         del sigmaadcActual
-        del k
 
         # now we have wf, wfnafe, and wfnadc
         # these are the analog waveform, the analog front-end noise and
@@ -157,9 +154,9 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         # form the decimated waveforms
         VILV=4
 
-        wfd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wf.Times()[d],len(wf)/VILV,wf.TimeDescriptor().Fs/VILV),[wf[kd*VILV+d] for kd in range(len(wf)/VILV)]) for d in range(VILV)]
-        wfnd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfn.Times()[d],len(wfn)/VILV,wfn.TimeDescriptor().Fs/VILV),[wfn[kd*VILV+d] for kd in range(len(wfn)/VILV)]) for d in range(VILV)]
-        wfsd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfs.Times()[d],len(wfs)/VILV,wfs.TimeDescriptor().Fs/VILV),[wfs[kd*VILV+d] for kd in range(len(wfs)/VILV)]) for d in range(VILV)]
+        wfd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wf.Times()[d],len(wf)//VILV,wf.TimeDescriptor().Fs/VILV),[wf[kd*VILV+d] for kd in range(len(wf)//VILV)]) for d in range(VILV)]
+        wfnd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfn.Times()[d],len(wfn)//VILV,wfn.TimeDescriptor().Fs/VILV),[wfn[kd*VILV+d] for kd in range(len(wfn)//VILV)]) for d in range(VILV)]
+        wfsd = [si.td.wf.Waveform(si.td.wf.TimeDescriptor(wfs.Times()[d],len(wfs)//VILV,wfs.TimeDescriptor().Fs/VILV),[wfs[kd*VILV+d] for kd in range(len(wfs)//VILV)]) for d in range(VILV)]
 
         wfavg=wfd[0]*(1./VILV)
         wfnavg=wfnd[0]*(1./VILV)

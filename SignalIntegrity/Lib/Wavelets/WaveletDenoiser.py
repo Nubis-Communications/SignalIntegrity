@@ -82,7 +82,7 @@ class WaveletDenoiser(object):
     def DerivativeThresholdCalc(X,h,pct=30.,isDerivative=True):
         L=len(h)
         K=len(X)
-        N=K/2
+        N=K//2
         B=int(log2(K)-log2(L))+1
         if isDerivative:
             E=[math.sqrt(2.*(1-math.cos(math.pi*n/N))) for n in range(N+1)]
@@ -95,7 +95,7 @@ class WaveletDenoiser(object):
         th=[sigma/math.sqrt(N) for k in range(K)]
         for k in range(K):
             # warning - seems to depend on L a power of 2
-            b=int(math.floor(log2(max(L/2,k)))-log2(L/2))
+            b=int(math.floor(log2(max(L//2,k)))-log2(L//2))
             th[k]=th[k]*TS[b]
         return th
     @staticmethod
@@ -112,7 +112,7 @@ class WaveletDenoiser(object):
                     acc=acc+pow(-1,l)*h[L-1-l]*cmath.exp(-1j*math.pi*n*l/N)
                 accn=accn+pow(abs(E[n])*abs(acc),2)
             S[B-1-i]=math.sqrt(accn)
-            for n in range(N/2+1):
+            for n in range(N//2+1):
                 accl=0
                 accr=0
                 for l in range(L):

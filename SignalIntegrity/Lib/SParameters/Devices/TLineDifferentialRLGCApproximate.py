@@ -19,9 +19,9 @@
 from numpy import linalg
 import math
 
-from SignalIntegrity.Lib.Conversions import S2T
-from SignalIntegrity.Lib.Conversions import T2S
-from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+from Lib.Conversions import S2T
+from Lib.Conversions import T2S
+from Lib.SParameters.SParameters import SParameters
 
 class TLineDifferentialRLGCApproximate(SParameters):
     """s-parameters of differential RLGC (telegrapher's) transmission line
@@ -69,12 +69,12 @@ class TLineDifferentialRLGCApproximate(SParameters):
 
         self.m_K=K
         # pragma: silent exclude
-        from SignalIntegrity.Lib.Devices import SeriesG
-        from SignalIntegrity.Lib.Devices import SeriesZ
-        from SignalIntegrity.Lib.Devices import TerminationG
-        import SignalIntegrity.Lib.SParameters.Devices as dev
-        from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
-        from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
+        from Lib.Devices import SeriesG
+        from Lib.Devices import SeriesZ
+        from Lib.Devices import TerminationG
+        from Lib.SParameters import Devices as dev
+        from Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
+        from Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include
         sdp=SystemDescriptionParser().AddLines([
         'device rsep 2','device rp 2','device lp 2','device gp 1','device cp 1',

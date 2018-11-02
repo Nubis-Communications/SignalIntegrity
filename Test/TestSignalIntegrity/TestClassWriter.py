@@ -169,7 +169,7 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         fileName="../../SignalIntegrity/Lib/FrequencyDomain/FrequencyList.py"
         className='FrequencyList'
         defName=['Frequencies','SetEvenlySpaced','SetList',
-        'EvenlySpaced','CheckEvenlySpaced','__div__','__mul__','TimeDescriptor']
+        'EvenlySpaced','CheckEvenlySpaced','__truediv__','__mul__','TimeDescriptor']
         self.WriteClassCode(fileName,className,defName)
     def testWriteEvenlySpacedFrequencyList_Init(self):
         fileName="../../SignalIntegrity/Lib/FrequencyDomain/FrequencyList.py"

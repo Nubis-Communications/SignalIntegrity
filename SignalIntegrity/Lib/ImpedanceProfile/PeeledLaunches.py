@@ -18,10 +18,10 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SParameters.SParameters import SParameters
-from SignalIntegrity.Lib.ImpedanceProfile.PeeledPortSParameters import PeeledPortSParameters
-from SignalIntegrity.Lib.Parsers import DeembedderParser
-from SignalIntegrity.Lib.SystemDescriptions import DeembedderNumeric
+from Lib.SParameters.SParameters import SParameters
+from Lib.ImpedanceProfile.PeeledPortSParameters import PeeledPortSParameters
+from Lib.Parsers import DeembedderParser
+from Lib.SystemDescriptions import DeembedderNumeric
 
 class PeeledLaunches(SParameters):
     """S-parameters with launches peeled from them.

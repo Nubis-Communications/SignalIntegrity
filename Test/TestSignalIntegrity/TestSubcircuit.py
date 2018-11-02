@@ -19,7 +19,7 @@ TestSubcircuit.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import os
-from cStringIO import StringIO
+from io import StringIO
 import sys
 import SignalIntegrity.Lib as si
 from numpy import matrix

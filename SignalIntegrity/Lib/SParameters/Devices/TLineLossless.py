@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+from Lib.SParameters.SParameters import SParameters
 
 class TLineLossless(SParameters):
     """s-parameters of ideal lossless single-ended transmission line"""
@@ -40,7 +40,7 @@ class TLineLossless(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        import SignalIntegrity.Lib.Devices as dev
+        from Lib import Devices as dev
         # pragma: include
         if self.m_P==2: return dev.TLineTwoPortLossless(
                 self.m_Zc,self.m_Td,self.m_f[n],self.m_Z0)

@@ -34,6 +34,6 @@ class SeriesRse(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        import SignalIntegrity.Lib.Devices as dev
+        from Lib import Devices as dev
         # pragma: include
         return dev.SeriesRse(self.m_f[n],self.m_Rse,self.m_Z0)

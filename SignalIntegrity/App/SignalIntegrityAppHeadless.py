@@ -22,7 +22,7 @@ import os
 import sys
 
 import xml.etree.ElementTree as et
-from Tkinter import ALL
+from tkinter import ALL
 
 from .CalculationProperties import CalculationProperties
 from .Files import FileParts,ConvertFileNameToRelativePath

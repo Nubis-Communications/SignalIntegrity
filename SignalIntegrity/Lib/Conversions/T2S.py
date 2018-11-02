@@ -34,10 +34,10 @@ def T2S(T,lp=None,rp=None):
     @attention The port number in the lists are one-based (not zero-based)
     @note The reference impedance and scaling factor associated with the s-parameters
     is unchanged."""
-    P=len(T)/2+len(T[0])/2
+    P=len(T)//2+len(T[0])//2
     if not isinstance(lp,list):
-        lp=range(1,P/2+1)
-        rp=range(P/2+1,P+1)
+        lp=range(1,P//2+1)
+        rp=range(P//2+1,P+1)
     I=identity(P).tolist()
     SL=[]
     SR=[]

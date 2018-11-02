@@ -18,8 +18,7 @@ FilePicker.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from tkFileDialog import asksaveasfilename
-from tkFileDialog import askopenfilename
+from tkinter import filedialog
 
 def _FileNameChecker(filename):
     if filename is None:
@@ -32,9 +31,9 @@ def _FileNameChecker(filename):
     return filename
 
 def AskSaveAsFilename(**kw):
-    filename=asksaveasfilename(**kw)
+    filename=filedialog.asksaveasfilename(**kw)
     return _FileNameChecker(filename)
 
 def AskOpenFileName(**kw):
-    filename=askopenfilename(**kw)
+    filename=filedialog.askopenfilename(**kw)
     return _FileNameChecker(filename)

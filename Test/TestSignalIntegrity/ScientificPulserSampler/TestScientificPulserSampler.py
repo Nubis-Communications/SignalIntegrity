@@ -1207,7 +1207,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
                 ('Measurements2/M3--Load--00000.txt','Load')]
         wfDict=dict()
         for (filename,meas) in wfList:
-            with open(filename) as f:
+            with open(filename,'r',encoding='latin-1') as f:
                 v=[float(amp) for amp in f.readlines()[3:]]
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-0.97e-9,len(v),100000e9),v)*si.td.f.WaveformDecimator(100)
             sum=0.0
@@ -1402,7 +1402,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
 
         wfDict=dict()
         for (filename,meas) in wfList:
-            with open(filename) as f:
+            with open(filename,'r',encoding='Latin-1') as f:
                 v=[float(amp) for amp in f.readlines()[3:]]
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-1.86e-9,len(v),100000e9),v)*si.td.f.WaveformDecimator(100)
             sum=0.0
@@ -1600,7 +1600,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
 
         wfDict=dict()
         for (filename,meas) in wfList:
-            with open(filename) as f:
+            with open(filename,'r',encoding='latin-1') as f:
                 v=[float(amp) for amp in f.readlines()[3:]]
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-1.86e-9,len(v),100000e9),v)*si.td.f.WaveformDecimator(100)
             sum=0.0

@@ -383,7 +383,8 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
     def testfrpadnone(self):
         fr=self.frc()
         fr2=fr._Pad(fr.FrequencyList().N)
-        self.assertTrue(fr == fr2,'pad no points incorrect')
+        self.assertTrue(len(fr)==len(fr2),'pad no points incorrect')
+        self.assertTrue(all([r==r2 for (r,r2) in zip(fr,fr2)]),'pad no points incorrect')
     def testResUnevenNoDescriptor(self):
         frc=self.frc()
         f=frc.FrequencyList().Frequencies()

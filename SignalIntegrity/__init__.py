@@ -1,7 +1,6 @@
 """
 __init__.py
 """
-from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,5 +18,5 @@ from __future__ import absolute_import
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from . import App
-from . import Lib
+from .App import *
+from .Lib import *

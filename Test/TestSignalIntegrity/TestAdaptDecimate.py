@@ -46,7 +46,7 @@ class TestAdaptDecimateTest(unittest.TestCase,si.test.RoutineWriterTesterHelper,
         df=int(round(1/ad.U))
         dph= int(round(ad.TrimLeft())) % df
         v=wffd.Values()
-        dv=[v[k*df+dph] for k in range((len(v)-dph)/df)]
+        dv=[v[k*df+dph] for k in range((len(v)-dph)//df)]
         tdd=si.td.wf.TimeDescriptor(td.H+dph/td.Fs,len(dv),td.Fs/df)
         wfd=si.td.wf.Waveform(tdd,dv)
 

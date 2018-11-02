@@ -224,7 +224,7 @@ class TestImpedanceProfile(unittest.TestCase,si.test.SParameterCompareHelper,
         sp=spDict['all']
         sp.SetReferenceImpedance(Z0)
         td=sp.m_f.TimeDescriptor()
-        ipwf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0+1/(td.Fs*4),td.K/2,td.Fs*2),si.ip.ImpedanceProfile(spDict['all'],td.K/2,1).Z())
+        ipwf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0+1/(td.Fs*4),td.K//2,td.Fs*2),si.ip.ImpedanceProfile(spDict['all'],td.K//2,1).Z())
         plt.plot(ipwf.Times('ns'),ipwf.Values(),label='Z calculated',color='black')
         plt.plot(wfActual.Times('ns'),wfActual.Values(),label='Z actual',linewidth=2,color='black')
         plt.xlim(0.0,1)
@@ -515,7 +515,7 @@ class TestImpedanceProfile(unittest.TestCase,si.test.SParameterCompareHelper,
         plt.clf()
         sp.SetReferenceImpedance(Z0)
         td=sp.m_f.TimeDescriptor()
-        ip=si.ip.ImpedanceProfile(sp,td.K/2,1)
+        ip=si.ip.ImpedanceProfile(sp,td.K//2,1)
         ipwf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(ip.DelaySection()/2,len(ip),1./ip.DelaySection()),ip.Z())
         plt.plot(ipwf.Times('ns'),ipwf.Values(),label='Z calculated',color='black')
         plt.plot(wfActual.Times('ns'),wfActual.Values(),label='Z actual',linewidth=2,color='black')

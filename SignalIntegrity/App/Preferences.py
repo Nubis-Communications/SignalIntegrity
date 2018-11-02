@@ -24,7 +24,7 @@ from .PreferencesFile import PreferencesFile
 import os,errno
 import platform
 
-from SignalIntegrity.__about__ import __version__
+from __about__ import __version__
 
 class Preferences(PreferencesFile):
     def __init__(self,preferencesFileName=None):
@@ -39,7 +39,7 @@ class Preferences(PreferencesFile):
             self.preferencesFileName=pathToPreferencesFile+'/preferences'
             try:
                 os.makedirs(pathToPreferencesFile)
-            except OSError, e:
+            except OSError as e:
                 if e.errno != errno.EEXIST:
                     return
         else:

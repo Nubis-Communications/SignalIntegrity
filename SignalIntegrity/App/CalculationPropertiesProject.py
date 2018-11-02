@@ -18,9 +18,10 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
-from Tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
-from tkColorChooser import askcolor
+from tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
+from tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
+from tkinter import colorchooser
+
 from .FilePicker import AskOpenFileName,AskSaveAsFilename
 
 from .ToSI import FromSI,ToSI
@@ -251,7 +252,7 @@ class CalculationPropertyColor(Frame):
     def GetString(self):
         return self.string.get()
     def onPressed(self,event=None):
-        color = askcolor()[1]
+        color = colorchooser.askcolor()[1]
         if not color is None:
             self.SetString(color)
             if not ((self.project is None) or (self.projectPath is None)):

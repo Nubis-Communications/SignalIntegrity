@@ -20,7 +20,7 @@ TestTeeProblem.py
 import unittest
 import sys
 import os
-from StringIO import StringIO
+from io import StringIO
 
 import SignalIntegrity.Lib as si
 

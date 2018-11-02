@@ -17,12 +17,14 @@ About.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,Message
-from Tkinter import TOP,BOTH,LEFT,YES,X,END,CENTER
+from tkinter import Toplevel,PhotoImage,Frame,Button,Label,Message
+from tkinter import TOP,BOTH,LEFT,YES,X,END,CENTER
+
 import webbrowser
 import textwrap
-from ScrolledText import ScrolledText
-from SignalIntegrity.__about__ import __version__,__url__,__copyright__,__description__,__author__,__email__,__project__
+from tkinter import scrolledtext
+
+from __about__ import __version__,__url__,__copyright__,__description__,__author__,__email__,__project__
 
 class CreditsDialog(Toplevel):
     def __init__(self,parent):
@@ -33,7 +35,7 @@ class CreditsDialog(Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('Credits')
-        self.text=ScrolledText(self,height=8,width=50)
+        self.text=scrolledtext.ScrolledText(self,height=8,width=50)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')
@@ -70,7 +72,7 @@ class LicenseDialog(Toplevel):
         self.title('License')
         self.gnu=Button(self,image=self.gnuimg,command=self.onHyper)
         self.gnu.pack(side=TOP,fill=BOTH,expand=YES)
-        self.text=ScrolledText(self)
+        self.text=scrolledtext.ScrolledText(self)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')

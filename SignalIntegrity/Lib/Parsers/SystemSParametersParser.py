@@ -18,12 +18,12 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SystemDescriptions import SystemSParametersNumeric
-from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
-from SignalIntegrity.Lib.SParameters import SParameters
-from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters
-from SignalIntegrity.Lib.CallBacker import CallBacker
-from SignalIntegrity.Lib.ResultsCache import LinesCache
+from Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
+from Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
+from Lib.SParameters import SParameters
+from Lib.Exception import SignalIntegrityExceptionSParameters
+from Lib.CallBacker import CallBacker
+from Lib.ResultsCache import LinesCache
 
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""

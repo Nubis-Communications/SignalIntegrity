@@ -37,8 +37,8 @@ def S2T(S,lp=None,rp=None):
     """
     P=len(S)
     if not isinstance(lp,list):
-        lp=range(1,P/2+1)
-        rp=range(P/2+1,P+1)
+        lp=range(1,P//2+1)
+        rp=range(P//2+1,P+1)
     I=identity(P).tolist()
     TL=[]
     for r in range(len(lp)):

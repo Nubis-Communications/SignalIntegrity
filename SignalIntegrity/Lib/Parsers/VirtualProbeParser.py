@@ -66,7 +66,7 @@ class VirtualProbeParser(SystemDescriptionParser):
             for i in range(1,len(lineList),2):
                 self.m_sd.pOutputList.append((lineList[i],int(lineList[i+1])))
         elif lineList[0] == 'stim':
-            for i in range((len(lineList)-1)/3):
+            for i in range((len(lineList)-1)//3):
                 self.m_sd.AssignM(lineList[i*3+2],int(lineList[i*3+3]),lineList[i*3+1])
         elif lineList[0] == 'stimdef':
             self.m_sd.pStimDef = [[float(e) for e in r] for r in [s.split(',')

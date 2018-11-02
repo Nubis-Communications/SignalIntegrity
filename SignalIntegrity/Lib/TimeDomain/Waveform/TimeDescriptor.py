@@ -31,7 +31,7 @@ class TimeDescriptor(object):
         @param SampleRate float sample rate (1/sample period)
         """
         self.H = HorOffset
-        self.K = NumPts
+        self.K = int(NumPts)
         self.Fs=SampleRate
     def __len__(self):
         """overloads len()
@@ -115,7 +115,7 @@ class TimeDescriptor(object):
         @see ApplyFilter()
         """
         return self.ApplyFilter(F)
-    def __div__(self,other):
+    def __truediv__(self,other):
         """overloads /
 
         This is an abstraction and is polymorphic.

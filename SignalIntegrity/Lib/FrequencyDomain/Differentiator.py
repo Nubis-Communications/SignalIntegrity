@@ -17,15 +17,15 @@ Differentiator.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
-from SignalIntegrity.Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
+from Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
+from Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
 
 class Differentiator(FrequencyResponse):
     def __init__(self,fl):
         td=fl.TimeDescriptor()
-        resp=[0 for k in range(td.K)]
-        resp[td.K/2]=td.Fs
-        resp[td.K/2+1]=-resp[td.K/2]
+        resp=[0 for _ in range(td.K)]
+        resp[td.K//2]=td.Fs
+        resp[td.K//2+1]=-resp[td.K//2]
         ir=ImpulseResponse(td,resp)
         fr=ir.FrequencyResponse()
         FrequencyResponse.__init__(self,fl,fr.Response())

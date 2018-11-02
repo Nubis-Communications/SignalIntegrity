@@ -1,7 +1,6 @@
 """
 SignalIntegrityApp.py
 """
-from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -18,13 +17,13 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Frame,PhotoImage,Menu,Button,Tk
-from Tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
+from tkinter import Frame,PhotoImage,Menu,Button,Tk
+from tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
 
-import tkFont
+from tkinter import font
 
-import tkMessageBox
-from tkMessageBox import askyesnocancel
+from tkinter import messagebox
+#from messagebox import askyesnocancel
 
 import copy
 import os
@@ -33,29 +32,30 @@ import sys
 import xml.etree.ElementTree as et
 
 import matplotlib
+
 matplotlib.use('TkAgg')
 
-from SignalIntegrity.App.PartPicture import PartPicture
-from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
-from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
-from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
-from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
-from SignalIntegrity.App.DevicePicker import DevicePickerDialog
-from SignalIntegrity.App.Schematic import Drawing,Wire,Vertex
-from SignalIntegrity.App.CalculationProperties import CalculationProperties
-from SignalIntegrity.App.Simulator import Simulator
-from SignalIntegrity.App.NetList import NetListDialog
-from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
-from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
-from SignalIntegrity.App.History import History
-from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
-from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
-from SignalIntegrity.App.ProgressDialog import ProgressDialog
-from SignalIntegrity.App.About import AboutDialog
-from SignalIntegrity.App.Preferences import Preferences
-from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
-from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
-from SignalIntegrity.__about__ import __version__,__project__
+from App.PartPicture import PartPicture
+from App.PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
+from App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
+from App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
+from App.DeviceProperties import DevicePropertiesDialog
+from App.DevicePicker import DevicePickerDialog
+from App.Schematic import Drawing,Wire,Vertex
+from App.CalculationProperties import CalculationProperties
+from App.Simulator import Simulator
+from App.NetList import NetListDialog
+from App.SParameterViewerWindow import SParametersDialog
+from App.Files import FileParts,ConvertFileNameToRelativePath
+from App.History import History
+from App.MenuSystemHelpers import Doer,StatusBar
+from App.BuildHelpSystem import HelpSystemKeys
+from App.ProgressDialog import ProgressDialog
+from App.About import AboutDialog
+from App.Preferences import Preferences
+from App.PreferencesDialog import PreferencesDialog
+from App.FilePicker import AskSaveAsFilename,AskOpenFileName
+from __about__ import __version__,__project__
 
 class SignalIntegrityApp(Frame):
     def __init__(self):
@@ -346,7 +346,7 @@ class SignalIntegrityApp(Frame):
                 elif child.tag == 'calculation_properties':
                     self.calculationProperties.InitFromXml(child, self)
         except:
-            tkMessageBox.showerror('read project file','file not found or unreadable')
+            messagebox.showerror('read project file','file not found or unreadable')
             return
         self.Drawing.stateMachine.Nothing()
         self.Drawing.DrawSchematic()
@@ -494,7 +494,7 @@ class SignalIntegrityApp(Frame):
             tpx.lineList=tpx.lineList+tikz.lineList
             tpx.WriteToFile(filename)
         except:
-            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onAddPart(self):
         self.onAddPartFromSpecificList(DeviceList+DeviceListUnknown+DeviceListSystem)
@@ -636,7 +636,7 @@ class SignalIntegrityApp(Frame):
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
         SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
@@ -671,7 +671,7 @@ class SignalIntegrityApp(Frame):
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
+            messagebox.showerror('Deembedder',e.parameter+': '+e.message)
             return
         unknownNames=dnp.m_sd.UnknownNames()
         if len(unknownNames)==1:
@@ -708,7 +708,7 @@ class SignalIntegrityApp(Frame):
         import webbrowser
         helpfile=self.helpSystemKeys['sec:Introduction']
         if helpfile is None:
-            tkMessageBox.showerror('Help System','Cannot find the help system')
+            messagebox.showerror('Help System','Cannot find the help system')
             return
         if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
             helpdir=self.preferences.GetValue('OnlineHelp.URL')
@@ -796,7 +796,7 @@ class SignalIntegrityApp(Frame):
     def UpdateColorsAndFonts(self):
         fontSizeDesired = self.preferences.GetValue('Appearance.FontSize')
         if not fontSizeDesired is None:
-            default_font = tkFont.nametofont("TkDefaultFont")
+            default_font = font.nametofont("TkDefaultFont")
             try:
                 default_font.configure(size=fontSizeDesired)
                 self.root.option_add("*Font", default_font)
@@ -853,7 +853,7 @@ class SignalIntegrityApp(Frame):
         if not self.preferences.GetValue('ProjectFiles.AskToSaveCurrentFile'):
             return True
 
-        doit =  askyesnocancel('Wait....','Do you want to save the current project first?')
+        doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
         if doit is None:
             return False
         else:

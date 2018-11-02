@@ -17,8 +17,9 @@ DevicePicker.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import *
-import ttk
+from tkinter import Frame,Toplevel,Button
+from tkinter import BOTH,YES,TOP,LEFT
+from tkinter import ttk
 
 #from Device import *
 

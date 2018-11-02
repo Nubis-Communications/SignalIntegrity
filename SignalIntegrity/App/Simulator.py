@@ -18,9 +18,10 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Toplevel,Frame,PhotoImage,Menu,Button
-from Tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
-import tkMessageBox
+from tkinter import Toplevel,Frame,PhotoImage,Menu,Button
+from tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
+from tkinter import messagebox
+
 from .PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyVoltageOffset
 from .PartProperty import PartPropertyTransresistance,PartPropertyVoltageGain,PartPropertyDelay
 from .SParameterViewerWindow import SParametersDialog
@@ -42,7 +43,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 import platform
 if platform.system() == 'Linux':
-    from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
+    from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 else:
     from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
@@ -119,7 +120,7 @@ class SimulatorDialog(Toplevel):
         self.canvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
 
         if platform.system() == 'Linux':
-            toolbar = NavigationToolbar2TkAgg( self.canvas, self )
+            toolbar = NavigationToolbar2Tk( self.canvas, self )
         else:
             toolbar = NavigationToolbar2Tk( self.canvas, self )
 
@@ -248,13 +249,13 @@ class SimulatorDialog(Toplevel):
                 texfile.write(line)
             texfile.close()
         except:
-            tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onHelp(self):
         import webbrowser
         helpfile=self.parent.parent.helpSystemKeys['sec:Simulator-Dialog']
         if helpfile is None:
-            tkMessageBox.showerror('Help System','Cannot find or open this help element')
+            messagebox.showerror('Help System','Cannot find or open this help element')
             return
         if self.parent.parent.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
             helpdir=self.parent.parent.preferences.GetValue('OnlineHelp.URL')
@@ -303,7 +304,7 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         #self.transferMatrices.SParameters().WriteToFile('xfer.sXp')
@@ -314,7 +315,7 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.SourceNames()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         diresp=si.fd.Differentiator(fd).Response()
@@ -333,7 +334,7 @@ class Simulator(object):
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         for r in range(len(outputWaveformList)):
@@ -383,7 +384,7 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
@@ -393,14 +394,14 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.outputWaveformLabels=netList.OutputNames()

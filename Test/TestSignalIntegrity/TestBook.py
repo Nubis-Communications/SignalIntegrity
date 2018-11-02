@@ -20,7 +20,7 @@ from __future__ import print_function
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import os
-from cStringIO import StringIO
+from io import StringIO
 import sys
 import SignalIntegrity.Lib as si
 
