@@ -1,8 +1,8 @@
 def T2S(T,lp=None,rp=None):
-    P=len(T)/2+len(T[0])/2
+    P=len(T)//2+len(T[0])//2
     if not isinstance(lp,list):
-        lp=range(1,P/2+1)
-        rp=range(P/2+1,P+1)
+        lp=range(1,P//2+1)
+        rp=range(P//2+1,P+1)
     I=identity(P).tolist()
     SL=[]
     SR=[]

@@ -207,4 +207,4 @@ class FrequencyResponse(FrequencyDomain):
         Fei=Ni*fdp.Fe/fdp.N
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
             CZT(ir.DelayBy(-TD).Values(),ir.td.Fs,0,Fei,Ni,speedy)).\
-            _Pad(fdp.N)._DelayBy(-fd.N//2./fd.Fe+TD)
+            _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)

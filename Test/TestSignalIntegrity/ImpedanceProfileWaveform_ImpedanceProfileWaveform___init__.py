@@ -23,10 +23,10 @@ class ImpedanceProfileWaveform(Waveform):
                 if abs(rho[m])==self.rhoLimit:
                     finished=True
             if method == 'estimated':
-                Z=[max(0.,min(sp.m_Z0*(1+rho[tdsp.K/2+1+k])/
-                    (1-rho[tdsp.K/2+1+k]),self.ZLimit)) for k in range(tdip.K)]
+                Z=[max(0.,min(sp.m_Z0*(1+rho[tdsp.K//2+1+k])/
+                    (1-rho[tdsp.K//2+1+k]),self.ZLimit)) for k in range(tdip.K)]
             else:
-                Z=[max(0.,min(sp.m_Z0+2*sp.m_Z0*rho[tdsp.K/2+1+k],self.ZLimit))
+                Z=[max(0.,min(sp.m_Z0+2*sp.m_Z0*rho[tdsp.K//2+1+k],self.ZLimit))
                     for k in range(tdip.K)]
         if includePortZ:
             tdip.H=tdip.H-1./(tdsp.Fs*2)

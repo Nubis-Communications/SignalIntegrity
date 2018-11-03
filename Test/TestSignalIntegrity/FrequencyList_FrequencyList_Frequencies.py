@@ -2,8 +2,8 @@ class FrequencyList(list):
 ...
     def SetEvenlySpaced(self,Fe,N):
         self.Fe=Fe
-        self.N=N
-        list.__init__(self,[Fe/N*n for n in range(N+1)])
+        self.N=int(N)
+        list.__init__(self,[Fe/N*n for n in range(self.N+1)])
         self.m_EvenlySpaced=True
         return self
     def SetList(self,fl):
@@ -33,6 +33,8 @@ class FrequencyList(list):
                 return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
+    def __truediv__(self,d):
+        return self.__div__(d)
     def __div__(self,d):
         if self.EvenlySpaced():
             return EvenlySpacedFrequencyList(self.Fe/d,self.N)

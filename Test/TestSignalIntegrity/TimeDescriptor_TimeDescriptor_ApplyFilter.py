@@ -1,7 +1,7 @@
 class TimeDescriptor(object):
     def __init__(self,HorOffset,NumPts,SampleRate):
         self.H = HorOffset
-        self.K = NumPts
+        self.K = int(NumPts)
         self.Fs=SampleRate
     def __len__(self):
         return self.K
@@ -28,6 +28,8 @@ class TimeDescriptor(object):
             SampleRate=self.Fs*F.U)
     def __mul__(self,F):
         return self.ApplyFilter(F)
+    def __truediv__(self,d):
+        return self.__div__(d)
     def __div__(self,other):
         if isinstance(other,FilterDescriptor):
             return TimeDescriptor(
