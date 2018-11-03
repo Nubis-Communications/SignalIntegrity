@@ -1,7 +1,6 @@
 """
 ChirpZTransform.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #

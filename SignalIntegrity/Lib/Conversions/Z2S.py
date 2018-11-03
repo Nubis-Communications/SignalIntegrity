@@ -1,8 +1,6 @@
 """
  impedance parameters to s-parameter conversions
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -20,7 +18,7 @@ from __future__ import absolute_import
 # If not, see <https://www.gnu.org/licenses/>
 from numpy import matrix
 
-from .Z0KHelper import Z0KHelper
+from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
 def Z2S(Z,Z0=None,K=None):
     """Converts Z-parameters to s-parameters

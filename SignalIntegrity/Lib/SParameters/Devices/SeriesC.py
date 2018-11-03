@@ -40,6 +40,6 @@ class SeriesC(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        from Lib import Devices as dev
+        import SignalIntegrity.Lib.Devices as dev
         # pragma: include
         return dev.SeriesC(self.m_C,self.m_f[n],self.m_Z0,self.m_df,self.m_esr)

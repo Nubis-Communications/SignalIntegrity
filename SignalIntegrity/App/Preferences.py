@@ -1,8 +1,6 @@
 """
 Preferences.py
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -19,12 +17,12 @@ from __future__ import absolute_import
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from .PreferencesFile import PreferencesFile
+from SignalIntegrity.App.PreferencesFile import PreferencesFile
 
 import os,errno
 import platform
 
-from __about__ import __version__
+from SignalIntegrity.__about__ import __version__
 
 class Preferences(PreferencesFile):
     def __init__(self,preferencesFileName=None):

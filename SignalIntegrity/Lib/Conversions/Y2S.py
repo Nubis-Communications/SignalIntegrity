@@ -1,8 +1,6 @@
 """
  admittance parameters to s-parameter conversion
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -21,7 +19,7 @@ from __future__ import absolute_import
 from numpy import matrix
 from numpy import identity
 
-from .Z0KHelper import Z0KHelper
+from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
 def Y2S(Y,Z0=None,K=None):
     """Converts Y-parameters to s-parameters

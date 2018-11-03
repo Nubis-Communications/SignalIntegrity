@@ -2,7 +2,6 @@
 WaveletDenoiser
 @see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)
 """
-from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -20,7 +19,7 @@ from __future__ import absolute_import
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from .Wavelets import WaveletDaubechies16
+from SignalIntegrity.Lib.Wavelets.Wavelets import WaveletDaubechies16
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
 

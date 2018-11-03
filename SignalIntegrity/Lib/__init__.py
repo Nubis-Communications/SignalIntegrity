@@ -1,5 +1,6 @@
 """@namespace SignalIntegrity
 Signal Integrity Tools"""
+
 from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.

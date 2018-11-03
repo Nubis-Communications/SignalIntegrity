@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Lib.SParameters.SParameters import SParameters
+from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class SeriesL(SParameters):
     """s-parameters of a series inductance"""
@@ -32,6 +32,6 @@ class SeriesL(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        from Lib import Devices as dev
+        import SignalIntegrity.Lib.Devices as dev
         # pragma: include
         return dev.SeriesL(self.m_L,self.m_f[n],self.m_Z0)

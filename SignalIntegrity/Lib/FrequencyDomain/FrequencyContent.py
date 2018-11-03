@@ -25,7 +25,6 @@ from numpy import fft
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveform
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
-from SignalIntegrity.Lib.Splines import Spline
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.SineWaveform import SineWaveform
 from SignalIntegrity.Lib.ChirpZTransform.ChirpZTransform import CZT

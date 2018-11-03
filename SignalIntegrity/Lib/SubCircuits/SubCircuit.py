@@ -17,12 +17,12 @@ SubCircuit.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Lib.SParameters import SParameters
+from SignalIntegrity.Lib.SParameters import SParameters
 
 class SubCircuit(SParameters):
     def __init__(self,f,fileName,args):
         # pragma: silent exclude
-        from Lib.Parsers import SystemSParametersNumericParser
+        from SignalIntegrity.Lib.Parsers import SystemSParametersNumericParser
         # pragma: include
         sspnp=SystemSParametersNumericParser(f,args).File(fileName)
         SParameters.__init__(self,f,sspnp.SParameters())

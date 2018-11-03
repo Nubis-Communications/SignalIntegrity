@@ -1,7 +1,7 @@
 """
 __init__.py
 """
-
+from __future__ import absolute_import
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #

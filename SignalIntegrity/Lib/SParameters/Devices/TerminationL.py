@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from Lib.SParameters.SParameters import SParameters
+from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class TerminationL(SParameters):
     """s-parameters of a termination (one-port) inductance"""
@@ -34,6 +34,6 @@ class TerminationL(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        from Lib import Devices as dev
+        import SignalIntegrity.Lib.Devices as dev
         # pragma: include
         return dev.TerminationL(self.m_L,self.m_f[n],self.m_Z0)

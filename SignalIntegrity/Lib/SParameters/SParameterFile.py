@@ -23,10 +23,10 @@ from numpy import array
 import cmath
 import math
 
-from Lib.SParameters.SParameters import SParameters
-from Lib.Conversions import ReferenceImpedance
-from Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
-from Lib.Exception import SignalIntegrityExceptionSParameterFile
+from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+from SignalIntegrity.Lib.Conversions import ReferenceImpedance
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""

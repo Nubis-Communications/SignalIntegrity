@@ -1,7 +1,6 @@
 """
 TimeDescriptor.py
 """
-from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from Lib.SParameters.SParameters import SParameters
+from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class MixedModeTLine(SParameters):
     """s-parameters of a mixed-mode, balanced transmission line"""
@@ -41,9 +41,9 @@ class MixedModeTLine(SParameters):
         @note This device builds a model internally and only solves the model
         on each access to __getitem__().
         """
-        from Lib.SParameters import Devices as dev
-        from Lib.Devices.MixedModeConverter import MixedModeConverter
-        from Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
+        import SignalIntegrity.Lib.SParameters.Devices as dev
+        from SignalIntegrity.Lib.Devices.MixedModeConverter import MixedModeConverter
+        from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
         self.m_sspn=SystemSParametersNumeric()
         self.m_spdl=[]
         self.m_sspn.AddDevice('MM1',4,MixedModeConverter())

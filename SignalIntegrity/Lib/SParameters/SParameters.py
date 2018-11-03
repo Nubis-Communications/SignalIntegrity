@@ -26,11 +26,11 @@ import string
 import copy
 import os
 
-from Lib.Conversions import ReferenceImpedance
-from Lib.FrequencyDomain.FrequencyList import FrequencyList
-from Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
-from Lib.SParameters.SParameterManipulation import SParameterManipulation
-from Lib.Exception import SignalIntegrityExceptionSParameterFile
+from SignalIntegrity.Lib.Conversions import ReferenceImpedance
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
+from SignalIntegrity.Lib.SParameters.SParameterManipulation import SParameterManipulation
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameters(SParameterManipulation):
     """Class containing s-parameters"""

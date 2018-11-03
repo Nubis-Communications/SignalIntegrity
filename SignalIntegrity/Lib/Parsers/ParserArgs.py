@@ -17,7 +17,7 @@ ParserArgs.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Lib.Helpers.LineSplitter import LineSplitter
+from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 
 class ParserArgs():
     def AssignArguments(self,args):

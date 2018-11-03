@@ -22,13 +22,13 @@ from numpy import fft
 import math
 import cmath
 
-from Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
-from Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
-from Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
-from Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
-from Lib.Splines import Spline
-from Lib.ChirpZTransform import CZT
-from Lib.Rat import Rat
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+from SignalIntegrity.Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
+from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+from SignalIntegrity.Lib.Splines import Spline
+from SignalIntegrity.Lib.ChirpZTransform import CZT
+from SignalIntegrity.Lib.Rat import Rat
 
 class FrequencyResponse(FrequencyDomain):
     """FrequencyResponse

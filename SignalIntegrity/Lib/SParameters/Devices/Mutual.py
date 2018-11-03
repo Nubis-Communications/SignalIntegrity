@@ -42,6 +42,6 @@ class Mutual(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        from Lib import Devices as dev
+        import SignalIntegrity.Lib.Devices as dev
         # pragma: include
         return dev.Mutual(0.,0.,self.m_M,self.m_f[n],self.m_Z0)

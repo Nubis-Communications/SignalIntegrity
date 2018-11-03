@@ -17,8 +17,14 @@ ProgressDialog.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from tkinter import Toplevel,PhotoImage,Frame,Canvas,Button
-from tkinter import TOP,SUNKEN,BOTH,YES,NO
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Toplevel,PhotoImage,Frame,Canvas,Button
+    from Tkinter import TOP,SUNKEN,BOTH,YES,NO
+else:
+    from tkinter import Toplevel,PhotoImage,Frame,Canvas,Button
+    from tkinter import TOP,SUNKEN,BOTH,YES,NO
+
 from math import floor
        
 class ProgressDialog(Toplevel):

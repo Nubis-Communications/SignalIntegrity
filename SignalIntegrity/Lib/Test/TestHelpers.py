@@ -22,9 +22,9 @@ import os
 import sys
 from io import StringIO
 
-from Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
-from Lib.TimeDomain.Waveform.Waveform import Waveform
-from Lib.SParameters.SParameterFile import SParameterFile
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
+from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 
 def PlotTikZ(filename,plot2save,scale=None):
     try:

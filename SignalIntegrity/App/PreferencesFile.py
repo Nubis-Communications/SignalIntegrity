@@ -1,8 +1,6 @@
 """
 PreferencesFile.py
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -18,8 +16,8 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
-from .ProjectFileBase import ProjectFileBase,XMLProperty
+from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
+from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
 import os
 

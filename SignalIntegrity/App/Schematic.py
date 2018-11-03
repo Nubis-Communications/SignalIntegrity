@@ -1,8 +1,6 @@
 """
 Schematic.py
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -18,18 +16,23 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from tkinter import Menu,Frame,Canvas
-from tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Menu,Frame,Canvas
+    from Tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
+else:
+    from tkinter import Menu,Frame,Canvas
+    from tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
 
 import xml.etree.ElementTree as et
 import copy
 
-from .PartProperty import PartPropertyReferenceDesignator,PartPropertyDefaultReferenceDesignator
-from .Device import DeviceXMLClassFactory
-from .NetList import NetList
-from .Wire import WireList,Vertex,SegmentList,Wire
-from .MenuSystemHelpers import Doer
-from .DeviceProperties import DevicePropertiesDialog
+from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator,PartPropertyDefaultReferenceDesignator
+from SignalIntegrity.App.Device import DeviceXMLClassFactory
+from SignalIntegrity.App.NetList import NetList
+from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
+from SignalIntegrity.App.MenuSystemHelpers import Doer
+from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 
 class Schematic(object):
     def __init__(self):
@@ -54,7 +57,7 @@ class Schematic(object):
                         returnedDevice=None
                     if not returnedDevice is None:
                         # hack to fix port numbering of old four port transmission lines
-                        from .Device import DeviceTelegrapherFourPort
+                        from SignalIntegrity.App.Device import DeviceTelegrapherFourPort
                         if isinstance(returnedDevice,DeviceTelegrapherFourPort):
                             if returnedDevice.partPicture.current.pinList[1].pinNumber==3:
                                 returnedDevice.partPicture.current.pinList[1].pinNumber=2

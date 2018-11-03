@@ -17,11 +17,17 @@ DevicePicker.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from tkinter import Frame,Toplevel,Button
-from tkinter import BOTH,YES,TOP,LEFT
-from tkinter import ttk
 
-#from Device import *
+
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Frame,Toplevel,Button
+    from Tkinter import BOTH,YES,TOP,LEFT
+    import ttk
+else:
+    from tkinter import Frame,Toplevel,Button
+    from tkinter import BOTH,YES,TOP,LEFT
+    from tkinter import ttk
 
 class DevicePicker(Frame):
     def __init__(self,parent,deviceList):

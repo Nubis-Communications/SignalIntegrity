@@ -1,7 +1,6 @@
 """
 PartPicture.py
 """
-from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -21,7 +20,7 @@ from __future__ import absolute_import
 import xml.etree.ElementTree as et
 import copy
 
-from .PartPin import *
+from SignalIntegrity.App.PartPin import *
 from matplotlib.pyplot import grid
 
 class CoordinateTranslater(object):

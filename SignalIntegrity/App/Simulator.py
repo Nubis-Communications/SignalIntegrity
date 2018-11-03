@@ -1,8 +1,6 @@
 """
 Simulator.py
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -18,17 +16,24 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from tkinter import Toplevel,Frame,PhotoImage,Menu,Button
-from tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
-from tkinter import messagebox
 
-from .PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyVoltageOffset
-from .PartProperty import PartPropertyTransresistance,PartPropertyVoltageGain,PartPropertyDelay
-from .SParameterViewerWindow import SParametersDialog
-from .MenuSystemHelpers import Doer
-from .ProgressDialog import ProgressDialog
-from .FilePicker import AskSaveAsFilename
-from .ToSI import FromSI,ToSI
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Toplevel,Frame,PhotoImage,Menu,Button
+    from Tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
+    import tkMessageBox
+else:
+    from tkinter import Toplevel,Frame,PhotoImage,Menu,Button
+    from tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
+    from tkinter import messagebox
+
+from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyVoltageOffset
+from SignalIntegrity.App.PartProperty import PartPropertyTransresistance,PartPropertyVoltageGain,PartPropertyDelay
+from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
+from SignalIntegrity.App.MenuSystemHelpers import Doer
+from SignalIntegrity.App.ProgressDialog import ProgressDialog
+from SignalIntegrity.App.FilePicker import AskSaveAsFilename
+from SignalIntegrity.App.ToSI import FromSI,ToSI
 
 import matplotlib
 
@@ -43,7 +48,10 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 import platform
 if platform.system() == 'Linux':
-    from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+    if sys.version_info.major < 3:
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
+    else:
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 else:
     from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
@@ -120,7 +128,10 @@ class SimulatorDialog(Toplevel):
         self.canvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
 
         if platform.system() == 'Linux':
-            toolbar = NavigationToolbar2Tk( self.canvas, self )
+            if sys.version_info.major < 3:
+                toolbar = NavigationToolbar2TkAgg( self.canvas, self )
+            else:
+                toolbar = NavigationToolbar2Tk( self.canvas, self )
         else:
             toolbar = NavigationToolbar2Tk( self.canvas, self )
 
@@ -249,13 +260,18 @@ class SimulatorDialog(Toplevel):
                 texfile.write(line)
             texfile.close()
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            else:
+                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
     def onHelp(self):
         import webbrowser
         helpfile=self.parent.parent.helpSystemKeys['sec:Simulator-Dialog']
         if helpfile is None:
-            messagebox.showerror('Help System','Cannot find or open this help element')
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Help System','Cannot find or open this help element')
+            else:
+                messagebox.showerror('Help System','Cannot find or open this help element')            
             return
         if self.parent.parent.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
             helpdir=self.parent.parent.preferences.GetValue('OnlineHelp.URL')
@@ -304,7 +320,10 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            else:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         #self.transferMatrices.SParameters().WriteToFile('xfer.sXp')
@@ -315,7 +334,10 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.SourceNames()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            else:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         diresp=si.fd.Differentiator(fd).Response()
@@ -334,7 +356,10 @@ class Simulator(object):
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
+            else:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         for r in range(len(outputWaveformList)):
@@ -384,7 +409,10 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            else:
+                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
@@ -394,14 +422,20 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            else:
+                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            if sys.version_info.major < 3:
+                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            else:
+                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.outputWaveformLabels=netList.OutputNames()

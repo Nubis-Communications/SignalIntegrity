@@ -197,41 +197,41 @@ class DeviceFactory(list):
         @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
         """
         # pragma: silent exclude
-        from Lib.SParameters import SParameterFile
-        from Lib.Devices.CurrentAmplifier import CurrentAmplifier
-        from Lib.Devices.CurrentControlledCurrentSource import CurrentControlledCurrentSource
-        from Lib.Devices.CurrentControlledVoltageSource import CurrentControlledVoltageSource
-        from Lib.Devices.DirectionalCoupler import DirectionalCoupler
-        from Lib.Devices.Ground import Ground
-        from Lib.Devices.IdealTransformer import IdealTransformer
-        from Lib.Devices.MixedModeConverter import MixedModeConverter
-        from Lib.Devices.Open import Open
-        from Lib.Devices.OperationalAmplifier import OperationalAmplifier
-        from Lib.Devices.SeriesZ import SeriesZ
-        from Lib.Devices.TerminationZ import TerminationZ
-        from Lib.Devices.MixedModeConverter import MixedModeConverterVoltage
-        from Lib.Devices.Thru import Thru
-        from Lib.Devices.VoltageAmplifier import VoltageAmplifier
-        from Lib.Devices.ShuntZ import ShuntZ
-        from Lib.Devices.Tee import Tee
-        from Lib.Devices.TransconductanceAmplifier import TransconductanceAmplifier
-        from Lib.Devices.TransresistanceAmplifier import TransresistanceAmplifier
-        from Lib.Devices.VoltageControlledVoltageSource import VoltageControlledVoltageSource
-        from Lib.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
-        from Lib.SParameters.Devices.Mutual import Mutual
-        from Lib.SParameters.Devices.SeriesC import SeriesC
-        from Lib.SParameters.Devices.SeriesL import SeriesL
-        from Lib.SParameters.Devices.TerminationC import TerminationC
-        from Lib.SParameters.Devices.TerminationL import TerminationL
-        from Lib.SParameters.Devices.TLineLossless import TLineLossless
-        from Lib.SParameters.Devices.TLineTwoPortRLGC import TLineTwoPortRLGC
-        from Lib.Exception import SignalIntegrityExceptionDeviceParser
-        from Lib.Measurement.CalKit.Standards.ShortStandard import ShortStandard
-        from Lib.Measurement.CalKit.Standards.OpenStandard import OpenStandard
-        from Lib.Measurement.CalKit.Standards.LoadStandard import LoadStandard
-        from Lib.Measurement.CalKit.Standards.ThruStandard import ThruStandard
-        from Lib.Measurement.CalKit.Standards.Offset import Offset
-        from Lib.SParameters.Devices.TLineDifferentialRLGC import TLineDifferentialRLGC
+        from SignalIntegrity.Lib.SParameters import SParameterFile
+        from SignalIntegrity.Lib.Devices.CurrentAmplifier import CurrentAmplifier
+        from SignalIntegrity.Lib.Devices.CurrentControlledCurrentSource import CurrentControlledCurrentSource
+        from SignalIntegrity.Lib.Devices.CurrentControlledVoltageSource import CurrentControlledVoltageSource
+        from SignalIntegrity.Lib.Devices.DirectionalCoupler import DirectionalCoupler
+        from SignalIntegrity.Lib.Devices.Ground import Ground
+        from SignalIntegrity.Lib.Devices.IdealTransformer import IdealTransformer
+        from SignalIntegrity.Lib.Devices.MixedModeConverter import MixedModeConverter
+        from SignalIntegrity.Lib.Devices.Open import Open
+        from SignalIntegrity.Lib.Devices.OperationalAmplifier import OperationalAmplifier
+        from SignalIntegrity.Lib.Devices.SeriesZ import SeriesZ
+        from SignalIntegrity.Lib.Devices.TerminationZ import TerminationZ
+        from SignalIntegrity.Lib.Devices.MixedModeConverter import MixedModeConverterVoltage
+        from SignalIntegrity.Lib.Devices.Thru import Thru
+        from SignalIntegrity.Lib.Devices.VoltageAmplifier import VoltageAmplifier
+        from SignalIntegrity.Lib.Devices.ShuntZ import ShuntZ
+        from SignalIntegrity.Lib.Devices.Tee import Tee
+        from SignalIntegrity.Lib.Devices.TransconductanceAmplifier import TransconductanceAmplifier
+        from SignalIntegrity.Lib.Devices.TransresistanceAmplifier import TransresistanceAmplifier
+        from SignalIntegrity.Lib.Devices.VoltageControlledVoltageSource import VoltageControlledVoltageSource
+        from SignalIntegrity.Lib.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
+        from SignalIntegrity.Lib.SParameters.Devices.Mutual import Mutual
+        from SignalIntegrity.Lib.SParameters.Devices.SeriesC import SeriesC
+        from SignalIntegrity.Lib.SParameters.Devices.SeriesL import SeriesL
+        from SignalIntegrity.Lib.SParameters.Devices.TerminationC import TerminationC
+        from SignalIntegrity.Lib.SParameters.Devices.TerminationL import TerminationL
+        from SignalIntegrity.Lib.SParameters.Devices.TLineLossless import TLineLossless
+        from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGC import TLineTwoPortRLGC
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeviceParser
+        from SignalIntegrity.Lib.Measurement.CalKit.Standards.ShortStandard import ShortStandard
+        from SignalIntegrity.Lib.Measurement.CalKit.Standards.OpenStandard import OpenStandard
+        from SignalIntegrity.Lib.Measurement.CalKit.Standards.LoadStandard import LoadStandard
+        from SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard import ThruStandard
+        from SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset import Offset
+        from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGC import TLineDifferentialRLGC
         # pragma: include
         self.dev=None
         argsList=' '.join(argsList).split()
@@ -346,8 +346,8 @@ class DeviceParser():
         @see SignalIntegrity.Parsers.SystemDescriptionParser
         """
         # pragma: silent exclude
-        from Lib.Exception import SignalIntegrityExceptionDeviceParser
-        from Lib.SubCircuits.SubCircuit import SubCircuit
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeviceParser
+        from SignalIntegrity.Lib.SubCircuits.SubCircuit import SubCircuit
         # pragma: include
         self.m_f=f
         self.m_sp=None

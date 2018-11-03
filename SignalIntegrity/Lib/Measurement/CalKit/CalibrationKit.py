@@ -18,12 +18,11 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from Lib.Measurement.CalKit.Standards.ShortStandard import ShortStandard
-from Lib.Measurement.CalKit.Standards.OpenStandard import OpenStandard
-from Lib.Measurement.CalKit.Standards.LoadStandard import LoadStandard
-from Lib.Measurement.CalKit.Standards.ThruStandard import ThruStandard
-from Lib.SParameters.SParameterFile import SParameterFile
-
+from SignalIntegrity.Lib.Measurement.CalKit.Standards.ShortStandard import ShortStandard
+from SignalIntegrity.Lib.Measurement.CalKit.Standards.OpenStandard import OpenStandard
+from SignalIntegrity.Lib.Measurement.CalKit.Standards.LoadStandard import LoadStandard
+from SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard import ThruStandard
+from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 
 class CalibrationConstants(object):
     """Class for holding, reading and writing calibration constants for a calibration kit

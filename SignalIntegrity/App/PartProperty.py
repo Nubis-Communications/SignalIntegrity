@@ -1,8 +1,6 @@
 """
 PartProperty.py
 """
-from __future__ import absolute_import
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -20,7 +18,7 @@ from __future__ import absolute_import
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 
-from .ToSI import ToSI,FromSI
+from SignalIntegrity.App.ToSI import ToSI,FromSI
 
 class PartProperty(object):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):
