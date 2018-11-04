@@ -1,5 +1,5 @@
-\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 1
-\\ \frac{-Z0}{2\cdot \left(Z+Z0\right)} & 0 \end{smallmatrix}\right)
+\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 &
+\frac{-Z0}{2\cdot \left(Z+Z0\right)} \\ 1 & 0 \end{smallmatrix}\right)
 \right]^{-1}  \]
 \[ \mathbf{S} = \left(\begin{smallmatrix} \frac{-Z0}{2\cdot
 \left(Z+Z0\right)} & \frac{2\cdot Z+Z0}{2\cdot \left(Z+Z0\right)} &
@@ -8,10 +8,9 @@
 \frac{Z0}{2\cdot \left(Z+Z0\right)} \\ \frac{Z0}{2\cdot
 \left(Z+Z0\right)} & \frac{Z0}{2\cdot \left(Z+Z0\right)} &
 \frac{-Z0}{2\cdot \left(Z+Z0\right)} \end{smallmatrix}\right) +
-\left(\begin{smallmatrix} \frac{Z0}{2\cdot \left(Z+Z0\right)} & 0 \\
-\frac{Z0}{2\cdot \left(Z+Z0\right)} & 0 \\ \frac{2\cdot Z+Z0}{2\cdot
-\left(Z+Z0\right)} & 0 \end{smallmatrix}\right) \cdot \mathbf{Wi}
-\cdot\left(\begin{smallmatrix} 0 & 0 & 0 \\ \frac{Z0}{2\cdot
-\left(Z+Z0\right)} & \frac{Z0}{2\cdot \left(Z+Z0\right)} &
-\frac{2\cdot Z+Z0}{2\cdot \left(Z+Z0\right)} \end{smallmatrix}\right)
-\]
+\left(\begin{smallmatrix} 0 & \frac{Z0}{2\cdot \left(Z+Z0\right)} \\ 0
+& \frac{Z0}{2\cdot \left(Z+Z0\right)} \\ 0 & \frac{2\cdot Z+Z0}{2\cdot
+\left(Z+Z0\right)} \end{smallmatrix}\right) \cdot \mathbf{Wi}
+\cdot\left(\begin{smallmatrix} \frac{Z0}{2\cdot \left(Z+Z0\right)} &
+\frac{Z0}{2\cdot \left(Z+Z0\right)} & \frac{2\cdot Z+Z0}{2\cdot
+\left(Z+Z0\right)} \\ 0 & 0 & 0 \end{smallmatrix}\right) \]

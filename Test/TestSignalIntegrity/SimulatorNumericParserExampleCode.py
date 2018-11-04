@@ -1,4 +1,3 @@
-from __future__ import print_function
 import SignalIntegrity.Lib as si
 
 Td=1.23e-9; Zc=55; C=Td/Zc; L=Td*Zc

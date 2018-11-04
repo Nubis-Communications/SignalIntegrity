@@ -33,7 +33,10 @@ class SystemSParameters(SystemDescription):
                 ([(int(self[d].Name.strip('P')),self[d][0].B)
                   for d in range(len(self)) if self[d].Name[0]=='P'])]
     def OtherNames(self,K):
-        return list(set(self.NodeVector())-set(K))
+        other=[]
+        for item in self.NodeVector():
+            if not item in K: other.append(item)
+        return other
     def NodeVector(self):
         return [self[d][p].B for d in range(len(self)) for p in range(len(self[d]))]
     def StimulusVector(self):
