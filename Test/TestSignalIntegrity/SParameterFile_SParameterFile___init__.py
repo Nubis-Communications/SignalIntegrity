@@ -2,7 +2,7 @@ class SParameterFile(SParameters):
     def __init__(self,name,Z0=None):
         self.m_sToken='S'
         self.m_Z0=Z0
-        self.m_P=int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0])
+        self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
         freqMul = 1e6
         complexType = 'MA'
         Z0=50.
@@ -12,7 +12,7 @@ class SParameterFile(SParameters):
         numbersList=[]
         spfile=open(name,'rU')
         for line in spfile:
-            lineList = string.lower(line).split('!')[0].split()
+            lineList = str.lower(line).split('!')[0].split()
             if len(lineList)>0:
                 if lineList[0] == '#':
                     if 'hz' in lineList: freqMul = 1.0
@@ -30,7 +30,7 @@ class SParameterFile(SParameters):
         spfile.close()
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
-        frequencies = len(numbersList)/(1+self.m_P*self.m_P*2)
+        frequencies = len(numbersList)//(1+self.m_P*self.m_P*2)
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]
         for fi in range(frequencies):

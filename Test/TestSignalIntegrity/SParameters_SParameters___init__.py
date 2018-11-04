@@ -16,7 +16,7 @@ class SParameters(SParameterManipulation):
     def WriteToFile(self,name,formatString=None):
         freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
-            lineList = string.lower(formatString).split('!')[0].split()
+            lineList = str.lower(formatString).split('!')[0].split()
             if len(lineList)>0:
                 if 'hz' in lineList: fToken = 'Hz'; freqMul = 1.0
                 if 'khz' in lineList: fToken = 'KHz'; freqMul = 1e3
