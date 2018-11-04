@@ -73,7 +73,7 @@ class TikZ(object):
             elif arrowspec=='last':
                 line=line+', ->'
         line=line+'] '
-        for ci in range(len(args)/2):
+        for ci in range(len(args)//2):
             line=line+'('+self.Format(float(args[ci*2])*self.scale)+','+self.Format(-1.*float(args[ci*2+1])*self.scale)+') -- '
         line=line[:-4]+';\n'
         self.lineList.append(line)
@@ -115,7 +115,7 @@ class TikZ(object):
             if kw['fill'] != '':
                 line=line+', fill='+kw['fill']
         line=line+'] '
-        for ci in range(len(args)/2):
+        for ci in range(len(args)//2):
             line=line+'('+self.Format(float(args[ci*2])*self.scale)+','+self.Format(-1.*float(args[ci*2+1])*self.scale)+') -- '
         line=line+'cycle;\n'
         self.lineList.append(line)

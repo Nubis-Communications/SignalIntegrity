@@ -64,7 +64,7 @@ class TpX(object):
         if 'fill' in kw:
             line=line+' lc="'+kw['fill']+'"'
         line=line+'>'
-        for ci in range(len(args)/2):
+        for ci in range(len(args)//2):
             line=line+self.Format(float(args[ci*2])*self.scale)+','+self.Format(-1.*float(args[ci*2+1])*self.scale)+' '
         line=line[:-1]+'</polyline>\n'
         self.lineList.append(line)
@@ -103,7 +103,7 @@ class TpX(object):
             if kw['fill'] != '':
                 line=line+' fill="'+kw['fill']+'"'
         line=line+'>'
-        for ci in range(len(args)/2):
+        for ci in range(len(args)//2):
             line=line+self.Format(float(args[ci*2])*self.scale)+','+self.Format(-1.*float(args[ci*2+1])*self.scale)+' '
         line=line[:-1]+'</polygon>\n'
         self.lineList.append(line)

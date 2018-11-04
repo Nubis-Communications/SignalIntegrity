@@ -118,7 +118,7 @@ class WaveletDenoiser(object):
                     accl=accl+h[l]*cmath.exp(-1j*math.pi*n*l/N)
                     accr=accr+h[l]*cmath.exp(-1j*math.pi*(N-n)*l/N)
                 E[n]=math.sqrt(pow(abs(E[n])*abs(accl),2.)+pow(abs(E[N-n])*abs(accr),2.))
-            N=N/2
+            N=N//2
         acc=0
         for n in range(N+1):
             acc=acc+pow(abs(E[n]),2)
