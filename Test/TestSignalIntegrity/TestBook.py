@@ -20,8 +20,12 @@ from __future__ import print_function
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import os
-from io import StringIO
 import sys
+if sys.version_info.major < 3:
+    from cStringIO import StringIO
+else:
+    from io import StringIO
+
 import SignalIntegrity.Lib as si
 
 class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):

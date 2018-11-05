@@ -72,7 +72,7 @@ class FrequencyContent(FrequencyDomain):
         if fd is None:
             X=fft.fft(wf.Values())
             K=int(td.K)
-            Keven=(K/2)*2 == K
+            Keven=(K//2)*2 == K
             fd=td.FrequencyList()
         else:
             # pragma: silent exclude
@@ -129,7 +129,7 @@ class FrequencyContent(FrequencyDomain):
         The waveform produced is essentially the inverse process of class initialization.\n
         @see WaveformFromDefinition()
         """
-        Keven=(self.td.K/2)*2==self.td.K
+        Keven=(self.td.K//2)*2==self.td.K
         X=self.Values()
         X=[X[n]*self.td.K*\
             (1. if (n==0 or ((n==self.m_f.N) and Keven)) else 0.5)*\

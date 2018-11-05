@@ -47,7 +47,7 @@ class TimeDescriptor(object):
         return TimeDescriptor(self.H+D,self.K,self.Fs)
     def FrequencyList(self):
         K=int(self.K)
-        N=K/2
+        N=K//2
         Fe=float(self.Fs)*N/K
         return EvenlySpacedFrequencyList(Fe,N)
 ...

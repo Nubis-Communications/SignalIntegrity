@@ -1,7 +1,6 @@
 """
 TestNewtonsMethod.py
 """
-from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -41,12 +40,12 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
     def testNewtonSqrtRangeReduction(self):
         Y=32.768
         E=int(math.ceil(math.log(Y,2.)))
-        Eeven=E/2*2==E
+        Eeven=E//2*2==E
         y=Y/pow(2.0,E)
         x=1
         I=5
         x=self.newtonSqrtIterate(y,x,I)
-        x=x*pow(2.0,E/2)*(math.sqrt(2) if not Eeven else 1.0)
+        x=x*pow(2.0,E//2)*(math.sqrt(2) if not Eeven else 1.0)
         #print x,math.sqrt(Y),x-math.sqrt(Y)
         self.assertLessEqual(abs(x-math.sqrt(Y)),10e-16)
     def testNewtonSqrtRangeReductionRange(self):

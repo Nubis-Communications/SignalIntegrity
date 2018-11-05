@@ -96,15 +96,15 @@ class TestDescriptors(unittest.TestCase):
     def testFrequencyContentSine(self):
         wf=si.td.wf.SineWaveform(si.td.wf.TimeDescriptor(0.,200,2e6),1,30e3,30.)
         fc=wf.FrequencyContent()
-        self.assertEqual(fc.Frequencies('kHz')[3],30.,'sine frequency incorrect')
-        self.assertEqual(abs(fc[3]), 1., 'sine amplitude incorrect')
-        self.assertAlmostEqual(cmath.phase(fc[3])*180./math.pi + 90., 30.,10, 'sine phase incorrect')
+        self.assertAlmostEqual(fc.Frequencies('kHz')[3],30.,msg='sine frequency incorrect')
+        self.assertAlmostEqual(abs(fc[3]), 1., msg='sine amplitude incorrect')
+        self.assertAlmostEqual(cmath.phase(fc[3])*180./math.pi + 90., 30., msg='sine phase incorrect')
     def testFrequencyContentSineAdjustTime(self):
         wf=si.td.wf.SineWaveform(si.td.wf.TimeDescriptor(0.,200,2e6),1,30e3,30.)
         fc=wf.FrequencyContent()
-        self.assertEqual(fc.Frequencies('kHz')[3],30.,'sine frequency incorrect')
-        self.assertEqual(abs(fc[3]), 1., 'sine amplitude incorrect')
-        self.assertAlmostEqual(cmath.phase(fc[3])*180./math.pi + 90., 30.,10, 'sine phase incorrect')
+        self.assertAlmostEqual(fc.Frequencies('kHz')[3],30.,msg='sine frequency incorrect')
+        self.assertAlmostEqual(abs(fc[3]), 1., msg='sine amplitude incorrect')
+        self.assertAlmostEqual(cmath.phase(fc[3])*180./math.pi + 90., 30.,msg='sine phase incorrect')
 
 if __name__ == '__main__':
     unittest.main()

@@ -163,7 +163,7 @@ class TimeDescriptor(object):
         correspond to this time descriptor.
         """
         K=int(self.K)
-        N=K/2
+        N=K//2
         Fe=float(self.Fs)*N/K
         return EvenlySpacedFrequencyList(Fe,N)
     def Intersection(self,other):

@@ -1,7 +1,6 @@
 """
 TestSystemDescription.py
 """
-from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -24,8 +23,11 @@ from numpy import array
 
 import SignalIntegrity.Lib as si
 
-from io import StringIO
 import sys
+if sys.version_info.major < 3:
+    from cStringIO import StringIO
+else:
+    from io import StringIO
 import os
 
 class TestSystemDescription(unittest.TestCase):
