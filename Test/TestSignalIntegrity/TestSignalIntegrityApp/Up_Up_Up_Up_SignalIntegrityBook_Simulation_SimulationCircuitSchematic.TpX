@@ -4,7 +4,7 @@
 %  <polyline lc="black">28,-20.75 28,-22.25</polyline>
 %  <polyline lc="black">27.25,-26.5 28.75,-26.5</polyline>
 %  <polyline lc="black">28,-28 28,-32</polyline>
-%  <polygon fill="black">25.5,-32 30.5,-32 28,-34.5 25.5,-32</polygon>
+%  <polygon fill="black">25.333,-32 30.667,-32 28,-34.667 25.333,-32</polygon>
 %  <polyline lc="black">28,-16 28,-20</polyline>
 %  <text x="34" y="-24" t="v" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">32,-16 33,-14 34,-18 35,-14 36,-18 37,-14 38,-18 39,-14 40,-16</polyline>
@@ -19,7 +19,7 @@
 %  <text x="52" y="-10" t="S" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">68,-20 66,-21 70,-22 66,-23 70,-24 66,-25 70,-26 66,-27 68,-28</polyline>
 %  <polyline lc="black">68,-28 68,-32</polyline>
-%  <polygon fill="black">65.5,-32 70.5,-32 68,-34.5 65.5,-32</polygon>
+%  <polygon fill="black">65.333,-32 70.667,-32 68,-34.667 65.333,-32</polygon>
 %  <polyline lc="black">68,-16 68,-20</polyline>
 %  <text x="72" y="-26" t="Zl" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">60,-16 68,-16</polyline>
@@ -31,7 +31,7 @@
 \path[line width=0.30mm, draw=black] (28,-20.75) -- (28,-22.25);
 \path[line width=0.30mm, draw=black] (27.25,-26.5) -- (28.75,-26.5);
 \path[line width=0.30mm, draw=black] (28,-28) -- (28,-32);
-\path[line width=0.30mm, fill=black] (25.5,-32) -- (30.5,-32) -- (28,-34.5) -- (25.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (25.333,-32) -- (30.667,-32) -- (28,-34.667) -- (25.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (28,-16) -- (28,-20);
 \draw[black] (34,-24) node[anchor=base west]{v};
 \path[line width=0.30mm, draw=black] (32,-16) -- (33,-14) -- (34,-18) -- (35,-14) -- (36,-18) -- (37,-14) -- (38,-18) -- (39,-14) -- (40,-16);
@@ -46,7 +46,7 @@
 \draw[black] (52,-10) node[anchor=base]{S};
 \path[line width=0.30mm, draw=black] (68,-20) -- (66,-21) -- (70,-22) -- (66,-23) -- (70,-24) -- (66,-25) -- (70,-26) -- (66,-27) -- (68,-28);
 \path[line width=0.30mm, draw=black] (68,-28) -- (68,-32);
-\path[line width=0.30mm, fill=black] (65.5,-32) -- (70.5,-32) -- (68,-34.5) -- (65.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (65.333,-32) -- (70.667,-32) -- (68,-34.667) -- (65.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (68,-16) -- (68,-20);
 \draw[black] (72,-26) node[anchor=base west]{Zl};
 \path[line width=0.30mm, draw=black] (60,-16) -- (68,-16);

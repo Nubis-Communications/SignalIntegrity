@@ -36,7 +36,7 @@ class DrawingHeadless(object):
     def __init__(self,parent):
         self.parent=parent
         self.canvas = None
-        self.grid=32
+        self.grid=32.
         self.originx=0
         self.originy=0
         self.schematic = Schematic()
@@ -58,7 +58,7 @@ class DrawingHeadless(object):
                                     fill='black',outline='black')
         return canvas
     def InitFromXml(self,drawingElement):
-        self.grid=32
+        self.grid=32.
         self.originx=0
         self.originy=0
         self.schematic = Schematic()
@@ -68,7 +68,7 @@ class DrawingHeadless(object):
             elif child.tag == 'drawing_properties':
                 for drawingPropertyElement in child:
                     if drawingPropertyElement.tag == 'grid':
-                        self.grid = int(drawingPropertyElement.text)
+                        self.grid = float(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originx':
                         self.originx = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originy':

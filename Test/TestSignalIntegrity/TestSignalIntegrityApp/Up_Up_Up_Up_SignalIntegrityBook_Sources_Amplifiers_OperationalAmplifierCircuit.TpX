@@ -1,5 +1,5 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polygon fill="black">33.5,-36 38.5,-36 36,-38.5 33.5,-36</polygon>
+%  <polygon fill="black">33.333,-36 38.667,-36 36,-38.667 33.333,-36</polygon>
 %  <polyline lc="black">36,-32 36,-36</polyline>
 %  <polyline lc="black">14,-30 16,-32 14,-34</polyline>
 %  <polyline lc="black">20,-32 16,-32</polyline>
@@ -22,12 +22,12 @@
 %  <polyline lc="black">36,-24 32,-24</polyline>
 %  <polyline lc="black">20,-36 18,-37 22,-38 18,-39 22,-40 18,-41 22,-42 18,-43 20,-44</polyline>
 %  <polyline lc="black">20,-44 20,-48</polyline>
-%  <polygon fill="black">17.5,-48 22.5,-48 20,-50.5 17.5,-48</polygon>
+%  <polygon fill="black">17.333,-48 22.667,-48 20,-50.667 17.333,-48</polygon>
 %  <polyline lc="black">20,-32 20,-36</polyline>
 %  <text x="24" y="-42" t="Zi" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">20,-20 18,-19 22,-18 18,-17 22,-16 18,-15 22,-14 18,-13 20,-12</polyline>
 %  <polyline lc="black">20,-12 20,-8</polyline>
-%  <polygon fill="black">17.5,-8 22.5,-8 20,-5.5 17.5,-8</polygon>
+%  <polygon fill="black">17.333,-8 22.667,-8 20,-5.333 17.333,-8</polygon>
 %  <polyline lc="black">20,-24 20,-20</polyline>
 %  <text x="24" y="-14" t="Zi" h="3" halign="l" lc="black"/>
 %  <ellipse x="20" y="-32" dx="1" dy="-1" lc="black" fill="black"/>
@@ -35,7 +35,7 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.30mm, fill=black] (33.5,-36) -- (38.5,-36) -- (36,-38.5) -- (33.5,-36) -- cycle;
+\path[line width=0.30mm, fill=black] (33.333,-36) -- (38.667,-36) -- (36,-38.667) -- (33.333,-36) -- cycle;
 \path[line width=0.30mm, draw=black] (36,-32) -- (36,-36);
 \path[line width=0.30mm, draw=black] (14,-30) -- (16,-32) -- (14,-34);
 \path[line width=0.30mm, draw=black] (20,-32) -- (16,-32);
@@ -58,12 +58,12 @@
 \path[line width=0.30mm, draw=black] (36,-24) -- (32,-24);
 \path[line width=0.30mm, draw=black] (20,-36) -- (18,-37) -- (22,-38) -- (18,-39) -- (22,-40) -- (18,-41) -- (22,-42) -- (18,-43) -- (20,-44);
 \path[line width=0.30mm, draw=black] (20,-44) -- (20,-48);
-\path[line width=0.30mm, fill=black] (17.5,-48) -- (22.5,-48) -- (20,-50.5) -- (17.5,-48) -- cycle;
+\path[line width=0.30mm, fill=black] (17.333,-48) -- (22.667,-48) -- (20,-50.667) -- (17.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (20,-32) -- (20,-36);
 \draw[black] (24,-42) node[anchor=base west]{Zi};
 \path[line width=0.30mm, draw=black] (20,-20) -- (18,-19) -- (22,-18) -- (18,-17) -- (22,-16) -- (18,-15) -- (22,-14) -- (18,-13) -- (20,-12);
 \path[line width=0.30mm, draw=black] (20,-12) -- (20,-8);
-\path[line width=0.30mm, fill=black] (17.5,-8) -- (22.5,-8) -- (20,-5.5) -- (17.5,-8) -- cycle;
+\path[line width=0.30mm, fill=black] (17.333,-8) -- (22.667,-8) -- (20,-5.333) -- (17.333,-8) -- cycle;
 \path[line width=0.30mm, draw=black] (20,-24) -- (20,-20);
 \draw[black] (24,-14) node[anchor=base west]{Zi};
 \path[line width=0.30mm, draw=black, fill=black] (20,-32) ellipse (0.5mm and -0.5mm);

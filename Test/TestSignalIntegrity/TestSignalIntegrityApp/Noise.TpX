@@ -13,10 +13,10 @@
 %  <polyline lc="black">80,-49.5 80,-52.5</polyline>
 %  <polyline lc="black">78.5,-61 81.5,-61</polyline>
 %  <polyline lc="black">80,-64 80,-72</polyline>
-%  <polygon fill="black">74.75,-72 85.25,-72 80,-77.25 74.75,-72</polygon>
+%  <polygon fill="black">74.667,-72 85.333,-72 80,-77.333 74.667,-72</polygon>
 %  <polyline lc="black">80,-40 80,-48</polyline>
 %  <text x="92" y="-56" t="10.0 mVrms" h="3" halign="l" lc="black"/>
-%  <polygon fill="black">26.75,-80 37.25,-80 32,-85.25 26.75,-80</polygon>
+%  <polygon fill="black">26.667,-80 37.333,-80 32,-85.333 26.667,-80</polygon>
 %  <polyline lc="black">32,-72 32,-80</polyline>
 %  <polyline lc="black">34,-30 30,-34</polyline>
 %  <polyline lc="black">34,-34 30,-30</polyline>
@@ -47,10 +47,10 @@
 \path[line width=0.30mm, draw=black] (80,-49.5) -- (80,-52.5);
 \path[line width=0.30mm, draw=black] (78.5,-61) -- (81.5,-61);
 \path[line width=0.30mm, draw=black] (80,-64) -- (80,-72);
-\path[line width=0.30mm, fill=black] (74.75,-72) -- (85.25,-72) -- (80,-77.25) -- (74.75,-72) -- cycle;
+\path[line width=0.30mm, fill=black] (74.667,-72) -- (85.333,-72) -- (80,-77.333) -- (74.667,-72) -- cycle;
 \path[line width=0.30mm, draw=black] (80,-40) -- (80,-48);
 \draw[black] (92,-56) node[anchor=base west]{10.0 mVrms};
-\path[line width=0.30mm, fill=black] (26.75,-80) -- (37.25,-80) -- (32,-85.25) -- (26.75,-80) -- cycle;
+\path[line width=0.30mm, fill=black] (26.667,-80) -- (37.333,-80) -- (32,-85.333) -- (26.667,-80) -- cycle;
 \path[line width=0.30mm, draw=black] (32,-72) -- (32,-80);
 \path[line width=0.30mm, draw=black] (34,-30) -- (30,-34);
 \path[line width=0.30mm, draw=black] (34,-34) -- (30,-30);

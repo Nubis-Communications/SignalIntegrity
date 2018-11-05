@@ -1396,7 +1396,7 @@ class Drawing(Frame):
         drawingElement.extend([drawingPropertiesElement,schematicPropertiesElement])
         return drawingElement
     def InitFromXml(self,drawingElement):
-        self.grid=32
+        self.grid=32.
         self.originx=0
         self.originy=0
         self.schematic = Schematic()
@@ -1410,7 +1410,7 @@ class Drawing(Frame):
             elif child.tag == 'drawing_properties':
                 for drawingPropertyElement in child:
                     if drawingPropertyElement.tag == 'grid':
-                        self.grid = int(drawingPropertyElement.text)
+                        self.grid = float(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originx':
                         self.originx = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originy':

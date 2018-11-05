@@ -33,14 +33,14 @@
 %  <polyline lc="black">20,-20.75 20,-22.25</polyline>
 %  <polyline lc="black">19.25,-26.5 20.75,-26.5</polyline>
 %  <polyline lc="black">20,-28 20,-32</polyline>
-%  <polygon fill="black">17.5,-32 22.5,-32 20,-34.5 17.5,-32</polygon>
+%  <polygon fill="black">17.333,-32 22.667,-32 20,-34.667 17.333,-32</polygon>
 %  <polyline lc="black">20,-16 20,-20</polyline>
 %  <ellipse x="60" y="-24" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">59.25,-21.5 60.75,-21.5</polyline>
 %  <polyline lc="black">60,-20.75 60,-22.25</polyline>
 %  <polyline lc="black">59.25,-26.5 60.75,-26.5</polyline>
 %  <polyline lc="black">60,-28 60,-32</polyline>
-%  <polygon fill="black">57.5,-32 62.5,-32 60,-34.5 57.5,-32</polygon>
+%  <polygon fill="black">57.333,-32 62.667,-32 60,-34.667 57.333,-32</polygon>
 %  <polyline lc="black">60,-16 60,-20</polyline>
 %  <polyline lc="black">20,-16 32,-16</polyline>
 %  <polyline lc="black">48,-16 60,-16</polyline>
@@ -81,14 +81,14 @@
 \path[line width=0.30mm, draw=black] (20,-20.75) -- (20,-22.25);
 \path[line width=0.30mm, draw=black] (19.25,-26.5) -- (20.75,-26.5);
 \path[line width=0.30mm, draw=black] (20,-28) -- (20,-32);
-\path[line width=0.30mm, fill=black] (17.5,-32) -- (22.5,-32) -- (20,-34.5) -- (17.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (17.333,-32) -- (22.667,-32) -- (20,-34.667) -- (17.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (20,-16) -- (20,-20);
 \path[line width=0.30mm, draw=black] (60,-24) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (59.25,-21.5) -- (60.75,-21.5);
 \path[line width=0.30mm, draw=black] (60,-20.75) -- (60,-22.25);
 \path[line width=0.30mm, draw=black] (59.25,-26.5) -- (60.75,-26.5);
 \path[line width=0.30mm, draw=black] (60,-28) -- (60,-32);
-\path[line width=0.30mm, fill=black] (57.5,-32) -- (62.5,-32) -- (60,-34.5) -- (57.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (57.333,-32) -- (62.667,-32) -- (60,-34.667) -- (57.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (60,-16) -- (60,-20);
 \path[line width=0.30mm, draw=black] (20,-16) -- (32,-16);
 \path[line width=0.30mm, draw=black] (48,-16) -- (60,-16);

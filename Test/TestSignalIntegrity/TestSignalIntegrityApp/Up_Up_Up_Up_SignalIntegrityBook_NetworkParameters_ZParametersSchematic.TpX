@@ -32,7 +32,7 @@
 %  <polyline lc="black">128,-104 128,-96</polyline>
 %  <polyline lc="black">128,-72 128,-80</polyline>
 %  <text x="140" y="-88" t="21.0 V/A" h="3" halign="l" lc="black"/>
-%  <polygon fill="black">50.75,-112 61.25,-112 56,-117.25 50.75,-112</polygon>
+%  <polygon fill="black">50.667,-112 61.333,-112 56,-117.333 50.667,-112</polygon>
 %  <polyline lc="black">56,-104 56,-112</polyline>
 %  <polygon lc="black">128,-24 134,-32 128,-40 122,-32 128,-24</polygon>
 %  <polyline arr2="h44" arrs="0.5" lc="black">112,-26 112,-38</polyline>
@@ -45,7 +45,7 @@
 %  <polyline lc="black">128,-48 128,-40</polyline>
 %  <polyline lc="black">128,-16 128,-24</polyline>
 %  <text x="140" y="-32" t="22.0 V/A" h="3" halign="l" lc="black"/>
-%  <polygon fill="black">122.75,-112 133.25,-112 128,-117.25 122.75,-112</polygon>
+%  <polygon fill="black">122.667,-112 133.333,-112 128,-117.333 122.667,-112</polygon>
 %  <polyline lc="black">128,-104 128,-112</polyline>
 %  <polyline lc="black">20,-12 24,-16 20,-20</polyline>
 %  <polyline lc="black">32,-16 24,-16</polyline>
@@ -119,7 +119,7 @@
 \path[line width=0.30mm, draw=black] (128,-104) -- (128,-96);
 \path[line width=0.30mm, draw=black] (128,-72) -- (128,-80);
 \draw[black] (140,-88) node[anchor=base west]{21.0 V/A};
-\path[line width=0.30mm, fill=black] (50.75,-112) -- (61.25,-112) -- (56,-117.25) -- (50.75,-112) -- cycle;
+\path[line width=0.30mm, fill=black] (50.667,-112) -- (61.333,-112) -- (56,-117.333) -- (50.667,-112) -- cycle;
 \path[line width=0.30mm, draw=black] (56,-104) -- (56,-112);
 \path[line width=0.30mm, draw=black] (128,-24) -- (134,-32) -- (128,-40) -- (122,-32) -- (128,-24) -- cycle;
 \path[line width=0.30mm, draw=black, ->] (112,-26) -- (112,-38);
@@ -132,7 +132,7 @@
 \path[line width=0.30mm, draw=black] (128,-48) -- (128,-40);
 \path[line width=0.30mm, draw=black] (128,-16) -- (128,-24);
 \draw[black] (140,-32) node[anchor=base west]{22.0 V/A};
-\path[line width=0.30mm, fill=black] (122.75,-112) -- (133.25,-112) -- (128,-117.25) -- (122.75,-112) -- cycle;
+\path[line width=0.30mm, fill=black] (122.667,-112) -- (133.333,-112) -- (128,-117.333) -- (122.667,-112) -- cycle;
 \path[line width=0.30mm, draw=black] (128,-104) -- (128,-112);
 \path[line width=0.30mm, draw=black] (20,-12) -- (24,-16) -- (20,-20);
 \path[line width=0.30mm, draw=black] (32,-16) -- (24,-16);

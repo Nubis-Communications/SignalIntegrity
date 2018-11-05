@@ -4,7 +4,7 @@
 %  <polyline lc="black">24,-40.75 24,-42.25</polyline>
 %  <polyline lc="black">23.25,-46.5 24.75,-46.5</polyline>
 %  <polyline lc="black">24,-48 24,-52</polyline>
-%  <polygon fill="black">21.5,-52 26.5,-52 24,-54.5 21.5,-52</polygon>
+%  <polygon fill="black">21.333,-52 26.667,-52 24,-54.667 21.333,-52</polygon>
 %  <polyline lc="black">24,-36 24,-40</polyline>
 %  <rect x="36" y="-32" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">32,-36 36,-36</polyline>
@@ -26,7 +26,7 @@
 \path[line width=0.30mm, draw=black] (24,-40.75) -- (24,-42.25);
 \path[line width=0.30mm, draw=black] (23.25,-46.5) -- (24.75,-46.5);
 \path[line width=0.30mm, draw=black] (24,-48) -- (24,-52);
-\path[line width=0.30mm, fill=black] (21.5,-52) -- (26.5,-52) -- (24,-54.5) -- (21.5,-52) -- cycle;
+\path[line width=0.30mm, fill=black] (21.333,-52) -- (26.667,-52) -- (24,-54.667) -- (21.333,-52) -- cycle;
 \path[line width=0.30mm, draw=black] (24,-36) -- (24,-40);
 \path[line width=0.30mm, draw=black] (36,-40) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (32,-36) -- (36,-36);

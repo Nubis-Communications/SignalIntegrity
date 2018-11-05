@@ -1,7 +1,7 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polygon fill="black">41.5,-28 46.5,-28 44,-30.5 41.5,-28</polygon>
+%  <polygon fill="black">41.333,-28 46.667,-28 44,-30.667 41.333,-28</polygon>
 %  <polyline lc="black">44,-24 44,-28</polyline>
-%  <polygon fill="black">13.5,-28 18.5,-28 16,-30.5 13.5,-28</polygon>
+%  <polygon fill="black">13.333,-28 18.667,-28 16,-30.667 13.333,-28</polygon>
 %  <polyline lc="black">16,-24 16,-28</polyline>
 %  <polyline lc="black">25.25,-13.5 26.75,-13.5</polyline>
 %  <polyline lc="black">26,-12.75 26,-14.25</polyline>
@@ -28,9 +28,9 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.30mm, fill=black] (41.5,-28) -- (46.5,-28) -- (44,-30.5) -- (41.5,-28) -- cycle;
+\path[line width=0.30mm, fill=black] (41.333,-28) -- (46.667,-28) -- (44,-30.667) -- (41.333,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (44,-24) -- (44,-28);
-\path[line width=0.30mm, fill=black] (13.5,-28) -- (18.5,-28) -- (16,-30.5) -- (13.5,-28) -- cycle;
+\path[line width=0.30mm, fill=black] (13.333,-28) -- (18.667,-28) -- (16,-30.667) -- (13.333,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (16,-24) -- (16,-28);
 \path[line width=0.30mm, draw=black] (25.25,-13.5) -- (26.75,-13.5);
 \path[line width=0.30mm, draw=black] (26,-12.75) -- (26,-14.25);

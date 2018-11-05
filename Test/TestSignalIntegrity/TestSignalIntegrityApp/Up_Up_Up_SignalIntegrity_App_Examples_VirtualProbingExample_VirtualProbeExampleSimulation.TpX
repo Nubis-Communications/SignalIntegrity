@@ -19,8 +19,8 @@
 %  <text x="92" y="-24" t="15.0 nH" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">104,-24 104,-21</polyline>
 %  <polyline lc="black">104,-16 104,-19</polyline>
-%  <polyline lc="black">106.5,-21 101.5,-21</polyline>
-%  <polyline lc="black">106.5,-19 101.5,-19</polyline>
+%  <polyline lc="black">106.667,-21 101.333,-21</polyline>
+%  <polyline lc="black">106.667,-19 101.333,-19</polyline>
 %  <polyline lc="black">104,-28 104,-24</polyline>
 %  <polyline lc="black">104,-12 104,-16</polyline>
 %  <text x="108" y="-20" t="900.0 fF" h="3" halign="l" lc="black"/>
@@ -28,7 +28,7 @@
 %  <polyline lc="black">124,-28 124,-24</polyline>
 %  <polyline lc="black">124,-12 124,-16</polyline>
 %  <text x="128" y="-20" t="500.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polygon fill="black">81.5,-32 86.5,-32 84,-34.5 81.5,-32</polygon>
+%  <polygon fill="black">81.333,-32 86.667,-32 84,-34.667 81.333,-32</polygon>
 %  <polyline lc="black">84,-28 84,-32</polyline>
 %  <rect x="84" y="-48" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">80,-52 84,-52</polyline>
@@ -62,16 +62,16 @@
 %  <polyline lc="black">48,-72 52,-72</polyline>
 %  <polyline lc="black">64,-72 60,-72</polyline>
 %  <text x="56" y="-78" t="50.0 Ohm" h="3" halign="c" lc="black"/>
-%  <polygon fill="black">44,-53.5 44,-58.5 41.5,-56 44,-53.5</polygon>
+%  <polygon fill="black">44,-53.333 44,-58.667 41.333,-56 44,-53.333</polygon>
 %  <polyline lc="black">48,-56 44,-56</polyline>
 %  <polyline lc="black">124,-64 125,-62 126,-66 127,-62 128,-66 129,-62 130,-66 131,-62 132,-64</polyline>
 %  <polyline lc="black">132,-64 136,-64</polyline>
-%  <polygon fill="black">136,-61.5 136,-66.5 138.5,-64 136,-61.5</polygon>
+%  <polygon fill="black">136,-61.333 136,-66.667 138.667,-64 136,-61.333</polygon>
 %  <polyline lc="black">120,-64 124,-64</polyline>
 %  <text x="130" y="-70" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">124,-48 125,-50 126,-46 127,-50 128,-46 129,-50 130,-46 131,-50 132,-48</polyline>
 %  <polyline lc="black">132,-48 136,-48</polyline>
-%  <polygon fill="black">136,-50.5 136,-45.5 138.5,-48 136,-50.5</polygon>
+%  <polygon fill="black">136,-50.667 136,-45.333 138.667,-48 136,-50.667</polygon>
 %  <polyline lc="black">120,-48 124,-48</polyline>
 %  <text x="130" y="-44" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lw="3" lc="black">68,-8 70,-10</polyline>
@@ -133,8 +133,8 @@
 \draw[black] (92,-24) node[anchor=base]{15.0 nH};
 \path[line width=0.30mm, draw=black] (104,-24) -- (104,-21);
 \path[line width=0.30mm, draw=black] (104,-16) -- (104,-19);
-\path[line width=0.30mm, draw=black] (106.5,-21) -- (101.5,-21);
-\path[line width=0.30mm, draw=black] (106.5,-19) -- (101.5,-19);
+\path[line width=0.30mm, draw=black] (106.667,-21) -- (101.333,-21);
+\path[line width=0.30mm, draw=black] (106.667,-19) -- (101.333,-19);
 \path[line width=0.30mm, draw=black] (104,-28) -- (104,-24);
 \path[line width=0.30mm, draw=black] (104,-12) -- (104,-16);
 \draw[black] (108,-20) node[anchor=base west]{900.0 fF};
@@ -142,7 +142,7 @@
 \path[line width=0.30mm, draw=black] (124,-28) -- (124,-24);
 \path[line width=0.30mm, draw=black] (124,-12) -- (124,-16);
 \draw[black] (128,-20) node[anchor=base west]{500.0 Ohm};
-\path[line width=0.30mm, fill=black] (81.5,-32) -- (86.5,-32) -- (84,-34.5) -- (81.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (81.333,-32) -- (86.667,-32) -- (84,-34.667) -- (81.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-28) -- (84,-32);
 \path[line width=0.30mm, draw=black] (84,-64) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (80,-52) -- (84,-52);
@@ -176,16 +176,16 @@
 \path[line width=0.30mm, draw=black] (48,-72) -- (52,-72);
 \path[line width=0.30mm, draw=black] (64,-72) -- (60,-72);
 \draw[black] (56,-76) node[anchor=north]{50.0 Ohm};
-\path[line width=0.30mm, fill=black] (44,-53.5) -- (44,-58.5) -- (41.5,-56) -- (44,-53.5) -- cycle;
+\path[line width=0.30mm, fill=black] (44,-53.333) -- (44,-58.667) -- (41.333,-56) -- (44,-53.333) -- cycle;
 \path[line width=0.30mm, draw=black] (48,-56) -- (44,-56);
 \path[line width=0.30mm, draw=black] (124,-64) -- (125,-62) -- (126,-66) -- (127,-62) -- (128,-66) -- (129,-62) -- (130,-66) -- (131,-62) -- (132,-64);
 \path[line width=0.30mm, draw=black] (132,-64) -- (136,-64);
-\path[line width=0.30mm, fill=black] (136,-61.5) -- (136,-66.5) -- (138.5,-64) -- (136,-61.5) -- cycle;
+\path[line width=0.30mm, fill=black] (136,-61.333) -- (136,-66.667) -- (138.667,-64) -- (136,-61.333) -- cycle;
 \path[line width=0.30mm, draw=black] (120,-64) -- (124,-64);
 \draw[black] (130,-68) node[anchor=north]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (124,-48) -- (125,-50) -- (126,-46) -- (127,-50) -- (128,-46) -- (129,-50) -- (130,-46) -- (131,-50) -- (132,-48);
 \path[line width=0.30mm, draw=black] (132,-48) -- (136,-48);
-\path[line width=0.30mm, fill=black] (136,-50.5) -- (136,-45.5) -- (138.5,-48) -- (136,-50.5) -- cycle;
+\path[line width=0.30mm, fill=black] (136,-50.667) -- (136,-45.333) -- (138.667,-48) -- (136,-50.667) -- cycle;
 \path[line width=0.30mm, draw=black] (120,-48) -- (124,-48);
 \draw[black] (130,-44) node[anchor=base]{50.0 Ohm};
 \path[line width=0.9mm, draw=black] (68,-8) -- (70,-10);
