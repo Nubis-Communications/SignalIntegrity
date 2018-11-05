@@ -200,9 +200,9 @@ class SParametersDialog(Toplevel):
         self.topLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         if platform.system() == 'Linux':
             if sys.version_info.major < 3:
-                self.topLeftToolbar = NavigationToolbar2TkAgg( self.canvas, self )
+                self.topLeftToolbar = NavigationToolbar2TkAgg( self.topLeftCanvas, topLeftFrame )
             else:
-                self.topLeftToolbar = NavigationToolbar2Tk( self.canvas, self )
+                self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
         else:
             self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
         self.topLeftToolbar.update()
@@ -214,9 +214,9 @@ class SParametersDialog(Toplevel):
         self.topRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         if platform.system() == 'Linux':
             if sys.version_info.major < 3:
-                self.topRightToolbar = NavigationToolbar2TkAgg( self.canvas, self )
+                self.topRightToolbar = NavigationToolbar2TkAgg( self.topRightCanvas, topRightFrame )
             else:
-                self.topRightToolbar = NavigationToolbar2Tk( self.canvas, self )
+                self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
         else:
             self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
         self.topRightToolbar.update()
@@ -233,9 +233,9 @@ class SParametersDialog(Toplevel):
         self.bottomLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         if platform.system() == 'Linux':
             if sys.version_info.major < 3:
-                self.bottomLeftToolbar = NavigationToolbar2TkAgg( self.canvas, self )
+                self.bottomLeftToolbar = NavigationToolbar2TkAgg( self.bottomLeftCanvas, bottomLeftFrame )
             else:
-                self.bottomLeftToolbar = NavigationToolbar2Tk( self.canvas, self )
+                self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
         else:
             self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
         self.bottomLeftToolbar.update()
@@ -247,9 +247,9 @@ class SParametersDialog(Toplevel):
         self.bottomRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
         if platform.system() == 'Linux':
             if sys.version_info.major < 3:
-                self.bottomRightToolbar = NavigationToolbar2TkAgg( self.canvas, self )
+                self.bottomRightToolbar = NavigationToolbar2TkAgg( self.bottomRightCanvas, bottomRightFrame )
             else:
-                self.bottomRightToolbar = NavigationToolbar2Tk( self.canvas, self )
+                self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
         else:
             self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
         self.bottomRightToolbar.update()
