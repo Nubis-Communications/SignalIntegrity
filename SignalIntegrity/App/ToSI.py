@@ -114,9 +114,15 @@ def ToSI(d,sa=''):
                 degree = -len(decPrefixes)
 
         scaled = float(d * math.pow(1000, -degree))
-        s = "{scaled} {prefix}".format(scaled=scaled, prefix=prefix)
+        s = "{:.12g} {}".format(scaled,prefix)
+        if not '.' in s:
+            s="{:.12g}.0 {}".format(scaled,prefix)
+        #s = "{:.1f} {}".format(scaled,prefix)
     else:
-        s = "{d} ".format(d=d)
+        s = "{:.12g} ".format(d)
+        if not '.' in s:
+            s = "{:.12g}.0 ".format(d)
+        #s = "{:.1f} ".format(d)
 
     return s+sa
 
