@@ -25,7 +25,7 @@ import unittest
 
 #https://packaging.python.org/single_source_version/
 base_dir = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "rb") as f:
+with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "r") as f:
     for line in f:
         if line[0]=='_' and '=' in line:
             token=line.split('=')
@@ -39,7 +39,7 @@ pathToIcons='SignalIntegrity/App/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
 pathToHelp='http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App/Help/Help.html.LyXconv/Help-Section-1.html#toc-Section-1'
 
-with open(os.path.join(base_dir, "README.md"), "rb") as f:
+with open(os.path.join(base_dir, "README.md"), "r") as f:
     readmeFile=f.read()
 
 setup(
@@ -78,7 +78,7 @@ setup(
                  ),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    python_requires='>=2.7.11,<3',
+    python_requires='>=2.7.11,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*',
     entry_points={
       'console_scripts': [
           'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main']},
