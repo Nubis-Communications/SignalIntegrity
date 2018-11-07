@@ -151,6 +151,16 @@ class RoutineWriterTesterHelper(object):
     maxLineLength=88
     def __init__(self, methodName='runTest'):
         self.standardHeader = ['import SignalIntegrity.Lib as si\n','\n']
+    def execfile(self,filepath, globals=None, locals=None):
+        if globals is None:
+            globals = {}
+        globals.update({
+            "__file__": filepath,
+            "__name__": "__main__",
+        })
+        with open(filepath, 'rb') as file:
+            exec(compile(file.read(), filepath, 'exec'), globals, locals)
+
     def CheckRoutineWriterResult(self,fileName,sourceCode,Text):
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):
@@ -216,7 +226,7 @@ class RoutineWriterTesterHelper(object):
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
-        exec(open('./'+scriptFileName).read())
+        self.execfile(scriptFileName)
         sys.stdout = old_stdout
         outputFileName = scriptName + '.po'
         if not os.path.exists(outputFileName):
