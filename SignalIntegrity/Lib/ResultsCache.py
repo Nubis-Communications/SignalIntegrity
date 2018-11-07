@@ -19,6 +19,7 @@ results caching
 # If not, see <https://www.gnu.org/licenses/>
 
 import pickle
+import hashlib
 
 class ResultsCache(object):
     """
@@ -123,7 +124,7 @@ class LinesCache(ResultsCache):
         It is formed by hashing a combination of the netlist lines, the frequencies, and the arguments provided.
         @return integer hash value
         """
-        return hash(repr(self.m_lines)+repr(self.m_f)+repr(self.m_args))
+        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)).encode()).hexdigest()
     def CheckTimes(self,cacheFilename):
         """
         Checks the times for files associated with a netlist.\n
