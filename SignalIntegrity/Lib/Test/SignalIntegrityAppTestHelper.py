@@ -81,7 +81,32 @@ class SignalIntegrityAppTestHelper:
                     self.assertTrue(False, testFilename + ' not found')
         with open(testFilename) as f:
             regression=f.readlines()
-        self.assertTrue(netlist==regression,testFilename + ' incorrect')
+        self.assertTrue(len(netlist)==len(regression),testFilename + ' incorrect')
+        for netline,regressionline in zip(netlist,regression):
+            if netline != regressionline:
+                if (netline[:len('connect')]=='connect') and (regression[:len('connect')]=='connect'):
+                    netconnecttokens=netline[len('connect'):]
+                    regressiontokens=regressionline[len('connect'):]
+                    if len(netconnecttokens)//2*2!=len(netconnecttokens):
+                        self.fail(testFilename + ' incorrect')
+                    if len(regressiontokens)//2*2!=len(regressiontokens):
+                        self.fail(testFilename + ' incorrect')
+                    if len(netconnecttokens)!=len(regressiontokens):
+                        self.fail(testFilename + ' incorrect')
+                    nets=[(netconnecttokens[i],netconnecttokens[i+1]) for i in range(len(netconnecttokens)/2)]
+                    regs=[(regressiontokens[i],regressiontokens[i+1]) for i in range(len(regressiontokens)/2)]
+                    itemsToCheck=[True for _ in range(len(regs))]
+                    for net in nets:
+                        foundOne=False
+                        for k in range(len(regs)):
+                            if itemsToCheck[k] and not foundOne:
+                                if net==regs[k]:
+                                    itemsToCheck[k] = False
+                                    foundOne=True
+                            if foundOne:
+                                continue
+                        self.assertTrue(foundOne,testFilename + ' incorrect')
+                    print(testFilename+' okay, but connections in different order')
         os.chdir(currentDirectory)
     def SParameterRegressionChecker(self,sp,spfilename):
         from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile

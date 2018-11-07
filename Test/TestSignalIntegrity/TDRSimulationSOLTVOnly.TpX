@@ -440,13 +440,7 @@
 %  <polyline lc="black">252,-228 256,-228</polyline>
 %  <polyline lc="black">272,-228 280,-228</polyline>
 %  <polyline lc="black">308,-232 308,-228</polyline>
-%  <polyline lc="black">308,-56 308,-20</polyline>
-%  <polyline lc="black">308,-20 300,-20</polyline>
-%  <polyline lc="black">300,-56 308,-56</polyline>
 %  <polyline lc="black">308,-92 300,-92</polyline>
-%  <polyline lc="black">300,-228 308,-228</polyline>
-%  <polyline lc="black">308,-228 308,-160</polyline>
-%  <polyline lc="black">308,-92 308,-56</polyline>
 %  <polyline lc="black">108,-196 112,-196</polyline>
 %  <polyline lc="black">92,-196 88,-196</polyline>
 %  <polyline lc="black">140,-196 112,-196</polyline>
@@ -473,8 +467,6 @@
 %  <polyline lc="black">172,-128 156,-128</polyline>
 %  <polyline lc="black">156,-160 172,-160</polyline>
 %  <polyline lc="black">68,-128 56,-128</polyline>
-%  <polyline lc="black">300,-160 308,-160</polyline>
-%  <polyline lc="black">308,-160 308,-92</polyline>
 %  <polyline lc="black">56,-128 56,-92</polyline>
 %  <polyline lc="black">220,-20 252,-20</polyline>
 %  <polyline lc="black">252,-56 220,-56</polyline>
@@ -483,6 +475,14 @@
 %  <polyline lc="black">220,-160 252,-160</polyline>
 %  <polyline lc="black">252,-196 220,-196</polyline>
 %  <polyline lc="black">220,-228 252,-228</polyline>
+%  <polyline lc="black">308,-92 308,-56</polyline>
+%  <polyline lc="black">300,-160 308,-160</polyline>
+%  <polyline lc="black">308,-160 308,-92</polyline>
+%  <polyline lc="black">300,-228 308,-228</polyline>
+%  <polyline lc="black">308,-228 308,-160</polyline>
+%  <polyline lc="black">300,-56 308,-56</polyline>
+%  <polyline lc="black">308,-56 308,-20</polyline>
+%  <polyline lc="black">308,-20 300,-20</polyline>
 %  <ellipse x="112" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="252" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="252" y="-160" dx="1" dy="-1" lc="black" fill="black"/>
@@ -949,13 +949,7 @@
 \path[line width=0.30mm, draw=black] (252,-228) -- (256,-228);
 \path[line width=0.30mm, draw=black] (272,-228) -- (280,-228);
 \path[line width=0.30mm, draw=black] (308,-232) -- (308,-228);
-\path[line width=0.30mm, draw=black] (308,-56) -- (308,-20);
-\path[line width=0.30mm, draw=black] (308,-20) -- (300,-20);
-\path[line width=0.30mm, draw=black] (300,-56) -- (308,-56);
 \path[line width=0.30mm, draw=black] (308,-92) -- (300,-92);
-\path[line width=0.30mm, draw=black] (300,-228) -- (308,-228);
-\path[line width=0.30mm, draw=black] (308,-228) -- (308,-160);
-\path[line width=0.30mm, draw=black] (308,-92) -- (308,-56);
 \path[line width=0.30mm, draw=black] (108,-196) -- (112,-196);
 \path[line width=0.30mm, draw=black] (92,-196) -- (88,-196);
 \path[line width=0.30mm, draw=black] (140,-196) -- (112,-196);
@@ -982,8 +976,6 @@
 \path[line width=0.30mm, draw=black] (172,-128) -- (156,-128);
 \path[line width=0.30mm, draw=black] (156,-160) -- (172,-160);
 \path[line width=0.30mm, draw=black] (68,-128) -- (56,-128);
-\path[line width=0.30mm, draw=black] (300,-160) -- (308,-160);
-\path[line width=0.30mm, draw=black] (308,-160) -- (308,-92);
 \path[line width=0.30mm, draw=black] (56,-128) -- (56,-92);
 \path[line width=0.30mm, draw=black] (220,-20) -- (252,-20);
 \path[line width=0.30mm, draw=black] (252,-56) -- (220,-56);
@@ -992,6 +984,14 @@
 \path[line width=0.30mm, draw=black] (220,-160) -- (252,-160);
 \path[line width=0.30mm, draw=black] (252,-196) -- (220,-196);
 \path[line width=0.30mm, draw=black] (220,-228) -- (252,-228);
+\path[line width=0.30mm, draw=black] (308,-92) -- (308,-56);
+\path[line width=0.30mm, draw=black] (300,-160) -- (308,-160);
+\path[line width=0.30mm, draw=black] (308,-160) -- (308,-92);
+\path[line width=0.30mm, draw=black] (300,-228) -- (308,-228);
+\path[line width=0.30mm, draw=black] (308,-228) -- (308,-160);
+\path[line width=0.30mm, draw=black] (300,-56) -- (308,-56);
+\path[line width=0.30mm, draw=black] (308,-56) -- (308,-20);
+\path[line width=0.30mm, draw=black] (308,-20) -- (300,-20);
 \path[line width=0.30mm, draw=black, fill=black] (112,-92) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (252,-56) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (252,-160) ellipse (0.5mm and -0.5mm);
