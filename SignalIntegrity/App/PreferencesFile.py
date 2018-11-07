@@ -36,6 +36,7 @@ class Appearance(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
+        self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
         self.SubDir(Color())
 
 class Cache(XMLConfiguration):

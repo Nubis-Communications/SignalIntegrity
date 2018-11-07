@@ -295,6 +295,12 @@ class SParametersDialog(Toplevel):
         self.topRightPlot.cla()
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
+        
+        if not self.parent.preferences.GetValue('Appearance.PlotCursorValues'):
+            self.topLeftPlot.format_coord = lambda x, y: ''
+            self.topRightPlot.format_coord = lambda x, y: ''
+            self.bottomLeftPlot.format_coord = lambda x, y: ''
+            self.bottomRightPlot.format_coord = lambda x, y: ''
 
         fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         ir=fr.ImpulseResponse()
