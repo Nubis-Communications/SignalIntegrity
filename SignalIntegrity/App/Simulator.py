@@ -162,6 +162,9 @@ class SimulatorDialog(Toplevel):
         self.plt.cla()
         self.plt.set_ylabel('amplitude',fontsize=10)
 
+        if not self.parent.parent.preferences.GetValue('Appearance.PlotCursorValues'):
+            self.plt.format_coord = lambda x, y: ''
+
         if not self.waveformList == None:
             self.plt.autoscale(False)
 
