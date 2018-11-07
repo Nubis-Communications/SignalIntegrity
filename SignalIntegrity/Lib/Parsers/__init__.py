@@ -1,6 +1,7 @@
 """
 __init__.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -17,12 +18,12 @@ __init__.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SystemDescriptionParser import SystemDescriptionParser
-from SystemSParametersParser import SystemSParametersNumericParser
-from DeembedderParser import DeembedderParser
-from DeembedderNumericParser import DeembedderNumericParser
-from VirtualProbeParser import VirtualProbeParser
-from VirtualProbeNumericParser import VirtualProbeNumericParser
-from SimulatorParser import SimulatorParser
-from SimulatorNumericParser import SimulatorNumericParser
-import Devices as dev
+from .SystemDescriptionParser import SystemDescriptionParser
+from .SystemSParametersParser import SystemSParametersNumericParser
+from .DeembedderParser import DeembedderParser
+from .DeembedderNumericParser import DeembedderNumericParser
+from .VirtualProbeParser import VirtualProbeParser
+from .VirtualProbeNumericParser import VirtualProbeNumericParser
+from .SimulatorParser import SimulatorParser
+from .SimulatorNumericParser import SimulatorNumericParser
+from . import Devices as dev

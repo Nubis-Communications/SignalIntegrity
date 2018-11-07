@@ -43,7 +43,7 @@ class TestWavelets(unittest.TestCase):
     def testDWTNoiseShapeCalc(self):
         K=pow(2,8)
         h=si.wl.WaveletDaubechies4().h
-        N=K/2
+        N=K//2
         E=[math.sqrt(2.*(1-math.cos(math.pi*n/N))) for n in range(N+1)]
         TS=si.wl.WaveletDenoiser.DWTNoiseShapeCalc(E,h)
         TSCorrect=[0.749999990782253, 1.6677079888241493, 2.8394541449097455, 4.898979445760824, 8.36660021284939, 13.711309143434791, 20.099751216152544]

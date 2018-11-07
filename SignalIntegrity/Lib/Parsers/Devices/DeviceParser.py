@@ -262,7 +262,7 @@ class DeviceFactory(list):
                 if len(argsList) > 0:
                     argsList=['']+argsList
             # pragma: silent exclude
-            if len(argsList)/2*2 != len(argsList): # must be keyword value pairs
+            if len(argsList)//2*2 != len(argsList): # must be keyword value pairs
                 raise SignalIntegrityExceptionDeviceParser(
                     'arguments must come in keyword pairs: '+name+' '+' '.join(argsList))
             # pragma: include

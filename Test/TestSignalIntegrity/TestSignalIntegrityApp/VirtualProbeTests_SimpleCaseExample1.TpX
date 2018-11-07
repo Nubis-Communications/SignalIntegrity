@@ -1,7 +1,7 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
 %  <polyline lc="black">20,-20 22,-21 18,-22 22,-23 18,-24 22,-25 18,-26 22,-27 20,-28</polyline>
 %  <polyline lc="black">20,-28 20,-32</polyline>
-%  <polygon fill="black">22.5,-32 17.5,-32 20,-34.5 22.5,-32</polygon>
+%  <polygon fill="black">22.667,-32 17.333,-32 20,-34.667 22.667,-32</polygon>
 %  <polyline lc="black">20,-16 20,-20</polyline>
 %  <text x="16" y="-26" t="50.0 Ohm" h="3" halign="r" lc="black"/>
 %  <ellipse x="36" y="-16" dx="2" dy="-4" lc="black"/>
@@ -14,7 +14,7 @@
 %  <text x="40" y="-9.5" t="zc 50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">48,-20 46,-21 50,-22 46,-23 50,-24 46,-25 50,-26 46,-27 48,-28</polyline>
 %  <polyline lc="black">48,-28 48,-32</polyline>
-%  <polygon fill="black">45.5,-32 50.5,-32 48,-34.5 45.5,-32</polygon>
+%  <polygon fill="black">45.333,-32 50.667,-32 48,-34.667 45.333,-32</polygon>
 %  <polyline lc="black">48,-16 48,-20</polyline>
 %  <text x="52" y="-26" t="50.0 Ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">52,-12 50,-14</polyline>
@@ -35,7 +35,7 @@
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
 \path[line width=0.30mm, draw=black] (20,-20) -- (22,-21) -- (18,-22) -- (22,-23) -- (18,-24) -- (22,-25) -- (18,-26) -- (22,-27) -- (20,-28);
 \path[line width=0.30mm, draw=black] (20,-28) -- (20,-32);
-\path[line width=0.30mm, fill=black] (22.5,-32) -- (17.5,-32) -- (20,-34.5) -- (22.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (22.667,-32) -- (17.333,-32) -- (20,-34.667) -- (22.667,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (20,-16) -- (20,-20);
 \draw[black] (16,-26) node[anchor=base east]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (36,-16) ellipse (1mm and -2mm);
@@ -48,7 +48,7 @@
 \draw[black] (40,-9.5) node[anchor=base]{zc 50.0 Ohm};
 \path[line width=0.30mm, draw=black] (48,-20) -- (46,-21) -- (50,-22) -- (46,-23) -- (50,-24) -- (46,-25) -- (50,-26) -- (46,-27) -- (48,-28);
 \path[line width=0.30mm, draw=black] (48,-28) -- (48,-32);
-\path[line width=0.30mm, fill=black] (45.5,-32) -- (50.5,-32) -- (48,-34.5) -- (45.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (45.333,-32) -- (50.667,-32) -- (48,-34.667) -- (45.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (48,-16) -- (48,-20);
 \draw[black] (52,-26) node[anchor=base west]{50.0 Ohm};
 \path[line width=0.9mm, draw=black] (52,-12) -- (50,-14);

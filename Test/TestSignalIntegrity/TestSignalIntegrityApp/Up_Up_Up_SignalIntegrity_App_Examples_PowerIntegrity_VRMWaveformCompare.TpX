@@ -4,7 +4,7 @@
 %  <polyline lc="black">32,-44.75 32,-46.25</polyline>
 %  <polyline lc="black">31.25,-50.5 32.75,-50.5</polyline>
 %  <polyline lc="black">32,-52 32,-56</polyline>
-%  <polygon fill="black">29.5,-56 34.5,-56 32,-58.5 29.5,-56</polygon>
+%  <polygon fill="black">29.333,-56 34.667,-56 32,-58.667 29.333,-56</polygon>
 %  <polyline lc="black">32,-40 32,-44</polyline>
 %  <text x="38" y="-48" t="TestVRM_Vout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">33,-35 31,-37</polyline>
@@ -18,7 +18,7 @@
 %  <polyline lc="black">84,-44.75 84,-46.25</polyline>
 %  <polyline lc="black">83.25,-50.5 84.75,-50.5</polyline>
 %  <polyline lc="black">84,-52 84,-56</polyline>
-%  <polygon fill="black">81.5,-56 86.5,-56 84,-58.5 81.5,-56</polygon>
+%  <polygon fill="black">81.333,-56 86.667,-56 84,-58.667 81.333,-56</polygon>
 %  <polyline lc="black">84,-40 84,-44</polyline>
 %  <text x="90" y="-48" t="TestVRMModel_Vout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">85,-35 83,-37</polyline>
@@ -32,7 +32,7 @@
 %  <polyline lc="black">32,-80.75 32,-82.25</polyline>
 %  <polyline lc="black">31.25,-86.5 32.75,-86.5</polyline>
 %  <polyline lc="black">32,-88 32,-92</polyline>
-%  <polygon fill="black">29.5,-92 34.5,-92 32,-94.5 29.5,-92</polygon>
+%  <polygon fill="black">29.333,-92 34.667,-92 32,-94.667 29.333,-92</polygon>
 %  <polyline lc="black">32,-76 32,-80</polyline>
 %  <text x="38" y="-84" t="TestVRM_Iout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">33,-71 31,-73</polyline>
@@ -46,7 +46,7 @@
 %  <polyline lc="black">84,-80.75 84,-82.25</polyline>
 %  <polyline lc="black">83.25,-86.5 84.75,-86.5</polyline>
 %  <polyline lc="black">84,-88 84,-92</polyline>
-%  <polygon fill="black">81.5,-92 86.5,-92 84,-94.5 81.5,-92</polygon>
+%  <polygon fill="black">81.333,-92 86.667,-92 84,-94.667 81.333,-92</polygon>
 %  <polyline lc="black">84,-76 84,-80</polyline>
 %  <text x="90" y="-84" t="TestVRMModel_Iout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">85,-71 83,-73</polyline>
@@ -67,7 +67,7 @@
 \path[line width=0.30mm, draw=black] (32,-44.75) -- (32,-46.25);
 \path[line width=0.30mm, draw=black] (31.25,-50.5) -- (32.75,-50.5);
 \path[line width=0.30mm, draw=black] (32,-52) -- (32,-56);
-\path[line width=0.30mm, fill=black] (29.5,-56) -- (34.5,-56) -- (32,-58.5) -- (29.5,-56) -- cycle;
+\path[line width=0.30mm, fill=black] (29.333,-56) -- (34.667,-56) -- (32,-58.667) -- (29.333,-56) -- cycle;
 \path[line width=0.30mm, draw=black] (32,-40) -- (32,-44);
 \draw[black] (38,-48) node[anchor=base west]{TestVRM\textunderscore Vout.txt};
 \path[line width=0.30mm, draw=black] (33,-35) -- (31,-37);
@@ -81,7 +81,7 @@
 \path[line width=0.30mm, draw=black] (84,-44.75) -- (84,-46.25);
 \path[line width=0.30mm, draw=black] (83.25,-50.5) -- (84.75,-50.5);
 \path[line width=0.30mm, draw=black] (84,-52) -- (84,-56);
-\path[line width=0.30mm, fill=black] (81.5,-56) -- (86.5,-56) -- (84,-58.5) -- (81.5,-56) -- cycle;
+\path[line width=0.30mm, fill=black] (81.333,-56) -- (86.667,-56) -- (84,-58.667) -- (81.333,-56) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-40) -- (84,-44);
 \draw[black] (90,-48) node[anchor=base west]{TestVRMModel\textunderscore Vout.txt};
 \path[line width=0.30mm, draw=black] (85,-35) -- (83,-37);
@@ -95,7 +95,7 @@
 \path[line width=0.30mm, draw=black] (32,-80.75) -- (32,-82.25);
 \path[line width=0.30mm, draw=black] (31.25,-86.5) -- (32.75,-86.5);
 \path[line width=0.30mm, draw=black] (32,-88) -- (32,-92);
-\path[line width=0.30mm, fill=black] (29.5,-92) -- (34.5,-92) -- (32,-94.5) -- (29.5,-92) -- cycle;
+\path[line width=0.30mm, fill=black] (29.333,-92) -- (34.667,-92) -- (32,-94.667) -- (29.333,-92) -- cycle;
 \path[line width=0.30mm, draw=black] (32,-76) -- (32,-80);
 \draw[black] (38,-84) node[anchor=base west]{TestVRM\textunderscore Iout.txt};
 \path[line width=0.30mm, draw=black] (33,-71) -- (31,-73);
@@ -109,7 +109,7 @@
 \path[line width=0.30mm, draw=black] (84,-80.75) -- (84,-82.25);
 \path[line width=0.30mm, draw=black] (83.25,-86.5) -- (84.75,-86.5);
 \path[line width=0.30mm, draw=black] (84,-88) -- (84,-92);
-\path[line width=0.30mm, fill=black] (81.5,-92) -- (86.5,-92) -- (84,-94.5) -- (81.5,-92) -- cycle;
+\path[line width=0.30mm, fill=black] (81.333,-92) -- (86.667,-92) -- (84,-94.667) -- (81.333,-92) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-76) -- (84,-80);
 \draw[black] (90,-84) node[anchor=base west]{TestVRMModel\textunderscore Iout.txt};
 \path[line width=0.30mm, draw=black] (85,-71) -- (83,-73);

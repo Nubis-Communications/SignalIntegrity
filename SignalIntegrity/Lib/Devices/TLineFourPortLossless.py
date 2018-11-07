@@ -19,7 +19,7 @@ TLineFourPortLossless.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math
-from TLineFourPort import TLineFourPort
+from SignalIntegrity.Lib.Devices.TLineFourPort import TLineFourPort
 
 def TLineFourPortLossless(Zc,Td,f,Z0=50.):
     """TLineFourPortLossless

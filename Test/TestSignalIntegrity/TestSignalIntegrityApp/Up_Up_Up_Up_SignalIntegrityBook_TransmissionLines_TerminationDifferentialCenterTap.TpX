@@ -22,7 +22,7 @@
 %  <polyline lc="black">64,-48 64,-44</polyline>
 %  <polyline lc="black">64,-32 64,-36</polyline>
 %  <text x="68" y="-40" t="50.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polygon fill="black">68,-34.5 68,-29.5 70.5,-32 68,-34.5</polygon>
+%  <polygon fill="black">68,-34.667 68,-29.333 70.667,-32 68,-34.667</polygon>
 %  <polyline lc="black">64,-32 68,-32</polyline>
 %  <polyline lc="black">48,-28 48,-24</polyline>
 %  <polyline lc="black">48,-24 56,-24</polyline>
@@ -59,7 +59,7 @@
 \path[line width=0.30mm, draw=black] (64,-48) -- (64,-44);
 \path[line width=0.30mm, draw=black] (64,-32) -- (64,-36);
 \draw[black] (68,-40) node[anchor=base west]{50.0 Ohm};
-\path[line width=0.30mm, fill=black] (68,-34.5) -- (68,-29.5) -- (70.5,-32) -- (68,-34.5) -- cycle;
+\path[line width=0.30mm, fill=black] (68,-34.667) -- (68,-29.333) -- (70.667,-32) -- (68,-34.667) -- cycle;
 \path[line width=0.30mm, draw=black] (64,-32) -- (68,-32);
 \path[line width=0.30mm, draw=black] (48,-28) -- (48,-24);
 \path[line width=0.30mm, draw=black] (48,-24) -- (56,-24);

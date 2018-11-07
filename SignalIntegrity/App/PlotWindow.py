@@ -17,8 +17,17 @@ PlotWindow.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import *
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Toplevel,PhotoImage,Button,Frame
+    from Tkinter import TOP,X,BOTH,NO,LEFT
+else:
+    from tkinter import Toplevel,PhotoImage,Button,Frame
+    from tkinter import TOP,X,BOTH,NO,LEFT
+    
 import matplotlib
+
+import sys
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -27,7 +36,10 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 import platform
 if platform.system() == 'Linux':
-    from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
+    if sys.version_info.major < 3:
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
+    else:
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 else:
     from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
@@ -55,7 +67,10 @@ class PlotDialog(Toplevel):
         self.canvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
 
         if platform.system() == 'Linux':
-            toolbar = NavigationToolbar2TkAgg( self.canvas, self )
+            if sys.version_info.major < 3:
+                toolbar = NavigationToolbar2TkAgg( self.canvas, self )
+            else:
+                toolbar = NavigationToolbar2Tk( self.canvas, self )
         else:
             toolbar = NavigationToolbar2Tk( self.canvas, self )
         toolbar.update()

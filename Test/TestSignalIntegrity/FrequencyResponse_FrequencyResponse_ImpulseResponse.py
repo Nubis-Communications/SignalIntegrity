@@ -23,8 +23,8 @@ class FrequencyResponse(FrequencyDomain):
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
             td=fd.TimeDescriptor()
-            tp=[Y[k].real for k in range(td.K/2)]
-            tn=[Y[k].real for k in range(td.K/2,td.K)]
+            tp=[Y[k].real for k in range(td.K//2)]
+            tn=[Y[k].real for k in range(td.K//2,td.K)]
             Y=tn+tp
             return ImpulseResponse(td,Y)
         if evenlySpaced and td is None and adjustDelay:

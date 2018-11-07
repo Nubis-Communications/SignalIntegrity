@@ -577,7 +577,7 @@ class TestOysterTest(unittest.TestCase,
         plotthem=False
 
         for n in range(Num):
-            print 'wf: '+str(n)
+            print('wf: '+str(n))
             wf=rawwf+si.td.wf.NoiseWaveform(rawwf.td,sigma)
             sp=tdr.RawMeasuredSParameters(wf)
 
@@ -705,7 +705,7 @@ class TestOysterTest(unittest.TestCase,
         plotthem=False
 
         for n in range(Num):
-            print 'wf: '+str(n)
+            print('wf: '+str(n))
             wf11=rawwf11+si.td.wf.NoiseWaveform(rawwf11.td,sigma)
             wf12=rawwf12+si.td.wf.NoiseWaveform(rawwf12.td,sigma)
             wf21=rawwf21+si.td.wf.NoiseWaveform(rawwf21.td,sigma)
@@ -843,7 +843,7 @@ class TestOysterTest(unittest.TestCase,
         pysi=self.Preliminary('OysterFixtureIdealThruDeembedMonteCarlo.xml')
 
         for n in range(Num):
-            print 'wf: '+str(n)
+            print('wf: '+str(n))
             wf11=rawwf11+si.td.wf.NoiseWaveform(rawwf11.td,sigma)
             wf12=rawwf12+si.td.wf.NoiseWaveform(rawwf12.td,sigma)
             wf21=rawwf21+si.td.wf.NoiseWaveform(rawwf21.td,sigma)
@@ -1008,9 +1008,9 @@ class TestOysterTest(unittest.TestCase,
             if clkwf[k]>0. and clkwf[k-1]<=0.:
                 crossingTimes.append(clkTimes[k-1]+(0.-clkwf[k-1])/(clkwf[k]-clkwf[k-1])*(clkTimes[k]-clkTimes[k-1]))
         deltas=[crossingTimes[k]-crossingTimes[k-1] for k in range(1,len(crossingTimes))]
-        print min(deltas),max(deltas)
+        print(min(deltas),max(deltas))
         Fss=[1/d for d in deltas]
-        print mean(Fss)
+        print(mean(Fss))
         thsamples=[thwf.Measure(t) for t in crossingTimes]
         plssamples=[plswf.Measure(t) for t in crossingTimes]
         S=8192
@@ -1027,7 +1027,7 @@ class TestOysterTest(unittest.TestCase,
             reorderedSamples[k%S]=reorderedSamples[k%S]+thsamples[s]
             reorderedPulserStrobe[k%S]=reorderedPulserStrobe[k%S]+plssamples[s]
             s=(s+F)%S
-        print min(averages)
+        print(min(averages))
         wfReord=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,S,204.8e9),[r/a for (r,a) in zip(reorderedSamples,averages)])
         plsReord=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,S,204.8e9),[r/a for (r,a) in zip(reorderedPulserStrobe,averages)])
         #plsReord=plsReord*si.td.f.RaisedCosineFilter(5)
@@ -1053,7 +1053,7 @@ class TestOysterTest(unittest.TestCase,
             averages[k%S]=averages[k%S]+1
             reorderedSamples[k%S]=reorderedSamples[k%S]+sampledElements[s]
             s=(s+F)%S
-        print min(averages)
+        print(min(averages))
         wfReord=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,S,204.8e9),[r/a for (r,a) in zip(reorderedSamples,averages)])
 
         plt.clf()
@@ -1093,7 +1093,7 @@ class TestOysterTest(unittest.TestCase,
             reorderedSamples[k%S]=reorderedSamples[k%S]+sampledElements[s]
             reorderedPulse[k%S]=reorderedPulse[k%S]+plsElements[s]
             s=(s+F)%S
-        print min(averages)
+        print(min(averages))
         wfReord=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,S,204.8e9),[r/a for (r,a) in zip(reorderedSamples,averages)])
         plsReord=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,S,204.8e9),[r/a for (r,a) in zip(reorderedPulse,averages)])
         import matplotlib.pyplot as plt

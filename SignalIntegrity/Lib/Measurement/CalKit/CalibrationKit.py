@@ -24,7 +24,6 @@ from SignalIntegrity.Lib.Measurement.CalKit.Standards.LoadStandard import LoadSt
 from SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard import ThruStandard
 from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 
-
 class CalibrationConstants(object):
     """Class for holding, reading and writing calibration constants for a calibration kit
 
@@ -195,27 +194,27 @@ class CalibrationConstants(object):
         line.append('% offset delay (pS) - THRU\n')
         line.append('% real(Zo) of offset length - THRU\n')
         line.append('% offset loss (GOhm/s) - THRU\n')
-        line.append(str(self.openC0/1e-15)+'\n')            # % C0 (fF) - OPEN
-        line.append(str(self.openC1/1e-27)+'\n')            # % C1 (1e-27 F/Hz) - OPEN
-        line.append(str(self.openC2/1e-36)+'\n')            # % C2 (1e-36 F/Hz^2) - OPEN
-        line.append(str(self.openC3/1e-45)+'\n')            # % C3 (1e-45 F/Hz^3) - OPEN
-        line.append(str(self.openOffsetDelay/1e-12)+'\n')   # % offset delay (pS) - OPEN
-        line.append(str(self.openOffsetZ0)+'\n')            # % real(Zo) of offset length - OPEN
-        line.append(str(self.openOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) - OPEN
-        line.append(str(self.shortL0/1e-12)+'\n')           # % L0 (pH) - SHORT
-        line.append(str(self.shortL1/1e-24)+'\n')           # % L1 (1e-24 H/Hz) - SHORT
-        line.append(str(self.shortL2/1e-33)+'\n')           # % L2 (1e-33 H/Hz^2) - SHORT
-        line.append(str(self.shortL3/1e-42)+'\n')           # % L3 (1e-42 H/Hz^3) - SHORT
-        line.append(str(self.shortOffsetDelay/1e-12)+'\n')  # % offset delay (pS) - SHORT
-        line.append(str(self.shortOffsetZ0)+'\n')           # % real(Zo) of offset length - SHORT
-        line.append(str(self.shortOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) - SHORT
-        line.append(str(self.loadZ)+'\n')                   # % load resistance (Ohm) - LOAD
-        line.append(str(self.loadOffsetDelay/1e-12)+'\n')   # % offset delay (pS) - LOAD
-        line.append(str(self.loadOffsetZ0)+'\n')            # % real(Zo) of offset length - LOAD
-        line.append(str(self.loadOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) - LOAD
-        line.append(str(self.thruOffsetDelay/1e-12)+'\n')   # % offset delay (pS) - THRU
-        line.append(str(self.thruOffsetZ0)+'\n')            # % real(Zo) of offset length - THRU
-        line.append(str(self.thruOffsetLoss/1e9)+'\n')      # % offset loss (GOhm/s) - THRU
+        line.append('{:.12g}\n'.format(self.openC0/1e-15))            # % C0 (fF) - OPEN
+        line.append('{:.12g}\n'.format(self.openC1/1e-27))            # % C1 (1e-27 F/Hz) - OPEN
+        line.append('{:.12g}\n'.format(self.openC2/1e-36))            # % C2 (1e-36 F/Hz^2) - OPEN
+        line.append('{:.12g}\n'.format(self.openC3/1e-45))            # % C3 (1e-45 F/Hz^3) - OPEN
+        line.append('{:.12g}\n'.format(self.openOffsetDelay/1e-12))   # % offset delay (pS) - OPEN
+        line.append('{:.12g}\n'.format(self.openOffsetZ0))            # % real(Zo) of offset length - OPEN
+        line.append('{:.12g}\n'.format(self.openOffsetLoss/1e9))      # % offset loss (GOhm/s) - OPEN
+        line.append('{:.12g}\n'.format(self.shortL0/1e-12))           # % L0 (pH) - SHORT
+        line.append('{:.12g}\n'.format(self.shortL1/1e-24))           # % L1 (1e-24 H/Hz) - SHORT
+        line.append('{:.12g}\n'.format(self.shortL2/1e-33))           # % L2 (1e-33 H/Hz^2) - SHORT
+        line.append('{:.12g}\n'.format(self.shortL3/1e-42))           # % L3 (1e-42 H/Hz^3) - SHORT
+        line.append('{:.12g}\n'.format(self.shortOffsetDelay/1e-12))  # % offset delay (pS) - SHORT
+        line.append('{:.12g}\n'.format(self.shortOffsetZ0))           # % real(Zo) of offset length - SHORT
+        line.append('{:.12g}\n'.format(self.shortOffsetLoss/1e9))      # % offset loss (GOhm/s) - SHORT
+        line.append('{:.12g}\n'.format(self.loadZ))                   # % load resistance (Ohm) - LOAD
+        line.append('{:.12g}\n'.format(self.loadOffsetDelay/1e-12))   # % offset delay (pS) - LOAD
+        line.append('{:.12g}\n'.format(self.loadOffsetZ0))            # % real(Zo) of offset length - LOAD
+        line.append('{:.12g}\n'.format(self.loadOffsetLoss/1e9))      # % offset loss (GOhm/s) - LOAD
+        line.append('{:.12g}\n'.format(self.thruOffsetDelay/1e-12))   # % offset delay (pS) - THRU
+        line.append('{:.12g}\n'.format(self.thruOffsetZ0))            # % real(Zo) of offset length - THRU
+        line.append('{:.12g}\n'.format(self.thruOffsetLoss/1e9))      # % offset loss (GOhm/s) - THRU
         with open(filename,'w') as f:
             f.writelines(line)
         return self

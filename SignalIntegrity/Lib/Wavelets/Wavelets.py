@@ -50,13 +50,13 @@ class Wavelet(object):
 		B=self.intlog2(N)-self.intlog2(self.L)+1
 		for i in range(B):
 			X=list(x)
-			for k in range(N/2):
+			for k in range(N//2):
 				X[k]=sum([x[(2*k+l)%N]*self.h[l]
 					for l in range(self.L)])
-				X[k+N/2]=sum([x[(2*k+l+N-2)%N]*self.g[l]
+				X[k+N//2]=sum([x[(2*k+l+N-2)%N]*self.g[l]
 					for l in range(self.L)])
 			x=list(X)
-			N=N/2
+			N=N//2
 		return X
 	def IDWT(self,XI):
 		"""
@@ -70,13 +70,13 @@ class Wavelet(object):
 		N=self.L
 		for i in range(B):
 			x=list(X)
-			for k in range(N/2):
-				x[2*k]=sum([self.h[2*l]*X[(k-l+(N/2))%(N/2)]+
-						self.g[2*l]*X[(k+1-l+(N/2))%(N/2)+(N/2)]
-							for l in range(self.L/2)])
-				x[2*k+1]=sum([self.h[2*l+1]*X[(k-l+(N/2))%(N/2)]+
-						self.g[2*l+1]*X[(k+1-l+(N/2))%(N/2)+(N/2)]
-							for l in range(self.L/2)])
+			for k in range(N//2):
+				x[2*k]=sum([self.h[2*l]*X[(k-l+(N//2))%(N//2)]+
+						self.g[2*l]*X[(k+1-l+(N//2))%(N//2)+(N//2)]
+							for l in range(self.L//2)])
+				x[2*k+1]=sum([self.h[2*l+1]*X[(k-l+(N//2))%(N//2)]+
+						self.g[2*l+1]*X[(k+1-l+(N//2))%(N//2)+(N//2)]
+							for l in range(self.L//2)])
 			X=list(x)
 			N=2*N
 		return x

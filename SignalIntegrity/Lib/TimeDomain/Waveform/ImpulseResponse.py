@@ -137,9 +137,9 @@ class ImpulseResponse(Waveform):
         """
         K=len(self)
         if P==K: x = self.Values()
-        elif P<K: x=[self[k] for k in range((K-P)/2,K-(K-P)/2)]
+        elif P<K: x=[self[k] for k in range((K-P)//2,K-(K-P)//2)]
         else:
-            x=[0 for p in range((P-K)/2)]
+            x=[0 for p in range((P-K)//2)]
             x=x+self.Values()+x
         td = self.td
         return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
@@ -189,7 +189,7 @@ class ImpulseResponse(Waveform):
             if abs(x[ki]) >= minv:
                 endidx = ki
                 break
-        if (endidx-startidx+1)/2*2 != endidx-startidx+1:
+        if (endidx-startidx+1)//2*2 != endidx-startidx+1:
             # the result would not have an even number of points
             if endidx < len(x)-1:
                 # keep a point at the end if possible

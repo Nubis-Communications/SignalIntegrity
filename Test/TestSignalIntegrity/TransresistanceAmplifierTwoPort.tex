@@ -3,18 +3,18 @@ Z0} & 0 \\ \frac{2\cdot \gamma\cdot Z0}{\left(Z_o+2\cdot
 Z0\right)\cdot\left(Z_i+2\cdot Z0\right)} & \frac{Z_o}{Z_o+2\cdot Z0}
 \end{smallmatrix}\right) \]
 \[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & 0 & \frac{2\cdot
-Z0}{Z_i+2\cdot Z0} & 0 \\ \frac{2\cdot Z0}{Z_o+2\cdot Z0} & 0 &
--\frac{2\cdot \gamma\cdot Z0}{\left(Z_o+2\cdot
-Z0\right)\cdot\left(Z_i+2\cdot Z0\right)} & 0 \end{smallmatrix}\right)
-\]
-\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} 0 & 0 \\ \frac{2\cdot
-Z0}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 \\ -\frac{2\cdot \gamma\cdot
+Z0}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 & -\frac{2\cdot \gamma\cdot
 Z0}{\left(Z_o+2\cdot Z0\right)\cdot\left(Z_i+2\cdot Z0\right)} &
 \frac{2\cdot Z0}{Z_o+2\cdot Z0} \end{smallmatrix}\right) \]
-\[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & 0 & 0 & -1 \\ 0 & 0
-& \frac{Z_i}{Z_i+2\cdot Z0} & 0 \\ 0 & -1 & 0 & 0 \\
-\frac{Z_o}{Z_o+2\cdot Z0} & 0 & \frac{2\cdot \gamma\cdot
-Z0}{\left(Z_o+2\cdot Z0\right)\cdot\left(Z_i+2\cdot Z0\right)} & 0
+\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} \frac{2\cdot
+Z0}{Z_i+2\cdot Z0} & 0 \\ -\frac{2\cdot \gamma\cdot
+Z0}{\left(Z_o+2\cdot Z0\right)\cdot\left(Z_i+2\cdot Z0\right)} &
+\frac{2\cdot Z0}{Z_o+2\cdot Z0} \\ 0 & 0 \\ 0 & 0
+\end{smallmatrix}\right) \]
+\[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & 0 &
+\frac{Z_i}{Z_i+2\cdot Z0} & 0 \\ 0 & 0 & \frac{2\cdot \gamma\cdot
+Z0}{\left(Z_o+2\cdot Z0\right)\cdot\left(Z_i+2\cdot Z0\right)} &
+\frac{Z_o}{Z_o+2\cdot Z0} \\ -1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0
 \end{smallmatrix}\right) \]
 \[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
 -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]

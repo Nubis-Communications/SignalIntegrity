@@ -27,25 +27,25 @@
 %  <text x="44" y="-44" t="Rn" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">76,-44 76,-41</polyline>
 %  <polyline lc="black">76,-36 76,-39</polyline>
-%  <polyline lc="black">73.5,-41 78.5,-41</polyline>
-%  <polyline lc="black">73.5,-39 78.5,-39</polyline>
+%  <polyline lc="black">73.333,-41 78.667,-41</polyline>
+%  <polyline lc="black">73.333,-39 78.667,-39</polyline>
 %  <polyline lc="black">76,-48 76,-44</polyline>
 %  <polyline lc="black">76,-32 76,-36</polyline>
 %  <text x="72" y="-40" t="Cm" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">76,-52 76,-55</polyline>
-%  <polyline lc="black">78.5,-55 73.5,-55</polyline>
-%  <polyline lc="black">78.5,-57 73.5,-57</polyline>
+%  <polyline lc="black">78.667,-55 73.333,-55</polyline>
+%  <polyline lc="black">78.667,-57 73.333,-57</polyline>
 %  <polyline lc="black">76,-57 76,-60</polyline>
 %  <polyline lc="black">76,-60 76,-64</polyline>
-%  <polygon fill="black">78.5,-64 73.5,-64 76,-66.5 78.5,-64</polygon>
+%  <polygon fill="black">78.667,-64 73.333,-64 76,-66.667 78.667,-64</polygon>
 %  <polyline lc="black">76,-48 76,-52</polyline>
 %  <text x="72" y="-58" t="Cn" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">76,-28 76,-25</polyline>
-%  <polyline lc="black">78.5,-25 73.5,-25</polyline>
-%  <polyline lc="black">78.5,-23 73.5,-23</polyline>
+%  <polyline lc="black">78.667,-25 73.333,-25</polyline>
+%  <polyline lc="black">78.667,-23 73.333,-23</polyline>
 %  <polyline lc="black">76,-23 76,-20</polyline>
 %  <polyline lc="black">76,-20 76,-16</polyline>
-%  <polygon fill="black">78.5,-16 73.5,-16 76,-13.5 78.5,-16</polygon>
+%  <polygon fill="black">78.667,-16 73.333,-16 76,-13.333 78.667,-16</polygon>
 %  <polyline lc="black">76,-32 76,-28</polyline>
 %  <text x="72" y="-22" t="Cp" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">84,-44 86,-43 82,-42 86,-41 82,-40 86,-39 82,-38 86,-37 84,-36</polyline>
@@ -54,12 +54,12 @@
 %  <text x="88" y="-40" t="Gm" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">84,-52 82,-53 86,-54 82,-55 86,-56 82,-57 86,-58 82,-59 84,-60</polyline>
 %  <polyline lc="black">84,-60 84,-64</polyline>
-%  <polygon fill="black">81.5,-64 86.5,-64 84,-66.5 81.5,-64</polygon>
+%  <polygon fill="black">81.333,-64 86.667,-64 84,-66.667 81.333,-64</polygon>
 %  <polyline lc="black">84,-48 84,-52</polyline>
 %  <text x="88" y="-58" t="Gn" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">84,-28 82,-27 86,-26 82,-25 86,-24 82,-23 86,-22 82,-21 84,-20</polyline>
 %  <polyline lc="black">84,-20 84,-16</polyline>
-%  <polygon fill="black">81.5,-16 86.5,-16 84,-13.5 81.5,-16</polygon>
+%  <polygon fill="black">81.333,-16 86.667,-16 84,-13.333 81.333,-16</polygon>
 %  <polyline lc="black">84,-32 84,-28</polyline>
 %  <text x="88" y="-22" t="Gp" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">30,-30 32,-32 30,-34</polyline>
@@ -119,25 +119,25 @@
 \draw[black] (44,-44) node[anchor=base]{Rn};
 \path[line width=0.30mm, draw=black] (76,-44) -- (76,-41);
 \path[line width=0.30mm, draw=black] (76,-36) -- (76,-39);
-\path[line width=0.30mm, draw=black] (73.5,-41) -- (78.5,-41);
-\path[line width=0.30mm, draw=black] (73.5,-39) -- (78.5,-39);
+\path[line width=0.30mm, draw=black] (73.333,-41) -- (78.667,-41);
+\path[line width=0.30mm, draw=black] (73.333,-39) -- (78.667,-39);
 \path[line width=0.30mm, draw=black] (76,-48) -- (76,-44);
 \path[line width=0.30mm, draw=black] (76,-32) -- (76,-36);
 \draw[black] (72,-40) node[anchor=base east]{Cm};
 \path[line width=0.30mm, draw=black] (76,-52) -- (76,-55);
-\path[line width=0.30mm, draw=black] (78.5,-55) -- (73.5,-55);
-\path[line width=0.30mm, draw=black] (78.5,-57) -- (73.5,-57);
+\path[line width=0.30mm, draw=black] (78.667,-55) -- (73.333,-55);
+\path[line width=0.30mm, draw=black] (78.667,-57) -- (73.333,-57);
 \path[line width=0.30mm, draw=black] (76,-57) -- (76,-60);
 \path[line width=0.30mm, draw=black] (76,-60) -- (76,-64);
-\path[line width=0.30mm, fill=black] (78.5,-64) -- (73.5,-64) -- (76,-66.5) -- (78.5,-64) -- cycle;
+\path[line width=0.30mm, fill=black] (78.667,-64) -- (73.333,-64) -- (76,-66.667) -- (78.667,-64) -- cycle;
 \path[line width=0.30mm, draw=black] (76,-48) -- (76,-52);
 \draw[black] (72,-58) node[anchor=base east]{Cn};
 \path[line width=0.30mm, draw=black] (76,-28) -- (76,-25);
-\path[line width=0.30mm, draw=black] (78.5,-25) -- (73.5,-25);
-\path[line width=0.30mm, draw=black] (78.5,-23) -- (73.5,-23);
+\path[line width=0.30mm, draw=black] (78.667,-25) -- (73.333,-25);
+\path[line width=0.30mm, draw=black] (78.667,-23) -- (73.333,-23);
 \path[line width=0.30mm, draw=black] (76,-23) -- (76,-20);
 \path[line width=0.30mm, draw=black] (76,-20) -- (76,-16);
-\path[line width=0.30mm, fill=black] (78.5,-16) -- (73.5,-16) -- (76,-13.5) -- (78.5,-16) -- cycle;
+\path[line width=0.30mm, fill=black] (78.667,-16) -- (73.333,-16) -- (76,-13.333) -- (78.667,-16) -- cycle;
 \path[line width=0.30mm, draw=black] (76,-32) -- (76,-28);
 \draw[black] (72,-22) node[anchor=base east]{Cp};
 \path[line width=0.30mm, draw=black] (84,-44) -- (86,-43) -- (82,-42) -- (86,-41) -- (82,-40) -- (86,-39) -- (82,-38) -- (86,-37) -- (84,-36);
@@ -146,12 +146,12 @@
 \draw[black] (88,-40) node[anchor=base west]{Gm};
 \path[line width=0.30mm, draw=black] (84,-52) -- (82,-53) -- (86,-54) -- (82,-55) -- (86,-56) -- (82,-57) -- (86,-58) -- (82,-59) -- (84,-60);
 \path[line width=0.30mm, draw=black] (84,-60) -- (84,-64);
-\path[line width=0.30mm, fill=black] (81.5,-64) -- (86.5,-64) -- (84,-66.5) -- (81.5,-64) -- cycle;
+\path[line width=0.30mm, fill=black] (81.333,-64) -- (86.667,-64) -- (84,-66.667) -- (81.333,-64) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-48) -- (84,-52);
 \draw[black] (88,-58) node[anchor=base west]{Gn};
 \path[line width=0.30mm, draw=black] (84,-28) -- (82,-27) -- (86,-26) -- (82,-25) -- (86,-24) -- (82,-23) -- (86,-22) -- (82,-21) -- (84,-20);
 \path[line width=0.30mm, draw=black] (84,-20) -- (84,-16);
-\path[line width=0.30mm, fill=black] (81.5,-16) -- (86.5,-16) -- (84,-13.5) -- (81.5,-16) -- cycle;
+\path[line width=0.30mm, fill=black] (81.333,-16) -- (86.667,-16) -- (84,-13.333) -- (81.333,-16) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-32) -- (84,-28);
 \draw[black] (88,-22) node[anchor=base west]{Gp};
 \path[line width=0.30mm, draw=black] (30,-30) -- (32,-32) -- (30,-34);

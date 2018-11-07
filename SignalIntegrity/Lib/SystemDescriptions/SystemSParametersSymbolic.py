@@ -1,4 +1,5 @@
 """
+SystemSParameters.py
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
@@ -19,7 +20,7 @@
 
 from SignalIntegrity.Lib.Helpers.AllZeroMatrix import AllZeroMatrix
 from SignalIntegrity.Lib.SystemDescriptions.SystemDescriptionSymbolic import SystemDescriptionSymbolic
-from Device import Device
+from SignalIntegrity.Lib.SystemDescriptions.Device import Device
 from SignalIntegrity.Lib.Helpers.AllZeroMatrix import *
 
 class SystemSParametersSymbolic(SystemDescriptionSymbolic):

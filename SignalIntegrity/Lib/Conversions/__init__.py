@@ -1,7 +1,7 @@
 """
 __init__.py
 """
-
+from __future__ import absolute_import
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -17,17 +17,17 @@ __init__.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Z0KHelper import *
-from Z0KHelperPW import *
-from S2Z import *
-from Z2S import *
-from S2Y import *
-from Y2S import *
-from Y2S import *
-from ABCD2S import *
-from S2ABCD import *
-from S2T import *
-from T2S import *
-from ReferenceImpedance import *
-from Sp2Sw import *
-from Sw2Sp import *
+from .Z0KHelper import *
+from .Z0KHelperPW import *
+from .S2Z import *
+from .Z2S import *
+from .S2Y import *
+from .Y2S import *
+from .Y2S import *
+from .ABCD2S import *
+from .S2ABCD import *
+from .S2T import *
+from .T2S import *
+from .ReferenceImpedance import *
+from .Sp2Sw import *
+from .Sw2Sp import *

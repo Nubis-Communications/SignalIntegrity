@@ -66,9 +66,9 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         self.plotInitialized=False
         #pragma: include
         self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
         #pragma: silent exclude
         printFitCurves=False
@@ -153,7 +153,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         self.plotInitialized=False
         self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
         self.m_fitter.Solve()
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Results()]
         fitsp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
         SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,1e-2)
@@ -176,7 +176,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
                 plt.show()
         self.assertTrue(SpAreEqual,'RLGC fit did not succeed')
     def PrintProgress(self,iteration):
-        print self.m_fitter.ccm._IterationsTaken,self.m_fitter.m_mse
+        print(self.m_fitter.ccm._IterationsTaken,self.m_fitter.m_mse)
     def PlotResult(self,iteration):
         self.PrintProgress(iteration)
         return
@@ -229,7 +229,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         (R,L,G,C,Rse,df)=[0.,114.241e-9,0,43.922e-12,80e-6,100e-6]
         Z0=50
         Tdest=math.sqrt(L*C)
-        print Tdest
+        print(Tdest)
         fList=[f for f in si.fd.EvenlySpacedFrequencyList(40e9,200)[1:]]
         sp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
         S11=sp.FrequencyResponse(1,1)
@@ -261,7 +261,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         plt.grid(True)
         plt.show()
         (Rx,Rsex,Lx)=(matrix([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList]).getI()*matrix([[z] for z in Z])).tolist()
-        print(Rx[0].real,Rsex[0].real,Lx[0].real)
+        print((Rx[0].real,Rsex[0].real,Lx[0].real))
     def testRLGCExtract(self):
         return
         sp=si.sp.SParameterFile('cableForRLGC.s2p')
@@ -284,7 +284,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         L=[z.imag/(2.*math.pi*f) for (z,f) in zip(Z,fList)]
         Gr=[abs(y.real) for y in Y]
         C=[y.imag/(2.*math.pi*f) for (y,f) in zip(Y,fList)]
-        print Zc
+        print(Zc)
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('s-parameter compare')
@@ -298,7 +298,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         plt.grid(True)
         plt.show()
         (Rx,Rsex,Lx)=(matrix([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList]).getI()*matrix([[z] for z in Z])).tolist()
-        print(Rx[0].real,Rsex[0].real,Lx[0].real)
+        print((Rx[0].real,Rsex[0].real,Lx[0].real))
     def testWriteRLGCfFCode(self):
         fileName="../../SignalIntegrity/Lib/Fit/RLGC.py"
         className='RLGCFitter'
@@ -349,10 +349,10 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         self.plotInitialized=False
         #pragma: include
         self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
         si.sp.dev.TLineTwoPortRLGC([20e6*k for k in range(int(67e9/20e6+1.5))],R,Rse,L,G,C,df,self.sp.m_Z0).WriteToFile('Eyal2.s2p')
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
         #pragma: silent exclude
         printFitCurves=False
@@ -440,9 +440,9 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         self.plotInitialized=False
         #pragma: include
         self.m_fitter=si.fit.RLGCFitter2(self.sp,guess,self.PlotResult)
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         (R,G,C,Rse,df,L0,Linf,fm,b)=[r[0] for r in self.m_fitter.Solve().Results()]
-        print self.m_fitter.Results()
+        print(self.m_fitter.Results())
         pass # will test results later, if this method even survives
 
 if __name__ == "__main__":

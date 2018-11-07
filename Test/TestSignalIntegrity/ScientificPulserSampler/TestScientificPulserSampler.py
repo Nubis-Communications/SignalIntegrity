@@ -25,6 +25,7 @@ from numpy import mean,matrix
 from fractions import gcd
 import math
 import xlrd
+import sys
 
 class TestScientificPulserSamplerTest(unittest.TestCase,
                                       si.test.SParameterCompareHelper,
@@ -321,7 +322,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
         DP=1
 
         for reflectName in reflectNames+dutNames:
-            print reflectName
+            print(reflectName)
             wf=self.ReadScientificFileXls(reflectName+'.csv',Fref,NS,DS,NP,DP,-0.05e-9,5000)
 
             rmf=tdr.RawMeasuredSParameters(wf)
@@ -498,7 +499,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
                     if (wf[k]>0.01) and (wf[k+1] < wf[k]):
                         delay=times[k]
                         delays.append(delay)
-                        print delay
+                        print(delay)
                         break
         plt.xlabel('time (ps)')
         plt.ylabel('amplitude')
@@ -521,7 +522,7 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
         if plotthem: plt.show()
 
 
-        print 'propagation velocity: '+str(m/2.)+' ps/mm'
+        print('propagation velocity: '+str(m/2.)+' ps/mm')
     
     def testNoise(self):
         return
@@ -1206,8 +1207,12 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
                 ('Measurements2/M3--Load--00000.txt','Load')]
         wfDict=dict()
         for (filename,meas) in wfList:
-            with open(filename) as f:
-                v=[float(amp) for amp in f.readlines()[3:]]
+            if sys.version_info.major < 3:
+                with open(filename,'r') as f:
+                    v=[float(amp) for amp in f.readlines()[3:]]
+            else:
+                with open(filename,'r',encoding='latin-1') as f:
+                    v=[float(amp) for amp in f.readlines()[3:]]
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-0.97e-9,len(v),100000e9),v)*si.td.f.WaveformDecimator(100)
             sum=0.0
             avg=0
@@ -1401,8 +1406,12 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
 
         wfDict=dict()
         for (filename,meas) in wfList:
-            with open(filename) as f:
-                v=[float(amp) for amp in f.readlines()[3:]]
+            if sys.version_info.major < 3:
+                with open(filename,'r') as f:
+                    v=[float(amp) for amp in f.readlines()[3:]]
+            else:
+                with open(filename,'r',encoding='Latin-1') as f:
+                    v=[float(amp) for amp in f.readlines()[3:]]
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-1.86e-9,len(v),100000e9),v)*si.td.f.WaveformDecimator(100)
             sum=0.0
             avg=0
@@ -1599,8 +1608,12 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
 
         wfDict=dict()
         for (filename,meas) in wfList:
-            with open(filename) as f:
-                v=[float(amp) for amp in f.readlines()[3:]]
+            if sys.version_info.major < 3:
+                with open(filename,'r') as f:
+                    v=[float(amp) for amp in f.readlines()[3:]]
+            else:
+                with open(filename,'r',encoding='latin-1') as f:
+                    v=[float(amp) for amp in f.readlines()[3:]]
             wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-1.86e-9,len(v),100000e9),v)*si.td.f.WaveformDecimator(100)
             sum=0.0
             avg=0

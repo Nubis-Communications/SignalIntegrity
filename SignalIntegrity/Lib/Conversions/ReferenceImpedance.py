@@ -1,7 +1,6 @@
 """
 Changes the reference impedance and scaling factor of the s-parameters
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -20,7 +19,7 @@ Changes the reference impedance and scaling factor of the s-parameters
 from numpy import matrix
 from numpy import identity
 
-from Z0KHelper import Z0KHelper
+from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
 def ReferenceImpedance(S,Z0f,Z0i=None,Kf=None,Ki=None):
     """Changes the reference impedance and scaling factor

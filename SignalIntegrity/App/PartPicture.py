@@ -20,7 +20,7 @@ PartPicture.py
 import xml.etree.ElementTree as et
 import copy
 
-from PartPin import *
+from SignalIntegrity.App.PartPin import *
 from matplotlib.pyplot import grid
 
 class CoordinateTranslater(object):
@@ -57,7 +57,7 @@ class PartPicture(object):
             if len(pinList)==1:
                 self.rotationPoint=pinList[0].pinConnectionPoint
             else:
-                self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2,(innerBox[0][1]+innerBox[1][1])/2)
+                self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2.,(innerBox[0][1]+innerBox[1][1])/2.)
         else:
             self.rotationPoint = rotationPoint
         self.origin=origin
@@ -514,7 +514,7 @@ class PartPictureAmp(PartPicture):
     
 class PartPictureSpecifiedPorts(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        LeftPorts=(ports+1)/2
+        LeftPorts=(ports+1)//2
         RightPorts=ports-LeftPorts
         RightPinOffset = 1 if RightPorts < LeftPorts else 0
         PartPictureBox.__init__(self,origin,
@@ -523,7 +523,7 @@ class PartPictureSpecifiedPorts(PartPictureBox):
 
 class PartPictureSpecifiedPortsAcross(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        LeftPorts=(ports+1)/2
+        LeftPorts=(ports+1)//2
         RightPorts=ports-LeftPorts
         RightPinOffset = 1 if RightPorts < LeftPorts else 0
         PartPictureBox.__init__(self,origin,
@@ -532,7 +532,7 @@ class PartPictureSpecifiedPortsAcross(PartPictureBox):
 
 class PartPictureSpecifiedPortsDownAndUp(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        LeftPorts=(ports+1)/2
+        LeftPorts=(ports+1)//2
         RightPorts=ports-LeftPorts
         RightPinOffset = 1 if RightPorts < LeftPorts else 0
         PartPictureBox.__init__(self,origin,

@@ -61,7 +61,7 @@ class Symbolic():
         """Writes the result out to the standard output
         @return self
         """
-        for line in self.m_lines: print line
+        for line in self.m_lines: print(line)
         return self
     def DocStart(self):
         """Appends the document start string to symbolic result.

@@ -1,7 +1,6 @@
 """
 Preferences.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -18,7 +17,7 @@ Preferences.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from PreferencesFile import PreferencesFile
+from SignalIntegrity.App.PreferencesFile import PreferencesFile
 
 import os,errno
 import platform
@@ -38,7 +37,7 @@ class Preferences(PreferencesFile):
             self.preferencesFileName=pathToPreferencesFile+'/preferences'
             try:
                 os.makedirs(pathToPreferencesFile)
-            except OSError, e:
+            except OSError as e:
                 if e.errno != errno.EEXIST:
                     return
         else:

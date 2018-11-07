@@ -86,9 +86,9 @@ class FilterDescriptor(object):
         return self.S
     def Print(self):
         """prints the filter descriptor in ASCII"""
-        print 'UpsampleFactor: '+str(self.U)
-        print 'DelaySamples:   '+str(self.D)
-        print 'StartupSamples: '+str(self.S)
-        print 'TrimLeft:       '+str(self.TrimLeft())
-        print 'TrimRight:      '+str(self.TrimRight())
-        print 'TrimTotal:      '+str(self.TrimTotal())
+        print('UpsampleFactor: '+str(self.U))
+        print('DelaySamples:   '+str(self.D))
+        print('StartupSamples: '+str(self.S))
+        print('TrimLeft:       '+str(self.TrimLeft()))
+        print('TrimRight:      '+str(self.TrimRight()))
+        print('TrimTotal:      '+str(self.TrimTotal()))

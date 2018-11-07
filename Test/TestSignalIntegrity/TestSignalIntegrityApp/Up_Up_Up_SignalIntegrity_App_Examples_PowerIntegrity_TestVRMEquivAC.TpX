@@ -1,7 +1,7 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
 %  <polyline lc="black">172,-36 170,-37 174,-38 170,-39 174,-40 170,-41 174,-42 170,-43 172,-44</polyline>
 %  <polyline lc="black">172,-44 172,-48</polyline>
-%  <polygon fill="black">169.5,-48 174.5,-48 172,-50.5 169.5,-48</polygon>
+%  <polygon fill="black">169.333,-48 174.667,-48 172,-50.667 169.333,-48</polygon>
 %  <polyline lc="black">172,-32 172,-36</polyline>
 %  <text x="176" y="-42" t="5.0 Ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">176,-28 174,-30</polyline>
@@ -18,7 +18,7 @@
 %  <polyline lc="black">148,-24 144,-24</polyline>
 %  <polyline lc="black">132,-24 136,-24</polyline>
 %  <text x="140" y="-18" t="gain 1.0 V/A" h="3" halign="c" lc="black"/>
-%  <polygon fill="black">152,-26.5 152,-21.5 154.5,-24 152,-26.5</polygon>
+%  <polygon fill="black">152,-26.667 152,-21.333 154.667,-24 152,-26.667</polygon>
 %  <polyline lc="black">148,-24 152,-24</polyline>
 %  <polyline lc="black">127,-23 129,-25</polyline>
 %  <polyline lc="black">129,-23 127,-25</polyline>
@@ -32,7 +32,7 @@
 %  <polyline lc="black">68,-36.75 68,-38.25</polyline>
 %  <polyline lc="black">67.25,-42.5 68.75,-42.5</polyline>
 %  <polyline lc="black">68,-44 68,-48</polyline>
-%  <polygon fill="black">65.5,-48 70.5,-48 68,-50.5 65.5,-48</polygon>
+%  <polygon fill="black">65.333,-48 70.667,-48 68,-50.667 65.333,-48</polygon>
 %  <polyline lc="black">68,-32 68,-36</polyline>
 %  <text x="74" y="-42.5" t="t0 -2.0 ms" h="3" halign="l" lc="black"/>
 %  <text x="74" y="-40" t="a 5.0 V" h="3" halign="l" lc="black"/>
@@ -47,8 +47,8 @@
 %  <text x="96" y="-20" t="220.0 uH" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">92,-36 95,-36</polyline>
 %  <polyline lc="black">100,-36 97,-36</polyline>
-%  <polyline lc="black">95,-38.5 95,-33.5</polyline>
-%  <polyline lc="black">97,-38.5 97,-33.5</polyline>
+%  <polyline lc="black">95,-38.667 95,-33.333</polyline>
+%  <polyline lc="black">97,-38.667 97,-33.333</polyline>
 %  <polyline lc="black">88,-36 92,-36</polyline>
 %  <polyline lc="black">104,-36 100,-36</polyline>
 %  <text x="96" y="-42" t="4.7 uF" h="3" halign="c" lc="black"/>
@@ -56,7 +56,7 @@
 %  <ellipse x="196" y="-40" dx="8" dy="-8" lc="black"/>
 %  <polyline arr1="h44" arrs="0.5" lc="black">196,-37 196,-43</polyline>
 %  <polyline lc="black">196,-44 196,-48</polyline>
-%  <polygon fill="black">193.5,-48 198.5,-48 196,-50.5 193.5,-48</polygon>
+%  <polygon fill="black">193.333,-48 198.667,-48 196,-50.667 193.333,-48</polygon>
 %  <polyline lc="black">196,-32 196,-36</polyline>
 %  <text x="202" y="-45" t="t0 0 s" h="3" halign="l" lc="black"/>
 %  <text x="202" y="-42.5" t="w 1.0 ms" h="3" halign="l" lc="black"/>
@@ -82,7 +82,7 @@
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
 \path[line width=0.30mm, draw=black] (172,-36) -- (170,-37) -- (174,-38) -- (170,-39) -- (174,-40) -- (170,-41) -- (174,-42) -- (170,-43) -- (172,-44);
 \path[line width=0.30mm, draw=black] (172,-44) -- (172,-48);
-\path[line width=0.30mm, fill=black] (169.5,-48) -- (174.5,-48) -- (172,-50.5) -- (169.5,-48) -- cycle;
+\path[line width=0.30mm, fill=black] (169.333,-48) -- (174.667,-48) -- (172,-50.667) -- (169.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (172,-32) -- (172,-36);
 \draw[black] (176,-42) node[anchor=base west]{5.0 Ohm};
 \path[line width=0.9mm, draw=black] (176,-28) -- (174,-30);
@@ -99,7 +99,7 @@
 \path[line width=0.30mm, draw=black] (148,-24) -- (144,-24);
 \path[line width=0.30mm, draw=black] (132,-24) -- (136,-24);
 \draw[black] (140,-18) node[anchor=base]{gain 1.0 V/A};
-\path[line width=0.30mm, fill=black] (152,-26.5) -- (152,-21.5) -- (154.5,-24) -- (152,-26.5) -- cycle;
+\path[line width=0.30mm, fill=black] (152,-26.667) -- (152,-21.333) -- (154.667,-24) -- (152,-26.667) -- cycle;
 \path[line width=0.30mm, draw=black] (148,-24) -- (152,-24);
 \path[line width=0.30mm, draw=black] (127,-23) -- (129,-25);
 \path[line width=0.30mm, draw=black] (129,-23) -- (127,-25);
@@ -113,7 +113,7 @@
 \path[line width=0.30mm, draw=black] (68,-36.75) -- (68,-38.25);
 \path[line width=0.30mm, draw=black] (67.25,-42.5) -- (68.75,-42.5);
 \path[line width=0.30mm, draw=black] (68,-44) -- (68,-48);
-\path[line width=0.30mm, fill=black] (65.5,-48) -- (70.5,-48) -- (68,-50.5) -- (65.5,-48) -- cycle;
+\path[line width=0.30mm, fill=black] (65.333,-48) -- (70.667,-48) -- (68,-50.667) -- (65.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (68,-32) -- (68,-36);
 \draw[black] (74,-42.5) node[anchor=base west]{t0 -2.0 ms};
 \draw[black] (74,-40) node[anchor=base west]{a 5.0 V};
@@ -128,8 +128,8 @@
 \draw[black] (96,-20) node[anchor=base]{220.0 uH};
 \path[line width=0.30mm, draw=black] (92,-36) -- (95,-36);
 \path[line width=0.30mm, draw=black] (100,-36) -- (97,-36);
-\path[line width=0.30mm, draw=black] (95,-38.5) -- (95,-33.5);
-\path[line width=0.30mm, draw=black] (97,-38.5) -- (97,-33.5);
+\path[line width=0.30mm, draw=black] (95,-38.667) -- (95,-33.333);
+\path[line width=0.30mm, draw=black] (97,-38.667) -- (97,-33.333);
 \path[line width=0.30mm, draw=black] (88,-36) -- (92,-36);
 \path[line width=0.30mm, draw=black] (104,-36) -- (100,-36);
 \draw[black] (96,-40) node[anchor=north]{4.7 uF};
@@ -137,7 +137,7 @@
 \path[line width=0.30mm, draw=black] (196,-40) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black, <-] (196,-37) -- (196,-43);
 \path[line width=0.30mm, draw=black] (196,-44) -- (196,-48);
-\path[line width=0.30mm, fill=black] (193.5,-48) -- (198.5,-48) -- (196,-50.5) -- (193.5,-48) -- cycle;
+\path[line width=0.30mm, fill=black] (193.333,-48) -- (198.667,-48) -- (196,-50.667) -- (193.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (196,-32) -- (196,-36);
 \draw[black] (202,-45) node[anchor=base west]{t0 0 s};
 \draw[black] (202,-42.5) node[anchor=base west]{w 1.0 ms};

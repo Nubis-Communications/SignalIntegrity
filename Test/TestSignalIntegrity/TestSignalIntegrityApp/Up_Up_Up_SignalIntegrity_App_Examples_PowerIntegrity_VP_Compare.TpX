@@ -4,7 +4,7 @@
 %  <polyline lc="black">8,-16.75 8,-18.25</polyline>
 %  <polyline lc="black">7.25,-22.5 8.75,-22.5</polyline>
 %  <polyline lc="black">8,-24 8,-28</polyline>
-%  <polygon fill="black">5.5,-28 10.5,-28 8,-30.5 5.5,-28</polygon>
+%  <polygon fill="black">5.333,-28 10.667,-28 8,-30.667 5.333,-28</polygon>
 %  <polyline lc="black">8,-12 8,-16</polyline>
 %  <text x="14" y="-20" t="Il_calc" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">9,-7 7,-9</polyline>
@@ -18,7 +18,7 @@
 %  <polyline lc="black">28,-16.75 28,-18.25</polyline>
 %  <polyline lc="black">27.25,-22.5 28.75,-22.5</polyline>
 %  <polyline lc="black">28,-24 28,-28</polyline>
-%  <polygon fill="black">25.5,-28 30.5,-28 28,-30.5 25.5,-28</polygon>
+%  <polygon fill="black">25.333,-28 30.667,-28 28,-30.667 25.333,-28</polygon>
 %  <polyline lc="black">28,-12 28,-16</polyline>
 %  <text x="34" y="-20" t="Il_meas" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">29,-7 27,-9</polyline>
@@ -37,7 +37,7 @@
 \path[line width=0.30mm, draw=black] (8,-16.75) -- (8,-18.25);
 \path[line width=0.30mm, draw=black] (7.25,-22.5) -- (8.75,-22.5);
 \path[line width=0.30mm, draw=black] (8,-24) -- (8,-28);
-\path[line width=0.30mm, fill=black] (5.5,-28) -- (10.5,-28) -- (8,-30.5) -- (5.5,-28) -- cycle;
+\path[line width=0.30mm, fill=black] (5.333,-28) -- (10.667,-28) -- (8,-30.667) -- (5.333,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (8,-12) -- (8,-16);
 \draw[black] (14,-20) node[anchor=base west]{Il\textunderscore calc};
 \path[line width=0.30mm, draw=black] (9,-7) -- (7,-9);
@@ -51,7 +51,7 @@
 \path[line width=0.30mm, draw=black] (28,-16.75) -- (28,-18.25);
 \path[line width=0.30mm, draw=black] (27.25,-22.5) -- (28.75,-22.5);
 \path[line width=0.30mm, draw=black] (28,-24) -- (28,-28);
-\path[line width=0.30mm, fill=black] (25.5,-28) -- (30.5,-28) -- (28,-30.5) -- (25.5,-28) -- cycle;
+\path[line width=0.30mm, fill=black] (25.333,-28) -- (30.667,-28) -- (28,-30.667) -- (25.333,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (28,-12) -- (28,-16);
 \draw[black] (34,-20) node[anchor=base west]{Il\textunderscore meas};
 \path[line width=0.30mm, draw=black] (29,-7) -- (27,-9);

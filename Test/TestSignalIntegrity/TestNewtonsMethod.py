@@ -40,12 +40,12 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
     def testNewtonSqrtRangeReduction(self):
         Y=32.768
         E=int(math.ceil(math.log(Y,2.)))
-        Eeven=E/2*2==E
+        Eeven=E//2*2==E
         y=Y/pow(2.0,E)
         x=1
         I=5
         x=self.newtonSqrtIterate(y,x,I)
-        x=x*pow(2.0,E/2)*(math.sqrt(2) if not Eeven else 1.0)
+        x=x*pow(2.0,E//2)*(math.sqrt(2) if not Eeven else 1.0)
         #print x,math.sqrt(Y),x-math.sqrt(Y)
         self.assertLessEqual(abs(x-math.sqrt(Y)),10e-16)
     def testNewtonSqrtRangeReductionRange(self):
@@ -174,12 +174,12 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
         X=[[1,x,math.sqrt(x)] for x in f]
         a=(matrix(X).getI()*[[y] for y in mS21]).tolist()
         yf=(matrix(X)*matrix(a)).tolist()
-        r=(matrix(yf)-matrix(y)).tolist()
+        r=(matrix(yf)-matrix([[y] for y in mS21])).tolist()
         sigma=math.sqrt(((matrix(r).H*matrix(r)).tolist()[0][0])/K)
-        print '\[a_0 = '+"{:10.4e}".format(a[0][0])+'\]'
-        print '\[a_1 = '+"{:10.4e}".format(a[1][0])+'/GHz\]'
-        print '\[a_2 = '+"{:10.4e}".format(a[2][0])+'/\sqrt{GHz}\]'
-        print '\[\sigma = '+"{:10.4e}".format(sigma)+'\]'
+        print('\[a_0 = '+"{:10.4e}".format(a[0][0])+'\]')
+        print('\[a_1 = '+"{:10.4e}".format(a[1][0])+'/GHz\]')
+        print('\[a_2 = '+"{:10.4e}".format(a[2][0])+'/\sqrt{GHz}\]')
+        print('\[\sigma = '+"{:10.4e}".format(sigma)+'\]')
         # pragma: silent exclude
         import matplotlib.pyplot as plt
         plt.cla()
@@ -207,9 +207,9 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
         yf=[[y[0]+1.0] for y in (matrix(X)*matrix(a)).tolist()]
         r=(matrix(yf)-matrix([[y] for y in mS21])).tolist()
         sigma=math.sqrt(((matrix(r).H*matrix(r)).tolist()[0][0])/K)
-        print '\[a_1 = '+ str(a[0][0])+'/GHz\]'
-        print '\[a_2 = '+ str(a[1][0])+ '/\sqrt{GHz}\]'
-        print '\[\sigma = '+ str(sigma)+'\]'
+        print('\[a_1 = '+ str(a[0][0])+'/GHz\]')
+        print('\[a_2 = '+ str(a[1][0])+ '/\sqrt{GHz}\]')
+        print('\[\sigma = '+ str(sigma)+'\]')
         # pragma: silent exclude
         import matplotlib.pyplot as plt
         plt.cla()

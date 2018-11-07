@@ -103,8 +103,8 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testWriteTimeDescriptor_ApplyFilter(self):
         fileName="../../SignalIntegrity/Lib/TimeDomain/Waveform/TimeDescriptor.py"
         className='TimeDescriptor'
-        defName=['ApplyFilter','__init__','__len__','__getitem__','Times','__mul__','__div__',
-                 'DelayBy','FrequencyList','TimeOfPoint']
+        defName=['ApplyFilter','__init__','__len__','__getitem__','Times','__mul__','__truediv__',
+                 '__div__','DelayBy','FrequencyList','TimeOfPoint']
         self.WriteClassCode(fileName,className,defName)
     def testWriteFilterDescriptor_mul(self):
         fileName="../../SignalIntegrity/Lib/TimeDomain/Filters/FilterDescriptor.py"
@@ -169,7 +169,7 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         fileName="../../SignalIntegrity/Lib/FrequencyDomain/FrequencyList.py"
         className='FrequencyList'
         defName=['Frequencies','SetEvenlySpaced','SetList',
-        'EvenlySpaced','CheckEvenlySpaced','__div__','__mul__','TimeDescriptor']
+        'EvenlySpaced','CheckEvenlySpaced','__truediv__','__div__','__mul__','TimeDescriptor']
         self.WriteClassCode(fileName,className,defName)
     def testWriteEvenlySpacedFrequencyList_Init(self):
         fileName="../../SignalIntegrity/Lib/FrequencyDomain/FrequencyList.py"

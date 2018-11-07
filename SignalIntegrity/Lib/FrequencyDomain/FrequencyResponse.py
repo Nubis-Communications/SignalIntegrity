@@ -106,8 +106,8 @@ class FrequencyResponse(FrequencyDomain):
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
             td=fd.TimeDescriptor()
-            tp=[Y[k].real for k in range(td.K/2)]
-            tn=[Y[k].real for k in range(td.K/2,td.K)]
+            tp=[Y[k].real for k in range(td.K//2)]
+            tn=[Y[k].real for k in range(td.K//2,td.K)]
             Y=tn+tp
             return ImpulseResponse(td,Y)
         if evenlySpaced and td is None and adjustDelay:
@@ -139,8 +139,8 @@ class FrequencyResponse(FrequencyDomain):
         N/D+1 is the number of points in the decimated frequency response.
         """
         fd=self.FrequencyList()
-        X=[self.Response()[n*D] for n in range(fd.N/D+1)]
-        return FrequencyResponse(EvenlySpacedFrequencyList(fd.N/D*D/fd.N*fd.Fe,fd.N/D),X)
+        X=[self.Response()[n*D] for n in range(fd.N//D+1)]
+        return FrequencyResponse(EvenlySpacedFrequencyList(fd.N//D*D//fd.N*fd.Fe,fd.N//D),X)
     def _SplineResample(self,fdp):
         fd=self.FrequencyList()
         Poly=Spline(fd,self.Response())

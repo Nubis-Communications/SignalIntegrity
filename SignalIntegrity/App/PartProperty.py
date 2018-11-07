@@ -1,7 +1,6 @@
 """
 PartProperty.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -19,7 +18,7 @@ PartProperty.py
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 
-from ToSI import ToSI,FromSI
+from SignalIntegrity.App.ToSI import ToSI,FromSI
 
 class PartProperty(object):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):

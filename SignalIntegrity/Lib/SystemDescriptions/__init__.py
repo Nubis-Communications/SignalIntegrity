@@ -1,5 +1,6 @@
 """AtPackage si.sy
 System Descriptions""" 
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -16,16 +17,16 @@ System Descriptions"""
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SystemDescription import *
-from SystemSParametersSymbolic import *
-from DeembedderSymbolic import *
-from VirtualProbeSymbolic import *
-from SystemSParameters import *
-from SystemSParametersNumeric import *
-from VirtualProbe import *
-from VirtualProbeNumeric import *
-from Deembedder import *
-from DeembedderNumeric import *
-from Simulator import *
-from SimulatorSymbolic import *
-from SimulatorNumeric import *
+from .SystemDescription import *
+from .SystemSParametersSymbolic import *
+from .DeembedderSymbolic import *
+from .VirtualProbeSymbolic import *
+from .SystemSParameters import *
+from .SystemSParametersNumeric import *
+from .VirtualProbe import *
+from .VirtualProbeNumeric import *
+from .Deembedder import *
+from .DeembedderNumeric import *
+from .Simulator import *
+from .SimulatorSymbolic import *
+from .SimulatorNumeric import *

@@ -1,6 +1,8 @@
 """@namespace SignalIntegrity
 Signal Integrity Tools"""
 
+from __future__ import absolute_import
+
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -16,23 +18,23 @@ Signal Integrity Tools"""
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-import SystemDescriptions as sd
-import Conversions as cvt
-import Devices as dev
-import SParameters as sp
-import Splines as spl
-import Parsers as p
-import SubCircuits as sub
-import Helpers as helper
-import Symbolic as sy
-import ImpedanceProfile as ip
-import ChirpZTransform as czt
-import TimeDomain as td
-import FrequencyDomain as fd
-from Exception import *
-import Wavelets as wl
-from Rat import *
-import Measurement as m
-import Test as test
-import Fit as fit
-import Oyster as oy
+from . import SystemDescriptions as sd
+from . import Conversions as cvt
+from . import Devices as dev
+from . import SParameters as sp
+from . import Splines as spl
+from . import Parsers as p
+from . import SubCircuits as sub
+from . import Helpers as helper
+from . import Symbolic as sy
+from . import ImpedanceProfile as ip
+from . import ChirpZTransform as czt
+from . import TimeDomain as td
+from . import FrequencyDomain as fd
+from .Exception import *
+from . import Wavelets as wl
+from .Rat import *
+from . import Measurement as m
+from . import Test as test
+from . import Fit as fit
+from . import Oyster as oy

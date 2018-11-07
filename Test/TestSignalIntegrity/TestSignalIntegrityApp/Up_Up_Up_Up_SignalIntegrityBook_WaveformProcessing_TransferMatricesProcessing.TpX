@@ -49,14 +49,14 @@
 %  <polyline lc="black">104,-76.75 104,-78.25</polyline>
 %  <polyline lc="black">103.25,-82.5 104.75,-82.5</polyline>
 %  <polyline lc="black">104,-84 104,-88</polyline>
-%  <polygon fill="black">101.5,-88 106.5,-88 104,-90.5 101.5,-88</polygon>
+%  <polygon fill="black">101.333,-88 106.667,-88 104,-90.667 101.333,-88</polygon>
 %  <polyline lc="black">104,-72 104,-76</polyline>
 %  <polyline lw="2" lc="red">103.5,-71.5 104.5,-72.5</polyline>
 %  <polyline lw="2" lc="red">104.5,-71.5 103.5,-72.5</polyline>
 %  <ellipse x="92" y="-80" dx="8" dy="-8" lc="black"/>
 %  <polyline arr1="h44" arrs="0.5" lc="black">92,-77 92,-83</polyline>
 %  <polyline lc="black">92,-84 92,-88</polyline>
-%  <polygon fill="black">89.5,-88 94.5,-88 92,-90.5 89.5,-88</polygon>
+%  <polygon fill="black">89.333,-88 94.667,-88 92,-90.667 89.333,-88</polygon>
 %  <polyline lc="black">92,-72 92,-76</polyline>
 %  <polyline lw="2" lc="red">91.5,-71.5 92.5,-72.5</polyline>
 %  <polyline lw="2" lc="red">92.5,-71.5 91.5,-72.5</polyline>
@@ -163,14 +163,14 @@
 \path[line width=0.30mm, draw=black] (104,-76.75) -- (104,-78.25);
 \path[line width=0.30mm, draw=black] (103.25,-82.5) -- (104.75,-82.5);
 \path[line width=0.30mm, draw=black] (104,-84) -- (104,-88);
-\path[line width=0.30mm, fill=black] (101.5,-88) -- (106.5,-88) -- (104,-90.5) -- (101.5,-88) -- cycle;
+\path[line width=0.30mm, fill=black] (101.333,-88) -- (106.667,-88) -- (104,-90.667) -- (101.333,-88) -- cycle;
 \path[line width=0.30mm, draw=black] (104,-72) -- (104,-76);
 \path[line width=0.6mm, draw=red] (103.5,-71.5) -- (104.5,-72.5);
 \path[line width=0.6mm, draw=red] (104.5,-71.5) -- (103.5,-72.5);
 \path[line width=0.30mm, draw=black] (92,-80) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black, <-] (92,-77) -- (92,-83);
 \path[line width=0.30mm, draw=black] (92,-84) -- (92,-88);
-\path[line width=0.30mm, fill=black] (89.5,-88) -- (94.5,-88) -- (92,-90.5) -- (89.5,-88) -- cycle;
+\path[line width=0.30mm, fill=black] (89.333,-88) -- (94.667,-88) -- (92,-90.667) -- (89.333,-88) -- cycle;
 \path[line width=0.30mm, draw=black] (92,-72) -- (92,-76);
 \path[line width=0.6mm, draw=red] (91.5,-71.5) -- (92.5,-72.5);
 \path[line width=0.6mm, draw=red] (92.5,-71.5) -- (91.5,-72.5);

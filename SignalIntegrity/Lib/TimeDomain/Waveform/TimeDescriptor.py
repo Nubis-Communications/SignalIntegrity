@@ -30,7 +30,7 @@ class TimeDescriptor(object):
         @param SampleRate float sample rate (1/sample period)
         """
         self.H = HorOffset
-        self.K = NumPts
+        self.K = int(NumPts)
         self.Fs=SampleRate
     def __len__(self):
         """overloads len()
@@ -114,6 +114,8 @@ class TimeDescriptor(object):
         @see ApplyFilter()
         """
         return self.ApplyFilter(F)
+    def __truediv__(self,d):
+        return self.__div__(d)
     def __div__(self,other):
         """overloads /
 
@@ -161,7 +163,7 @@ class TimeDescriptor(object):
         correspond to this time descriptor.
         """
         K=int(self.K)
-        N=K/2
+        N=K//2
         Fe=float(self.Fs)*N/K
         return EvenlySpacedFrequencyList(Fe,N)
     def Intersection(self,other):
@@ -187,6 +189,6 @@ class TimeDescriptor(object):
         return self.H+float(k)/self.Fs
     def Print(self):
         """prints an ascii version of the time descriptor"""
-        print 'HorOffset:  '+str(self.H)
-        print 'NumPts:     '+str(self.K)
-        print 'SampleRate: '+str(self.Fs)
+        print('HorOffset:  '+str(self.H))
+        print('NumPts:     '+str(self.K))
+        print('SampleRate: '+str(self.Fs))

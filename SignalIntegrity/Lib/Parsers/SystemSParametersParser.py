@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SystemDescriptions import SystemSParametersNumeric
+from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
 from SignalIntegrity.Lib.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters

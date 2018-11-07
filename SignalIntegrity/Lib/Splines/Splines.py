@@ -29,8 +29,7 @@ class Spline(object):
         for i in range(2,N-1):
             u.append(2.*(h[i]+h[i-1])-h[i-1]*h[i-1]/u[i-1])
             v.append(6.*(b[i]-b[i-1])-h[i-1]*v[i-1]/u[i-1])
-        zi = range(1,N-1)
-        zi.reverse()
+        zi = reversed(range(1,N-1))
         z = [0 for i in range(N)]
         for i in zi:
             z[i]=(v[i]-h[i]*z[i+1])/u[i]

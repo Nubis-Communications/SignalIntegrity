@@ -39,7 +39,7 @@ class FractionalDelayFilterLinear(FirFilter):
         specified.
         """
         # pragma: silent exclude
-        from FilterDescriptor import FilterDescriptor
+        from SignalIntegrity.Lib.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
         # pragma: include
         FirFilter.__init__(self,FilterDescriptor(1,
             (F if F >= 0 else 1+F) if accountForDelay else 0,1),
@@ -55,7 +55,7 @@ class InterpolatorLinear(FirFilter):
         @param U integer upsample factor of the filter.
         """
         # pragma: silent exclude
-        from FilterDescriptor import FilterDescriptor
+        from SignalIntegrity.Lib.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
         # pragma: include
         FirFilter.__init__(self,
             FilterDescriptor(U,(U-1.)/float(U),2*(U-1.)/float(U)),

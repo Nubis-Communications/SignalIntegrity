@@ -19,15 +19,15 @@
 %  <text x="52" y="-40" t="R1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">40,-44 40,-41</polyline>
 %  <polyline lc="black">40,-36 40,-39</polyline>
-%  <polyline lc="black">37.5,-41 42.5,-41</polyline>
-%  <polyline lc="black">37.5,-39 42.5,-39</polyline>
+%  <polyline lc="black">37.333,-41 42.667,-41</polyline>
+%  <polyline lc="black">37.333,-39 42.667,-39</polyline>
 %  <polyline lc="black">40,-48 40,-44</polyline>
 %  <polyline lc="black">40,-32 40,-36</polyline>
 %  <text x="36" y="-40" t="1.0 pF" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">64,-24 67,-24</polyline>
 %  <polyline lc="black">72,-24 69,-24</polyline>
-%  <polyline lc="black">67,-21.5 67,-26.5</polyline>
-%  <polyline lc="black">69,-21.5 69,-26.5</polyline>
+%  <polyline lc="black">67,-21.333 67,-26.667</polyline>
+%  <polyline lc="black">69,-21.333 69,-26.667</polyline>
 %  <polyline lc="black">60,-24 64,-24</polyline>
 %  <polyline lc="black">76,-24 72,-24</polyline>
 %  <text x="68" y="-20" t="1.0 pF" h="3" halign="c" lc="black"/>
@@ -37,8 +37,8 @@
 %  <text x="76" y="-64" t="50.0 Ohm" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">96,-44 96,-41</polyline>
 %  <polyline lc="black">96,-36 96,-39</polyline>
-%  <polyline lc="black">98.5,-41 93.5,-41</polyline>
-%  <polyline lc="black">98.5,-39 93.5,-39</polyline>
+%  <polyline lc="black">98.667,-41 93.333,-41</polyline>
+%  <polyline lc="black">98.667,-39 93.333,-39</polyline>
 %  <polyline lc="black">96,-48 96,-44</polyline>
 %  <polyline lc="black">96,-32 96,-36</polyline>
 %  <text x="100" y="-40" t="1.0 pF" h="3" halign="l" lc="black"/>
@@ -115,15 +115,15 @@
 \draw[black] (52,-40) node[anchor=base east]{R1};
 \path[line width=0.30mm, draw=black] (40,-44) -- (40,-41);
 \path[line width=0.30mm, draw=black] (40,-36) -- (40,-39);
-\path[line width=0.30mm, draw=black] (37.5,-41) -- (42.5,-41);
-\path[line width=0.30mm, draw=black] (37.5,-39) -- (42.5,-39);
+\path[line width=0.30mm, draw=black] (37.333,-41) -- (42.667,-41);
+\path[line width=0.30mm, draw=black] (37.333,-39) -- (42.667,-39);
 \path[line width=0.30mm, draw=black] (40,-48) -- (40,-44);
 \path[line width=0.30mm, draw=black] (40,-32) -- (40,-36);
 \draw[black] (36,-40) node[anchor=base east]{1.0 pF};
 \path[line width=0.30mm, draw=black] (64,-24) -- (67,-24);
 \path[line width=0.30mm, draw=black] (72,-24) -- (69,-24);
-\path[line width=0.30mm, draw=black] (67,-21.5) -- (67,-26.5);
-\path[line width=0.30mm, draw=black] (69,-21.5) -- (69,-26.5);
+\path[line width=0.30mm, draw=black] (67,-21.333) -- (67,-26.667);
+\path[line width=0.30mm, draw=black] (69,-21.333) -- (69,-26.667);
 \path[line width=0.30mm, draw=black] (60,-24) -- (64,-24);
 \path[line width=0.30mm, draw=black] (76,-24) -- (72,-24);
 \draw[black] (68,-20) node[anchor=base]{1.0 pF};
@@ -133,8 +133,8 @@
 \draw[black] (76,-64) node[anchor=base west]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (96,-44) -- (96,-41);
 \path[line width=0.30mm, draw=black] (96,-36) -- (96,-39);
-\path[line width=0.30mm, draw=black] (98.5,-41) -- (93.5,-41);
-\path[line width=0.30mm, draw=black] (98.5,-39) -- (93.5,-39);
+\path[line width=0.30mm, draw=black] (98.667,-41) -- (93.333,-41);
+\path[line width=0.30mm, draw=black] (98.667,-39) -- (93.333,-39);
 \path[line width=0.30mm, draw=black] (96,-48) -- (96,-44);
 \path[line width=0.30mm, draw=black] (96,-32) -- (96,-36);
 \draw[black] (100,-40) node[anchor=base west]{1.0 pF};

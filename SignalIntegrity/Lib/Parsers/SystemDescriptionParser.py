@@ -90,7 +90,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         a device has been declared.
         """
         # pragma: silent exclude
-        from Devices.DeviceParser import DeviceParser
+        from SignalIntegrity.Lib.Parsers.Devices.DeviceParser import DeviceParser
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         # pragma: include
         lineList=self.ReplaceArgs(LineSplitter(line))
@@ -116,7 +116,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 self.m_sd.ConnectDevicePort(lineList[1],int(lineList[2]),
                     lineList[i],int(lineList[i+1]))
         elif lineList[0] == 'port':
-            for i in range((len(lineList)-1)/3):
+            for i in range((len(lineList)-1)//3):
                 self.m_sd.AddPort(lineList[i*3+2],int(lineList[i*3+3]),
                     int(lineList[i*3+1]),self.m_addThru)
         else: self.m_ul.append(line)
@@ -125,7 +125,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         @see _ProcessLine() for explanation of parameters and functionality.
         """
         # pragma: silent exclude
-        from SignalIntegrity.Lib.SystemDescriptions import SystemDescription
+        from SignalIntegrity.Lib.SystemDescriptions.SystemDescription import SystemDescription
         # pragma: include
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]

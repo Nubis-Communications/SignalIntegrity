@@ -14,4 +14,4 @@ class FirFilter(WaveformProcessor):
         return Waveform(td,filteredwf)
     def Print(self):
         self.FilterDescriptor().Print()
-        print str(self.FilterTaps())
+        print(str(self.FilterTaps()))

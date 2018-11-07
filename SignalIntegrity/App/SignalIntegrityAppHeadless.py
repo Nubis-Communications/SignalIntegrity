@@ -1,7 +1,6 @@
 """
 SignalIntegrityAppHeadless.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -21,18 +20,23 @@ import os
 import sys
 
 import xml.etree.ElementTree as et
-from Tkinter import ALL
 
-from CalculationProperties import CalculationProperties
-from Files import FileParts,ConvertFileNameToRelativePath
-from Schematic import Schematic
-from Preferences import Preferences
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import ALL
+else:
+    from tkinter import ALL
+
+from SignalIntegrity.App.CalculationProperties import CalculationProperties
+from SignalIntegrity.App.Files import FileParts
+from SignalIntegrity.App.Schematic import Schematic
+from SignalIntegrity.App.Preferences import Preferences
 
 class DrawingHeadless(object):
     def __init__(self,parent):
         self.parent=parent
         self.canvas = None
-        self.grid=32
+        self.grid=32.
         self.originx=0
         self.originy=0
         self.schematic = Schematic()
@@ -54,7 +58,7 @@ class DrawingHeadless(object):
                                     fill='black',outline='black')
         return canvas
     def InitFromXml(self,drawingElement):
-        self.grid=32
+        self.grid=32.
         self.originx=0
         self.originy=0
         self.schematic = Schematic()
@@ -64,7 +68,7 @@ class DrawingHeadless(object):
             elif child.tag == 'drawing_properties':
                 for drawingPropertyElement in child:
                     if drawingPropertyElement.tag == 'grid':
-                        self.grid = int(drawingPropertyElement.text)
+                        self.grid = float(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originx':
                         self.originx = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originy':

@@ -95,7 +95,7 @@ class SParameters(SParameterManipulation):
                     extensionCorrect=False
                 elif file_extension[-1]!='p':
                     extensionCorrect=False
-                elif int(string.lower(name).split('.')[-1].split('s')[1].split('p')[0]) != self.m_P:
+                elif int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0]) != self.m_P:
                     extensionCorrect=False
             if not extensionCorrect:
                 raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
@@ -104,7 +104,7 @@ class SParameters(SParameterManipulation):
         # pragma: include
         freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
-            lineList = string.lower(formatString).split('!')[0].split()
+            lineList = str.lower(formatString).split('!')[0].split()
             if len(lineList)>0:
                 if 'hz' in lineList: fToken = 'Hz'; freqMul = 1.0
                 if 'khz' in lineList: fToken = 'KHz'; freqMul = 1e3

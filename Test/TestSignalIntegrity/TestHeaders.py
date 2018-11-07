@@ -108,11 +108,11 @@ class TestHeadersTest(unittest.TestCase):
                     if not donequotes:
                         if inquotes:
                             #error - could not find end of first quoted string
-                            print pythonFileName+' Error: unresolved quoted string'
+                            print(pythonFileName+' Error: unresolved quoted string')
                             errors=True
                         else:
                             #error? no quoted string at beginning
-                            print pythonFileName+' Error: no quoted string'
+                            print(pythonFileName+' Error: no quoted string')
                             # for now, just print the annoying messages, but don't fail the test
                             #errors=True
                             pass
@@ -149,12 +149,12 @@ class TestHeadersTest(unittest.TestCase):
                             doneLicense=False
                     if not doneLicense:
                         # error - no license string
-                        print pythonFileName+' Error: no license'
+                        print(pythonFileName+' Error: no license')
                         errors=True
                     else:
                         if licenseLineEnd-licenseLineStart+1 != len(license):
-                            print pythonFileName+' Error: license length incorrect'
-                            print str(licenseLineEnd-licenseLineStart+1)+' vs. correct length of '+str(len(license))
+                            print(pythonFileName+' Error: license length incorrect')
+                            print(str(licenseLineEnd-licenseLineStart+1)+' vs. correct length of '+str(len(license)))
                             errors=True
                         else:
                             for licenseLineNum in range(len(license)):
@@ -165,7 +165,7 @@ class TestHeadersTest(unittest.TestCase):
                                     if actualLine[-2:]=='\r\n':
                                         actualLine=actualLine[:-2]+'\n'
                                 if actualLine!=licenseLine:
-                                    print pythonFileName+' Error: license incorrect'
+                                    print(pythonFileName+' Error: license incorrect')
                                     errors=True
                                     break
                         pass

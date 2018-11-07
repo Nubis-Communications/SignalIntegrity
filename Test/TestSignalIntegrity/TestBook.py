@@ -1,6 +1,7 @@
 """
 TestBook.py
 """
+from __future__ import print_function
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -19,8 +20,12 @@ TestBook.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import os
-from cStringIO import StringIO
 import sys
+if sys.version_info.major < 3:
+    from cStringIO import StringIO
+else:
+    from io import StringIO
+
 import SignalIntegrity.Lib as si
 
 class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):
@@ -57,19 +62,19 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         m = sd.StimulusVector()
         old_stdout = sys.stdout
         sys.stdout = mystdout = StringIO()
-        print ('{0:' + str(5 * len(n)) + '}').format('Weights Matrix'),
-        print '| {0:4}'.format('n'),
-        print '| {0:4} |'.format('m')
-        print '----------------------------------------------'
+        print(('{0:' + str(5 * len(n)) + '}').format('Weights Matrix'), end=' ')
+        print('| {0:4}'.format('n'), end=' ')
+        print('| {0:4} |'.format('m'))
+        print('----------------------------------------------')
         for r in range(len(n)):
             for c in range(len(sd.NodeVector())):
-                print '{0:4}'.format(str(W[r][c])),
-            print ' | {0:4}'.format(n[r]),
-            print '| {0:4} |'.format(m[r])
-        print '----------------------------------------------'
-        print '\\left[ \\identity - ' + si.helper.Matrix2LaTeX(W) +\
+                print('{0:4}'.format(str(W[r][c])), end=' ')
+            print(' | {0:4}'.format(n[r]), end=' ')
+            print('| {0:4} |'.format(m[r]))
+        print('----------------------------------------------')
+        print('\\left[ \\identity - ' + si.helper.Matrix2LaTeX(W) +\
         '\\right] \\cdot '+ si.helper.Matrix2LaTeX([[i] for i in n]) +\
-        ' = '+ si.helper.Matrix2LaTeX([[i] for i in m])
+        ' = '+ si.helper.Matrix2LaTeX([[i] for i in m]))
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sys.stdout = old_stdout
         fileName = '_'.join(self.id().split('.')) + '.txt'
@@ -99,16 +104,16 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         m = spc.StimulusVector()  # get the stimulus vector
         W = spc.WeightsMatrix()  # get the weights matrix
         # print out the vectors and matrices
-        print ('{0:' + str(5 * len(n)) + '}').format('Weights Matrix'),
-        print '| {0:4}'.format('n'),
-        print '| {0:4} |'.format('m')
-        print '----------------------------------------------'
+        print(('{0:' + str(5 * len(n)) + '}').format('Weights Matrix'), end=' ')
+        print('| {0:4}'.format('n'), end=' ')
+        print('| {0:4} |'.format('m'))
+        print('----------------------------------------------')
         for r in range(len(W)):
             for c in range(len(W[r])):
-                print '{0:4}'.format(str(W[r][c])),
-            print ' | {0:4}'.format(n[r]),
-            print '| {0:4} |'.format(m[r])
-        print '----------------------------------------------'
+                print('{0:4}'.format(str(W[r][c])), end=' ')
+            print(' | {0:4}'.format(n[r]), end=' ')
+            print('| {0:4} |'.format(m[r]))
+        print('----------------------------------------------')
         # pragma: exclude
         sys.stdout = old_stdout
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -1068,7 +1073,8 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
     def testSymbolicSolutionParserFileExample3Code(self):
         self.WriteCode('TestBook.py','testSymbolicSolutionParserFileExample3(self)',self.standardHeader)
     def testSystemDescriptionExampleCode(self):
-        self.WriteCode('TestBook.py','testSystemDescriptionExample(self)',self.standardHeader)
+        headerLines=['from __future__ import print_function\n']+self.standardHeader
+        self.WriteCode('TestBook.py','testSystemDescriptionExample(self)',headerLines)
     def testSymbolicExampleCode(self):
         self.WriteCode('TestBook.py','testSymbolicExample(self)',self.standardHeader)
     def testSystemDescriptionExampleSymbolicCode(self):

@@ -14,7 +14,7 @@ class ImpulseResponse(Waveform):
             if abs(x[ki]) >= minv:
                 endidx = ki
                 break
-        if (endidx-startidx+1)/2*2 != endidx-startidx+1:
+        if (endidx-startidx+1)//2*2 != endidx-startidx+1:
             # the result would not have an even number of points
             if endidx < len(x)-1:
                 # keep a point at the end if possible

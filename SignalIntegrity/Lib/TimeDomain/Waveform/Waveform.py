@@ -21,8 +21,8 @@ Waveform.py
 from copy import copy
 import math
 
-from TimeDescriptor import TimeDescriptor
-from AdaptedWaveforms import AdaptedWaveforms
+from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+from SignalIntegrity.Lib.TimeDomain.Waveform.AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile,SignalIntegrityExceptionWaveform
 
 class Waveform(list):
@@ -186,6 +186,8 @@ class Waveform(list):
         else:
             raise SignalIntegrityExceptionWaveform('cannot multiply waveform by type '+str(other.__class__.__name__))
         # pragma: include
+    def __truediv__(self,d):
+        return self.__div__(d)
     def __div__(self,other):
         """overloads /
         @param other instance of float, int, complex to divide by.

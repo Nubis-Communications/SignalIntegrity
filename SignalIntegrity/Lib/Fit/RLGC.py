@@ -19,7 +19,7 @@ RLGC.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math,cmath
-from LevMar import LevMar
+from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
 class RLGCFitter(LevMar):
     def __init__(self,sp,guess,callback=None):

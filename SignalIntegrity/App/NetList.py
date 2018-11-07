@@ -1,7 +1,6 @@
 """
 NetList.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -17,12 +16,18 @@ NetList.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import Toplevel,Frame,Button
-from Tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
-from ScrolledText import ScrolledText
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Toplevel,Frame,Button
+    from Tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
+    from ScrolledText import ScrolledText
+else:
+    from tkinter import Toplevel,Frame,Button
+    from tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
+    from tkinter import scrolledtext
 
-from FilePicker import AskSaveAsFilename
-from PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyWeight
+from SignalIntegrity.App.FilePicker import AskSaveAsFilename
+from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyWeight
 #from Wire import *
 
 class NetList(object):
@@ -235,7 +240,10 @@ class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
         Frame.__init__(self,parent)
         self.title = 'NetList'
-        self.text=ScrolledText(self)
+        if sys.version_info.major < 3:
+            self.text=ScrolledText(self)
+        else:
+            self.text=scrolledtext.ScrolledText(self)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')

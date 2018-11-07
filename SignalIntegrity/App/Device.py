@@ -1,7 +1,6 @@
 """
 Device.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -19,8 +18,8 @@ Device.py
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 
-from PartProperty import *
-from PartPicture import *
+from SignalIntegrity.App.PartProperty import *
+from SignalIntegrity.App.PartPicture import *
 
 import math
 

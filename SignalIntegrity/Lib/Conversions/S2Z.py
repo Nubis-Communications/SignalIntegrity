@@ -1,7 +1,6 @@
 """
  s-parameter to impedance parameter conversions
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -20,7 +19,7 @@
 from numpy import matrix
 from numpy import identity
 
-from Z0KHelper import Z0KHelper
+from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
 def S2Z(S,Z0=None,K=None):
     """Converts s-parameters to Z-parameters

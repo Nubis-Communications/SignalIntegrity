@@ -1,7 +1,6 @@
 """
 CalculationProperties.py
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -17,13 +16,22 @@ CalculationProperties.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from Tkinter import *
-import xml.etree.ElementTree as et
-import tkMessageBox
 
-from PlotWindow import *
-from ToSI import *
-from PartProperty import *
+import sys
+if sys.version_info.major < 3:
+    from Tkinter import Frame,Label,Entry,StringVar,Toplevel,PhotoImage
+    from Tkinter import TOP,YES,NO,X,LEFT
+    import xml.etree.ElementTree as et
+    import tkMessageBox
+else:
+    from tkinter import Frame,Label,Entry,StringVar,Toplevel,PhotoImage
+    from tkinter import TOP,YES,NO,X,LEFT
+    import xml.etree.ElementTree as et
+    from tkinter import messagebox
+
+from SignalIntegrity.App.PlotWindow import *
+from SignalIntegrity.App.ToSI import *
+from SignalIntegrity.App.PartProperty import *
 
 class CalculationProperty(Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback):

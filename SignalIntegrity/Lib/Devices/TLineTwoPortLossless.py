@@ -20,7 +20,7 @@ TLineTwoPortLossless.py
 
 import math
 
-from TLineTwoPort import TLineTwoPort
+from SignalIntegrity.Lib.Devices.TLineTwoPort import TLineTwoPort
 
 def TLineTwoPortLossless(Zc,Td,f,Z0=50.):
     """TLineTwoPortLossless

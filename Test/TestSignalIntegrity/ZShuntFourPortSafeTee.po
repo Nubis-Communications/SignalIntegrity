@@ -7,22 +7,23 @@ Z0}{3\cdot \left(\varepsilon+Z0\right)} \\ \frac{2\cdot Z0}{3\cdot
 \left(\varepsilon+Z0\right)} & 0 \\ 0 & \frac{2\cdot Z0}{3\cdot
 \left(\varepsilon+Z0\right)} & 0 & \frac{3\cdot \varepsilon-Z0}{3\cdot
 \left(\varepsilon+Z0\right)} \end{array}\right) \]
-\[ \mathbf{W_{bx}} = \left(\begin{array}{cccc} 0 & 0 & \frac{2\cdot
-Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 \\ \frac{2\cdot Z0}{3\cdot
-\left(\varepsilon+Z0\right)} & 0 & 0 & 0 \\ 0 & 0 & \frac{2\cdot
-Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 \\ \frac{2\cdot Z0}{3\cdot
-\left(\varepsilon+Z0\right)} & 0 & 0 & 0 \end{array}\right) \]
-\[ \mathbf{W_{xa}} = \left(\begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 &
+\[ \mathbf{W_{bx}} = \left(\begin{array}{cccc} \frac{2\cdot Z0}{3\cdot
+\left(\varepsilon+Z0\right)} & 0 & 0 & 0 \\ 0 & \frac{2\cdot
+Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 & 0 \\ \frac{2\cdot
+Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 & 0 & 0 \\ 0 &
+\frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 & 0
+\end{array}\right) \]
+\[ \mathbf{W_{xa}} = \left(\begin{array}{cccc} 0 & 0 & 0 & 0 \\ 0 & 0
+& 0 & 0 \\ \frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 &
+\frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 \\ 0 &
 \frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 &
-\frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} \\ 0 & 0 & 0 & 0
-\\ \frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 &
-\frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0
+\frac{2\cdot Z0}{3\cdot \left(\varepsilon+Z0\right)}
 \end{array}\right) \]
-\[ \mathbf{W_{xx}} = \left(\begin{array}{cccc} 0 & \frac{Z}{Z+2\cdot
-Z0} & 0 & \frac{2\cdot Z0}{Z+2\cdot Z0} \\ \frac{3\cdot
+\[ \mathbf{W_{xx}} = \left(\begin{array}{cccc} 0 & 0 &
+\frac{Z}{Z+2\cdot Z0} & \frac{2\cdot Z0}{Z+2\cdot Z0} \\ 0 & 0 &
+\frac{2\cdot Z0}{Z+2\cdot Z0} & \frac{Z}{Z+2\cdot Z0} \\ \frac{3\cdot
 \varepsilon-Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 & 0 & 0 \\ 0 &
-\frac{2\cdot Z0}{Z+2\cdot Z0} & 0 & \frac{Z}{Z+2\cdot Z0} \\ 0 & 0 &
-\frac{3\cdot \varepsilon-Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0
-\end{array}\right) \]
+\frac{3\cdot \varepsilon-Z0}{3\cdot \left(\varepsilon+Z0\right)} & 0 &
+0 \end{array}\right) \]
 \[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
 -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]

@@ -1,6 +1,7 @@
 """
 __init__.py
 """
+from __future__ import absolute_import
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -17,8 +18,8 @@ __init__.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from ShortStandard import ShortStandard
-from OpenStandard import OpenStandard
-from LoadStandard import LoadStandard
-from ThruStandard import ThruStandard
-from Offset import Offset
+from .ShortStandard import ShortStandard
+from .OpenStandard import OpenStandard
+from .LoadStandard import LoadStandard
+from .ThruStandard import ThruStandard
+from .Offset import Offset

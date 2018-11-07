@@ -12,7 +12,7 @@
 %  <ellipse x="24" y="-24" dx="8" dy="-8" lc="black"/>
 %  <polyline arr1="h44" arrs="0.5" lc="black">24,-21 24,-27</polyline>
 %  <polyline lc="black">24,-28 24,-32</polyline>
-%  <polygon fill="black">21.5,-32 26.5,-32 24,-34.5 21.5,-32</polygon>
+%  <polygon fill="black">21.333,-32 26.667,-32 24,-34.667 21.333,-32</polygon>
 %  <polyline lc="black">24,-16 24,-20</polyline>
 %  <polyline lw="2" lc="red">23.5,-15.5 24.5,-16.5</polyline>
 %  <polyline lw="2" lc="red">24.5,-15.5 23.5,-16.5</polyline>
@@ -36,7 +36,7 @@
 \path[line width=0.30mm, draw=black] (24,-24) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black, <-] (24,-21) -- (24,-27);
 \path[line width=0.30mm, draw=black] (24,-28) -- (24,-32);
-\path[line width=0.30mm, fill=black] (21.5,-32) -- (26.5,-32) -- (24,-34.5) -- (21.5,-32) -- cycle;
+\path[line width=0.30mm, fill=black] (21.333,-32) -- (26.667,-32) -- (24,-34.667) -- (21.333,-32) -- cycle;
 \path[line width=0.30mm, draw=black] (24,-16) -- (24,-20);
 \path[line width=0.6mm, draw=red] (23.5,-15.5) -- (24.5,-16.5);
 \path[line width=0.6mm, draw=red] (24.5,-15.5) -- (23.5,-16.5);

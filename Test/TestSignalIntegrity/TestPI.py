@@ -516,7 +516,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
 
     def testTransientCurrent(self):
         fileNameBase= '_'.join(self.id().split('.')[-3:])
-        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000),cacheFileName=fileNameBase).AddLines([
             'device R1 1 R 5.0',
             'device D2 4 currentcontrolledvoltagesource 1.0',
             'device G2 1 ground',
@@ -611,7 +611,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         si.td.wf.Waveform.adaptionStrategy='Linear'
         fileNameBase= '_'.join(self.id().split('.')[-3:])
-        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000),cacheFileName=fileNameBase).AddLines([
             'device L1 2 L 0.00022',
             'device C1 1 C 4.7e-06',
             'device R1 1 R 5.0',
@@ -780,7 +780,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
     def testVRMParasitics(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         fileNameBase= '_'.join(self.id().split('.')[-3:])
-        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000)).AddLines([
+        snp=si.p.SimulatorNumericParser(si.fd.EvenlySpacedFrequencyList(5e6,10000),cacheFileName=fileNameBase).AddLines([
             'device L1 2 L 0.00022',
             'device C1 1 C 4.7e-06',
             'device R1 1 R 5.0',
@@ -850,7 +850,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         Rc=200e-3
 
         A=T*T/(T*T+Lc*C+Rc*C*T)
-        print A
+        print(A)
         il=[0. for k in range(len(Vlcalc))]
         vl=Vlcalc.Values()
         il[0]=vl[0]*T/(L+R*T)

@@ -1,7 +1,6 @@
 """
 Converts pseudo-wave s-parameters to power-wave s-parameters
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -19,8 +18,8 @@ Converts pseudo-wave s-parameters to power-wave s-parameters
 # If not, see <https://www.gnu.org/licenses/>
 from numpy import matrix
 
-from Z0KHelper import Z0KHelper
-from Z0KHelperPW import Z0KHelperPW
+from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
+from SignalIntegrity.Lib.Conversions.Z0KHelperPW import Z0KHelperPW
 
 def Sw2Sp(Sp,Z0w=None,Z0p=None,Kw=None):
     """Converts power-wave s-parameters to pseudo-wave s-parameters

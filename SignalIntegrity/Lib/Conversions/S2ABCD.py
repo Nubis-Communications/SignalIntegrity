@@ -1,7 +1,6 @@
 """
 s-parameters to ABCD parameter conversions
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -21,7 +20,7 @@ s-parameters to ABCD parameter conversions
 from numpy import matrix
 from numpy import array
 
-from Z0KHelper import Z0KHelper
+from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
 def S2ABCD(S,Z0=None,K=None):
     """Converts s-parameters to ABCD parameters.

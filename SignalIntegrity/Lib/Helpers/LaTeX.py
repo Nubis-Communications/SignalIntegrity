@@ -18,7 +18,43 @@ LaTeX.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import empty
+from numpy import empty,sign
+import math
+
+def RationalString(val):
+    data = ''
+    if isinstance(val,int):
+        data = str(val)
+    elif isinstance(val,float):
+        from SignalIntegrity.Lib.Rat import Rat
+        from numpy import sign
+        sn=sign(val)
+        if sn == 0:
+            return '0'
+        signStr=''
+        if sn == -1:
+            val=val*-1.
+            signStr='-'
+        (n,d)=Rat(val)
+        if d==1:
+            return signStr+str(n)
+        elif d<n:
+            return signStr+str(val)
+        elif d==n:
+            return signStr+'1'
+        elif ((d<10) and (n<10)):
+            return signStr+'\\frac{'+str(n)+'}{'+str(d)+'}'
+        # check for square-root of 2
+        valsq2=val*math.sqrt(2.)
+        (n,d)=Rat(valsq2)
+        if d<n:
+            return signStr+str(val)
+        elif ((d<10) and (n<10)):
+            denstr='\\sqrt{2}'
+            if d != 1:
+                denstr=str(d)+'\\cdot'+denstr
+            return signStr+'\\frac{'+str(n)+'}{'+denstr+'}'
+        return signStr+str(val)
 
 def Matrix2Text(M):
     if isinstance(M,list):
@@ -39,25 +75,7 @@ def Matrix2Text(M):
             if isinstance(val,int):
                 data = str(val)
             elif isinstance(val,float):
-                data = str(val)
-                if data == '0.0':
-                    data = '0'
-                elif data == '1.0':
-                    data = '1'
-                elif data == '-1.0':
-                    data = '-1'
-                elif data == '0.666666666667':
-                    data = '\\frac{2}{3}'
-                elif data == '-0.333333333333':
-                    data = '-\\frac{1}{3}'
-                elif data == '0.707106781187':
-                    data = '\\frac{1}{\\sqrt{2}}'
-                elif data == '-0.707106781187':
-                    data = '-\\frac{1}{\\sqrt{2}}'
-                elif data == '-0.5':
-                    data = '-\\frac{1}{2}'
-                elif data == '0.5':
-                    data = '\\frac{1}{2}'
+                data=RationalString(val)
             elif isinstance(val,complex):
                 data = str(val.real)+'j'+float(val.imag)
             else:

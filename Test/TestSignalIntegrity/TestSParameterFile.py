@@ -626,7 +626,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         parser.AddLine('port 1 D1 1 2 ? 2')
         parser.AddLine('connect D1 2 ? 1')
         parser.AddLine('system file '+systemSParametersFileName)
-        print systemSParametersFileName
+        print(systemSParametersFileName)
         de=si.sp.SParameters(freq,parser.Deembed(system))
         self.assertTrue(self.SParametersAreEqual(de,si.sp.SParameterFile('cable.s2p',50.).Resample(freq),0.00001),self.id()+'result not same')
         os.remove(systemSParametersFileName)

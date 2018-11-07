@@ -70,4 +70,4 @@ class FirFilter(WaveformProcessor):
     def Print(self):
         """prints an ASCII description of the filter"""
         self.FilterDescriptor().Print()
-        print str(self.FilterTaps())
+        print(str(self.FilterTaps()))
