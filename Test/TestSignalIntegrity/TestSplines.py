@@ -19,8 +19,8 @@ TestSplines.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity.Lib as si
-from numpy import linalg
-from numpy import array
+import os
+from numpy import absolute
 
 class TestSplines(unittest.TestCase):
     def testIt(self):
@@ -36,9 +36,27 @@ class TestSplines(unittest.TestCase):
                        [4.000000000000796, -1.7066388231725114, -0.39494741612612216, 0.1015862392986879],
                        [2.0, -2.1917749375287485, -0.09018869823005948, 0.05015810815306164],
                        [-5.0, -0.5056953320222703, 0.5117085996066799, -0.034113906640445335]]
-        diff = linalg.norm(array(P.m_A)-array(mathCadPoly))
-        self.assertTrue(diff<1e-10,'spline polynomial wrong')
-        """
+
+        maxError=max([max([absolute(ac-ar) for (ac,ar) in zip(AC,AR)]) for (AC,AR) in zip(P.m_A,mathCadPoly)])
+        self.assertTrue(maxError<1e-10,'spline polynomial wrong')
+
+        fileName='splinesTest.txt'
+        if not os.path.exists(fileName):
+            P.WriteToFile(fileName)
+            self.fail(fileName + ' not found')
+        else:
+            P.ReadFromFile(fileName)
+
+        maxError=max([max([absolute(ac-ar) for (ac,ar) in zip(AC,AR)]) for (AC,AR) in zip(P.m_A,mathCadPoly)])
+        self.assertTrue(maxError<1e-10,'spline polynomial regression wrong')
+
+        P.WriteToFile('temp'+fileName)
+        P.ReadFromFile('temp'+fileName)
+        os.remove('temp'+fileName)
+
+        maxError=max([max([absolute(ac-ar) for (ac,ar) in zip(AC,AR)]) for (AC,AR) in zip(P.m_A,mathCadPoly)])
+        self.assertTrue(maxError<1e-10,'spline polynomial read/write wrong')
+
         import matplotlib.pyplot as plt
         K=100
         x2=[float(k)/K*32. for k in range(100)]
@@ -46,6 +64,31 @@ class TestSplines(unittest.TestCase):
         plt.plot(x,y)
         plt.plot(x2,y2)
         plt.title('TestSplines')
-        plt.show()
-        """
+        #plt.show()
+
+        epsilon = 0.000000001
+        plt.cla()
+        y3=[P.EvaluateDerivative(x2i) for x2i in x2]
+        y3approx=[(P.Evaluate(x2i+epsilon)-P.Evaluate(x2i))/epsilon for x2i in x2]
+        plt.plot(x2,y3)
+        plt.plot(x2,y3approx)
+        plt.title('TestSplines')
+        #plt.show()
+
+        maxError=max([absolute(y3approxi-y3i) for (y3approxi,y3i) in zip(y3approx,y3)])
+        self.assertTrue(maxError<1e-4,'spline polynomial derivative wrong')
+
+        plt.cla()
+        y4=[P.EvaluateSecondDerivative(x2i) for x2i in x2]
+        y4approx=[(P.EvaluateDerivative(x2i+epsilon)-P.EvaluateDerivative(x2i))/epsilon for x2i in x2]
+        plt.plot(x2,y4)
+        plt.plot(x2,y4approx)
+        plt.title('TestSplines')
+        #plt.show()
+
+        maxError=max([absolute(y4approxi-y4i) for (y4approxi,y4i) in zip(y4approx,y4)])
+        self.assertTrue(maxError<1e-4,'spline polynomial second derivative wrong')
+
+if __name__ == '__main__':
+    unittest.main()
 

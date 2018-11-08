@@ -74,21 +74,41 @@ class Spline(object):
         i = self.Interval(x)
         xi = (x-self.m_t[i])
         A=self.m_A[i]
-        return A[1]+xi*(A[2]+xi*A[3])
+        return A[1]+xi*(2.*A[2]+xi*3.*A[3])
     def EvaluateSecondDerivative(self,x):
         i = self.Interval(x)
         xi = (x-self.m_t[i])
         A=self.m_A[i]
-        return A[2]+xi*A[3]   
+        return 2.*A[2]+xi*6.*A[3]
     def WriteToFile(self,fileName):
         with open(fileName,'w') as f:
-            f.write(self.m_t)
-            f.write(self.m_A)
+            f.write(str(len(self.m_A))+'\n')
+            for i in range(len(self.m_A)):
+                f.write(str(self.m_t[i])+'\n')
+                f.write(str(self.m_A[i][0])+'\n')
+                f.write(str(self.m_A[i][1])+'\n')
+                f.write(str(self.m_A[i][2])+'\n')
+                f.write(str(self.m_A[i][3])+'\n')
         return self
     def ReadFromFile(self,fileName):
         with open(fileName,'r') as f:
-            self.m_t=f.read(self.m_t)
-            self.m_r=f.read(self.m_A)
+            intervals=int(f.readline().strip())
+            self.m_t=[0. for _ in range(intervals)]
+            self.m_A=[[0.,0.,0.,0.] for _ in range(intervals)]
+            for i in range(intervals):
+                self.m_t[i]=float(f.readline().strip())
+                self.m_A[i][0]=complex(f.readline().strip())
+                if self.m_A[i][0].imag == 0:
+                    self.m_A[i][0]=self.m_A[i][0].real
+                self.m_A[i][1]=complex(f.readline().strip())
+                if self.m_A[i][1].imag == 0:
+                    self.m_A[i][1]=self.m_A[i][1].real
+                self.m_A[i][2]=complex(f.readline().strip())
+                if self.m_A[i][2].imag == 0:
+                    self.m_A[i][2]=self.m_A[i][2].real
+                self.m_A[i][3]=complex(f.readline().strip())
+                if self.m_A[i][3].imag == 0:
+                    self.m_A[i][3]=self.m_A[i][3].real
         return self
 
 
