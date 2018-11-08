@@ -610,11 +610,11 @@ class SignalIntegrityApp(Frame):
             self.Drawing.stateMachine.PartLoaded()
 
     def onZoomIn(self):
-        self.Drawing.grid = self.Drawing.grid*2
+        self.Drawing.grid = self.Drawing.grid+1.
         self.Drawing.DrawSchematic()
 
     def onZoomOut(self):
-        self.Drawing.grid = max(1,self.Drawing.grid/2)
+        self.Drawing.grid = max(1,self.Drawing.grid-1.)
         self.Drawing.DrawSchematic()
 
     def onPan(self):
@@ -642,7 +642,7 @@ class SignalIntegrityApp(Frame):
                 self.calculationProperties.frequencyPoints),
             cacheFileName=cacheFileName)
         spnp.AddLines(netList)
-        progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=10.0)
+        progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
@@ -680,7 +680,7 @@ class SignalIntegrityApp(Frame):
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 
-        progressDialog = ProgressDialog(self,self.installdir,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=10.0)
+        progressDialog = ProgressDialog(self,self.installdir,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:

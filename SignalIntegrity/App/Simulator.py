@@ -319,7 +319,7 @@ class Simulator(object):
             cacheFileName=self.parent.fileparts.FileNameTitle()
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=10.0)
+        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
@@ -408,7 +408,7 @@ class Simulator(object):
                 self.parent.calculationProperties.frequencyPoints),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=10.0)
+        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
