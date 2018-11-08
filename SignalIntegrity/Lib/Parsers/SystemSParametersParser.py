@@ -61,8 +61,6 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         now.
         """
         # pragma: silent exclude
-        if not self.sf is None:
-            return self.sf
         if self.CheckCache():
             self.CallBack(100.0)
             return self.sf

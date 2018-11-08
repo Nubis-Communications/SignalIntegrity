@@ -114,9 +114,9 @@ class TimeDescriptor(object):
         @see ApplyFilter()
         """
         return self.ApplyFilter(F)
-    def __truediv__(self,d):
-        return self.__div__(d)
     def __div__(self,other):
+        return self.__truediv__(other)
+    def __truediv__(self,other):
         """overloads /
 
         This is an abstraction and is polymorphic.

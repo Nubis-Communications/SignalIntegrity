@@ -56,8 +56,7 @@ class SParameterManipulation(object):
             for fromPort in range(self.m_P):
                 fr=self.FrequencyResponse(toPort,fromPort)
                 ir=fr.ImpulseResponse()
-                if ir is None:
-                    return False
+                if ir is None: return False
                 else:
                     t=ir.td
                     Ts=1./ir.td.Fs

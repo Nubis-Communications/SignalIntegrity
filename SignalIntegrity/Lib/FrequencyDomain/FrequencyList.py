@@ -118,9 +118,9 @@ class FrequencyList(list):
                 return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
-    def __truediv__(self,d):
-        return self.__div__(d)
     def __div__(self,d):
+        return self.__truediv__(d)
+    def __truediv__(self,d):
         """overloads /
         @param d float frequency to divide each frequency by.
         @return an instance of class FrequencyList containing self divided by the amount specified.

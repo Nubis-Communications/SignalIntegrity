@@ -33,9 +33,9 @@ class FrequencyList(list):
                 return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
-    def __truediv__(self,d):
-        return self.__div__(d)
     def __div__(self,d):
+        return self.__truediv__(d)
+    def __truediv__(self,d):
         if self.EvenlySpaced():
             return EvenlySpacedFrequencyList(self.Fe/d,self.N)
         else:

@@ -63,8 +63,6 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
         virtual probing.
         """
         # pragma: silent exclude
-        if not self.transferMatrices is None:
-            return self.transferMatrices
         if self.CheckCache():
             self.CallBack(100.0)
             return self.transferMatrices

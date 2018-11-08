@@ -174,7 +174,13 @@ class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         ssps.LaTeXSystemEquation().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Tee Simpler with Z2 System Equation')
-
+    def testTeeZAllAroundComprehensive(self):
+        sym=si.sd.Symbolic()
+        sym.DocStart()
+        sym._AddEq('\\mathbf{S} = '+sym._LaTeXMatrix(si.sy.TeeThreePortZ1Z2Z3('Z_1', 'Z_2', 'Z_3')))
+        sym.DocEnd()
+        sym.Emit()
+        self.CheckSymbolicResult(self.id(),sym,'Tee Z1 Z2 Z3')
 if __name__ == '__main__':
     unittest.main()
 

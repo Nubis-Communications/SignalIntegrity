@@ -56,8 +56,6 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
         @return instance of class SParameters of the unknown devices in the network.
         """
         # pragma: silent exclude
-        if not self.sf is None:
-            return self.sf
         if self.CheckCache():
             self.CallBack(100.0)
             return self.sf

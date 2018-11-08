@@ -28,9 +28,9 @@ class TimeDescriptor(object):
             SampleRate=self.Fs*F.U)
     def __mul__(self,F):
         return self.ApplyFilter(F)
-    def __truediv__(self,d):
-        return self.__div__(d)
     def __div__(self,other):
+        return self.__truediv__(other)
+    def __truediv__(self,other):
         if isinstance(other,FilterDescriptor):
             return TimeDescriptor(
                 HorOffset=self.H+other.U/self.Fs*(other.D-other.S),
