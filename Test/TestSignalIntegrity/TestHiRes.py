@@ -23,11 +23,12 @@ import numpy as np
 import math
 import os
 
-class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
+class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,
+        si.test.ResponseTesterHelper,si.test.SourcesTesterHelper,si.test.SignalIntegrityAppTestHelper):
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.getcwd())
         unittest.TestCase.__init__(self,methodName)
-
     def testHiRes2(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -41,7 +42,7 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         OriginalFilterBandwidth = 6e9
         sp = si.sp.SParameterFile('filter.s2p',50.)
         sp.m_f=si.fd.EvenlySpacedFrequencyList(NoiseBandwidth/OriginalFilterBandwidth*sp.f()[-1],len(sp.f())-1)
-        sp.WriteToFile('filterNBW.s2p')
+        self.SParameterRegressionChecker(sp,'filterNBW.s2p')
         del OriginalFilterBandwidth
         del sp
         del NoiseBandwidth
@@ -103,7 +104,7 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.Resp
         OriginalFilterBandwidth = 6e9
         sp = si.sp.SParameterFile('filter.s2p',50.)
         sp.m_f=si.fd.EvenlySpacedFrequencyList(HWFilterBandwidth/OriginalFilterBandwidth*sp.f()[-1],len(sp.f())-1)
-        sp.WriteToFile('filterBWL.s2p')
+        self.SParameterRegressionChecker(sp,'filterBWL.s2p')
         del OriginalFilterBandwidth
         del sp
         del HWFilterBandwidth
