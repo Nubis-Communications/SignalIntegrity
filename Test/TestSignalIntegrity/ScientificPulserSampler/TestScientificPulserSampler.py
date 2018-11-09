@@ -70,9 +70,8 @@ class TestScientificPulserSamplerTest(unittest.TestCase,
                 waveformLength=len(wf)
                 outputLine=outputLine+' '+str(waveformLength)
                 for (time,ampl) in zip(wf.Times(),wf.Values()):
-                    outputLine=outputLine+' '+str(time)+' '+str(ampl)
+                    outputLine=outputLine+' {:12g} {:12g}'.format(time,ampl)
             outputLineList.append(outputLine+'\n')
-
         with open(outputFileName+'.cal','w') as f:
             f.writelines(outputLineList)
     def ReadScientificFileXls(self,filename,Fref,NS,DS,NP,DP,H,K):
