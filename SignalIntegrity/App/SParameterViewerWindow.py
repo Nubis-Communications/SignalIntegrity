@@ -38,6 +38,7 @@ from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 
 from SignalIntegrity.App.ToSI import ToSI,FromSI
+from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -601,18 +602,7 @@ class SParametersDialog(Toplevel):
             return
 
         try:
-            from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.topLeftFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
-            lines=[]
-            for line in texfile:
-                line=line.replace('\xe2\x88\x92','-')
-                lines.append(str(line))
-            texfile.close()
-            texfile=open(filename,'w')
-            for line in lines:
-                texfile.write(line)
-            texfile.close()
+            PlotTikZ(filename,self.topLeftFigure)
         except:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
@@ -629,18 +619,7 @@ class SParametersDialog(Toplevel):
             return
 
         try:
-            from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.topRightFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
-            lines=[]
-            for line in texfile:
-                line=line.replace('\xe2\x88\x92','-')
-                lines.append(str(line))
-            texfile.close()
-            texfile=open(filename,'w')
-            for line in lines:
-                texfile.write(line)
-            texfile.close()
+            PlotTikZ(filename,self.topRightFigure)
         except:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
@@ -657,18 +636,7 @@ class SParametersDialog(Toplevel):
             return
 
         try:
-            from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.bottomLeftFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
-            lines=[]
-            for line in texfile:
-                line=line.replace('\xe2\x88\x92','-')
-                lines.append(str(line))
-            texfile.close()
-            texfile=open(filename,'w')
-            for line in lines:
-                texfile.write(line)
-            texfile.close()
+            PlotTikZ(filename,self.bottomLeftFigure)
         except:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
@@ -685,18 +653,7 @@ class SParametersDialog(Toplevel):
             return
 
         try:
-            from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.bottomRightFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
-            lines=[]
-            for line in texfile:
-                line=line.replace('\xe2\x88\x92','-')
-                lines.append(str(line))
-            texfile.close()
-            texfile=open(filename,'w')
-            for line in lines:
-                texfile.write(line)
-            texfile.close()
+            PlotTikZ(filename,self.bottomRightFigure)
         except:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')

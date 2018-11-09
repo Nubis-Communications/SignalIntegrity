@@ -33,9 +33,16 @@ from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 def PlotTikZ(filename,plot2save,scale=None):
     try:
         from matplotlib2tikz import save as tikz_save
+        import matplotlib
     except:
         return
-    tikz_save(filename,figure=plot2save.gcf(),show_info=False,float_format='%.6g')
+
+    if not isinstance(plot2save,matplotlib.figure.Figure):
+        plot2save=plot2save.gcf()
+    try:
+        tikz_save(filename,figure=plot2save,show_info=False,float_format='%.6g')
+    except:
+        tikz_save(filename,figure=plot2save,show_info=False)
     texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
     lines=[]
     for line in texfile:

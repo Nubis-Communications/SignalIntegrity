@@ -34,6 +34,7 @@ from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
+from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
 
 import matplotlib
 
@@ -250,18 +251,7 @@ class SimulatorDialog(Toplevel):
         if filename is None:
             return
         try:
-            from matplotlib2tikz import save as tikz_save
-            tikz_save(filename,figure=self.f,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
-            lines=[]
-            for line in texfile:
-                line=line.replace('\xe2\x88\x92','-')
-                lines.append(str(line))
-            texfile.close()
-            texfile=open(filename,'w')
-            for line in lines:
-                texfile.write(line)
-            texfile.close()
+            PlotTikZ(filename,self.f)
         except:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
