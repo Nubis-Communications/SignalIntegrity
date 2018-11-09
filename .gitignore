@@ -7,3 +7,4 @@
 *.pydevproject
 *.p
 SignalIntegrity.egg-info/
+Doc/xhtml
