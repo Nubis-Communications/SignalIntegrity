@@ -26,7 +26,7 @@ class FrequencyDomain(list):
         elif unit == 'imag':
             return [self[n].imag for n in range(len(self.m_f))]
     def ReadFromFile(self,fileName):
-        with open(fileName,"rU") as f:
+        with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
             data=f.readlines()
         if data[0].strip('\n')!='UnevenlySpaced':
             N = int(str(data[0]))

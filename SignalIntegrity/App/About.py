@@ -63,7 +63,7 @@ class LicenseDialog(Toplevel):
         self.parent=parent
         textToShow = []
         try:
-            licenseFile=open(parent.parent.installdir+'/../../LICENSE.txt','rU')
+            licenseFile=open(parent.parent.installdir+'/../../LICENSE.txt','rU' if sys.version_info.major < 3 else 'r')
             for line in licenseFile:
                 if line.strip()=='':
                     textToShow.append('\n')

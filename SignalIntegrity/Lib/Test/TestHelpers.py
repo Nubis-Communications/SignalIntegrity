@@ -36,7 +36,7 @@ def PlotTikZ(filename,plot2save,scale=None):
     except:
         return
     tikz_save(filename,figure=plot2save.gcf(),show_info=False,float_format='%.6g')
-    texfile=open(filename,'rU')
+    texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
     lines=[]
     for line in texfile:
         line=line.replace('\xe2\x88\x92','-')
@@ -140,7 +140,7 @@ class SourcesTesterHelper(object):
             symbolic.WriteToFile(fileName)
             self.assertTrue(False, fileName + ' not found')
         regression=''
-        with open(fileName, 'rU') as regressionFile:
+        with open(fileName, 'rU' if sys.version_info.major < 3 else 'r') as regressionFile:
             for line in regressionFile:
                 regression = regression + line
         comparison = symbolic.Get()
@@ -170,7 +170,7 @@ class RoutineWriterTesterHelper(object):
             sourceCodeFile.close()
             self.assertTrue(False, fileName + ' not found')
         regression=[]
-        with open(fileName, 'rU') as regressionFile:
+        with open(fileName, 'rU' if sys.version_info.major < 3 else 'r') as regressionFile:
             regression = regressionFile.readlines()
 #             for line in regressionFile:
 #                 regression.append(line)
@@ -181,7 +181,7 @@ class RoutineWriterTesterHelper(object):
         sourceCode.extend(headerLines)
         addingLines = False
         indent=4
-        with open(fileName, 'rU') as inputFile:
+        with open(fileName, 'rU' if sys.version_info.major < 3 else 'r') as inputFile:
             for line in inputFile:
                 if len(line.split())>=2:
                     pragmaLine = ('pragma:' == line.split()[1])
@@ -234,7 +234,7 @@ class RoutineWriterTesterHelper(object):
             resultFile.write(mystdout.getvalue())
             resultFile.close()
             self.assertTrue(False, outputFileName + ' not found')
-        regressionFile = open(outputFileName, 'rU')
+        regressionFile = open(outputFileName, 'rU' if sys.version_info.major < 3 else 'r')
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
@@ -242,7 +242,7 @@ class RoutineWriterTesterHelper(object):
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         defName=[]
         inClass= className is ''
-        with open(fileName, 'rU') as inputFile:
+        with open(fileName, 'rU' if sys.version_info.major < 3 else 'r') as inputFile:
             for line in inputFile:
                 if "class" == line.lstrip(' ').split(' ')[0]:
                     if className == line.lstrip(' ').split(' ')[1].split('(')[0]:
@@ -358,7 +358,7 @@ class RoutineWriterTesterHelper(object):
                 with open(lineDefFileName, 'w') as outputFile:
                     for line in lineDef:
                         outputFile.write(line)
-            with open(lineDefFileName, 'rU') as regressionFile:
+            with open(lineDefFileName, 'rU' if sys.version_info.major < 3 else 'r') as regressionFile:
                 regression = regressionFile.readlines()
             self.assertTrue(regression == lineDef, lineDefFileName + ' incorrect')
 
@@ -388,7 +388,7 @@ class DocStripped(object):
     def __init__(self,filename,strip=True):
         self.doc=[]
         inDocString=False
-        with open(filename, 'rU') as inputFile:
+        with open(filename, 'rU' if sys.version_info.major < 3 else 'r') as inputFile:
             for line in inputFile:
                 if not strip:
                     self.doc.append(line)

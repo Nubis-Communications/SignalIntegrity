@@ -603,7 +603,7 @@ class SParametersDialog(Toplevel):
         try:
             from matplotlib2tikz import save as tikz_save
             tikz_save(filename,figure=self.topLeftFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU')
+            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
             lines=[]
             for line in texfile:
                 line=line.replace('\xe2\x88\x92','-')
@@ -631,7 +631,7 @@ class SParametersDialog(Toplevel):
         try:
             from matplotlib2tikz import save as tikz_save
             tikz_save(filename,figure=self.topRightFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU')
+            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
             lines=[]
             for line in texfile:
                 line=line.replace('\xe2\x88\x92','-')
@@ -659,7 +659,7 @@ class SParametersDialog(Toplevel):
         try:
             from matplotlib2tikz import save as tikz_save
             tikz_save(filename,figure=self.bottomLeftFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU')
+            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
             lines=[]
             for line in texfile:
                 line=line.replace('\xe2\x88\x92','-')
@@ -687,7 +687,7 @@ class SParametersDialog(Toplevel):
         try:
             from matplotlib2tikz import save as tikz_save
             tikz_save(filename,figure=self.bottomRightFigure,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU')
+            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
             lines=[]
             for line in texfile:
                 line=line.replace('\xe2\x88\x92','-')

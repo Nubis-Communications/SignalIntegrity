@@ -176,10 +176,10 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
         yf=(matrix(X)*matrix(a)).tolist()
         r=(matrix(yf)-matrix([[y] for y in mS21])).tolist()
         sigma=math.sqrt(((matrix(r).H*matrix(r)).tolist()[0][0])/K)
-        print('\[a_0 = '+"{:10.4e}".format(a[0][0])+'\]')
-        print('\[a_1 = '+"{:10.4e}".format(a[1][0])+'/GHz\]')
-        print('\[a_2 = '+"{:10.4e}".format(a[2][0])+'/\sqrt{GHz}\]')
-        print('\[\sigma = '+"{:10.4e}".format(sigma)+'\]')
+        print('\\[a_0 = '+"{:10.4e}".format(a[0][0])+'\\]')
+        print('\\[a_1 = '+"{:10.4e}".format(a[1][0])+'/GHz\\]')
+        print('\\[a_2 = '+"{:10.4e}".format(a[2][0])+'/\\sqrt{GHz}\\]')
+        print('\\[\\sigma = '+"{:10.4e}".format(sigma)+'\\]')
         # pragma: silent exclude
         import matplotlib.pyplot as plt
         plt.cla()

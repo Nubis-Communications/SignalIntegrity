@@ -20,6 +20,7 @@
 
 import math
 import cmath
+import sys
 
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
@@ -88,7 +89,7 @@ class FrequencyDomain(list):
         @param fileName string file name to read
         @return self
         """
-        with open(fileName,"rU") as f:
+        with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
             data=f.readlines()
         if data[0].strip('\n')!='UnevenlySpaced':
             N = int(str(data[0]))

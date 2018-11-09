@@ -1,6 +1,6 @@
 class Waveform(list):
     def ReadFromFile(self,fileName):
-        with open(fileName,"rU") as f:
+        with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
             data=f.readlines()
             HorOffset=float(data[0])
             NumPts=int(float(data[1])+0.5)

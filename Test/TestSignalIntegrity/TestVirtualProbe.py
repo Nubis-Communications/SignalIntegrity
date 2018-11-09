@@ -24,6 +24,7 @@ from numpy import linalg,array,matrix
 import copy
 import math
 import os
+import sys
 
 ##import matplotlib.pyplot as plt
 
@@ -195,7 +196,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
             resultFile1.write(line1)
             resultFile1.close()
             self.assertTrue(False,fileName1+ ' not found')
-        regressionFile1=open(fileName1,'rU')
+        regressionFile1=open(fileName1,'rU' if sys.version_info.major < 3 else 'r')
         regressionLine1 = regressionFile1.read()
         regressionFile1.close()
         sipr =  si.helper.Matrix2LaTeX(D.SIPrime(True))
@@ -209,7 +210,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
             resultFile2.write(line2)
             resultFile2.close()
             self.assertTrue(False,fileName2+ ' not found')
-        regressionFile2=open(fileName2,'rU')
+        regressionFile2=open(fileName2,'rU' if sys.version_info.major < 3 else 'r')
         regressionLine2 = regressionFile2.read()
         regressionFile2.close()
         self.assertTrue(regressionLine2==line2,'Virtual Probe Example 1 line 2 in book incorrect')
@@ -238,7 +239,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
             resultFile1.write(line1)
             resultFile1.close()
             self.assertTrue(False,fileName1+ ' not found')
-        regressionFile1=open(fileName1,'rU')
+        regressionFile1=open(fileName1,'rU' if sys.version_info.major < 3 else 'r')
         regressionLine1 = regressionFile1.read()
         regressionFile1.close()
         sipr =  si.helper.Matrix2LaTeX(D.SIPrime(True))
@@ -252,7 +253,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
             resultFile2.write(line2)
             resultFile2.close()
             self.assertTrue(False,fileName2+ ' not found')
-        regressionFile2=open(fileName2,'rU')
+        regressionFile2=open(fileName2,'rU' if sys.version_info.major < 3 else 'r')
         regressionLine2 = regressionFile2.read()
         regressionFile2.close()
         self.assertTrue(regressionLine2==line2,'Virtual Probe Example 2 line 2 in book incorrect')
@@ -282,7 +283,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
             resultFile1.write(line1)
             resultFile1.close()
             self.assertTrue(False,fileName1+ ' not found')
-        regressionFile1=open(fileName1,'rU')
+        regressionFile1=open(fileName1,'rU' if sys.version_info.major < 3 else 'r')
         regressionLine1 = regressionFile1.read()
         regressionFile1.close()
         sipr =  si.helper.Matrix2LaTeX(SD.SIPrime(True))
@@ -298,7 +299,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
             resultFile2.write(line2)
             resultFile2.close()
             self.assertTrue(False,fileName2+ ' not found')
-        regressionFile2=open(fileName2,'rU')
+        regressionFile2=open(fileName2,'rU' if sys.version_info.major < 3 else 'r')
         regressionLine2 = regressionFile2.read()
         regressionFile2.close()
         self.assertTrue(regressionLine2==line2,'Virtual Probe Example 3 line 2 in book incorrect')

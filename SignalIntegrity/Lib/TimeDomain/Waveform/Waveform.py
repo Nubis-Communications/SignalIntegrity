@@ -20,6 +20,7 @@ Waveform.py
 
 from copy import copy
 import math
+import sys
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Waveform.AdaptedWaveforms import AdaptedWaveforms
@@ -219,7 +220,7 @@ class Waveform(list):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            with open(fileName,"rU") as f:
+            with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
                 data=f.readlines()
                 # pragma: silent exclude
                 if len(data)==1:

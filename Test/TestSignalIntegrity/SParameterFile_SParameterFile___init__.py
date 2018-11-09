@@ -10,7 +10,7 @@ class SParameterFile(SParameters):
         f=[]
         self.m_f=[]
         numbersList=[]
-        spfile=open(name,'rU')
+        spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
         for line in spfile:
             lineList = str.lower(line).split('!')[0].split()
             if len(lineList)>0:

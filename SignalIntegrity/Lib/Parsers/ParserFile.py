@@ -19,6 +19,7 @@ ParserFile.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import os
+import sys
 
 class ParserFile():
     """file handling base class for parsers"""
@@ -26,9 +27,8 @@ class ParserFile():
         """reads a netlist from a file
         @param name string filename of file to read
         """
-        spfile=open(name,'rU')
-        for line in spfile:
-            self.AddLine(line)
+        with open(name,'rU' if sys.version_info.major < 3 else 'r') as f:
+            for line in f.readlines(): self.AddLine(line)
         return self
     def WriteToFile(self,name,overWrite = True):
         """writes a netlist to a file
@@ -37,6 +37,5 @@ class ParserFile():
         """
         if not os.path.exists(name) or overWrite:
             parserfile=open(name,'w')
-            for line in self.m_lines:
-                parserfile.write(line+'\n')
+            for line in self.m_lines: parserfile.write(line+'\n')
             parserfile.close()

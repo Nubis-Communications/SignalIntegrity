@@ -48,7 +48,7 @@ class TestWavelets(unittest.TestCase):
         TS=si.wl.WaveletDenoiser.DWTNoiseShapeCalc(E,h)
         TSCorrect=[0.749999990782253, 1.6677079888241493, 2.8394541449097455, 4.898979445760824, 8.36660021284939, 13.711309143434791, 20.099751216152544]
         for (tsc,ts) in zip(TSCorrect,TS):
-            self.assertAlmostEquals(tsc, ts, 8, 'wavelet threshold incorrect')
+            self.assertAlmostEqual(tsc, ts, 8, 'wavelet threshold incorrect')
     def testDerivativeThresholdCalc(self):
         K=pow(2,10)
         Fs=1.

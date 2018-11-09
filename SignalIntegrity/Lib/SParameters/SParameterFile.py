@@ -22,6 +22,7 @@ from numpy import empty
 from numpy import array
 import cmath
 import math
+import sys
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Conversions import ReferenceImpedance
@@ -59,7 +60,7 @@ class SParameterFile(SParameters):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            spfile=open(name,'rU')
+            spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
         # pragma: silent exclude indent
         except IOError:
             raise SignalIntegrityExceptionSParameterFile(name+' not found')

@@ -273,7 +273,7 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
         filename='SimulatorNumericParserExampleCode'
         if not os.path.exists(filename+'.py'):
             self.testWriteSimulationExample()
-        with open(filename+'.py', 'rU') as totalFile:
+        with open(filename+'.py', 'rU' if sys.version_info.major < 3 else 'r') as totalFile:
             total = totalFile.readlines()
         index=0
         writing = False

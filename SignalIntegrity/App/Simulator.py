@@ -252,7 +252,7 @@ class SimulatorDialog(Toplevel):
         try:
             from matplotlib2tikz import save as tikz_save
             tikz_save(filename,figure=self.f,show_info=False,float_format='%.6g')
-            texfile=open(filename,'rU')
+            texfile=open(filename,'rU' if sys.version_info.major < 3 else 'r')
             lines=[]
             for line in texfile:
                 line=line.replace('\xe2\x88\x92','-')
