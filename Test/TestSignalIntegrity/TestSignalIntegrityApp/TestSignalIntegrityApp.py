@@ -50,6 +50,7 @@ class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(self.path)
+        self.book=os.path.exists('../../../../SignalIntegrityBook/')
     def testFourPortTLineTest(self):
         self.SimulationResultsChecker('FourPortTLineTest.xml')
     def testFilterTest(self):
@@ -85,10 +86,13 @@ class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
     def testSignalIntegrityAppExamplesStepGeneratorTest(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/StepGeneratorTest.xml')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest(self):
+        if not self.book: return
         self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation.xml')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest2(self):
+        if not self.book: return
         self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation2.xml')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest3(self):
+        if not self.book: return
         self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation3.xml')
     def testPicturesNetlists(self):
         filesList=[
@@ -223,8 +227,9 @@ class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
         ]
         for filename in filesList:
             self.setUp()
+            if not 'SignalIntegrityBook' in filename or self.book:
             #print filename
-            self.Preliminary(filename)
+                self.Preliminary(filename)
 
 if __name__ == "__main__":
     unittest.main()
