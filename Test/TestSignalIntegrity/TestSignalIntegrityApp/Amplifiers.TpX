@@ -1,0 +1,1525 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">24,-22 30,-26 24,-30 24,-22</polyline>
+%  <polyline lc="black">22,-26 24,-26</polyline>
+%  <polyline lw="2" lc="red">21.75,-25.75 22.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">22.25,-25.75 21.75,-26.25</polyline>
+%  <polyline lc="black">32,-26 30,-26</polyline>
+%  <polyline lw="2" lc="red">31.75,-25.75 32.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">32.25,-25.75 31.75,-26.25</polyline>
+%  <text x="26" y="-22" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="26" y="-19.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="26" y="-17" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">49,-29 53,-23 57,-29 49,-29</polyline>
+%  <polyline lc="black">53,-31 53,-29</polyline>
+%  <polyline lw="2" lc="red">52.75,-30.75 53.25,-31.25</polyline>
+%  <polyline lw="2" lc="red">53.25,-30.75 52.75,-31.25</polyline>
+%  <polyline lc="black">53,-21 53,-23</polyline>
+%  <polyline lw="2" lc="red">52.75,-20.75 53.25,-21.25</polyline>
+%  <polyline lw="2" lc="red">53.25,-20.75 52.75,-21.25</polyline>
+%  <text x="49" y="-32" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="49" y="-29.5" t="zi 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <text x="49" y="-27" t="zo 0 Ohm" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">72,-30 66,-26 72,-22 72,-30</polyline>
+%  <polyline lc="black">74,-26 72,-26</polyline>
+%  <polyline lw="2" lc="red">73.75,-25.75 74.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-25.75 73.75,-26.25</polyline>
+%  <polyline lc="black">64,-26 66,-26</polyline>
+%  <polyline lw="2" lc="red">63.75,-25.75 64.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">64.25,-25.75 63.75,-26.25</polyline>
+%  <text x="70" y="-37" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="70" y="-34.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="70" y="-32" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">89,-23 85,-29 81,-23 89,-23</polyline>
+%  <polyline lc="black">85,-21 85,-23</polyline>
+%  <polyline lw="2" lc="red">84.75,-20.75 85.25,-21.25</polyline>
+%  <polyline lw="2" lc="red">85.25,-20.75 84.75,-21.25</polyline>
+%  <polyline lc="black">85,-31 85,-29</polyline>
+%  <polyline lw="2" lc="red">84.75,-30.75 85.25,-31.25</polyline>
+%  <polyline lw="2" lc="red">85.25,-30.75 84.75,-31.25</polyline>
+%  <text x="89" y="-30" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="89" y="-27.5" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="89" y="-25" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">22.625,-64.75 23.375,-64.75</polyline>
+%  <polyline lc="black">23,-64.375 23,-65.125</polyline>
+%  <polyline lc="black">22.625,-67.25 23.375,-67.25</polyline>
+%  <polyline lc="black">25,-64 28,-64</polyline>
+%  <polyline lc="black">25,-68 28,-68</polyline>
+%  <polyline lc="black">22,-62 28,-66 22,-70 22,-62</polyline>
+%  <polyline lc="black">20,-68 22,-68</polyline>
+%  <polyline lw="2" lc="red">19.75,-67.75 20.25,-68.25</polyline>
+%  <polyline lw="2" lc="red">20.25,-67.75 19.75,-68.25</polyline>
+%  <polyline lc="black">20,-64 22,-64</polyline>
+%  <polyline lw="2" lc="red">19.75,-63.75 20.25,-64.25</polyline>
+%  <polyline lw="2" lc="red">20.25,-63.75 19.75,-64.25</polyline>
+%  <polyline lc="black">28,-68 26,-68</polyline>
+%  <polyline lw="2" lc="red">27.75,-67.75 28.25,-68.25</polyline>
+%  <polyline lw="2" lc="red">28.25,-67.75 27.75,-68.25</polyline>
+%  <polyline lc="black">28,-64 26,-64</polyline>
+%  <polyline lw="2" lc="red">27.75,-63.75 28.25,-64.25</polyline>
+%  <polyline lw="2" lc="red">28.25,-63.75 27.75,-64.25</polyline>
+%  <text x="24" y="-62" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="24" y="-59.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-57" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">51.75,-68.375 51.75,-67.625</polyline>
+%  <polyline lc="black">51.375,-68 52.125,-68</polyline>
+%  <polyline lc="black">54.25,-68.375 54.25,-67.625</polyline>
+%  <polyline lc="black">51,-66 51,-63</polyline>
+%  <polyline lc="black">55,-66 55,-63</polyline>
+%  <polyline lc="black">49,-69 53,-63 57,-69 49,-69</polyline>
+%  <polyline lc="black">55,-71 55,-69</polyline>
+%  <polyline lw="2" lc="red">54.75,-70.75 55.25,-71.25</polyline>
+%  <polyline lw="2" lc="red">55.25,-70.75 54.75,-71.25</polyline>
+%  <polyline lc="black">51,-71 51,-69</polyline>
+%  <polyline lw="2" lc="red">50.75,-70.75 51.25,-71.25</polyline>
+%  <polyline lw="2" lc="red">51.25,-70.75 50.75,-71.25</polyline>
+%  <polyline lc="black">55,-63 55,-65</polyline>
+%  <polyline lw="2" lc="red">54.75,-62.75 55.25,-63.25</polyline>
+%  <polyline lw="2" lc="red">55.25,-62.75 54.75,-63.25</polyline>
+%  <polyline lc="black">51,-63 51,-65</polyline>
+%  <polyline lw="2" lc="red">50.75,-62.75 51.25,-63.25</polyline>
+%  <polyline lw="2" lc="red">51.25,-62.75 50.75,-63.25</polyline>
+%  <text x="49" y="-72" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="49" y="-69.5" t="zi 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <text x="49" y="-67" t="zo 0 Ohm" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">71.375,-67.25 70.625,-67.25</polyline>
+%  <polyline lc="black">71,-67.625 71,-66.875</polyline>
+%  <polyline lc="black">71.375,-64.75 70.625,-64.75</polyline>
+%  <polyline lc="black">69,-68 66,-68</polyline>
+%  <polyline lc="black">69,-64 66,-64</polyline>
+%  <polyline lc="black">72,-70 66,-66 72,-62 72,-70</polyline>
+%  <polyline lc="black">74,-64 72,-64</polyline>
+%  <polyline lw="2" lc="red">73.75,-63.75 74.25,-64.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-63.75 73.75,-64.25</polyline>
+%  <polyline lc="black">74,-68 72,-68</polyline>
+%  <polyline lw="2" lc="red">73.75,-67.75 74.25,-68.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-67.75 73.75,-68.25</polyline>
+%  <polyline lc="black">66,-64 68,-64</polyline>
+%  <polyline lw="2" lc="red">65.75,-63.75 66.25,-64.25</polyline>
+%  <polyline lw="2" lc="red">66.25,-63.75 65.75,-64.25</polyline>
+%  <polyline lc="black">66,-68 68,-68</polyline>
+%  <polyline lw="2" lc="red">65.75,-67.75 66.25,-68.25</polyline>
+%  <polyline lw="2" lc="red">66.25,-67.75 65.75,-68.25</polyline>
+%  <text x="70" y="-77" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="70" y="-74.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="70" y="-72" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">92.25,-63.625 92.25,-64.375</polyline>
+%  <polyline lc="black">92.625,-64 91.875,-64</polyline>
+%  <polyline lc="black">89.75,-63.625 89.75,-64.375</polyline>
+%  <polyline lc="black">93,-66 93,-69</polyline>
+%  <polyline lc="black">89,-66 89,-69</polyline>
+%  <polyline lc="black">95,-63 91,-69 87,-63 95,-63</polyline>
+%  <polyline lc="black">89,-61 89,-63</polyline>
+%  <polyline lw="2" lc="red">88.75,-60.75 89.25,-61.25</polyline>
+%  <polyline lw="2" lc="red">89.25,-60.75 88.75,-61.25</polyline>
+%  <polyline lc="black">93,-61 93,-63</polyline>
+%  <polyline lw="2" lc="red">92.75,-60.75 93.25,-61.25</polyline>
+%  <polyline lw="2" lc="red">93.25,-60.75 92.75,-61.25</polyline>
+%  <polyline lc="black">89,-69 89,-67</polyline>
+%  <polyline lw="2" lc="red">88.75,-68.75 89.25,-69.25</polyline>
+%  <polyline lw="2" lc="red">89.25,-68.75 88.75,-69.25</polyline>
+%  <polyline lc="black">93,-69 93,-67</polyline>
+%  <polyline lw="2" lc="red">92.75,-68.75 93.25,-69.25</polyline>
+%  <polyline lw="2" lc="red">93.25,-68.75 92.75,-69.25</polyline>
+%  <text x="95" y="-70" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="95" y="-67.5" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="95" y="-65" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">22.625,-105.25 23.375,-105.25</polyline>
+%  <polyline lc="black">23,-104.875 23,-105.625</polyline>
+%  <polyline lc="black">22.625,-102.75 23.375,-102.75</polyline>
+%  <polyline lc="black">25,-102 28,-102</polyline>
+%  <polyline lc="black">25,-106 28,-106</polyline>
+%  <polyline lc="black">22,-100 28,-104 22,-108 22,-100</polyline>
+%  <polyline lc="black">20,-102 22,-102</polyline>
+%  <polyline lw="2" lc="red">19.75,-101.75 20.25,-102.25</polyline>
+%  <polyline lw="2" lc="red">20.25,-101.75 19.75,-102.25</polyline>
+%  <polyline lc="black">20,-106 22,-106</polyline>
+%  <polyline lw="2" lc="red">19.75,-105.75 20.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">20.25,-105.75 19.75,-106.25</polyline>
+%  <polyline lc="black">28,-106 26,-106</polyline>
+%  <polyline lw="2" lc="red">27.75,-105.75 28.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">28.25,-105.75 27.75,-106.25</polyline>
+%  <polyline lc="black">28,-102 26,-102</polyline>
+%  <polyline lw="2" lc="red">27.75,-101.75 28.25,-102.25</polyline>
+%  <polyline lw="2" lc="red">28.25,-101.75 27.75,-102.25</polyline>
+%  <text x="24" y="-100" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="24" y="-97.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-95" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">54.25,-104.375 54.25,-103.625</polyline>
+%  <polyline lc="black">53.875,-104 54.625,-104</polyline>
+%  <polyline lc="black">51.75,-104.375 51.75,-103.625</polyline>
+%  <polyline lc="black">51,-102 51,-99</polyline>
+%  <polyline lc="black">55,-102 55,-99</polyline>
+%  <polyline lc="black">49,-105 53,-99 57,-105 49,-105</polyline>
+%  <polyline lc="black">51,-107 51,-105</polyline>
+%  <polyline lw="2" lc="red">50.75,-106.75 51.25,-107.25</polyline>
+%  <polyline lw="2" lc="red">51.25,-106.75 50.75,-107.25</polyline>
+%  <polyline lc="black">55,-107 55,-105</polyline>
+%  <polyline lw="2" lc="red">54.75,-106.75 55.25,-107.25</polyline>
+%  <polyline lw="2" lc="red">55.25,-106.75 54.75,-107.25</polyline>
+%  <polyline lc="black">55,-99 55,-101</polyline>
+%  <polyline lw="2" lc="red">54.75,-98.75 55.25,-99.25</polyline>
+%  <polyline lw="2" lc="red">55.25,-98.75 54.75,-99.25</polyline>
+%  <polyline lc="black">51,-99 51,-101</polyline>
+%  <polyline lw="2" lc="red">50.75,-98.75 51.25,-99.25</polyline>
+%  <polyline lw="2" lc="red">51.25,-98.75 50.75,-99.25</polyline>
+%  <text x="49" y="-108" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="49" y="-105.5" t="zi 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <text x="49" y="-103" t="zo 0 Ohm" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">71.375,-100.75 70.625,-100.75</polyline>
+%  <polyline lc="black">71,-101.125 71,-100.375</polyline>
+%  <polyline lc="black">71.375,-103.25 70.625,-103.25</polyline>
+%  <polyline lc="black">69,-104 66,-104</polyline>
+%  <polyline lc="black">69,-100 66,-100</polyline>
+%  <polyline lc="black">72,-106 66,-102 72,-98 72,-106</polyline>
+%  <polyline lc="black">74,-104 72,-104</polyline>
+%  <polyline lw="2" lc="red">73.75,-103.75 74.25,-104.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-103.75 73.75,-104.25</polyline>
+%  <polyline lc="black">74,-100 72,-100</polyline>
+%  <polyline lw="2" lc="red">73.75,-99.75 74.25,-100.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-99.75 73.75,-100.25</polyline>
+%  <polyline lc="black">66,-100 68,-100</polyline>
+%  <polyline lw="2" lc="red">65.75,-99.75 66.25,-100.25</polyline>
+%  <polyline lw="2" lc="red">66.25,-99.75 65.75,-100.25</polyline>
+%  <polyline lc="black">66,-104 68,-104</polyline>
+%  <polyline lw="2" lc="red">65.75,-103.75 66.25,-104.25</polyline>
+%  <polyline lw="2" lc="red">66.25,-103.75 65.75,-104.25</polyline>
+%  <text x="70" y="-113" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="70" y="-110.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="70" y="-108" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">87.75,-99.625 87.75,-100.375</polyline>
+%  <polyline lc="black">88.125,-100 87.375,-100</polyline>
+%  <polyline lc="black">90.25,-99.625 90.25,-100.375</polyline>
+%  <polyline lc="black">91,-102 91,-105</polyline>
+%  <polyline lc="black">87,-102 87,-105</polyline>
+%  <polyline lc="black">93,-99 89,-105 85,-99 93,-99</polyline>
+%  <polyline lc="black">91,-97 91,-99</polyline>
+%  <polyline lw="2" lc="red">90.75,-96.75 91.25,-97.25</polyline>
+%  <polyline lw="2" lc="red">91.25,-96.75 90.75,-97.25</polyline>
+%  <polyline lc="black">87,-97 87,-99</polyline>
+%  <polyline lw="2" lc="red">86.75,-96.75 87.25,-97.25</polyline>
+%  <polyline lw="2" lc="red">87.25,-96.75 86.75,-97.25</polyline>
+%  <polyline lc="black">87,-105 87,-103</polyline>
+%  <polyline lw="2" lc="red">86.75,-104.75 87.25,-105.25</polyline>
+%  <polyline lw="2" lc="red">87.25,-104.75 86.75,-105.25</polyline>
+%  <polyline lc="black">91,-105 91,-103</polyline>
+%  <polyline lw="2" lc="red">90.75,-104.75 91.25,-105.25</polyline>
+%  <polyline lw="2" lc="red">91.25,-104.75 90.75,-105.25</polyline>
+%  <text x="93" y="-106" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="93" y="-103.5" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="93" y="-101" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">22.625,-132.75 23.375,-132.75</polyline>
+%  <polyline lc="black">23,-132.375 23,-133.125</polyline>
+%  <polyline lc="black">22.625,-135.25 23.375,-135.25</polyline>
+%  <polyline lc="black">22,-130 28,-134 22,-138 22,-130</polyline>
+%  <polyline lc="black">20,-136 22,-136</polyline>
+%  <polyline lw="2" lc="red">19.75,-135.75 20.25,-136.25</polyline>
+%  <polyline lw="2" lc="red">20.25,-135.75 19.75,-136.25</polyline>
+%  <polyline lc="black">20,-132 22,-132</polyline>
+%  <polyline lw="2" lc="red">19.75,-131.75 20.25,-132.25</polyline>
+%  <polyline lw="2" lc="red">20.25,-131.75 19.75,-132.25</polyline>
+%  <polyline lc="black">30,-134 28,-134</polyline>
+%  <polyline lw="2" lc="red">29.75,-133.75 30.25,-134.25</polyline>
+%  <polyline lw="2" lc="red">30.25,-133.75 29.75,-134.25</polyline>
+%  <text x="24" y="-130" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="24" y="-127.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-125" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">51.75,-136.375 51.75,-135.625</polyline>
+%  <polyline lc="black">51.375,-136 52.125,-136</polyline>
+%  <polyline lc="black">54.25,-136.375 54.25,-135.625</polyline>
+%  <polyline lc="black">49,-137 53,-131 57,-137 49,-137</polyline>
+%  <polyline lc="black">55,-139 55,-137</polyline>
+%  <polyline lw="2" lc="red">54.75,-138.75 55.25,-139.25</polyline>
+%  <polyline lw="2" lc="red">55.25,-138.75 54.75,-139.25</polyline>
+%  <polyline lc="black">51,-139 51,-137</polyline>
+%  <polyline lw="2" lc="red">50.75,-138.75 51.25,-139.25</polyline>
+%  <polyline lw="2" lc="red">51.25,-138.75 50.75,-139.25</polyline>
+%  <polyline lc="black">53,-129 53,-131</polyline>
+%  <polyline lw="2" lc="red">52.75,-128.75 53.25,-129.25</polyline>
+%  <polyline lw="2" lc="red">53.25,-128.75 52.75,-129.25</polyline>
+%  <text x="49" y="-140" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="49" y="-137.5" t="zi 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <text x="49" y="-135" t="zo 0 Ohm" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">71.375,-135.25 70.625,-135.25</polyline>
+%  <polyline lc="black">71,-135.625 71,-134.875</polyline>
+%  <polyline lc="black">71.375,-132.75 70.625,-132.75</polyline>
+%  <polyline lc="black">72,-138 66,-134 72,-130 72,-138</polyline>
+%  <polyline lc="black">74,-132 72,-132</polyline>
+%  <polyline lw="2" lc="red">73.75,-131.75 74.25,-132.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-131.75 73.75,-132.25</polyline>
+%  <polyline lc="black">74,-136 72,-136</polyline>
+%  <polyline lw="2" lc="red">73.75,-135.75 74.25,-136.25</polyline>
+%  <polyline lw="2" lc="red">74.25,-135.75 73.75,-136.25</polyline>
+%  <polyline lc="black">64,-134 66,-134</polyline>
+%  <polyline lw="2" lc="red">63.75,-133.75 64.25,-134.25</polyline>
+%  <polyline lw="2" lc="red">64.25,-133.75 63.75,-134.25</polyline>
+%  <text x="70" y="-145" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="70" y="-142.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="70" y="-140" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">90.25,-131.625 90.25,-132.375</polyline>
+%  <polyline lc="black">90.625,-132 89.875,-132</polyline>
+%  <polyline lc="black">87.75,-131.625 87.75,-132.375</polyline>
+%  <polyline lc="black">93,-131 89,-137 85,-131 93,-131</polyline>
+%  <polyline lc="black">87,-129 87,-131</polyline>
+%  <polyline lw="2" lc="red">86.75,-128.75 87.25,-129.25</polyline>
+%  <polyline lw="2" lc="red">87.25,-128.75 86.75,-129.25</polyline>
+%  <polyline lc="black">91,-129 91,-131</polyline>
+%  <polyline lw="2" lc="red">90.75,-128.75 91.25,-129.25</polyline>
+%  <polyline lw="2" lc="red">91.25,-128.75 90.75,-129.25</polyline>
+%  <polyline lc="black">89,-139 89,-137</polyline>
+%  <polyline lw="2" lc="red">88.75,-138.75 89.25,-139.25</polyline>
+%  <polyline lw="2" lc="red">89.25,-138.75 88.75,-139.25</polyline>
+%  <text x="93" y="-138" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="93" y="-135.5" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="93" y="-133" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">136,-22 137.5,-24 136,-26 134.5,-24 136,-22</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">132,-22.5 132,-25.5</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">136,-22.5 136,-25.5</polyline>
+%  <rect x="130" y="-22" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">132,-20 132,-22</polyline>
+%  <polyline lw="2" lc="red">131.75,-19.75 132.25,-20.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-19.75 131.75,-20.25</polyline>
+%  <polyline lc="black">132,-28 132,-26</polyline>
+%  <polyline lw="2" lc="red">131.75,-27.75 132.25,-28.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-27.75 131.75,-28.25</polyline>
+%  <polyline lc="black">136,-20 136,-22</polyline>
+%  <polyline lw="2" lc="red">135.75,-19.75 136.25,-20.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-19.75 135.75,-20.25</polyline>
+%  <polyline lc="black">136,-28 136,-26</polyline>
+%  <polyline lw="2" lc="red">135.75,-27.75 136.25,-28.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-27.75 135.75,-28.25</polyline>
+%  <text x="139" y="-29" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="139" y="-26.5" t="zi 0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-24" t="zo 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">170,-22 172,-20.5 174,-22 172,-23.5 170,-22</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">170.5,-26 173.5,-26</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">170.5,-22 173.5,-22</polyline>
+%  <rect x="170" y="-20" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">168,-26 170,-26</polyline>
+%  <polyline lw="2" lc="red">167.75,-25.75 168.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-25.75 167.75,-26.25</polyline>
+%  <polyline lc="black">176,-26 174,-26</polyline>
+%  <polyline lw="2" lc="red">175.75,-25.75 176.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-25.75 175.75,-26.25</polyline>
+%  <polyline lc="black">168,-22 170,-22</polyline>
+%  <polyline lw="2" lc="red">167.75,-21.75 168.25,-22.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-21.75 167.75,-22.25</polyline>
+%  <polyline lc="black">176,-22 174,-22</polyline>
+%  <polyline lw="2" lc="red">175.75,-21.75 176.25,-22.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-21.75 175.75,-22.25</polyline>
+%  <text x="172" y="-19" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="172" y="-16.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-14" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">198,-26 196.5,-24 198,-22 199.5,-24 198,-26</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">202,-25.5 202,-22.5</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">198,-25.5 198,-22.5</polyline>
+%  <rect x="196" y="-22" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">202,-28 202,-26</polyline>
+%  <polyline lw="2" lc="red">201.75,-27.75 202.25,-28.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-27.75 201.75,-28.25</polyline>
+%  <polyline lc="black">202,-20 202,-22</polyline>
+%  <polyline lw="2" lc="red">201.75,-19.75 202.25,-20.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-19.75 201.75,-20.25</polyline>
+%  <polyline lc="black">198,-28 198,-26</polyline>
+%  <polyline lw="2" lc="red">197.75,-27.75 198.25,-28.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-27.75 197.75,-28.25</polyline>
+%  <polyline lc="black">198,-20 198,-22</polyline>
+%  <polyline lw="2" lc="red">197.75,-19.75 198.25,-20.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-19.75 197.75,-20.25</polyline>
+%  <text x="195" y="-29" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="195" y="-26.5" t="zi 0 Ohm" h="3" halign="r" lc="black"/>
+%  <text x="195" y="-24" t="zo 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <polygon lc="black">224,-26 222,-27.5 220,-26 222,-24.5 224,-26</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">223.5,-22 220.5,-22</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">223.5,-26 220.5,-26</polyline>
+%  <rect x="220" y="-20" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">226,-22 224,-22</polyline>
+%  <polyline lw="2" lc="red">225.75,-21.75 226.25,-22.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-21.75 225.75,-22.25</polyline>
+%  <polyline lc="black">218,-22 220,-22</polyline>
+%  <polyline lw="2" lc="red">217.75,-21.75 218.25,-22.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-21.75 217.75,-22.25</polyline>
+%  <polyline lc="black">226,-26 224,-26</polyline>
+%  <polyline lw="2" lc="red">225.75,-25.75 226.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-25.75 225.75,-26.25</polyline>
+%  <polyline lc="black">218,-26 220,-26</polyline>
+%  <polyline lw="2" lc="red">217.75,-25.75 218.25,-26.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-25.75 217.75,-26.25</polyline>
+%  <text x="222" y="-36" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="222" y="-33.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-31" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">136,-46 137.5,-48 136,-50 134.5,-48 136,-46</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">132,-46.5 132,-49.5</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">136,-46.5 136,-49.5</polyline>
+%  <rect x="130" y="-46" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">132,-52 132,-50</polyline>
+%  <polyline lw="2" lc="red">131.75,-51.75 132.25,-52.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-51.75 131.75,-52.25</polyline>
+%  <polyline lc="black">132,-44 132,-46</polyline>
+%  <polyline lw="2" lc="red">131.75,-43.75 132.25,-44.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-43.75 131.75,-44.25</polyline>
+%  <polyline lc="black">136,-44 136,-46</polyline>
+%  <polyline lw="2" lc="red">135.75,-43.75 136.25,-44.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-43.75 135.75,-44.25</polyline>
+%  <polyline lc="black">136,-52 136,-50</polyline>
+%  <polyline lw="2" lc="red">135.75,-51.75 136.25,-52.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-51.75 135.75,-52.25</polyline>
+%  <text x="139" y="-53" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="139" y="-50.5" t="zi 0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-48" t="zo 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">170,-46 172,-44.5 174,-46 172,-47.5 170,-46</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">170.5,-50 173.5,-50</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">170.5,-46 173.5,-46</polyline>
+%  <rect x="170" y="-44" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">176,-50 174,-50</polyline>
+%  <polyline lw="2" lc="red">175.75,-49.75 176.25,-50.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-49.75 175.75,-50.25</polyline>
+%  <polyline lc="black">168,-50 170,-50</polyline>
+%  <polyline lw="2" lc="red">167.75,-49.75 168.25,-50.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-49.75 167.75,-50.25</polyline>
+%  <polyline lc="black">168,-46 170,-46</polyline>
+%  <polyline lw="2" lc="red">167.75,-45.75 168.25,-46.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-45.75 167.75,-46.25</polyline>
+%  <polyline lc="black">176,-46 174,-46</polyline>
+%  <polyline lw="2" lc="red">175.75,-45.75 176.25,-46.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-45.75 175.75,-46.25</polyline>
+%  <text x="172" y="-43" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="172" y="-40.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-38" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">198,-50 196.5,-48 198,-46 199.5,-48 198,-50</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">202,-49.5 202,-46.5</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">198,-49.5 198,-46.5</polyline>
+%  <rect x="196" y="-46" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">202,-44 202,-46</polyline>
+%  <polyline lw="2" lc="red">201.75,-43.75 202.25,-44.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-43.75 201.75,-44.25</polyline>
+%  <polyline lc="black">202,-52 202,-50</polyline>
+%  <polyline lw="2" lc="red">201.75,-51.75 202.25,-52.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-51.75 201.75,-52.25</polyline>
+%  <polyline lc="black">198,-52 198,-50</polyline>
+%  <polyline lw="2" lc="red">197.75,-51.75 198.25,-52.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-51.75 197.75,-52.25</polyline>
+%  <polyline lc="black">198,-44 198,-46</polyline>
+%  <polyline lw="2" lc="red">197.75,-43.75 198.25,-44.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-43.75 197.75,-44.25</polyline>
+%  <text x="195" y="-53" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="195" y="-50.5" t="zi 0 Ohm" h="3" halign="r" lc="black"/>
+%  <text x="195" y="-48" t="zo 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <polygon lc="black">224,-50 222,-51.5 220,-50 222,-48.5 224,-50</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">223.5,-46 220.5,-46</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">223.5,-50 220.5,-50</polyline>
+%  <rect x="220" y="-44" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">218,-46 220,-46</polyline>
+%  <polyline lw="2" lc="red">217.75,-45.75 218.25,-46.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-45.75 217.75,-46.25</polyline>
+%  <polyline lc="black">226,-46 224,-46</polyline>
+%  <polyline lw="2" lc="red">225.75,-45.75 226.25,-46.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-45.75 225.75,-46.25</polyline>
+%  <polyline lc="black">226,-50 224,-50</polyline>
+%  <polyline lw="2" lc="red">225.75,-49.75 226.25,-50.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-49.75 225.75,-50.25</polyline>
+%  <polyline lc="black">218,-50 220,-50</polyline>
+%  <polyline lw="2" lc="red">217.75,-49.75 218.25,-50.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-49.75 217.75,-50.25</polyline>
+%  <text x="222" y="-60" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="222" y="-57.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-55" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">136,-72 137.5,-74 136,-76 134.5,-74 136,-72</polygon>
+%  <polyline lc="black">131.625,-72.75 132.375,-72.75</polyline>
+%  <polyline lc="black">132,-72.375 132,-73.125</polyline>
+%  <polyline lc="black">131.625,-75.25 132.375,-75.25</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">136,-72.5 136,-75.5</polyline>
+%  <rect x="130" y="-72" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">132,-78 132,-76</polyline>
+%  <polyline lw="2" lc="red">131.75,-77.75 132.25,-78.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-77.75 131.75,-78.25</polyline>
+%  <polyline lc="black">132,-70 132,-72</polyline>
+%  <polyline lw="2" lc="red">131.75,-69.75 132.25,-70.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-69.75 131.75,-70.25</polyline>
+%  <polyline lc="black">136,-78 136,-76</polyline>
+%  <polyline lw="2" lc="red">135.75,-77.75 136.25,-78.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-77.75 135.75,-78.25</polyline>
+%  <polyline lc="black">136,-70 136,-72</polyline>
+%  <polyline lw="2" lc="red">135.75,-69.75 136.25,-70.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-69.75 135.75,-70.25</polyline>
+%  <text x="139" y="-79" t="gain 1.0 A/V" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-76.5" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-74" t="zo 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">170,-72 172,-70.5 174,-72 172,-73.5 170,-72</polygon>
+%  <polyline lc="black">170.75,-76.375 170.75,-75.625</polyline>
+%  <polyline lc="black">170.375,-76 171.125,-76</polyline>
+%  <polyline lc="black">173.25,-76.375 173.25,-75.625</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">170.5,-72 173.5,-72</polyline>
+%  <rect x="170" y="-70" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">176,-76 174,-76</polyline>
+%  <polyline lw="2" lc="red">175.75,-75.75 176.25,-76.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-75.75 175.75,-76.25</polyline>
+%  <polyline lc="black">168,-76 170,-76</polyline>
+%  <polyline lw="2" lc="red">167.75,-75.75 168.25,-76.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-75.75 167.75,-76.25</polyline>
+%  <polyline lc="black">176,-72 174,-72</polyline>
+%  <polyline lw="2" lc="red">175.75,-71.75 176.25,-72.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-71.75 175.75,-72.25</polyline>
+%  <polyline lc="black">168,-72 170,-72</polyline>
+%  <polyline lw="2" lc="red">167.75,-71.75 168.25,-72.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-71.75 167.75,-72.25</polyline>
+%  <text x="172" y="-69" t="gain 1.0 A/V" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-66.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-64" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">198,-76 196.5,-74 198,-72 199.5,-74 198,-76</polygon>
+%  <polyline lc="black">202.375,-75.25 201.625,-75.25</polyline>
+%  <polyline lc="black">202,-75.625 202,-74.875</polyline>
+%  <polyline lc="black">202.375,-72.75 201.625,-72.75</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">198,-75.5 198,-72.5</polyline>
+%  <rect x="196" y="-72" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">202,-70 202,-72</polyline>
+%  <polyline lw="2" lc="red">201.75,-69.75 202.25,-70.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-69.75 201.75,-70.25</polyline>
+%  <polyline lc="black">202,-78 202,-76</polyline>
+%  <polyline lw="2" lc="red">201.75,-77.75 202.25,-78.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-77.75 201.75,-78.25</polyline>
+%  <polyline lc="black">198,-70 198,-72</polyline>
+%  <polyline lw="2" lc="red">197.75,-69.75 198.25,-70.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-69.75 197.75,-70.25</polyline>
+%  <polyline lc="black">198,-78 198,-76</polyline>
+%  <polyline lw="2" lc="red">197.75,-77.75 198.25,-78.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-77.75 197.75,-78.25</polyline>
+%  <text x="195" y="-79" t="gain 1.0 A/V" h="3" halign="r" lc="black"/>
+%  <text x="195" y="-76.5" t="zi 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <text x="195" y="-74" t="zo 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <polygon lc="black">224,-76 222,-77.5 220,-76 222,-74.5 224,-76</polygon>
+%  <polyline lc="black">223.25,-71.625 223.25,-72.375</polyline>
+%  <polyline lc="black">223.625,-72 222.875,-72</polyline>
+%  <polyline lc="black">220.75,-71.625 220.75,-72.375</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">223.5,-76 220.5,-76</polyline>
+%  <rect x="220" y="-70" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">218,-72 220,-72</polyline>
+%  <polyline lw="2" lc="red">217.75,-71.75 218.25,-72.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-71.75 217.75,-72.25</polyline>
+%  <polyline lc="black">226,-72 224,-72</polyline>
+%  <polyline lw="2" lc="red">225.75,-71.75 226.25,-72.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-71.75 225.75,-72.25</polyline>
+%  <polyline lc="black">218,-76 220,-76</polyline>
+%  <polyline lw="2" lc="red">217.75,-75.75 218.25,-76.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-75.75 217.75,-76.25</polyline>
+%  <polyline lc="black">226,-76 224,-76</polyline>
+%  <polyline lw="2" lc="red">225.75,-75.75 226.25,-76.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-75.75 225.75,-76.25</polyline>
+%  <text x="222" y="-86" t="gain 1.0 A/V" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-83.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-81" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">136,-100 137.5,-102 136,-104 134.5,-102 136,-100</polygon>
+%  <polyline lc="black">131.625,-103.25 132.375,-103.25</polyline>
+%  <polyline lc="black">132,-102.875 132,-103.625</polyline>
+%  <polyline lc="black">131.625,-100.75 132.375,-100.75</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">136,-100.5 136,-103.5</polyline>
+%  <rect x="130" y="-100" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">132,-106 132,-104</polyline>
+%  <polyline lw="2" lc="red">131.75,-105.75 132.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-105.75 131.75,-106.25</polyline>
+%  <polyline lc="black">132,-98 132,-100</polyline>
+%  <polyline lw="2" lc="red">131.75,-97.75 132.25,-98.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-97.75 131.75,-98.25</polyline>
+%  <polyline lc="black">136,-106 136,-104</polyline>
+%  <polyline lw="2" lc="red">135.75,-105.75 136.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-105.75 135.75,-106.25</polyline>
+%  <polyline lc="black">136,-98 136,-100</polyline>
+%  <polyline lw="2" lc="red">135.75,-97.75 136.25,-98.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-97.75 135.75,-98.25</polyline>
+%  <text x="139" y="-107" t="gain 1.0 A/V" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-104.5" t="zi 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-102" t="zo 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">170,-102 172,-100.5 174,-102 172,-103.5 170,-102</polygon>
+%  <polyline lc="black">173.25,-106.375 173.25,-105.625</polyline>
+%  <polyline lc="black">172.875,-106 173.625,-106</polyline>
+%  <polyline lc="black">170.75,-106.375 170.75,-105.625</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">170.5,-102 173.5,-102</polyline>
+%  <rect x="170" y="-100" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">176,-106 174,-106</polyline>
+%  <polyline lw="2" lc="red">175.75,-105.75 176.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-105.75 175.75,-106.25</polyline>
+%  <polyline lc="black">168,-106 170,-106</polyline>
+%  <polyline lw="2" lc="red">167.75,-105.75 168.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-105.75 167.75,-106.25</polyline>
+%  <polyline lc="black">176,-102 174,-102</polyline>
+%  <polyline lw="2" lc="red">175.75,-101.75 176.25,-102.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-101.75 175.75,-102.25</polyline>
+%  <polyline lc="black">168,-102 170,-102</polyline>
+%  <polyline lw="2" lc="red">167.75,-101.75 168.25,-102.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-101.75 167.75,-102.25</polyline>
+%  <text x="172" y="-99" t="gain 1.0 A/V" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-96.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-94" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">198,-106 196.5,-104 198,-102 199.5,-104 198,-106</polygon>
+%  <polyline lc="black">202.375,-102.75 201.625,-102.75</polyline>
+%  <polyline lc="black">202,-103.125 202,-102.375</polyline>
+%  <polyline lc="black">202.375,-105.25 201.625,-105.25</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">198,-105.5 198,-102.5</polyline>
+%  <rect x="196" y="-102" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">202,-100 202,-102</polyline>
+%  <polyline lw="2" lc="red">201.75,-99.75 202.25,-100.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-99.75 201.75,-100.25</polyline>
+%  <polyline lc="black">202,-108 202,-106</polyline>
+%  <polyline lw="2" lc="red">201.75,-107.75 202.25,-108.25</polyline>
+%  <polyline lw="2" lc="red">202.25,-107.75 201.75,-108.25</polyline>
+%  <polyline lc="black">198,-100 198,-102</polyline>
+%  <polyline lw="2" lc="red">197.75,-99.75 198.25,-100.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-99.75 197.75,-100.25</polyline>
+%  <polyline lc="black">198,-108 198,-106</polyline>
+%  <polyline lw="2" lc="red">197.75,-107.75 198.25,-108.25</polyline>
+%  <polyline lw="2" lc="red">198.25,-107.75 197.75,-108.25</polyline>
+%  <text x="195" y="-109" t="gain 1.0 A/V" h="3" halign="r" lc="black"/>
+%  <text x="195" y="-106.5" t="zi 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <text x="195" y="-104" t="zo 100.0 MOhm" h="3" halign="r" lc="black"/>
+%  <polygon lc="black">224,-106 222,-107.5 220,-106 222,-104.5 224,-106</polygon>
+%  <polyline lc="black">220.75,-101.625 220.75,-102.375</polyline>
+%  <polyline lc="black">221.125,-102 220.375,-102</polyline>
+%  <polyline lc="black">223.25,-101.625 223.25,-102.375</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">223.5,-106 220.5,-106</polyline>
+%  <rect x="220" y="-100" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">218,-102 220,-102</polyline>
+%  <polyline lw="2" lc="red">217.75,-101.75 218.25,-102.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-101.75 217.75,-102.25</polyline>
+%  <polyline lc="black">226,-102 224,-102</polyline>
+%  <polyline lw="2" lc="red">225.75,-101.75 226.25,-102.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-101.75 225.75,-102.25</polyline>
+%  <polyline lc="black">218,-106 220,-106</polyline>
+%  <polyline lw="2" lc="red">217.75,-105.75 218.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-105.75 217.75,-106.25</polyline>
+%  <polyline lc="black">226,-106 224,-106</polyline>
+%  <polyline lw="2" lc="red">225.75,-105.75 226.25,-106.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-105.75 225.75,-106.25</polyline>
+%  <text x="222" y="-116" t="gain 1.0 A/V" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-113.5" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-111" t="zo 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">136,-132 137.5,-134 136,-136 134.5,-134 136,-132</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">132,-132.5 132,-135.5</polyline>
+%  <polyline lc="black">135.625,-132.75 136.375,-132.75</polyline>
+%  <polyline lc="black">136,-132.375 136,-133.125</polyline>
+%  <polyline lc="black">135.625,-135.25 136.375,-135.25</polyline>
+%  <rect x="130" y="-132" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">132,-138 132,-136</polyline>
+%  <polyline lw="2" lc="red">131.75,-137.75 132.25,-138.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-137.75 131.75,-138.25</polyline>
+%  <polyline lc="black">132,-130 132,-132</polyline>
+%  <polyline lw="2" lc="red">131.75,-129.75 132.25,-130.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-129.75 131.75,-130.25</polyline>
+%  <polyline lc="black">136,-138 136,-136</polyline>
+%  <polyline lw="2" lc="red">135.75,-137.75 136.25,-138.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-137.75 135.75,-138.25</polyline>
+%  <polyline lc="black">136,-130 136,-132</polyline>
+%  <polyline lw="2" lc="red">135.75,-129.75 136.25,-130.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-129.75 135.75,-130.25</polyline>
+%  <text x="139" y="-139" t="gain 1.0 V/A" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-136.5" t="zi 0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-134" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">170,-132 172,-130.5 174,-132 172,-133.5 170,-132</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">170.5,-136 173.5,-136</polyline>
+%  <polyline lc="black">170.75,-132.375 170.75,-131.625</polyline>
+%  <polyline lc="black">170.375,-132 171.125,-132</polyline>
+%  <polyline lc="black">173.25,-132.375 173.25,-131.625</polyline>
+%  <rect x="170" y="-130" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">176,-136 174,-136</polyline>
+%  <polyline lw="2" lc="red">175.75,-135.75 176.25,-136.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-135.75 175.75,-136.25</polyline>
+%  <polyline lc="black">168,-136 170,-136</polyline>
+%  <polyline lw="2" lc="red">167.75,-135.75 168.25,-136.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-135.75 167.75,-136.25</polyline>
+%  <polyline lc="black">176,-132 174,-132</polyline>
+%  <polyline lw="2" lc="red">175.75,-131.75 176.25,-132.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-131.75 175.75,-132.25</polyline>
+%  <polyline lc="black">168,-132 170,-132</polyline>
+%  <polyline lw="2" lc="red">167.75,-131.75 168.25,-132.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-131.75 167.75,-132.25</polyline>
+%  <text x="172" y="-129" t="gain 1.0 V/A" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-126.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-124" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">196,-136 194.5,-134 196,-132 197.5,-134 196,-136</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">200,-135.5 200,-132.5</polyline>
+%  <polyline lc="black">196.375,-135.25 195.625,-135.25</polyline>
+%  <polyline lc="black">196,-135.625 196,-134.875</polyline>
+%  <polyline lc="black">196.375,-132.75 195.625,-132.75</polyline>
+%  <rect x="194" y="-132" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">200,-130 200,-132</polyline>
+%  <polyline lw="2" lc="red">199.75,-129.75 200.25,-130.25</polyline>
+%  <polyline lw="2" lc="red">200.25,-129.75 199.75,-130.25</polyline>
+%  <polyline lc="black">200,-138 200,-136</polyline>
+%  <polyline lw="2" lc="red">199.75,-137.75 200.25,-138.25</polyline>
+%  <polyline lw="2" lc="red">200.25,-137.75 199.75,-138.25</polyline>
+%  <polyline lc="black">196,-130 196,-132</polyline>
+%  <polyline lw="2" lc="red">195.75,-129.75 196.25,-130.25</polyline>
+%  <polyline lw="2" lc="red">196.25,-129.75 195.75,-130.25</polyline>
+%  <polyline lc="black">196,-138 196,-136</polyline>
+%  <polyline lw="2" lc="red">195.75,-137.75 196.25,-138.25</polyline>
+%  <polyline lw="2" lc="red">196.25,-137.75 195.75,-138.25</polyline>
+%  <text x="193" y="-139" t="gain 1.0 V/A" h="3" halign="r" lc="black"/>
+%  <text x="193" y="-136.5" t="zi 0 Ohm" h="3" halign="r" lc="black"/>
+%  <text x="193" y="-134" t="zo 0 Ohm" h="3" halign="r" lc="black"/>
+%  <polygon lc="black">224,-136 222,-137.5 220,-136 222,-134.5 224,-136</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">223.5,-132 220.5,-132</polyline>
+%  <polyline lc="black">223.25,-135.625 223.25,-136.375</polyline>
+%  <polyline lc="black">223.625,-136 222.875,-136</polyline>
+%  <polyline lc="black">220.75,-135.625 220.75,-136.375</polyline>
+%  <rect x="220" y="-130" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">218,-132 220,-132</polyline>
+%  <polyline lw="2" lc="red">217.75,-131.75 218.25,-132.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-131.75 217.75,-132.25</polyline>
+%  <polyline lc="black">226,-132 224,-132</polyline>
+%  <polyline lw="2" lc="red">225.75,-131.75 226.25,-132.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-131.75 225.75,-132.25</polyline>
+%  <polyline lc="black">218,-136 220,-136</polyline>
+%  <polyline lw="2" lc="red">217.75,-135.75 218.25,-136.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-135.75 217.75,-136.25</polyline>
+%  <polyline lc="black">226,-136 224,-136</polyline>
+%  <polyline lw="2" lc="red">225.75,-135.75 226.25,-136.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-135.75 225.75,-136.25</polyline>
+%  <text x="222" y="-146" t="gain 1.0 V/A" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-143.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-141" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">136,-160 137.5,-162 136,-164 134.5,-162 136,-160</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">132,-160.5 132,-163.5</polyline>
+%  <polyline lc="black">135.625,-160.75 136.375,-160.75</polyline>
+%  <polyline lc="black">136,-160.375 136,-161.125</polyline>
+%  <polyline lc="black">135.625,-163.25 136.375,-163.25</polyline>
+%  <rect x="130" y="-160" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">132,-166 132,-164</polyline>
+%  <polyline lw="2" lc="red">131.75,-165.75 132.25,-166.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-165.75 131.75,-166.25</polyline>
+%  <polyline lc="black">132,-158 132,-160</polyline>
+%  <polyline lw="2" lc="red">131.75,-157.75 132.25,-158.25</polyline>
+%  <polyline lw="2" lc="red">132.25,-157.75 131.75,-158.25</polyline>
+%  <polyline lc="black">136,-166 136,-164</polyline>
+%  <polyline lw="2" lc="red">135.75,-165.75 136.25,-166.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-165.75 135.75,-166.25</polyline>
+%  <polyline lc="black">136,-158 136,-160</polyline>
+%  <polyline lw="2" lc="red">135.75,-157.75 136.25,-158.25</polyline>
+%  <polyline lw="2" lc="red">136.25,-157.75 135.75,-158.25</polyline>
+%  <text x="139" y="-167" t="gain 1.0 V/A" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-164.5" t="zi 0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="139" y="-162" t="zo 0 Ohm" h="3" halign="l" lc="black"/>
+%  <polygon lc="black">170,-160 172,-158.5 174,-160 172,-161.5 170,-160</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">170.5,-164 173.5,-164</polyline>
+%  <polyline lc="black">170.75,-160.375 170.75,-159.625</polyline>
+%  <polyline lc="black">170.375,-160 171.125,-160</polyline>
+%  <polyline lc="black">173.25,-160.375 173.25,-159.625</polyline>
+%  <rect x="170" y="-158" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">176,-164 174,-164</polyline>
+%  <polyline lw="2" lc="red">175.75,-163.75 176.25,-164.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-163.75 175.75,-164.25</polyline>
+%  <polyline lc="black">168,-164 170,-164</polyline>
+%  <polyline lw="2" lc="red">167.75,-163.75 168.25,-164.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-163.75 167.75,-164.25</polyline>
+%  <polyline lc="black">176,-160 174,-160</polyline>
+%  <polyline lw="2" lc="red">175.75,-159.75 176.25,-160.25</polyline>
+%  <polyline lw="2" lc="red">176.25,-159.75 175.75,-160.25</polyline>
+%  <polyline lc="black">168,-160 170,-160</polyline>
+%  <polyline lw="2" lc="red">167.75,-159.75 168.25,-160.25</polyline>
+%  <polyline lw="2" lc="red">168.25,-159.75 167.75,-160.25</polyline>
+%  <text x="172" y="-157" t="gain 1.0 V/A" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-154.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="172" y="-152" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polygon lc="black">196,-164 194.5,-162 196,-160 197.5,-162 196,-164</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">200,-163.5 200,-160.5</polyline>
+%  <polyline lc="black">196.375,-163.25 195.625,-163.25</polyline>
+%  <polyline lc="black">196,-163.625 196,-162.875</polyline>
+%  <polyline lc="black">196.375,-160.75 195.625,-160.75</polyline>
+%  <rect x="194" y="-160" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">200,-158 200,-160</polyline>
+%  <polyline lw="2" lc="red">199.75,-157.75 200.25,-158.25</polyline>
+%  <polyline lw="2" lc="red">200.25,-157.75 199.75,-158.25</polyline>
+%  <polyline lc="black">200,-166 200,-164</polyline>
+%  <polyline lw="2" lc="red">199.75,-165.75 200.25,-166.25</polyline>
+%  <polyline lw="2" lc="red">200.25,-165.75 199.75,-166.25</polyline>
+%  <polyline lc="black">196,-158 196,-160</polyline>
+%  <polyline lw="2" lc="red">195.75,-157.75 196.25,-158.25</polyline>
+%  <polyline lw="2" lc="red">196.25,-157.75 195.75,-158.25</polyline>
+%  <polyline lc="black">196,-166 196,-164</polyline>
+%  <polyline lw="2" lc="red">195.75,-165.75 196.25,-166.25</polyline>
+%  <polyline lw="2" lc="red">196.25,-165.75 195.75,-166.25</polyline>
+%  <text x="193" y="-167" t="gain 1.0 V/A" h="3" halign="r" lc="black"/>
+%  <text x="193" y="-164.5" t="zi 0 Ohm" h="3" halign="r" lc="black"/>
+%  <text x="193" y="-162" t="zo 0 Ohm" h="3" halign="r" lc="black"/>
+%  <polygon lc="black">224,-164 222,-165.5 220,-164 222,-162.5 224,-164</polygon>
+%  <polyline arr2="h44" arrs="0.5" lc="black">223.5,-160 220.5,-160</polyline>
+%  <polyline lc="black">223.25,-163.625 223.25,-164.375</polyline>
+%  <polyline lc="black">223.625,-164 222.875,-164</polyline>
+%  <polyline lc="black">220.75,-163.625 220.75,-164.375</polyline>
+%  <rect x="220" y="-158" w="4" h="-8" lc="black"/>
+%  <polyline lc="black">218,-160 220,-160</polyline>
+%  <polyline lw="2" lc="red">217.75,-159.75 218.25,-160.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-159.75 217.75,-160.25</polyline>
+%  <polyline lc="black">226,-160 224,-160</polyline>
+%  <polyline lw="2" lc="red">225.75,-159.75 226.25,-160.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-159.75 225.75,-160.25</polyline>
+%  <polyline lc="black">218,-164 220,-164</polyline>
+%  <polyline lw="2" lc="red">217.75,-163.75 218.25,-164.25</polyline>
+%  <polyline lw="2" lc="red">218.25,-163.75 217.75,-164.25</polyline>
+%  <polyline lc="black">226,-164 224,-164</polyline>
+%  <polyline lw="2" lc="red">225.75,-163.75 226.25,-164.25</polyline>
+%  <polyline lw="2" lc="red">226.25,-163.75 225.75,-164.25</polyline>
+%  <text x="222" y="-174" t="gain 1.0 V/A" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-171.5" t="zi 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="222" y="-169" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (24,-22) -- (30,-26) -- (24,-30) -- (24,-22);
+\path[line width=0.30mm, draw=black] (22,-26) -- (24,-26);
+\path[line width=0.6mm, draw=red] (21.75,-25.75) -- (22.25,-26.25);
+\path[line width=0.6mm, draw=red] (22.25,-25.75) -- (21.75,-26.25);
+\path[line width=0.30mm, draw=black] (32,-26) -- (30,-26);
+\path[line width=0.6mm, draw=red] (31.75,-25.75) -- (32.25,-26.25);
+\path[line width=0.6mm, draw=red] (32.25,-25.75) -- (31.75,-26.25);
+\draw[black] (26,-22) node[anchor=base]{gain 1.0 };
+\draw[black] (26,-19.5) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (26,-17) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (49,-29) -- (53,-23) -- (57,-29) -- (49,-29);
+\path[line width=0.30mm, draw=black] (53,-31) -- (53,-29);
+\path[line width=0.6mm, draw=red] (52.75,-30.75) -- (53.25,-31.25);
+\path[line width=0.6mm, draw=red] (53.25,-30.75) -- (52.75,-31.25);
+\path[line width=0.30mm, draw=black] (53,-21) -- (53,-23);
+\path[line width=0.6mm, draw=red] (52.75,-20.75) -- (53.25,-21.25);
+\path[line width=0.6mm, draw=red] (53.25,-20.75) -- (52.75,-21.25);
+\draw[black] (49,-32) node[anchor=base east]{gain 1.0 };
+\draw[black] (49,-29.5) node[anchor=base east]{zi 100.0 MOhm};
+\draw[black] (49,-27) node[anchor=base east]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (72,-30) -- (66,-26) -- (72,-22) -- (72,-30);
+\path[line width=0.30mm, draw=black] (74,-26) -- (72,-26);
+\path[line width=0.6mm, draw=red] (73.75,-25.75) -- (74.25,-26.25);
+\path[line width=0.6mm, draw=red] (74.25,-25.75) -- (73.75,-26.25);
+\path[line width=0.30mm, draw=black] (64,-26) -- (66,-26);
+\path[line width=0.6mm, draw=red] (63.75,-25.75) -- (64.25,-26.25);
+\path[line width=0.6mm, draw=red] (64.25,-25.75) -- (63.75,-26.25);
+\draw[black] (70,-35) node[anchor=north]{gain 1.0 };
+\draw[black] (70,-32.5) node[anchor=north]{zi 100.0 MOhm};
+\draw[black] (70,-30) node[anchor=north]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (89,-23) -- (85,-29) -- (81,-23) -- (89,-23);
+\path[line width=0.30mm, draw=black] (85,-21) -- (85,-23);
+\path[line width=0.6mm, draw=red] (84.75,-20.75) -- (85.25,-21.25);
+\path[line width=0.6mm, draw=red] (85.25,-20.75) -- (84.75,-21.25);
+\path[line width=0.30mm, draw=black] (85,-31) -- (85,-29);
+\path[line width=0.6mm, draw=red] (84.75,-30.75) -- (85.25,-31.25);
+\path[line width=0.6mm, draw=red] (85.25,-30.75) -- (84.75,-31.25);
+\draw[black] (89,-30) node[anchor=base west]{gain 1.0 };
+\draw[black] (89,-27.5) node[anchor=base west]{zi 100.0 MOhm};
+\draw[black] (89,-25) node[anchor=base west]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (22.625,-64.75) -- (23.375,-64.75);
+\path[line width=0.30mm, draw=black] (23,-64.375) -- (23,-65.125);
+\path[line width=0.30mm, draw=black] (22.625,-67.25) -- (23.375,-67.25);
+\path[line width=0.30mm, draw=black] (25,-64) -- (28,-64);
+\path[line width=0.30mm, draw=black] (25,-68) -- (28,-68);
+\path[line width=0.30mm, draw=black] (22,-62) -- (28,-66) -- (22,-70) -- (22,-62);
+\path[line width=0.30mm, draw=black] (20,-68) -- (22,-68);
+\path[line width=0.6mm, draw=red] (19.75,-67.75) -- (20.25,-68.25);
+\path[line width=0.6mm, draw=red] (20.25,-67.75) -- (19.75,-68.25);
+\path[line width=0.30mm, draw=black] (20,-64) -- (22,-64);
+\path[line width=0.6mm, draw=red] (19.75,-63.75) -- (20.25,-64.25);
+\path[line width=0.6mm, draw=red] (20.25,-63.75) -- (19.75,-64.25);
+\path[line width=0.30mm, draw=black] (28,-68) -- (26,-68);
+\path[line width=0.6mm, draw=red] (27.75,-67.75) -- (28.25,-68.25);
+\path[line width=0.6mm, draw=red] (28.25,-67.75) -- (27.75,-68.25);
+\path[line width=0.30mm, draw=black] (28,-64) -- (26,-64);
+\path[line width=0.6mm, draw=red] (27.75,-63.75) -- (28.25,-64.25);
+\path[line width=0.6mm, draw=red] (28.25,-63.75) -- (27.75,-64.25);
+\draw[black] (24,-62) node[anchor=base]{gain 1.0 };
+\draw[black] (24,-59.5) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (24,-57) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (51.75,-68.375) -- (51.75,-67.625);
+\path[line width=0.30mm, draw=black] (51.375,-68) -- (52.125,-68);
+\path[line width=0.30mm, draw=black] (54.25,-68.375) -- (54.25,-67.625);
+\path[line width=0.30mm, draw=black] (51,-66) -- (51,-63);
+\path[line width=0.30mm, draw=black] (55,-66) -- (55,-63);
+\path[line width=0.30mm, draw=black] (49,-69) -- (53,-63) -- (57,-69) -- (49,-69);
+\path[line width=0.30mm, draw=black] (55,-71) -- (55,-69);
+\path[line width=0.6mm, draw=red] (54.75,-70.75) -- (55.25,-71.25);
+\path[line width=0.6mm, draw=red] (55.25,-70.75) -- (54.75,-71.25);
+\path[line width=0.30mm, draw=black] (51,-71) -- (51,-69);
+\path[line width=0.6mm, draw=red] (50.75,-70.75) -- (51.25,-71.25);
+\path[line width=0.6mm, draw=red] (51.25,-70.75) -- (50.75,-71.25);
+\path[line width=0.30mm, draw=black] (55,-63) -- (55,-65);
+\path[line width=0.6mm, draw=red] (54.75,-62.75) -- (55.25,-63.25);
+\path[line width=0.6mm, draw=red] (55.25,-62.75) -- (54.75,-63.25);
+\path[line width=0.30mm, draw=black] (51,-63) -- (51,-65);
+\path[line width=0.6mm, draw=red] (50.75,-62.75) -- (51.25,-63.25);
+\path[line width=0.6mm, draw=red] (51.25,-62.75) -- (50.75,-63.25);
+\draw[black] (49,-72) node[anchor=base east]{gain 1.0 };
+\draw[black] (49,-69.5) node[anchor=base east]{zi 100.0 MOhm};
+\draw[black] (49,-67) node[anchor=base east]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (71.375,-67.25) -- (70.625,-67.25);
+\path[line width=0.30mm, draw=black] (71,-67.625) -- (71,-66.875);
+\path[line width=0.30mm, draw=black] (71.375,-64.75) -- (70.625,-64.75);
+\path[line width=0.30mm, draw=black] (69,-68) -- (66,-68);
+\path[line width=0.30mm, draw=black] (69,-64) -- (66,-64);
+\path[line width=0.30mm, draw=black] (72,-70) -- (66,-66) -- (72,-62) -- (72,-70);
+\path[line width=0.30mm, draw=black] (74,-64) -- (72,-64);
+\path[line width=0.6mm, draw=red] (73.75,-63.75) -- (74.25,-64.25);
+\path[line width=0.6mm, draw=red] (74.25,-63.75) -- (73.75,-64.25);
+\path[line width=0.30mm, draw=black] (74,-68) -- (72,-68);
+\path[line width=0.6mm, draw=red] (73.75,-67.75) -- (74.25,-68.25);
+\path[line width=0.6mm, draw=red] (74.25,-67.75) -- (73.75,-68.25);
+\path[line width=0.30mm, draw=black] (66,-64) -- (68,-64);
+\path[line width=0.6mm, draw=red] (65.75,-63.75) -- (66.25,-64.25);
+\path[line width=0.6mm, draw=red] (66.25,-63.75) -- (65.75,-64.25);
+\path[line width=0.30mm, draw=black] (66,-68) -- (68,-68);
+\path[line width=0.6mm, draw=red] (65.75,-67.75) -- (66.25,-68.25);
+\path[line width=0.6mm, draw=red] (66.25,-67.75) -- (65.75,-68.25);
+\draw[black] (70,-75) node[anchor=north]{gain 1.0 };
+\draw[black] (70,-72.5) node[anchor=north]{zi 100.0 MOhm};
+\draw[black] (70,-70) node[anchor=north]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (92.25,-63.625) -- (92.25,-64.375);
+\path[line width=0.30mm, draw=black] (92.625,-64) -- (91.875,-64);
+\path[line width=0.30mm, draw=black] (89.75,-63.625) -- (89.75,-64.375);
+\path[line width=0.30mm, draw=black] (93,-66) -- (93,-69);
+\path[line width=0.30mm, draw=black] (89,-66) -- (89,-69);
+\path[line width=0.30mm, draw=black] (95,-63) -- (91,-69) -- (87,-63) -- (95,-63);
+\path[line width=0.30mm, draw=black] (89,-61) -- (89,-63);
+\path[line width=0.6mm, draw=red] (88.75,-60.75) -- (89.25,-61.25);
+\path[line width=0.6mm, draw=red] (89.25,-60.75) -- (88.75,-61.25);
+\path[line width=0.30mm, draw=black] (93,-61) -- (93,-63);
+\path[line width=0.6mm, draw=red] (92.75,-60.75) -- (93.25,-61.25);
+\path[line width=0.6mm, draw=red] (93.25,-60.75) -- (92.75,-61.25);
+\path[line width=0.30mm, draw=black] (89,-69) -- (89,-67);
+\path[line width=0.6mm, draw=red] (88.75,-68.75) -- (89.25,-69.25);
+\path[line width=0.6mm, draw=red] (89.25,-68.75) -- (88.75,-69.25);
+\path[line width=0.30mm, draw=black] (93,-69) -- (93,-67);
+\path[line width=0.6mm, draw=red] (92.75,-68.75) -- (93.25,-69.25);
+\path[line width=0.6mm, draw=red] (93.25,-68.75) -- (92.75,-69.25);
+\draw[black] (95,-70) node[anchor=base west]{gain 1.0 };
+\draw[black] (95,-67.5) node[anchor=base west]{zi 100.0 MOhm};
+\draw[black] (95,-65) node[anchor=base west]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (22.625,-105.25) -- (23.375,-105.25);
+\path[line width=0.30mm, draw=black] (23,-104.875) -- (23,-105.625);
+\path[line width=0.30mm, draw=black] (22.625,-102.75) -- (23.375,-102.75);
+\path[line width=0.30mm, draw=black] (25,-102) -- (28,-102);
+\path[line width=0.30mm, draw=black] (25,-106) -- (28,-106);
+\path[line width=0.30mm, draw=black] (22,-100) -- (28,-104) -- (22,-108) -- (22,-100);
+\path[line width=0.30mm, draw=black] (20,-102) -- (22,-102);
+\path[line width=0.6mm, draw=red] (19.75,-101.75) -- (20.25,-102.25);
+\path[line width=0.6mm, draw=red] (20.25,-101.75) -- (19.75,-102.25);
+\path[line width=0.30mm, draw=black] (20,-106) -- (22,-106);
+\path[line width=0.6mm, draw=red] (19.75,-105.75) -- (20.25,-106.25);
+\path[line width=0.6mm, draw=red] (20.25,-105.75) -- (19.75,-106.25);
+\path[line width=0.30mm, draw=black] (28,-106) -- (26,-106);
+\path[line width=0.6mm, draw=red] (27.75,-105.75) -- (28.25,-106.25);
+\path[line width=0.6mm, draw=red] (28.25,-105.75) -- (27.75,-106.25);
+\path[line width=0.30mm, draw=black] (28,-102) -- (26,-102);
+\path[line width=0.6mm, draw=red] (27.75,-101.75) -- (28.25,-102.25);
+\path[line width=0.6mm, draw=red] (28.25,-101.75) -- (27.75,-102.25);
+\draw[black] (24,-100) node[anchor=base]{gain 1.0 };
+\draw[black] (24,-97.5) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (24,-95) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (54.25,-104.375) -- (54.25,-103.625);
+\path[line width=0.30mm, draw=black] (53.875,-104) -- (54.625,-104);
+\path[line width=0.30mm, draw=black] (51.75,-104.375) -- (51.75,-103.625);
+\path[line width=0.30mm, draw=black] (51,-102) -- (51,-99);
+\path[line width=0.30mm, draw=black] (55,-102) -- (55,-99);
+\path[line width=0.30mm, draw=black] (49,-105) -- (53,-99) -- (57,-105) -- (49,-105);
+\path[line width=0.30mm, draw=black] (51,-107) -- (51,-105);
+\path[line width=0.6mm, draw=red] (50.75,-106.75) -- (51.25,-107.25);
+\path[line width=0.6mm, draw=red] (51.25,-106.75) -- (50.75,-107.25);
+\path[line width=0.30mm, draw=black] (55,-107) -- (55,-105);
+\path[line width=0.6mm, draw=red] (54.75,-106.75) -- (55.25,-107.25);
+\path[line width=0.6mm, draw=red] (55.25,-106.75) -- (54.75,-107.25);
+\path[line width=0.30mm, draw=black] (55,-99) -- (55,-101);
+\path[line width=0.6mm, draw=red] (54.75,-98.75) -- (55.25,-99.25);
+\path[line width=0.6mm, draw=red] (55.25,-98.75) -- (54.75,-99.25);
+\path[line width=0.30mm, draw=black] (51,-99) -- (51,-101);
+\path[line width=0.6mm, draw=red] (50.75,-98.75) -- (51.25,-99.25);
+\path[line width=0.6mm, draw=red] (51.25,-98.75) -- (50.75,-99.25);
+\draw[black] (49,-108) node[anchor=base east]{gain 1.0 };
+\draw[black] (49,-105.5) node[anchor=base east]{zi 100.0 MOhm};
+\draw[black] (49,-103) node[anchor=base east]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (71.375,-100.75) -- (70.625,-100.75);
+\path[line width=0.30mm, draw=black] (71,-101.125) -- (71,-100.375);
+\path[line width=0.30mm, draw=black] (71.375,-103.25) -- (70.625,-103.25);
+\path[line width=0.30mm, draw=black] (69,-104) -- (66,-104);
+\path[line width=0.30mm, draw=black] (69,-100) -- (66,-100);
+\path[line width=0.30mm, draw=black] (72,-106) -- (66,-102) -- (72,-98) -- (72,-106);
+\path[line width=0.30mm, draw=black] (74,-104) -- (72,-104);
+\path[line width=0.6mm, draw=red] (73.75,-103.75) -- (74.25,-104.25);
+\path[line width=0.6mm, draw=red] (74.25,-103.75) -- (73.75,-104.25);
+\path[line width=0.30mm, draw=black] (74,-100) -- (72,-100);
+\path[line width=0.6mm, draw=red] (73.75,-99.75) -- (74.25,-100.25);
+\path[line width=0.6mm, draw=red] (74.25,-99.75) -- (73.75,-100.25);
+\path[line width=0.30mm, draw=black] (66,-100) -- (68,-100);
+\path[line width=0.6mm, draw=red] (65.75,-99.75) -- (66.25,-100.25);
+\path[line width=0.6mm, draw=red] (66.25,-99.75) -- (65.75,-100.25);
+\path[line width=0.30mm, draw=black] (66,-104) -- (68,-104);
+\path[line width=0.6mm, draw=red] (65.75,-103.75) -- (66.25,-104.25);
+\path[line width=0.6mm, draw=red] (66.25,-103.75) -- (65.75,-104.25);
+\draw[black] (70,-111) node[anchor=north]{gain 1.0 };
+\draw[black] (70,-108.5) node[anchor=north]{zi 100.0 MOhm};
+\draw[black] (70,-106) node[anchor=north]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (87.75,-99.625) -- (87.75,-100.375);
+\path[line width=0.30mm, draw=black] (88.125,-100) -- (87.375,-100);
+\path[line width=0.30mm, draw=black] (90.25,-99.625) -- (90.25,-100.375);
+\path[line width=0.30mm, draw=black] (91,-102) -- (91,-105);
+\path[line width=0.30mm, draw=black] (87,-102) -- (87,-105);
+\path[line width=0.30mm, draw=black] (93,-99) -- (89,-105) -- (85,-99) -- (93,-99);
+\path[line width=0.30mm, draw=black] (91,-97) -- (91,-99);
+\path[line width=0.6mm, draw=red] (90.75,-96.75) -- (91.25,-97.25);
+\path[line width=0.6mm, draw=red] (91.25,-96.75) -- (90.75,-97.25);
+\path[line width=0.30mm, draw=black] (87,-97) -- (87,-99);
+\path[line width=0.6mm, draw=red] (86.75,-96.75) -- (87.25,-97.25);
+\path[line width=0.6mm, draw=red] (87.25,-96.75) -- (86.75,-97.25);
+\path[line width=0.30mm, draw=black] (87,-105) -- (87,-103);
+\path[line width=0.6mm, draw=red] (86.75,-104.75) -- (87.25,-105.25);
+\path[line width=0.6mm, draw=red] (87.25,-104.75) -- (86.75,-105.25);
+\path[line width=0.30mm, draw=black] (91,-105) -- (91,-103);
+\path[line width=0.6mm, draw=red] (90.75,-104.75) -- (91.25,-105.25);
+\path[line width=0.6mm, draw=red] (91.25,-104.75) -- (90.75,-105.25);
+\draw[black] (93,-106) node[anchor=base west]{gain 1.0 };
+\draw[black] (93,-103.5) node[anchor=base west]{zi 100.0 MOhm};
+\draw[black] (93,-101) node[anchor=base west]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (22.625,-132.75) -- (23.375,-132.75);
+\path[line width=0.30mm, draw=black] (23,-132.375) -- (23,-133.125);
+\path[line width=0.30mm, draw=black] (22.625,-135.25) -- (23.375,-135.25);
+\path[line width=0.30mm, draw=black] (22,-130) -- (28,-134) -- (22,-138) -- (22,-130);
+\path[line width=0.30mm, draw=black] (20,-136) -- (22,-136);
+\path[line width=0.6mm, draw=red] (19.75,-135.75) -- (20.25,-136.25);
+\path[line width=0.6mm, draw=red] (20.25,-135.75) -- (19.75,-136.25);
+\path[line width=0.30mm, draw=black] (20,-132) -- (22,-132);
+\path[line width=0.6mm, draw=red] (19.75,-131.75) -- (20.25,-132.25);
+\path[line width=0.6mm, draw=red] (20.25,-131.75) -- (19.75,-132.25);
+\path[line width=0.30mm, draw=black] (30,-134) -- (28,-134);
+\path[line width=0.6mm, draw=red] (29.75,-133.75) -- (30.25,-134.25);
+\path[line width=0.6mm, draw=red] (30.25,-133.75) -- (29.75,-134.25);
+\draw[black] (24,-130) node[anchor=base]{gain 1.0 };
+\draw[black] (24,-127.5) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (24,-125) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (51.75,-136.375) -- (51.75,-135.625);
+\path[line width=0.30mm, draw=black] (51.375,-136) -- (52.125,-136);
+\path[line width=0.30mm, draw=black] (54.25,-136.375) -- (54.25,-135.625);
+\path[line width=0.30mm, draw=black] (49,-137) -- (53,-131) -- (57,-137) -- (49,-137);
+\path[line width=0.30mm, draw=black] (55,-139) -- (55,-137);
+\path[line width=0.6mm, draw=red] (54.75,-138.75) -- (55.25,-139.25);
+\path[line width=0.6mm, draw=red] (55.25,-138.75) -- (54.75,-139.25);
+\path[line width=0.30mm, draw=black] (51,-139) -- (51,-137);
+\path[line width=0.6mm, draw=red] (50.75,-138.75) -- (51.25,-139.25);
+\path[line width=0.6mm, draw=red] (51.25,-138.75) -- (50.75,-139.25);
+\path[line width=0.30mm, draw=black] (53,-129) -- (53,-131);
+\path[line width=0.6mm, draw=red] (52.75,-128.75) -- (53.25,-129.25);
+\path[line width=0.6mm, draw=red] (53.25,-128.75) -- (52.75,-129.25);
+\draw[black] (49,-140) node[anchor=base east]{gain 1.0 };
+\draw[black] (49,-137.5) node[anchor=base east]{zi 100.0 MOhm};
+\draw[black] (49,-135) node[anchor=base east]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (71.375,-135.25) -- (70.625,-135.25);
+\path[line width=0.30mm, draw=black] (71,-135.625) -- (71,-134.875);
+\path[line width=0.30mm, draw=black] (71.375,-132.75) -- (70.625,-132.75);
+\path[line width=0.30mm, draw=black] (72,-138) -- (66,-134) -- (72,-130) -- (72,-138);
+\path[line width=0.30mm, draw=black] (74,-132) -- (72,-132);
+\path[line width=0.6mm, draw=red] (73.75,-131.75) -- (74.25,-132.25);
+\path[line width=0.6mm, draw=red] (74.25,-131.75) -- (73.75,-132.25);
+\path[line width=0.30mm, draw=black] (74,-136) -- (72,-136);
+\path[line width=0.6mm, draw=red] (73.75,-135.75) -- (74.25,-136.25);
+\path[line width=0.6mm, draw=red] (74.25,-135.75) -- (73.75,-136.25);
+\path[line width=0.30mm, draw=black] (64,-134) -- (66,-134);
+\path[line width=0.6mm, draw=red] (63.75,-133.75) -- (64.25,-134.25);
+\path[line width=0.6mm, draw=red] (64.25,-133.75) -- (63.75,-134.25);
+\draw[black] (70,-143) node[anchor=north]{gain 1.0 };
+\draw[black] (70,-140.5) node[anchor=north]{zi 100.0 MOhm};
+\draw[black] (70,-138) node[anchor=north]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (90.25,-131.625) -- (90.25,-132.375);
+\path[line width=0.30mm, draw=black] (90.625,-132) -- (89.875,-132);
+\path[line width=0.30mm, draw=black] (87.75,-131.625) -- (87.75,-132.375);
+\path[line width=0.30mm, draw=black] (93,-131) -- (89,-137) -- (85,-131) -- (93,-131);
+\path[line width=0.30mm, draw=black] (87,-129) -- (87,-131);
+\path[line width=0.6mm, draw=red] (86.75,-128.75) -- (87.25,-129.25);
+\path[line width=0.6mm, draw=red] (87.25,-128.75) -- (86.75,-129.25);
+\path[line width=0.30mm, draw=black] (91,-129) -- (91,-131);
+\path[line width=0.6mm, draw=red] (90.75,-128.75) -- (91.25,-129.25);
+\path[line width=0.6mm, draw=red] (91.25,-128.75) -- (90.75,-129.25);
+\path[line width=0.30mm, draw=black] (89,-139) -- (89,-137);
+\path[line width=0.6mm, draw=red] (88.75,-138.75) -- (89.25,-139.25);
+\path[line width=0.6mm, draw=red] (89.25,-138.75) -- (88.75,-139.25);
+\draw[black] (93,-138) node[anchor=base west]{gain 1.0 };
+\draw[black] (93,-135.5) node[anchor=base west]{zi 100.0 MOhm};
+\draw[black] (93,-133) node[anchor=base west]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (136,-22) -- (137.5,-24) -- (136,-26) -- (134.5,-24) -- (136,-22) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (132,-22.5) -- (132,-25.5);
+\path[line width=0.30mm, draw=black, <-] (136,-22.5) -- (136,-25.5);
+\path[line width=0.30mm, draw=black] (130,-26) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (132,-20) -- (132,-22);
+\path[line width=0.6mm, draw=red] (131.75,-19.75) -- (132.25,-20.25);
+\path[line width=0.6mm, draw=red] (132.25,-19.75) -- (131.75,-20.25);
+\path[line width=0.30mm, draw=black] (132,-28) -- (132,-26);
+\path[line width=0.6mm, draw=red] (131.75,-27.75) -- (132.25,-28.25);
+\path[line width=0.6mm, draw=red] (132.25,-27.75) -- (131.75,-28.25);
+\path[line width=0.30mm, draw=black] (136,-20) -- (136,-22);
+\path[line width=0.6mm, draw=red] (135.75,-19.75) -- (136.25,-20.25);
+\path[line width=0.6mm, draw=red] (136.25,-19.75) -- (135.75,-20.25);
+\path[line width=0.30mm, draw=black] (136,-28) -- (136,-26);
+\path[line width=0.6mm, draw=red] (135.75,-27.75) -- (136.25,-28.25);
+\path[line width=0.6mm, draw=red] (136.25,-27.75) -- (135.75,-28.25);
+\draw[black] (139,-29) node[anchor=base west]{gain 1.0 };
+\draw[black] (139,-26.5) node[anchor=base west]{zi 0 Ohm};
+\draw[black] (139,-24) node[anchor=base west]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (170,-22) -- (172,-20.5) -- (174,-22) -- (172,-23.5) -- (170,-22) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (170.5,-26) -- (173.5,-26);
+\path[line width=0.30mm, draw=black, <-] (170.5,-22) -- (173.5,-22);
+\path[line width=0.30mm, draw=black] (170,-28) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (168,-26) -- (170,-26);
+\path[line width=0.6mm, draw=red] (167.75,-25.75) -- (168.25,-26.25);
+\path[line width=0.6mm, draw=red] (168.25,-25.75) -- (167.75,-26.25);
+\path[line width=0.30mm, draw=black] (176,-26) -- (174,-26);
+\path[line width=0.6mm, draw=red] (175.75,-25.75) -- (176.25,-26.25);
+\path[line width=0.6mm, draw=red] (176.25,-25.75) -- (175.75,-26.25);
+\path[line width=0.30mm, draw=black] (168,-22) -- (170,-22);
+\path[line width=0.6mm, draw=red] (167.75,-21.75) -- (168.25,-22.25);
+\path[line width=0.6mm, draw=red] (168.25,-21.75) -- (167.75,-22.25);
+\path[line width=0.30mm, draw=black] (176,-22) -- (174,-22);
+\path[line width=0.6mm, draw=red] (175.75,-21.75) -- (176.25,-22.25);
+\path[line width=0.6mm, draw=red] (176.25,-21.75) -- (175.75,-22.25);
+\draw[black] (172,-19) node[anchor=base]{gain 1.0 };
+\draw[black] (172,-16.5) node[anchor=base]{zi 0 Ohm};
+\draw[black] (172,-14) node[anchor=base]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (198,-26) -- (196.5,-24) -- (198,-22) -- (199.5,-24) -- (198,-26) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (202,-25.5) -- (202,-22.5);
+\path[line width=0.30mm, draw=black, <-] (198,-25.5) -- (198,-22.5);
+\path[line width=0.30mm, draw=black] (196,-26) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (202,-28) -- (202,-26);
+\path[line width=0.6mm, draw=red] (201.75,-27.75) -- (202.25,-28.25);
+\path[line width=0.6mm, draw=red] (202.25,-27.75) -- (201.75,-28.25);
+\path[line width=0.30mm, draw=black] (202,-20) -- (202,-22);
+\path[line width=0.6mm, draw=red] (201.75,-19.75) -- (202.25,-20.25);
+\path[line width=0.6mm, draw=red] (202.25,-19.75) -- (201.75,-20.25);
+\path[line width=0.30mm, draw=black] (198,-28) -- (198,-26);
+\path[line width=0.6mm, draw=red] (197.75,-27.75) -- (198.25,-28.25);
+\path[line width=0.6mm, draw=red] (198.25,-27.75) -- (197.75,-28.25);
+\path[line width=0.30mm, draw=black] (198,-20) -- (198,-22);
+\path[line width=0.6mm, draw=red] (197.75,-19.75) -- (198.25,-20.25);
+\path[line width=0.6mm, draw=red] (198.25,-19.75) -- (197.75,-20.25);
+\draw[black] (195,-29) node[anchor=base east]{gain 1.0 };
+\draw[black] (195,-26.5) node[anchor=base east]{zi 0 Ohm};
+\draw[black] (195,-24) node[anchor=base east]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (224,-26) -- (222,-27.5) -- (220,-26) -- (222,-24.5) -- (224,-26) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (223.5,-22) -- (220.5,-22);
+\path[line width=0.30mm, draw=black, <-] (223.5,-26) -- (220.5,-26);
+\path[line width=0.30mm, draw=black] (220,-28) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (226,-22) -- (224,-22);
+\path[line width=0.6mm, draw=red] (225.75,-21.75) -- (226.25,-22.25);
+\path[line width=0.6mm, draw=red] (226.25,-21.75) -- (225.75,-22.25);
+\path[line width=0.30mm, draw=black] (218,-22) -- (220,-22);
+\path[line width=0.6mm, draw=red] (217.75,-21.75) -- (218.25,-22.25);
+\path[line width=0.6mm, draw=red] (218.25,-21.75) -- (217.75,-22.25);
+\path[line width=0.30mm, draw=black] (226,-26) -- (224,-26);
+\path[line width=0.6mm, draw=red] (225.75,-25.75) -- (226.25,-26.25);
+\path[line width=0.6mm, draw=red] (226.25,-25.75) -- (225.75,-26.25);
+\path[line width=0.30mm, draw=black] (218,-26) -- (220,-26);
+\path[line width=0.6mm, draw=red] (217.75,-25.75) -- (218.25,-26.25);
+\path[line width=0.6mm, draw=red] (218.25,-25.75) -- (217.75,-26.25);
+\draw[black] (222,-34) node[anchor=north]{gain 1.0 };
+\draw[black] (222,-31.5) node[anchor=north]{zi 0 Ohm};
+\draw[black] (222,-29) node[anchor=north]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (136,-46) -- (137.5,-48) -- (136,-50) -- (134.5,-48) -- (136,-46) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (132,-46.5) -- (132,-49.5);
+\path[line width=0.30mm, draw=black, <-] (136,-46.5) -- (136,-49.5);
+\path[line width=0.30mm, draw=black] (130,-50) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (132,-52) -- (132,-50);
+\path[line width=0.6mm, draw=red] (131.75,-51.75) -- (132.25,-52.25);
+\path[line width=0.6mm, draw=red] (132.25,-51.75) -- (131.75,-52.25);
+\path[line width=0.30mm, draw=black] (132,-44) -- (132,-46);
+\path[line width=0.6mm, draw=red] (131.75,-43.75) -- (132.25,-44.25);
+\path[line width=0.6mm, draw=red] (132.25,-43.75) -- (131.75,-44.25);
+\path[line width=0.30mm, draw=black] (136,-44) -- (136,-46);
+\path[line width=0.6mm, draw=red] (135.75,-43.75) -- (136.25,-44.25);
+\path[line width=0.6mm, draw=red] (136.25,-43.75) -- (135.75,-44.25);
+\path[line width=0.30mm, draw=black] (136,-52) -- (136,-50);
+\path[line width=0.6mm, draw=red] (135.75,-51.75) -- (136.25,-52.25);
+\path[line width=0.6mm, draw=red] (136.25,-51.75) -- (135.75,-52.25);
+\draw[black] (139,-53) node[anchor=base west]{gain 1.0 };
+\draw[black] (139,-50.5) node[anchor=base west]{zi 0 Ohm};
+\draw[black] (139,-48) node[anchor=base west]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (170,-46) -- (172,-44.5) -- (174,-46) -- (172,-47.5) -- (170,-46) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (170.5,-50) -- (173.5,-50);
+\path[line width=0.30mm, draw=black, <-] (170.5,-46) -- (173.5,-46);
+\path[line width=0.30mm, draw=black] (170,-52) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (176,-50) -- (174,-50);
+\path[line width=0.6mm, draw=red] (175.75,-49.75) -- (176.25,-50.25);
+\path[line width=0.6mm, draw=red] (176.25,-49.75) -- (175.75,-50.25);
+\path[line width=0.30mm, draw=black] (168,-50) -- (170,-50);
+\path[line width=0.6mm, draw=red] (167.75,-49.75) -- (168.25,-50.25);
+\path[line width=0.6mm, draw=red] (168.25,-49.75) -- (167.75,-50.25);
+\path[line width=0.30mm, draw=black] (168,-46) -- (170,-46);
+\path[line width=0.6mm, draw=red] (167.75,-45.75) -- (168.25,-46.25);
+\path[line width=0.6mm, draw=red] (168.25,-45.75) -- (167.75,-46.25);
+\path[line width=0.30mm, draw=black] (176,-46) -- (174,-46);
+\path[line width=0.6mm, draw=red] (175.75,-45.75) -- (176.25,-46.25);
+\path[line width=0.6mm, draw=red] (176.25,-45.75) -- (175.75,-46.25);
+\draw[black] (172,-43) node[anchor=base]{gain 1.0 };
+\draw[black] (172,-40.5) node[anchor=base]{zi 0 Ohm};
+\draw[black] (172,-38) node[anchor=base]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (198,-50) -- (196.5,-48) -- (198,-46) -- (199.5,-48) -- (198,-50) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (202,-49.5) -- (202,-46.5);
+\path[line width=0.30mm, draw=black, <-] (198,-49.5) -- (198,-46.5);
+\path[line width=0.30mm, draw=black] (196,-50) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (202,-44) -- (202,-46);
+\path[line width=0.6mm, draw=red] (201.75,-43.75) -- (202.25,-44.25);
+\path[line width=0.6mm, draw=red] (202.25,-43.75) -- (201.75,-44.25);
+\path[line width=0.30mm, draw=black] (202,-52) -- (202,-50);
+\path[line width=0.6mm, draw=red] (201.75,-51.75) -- (202.25,-52.25);
+\path[line width=0.6mm, draw=red] (202.25,-51.75) -- (201.75,-52.25);
+\path[line width=0.30mm, draw=black] (198,-52) -- (198,-50);
+\path[line width=0.6mm, draw=red] (197.75,-51.75) -- (198.25,-52.25);
+\path[line width=0.6mm, draw=red] (198.25,-51.75) -- (197.75,-52.25);
+\path[line width=0.30mm, draw=black] (198,-44) -- (198,-46);
+\path[line width=0.6mm, draw=red] (197.75,-43.75) -- (198.25,-44.25);
+\path[line width=0.6mm, draw=red] (198.25,-43.75) -- (197.75,-44.25);
+\draw[black] (195,-53) node[anchor=base east]{gain 1.0 };
+\draw[black] (195,-50.5) node[anchor=base east]{zi 0 Ohm};
+\draw[black] (195,-48) node[anchor=base east]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (224,-50) -- (222,-51.5) -- (220,-50) -- (222,-48.5) -- (224,-50) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (223.5,-46) -- (220.5,-46);
+\path[line width=0.30mm, draw=black, <-] (223.5,-50) -- (220.5,-50);
+\path[line width=0.30mm, draw=black] (220,-52) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (218,-46) -- (220,-46);
+\path[line width=0.6mm, draw=red] (217.75,-45.75) -- (218.25,-46.25);
+\path[line width=0.6mm, draw=red] (218.25,-45.75) -- (217.75,-46.25);
+\path[line width=0.30mm, draw=black] (226,-46) -- (224,-46);
+\path[line width=0.6mm, draw=red] (225.75,-45.75) -- (226.25,-46.25);
+\path[line width=0.6mm, draw=red] (226.25,-45.75) -- (225.75,-46.25);
+\path[line width=0.30mm, draw=black] (226,-50) -- (224,-50);
+\path[line width=0.6mm, draw=red] (225.75,-49.75) -- (226.25,-50.25);
+\path[line width=0.6mm, draw=red] (226.25,-49.75) -- (225.75,-50.25);
+\path[line width=0.30mm, draw=black] (218,-50) -- (220,-50);
+\path[line width=0.6mm, draw=red] (217.75,-49.75) -- (218.25,-50.25);
+\path[line width=0.6mm, draw=red] (218.25,-49.75) -- (217.75,-50.25);
+\draw[black] (222,-58) node[anchor=north]{gain 1.0 };
+\draw[black] (222,-55.5) node[anchor=north]{zi 0 Ohm};
+\draw[black] (222,-53) node[anchor=north]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (136,-72) -- (137.5,-74) -- (136,-76) -- (134.5,-74) -- (136,-72) -- cycle;
+\path[line width=0.30mm, draw=black] (131.625,-72.75) -- (132.375,-72.75);
+\path[line width=0.30mm, draw=black] (132,-72.375) -- (132,-73.125);
+\path[line width=0.30mm, draw=black] (131.625,-75.25) -- (132.375,-75.25);
+\path[line width=0.30mm, draw=black, <-] (136,-72.5) -- (136,-75.5);
+\path[line width=0.30mm, draw=black] (130,-76) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (132,-78) -- (132,-76);
+\path[line width=0.6mm, draw=red] (131.75,-77.75) -- (132.25,-78.25);
+\path[line width=0.6mm, draw=red] (132.25,-77.75) -- (131.75,-78.25);
+\path[line width=0.30mm, draw=black] (132,-70) -- (132,-72);
+\path[line width=0.6mm, draw=red] (131.75,-69.75) -- (132.25,-70.25);
+\path[line width=0.6mm, draw=red] (132.25,-69.75) -- (131.75,-70.25);
+\path[line width=0.30mm, draw=black] (136,-78) -- (136,-76);
+\path[line width=0.6mm, draw=red] (135.75,-77.75) -- (136.25,-78.25);
+\path[line width=0.6mm, draw=red] (136.25,-77.75) -- (135.75,-78.25);
+\path[line width=0.30mm, draw=black] (136,-70) -- (136,-72);
+\path[line width=0.6mm, draw=red] (135.75,-69.75) -- (136.25,-70.25);
+\path[line width=0.6mm, draw=red] (136.25,-69.75) -- (135.75,-70.25);
+\draw[black] (139,-79) node[anchor=base west]{gain 1.0 A/V};
+\draw[black] (139,-76.5) node[anchor=base west]{zi 100.0 MOhm};
+\draw[black] (139,-74) node[anchor=base west]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (170,-72) -- (172,-70.5) -- (174,-72) -- (172,-73.5) -- (170,-72) -- cycle;
+\path[line width=0.30mm, draw=black] (170.75,-76.375) -- (170.75,-75.625);
+\path[line width=0.30mm, draw=black] (170.375,-76) -- (171.125,-76);
+\path[line width=0.30mm, draw=black] (173.25,-76.375) -- (173.25,-75.625);
+\path[line width=0.30mm, draw=black, <-] (170.5,-72) -- (173.5,-72);
+\path[line width=0.30mm, draw=black] (170,-78) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (176,-76) -- (174,-76);
+\path[line width=0.6mm, draw=red] (175.75,-75.75) -- (176.25,-76.25);
+\path[line width=0.6mm, draw=red] (176.25,-75.75) -- (175.75,-76.25);
+\path[line width=0.30mm, draw=black] (168,-76) -- (170,-76);
+\path[line width=0.6mm, draw=red] (167.75,-75.75) -- (168.25,-76.25);
+\path[line width=0.6mm, draw=red] (168.25,-75.75) -- (167.75,-76.25);
+\path[line width=0.30mm, draw=black] (176,-72) -- (174,-72);
+\path[line width=0.6mm, draw=red] (175.75,-71.75) -- (176.25,-72.25);
+\path[line width=0.6mm, draw=red] (176.25,-71.75) -- (175.75,-72.25);
+\path[line width=0.30mm, draw=black] (168,-72) -- (170,-72);
+\path[line width=0.6mm, draw=red] (167.75,-71.75) -- (168.25,-72.25);
+\path[line width=0.6mm, draw=red] (168.25,-71.75) -- (167.75,-72.25);
+\draw[black] (172,-69) node[anchor=base]{gain 1.0 A/V};
+\draw[black] (172,-66.5) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (172,-64) node[anchor=base]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (198,-76) -- (196.5,-74) -- (198,-72) -- (199.5,-74) -- (198,-76) -- cycle;
+\path[line width=0.30mm, draw=black] (202.375,-75.25) -- (201.625,-75.25);
+\path[line width=0.30mm, draw=black] (202,-75.625) -- (202,-74.875);
+\path[line width=0.30mm, draw=black] (202.375,-72.75) -- (201.625,-72.75);
+\path[line width=0.30mm, draw=black, <-] (198,-75.5) -- (198,-72.5);
+\path[line width=0.30mm, draw=black] (196,-76) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (202,-70) -- (202,-72);
+\path[line width=0.6mm, draw=red] (201.75,-69.75) -- (202.25,-70.25);
+\path[line width=0.6mm, draw=red] (202.25,-69.75) -- (201.75,-70.25);
+\path[line width=0.30mm, draw=black] (202,-78) -- (202,-76);
+\path[line width=0.6mm, draw=red] (201.75,-77.75) -- (202.25,-78.25);
+\path[line width=0.6mm, draw=red] (202.25,-77.75) -- (201.75,-78.25);
+\path[line width=0.30mm, draw=black] (198,-70) -- (198,-72);
+\path[line width=0.6mm, draw=red] (197.75,-69.75) -- (198.25,-70.25);
+\path[line width=0.6mm, draw=red] (198.25,-69.75) -- (197.75,-70.25);
+\path[line width=0.30mm, draw=black] (198,-78) -- (198,-76);
+\path[line width=0.6mm, draw=red] (197.75,-77.75) -- (198.25,-78.25);
+\path[line width=0.6mm, draw=red] (198.25,-77.75) -- (197.75,-78.25);
+\draw[black] (195,-79) node[anchor=base east]{gain 1.0 A/V};
+\draw[black] (195,-76.5) node[anchor=base east]{zi 100.0 MOhm};
+\draw[black] (195,-74) node[anchor=base east]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (224,-76) -- (222,-77.5) -- (220,-76) -- (222,-74.5) -- (224,-76) -- cycle;
+\path[line width=0.30mm, draw=black] (223.25,-71.625) -- (223.25,-72.375);
+\path[line width=0.30mm, draw=black] (223.625,-72) -- (222.875,-72);
+\path[line width=0.30mm, draw=black] (220.75,-71.625) -- (220.75,-72.375);
+\path[line width=0.30mm, draw=black, <-] (223.5,-76) -- (220.5,-76);
+\path[line width=0.30mm, draw=black] (220,-78) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (218,-72) -- (220,-72);
+\path[line width=0.6mm, draw=red] (217.75,-71.75) -- (218.25,-72.25);
+\path[line width=0.6mm, draw=red] (218.25,-71.75) -- (217.75,-72.25);
+\path[line width=0.30mm, draw=black] (226,-72) -- (224,-72);
+\path[line width=0.6mm, draw=red] (225.75,-71.75) -- (226.25,-72.25);
+\path[line width=0.6mm, draw=red] (226.25,-71.75) -- (225.75,-72.25);
+\path[line width=0.30mm, draw=black] (218,-76) -- (220,-76);
+\path[line width=0.6mm, draw=red] (217.75,-75.75) -- (218.25,-76.25);
+\path[line width=0.6mm, draw=red] (218.25,-75.75) -- (217.75,-76.25);
+\path[line width=0.30mm, draw=black] (226,-76) -- (224,-76);
+\path[line width=0.6mm, draw=red] (225.75,-75.75) -- (226.25,-76.25);
+\path[line width=0.6mm, draw=red] (226.25,-75.75) -- (225.75,-76.25);
+\draw[black] (222,-84) node[anchor=north]{gain 1.0 A/V};
+\draw[black] (222,-81.5) node[anchor=north]{zi 100.0 MOhm};
+\draw[black] (222,-79) node[anchor=north]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (136,-100) -- (137.5,-102) -- (136,-104) -- (134.5,-102) -- (136,-100) -- cycle;
+\path[line width=0.30mm, draw=black] (131.625,-103.25) -- (132.375,-103.25);
+\path[line width=0.30mm, draw=black] (132,-102.875) -- (132,-103.625);
+\path[line width=0.30mm, draw=black] (131.625,-100.75) -- (132.375,-100.75);
+\path[line width=0.30mm, draw=black, <-] (136,-100.5) -- (136,-103.5);
+\path[line width=0.30mm, draw=black] (130,-104) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (132,-106) -- (132,-104);
+\path[line width=0.6mm, draw=red] (131.75,-105.75) -- (132.25,-106.25);
+\path[line width=0.6mm, draw=red] (132.25,-105.75) -- (131.75,-106.25);
+\path[line width=0.30mm, draw=black] (132,-98) -- (132,-100);
+\path[line width=0.6mm, draw=red] (131.75,-97.75) -- (132.25,-98.25);
+\path[line width=0.6mm, draw=red] (132.25,-97.75) -- (131.75,-98.25);
+\path[line width=0.30mm, draw=black] (136,-106) -- (136,-104);
+\path[line width=0.6mm, draw=red] (135.75,-105.75) -- (136.25,-106.25);
+\path[line width=0.6mm, draw=red] (136.25,-105.75) -- (135.75,-106.25);
+\path[line width=0.30mm, draw=black] (136,-98) -- (136,-100);
+\path[line width=0.6mm, draw=red] (135.75,-97.75) -- (136.25,-98.25);
+\path[line width=0.6mm, draw=red] (136.25,-97.75) -- (135.75,-98.25);
+\draw[black] (139,-107) node[anchor=base west]{gain 1.0 A/V};
+\draw[black] (139,-104.5) node[anchor=base west]{zi 100.0 MOhm};
+\draw[black] (139,-102) node[anchor=base west]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (170,-102) -- (172,-100.5) -- (174,-102) -- (172,-103.5) -- (170,-102) -- cycle;
+\path[line width=0.30mm, draw=black] (173.25,-106.375) -- (173.25,-105.625);
+\path[line width=0.30mm, draw=black] (172.875,-106) -- (173.625,-106);
+\path[line width=0.30mm, draw=black] (170.75,-106.375) -- (170.75,-105.625);
+\path[line width=0.30mm, draw=black, <-] (170.5,-102) -- (173.5,-102);
+\path[line width=0.30mm, draw=black] (170,-108) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (176,-106) -- (174,-106);
+\path[line width=0.6mm, draw=red] (175.75,-105.75) -- (176.25,-106.25);
+\path[line width=0.6mm, draw=red] (176.25,-105.75) -- (175.75,-106.25);
+\path[line width=0.30mm, draw=black] (168,-106) -- (170,-106);
+\path[line width=0.6mm, draw=red] (167.75,-105.75) -- (168.25,-106.25);
+\path[line width=0.6mm, draw=red] (168.25,-105.75) -- (167.75,-106.25);
+\path[line width=0.30mm, draw=black] (176,-102) -- (174,-102);
+\path[line width=0.6mm, draw=red] (175.75,-101.75) -- (176.25,-102.25);
+\path[line width=0.6mm, draw=red] (176.25,-101.75) -- (175.75,-102.25);
+\path[line width=0.30mm, draw=black] (168,-102) -- (170,-102);
+\path[line width=0.6mm, draw=red] (167.75,-101.75) -- (168.25,-102.25);
+\path[line width=0.6mm, draw=red] (168.25,-101.75) -- (167.75,-102.25);
+\draw[black] (172,-99) node[anchor=base]{gain 1.0 A/V};
+\draw[black] (172,-96.5) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (172,-94) node[anchor=base]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (198,-106) -- (196.5,-104) -- (198,-102) -- (199.5,-104) -- (198,-106) -- cycle;
+\path[line width=0.30mm, draw=black] (202.375,-102.75) -- (201.625,-102.75);
+\path[line width=0.30mm, draw=black] (202,-103.125) -- (202,-102.375);
+\path[line width=0.30mm, draw=black] (202.375,-105.25) -- (201.625,-105.25);
+\path[line width=0.30mm, draw=black, <-] (198,-105.5) -- (198,-102.5);
+\path[line width=0.30mm, draw=black] (196,-106) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (202,-100) -- (202,-102);
+\path[line width=0.6mm, draw=red] (201.75,-99.75) -- (202.25,-100.25);
+\path[line width=0.6mm, draw=red] (202.25,-99.75) -- (201.75,-100.25);
+\path[line width=0.30mm, draw=black] (202,-108) -- (202,-106);
+\path[line width=0.6mm, draw=red] (201.75,-107.75) -- (202.25,-108.25);
+\path[line width=0.6mm, draw=red] (202.25,-107.75) -- (201.75,-108.25);
+\path[line width=0.30mm, draw=black] (198,-100) -- (198,-102);
+\path[line width=0.6mm, draw=red] (197.75,-99.75) -- (198.25,-100.25);
+\path[line width=0.6mm, draw=red] (198.25,-99.75) -- (197.75,-100.25);
+\path[line width=0.30mm, draw=black] (198,-108) -- (198,-106);
+\path[line width=0.6mm, draw=red] (197.75,-107.75) -- (198.25,-108.25);
+\path[line width=0.6mm, draw=red] (198.25,-107.75) -- (197.75,-108.25);
+\draw[black] (195,-109) node[anchor=base east]{gain 1.0 A/V};
+\draw[black] (195,-106.5) node[anchor=base east]{zi 100.0 MOhm};
+\draw[black] (195,-104) node[anchor=base east]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (224,-106) -- (222,-107.5) -- (220,-106) -- (222,-104.5) -- (224,-106) -- cycle;
+\path[line width=0.30mm, draw=black] (220.75,-101.625) -- (220.75,-102.375);
+\path[line width=0.30mm, draw=black] (221.125,-102) -- (220.375,-102);
+\path[line width=0.30mm, draw=black] (223.25,-101.625) -- (223.25,-102.375);
+\path[line width=0.30mm, draw=black, <-] (223.5,-106) -- (220.5,-106);
+\path[line width=0.30mm, draw=black] (220,-108) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (218,-102) -- (220,-102);
+\path[line width=0.6mm, draw=red] (217.75,-101.75) -- (218.25,-102.25);
+\path[line width=0.6mm, draw=red] (218.25,-101.75) -- (217.75,-102.25);
+\path[line width=0.30mm, draw=black] (226,-102) -- (224,-102);
+\path[line width=0.6mm, draw=red] (225.75,-101.75) -- (226.25,-102.25);
+\path[line width=0.6mm, draw=red] (226.25,-101.75) -- (225.75,-102.25);
+\path[line width=0.30mm, draw=black] (218,-106) -- (220,-106);
+\path[line width=0.6mm, draw=red] (217.75,-105.75) -- (218.25,-106.25);
+\path[line width=0.6mm, draw=red] (218.25,-105.75) -- (217.75,-106.25);
+\path[line width=0.30mm, draw=black] (226,-106) -- (224,-106);
+\path[line width=0.6mm, draw=red] (225.75,-105.75) -- (226.25,-106.25);
+\path[line width=0.6mm, draw=red] (226.25,-105.75) -- (225.75,-106.25);
+\draw[black] (222,-114) node[anchor=north]{gain 1.0 A/V};
+\draw[black] (222,-111.5) node[anchor=north]{zi 100.0 MOhm};
+\draw[black] (222,-109) node[anchor=north]{zo 100.0 MOhm};
+\path[line width=0.30mm, draw=black] (136,-132) -- (137.5,-134) -- (136,-136) -- (134.5,-134) -- (136,-132) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (132,-132.5) -- (132,-135.5);
+\path[line width=0.30mm, draw=black] (135.625,-132.75) -- (136.375,-132.75);
+\path[line width=0.30mm, draw=black] (136,-132.375) -- (136,-133.125);
+\path[line width=0.30mm, draw=black] (135.625,-135.25) -- (136.375,-135.25);
+\path[line width=0.30mm, draw=black] (130,-136) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (132,-138) -- (132,-136);
+\path[line width=0.6mm, draw=red] (131.75,-137.75) -- (132.25,-138.25);
+\path[line width=0.6mm, draw=red] (132.25,-137.75) -- (131.75,-138.25);
+\path[line width=0.30mm, draw=black] (132,-130) -- (132,-132);
+\path[line width=0.6mm, draw=red] (131.75,-129.75) -- (132.25,-130.25);
+\path[line width=0.6mm, draw=red] (132.25,-129.75) -- (131.75,-130.25);
+\path[line width=0.30mm, draw=black] (136,-138) -- (136,-136);
+\path[line width=0.6mm, draw=red] (135.75,-137.75) -- (136.25,-138.25);
+\path[line width=0.6mm, draw=red] (136.25,-137.75) -- (135.75,-138.25);
+\path[line width=0.30mm, draw=black] (136,-130) -- (136,-132);
+\path[line width=0.6mm, draw=red] (135.75,-129.75) -- (136.25,-130.25);
+\path[line width=0.6mm, draw=red] (136.25,-129.75) -- (135.75,-130.25);
+\draw[black] (139,-139) node[anchor=base west]{gain 1.0 V/A};
+\draw[black] (139,-136.5) node[anchor=base west]{zi 0 Ohm};
+\draw[black] (139,-134) node[anchor=base west]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (170,-132) -- (172,-130.5) -- (174,-132) -- (172,-133.5) -- (170,-132) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (170.5,-136) -- (173.5,-136);
+\path[line width=0.30mm, draw=black] (170.75,-132.375) -- (170.75,-131.625);
+\path[line width=0.30mm, draw=black] (170.375,-132) -- (171.125,-132);
+\path[line width=0.30mm, draw=black] (173.25,-132.375) -- (173.25,-131.625);
+\path[line width=0.30mm, draw=black] (170,-138) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (176,-136) -- (174,-136);
+\path[line width=0.6mm, draw=red] (175.75,-135.75) -- (176.25,-136.25);
+\path[line width=0.6mm, draw=red] (176.25,-135.75) -- (175.75,-136.25);
+\path[line width=0.30mm, draw=black] (168,-136) -- (170,-136);
+\path[line width=0.6mm, draw=red] (167.75,-135.75) -- (168.25,-136.25);
+\path[line width=0.6mm, draw=red] (168.25,-135.75) -- (167.75,-136.25);
+\path[line width=0.30mm, draw=black] (176,-132) -- (174,-132);
+\path[line width=0.6mm, draw=red] (175.75,-131.75) -- (176.25,-132.25);
+\path[line width=0.6mm, draw=red] (176.25,-131.75) -- (175.75,-132.25);
+\path[line width=0.30mm, draw=black] (168,-132) -- (170,-132);
+\path[line width=0.6mm, draw=red] (167.75,-131.75) -- (168.25,-132.25);
+\path[line width=0.6mm, draw=red] (168.25,-131.75) -- (167.75,-132.25);
+\draw[black] (172,-129) node[anchor=base]{gain 1.0 V/A};
+\draw[black] (172,-126.5) node[anchor=base]{zi 0 Ohm};
+\draw[black] (172,-124) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (196,-136) -- (194.5,-134) -- (196,-132) -- (197.5,-134) -- (196,-136) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (200,-135.5) -- (200,-132.5);
+\path[line width=0.30mm, draw=black] (196.375,-135.25) -- (195.625,-135.25);
+\path[line width=0.30mm, draw=black] (196,-135.625) -- (196,-134.875);
+\path[line width=0.30mm, draw=black] (196.375,-132.75) -- (195.625,-132.75);
+\path[line width=0.30mm, draw=black] (194,-136) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (200,-130) -- (200,-132);
+\path[line width=0.6mm, draw=red] (199.75,-129.75) -- (200.25,-130.25);
+\path[line width=0.6mm, draw=red] (200.25,-129.75) -- (199.75,-130.25);
+\path[line width=0.30mm, draw=black] (200,-138) -- (200,-136);
+\path[line width=0.6mm, draw=red] (199.75,-137.75) -- (200.25,-138.25);
+\path[line width=0.6mm, draw=red] (200.25,-137.75) -- (199.75,-138.25);
+\path[line width=0.30mm, draw=black] (196,-130) -- (196,-132);
+\path[line width=0.6mm, draw=red] (195.75,-129.75) -- (196.25,-130.25);
+\path[line width=0.6mm, draw=red] (196.25,-129.75) -- (195.75,-130.25);
+\path[line width=0.30mm, draw=black] (196,-138) -- (196,-136);
+\path[line width=0.6mm, draw=red] (195.75,-137.75) -- (196.25,-138.25);
+\path[line width=0.6mm, draw=red] (196.25,-137.75) -- (195.75,-138.25);
+\draw[black] (193,-139) node[anchor=base east]{gain 1.0 V/A};
+\draw[black] (193,-136.5) node[anchor=base east]{zi 0 Ohm};
+\draw[black] (193,-134) node[anchor=base east]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (224,-136) -- (222,-137.5) -- (220,-136) -- (222,-134.5) -- (224,-136) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (223.5,-132) -- (220.5,-132);
+\path[line width=0.30mm, draw=black] (223.25,-135.625) -- (223.25,-136.375);
+\path[line width=0.30mm, draw=black] (223.625,-136) -- (222.875,-136);
+\path[line width=0.30mm, draw=black] (220.75,-135.625) -- (220.75,-136.375);
+\path[line width=0.30mm, draw=black] (220,-138) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (218,-132) -- (220,-132);
+\path[line width=0.6mm, draw=red] (217.75,-131.75) -- (218.25,-132.25);
+\path[line width=0.6mm, draw=red] (218.25,-131.75) -- (217.75,-132.25);
+\path[line width=0.30mm, draw=black] (226,-132) -- (224,-132);
+\path[line width=0.6mm, draw=red] (225.75,-131.75) -- (226.25,-132.25);
+\path[line width=0.6mm, draw=red] (226.25,-131.75) -- (225.75,-132.25);
+\path[line width=0.30mm, draw=black] (218,-136) -- (220,-136);
+\path[line width=0.6mm, draw=red] (217.75,-135.75) -- (218.25,-136.25);
+\path[line width=0.6mm, draw=red] (218.25,-135.75) -- (217.75,-136.25);
+\path[line width=0.30mm, draw=black] (226,-136) -- (224,-136);
+\path[line width=0.6mm, draw=red] (225.75,-135.75) -- (226.25,-136.25);
+\path[line width=0.6mm, draw=red] (226.25,-135.75) -- (225.75,-136.25);
+\draw[black] (222,-144) node[anchor=north]{gain 1.0 V/A};
+\draw[black] (222,-141.5) node[anchor=north]{zi 0 Ohm};
+\draw[black] (222,-139) node[anchor=north]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (136,-160) -- (137.5,-162) -- (136,-164) -- (134.5,-162) -- (136,-160) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (132,-160.5) -- (132,-163.5);
+\path[line width=0.30mm, draw=black] (135.625,-160.75) -- (136.375,-160.75);
+\path[line width=0.30mm, draw=black] (136,-160.375) -- (136,-161.125);
+\path[line width=0.30mm, draw=black] (135.625,-163.25) -- (136.375,-163.25);
+\path[line width=0.30mm, draw=black] (130,-164) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (132,-166) -- (132,-164);
+\path[line width=0.6mm, draw=red] (131.75,-165.75) -- (132.25,-166.25);
+\path[line width=0.6mm, draw=red] (132.25,-165.75) -- (131.75,-166.25);
+\path[line width=0.30mm, draw=black] (132,-158) -- (132,-160);
+\path[line width=0.6mm, draw=red] (131.75,-157.75) -- (132.25,-158.25);
+\path[line width=0.6mm, draw=red] (132.25,-157.75) -- (131.75,-158.25);
+\path[line width=0.30mm, draw=black] (136,-166) -- (136,-164);
+\path[line width=0.6mm, draw=red] (135.75,-165.75) -- (136.25,-166.25);
+\path[line width=0.6mm, draw=red] (136.25,-165.75) -- (135.75,-166.25);
+\path[line width=0.30mm, draw=black] (136,-158) -- (136,-160);
+\path[line width=0.6mm, draw=red] (135.75,-157.75) -- (136.25,-158.25);
+\path[line width=0.6mm, draw=red] (136.25,-157.75) -- (135.75,-158.25);
+\draw[black] (139,-167) node[anchor=base west]{gain 1.0 V/A};
+\draw[black] (139,-164.5) node[anchor=base west]{zi 0 Ohm};
+\draw[black] (139,-162) node[anchor=base west]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (170,-160) -- (172,-158.5) -- (174,-160) -- (172,-161.5) -- (170,-160) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (170.5,-164) -- (173.5,-164);
+\path[line width=0.30mm, draw=black] (170.75,-160.375) -- (170.75,-159.625);
+\path[line width=0.30mm, draw=black] (170.375,-160) -- (171.125,-160);
+\path[line width=0.30mm, draw=black] (173.25,-160.375) -- (173.25,-159.625);
+\path[line width=0.30mm, draw=black] (170,-166) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (176,-164) -- (174,-164);
+\path[line width=0.6mm, draw=red] (175.75,-163.75) -- (176.25,-164.25);
+\path[line width=0.6mm, draw=red] (176.25,-163.75) -- (175.75,-164.25);
+\path[line width=0.30mm, draw=black] (168,-164) -- (170,-164);
+\path[line width=0.6mm, draw=red] (167.75,-163.75) -- (168.25,-164.25);
+\path[line width=0.6mm, draw=red] (168.25,-163.75) -- (167.75,-164.25);
+\path[line width=0.30mm, draw=black] (176,-160) -- (174,-160);
+\path[line width=0.6mm, draw=red] (175.75,-159.75) -- (176.25,-160.25);
+\path[line width=0.6mm, draw=red] (176.25,-159.75) -- (175.75,-160.25);
+\path[line width=0.30mm, draw=black] (168,-160) -- (170,-160);
+\path[line width=0.6mm, draw=red] (167.75,-159.75) -- (168.25,-160.25);
+\path[line width=0.6mm, draw=red] (168.25,-159.75) -- (167.75,-160.25);
+\draw[black] (172,-157) node[anchor=base]{gain 1.0 V/A};
+\draw[black] (172,-154.5) node[anchor=base]{zi 0 Ohm};
+\draw[black] (172,-152) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (196,-164) -- (194.5,-162) -- (196,-160) -- (197.5,-162) -- (196,-164) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (200,-163.5) -- (200,-160.5);
+\path[line width=0.30mm, draw=black] (196.375,-163.25) -- (195.625,-163.25);
+\path[line width=0.30mm, draw=black] (196,-163.625) -- (196,-162.875);
+\path[line width=0.30mm, draw=black] (196.375,-160.75) -- (195.625,-160.75);
+\path[line width=0.30mm, draw=black] (194,-164) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (200,-158) -- (200,-160);
+\path[line width=0.6mm, draw=red] (199.75,-157.75) -- (200.25,-158.25);
+\path[line width=0.6mm, draw=red] (200.25,-157.75) -- (199.75,-158.25);
+\path[line width=0.30mm, draw=black] (200,-166) -- (200,-164);
+\path[line width=0.6mm, draw=red] (199.75,-165.75) -- (200.25,-166.25);
+\path[line width=0.6mm, draw=red] (200.25,-165.75) -- (199.75,-166.25);
+\path[line width=0.30mm, draw=black] (196,-158) -- (196,-160);
+\path[line width=0.6mm, draw=red] (195.75,-157.75) -- (196.25,-158.25);
+\path[line width=0.6mm, draw=red] (196.25,-157.75) -- (195.75,-158.25);
+\path[line width=0.30mm, draw=black] (196,-166) -- (196,-164);
+\path[line width=0.6mm, draw=red] (195.75,-165.75) -- (196.25,-166.25);
+\path[line width=0.6mm, draw=red] (196.25,-165.75) -- (195.75,-166.25);
+\draw[black] (193,-167) node[anchor=base east]{gain 1.0 V/A};
+\draw[black] (193,-164.5) node[anchor=base east]{zi 0 Ohm};
+\draw[black] (193,-162) node[anchor=base east]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (224,-164) -- (222,-165.5) -- (220,-164) -- (222,-162.5) -- (224,-164) -- cycle;
+\path[line width=0.30mm, draw=black, ->] (223.5,-160) -- (220.5,-160);
+\path[line width=0.30mm, draw=black] (223.25,-163.625) -- (223.25,-164.375);
+\path[line width=0.30mm, draw=black] (223.625,-164) -- (222.875,-164);
+\path[line width=0.30mm, draw=black] (220.75,-163.625) -- (220.75,-164.375);
+\path[line width=0.30mm, draw=black] (220,-166) rectangle +(4,8);
+\path[line width=0.30mm, draw=black] (218,-160) -- (220,-160);
+\path[line width=0.6mm, draw=red] (217.75,-159.75) -- (218.25,-160.25);
+\path[line width=0.6mm, draw=red] (218.25,-159.75) -- (217.75,-160.25);
+\path[line width=0.30mm, draw=black] (226,-160) -- (224,-160);
+\path[line width=0.6mm, draw=red] (225.75,-159.75) -- (226.25,-160.25);
+\path[line width=0.6mm, draw=red] (226.25,-159.75) -- (225.75,-160.25);
+\path[line width=0.30mm, draw=black] (218,-164) -- (220,-164);
+\path[line width=0.6mm, draw=red] (217.75,-163.75) -- (218.25,-164.25);
+\path[line width=0.6mm, draw=red] (218.25,-163.75) -- (217.75,-164.25);
+\path[line width=0.30mm, draw=black] (226,-164) -- (224,-164);
+\path[line width=0.6mm, draw=red] (225.75,-163.75) -- (226.25,-164.25);
+\path[line width=0.6mm, draw=red] (226.25,-163.75) -- (225.75,-164.25);
+\draw[black] (222,-172) node[anchor=north]{gain 1.0 V/A};
+\draw[black] (222,-169.5) node[anchor=north]{zi 0 Ohm};
+\draw[black] (222,-167) node[anchor=north]{zo 0 Ohm};
+\end{tikzpicture}%
