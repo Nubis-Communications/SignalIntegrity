@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.0.3</span>
+   &#160;<span id="projectnumber">1.0.4</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -78,14 +78,12 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for ResultsCache:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache__inherit__graph.svg" width="803" height="486"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache__inherit__graph.svg" width="803" height="486"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for ResultsCache:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache__coll__graph.svg" width="130" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache__coll__graph.svg" width="130" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -111,7 +109,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>base class for results caching </p>
 <dl class="section note"><dt>Note</dt><dd>derived class must implement the function HashValue(), which determines the hash corresponding to a definition. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00031">31</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00032">32</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a19e3e370f701435403ddb078f27f1ecb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19e3e370f701435403ddb078f27f1ecb">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -155,7 +153,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00039">39</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00040">40</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
 
 </div>
 </div>
@@ -181,7 +179,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>that the hash value for the result was generated through a previous call to <a class="el" href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml#acaed8551afefa9ad488b67b7a9a8ed40" title="Called to see if the cache has results that can be used instead of processing the result...">CheckCache()</a>. In other words, each cached value must be stored with a hash corresponding to the definition that generated the result to be cached (to be checked when an attempt is made to load the cache). This hash is generated automatically when the CheckCache call is made. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml#acaed8551afefa9ad488b67b7a9a8ed40" title="Called to see if the cache has results that can be used instead of processing the result...">CheckCache()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00084">84</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00085">85</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
 
 </div>
 </div>
@@ -205,7 +203,7 @@ Public Member Functions</h2></td></tr>
 <p><br />
  It calculates a hash value for the definition of the processing and sees if a <em>pickle</em> containing a cached result exists and can be loaded. Then it checks the times of the cache file and the various subcomponents. Finally, if the hash value matches the cache, meaning they were both generated from the same definition, it returns True with it's internal dictionary of the cached results initialized. Otherwise, it returns False. </p><dl class="section return"><dt>Returns</dt><dd>bool whether the cache can be used. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00052">52</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00053">53</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
 
 </div>
 </div>
@@ -238,7 +236,7 @@ Public Member Functions</h2></td></tr>
 <p>Base class function to check times of various components. </p>
 <p>If a project does not have any file components or time dependencies, this can be ignored, otherwise the derived class must overload this function. </p><dl class="section return"><dt>Returns</dt><dd>True (must be overloaded to provide anything other) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00111">111</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00112">112</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
 
 </div>
 </div>
@@ -278,7 +276,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>the filename must contain a path that can be directly navigated to from the current directory. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the last modification time of the file. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00100">100</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResultsCache_8py_source.xhtml#l00101">101</a> of file <a class="el" href="ResultsCache_8py_source.xhtml">ResultsCache.py</a>.</p>
 
 </div>
 </div>
