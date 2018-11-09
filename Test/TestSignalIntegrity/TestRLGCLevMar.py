@@ -24,7 +24,8 @@ import cmath
 import os
 from numpy import matrix
 
-class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper,si.test.SParameterCompareHelper):
+class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
+                     si.test.RoutineWriterTesterHelper,si.test.SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -351,7 +352,8 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.t
         self.m_fitter=si.fit.RLGCFitter(self.sp,guess,self.PlotResult)
         print(self.m_fitter.Results())
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
-        si.sp.dev.TLineTwoPortRLGC([20e6*k for k in range(int(67e9/20e6+1.5))],R,Rse,L,G,C,df,self.sp.m_Z0).WriteToFile('Eyal2.s2p')
+        eyalsp=si.sp.dev.TLineTwoPortRLGC([20e6*k for k in range(int(67e9/20e6+1.5))],R,Rse,L,G,C,df,self.sp.m_Z0)
+        self.SParameterRegressionChecker(eyalsp,'Eyal2.s2p')
         print(self.m_fitter.Results())
         fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
         #pragma: silent exclude
