@@ -27,7 +27,7 @@ class TestHiRes(unittest.TestCase,si.test.RoutineWriterTesterHelper,
         si.test.ResponseTesterHelper,si.test.SourcesTesterHelper,si.test.SignalIntegrityAppTestHelper):
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
-        si.test.SignalIntegrityAppTestHelper.__init__(self,os.getcwd())
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.__init__(self,methodName)
     def testHiRes2(self):
         # pragma: exclude
