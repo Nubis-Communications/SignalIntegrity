@@ -25,8 +25,8 @@ from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.VirtualProbe import VirtualProbe
 from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
-from SignalIntegrity.Lib.PySIException import PySIExceptionSimulator
-from SignalIntegrity.Lib.PySIException import PySIExceptionVirtualProbe
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionVirtualProbe
 
 class VirtualProbeNumeric(VirtualProbe,Numeric):
     """class for performing virtual probing numerically.
