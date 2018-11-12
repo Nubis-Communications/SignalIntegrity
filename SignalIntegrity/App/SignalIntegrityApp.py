@@ -639,6 +639,7 @@ class SignalIntegrityApp(Frame):
         cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.TrySVD=self.preferences.GetValue('Calculation.TrySVD')
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
@@ -676,6 +677,7 @@ class SignalIntegrityApp(Frame):
         cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.TrySVD=self.preferences.GetValue('Calculation.TrySVD')
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,

@@ -38,6 +38,11 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
         self.SubDir(Color())
 
+class Calculation(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Calculation')
+        self.Add(XMLPropertyDefaultBool('TrySVD',False))
+
 class Cache(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Cache')
@@ -71,4 +76,5 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(Appearance())
         self.SubDir(Cache())
         self.SubDir(OnlineHelp())
+        self.SubDir(Calculation())
 

@@ -156,6 +156,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.TrySVD=self.preferences.GetValue('Calculation.TrySVD')
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
@@ -178,6 +179,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.TrySVD=self.preferences.GetValue('Calculation.TrySVD')
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         try:
@@ -230,6 +232,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.TrySVD=self.preferences.GetValue('Calculation.TrySVD')
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,
@@ -285,6 +288,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if self.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.TrySVD=self.preferences.GetValue('Calculation.TrySVD')
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.calculationProperties.endFrequency,

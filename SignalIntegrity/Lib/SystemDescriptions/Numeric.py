@@ -83,11 +83,10 @@ class Numeric(object):
         @see singularValueLimit
         @throw LinAlgError if anything fails.
         """
-        from numpy import linalg,matrix,identity,diag
+        from numpy import linalg,matrix,diag
         from numpy.linalg.linalg import LinAlgError,svd
         if A is None: return None
         if isinstance(A,list): A=matrix(A)
-        (R,C)=A.shape
         if not self.alwaysUseSVD:
             try:
                 # without this check, there is a gray zone where the matrix is really uninvertible
@@ -111,7 +110,6 @@ class Numeric(object):
                     return Left*Adagger*Right
                 else:
                     return Adagger
-
             except:
                 # the regular matrix inverse failed
                 pass # will get another try at it
