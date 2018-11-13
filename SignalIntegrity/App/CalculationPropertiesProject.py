@@ -41,7 +41,7 @@ class CalculationProperty(Frame):
         self.projectPath=projectPath
         self.pack(side=TOP,fill=X,expand=YES)
         self.string=StringVar()
-        self.label = Label(self,width=30,text=textLabel+': ',anchor='e')
+        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
         self.label.pack(side=LEFT, expand=NO, fill=X)
         self.entry = Entry(self,textvariable=self.string)
         self.entry.config(width=30,readonlybackground='light gray')
@@ -141,7 +141,7 @@ class CalculationPropertyTrueFalseButton(Frame):
         self.projectPath=projectPath
         self.pack(side=TOP,fill=X,expand=YES)
         self.string=StringVar()
-        self.label = Label(self,width=30,text=textLabel+': ',anchor='e')
+        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
         self.label.pack(side=LEFT, expand=NO, fill=X)
         self.entry = Button(self,text='None',command=self.onPressed)
         self.entry.config(width=30)
@@ -186,7 +186,7 @@ class CalculationPropertyChoices(Frame):
         self.projectPath=projectPath
         self.pack(side=TOP,fill=X,expand=YES)
         self.string=StringVar()
-        self.label = Label(self,width=30,text=textLabel+': ',anchor='e')
+        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
         self.label.pack(side=LEFT, expand=NO, fill=X)
         self.entry = Frame(self)
         self.entry.config(width=30,borderwidth=1,relief=RAISED)
@@ -239,7 +239,7 @@ class CalculationPropertyColor(Frame):
         self.projectPath=projectPath
         self.pack(side=TOP,fill=X,expand=YES)
         self.string=StringVar()
-        self.label = Label(self,width=30,text=textLabel+': ',anchor='e')
+        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
         self.label.pack(side=LEFT, expand=NO, fill=X)
         self.entry = Button(self,command=self.onPressed)
         self.entry.config(width=30)

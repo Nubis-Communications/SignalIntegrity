@@ -126,7 +126,7 @@ class Simulator(SystemSParameters,object):
                 """
                 SI=self.Dagger(
                     matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
-                    Left=None,Right=None).tolist()
+                    Left=Left,Right=Right).tolist()
 #                 SiPrime2=(SI*PR).tolist()
             # pragma: silent exclude indent
             except:

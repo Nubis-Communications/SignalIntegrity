@@ -301,7 +301,7 @@ class Simulator(object):
         cacheFileName=None
         if self.parent.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.TrySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
+        si.sd.Numeric.trySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
@@ -387,7 +387,7 @@ class Simulator(object):
         cacheFileName=None
         if self.parent.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.TrySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
+        si.sd.Numeric.trySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 self.parent.calculationProperties.endFrequency,

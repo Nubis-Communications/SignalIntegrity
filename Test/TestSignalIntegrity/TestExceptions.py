@@ -91,9 +91,30 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
             ss.LaTeXTransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
     def testSimulatorNumericalError(self):
+        """
+        Here, a voltage source is tied directly to ground and the output cannot be determined.
+        without trySVD, it correctly raises an exception.
+        """
         sp=si.p.SimulatorParser()
         sp.AddLines(['voltagesource VS1 1','device G1 1 ground','output G1 1','connect G1 1 VS1 1'])
         sn=si.sd.SimulatorNumeric(sp.SystemDescription())
+        si.sd.Numeric.trySVD=False
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            sn.TransferMatrix()
+        self.assertEqual(cm.exception.parameter,'Simulator')
+    @unittest.expectedFailure
+    def testSimulatorNumericalErrorNonsenseResult(self):
+        """
+        This is a known problem in the trySVD code.
+        trySVD resolves many problems due to indeterminate internal things, with a good, final determinate
+        answer, but in this case, trySVD allows the computation of the voltage with a voltage source tied
+        directly to ground.  This is something that needs to be fixed in the future and is why trySVD
+        is currently experimental.
+        """
+        sp=si.p.SimulatorParser()
+        sp.AddLines(['voltagesource VS1 1','device G1 1 ground','output G1 1','connect G1 1 VS1 1'])
+        sn=si.sd.SimulatorNumeric(sp.SystemDescription())
+        si.sd.Numeric.trySVD=True
         with self.assertRaises(si.SignalIntegrityException) as cm:
             sn.TransferMatrix()
         self.assertEqual(cm.exception.parameter,'Simulator')
