@@ -8,3 +8,5 @@
 *.p
 SignalIntegrity.egg-info/
 Doc/xhtml
+build/
+dist/
