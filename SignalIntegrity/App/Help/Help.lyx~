@@ -34241,21 +34241,6 @@ Numerical Error
 This is the same error as Cannot Invert I-W or I-Wxx while calculating the
  simulator transfer parameters.
  It indicates pathological problems in the system described.
- In many cases this can be resolved using the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
-
-\end_inset
-
- preference in the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Preferences"
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Subsection
@@ -34459,24 +34444,6 @@ Examples of pathological cases that can be worked around are circuit nodes
  Sometimes, these can be worked around through the insertion of large resistors
  to ground or tiny series resistors.
  A detailed examination of the circuit would be necessary.
-\end_layout
-
-\begin_layout Standard
-Also, in many cases this can be resolved using the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
-
-\end_inset
-
- preference in the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Preferences"
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Subsection
@@ -35204,10 +35171,7 @@ open last file on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OpenLastFile"
-plural "false"
-caps "false"
-noprefix "false"
+reference "subsec:Calculation.TrySVD"
 
 \end_inset
 
@@ -35392,6 +35356,9 @@ online help url
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:OnlineHelp.URL"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -36732,10 +36699,7 @@ open last file on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OpenLastFile"
-plural "false"
-caps "false"
-noprefix "false"
+reference "subsec:Calculation.TrySVD"
 
 \end_inset
 
@@ -37274,9 +37238,6 @@ use online help
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:OnlineHelp.UseOnlineHelp"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
