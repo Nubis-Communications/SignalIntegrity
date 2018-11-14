@@ -24,6 +24,12 @@ import SignalIntegrity.Lib as si
 class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        si.sd.Numeric.trySVD=True
+        unittest.TestCase.setUp(self)
+    def tearDown(self):
+        si.sd.Numeric.trySVD=True
+        unittest.TestCase.tearDown(self)
     def testSystemDescriptionCheckConnections(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device ZI 2','device ZO 2',
@@ -101,6 +107,7 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         si.sd.Numeric.trySVD=False
         with self.assertRaises(si.SignalIntegrityException) as cm:
             sn.TransferMatrix()
+        si.sd.Numeric.trySVD=True
         self.assertEqual(cm.exception.parameter,'Simulator')
     @unittest.expectedFailure
     def testSimulatorNumericalErrorNonsenseResult(self):

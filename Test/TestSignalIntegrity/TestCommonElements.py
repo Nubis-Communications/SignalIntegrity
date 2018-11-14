@@ -31,6 +31,12 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         unittest.TestCase.__init__(self,methodName)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
+    def setUp(self):
+        si.sd.Numeric.trySVD=True
+        unittest.TestCase.setUp(self)
+    def tearDown(self):
+        si.sd.Numeric.trySVD=True
+        unittest.TestCase.tearDown(self)
     def testDeviceShuntFourPort(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2 3 D 1 4 D 2'])

@@ -38,6 +38,12 @@ class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         unittest.TestCase.__init__(self,methodName)
     def id(self):
         return 'TestTeeProblem.'+'.'.join(unittest.TestCase.id(self).split('.')[-2:])
+    def setUp(self):
+        si.sd.Numeric.trySVD=True
+        unittest.TestCase.setUp(self)
+    def tearDown(self):
+        si.sd.Numeric.trySVD=True
+        unittest.TestCase.tearDown(self)
     def testTeeSystemDescription(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 thru','port 1 D 1 2 D 1 3 D 2','connect D 2 D 2'])
