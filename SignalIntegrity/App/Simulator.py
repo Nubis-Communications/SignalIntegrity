@@ -69,17 +69,17 @@ class SimulatorDialog(Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Save-Waveforms'])
+        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Save-Waveforms')
         # TODO: someday allow waveform reading
-        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Read-Waveforms']).Activate(False)
-        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Output-to-LaTeX'])
+        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Read-Waveforms').Activate(False)
+        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Output-to-LaTeX')
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
-        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:View-Transfer-Parameters'])
-        self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Recalculate'])
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Calculation-Properties')
+        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:View-Transfer-Parameters')
+        self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Recalculate')
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Open-Help-File'])
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.parent.helpSystemKeys['Control-Help:Control-Help'])
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Open-Help-File')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.parent.helpSystemKeys,'Control-Help:Control-Help')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 

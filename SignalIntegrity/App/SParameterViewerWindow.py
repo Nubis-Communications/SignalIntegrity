@@ -116,23 +116,23 @@ class SParametersDialog(Toplevel):
         self.logScale =  BooleanVar()
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-S-parameter-File'])
-        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys['Control-Help:Save-S-parameter-File'])
+        self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Open-S-parameter-File')
+        self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Save-S-parameter-File')
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Calculation-Properties'])
-        self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Resample'])
-        self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Passivity'])
-        self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Enforce-Causality'])
-        self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Wavelet-Denoise'])
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Calculation-Properties')
+        self.ResampleDoer = Doer(self.onResample).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Resample')
+        self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Enforce-Passivity')
+        self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Enforce-Causality')
+        self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Wavelet-Denoise')
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Open-Help-File'])
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Control-Help'])
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Open-Help-File')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Control-Help')
         # ------
-        self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Variable-Line-Width'])
-        self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Passivity-Violations'])
-        self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Causality-Violations'])
-        self.ShowImpedanceDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys['Control-Help:Show-Impedance'])
+        self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Variable-Line-Width')
+        self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Show-Passivity-Violations')
+        self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Show-Causality-Violations')
+        self.ShowImpedanceDoer = Doer(self.PlotSParameter).AddHelpElement(self.parent.helpSystemKeys,'Control-Help:Show-Impedance')
         self.LogScaleDoer = Doer(self.PlotSParameter)
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
