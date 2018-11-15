@@ -73,9 +73,9 @@ class SignalIntegrityApp(Frame):
         self.installdir=os.path.dirname(os.path.abspath(__file__))
 
         if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            Doer.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
+            HelpSystemKeys.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
         else:
-            Doer.controlHelpUrlBase=self.installdir
+            HelpSystemKeys.controlHelpUrlBase=self.installdir
 
         self.root = Tk()
 
@@ -91,7 +91,7 @@ class SignalIntegrityApp(Frame):
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
-        Doer.helpKeys = HelpSystemKeys(Doer.controlHelpUrlBase,self.preferences.GetValue('OnlineHelp.RebuildHelpKeys'))
+        Doer.helpKeys = HelpSystemKeys(self.preferences.GetValue('OnlineHelp.RebuildHelpKeys'))
 
         # status bar
         self.statusbar=StatusBar(self)
@@ -147,7 +147,7 @@ class SignalIntegrityApp(Frame):
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
-        self.PreferencesDoer=Doer(self.onPreferences)
+        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
         self.AboutDoer = Doer(self.onAbout).AddHelpElement('Control-Help:About')
         # ------
@@ -237,32 +237,33 @@ class SignalIntegrityApp(Frame):
         # The Toolbar
         ToolBarFrame = Frame(self)
         ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/document-new-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/document-open-2.gif',).Pack(side=LEFT,fill=NONE,expand=NO)
-        self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        iconsdir=self.installdir+'/icons/png/16x16/actions/'
+        self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-new-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif',).Pack(side=LEFT,fill=NONE,expand=NO)
+        self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-add-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-delete-6.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.AddWireDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/draw-line-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.DuplicateSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-copy-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.RotatePartDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/object-rotate-left-4.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.FlipPartHorizontallyDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/object-flip-horizontal-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.FlipPartVerticallyDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/object-flip-vertical-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-add-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-delete-6.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.AddWireDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'draw-line-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.DuplicateSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-copy-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.RotatePartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-rotate-left-4.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.FlipPartHorizontallyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-flip-horizontal-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.FlipPartVerticallyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-flip-vertical-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.ZoomInDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/zoom-in-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ZoomOutDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/zoom-out-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.PanDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-move.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ZoomInDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'zoom-in-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ZoomOutDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'zoom-out-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.PanDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-move.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         # ------
         UndoFrame=Frame(ToolBarFrame)
         UndoFrame.pack(side=RIGHT,fill=NONE,expand=NO,anchor=E)
-        self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-undo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
-        self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=self.installdir+'/icons/png/16x16/actions/edit-redo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-undo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
 
         # The Drawing (which contains the schecmatic)
         self.Drawing=Drawing(self)
@@ -721,20 +722,13 @@ class SignalIntegrityApp(Frame):
         SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
     def onHelp(self):
-        import webbrowser
-        helpfile=self.helpSystemKeys['sec:Introduction']
-        if helpfile is None:
+        if Doer.helpKeys is None:
             if sys.version_info.major < 3:
-                tkMessageBox.showerror('Help System','Cannot find the help system')
+                tkMessageBox.showerror('Help System','Cannot find or open this help element')
             else:
-                messagebox.showerror('Help System','Cannot find the help system')
+                messagebox.showerror('Help System','Cannot find or open this help element')            
             return
-        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            helpdir=self.preferences.GetValue('OnlineHelp.URL')
-        else:
-            helpdir=self.installdir
-        url=helpdir+'/Help/Help.html.LyXconv/'+helpfile
-        webbrowser.open(url)
+        Doer.helpKeys.Open('sec:Introduction')
 
     def onControlHelp(self):
         Doer.inHelp = not Doer.inHelp

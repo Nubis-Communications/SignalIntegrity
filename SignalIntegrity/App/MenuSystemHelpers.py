@@ -98,7 +98,6 @@ class KeyBindElement(object):
 
 class Doer(object):
     inHelp=False
-    controlHelpUrlBase=None
     helpKeys=None
     def __init__(self,command,active=True):
         self.active=active
@@ -106,7 +105,7 @@ class Doer(object):
         self.menuElement=None
         self.toolBarElement=None
         self.keyBindElement=None
-        self.url=None
+        self.controlHelpSectionString=None
         self.helpEnabled=True
     def AddMenuElement(self,menu,**kw):
         kw['command']=self.Execute
@@ -127,21 +126,16 @@ class Doer(object):
         self.keyBindElement = KeyBindElement(bindTo,key,self.Execute)
         self.keyBindElement.Activate(self.active)
         return self
-    def AddHelpElement(self,url):
-        self.url=url
+    def AddHelpElement(self,controlHelpSectionString):
+        self.controlHelpSectionString=controlHelpSectionString
         return self
     def DisableHelp(self):
         self.helpEnabled=False
         return self
     def Execute(self,*args):
         if self.inHelp and self.helpEnabled:
-            if not self.url is None and not self.helpKeys is None and not self.controlHelpUrlBase is None:
-                url=self.helpKeys[self.url]
-                if not url is None:
-                    import webbrowser
-                    url = Doer.controlHelpUrlBase+'/Help/Help.html.LyXconv/'+url
-                    url=url.replace('\\','/')
-                    webbrowser.open(url)
+            if not self.helpKeys is None:
+                self.helpKeys.Open(self.controlHelpSectionString)
             return
         if self.active:
             return self.command()

@@ -661,20 +661,13 @@ class SParametersDialog(Toplevel):
                 messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onHelp(self):
-        import webbrowser
-        helpfile=self.parent.helpSystemKeys['sec:S-parameter-Viewer']
-        if helpfile is None:
+        if Doer.helpKeys is None:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Help System','Cannot find or open this help element')
             else:
-                messagebox.showerror('Help System','Cannot find or open this help element')                
+                messagebox.showerror('Help System','Cannot find or open this help element')            
             return
-        if self.parent.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            helpdir=self.parent.preferences.GetValue('OnlineHelp.URL')
-        else:
-            helpdir=self.parent.installdir
-        url=helpdir+'/Help/Help.html.LyXconv/'+helpfile
-        webbrowser.open(url)
+        Doer.helpKeys.Open('sec:S-parameter-Viewer')
 
     def onControlHelp(self):
         Doer.inHelp=True

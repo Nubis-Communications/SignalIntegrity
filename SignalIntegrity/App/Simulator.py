@@ -108,14 +108,15 @@ class SimulatorDialog(Toplevel):
         # The Toolbar
         ToolBarFrame = Frame(self)
         ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        iconsdir=self.parent.parent.installdir+'/icons/png/16x16/actions/'
+        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
         Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.parent.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
 
         self.f = Figure(figsize=(6,4), dpi=100)
         self.plt = self.f.add_subplot(111)
@@ -258,20 +259,13 @@ class SimulatorDialog(Toplevel):
             else:
                 messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
     def onHelp(self):
-        import webbrowser
-        helpfile=self.parent.parent.helpSystemKeys['sec:Simulator-Dialog']
-        if helpfile is None:
+        if Doer.helpKeys is None:
             if sys.version_info.major < 3:
                 tkMessageBox.showerror('Help System','Cannot find or open this help element')
             else:
                 messagebox.showerror('Help System','Cannot find or open this help element')            
             return
-        if self.parent.parent.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            helpdir=self.parent.parent.preferences.GetValue('OnlineHelp.URL')
-        else:
-            helpdir=self.parent.parent.installdir
-        url=helpdir+'/Help/Help.html.LyXconv/'+helpfile
-        webbrowser.open(url)
+        Doer.helpKeys.Open('sec:Simulator-Dialog')
 
     def onControlHelp(self):
         Doer.inHelp=True

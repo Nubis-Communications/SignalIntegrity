@@ -21,7 +21,8 @@ import xml.etree.ElementTree as et
 import os
 
 class HelpSystemKeys(object):
-    def __init__(self,path=None,force=False):
+    controlHelpUrlBase=None
+    def __init__(self,force=False):
         self.dict={}
         self.fileExists=False
         self.helpKeysFileName=os.path.dirname(os.path.realpath(__file__))+'/helpkeys'
@@ -29,7 +30,7 @@ class HelpSystemKeys(object):
             self.Read(force)
         except:
             try:
-                self.Build(path)
+                self.Build(self.controlHelpUrlBase)
                 if len(self.dict)>0:
                     self.SaveToFile()
             except:
@@ -50,7 +51,15 @@ class HelpSystemKeys(object):
                     f.write(str(key)+' >>> '+str(self.dict[key]+'\n'))
         except:
             return
-
+    def Open(self,helpString):
+        if helpString is None or self.controlHelpUrlBase is None:
+            return
+        url=self[helpString]
+        if not url is None:
+            import webbrowser
+            url = self.controlHelpUrlBase+'/Help/Help.html.LyXconv/'+url
+            url=url.replace('\\','/')
+            webbrowser.open(url)
     def Build(self,path=None):
         if path is None:
             path=os.getcwd()
