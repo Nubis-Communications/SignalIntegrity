@@ -1,9 +1,7 @@
 #LyX 2.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 544
+\lyxformat 474
 \begin_document
 \begin_header
-\save_transient_properties true
-\origin unavailable
 \textclass article
 \use_default_options true
 \maintain_unincluded_children false
@@ -11,18 +9,16 @@
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman "default" "default"
-\font_sans "default" "default"
-\font_typewriter "default" "default"
-\font_math "auto" "auto"
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
-\font_sf_scale 100 100
-\font_tt_scale 100 100
-\use_microtype false
-\use_dash_ligatures true
+\font_sf_scale 100
+\font_tt_scale 100
 \graphics default
 \default_output_format xhtml
 \output_sync 0
@@ -52,7 +48,6 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
-\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -61,10 +56,7 @@
 \tocdepth 1
 \paragraph_separation skip
 \defskip smallskip
-\is_math_indent 0
-\math_numbering_side default
-\quotes_style english
-\dynamic_quotes 0
+\quotes_language english
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -373,7 +365,6 @@ If you want, go right to the
 LatexCommand href
 name "Table of Contents"
 target "Help.html"
-literal "false"
 
 \end_inset
 
@@ -479,7 +470,7 @@ SignalIntegrityApp
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Drawing-a-Schematic-for-S-parameter-Generation"
+reference "sub:Drawing-a-Schematic-for-S-parameter-Generation"
 
 \end_inset
 
@@ -489,7 +480,7 @@ reference "subsec:Drawing-a-Schematic-for-S-parameter-Generation"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic"
+reference "sub:Attaching-Ports-to-a-Schematic"
 
 \end_inset
 
@@ -499,7 +490,7 @@ reference "subsec:Attaching-Ports-to-a-Schematic"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties"
+reference "sub:Setting-Calculation-Properties"
 
 \end_inset
 
@@ -509,7 +500,7 @@ reference "subsec:Setting-Calculation-Properties"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculating-S-parameters"
+reference "sub:Calculating-S-parameters"
 
 \end_inset
 
@@ -521,7 +512,7 @@ Read through the following sections on how to accomplish this, or skip immediate
 ly to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-parameter-Generation-Example"
+reference "sub:S-parameter-Generation-Example"
 
 \end_inset
 
@@ -532,7 +523,7 @@ reference "subsec:S-parameter-Generation-Example"
 Drawing a Schematic for S-parameter Generation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Drawing-a-Schematic-for-S-parameter-Generation"
+name "sub:Drawing-a-Schematic-for-S-parameter-Generation"
 
 \end_inset
 
@@ -583,7 +574,7 @@ reference "Control-Help:Add-Wire"
  See the next section about 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic"
+reference "sub:Attaching-Ports-to-a-Schematic"
 
 \end_inset
 
@@ -594,7 +585,7 @@ reference "subsec:Attaching-Ports-to-a-Schematic"
 Attaching Ports to a Schematic for S-parameter Calculation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Attaching-Ports-to-a-Schematic"
+name "sub:Attaching-Ports-to-a-Schematic"
 
 \end_inset
 
@@ -605,7 +596,7 @@ name "subsec:Attaching-Ports-to-a-Schematic"
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -615,7 +606,7 @@ reference "subsec:Port"
  defined by the calculation properties defined in the next section: 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties"
+reference "sub:Setting-Calculation-Properties"
 
 \end_inset
 
@@ -648,7 +639,7 @@ reference "Control-Help:Add-Port"
 Setting Calculation Properties
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Setting-Calculation-Properties"
+name "sub:Setting-Calculation-Properties"
 
 \end_inset
 
@@ -686,7 +677,7 @@ on, and the frequency points, which are the number of frequency points that
 Calculating S-parameters
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Calculating-S-parameters"
+name "sub:Calculating-S-parameters"
 
 \end_inset
 
@@ -725,7 +716,7 @@ Note that calculation will not be possible at all (i.e.
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -742,11 +733,8 @@ reference "Control-Help:Add-Port"
 \begin_layout Itemize
 not have any other elements that don't make sense for s-parameter generation
  including:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_deeper
 \begin_layout Itemize
@@ -848,7 +836,7 @@ reference "sec:S-parameter-Viewer"
 S-parameter Generation Example
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:S-parameter-Generation-Example"
+name "sub:S-parameter-Generation-Example"
 
 \end_inset
 
@@ -907,7 +895,7 @@ reference "Control-Help:Add-Part"
 , opening the Files category, and selecting the Four Port 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -987,7 +975,7 @@ reference "Control-Help:Add-Part"
 , opening the Miscellaneous category, and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -1163,7 +1151,7 @@ reference "Control-Help:Add-Port"
  to add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -1402,7 +1390,7 @@ This section provides step-by-step instructions for simulation.
  You can read through this, or go immediately to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulation-Example"
+reference "sub:Simulation-Example"
 
 \end_inset
 
@@ -1415,7 +1403,7 @@ The circuit is drawing as a variety of devices and interconnected with wires.
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Drawing-a-Schematic-for-Simulation"
+reference "sub:Drawing-a-Schematic-for-Simulation"
 
 \end_inset
 
@@ -1429,7 +1417,7 @@ The stimulus to the circuit is applied through special parts.
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Sources-and-Generators"
+reference "sub:Sources-and-Generators"
 
 \end_inset
 
@@ -1470,7 +1458,7 @@ The probing points in the circuit for providing the output waveforms are
 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for Simulation"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -1480,7 +1468,7 @@ reference "subsec:Output-Probes-for Simulation"
  An 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -1502,7 +1490,7 @@ reference "Control-Help:Calculation-Properties"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties-for-Simulation"
+reference "sub:Setting-Calculation-Properties-for-Simulation"
 
 \end_inset
 
@@ -1514,7 +1502,7 @@ Once a circuit is drawn containing at least one source or generator, and
  at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -1533,7 +1521,7 @@ reference "sec:Simulator-Dialog"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulating"
+reference "sub:Simulating"
 
 \end_inset
 
@@ -1544,7 +1532,7 @@ reference "subsec:Simulating"
 Drawing a Schematic for Simulation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Drawing-a-Schematic-for-Simulation"
+name "sub:Drawing-a-Schematic-for-Simulation"
 
 \end_inset
 
@@ -1600,7 +1588,7 @@ reference "Control-Help:Add-Wire"
 To add sources or generators to the schematic, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Sources-and-Generators"
+reference "sub:Sources-and-Generators"
 
 \end_inset
 
@@ -1608,7 +1596,7 @@ reference "subsec:Sources-and-Generators"
  To add output probes, see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for Simulation"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -1619,7 +1607,7 @@ reference "subsec:Output-Probes-for Simulation"
 Sources and Generators
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Sources-and-Generators"
+name "sub:Sources-and-Generators"
 
 \end_inset
 
@@ -1671,7 +1659,7 @@ Sources:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "sub:Voltage-Source"
 
 \end_inset
 
@@ -1681,7 +1669,7 @@ reference "subsec:Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "sub:Current-Source"
 
 \end_inset
 
@@ -1695,7 +1683,7 @@ Generators:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "sub:Voltage-Step-Generator"
 
 \end_inset
 
@@ -1705,7 +1693,7 @@ reference "subsec:Voltage-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Pulse-Generator"
+reference "sub:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -1715,7 +1703,7 @@ reference "subsec:Voltage-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Sine-Generator"
+reference "sub:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -1725,7 +1713,7 @@ reference "subsec:Voltage-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Step-Generator"
+reference "sub:Current-Step-Generator"
 
 \end_inset
 
@@ -1735,7 +1723,7 @@ reference "subsec:Current-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Pulse-Generator"
+reference "sub:Current-Pulse-Generator"
 
 \end_inset
 
@@ -1745,7 +1733,7 @@ reference "subsec:Current-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Sine-Generator"
+reference "sub:Current-Sine-Generator"
 
 \end_inset
 
@@ -1756,7 +1744,7 @@ reference "subsec:Current-Sine-Generator"
 Output Probes for Simulation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Output-Probes-for Simulation"
+name "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -1767,7 +1755,7 @@ name "subsec:Output-Probes-for Simulation"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -1799,7 +1787,7 @@ reference "Control-Help:Add-Part"
  and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -1828,7 +1816,7 @@ reference "subsec:Output-Probe"
 Note that the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -1842,7 +1830,7 @@ reference "subsec:Output-Probe"
 Setting Calculation Properties for Simulation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Setting-Calculation-Properties-for-Simulation"
+name "sub:Setting-Calculation-Properties-for-Simulation"
 
 \end_inset
 
@@ -1937,7 +1925,7 @@ reference "sec:Simulator-Dialog"
 Simulating
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Simulating"
+name "sub:Simulating"
 
 \end_inset
 
@@ -1981,7 +1969,7 @@ Note that calculation will not be possible at all (i.e.
 have at least one source or generator element (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Sources-and-Generators"
+reference "sub:Sources-and-Generators"
 
 \end_inset
 
@@ -1992,14 +1980,14 @@ reference "subsec:Sources-and-Generators"
 have at least one output 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
  (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for Simulation"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
@@ -2008,11 +1996,8 @@ reference "subsec:Output-Probes-for Simulation"
 
 \begin_layout Itemize
 not have any other elements that don't make sense for simulation including:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_deeper
 \begin_layout Itemize
@@ -2079,7 +2064,7 @@ reference "Control-Help:Calculation-Properties"
  (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties-for-Simulation"
+reference "sub:Setting-Calculation-Properties-for-Simulation"
 
 \end_inset
 
@@ -2087,7 +2072,7 @@ reference "subsec:Setting-Calculation-Properties-for-Simulation"
  If a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -2133,7 +2118,7 @@ reference "sec:Simulator-Dialog"
 Simulation Example
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Simulation-Example"
+name "sub:Simulation-Example"
 
 \end_inset
 
@@ -2150,21 +2135,21 @@ In this example, we will step through the simulation of an RLC network.
 The circuit we will simulate will be a series 100 nH 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "sub:Inductor"
 
 \end_inset
 
 , 1 pF 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "sub:Capacitor"
 
 \end_inset
 
 , and 50 Ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "sub:Resistor"
 
 \end_inset
 
@@ -2173,14 +2158,14 @@ reference "subsec:Resistor"
  through a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "sub:Voltage-Step-Generator"
 
 \end_inset
 
  and probe initially the voltage at the 50 Ohm termination 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "sub:Resistor"
 
 \end_inset
 
@@ -2230,7 +2215,7 @@ reference "Control-Help:Add-Part"
 Select the Generators category, and select the One Port 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "sub:Voltage-Step-Generator"
 
 \end_inset
 
@@ -2294,7 +2279,7 @@ reference "Control-Help:Add-Part"
  to add an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "sub:Inductor"
 
 \end_inset
 
@@ -2351,14 +2336,14 @@ Press OK, click in the schematic and hold the left mouse button down to
 Repeat for a two-port, 1 pF 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "sub:Capacitor"
 
 \end_inset
 
  and a one-port 50 Ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "sub:Resistor"
 
 \end_inset
 
@@ -2468,7 +2453,7 @@ reference "Control-Help:Add-Output-Probe"
 , we see the part properties dialog for the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -2557,7 +2542,7 @@ reference "Control-Help:Pan"
 Select the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -2921,14 +2906,14 @@ The steps required for deembedding are:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Drawing-a-Schematic-for-Deembedding"
+reference "sub:Drawing-a-Schematic-for-Deembedding"
 
 \end_inset
 
  containing interconnected devices and wires with 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknowns"
+reference "sub:Unknowns"
 
 \end_inset
 
@@ -2938,7 +2923,7 @@ reference "subsec:Unknowns"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic-for-Deembedding"
+reference "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
 
 \end_inset
 
@@ -2948,7 +2933,7 @@ reference "subsec:Attaching-Ports-to-a-Schematic-for-Deembedding"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Defining-the-System"
+reference "sub:Defining-the-System"
 
 \end_inset
 
@@ -2958,7 +2943,7 @@ reference "subsec:Defining-the-System"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties-for-Deembedding"
+reference "sub:Setting-Calculation-Properties-for-Deembedding"
 
 \end_inset
 
@@ -2969,7 +2954,7 @@ reference "subsec:Setting-Calculation-Properties-for-Deembedding"
 Running the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Deembedding-Calculation"
+reference "sub:Deembedding-Calculation"
 
 \end_inset
 
@@ -2980,7 +2965,7 @@ reference "subsec:Deembedding-Calculation"
 If you like, you can read the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Deembedding-Example"
+reference "sub:Deembedding-Example"
 
 \end_inset
 
@@ -2991,7 +2976,7 @@ reference "subsec:Deembedding-Example"
 Drawing a Schematic for Deembedding
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Drawing-a-Schematic-for-Deembedding"
+name "sub:Drawing-a-Schematic-for-Deembedding"
 
 \end_inset
 
@@ -3023,14 +3008,14 @@ Drawing the schematic for deembedding is accomplished through the addition
  At least one part will need to be an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
  and there will need to be exactly one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -3057,7 +3042,7 @@ reference "Control-Help:Add-Wire"
  See the next section about 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic"
+reference "sub:Attaching-Ports-to-a-Schematic"
 
 \end_inset
 
@@ -3065,7 +3050,7 @@ reference "subsec:Attaching-Ports-to-a-Schematic"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknowns"
+reference "sub:Unknowns"
 
 \end_inset
 
@@ -3073,7 +3058,7 @@ reference "subsec:Unknowns"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Defining-the-System"
+reference "sub:Defining-the-System"
 
 \end_inset
 
@@ -3084,7 +3069,7 @@ reference "subsec:Defining-the-System"
 Attaching Ports to a Schematic for Deembedding
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Attaching-Ports-to-a-Schematic-for-Deembedding"
+name "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
 
 \end_inset
 
@@ -3096,7 +3081,7 @@ In deembedding applications, ports equate the s-parameters of the circuit
  to the system (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Defining-the-System"
+reference "sub:Defining-the-System"
 
 \end_inset
 
@@ -3109,7 +3094,7 @@ As you must be aware, s-parameters are a vector of matrix elements, where
  defined by the calculation properties defined in the next section: 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties"
+reference "sub:Setting-Calculation-Properties"
 
 \end_inset
 
@@ -3142,7 +3127,7 @@ reference "Control-Help:Add-Port"
 Unknowns
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Unknowns"
+name "sub:Unknowns"
 
 \end_inset
 
@@ -3167,7 +3152,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -3206,7 +3191,7 @@ When the deembedding result is calculated, the s-parameters generated will
 Defining the System
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Defining-the-System"
+name "sub:Defining-the-System"
 
 \end_inset
 
@@ -3231,7 +3216,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -3287,7 +3272,7 @@ Note that there must be one system device in a schematic and the port numbering
 Setting Calculation Properties for Deembedding
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Setting-Calculation-Properties-for-Deembedding"
+name "sub:Setting-Calculation-Properties-for-Deembedding"
 
 \end_inset
 
@@ -3342,11 +3327,6 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -3366,7 +3346,7 @@ tes s-parameters by setting all of the results to zero beyond the end frequency.
 Deembedding Calculation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Deembedding-Calculation"
+name "sub:Deembedding-Calculation"
 
 \end_inset
 
@@ -3416,7 +3396,7 @@ reference "Control-Help:Add-Port"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -3427,7 +3407,7 @@ reference "subsec:Unknown"
 have one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -3436,11 +3416,8 @@ reference "subsec:System"
 
 \begin_layout Itemize
 not have any other elements that don't make sense for deembedding including:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_deeper
 \begin_layout Itemize
@@ -3529,7 +3506,7 @@ reference "sec:S-parameter-Viewer"
 Deembedding Example
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Deembedding-Example"
+name "sub:Deembedding-Example"
 
 \end_inset
 
@@ -3933,7 +3910,7 @@ This section provides step-by-step instructions for virtual probing.
  You can read through this, or go immediately to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Virtual-Probing-Example"
+reference "sub:Virtual-Probing-Example"
 
 \end_inset
 
@@ -3947,7 +3924,7 @@ In order to virtually probe a circuit, you first need a schematic containing
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Drawing-a-Schematic-for-Virtual-Probing"
+reference "sub:Drawing-a-Schematic-for-Virtual-Probing"
 
 \end_inset
 
@@ -3959,7 +3936,7 @@ You will need to supply probing points in the circuit for providing measured
  waveforms (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probes"
+reference "sub:Measure-Probes"
 
 \end_inset
 
@@ -3968,7 +3945,7 @@ reference "subsec:Measure-Probes"
 (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for-Virtual-Probing"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -3981,7 +3958,7 @@ reference "subsec:Output-Probes-for-Virtual-Probing"
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probes"
+reference "sub:Measure-Probes"
 
 \end_inset
 
@@ -3996,7 +3973,7 @@ reference "sec:Waveform"
  We talk about these in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probes"
+reference "sub:Measure-Probes"
 
 \end_inset
 
@@ -4007,7 +3984,7 @@ reference "subsec:Measure-Probes"
 An 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -4018,7 +3995,7 @@ reference "subsec:Output-Probe"
  We talk about these in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for-Virtual-Probing"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -4034,7 +4011,7 @@ For virtual probing to work correctly, all sources of stimuli (i.e.
  This identification of stimuli is achieved through the use of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -4042,7 +4019,7 @@ reference "subsec:Stim"
  This is discussed in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stimuli"
+reference "sub:Stimuli"
 
 \end_inset
 
@@ -4055,7 +4032,7 @@ Once you are ready for virtual probing, you should configure the Calculation
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
 
 \end_inset
 
@@ -4066,21 +4043,21 @@ reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
 Once a circuit is drawn containing at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
 , at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
  and at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -4092,7 +4069,7 @@ reference "subsec:Output-Probe"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Virtual-Probing"
+reference "sub:Virtual-Probing"
 
 \end_inset
 
@@ -4103,7 +4080,7 @@ reference "subsec:Virtual-Probing"
 Drawing a Schematic for Virtual Probing
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Drawing-a-Schematic-for-Virtual-Probing"
+name "sub:Drawing-a-Schematic-for-Virtual-Probing"
 
 \end_inset
 
@@ -4159,14 +4136,14 @@ reference "Control-Help:Add-Wire"
 To add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
  or an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -4191,7 +4168,7 @@ reference "Control-Help:Add-Measure-Probe"
 To add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -4209,7 +4186,7 @@ reference "Control-Help:Add-Stim"
 Measure Probes
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Measure-Probes"
+name "sub:Measure-Probes"
 
 \end_inset
 
@@ -4281,7 +4258,7 @@ reference "sec:Waveform"
 Output Probes for Virtual Probing
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Output-Probes-for-Virtual-Probing"
+name "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -4318,7 +4295,7 @@ reference "Control-Help:Add-Part"
  and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -4361,7 +4338,7 @@ reference "sec:Simulator-Dialog"
 Stimuli
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Stimuli"
+name "sub:Stimuli"
 
 \end_inset
 
@@ -4432,7 +4409,7 @@ reference "Control-Help:Add-Stim"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -4441,7 +4418,7 @@ reference "subsec:Stim"
  them with a small bit of wire, and connect the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -4461,11 +4438,6 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -4507,7 +4479,7 @@ This is Wrong
 Remember, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -4594,7 +4566,7 @@ Note that this does not imply that the voltage waveform will be balanced
 Setting Calculation Properties for Virtual Probing
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
+name "sub:Setting-Calculation-Properties-for-Virtual-Probing"
 
 \end_inset
 
@@ -4719,7 +4691,7 @@ reference "Control-Help:Resample"
 Virtual Probing
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Virtual-Probing"
+name "sub:Virtual-Probing"
 
 \end_inset
 
@@ -4757,7 +4729,7 @@ Note that virtual probing will not be possible at all (i.e.
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -4768,7 +4740,7 @@ reference "subsec:Measure-Probe"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -4779,7 +4751,7 @@ reference "subsec:Output-Probe"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -4788,11 +4760,8 @@ reference "subsec:Stim"
 
 \begin_layout Itemize
 not have any other elements that don't make sense for virtual probing including:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_deeper
 \begin_layout Itemize
@@ -4845,7 +4814,7 @@ During parsing of the net list, all devices listed are instantiated with
  the end frequency and number of frequency points specified (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
 
 \end_inset
 
@@ -4892,7 +4861,7 @@ reference "sec:Simulator-Dialog"
 Virtual Probing Example
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Virtual-Probing-Example"
+name "sub:Virtual-Probing-Example"
 
 \end_inset
 
@@ -4952,7 +4921,7 @@ The circuit beneath the probe loading model is the circuit being measured.
  by a four-port s-parameter 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -4973,14 +4942,14 @@ In the probe loading model section where the probe is connected to the circuit,
  we have a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
  device (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probes"
+reference "sub:Measure-Probes"
 
 \end_inset
 
@@ -5043,14 +5012,14 @@ reference "sec:Simulator-Dialog"
 Throughout the rest of the schematic, we see various 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
  devices (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for-Virtual-Probing"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -5060,7 +5029,7 @@ reference "subsec:Output-Probes-for-Virtual-Probing"
  These are in between two back-to-back 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "sub:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -5088,7 +5057,7 @@ Note that these output probes have keyword/values of td -1.43ns and gain
  You can do that by selecting the four-port file
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -5145,7 +5114,7 @@ Since there are multiple spikes in the impulse response, the differential
 Regarding the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stimuli"
+reference "sub:Stimuli"
 
 \end_inset
 
@@ -5153,7 +5122,7 @@ reference "subsec:Stimuli"
  The dependent stimuli are connected to the pin of each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Ground"
+reference "sub:Ground"
 
 \end_inset
 
@@ -5168,7 +5137,7 @@ reference "subsec:Ground"
  (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stimuli"
+reference "sub:Stimuli"
 
 \end_inset
 
@@ -5176,7 +5145,7 @@ reference "subsec:Stimuli"
  A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -5198,7 +5167,7 @@ An independent stimulus is all the way to the left with wires connecting
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stimuli"
+reference "sub:Stimuli"
 
 \end_inset
 
@@ -5295,7 +5264,7 @@ Before creating the output waveforms, you need to check that the calculation
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
 
 \end_inset
 
@@ -5681,7 +5650,7 @@ reference "Control-Help:Edit-Properties"
  commands, or the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -5775,7 +5744,6 @@ Each of the dialog panes have their own, independent control of panning
 \begin_inset CommandInset href
 LatexCommand href
 target "http://matplotlib.org"
-literal "false"
 
 \end_inset
 
@@ -5894,7 +5862,7 @@ In the s-parameter viewer there are various menus that are available:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-Parameter-Viewer-File"
+reference "sub:S-Parameter-Viewer-File"
 
 \end_inset
 
@@ -5904,7 +5872,7 @@ reference "subsec:S-Parameter-Viewer-File"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-Parameter-Viewer-Calculation"
+reference "sub:S-Parameter-Viewer-Calculation"
 
 \end_inset
 
@@ -5914,7 +5882,7 @@ reference "subsec:S-Parameter-Viewer-Calculation"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-Parameter-Viewer-View"
+reference "sub:S-Parameter-Viewer-View"
 
 \end_inset
 
@@ -5925,7 +5893,7 @@ reference "subsec:S-Parameter-Viewer-View"
 S-Parameter Viewer File Menu
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:S-Parameter-Viewer-File"
+name "sub:S-Parameter-Viewer-File"
 
 \end_inset
 
@@ -6299,7 +6267,7 @@ This saves the current s-parameter file being viewed to disk.
 S-Parameter Viewer Calculation Menu
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:S-Parameter-Viewer-Calculation"
+name "sub:S-Parameter-Viewer-Calculation"
 
 \end_inset
 
@@ -7142,7 +7110,7 @@ reference "Control-Help:Show-Passivity-Violations"
 S-Parameter Viewer View Menu
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:S-Parameter-Viewer-View"
+name "sub:S-Parameter-Viewer-View"
 
 \end_inset
 
@@ -7987,11 +7955,8 @@ This calculation is an approximation because in systems with lots of or
  large reflections, the approximation of the impedance gets worse the further
  into the line you go.
  Here's an example of a open transmission line:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_layout Standard
 \noindent
@@ -8008,11 +7973,8 @@ This calculation is an approximation because in systems with lots of or
 
 \begin_layout Standard
 Here is the step response:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_layout Standard
 \noindent
@@ -8027,11 +7989,8 @@ Here is the step response:
 
 \begin_layout Standard
 And here is the impedance profile calculated from the step response:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_layout Standard
 \noindent
@@ -8051,11 +8010,8 @@ Note that something unnatural had to be done about the step response going
 
 \begin_layout Standard
 Here is a zoom of the impedance profile:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_layout Standard
 \noindent
@@ -8115,7 +8071,7 @@ The simulator dialog (which is really a waveform viewer dialog) appears
 After 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulating"
+reference "sub:Simulating"
 
 \end_inset
 
@@ -8147,7 +8103,7 @@ reference "sec:Simulation"
 After 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Virtual-Probing"
+reference "sub:Virtual-Probing"
 
 \end_inset
 
@@ -8186,21 +8142,21 @@ reference "sec:Waveform"
  associated with a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "sub:Current-Source"
 
 \end_inset
 
  or 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "sub:Voltage-Source"
 
 \end_inset
 
@@ -8221,7 +8177,7 @@ This dialog has a menu and toolbar with commands that handle:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulator-File-Menu"
+reference "sub:Simulator-File-Menu"
 
 \end_inset
 
@@ -8231,7 +8187,7 @@ reference "subsec:Simulator-File-Menu"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulator-Calculation-Menu"
+reference "sub:Simulator-Calculation-Menu"
 
 \end_inset
 
@@ -8247,7 +8203,6 @@ The main part of the dialog is a MatPlotLib plot (see
 \begin_inset CommandInset href
 LatexCommand href
 target "http://matplotlib.org"
-literal "false"
 
 \end_inset
 
@@ -8265,7 +8220,7 @@ literal "false"
 Simulator File Menu
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Simulator-File-Menu"
+name "sub:Simulator-File-Menu"
 
 \end_inset
 
@@ -8289,7 +8244,7 @@ reference "Control-Help:Save-Waveforms"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Read-Waveforms"
+reference "sub:Read-Waveforms"
 
 \end_inset
 
@@ -8500,7 +8455,7 @@ reference "sec:Virtual-Probing"
 Read Waveforms
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Read-Waveforms"
+name "sub:Read-Waveforms"
 
 \end_inset
 
@@ -8662,8 +8617,7 @@ This is currently disabled and not implemented.
 \end_layout
 
 \begin_layout Subsubsection
-Output to \SpecialChar LaTeX
- (TikZ)
+Output to LaTeX (TikZ)
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Output-to-LaTeX"
@@ -8717,8 +8671,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-File ▸ Output to \SpecialChar LaTeX
- (TikZ)
+File ▸ Output to LaTeX (TikZ)
 \end_layout
 
 \end_inset
@@ -8826,18 +8779,14 @@ This causes the current plot to be output in a graphical file format called
 LatexCommand href
 name "TikZ"
 target "https://www.ctan.org/pkg/pgf?lang=en"
-literal "false"
 
 \end_inset
 
- which is interpreted in \SpecialChar TeX
- and \SpecialChar LaTeX
- based documents (see 
+ which is interpreted in TeX and LaTeX based documents (see 
 \begin_inset CommandInset href
 LatexCommand href
 name "TeX Users Group (TUG)"
 target "https://tug.org/"
-literal "false"
 
 \end_inset
 
@@ -8845,8 +8794,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The TikZ file is directly importable into a \SpecialChar LaTeX
- based document.
+The TikZ file is directly importable into a LaTeX based document.
 \end_layout
 
 \begin_layout Standard
@@ -8857,7 +8805,6 @@ This will only be available if matplotlib2tikz is installed in your Python
 LatexCommand href
 name "https://github.com/nschloe/matplotlib2tikz"
 target "https://github.com/nschloe/matplotlib2tikz"
-literal "false"
 
 \end_inset
 
@@ -8883,7 +8830,7 @@ For .png or other rasterized graphics use the disk button on the plot toolbar.
 Simulator Calculation Menu
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Simulator-Calculation-Menu"
+name "sub:Simulator-Calculation-Menu"
 
 \end_inset
 
@@ -9089,14 +9036,14 @@ reference "sec:Simulation"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulation-Example"
+reference "sub:Simulation-Example"
 
 \end_inset
 
  or 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Virtual-Probing-Example"
+reference "sub:Virtual-Probing-Example"
 
 \end_inset
 
@@ -9314,7 +9261,7 @@ SignalIntegrityApp
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -9324,7 +9271,7 @@ reference "subsec:File"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Edit"
+reference "sub:Edit"
 
 \end_inset
 
@@ -9334,7 +9281,7 @@ reference "subsec:Edit"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -9344,7 +9291,7 @@ reference "subsec:Parts"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Wires"
+reference "sub:Wires"
 
 \end_inset
 
@@ -9354,7 +9301,7 @@ reference "subsec:Wires"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:View"
+reference "sub:View"
 
 \end_inset
 
@@ -9364,7 +9311,7 @@ reference "subsec:View"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -9374,7 +9321,7 @@ reference "subsec:Calculate"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Help"
+reference "sub:Help"
 
 \end_inset
 
@@ -9385,7 +9332,7 @@ reference "subsec:Help"
 File
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:File"
+name "sub:File"
 
 \end_inset
 
@@ -9559,7 +9506,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -9654,7 +9601,7 @@ Availability
 based on preference (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RetainLastFilesOpened"
+reference "sub:RetainLastFilesOpened"
 
 \end_inset
 
@@ -9669,11 +9616,8 @@ reference "subsec:RetainLastFilesOpened"
 \end_inset
 
 
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
+
 
 \begin_layout Standard
 \noindent
@@ -9697,7 +9641,7 @@ The availability of the last four files depends on the preference to retain
  the last files opened (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RetainLastFilesOpened"
+reference "sub:RetainLastFilesOpened"
 
 \end_inset
 
@@ -9767,7 +9711,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -9967,7 +9911,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -10167,7 +10111,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -10287,7 +10231,7 @@ It overwrites the existing file.
 \end_layout
 
 \begin_layout Subsubsection
-Save Project As\SpecialChar ldots
+Save Project As\SpecialChar \ldots{}
 
 \begin_inset CommandInset label
 LatexCommand label
@@ -10350,7 +10294,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -10537,7 +10481,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -10721,7 +10665,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -10902,8 +10846,7 @@ Pressing OK prompts you for a text file to save it to.
 \end_layout
 
 \begin_layout Subsubsection
-Export \SpecialChar LaTeX
- (TikZ)
+Export LaTeX (TikZ)
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Export-LaTeX"
@@ -10965,12 +10908,11 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
- ▸ Export \SpecialChar LaTeX
- (TikZ)
+ ▸ Export LaTeX (TikZ)
 \end_layout
 
 \end_inset
@@ -11078,18 +11020,14 @@ This causes the current schematic to be output in a graphical file format
 LatexCommand href
 name "TikZ"
 target "https://www.ctan.org/pkg/pgf?lang=en"
-literal "false"
 
 \end_inset
 
- which is interpreted in \SpecialChar TeX
- and \SpecialChar LaTeX
- based documents (see 
+ which is interpreted in TeX and LaTeX based documents (see 
 \begin_inset CommandInset href
 LatexCommand href
 name "TeX Users Group (TUG)"
 target "https://tug.org/"
-literal "false"
 
 \end_inset
 
@@ -11097,15 +11035,13 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-While the TikZ file is directly importable into a \SpecialChar LaTeX
- based document, it is
+While the TikZ file is directly importable into a LaTeX based document, it is
  difficult to edit.
  Fortunately a (old) free tool exists called 
 \begin_inset CommandInset href
 LatexCommand href
 name "TpX"
 target "http://tpx.sourceforge.net/"
-literal "false"
 
 \end_inset
 
@@ -11116,8 +11052,7 @@ literal "false"
 commented out
 \emph default
 .
- Thus, a TpX file is directly importable into a \SpecialChar LaTeX
- based document and only
+ Thus, a TpX file is directly importable into a LaTeX based document and only
  the TikZ code is interpreted.
  
 \series bold
@@ -11126,8 +11061,7 @@ SignalIntegrityApp
 \series default
 \shape default
  outputs the schematic this way, in TpX format so you can either directly
- import the schematic into a \SpecialChar LaTeX
- based document, or if you install TpX, you
+ import the schematic into a LaTeX based document, or if you install TpX, you
  can actually edit the schematic and save it as TikZ again.
 \end_layout
 
@@ -11153,7 +11087,7 @@ In the future, a .png or some other rasterized graphics version should be
 Edit
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Edit"
+name "sub:Edit"
 
 \end_inset
 
@@ -11230,7 +11164,7 @@ reference "Control-Help:Cut-Selected"
 The undo and redo tasks depend on the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:History-Buffer"
+reference "sub:History-Buffer"
 
 \end_inset
 
@@ -11241,7 +11175,7 @@ reference "subsec:History-Buffer"
 History Buffer
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:History-Buffer"
+name "sub:History-Buffer"
 
 \end_inset
 
@@ -11331,7 +11265,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Edit"
+reference "sub:Edit"
 
 \end_inset
 
@@ -11445,7 +11379,7 @@ When there is something to undo in the history buffer
 This undoes whatever has been done since the last event stored in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:History-Buffer"
+reference "sub:History-Buffer"
 
 \end_inset
 
@@ -11535,7 +11469,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Edit"
+reference "sub:Edit"
 
 \end_inset
 
@@ -11665,7 +11599,7 @@ It becomes unavailable whenever a change occurs that causes an event to
  store the state in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:History-Buffer"
+reference "sub:History-Buffer"
 
 \end_inset
 
@@ -11740,7 +11674,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Edit"
+reference "sub:Edit"
 
 \end_inset
 
@@ -11928,7 +11862,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Edit"
+reference "sub:Edit"
 
 \end_inset
 
@@ -12127,7 +12061,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Edit"
+reference "sub:Edit"
 
 \end_inset
 
@@ -12257,7 +12191,7 @@ This command is also available by right clicking while multiple devices
 Parts
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Parts"
+name "sub:Parts"
 
 \end_inset
 
@@ -12275,7 +12209,7 @@ reference "sec:Main-Schematic-Dialog"
  for adding all elements of the schematic (except the connection 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Wires"
+reference "sub:Wires"
 
 \end_inset
 
@@ -12317,7 +12251,7 @@ reference "Control-Help:Add-Port"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -12349,7 +12283,7 @@ reference "Control-Help:Add-Output-Probe"
  - Adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -12381,7 +12315,7 @@ reference "Control-Help:Add-Measure-Probe"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -12406,7 +12340,7 @@ reference "Control-Help:Add-Stim"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -12584,7 +12518,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -12709,7 +12643,7 @@ reference "sec:Built-in-Devices"
 The most useful and generic type of part for s-parameter files is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -12915,11 +12849,6 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -12927,7 +12856,7 @@ status open
 Back to 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -13010,7 +12939,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -13123,7 +13052,7 @@ This command is used to add ports to a schematic.
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -13148,7 +13077,7 @@ reference "sec:Deembedding"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic"
+reference "sub:Attaching-Ports-to-a-Schematic"
 
 \end_inset
 
@@ -13159,7 +13088,7 @@ reference "subsec:Attaching-Ports-to-a-Schematic"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic-for-Deembedding"
+reference "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
 
 \end_inset
 
@@ -13343,7 +13272,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -13452,7 +13381,7 @@ Always
 This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -13481,14 +13410,14 @@ reference "sec:Virtual-Probing"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for Simulation"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
  or 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for-Virtual-Probing"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -13613,7 +13542,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -13722,7 +13651,7 @@ Always
 This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -13744,7 +13673,7 @@ reference "sec:Virtual-Probing"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probes"
+reference "sub:Measure-Probes"
 
 \end_inset
 
@@ -13862,7 +13791,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -13971,7 +13900,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -13993,7 +13922,7 @@ reference "sec:Virtual-Probing"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stimuli"
+reference "sub:Stimuli"
 
 \end_inset
 
@@ -14074,7 +14003,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -14183,7 +14112,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -14201,7 +14130,7 @@ reference "sec:Deembedding"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknowns"
+reference "sub:Unknowns"
 
 \end_inset
 
@@ -14291,7 +14220,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -14400,7 +14329,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -14418,7 +14347,7 @@ reference "sec:Deembedding"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Defining-the-System"
+reference "sub:Defining-the-System"
 
 \end_inset
 
@@ -14508,7 +14437,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -14699,7 +14628,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -14972,35 +14901,35 @@ Some devices have file properties.
  For example, the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
  devices have s-parameter files and the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "sub:Voltage-Source"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "sub:Current-Source"
 
 \end_inset
 
@@ -15093,7 +15022,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -15290,7 +15219,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -15468,7 +15397,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -15646,7 +15575,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Parts"
+reference "sub:Parts"
 
 \end_inset
 
@@ -15765,7 +15694,7 @@ This mirrors the picture of the part vertically about a horizontal axis.
 Wires
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Wires"
+name "sub:Wires"
 
 \end_inset
 
@@ -15926,7 +15855,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Wires"
+reference "sub:Wires"
 
 \end_inset
 
@@ -16129,7 +16058,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Wires"
+reference "sub:Wires"
 
 \end_inset
 
@@ -16304,7 +16233,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Wires"
+reference "sub:Wires"
 
 \end_inset
 
@@ -16476,7 +16405,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Wires"
+reference "sub:Wires"
 
 \end_inset
 
@@ -16590,7 +16519,7 @@ This deletes the entire wire (i.e.
 View
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:View"
+name "sub:View"
 
 \end_inset
 
@@ -16706,7 +16635,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:View"
+reference "sub:View"
 
 \end_inset
 
@@ -16884,7 +16813,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:View"
+reference "sub:View"
 
 \end_inset
 
@@ -17062,7 +16991,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:View"
+reference "sub:View"
 
 \end_inset
 
@@ -17199,7 +17128,7 @@ Releasing the mouse button or right clicking or pressing escape turns off
 Calculate
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Calculate"
+name "sub:Calculate"
 
 \end_inset
 
@@ -17401,7 +17330,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -17760,7 +17689,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -18057,7 +17986,7 @@ reference "Control-Help:Calculate-Button"
  at which calculation is enabled under 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -18127,7 +18056,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -18249,7 +18178,7 @@ reference "sec:S-parameter-Generation"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculating-S-parameters"
+reference "sub:Calculating-S-parameters"
 
 \end_inset
 
@@ -18319,7 +18248,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -18441,7 +18370,7 @@ reference "sec:Simulation"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulating"
+reference "sub:Simulating"
 
 \end_inset
 
@@ -18511,7 +18440,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -18633,7 +18562,7 @@ reference "sec:Virtual-Probing"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Virtual-Probing"
+reference "sub:Virtual-Probing"
 
 \end_inset
 
@@ -18703,7 +18632,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -18825,7 +18754,7 @@ reference "sec:Deembedding"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Deembedding-Calculation"
+reference "sub:Deembedding-Calculation"
 
 \end_inset
 
@@ -18836,7 +18765,7 @@ reference "subsec:Deembedding-Calculation"
 Help
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Help"
+name "sub:Help"
 
 \end_inset
 
@@ -18961,7 +18890,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Help"
+reference "sub:Help"
 
 \end_inset
 
@@ -19152,7 +19081,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Help"
+reference "sub:Help"
 
 \end_inset
 
@@ -19342,7 +19271,7 @@ Menu System
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Help"
+reference "sub:Help"
 
 \end_inset
 
@@ -19481,7 +19410,7 @@ SignalIntegrity
  through a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -19491,7 +19420,7 @@ reference "subsec:File-1"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -19501,7 +19430,7 @@ reference "subsec:File-1"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "sub:Resistor"
 
 \end_inset
 
@@ -19511,7 +19440,7 @@ reference "subsec:Resistor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "sub:Capacitor"
 
 \end_inset
 
@@ -19521,7 +19450,7 @@ reference "subsec:Capacitor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "sub:Inductor"
 
 \end_inset
 
@@ -19531,7 +19460,7 @@ reference "subsec:Inductor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Mutual"
+reference "sub:Mutual"
 
 \end_inset
 
@@ -19541,7 +19470,7 @@ reference "subsec:Mutual"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:IdealTransformer"
+reference "sub:IdealTransformer"
 
 \end_inset
 
@@ -19551,7 +19480,7 @@ reference "subsec:IdealTransformer"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Ground"
+reference "sub:Ground"
 
 \end_inset
 
@@ -19561,7 +19490,7 @@ reference "subsec:Ground"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Open"
+reference "sub:Open"
 
 \end_inset
 
@@ -19571,7 +19500,7 @@ reference "subsec:Open"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:DirectionalCoupler"
+reference "sub:DirectionalCoupler"
 
 \end_inset
 
@@ -19581,7 +19510,7 @@ reference "subsec:DirectionalCoupler"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -19591,7 +19520,7 @@ reference "subsec:Power-Mixed-Mode-Converter"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "sub:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -19601,7 +19530,7 @@ reference "subsec:Voltage-Mixed-Mode-Converter"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transmission-Line"
+reference "sub:Transmission-Line"
 
 \end_inset
 
@@ -19611,7 +19540,7 @@ reference "subsec:Transmission-Line"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "sub:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -19621,7 +19550,7 @@ reference "subsec:Telegrapher---Two-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Four-Port"
+reference "sub:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -19631,7 +19560,7 @@ reference "subsec:Telegrapher---Four-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "sub:Voltage-Source"
 
 \end_inset
 
@@ -19641,7 +19570,7 @@ reference "subsec:Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "sub:Current-Source"
 
 \end_inset
 
@@ -19651,7 +19580,7 @@ reference "subsec:Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Noise-Generator"
+reference "sub:Voltage-Noise-Generator"
 
 \end_inset
 
@@ -19661,7 +19590,7 @@ reference "subsec:Voltage-Noise-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "sub:Voltage-Step-Generator"
 
 \end_inset
 
@@ -19671,7 +19600,7 @@ reference "subsec:Voltage-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Pulse-Generator"
+reference "sub:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -19681,7 +19610,7 @@ reference "subsec:Voltage-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Sine-Generator"
+reference "sub:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -19691,7 +19620,7 @@ reference "subsec:Voltage-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Step-Generator"
+reference "sub:Current-Step-Generator"
 
 \end_inset
 
@@ -19701,7 +19630,7 @@ reference "subsec:Current-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Pulse-Generator"
+reference "sub:Current-Pulse-Generator"
 
 \end_inset
 
@@ -19711,7 +19640,7 @@ reference "subsec:Current-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Sine-Generator"
+reference "sub:Current-Sine-Generator"
 
 \end_inset
 
@@ -19721,7 +19650,7 @@ reference "subsec:Current-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -19731,7 +19660,7 @@ reference "subsec:Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -19741,7 +19670,7 @@ reference "subsec:Measure-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -19751,7 +19680,7 @@ reference "subsec:Output-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -19761,7 +19690,7 @@ reference "subsec:Stim"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "sub:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -19771,7 +19700,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "sub:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -19781,7 +19710,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Current-Source"
+reference "sub:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -19791,7 +19720,7 @@ reference "subsec:Current-Controlled-Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Current-Source"
+reference "sub:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -19801,7 +19730,7 @@ reference "subsec:Voltage-Controlled-Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Voltage-Source"
+reference "sub:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -19811,7 +19740,7 @@ reference "subsec:Current-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Amplifier"
+reference "sub:Voltage-Amplifier"
 
 \end_inset
 
@@ -19821,7 +19750,7 @@ reference "subsec:Voltage-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Amplifier"
+reference "sub:Current-Amplifier"
 
 \end_inset
 
@@ -19831,7 +19760,7 @@ reference "subsec:Current-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transconductance-Amplifier"
+reference "sub:Transconductance-Amplifier"
 
 \end_inset
 
@@ -19841,7 +19770,7 @@ reference "subsec:Transconductance-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transresistance-Amplifier"
+reference "sub:Transresistance-Amplifier"
 
 \end_inset
 
@@ -19851,7 +19780,7 @@ reference "subsec:Transresistance-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -19861,7 +19790,7 @@ reference "subsec:Unknown"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -19872,7 +19801,7 @@ reference "subsec:System"
 File
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:File-1"
+name "sub:File-1"
 
 \end_inset
 
@@ -20158,7 +20087,7 @@ reference "Control-Help:Calculation-Properties"
 Resistor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Resistor"
+name "sub:Resistor"
 
 \end_inset
 
@@ -20392,7 +20321,7 @@ This is a one and two port resistor with the given resistance.
 Capacitor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Capacitor"
+name "sub:Capacitor"
 
 \end_inset
 
@@ -20626,7 +20555,7 @@ This is a one and two port capacitor with the given capacitance.
 Inductor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Inductor"
+name "sub:Inductor"
 
 \end_inset
 
@@ -20854,7 +20783,7 @@ This is a two port inductor with the given inductance.
 Mutual
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Mutual"
+name "sub:Mutual"
 
 \end_inset
 
@@ -21090,7 +21019,7 @@ The sense of the self inductance is indicated by the arrows in the part
 IdealTransformer
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:IdealTransformer"
+name "sub:IdealTransformer"
 
 \end_inset
 
@@ -21332,7 +21261,7 @@ The turns ratio is secondary relative to primary, so a higher number indicates
 Ground
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Ground"
+name "sub:Ground"
 
 \end_inset
 
@@ -21514,7 +21443,7 @@ This is a one-port ground, which could also be considered as a one-port
 Open
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Open"
+name "sub:Open"
 
 \end_inset
 
@@ -21695,7 +21624,7 @@ This is a one-port ideal open.
 Directional Coupler
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:DirectionalCoupler"
+name "sub:DirectionalCoupler"
 
 \end_inset
 
@@ -21954,7 +21883,7 @@ sly passing waves between two ports.
 Power Mixed Mode Converter
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Power-Mixed-Mode-Converter"
+name "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -22165,7 +22094,7 @@ This is the standard definition for s-parameters and this device is used
 The other kind of mixed-mode converter is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "sub:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -22176,7 +22105,7 @@ reference "subsec:Voltage-Mixed-Mode-Converter"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-parameter-Generation-Example"
+reference "sub:S-parameter-Generation-Example"
 
 \end_inset
 
@@ -22187,7 +22116,7 @@ reference "subsec:S-parameter-Generation-Example"
 Voltage Mixed Mode Converter
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Mixed-Mode-Converter"
+name "sub:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -22397,7 +22326,7 @@ This is the standard definition in industry for the time-domain and this
 The other kind of mixed-mode converter is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -22408,7 +22337,7 @@ reference "subsec:Power-Mixed-Mode-Converter"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Virtual-Probing-Example"
+reference "sub:Virtual-Probing-Example"
 
 \end_inset
 
@@ -22419,7 +22348,7 @@ reference "subsec:Virtual-Probing-Example"
 Transmission Line
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transmission-Line"
+name "sub:Transmission-Line"
 
 \end_inset
 
@@ -22710,7 +22639,7 @@ A two-port ideal transmission line with zero delay is simply and ideal thru
 Telegrapher - Two Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Telegrapher---Two-Port"
+name "sub:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -23327,7 +23256,7 @@ If zero sections are specified (the default), an analytic solution is provided
 Telegrapher - Four Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Telegrapher---Four-Port"
+name "sub:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -24372,7 +24301,7 @@ If sections are specified as zero (the default), then an analytic solutions
  using two of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "sub:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -24381,7 +24310,7 @@ reference "subsec:Telegrapher---Two-Port"
  is employed, again using two of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "sub:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -24389,7 +24318,7 @@ reference "subsec:Telegrapher---Two-Port"
  two 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "sub:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -24408,7 +24337,7 @@ Otherwise, if zero sections are specified and the lines are neither uncoupled
 Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Source"
+name "sub:Voltage-Source"
 
 \end_inset
 
@@ -24675,7 +24604,7 @@ reference "Control-Help:Edit-Properties"
 Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Source"
+name "sub:Current-Source"
 
 \end_inset
 
@@ -24942,7 +24871,7 @@ reference "Control-Help:Edit-Properties"
 Voltage Noise Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Noise-Generator"
+name "sub:Voltage-Noise-Generator"
 
 \end_inset
 
@@ -25419,7 +25348,7 @@ The voltage noise generator generates random, normally distributed, zero-mean
 Voltage Step Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Step-Generator"
+name "sub:Voltage-Step-Generator"
 
 \end_inset
 
@@ -25866,7 +25795,7 @@ The waveform is 0 V until the start time, after which it jumps immediately
 Voltage Pulse Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Pulse-Generator"
+name "sub:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -26360,7 +26289,7 @@ The waveform is 0 V until the start time, after which it jumps immediately
 Voltage Sine Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Sine-Generator"
+name "sub:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -26854,7 +26783,7 @@ The waveform is such that it has the frequency specified and has the phase
 Current Step Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Step-Generator"
+name "sub:Current-Step-Generator"
 
 \end_inset
 
@@ -27301,7 +27230,7 @@ The waveform is 0 V until the start time, after which it jumps immediately
 Current Pulse Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Pulse-Generator"
+name "sub:Current-Pulse-Generator"
 
 \end_inset
 
@@ -27795,7 +27724,7 @@ The waveform is 0 V until the start time, after which it jumps immediately
 Current Sine Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Sine-Generator"
+name "sub:Current-Sine-Generator"
 
 \end_inset
 
@@ -28289,7 +28218,7 @@ The waveform is such that it has the frequency specified and has the phase
 Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Port"
+name "sub:Port"
 
 \end_inset
 
@@ -28447,7 +28376,7 @@ reference "sec:S-parameter-Generation"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic"
+reference "sub:Attaching-Ports-to-a-Schematic"
 
 \end_inset
 
@@ -28465,7 +28394,7 @@ reference "sec:Deembedding"
 , they match the port numbers in the circuit with the ports on the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -28473,7 +28402,7 @@ reference "subsec:System"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Attaching-Ports-to-a-Schematic-for-Deembedding"
+reference "sub:Attaching-Ports-to-a-Schematic-for-Deembedding"
 
 \end_inset
 
@@ -28495,7 +28424,7 @@ reference "Control-Help:Add-Port"
 Voltage Measure Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Measure-Probe"
+name "sub:Measure-Probe"
 
 \end_inset
 
@@ -28727,7 +28656,7 @@ reference "sec:Virtual-Probing"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probes"
+reference "sub:Measure-Probes"
 
 \end_inset
 
@@ -28768,7 +28697,7 @@ reference "Control-Help:Edit-Properties"
 Voltage Output Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Output-Probe"
+name "sub:Output-Probe"
 
 \end_inset
 
@@ -29102,14 +29031,14 @@ reference "sec:Simulation"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for Simulation"
+reference "sub:Output-Probes-for Simulation"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probes-for-Virtual-Probing"
+reference "sub:Output-Probes-for-Virtual-Probing"
 
 \end_inset
 
@@ -29125,7 +29054,7 @@ When the waveforms are produced as a result of the calculation, you have
 Stim
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Stim"
+name "sub:Stim"
 
 \end_inset
 
@@ -29357,7 +29286,7 @@ reference "sec:Virtual-Probing"
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stimuli"
+reference "sub:Stimuli"
 
 \end_inset
 
@@ -29437,11 +29366,6 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -29480,7 +29404,7 @@ constrain
  from each stim with respect to each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -29504,7 +29428,7 @@ Note that the reference designator of the stim is not used for anything.
  See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:stim"
+reference "sub:stim"
 
 \end_inset
 
@@ -29522,7 +29446,7 @@ reference "sec:Netlist"
 Voltage Controlled Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Controlled-Voltage-Source"
+name "sub:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -29765,7 +29689,7 @@ The output impedance of the voltage source is zero.
 Current Controlled Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Controlled-Current-Source"
+name "sub:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -30008,7 +29932,7 @@ The output impedance of the current source is infinite.
 Voltage Controlled Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Controlled-Current-Source"
+name "sub:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -30251,7 +30175,7 @@ The output impedance of the current source is infinite.
 Current Controlled Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Controlled-Voltage-Source"
+name "sub:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -30494,7 +30418,7 @@ The output impedance of the voltage source is zero.
 Voltage Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Amplifier"
+name "sub:Voltage-Amplifier"
 
 \end_inset
 
@@ -30818,7 +30742,7 @@ gain
 The voltage amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "sub:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -30830,7 +30754,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 Current Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Amplifier"
+name "sub:Current-Amplifier"
 
 \end_inset
 
@@ -31154,7 +31078,7 @@ gain
 The current amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Current-Source"
+reference "sub:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -31166,7 +31090,7 @@ reference "subsec:Current-Controlled-Current-Source"
 Transconductance Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transconductance-Amplifier"
+name "sub:Transconductance-Amplifier"
 
 \end_inset
 
@@ -31490,7 +31414,7 @@ gain
 The transconductance amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Current-Source"
+reference "sub:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -31502,7 +31426,7 @@ reference "subsec:Voltage-Controlled-Current-Source"
 Transresistance Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transresistance-Amplifier"
+name "sub:Transresistance-Amplifier"
 
 \end_inset
 
@@ -31826,7 +31750,7 @@ gain
 The transresistance amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Voltage-Source"
+reference "sub:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -31838,7 +31762,7 @@ reference "subsec:Current-Controlled-Voltage-Source"
 Operational Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Operational-Amplifier-1"
+name "sub:Operational-Amplifier-1"
 
 \end_inset
 
@@ -32182,7 +32106,7 @@ Despite the default value of 1.0, the gain is usually set to a very large
 Unknown
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Unknown"
+name "sub:Unknown"
 
 \end_inset
 
@@ -32407,7 +32331,7 @@ reference "sec:Deembedding"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknowns"
+reference "sub:Unknowns"
 
 \end_inset
 
@@ -32432,7 +32356,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -32458,7 +32382,7 @@ ers calculated.
 System
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:System"
+name "sub:System"
 
 \end_inset
 
@@ -32726,7 +32650,7 @@ reference "sec:Deembedding"
  defined by each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -32737,7 +32661,7 @@ reference "subsec:Port"
 See 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Defining-the-System"
+reference "sub:Defining-the-System"
 
 \end_inset
 
@@ -32762,7 +32686,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -32782,7 +32706,7 @@ reference "subsec:System"
 System devices are the same as 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "sub:File-1"
 
 \end_inset
 
@@ -32819,7 +32743,7 @@ each line in the netlist starts with one of the following keywords:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -32836,7 +32760,7 @@ reference "sec:Built-in-Devices"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:connect"
+reference "sub:connect"
 
 \end_inset
 
@@ -32846,14 +32770,14 @@ reference "subsec:connect"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:port"
+reference "sub:port"
 
 \end_inset
 
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -32878,14 +32802,14 @@ reference "sec:Deembedding"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:meas"
+reference "sub:meas"
 
 \end_inset
 
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -32903,14 +32827,14 @@ reference "sec:Virtual-Probing"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:output"
+reference "sub:output"
 
 \end_inset
 
 - specifies an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -32935,14 +32859,14 @@ reference "sec:Simulation"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:stim"
+reference "sub:stim"
 
 \end_inset
 
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -32960,14 +32884,14 @@ reference "sec:Virtual-Probing"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:stimdef"
+reference "sub:stimdef"
 
 \end_inset
 
 - specifies the relationship between defining and dependent stims (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -32985,14 +32909,14 @@ reference "sec:Virtual-Probing"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:unknown"
+reference "sub:unknown"
 
 \end_inset
 
 - specifies an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -33009,14 +32933,14 @@ reference "sec:Deembedding"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:system"
+reference "sub:system"
 
 \end_inset
 
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -33034,7 +32958,7 @@ reference "sec:Deembedding"
 device
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:device"
+name "sub:device"
 
 \end_inset
 
@@ -33083,7 +33007,7 @@ Sometimes the first argument is specified without a keyword (the keyword
  Usually this is for devices with only one argument, like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "sub:Resistor"
 
 \end_inset
 
@@ -33102,7 +33026,7 @@ reference "sec:Errors-and-Exceptions"
  or the type: 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:DeviceParser"
+reference "sub:DeviceParser"
 
 \end_inset
 
@@ -33113,7 +33037,7 @@ reference "subsec:DeviceParser"
 connect
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:connect"
+name "sub:connect"
 
 \end_inset
 
@@ -33147,7 +33071,7 @@ reference "sec:Built-in-Devices"
  specified in a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -33162,7 +33086,7 @@ The pin numbers refer to a pin of the device.
 port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:port"
+name "sub:port"
 
 \end_inset
 
@@ -33177,7 +33101,7 @@ port
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -33223,7 +33147,7 @@ reference "sec:Built-in-Devices"
  specified in a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -33238,7 +33162,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "sub:Port"
 
 \end_inset
 
@@ -33247,7 +33171,7 @@ reference "subsec:Port"
  device pins (with the connection to the other device pins held in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:connect"
+reference "sub:connect"
 
 \end_inset
 
@@ -33258,7 +33182,7 @@ reference "subsec:connect"
 meas
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:meas"
+name "sub:meas"
 
 \end_inset
 
@@ -33273,7 +33197,7 @@ meas
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -33310,7 +33234,7 @@ reference "sec:Built-in-Devices"
  specified in a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -33325,7 +33249,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -33334,7 +33258,7 @@ reference "subsec:Measure-Probe"
  device pins (with the connection to the other device pins held in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:connect"
+reference "sub:connect"
 
 \end_inset
 
@@ -33353,7 +33277,7 @@ reference "sec:Waveform"
  associated with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
@@ -33366,7 +33290,7 @@ reference "subsec:Measure-Probe"
 output
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:output"
+name "sub:output"
 
 \end_inset
 
@@ -33381,7 +33305,7 @@ output
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -33426,7 +33350,7 @@ reference "sec:Built-in-Devices"
  specified in a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -33441,7 +33365,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -33450,7 +33374,7 @@ reference "subsec:Output-Probe"
  device pins (with the connection to the other device pins held in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:connect"
+reference "sub:connect"
 
 \end_inset
 
@@ -33462,7 +33386,7 @@ Note that the reference designator (i.e.
  the name) associated with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "sub:Output-Probe"
 
 \end_inset
 
@@ -33475,7 +33399,7 @@ reference "subsec:Output-Probe"
 stim
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:stim"
+name "sub:stim"
 
 \end_inset
 
@@ -33490,7 +33414,7 @@ stim
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -33529,7 +33453,7 @@ reference "sec:Built-in-Devices"
  specified in a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -33559,11 +33483,6 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -33576,7 +33495,7 @@ status open
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -33585,7 +33504,7 @@ reference "subsec:Stim"
  device pins (with the connection to the other device pins held in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:connect"
+reference "sub:connect"
 
 \end_inset
 
@@ -33603,7 +33522,7 @@ reference "subsec:connect"
 stimdef
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:stimdef"
+name "sub:stimdef"
 
 \end_inset
 
@@ -33619,7 +33538,7 @@ stimdef
  schematic (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -33721,14 +33640,14 @@ m_{C}
  (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:stim"
+reference "sub:stim"
 
 \end_inset
 
  for the netlist statement for the stim and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -33763,14 +33682,14 @@ When no stimdef statement appears, there are
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
 s specified with lines that begin with 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:meas"
+reference "sub:meas"
 
 \end_inset
 
@@ -33786,14 +33705,14 @@ reference "subsec:meas"
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "sub:Measure-Probe"
 
 \end_inset
 
 s specified with lines that begin with 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:meas"
+reference "sub:meas"
 
 \end_inset
 
@@ -33804,7 +33723,7 @@ reference "subsec:meas"
 unknown
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:unknown"
+name "sub:unknown"
 
 \end_inset
 
@@ -33819,7 +33738,7 @@ unknown
  defines an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "sub:Unknown"
 
 \end_inset
 
@@ -33849,7 +33768,7 @@ unknown
 system
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:system"
+name "sub:system"
 
 \end_inset
 
@@ -33864,7 +33783,7 @@ system
  defines an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -33896,7 +33815,7 @@ file
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "sub:System"
 
 \end_inset
 
@@ -33940,7 +33859,7 @@ SignalIntegrity
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System-Description-Error"
+reference "sub:System-Description-Error"
 
 \end_inset
 
@@ -33950,7 +33869,7 @@ reference "subsec:System-Description-Error"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Numeric"
+reference "sub:Numeric"
 
 \end_inset
 
@@ -33960,7 +33879,7 @@ reference "subsec:Numeric"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:SParameterFile"
+reference "sub:SParameterFile"
 
 \end_inset
 
@@ -33970,7 +33889,7 @@ reference "subsec:SParameterFile"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:WaveformFile"
+reference "sub:WaveformFile"
 
 \end_inset
 
@@ -33987,7 +33906,7 @@ reference "sec:Waveform"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:DeviceParser"
+reference "sub:DeviceParser"
 
 \end_inset
 
@@ -33997,7 +33916,7 @@ reference "subsec:DeviceParser"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Simulator"
+reference "sub:Simulator"
 
 \end_inset
 
@@ -34007,7 +33926,7 @@ reference "subsec:Simulator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:VirtualProbe"
+reference "sub:VirtualProbe"
 
 \end_inset
 
@@ -34019,7 +33938,7 @@ on.
 SParameterFile
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:SParameterFile"
+name "sub:SParameterFile"
 
 \end_inset
 
@@ -34053,7 +33972,7 @@ The s-parameter file could not be found.
 WaveformFile
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:WaveformFile"
+name "sub:WaveformFile"
 
 \end_inset
 
@@ -34083,7 +34002,7 @@ The waveform file could not be found.
 SystemDescription
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:System-Description-Error"
+name "sub:System-Description-Error"
 
 \end_inset
 
@@ -34174,7 +34093,7 @@ This is the same error as No Device Named, except that it was explicitly
 Simulator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Simulator"
+name "sub:Simulator"
 
 \end_inset
 
@@ -34244,7 +34163,7 @@ This is the same error as Cannot Invert I-W or I-Wxx while calculating the
  In many cases this can be resolved using the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
+reference "sub:Calculation.TrySVD"
 
 \end_inset
 
@@ -34262,7 +34181,7 @@ reference "sec:Preferences"
 VirtualProbe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:VirtualProbe"
+name "sub:VirtualProbe"
 
 \end_inset
 
@@ -34338,7 +34257,7 @@ reference "sec:Virtual-Probing"
  The application checks for the existence of at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "sub:Stim"
 
 \end_inset
 
@@ -34352,7 +34271,7 @@ reference "sec:Netlist"
  line defining a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:stim"
+reference "sub:stim"
 
 \end_inset
 
@@ -34423,7 +34342,7 @@ This cryptic error is an all encompassing error to indicate that something
 Numeric
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Numeric"
+name "sub:Numeric"
 
 \end_inset
 
@@ -34465,7 +34384,7 @@ Examples of pathological cases that can be worked around are circuit nodes
 Also, in many cases this can be resolved using the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
+reference "sub:Calculation.TrySVD"
 
 \end_inset
 
@@ -34483,7 +34402,7 @@ reference "sec:Preferences"
 DeviceParser
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:DeviceParser"
+name "sub:DeviceParser"
 
 \end_inset
 
@@ -34501,7 +34420,7 @@ reference "sec:Netlist"
  lines with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -34519,7 +34438,7 @@ This error message states that mandatory keywords and values were not supplied
  to the device parser for a particular 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -34543,7 +34462,7 @@ reference "sec:Built-in-Devices"
 \end_layout
 
 \begin_layout Standard
-The keyword error looks like: ['keyword1','keyword2',\SpecialChar ldots
+The keyword error looks like: ['keyword1','keyword2',\SpecialChar \ldots{}
 ] for 'deviceName'
  where 'keyword1' and 'keyword2' are representative of keywords that must
  be defined for the device and 'deviceName' is representative of the name
@@ -34555,7 +34474,7 @@ If a keyword is '', then the device takes an argument without a keyword
  (the keyword is inherent - see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -34590,7 +34509,7 @@ Arguments Must Come in Keyword Pairs
 This error message states that the netlist 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -34624,7 +34543,7 @@ Device Could Not Be Instantiated
 This error message states that the netlist 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -34658,7 +34577,7 @@ Device Not Found
 This error message states that the netlist 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:device"
+reference "sub:device"
 
 \end_inset
 
@@ -34882,7 +34801,7 @@ font size
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.FontSize"
+reference "sub:Appearance.FontSize"
 
 \end_inset
 
@@ -34928,7 +34847,7 @@ background color
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Background"
+reference "sub:Appearance.Color.Background"
 
 \end_inset
 
@@ -34974,7 +34893,7 @@ foreground color
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Foreground"
+reference "sub:Appearance.Color.Foreground"
 
 \end_inset
 
@@ -35020,7 +34939,7 @@ plot color
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Plot"
+reference "sub:Appearance.Color.Plot"
 
 \end_inset
 
@@ -35066,7 +34985,7 @@ show cursor values on plots
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.PlotCursorValues"
+reference "sub:Appearance.PlotCursorValues"
 
 \end_inset
 
@@ -35112,7 +35031,7 @@ try SVD in calculations (experimental)
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
+reference "sub:Calculation.TrySVD"
 
 \end_inset
 
@@ -35158,7 +35077,7 @@ retain recent project files
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RetainLastFilesOpened"
+reference "sub:RetainLastFilesOpened"
 
 \end_inset
 
@@ -35204,10 +35123,7 @@ open last file on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OpenLastFile"
-plural "false"
-caps "false"
-noprefix "false"
+reference "sub:OpenLastFile"
 
 \end_inset
 
@@ -35253,7 +35169,7 @@ ask to save current file
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:AskToSaveCurrentFile"
+reference "sub:AskToSaveCurrentFile"
 
 \end_inset
 
@@ -35299,7 +35215,7 @@ cache results
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Cache.CacheResults"
+reference "sub:Cache.CacheResults"
 
 \end_inset
 
@@ -35345,7 +35261,7 @@ use online help
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.UseOnlineHelp"
+reference "sub:OnlineHelp.UseOnlineHelp"
 
 \end_inset
 
@@ -35391,7 +35307,7 @@ online help url
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.URL"
+reference "sub:OnlineHelp.URL"
 
 \end_inset
 
@@ -35437,7 +35353,7 @@ rebuild help keys on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.RebuildHelpKeys"
+reference "sub:OnlineHelp.RebuildHelpKeys"
 
 \end_inset
 
@@ -35478,7 +35394,7 @@ False
 Appearance.FontSize
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Appearance.FontSize"
+name "sub:Appearance.FontSize"
 
 \end_inset
 
@@ -35555,7 +35471,7 @@ font size
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.FontSize"
+reference "sub:Appearance.FontSize"
 
 \end_inset
 
@@ -35611,7 +35527,7 @@ Font sizes are not altered in any tikz or pgf plots outputs, which are geared
 Appearance.Color.Background
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Appearance.Color.Background"
+name "sub:Appearance.Color.Background"
 
 \end_inset
 
@@ -35688,7 +35604,7 @@ background color
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Background"
+reference "sub:Appearance.Color.Background"
 
 \end_inset
 
@@ -35754,7 +35670,7 @@ The background color of the file, yes/no and error dialogs are unaffected
 The background color of the plot window, the plot color (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Plot"
+reference "sub:Appearance.Color.Plot"
 
 \end_inset
 
@@ -35766,7 +35682,7 @@ Usually, right after picking the background color, if one chooses the plot
  color (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Plot"
+reference "sub:Appearance.Color.Plot"
 
 \end_inset
 
@@ -35777,7 +35693,7 @@ reference "subsec:Appearance.Color.Plot"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Color-Picker"
+reference "sub:Color-Picker"
 
 \end_inset
 
@@ -35788,7 +35704,7 @@ reference "subsec:Color-Picker"
 Color Picker
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Color-Picker"
+name "sub:Color-Picker"
 
 \end_inset
 
@@ -35826,7 +35742,7 @@ Here is the windows color picker:
 Appearance.Color.Foreground
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Appearance.Color.Foreground"
+name "sub:Appearance.Color.Foreground"
 
 \end_inset
 
@@ -35903,7 +35819,7 @@ foreground color
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Foreground"
+reference "sub:Appearance.Color.Foreground"
 
 \end_inset
 
@@ -35972,7 +35888,7 @@ reference "sec:Simulator-Dialog"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Color-Picker"
+reference "sub:Color-Picker"
 
 \end_inset
 
@@ -35983,7 +35899,7 @@ reference "subsec:Color-Picker"
 Appearance.Color.Plot
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Appearance.Color.Plot"
+name "sub:Appearance.Color.Plot"
 
 \end_inset
 
@@ -36060,7 +35976,7 @@ plot color
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Plot"
+reference "sub:Appearance.Color.Plot"
 
 \end_inset
 
@@ -36121,7 +36037,7 @@ reference "sec:Simulator-Dialog"
  color (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.Color.Background"
+reference "sub:Appearance.Color.Background"
 
 \end_inset
 
@@ -36137,7 +36053,7 @@ Usually, right after picking the background color, if one chooses the plot
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Color-Picker"
+reference "sub:Color-Picker"
 
 \end_inset
 
@@ -36148,7 +36064,7 @@ reference "subsec:Color-Picker"
 Appearance.PlotCursorValues
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Appearance.PlotCursorValues"
+name "sub:Appearance.PlotCursorValues"
 
 \end_inset
 
@@ -36225,7 +36141,7 @@ show cursor values on plots
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Appearance.PlotCursorValues"
+reference "sub:Appearance.PlotCursorValues"
 
 \end_inset
 
@@ -36307,7 +36223,7 @@ To remove the annoyance, this feature can be controlled by this preference.
 Calculation.TrySVD
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Calculation.TrySVD"
+name "sub:Calculation.TrySVD"
 
 \end_inset
 
@@ -36384,7 +36300,7 @@ try SVD in calculations (experimental)
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
+reference "sub:Calculation.TrySVD"
 
 \end_inset
 
@@ -36504,7 +36420,7 @@ simulations with voltage sources shorted to ground.
 RetainLastFilesOpened
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:RetainLastFilesOpened"
+name "sub:RetainLastFilesOpened"
 
 \end_inset
 
@@ -36581,7 +36497,7 @@ retain recent project files
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RetainLastFilesOpened"
+reference "sub:RetainLastFilesOpened"
 
 \end_inset
 
@@ -36623,7 +36539,7 @@ This causes the application to maintain a list of the last four files opened.
  These files are shown on the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File"
+reference "sub:File"
 
 \end_inset
 
@@ -36642,7 +36558,7 @@ Also, the availability of the preference for the application to always open
  with the last file edited (
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OpenLastFile"
+reference "sub:OpenLastFile"
 
 \end_inset
 
@@ -36655,7 +36571,7 @@ reference "subsec:OpenLastFile"
 OpenLastFile
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:OpenLastFile"
+name "sub:OpenLastFile"
 
 \end_inset
 
@@ -36732,10 +36648,7 @@ open last file on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OpenLastFile"
-plural "false"
-caps "false"
-noprefix "false"
+reference "sub:OpenLastFile"
 
 \end_inset
 
@@ -36781,7 +36694,7 @@ This preference determines whether the last file edited will be opened whenever
 It depends on the preference 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RetainLastFilesOpened"
+reference "sub:RetainLastFilesOpened"
 
 \end_inset
 
@@ -36792,7 +36705,7 @@ reference "subsec:RetainLastFilesOpened"
 AskToSaveCurrentFile
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:AskToSaveCurrentFile"
+name "sub:AskToSaveCurrentFile"
 
 \end_inset
 
@@ -36869,7 +36782,7 @@ ask to save current file
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:AskToSaveCurrentFile"
+reference "sub:AskToSaveCurrentFile"
 
 \end_inset
 
@@ -36920,7 +36833,7 @@ Currently, it has no knowledge of whether the project was recently changed.
 Cache.CacheResults
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Cache.CacheResults"
+name "sub:Cache.CacheResults"
 
 \end_inset
 
@@ -36997,7 +36910,7 @@ cache results
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Cache.CacheResults"
+reference "sub:Cache.CacheResults"
 
 \end_inset
 
@@ -37090,7 +37003,7 @@ reference "sec:Netlist"
  and calculation properties (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Setting-Calculation-Properties"
+reference "sub:Setting-Calculation-Properties"
 
 \end_inset
 
@@ -37157,7 +37070,7 @@ Again, when this preference is set to True, transfer matrices or s-parameters
  from a cached file would be utilized whenever 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculate"
+reference "sub:Calculate"
 
 \end_inset
 
@@ -37196,7 +37109,7 @@ Using caching greatly speeds up computation, but tends to litter the disk
 OnlineHelp.UseOnlineHelp
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:OnlineHelp.UseOnlineHelp"
+name "sub:OnlineHelp.UseOnlineHelp"
 
 \end_inset
 
@@ -37273,10 +37186,7 @@ use online help
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.UseOnlineHelp"
-plural "false"
-caps "false"
-noprefix "false"
+reference "sub:OnlineHelp.UseOnlineHelp"
 
 \end_inset
 
@@ -37322,7 +37232,7 @@ This preference determines whether the application uses online help.
 If True, the help system will be accessed according to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.URL"
+reference "sub:OnlineHelp.URL"
 
 \end_inset
 
@@ -37338,7 +37248,7 @@ If False, the help system is expected to be in a directory called 'Help'
 OnlineHelp.URL
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:OnlineHelp.URL"
+name "sub:OnlineHelp.URL"
 
 \end_inset
 
@@ -37415,7 +37325,7 @@ online help url
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.UseOnlineHelp"
+reference "sub:OnlineHelp.UseOnlineHelp"
 
 \end_inset
 
@@ -37475,7 +37385,7 @@ rityPages' and the gh-pages master branch pulled, the local help system
  can be accessed from 'file:///home/peterp/Work/SignalIntegrityPages/SignalInteg
 rity/App'.
  Note that in this case the actual base of the help system will be at '/home/pet
-erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.\SpecialChar LyX
+erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.LyX
 conv/Help.html'.
 \end_layout
 
@@ -37483,7 +37393,7 @@ conv/Help.html'.
 OnlineHelp.RebuildHelpKeys
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:OnlineHelp.RebuildHelpKeys"
+name "sub:OnlineHelp.RebuildHelpKeys"
 
 \end_inset
 
@@ -37560,7 +37470,7 @@ rebuild help keys on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:OnlineHelp.RebuildHelpKeys"
+reference "sub:OnlineHelp.RebuildHelpKeys"
 
 \end_inset
 
