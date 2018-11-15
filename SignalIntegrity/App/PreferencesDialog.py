@@ -36,7 +36,6 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheResult=CalculationPropertyTrueFalseButton(self.propertyListFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
         self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.propertyListFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
-        self.rebuildHelpKeys=CalculationPropertyTrueFalseButton(self.propertyListFrame,'rebuild help keys on start',None,self.onUpdatePreferences,preferences,'OnlineHelp.RebuildHelpKeys')
         self.Finish()
     def onUpdatePreferences(self):
         self.onlineHelpURL.Show(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'))

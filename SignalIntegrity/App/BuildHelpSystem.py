@@ -25,28 +25,23 @@ class HelpSystemKeys(object):
     def __init__(self,force=False):
         self.dict={}
         self.fileExists=False
-        self.helpKeysFileName=os.path.dirname(os.path.realpath(__file__))+'/helpkeys'
-        try:
-            self.Read(force)
-        except:
-            try:
-                self.Build(self.controlHelpUrlBase)
-                if len(self.dict)>0:
-                    self.SaveToFile()
-            except:
-                return
+        self.helpKeysFileName=self.controlHelpUrlBase+'/Help/Help.html.LyXconv/helpkeys'
     def Read(self,force=False):
         self.dict={}
         if force:
             raise ValueError
-        with open(self.helpKeysFileName,'r') as f:
-            lines=f.readlines()
+
+        import urllib2  # the lib that handles the url stuff
+        try:
+            lines = urllib2.urlopen(self.helpKeysFileName)
+        except:
+            return
         for line in lines:
             tokens=line.strip().split(' >>> ')
             self.dict[tokens[0]]=tokens[1]
     def SaveToFile(self):
         try:
-            with open(self.helpKeysFileName,'w') as f:
+            with open('helpkeys','w') as f:
                 for key in self.dict:
                     f.write(str(key)+' >>> '+str(self.dict[key]+'\n'))
         except:
@@ -60,7 +55,8 @@ class HelpSystemKeys(object):
             url = self.controlHelpUrlBase+'/Help/Help.html.LyXconv/'+url
             url=url.replace('\\','/')
             webbrowser.open(url)
-    def Build(self,path=None):
+    def Build(self):
+        path=self.controlHelpUrlBase
         if path is None:
             path=os.getcwd()
         path=path+'/Help/Help.html.LyXconv'
@@ -104,4 +100,6 @@ class HelpSystemKeys(object):
         else:
             return None
     def __getitem__(self,item):
+        if self.dict == {}:
+            self.Read()
         return self.KeyValue(item)

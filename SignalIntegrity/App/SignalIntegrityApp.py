@@ -153,6 +153,9 @@ class SignalIntegrityApp(Frame):
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
 
+        # this is a secret key binding to build the help keys for the help system
+        self.BuildHelpKeysDoer = Doer(self.onBuildHelpKeys).AddKeyBindElement(self.root,'<Control-Alt-h>').Activate(True)
+
         # The menu system
         TheMenu=Menu(self.root)
         self.root.config(menu=TheMenu)
@@ -884,6 +887,11 @@ class SignalIntegrityApp(Frame):
     def onClosing(self):
         if self.CheckSaveCurrentProject():
             self.root.destroy()
+
+    def onBuildHelpKeys(self):
+        if Doer.helpKeys:
+            Doer.helpKeys.Build()
+            Doer.helpKeys.SaveToFile()
 
 def main():
     SignalIntegrityApp()
