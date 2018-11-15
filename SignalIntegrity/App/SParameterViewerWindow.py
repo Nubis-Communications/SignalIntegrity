@@ -133,7 +133,7 @@ class SParametersDialog(Toplevel):
         self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Show-Passivity-Violations')
         self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Show-Causality-Violations')
         self.ShowImpedanceDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Show-Impedance')
-        self.LogScaleDoer = Doer(self.PlotSParameter)
+        self.LogScaleDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Log-Scale')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
