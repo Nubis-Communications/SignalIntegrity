@@ -6281,6 +6281,16 @@ The Calculate tasks are:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "Control-Help:Resample"
 
 \end_inset
@@ -7161,6 +7171,16 @@ reference "Control-Help:Show-Impedance"
 
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Log-Scale"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Variable Line Width
 \begin_inset CommandInset label
@@ -7317,6 +7337,18 @@ Always
 
 \end_layout
 
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VariableLineWidth.png
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 Allows viewing magnitude and phase response with a variable line width.
 \end_layout
@@ -7335,6 +7367,20 @@ The line width of the magnitude response and phase response vary depending
  on the magnitude response of the s-parameter.
  If the magnitude is large, a large line width is used and if the magnitude
  is small, a small line width is used.
+\end_layout
+
+\begin_layout Standard
+Unfortunately, variable line width cannot operate properly along with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Log-Scale"
+
+\end_inset
+
+.
+ When both modes are set, they are both shown checked, but the variable
+ line width overrides and the plot is shown with a linear frequency axis
+ with variable line width.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7487,6 +7533,18 @@ When s-parameter files are being viewed
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename PassivityViolations.png
 
 \end_inset
 
@@ -8040,6 +8098,201 @@ There are more accurate methods possible (called peeling), but these are
 \begin_layout Standard
 This command is not available (and does not make sense) when viewing transfer
  parameters.
+\end_layout
+
+\begin_layout Subsubsection
+Log Scale
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Log-Scale"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Log Scale
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename LogScale.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Allows viewing magnitude and phase response on a logarithmic scale.
+\end_layout
+
+\begin_layout Standard
+This view is like a Bode plot and is useful when viewing things with poles
+ and zeros where Bode plots are useful.
+\end_layout
+
+\begin_layout Standard
+It is also most useful in power integrity applications.
+\end_layout
+
+\begin_layout Standard
+Unfortunately, Log Scale cannot operate properly along with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+.
+ When both modes are set, they are both shown checked, but the variable
+ line width overrides and the plot is shown with a linear frequency axis
+ with variable line width.
 \end_layout
 
 \begin_layout Section
@@ -8839,6 +9092,16 @@ name "sub:Simulator-Calculation-Menu"
 
 \begin_layout Standard
 The Calculate tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -17624,6 +17887,50 @@ t\left[k\right]=\left(k-\frac{K}{2}\right)\cdot\frac{1}{Fs}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Depending on the application, it is useful to also read:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Calculating-S-parameters"
+
+\end_inset
+
+ for s-parameter calculation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Simulation"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Deembedding"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties-for-Virtual-Probing"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -34733,7 +35040,7 @@ The preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="14" columns="4">
+<lyxtabular version="3" rows="13" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -35292,7 +35599,7 @@ True
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -35301,7 +35608,7 @@ online help url
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -35316,7 +35623,7 @@ reference "sub:OnlineHelp.URL"
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -35332,52 +35639,6 @@ Bool
 \noindent
 \align left
 http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-rebuild help keys on start
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:OnlineHelp.RebuildHelpKeys"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Bool
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-False
 \end_layout
 
 \end_inset
@@ -37387,148 +37648,6 @@ rity/App'.
  Note that in this case the actual base of the help system will be at '/home/pet
 erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.LyX
 conv/Help.html'.
-\end_layout
-
-\begin_layout Subsection*
-OnlineHelp.RebuildHelpKeys
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:OnlineHelp.RebuildHelpKeys"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="2cm">
-<column alignment="left" valignment="top" width="18cm">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Name
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Type
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-(Default) Value
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-rebuild help keys on start
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:OnlineHelp.RebuildHelpKeys"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Bool
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-False
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-The help system is connected with control help through a 
-\emph on
-help keys
-\emph default
- file.
- This is a file that contains, for each menu control element, the corresponding
- help system page containing help for that control.
-\end_layout
-
-\begin_layout Standard
-When the online help system is not in sync with the version of the software
- currently being run, then the help keys file will be incorrect.
- This preference causes the help keys to be rebuilt when the application
- starts.
-\end_layout
-
-\begin_layout Standard
-Generally, the usage is to set this to True, close the application, re-open
- the application (which will take a few extra seconds), and then set this
- preference to False again.
-\end_layout
-
-\begin_layout Standard
-In the future, these help keys will be placed with the help system and accessed
- only when the control help is invoked.
 \end_layout
 
 \end_body

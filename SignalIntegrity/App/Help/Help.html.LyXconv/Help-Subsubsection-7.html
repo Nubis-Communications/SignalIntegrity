@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-11-14"/>
+<meta name="create-date" content="2018-11-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1141,6 +1141,13 @@ Always
 
 </div>
 <div class="Standard">
+<div class="center">
+<img class="embedded" src="VariableLineWidth.png" alt="figure VariableLineWidth.png" style="max-width: 1003px; max-height: 228px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
 Allows viewing magnitude and phase response with a variable line width.
 </div>
 <div class="Standard">
@@ -1148,6 +1155,9 @@ This is helpful in viewing the s-parameter with an intensity that depends on whe
 </div>
 <div class="Standard">
 The line width of the magnitude response and phase response vary depending on the magnitude response of the s-parameter. If the magnitude is large, a large line width is used and if the magnitude is small, a small line width is used.
+</div>
+<div class="Standard">
+Unfortunately, variable line width cannot operate properly along with <a class="Reference" href="Help-Subsubsection-11.html#Control-Help:Log-Scale">Log Scale↓</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-28.html#next">Prev</a> S-Parameter Viewer View Menu</span>
