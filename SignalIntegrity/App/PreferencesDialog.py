@@ -17,6 +17,7 @@ PreferencesDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor
+from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 
 class PreferencesDialog(PropertiesDialog):
@@ -40,11 +41,9 @@ class PreferencesDialog(PropertiesDialog):
     def onUpdatePreferences(self):
         self.onlineHelpURL.Show(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'))
         self.project.SaveToFile()
-        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            Doer.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
-        else:
-            Doer.controlHelpUrlBase=self.parent.installdir
-
+        HelpSystemKeys.InstallHelpURLBase(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'),
+                                          self.preferences.GetValue('OnlineHelp.URL'),
+                                          self.parent.installdir)
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()

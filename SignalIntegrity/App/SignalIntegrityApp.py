@@ -72,11 +72,6 @@ class SignalIntegrityApp(Frame):
 
         self.installdir=os.path.dirname(os.path.abspath(__file__))
 
-        if self.preferences.GetValue('OnlineHelp.UseOnlineHelp'):
-            HelpSystemKeys.controlHelpUrlBase=self.preferences.GetValue('OnlineHelp.URL')
-        else:
-            HelpSystemKeys.controlHelpUrlBase=self.installdir
-
         self.root = Tk()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -92,6 +87,10 @@ class SignalIntegrityApp(Frame):
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
         Doer.helpKeys = HelpSystemKeys(self.preferences.GetValue('OnlineHelp.RebuildHelpKeys'))
+
+        HelpSystemKeys.InstallHelpURLBase(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'),
+                                          self.preferences.GetValue('OnlineHelp.URL'),
+                                          self.installdir)
 
         # status bar
         self.statusbar=StatusBar(self)

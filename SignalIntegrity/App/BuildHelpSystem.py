@@ -22,28 +22,35 @@ import os
 
 class HelpSystemKeys(object):
     controlHelpUrlBase=None
+    keydict={}
+    @staticmethod
+    def InstallHelpURLBase(useOnlineHelp,urlBase,installdir):
+        if useOnlineHelp:
+            HelpSystemKeys.controlHelpUrlBase=urlBase
+        else:
+            HelpSystemKeys.controlHelpUrlBase='file://'+installdir
+        HelpSystemKeys.keydict={}
     def __init__(self,force=False):
-        self.dict={}
-        self.fileExists=False
-        self.helpKeysFileName=self.controlHelpUrlBase+'/Help/Help.html.LyXconv/helpkeys'
+        HelpSystemKeys.controlHelpUrlBase=None
+        HelpSystemKeys.keydict={}
     def Read(self,force=False):
-        self.dict={}
+        self.keydict={}
         if force:
             raise ValueError
 
         import urllib2  # the lib that handles the url stuff
         try:
-            lines = urllib2.urlopen(self.helpKeysFileName)
+            lines = urllib2.urlopen(self.controlHelpUrlBase+'/Help/Help.html.LyXconv/helpkeys')
         except:
             return
         for line in lines:
             tokens=line.strip().split(' >>> ')
-            self.dict[tokens[0]]=tokens[1]
+            self.keydict[tokens[0]]=tokens[1]
     def SaveToFile(self):
         try:
             with open('helpkeys','w') as f:
-                for key in self.dict:
-                    f.write(str(key)+' >>> '+str(self.dict[key]+'\n'))
+                for key in self.keydict:
+                    f.write(str(key)+' >>> '+str(self.keydict[key]+'\n'))
         except:
             return
     def Open(self,helpString):
@@ -60,7 +67,7 @@ class HelpSystemKeys(object):
         if path is None:
             path=os.getcwd()
         path=path+'/Help/Help.html.LyXconv'
-        self.dict={}
+        self.keydict={}
         filename=path+'/Help.html'
         try:
             import urllib2
@@ -89,17 +96,17 @@ class HelpSystemKeys(object):
         if 'class' in child.keys() and 'name' in child.keys():
             if child.get('class')=='Label':
                 #print child.get('name')
-                self.dict[child.get('name')]=('/'.join(filename.split('\\'))).split('/')[-1]
+                self.keydict[child.get('name')]=('/'.join(filename.split('\\'))).split('/')[-1]
     def Recurse(self,root,filename):
         for child in root:
             self.CheckAndAdd(child,filename)
             self.Recurse(child,filename)
     def KeyValue(self,key):
-        if key in self.dict:
-            return self.dict[key]
+        if key in self.keydict:
+            return self.keydict[key]
         else:
             return None
     def __getitem__(self,item):
-        if self.dict == {}:
+        if self.keydict == {}:
             self.Read()
         return self.KeyValue(item)
