@@ -20,6 +20,12 @@ BuildHelpSystem.py
 import xml.etree.ElementTree as et
 import os
 
+import sys
+if sys.version_info.major < 3:
+    from urllib2 import urlopen
+else:
+    from urllib.request import urlopen
+
 class HelpSystemKeys(object):
     controlHelpUrlBase=None
     keydict={}
@@ -37,13 +43,12 @@ class HelpSystemKeys(object):
         self.keydict={}
         if force:
             raise ValueError
-
-        import urllib2  # the lib that handles the url stuff
         try:
-            lines = urllib2.urlopen(self.controlHelpUrlBase+'/Help/Help.html.LyXconv/helpkeys')
+            lines = urlopen(self.controlHelpUrlBase+'/Help/Help.html.LyXconv/helpkeys')
         except:
             return
         for line in lines:
+            line=line.decode('ascii')
             tokens=line.strip().split(' >>> ')
             self.keydict[tokens[0]]=tokens[1]
     def SaveToFile(self):
@@ -70,8 +75,7 @@ class HelpSystemKeys(object):
         self.keydict={}
         filename=path+'/Help.html'
         try:
-            import urllib2
-            file=urllib2.urlopen(filename)
+            file=urlopen(filename)
             tree=et.parse(file)
             r=tree.getroot()
             self.Recurse(r,filename)
@@ -83,8 +87,7 @@ class HelpSystemKeys(object):
             while searchingSections:
                 filename=path+'/Help-'+stype+'-'+str(secIndex)+'.html'
                 try:
-                    import urllib2
-                    file=urllib2.urlopen(filename)
+                    file=urlopen(filename)
                     tree=et.parse(file)
                 except:
                     searchingSections=False
