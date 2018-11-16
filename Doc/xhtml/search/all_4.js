@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['dagger',['Dagger',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#ab5426fd52fdb799a9317c38b09b7e40a',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]],
   ['decimatewaveform',['DecimateWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml#af90fbe6c62fc6e0c9c21732e9c094a9a',1,'SignalIntegrity::Lib::TimeDomain::Filters::WaveformDecimator::WaveformDecimator']]],
   ['deembed',['Deembed',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml#aa04b7e5ad8ffcfb9ef4f6f1fd03594b3',1,'SignalIntegrity::Lib::Parsers::DeembedderNumericParser::DeembedderNumericParser']]],
   ['deembedder',['Deembedder',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Deembedder']]],

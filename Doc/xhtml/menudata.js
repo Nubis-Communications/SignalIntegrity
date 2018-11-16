@@ -84,6 +84,7 @@ var menudata={children:[
 {text:"w",url:"functions_func_w.xhtml#index_w"},
 {text:"z",url:"functions_func_z.xhtml#index_z"}]},
 {text:"Variables",url:"functions_vars.xhtml",children:[
+{text:"a",url:"functions_vars.xhtml#index_a"},
 {text:"c",url:"functions_vars.xhtml#index_c"},
 {text:"d",url:"functions_vars.xhtml#index_d"},
 {text:"f",url:"functions_vars.xhtml#index_f"},

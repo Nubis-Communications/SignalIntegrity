@@ -9,27 +9,27 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 252)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-252 546,-252 546,4 -4,4"/>
-<!-- Node97 -->
+<!-- Node98 -->
 <g id="node1" class="node">
-<title>Node97</title>
+<title>Node98</title>
 <g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" target="_top" xlink:title="Handles Callbacks that allow progress reporting during long calculations and capability to abort...">
 <polygon fill="#ffffff" stroke="#000000" points="279,-76.5 279,-95.5 344,-95.5 344,-76.5 279,-76.5"/>
 <text text-anchor="middle" x="311.5" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">CallBacker</text>
 </a>
 </g>
 </g>
-<!-- Node98 -->
+<!-- Node99 -->
 <g id="node2" class="node">
-<title>Node98</title>
+<title>Node99</title>
 <g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" target="_top" xlink:title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting. ">
 <polygon fill="#ffffff" stroke="#000000" points="445.5,-.5 445.5,-19.5 494.5,-19.5 494.5,-.5 445.5,-.5"/>
 <text text-anchor="middle" x="470" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LevMar</text>
 </a>
 </g>
 </g>
-<!-- Node97&#45;&gt;Node98 -->
+<!-- Node98&#45;&gt;Node99 -->
 <g id="edge1" class="edge">
-<title>Node97&#45;&gt;Node98</title>
+<title>Node98&#45;&gt;Node99</title>
 <path fill="none" stroke="#191970" d="M352.7685,-72.3014C355.9839,-70.6889 359.1028,-68.9236 362,-67 381.3812,-54.1313 377.9889,-40.8654 398,-29 412.4561,-20.4284 430.7971,-15.6627 445.3496,-13.048"/>
 <polygon fill="#191970" stroke="#191970" points="351.2395,-69.1513 343.5552,-76.4452 354.1108,-75.5353 351.2395,-69.1513"/>
 </g>
@@ -42,9 +42,9 @@
 </a>
 </g>
 </g>
-<!-- Node97&#45;&gt;Node2 -->
+<!-- Node98&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
-<title>Node97&#45;&gt;Node2</title>
+<title>Node98&#45;&gt;Node2</title>
 <path fill="none" stroke="#191970" d="M354.4479,-86C368.8761,-86 385.3522,-86 401.2539,-86"/>
 <polygon fill="#191970" stroke="#191970" points="354.3413,-82.5001 344.3413,-86 354.3413,-89.5001 354.3413,-82.5001"/>
 </g>
@@ -57,9 +57,9 @@
 </a>
 </g>
 </g>
-<!-- Node97&#45;&gt;Node3 -->
+<!-- Node98&#45;&gt;Node3 -->
 <g id="edge3" class="edge">
-<title>Node97&#45;&gt;Node3</title>
+<title>Node98&#45;&gt;Node3</title>
 <path fill="none" stroke="#191970" d="M354.1019,-96.2137C377.7536,-101.8841 406.9901,-108.8935 430.1812,-114.4535"/>
 <polygon fill="#191970" stroke="#191970" points="354.8818,-92.8016 344.3413,-93.8736 353.2497,-99.6087 354.8818,-92.8016"/>
 </g>
@@ -73,9 +73,9 @@
 </a>
 </g>
 </g>
-<!-- Node97&#45;&gt;Node4 -->
+<!-- Node98&#45;&gt;Node4 -->
 <g id="edge4" class="edge">
-<title>Node97&#45;&gt;Node4</title>
+<title>Node98&#45;&gt;Node4</title>
 <path fill="none" stroke="#191970" d="M352.7685,-99.6986C355.9839,-101.3111 359.1028,-103.0764 362,-105 381.3812,-117.8687 378.4553,-130.381 398,-143 403.8917,-146.804 410.4299,-150.1044 417.0945,-152.9467"/>
 <polygon fill="#191970" stroke="#191970" points="354.1108,-96.4647 343.5552,-95.5548 351.2395,-102.8487 354.1108,-96.4647"/>
 </g>
@@ -88,24 +88,24 @@
 </a>
 </g>
 </g>
-<!-- Node97&#45;&gt;Node5 -->
+<!-- Node98&#45;&gt;Node5 -->
 <g id="edge5" class="edge">
-<title>Node97&#45;&gt;Node5</title>
+<title>Node98&#45;&gt;Node5</title>
 <path fill="none" stroke="#191970" d="M353.39,-98.4591C356.5075,-100.347 359.4319,-102.514 362,-105 392.0665,-134.1053 366.6698,-164.2596 398,-192 402.8565,-196.3001 408.5626,-199.6834 414.601,-202.344"/>
 <polygon fill="#191970" stroke="#191970" points="354.7342,-95.2173 344.2286,-93.8445 351.5852,-101.469 354.7342,-95.2173"/>
 </g>
-<!-- Node99 -->
+<!-- Node100 -->
 <g id="node7" class="node">
-<title>Node99</title>
+<title>Node100</title>
 <g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" target="_top" xlink:title="process transfer matrices ">
 <polygon fill="#ffffff" stroke="#000000" points="403,-38.5 403,-57.5 537,-57.5 537,-38.5 403,-38.5"/>
 <text text-anchor="middle" x="470" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TransferMatricesProcessor</text>
 </a>
 </g>
 </g>
-<!-- Node97&#45;&gt;Node99 -->
+<!-- Node98&#45;&gt;Node100 -->
 <g id="edge6" class="edge">
-<title>Node97&#45;&gt;Node99</title>
+<title>Node98&#45;&gt;Node100</title>
 <path fill="none" stroke="#191970" d="M354.1019,-75.7863C377.7536,-70.1159 406.9901,-63.1065 430.1812,-57.5465"/>
 <polygon fill="#191970" stroke="#191970" points="353.2497,-72.3913 344.3413,-78.1264 354.8818,-79.1984 353.2497,-72.3913"/>
 </g>

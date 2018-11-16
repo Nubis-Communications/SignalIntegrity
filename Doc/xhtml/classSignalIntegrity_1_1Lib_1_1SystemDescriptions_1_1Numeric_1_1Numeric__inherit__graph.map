@@ -1,0 +1,6 @@
+<map id="Numeric" name="Numeric">
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title="Performs numerical device deembedding. " alt="" coords="5,204,157,296"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorNumeric_1_1SimulatorNumeric.xhtml" title="class for performing numeric simulations " alt="" coords="182,204,309,296"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems. " alt="" coords="333,204,525,296"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically. " alt="" coords="550,204,693,296"/>
+</map>

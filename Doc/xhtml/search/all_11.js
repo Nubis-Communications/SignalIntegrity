@@ -51,5 +51,6 @@ var searchData=
   ['trimright',['TrimRight',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml#a284517d97da4a4e39890e41cbfa2a007',1,'SignalIntegrity::Lib::TimeDomain::Filters::FilterDescriptor::FilterDescriptor']]],
   ['trimtotal',['TrimTotal',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml#a8b3334081fe073524a4e0c068a61a3c6',1,'SignalIntegrity::Lib::TimeDomain::Filters::FilterDescriptor::FilterDescriptor']]],
   ['trimtothreshold',['TrimToThreshold',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml#ac9668c22e21b9fcbfb1163ba5c2f9577',1,'SignalIntegrity::Lib::TimeDomain::Waveform::ImpulseResponse::ImpulseResponse']]],
-  ['trimwaveform',['TrimWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml#aba4602fa45a1eaabd2eb64f1866def53',1,'SignalIntegrity::Lib::TimeDomain::Filters::WaveformTrimmer::WaveformTrimmer']]]
+  ['trimwaveform',['TrimWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml#aba4602fa45a1eaabd2eb64f1866def53',1,'SignalIntegrity::Lib::TimeDomain::Filters::WaveformTrimmer::WaveformTrimmer']]],
+  ['trysvd',['trySVD',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#a4988712fe9d27667a418ba322755b771',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]]
 ];

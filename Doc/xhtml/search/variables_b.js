@@ -7,5 +7,6 @@ var searchData=
   ['shortoffsetdelay',['shortOffsetDelay',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants.xhtml#a3788f4ba32f719747647f27057b09358',1,'SignalIntegrity::Lib::Measurement::CalKit::CalibrationKit::CalibrationConstants']]],
   ['shortoffsetloss',['shortOffsetLoss',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants.xhtml#a5bf0570ae171a60bee53e8585136c5ef',1,'SignalIntegrity::Lib::Measurement::CalKit::CalibrationKit::CalibrationConstants']]],
   ['shortoffsetz0',['shortOffsetZ0',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationConstants.xhtml#a29e1fe2c574523008fef1af4d3ac9965',1,'SignalIntegrity::Lib::Measurement::CalKit::CalibrationKit::CalibrationConstants']]],
-  ['shortstandard',['shortStandard',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit.xhtml#a094c01f8f3b9b22b8759481b3d5bdb85',1,'SignalIntegrity::Lib::Measurement::CalKit::CalibrationKit::CalibrationKit']]]
+  ['shortstandard',['shortStandard',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit.xhtml#a094c01f8f3b9b22b8759481b3d5bdb85',1,'SignalIntegrity::Lib::Measurement::CalKit::CalibrationKit::CalibrationKit']]],
+  ['singularvaluelimit',['singularValueLimit',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#a1c2157bee115aa144fec375764475eea',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]]
 ];
