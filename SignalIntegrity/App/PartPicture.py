@@ -56,7 +56,7 @@ class PartPicture(object):
             if len(pinList)==1:
                 self.rotationPoint=eval(pinList[0].GetValue('ConnectionPoint'))
             else:
-                self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2,(innerBox[0][1]+innerBox[1][1])/2)
+                self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2.,(innerBox[0][1]+innerBox[1][1])/2.)
         else:
             self.rotationPoint = rotationPoint
         self.origin=origin
