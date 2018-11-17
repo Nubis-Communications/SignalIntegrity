@@ -119,7 +119,7 @@ class SignalIntegrityAppHeadless(object):
             if self.fileparts.fileext == '.xml':
                 self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
             else:
-                self.project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.pysi_project'),self.Drawing)
+                self.project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'),self.Drawing)
         except:
             return False
         self.Drawing.schematic.Consolidate()
@@ -193,7 +193,7 @@ class SignalIntegrityAppHeadless(object):
     def SaveProject(self):
         if self.fileparts.filename=='':
             return
-        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.pysi_project')
+        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
         self.SaveProjectToFile(filename)
 
     def config(self,cursor=None):

@@ -232,10 +232,10 @@ class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
             #print filename
                 pysi=self.Preliminary(filename)
             	pysi.SaveProject()
-            	filename=filename.replace('.xml','.pysi_project')
+            	filename=filename.replace('.xml','.si')
             	pysi=self.Preliminary(filename)
             	if not self.keepNewFormats:
-                	os.remove(pysi.fileparts.FullFilePathExtension('pysi_project'))
+                	os.remove(pysi.fileparts.FullFilePathExtension('si'))
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

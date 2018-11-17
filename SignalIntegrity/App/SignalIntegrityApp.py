@@ -329,9 +329,9 @@ class SignalIntegrityApp(Frame):
         if not self.CheckSaveCurrentProject():
             return
         # Legacy File Format
-        filename=AskOpenFileName(filetypes=[('pysi_project', '.pysi_project'),('legacy','.xml')],
+        filename=AskOpenFileName(filetypes=[('si', '.si'),('legacy','.xml')],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
-                                 initialfile=self.fileparts.FileNameWithExtension('.pysi_project'))
+                                 initialfile=self.fileparts.FileNameWithExtension('.si'))
 
         if filename is None:
             return
@@ -410,8 +410,8 @@ class SignalIntegrityApp(Frame):
             self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
         else:
-            self.project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.pysi_project'),self.Drawing)
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.pysi_project'))
+            self.project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'),self.Drawing)
+            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
         self.Drawing.stateMachine.Nothing()
         #self.Drawing.DrawSchematic()
         self.history.Event('read project')
@@ -420,8 +420,8 @@ class SignalIntegrityApp(Frame):
     def onNewProject(self):
         if not self.CheckSaveCurrentProject():
             return
-        filename=AskSaveAsFilename(filetypes=[('pysi_project', '.pysi_project')],
-                                   defaultextension='.pysi_project',
+        filename=AskSaveAsFilename(filetypes=[('si', '.si')],
+                                   defaultextension='.si',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
                                    title='new project file')
         if filename is None:
@@ -446,13 +446,13 @@ class SignalIntegrityApp(Frame):
     def onSaveProject(self):
         if self.fileparts.filename=='':
             return
-        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.pysi_project')
+        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
         self.SaveProjectToFile(filename)
 
     def onSaveAsProject(self):
-        filename=AskSaveAsFilename(filetypes=[('pysi_project', '.pysi_project')],
-                                   defaultextension='.pysi_project',
-                                   initialfile=self.fileparts.FileNameWithExtension('.pysi_project'),
+        filename=AskSaveAsFilename(filetypes=[('si', '.si')],
+                                   defaultextension='.si',
+                                   initialfile=self.fileparts.FileNameWithExtension('.si'),
                                    initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
             return

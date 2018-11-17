@@ -243,7 +243,7 @@ class XMLConfiguration(object):
             return None
 
 class ProjectFileBase(object):
-    indent='  '
+    indent='\t'
     def __init__(self,module,ext='xml'):
         self.dict={}
         self.module=module

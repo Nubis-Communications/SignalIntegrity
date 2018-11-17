@@ -131,7 +131,7 @@ class CalculationPropertiesConfiguration(XMLConfiguration):
 
 class ProjectFile(ProjectFileBase):
     def __init__(self):
-        ProjectFileBase.__init__(self,os.path.basename(__file__).split('.')[0],'pysi_project')
+        ProjectFileBase.__init__(self,os.path.basename(__file__).split('.')[0],'si')
         self.dict['Drawing']=DrawingConfiguration()
         self.dict['CalculationProperties']=CalculationPropertiesConfiguration()
 
@@ -360,7 +360,7 @@ if __name__ == '__main__':
     app=App()
     for file in filesList:
         oldfile=file
-        newfile=file.split('.')[0]+'.pysi_project'
+        newfile=file.split('.')[0]+'.si'
         
         print 'oldfile: '+oldfile+' -> newfile: '+newfile
         app.ConvertOldProjectToNew(oldfile,newfile)
