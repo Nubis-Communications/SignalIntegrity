@@ -44,6 +44,7 @@ class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
     relearn=True
     debug=False
     checkPictures=True
+    keepNewFormats=False
     def __init__(self, methodName='runTest'):
         SParameterCompareHelper.__init__(self)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
@@ -229,7 +230,13 @@ class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
             self.setUp()
             if not 'SignalIntegrityBook' in filename or self.book:
             #print filename
-                self.Preliminary(filename)
+                pysi=self.Preliminary(filename)
+            	pysi.SaveProject()
+            	filename=filename.replace('.xml','.pysi_project')
+            	pysi=self.Preliminary(filename)
+            	if not self.keepNewFormats:
+                	os.remove(pysi.fileparts.FullFilePathExtension('pysi_project'))
 
 if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

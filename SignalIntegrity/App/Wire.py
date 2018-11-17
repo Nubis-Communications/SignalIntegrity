@@ -121,14 +121,11 @@ class Vertex(object):
         self.selected=selected
     def __getitem__(self,item):
         return self.coord[item]
+    # Legacy File Format
     def InitFromXml(self,vertexElement):
         self.selected=False
         self.coord = eval(vertexElement.text)
         return self
-    def xml(self):
-        vertexElement=et.Element('vertex')
-        vertexElement.text=str(self.coord)
-        return vertexElement
     def IsAt(self,coord,augmentor,distanceAllowed):
         xc=float(coord[0]+augmentor[0])
         yc=float(coord[1]+augmentor[1])
@@ -194,19 +191,28 @@ class Wire(object):
             if selected:
                 for vertex in self:
                     size=max(1,grid/8)
-                    canvas.create_line((vertex[0]+x)*grid-size,(vertex[1]+y)*grid-size,
-                                        (vertex[0]+x)*grid+size,(vertex[1]+y)*grid+size,
-                                        fill=('blue' if vertex.selected else 'black'),
-                                        width=(2 if vertex.selected else 1))
-                    canvas.create_line((vertex[0]+x)*grid+size,(vertex[1]+y)*grid-size,
-                                        (vertex[0]+x)*grid-size,(vertex[1]+y)*grid+size,
-                                        fill=('blue' if vertex.selected else 'black'),
-                                        width=(2 if vertex.selected else 1))
+                    canvas.create_line((vertex[0]+x)*grid-size,
+                                       (vertex[1]+y)*grid-size,
+                                       (vertex[0]+x)*grid+size,
+                                       (vertex[1]+y)*grid+size,
+                                       fill=('blue' if vertex.selected else 'black'),
+                                       width=(2 if vertex.selected else 1))
+                    canvas.create_line((vertex[0]+x)*grid+size,
+                                       (vertex[1]+y)*grid-size,
+                                       (vertex[0]+x)*grid-size,
+                                       (vertex[1]+y)*grid+size,
+                                       fill=('blue' if vertex.selected else 'black'),
+                                       width=(2 if vertex.selected else 1))
     def __add__(self,other):
         if isinstance(other, Wire):
             return Wire(self.vertexList+other.vertexList)
         elif isinstance(other,list):
             return Wire(self.vertexList+other)
+    def InitFromProject(self,wireProject):
+        self.__init__()
+        self.vertexList=[Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected')) for vertexProject in wireProject.GetValue('Vertex')]
+        return self
+    # Legacy File Format
     def InitFromXml(self,wireElement):
         self.__init__()
         for child in wireElement:
@@ -217,14 +223,6 @@ class Wire(object):
         return self
     def CoordinateList(self):
         return [vertex.coord for vertex in self]
-    def xml(self):
-        wireElement=et.Element('wire')
-        vertexElements=[]
-        for vertex in self:
-            vertexElement=vertex.xml()
-            vertexElements.append(vertexElement)
-        wireElement.extend(vertexElements)
-        return wireElement
 
 class WireList(object):
     def __init__(self):
@@ -243,10 +241,11 @@ class WireList(object):
         if not isinstance(item,Wire):
             raise ValueError
         self.wires.append(item)
-    def UnselectAll(self):
-        for wire in self:
-            for vertex in wire:
-                vertex.selected=False
+    def InitFromProject(self,wiresListProject):
+        self.__init__()
+        self.wires=[Wire().InitFromProject(wireProject) for wireProject in wiresListProject]
+        return self
+    # Legacy File Format
     def InitFromXml(self,wiresElement):
         self.__init__()
         for child in wiresElement:
@@ -254,14 +253,6 @@ class WireList(object):
                 wire=Wire()
                 wire.InitFromXml(child)
                 self.wires.append(wire)
-    def xml(self):
-        wiresElement=et.Element('wires')
-        wireElements=[]
-        for wire in self:
-            wireElement=wire.xml()
-            wireElements.append(wireElement)
-        wiresElement.extend(wireElements)
-        return wiresElement
     def RemoveEmptyWires(self):
         wiresNeedRemoval=False
         for wire in self:
@@ -482,132 +473,30 @@ class WireList(object):
                     del removeWireIndexList[wireIndex]
                     keepDeletingWires=True
                     break
+    def DotList(self,deviceList):
+        dotList=[]
+        # make a list of all coordinates
+        coordList=[]
+        for device in deviceList:
+            coordList=coordList+device.PinCoordinates()
+        for wire in self:
+            vertexCoordinates=[vertex.coord for vertex in wire]
+            #vertex coordinates count as two except for the endpoints
+            coordList=coordList+vertexCoordinates+vertexCoordinates[1:-1]
+        uniqueCoordList=list(set(coordList))
+        for coord in uniqueCoordList:
+            if coordList.count(coord)>2:
+                dotList.append(coord)
+        return dotList
     def ConsolidateWires(self,schematic):
         deviceList=schematic.deviceList
         self.RemoveEmptyWires()
         self.RemoveDuplicateVertices()
         self.InsertNeededVertices(deviceList)
-        dotList=schematic.DotList()
+        dotList=self.DotList(deviceList)
         self.SplitDottedWires(dotList)
         self.JoinUnDottedWires(dotList)
         self.RemoveUnneededVertices()
-        return
-        keepDeletingWires = True
-        while keepDeletingWires:
-            keepDeletingWires= False
-            for wireIndex in range(len(self)):
-                wire = self[wireIndex]
-                if len(wire) < 2:
-                    del self[wireIndex]
-                    keepDeletingWires=True
-                    break
-                else:
-                    keepDeletingVertices = True
-                    while keepDeletingVertices:
-                        keepDeletingVertices=False
-                        for vertexIndex in range(1,len(wire)):
-                            thisVertex = wire[vertexIndex].coord
-                            lastVertex = wire[vertexIndex-1].coord
-                            if thisVertex == lastVertex:
-                                del self[wireIndex][vertexIndex]
-                                keepDeletingVertices = True
-                                break
-        # at this point, all wires have at least two coordinates and no adjacent coordinates are the same
-        removeWireIndexList = [False for index in range(len(self))]
-        for thisWireIndex in range(len(self)):
-            if not removeWireIndexList[thisWireIndex]:
-                if len(self[thisWireIndex])<2:
-                    removeWireIndexList[thisWireIndex]=True
-            if not removeWireIndexList[thisWireIndex]:
-                for otherWireIndex in range(thisWireIndex+1,len(self)):
-                    thisWireStartPoint=self[thisWireIndex][0].coord
-                    thisWireEndPoint=self[thisWireIndex][-1].coord
-                    if not removeWireIndexList[otherWireIndex]:
-                        if len(self[otherWireIndex])<2:
-                            removeWireIndexList[otherWireIndex]=True
-                    if not removeWireIndexList[otherWireIndex]:
-                        otherWireStartPoint=self[otherWireIndex][0].coord
-                        otherWireEndPoint=self[otherWireIndex][-1].coord
-                        if thisWireEndPoint == otherWireStartPoint:
-                            self[thisWireIndex]=self[thisWireIndex]+self[otherWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-                        elif thisWireStartPoint == otherWireEndPoint:
-                            self[thisWireIndex]=self[otherWireIndex]+self[thisWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-                        elif thisWireStartPoint == otherWireStartPoint:
-                            self[otherWireIndex].reverse()
-                            self[thisWireIndex]= self[otherWireIndex]+self[thisWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-                        elif thisWireEndPoint == otherWireEndPoint:
-                            self[otherWireIndex].reverse()
-                            self[thisWireIndex]=self[thisWireIndex]+self[otherWireIndex][1:]
-                            removeWireIndexList[otherWireIndex]=True
-        # remove all of the wires to be removed
-        keepDeletingWires = True
-        while keepDeletingWires:
-            keepDeletingWires = False
-            for wireIndex in range(len(self)):
-                if removeWireIndexList[wireIndex]==True:
-                    del self[wireIndex]
-                    del removeWireIndexList[wireIndex]
-                    keepDeletingWires=True
-                    break
-        # now walk along all of the wires and put vertices at any locations where a wire vertex is along a straight line of another wire
-        newWireList=WireList()
-        for thisWire in self:
-            newWire=Wire()
-            thisWireSegmentStart=thisWire[0]
-            newWire.append(thisWireSegmentStart)
-            for vertex in thisWire[1:]:
-                thisWireSegmentEnd = vertex
-                vector=(thisWireSegmentEnd.coord[0]-thisWireSegmentStart.coord[0],thisWireSegmentEnd.coord[1]-thisWireSegmentStart.coord[1])
-                if vector[0]==0:
-                    # this is a north south line
-                    if vector[1]>0:
-                        step=(0,1) # this is a south going line
-                    elif vector[1]<0:
-                        step=(0,-1) # this is a north going line
-                    else:
-                        # this should not be possible
-                        raise ValueError
-                elif vector[1]==0:
-                    # this is an east west line
-                    if vector[0]>0:
-                        step=(1,0) # this is an east going line
-                    elif vector[0]<0:
-                        step=(-1,0) # this is a west going line
-                    else:
-                        # this should not be possible
-                        raise ValueError
-                else:
-                    # this is some kind of diagonal line
-                    step=(0,0)
-                if step != (0,0):
-                    # step along this line checking the start and end points of all other lines
-                    thisCoordToCheck = (thisWireSegmentStart.coord[0]+step[0],thisWireSegmentStart.coord[1]+step[1])
-                    while thisCoordToCheck != thisWireSegmentEnd.coord:
-                        vertexAddedAtThisCoordinate=False
-                        for otherWire in self:
-                            for otherVertex in otherWire:
-                                if otherVertex.coord == thisCoordToCheck:
-                                    # found one - need to insert a vertex into this wire
-                                    newWire.append(Vertex(thisCoordToCheck))
-                                    vertexAddedAtThisCoordinate=True
-                                    break
-                        if not vertexAddedAtThisCoordinate:
-                            for device in deviceList:
-                                if vertexAddedAtThisCoordinate:
-                                    break
-                                for pinCoordinate in device.partPicture.current.PinCoordinates():
-                                    if pinCoordinate == thisCoordToCheck:
-                                        newWire.append(Vertex(thisCoordToCheck))
-                                        vertexAddedAtThisCoordinate=True
-                                        break
-                        thisCoordToCheck = (thisCoordToCheck[0]+step[0],thisCoordToCheck[1]+step[1])
-                newWire.append(thisWireSegmentEnd)
-                thisWireSegmentStart=thisWireSegmentEnd
-            newWireList.append(newWire)
-        self.wires=newWireList
     def EquiPotentialWireList(self):
             wireList = copy.deepcopy(self.wires)
             # for the purposes of the netlist, wires are just lists of vertices

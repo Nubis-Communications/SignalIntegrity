@@ -19,120 +19,95 @@ PartProperty.py
 import xml.etree.ElementTree as et
 
 from SignalIntegrity.App.ToSI import ToSI,FromSI
+from SignalIntegrity.App.ProjectFile import PartPropertyConfiguration
 
-class PartProperty(object):
-    def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):
-        self.keyword=keyword
-        self.propertyName=propertyName
-        self.description=description
-        self._value=value
-        self.hidden=hidden
-        self.visible=visible
-        self.keywordVisible=keywordVisible
-        self.type=type
-        self.unit=unit
-        if isinstance(value,str):
-            self.SetValueFromString(value)
-    def NetListProperty(self):
-        return self.keyword + ' ' + self.PropertyString(stype='raw')
+class PartProperty(PartPropertyConfiguration):
+    def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True,inProjectFile=True):
+        PartPropertyConfiguration.__init__(self)
+        self.SetValue('Keyword', keyword)
+        self.SetValue('PropertyName',propertyName)
+        self.SetValue('Description', description)
+        self.SetValue('Value',value)
+        self.SetValue('Hidden',hidden)
+        self.SetValue('Visible', visible)
+        self.SetValue('KeywordVisible', keywordVisible)
+        self.SetValue('Type', type)
+        self.SetValue('Unit',unit)
+        self.SetValue('InProjectFile',inProjectFile)
     def PropertyString(self,stype='raw'):
         if stype=='attr':
             result=''
-            if self.visible:
-                if self.keywordVisible:
-                    if self.keyword != None and self.keyword != 'None':
-                        result=result+self.keyword+' '
-                if self.type=='string':
-                    value = str(self._value)
-                elif self.type=='file':
-                    value=('/'.join(str(self._value).split('\\'))).split('/')[-1]
-                elif self.type=='int':
-                    value = str(self._value)
-                elif self.type=='float':
-                    value = str(ToSI(float(self._value),self.unit))
+            if self.GetValue('Visible'):
+                if self.GetValue('KeywordVisible'):
+                    if self.GetValue('Keyword') != None and self.GetValue('Keyword') != 'None':
+                        result=result+self.GetValue('Keyword')+' '
+                if self.GetValue('Type')=='string':
+                    value = self.GetValue('Value')
+                elif self.GetValue('Type')=='file':
+                    value=('/'.join(str(self.GetValue('Value')).split('\\'))).split('/')[-1]
+                elif self.GetValue('Type')=='int':
+                    value = self.GetValue('Value')
+                elif self.GetValue('Type')=='float':
+                    value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit')))
                 else:
-                    value = str(self._value)
+                    value = str(self.GetValue('Value'))
                 result=result+value
             return result
         elif stype == 'raw':
-            if self.type=='string':
-                value = str(self._value)
-            elif self.type=='file':
-                value = str(self._value)
-            elif self.type=='int':
-                value = str(self._value)
-            elif self.type=='float':
-                value = str(float(self._value))
+            if self.GetValue('Type')=='string':
+                value = self.GetValue('Value')
+            elif self.GetValue('Type')=='file':
+                value = self.GetValue('Value')
+            elif self.GetValue('Type')=='int':
+                value = self.GetValue('Value')
+            elif self.GetValue('Type')=='float':
+                value = str(float(self.GetValue('Value')))
             else:
-                value = str(self._value)
+                value = str(self.GetValue('Value'))
             return value
         elif stype == 'entry':
-            if self.type=='string':
-                value = str(self._value)
-            elif self.type=='file':
-                value = str(self._value)
-            elif self.type=='int':
-                value = str(self._value)
-            elif self.type=='float':
-                value = str(ToSI(float(self._value),self.unit))
+            if self.GetValue('Type')=='string':
+                value = str(self.GetValue('Value'))
+            elif self.GetValue('Type')=='file':
+                value = str(self.GetValue('Value'))
+            elif self.GetValue('Type')=='int':
+                value = str(self.GetValue('Value'))
+            elif self.GetValue('Type')=='float':
+                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit')))
             else:
-                value = str(self._value)
+                value = str(self.GetValue('Value'))
             return value
         else:
             raise ValueError
-            return str(self._value)
+            return str(self.GetValue('Value'))
     def SetValueFromString(self,string):
-        if self.type=='string':
-            self._value = str(string)
-        elif self.type=='file':
-            self._value = str(string)
-        elif self.type=='int':
+        if self.GetValue('Type')=='string':
+            self.SetValue('Value', str(string))
+        elif self.GetValue('Type')=='file':
+            self.SetValue('Value',str(string))
+        elif self.GetValue('Type')=='int':
             try:
-                self._value = int(string)
+                self.SetValue('Value',int(string))
             except ValueError:
-                self._value = 0
-        elif self.type=='float':
-            value = FromSI(string,self.unit)
+                self.SetValue('Value',0)
+        elif self.GetValue('Type')=='float':
+            value = FromSI(string,self.GetValue('Unit'))
             if value is not None:
-                self._value=value
+                self.SetValue('Value',value)
         else:
             raise ValueError
-            self._value = str(string)
+            self.SetValue('Value', str(string))
         return self
-    def GetValue(self):
-        return self._value
-    def xml(self):
-        pp = et.Element('part_property')
-        pList=[]
-        p=et.Element('keyword')
-        p.text=str(self.keyword)
-        pList.append(p)
-        p=et.Element('property_name')
-        p.text=str(self.propertyName)
-        pList.append(p)
-        p=et.Element('description')
-        p.text=str(self.description)
-        pList.append(p)
-        p=et.Element('value')
-        p.text=self.PropertyString(stype='raw')
-        pList.append(p)
-        p=et.Element('hidden')
-        p.text=str(self.hidden)
-        pList.append(p)
-        p=et.Element('visible')
-        p.text=str(self.visible)
-        pList.append(p)
-        p=et.Element('keyword_visible')
-        p.text=str(self.keywordVisible)
-        pList.append(p)
-        p=et.Element('type')
-        p.text=str(self.type)
-        pList.append(p)
-        p=et.Element('unit')
-        p.text=str(self.unit)
-        pList.append(p)
-        pp.extend(pList)
-        return pp
+    def GetValue(self,name=None):
+        if not name is None:
+            return PartPropertyConfiguration.GetValue(self,name)
+
+        if self.GetValue('Type')=='int':
+            return int(self.GetValue('Value'))
+        elif self.GetValue('Type')=='float':
+            return float(self.GetValue('Value'))
+        else:
+            return self.GetValue('Value')
 
 class PartPropertyXMLClassFactory(PartProperty):
     def __init__(self,xml):
@@ -170,34 +145,87 @@ class PartPropertyXMLClassFactory(PartProperty):
                 ptype = item.text
             elif item.tag == 'unit':
                 unit = item.text
+        # legacy change - all part properties must have keywords
+        if propertyName == 'portnumber':
+            keyword='pn'
+            keywordVisible=False
+        elif propertyName == 'reference':
+            keyword='ref'
+            keywordVisible=False
+        elif propertyName == 'defaultreference':
+            keyword='defref'
+            keywordVisible=False
+        elif propertyName == 'ports':
+            keyword='ports'
+            keywordVisible=False
+        elif propertyName == 'filename':
+            keyword='file'
+            keywordVisible=False
+        elif propertyName == 'type':
+            keyword='partname'
+            keywordVisible=False
+        elif propertyName == 'category':
+            keyword='cat'
+            keywordVisible=False
+        elif propertyName == 'description':
+            keyword='desc'
+            keywordVisible=False
+        elif propertyName == 'waveformfilename':
+            keyword='wffile'
+            keywordVisible=False
+
+        if keyword is None:
+            raise
         # hack because stupid xml outputs none for empty string
         if ptype == 'float' and (unit is None or unit == 'None'):
             unit = ''
         self.result=PartProperty(propertyName,ptype,unit,keyword,description,value,hidden,visible,keywordVisible)
 
+class PartPropertyFromProject(PartProperty):
+    def __init__(self,partPropertyProject):
+        propertyName=partPropertyProject.GetValue('PropertyName')
+        keyword=partPropertyProject.GetValue('Keyword')
+        description=partPropertyProject.GetValue('Description')
+        value=partPropertyProject.GetValue('Value')
+        hidden=partPropertyProject.GetValue('Hidden')
+        visible=partPropertyProject.GetValue('Visible')
+        ptype=partPropertyProject.GetValue('Type')
+        unit=partPropertyProject.GetValue('Unit')
+        keywordVisible=partPropertyProject.GetValue('KeywordVisible')
+        inProjectFile=partPropertyProject.GetValue('InProjectFile')
+        # hack because stupid xml outputs none for empty string
+        if ptype == 'float' and (unit is None or unit == 'None'):
+            unit = ''
+        self.result=PartProperty(propertyName,ptype,unit,keyword,description,value,hidden,visible,keywordVisible,inProjectFile)
+
+class PartPropertyReadOnly(PartProperty):
+    def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):
+        inProjectFile=False
+        PartProperty.__init__(self,propertyName,type,unit,keyword,description,value,hidden,visible,keywordVisible,inProjectFile)
+
 class PartPropertyPortNumber(PartProperty):
     def __init__(self,portNumber):
-        PartProperty.__init__(self,'portnumber',type='int',unit=None,keyword='',description='port number',value=portNumber,visible=True)
+        PartProperty.__init__(self,'portnumber',type='int',unit=None,keyword='pn',description='port number',value=portNumber,visible=True, keywordVisible=False)
 
 class PartPropertyReferenceDesignator(PartProperty):
     def __init__(self,referenceDesignator=''):
-        PartProperty.__init__(self,'reference',type='string',unit=None,description='reference designator',value=referenceDesignator,visible=False,keywordVisible=False)
+        PartProperty.__init__(self,'reference',type='string',unit=None,keyword='ref',description='reference designator',value=referenceDesignator,visible=False,keywordVisible=False)
 
-class PartPropertyDefaultReferenceDesignator(PartProperty):
+class PartPropertyDefaultReferenceDesignator(PartPropertyReadOnly):
     def __init__(self,referenceDesignator=''):
-        PartProperty.__init__(self,'defaultreference',type='string',unit=None,description='default reference designator',value=referenceDesignator,hidden=True,visible=False,keywordVisible=False)
+        PartPropertyReadOnly.__init__(self,'defaultreference',type='string',unit=None,keyword='defref',description='default reference designator',value=referenceDesignator,hidden=True,visible=False,keywordVisible=False)
 
 class PartPropertyPorts(PartProperty):
     def __init__(self,numPorts=1,hidden=True):
-        PartProperty.__init__(self,'ports',type='int',unit=None,description='ports',value=numPorts,hidden=hidden)
+        PartProperty.__init__(self,'ports',type='int',unit=None,description='ports',keyword='ports',value=numPorts,hidden=hidden)
 
 class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
-        PartProperty.__init__(self,'filename',type='file',unit=None,description='file name',value=fileName)
+        PartProperty.__init__(self,'filename',type='file',unit=None,keyword='file',description='file name',value=fileName)
 
 class PartPropertyWaveformFileName(PartProperty):
     def __init__(self,fileName=''):
-        PartProperty.__init__(self,'waveformfilename',type='file',unit=None,description='file name',value=fileName)
+        PartProperty.__init__(self,'waveformfilename',type='file',unit=None,keyword='wffile',description='file name',value=fileName)
 
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
@@ -227,17 +255,17 @@ class PartPropertyConductance(PartProperty):
     def __init__(self,conductance=0.,keyword='g',descriptionPrefix=''):
         PartProperty.__init__(self,'conductance',type='float',unit='S',keyword=keyword,description=descriptionPrefix+'conductance (S)',value=conductance,visible=True,keywordVisible=False)
 
-class PartPropertyPartName(PartProperty):
+class PartPropertyPartName(PartPropertyReadOnly):
     def __init__(self,partName=''):
-        PartProperty.__init__(self,'type',type='string',unit=None,description='part type',value=partName,hidden=True)
+        PartPropertyReadOnly.__init__(self,'type',type='string',unit=None,keyword='partname',description='part type',value=partName,hidden=True)
 
-class PartPropertyCategory(PartProperty):
+class PartPropertyCategory(PartPropertyReadOnly):
     def __init__(self,category=''):
-        PartProperty.__init__(self,'category',type='string',unit=None,description='part category',value=category,hidden=True)
+        PartPropertyReadOnly.__init__(self,'category',type='string',unit=None,keyword='cat',description='part category',value=category,hidden=True)
 
-class PartPropertyDescription(PartProperty):
+class PartPropertyDescription(PartPropertyReadOnly):
     def __init__(self,description=''):
-        PartProperty.__init__(self,'description',type='string',unit=None,description='part description',value=description,hidden=True)
+        PartPropertyReadOnly.__init__(self,'description',type='string',unit=None,keyword='desc',description='part description',value=description,hidden=True)
 
 class PartPropertyVoltageGain(PartProperty):
     def __init__(self,voltageGain=1.0):
@@ -330,4 +358,3 @@ class PartPropertyWeight(PartProperty):
 class PartPropertyReferenceImpedance(PartProperty):
     def __init__(self,impedance=50.,keyword='z0',):
         PartProperty.__init__(self,'impedance',type='float',unit='Ohm',keyword=keyword,description='reference impedance (Ohms)',value=impedance,visible=True,keywordVisible=True)
-

@@ -29,6 +29,8 @@ else:
     from tkinter import BOTH,YES,TOP,LEFT
     from tkinter import ttk
 
+#from Device import *
+
 class DevicePicker(Frame):
     def __init__(self,parent,deviceList):
         Frame.__init__(self,parent)
@@ -41,9 +43,9 @@ class DevicePicker(Frame):
         categories=[]
         indexIntoDeviceList=0
         for device in deviceList:
-            parttype=device['type'].GetValue()
-            description='\ '.join(device['description'].GetValue().split())
-            category=device['category'].GetValue()
+            parttype=device['partname'].GetValue()
+            description='\ '.join(device['desc'].GetValue().split())
+            category=device['cat'].GetValue()
             if category not in categories:
                 self.tree.insert('','end',category,text=category,values=(category),tags='category')
                 categories.append(category)

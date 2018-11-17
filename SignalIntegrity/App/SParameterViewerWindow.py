@@ -68,7 +68,7 @@ class ViewerProperty(Frame):
         self.partProperty=partProperty
         self.callBack=callBack
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        propertyLabel = Label(self,width=25,text=self.partProperty.description+': ',anchor='e')
+        propertyLabel = Label(self,width=25,text=self.partProperty.GetValue('Description')+': ',anchor='e')
         propertyLabel.pack(side=LEFT, expand=NO, fill=X)
         propertyEntry = Entry(self,textvariable=self.propertyString)
         propertyEntry.config(width=15)
@@ -585,13 +585,12 @@ class SParametersDialog(Toplevel):
     def onResample(self):
         import SignalIntegrity.Lib as si
         self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
-            self.parent.calculationProperties.endFrequency,
-            self.parent.calculationProperties.frequencyPoints))
+            self.parent.project.GetValue('CalculationProperties.EndFrequency'),
+            self.parent.project.GetValue('CalculationProperties.FrequencyPoints')))
         self.PlotSParameter()
 
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
-        #self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
 
     def onMatplotlib2TikZ(self):
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],

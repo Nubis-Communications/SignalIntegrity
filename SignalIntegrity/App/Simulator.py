@@ -233,7 +233,6 @@ class SimulatorDialog(Toplevel):
         pass
     def onCalculationProperties(self):
         self.parent.parent.onCalculationProperties()
-        #self.parent.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
 
     def onExamineTransferMatrices(self):
         buttonLabelList=[[out+' due to '+inp for inp in self.parent.sourceNames] for out in self.parent.outputWaveformLabels]
@@ -296,8 +295,9 @@ class Simulator(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
-            self.parent.calculationProperties.endFrequency,
-            self.parent.calculationProperties.frequencyPoints)
+            self.parent.project.GetValue('CalculationProperties.EndFrequency'),
+            self.parent.project.GetValue('CalculationProperties.FrequencyPoints')
+            )
         cacheFileName=None
         if self.parent.preferences.GetValue('Cache.CacheResults'):
             cacheFileName=self.parent.fileparts.FileNameTitle()
@@ -359,21 +359,19 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device[PartPropertyPartName().propertyName].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
-                    if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
+                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                    if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
-                        gainProperty = device[PartPropertyVoltageGain().propertyName]
-                        if gainProperty is None:
-                            gainProperty = device[PartPropertyTransresistance().propertyName]
+                        gainProperty = device['gain']
                         gain=gainProperty.GetValue()
-                        offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
-                        delay=device[PartPropertyDelay().propertyName].GetValue()
+                        offset=device['offset'].GetValue()
+                        delay=device['td'].GetValue()
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.parent.calculationProperties.userSampleRate))
+            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.parent.project.GetValue('CalculationProperties.UserSampleRate')))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
@@ -390,8 +388,8 @@ class Simulator(object):
         si.sd.Numeric.trySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.parent.calculationProperties.endFrequency,
-                self.parent.calculationProperties.frequencyPoints),
+                self.parent.project.GetValue('CalculationProperties.EndFrequency'),
+                self.parent.project.GetValue('CalculationProperties.FrequencyPoints')),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
@@ -433,15 +431,13 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device[PartPropertyPartName().propertyName].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
-                    if device[PartPropertyReferenceDesignator().propertyName].GetValue() == outputWaveformLabel:
+                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                    if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
-                        gainProperty = device[PartPropertyVoltageGain().propertyName]
-                        if gainProperty is None:
-                            gainProperty = device[PartPropertyTransresistance().propertyName]
+                        gainProperty = device['gain']
                         gain=gainProperty.GetValue()
-                        offset=device[PartPropertyVoltageOffset().propertyName].GetValue()
-                        delay=device[PartPropertyDelay().propertyName].GetValue()
+                        offset=device['offset'].GetValue()
+                        delay=device['td'].GetValue()
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform

@@ -18,40 +18,43 @@ PartPin.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
-
+from SignalIntegrity.App.ProjectFile import PartPinConfiguration
 # pinOrientation is 't','b','l','r'
 # coordinates are relative to part
-class PartPin(object):
+class PartPin(PartPinConfiguration):
     def __init__(self,pinNumber,pinConnectPoint,pinOrientation,pinNumberVisible=True,pinVisible=True, pinNumberingMatters=True):
-        self.pinNumber=pinNumber
-        self.pinConnectionPoint=pinConnectPoint
-        self.pinOrientation=pinOrientation
-        self.pinNumberVisible = pinNumberVisible
-        self.pinVisible = pinVisible
-        self.pinNumberingMatters = pinNumberingMatters
+        PartPinConfiguration.__init__(self)
+        self.SetValue('Number', pinNumber)
+        self.SetValue('ConnectionPoint', str(pinConnectPoint))
+        self.SetValue('Orientation', pinOrientation)
+        self.SetValue('NumberVisible', pinNumberVisible)
+        self.SetValue('Visible', pinVisible)
+        self.SetValue('NumberingMatters', pinNumberingMatters)
     def DrawPin(self,canvas,grid,partOrigin,color,connected):
-        startx=(self.pinConnectionPoint[0]+partOrigin[0])*grid
-        starty=(self.pinConnectionPoint[1]+partOrigin[1])*grid
+        pinConnectionPoint=eval(self.GetValue('ConnectionPoint'))
+        startx=(pinConnectionPoint[0]+partOrigin[0])*grid
+        starty=(pinConnectionPoint[1]+partOrigin[1])*grid
         endx=startx
         endy=starty
         textGrid=16
-        if self.pinOrientation == 't':
+        pinOrientation=self.GetValue('Orientation')
+        if pinOrientation == 't':
             endy=endy+grid
             textx=startx+textGrid/2
             texty=starty+textGrid/2
-        elif self.pinOrientation == 'b':
+        elif pinOrientation == 'b':
             endy=endy-grid
             textx=startx+textGrid/2
             texty=starty-textGrid/2
-        elif self.pinOrientation == 'l':
+        elif pinOrientation == 'l':
             endx=endx+grid
             textx=startx+textGrid/2
             texty=starty-textGrid/2
-        elif self.pinOrientation =='r':
+        elif pinOrientation =='r':
             endx=endx-grid
             textx=startx-textGrid/2
             texty=starty-textGrid/2
-        if self.pinVisible:
+        if self.GetValue('Visible'):
             canvas.create_line(startx,starty,endx,endy,fill=color)
         if not connected:
             size=max(1,grid/8)
@@ -60,44 +63,5 @@ class PartPin(object):
         # comment this in for editing book
         #if self.pinNumberingMatters:
         #    self.pinNumberVisible=True
-        if self.pinNumberVisible:
-            canvas.create_text(textx,texty,text=str(self.pinNumber),fill=color)
-    def xml(self):
-        pp = et.Element('pin')
-        pList=[]
-        p=et.Element('number')
-        p.text=str(self.pinNumber)
-        pList.append(p)
-        p=et.Element('connection_point')
-        p.text=str(self.pinConnectionPoint)
-        pList.append(p)
-        p=et.Element('orientation')
-        p.text=str(self.pinOrientation)
-        pList.append(p)
-        p=et.Element('number_visible')
-        p.text=str(self.pinNumberVisible)
-        pList.append(p)
-        p=et.Element('pin_visible')
-        p.text=str(self.pinVisible)
-        pList.append(p)
-        pp.extend(pList)
-        return pp
-
-class PartPinXMLClassFactory(PartPin):
-    def __init__(self,xml):
-        pinNumber=None
-        pinConnectionPoint=None
-        pinOrientation=None
-        pinNumberVisible = True
-        for item in xml:
-            if item.tag == 'number':
-                pinNumber = int(item.text)
-            elif item.tag == 'connection_point':
-                pinConnectionPoint = eval(item.text)
-            elif item.tag == 'orientation':
-                pinOrientation = item.text
-            elif item.tag == 'number_visible':
-                pinNumberVisible = eval(item.text)
-            elif item.tag == 'pin_visible':
-                pinVisible = eval(item.text)
-        self.result=PartPin(pinNumber,pinConnectionPoint,pinOrientation,pinNumberVisible,pinVisible)
+        if self.GetValue('NumberVisible'):
+            canvas.create_text(textx,texty,text=str(self.GetValue('Number')),fill=color)
