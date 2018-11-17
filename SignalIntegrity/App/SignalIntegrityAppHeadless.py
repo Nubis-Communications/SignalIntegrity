@@ -31,6 +31,8 @@ from SignalIntegrity.App.CalculationProperties import CalculationProperties
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
+from SignalIntegrity.App.Wire import Wire
+from SignalIntegrity.App.ProjectFile import ProjectFile
 
 class DrawingHeadless(object):
     def __init__(self,parent):
@@ -61,9 +63,8 @@ class DrawingHeadless(object):
                                     (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
                                     fill='black',outline='black')
         return canvas
-
     def InitFromXml(self,drawingElement):
-        self.grid=32
+        self.grid=32.
         self.originx=0
         self.originy=0
         self.schematic = Schematic()
@@ -73,7 +74,7 @@ class DrawingHeadless(object):
             elif child.tag == 'drawing_properties':
                 for drawingPropertyElement in child:
                     if drawingPropertyElement.tag == 'grid':
-                        self.grid = int(drawingPropertyElement.text)
+                        self.grid = float(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originx':
                         self.originx = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originy':
@@ -131,57 +132,57 @@ class SignalIntegrityAppHeadless(object):
 
     # Legacy File Format
     def OpenProjectFileLegacy(self,oldfilename):
-            import xml.etree.ElementTree as et
-            tree=et.parse(oldfilename)
-            root=tree.getroot()
-            for child in root:
-                if child.tag == 'drawing':
-                    self.Drawing.InitFromXml(child)
-                elif child.tag == 'calculation_properties':
-                    from CalculationProperties import CalculationProperties
-                    self.calculationProperties=CalculationProperties(self)
-                    self.calculationProperties.InitFromXml(child, self)
-            project=ProjectFile()
-            project.SetValue('Drawing.DrawingProperties.Grid',self.Drawing.grid)
-            project.SetValue('Drawing.DrawingProperties.Originx',self.Drawing.originx)
-            project.SetValue('Drawing.DrawingProperties.Originy',self.Drawing.originy)
-            from ProjectFile import DeviceConfiguration
-            project.SetValue('Drawing.Schematic.Devices',[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))])
-            for d in range(len(project.GetValue('Drawing.Schematic.Devices'))):
-                deviceProject=project.GetValue('Drawing.Schematic.Devices')[d]
-                device=self.Drawing.schematic.deviceList[d]
-                deviceProject.SetValue('ClassName',device.__class__.__name__)
-                partPictureProject=deviceProject.GetValue('PartPicture')
-                partPicture=device.partPicture
-                partPictureProject.SetValue('ClassName',partPicture.partPictureClassList[partPicture.partPictureSelected])
-                partPictureProject.SetValue('Origin',partPicture.current.origin)
-                partPictureProject.SetValue('Orientation',partPicture.current.orientation)
-                partPictureProject.SetValue('MirroredVertically',partPicture.current.mirroredVertically)
-                partPictureProject.SetValue('MirroredHorizontally',partPicture.current.mirroredHorizontally)
-                deviceProject.SetValue('PartProperties',device.propertiesList)
-            from ProjectFile import WireConfiguration
-            project.SetValue('Drawing.Schematic.Wires',[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))])
-            for w in range(len(project.GetValue('Drawing.Schematic.Wires'))):
-                wireProject=project.GetValue('Drawing.Schematic.Wires')[w]
-                wire=self.Drawing.schematic.wireList[w]
-                from ProjectFile import VertexConfiguration
-                wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
-                for v in range(len(wireProject.GetValue('Vertex'))):
-                    vertexProject=wireProject.GetValue('Vertex')[v]
-                    vertex=wire[v]
-                    vertexProject.SetValue('Coord',vertex.coord)
-            project.SetValue('CalculationProperties.EndFrequency',self.calculationProperties.endFrequency)
-            project.SetValue('CalculationProperties.FrequencyPoints',self.calculationProperties.frequencyPoints)
-            project.SetValue('CalculationProperties.UserSampleRate',self.calculationProperties.userSampleRate)
-            # calculate certain calculation properties
-            project.SetValue('CalculationProperties.BaseSampleRate', project.GetValue('CalculationProperties.EndFrequency')*2)
-            project.SetValue('CalculationProperties.TimePoints',project.GetValue('CalculationProperties.FrequencyPoints')*2)
-            project.SetValue('CalculationProperties.FrequencyResolution', project.GetValue('CalculationProperties.EndFrequency')/project.GetValue('CalculationProperties.FrequencyPoints'))
-            project.SetValue('CalculationProperties.ImpulseResponseLength',1./project.GetValue('CalculationProperties.FrequencyResolution'))
-            self.project=project
-            del self.calculationProperties
-            self.Drawing.InitFromProject(self.project)
-            return self
+        import xml.etree.ElementTree as et
+        tree=et.parse(oldfilename)
+        root=tree.getroot()
+        for child in root:
+            if child.tag == 'drawing':
+                self.Drawing.InitFromXml(child)
+            elif child.tag == 'calculation_properties':
+                from CalculationProperties import CalculationProperties
+                self.calculationProperties=CalculationProperties(self)
+                self.calculationProperties.InitFromXml(child, self)
+        project=ProjectFile()
+        project.SetValue('Drawing.DrawingProperties.Grid',self.Drawing.grid)
+        project.SetValue('Drawing.DrawingProperties.Originx',self.Drawing.originx)
+        project.SetValue('Drawing.DrawingProperties.Originy',self.Drawing.originy)
+        from ProjectFile import DeviceConfiguration
+        project.SetValue('Drawing.Schematic.Devices',[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))])
+        for d in range(len(project.GetValue('Drawing.Schematic.Devices'))):
+            deviceProject=project.GetValue('Drawing.Schematic.Devices')[d]
+            device=self.Drawing.schematic.deviceList[d]
+            deviceProject.SetValue('ClassName',device.__class__.__name__)
+            partPictureProject=deviceProject.GetValue('PartPicture')
+            partPicture=device.partPicture
+            partPictureProject.SetValue('ClassName',partPicture.partPictureClassList[partPicture.partPictureSelected])
+            partPictureProject.SetValue('Origin',partPicture.current.origin)
+            partPictureProject.SetValue('Orientation',partPicture.current.orientation)
+            partPictureProject.SetValue('MirroredVertically',partPicture.current.mirroredVertically)
+            partPictureProject.SetValue('MirroredHorizontally',partPicture.current.mirroredHorizontally)
+            deviceProject.SetValue('PartProperties',device.propertiesList)
+        from ProjectFile import WireConfiguration
+        project.SetValue('Drawing.Schematic.Wires',[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))])
+        for w in range(len(project.GetValue('Drawing.Schematic.Wires'))):
+            wireProject=project.GetValue('Drawing.Schematic.Wires')[w]
+            wire=self.Drawing.schematic.wireList[w]
+            from ProjectFile import VertexConfiguration
+            wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
+            for v in range(len(wireProject.GetValue('Vertex'))):
+                vertexProject=wireProject.GetValue('Vertex')[v]
+                vertex=wire[v]
+                vertexProject.SetValue('Coord',vertex.coord)
+        project.SetValue('CalculationProperties.EndFrequency',self.calculationProperties.endFrequency)
+        project.SetValue('CalculationProperties.FrequencyPoints',self.calculationProperties.frequencyPoints)
+        project.SetValue('CalculationProperties.UserSampleRate',self.calculationProperties.userSampleRate)
+        # calculate certain calculation properties
+        project.SetValue('CalculationProperties.BaseSampleRate', project.GetValue('CalculationProperties.EndFrequency')*2)
+        project.SetValue('CalculationProperties.TimePoints',project.GetValue('CalculationProperties.FrequencyPoints')*2)
+        project.SetValue('CalculationProperties.FrequencyResolution', project.GetValue('CalculationProperties.EndFrequency')/project.GetValue('CalculationProperties.FrequencyPoints'))
+        project.SetValue('CalculationProperties.ImpulseResponseLength',1./project.GetValue('CalculationProperties.FrequencyResolution'))
+        self.project=project
+        del self.calculationProperties
+        self.Drawing.InitFromProject(self.project)
+        return self
 
     def SaveProjectToFile(self,filename):
         self.fileparts=FileParts(filename)
@@ -222,12 +223,12 @@ class SignalIntegrityAppHeadless(object):
         netList=self.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
-        cacheFileName=None
-        if self.preferences.GetValue('Cache.CacheResults'):
-            cacheFileName=self.fileparts.FileNameTitle()
         fd=si.fd.EvenlySpacedFrequencyList(
             self.project.GetValue('CalculationProperties.EndFrequency'),
             self.project.GetValue('CalculationProperties.FrequencyPoints'))
+        cacheFileName=None
+        if self.preferences.GetValue('Cache.CacheResults'):
+            cacheFileName=self.fileparts.FileNameTitle()
         si.sd.Numeric.trySVD=self.preferences.GetValue('Calculation.TrySVD')
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
@@ -360,5 +361,4 @@ class SignalIntegrityAppHeadless(object):
             filename=unknownNames[u]+extension
             if self.fileparts.filename != '':
                 filename.append(self.fileparts.filename+'_'+filename)
-
         return (unknownNames,sp,filename)
