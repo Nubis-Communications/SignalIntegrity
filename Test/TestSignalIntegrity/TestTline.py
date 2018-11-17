@@ -510,7 +510,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=['SeriesRse']
         self.WriteClassCode(fileName,className,defName)
     def testTransmissionLineSimulation(self):
-        (sourceNames,outputNames,transferMatrices,outputWaveforms)=self.SimulationResultsChecker('TransmissionLineSimulation')
+        (sourceNames,outputNames,transferMatrices,outputWaveforms)=self.SimulationResultsChecker('TransmissionLineSimulation.xml')
         wfdict={name:wf for (name,wf) in zip(outputNames,outputWaveforms)}
         V=1.
         Zs=40.

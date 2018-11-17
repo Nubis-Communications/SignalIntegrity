@@ -94,7 +94,7 @@ class SignalIntegrityAppHeadless(object):
         # python path
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
-
+        self.preferences=Preferences()
         self.installdir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
         self.calculationProperties=CalculationProperties(self)
