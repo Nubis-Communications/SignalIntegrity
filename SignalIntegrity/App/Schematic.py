@@ -120,7 +120,7 @@ class Schematic(object):
                     for wire in self.project.GetValue('Drawing.Schematic.Wires'):
                         if thisPinConnected:
                             break
-                        for vertex in wire.GetValue('Vertex'):
+                        for vertex in wire.GetValue('Vertices'):
                             if thisPinCoordinate == eval(vertex.GetValue('Coord')):
                                 thisPinConnected=True
                                 break
@@ -138,9 +138,9 @@ class Schematic(object):
         for w in range(len(self.project.GetValue('Drawing.Schematic.Wires'))):
             wireProject=self.project.GetValue('Drawing.Schematic.Wires')[w]
             wire=wireList[w]
-            wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
-            for v in range(len(wireProject.GetValue('Vertex'))):
-                vertexProject=wireProject.GetValue('Vertex')[v]
+            wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
+            for v in range(len(wireProject.GetValue('Vertices'))):
+                vertexProject=wireProject.GetValue('Vertices')[v]
                 vertex=wire[v]
                 vertexProject.SetValue('Coord',vertex.coord)
                 vertexProject.SetValue('Selected',vertex.selected)
@@ -155,7 +155,7 @@ class Schematic(object):
             coordList=coordList+device.PinCoordinates()
         wireListProject = self.project.GetValue('Drawing.Schematic.Wires')
         for wireProject in wireListProject:
-            vertexCoordinates=[eval(vertexProject.GetValue('Coord')) for vertexProject in wireProject.GetValue('Vertex')]
+            vertexCoordinates=[eval(vertexProject.GetValue('Coord')) for vertexProject in wireProject.GetValue('Vertices')]
             #vertex coordinates count as two except for the endpoints
             coordList=coordList+vertexCoordinates+vertexCoordinates[1:-1]
         uniqueCoordList=list(set(coordList))
@@ -175,7 +175,7 @@ class DrawingStateMachine(object):
         if self.parent.schematic.project is None:
             return
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 vertexProject.SetValue('Selected',False)
     def SaveButton1Coordinates(self,event):
         self.parent.Button1Coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -198,8 +198,8 @@ class DrawingStateMachine(object):
                     self.parent.deviceSelectedIndex = d
                     self.parent.coordInPart = device.WhereInPart(self.parent.Button1Coord)
         for w in range(len(self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'))):
-            for v in range(len(self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[w].GetValue('Vertex'))):
-                if self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[w].GetValue('Vertex')[v].GetValue('Selected'):
+            for v in range(len(self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[w].GetValue('Vertices'))):
+                if self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[w].GetValue('Vertices')[v].GetValue('Selected'):
                     if AtLeastOneVertexSelected:
                         MultipleThingsSelected=True
                     else:
@@ -229,7 +229,7 @@ class DrawingStateMachine(object):
                 selectedSomething=True
                 device.selected=True
         for wire in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertex in wire.GetValue('Vertex'):
+            for vertex in wire.GetValue('Vertices'):
                 if Vertex(eval(vertex.GetValue('Coord')),vertex.GetValue('Selected')).IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2):
                     selectedSomething=True
                     vertex.SetValue('Selected',True)
@@ -245,9 +245,9 @@ class DrawingStateMachine(object):
                 if selectedSomething:
                     wire = segmentList.Wire()
                     from ProjectFile import VertexConfiguration
-                    wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
-                    for v in range(len(wireProject.GetValue('Vertex'))):
-                        vertexProject=wireProject.GetValue('Vertex')[v]
+                    wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
+                    for v in range(len(wireProject.GetValue('Vertices'))):
+                        vertexProject=wireProject.GetValue('Vertices')[v]
                         vertex=wire[v]
                         vertexProject.SetValue('Coord',vertex.coord)
                         vertexProject.SetValue('Selected',vertex.selected)
@@ -261,7 +261,7 @@ class DrawingStateMachine(object):
                 device.selected=not device.selected
                 toggledSomething=True
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 if Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected')).IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2):
                     vertexProject.SetValue('Selected',not vertexProject.GetValue('Selected'))
                     toggledSomething=True
@@ -276,9 +276,9 @@ class DrawingStateMachine(object):
                 if toggledSomething:
                     wire = segmentList.Wire()
                     from ProjectFile import VertexConfiguration
-                    wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
-                    for v in range(len(wireProject.GetValue('Vertex'))):
-                        vertexProject=wireProject.GetValue('Vertex')[v]
+                    wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
+                    for v in range(len(wireProject.GetValue('Vertices'))):
+                        vertexProject=wireProject.GetValue('Vertices')[v]
                         vertex=wire[v]
                         vertexProject.SetValue('Coord',vertex.coord)
                         vertexProject.SetValue('Selected',vertex.selected)
@@ -536,8 +536,8 @@ class DrawingStateMachine(object):
             wireListProject=self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')
             for w in range(len(wireListProject)):
                 wireProject=wireListProject[w]
-                for v in range(len(wireProject.GetValue('Vertex'))):
-                    vertexProject=wireProject.GetValue('Vertex')[v]
+                for v in range(len(wireProject.GetValue('Vertices'))):
+                    vertexProject=wireProject.GetValue('Vertices')[v]
                     if vertexProject.GetValue('Selected'):
                         self.parent.w = w
                         self.parent.v = v
@@ -579,11 +579,11 @@ class DrawingStateMachine(object):
         pass
     def onMouseButton1Motion_WireSelected(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[self.parent.w].GetValue('Vertex')[self.parent.v].SetValue('Coord',coord)
+        self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[self.parent.w].GetValue('Vertices')[self.parent.v].SetValue('Coord',coord)
         self.parent.DrawSchematic()
     def onMouseButton1Release_WireSelected(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[self.parent.w].GetValue('Vertex')[self.parent.v].SetValue('Coord',coord)
+        self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[self.parent.w].GetValue('Vertices')[self.parent.v].SetValue('Coord',coord)
         self.parent.schematic.Consolidate()
         self.parent.parent.history.Event('release selected wire')
         self.parent.DrawSchematic()
@@ -684,7 +684,7 @@ class DrawingStateMachine(object):
             self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
         self.SaveButton1Coordinates(event)
-        self.parent.wireLoaded.GetValue('Vertex')[-1].SetValue('Coord',self.parent.Button1Coord)
+        self.parent.wireLoaded.GetValue('Vertices')[-1].SetValue('Coord',self.parent.Button1Coord)
         self.parent.DrawSchematic()
     def onCtrlMouseButton1_WireLoaded(self,event):
         pass
@@ -696,8 +696,8 @@ class DrawingStateMachine(object):
         pass
     def onMouseButton1Motion_WireLoaded(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        if len(self.parent.wireLoaded.GetValue('Vertex')) > 0:
-            self.parent.wireLoaded.GetValue('Vertex')[-1].SetValue('Coord',coord)
+        if len(self.parent.wireLoaded.GetValue('Vertices')) > 0:
+            self.parent.wireLoaded.GetValue('Vertices')[-1].SetValue('Coord',coord)
             self.parent.DrawSchematic()
     def onMouseButton1Release_WireLoaded(self,event):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -705,21 +705,21 @@ class DrawingStateMachine(object):
         vertexProject=VertexConfiguration()
         vertexProject.SetValue('Coord', coord)
         vertexProject.SetValue('Selected',False)
-        self.parent.wireLoaded.GetValue('Vertex').append(vertexProject)
+        self.parent.wireLoaded.GetValue('Vertices').append(vertexProject)
         self.parent.DrawSchematic()
     def onMouseButton3Release_WireLoaded(self,event):
         self.SaveButton2Coordinates(event)
-        if len(self.parent.wireLoaded.GetValue('Vertex')) > 2:
+        if len(self.parent.wireLoaded.GetValue('Vertices')) > 2:
             from ProjectFile import VertexConfiguration,WireConfiguration
             wireListProject=self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')
             wireProject=WireConfiguration()
-            wireProject.SetValue('Vertex',self.parent.wireLoaded.GetValue('Vertex')[:-1])
+            wireProject.SetValue('Vertices',self.parent.wireLoaded.GetValue('Vertices')[:-1])
             wireListProject[-1]=wireProject
             vertexProject=VertexConfiguration()
             vertexProject.SetValue('Coord', (0,0))
             vertexProject.SetValue('Selected',False)
             wireProject=WireConfiguration()
-            wireProject.SetValue('Vertex', [vertexProject])
+            wireProject.SetValue('Vertices', [vertexProject])
             self.parent.wireLoaded=wireProject
             wireListProject.append(self.parent.wireLoaded)
             self.parent.parent.history.Event('add wire')
@@ -733,7 +733,7 @@ class DrawingStateMachine(object):
         coord=self.parent.NearestGridCoordinate(event.x,event.y)
         freeFormWire=True
         if freeFormWire:
-            self.parent.wireLoaded.GetValue('Vertex')[-1].SetValue('Coord',coord)
+            self.parent.wireLoaded.GetValue('Vertices')[-1].SetValue('Coord',coord)
         else:
             if len(self.parent.wireLoaded) == 1:
                 self.parent.wireLoaded[-1] = Vertex(coord)
@@ -845,7 +845,7 @@ class DrawingStateMachine(object):
             if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 vertex=Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected'))
                 if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertexProject.SetValue('Selected',True)
@@ -864,7 +864,7 @@ class DrawingStateMachine(object):
             if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 vertex=Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected'))
                 if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertexProject.SetValue('Selected',True)
@@ -880,7 +880,7 @@ class DrawingStateMachine(object):
             if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 if Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected')).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertexProject.SetValue('Selected',True)
         self.parent.DrawSchematic()
@@ -898,7 +898,7 @@ class DrawingStateMachine(object):
             if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                 device.selected=True
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 if Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected')).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                     vertexProject.SetValue('Selected',True)
         self.DispatchBasedOnSelections()
@@ -916,7 +916,7 @@ class DrawingStateMachine(object):
             self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
             
             self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-eval(vertex.GetValue('Coord'))[0],
-                                                     self.parent.Button1Coord[1]-eval(vertex.GetValue('Coord'))[1]) for vertex in wire.GetValue('Vertex')] for wire in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')]
+                                                     self.parent.Button1Coord[1]-eval(vertex.GetValue('Coord'))[1]) for vertex in wire.GetValue('Vertices')] for wire in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')]
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_MultipleSelections)
             self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_MultipleSelections)
             self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_MultipleSelections)
@@ -947,7 +947,7 @@ class DrawingStateMachine(object):
         self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
         self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-eval(vertexProject.GetValue('Coord'))[0],
                                                      self.parent.Button1Coord[1]-eval(vertexProject.GetValue('Coord'))[1]) 
-                                                        for vertexProject in wireProject.GetValue('Vertex')]
+                                                        for vertexProject in wireProject.GetValue('Vertices')]
                                                             for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')]
         inSelection=False
         for device in self.parent.schematic.deviceList:
@@ -956,7 +956,7 @@ class DrawingStateMachine(object):
                 break
         
         for wireProject in self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 if Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected')).IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and vertexProject.GetValue('Selected'):
                     inSelection=True
                     break
@@ -990,8 +990,8 @@ class DrawingStateMachine(object):
                 device.partPicture.current.SetOrigin([coord[0]-coordInPart[0],coord[1]-coordInPart[1]])
         for w in range(len(self.parent.schematic.project.GetValue('Drawing.Schematic.Wires'))):
             wireProject=self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')[w]
-            for v in range(len(wireProject.GetValue('Vertex'))):
-                vertexProject=wireProject.GetValue('Vertex')[v]
+            for v in range(len(wireProject.GetValue('Vertices'))):
+                vertexProject=wireProject.GetValue('Vertices')[v]
                 if vertexProject.GetValue('Selected'):
                     vertexProject.SetValue('Coord',(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
                                                           coord[1]-self.parent.OriginalWireCoordinates[w][v][1]))
@@ -1053,12 +1053,12 @@ class DrawingStateMachine(object):
                 device.selected=True
         wireListProject=self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')
         for w in range(len(wireListProject)):
-            wireProject=wireListProject[w].GetValue('Vertex')
+            wireProject=wireListProject[w].GetValue('Vertices')
             for v in range(len(wireProject)):
                 vertexProject=wireProject[v]
                 vertex=Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected'))
                 if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or\
-                 oldWireListProject[w].GetValue('Vertex')[v].GetValue('Selected'):
+                 oldWireListProject[w].GetValue('Vertices')[v].GetValue('Selected'):
                     vertexProject.SetValue('Selected',True)
         self.parent.DrawSchematic()
         self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
@@ -1078,12 +1078,12 @@ class DrawingStateMachine(object):
                 device.selected=True
         wireListProject=self.parent.schematic.project.GetValue('Drawing.Schematic.Wires')
         for w in range(len(wireListProject)):
-            wireProject=wireListProject[w].GetValue('Vertex')
+            wireProject=wireListProject[w].GetValue('Vertices')
             for v in range(len(wireProject)):
                 vertexProject=wireProject[v]
                 vertex=Vertex(eval(vertexProject.GetValue('Coord')),vertexProject.GetValue('Selected'))
                 if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or\
-                 oldWireListProject[w].GetValue('Vertex')[v].GetValue('Selected'):
+                 oldWireListProject[w].GetValue('Vertices')[v].GetValue('Selected'):
                     vertexProject.SetValue('Selected',True)
         self.DispatchBasedOnSelections()
     def onMouseButton3_SelectingMore(self,event):
@@ -1160,7 +1160,7 @@ class DrawingStateMachine(object):
             device.selected=True
             self.parent.schematic.deviceList.append(device)
         for wireProject in self.parent.wiresToDuplicate:
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 vertexProject.SetValue('Selected',True)
                 vertexCoord=eval(vertexProject.GetValue('Coord'))
                 vertexProject.SetValue('Coord',(vertexCoord[0]+self.parent.Button1Coord[0],vertexCoord[1]++self.parent.Button1Coord[1]))
@@ -1346,14 +1346,14 @@ class Drawing(Frame):
         self.stateMachine.Nothing()
         self.parent.history.Event('delete device')
     def DeleteSelectedVertex(self):
-        del self.schematic.project.GetValue('Drawing.Schematic.Wires')[self.w].GetValue('Vertex')[self.v]
+        del self.schematic.project.GetValue('Drawing.Schematic.Wires')[self.w].GetValue('Vertices')[self.v]
         self.stateMachine.Nothing()
         self.parent.history.Event('delete vertex')
     def DuplicateSelectedVertex(self):
         wireProject=self.schematic.project.GetValue('Drawing.Schematic.Wires')[self.w]
-        vertexProject=copy.deepcopy(wireProject.GetValue('Vertex')[self.v])
+        vertexProject=copy.deepcopy(wireProject.GetValue('Vertices')[self.v])
         self.stateMachine.UnselectAllWires()
-        wireProject.SetValue('Vertex',wireProject.GetValue('Vertex')[:self.v]+[vertexProject]+wireProject.GetValue('Vertex')[self.v:])       
+        wireProject.SetValue('Vertices',wireProject.GetValue('Vertices')[:self.v]+[vertexProject]+wireProject.GetValue('Vertices')[self.v:])       
         self.stateMachine.WireSelected()
     def DeleteSelectedWire(self):
         del self.schematic.project.GetValue('Drawing.Schematic.Wires')[self.w]
@@ -1367,13 +1367,13 @@ class Drawing(Frame):
         newWireListProject=[]
         for wireProject in self.schematic.project.GetValue('Drawing.Schematic.Wires'):
             newWire= []
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 if not vertexProject.GetValue('Selected'):
                     newWire.append(copy.deepcopy(vertexProject))
             if len(newWire) >= 2:
                 from ProjectFile import WireConfiguration
                 newWireProject=WireConfiguration()
-                newWireProject.SetValue('Vertex',newWire)
+                newWireProject.SetValue('Vertices',newWire)
                 newWireListProject.append(copy.deepcopy(newWireProject))
         self.schematic.project.SetValue('Drawing.Schematic.Wires',newWireListProject)
         self.schematic.deviceList=newDeviceList
@@ -1414,18 +1414,18 @@ class Drawing(Frame):
                 numVerticesSelected = 0
                 firstVertexSelected = -1
                 lastVertexSelected=-1
-                for vertexIndex in range(len(wireProject.GetValue('Vertex'))):
-                    vertexProject=wireProject.GetValue('Vertex')[vertexIndex]
+                for vertexIndex in range(len(wireProject.GetValue('Vertices'))):
+                    vertexProject=wireProject.GetValue('Vertices')[vertexIndex]
                     if vertexProject.GetValue('Selected'):
                         numVerticesSelected=numVerticesSelected+1
                         if firstVertexSelected == -1:
                             firstVertexSelected = vertexIndex
                         lastVertexSelected = vertexIndex
                 if numVerticesSelected >= 2:
-                    for vertexIndex in range(len(wireProject.GetValue('Vertex'))):
+                    for vertexIndex in range(len(wireProject.GetValue('Vertices'))):
                         if vertexIndex >= firstVertexSelected and vertexIndex <= lastVertexSelected:
-                            vertexProject=wireProject.GetValue('Vertex')[vertexIndex]
-                            newWireProject.GetValue('Vertex').append(copy.deepcopy(vertexProject))
+                            vertexProject=wireProject.GetValue('Vertices')[vertexIndex]
+                            newWireProject.GetValue('Vertices').append(copy.deepcopy(vertexProject))
                             vertexCoord=eval(vertexProject.GetValue('Coord'))
                             if not originSet:
                                 originSet=True
@@ -1434,7 +1434,7 @@ class Drawing(Frame):
                             else:
                                 originx=min(originx,vertexCoord[0])
                                 originy=min(originy,vertexCoord[1])
-                if len(newWireProject.GetValue('Vertex')) >= 2:
+                if len(newWireProject.GetValue('Vertices')) >= 2:
                     self.wiresToDuplicate.append(newWireProject)
             if not originSet:
                 return
@@ -1442,7 +1442,7 @@ class Drawing(Frame):
             for device in self.devicesToDuplicate:
                 device.partPicture.current.SetOrigin((device.partPicture.current.origin[0]-originx,device.partPicture.current.origin[1]-originy))
             for wireProject in self.wiresToDuplicate:
-                for vertexProject in wireProject.GetValue('Vertex'):
+                for vertexProject in wireProject.GetValue('Vertices'):
                     vertexCoord=eval(vertexProject.GetValue('Coord'))
                     vertexProject.SetValue('Coord',(vertexCoord[0]-originx,vertexCoord[1]-originy))
             if advanceStateMachine:

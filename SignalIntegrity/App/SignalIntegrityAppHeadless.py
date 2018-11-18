@@ -126,7 +126,7 @@ class SignalIntegrityAppHeadless(object):
         for device in self.Drawing.schematic.deviceList:
             device.selected=False
         for wireProject in self.Drawing.schematic.project.GetValue('Drawing.Schematic.Wires'):
-            for vertexProject in wireProject.GetValue('Vertex'):
+            for vertexProject in wireProject.GetValue('Vertices'):
                 vertexProject.SetValue('Selected',False)
         return True
 
@@ -166,9 +166,9 @@ class SignalIntegrityAppHeadless(object):
             wireProject=project.GetValue('Drawing.Schematic.Wires')[w]
             wire=self.Drawing.schematic.wireList[w]
             from ProjectFile import VertexConfiguration
-            wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
-            for v in range(len(wireProject.GetValue('Vertex'))):
-                vertexProject=wireProject.GetValue('Vertex')[v]
+            wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
+            for v in range(len(wireProject.GetValue('Vertices'))):
+                vertexProject=wireProject.GetValue('Vertices')[v]
                 vertex=wire[v]
                 vertexProject.SetValue('Coord',vertex.coord)
         project.SetValue('CalculationProperties.EndFrequency',self.calculationProperties.endFrequency)

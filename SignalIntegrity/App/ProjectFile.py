@@ -94,7 +94,7 @@ class VertexConfiguration(XMLConfiguration):
 class WireConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Wire')
-        self.Add(XMLProperty('Vertex',[VertexConfiguration() for _ in range(0)],'array',arrayType=VertexConfiguration()))
+        self.Add(XMLProperty('Vertices',[VertexConfiguration() for _ in range(0)],'array',arrayType=VertexConfiguration()))
 
 class DrawingPropertiesConfiguration(XMLConfiguration):
     def __init__(self):
@@ -217,9 +217,9 @@ if __name__ == '__main__':
             for w in range(len(project.GetValue('Drawing.Schematic.Wires'))):
                 wireProject=project.GetValue('Drawing.Schematic.Wires')[w]
                 wire=self.Drawing.schematic.wireList[w]
-                wireProject.SetValue('Vertex',[VertexConfiguration() for vertex in wire])
-                for v in range(len(wireProject.GetValue('Vertex'))):
-                    vertexProject=wireProject.GetValue('Vertex')[v]
+                wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
+                for v in range(len(wireProject.GetValue('Vertices'))):
+                    vertexProject=wireProject.GetValue('Vertices')[v]
                     vertex=wire[v]
                     vertexProject.SetValue('Coord',vertex.coord)
             project.SetValue('CalculationProperties.EndFrequency',self.calculationProperties.endFrequency)
