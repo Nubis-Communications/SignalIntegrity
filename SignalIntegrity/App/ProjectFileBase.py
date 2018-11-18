@@ -19,16 +19,18 @@ ProjectFileBase.py
 import xml.etree.ElementTree as et
 
 class XMLProperty(object):
-    def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True):
+    def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None):
         self.dict={}
         if not propertyValue == None:
             if propertyType == None:
-                propertyType='string'
-        self.Default(propertyName,propertyValue,propertyType,write)
-    def Default(self,propertyName,propertyValue,propertyType,write):
+                self.Default(propertyName,propertyValue,'string',write,arrayType)
+            else:
+                self.Default(propertyName,propertyValue,propertyType,write,arrayType)
+    def Default(self,propertyName,propertyValue,propertyType,write,arrayType):
         self.dict['name']=propertyName
         self.dict['type']=propertyType
         self.dict['value']=propertyValue
+        self.dict['arrayType']=arrayType
         self.dict['write']=write
         self.UpdateValue()
 
@@ -58,26 +60,24 @@ class XMLProperty(object):
         if isinstance(elementPropertyValue,list):
             lines=lines+[indent+'<'+self.dict['name']+'>']
             for item in elementPropertyValue:
-                lines=lines+item.OutputXML(indent+ProjectFileBase.indent+ProjectFileBase.indent)
+                lines=lines+item.OutputXML(indent+ProjectFileBase.indent)
             lines=lines+[indent+'</'+self.dict['name']+'>']
         else:
             lines=[indent+'<'+self.dict['name']+'>'+str(elementPropertyValue)+'</'+self.dict['name']+'>']
         return lines
 
-    def InitFromXML(self,element,module):
-        self.dict['name']=element.tag
-        if isinstance(self.dict['value'],list):
-            self.dict['value'] = []
-            for child in element:
-                name=child.tag
-                if name[len(name)-len('Configuration'):]=='Configuration':
-                    temp=__import__(module)
-                    self.dict['value'].append(eval('temp.'+name+'().InitFromXML(child,module)'))
-                else:
-                    self.dict['value'].append(XMLProperty(name,None,self.dict['type']).InitFromXML(child,module))
-        else:
-            self.dict['value'] = element.text
-        return self.UpdateValue()
+    def InitFromXML(self,element):
+        try:
+            if 'type' in self.dict and self.dict['type']=='array':
+                self.dict['value']=[]
+                for child in element:
+                    import copy
+                    self.dict['value'].append(copy.deepcopy(self.dict['arrayType']).InitFromXML(child))
+            else:
+                self.dict['value'] = element.text
+            return self.UpdateValue()
+        except:
+            return self
     def UpdateValue(self):
         if not 'value' in self.dict:
             self.value = None
@@ -146,34 +146,43 @@ class XMLProperty(object):
         self.changed=True
 
 class XMLPropertyDefault(XMLProperty):
-    def __init__(self,name,typeString,value=None,write=True):
+    def __init__(self,name,typeString,value=None,write=True,arrayType=None):
         if value==None:
             strValue='None'
         else:
             strValue = str(value)
-        XMLProperty.__init__(self,name,strValue,typeString,write)
+        XMLProperty.__init__(self,name,strValue,typeString,write,arrayType)
 
 class XMLPropertyDefaultFloat(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True):
-        XMLPropertyDefault.__init__(self,name,'float',value,write)
+    def __init__(self,name,value=None,write=True,arrayType=None):
+        XMLPropertyDefault.__init__(self,name,'float',value,write,arrayType)
         
 class XMLPropertyDefaultInt(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True):
-        XMLPropertyDefault.__init__(self,name,'int',value,write)
+    def __init__(self,name,value=None,write=True,arrayType=None):
+        XMLPropertyDefault.__init__(self,name,'int',value,write,arrayType)
 
 class XMLPropertyDefaultString(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True):
-        XMLPropertyDefault.__init__(self,name,'string',value,write)
+    def __init__(self,name,value=None,write=True,arrayType=None):
+        XMLPropertyDefault.__init__(self,name,'string',value,write,arrayType)
 
 class XMLPropertyDefaultBool(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True):
-        XMLPropertyDefault.__init__(self,name,'bool',value,write)
+    def __init__(self,name,value=None,write=True,arrayType=None):
+        XMLPropertyDefault.__init__(self,name,'bool',value,write,arrayType)
+
+class XMLPropertyDefaultArray(XMLPropertyDefault):
+    def __init__(self,name,value=None,arrayType=None):
+        XMLPropertyDefault.__init__(self,name,'array',value,arrayType)
 
 class XMLConfiguration(object):
     def __init__(self,name,write=True):
         self.dict={}
         self.name=name
         self.write=write
+    def Add(self,property):
+        self.dict[property.dict['name']]=property
+        return self
+    def SubDir(self,config):
+        self.dict[str(config.__class__).split('.')[-1].strip('>\'')]=config
     def InterceptProperty(self,element):
         return False
     def OutputXML(self,indent):
@@ -195,26 +204,25 @@ class XMLConfiguration(object):
             self.dict[item].SetUnchanged()
         return self
 
-    def InitFromXML(self,element,module):
+    def InitFromXML(self,element):
         for child in element:
-            name=child.tag
-            if name[len(name)-len('Configuration'):]=='Configuration':
-                prefix=name[:-len('Configuration')]
-                temp=__import__(module)
-                self.dict[prefix]=eval('temp.'+name+'().InitFromXML(child,module)')
-            else:
-                if name in self.dict:
-                    self.dict[name]=XMLProperty(name,self.dict[name].dict['value'],self.dict[name].dict['type']).InitFromXML(child,module)
+            try:
+                name=child.tag
+                if name[len(name)-len('Configuration'):]=='Configuration':
+                    name=name[:-len('Configuration')]
+                self.dict[name].InitFromXML(child)
+            except:
+                pass
         return self
     def Print(self):
         for item in self.dict:
             print (item)
             self.dict[item].Print()
-    
+
     def PrintFullInformation(self,prefix):
         for item in self.dict:
             self.dict[item].PrintFullInformation(prefix+'.'+item)
-                      
+
     def GetPropertyValue(self,path):
         if path == '':
             return self
@@ -244,10 +252,16 @@ class XMLConfiguration(object):
 
 class ProjectFileBase(object):
     indent='\t'
-    def __init__(self,module,ext='xml'):
+    def __init__(self,ext='xml'):
         self.dict={}
-        self.module=module
         self.ext=ext.strip('.')
+
+    def Add(self,property):
+        self.dict[property.dict['name']]=property
+        return self
+
+    def SubDir(self,config):
+        self.dict[str(config.__class__).split('.')[-1].strip('>\'')]=config
 
     def OutputXML(self):
         lines=[]
@@ -256,7 +270,7 @@ class ProjectFileBase(object):
             lines=lines+self.dict[item].OutputXML(self.indent)
         lines=lines+['</Project>']
         for line in lines:
-            print line
+            print(line)
         return self
 
     def Changed(self):
@@ -294,13 +308,13 @@ class ProjectFileBase(object):
 
     def Parse(self,element):
         for child in element:
-            name=child.tag
-            if name[len(name)-len('Configuration'):]=='Configuration':
-                prefix=name[:-len('Configuration')]
-                temp=__import__(self.module)
-                self.dict[prefix]=eval('temp.'+name+'().InitFromXML(child,self.module)')
-            else:
-                self.dict[name]=XMLProperty(name,self.dict[name].dict['value'],self.dict[name].dict['type']).InitFromXML(child,self.module)
+            try:
+                name=child.tag
+                if name[len(name)-len('Configuration'):]=='Configuration':
+                    name=name[:-len('Configuration')]
+                self.dict[name].InitFromXML(child)
+            except:
+                pass
         return self
 
     def Print(self):
