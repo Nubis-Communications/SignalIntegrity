@@ -31,7 +31,7 @@ class PartPin(PartPinConfiguration):
         self.SetValue('Visible', pinVisible)
         self.SetValue('NumberingMatters', pinNumberingMatters)
     def DrawPin(self,canvas,grid,partOrigin,color,connected):
-        pinConnectionPoint=eval(self.GetValue('ConnectionPoint'))
+        pinConnectionPoint=self.GetValue('ConnectionPoint')
         startx=(pinConnectionPoint[0]+partOrigin[0])*grid
         starty=(pinConnectionPoint[1]+partOrigin[1])*grid
         endx=startx

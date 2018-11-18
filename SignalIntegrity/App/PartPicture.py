@@ -54,7 +54,7 @@ class PartPicture(object):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically,rotationPoint=None):
         if rotationPoint==None:
             if len(pinList)==1:
-                self.rotationPoint=eval(pinList[0].GetValue('ConnectionPoint'))
+                self.rotationPoint=pinList[0].GetValue('ConnectionPoint')
             else:
                 self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2.,(innerBox[0][1]+innerBox[1][1])/2.)
         else:
@@ -125,7 +125,7 @@ class PartPicture(object):
                 elif self.orientation=='270':
                     if self.mirroredVertically: pin.SetValue('Orientation','t')
                     else: pin.SetValue('Orientation','b')
-            pin.SetValue('ConnectionPoint',str(ct.Translate(eval(pin.GetValue('ConnectionPoint')))))
+            pin.SetValue('ConnectionPoint',str(ct.Translate(pin.GetValue('ConnectionPoint'))))
         self.boundingBox=[ct.Translate(self.boundingBoxSupplied[0]),ct.Translate(self.boundingBoxSupplied[1])]
         self.boundingBox=[(min(self.boundingBox[0][0],self.boundingBox[1][0]),min(self.boundingBox[0][1],self.boundingBox[1][1])),
                      (max(self.boundingBox[0][0],self.boundingBox[1][0]),max(self.boundingBox[0][1],self.boundingBox[1][1]))]
@@ -234,7 +234,7 @@ class PartPicture(object):
                 text=self.visiblePartPropertyList[v],anchor=anchorString,fill=self.color)
     def PinCoordinates(self):
 
-        return [(eval(pin.GetValue('ConnectionPoint'))[0]+self.origin[0],eval(pin.GetValue('ConnectionPoint'))[1]+self.origin[1]) for pin in self.pinList]
+        return [(pin.GetValue('ConnectionPoint')[0]+self.origin[0],pin.GetValue('ConnectionPoint')[1]+self.origin[1]) for pin in self.pinList]
     def Selected(self,selected):
         if selected:
             self.color='blue'
@@ -459,7 +459,7 @@ class PartPictureXMLClassFactory(object):
 class PartPictureFromProject(object):
     def __init__(self,partPictureClassList,partPictureProject,ports):
         partPictureSelected = partPictureClassList.index(partPictureProject.GetValue('ClassName'))
-        origin=eval(partPictureProject.GetValue('Origin'))
+        origin=partPictureProject.GetValue('Origin')
         orientation=str(partPictureProject.GetValue('Orientation'))
         mirroredVertically=partPictureProject.GetValue('MirroredVertically')
         mirroredHorizontally=partPictureProject.GetValue('MirroredHorizontally')

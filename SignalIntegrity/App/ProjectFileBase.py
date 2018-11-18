@@ -93,6 +93,8 @@ class XMLProperty(object):
                 self.value = float(elementPropertyValue)
             elif elementPropertyType == 'string':
                 self.value = str(elementPropertyValue)
+            elif elementPropertyType == 'coord':
+                self.value = eval(elementPropertyValue)
             elif elementPropertyType == 'bool':
                 if isinstance(elementPropertyValue,str):
                     elementPropertyValue = elementPropertyValue == 'True'
@@ -172,6 +174,10 @@ class XMLPropertyDefaultBool(XMLPropertyDefault):
 class XMLPropertyDefaultArray(XMLPropertyDefault):
     def __init__(self,name,value=None,arrayType=None):
         XMLPropertyDefault.__init__(self,name,'array',value,arrayType)
+
+class XMLPropertyDefaultCoord(XMLPropertyDefault):
+    def __init__(self,name,value=None,write=True,arrayType=None):
+        XMLPropertyDefault.__init__(self,name,'coord',value,write,arrayType)
 
 class XMLConfiguration(object):
     def __init__(self,name,write=True):

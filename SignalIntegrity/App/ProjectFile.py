@@ -16,7 +16,7 @@ ProjectFile.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
+from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
 import os
@@ -60,7 +60,7 @@ class PartPinConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'PartPin',write=False)
         self.Add(XMLPropertyDefaultInt('Number'))
-        self.Add(XMLPropertyDefaultString('ConnectionPoint'))
+        self.Add(XMLPropertyDefaultCoord('ConnectionPoint'))
         self.Add(XMLPropertyDefaultString('Orientation'))
         self.Add(XMLPropertyDefaultBool('NumberVisible'))
         self.Add(XMLPropertyDefaultBool('Visible'))
@@ -70,7 +70,7 @@ class PartPictureConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'PartPicture')
         self.Add(XMLPropertyDefaultString('ClassName'))
-        self.Add(XMLPropertyDefaultString('Origin'))
+        self.Add(XMLPropertyDefaultCoord('Origin'))
         self.Add(XMLPropertyDefaultInt('Orientation'))
         self.Add(XMLPropertyDefaultBool('MirroredVertically',False))
         self.Add(XMLPropertyDefaultBool('MirroredHorizontally',False))
@@ -86,7 +86,7 @@ class DeviceConfiguration(XMLConfiguration):
 class VertexConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Vertex')
-        self.Add(XMLPropertyDefaultString('Coord'))
+        self.Add(XMLPropertyDefaultCoord('Coord'))
         self.Add(XMLPropertyDefaultBool('Selected',False,False))
 #     def OutputXML(self,indent):
 #         return [indent+'<Vertex>'+str(self.dict['Coord'].dict['value'])+'</Vertex>']
