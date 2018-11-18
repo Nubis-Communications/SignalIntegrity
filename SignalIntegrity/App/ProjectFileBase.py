@@ -147,6 +147,12 @@ class XMLProperty(object):
             self.UpdateValue()
         self.changed=True
 
+    def __getitem__(self,path):
+        return self.GetValue(path)
+
+    def __setitem__(self,path,value):
+        return self.SetValue(path,value)
+
 class XMLPropertyDefault(XMLProperty):
     def __init__(self,name,typeString,value=None,write=True,arrayType=None):
         if value==None:
@@ -256,6 +262,12 @@ class XMLConfiguration(object):
         else:
             return None
 
+    def __getitem__(self,path):
+        return self.GetValue(path)
+
+    def __setitem__(self,path,value):
+        return self.SetValue(path,value)
+
 class ProjectFileBase(object):
     indent='\t'
     def __init__(self,ext='xml'):
@@ -358,3 +370,9 @@ class ProjectFileBase(object):
             return self.dict[pathList[0]].SetValue('.'.join(pathList[1:]),value)
         else:
             return None
+
+    def __getitem__(self,path):
+        return self.GetValue(path)
+
+    def __setitem__(self,path,value):
+        return self.SetValue(path,value)

@@ -51,7 +51,7 @@ class PartPropertyConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Unit',write=False))
         self.Add(XMLPropertyDefaultBool('InProjectFile',True,False))
     def OutputXML(self,indent):
-        if self.GetValue('InProjectFile'):
+        if self['InProjectFile']:
             return XMLConfiguration.OutputXML(self, indent)
         else:
             return []
@@ -138,38 +138,38 @@ class ProjectFile(ProjectFileBase):
     def Read(self, filename,drawing):
         ProjectFileBase.Read(self, filename)
         # calculate certain calculation properties
-        self.SetValue('CalculationProperties.BaseSampleRate', self.GetValue('CalculationProperties.EndFrequency')*2)
-        self.SetValue('CalculationProperties.TimePoints',self.GetValue('CalculationProperties.FrequencyPoints')*2)
-        self.SetValue('CalculationProperties.FrequencyResolution', self.GetValue('CalculationProperties.EndFrequency')/self.GetValue('CalculationProperties.FrequencyPoints'))
-        self.SetValue('CalculationProperties.ImpulseResponseLength',1./self.GetValue('CalculationProperties.FrequencyResolution'))
+        self['CalculationProperties.BaseSampleRate']=self['CalculationProperties.EndFrequency']*2
+        self['CalculationProperties.TimePoints']=self['CalculationProperties.FrequencyPoints']*2
+        self['CalculationProperties.FrequencyResolution']=self['CalculationProperties.EndFrequency']/self['CalculationProperties.FrequencyPoints']
+        self['CalculationProperties.ImpulseResponseLength']=1./self['CalculationProperties.FrequencyResolution']
         drawing.InitFromProject(self)
         return self
 
     def Write(self,filename,app):
-        self.SetValue('Drawing.DrawingProperties.Grid',app.Drawing.grid)
-        self.SetValue('Drawing.DrawingProperties.Originx',app.Drawing.originx)
-        self.SetValue('Drawing.DrawingProperties.Originy',app.Drawing.originy)
+        self['Drawing.DrawingProperties.Grid']=app.Drawing.grid
+        self['Drawing.DrawingProperties.Originx']=app.Drawing.originx
+        self['Drawing.DrawingProperties.Originy']=app.Drawing.originy
         if not app.Drawing.canvas is None:
-            self.SetValue('Drawing.DrawingProperties.Width',app.Drawing.canvas.winfo_width())
-            self.SetValue('Drawing.DrawingProperties.Height',app.Drawing.canvas.winfo_height())
-            self.SetValue('Drawing.DrawingProperties.Geometry',app.root.geometry())
-        self.SetValue('Drawing.Schematic.Devices',[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))])
-        for d in range(len(self.GetValue('Drawing.Schematic.Devices'))):
-            deviceProject=self.GetValue('Drawing.Schematic.Devices')[d]
+            self['Drawing.DrawingProperties.Width']=app.Drawing.canvas.winfo_width()
+            self['Drawing.DrawingProperties.Height']=app.Drawing.canvas.winfo_height()
+            self['Drawing.DrawingProperties.Geometry']=app.root.geometry()
+        self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
+        for d in range(len(self['Drawing.Schematic.Devices'])):
+            deviceProject=self['Drawing.Schematic.Devices'][d]
             device=app.Drawing.schematic.deviceList[d]
-            deviceProject.SetValue('ClassName',device.__class__.__name__)
-            partPictureProject=deviceProject.GetValue('PartPicture')
+            deviceProject['ClassName']=device.__class__.__name__
+            partPictureProject=deviceProject['PartPicture']
             partPicture=device.partPicture
-            partPictureProject.SetValue('ClassName',partPicture.partPictureClassList[partPicture.partPictureSelected])
-            partPictureProject.SetValue('Origin',partPicture.current.origin)
-            partPictureProject.SetValue('Orientation',partPicture.current.orientation)
-            partPictureProject.SetValue('MirroredVertically',partPicture.current.mirroredVertically)
-            partPictureProject.SetValue('MirroredHorizontally',partPicture.current.mirroredHorizontally)
-            deviceProject.SetValue('PartProperties',device.propertiesList)
-            deviceNetListProject=deviceProject.GetValue('DeviceNetList')
+            partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
+            partPictureProject['Origin']=partPicture.current.origin
+            partPictureProject['Orientation']=partPicture.current.orientation
+            partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
+            partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
+            deviceProject['PartProperties']=device.propertiesList
+            deviceNetListProject=deviceProject['DeviceNetList']
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
-                deviceNetListProject.SetValue(n,deviceNetList.GetValue(n))
+                deviceNetListProject[n]=deviceNetList[n]
         ProjectFileBase.Write(self,filename)
         return self
 
@@ -193,38 +193,38 @@ if __name__ == '__main__':
                     self.calculationProperties=CalculationProperties(self)
                     self.calculationProperties.InitFromXml(child, self)
             project=ProjectFile()
-            project.SetValue('Drawing.DrawingProperties.Grid',self.Drawing.grid)
-            project.SetValue('Drawing.DrawingProperties.Originx',self.Drawing.originx)
-            project.SetValue('Drawing.DrawingProperties.Originy',self.Drawing.originy)
-            project.SetValue('Drawing.DrawingProperties.Width',self.Drawing.canvas.winfo_width())
-            project.SetValue('Drawing.DrawingProperties.Height',self.Drawing.canvas.winfo_height())
-            project.SetValue('Drawing.DrawingProperties.Geometry',self.root.geometry())
-            project.SetValue('Drawing.Schematic.Devices',[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))])
-            for d in range(len(project.GetValue('Drawing.Schematic.Devices'))):
-                deviceProject=project.GetValue('Drawing.Schematic.Devices')[d]
+            project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
+            project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
+            project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
+            project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
+            project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
+            project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
+            project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
+            for d in range(len(project['Drawing.Schematic.Devices'])):
+                deviceProject=project['Drawing.Schematic.Devices'][d]
                 device=self.Drawing.schematic.deviceList[d]
-                deviceProject.SetValue('ClassName',device.__class__.__name__)
-                partPictureProject=deviceProject.GetValue('PartPicture')
+                deviceProject['ClassName']=device.__class__.__name__
+                partPictureProject=deviceProject['PartPicture']
                 partPicture=device.partPicture
-                partPictureProject.SetValue('ClassNames',[XMLPropertyDefaultString('ClassName',name) for name in partPicture.partPictureClassList])
-                partPictureProject.SetValue('Selected',partPicture.partPictureSelected)
-                partPictureProject.SetValue('Origin',partPicture.current.origin)
-                partPictureProject.SetValue('Orientation',partPicture.current.orientation)
-                partPictureProject.SetValue('MirroredVertically',partPicture.current.mirroredVertically)
-                partPictureProject.SetValue('MirroredHorizontally',partPicture.current.mirroredHorizontally)
-                deviceProject.SetValue('PartProperties',device.propertiesList)
-            project.SetValue('Drawing.Schematic.Wires',[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))])
-            for w in range(len(project.GetValue('Drawing.Schematic.Wires'))):
-                wireProject=project.GetValue('Drawing.Schematic.Wires')[w]
+                partPictureProject['ClassNames']=[XMLPropertyDefaultString('ClassName',name) for name in partPicture.partPictureClassList]
+                partPictureProject['Selected']=partPicture.partPictureSelected
+                partPictureProject['Origin']=partPicture.current.origin
+                partPictureProject['Orientation']=partPicture.current.orientation
+                partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
+                partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
+                deviceProject['PartProperties']=device.propertiesList
+            project['Drawing.Schematic.Wires']=[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))]
+            for w in range(len(project['Drawing.Schematic.Wires'])):
+                wireProject=project['Drawing.Schematic.Wires'][w]
                 wire=self.Drawing.schematic.wireList[w]
-                wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
-                for v in range(len(wireProject.GetValue('Vertices'))):
-                    vertexProject=wireProject.GetValue('Vertices')[v]
+                wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
+                for v in range(len(wireProject['Vertices'])):
+                    vertexProject=wireProject['Vertices'][v]
                     vertex=wire[v]
-                    vertexProject.SetValue('Coord',vertex.coord)
-            project.SetValue('CalculationProperties.EndFrequency',self.calculationProperties.endFrequency)
-            project.SetValue('CalculationProperties.FrequencyPoints',self.calculationProperties.frequencyPoints)
-            project.SetValue('CalculationProperties.UserSampleRate',self.calculationProperties.userSampleRate)
+                    vertexProject['Coord']=vertex.coord
+            project['CalculationProperties.EndFrequency']=self.calculationProperties.endFrequency
+            project['CalculationProperties.FrequencyPoints']=self.calculationProperties.frequencyPoints
+            project['CalculationProperties.UserSampleRate']=self.calculationProperties.userSampleRate
             project.Write(newfilename,self)
             project.Read(newfilename,self.Drawing)
             project.Write(newfilename,self)

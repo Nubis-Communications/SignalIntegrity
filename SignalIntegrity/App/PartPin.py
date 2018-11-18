@@ -24,20 +24,20 @@ from SignalIntegrity.App.ProjectFile import PartPinConfiguration
 class PartPin(PartPinConfiguration):
     def __init__(self,pinNumber,pinConnectPoint,pinOrientation,pinNumberVisible=True,pinVisible=True, pinNumberingMatters=True):
         PartPinConfiguration.__init__(self)
-        self.SetValue('Number', pinNumber)
-        self.SetValue('ConnectionPoint', str(pinConnectPoint))
-        self.SetValue('Orientation', pinOrientation)
-        self.SetValue('NumberVisible', pinNumberVisible)
-        self.SetValue('Visible', pinVisible)
-        self.SetValue('NumberingMatters', pinNumberingMatters)
+        self['Number']=pinNumber
+        self['ConnectionPoint']=str(pinConnectPoint)
+        self['Orientation']=pinOrientation
+        self['NumberVisible']=pinNumberVisible
+        self['Visible']=pinVisible
+        self['NumberingMatters']=pinNumberingMatters
     def DrawPin(self,canvas,grid,partOrigin,color,connected):
-        pinConnectionPoint=self.GetValue('ConnectionPoint')
+        pinConnectionPoint=self['ConnectionPoint']
         startx=(pinConnectionPoint[0]+partOrigin[0])*grid
         starty=(pinConnectionPoint[1]+partOrigin[1])*grid
         endx=startx
         endy=starty
         textGrid=16
-        pinOrientation=self.GetValue('Orientation')
+        pinOrientation=self['Orientation']
         if pinOrientation == 't':
             endy=endy+grid
             textx=startx+textGrid/2
@@ -54,7 +54,7 @@ class PartPin(PartPinConfiguration):
             endx=endx-grid
             textx=startx-textGrid/2
             texty=starty-textGrid/2
-        if self.GetValue('Visible'):
+        if self['Visible']:
             canvas.create_line(startx,starty,endx,endy,fill=color)
         if not connected:
             size=max(1,grid/8)
@@ -63,5 +63,5 @@ class PartPin(PartPinConfiguration):
         # comment this in for editing book
         #if self.pinNumberingMatters:
         #    self.pinNumberVisible=True
-        if self.GetValue('NumberVisible'):
-            canvas.create_text(textx,texty,text=str(self.GetValue('Number')),fill=color)
+        if self['NumberVisible']:
+            canvas.create_text(textx,texty,text=str(self['Number']),fill=color)

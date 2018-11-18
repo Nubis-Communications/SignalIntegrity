@@ -164,7 +164,7 @@ class SimulatorDialog(Toplevel):
         self.plt.cla()
         self.plt.set_ylabel('amplitude',fontsize=10)
 
-        if not self.parent.parent.preferences.GetValue('Appearance.PlotCursorValues'):
+        if not self.parent.parent.preferences['Appearance.PlotCursorValues']:
             self.plt.format_coord = lambda x, y: ''
 
         if not self.waveformList == None:
@@ -295,13 +295,13 @@ class Simulator(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
-            self.parent.project.GetValue('CalculationProperties.EndFrequency'),
-            self.parent.project.GetValue('CalculationProperties.FrequencyPoints')
+            self.parent.project['CalculationProperties.EndFrequency'],
+            self.parent.project['CalculationProperties.FrequencyPoints']
             )
         cacheFileName=None
-        if self.parent.preferences.GetValue('Cache.CacheResults'):
+        if self.parent.preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
+        si.sd.Numeric.trySVD=self.parent.preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
@@ -371,7 +371,7 @@ class Simulator(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.parent.project.GetValue('CalculationProperties.UserSampleRate')))
+            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.parent.project['CalculationProperties.UserSampleRate']))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
@@ -383,13 +383,13 @@ class Simulator(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.parent.preferences.GetValue('Cache.CacheResults'):
+        if self.parent.preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.parent.preferences.GetValue('Calculation.TrySVD')
+        si.sd.Numeric.trySVD=self.parent.preferences['Calculation.TrySVD']
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.parent.project.GetValue('CalculationProperties.EndFrequency'),
-                self.parent.project.GetValue('CalculationProperties.FrequencyPoints')),
+                self.parent.project['CalculationProperties.EndFrequency'],
+                self.parent.project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)

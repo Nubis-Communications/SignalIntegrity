@@ -68,7 +68,7 @@ class ViewerProperty(Frame):
         self.partProperty=partProperty
         self.callBack=callBack
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        propertyLabel = Label(self,width=25,text=self.partProperty.GetValue('Description')+': ',anchor='e')
+        propertyLabel = Label(self,width=25,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=LEFT, expand=NO, fill=X)
         propertyEntry = Entry(self,textvariable=self.propertyString)
         propertyEntry.config(width=15)
@@ -317,7 +317,7 @@ class SParametersDialog(Toplevel):
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
         
-        if not self.parent.preferences.GetValue('Appearance.PlotCursorValues'):
+        if not self.parent.preferences['Appearance.PlotCursorValues']:
             self.topLeftPlot.format_coord = lambda x, y: ''
             self.topRightPlot.format_coord = lambda x, y: ''
             self.bottomLeftPlot.format_coord = lambda x, y: ''
@@ -585,8 +585,8 @@ class SParametersDialog(Toplevel):
     def onResample(self):
         import SignalIntegrity.Lib as si
         self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
-            self.parent.project.GetValue('CalculationProperties.EndFrequency'),
-            self.parent.project.GetValue('CalculationProperties.FrequencyPoints')))
+            self.parent.project['CalculationProperties.EndFrequency'],
+            self.parent.project['CalculationProperties.FrequencyPoints']))
         self.PlotSParameter()
 
     def onCalculationProperties(self):

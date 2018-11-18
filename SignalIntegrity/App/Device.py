@@ -45,22 +45,22 @@ class Device(object):
         return self.partPicture.current.WhereInPart(coord)
     def PartPropertyByName(self,name):
         for partProperty in self.propertiesList:
-            if partProperty.GetValue('PropertyName') == name:
+            if partProperty['PropertyName'] == name:
                 return partProperty
         return None
     def PartPropertyByKeyword(self,keyword):
         for partProperty in self.propertiesList:
-            if partProperty.GetValue('Keyword') == keyword:
+            if partProperty['Keyword'] == keyword:
                 return partProperty
         return None
     def AddPartProperty(self,PartProperty):
-        if self[PartProperty.GetValue('Keyword')] is None:
+        if self[PartProperty['Keyword']] is None:
             self.propertiesList=self.propertiesList+[PartProperty]
     def __getitem__(self,item):
         return self.PartPropertyByKeyword(item)
     def __setitem__(self,item,value):
         for p in range(len(self.propertiesList)):
-            if self.propertiesList[p].GetValue('Keyword') == item:
+            if self.propertiesList[p]['Keyword'] == item:
                 self.propertiesList[p]=value
                 return
         raise ValueError
@@ -110,11 +110,11 @@ class Device(object):
 class DeviceFromProject(object):
     def __init__(self,deviceProject):
         ports=None
-        for partPropertyProject in deviceProject.GetValue('PartProperties'):
-            if partPropertyProject.GetValue('Keyword') == 'ports':
-                ports=int(partPropertyProject.GetValue('Value'))
+        for partPropertyProject in deviceProject['PartProperties']:
+            if partPropertyProject['Keyword'] == 'ports':
+                ports=int(partPropertyProject['Value'])
                 break
-        className=deviceProject.GetValue('ClassName')
+        className=deviceProject['ClassName']
         self.result=None
         if className=='DeviceFile':
             self.result=DeviceFile([PartPropertyDescription('Variable Port File'),PartPropertyPorts(ports,False)],PartPictureVariableSpecifiedPorts(ports))
@@ -137,13 +137,13 @@ class DeviceFromProject(object):
                         break
         if self.result is None:
             raise
-        for partPropertyProject in deviceProject.GetValue('PartProperties'):
-            devicePartProperty=self.result[partPropertyProject.GetValue('Keyword')]
+        for partPropertyProject in deviceProject['PartProperties']:
+            devicePartProperty=self.result[partPropertyProject['Keyword']]
             for propertyItemName in partPropertyProject.dict:
                 if partPropertyProject.dict[propertyItemName].dict['write']:
-                    devicePartProperty.SetValue(propertyItemName,partPropertyProject.GetValue(propertyItemName))
+                    devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
         partPictureList=self.result.partPicture.partPictureClassList
-        self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject.GetValue('PartPicture'),ports).result
+        self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
 
 class DeviceXMLClassFactory(object):
     def __init__(self,xml):
@@ -158,9 +158,9 @@ class DeviceXMLClassFactory(object):
                 for partPropertyElement in child:
                     partProperty=PartPropertyXMLClassFactory(partPropertyElement).result
                     propertiesList.append(partProperty)
-                    if partProperty.GetValue('Keyword')=='ports':
+                    if partProperty['Keyword']=='ports':
                         ports=partProperty.GetValue()
-                    if partProperty.GetValue('PropertyName')=='description':
+                    if partProperty['PropertyName']=='description':
                         partDescription=partProperty.GetValue()
         self.result=None
         if partDescription=='Variable Port File':
@@ -187,11 +187,11 @@ class DeviceXMLClassFactory(object):
                 self.result.partPicture=PartPictureXMLClassFactory(self.result,child,ports).result
         for partProperty in propertiesList:
             for devicePartProperty in self.result.propertiesList:
-                if partProperty.GetValue('Keyword') == devicePartProperty.GetValue('Keyword'):
-                    devicePartProperty.SetValue('Value',partProperty.GetValue('Value'))
-                    devicePartProperty.SetValue('Visible',partProperty.GetValue('Visible'))
-                    if partProperty.GetValue('Keyword') != 'pn':
-                        devicePartProperty.SetValue('KeywordVisible',partProperty.GetValue('KeywordVisible'))
+                if partProperty['Keyword'] == devicePartProperty['Keyword']:
+                    devicePartProperty['Value']=partProperty['Value']
+                    devicePartProperty['Visible']=partProperty['Visible']
+                    if partProperty['Keyword'] != 'pn':
+                        devicePartProperty['KeywordVisible']=partProperty['KeywordVisible']
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
@@ -309,9 +309,9 @@ class DeviceOutput(Device):
         netlist=DeviceNetListLine(devicename='output',showReference=False,showports=False)
         Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Output'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output'),
             PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableProbe())
-        self['gain'].SetValue('Visible',False)
-        self['offset'].SetValue('Visible',False)
-        self['td'].SetValue('Visible',False)
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=False
 
 class DeviceStim(Device):
     def __init__(self):
@@ -435,18 +435,18 @@ class DeviceVoltageOutputProbe(Device):
         netlist=DeviceNetListLine(devicename='differentialvoltageoutput')
         Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('DifferentialVoltageOutput'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Differential Voltage Probe'),PartPropertyPorts(2),
             PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableVoltageProbe())
-        self['gain'].SetValue('Visible',False)
-        self['offset'].SetValue('Visible',False)
-        self['td'].SetValue('Visible',False)
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=False
 
 class DeviceCurrentOutputProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='currentoutput')
         Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
             PartPropertyTransresistance(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableCurrentProbe())
-        self['gain'].SetValue('Visible',False)
-        self['offset'].SetValue('Visible',False)
-        self['td'].SetValue('Visible',False)
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=False
 
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),

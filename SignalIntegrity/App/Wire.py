@@ -210,7 +210,7 @@ class Wire(object):
             return Wire(self.vertexList+other)
     def InitFromProject(self,wireProject):
         self.__init__()
-        self.vertexList=[Vertex(vertexProject.GetValue('Coord'),vertexProject.GetValue('Selected')) for vertexProject in wireProject.GetValue('Vertices')]
+        self.vertexList=[Vertex(vertexProject['Coord'],vertexProject['Selected']) for vertexProject in wireProject['Vertices']]
         return self
     # Legacy File Format
     def InitFromXml(self,wireElement):

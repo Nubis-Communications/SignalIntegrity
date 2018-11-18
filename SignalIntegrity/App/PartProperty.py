@@ -24,16 +24,16 @@ from SignalIntegrity.App.ProjectFile import PartPropertyConfiguration
 class PartProperty(PartPropertyConfiguration):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True,inProjectFile=True):
         PartPropertyConfiguration.__init__(self)
-        self.SetValue('Keyword', keyword)
-        self.SetValue('PropertyName',propertyName)
-        self.SetValue('Description', description)
-        self.SetValue('Value',value)
-        self.SetValue('Hidden',hidden)
-        self.SetValue('Visible', visible)
-        self.SetValue('KeywordVisible', keywordVisible)
-        self.SetValue('Type', type)
-        self.SetValue('Unit',unit)
-        self.SetValue('InProjectFile',inProjectFile)
+        self['Keyword']=keyword
+        self['PropertyName']=propertyName
+        self['Description']=description
+        self['Value']=value
+        self['Hidden']=hidden
+        self['Visible']=visible
+        self['KeywordVisible']=keywordVisible
+        self['Type']=type
+        self['Unit']=unit
+        self['InProjectFile']=inProjectFile
     def PropertyString(self,stype='raw'):
         if stype=='attr':
             result=''
@@ -79,24 +79,24 @@ class PartProperty(PartPropertyConfiguration):
             return value
         else:
             raise ValueError
-            return str(self.GetValue('Value'))
+            return str(self['Value'])
     def SetValueFromString(self,string):
-        if self.GetValue('Type')=='string':
-            self.SetValue('Value', str(string))
+        if self['Type']=='string':
+            self['Value']=str(string)
         elif self.GetValue('Type')=='file':
-            self.SetValue('Value',str(string))
+            self['Value']=str(string)
         elif self.GetValue('Type')=='int':
             try:
-                self.SetValue('Value',int(string))
+                self['Value']=int(string)
             except ValueError:
-                self.SetValue('Value',0)
-        elif self.GetValue('Type')=='float':
-            value = FromSI(string,self.GetValue('Unit'))
+                self['Value']=0
+        elif self['Type']=='float':
+            value = FromSI(string,self['Unit'])
             if value is not None:
-                self.SetValue('Value',value)
+                self['Value']=value
         else:
             raise ValueError
-            self.SetValue('Value', str(string))
+            self['Value']=str(string)
         return self
     def GetValue(self,name=None):
         if not name is None:
@@ -183,16 +183,16 @@ class PartPropertyXMLClassFactory(PartProperty):
 
 class PartPropertyFromProject(PartProperty):
     def __init__(self,partPropertyProject):
-        propertyName=partPropertyProject.GetValue('PropertyName')
-        keyword=partPropertyProject.GetValue('Keyword')
-        description=partPropertyProject.GetValue('Description')
-        value=partPropertyProject.GetValue('Value')
-        hidden=partPropertyProject.GetValue('Hidden')
-        visible=partPropertyProject.GetValue('Visible')
-        ptype=partPropertyProject.GetValue('Type')
-        unit=partPropertyProject.GetValue('Unit')
-        keywordVisible=partPropertyProject.GetValue('KeywordVisible')
-        inProjectFile=partPropertyProject.GetValue('InProjectFile')
+        propertyName=partPropertyProject['PropertyName']
+        keyword=partPropertyProject['Keyword']
+        description=partPropertyProject['Description']
+        value=partPropertyProject['Value']
+        hidden=partPropertyProject['Hidden']
+        visible=partPropertyProject['Visible']
+        ptype=partPropertyProject['Type']
+        unit=partPropertyProject['Unit']
+        keywordVisible=partPropertyProject['KeywordVisible']
+        inProjectFile=partPropertyProject['InProjectFile']
         # hack because stupid xml outputs none for empty string
         if ptype == 'float' and (unit is None or unit == 'None'):
             unit = ''

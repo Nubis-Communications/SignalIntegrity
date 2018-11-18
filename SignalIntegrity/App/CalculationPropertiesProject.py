@@ -55,7 +55,7 @@ class CalculationProperty(Frame):
         self.entry.bind('<FocusOut>',self.onUntouched)
         self.entry.pack(side=LEFT, expand=YES, fill=X)
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString((self.project.GetValue(self.projectPath)))
+            self.SetString((self.project[self.projectPath]))
         self.SetReadOnly(False)
     def SetReadOnly(self,readOnly=False):
         self.entry.config(state='readonly' if readOnly else NORMAL)
@@ -66,7 +66,7 @@ class CalculationProperty(Frame):
     def onEntered(self,event):
         if not ((self.project is None) or (self.projectPath is None)):
             if not self.GetString() is None:
-                self.project.SetValue(self.projectPath,self.GetString())
+                self.project[self.projectPath]=self.GetString()
         if not self.enteredCallback is None:
             self.enteredCallback(event)
         self.onUntouchedLoseFocus(event)
@@ -85,7 +85,7 @@ class CalculationProperty(Frame):
             self.pack_forget()
     def UpdateStrings(self):
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString((self.project.GetValue(self.projectPath)))
+            self.SetString((self.project[self.projectPath]))
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 
@@ -94,14 +94,14 @@ class CalculationPropertyFileName(CalculationProperty):
         self.fileparts=fileparts
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
-        fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project.GetValue(self.projectPath))
+        fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
         filename=AskOpenFileName(filetypes=[('txt', '.txt')],
                                 initialdir=fp.AbsoluteFilePath(),
                                 initialfile=fp.FileNameWithExtension('txt'))
         if filename is None:
             return
         filename=ConvertFileNameToRelativePath(filename)
-        self.project.SetValue(self.projectPath,filename)
+        self.project[self.projectPath]=filename
         self.UpdateStrings()
 
 class CalculationPropertyFileNameSaveAs(CalculationProperty):
@@ -109,14 +109,14 @@ class CalculationPropertyFileNameSaveAs(CalculationProperty):
         self.fileparts=fileparts
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
-        fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project.GetValue(self.projectPath))
+        fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
         filename=AskSaveAsFilename(filetypes=[('txt', '.txt')],
                                    initialdir=fp.AbsoluteFilePath(),
                                    initialfile=fp.FileNameWithExtension('txt'))
         if filename is None:
             return
         filename=ConvertFileNameToRelativePath(filename)
-        self.project.SetValue(self.projectPath,filename)
+        self.project[self.projectPath]=filename
         self.UpdateStrings()
 
 class CalculationPropertySI(CalculationProperty):
@@ -148,7 +148,7 @@ class CalculationPropertyTrueFalseButton(Frame):
         self.entry.bind('<Return>',self.onPressed)
         self.entry.pack(side=LEFT, expand=YES, fill=X)
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project.GetValue(self.projectPath)))
+            self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
         self.string.set(value)
         self.entry.config(text=value)
@@ -157,7 +157,7 @@ class CalculationPropertyTrueFalseButton(Frame):
     def onPressed(self,event=None):
         self.SetString('False' if self.GetString()=='True' else 'True')
         if not ((self.project is None) or (self.projectPath is None)):
-            self.project.SetValue(self.projectPath,self.GetString())
+            self.project[self.projectPath]=self.GetString()
         if not self.enteredCallback is None:
             self.enteredCallback(event)
         self.UpdateStrings()
@@ -168,7 +168,7 @@ class CalculationPropertyTrueFalseButton(Frame):
             self.pack_forget()
     def UpdateStrings(self):
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project.GetValue(self.projectPath)))
+            self.SetString(str(self.project[self.projectPath]))
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 
@@ -202,7 +202,7 @@ class CalculationPropertyChoices(Frame):
             b = Radiobutton(self.entry,text=text,variable=self.string,value=value,command=self.onPressed)
             b.pack(anchor=W)
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project.GetValue(self.projectPath)))
+            self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
         self.string.set(value)
         #self.entry.config(text=value)
@@ -210,7 +210,7 @@ class CalculationPropertyChoices(Frame):
         return self.string.get()
     def onPressed(self,event=None):
         if not ((self.project is None) or (self.projectPath is None)):
-            self.project.SetValue(self.projectPath,self.GetString())
+            self.project[self.projectPath]=self.GetString()
         if not self.enteredCallback is None:
             self.enteredCallback(event)
         self.UpdateStrings()
@@ -225,7 +225,7 @@ class CalculationPropertyChoices(Frame):
             self.pack_forget()
     def UpdateStrings(self):
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project.GetValue(self.projectPath)))
+            self.SetString(str(self.project[self.projectPath]))
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 
@@ -246,7 +246,7 @@ class CalculationPropertyColor(Frame):
         self.entry.bind('<Return>',self.onPressed)
         self.entry.pack(side=LEFT, expand=YES, fill=X)
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project.GetValue(self.projectPath)))
+            self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
         self.string.set(value)
         try:
@@ -263,7 +263,7 @@ class CalculationPropertyColor(Frame):
         if not color is None:
             self.SetString(color)
             if not ((self.project is None) or (self.projectPath is None)):
-                self.project.SetValue(self.projectPath,self.GetString())
+                self.project[self.projectPath]=self.GetString()
             if not self.enteredCallback is None:
                 self.enteredCallback(event)
             self.UpdateStrings()
@@ -274,7 +274,7 @@ class CalculationPropertyColor(Frame):
             self.pack_forget()
     def UpdateStrings(self):
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project.GetValue(self.projectPath)))
+            self.SetString(str(self.project[self.projectPath]))
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 

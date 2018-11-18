@@ -40,10 +40,10 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
         self.Finish()
     def onUpdatePreferences(self):
-        self.onlineHelpURL.Show(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'))
+        self.onlineHelpURL.Show(self.preferences['OnlineHelp.UseOnlineHelp'])
         self.project.SaveToFile()
-        HelpSystemKeys.InstallHelpURLBase(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'),
-                                          self.preferences.GetValue('OnlineHelp.URL'),
+        HelpSystemKeys.InstallHelpURLBase(self.preferences['OnlineHelp.UseOnlineHelp'],
+                                          self.preferences['OnlineHelp.URL'],
                                           self.parent.installdir)
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()

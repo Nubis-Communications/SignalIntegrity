@@ -84,10 +84,10 @@ class SignalIntegrityApp(Frame):
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
-        Doer.helpKeys = HelpSystemKeys(self.preferences.GetValue('OnlineHelp.RebuildHelpKeys'))
+        Doer.helpKeys = HelpSystemKeys(self.preferences['OnlineHelp.RebuildHelpKeys'])
 
-        HelpSystemKeys.InstallHelpURLBase(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'),
-                                          self.preferences.GetValue('OnlineHelp.URL'),
+        HelpSystemKeys.InstallHelpURLBase(self.preferences['OnlineHelp.UseOnlineHelp'],
+                                          self.preferences['OnlineHelp.URL'],
                                           self.installdir)
 
         # status bar
@@ -350,45 +350,45 @@ class SignalIntegrityApp(Frame):
                 self.calculationProperties=CalculationProperties(self)
                 self.calculationProperties.InitFromXml(child, self)
         project=ProjectFile()
-        project.SetValue('Drawing.DrawingProperties.Grid',self.Drawing.grid)
-        project.SetValue('Drawing.DrawingProperties.Originx',self.Drawing.originx)
-        project.SetValue('Drawing.DrawingProperties.Originy',self.Drawing.originy)
-        project.SetValue('Drawing.DrawingProperties.Width',self.Drawing.canvas.winfo_width())
-        project.SetValue('Drawing.DrawingProperties.Height',self.Drawing.canvas.winfo_height())
-        project.SetValue('Drawing.DrawingProperties.Geometry',self.root.geometry())
+        project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
+        project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
+        project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
+        project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
+        project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
+        project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
         from ProjectFile import DeviceConfiguration
-        project.SetValue('Drawing.Schematic.Devices',[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))])
-        for d in range(len(project.GetValue('Drawing.Schematic.Devices'))):
-            deviceProject=project.GetValue('Drawing.Schematic.Devices')[d]
+        project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
+        for d in range(len(project['Drawing.Schematic.Devices'])):
+            deviceProject=project['Drawing.Schematic.Devices'][d]
             device=self.Drawing.schematic.deviceList[d]
-            deviceProject.SetValue('ClassName',device.__class__.__name__)
-            partPictureProject=deviceProject.GetValue('PartPicture')
+            deviceProject['ClassName']=device.__class__.__name__
+            partPictureProject=deviceProject['PartPicture']
             partPicture=device.partPicture
-            partPictureProject.SetValue('ClassName',partPicture.partPictureClassList[partPicture.partPictureSelected])
-            partPictureProject.SetValue('Origin',partPicture.current.origin)
-            partPictureProject.SetValue('Orientation',partPicture.current.orientation)
-            partPictureProject.SetValue('MirroredVertically',partPicture.current.mirroredVertically)
-            partPictureProject.SetValue('MirroredHorizontally',partPicture.current.mirroredHorizontally)
-            deviceProject.SetValue('PartProperties',device.propertiesList)
+            partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
+            partPictureProject['Origin']=partPicture.current.origin
+            partPictureProject['Orientation']=partPicture.current.orientation
+            partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
+            partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
+            deviceProject['PartProperties']=device.propertiesList
         from ProjectFile import WireConfiguration
-        project.SetValue('Drawing.Schematic.Wires',[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))])
-        for w in range(len(project.GetValue('Drawing.Schematic.Wires'))):
-            wireProject=project.GetValue('Drawing.Schematic.Wires')[w]
+        project['Drawing.Schematic.Wires']=[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))]
+        for w in range(len(project['Drawing.Schematic.Wires'])):
+            wireProject=project['Drawing.Schematic.Wires'][w]
             wire=self.Drawing.schematic.wireList[w]
             from ProjectFile import VertexConfiguration
-            wireProject.SetValue('Vertices',[VertexConfiguration() for vertex in wire])
-            for v in range(len(wireProject.GetValue('Vertices'))):
-                vertexProject=wireProject.GetValue('Vertices')[v]
+            wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
+            for v in range(len(wireProject['Vertices'])):
+                vertexProject=wireProject['Vertices'][v]
                 vertex=wire[v]
-                vertexProject.SetValue('Coord',vertex.coord)
-        project.SetValue('CalculationProperties.EndFrequency',self.calculationProperties.endFrequency)
-        project.SetValue('CalculationProperties.FrequencyPoints',self.calculationProperties.frequencyPoints)
-        project.SetValue('CalculationProperties.UserSampleRate',self.calculationProperties.userSampleRate)
+                vertexProject['Coord']=vertex.coord
+        project['CalculationProperties.EndFrequency']=self.calculationProperties.endFrequency
+        project['CalculationProperties.FrequencyPoints']=self.calculationProperties.frequencyPoints
+        project['CalculationProperties.UserSampleRate']=self.calculationProperties.userSampleRate
         # calculate certain calculation properties
-        project.SetValue('CalculationProperties.BaseSampleRate', project.GetValue('CalculationProperties.EndFrequency')*2)
-        project.SetValue('CalculationProperties.TimePoints',project.GetValue('CalculationProperties.FrequencyPoints')*2)
-        project.SetValue('CalculationProperties.FrequencyResolution', project.GetValue('CalculationProperties.EndFrequency')/project.GetValue('CalculationProperties.FrequencyPoints'))
-        project.SetValue('CalculationProperties.ImpulseResponseLength',1./project.GetValue('CalculationProperties.FrequencyResolution'))
+        project['CalculationProperties.BaseSampleRate']=project['CalculationProperties.EndFrequency']*2
+        project['CalculationProperties.TimePoints']=project['CalculationProperties.FrequencyPoints']*2
+        project['CalculationProperties.FrequencyResolution']=project['CalculationProperties.EndFrequency']/project['CalculationProperties.FrequencyPoints']
+        project['CalculationProperties.ImpulseResponseLength']=1./project['CalculationProperties.FrequencyResolution']
         self.project=project
         self.Drawing.InitFromProject(self.project)
         return self
@@ -625,12 +625,12 @@ class SignalIntegrityApp(Frame):
     def onAddWire(self):
         from ProjectFile import VertexConfiguration,WireConfiguration
         vertexProject=VertexConfiguration()
-        vertexProject.SetValue('Coord', (0,0))
-        vertexProject.SetValue('Selected',False)
+        vertexProject['Coord']=(0,0)
+        vertexProject['Selected']=False
         wireProject=WireConfiguration()
-        wireProject.SetValue('Vertices', [vertexProject])
+        wireProject['Vertices']=[vertexProject]
         self.Drawing.wireLoaded=wireProject
-        wireListProject=self.Drawing.schematic.project.GetValue('Drawing.Schematic.Wires')
+        wireListProject=self.Drawing.schematic.project['Drawing.Schematic.Wires']
         wireListProject.append(self.Drawing.wireLoaded)
         self.Drawing.stateMachine.WireLoaded()
     def onAddPort(self):
@@ -671,12 +671,12 @@ class SignalIntegrityApp(Frame):
 
     def onZoomIn(self):
         self.Drawing.grid = self.Drawing.grid+1.
-        self.Drawing.schematic.project.SetValue('Grid',self.Drawing.grid)
+        self.Drawing.schematic.project['Grid']=self.Drawing.grid
         self.Drawing.DrawSchematic()
 
     def onZoomOut(self):
         self.Drawing.grid = max(1,self.Drawing.grid-1.)
-        self.Drawing.schematic.project.SetValue('Grid',self.Drawing.grid)
+        self.Drawing.schematic.project['Grid']=self.Drawing.grid
         self.Drawing.DrawSchematic()
 
     def onPan(self):
@@ -696,13 +696,13 @@ class SignalIntegrityApp(Frame):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences.GetValue('Cache.CacheResults'):
+        if self.preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences.GetValue('Calculation.TrySVD')
+        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project.GetValue('CalculationProperties.EndFrequency'),
-                self.project.GetValue('CalculationProperties.FrequencyPoints')),
+                self.project['CalculationProperties.EndFrequency'],
+                self.project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
@@ -740,13 +740,13 @@ class SignalIntegrityApp(Frame):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences.GetValue('Cache.CacheResults'):
+        if self.preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences.GetValue('Calculation.TrySVD')
+        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project.GetValue('CalculationProperties.EndFrequency'),
-                self.project.GetValue('CalculationProperties.FrequencyPoints')),
+                self.project['CalculationProperties.EndFrequency'],
+                self.project['CalculationProperties.FrequencyPoints']),
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 
@@ -876,7 +876,7 @@ class SignalIntegrityApp(Frame):
                 self.preferencesDialog=PreferencesDialog(self,self.preferences)
 
     def UpdateColorsAndFonts(self):
-        fontSizeDesired = self.preferences.GetValue('Appearance.FontSize')
+        fontSizeDesired = self.preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
             if sys.version_info.major < 3:
                 default_font = tkFont.nametofont("TkDefaultFont")
@@ -891,23 +891,23 @@ class SignalIntegrityApp(Frame):
 
         w=Button(self.root)
 
-        backgroundColor=self.preferences.GetValue('Appearance.Color.Background')
+        backgroundColor=self.preferences['Appearance.Color.Background']
         if backgroundColor is None:
             backgroundColor=w['background']
 
-        foregroundColor=self.preferences.GetValue('Appearance.Color.Foreground')
+        foregroundColor=self.preferences['Appearance.Color.Foreground']
         if foregroundColor is None:
             foregroundColor=w['foreground']
 
-        activeForegroundColor=self.preferences.GetValue('Appearance.Color.ActiveForeground')
+        activeForegroundColor=self.preferences['Appearance.Color.ActiveForeground']
         if activeForegroundColor is None:
             activeForegroundColor=w['activeforeground']
 
-        activeBackgroundColor=self.preferences.GetValue('Appearance.Color.ActiveBackground')
+        activeBackgroundColor=self.preferences['Appearance.Color.ActiveBackground']
         if activeBackgroundColor is None:
             activeBackgroundColor=w['activebackground']
 
-        disabledForegroundColor=self.preferences.GetValue('Appearance.Color.DisabledForeground')
+        disabledForegroundColor=self.preferences['Appearance.Color.DisabledForeground']
         if disabledForegroundColor is None:
             disabledForegroundColor=w['disabledforeground']
 
@@ -922,7 +922,7 @@ class SignalIntegrityApp(Frame):
         except:
             pass
 
-        matPlotLibColor=self.preferences.GetValue('Appearance.Color.Plot')
+        matPlotLibColor=self.preferences['Appearance.Color.Plot']
         if not matPlotLibColor is None:
             import matplotlib as mpl
             try:
@@ -935,7 +935,7 @@ class SignalIntegrityApp(Frame):
     def CheckSaveCurrentProject(self):
         if self.Drawing.stateMachine.state == 'NoProject':
             return True
-        if not self.preferences.GetValue('ProjectFiles.AskToSaveCurrentFile'):
+        if not self.preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
         if sys.version_info.major < 3:

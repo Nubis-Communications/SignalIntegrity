@@ -23,38 +23,38 @@ class DeviceNetListLine(DeviceNetListConfiguration):
     def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
         DeviceNetListConfiguration.__init__(self)
         if devicename is None:
-            self.SetValue('DeviceName','device')
+            self['DeviceName']='device'
         else:
-            self.SetValue('DeviceName',devicename)
-        self.SetValue('PartName',partname)
-        self.SetValue('ShowReference',showReference)
-        self.SetValue('ShowPorts',showports)
+            self['DeviceName']=devicename
+        self['PartName']=partname
+        self['ShowReference']=showReference
+        self['ShowPorts']=showports
         if not values is None:
-            self.SetValue('Values',[DeviceNetListKeywordConfiguration() for _ in range(len(values))])
+            self['Values']=[DeviceNetListKeywordConfiguration() for _ in range(len(values))]
             for vi in range(len(values)):
                 (kw,show)=values[vi]
-                self.GetValue('Values')[vi].SetValue('Keyword',kw)
-                self.GetValue('Values')[vi].SetValue('ShowKeyword',show)
+                self['Values'][vi]['Keyword']=kw
+                self['Values'][vi]['ShowKeyword']=show
     def NetListLine(self,device):
-        returnstring=self.GetValue('DeviceName')
-        if self.GetValue('ShowReference'):
+        returnstring=self['DeviceName']
+        if self['ShowReference']:
             if not returnstring=='':
                 returnstring=returnstring+' '
             returnstring=returnstring+device['ref'].PropertyString(stype='raw')
-        if self.GetValue('ShowPorts'):
+        if self['ShowPorts']:
             if not returnstring=='':
                 returnstring=returnstring+' '
             returnstring=returnstring+device['ports'].PropertyString(stype='raw')
-        if not self.GetValue('PartName') is None:
+        if not self['PartName'] is None:
             if not returnstring=='':
                 returnstring=returnstring+' '
-            returnstring=returnstring+self.GetValue('PartName')
-        for kwc in self.GetValue('Values'):
+            returnstring=returnstring+self['PartName']
+        for kwc in self['Values']:
             if not returnstring=='':
                 returnstring=returnstring+' '
-            if kwc.GetValue('ShowKeyword'):
-                returnstring=returnstring+kwc.GetValue('Keyword')+' '
-            valueString=device[kwc.GetValue('Keyword')].PropertyString(stype='raw')
+            if kwc['ShowKeyword']:
+                returnstring=returnstring+kwc['Keyword']+' '
+            valueString=device[kwc['Keyword']].PropertyString(stype='raw')
             if valueString is None:
                 valueString='None'
             returnstring=returnstring+valueString
