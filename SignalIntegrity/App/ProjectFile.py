@@ -24,32 +24,32 @@ import sys
 
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'DeviceNetListKeywordConfiguration',write=False)
-        self.dict['Keyword']=XMLPropertyDefaultString('Keyword')
-        self.dict['ShowKeyword']=XMLPropertyDefaultBool('ShowKeyword',True)
+        XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
+        self.Add(XMLPropertyDefaultString('Keyword'))
+        self.Add(XMLPropertyDefaultBool('ShowKeyword',True))
 
 class DeviceNetListConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'DeviceNetListConfiguration',write=False)
-        self.dict['DeviceName']=XMLPropertyDefaultString('DeviceName')
-        self.dict['PartName']=XMLPropertyDefaultString('PartName')
-        self.dict['ShowReference']=XMLPropertyDefaultBool('ShowReference',True)
-        self.dict['ShowPorts']=XMLPropertyDefaultBool('ShowPorts',True)
-        self.dict['Values']=XMLProperty('Values',[DeviceNetListKeywordConfiguration() for _ in range(0)],'array',arrayType=DeviceNetListKeywordConfiguration())
+        XMLConfiguration.__init__(self,'DeviceNetList',write=False)
+        self.Add(XMLPropertyDefaultString('DeviceName'))
+        self.Add(XMLPropertyDefaultString('PartName'))
+        self.Add(XMLPropertyDefaultBool('ShowReference',True))
+        self.Add(XMLPropertyDefaultBool('ShowPorts',True))
+        self.Add(XMLProperty('Values',[DeviceNetListKeywordConfiguration() for _ in range(0)],'array',arrayType=DeviceNetListKeywordConfiguration()))
 
 class PartPropertyConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'PartPropertyConfiguration')
-        self.dict['Keyword']=XMLPropertyDefaultString('Keyword')
-        self.dict['PropertyName']=XMLPropertyDefaultString('PropertyName',write=False)
-        self.dict['Description']=XMLPropertyDefaultString('Description',write=False)
-        self.dict['Value']=XMLPropertyDefaultString('Value')
-        self.dict['Hidden']=XMLPropertyDefaultBool('Hidden',write=False)
-        self.dict['Visible']=XMLPropertyDefaultBool('Visible')
-        self.dict['KeywordVisible']=XMLPropertyDefaultBool('KeywordVisible')
-        self.dict['Type']=XMLPropertyDefaultString('Type',write=False)
-        self.dict['Unit']=XMLPropertyDefaultString('Unit',write=False)
-        self.dict['InProjectFile']=XMLPropertyDefaultBool('InProjectFile',True,False)
+        XMLConfiguration.__init__(self,'PartProperty')
+        self.Add(XMLPropertyDefaultString('Keyword'))
+        self.Add(XMLPropertyDefaultString('PropertyName',write=False))
+        self.Add(XMLPropertyDefaultString('Description',write=False))
+        self.Add(XMLPropertyDefaultString('Value'))
+        self.Add(XMLPropertyDefaultBool('Hidden',write=False))
+        self.Add(XMLPropertyDefaultBool('Visible'))
+        self.Add(XMLPropertyDefaultBool('KeywordVisible'))
+        self.Add(XMLPropertyDefaultString('Type',write=False))
+        self.Add(XMLPropertyDefaultString('Unit',write=False))
+        self.Add(XMLPropertyDefaultBool('InProjectFile',True,False))
     def OutputXML(self,indent):
         if self.GetValue('InProjectFile'):
             return XMLConfiguration.OutputXML(self, indent)
@@ -58,82 +58,82 @@ class PartPropertyConfiguration(XMLConfiguration):
 
 class PartPinConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'PartPinConfiguration',write=False)
-        self.dict['Number']=XMLPropertyDefaultInt('PinNumber')
-        self.dict['ConnectionPoint']=XMLPropertyDefaultString('ConnectionPoint')
-        self.dict['Orientation']=XMLPropertyDefaultString('Orientation')
-        self.dict['NumberVisible']=XMLPropertyDefaultBool('NumberVisible')
-        self.dict['Visible']=XMLPropertyDefaultBool('Visible')
-        self.dict['NumberingMatters']=XMLPropertyDefaultBool('NumberingMatters')
+        XMLConfiguration.__init__(self,'PartPin',write=False)
+        self.Add(XMLPropertyDefaultInt('Number'))
+        self.Add(XMLPropertyDefaultString('ConnectionPoint'))
+        self.Add(XMLPropertyDefaultString('Orientation'))
+        self.Add(XMLPropertyDefaultBool('NumberVisible'))
+        self.Add(XMLPropertyDefaultBool('Visible'))
+        self.Add(XMLPropertyDefaultBool('NumberingMatters'))
 
 class PartPictureConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'PartPictureConfiguration')
-        self.dict['ClassName']=XMLPropertyDefaultString('ClassName')
-        self.dict['Origin']=XMLPropertyDefaultString('Origin')
-        self.dict['Orientation']=XMLPropertyDefaultInt('Orientation')
-        self.dict['MirroredVertically']=XMLPropertyDefaultBool('MirroredVertically',False)
-        self.dict['MirroredHorizontally']=XMLPropertyDefaultBool('MirroredHorizontally',False)
+        XMLConfiguration.__init__(self,'PartPicture')
+        self.Add(XMLPropertyDefaultString('ClassName'))
+        self.Add(XMLPropertyDefaultString('Origin'))
+        self.Add(XMLPropertyDefaultInt('Orientation'))
+        self.Add(XMLPropertyDefaultBool('MirroredVertically',False))
+        self.Add(XMLPropertyDefaultBool('MirroredHorizontally',False))
 
 class DeviceConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'DeviceConfiguration')
-        self.dict['ClassName']=XMLPropertyDefaultString('ClassName')
-        self.dict['PartPicture']=PartPictureConfiguration()
-        self.dict['PartProperties']=XMLProperty('PartProperties',[PartPropertyConfiguration() for _ in range(0)],'array',arrayType=PartPropertyConfiguration())
-        self.dict['DeviceNetList']=DeviceNetListConfiguration()
+        XMLConfiguration.__init__(self,'Device')
+        self.Add(XMLPropertyDefaultString('ClassName'))
+        self.SubDir(PartPictureConfiguration())
+        self.Add(XMLProperty('PartProperties',[PartPropertyConfiguration() for _ in range(0)],'array',arrayType=PartPropertyConfiguration()))
+        self.SubDir(DeviceNetListConfiguration())
 
 class VertexConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'VertexConfiguration')
-        self.dict['Coord']=XMLPropertyDefaultString('Coord')
-        self.dict['Selected']=XMLPropertyDefaultBool('Selected',False,False)
+        XMLConfiguration.__init__(self,'Vertex')
+        self.Add(XMLPropertyDefaultString('Coord'))
+        self.Add(XMLPropertyDefaultBool('Selected',False,False))
 #     def OutputXML(self,indent):
 #         return [indent+'<Vertex>'+str(self.dict['Coord'].dict['value'])+'</Vertex>']
 
 class WireConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'WireConfiguration')
-        self.dict['Vertex']=XMLProperty('Vertex',[VertexConfiguration() for _ in range(0)],'array',arrayType=VertexConfiguration())
+        XMLConfiguration.__init__(self,'Wire')
+        self.Add(XMLProperty('Vertex',[VertexConfiguration() for _ in range(0)],'array',arrayType=VertexConfiguration()))
 
 class DrawingPropertiesConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'DrawingPropertiesConfiguration')
-        self.dict['Grid']=XMLPropertyDefaultFloat('Grid',32.)
-        self.dict['Originx']=XMLPropertyDefaultInt('Originx',1)
-        self.dict['Originy']=XMLPropertyDefaultInt('Originy',4)
-        self.dict['Width']=XMLPropertyDefaultInt('Width',711)
-        self.dict['Height']=XMLPropertyDefaultInt('Height',318)
-        self.dict['Geometry']=XMLPropertyDefaultString('Geometry','711x363+27+56')
+        XMLConfiguration.__init__(self,'DrawingProperties')
+        self.Add(XMLPropertyDefaultFloat('Grid',32.))
+        self.Add(XMLPropertyDefaultInt('Originx',1))
+        self.Add(XMLPropertyDefaultInt('Originy',4))
+        self.Add(XMLPropertyDefaultInt('Width',711))
+        self.Add(XMLPropertyDefaultInt('Height',318))
+        self.Add(XMLPropertyDefaultString('Geometry','711x363+27+56'))
 
 class SchematicConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'SchematicConfiguration')
-        self.dict['Devices']=XMLProperty('Devices',[DeviceConfiguration() for _ in range(0)],'array',arrayType=DeviceConfiguration())
-        self.dict['Wires']=XMLProperty('Wires',[WireConfiguration() for _ in range(0)],'array',arrayType=WireConfiguration())
+        XMLConfiguration.__init__(self,'Schematic')
+        self.Add(XMLProperty('Devices',[DeviceConfiguration() for _ in range(0)],'array',arrayType=DeviceConfiguration()))
+        self.Add(XMLProperty('Wires',[WireConfiguration() for _ in range(0)],'array',arrayType=WireConfiguration()))
 
 class DrawingConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'DrawingConfiguration')
-        self.dict['DrawingProperties']=DrawingPropertiesConfiguration()
+        XMLConfiguration.__init__(self,'Drawing')
+        self.SubDir(DrawingPropertiesConfiguration())
         self.dict['Schematic']=SchematicConfiguration()
 
 class CalculationPropertiesConfiguration(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'CalculationPropertiesConfiguration')
-        self.dict['EndFrequency']=XMLPropertyDefaultFloat('EndFrequency',20e9)
-        self.dict['FrequencyPoints']=XMLPropertyDefaultInt('FrequencyPoints',2000)
-        self.dict['UserSampleRate']=XMLPropertyDefaultFloat('UserSampleRate',40e9)
-        self.dict['BaseSampleRate']=XMLPropertyDefaultFloat('BaseSampleRate')
-        self.dict['TimePoints']=XMLPropertyDefaultInt('TimePoints')
-        self.dict['FrequencyResolution']=XMLPropertyDefaultFloat('FrequencyResolution')
-        self.dict['ImpulseResponseLength']=XMLPropertyDefaultFloat('ImpulseResponseLength')
+        XMLConfiguration.__init__(self,'CalculationProperties')
+        self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
+        self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
+        self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
+        self.Add(XMLPropertyDefaultFloat('BaseSampleRate'))
+        self.Add(XMLPropertyDefaultInt('TimePoints'))
+        self.Add(XMLPropertyDefaultFloat('FrequencyResolution'))
+        self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength'))
 
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
-        self.dict['Drawing']=DrawingConfiguration()
-        self.dict['CalculationProperties']=CalculationPropertiesConfiguration()
+        self.SubDir(DrawingConfiguration())
+        self.SubDir(CalculationPropertiesConfiguration())
 
     def Read(self, filename,drawing):
         ProjectFileBase.Read(self, filename)

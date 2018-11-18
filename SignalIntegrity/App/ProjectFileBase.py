@@ -182,7 +182,7 @@ class XMLConfiguration(object):
         self.dict[property.dict['name']]=property
         return self
     def SubDir(self,config):
-        self.dict[str(config.__class__).split('.')[-1].strip('>\'')]=config
+        self.dict[config.name]=config
     def InterceptProperty(self,element):
         return False
     def OutputXML(self,indent):
@@ -261,7 +261,7 @@ class ProjectFileBase(object):
         return self
 
     def SubDir(self,config):
-        self.dict[str(config.__class__).split('.')[-1].strip('>\'')]=config
+        self.dict[config.name]=config
 
     def OutputXML(self):
         lines=[]
