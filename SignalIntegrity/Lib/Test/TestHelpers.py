@@ -57,7 +57,7 @@ def PlotTikZ(filename,plot2save,scale=None):
     texfile.close()
 
 class SParameterCompareHelper(object):
-    def SParametersAreEqual(self,lhs,rhs,epsilon):
+    def SParametersAreEqual(self,lhs,rhs,epsilon=0.00001):
         if lhs.m_P != rhs.m_P: return False
         if lhs.m_Z0 != rhs.m_Z0: return False
         if len(lhs) != len(rhs): return False

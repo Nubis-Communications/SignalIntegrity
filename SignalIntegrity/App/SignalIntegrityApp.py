@@ -346,7 +346,7 @@ class SignalIntegrityApp(Frame):
             if child.tag == 'drawing':
                 self.Drawing.InitFromXml(child)
             elif child.tag == 'calculation_properties':
-                from CalculationProperties import CalculationProperties
+                from SignalIntegrity.App.CalculationProperties import CalculationProperties
                 self.calculationProperties=CalculationProperties(self)
                 self.calculationProperties.InitFromXml(child, self)
         project=ProjectFile()
@@ -356,7 +356,7 @@ class SignalIntegrityApp(Frame):
         project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
         project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
         project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
-        from ProjectFile import DeviceConfiguration
+        from SignalIntegrity.App.ProjectFile import DeviceConfiguration
         project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
         for d in range(len(project['Drawing.Schematic.Devices'])):
             deviceProject=project['Drawing.Schematic.Devices'][d]
@@ -370,12 +370,12 @@ class SignalIntegrityApp(Frame):
             partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
-        from ProjectFile import WireConfiguration
+        from SignalIntegrity.App.ProjectFile import WireConfiguration
         project['Drawing.Schematic.Wires']=[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))]
         for w in range(len(project['Drawing.Schematic.Wires'])):
             wireProject=project['Drawing.Schematic.Wires'][w]
             wire=self.Drawing.schematic.wireList[w]
-            from ProjectFile import VertexConfiguration
+            from SignalIntegrity.App.ProjectFile import VertexConfiguration
             wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
             for v in range(len(wireProject['Vertices'])):
                 vertexProject=wireProject['Vertices'][v]
@@ -410,7 +410,7 @@ class SignalIntegrityApp(Frame):
             self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
         else:
-            self.project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'),self.Drawing)
+            self.project=ProjectFile().Read(self.Drawing,self.fileparts.FullFilePathExtension('.si'))
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
         self.Drawing.stateMachine.Nothing()
         #self.Drawing.DrawSchematic()
@@ -437,7 +437,7 @@ class SignalIntegrityApp(Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-        self.project.Write(filename,self)
+        self.project.Write(self,filename)
         filename=ConvertFileNameToRelativePath(filename)
         self.AnotherFileOpened(filename)
         self.root.title("SignalIntegrity: "+self.fileparts.FileNameTitle())
@@ -623,7 +623,7 @@ class SignalIntegrityApp(Frame):
     def onDuplicate(self):
         self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):
-        from ProjectFile import VertexConfiguration,WireConfiguration
+        from SignalIntegrity.App.ProjectFile import VertexConfiguration,WireConfiguration
         vertexProject=VertexConfiguration()
         vertexProject['Coord']=(0,0)
         vertexProject['Selected']=False

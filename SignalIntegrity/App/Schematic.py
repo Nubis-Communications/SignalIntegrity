@@ -62,7 +62,7 @@ class Schematic(object):
                         returnedDevice=None
                     if not returnedDevice is None:
                         # hack to fix port numbering of old four port transmission lines
-                        from Device import DeviceTelegrapherFourPort
+                        from SignalIntegrity.App.Device import DeviceTelegrapherFourPort
                         if isinstance(returnedDevice,DeviceTelegrapherFourPort):
                             if returnedDevice.partPicture.current.pinList[1]['Number']==3:
                                 returnedDevice.partPicture.current.pinList[1]['Number']=2
@@ -83,7 +83,7 @@ class Schematic(object):
     def Clear(self):
         self.deviceList = []
         if not self.project is None:
-            from ProjectFile import XMLProperty
+            from SignalIntegrity.App.ProjectFile import XMLProperty
             self.project['Drawing.Schematic.Wires']=XMLProperty('Wires',[])
     def NewUniqueReferenceDesignator(self,defaultDesignator):
         if defaultDesignator != None and '?' in defaultDesignator:
@@ -128,13 +128,13 @@ class Schematic(object):
             devicePinConnectedList.append(thisDeviceConnectedList)
         return devicePinConnectedList
     def Consolidate(self):
-        from ProjectFile import WireConfiguration,XMLPropertyDefaultString
+        from SignalIntegrity.App.ProjectFile import WireConfiguration,XMLPropertyDefaultString
         if self.project is None:
             return
         wireList = WireList().InitFromProject(self.project['Drawing.Schematic.Wires'])
         wireList.ConsolidateWires(self)
         self.project['Drawing.Schematic.Wires']=[WireConfiguration() for _ in range(len(wireList))]
-        from ProjectFile import VertexConfiguration
+        from SignalIntegrity.App.ProjectFile import VertexConfiguration
         for w in range(len(self.project['Drawing.Schematic.Wires'])):
             wireProject=self.project['Drawing.Schematic.Wires'][w]
             wire=wireList[w]
@@ -244,7 +244,7 @@ class DrawingStateMachine(object):
                         break
                 if selectedSomething:
                     wire = segmentList.Wire()
-                    from ProjectFile import VertexConfiguration
+                    from SignalIntegrity.App.ProjectFile import VertexConfiguration
                     wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
                     for v in range(len(wireProject['Vertices'])):
                         vertexProject=wireProject['Vertices'][v]
@@ -275,7 +275,7 @@ class DrawingStateMachine(object):
                         break
                 if toggledSomething:
                     wire = segmentList.Wire()
-                    from ProjectFile import VertexConfiguration
+                    from SignalIntegrity.App.ProjectFile import VertexConfiguration
                     wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
                     for v in range(len(wireProject['Vertices'])):
                         vertexProject=wireProject['Vertices'][v]
@@ -291,6 +291,17 @@ class DrawingStateMachine(object):
         self.selectedDevices = [device.selected for device in self.parent.schematic.deviceList]
         self.SelectingMore()
 
+    def Locked(self):
+        if not hasattr(self,'locked'):
+            locked=False
+        else:
+            locked=self.locked
+        self.locked=True
+        return locked
+    
+    def Unlock(self):
+        self.locked=False
+            
     def NoProject(self,force=False):
         if not hasattr(self,'state'):
             self.state=''
@@ -445,9 +456,13 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.clear()
             self.parent.DrawSchematic()
     def onMouseButton1_Nothing(self,event):
-        self.onMouseButton1TryToSelectSomething(event)
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1_Nothing(self,event):
-        self.onMouseButton1_Nothing(event)
+        if not self.Locked():
+            self.onMouseButton1_Nothing(event)
+            self.Unlock()
     def onCtrlMouseButton1Motion_Nothing(self,event):
         pass
     def onCtrlMouseButton1Release_Nothing(self,event):
@@ -459,7 +474,9 @@ class DrawingStateMachine(object):
     def onMouseButton1Release_Nothing(self,event):
         pass
     def onMouseButton3Release_Nothing(self,event):
-        self.parent.tk.call('tk_popup',self.parent.canvasTearOffMenu, event.x_root, event.y_root)
+        if not self.Locked():
+            self.parent.tk.call('tk_popup',self.parent.canvasTearOffMenu, event.x_root, event.y_root)
+            self.Unlock()
     def onMouseButton1Double_Nothing(self,event):
         pass
     def onMouseMotion_Nothing(self,event):
@@ -501,32 +518,48 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Part Selected')
             self.parent.DrawSchematic()
     def onMouseButton1_DeviceSelected(self,event):
-        self.onMouseButton1TryToSelectSomething(event)
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1_DeviceSelected(self,event):
-        self.onMouseButton1TryToToggleSomething(event)
+        if not self.Locked():
+            self.onMouseButton1TryToToggleSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1Motion_DeviceSelected(self,event):
         pass
     def onCtrlMouseButton1Release_DeviceSelected(self,event):
-        self.parent.schematic.Consolidate()
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            self.parent.schematic.Consolidate()
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton3_DeviceSelected(self,event):
-        self.SaveButton2Coordinates(event)
-        if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
-            self.Nothing()
+        if not self.Locked():
+            self.SaveButton2Coordinates(event)
+            if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
+                self.Nothing()
+            self.Unlock()
     def onMouseButton1Motion_DeviceSelected(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.parent.coordInPart[0],coord[1]-self.parent.coordInPart[1]])
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            self.parent.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.parent.coordInPart[0],coord[1]-self.parent.coordInPart[1]])
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton1Release_DeviceSelected(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.parent.coordInPart[0],coord[1]-self.parent.coordInPart[1]])
-        self.parent.schematic.Consolidate()
-        self.parent.parent.history.Event('release selected device')
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            self.parent.deviceSelected.partPicture.current.SetOrigin([coord[0]-self.parent.coordInPart[0],coord[1]-self.parent.coordInPart[1]])
+            self.parent.schematic.Consolidate()
+            self.parent.parent.history.Event('release selected device')
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton3Release_DeviceSelected(self,event):
-        self.parent.tk.call("tk_popup", self.parent.deviceTearOffMenu, event.x_root, event.y_root)
+        if not self.Locked():
+            self.parent.tk.call("tk_popup", self.parent.deviceTearOffMenu, event.x_root, event.y_root)
+            self.Unlock()
     def onMouseButton1Double_DeviceSelected(self,event):
-        self.parent.EditSelectedDevice()
+        if not self.Locked():
+            self.parent.EditSelectedDevice()
+            self.Unlock()
     def onMouseMotion_DeviceSelected(self,event):
         pass
 
@@ -568,9 +601,13 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Wire Selected')
             self.parent.DrawSchematic()
     def onMouseButton1_WireSelected(self,event):
-        self.onMouseButton1TryToSelectSomething(event)
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1_WireSelected(self,event):
-        self.onMouseButton1TryToToggleSomething(event)
+        if not self.Locked():
+            self.onMouseButton1TryToToggleSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1Motion_WireSelected(self,event):
         pass
     def onCtrlMouseButton1Release_WireSelected(self,event):
@@ -578,17 +615,21 @@ class DrawingStateMachine(object):
     def onMouseButton3_WireSelected(self,event):
         pass
     def onMouseButton1Motion_WireSelected(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.schematic.project['Drawing.Schematic.Wires'][self.parent.w]['Vertices'][self.parent.v]['Coord']=coord
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            self.parent.schematic.project['Drawing.Schematic.Wires'][self.parent.w]['Vertices'][self.parent.v]['Coord']=coord
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton1Release_WireSelected(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.schematic.project['Drawing.Schematic.Wires'][self.parent.w]['Vertices'][self.parent.v]['Coord']=coord
-        self.parent.schematic.Consolidate()
-        self.parent.parent.history.Event('release selected wire')
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            self.parent.schematic.project['Drawing.Schematic.Wires'][self.parent.w]['Vertices'][self.parent.v]['Coord']=coord
+            self.parent.schematic.Consolidate()
+            self.parent.parent.history.Event('release selected wire')
+            self.parent.DrawSchematic()
     def onMouseButton3Release_WireSelected(self,event):
-        self.parent.tk.call('tk_popup',self.parent.wireTearOffMenu, event.x_root, event.y_root)
+        if not self.Locked():
+            self.parent.tk.call('tk_popup',self.parent.wireTearOffMenu, event.x_root, event.y_root)
     def onMouseButton1Double_WireSelected(self,event):
         pass
     def onMouseMotion_WireSelected(self,event):
@@ -626,12 +667,14 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Part In Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_PartLoaded(self,event):
-        self.SaveButton1Coordinates(event)
-        self.parent.partLoaded.partPicture.current.SetOrigin(self.parent.Button1Coord)
-        self.parent.schematic.deviceList.append(self.parent.partLoaded)
-        self.parent.schematic.deviceList[-1].selected=True
-        self.DeviceSelected()
-        self.parent.parent.history.Event('part added')
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.parent.partLoaded.partPicture.current.SetOrigin(self.parent.Button1Coord)
+            self.parent.schematic.deviceList.append(self.parent.partLoaded)
+            self.parent.schematic.deviceList[-1].selected=True
+            self.DeviceSelected()
+            self.parent.parent.history.Event('part added')
+            self.Unlock()
     def onCtrlMouseButton1_PartLoaded(self,event):
         pass
     def onCtrlMouseButton1Motion_PartLoaded(self,event):
@@ -639,15 +682,25 @@ class DrawingStateMachine(object):
     def onCtrlMouseButton1Release_PartLoaded(self,event):
         pass
     def onMouseButton3_PartLoaded(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseButton1Motion_PartLoaded(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseButton1Release_PartLoaded(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseButton3Release_PartLoaded(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseButton1Double_PartLoaded(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseMotion_PartLoaded(self,event):
         pass
 
@@ -683,9 +736,11 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Drawing Wires')
             self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
-        self.SaveButton1Coordinates(event)
-        self.parent.wireLoaded['Vertices'][-1]['Coord']=self.parent.Button1Coord
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.parent.wireLoaded['Vertices'][-1]['Coord']=self.parent.Button1Coord
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onCtrlMouseButton1_WireLoaded(self,event):
         pass
     def onCtrlMouseButton1Motion_WireLoaded(self,event):
@@ -695,54 +750,54 @@ class DrawingStateMachine(object):
     def onMouseButton3_WireLoaded(self,event):
         pass
     def onMouseButton1Motion_WireLoaded(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        if len(self.parent.wireLoaded['Vertices']) > 0:
-            self.parent.wireLoaded['Vertices'][-1]['Coord']=coord
-            self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            if len(self.parent.wireLoaded['Vertices']) > 0:
+                self.parent.wireLoaded['Vertices'][-1]['Coord']=coord
+                self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton1Release_WireLoaded(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        from ProjectFile import VertexConfiguration
-        vertexProject=VertexConfiguration()
-        vertexProject['Coord']=coord
-        vertexProject['Selected']=False
-        self.parent.wireLoaded['Vertices'].append(vertexProject)
-        self.parent.DrawSchematic()
-    def onMouseButton3Release_WireLoaded(self,event):
-        self.SaveButton2Coordinates(event)
-        if len(self.parent.wireLoaded['Vertices']) > 2:
-            from ProjectFile import VertexConfiguration,WireConfiguration
-            wireListProject=self.parent.schematic.project['Drawing.Schematic.Wires']
-            wireProject=WireConfiguration()
-            wireProject['Vertices']=self.parent.wireLoaded['Vertices'][:-1]
-            wireListProject[-1]=wireProject
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            from SignalIntegrity.App.ProjectFile import VertexConfiguration
             vertexProject=VertexConfiguration()
-            vertexProject['Coord']=(0,0)
+            vertexProject['Coord']=coord
             vertexProject['Selected']=False
-            wireProject=WireConfiguration()
-            wireProject['Vertices']=[vertexProject]
-            self.parent.wireLoaded=wireProject
-            wireListProject.append(self.parent.wireLoaded)
-            self.parent.parent.history.Event('add wire')
+            self.parent.wireLoaded['Vertices'].append(vertexProject)
             self.parent.DrawSchematic()
-        else:
-            self.Nothing()
-    def onMouseButton1Double_WireLoaded(self,event):
-        self.parent.wireLoaded=None
-        self.Nothing()
-    def onMouseMotion_WireLoaded(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        freeFormWire=True
-        if freeFormWire:
-            self.parent.wireLoaded['Vertices'][-1]['Coord']=coord
-        else:
-            if len(self.parent.wireLoaded) == 1:
-                self.parent.wireLoaded[-1] = Vertex(coord)
+            self.Unlock()
+    def onMouseButton3Release_WireLoaded(self,event):
+        if not self.Locked():
+            self.SaveButton2Coordinates(event)
+            if len(self.parent.wireLoaded['Vertices']) > 2:
+                from SignalIntegrity.App.ProjectFile import VertexConfiguration,WireConfiguration
+                wireListProject=self.parent.schematic.project['Drawing.Schematic.Wires']
+                wireProject=WireConfiguration()
+                wireProject['Vertices']=self.parent.wireLoaded['Vertices'][:-1]
+                wireListProject[-1]=wireProject
+                vertexProject=VertexConfiguration()
+                vertexProject['Coord']=(0,0)
+                vertexProject['Selected']=False
+                wireProject=WireConfiguration()
+                wireProject['Vertices']=[vertexProject]
+                self.parent.wireLoaded=wireProject
+                wireListProject.append(self.parent.wireLoaded)
+                self.parent.parent.history.Event('add wire')
+                self.parent.DrawSchematic()
             else:
-                if abs(coord[0]-self.parent.wireLoaded[-2][0]) > abs(coord[1]-self.parent.wireLoaded[-2][1]):
-                    self.parent.wireLoaded[-1] = Vertex((coord[0],self.parent.wireLoaded[-2][1]))
-                else:
-                    self.parent.wireLoaded[-1] = Vertex((self.parent.wireLoaded[-2][0],coord[1]))
-        self.parent.DrawSchematic()
+                self.Nothing()
+            self.Unlock()
+    def onMouseButton1Double_WireLoaded(self,event):
+        if not self.Locked():
+            self.parent.wireLoaded=None
+            self.Nothing()
+            self.Unlock()
+    def onMouseMotion_WireLoaded(self,event):
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            self.parent.wireLoaded['Vertices'][-1]['Coord']=coord
+            self.parent.DrawSchematic()
+            self.Unlock()
 
     def Panning(self,force=False):
         if self.state != 'Panning' or force:
@@ -776,7 +831,9 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Panning')
             self.parent.DrawSchematic()
     def onMouseButton1_Panning(self,event):
-        self.SaveButton1Coordinates(event)
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.Unlock()
     def onCtrlMouseButton1_Panning(self,event):
         pass
     def onCtrlMouseButton1Motion_Panning(self,event):
@@ -786,18 +843,26 @@ class DrawingStateMachine(object):
     def onMouseButton3_Panning(self,event):
         pass
     def onMouseButton1Motion_Panning(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        self.parent.originx=self.parent.originx+coord[0]-self.parent.Button1Coord[0]
-        self.parent.originy=self.parent.originy+coord[1]-self.parent.Button1Coord[1]
-        self.parent.schematic.project['Drawing.Originx']=self.parent.originx
-        self.parent.schematic.project['Drawing.Originy']=self.parent.originy
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            self.parent.originx=self.parent.originx+coord[0]-self.parent.Button1Coord[0]
+            self.parent.originy=self.parent.originy+coord[1]-self.parent.Button1Coord[1]
+            self.parent.schematic.project['Drawing.Originx']=self.parent.originx
+            self.parent.schematic.project['Drawing.Originy']=self.parent.originy
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton1Release_Panning(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseButton3Release_Panning(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseButton1Double_Panning(self,event):
-        self.Nothing()
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
     def onMouseMotion_Panning(self,event):
         pass
 
@@ -833,75 +898,87 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Selecting')
             self.parent.DrawSchematic()
     def onMouseButton1_Selecting(self,event):
-        self.SaveButton1Coordinates(event)
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.Unlock()
     def onCtrlMouseButton1_Selecting(self,event):
-        self.SaveButton1Coordinates(event)
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.Unlock()
     def onCtrlMouseButton1Motion_Selecting(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                device.selected=True
-        for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
-            for vertexProject in wireProject['Vertices']:
-                vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
-                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                    vertexProject['Selected']=True
-        self.parent.DrawSchematic()
-        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
-                                            (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
-                                            (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
-                                            (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
-                                            dash=(1,5))
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            for device in self.parent.schematic.deviceList:
+                if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                    device.selected=True
+            for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
+                for vertexProject in wireProject['Vertices']:
+                    vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
+                    if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                        vertexProject['Selected']=True
+            self.parent.DrawSchematic()
+            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
+                                                (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
+                                                (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
+                                                (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
+                                                dash=(1,5))
+            self.Unlock()
     def onCtrlMouseButton1Release_Selecting(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                device.selected=True
-        for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
-            for vertexProject in wireProject['Vertices']:
-                vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
-                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                    vertexProject['Selected']=True
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            for device in self.parent.schematic.deviceList:
+                if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                    device.selected=True
+            for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
+                for vertexProject in wireProject['Vertices']:
+                    vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
+                    if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                        vertexProject['Selected']=True
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onMouseButton3_Selecting(self,event):
         pass
     def onMouseButton1Motion_Selecting(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                device.selected=True
-        for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
-            for vertexProject in wireProject['Vertices']:
-                if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                    vertexProject['Selected']=True
-        self.parent.DrawSchematic()
-        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
-                                            (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
-                                            (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
-                                            (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
-                                            dash=(1,5))
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            for device in self.parent.schematic.deviceList:
+                if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                    device.selected=True
+            for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
+                for vertexProject in wireProject['Vertices']:
+                    if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                        vertexProject['Selected']=True
+            self.parent.DrawSchematic()
+            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
+                                                (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
+                                                (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
+                                                (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
+                                                dash=(1,5))
+            self.Unlock()
     def onMouseButton1Release_Selecting(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        for device in self.parent.schematic.deviceList:
-            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                device.selected=True
-        for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
-            for vertexProject in wireProject['Vertices']:
-                if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
-                    vertexProject['Selected']=True
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            for device in self.parent.schematic.deviceList:
+                if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                    device.selected=True
+            for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
+                for vertexProject in wireProject['Vertices']:
+                    if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
+                        vertexProject['Selected']=True
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onMouseButton3Release_Selecting(self,event):
         pass
     def onMouseButton1Double_Selecting(self,event):
@@ -943,63 +1020,75 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Multiple Selections')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleSelections(self,event):
-        self.SaveButton1Coordinates(event)
-        self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
-        self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-vertexProject['Coord'][0],
-                                                     self.parent.Button1Coord[1]-vertexProject['Coord'][1]) 
-                                                        for vertexProject in wireProject['Vertices']]
-                                                            for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']]
-        inSelection=False
-        for device in self.parent.schematic.deviceList:
-            if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and device.selected:
-                inSelection=True
-                break
-        
-        for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
-            for vertexProject in wireProject['Vertices']:
-                if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and vertexProject['Selected']:
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.parent.OriginalDeviceCoordinates = [device.WhereInPart(self.parent.Button1Coord) for device in self.parent.schematic.deviceList]
+            self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-vertexProject['Coord'][0],
+                                                         self.parent.Button1Coord[1]-vertexProject['Coord'][1]) 
+                                                            for vertexProject in wireProject['Vertices']]
+                                                                for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']]
+            inSelection=False
+            for device in self.parent.schematic.deviceList:
+                if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and device.selected:
                     inSelection=True
                     break
-        if not inSelection:
+            
             for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
-                wire=Wire().InitFromProject(wireProject)
-                segmentList=SegmentList(wire)
-                for segment in segmentList:
-                    if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and segment.selected:
+                for vertexProject in wireProject['Vertices']:
+                    if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and vertexProject['Selected']:
                         inSelection=True
                         break
-                if inSelection:
-                    break
-
-        if not inSelection:
-            self.onMouseButton1TryToSelectSomething(event)
+            if not inSelection:
+                for wireProject in self.parent.schematic.project['Drawing.Schematic.Wires']:
+                    wire=Wire().InitFromProject(wireProject)
+                    segmentList=SegmentList(wire)
+                    for segment in segmentList:
+                        if segment.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and segment.selected:
+                            inSelection=True
+                            break
+                    if inSelection:
+                        break
+    
+            if not inSelection:
+                self.onMouseButton1TryToSelectSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1_MultipleSelections(self,event):
-        self.onMouseButton1TryToToggleSomething(event)
+        if not self.Locked():
+            self.onMouseButton1TryToToggleSomething(event)
+            self.Unlock()
     def onCtrlMouseButton1Motion_MultipleSelections(self,event):
         pass
     def onCtrlMouseButton1Release_MultipleSelections(self,event):
-        self.MultipleSelections()
+        if not self.Locked():
+            self.MultipleSelections()
+            self.Unlock()
     def onMouseButton3_MultipleSelections(self,event):
-        self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
+        if not self.Locked():
+            self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
+            self.Unlock()
     def onMouseButton1Motion_MultipleSelections(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        for d in range(len(self.parent.schematic.deviceList)):
-            device=self.parent.schematic.deviceList[d]
-            coordInPart = self.parent.OriginalDeviceCoordinates[d]
-            if device.selected:
-                device.partPicture.current.SetOrigin([coord[0]-coordInPart[0],coord[1]-coordInPart[1]])
-        for w in range(len(self.parent.schematic.project['Drawing.Schematic.Wires'])):
-            wireProject=self.parent.schematic.project['Drawing.Schematic.Wires'][w]
-            for v in range(len(wireProject['Vertices'])):
-                vertexProject=wireProject['Vertices'][v]
-                if vertexProject['Selected']:
-                    vertexProject['Coord']=(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
-                                                          coord[1]-self.parent.OriginalWireCoordinates[w][v][1])
-        self.parent.DrawSchematic()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            for d in range(len(self.parent.schematic.deviceList)):
+                device=self.parent.schematic.deviceList[d]
+                coordInPart = self.parent.OriginalDeviceCoordinates[d]
+                if device.selected:
+                    device.partPicture.current.SetOrigin([coord[0]-coordInPart[0],coord[1]-coordInPart[1]])
+            for w in range(len(self.parent.schematic.project['Drawing.Schematic.Wires'])):
+                wireProject=self.parent.schematic.project['Drawing.Schematic.Wires'][w]
+                for v in range(len(wireProject['Vertices'])):
+                    vertexProject=wireProject['Vertices'][v]
+                    if vertexProject['Selected']:
+                        vertexProject['Coord']=(coord[0]-self.parent.OriginalWireCoordinates[w][v][0],
+                                                              coord[1]-self.parent.OriginalWireCoordinates[w][v][1])
+            self.parent.DrawSchematic()
+            self.Unlock()
     def onMouseButton1Release_MultipleSelections(self,event):
-        self.parent.schematic.Consolidate()
-        self.parent.DrawSchematic()
-        self.parent.parent.history.Event('release multiple selections')
+        if not self.Locked():
+            self.parent.schematic.Consolidate()
+            self.parent.DrawSchematic()
+            self.parent.parent.history.Event('release multiple selections')
+            self.Unlock()
 
     def onMouseButton3Release_MultipleSelections(self,event):
         pass
@@ -1038,54 +1127,62 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Selecting More')
             self.parent.DrawSchematic()
     def onMouseButton1_SelectingMore(self,event):
-        self.SaveButton1Coordinates(event)
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.Unlock()
     def onCtrlMouseButton1_SelectingMore(self,event):
-        self.SaveButton1Coordinates(event)
+        if not self.Locked():
+            self.SaveButton1Coordinates(event)
+            self.Unlock()
     def onCtrlMouseButton1Motion_SelectingMore(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
-        oldWireListProject=copy.deepcopy(self.parent.schematic.project['Drawing.Schematic.Wires'])
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        for d in range(len(self.parent.schematic.deviceList)):
-            device=self.parent.schematic.deviceList[d]
-            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedDevices[d]:
-                device.selected=True
-        wireListProject=self.parent.schematic.project['Drawing.Schematic.Wires']
-        for w in range(len(wireListProject)):
-            wireProject=wireListProject[w]['Vertices']
-            for v in range(len(wireProject)):
-                vertexProject=wireProject[v]
-                vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
-                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or\
-                 oldWireListProject[w]['Vertices'][v]['Selected']:
-                    vertexProject['Selected']=True
-        self.parent.DrawSchematic()
-        self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
-                                            (self.parent.Button1Coord[1]+self.parent.originy)*self.parent.grid,
-                                            (coord[0]+self.parent.originx)*self.parent.grid,
-                                            (coord[1]+self.parent.originy)*self.parent.grid,
-                                            dash=(1,5))
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+            oldWireListProject=copy.deepcopy(self.parent.schematic.project['Drawing.Schematic.Wires'])
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            for d in range(len(self.parent.schematic.deviceList)):
+                device=self.parent.schematic.deviceList[d]
+                if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedDevices[d]:
+                    device.selected=True
+            wireListProject=self.parent.schematic.project['Drawing.Schematic.Wires']
+            for w in range(len(wireListProject)):
+                wireProject=wireListProject[w]['Vertices']
+                for v in range(len(wireProject)):
+                    vertexProject=wireProject[v]
+                    vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
+                    if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or\
+                     oldWireListProject[w]['Vertices'][v]['Selected']:
+                        vertexProject['Selected']=True
+            self.parent.DrawSchematic()
+            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
+                                                (self.parent.Button1Coord[1]+self.parent.originy)*self.parent.grid,
+                                                (coord[0]+self.parent.originx)*self.parent.grid,
+                                                (coord[1]+self.parent.originy)*self.parent.grid,
+                                                dash=(1,5))
+            self.Unlock()
     def onCtrlMouseButton1Release_SelectingMore(self,event):
-        coord=self.parent.NearestGridCoordinate(event.x,event.y)
-        coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
-        oldWireListProject=copy.deepcopy(self.parent.schematic.project['Drawing.Schematic.Wires'])
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        for d in range(len(self.parent.schematic.deviceList)):
-            device=self.parent.schematic.deviceList[d]
-            if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedDevices[d]:
-                device.selected=True
-        wireListProject=self.parent.schematic.project['Drawing.Schematic.Wires']
-        for w in range(len(wireListProject)):
-            wireProject=wireListProject[w]['Vertices']
-            for v in range(len(wireProject)):
-                vertexProject=wireProject[v]
-                vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
-                if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or\
-                 oldWireListProject[w]['Vertices'][v]['Selected']:
-                    vertexProject['Selected']=True
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            coord=self.parent.NearestGridCoordinate(event.x,event.y)
+            coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
+            oldWireListProject=copy.deepcopy(self.parent.schematic.project['Drawing.Schematic.Wires'])
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            for d in range(len(self.parent.schematic.deviceList)):
+                device=self.parent.schematic.deviceList[d]
+                if device.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or self.selectedDevices[d]:
+                    device.selected=True
+            wireListProject=self.parent.schematic.project['Drawing.Schematic.Wires']
+            for w in range(len(wireListProject)):
+                wireProject=wireListProject[w]['Vertices']
+                for v in range(len(wireProject)):
+                    vertexProject=wireProject[v]
+                    vertex=Vertex(vertexProject['Coord'],vertexProject['Selected'])
+                    if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor) or\
+                     oldWireListProject[w]['Vertices'][v]['Selected']:
+                        vertexProject['Selected']=True
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onMouseButton3_SelectingMore(self,event):
         pass
     def onMouseButton1Motion_SelectingMore(self,event):
@@ -1129,45 +1226,47 @@ class DrawingStateMachine(object):
             self.parent.parent.statusbar.set('Multiple Items in Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleItemsOnClipboard(self,event):
-        self.UnselectAllDevices()
-        self.UnselectAllWires()
-        self.SaveButton1Coordinates(event)
-        for device in self.parent.devicesToDuplicate:
-            if device['partname'].GetValue() == 'Port':
-                portNumberList=[]
-                for existingDevice in self.parent.schematic.deviceList:
-                    if existingDevice['partname'].GetValue() == 'Port':
-                        portNumberList.append(int(existingDevice['pn'].GetValue()))
-                if device['pn'].GetValue() in portNumberList:
-                    portNumber=1
-                    while portNumber in portNumberList:
-                        portNumber=portNumber+1
-                    device['pn'].SetValueFromString(str(portNumber))
-            else:
-                existingReferenceDesignators=[]
-                for existingDevice in self.parent.schematic.deviceList:
-                    referenceDesignatorProperty = existingDevice['ref']
-                    if referenceDesignatorProperty != None:
-                        existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
-                if device['ref'].GetValue() in existingReferenceDesignators:
-                    defaultProperty = device['defref']
-                    if defaultProperty != None:
-                        defaultPropertyValue = defaultProperty.GetValue()
-                        uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                        if uniqueReferenceDesignator != None:
-                            device['ref'].SetValueFromString(uniqueReferenceDesignator)
-            device.partPicture.current.SetOrigin((device.partPicture.current.origin[0]+self.parent.Button1Coord[0],device.partPicture.current.origin[1]+self.parent.Button1Coord[1]))
-            device.selected=True
-            self.parent.schematic.deviceList.append(device)
-        for wireProject in self.parent.wiresToDuplicate:
-            for vertexProject in wireProject['Vertices']:
-                vertexProject['Selected']=True
-                vertexCoord=vertexProject['Coord']
-                vertexProject['Coord']=(vertexCoord[0]+self.parent.Button1Coord[0],vertexCoord[1]++self.parent.Button1Coord[1])
-        schematicProject=self.parent.schematic.project['Drawing.Schematic']
-        schematicProject['Wires']=schematicProject['Wires']+self.parent.wiresToDuplicate
-        self.parent.parent.history.Event('add multiple items')
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            self.UnselectAllDevices()
+            self.UnselectAllWires()
+            self.SaveButton1Coordinates(event)
+            for device in self.parent.devicesToDuplicate:
+                if device['partname'].GetValue() == 'Port':
+                    portNumberList=[]
+                    for existingDevice in self.parent.schematic.deviceList:
+                        if existingDevice['partname'].GetValue() == 'Port':
+                            portNumberList.append(int(existingDevice['pn'].GetValue()))
+                    if device['pn'].GetValue() in portNumberList:
+                        portNumber=1
+                        while portNumber in portNumberList:
+                            portNumber=portNumber+1
+                        device['pn'].SetValueFromString(str(portNumber))
+                else:
+                    existingReferenceDesignators=[]
+                    for existingDevice in self.parent.schematic.deviceList:
+                        referenceDesignatorProperty = existingDevice['ref']
+                        if referenceDesignatorProperty != None:
+                            existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
+                    if device['ref'].GetValue() in existingReferenceDesignators:
+                        defaultProperty = device['defref']
+                        if defaultProperty != None:
+                            defaultPropertyValue = defaultProperty.GetValue()
+                            uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                            if uniqueReferenceDesignator != None:
+                                device['ref'].SetValueFromString(uniqueReferenceDesignator)
+                device.partPicture.current.SetOrigin((device.partPicture.current.origin[0]+self.parent.Button1Coord[0],device.partPicture.current.origin[1]+self.parent.Button1Coord[1]))
+                device.selected=True
+                self.parent.schematic.deviceList.append(device)
+            for wireProject in self.parent.wiresToDuplicate:
+                for vertexProject in wireProject['Vertices']:
+                    vertexProject['Selected']=True
+                    vertexCoord=vertexProject['Coord']
+                    vertexProject['Coord']=(vertexCoord[0]+self.parent.Button1Coord[0],vertexCoord[1]++self.parent.Button1Coord[1])
+            schematicProject=self.parent.schematic.project['Drawing.Schematic']
+            schematicProject['Wires']=schematicProject['Wires']+self.parent.wiresToDuplicate
+            self.parent.parent.history.Event('add multiple items')
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onCtrlMouseButton1_MultipleItemsOnClipboard(self,event):
         pass
     def onCtrlMouseButton1Motion_MultipleItemsOnClipboard(self,event):
@@ -1179,11 +1278,17 @@ class DrawingStateMachine(object):
     def onMouseButton1Motion_MultipleItemsOnClipboard(self,event):
         pass
     def onMouseButton1Release_MultipleItemsOnClipboard(self,event):
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onMouseButton3Release_MultipleItemsOnClipboard(self,event):
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onMouseButton1Double_MultipleItemsOnClipboard(self,event):
-        self.DispatchBasedOnSelections()
+        if not self.Locked():
+            self.DispatchBasedOnSelections()
+            self.Unlock()
     def onMouseMotion_MultipleItemsOnClipboard(self,event):
         pass
 
@@ -1371,7 +1476,7 @@ class Drawing(Frame):
                 if not vertexProject['Selected']:
                     newWire.append(copy.deepcopy(vertexProject))
             if len(newWire) >= 2:
-                from ProjectFile import WireConfiguration
+                from SignalIntegrity.App.ProjectFile import WireConfiguration
                 newWireProject=WireConfiguration()
                 newWireProject['Vertices']=newWire
                 newWireListProject.append(copy.deepcopy(newWireProject))
@@ -1391,7 +1496,7 @@ class Drawing(Frame):
         elif self.stateMachine.state=='DeviceSelected':
             self.DuplicateSelectedDevice()
     def DuplicateMultipleSelections(self,advanceStateMachine=True):
-        from ProjectFile import WireConfiguration
+        from SignalIntegrity.App.ProjectFile import WireConfiguration
         if self.stateMachine.state=='Multiple Selections':
             self.devicesToDuplicate=[]
             originSet=False

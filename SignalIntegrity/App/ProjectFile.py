@@ -135,8 +135,9 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationPropertiesConfiguration())
 
-    def Read(self, filename,drawing):
-        ProjectFileBase.Read(self, filename)
+    def Read(self,drawing,filename=None):
+        if not filename is None:
+            ProjectFileBase.Read(self, filename)
         # calculate certain calculation properties
         self['CalculationProperties.BaseSampleRate']=self['CalculationProperties.EndFrequency']*2
         self['CalculationProperties.TimePoints']=self['CalculationProperties.FrequencyPoints']*2
@@ -145,7 +146,7 @@ class ProjectFile(ProjectFileBase):
         drawing.InitFromProject(self)
         return self
 
-    def Write(self,filename,app):
+    def Write(self,app,filename=None):
         self['Drawing.DrawingProperties.Grid']=app.Drawing.grid
         self['Drawing.DrawingProperties.Originx']=app.Drawing.originx
         self['Drawing.DrawingProperties.Originy']=app.Drawing.originy
@@ -170,7 +171,8 @@ class ProjectFile(ProjectFileBase):
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
-        ProjectFileBase.Write(self,filename)
+        if not filename is None:
+            ProjectFileBase.Write(self,filename)
         return self
 
 # Legacy File Format
@@ -189,7 +191,7 @@ if __name__ == '__main__':
                 if child.tag == 'drawing':
                     self.Drawing.InitFromXml(child)
                 elif child.tag == 'calculation_properties':
-                    from CalculationProperties import CalculationProperties
+                    from SignalIntegrity.App.CalculationProperties import CalculationProperties
                     self.calculationProperties=CalculationProperties(self)
                     self.calculationProperties.InitFromXml(child, self)
             project=ProjectFile()

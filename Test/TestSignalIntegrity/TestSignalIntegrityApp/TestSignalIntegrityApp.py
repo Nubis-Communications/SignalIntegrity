@@ -24,29 +24,14 @@ from SignalIntegrity.App import TikZ
 import SignalIntegrity.Lib as si
 import os
 
-class SParameterCompareHelper(object):
-    def SParametersAreEqual(self,lhs,rhs,epsilon=0.00001):
-        if lhs.m_P != rhs.m_P: return False
-        if lhs.m_Z0 != rhs.m_Z0: return False
-        if len(lhs) != len(rhs): return False
-        for n in range(len(lhs)):
-            if abs(lhs.m_f[n] - rhs.m_f[n]) > epsilon: return False
-            lhsn=lhs[n]
-            rhsn=rhs[n]
-            for r in range(lhs.m_P):
-                for c in range(lhs.m_P):
-                    if abs(lhsn[r][c] - rhsn[r][c]) > epsilon:
-                        return False
-        return True
-
-class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
+class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelper,
                                  si.test.SignalIntegrityAppTestHelper):
     relearn=True
     debug=False
     checkPictures=True
     keepNewFormats=False
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):

@@ -20,18 +20,20 @@ History.py
 import copy
 
 class HistoryElement(object):
-    def __init__(self,eventName,schematic):
+    def __init__(self,eventName,project):
         self.eventName=eventName
-        self.schematic=copy.deepcopy(schematic)
+        self.project=copy.deepcopy(project)
 
 class History(object):
     def __init__(self,parent):
         self.parent=parent
-        self.history=[HistoryElement('new',copy.deepcopy(self.parent.Drawing.schematic))]
+        self.history=[]
         self.maxlength=100
-        self.current=0
+        self.current=-1
         self.FigureState()
     def Event(self,eventName):
+        if self.parent.project is None:
+            return
         if self.current == -1: # nothing in history buffer
             pass
         elif self.current == len(self.history)-1: # at end of history buffer
@@ -41,7 +43,7 @@ class History(object):
         else: # somewhere in the middle due to a previous undo
             self.history=self.history[:self.current+1]
             self.current=len(self.history)-1
-        element=HistoryElement(eventName,self.parent.Drawing.schematic)
+        element=HistoryElement(eventName,self.parent.project.Write(self.parent))
         self.history.append(element)
         self.current=self.current+1
         self.FigureState()
@@ -51,7 +53,7 @@ class History(object):
         undoMessage=self.history[self.current].eventName
         self.current=self.current-1
         element=copy.deepcopy(self.history[self.current])
-        self.parent.Drawing.schematic = element.schematic
+        self.parent.project = element.project.Read(self.parent.Drawing)
         self.parent.Drawing.stateMachine.state='Nothing'
         self.parent.Drawing.stateMachine.ForceIntializeState()
         self.FigureState()
@@ -63,7 +65,7 @@ class History(object):
             return
         self.current=self.current+1
         element=copy.deepcopy(self.history[self.current])
-        self.parent.Drawing.schematic = element.schematic
+        self.parent.project = element.project.Read(self.parent.Drawing)
         self.parent.Drawing.stateMachine.state = 'Nothing'
         self.parent.Drawing.stateMachine.ForceIntializeState()
         self.FigureState()
