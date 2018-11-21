@@ -17,7 +17,7 @@ DeviceNetListLine.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from ProjectFile import DeviceNetListConfiguration,DeviceNetListKeywordConfiguration
+from SignalIntegrity.App.ProjectFile import DeviceNetListConfiguration,DeviceNetListKeywordConfiguration
 
 class DeviceNetListLine(DeviceNetListConfiguration):
     def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):

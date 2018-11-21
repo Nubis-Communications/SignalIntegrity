@@ -214,13 +214,13 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         for filename in filesList:
             self.setUp()
             if not 'SignalIntegrityBook' in filename or self.book:
-            #print filename
+                #print filename
                 pysi=self.Preliminary(filename)
-            	pysi.SaveProject()
-            	filename=filename.replace('.xml','.si')
-            	pysi=self.Preliminary(filename)
-            	if not self.keepNewFormats:
-                	os.remove(pysi.fileparts.FullFilePathExtension('si'))
+                pysi.SaveProject()
+                filename=filename.replace('.xml','.si')
+                pysi=self.Preliminary(filename)
+                if not self.keepNewFormats:
+                    os.remove(pysi.fileparts.FullFilePathExtension('si'))
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

@@ -17,8 +17,8 @@ CalculationPropertiesDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
-from ToSI import nextHigher12458
+from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
+from SignalIntegrity.App.ToSI import nextHigher12458
 
 class CalculationPropertiesDialog(PropertiesDialog):
     def __init__(self,parent):

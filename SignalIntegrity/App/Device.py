@@ -20,7 +20,7 @@ import xml.etree.ElementTree as et
 
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.PartPicture import *
-from DeviceNetListLine import DeviceNetListLine
+from SignalIntegrity.App.DeviceNetListLine import DeviceNetListLine
 
 import math
 
