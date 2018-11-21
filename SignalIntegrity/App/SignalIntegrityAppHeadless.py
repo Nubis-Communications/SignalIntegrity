@@ -56,7 +56,7 @@ class DrawingHeadless(object):
         if self.parent.project is None:
             return
         for wireProject in self.parent.project['Drawing.Schematic.Wires']:
-            Wire().InitFromProject(wireProject).DrawWire(canvas,self.grid,self.originx,self.originy)
+            wireProject.DrawWire(canvas,self.grid,self.originx,self.originy)
         for dot in self.schematic.DotList():
             size=self.grid/8
             canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
@@ -159,17 +159,8 @@ class SignalIntegrityAppHeadless(object):
             partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
-        from SignalIntegrity.App.ProjectFile import WireConfiguration
-        project['Drawing.Schematic.Wires']=[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))]
-        for w in range(len(project['Drawing.Schematic.Wires'])):
-            wireProject=project['Drawing.Schematic.Wires'][w]
-            wire=self.Drawing.schematic.wireList[w]
-            from SignalIntegrity.App.ProjectFile import VertexConfiguration
-            wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
-            for v in range(len(wireProject['Vertices'])):
-                vertexProject=wireProject['Vertices'][v]
-                vertex=wire[v]
-                vertexProject['Coord']=vertex.coord
+        project['Drawing.Schematic'].dict['Wires']=self.Drawing.schematic.wireList
+        del self.Drawing.schematic.wireList
         project['CalculationProperties.EndFrequency']=self.calculationProperties.endFrequency
         project['CalculationProperties.FrequencyPoints']=self.calculationProperties.frequencyPoints
         project['CalculationProperties.UserSampleRate']=self.calculationProperties.userSampleRate

@@ -370,17 +370,7 @@ class SignalIntegrityApp(Frame):
             partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
-        from SignalIntegrity.App.ProjectFile import WireConfiguration
-        project['Drawing.Schematic.Wires']=[WireConfiguration() for _ in range(len(self.Drawing.schematic.wireList))]
-        for w in range(len(project['Drawing.Schematic.Wires'])):
-            wireProject=project['Drawing.Schematic.Wires'][w]
-            wire=self.Drawing.schematic.wireList[w]
-            from SignalIntegrity.App.ProjectFile import VertexConfiguration
-            wireProject['Vertices']=[VertexConfiguration() for vertex in wire]
-            for v in range(len(wireProject['Vertices'])):
-                vertexProject=wireProject['Vertices'][v]
-                vertex=wire[v]
-                vertexProject['Coord']=vertex.coord
+        project['Drawing.Schematic'].dict['Wires']=self.Drawing.schematic.wireList
         project['CalculationProperties.EndFrequency']=self.calculationProperties.endFrequency
         project['CalculationProperties.FrequencyPoints']=self.calculationProperties.frequencyPoints
         project['CalculationProperties.UserSampleRate']=self.calculationProperties.userSampleRate
@@ -390,6 +380,7 @@ class SignalIntegrityApp(Frame):
         project['CalculationProperties.FrequencyResolution']=project['CalculationProperties.EndFrequency']/project['CalculationProperties.FrequencyPoints']
         project['CalculationProperties.ImpulseResponseLength']=1./project['CalculationProperties.FrequencyResolution']
         self.project=project
+        del self.calculationProperties
         self.Drawing.InitFromProject(self.project)
         return self
 
@@ -623,12 +614,9 @@ class SignalIntegrityApp(Frame):
     def onDuplicate(self):
         self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):
-        from SignalIntegrity.App.ProjectFile import VertexConfiguration,WireConfiguration
-        vertexProject=VertexConfiguration()
-        vertexProject['Coord']=(0,0)
-        vertexProject['Selected']=False
-        wireProject=WireConfiguration()
-        wireProject['Vertices']=[vertexProject]
+        from SignalIntegrity.App.Wire import Vertex,Wire
+        wireProject=Wire()
+        wireProject['Vertices']=[Vertex((0,0),False)]
         self.Drawing.wireLoaded=wireProject
         wireListProject=self.Drawing.schematic.project['Drawing.Schematic.Wires']
         wireListProject.append(self.Drawing.wireLoaded)

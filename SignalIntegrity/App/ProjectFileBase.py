@@ -132,8 +132,8 @@ class XMLProperty(object):
         if path in self.dict:
             return self.dict[path]
         else:
-            return None
-    def GetValue(self,path):
+            return self
+    def GetValue(self,path=None):
         if isinstance(self.GetPropertyValue('value'),list):
             return self.GetPropertyValue('value')
         else:

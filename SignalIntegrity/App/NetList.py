@@ -39,7 +39,7 @@ class NetList(object):
         self.stimNames=[]
         self.definingStimList=[]
         deviceList = schematic.deviceList
-        equiPotentialWireList=WireList().InitFromProject(schematic.project['Drawing.Schematic.Wires']).EquiPotentialWireList()
+        equiPotentialWireList=schematic.project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim']:
@@ -65,7 +65,7 @@ class NetList(object):
                     for wire in equiPotentialWireList:
                         thisWireConnectedToThisDevicePin = False
                         for vertex in wire:
-                            if vertex.coord == thisDevicePinCoordinate:
+                            if vertex['Coord'] == thisDevicePinCoordinate:
                                 thisWireConnectedToThisDevicePin = True
                                 break
                         if thisWireConnectedToThisDevicePin:
@@ -73,7 +73,7 @@ class NetList(object):
                                 for deviceCheckIndex in range(len(devicePinCoordinateList)):
                                     for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
                                         thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                                        if vertex.coord == thisDevicePinCheckCoordinate:
+                                        if vertex['Coord'] == thisDevicePinCheckCoordinate:
                                             thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
                     thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
                     for connectedDevicePins in thisListOfConnectedDevicePins:
