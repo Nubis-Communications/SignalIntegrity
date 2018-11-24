@@ -27,12 +27,11 @@ if sys.version_info.major < 3:
 else:
     from tkinter import ALL
 
-from SignalIntegrity.App.CalculationProperties import CalculationProperties
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.Wire import Wire
-from SignalIntegrity.App.ProjectFile import ProjectFile
+from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 
 class DrawingHeadless(object):
     def __init__(self,parent):
@@ -97,7 +96,7 @@ class SignalIntegrityAppHeadless(object):
         self.preferences=Preferences()
         self.installdir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
-        self.calculationProperties=CalculationProperties(self)
+        self.calculationProperties=CalculationProperties()
 
     def NullCommand(self):
         pass
@@ -138,9 +137,7 @@ class SignalIntegrityAppHeadless(object):
             if child.tag == 'drawing':
                 self.Drawing.InitFromXml(child)
             elif child.tag == 'calculation_properties':
-                from SignalIntegrity.App.CalculationProperties import CalculationProperties
-                self.calculationProperties=CalculationProperties(self)
-                self.calculationProperties.InitFromXml(child, self)
+                calculationProperties=CalculationProperties().InitFromXml(child)
         project=ProjectFile()
         project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
         project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
@@ -161,16 +158,8 @@ class SignalIntegrityAppHeadless(object):
             deviceProject['PartProperties']=device.propertiesList
         project['Drawing.Schematic'].dict['Wires']=self.Drawing.schematic.wireList
         del self.Drawing.schematic.wireList
-        project['CalculationProperties.EndFrequency']=self.calculationProperties.endFrequency
-        project['CalculationProperties.FrequencyPoints']=self.calculationProperties.frequencyPoints
-        project['CalculationProperties.UserSampleRate']=self.calculationProperties.userSampleRate
-        # calculate certain calculation properties
-        project['CalculationProperties.BaseSampleRate']=project['CalculationProperties.EndFrequency']*2
-        project['CalculationProperties.TimePoints']=project['CalculationProperties.FrequencyPoints']*2
-        project['CalculationProperties.FrequencyResolution']=project['CalculationProperties.EndFrequency']/project['CalculationProperties.FrequencyPoints']
-        project['CalculationProperties.ImpulseResponseLength']=1./project['CalculationProperties.FrequencyResolution']
+        project.dict['CalculationProperties']=calculationProperties
         self.project=project
-        del self.calculationProperties
         self.Drawing.InitFromProject(self.project)
         return self
 

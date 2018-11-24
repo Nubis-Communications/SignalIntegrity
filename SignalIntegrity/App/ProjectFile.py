@@ -116,9 +116,9 @@ class DrawingConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Drawing')
         self.SubDir(DrawingPropertiesConfiguration())
-        self.dict['Schematic']=SchematicConfiguration()
+        self.SubDir(SchematicConfiguration())
 
-class CalculationPropertiesConfiguration(XMLConfiguration):
+class CalculationProperties(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'CalculationProperties')
         self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
@@ -128,21 +128,41 @@ class CalculationPropertiesConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultInt('TimePoints'))
         self.Add(XMLPropertyDefaultFloat('FrequencyResolution'))
         self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength'))
+    def InitFromXML(self,element):
+        XMLConfiguration.InitFromXML(self,element)
+        self.CalculateOthersFromBaseInformation()
+        return self
+    def CalculateOthersFromBaseInformation(self):
+        self['BaseSampleRate']=self['EndFrequency']*2
+        self['TimePoints']=self['FrequencyPoints']*2
+        self['FrequencyResolution']=self['EndFrequency']/self['FrequencyPoints']
+        self['ImpulseResponseLength']=1./self['FrequencyResolution']
+    def InitFromXml(self,calculationPropertiesElement):
+        endFrequency=20e9
+        frequencyPoints=400
+        userSampleRate=40e9
+        for calculationProperty in calculationPropertiesElement:
+            if calculationProperty.tag == 'end_frequency':
+                endFrequency=float(calculationProperty.text)
+            elif calculationProperty.tag == 'frequency_points':
+                frequencyPoints=int(calculationProperty.text)
+            elif calculationProperty.tag == 'user_samplerate':
+                userSampleRate = float(calculationProperty.text)
+        self['EndFrequency']=endFrequency
+        self['FrequencyPoints']=frequencyPoints
+        self['UserSampleRate']=userSampleRate
+        self.CalculateOthersFromBaseInformation()
+        return self
 
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(DrawingConfiguration())
-        self.SubDir(CalculationPropertiesConfiguration())
+        self.SubDir(CalculationProperties())
 
     def Read(self,drawing,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
-        # calculate certain calculation properties
-        self['CalculationProperties.BaseSampleRate']=self['CalculationProperties.EndFrequency']*2
-        self['CalculationProperties.TimePoints']=self['CalculationProperties.FrequencyPoints']*2
-        self['CalculationProperties.FrequencyResolution']=self['CalculationProperties.EndFrequency']/self['CalculationProperties.FrequencyPoints']
-        self['CalculationProperties.ImpulseResponseLength']=1./self['CalculationProperties.FrequencyResolution']
         drawing.InitFromProject(self)
         return self
 

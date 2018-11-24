@@ -45,7 +45,6 @@ from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,Devic
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
 from SignalIntegrity.App.Schematic import Drawing,Wire,Vertex
-from SignalIntegrity.App.CalculationProperties import CalculationProperties
 from SignalIntegrity.App.Simulator import Simulator
 from SignalIntegrity.App.NetList import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
@@ -346,9 +345,8 @@ class SignalIntegrityApp(Frame):
             if child.tag == 'drawing':
                 self.Drawing.InitFromXml(child)
             elif child.tag == 'calculation_properties':
-                from SignalIntegrity.App.CalculationProperties import CalculationProperties
-                self.calculationProperties=CalculationProperties(self)
-                self.calculationProperties.InitFromXml(child, self)
+                from SignalIntegrity.App.ProjectFile import CalculationProperties
+                calculationProperties=CalculationProperties().InitFromXml(child)
         project=ProjectFile()
         project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
         project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
@@ -371,16 +369,8 @@ class SignalIntegrityApp(Frame):
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
         project['Drawing.Schematic'].dict['Wires']=self.Drawing.schematic.wireList
-        project['CalculationProperties.EndFrequency']=self.calculationProperties.endFrequency
-        project['CalculationProperties.FrequencyPoints']=self.calculationProperties.frequencyPoints
-        project['CalculationProperties.UserSampleRate']=self.calculationProperties.userSampleRate
-        # calculate certain calculation properties
-        project['CalculationProperties.BaseSampleRate']=project['CalculationProperties.EndFrequency']*2
-        project['CalculationProperties.TimePoints']=project['CalculationProperties.FrequencyPoints']*2
-        project['CalculationProperties.FrequencyResolution']=project['CalculationProperties.EndFrequency']/project['CalculationProperties.FrequencyPoints']
-        project['CalculationProperties.ImpulseResponseLength']=1./project['CalculationProperties.FrequencyResolution']
+        project.dict['CalculationProperties']=calculationProperties
         self.project=project
-        del self.calculationProperties
         self.Drawing.InitFromProject(self.project)
         return self
 
