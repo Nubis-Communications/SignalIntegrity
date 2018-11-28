@@ -19,10 +19,11 @@ CalculationPropertiesDialog.py
 
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
 from SignalIntegrity.App.ToSI import nextHigher12458
+import SignalIntegrity.App.Project
 
 class CalculationPropertiesDialog(PropertiesDialog):
     def __init__(self,parent):
-        PropertiesDialog.__init__(self,parent,parent.project['CalculationProperties'],parent,'Calculation Properties')
+        PropertiesDialog.__init__(self,parent,SignalIntegrity.App.Project['CalculationProperties'],parent,'Calculation Properties')
         self.endFrequencyFrame=CalculationPropertySI(self.propertyListFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
         self.frequencyPointsFrame=CalculationProperty(self.propertyListFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
         self.frequencyResolutionFrame=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
@@ -34,27 +35,17 @@ class CalculationPropertiesDialog(PropertiesDialog):
 
     def onendFrequencyEntered(self,event):
         self.project['EndFrequency']=nextHigher12458(self.project['EndFrequency'])
-        self.project['BaseSampleRate']=2*self.project['EndFrequency']
         self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
-        self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])                
-        self.project['TimePoints']=self.project['FrequencyPoints']*2
-        self.project['FrequencyResolution']=self.project['EndFrequency']/self.project['FrequencyPoints']
-        self.project['ImpulseResponseLength']=1./self.project['FrequencyResolution']
+        self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onfrequencyPointsEntered(self,event):
-        self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])                             
-        self.project['TimePoints']=self.project['FrequencyPoints']*2
-        self.project['FrequencyResolution']=self.project['EndFrequency']/self.project['FrequencyPoints']
-        self.project['ImpulseResponseLength']=1./self.project['FrequencyResolution']
+        self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onfrequencyResolutionEntered(self,event):
         self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
-        self.project['TimePoints']=self.project['FrequencyPoints']*2
-        self.project['FrequencyResolution']=self.project['EndFrequency']/self.project['FrequencyPoints']
-        self.project['ImpulseResponseLength']=1./self.project['FrequencyResolution']
         self.UpdateStrings()
 
     def onuserSampleRateEntered(self,event):
@@ -62,33 +53,24 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
 
     def onbaseSampleRateEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(self.project['BaseSampleRate'])
-        self.project['BaseSampleRate']=2*self.project['EndFrequency']
+        self.project['EndFrequency']=nextHigher12458(self.project['BaseSampleRate'])/2.
         self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
-        self.project['TimePoints']=self.project['FrequencyPoints']*2
-        self.project['FrequencyResolution']=self.project['EndFrequency']/self.project['FrequencyPoints']
-        self.project['ImpulseResponseLength']=1./self.project['FrequencyResolution']
         self.UpdateStrings()
 
     def ontimePointsEntered(self,event):
         self.project['FrequencyPoints']=int(nextHigher12458(self.project['TimePoints']/2))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
-        self.project['TimePoints']=self.project['FrequencyPoints']*2
-        self.project['FrequencyResolution']=self.project['EndFrequency']/self.project['FrequencyPoints']
-        self.project['ImpulseResponseLength']=1./self.project['FrequencyResolution']
         self.UpdateStrings()
 
     def onimpulseLengthEntered(self,event):
         self.project['TimePoints']=int(self.project['ImpulseResponseLength']*self.project['BaseSampleRate']+0.5)
         self.project['FrequencyPoints']=int(nextHigher12458(self.project['TimePoints']/2))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
-        self.project['TimePoints']=self.project['FrequencyPoints']*2
-        self.project['FrequencyResolution']=self.project['EndFrequency']/self.project['FrequencyPoints']
-        self.project['ImpulseResponseLength']=1./self.project['FrequencyResolution']
         self.UpdateStrings()
 
     def UpdateStrings(self):
+        self.project.CalculateOthersFromBaseInformation()
         self.endFrequencyFrame.UpdateStrings()
         self.frequencyPointsFrame.UpdateStrings()
         self.frequencyResolutionFrame.UpdateStrings()

@@ -1,7 +1,6 @@
 """
-__init__.py
+Project.py
 """
-from __future__ import absolute_import
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -17,6 +16,6 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .SignalIntegrityApp import SignalIntegrityApp
-from .SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
-from .Project import Project
+
+# This is the global project file for the system
+Project = None

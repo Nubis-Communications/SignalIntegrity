@@ -29,11 +29,11 @@ else:
 import copy
 
 from SignalIntegrity.App.FilePicker import AskOpenFileName
-from SignalIntegrity.App.PartProperty import PartPropertyFileName,PartPropertyWaveformFileName
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.Simulator import SimulatorDialog
 from SignalIntegrity.App.Device import Device
+import SignalIntegrity.App.Project
 
 class DeviceProperty(Frame):
     def __init__(self,parentFrame,parent,partProperty):
@@ -306,8 +306,8 @@ class DeviceProperties(Frame):
         import SignalIntegrity.Lib as si
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.parent.parent.project['CalculationProperties.EndFrequency'],
-                self.parent.parent.project['CalculationProperties.FrequencyPoints']))
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']))
         spnp.AddLines(netList)
         try:
             sp=spnp.SParameters()

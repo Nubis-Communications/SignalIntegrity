@@ -32,19 +32,17 @@ else:
 
 import copy
 import os
-import sys
-
 
 import matplotlib
 matplotlib.use('TkAgg')
 
 from SignalIntegrity.App.PartPicture import PartPicture
-from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyDefaultReferenceDesignator,PartPropertyReferenceDesignator
+from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
 from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
 from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
-from SignalIntegrity.App.Schematic import Drawing,Wire,Vertex
+from SignalIntegrity.App.Schematic import Drawing
 from SignalIntegrity.App.Simulator import Simulator
 from SignalIntegrity.App.NetList import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
@@ -60,6 +58,7 @@ from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog
 from SignalIntegrity.__about__ import __version__,__project__
+import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(Frame):
     def __init__(self,runMainLoop=True):        # make absolutely sure the directory of this file is the first in the
@@ -271,7 +270,7 @@ class SignalIntegrityApp(Frame):
         self.statusbar.pack(side=BOTTOM,fill=X,expand=NO)
         self.root.bind('<Key>',self.onKey)
 
-        self.project=None
+        SignalIntegrity.App.Project=None
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
@@ -339,6 +338,7 @@ class SignalIntegrityApp(Frame):
     # Legacy File Format
     def OpenProjectFileLegacy(self,oldfilename):
         import xml.etree.ElementTree as et
+        SignalIntegrity.App.Project=ProjectFile()
         tree=et.parse(oldfilename)
         root=tree.getroot()
         for child in root:
@@ -347,17 +347,16 @@ class SignalIntegrityApp(Frame):
             elif child.tag == 'calculation_properties':
                 from SignalIntegrity.App.ProjectFile import CalculationProperties
                 calculationProperties=CalculationProperties().InitFromXml(child)
-        project=ProjectFile()
-        project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
-        project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
-        project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
-        project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
-        project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
-        project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
         from SignalIntegrity.App.ProjectFile import DeviceConfiguration
-        project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
-        for d in range(len(project['Drawing.Schematic.Devices'])):
-            deviceProject=project['Drawing.Schematic.Devices'][d]
+        SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
+        for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
+            deviceProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices'][d]
             device=self.Drawing.schematic.deviceList[d]
             deviceProject['ClassName']=device.__class__.__name__
             partPictureProject=deviceProject['PartPicture']
@@ -368,10 +367,8 @@ class SignalIntegrityApp(Frame):
             partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
-        project['Drawing.Schematic'].dict['Wires']=self.Drawing.schematic.wireList
-        project.dict['CalculationProperties']=calculationProperties
-        self.project=project
-        self.Drawing.InitFromProject(self.project)
+        SignalIntegrity.App.Project.dict['CalculationProperties']=calculationProperties
+        self.Drawing.InitFromProject()
         return self
 
     def OpenProjectFile(self,filename):
@@ -391,10 +388,10 @@ class SignalIntegrityApp(Frame):
             self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
         else:
-            self.project=ProjectFile().Read(self.Drawing,self.fileparts.FullFilePathExtension('.si'))
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.InitFromProject()
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
         self.Drawing.stateMachine.Nothing()
-        #self.Drawing.DrawSchematic()
         self.history.Event('read project')
         self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
 
@@ -407,8 +404,8 @@ class SignalIntegrityApp(Frame):
                                    title='new project file')
         if filename is None:
             return
-        self.project=ProjectFile()
-        self.Drawing.InitFromProject(self.project)
+        SignalIntegrity.App.Project=ProjectFile()
+        self.Drawing.InitFromProject()
         self.Drawing.DrawSchematic()
         self.history.Event('new project')
         self.SaveProjectToFile(filename)
@@ -418,7 +415,7 @@ class SignalIntegrityApp(Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-        self.project.Write(self,filename)
+        SignalIntegrity.App.Project.Write(self,filename)
         filename=ConvertFileNameToRelativePath(filename)
         self.AnotherFileOpened(filename)
         self.root.title("SignalIntegrity: "+self.fileparts.FileNameTitle())
@@ -440,7 +437,7 @@ class SignalIntegrityApp(Frame):
         self.SaveProjectToFile(filename)
 
     def onClearSchematic(self):
-        self.project=None
+        SignalIntegrity.App.Project=None
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
         self.history.Event('clear project')
@@ -608,7 +605,7 @@ class SignalIntegrityApp(Frame):
         wireProject=Wire()
         wireProject['Vertices']=[Vertex((0,0),False)]
         self.Drawing.wireLoaded=wireProject
-        wireListProject=self.Drawing.schematic.project['Drawing.Schematic.Wires']
+        wireListProject=SignalIntegrity.App.Project['Drawing.Schematic.Wires']
         wireListProject.append(self.Drawing.wireLoaded)
         self.Drawing.stateMachine.WireLoaded()
     def onAddPort(self):
@@ -649,12 +646,12 @@ class SignalIntegrityApp(Frame):
 
     def onZoomIn(self):
         self.Drawing.grid = self.Drawing.grid+1.
-        self.Drawing.schematic.project['Grid']=self.Drawing.grid
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
         self.Drawing.DrawSchematic()
 
     def onZoomOut(self):
         self.Drawing.grid = max(1,self.Drawing.grid-1.)
-        self.Drawing.schematic.project['Grid']=self.Drawing.grid
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
         self.Drawing.DrawSchematic()
 
     def onPan(self):
@@ -679,8 +676,8 @@ class SignalIntegrityApp(Frame):
         si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project['CalculationProperties.EndFrequency'],
-                self.project['CalculationProperties.FrequencyPoints']),
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
@@ -723,8 +720,8 @@ class SignalIntegrityApp(Frame):
         si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project['CalculationProperties.EndFrequency'],
-                self.project['CalculationProperties.FrequencyPoints']),
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 

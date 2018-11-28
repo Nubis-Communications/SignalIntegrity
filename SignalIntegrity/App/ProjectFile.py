@@ -19,9 +19,6 @@ ProjectFile.py
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
-import os
-import sys
-
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -159,11 +156,12 @@ class ProjectFile(ProjectFileBase):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
+        from SignalIntegrity.App.Wire import WireList
+        self['Drawing.Schematic'].dict['Wires']=WireList()
 
-    def Read(self,drawing,filename=None):
+    def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
-        drawing.InitFromProject(self)
         return self
 
     def Write(self,app,filename=None):

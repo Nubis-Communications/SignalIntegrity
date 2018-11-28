@@ -28,8 +28,6 @@ else:
 
 import matplotlib
 import math
-import sys
-import os
 
 from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
 from SignalIntegrity.App.Files import FileParts
@@ -39,6 +37,8 @@ from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 
 from SignalIntegrity.App.ToSI import ToSI,FromSI
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
+
+import SignalIntegrity.App.Project
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -585,8 +585,8 @@ class SParametersDialog(Toplevel):
     def onResample(self):
         import SignalIntegrity.Lib as si
         self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
-            self.parent.project['CalculationProperties.EndFrequency'],
-            self.parent.project['CalculationProperties.FrequencyPoints']))
+            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']))
         self.PlotSParameter()
 
     def onCalculationProperties(self):

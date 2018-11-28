@@ -18,6 +18,7 @@ History.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import copy
+import SignalIntegrity.App.Project
 
 class HistoryElement(object):
     def __init__(self,eventName,project):
@@ -32,7 +33,7 @@ class History(object):
         self.current=-1
         self.FigureState()
     def Event(self,eventName):
-        if self.parent.project is None:
+        if SignalIntegrity.App.Project is None:
             return
         if self.current == -1: # nothing in history buffer
             pass
@@ -43,7 +44,7 @@ class History(object):
         else: # somewhere in the middle due to a previous undo
             self.history=self.history[:self.current+1]
             self.current=len(self.history)-1
-        element=HistoryElement(eventName,self.parent.project.Write(self.parent))
+        element=HistoryElement(eventName,SignalIntegrity.App.Project.Write(self.parent))
         self.history.append(element)
         self.current=self.current+1
         self.FigureState()
@@ -53,7 +54,8 @@ class History(object):
         undoMessage=self.history[self.current].eventName
         self.current=self.current-1
         element=copy.deepcopy(self.history[self.current])
-        self.parent.project = element.project.Read(self.parent.Drawing)
+        SignalIntegrity.App.Project = element.project.Read()
+        self.parent.Drawing.InitFromProject()
         self.parent.Drawing.stateMachine.state='Nothing'
         self.parent.Drawing.stateMachine.ForceIntializeState()
         self.FigureState()
@@ -65,7 +67,8 @@ class History(object):
             return
         self.current=self.current+1
         element=copy.deepcopy(self.history[self.current])
-        self.parent.project = element.project.Read(self.parent.Drawing)
+        SignalIntegrity.App.Project = element.project.Read()
+        self.parent.Drawing.InitFromProject()
         self.parent.Drawing.stateMachine.state = 'Nothing'
         self.parent.Drawing.stateMachine.ForceIntializeState()
         self.FigureState()

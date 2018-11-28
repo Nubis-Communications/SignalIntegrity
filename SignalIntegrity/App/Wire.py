@@ -17,7 +17,6 @@ Wire.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-import xml.etree.ElementTree as et
 import copy
 import math
 
@@ -120,7 +119,7 @@ class SegmentList(object):
 from SignalIntegrity.App.ProjectFile import VertexConfiguration
 
 class Vertex(VertexConfiguration):
-    def __init__(self,coord,selected=False):
+    def __init__(self,coord=(0,0),selected=False):
         VertexConfiguration.__init__(self)
         self['Coord']=coord
         self['Selected']=selected
@@ -162,24 +161,24 @@ class Vertex(VertexConfiguration):
             return False
         return True
 
-from SignalIntegrity.App.ProjectFile import WireConfiguration
+from SignalIntegrity.App.ProjectFileBase import XMLConfiguration
 
-class Wire(WireConfiguration):
+class Wire(XMLConfiguration):
     def __init__(self,vertexList=None):
-        WireConfiguration.__init__(self)
         if vertexList==None:
             vertexList=[]
-        self['Vertices']=[Vertex(vertex['Coord'],vertex['Selected']) for vertex in vertexList]
+        XMLConfiguration.__init__(self,'Wire')
+        self.Add(XMLProperty('Vertices',[Vertex(vertex['Coord'],vertex['Selected']) for vertex in vertexList],'array',arrayType=Vertex()))
     def __getitem__(self,item):
         if isinstance(item,(slice,int)):
             return self['Vertices'][item]
-        else: return WireConfiguration.__getitem__(self,item)
+        else: return XMLConfiguration.__getitem__(self,item)
     def __setitem__(self,item,value):
         if isinstance(item,int):
             if not isinstance(value,Vertex):
                 raise ValueError
             self['Vertices'][item]=value
-        else: WireConfiguration.__setitem__(self,item,value)
+        else: XMLConfiguration.__setitem__(self,item,value)
     def __delitem__(self,item):
         if isinstance(item,int):
             del self['Vertices'][item]
@@ -248,21 +247,6 @@ from SignalIntegrity.App.ProjectFileBase import XMLProperty
 class WireList(XMLProperty):
     def __init__(self):
         XMLProperty.__init__(self,'Wires',[Wire() for _ in range(0)],'array',arrayType=Wire())
-#         self.wires =[]
-#     def __getitem__(self,item):
-#         return self.wires[item]
-#     def __setitem__(self,item,value):
-#         if not isinstance(value,Wire):
-#             raise ValueError
-#         self.wires[item]=value
-#     def __delitem__(self,item):
-#         del self.wires[item]
-#     def __len__(self):
-#         return len(self.wires)
-#     def append(self,item):
-#         if not isinstance(item,Wire):
-#             raise ValueError
-#         self.wires.append(item)
     def InitFromProject(self,wiresListProject):
         self.__init__()
         self.SetValue(None,[Wire().InitFromProject(wireProject) for wireProject in wiresListProject])
@@ -275,6 +259,7 @@ class WireList(XMLProperty):
                 wire=Wire()
                 wire.InitFromXml(child)
                 self.GetValue(None).append(wire)
+        return self
     def RemoveEmptyWires(self):
         wiresNeedRemoval=False
         wl=self.GetValue()

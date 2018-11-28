@@ -27,20 +27,15 @@ else:
     from tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
     from tkinter import messagebox
 
-from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyVoltageOffset
-from SignalIntegrity.App.PartProperty import PartPropertyTransresistance,PartPropertyVoltageGain,PartPropertyDelay
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
+import SignalIntegrity.App.Project
 
 import matplotlib
-
-import sys
-import os
-
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -273,7 +268,7 @@ class SimulatorDialog(Toplevel):
     def onEscape(self):
         Doer.inHelp=False
         self.config(cursor='left_ptr')
-    
+
 class Simulator(object):
     def __init__(self,parent):
         self.parent=parent
@@ -295,8 +290,8 @@ class Simulator(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
-            self.parent.project['CalculationProperties.EndFrequency'],
-            self.parent.project['CalculationProperties.FrequencyPoints']
+            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             )
         cacheFileName=None
         if self.parent.preferences['Cache.CacheResults']:
@@ -371,7 +366,7 @@ class Simulator(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.parent.project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
@@ -388,8 +383,8 @@ class Simulator(object):
         si.sd.Numeric.trySVD=self.parent.preferences['Calculation.TrySVD']
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.parent.project['CalculationProperties.EndFrequency'],
-                self.parent.project['CalculationProperties.FrequencyPoints']),
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)

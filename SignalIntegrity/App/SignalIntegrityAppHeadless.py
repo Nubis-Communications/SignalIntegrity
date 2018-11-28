@@ -32,6 +32,7 @@ from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.Wire import Wire
 from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
+import SignalIntegrity.App.Project
 
 class DrawingHeadless(object):
     def __init__(self,parent):
@@ -50,11 +51,9 @@ class DrawingHeadless(object):
             device = self.schematic.deviceList[deviceIndex]
             devicePinsConnected=devicePinConnectedList[deviceIndex]
             device.DrawDevice(canvas,self.grid,self.originx,self.originy,devicePinsConnected)
-        if not hasattr(self.parent,'project'):
+        if SignalIntegrity.App.Project is None:
             return
-        if self.parent.project is None:
-            return
-        for wireProject in self.parent.project['Drawing.Schematic.Wires']:
+        for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             wireProject.DrawWire(canvas,self.grid,self.originx,self.originy)
         for dot in self.schematic.DotList():
             size=self.grid/8
@@ -79,13 +78,13 @@ class DrawingHeadless(object):
                     elif drawingPropertyElement.tag == 'originy':
                         self.originy = int(drawingPropertyElement.text)
 
-    def InitFromProject(self,project):
-        drawingProperties=project['Drawing.DrawingProperties']
+    def InitFromProject(self):
+        drawingProperties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         self.grid=drawingProperties['Grid']
         self.originx=drawingProperties['Originx']
         self.originy=drawingProperties['Originy']
         self.schematic = Schematic()
-        self.schematic.InitFromProject(project)
+        self.schematic.InitFromProject()
 
 class SignalIntegrityAppHeadless(object):
     def __init__(self):
@@ -117,20 +116,21 @@ class SignalIntegrityAppHeadless(object):
             if self.fileparts.fileext == '.xml':
                 self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
             else:
-                self.project=ProjectFile().Read(self.Drawing,self.fileparts.FullFilePathExtension('.si'))
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+                self.Drawing.InitFromProject()
         except:
             return False
         self.Drawing.schematic.Consolidate()
         for device in self.Drawing.schematic.deviceList:
             device.selected=False
-        for wireProject in self.Drawing.schematic.project['Drawing.Schematic.Wires']:
+        for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             for vertexProject in wireProject['Vertices']:
                 vertexProject['Selected']=False
         return True
 
     # Legacy File Format
     def OpenProjectFileLegacy(self,oldfilename):
-        import xml.etree.ElementTree as et
+        SignalIntegrity.App.Project=ProjectFile()
         tree=et.parse(oldfilename)
         root=tree.getroot()
         for child in root:
@@ -138,14 +138,13 @@ class SignalIntegrityAppHeadless(object):
                 self.Drawing.InitFromXml(child)
             elif child.tag == 'calculation_properties':
                 calculationProperties=CalculationProperties().InitFromXml(child)
-        project=ProjectFile()
-        project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
-        project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
-        project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
         from SignalIntegrity.App.ProjectFile import DeviceConfiguration
-        project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
-        for d in range(len(project['Drawing.Schematic.Devices'])):
-            deviceProject=project['Drawing.Schematic.Devices'][d]
+        SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
+        for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
+            deviceProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices'][d]
             device=self.Drawing.schematic.deviceList[d]
             deviceProject['ClassName']=device.__class__.__name__
             partPictureProject=deviceProject['PartPicture']
@@ -156,18 +155,15 @@ class SignalIntegrityAppHeadless(object):
             partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
-        project['Drawing.Schematic'].dict['Wires']=self.Drawing.schematic.wireList
-        del self.Drawing.schematic.wireList
-        project.dict['CalculationProperties']=calculationProperties
-        self.project=project
-        self.Drawing.InitFromProject(self.project)
+        SignalIntegrity.App.Project.dict['CalculationProperties']=calculationProperties
+        self.Drawing.InitFromProject()
         return self
 
     def SaveProjectToFile(self,filename):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-        self.project.Write(self,filename)
+        SignalIntegrity.App.Project.Write(self,filename)
 
     def SaveProject(self):
         if self.fileparts.filename=='':
@@ -187,8 +183,8 @@ class SignalIntegrityAppHeadless(object):
         si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project['CalculationProperties.EndFrequency'],
-                self.project['CalculationProperties.FrequencyPoints']
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
                 cacheFileName=cacheFileName)
         spnp.AddLines(netList)
@@ -203,8 +199,8 @@ class SignalIntegrityAppHeadless(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
-            self.project['CalculationProperties.EndFrequency'],
-            self.project['CalculationProperties.FrequencyPoints'])
+            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
         cacheFileName=None
         if self.preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
@@ -248,7 +244,7 @@ class SignalIntegrityAppHeadless(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
@@ -262,8 +258,8 @@ class SignalIntegrityAppHeadless(object):
         si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project['CalculationProperties.EndFrequency'],
-                self.project['CalculationProperties.FrequencyPoints']
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)       
@@ -304,7 +300,7 @@ class SignalIntegrityAppHeadless(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
@@ -317,8 +313,8 @@ class SignalIntegrityAppHeadless(object):
         si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
-                self.project['CalculationProperties.EndFrequency'],
-                self.project['CalculationProperties.FrequencyPoints']
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)

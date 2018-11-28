@@ -27,8 +27,7 @@ else:
     from tkinter import scrolledtext
 
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
-from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyWeight
-from SignalIntegrity.App.Wire import WireList
+import SignalIntegrity.App.Project
 
 class NetList(object):
     def __init__(self,schematic):
@@ -39,7 +38,7 @@ class NetList(object):
         self.stimNames=[]
         self.definingStimList=[]
         deviceList = schematic.deviceList
-        equiPotentialWireList=schematic.project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
+        equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim']:
@@ -205,7 +204,7 @@ class NetList(object):
                         if determinesStimDeviceIndex == dependentStimDeviceIndex:
                             stimdef[r][c]=deviceList[dependentStimDeviceIndex]['weight'].GetValue()
             self.textToShow.append('stimdef '+str(stimdef))
-        
+
         # clean up everything to deal with special case current probes and differential voltage probes
         endinglines=[]
         textToShow=[]
