@@ -81,8 +81,7 @@ class Schematic(object):
     def Clear(self):
         self.deviceList = []
         if not SignalIntegrity.App.Project is None:
-            from SignalIntegrity.App.ProjectFile import XMLProperty
-            SignalIntegrity.App.Project['Drawing.Schematic.Wires']=XMLProperty('Wires',[])
+            SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires']=WireList()
     def NewUniqueReferenceDesignator(self,defaultDesignator):
         if defaultDesignator != None and '?' in defaultDesignator:
             referenceDesignatorList=[]
@@ -153,10 +152,7 @@ class Schematic(object):
 class DrawingStateMachine(object):
     def __init__(self,parent):
         self.parent=parent
-        if SignalIntegrity.App.Project is None:
-            self.NoProject()
-        else:
-            self.Nothing(True)
+        self.NoProject()
     def UnselectAllDevices(self):
         for device in self.parent.schematic.deviceList:
             device.selected=False
@@ -288,7 +284,6 @@ class DrawingStateMachine(object):
         if not hasattr(self,'state'):
             self.state=''
         if self.state != 'NoProject' or force:
-            SignalIntegrity.App.Project=None
             self.parent.canvas.config(cursor='left_ptr')
             self.state='NoProject'
             self.parent.schematic.Consolidate()
@@ -820,11 +815,10 @@ class DrawingStateMachine(object):
         pass
     def onMouseButton1Motion_Panning(self,event):
         if not self.Locked():
+            drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
-            self.parent.originx=self.parent.originx+coord[0]-self.parent.Button1Coord[0]
-            self.parent.originy=self.parent.originy+coord[1]-self.parent.Button1Coord[1]
-            SignalIntegrity.App.Project['Drawing.Originx']=self.parent.originx
-            SignalIntegrity.App.Project['Drawing.Originy']=self.parent.originy
+            drawingPropertiesProject['Originx']=drawingPropertiesProject['Originx']+coord[0]-self.parent.Button1Coord[0]
+            drawingPropertiesProject['Originy']=drawingPropertiesProject['Originy']+coord[1]-self.parent.Button1Coord[1]
             self.parent.DrawSchematic()
             self.Unlock()
     def onMouseButton1Release_Panning(self,event):
@@ -896,10 +890,14 @@ class DrawingStateMachine(object):
                     if vertex.IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
-            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
-                                                (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
-                                                (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
-                                                (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
+            drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+            grid=drawingPropertiesProject['Grid']
+            originx=drawingPropertiesProject['Originx']
+            originy=drawingPropertiesProject['Originy']
+            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+originx)*grid,
+                                                (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+originy)*grid,
+                                                (coord[0]+coordAugmentor[0]+originx)*grid,
+                                                (coord[1]+coordAugmentor[1]+originy)*grid,
                                                 dash=(1,5))
             self.Unlock()
     def onCtrlMouseButton1Release_Selecting(self,event):
@@ -934,10 +932,14 @@ class DrawingStateMachine(object):
                     if Vertex(vertexProject['Coord'],vertexProject['Selected']).IsIn(coord,self.parent.Button1Coord,coordAugmentor,self.parent.Button1Augmentor):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
-            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+self.parent.originx)*self.parent.grid,
-                                                (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+self.parent.originy)*self.parent.grid,
-                                                (coord[0]+coordAugmentor[0]+self.parent.originx)*self.parent.grid,
-                                                (coord[1]+coordAugmentor[1]+self.parent.originy)*self.parent.grid,
+            drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+            grid=drawingPropertiesProject['Grid']
+            originx=drawingPropertiesProject['Originx']
+            originy=drawingPropertiesProject['Originy']
+            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+originx)*grid,
+                                                (self.parent.Button1Coord[1]+self.parent.Button1Augmentor[1]+originy)*grid,
+                                                (coord[0]+coordAugmentor[0]+originx)*grid,
+                                                (coord[1]+coordAugmentor[1]+originy)*grid,
                                                 dash=(1,5))
             self.Unlock()
     def onMouseButton1Release_Selecting(self,event):
@@ -1130,10 +1132,14 @@ class DrawingStateMachine(object):
                      oldWireListProject[w]['Vertices'][v]['Selected']:
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
-            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.originx)*self.parent.grid,
-                                                (self.parent.Button1Coord[1]+self.parent.originy)*self.parent.grid,
-                                                (coord[0]+self.parent.originx)*self.parent.grid,
-                                                (coord[1]+self.parent.originy)*self.parent.grid,
+            drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+            grid=drawingPropertiesProject['Grid']
+            originx=drawingPropertiesProject['Originx']
+            originy=drawingPropertiesProject['Originy']
+            self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+originx)*grid,
+                                                (self.parent.Button1Coord[1]+originy)*grid,
+                                                (coord[0]+originx)*grid,
+                                                (coord[1]+originy)*grid,
                                                 dash=(1,5))
             self.Unlock()
     def onCtrlMouseButton1Release_SelectingMore(self,event):
@@ -1297,9 +1303,6 @@ class Drawing(Frame):
         self.parent=parent
         self.canvas = Canvas(self,relief=SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=TOP, fill=BOTH, expand=YES)
-        self.grid=32
-        self.originx=0
-        self.originy=0
         self.schematic = Schematic()
         self.deviceTearOffMenu=Menu(self, tearoff=0)
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
@@ -1319,16 +1322,32 @@ class Drawing(Frame):
         self.multipleSelectionsTearOffMenu.add_command(label="Duplicate Selected",command=self.DuplicateMultipleSelections)
         self.stateMachine = DrawingStateMachine(self)
     def NearestGridCoordinate(self,x,y):
-        return (int(round(float(x)/self.grid))-self.originx,int(round(float(y)/self.grid))-self.originy)
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        grid=drawingPropertiesProject['Grid']
+        originx=drawingPropertiesProject['Originx']
+        originy=drawingPropertiesProject['Originy']
+        return (int(round(float(x)/grid))-originx,int(round(float(y)/grid))-originy)
     def AugmentorToGridCoordinate(self,x,y):
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        grid=drawingPropertiesProject['Grid']
+        originx=drawingPropertiesProject['Originx']
+        originy=drawingPropertiesProject['Originy']
         (nearestGridx,nearestGridy)=self.NearestGridCoordinate(x,y)
-        return (float(x)/self.grid-self.originx-nearestGridx,float(y)/self.grid-self.originy-nearestGridy)
+        return (float(x)/grid-originx-nearestGridx,float(y)/grid-originy-nearestGridy)
     def DrawSchematic(self,canvas=None):
-        if canvas==None:
+        if canvas is None:
             canvas=self.canvas
             canvas.delete(ALL)
         if SignalIntegrity.App.Project is None:
             return canvas
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        if not canvas is None and hasattr(self, 'Drawing'):
+            drawingPropertiesProject['Width']=self.Drawing.canvas.winfo_width()
+            drawingPropertiesProject['Height']=self.Drawing.canvas.winfo_height()
+            drawingPropertiesProject['Geometry']=self.root.geometry()
+        grid=drawingPropertiesProject['Grid']
+        originx=drawingPropertiesProject['Originx']
+        originy=drawingPropertiesProject['Originy']
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         foundAPort=False
         foundASource=False
@@ -1342,7 +1361,7 @@ class Drawing(Frame):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
             devicePinsConnected=devicePinConnectedList[deviceIndex]
-            device.DrawDevice(canvas,self.grid,self.originx,self.originy,devicePinsConnected)
+            device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)
             deviceType = device['partname'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
@@ -1360,11 +1379,11 @@ class Drawing(Frame):
                 foundASource = True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
-            wireProject.DrawWire(canvas,self.grid,self.originx,self.originy)
+            wireProject.DrawWire(canvas,grid,originx,originy)
         for dot in self.schematic.DotList():
-            size=self.grid/8
-            canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
-                                    (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
+            size=grid/8
+            canvas.create_oval((dot[0]+originx)*grid-size,(dot[1]+originy)*grid-size,
+                                    (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
         canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
         canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
@@ -1530,39 +1549,35 @@ class Drawing(Frame):
         # properties first, which made it work, but it was an accident.
         self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
         self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
-        self.grid=drawingProperties['Grid']
-        self.originx=drawingProperties['Originx']
-        self.originy=drawingProperties['Originy']
         self.schematic = Schematic()
         self.schematic.InitFromProject()
         self.stateMachine = DrawingStateMachine(self)
 
     # Legacy File Format
     def InitFromXml(self,drawingElement):
-        self.grid=32.
-        self.originx=0
-        self.originy=0
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        drawingPropertiesProject['Grid']=32
+        drawingPropertiesProject['Originx']=0
+        drawingPropertiesProject['Originy']=0
         self.schematic = Schematic()
         self.stateMachine = DrawingStateMachine(self)
-        canvasWidth=600
-        canvasHeight=600
-        geometry='600x600'
         for child in drawingElement:
             if child.tag == 'schematic':
                 self.schematic.InitFromXml(child)
             elif child.tag == 'drawing_properties':
                 for drawingPropertyElement in child:
+                    drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
                     if drawingPropertyElement.tag == 'grid':
-                        self.grid = float(drawingPropertyElement.text)
+                        drawingPropertiesProject['Grid'] = float(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originx':
-                        self.originx = int(drawingPropertyElement.text)
+                        drawingPropertiesProject['Originx'] = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'originy':
-                        self.originy = int(drawingPropertyElement.text)
+                        drawingPropertiesProject['Originy'] = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'width':
-                        canvasWidth = int(drawingPropertyElement.text)
+                        drawingPropertiesProject['Width'] = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'height':
-                        canvasHeight = int(drawingPropertyElement.text)
+                        drawingPropertiesProject['Height'] = int(drawingPropertyElement.text)
                     elif drawingPropertyElement.tag == 'geometry':
-                        geometry = drawingPropertyElement.text
-                self.canvas.config(width=canvasWidth,height=canvasHeight)
-                self.parent.root.geometry(geometry.split('+')[0])
+                        drawingPropertiesProject['Geometry'] = drawingPropertyElement.text
+                self.canvas.config(width=drawingPropertiesProject['Width'],height=drawingPropertiesProject['Height'])
+                self.parent.root.geometry(drawingPropertiesProject['Geometry'].split('+')[0])

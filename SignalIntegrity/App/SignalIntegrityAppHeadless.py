@@ -16,8 +16,6 @@ SignalIntegrityAppHeadless.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-import os
-import sys
 
 import xml.etree.ElementTree as et
 
@@ -27,10 +25,11 @@ if sys.version_info.major < 3:
 else:
     from tkinter import ALL
 
+import os
+
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
-from SignalIntegrity.App.Wire import Wire
 from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 import SignalIntegrity.App.Project
 
@@ -38,33 +37,31 @@ class DrawingHeadless(object):
     def __init__(self,parent):
         self.parent=parent
         self.canvas = None
-        self.grid=32.
-        self.originx=0
-        self.originy=0
         self.schematic = Schematic()
     def DrawSchematic(self,canvas=None):
         if canvas==None:
             canvas=self.canvas
             canvas.delete(ALL)
+        if SignalIntegrity.App.Project is None:
+            return
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        grid=drawingPropertiesProject['Grid']
+        originx=drawingPropertiesProject['Originx']
+        originy=drawingPropertiesProject['Originy']
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             devicePinsConnected=devicePinConnectedList[deviceIndex]
-            device.DrawDevice(canvas,self.grid,self.originx,self.originy,devicePinsConnected)
-        if SignalIntegrity.App.Project is None:
-            return
+            device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
-            wireProject.DrawWire(canvas,self.grid,self.originx,self.originy)
+            wireProject.DrawWire(canvas,grid,originx,originy)
         for dot in self.schematic.DotList():
-            size=self.grid/8
-            canvas.create_oval((dot[0]+self.originx)*self.grid-size,(dot[1]+self.originy)*self.grid-size,
-                                    (dot[0]+self.originx)*self.grid+size,(dot[1]+self.originy)*self.grid+size,
+            size=grid/8
+            canvas.create_oval((dot[0]+originx)*grid-size,(dot[1]+originy)*grid-size,
+                                    (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
         return canvas
     def InitFromXml(self,drawingElement):
-        self.grid=32.
-        self.originx=0
-        self.originy=0
         self.schematic = Schematic()
         for child in drawingElement:
             if child.tag == 'schematic':
@@ -79,10 +76,6 @@ class DrawingHeadless(object):
                         self.originy = int(drawingPropertyElement.text)
 
     def InitFromProject(self):
-        drawingProperties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        self.grid=drawingProperties['Grid']
-        self.originx=drawingProperties['Originx']
-        self.originy=drawingProperties['Originy']
         self.schematic = Schematic()
         self.schematic.InitFromProject()
 

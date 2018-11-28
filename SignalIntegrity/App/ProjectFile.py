@@ -121,10 +121,10 @@ class CalculationProperties(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
         self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
         self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
-        self.Add(XMLPropertyDefaultFloat('BaseSampleRate'))
-        self.Add(XMLPropertyDefaultInt('TimePoints'))
-        self.Add(XMLPropertyDefaultFloat('FrequencyResolution'))
-        self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength'))
+        self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))
+        self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
+        self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
+        self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
         self.CalculateOthersFromBaseInformation()
@@ -165,13 +165,6 @@ class ProjectFile(ProjectFileBase):
         return self
 
     def Write(self,app,filename=None):
-        self['Drawing.DrawingProperties.Grid']=app.Drawing.grid
-        self['Drawing.DrawingProperties.Originx']=app.Drawing.originx
-        self['Drawing.DrawingProperties.Originy']=app.Drawing.originy
-        if not app.Drawing.canvas is None:
-            self['Drawing.DrawingProperties.Width']=app.Drawing.canvas.winfo_width()
-            self['Drawing.DrawingProperties.Height']=app.Drawing.canvas.winfo_height()
-            self['Drawing.DrawingProperties.Geometry']=app.root.geometry()
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
         for d in range(len(self['Drawing.Schematic.Devices'])):
             deviceProject=self['Drawing.Schematic.Devices'][d]

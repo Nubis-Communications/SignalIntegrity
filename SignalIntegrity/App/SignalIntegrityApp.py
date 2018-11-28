@@ -270,7 +270,8 @@ class SignalIntegrityApp(Frame):
         self.statusbar.pack(side=BOTTOM,fill=X,expand=NO)
         self.root.bind('<Key>',self.onKey)
 
-        SignalIntegrity.App.Project=None
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        SignalIntegrity.App.Project=ProjectFile()
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
@@ -296,6 +297,7 @@ class SignalIntegrityApp(Frame):
                 self.OpenProjectFile(projectFileName)
             except:
                 self.onClearSchematic()
+                self.Drawing.stateMachine.NoProject(True)
 
         self.UpdateRecentProjectsMenu()
 
@@ -307,6 +309,7 @@ class SignalIntegrityApp(Frame):
             self.deltaWidth=event.width-600
             self.deltaHeight=event.height-600
             self.knowDelta=True
+            print self.deltaWidth,self.deltaHeight
         #print 'width: '+str(event.width)+', height'+str(event.height)
         self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
 
@@ -347,12 +350,6 @@ class SignalIntegrityApp(Frame):
             elif child.tag == 'calculation_properties':
                 from SignalIntegrity.App.ProjectFile import CalculationProperties
                 calculationProperties=CalculationProperties().InitFromXml(child)
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
         from SignalIntegrity.App.ProjectFile import DeviceConfiguration
         SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
         for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
@@ -437,7 +434,6 @@ class SignalIntegrityApp(Frame):
         self.SaveProjectToFile(filename)
 
     def onClearSchematic(self):
-        SignalIntegrity.App.Project=None
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
         self.history.Event('clear project')
@@ -645,13 +641,13 @@ class SignalIntegrityApp(Frame):
             self.Drawing.stateMachine.PartLoaded()
 
     def onZoomIn(self):
-        self.Drawing.grid = self.Drawing.grid+1.
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        drawingPropertiesProject['Grid']=drawingPropertiesProject['Grid']+1.
         self.Drawing.DrawSchematic()
 
     def onZoomOut(self):
-        self.Drawing.grid = max(1,self.Drawing.grid-1.)
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        drawingPropertiesProject['Grid'] = max(1,drawingPropertiesProject['Grid']-1.)
         self.Drawing.DrawSchematic()
 
     def onPan(self):

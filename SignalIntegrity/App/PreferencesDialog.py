@@ -18,7 +18,6 @@ PreferencesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
-from SignalIntegrity.App.MenuSystemHelpers import Doer
 
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
