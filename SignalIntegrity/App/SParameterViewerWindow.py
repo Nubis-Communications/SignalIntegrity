@@ -32,12 +32,9 @@ import math
 from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.MenuSystemHelpers import Doer
-
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
-
 from SignalIntegrity.App.ToSI import ToSI,FromSI
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
-
 import SignalIntegrity.App.Project
 
 if not 'matplotlib.backends' in sys.modules:
@@ -317,7 +314,7 @@ class SParametersDialog(Toplevel):
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
         
-        if not self.parent.preferences['Appearance.PlotCursorValues']:
+        if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.topLeftPlot.format_coord = lambda x, y: ''
             self.topRightPlot.format_coord = lambda x, y: ''
             self.bottomLeftPlot.format_coord = lambda x, y: ''

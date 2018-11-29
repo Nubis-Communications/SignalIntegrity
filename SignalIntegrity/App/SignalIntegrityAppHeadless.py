@@ -85,7 +85,7 @@ class SignalIntegrityAppHeadless(object):
         # python path
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
-        self.preferences=Preferences()
+        SignalIntegrity.App.Preferences=Preferences()
         self.installdir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
         self.calculationProperties=CalculationProperties()
@@ -171,9 +171,9 @@ class SignalIntegrityAppHeadless(object):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -195,9 +195,9 @@ class SignalIntegrityAppHeadless(object):
             SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
             SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
         cacheFileName=None
-        if self.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         try:
@@ -246,9 +246,9 @@ class SignalIntegrityAppHeadless(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -301,9 +301,9 @@ class SignalIntegrityAppHeadless(object):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],

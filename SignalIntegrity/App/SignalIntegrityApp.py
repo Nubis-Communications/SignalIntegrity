@@ -66,7 +66,7 @@ class SignalIntegrityApp(Frame):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
 
-        self.preferences=Preferences()
+        SignalIntegrity.App.Preferences=Preferences()
         self.root = Tk()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -82,10 +82,10 @@ class SignalIntegrityApp(Frame):
         img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
-        Doer.helpKeys = HelpSystemKeys(self.preferences['OnlineHelp.RebuildHelpKeys'])
+        Doer.helpKeys = HelpSystemKeys(SignalIntegrity.App.Preferences['OnlineHelp.RebuildHelpKeys'])
 
-        HelpSystemKeys.InstallHelpURLBase(self.preferences['OnlineHelp.UseOnlineHelp'],
-                                          self.preferences['OnlineHelp.URL'],
+        HelpSystemKeys.InstallHelpURLBase(SignalIntegrity.App.Preferences['OnlineHelp.UseOnlineHelp'],
+                                          SignalIntegrity.App.Preferences['OnlineHelp.URL'],
                                           self.installdir)
 
         # status bar
@@ -270,7 +270,6 @@ class SignalIntegrityApp(Frame):
         self.statusbar.pack(side=BOTTOM,fill=X,expand=NO)
         self.root.bind('<Key>',self.onKey)
 
-        from SignalIntegrity.App.ProjectFile import ProjectFile
         SignalIntegrity.App.Project=ProjectFile()
 
         # The Simulator Dialog
@@ -290,7 +289,7 @@ class SignalIntegrityApp(Frame):
         self.deltaHeight=0
         self.bind('<Configure>',self.onResize)
 
-        projectFileName = self.preferences.GetLastFileOpened()
+        projectFileName = SignalIntegrity.App.Preferences.GetLastFileOpened()
 
         if not projectFileName == None:
             try:
@@ -442,11 +441,11 @@ class SignalIntegrityApp(Frame):
         #self.root.title('SignalIntegrity')
 
     def AnotherFileOpened(self,filename):
-        self.preferences.AnotherFileOpened(filename)
+        SignalIntegrity.App.Preferences.AnotherFileOpened(filename)
         self.UpdateRecentProjectsMenu()
 
     def UpdateRecentProjectsMenu(self):
-        recentFileList=self.preferences.GetRecentFileList()
+        recentFileList=SignalIntegrity.App.Preferences.GetRecentFileList()
         if recentFileList is None:
             recentFileList=[None,None,None,None]
         if all(r is None for r in recentFileList):
@@ -490,22 +489,22 @@ class SignalIntegrityApp(Frame):
     def onRecentProject0(self):
         if not self.CheckSaveCurrentProject():
             return False
-        self.OpenProjectFile(self.preferences.GetLastFileOpened(0))
+        self.OpenProjectFile(SignalIntegrity.App.Preferences.GetLastFileOpened(0))
 
     def onRecentProject1(self):
         if not self.CheckSaveCurrentProject():
             return False
-        self.OpenProjectFile(self.preferences.GetLastFileOpened(1))
+        self.OpenProjectFile(SignalIntegrity.App.Preferences.GetLastFileOpened(1))
 
     def onRecentProject2(self):
         if not self.CheckSaveCurrentProject():
             return False
-        self.OpenProjectFile(self.preferences.GetLastFileOpened(2))
+        self.OpenProjectFile(SignalIntegrity.App.Preferences.GetLastFileOpened(2))
 
     def onRecentProject3(self):
         if not self.CheckSaveCurrentProject():
             return False
-        self.OpenProjectFile(self.preferences.GetLastFileOpened(3))
+        self.OpenProjectFile(SignalIntegrity.App.Preferences.GetLastFileOpened(3))
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
@@ -667,9 +666,9 @@ class SignalIntegrityApp(Frame):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -711,9 +710,9 @@ class SignalIntegrityApp(Frame):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -839,15 +838,15 @@ class SignalIntegrityApp(Frame):
 
     def onPreferences(self):
         if not hasattr(self, 'preferencesDialog'):
-            self.preferencesDialog = PreferencesDialog(self,self.preferences)
+            self.preferencesDialog = PreferencesDialog(self,SignalIntegrity.App.Preferences)
         if self.preferencesDialog == None:
-            self.preferencesDialog= PreferencesDialog(self,self.preferences)
+            self.preferencesDialog= PreferencesDialog(self,SignalIntegrity.App.Preferences)
         else:
             if not self.preferencesDialog.winfo_exists():
-                self.preferencesDialog=PreferencesDialog(self,self.preferences)
+                self.preferencesDialog=PreferencesDialog(self,SignalIntegrity.App.Preferences)
 
     def UpdateColorsAndFonts(self):
-        fontSizeDesired = self.preferences['Appearance.FontSize']
+        fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
             if sys.version_info.major < 3:
                 default_font = tkFont.nametofont("TkDefaultFont")
@@ -862,23 +861,23 @@ class SignalIntegrityApp(Frame):
 
         w=Button(self.root)
 
-        backgroundColor=self.preferences['Appearance.Color.Background']
+        backgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Background']
         if backgroundColor is None:
             backgroundColor=w['background']
 
-        foregroundColor=self.preferences['Appearance.Color.Foreground']
+        foregroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Foreground']
         if foregroundColor is None:
             foregroundColor=w['foreground']
 
-        activeForegroundColor=self.preferences['Appearance.Color.ActiveForeground']
+        activeForegroundColor=SignalIntegrity.App.Preferences['Appearance.Color.ActiveForeground']
         if activeForegroundColor is None:
             activeForegroundColor=w['activeforeground']
 
-        activeBackgroundColor=self.preferences['Appearance.Color.ActiveBackground']
+        activeBackgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.ActiveBackground']
         if activeBackgroundColor is None:
             activeBackgroundColor=w['activebackground']
 
-        disabledForegroundColor=self.preferences['Appearance.Color.DisabledForeground']
+        disabledForegroundColor=SignalIntegrity.App.Preferences['Appearance.Color.DisabledForeground']
         if disabledForegroundColor is None:
             disabledForegroundColor=w['disabledforeground']
 
@@ -893,7 +892,7 @@ class SignalIntegrityApp(Frame):
         except:
             pass
 
-        matPlotLibColor=self.preferences['Appearance.Color.Plot']
+        matPlotLibColor=SignalIntegrity.App.Preferences['Appearance.Color.Plot']
         if not matPlotLibColor is None:
             import matplotlib as mpl
             try:
@@ -906,7 +905,7 @@ class SignalIntegrityApp(Frame):
     def CheckSaveCurrentProject(self):
         if self.Drawing.stateMachine.state == 'NoProject':
             return True
-        if not self.preferences['ProjectFiles.AskToSaveCurrentFile']:
+        if not SignalIntegrity.App.Preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
         if sys.version_info.major < 3:

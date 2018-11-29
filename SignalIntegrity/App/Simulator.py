@@ -159,7 +159,7 @@ class SimulatorDialog(Toplevel):
         self.plt.cla()
         self.plt.set_ylabel('amplitude',fontsize=10)
 
-        if not self.parent.parent.preferences['Appearance.PlotCursorValues']:
+        if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.plt.format_coord = lambda x, y: ''
 
         if not self.waveformList == None:
@@ -294,9 +294,9 @@ class Simulator(object):
             SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             )
         cacheFileName=None
-        if self.parent.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.parent.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
@@ -378,9 +378,9 @@ class Simulator(object):
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
         cacheFileName=None
-        if self.parent.preferences['Cache.CacheResults']:
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=self.parent.preferences['Calculation.TrySVD']
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],

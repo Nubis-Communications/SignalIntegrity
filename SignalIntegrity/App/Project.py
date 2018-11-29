@@ -19,3 +19,4 @@ Project.py
 
 # This is the global project file for the system
 Project = None
+Preferences = None
