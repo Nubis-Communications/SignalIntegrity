@@ -1,0 +1,161 @@
+<Project>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>477x427+476+367</Geometry>
+			<Originy>3</Originy>
+			<Originx>-7</Originx>
+			<Height>384</Height>
+			<Width>477</Width>
+			<Grid>32.0</Grid>
+		</DrawingProperties>
+		<Schematic>
+			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(16, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 2)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 2)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(10, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 0)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(11, 0)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(15, 0)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 0)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+			</Wires>
+			<Devices>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<ClassName>PartPicturePort</ClassName>
+						<Origin>(7, 0)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>1</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value></Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<ClassName>PartPicturePort</ClassName>
+						<Origin>(13, 0)</Origin>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>2</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value></Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureTransmissionLineTwoPort</ClassName>
+						<Origin>(11, -1)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>T1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
+		</Schematic>
+	</Drawing>
+	<CalculationProperties>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>2000</FrequencyPoints>
+	</CalculationProperties>
+</Project>
