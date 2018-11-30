@@ -77,7 +77,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -106,7 +106,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -130,7 +130,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -222,7 +222,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -251,7 +251,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -281,7 +281,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -379,7 +379,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -408,7 +408,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -432,7 +432,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -528,7 +528,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         reflectNames=['Short','Open','Load']
         spDict=dict()
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -559,7 +559,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -595,7 +595,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -696,7 +696,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         reflectNames=['Short','Open','Load']
         spDict=dict()
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -727,7 +727,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -763,7 +763,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -866,7 +866,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False)
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -902,7 +902,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
 
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -923,7 +923,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -961,7 +961,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -982,7 +982,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1069,7 +1069,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,Length=20e-9,WindowRaisedCosineDuration=100e-12)
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1091,7 +1091,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
 
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1107,7 +1107,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1181,7 +1181,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,Length=20e-9,WindowRaisedCosineDuration=100e-12)
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1204,7 +1204,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
 
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1251,7 +1251,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1304,7 +1304,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         reflectNames=['Short','Open','Load']
         spDict=dict()
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1332,7 +1332,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1368,7 +1368,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1480,7 +1480,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1507,7 +1507,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1536,7 +1536,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1621,7 +1621,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1647,7 +1647,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1671,7 +1671,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1756,7 +1756,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1782,7 +1782,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1843,7 +1843,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1908,7 +1908,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -1934,7 +1934,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -1988,7 +1988,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2050,7 +2050,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for reflectName in reflectNames:
             from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
             pysi=SignalIntegrityAppHeadless()
-            filename='TDRSimulationFourPort'+reflectName+'Scaled.xml'
+            filename='TDRSimulationFourPort'+reflectName+'Scaled.si'
             self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
 
             #change gains of probes to unity
@@ -2060,7 +2060,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     for prop in device.propertiesList:
                         if prop.keyword=='gain':
                             prop._value=1.0
-            newfilename='TDRSimulationFourPort'+reflectName+'.xml'
+            newfilename='TDRSimulationFourPort'+reflectName+'.si'
             pysi.SaveProjectToFile(newfilename)
 
         for firstPort in range(ports):
@@ -2074,7 +2074,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    filename='TDRSimulationFourPortThru'+simulationName+'Scaled.xml'
+                    filename='TDRSimulationFourPortThru'+simulationName+'Scaled.si'
                     from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
                     pysi=SignalIntegrityAppHeadless()
                     self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
@@ -2086,7 +2086,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                             for prop in device.propertiesList:
                                 if prop.keyword=='gain':
                                     prop._value=1.0
-                    newfilename='TDRSimulationFourPortThru'+simulationName+'.xml'
+                    newfilename='TDRSimulationFourPortThru'+simulationName+'.si'
                     pysi.SaveProjectToFile(newfilename)
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -2094,7 +2094,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
 
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
-            filename='TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml'
+            filename='TDRSimulationFourPortDut'+drivenPortName+'Scaled.si'
             from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
             pysi=SignalIntegrityAppHeadless()
             self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
@@ -2106,7 +2106,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     for prop in device.propertiesList:
                         if prop.keyword=='gain':
                             prop._value=1.0
-            newfilename='TDRSimulationFourPortDut'+drivenPortName+'.xml'
+            newfilename='TDRSimulationFourPortDut'+drivenPortName+'.si'
             pysi.SaveProjectToFile(newfilename)
 
     def testTDRTwoPortNoGain(self):
@@ -2118,7 +2118,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,Length=20e-9,WindowRaisedCosineDuration=100e-12)
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2140,7 +2140,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
 
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -2156,7 +2156,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2230,7 +2230,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2256,7 +2256,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                 for d in range(len(portNames)):
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -2280,7 +2280,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2362,7 +2362,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2399,7 +2399,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
 
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -2446,7 +2446,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2512,7 +2512,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -2549,7 +2549,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
 
                     simulationName=firstPortName+secondPortName+drivenPortName
-                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.xml')
+                    result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
                     sourceNames=result[0]
                     outputNames=result[1]
                     transferMatrices=result[2]
@@ -2596,7 +2596,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
         for drivenPort in range(ports):
             drivenPortName=str(drivenPort+1)
 
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]

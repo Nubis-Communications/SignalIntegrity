@@ -1257,7 +1257,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOL(self):
-        result = self.GetSimulationResultsCheck('TDRSimulationSOL.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOL.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1309,7 +1309,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOLT(self):
-        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnly.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnly.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1465,7 +1465,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         defName=['DutCalculation','DutCalculationAlternate','Fixture']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testTDRSimulationSOLT2(self):
-        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1631,7 +1631,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testTDRSimulationSOLTTwoPortEQ(self):
-        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1899,7 +1899,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
     def testVNASimulationSOLT(self):
-        result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -1999,7 +1999,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
 
     def testVNASimulationSOLT2(self):
-        result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]

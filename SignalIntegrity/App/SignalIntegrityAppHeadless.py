@@ -80,6 +80,7 @@ class DrawingHeadless(object):
         self.schematic.InitFromProject()
 
 class SignalIntegrityAppHeadless(object):
+    switchxmltosi=False
     def __init__(self):
         # make absolutely sure the directory of this file is the first in the
         # python path
@@ -106,8 +107,19 @@ class SignalIntegrityAppHeadless(object):
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
 
+            if self.switchxmltosi:
+                if self.fileparts.fileext == '.xml':
+                    if os.path.exists(self.fileparts.FullFilePathExtension('.si')):
+                        if os.path.exists(self.fileparts.FullFilePathExtension('.xml')):
+                            os.remove(self.fileparts.FullFilePathExtension('.xml'))
+                        self.fileparts.fileext='.si'
+                    else:
+                        self.fileparts.fileext='.xml'
+
             if self.fileparts.fileext == '.xml':
                 self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
+                if self.switchxmltosi:
+                    self.SaveProject()
             else:
                 SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
                 self.Drawing.InitFromProject()
