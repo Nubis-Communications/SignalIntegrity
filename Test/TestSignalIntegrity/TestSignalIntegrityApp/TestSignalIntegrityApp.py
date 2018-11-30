@@ -24,212 +24,204 @@ from SignalIntegrity.App import TikZ
 import SignalIntegrity.Lib as si
 import os
 
-class SParameterCompareHelper(object):
-    def SParametersAreEqual(self,lhs,rhs,epsilon=0.00001):
-        if lhs.m_P != rhs.m_P: return False
-        if lhs.m_Z0 != rhs.m_Z0: return False
-        if len(lhs) != len(rhs): return False
-        for n in range(len(lhs)):
-            if abs(lhs.m_f[n] - rhs.m_f[n]) > epsilon: return False
-            lhsn=lhs[n]
-            rhsn=rhs[n]
-            for r in range(lhs.m_P):
-                for c in range(lhs.m_P):
-                    if abs(lhsn[r][c] - rhsn[r][c]) > epsilon:
-                        return False
-        return True
-
-class TestSignalIntegrityAppTest(unittest.TestCase,SParameterCompareHelper,
+class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelper,
                                  si.test.SignalIntegrityAppTestHelper):
     relearn=True
     debug=False
     checkPictures=True
+    keepNewFormats=False
     def __init__(self, methodName='runTest'):
-        SParameterCompareHelper.__init__(self)
+        si.test.SParameterCompareHelper.__init__(self)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(self.path)
         self.book=os.path.exists('../../../../SignalIntegrityBook/')
     def testFourPortTLineTest(self):
-        self.SimulationResultsChecker('FourPortTLineTest.xml')
+        self.SimulationResultsChecker('FourPortTLineTest.si')
     def testFilterTest(self):
-        self.SimulationResultsChecker('FilterTest.xml')
+        self.SimulationResultsChecker('FilterTest.si')
     def testSignalIntegrityAppExamplesRLCTest2(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2.si')
     def testSignalIntegrityAppDeembedCableFilter(self):
-        self.DeembeddingResultsChecker('../../../SignalIntegrity/App/Examples/DeembedCableFilter.xml')
+        self.DeembeddingResultsChecker('../../../SignalIntegrity/App/Examples/DeembedCableFilter.si')
     def testSignalIntegrityAppExampleSparameterExampleSParameterGenerationExample(self):
-        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/SParameterExample/SParameterGenerationExample.xml')
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/SParameterExample/SParameterGenerationExample.si')
     def testSignalIntegrityAppExampleVirtualProbingExampleVirtualProbeExample(self):
-        self.VirtualProbeResultsChecker('../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExample.xml')
+        self.VirtualProbeResultsChecker('../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExample.si')
     def testOpenStub(self):
-        self.SParameterResultsChecker('OpenStub.xml')
+        self.SParameterResultsChecker('OpenStub.si')
     def testSignalIntegrityAppExampleCascCableFilter(self):
-        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/CascCableFilter.xml')
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/CascCableFilter.si')
     def testSignalIntegrityAppExamplesRLCTest(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest.si')
     def testSignalIntegrityAppExamplesRC(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RC.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RC.si')
     def testSignalIntegrityAppExampleTelegrapherFourPort(self):
-        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/telegrapherFourPort.xml')
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/telegrapherFourPort.si')
     def testSignalIntegrityAppExampleTelegrapherTestTwoPort(self):
-        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/telegrapherTestTwoPort.xml')
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/telegrapherTestTwoPort.si')
     def testSignalIntegrityAppExamplesSimulationExampleBMYcheby(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/SimulationExample/BMYcheby.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/SimulationExample/BMYcheby.si')
     def testSignalIntegrityAppExamplesSimulationExampleBMYchebySParameters(self):
-        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/SimulationExample/BMYchebySParameters.xml')
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/SimulationExample/BMYchebySParameters.si')
     def testSignalIntegrityAppExamplesSimulationExampleInvCheby_8(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/SimulationExample/InvCheby_8.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/SimulationExample/InvCheby_8.si')
     def testSignalIntegrityAppExamplesPulseGeneratorTest(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PulseGeneratorTest.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PulseGeneratorTest.si')
     def testSignalIntegrityAppExamplesStepGeneratorTest(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/StepGeneratorTest.xml')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/StepGeneratorTest.si')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest(self):
         if not self.book: return
-        self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation.xml')
+        self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation.si')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest2(self):
         if not self.book: return
-        self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation2.xml')
+        self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation2.si')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest3(self):
         if not self.book: return
-        self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation3.xml')
+        self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation3.si')
     def testPicturesNetlists(self):
         filesList=[
-            'FilterTest.xml',
-            'FourPortTLineTest.xml',
-            'FileDevices.xml',
-            'ReactiveDevices.xml',
-            'TransmissionLineDevices.xml',
-            'GeneratorsDevices.xml',
-            'UnknownDevices.xml',
-            'SystemDevices.xml',
-            'Noise.xml',
-            'OpenStub.xml',
-            'Amplifiers.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMIstvan2.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VP/Measure.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VP/Calculate.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VP/Compare.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMIstvan.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMEquiv.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VRMWaveformCompare.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestCNaturalResponse.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMModel.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/FeedbackNetwork.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure5.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure2.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure4.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure3.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure6.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/LoadResistanceBWL.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMEquivAC.xml',
-            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRM.xml',
-            '../../../Test/TestSignalIntegrity/TestCurrentSense.xml',
-            '../../../Test/TestSignalIntegrity/TestVRMParasitics.xml',
-            '../../../Test/TestSignalIntegrity/TestVRM.xml',
-            'FourPortTests/DifferentialTransmissionLineComparesMixedMode.xml',
-            'FourPortTests/Mutual.xml',
-            'FourPortTests/telegrapherFourPortTwoElements.xml',
-            'FourPortTests/telegrapherFourPortCircuitOneSection.xml',
-            'FourPortTests/DifferentialTransmissionLineCompares.xml',
-            'FourPortTests/telegrapherFourPortElement.xml',
-            'FourPortTests/TL_test_Circuit1_Pete.xml',
-            'FourPortTests/telegrapherFourPort10000Elements.xml',
-            'FourPortTests/DimaWay.xml',
-            'FourPortTests/telegrapherFourPortCircuitTwoSections.xml',
-            '../../../SignalIntegrity/App/Examples/RLCTest.xml',
-            '../../../SignalIntegrity/App/Examples/telegrapherFourPort.xml',
-            '../../../SignalIntegrity/App/Examples/SParameterExample.xml',
-            '../../../SignalIntegrity/App/Examples/RC.xml',
-            '../../../SignalIntegrity/App/Examples/telegrapherTestFourPort.xml',
-            '../../../SignalIntegrity/App/Examples/SParameterExample/SParameterGenerationExample.xml',
-            '../../../SignalIntegrity/App/Examples/DeembedCableFilter.xml',
-            '../../../SignalIntegrity/App/Examples/PulseGeneratorTest.xml',
-            '../../../SignalIntegrity/App/Examples/SimulationExample/SimulatorExample.xml',
-            '../../../SignalIntegrity/App/Examples/SimulationExample/InvCheby_8.xml',
-            '../../../SignalIntegrity/App/Examples/SimulationExample/BMYcheby.xml',
-            '../../../SignalIntegrity/App/Examples/SimulationExample/BMYchebySParameters.xml',
-            '../../../SignalIntegrity/App/Examples/telegrapherTestTwoPort.xml',
-            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExampleSimulation2.xml',
-            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExampleSimulation.xml',
-            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExampleCompare.xml',
-            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExample.xml',
-            '../../../SignalIntegrity/App/Examples/RLC.xml',
-            '../../../SignalIntegrity/App/Examples/CascCableFilter.xml',
-            '../../../SignalIntegrity/App/Examples/StepGeneratorTest.xml',
-            '../../../SignalIntegrity/App/Examples/RLCTest2.xml',
-            'VirtualProbeTests/comparison.xml',
-            'VirtualProbeTests/Example2.xml',
-            'VirtualProbeTests/SimpleCaseExample1.xml',
-            'VirtualProbeTests/Example3DegreeOfFreedom.xml',
-            'VirtualProbeTests/SimpleCase.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialCenterTapUnbalanced.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/FourPortMixedModeModelCompareTlines.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationMixedMode.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeSimulation.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeConverterSymbol.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/FourPortMixedModeModelCompareTelegrapher.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialCenterTapACCoupled.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialTee.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialCenterTap.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/SimulationTerminationDifferentialTee.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/BalancedFourPortTelegrapherMixedMode.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialOnly.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/DifferentialTelegrapher.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/DifferentialTelegrapherBalancede.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialPi.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/BalancedFourPortModelMixedMode.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeConverterVoltageSymbol.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeSimulationPi.xml',
-            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeSimulationTee.xml',
-            '../../../../SignalIntegrityBook/SParameters/Mutual.xml',
-            '../../../../SignalIntegrityBook/Simulation/SimulationCircuitSchematic2.xml',
-            '../../../../SignalIntegrityBook/Simulation/SimulationCircuitBlockDiagram.xml',
-            '../../../../SignalIntegrityBook/Simulation/SimulationCircuitSchematic.xml',
-            '../../../../SignalIntegrityBook/WaveformProcessing/TransferMatricesProcessing.xml',
-            '../../../../SignalIntegrityBook/SymbolicDeviceSolutions/FourPortVoltageAmplifierVoltageSeriesFeedbackCircuit.xml',
-            '../../../../SignalIntegrityBook/SymbolicDeviceSolutions/TransistorThreePortCircuit.xml',
-            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingSimpleExample.xml',
-            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingTwoVoltageExample.xml',
-            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingDifferentialExample.xml',
-            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingProbeDeembeddingExample.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/ShuntImpedanceInstrumentedZ.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/FileDevice.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/YParametersSchematic.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/SimpleCircuitAnalysisExampleNetwork.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/ArbitraryCircuitInstrumentedZ.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/ClassicNetworkParameterDevice.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/CascABCD.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/SeriesImpedanceInstrumentedZ.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/SeriesImpedanceInstrumentedY.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/ZParametersSchematic.xml',
-            '../../../../SignalIntegrityBook/NetworkParameters/SimpleCircuitAnalysisExampleCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/OperationalAmplifierSymbol.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierTwoPortSymbol.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/CurrentAmplifierFourPortCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierTwoPortCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/OperationalAmplifierCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierFourPortSymbol.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierThreePortCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierFourPortCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/IdealTransformer/testIdealTransformer.xml',
-            '../../../../SignalIntegrityBook/Sources/IdealTransformer/IdealTransformerSP.xml',
-            '../../../../SignalIntegrityBook/Sources/IdealTransformer/IdealTransformerCircuit.xml',
-            '../../../../SignalIntegrityBook/Sources/IdealTransformer/IdealTransformerSymbol.xml',
-            '../../../../SignalIntegrityBook/Sources/DependentSources/DependentSources.xml',
-            'SenseResistor/SenseResistorVirtualProbe.xml',
-            'SenseResistor/SenseResistorMeasurement.xml',
-            'SenseResistor/SenseResistorSimple.xml',
-            '../../../../SignalIntegrityBook/Measurement/TDRSimulation.xml',
-            '../../../../SignalIntegrityBook/Measurement/TDRSimulation2.xml',
+            'FilterTest.si',
+            'FourPortTLineTest.si',
+            'FileDevices.si',
+            'ReactiveDevices.si',
+            'TransmissionLineDevices.si',
+            'GeneratorsDevices.si',
+            'UnknownDevices.si',
+            'SystemDevices.si',
+            'Noise.si',
+            'OpenStub.si',
+            'Amplifiers.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMIstvan2.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VP/Measure.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VP/Calculate.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VP/Compare.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMIstvan.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMEquiv.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VRMWaveformCompare.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestCNaturalResponse.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMModel.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/FeedbackNetwork.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure5.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure2.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure4.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure3.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/VPSteady/Measure6.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/LoadResistanceBWL.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRMEquivAC.si',
+            '../../../SignalIntegrity/App/Examples/PowerIntegrity/TestVRM.si',
+            '../../../Test/TestSignalIntegrity/TestCurrentSense.si',
+            '../../../Test/TestSignalIntegrity/TestVRMParasitics.si',
+            '../../../Test/TestSignalIntegrity/TestVRM.si',
+            'FourPortTests/DifferentialTransmissionLineComparesMixedMode.si',
+            'FourPortTests/Mutual.si',
+            'FourPortTests/telegrapherFourPortTwoElements.si',
+            'FourPortTests/telegrapherFourPortCircuitOneSection.si',
+            'FourPortTests/DifferentialTransmissionLineCompares.si',
+            'FourPortTests/telegrapherFourPortElement.si',
+            'FourPortTests/TL_test_Circuit1_Pete.si',
+            'FourPortTests/telegrapherFourPort10000Elements.si',
+            'FourPortTests/DimaWay.si',
+            'FourPortTests/telegrapherFourPortCircuitTwoSections.si',
+            '../../../SignalIntegrity/App/Examples/RLCTest.si',
+            '../../../SignalIntegrity/App/Examples/telegrapherFourPort.si',
+            '../../../SignalIntegrity/App/Examples/SParameterExample.si',
+            '../../../SignalIntegrity/App/Examples/RC.si',
+            '../../../SignalIntegrity/App/Examples/telegrapherTestFourPort.si',
+            '../../../SignalIntegrity/App/Examples/SParameterExample/SParameterGenerationExample.si',
+            '../../../SignalIntegrity/App/Examples/DeembedCableFilter.si',
+            '../../../SignalIntegrity/App/Examples/PulseGeneratorTest.si',
+            '../../../SignalIntegrity/App/Examples/SimulationExample/SimulatorExample.si',
+            '../../../SignalIntegrity/App/Examples/SimulationExample/InvCheby_8.si',
+            '../../../SignalIntegrity/App/Examples/SimulationExample/BMYcheby.si',
+            '../../../SignalIntegrity/App/Examples/SimulationExample/BMYchebySParameters.si',
+            '../../../SignalIntegrity/App/Examples/telegrapherTestTwoPort.si',
+            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExampleSimulation2.si',
+            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExampleSimulation.si',
+            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExampleCompare.si',
+            '../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExample.si',
+            '../../../SignalIntegrity/App/Examples/RLC.si',
+            '../../../SignalIntegrity/App/Examples/CascCableFilter.si',
+            '../../../SignalIntegrity/App/Examples/StepGeneratorTest.si',
+            '../../../SignalIntegrity/App/Examples/RLCTest2.si',
+            'VirtualProbeTests/comparison.si',
+            'VirtualProbeTests/Example2.si',
+            'VirtualProbeTests/SimpleCaseExample1.si',
+            'VirtualProbeTests/Example3DegreeOfFreedom.si',
+            'VirtualProbeTests/SimpleCase.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialCenterTapUnbalanced.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/FourPortMixedModeModelCompareTlines.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationMixedMode.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeSimulation.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeConverterSymbol.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/FourPortMixedModeModelCompareTelegrapher.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialCenterTapACCoupled.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialTee.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialCenterTap.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/SimulationTerminationDifferentialTee.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/BalancedFourPortTelegrapherMixedMode.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialOnly.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/DifferentialTelegrapher.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/DifferentialTelegrapherBalancede.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/TerminationDifferentialPi.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/BalancedFourPortModelMixedMode.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeConverterVoltageSymbol.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeSimulationPi.si',
+            '../../../../SignalIntegrityBook/TransmissionLines/MixedModeSimulationTee.si',
+            '../../../../SignalIntegrityBook/SParameters/Mutual.si',
+            '../../../../SignalIntegrityBook/Simulation/SimulationCircuitSchematic2.si',
+            '../../../../SignalIntegrityBook/Simulation/SimulationCircuitBlockDiagram.si',
+            '../../../../SignalIntegrityBook/Simulation/SimulationCircuitSchematic.si',
+            '../../../../SignalIntegrityBook/WaveformProcessing/TransferMatricesProcessing.si',
+            '../../../../SignalIntegrityBook/SymbolicDeviceSolutions/FourPortVoltageAmplifierVoltageSeriesFeedbackCircuit.si',
+            '../../../../SignalIntegrityBook/SymbolicDeviceSolutions/TransistorThreePortCircuit.si',
+            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingSimpleExample.si',
+            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingTwoVoltageExample.si',
+            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingDifferentialExample.si',
+            '../../../../SignalIntegrityBook/VirtualProbing/VirtualProbingProbeDeembeddingExample.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/ShuntImpedanceInstrumentedZ.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/FileDevice.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/YParametersSchematic.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/SimpleCircuitAnalysisExampleNetwork.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/ArbitraryCircuitInstrumentedZ.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/ClassicNetworkParameterDevice.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/CascABCD.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/SeriesImpedanceInstrumentedZ.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/SeriesImpedanceInstrumentedY.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/ZParametersSchematic.si',
+            '../../../../SignalIntegrityBook/NetworkParameters/SimpleCircuitAnalysisExampleCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/OperationalAmplifierSymbol.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierTwoPortSymbol.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/CurrentAmplifierFourPortCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierTwoPortCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/OperationalAmplifierCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierFourPortSymbol.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierThreePortCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/Amplifiers/VoltageAmplifierFourPortCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/IdealTransformer/testIdealTransformer.si',
+            '../../../../SignalIntegrityBook/Sources/IdealTransformer/IdealTransformerSP.si',
+            '../../../../SignalIntegrityBook/Sources/IdealTransformer/IdealTransformerCircuit.si',
+            '../../../../SignalIntegrityBook/Sources/IdealTransformer/IdealTransformerSymbol.si',
+            '../../../../SignalIntegrityBook/Sources/DependentSources/DependentSources.si',
+            'SenseResistor/SenseResistorVirtualProbe.si',
+            'SenseResistor/SenseResistorMeasurement.si',
+            'SenseResistor/SenseResistorSimple.si',
+            '../../../../SignalIntegrityBook/Measurement/TDRSimulation.si',
+            '../../../../SignalIntegrityBook/Measurement/TDRSimulation2.si',
         ]
         for filename in filesList:
             self.setUp()
             if not 'SignalIntegrityBook' in filename or self.book:
-            #print filename
-                self.Preliminary(filename)
+                #print filename
+                pysi=self.Preliminary(filename)
+#                 pysi.SaveProject()
+#                 filename=filename.replace('.si','.si')
+#                 pysi=self.Preliminary(filename)
+#                 if not self.keepNewFormats:
+#                     os.remove(pysi.fileparts.FullFilePathExtension('si'))
 
 if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

@@ -19,3 +19,4 @@ from __future__ import absolute_import
 # If not, see <https://www.gnu.org/licenses/>
 from .SignalIntegrityApp import SignalIntegrityApp
 from .SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+from .Project import Project

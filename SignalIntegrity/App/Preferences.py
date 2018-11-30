@@ -44,13 +44,13 @@ class Preferences(PreferencesFile):
             self.preferencesFileName=preferencesFileName
         try:
             self.Read(self.preferencesFileName)
-            self.fileExists=not (self.GetValue('Version') is None)
+            self.fileExists=not (self['Version'] is None)
         except:
             self.fileExists=False
         if not self.fileExists:
             try:
                 PreferencesFile.__init__(self)
-                self.SetValue('Version', __version__)
+                self['Version']=__version__
                 self.Write(self.preferencesFileName)
             except:
                 self.fileExists=False
@@ -64,29 +64,29 @@ class Preferences(PreferencesFile):
                 pass
     def AnotherFileOpened(self,filename):
         filepath=os.getcwd()
-        lastFiles=self.GetValue('ProjectFiles.LastFile')
-        if self.GetValue('ProjectFiles.RetainLastFilesOpened'):
-            if (lastFiles[0].GetValue('Name') != filename) or (lastFiles[0].GetValue('Directory') != filepath):
+        lastFiles=self['ProjectFiles.LastFile']
+        if self['ProjectFiles.RetainLastFilesOpened']:
+            if (lastFiles[0]['Name'] != filename) or (lastFiles[0]['Directory'] != filepath):
                 for lfi in range(len(lastFiles)-1,0,-1):
-                    lastFiles[lfi].SetValue('Name',lastFiles[lfi-1].GetValue('Name'))
-                    lastFiles[lfi].SetValue('Directory',lastFiles[lfi-1].GetValue('Directory'))
-                lastFiles[0].SetValue('Name',filename)
-                lastFiles[0].SetValue('Directory',filepath)
+                    lastFiles[lfi]['Name']=lastFiles[lfi-1]['Name']
+                    lastFiles[lfi]['Directory']=lastFiles[lfi-1]['Directory']
+                lastFiles[0]['Name']=filename
+                lastFiles[0]['Directory']=filepath
                 self.SaveToFile()
         else:
             foundOne=False
             for lfi in range(len(lastFiles)):
-                if (lastFiles[lfi].GetValue('Name') != None) or (lastFiles[lfi].GetValue('Directory') != None):
+                if (lastFiles[lfi]['Name'] != None) or (lastFiles[lfi]['Directory'] != None):
                     foundOne=True
-                    lastFiles[lfi].SetValue('Name',None)
-                    lastFiles[lfi].SetValue('Directory',None)
+                    lastFiles[lfi]['Name']=None
+                    lastFiles[lfi]['Directory']=None
             if foundOne:
                 self.SaveToFile()
 
     def GetLastFileOpened(self,index=0):
-        if self.GetValue('ProjectFiles.OpenLastFile'):
-            dirString=self.GetValue('ProjectFiles.LastFile')[index].GetValue('Directory')
-            nameString=self.GetValue('ProjectFiles.LastFile')[index].GetValue('Name')
+        if self['ProjectFiles.OpenLastFile']:
+            dirString=self['ProjectFiles.LastFile'][index]['Directory']
+            nameString=self['ProjectFiles.LastFile'][index]['Name']
             if (dirString is None) or (nameString is None):
                 return None
             else:
@@ -95,10 +95,10 @@ class Preferences(PreferencesFile):
             return None
 
     def GetRecentFileList(self):
-        lastFiles=self.GetValue('ProjectFiles.LastFile')
+        lastFiles=self['ProjectFiles.LastFile']
         if lastFiles is None:
             return None
-        return [lf.GetValue('Name') for lf in lastFiles]
+        return [lf['Name'] for lf in lastFiles]
 
 if __name__ == '__main__':
     pf=Preferences()

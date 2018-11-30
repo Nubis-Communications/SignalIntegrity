@@ -65,7 +65,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -83,7 +83,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
         thruConnections=[[[1,2],[3,4]],[[1,3],[2,4]],[[1,4],[2,3]]]
         for thruConnection in thruConnections:
             thruConnectionName=str(thruConnection[0][0])+str(thruConnection[0][1])+str(thruConnection[1][0])+str(thruConnection[1][1])
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+thruConnectionName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+thruConnectionName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -108,7 +108,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
                                                     matrix([[A11[n],A12[n]],[A21[n],A22[n]]]).getI()).tolist()
                                                     for n in range(len(f))])
 
-        result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -208,7 +208,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
         spDict=dict()
 
         for reflectName in reflectNames:
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -226,7 +226,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
         thruConnections=[[[1,2],[3,4]],[[1,3],[2,4]],[[1,4],[2,3]]]
         for thruConnection in thruConnections:
             thruConnectionName=str(thruConnection[0][0])+str(thruConnection[0][1])+str(thruConnection[1][0])+str(thruConnection[1][1])
-            result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+thruConnectionName+'.xml')
+            result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+thruConnectionName+'.si')
             sourceNames=result[0]
             outputNames=result[1]
             transferMatrices=result[2]
@@ -251,7 +251,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
                                                     matrix([[A11[n],A12[n]],[A21[n],A22[n]]]).getI()).tolist()
                                                     for n in range(len(f))])
 
-        result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.xml')
+        result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]

@@ -27,8 +27,7 @@ else:
     from tkinter import scrolledtext
 
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
-from SignalIntegrity.App.PartProperty import PartPropertyPartName,PartPropertyReferenceDesignator,PartPropertyWeight
-#from Wire import *
+import SignalIntegrity.App.Project
 
 class NetList(object):
     def __init__(self,schematic):
@@ -39,16 +38,13 @@ class NetList(object):
         self.stimNames=[]
         self.definingStimList=[]
         deviceList = schematic.deviceList
-        wireList = schematic.wireList.EquiPotentialWireList()
+        equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
-            deviceType = device[PartPropertyPartName().propertyName].GetValue()
-            if  not ((deviceType == 'Port') or (deviceType == 'Measure') or (deviceType == 'Output') or (deviceType == 'Stim')):
-                thisline=device.NetListLine()
-                self.textToShow.append(thisline)
-                firstToken=thisline.strip().split(' ')[0]
-                if firstToken == 'voltagesource' or firstToken == 'currentsource':
-                    self.sourceNames.append(device[PartPropertyReferenceDesignator().propertyName].GetValue())
+            if not device['partname'].GetValue() in ['Port','Measure','Output','Stim']:
+                self.textToShow.append(device.NetListLine())
+                if device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+                    self.sourceNames.append(device['ref'].GetValue())
         # gather up all device pin coordinates
         devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
         devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
@@ -65,10 +61,10 @@ class NetList(object):
                             thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
                             if thisDevicePinCoordinate == thisDevicePinCheckCoordinate:
                                 thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
-                    for wire in wireList:
+                    for wire in equiPotentialWireList:
                         thisWireConnectedToThisDevicePin = False
                         for vertex in wire:
-                            if vertex.coord == thisDevicePinCoordinate:
+                            if vertex['Coord'] == thisDevicePinCoordinate:
                                 thisWireConnectedToThisDevicePin = True
                                 break
                         if thisWireConnectedToThisDevicePin:
@@ -76,7 +72,7 @@ class NetList(object):
                                 for deviceCheckIndex in range(len(devicePinCoordinateList)):
                                     for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
                                         thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                                        if vertex.coord == thisDevicePinCheckCoordinate:
+                                        if vertex['Coord'] == thisDevicePinCheckCoordinate:
                                             thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
                     thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
                     for connectedDevicePins in thisListOfConnectedDevicePins:
@@ -100,7 +96,7 @@ class NetList(object):
                 deviceIndex=devicePin[0]
                 pinIndex=devicePin[1]
                 thisDevice=schematic.deviceList[deviceIndex]
-                thisDevicePartName = thisDevice[PartPropertyPartName().propertyName].GetValue()
+                thisDevicePartName = thisDevice['partname'].GetValue()
                 if thisDevicePartName == 'Port':
                     portList.append(devicePin)
                 elif thisDevicePartName == 'Output':
@@ -115,17 +111,17 @@ class NetList(object):
                 # for the measures, outputs and ports, we just need one device/port, so we use the first one
                 deviceIndexOfFirstDeviceInNet = net[0][0]
                 pinIndexOfFirstDeviceInNet = net[0][1]
-                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet][PartPropertyReferenceDesignator().propertyName].GetValue()
-                firstDevicePinNumber = schematic.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet].pinNumber
+                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet]['ref'].GetValue()
+                firstDevicePinNumber = schematic.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet]['Number']
                 devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
                 for measure in measureList:
                     deviceIndex = measure[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                    self.measureNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
+                    self.measureNames.append(schematic.deviceList[deviceIndex]['ref'].GetValue())
                 for output in outputList:
                     deviceIndex = output[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                    self.outputNames.append(schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue())
+                    self.outputNames.append(schematic.deviceList[deviceIndex]['ref'].GetValue())
                 for port in portList:
                     deviceIndex = port[0]
                     self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
@@ -135,8 +131,8 @@ class NetList(object):
                 for devicePortIndex in net:
                     deviceIndex = devicePortIndex[0]
                     pinIndex = devicePortIndex[1]
-                    deviceName = schematic.deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
-                    pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex].pinNumber
+                    deviceName = schematic.deviceList[deviceIndex]['ref'].GetValue()
+                    pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex]['Number']
                     thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 self.textToShow.append(thisConnectionString)
             if len(stimList)>0: # there is at least one stim on this net
@@ -154,7 +150,7 @@ class NetList(object):
                     # this is indicated by a pin 1 connection to the net
                     # and the rest of the stims with a pin 2 connection
                     for stim in stimList:
-                        if deviceList[stim[0]].partPicture.current.pinList[stim[1]].pinNumber==1:
+                        if deviceList[stim[0]].partPicture.current.pinList[stim[1]]['Number']==1:
                             definingStimListThisNet.append(stim)
                         else:
                             directStimListThisNet.append(stim)
@@ -167,7 +163,7 @@ class NetList(object):
                 else: # there are stims and devices on this net
                     # all of the stim pins must be pin 1
                     # and the pin 1 must be connected directly to one of the device ports on the net
-                    if all(deviceList[stim[0]].partPicture.current.pinList[stim[1]].pinNumber==1 for stim in stimList): # all of the stim pins are pin 1
+                    if all(deviceList[stim[0]].partPicture.current.pinList[stim[1]]['Number']==1 for stim in stimList): # all of the stim pins are pin 1
                         directStimListThisNet=stimList
                 # okay - now that we're here, we either have one defining stim and one or more direct stims
                 # which implies that this is a stim net used to define a stimdef or...
@@ -187,8 +183,8 @@ class NetList(object):
                                 if stimNameString=='':
                                     self.stimNames.append(stimDeviceIndex)
                                     stimNameString = 'm'+str(len(self.stimNames))
-                                deviceName = deviceList[deviceIndex][PartPropertyReferenceDesignator().propertyName].GetValue()
-                                devicePinNumber = deviceList[deviceIndex].partPicture.current.pinList[devicePinIndex].pinNumber
+                                deviceName = deviceList[deviceIndex]['ref'].GetValue()
+                                devicePinNumber = deviceList[deviceIndex].partPicture.current.pinList[devicePinIndex]['Number']
                                 devicePinString = deviceName + ' ' + str(devicePinNumber)
                                 self.textToShow.append(deviceList[stimDeviceIndex].NetListLine() + ' ' + stimNameString + ' ' + devicePinString)
                 elif len(definingStimListThisNet)==1: #stimdef
@@ -206,9 +202,9 @@ class NetList(object):
                     for r in range(len(self.stimNames)):
                         dependentStimDeviceIndex=self.stimNames[r]
                         if determinesStimDeviceIndex == dependentStimDeviceIndex:
-                            stimdef[r][c]=deviceList[dependentStimDeviceIndex][PartPropertyWeight().propertyName].GetValue()
+                            stimdef[r][c]=deviceList[dependentStimDeviceIndex]['weight'].GetValue()
             self.textToShow.append('stimdef '+str(stimdef))
-        
+
         # clean up everything to deal with special case current probes and differential voltage probes
         endinglines=[]
         textToShow=[]

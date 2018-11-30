@@ -1,0 +1,23 @@
+<Project>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>711x363+27+56</Geometry>
+			<Originy>2</Originy>
+			<Originx>-4</Originx>
+			<Height>318</Height>
+			<Width>711</Width>
+			<Grid>16.0</Grid>
+		</DrawingProperties>
+		<Schematic>
+			<Wires>
+			</Wires>
+			<Devices>
+			</Devices>
+		</Schematic>
+	</Drawing>
+	<CalculationProperties>
+		<UserSampleRate>8000000.0</UserSampleRate>
+		<EndFrequency>2000000.0</EndFrequency>
+		<FrequencyPoints>40000</FrequencyPoints>
+	</CalculationProperties>
+</Project>

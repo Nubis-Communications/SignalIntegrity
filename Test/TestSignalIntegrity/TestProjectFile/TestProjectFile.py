@@ -36,7 +36,7 @@ class TestProjectFileTest(unittest.TestCase):
 
 
     def testProjectFileOldSurvival(self):
-        pf=Preferences('preferencesOldStyle.xml')
+        pf=Preferences('preferencesOldStyle.si')
         pf.SaveToFile()
 
 

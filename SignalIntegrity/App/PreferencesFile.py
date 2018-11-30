@@ -59,7 +59,7 @@ class ProjectFiles(XMLConfiguration):
         XMLConfiguration.__init__(self,'ProjectFiles')
         self.Add(XMLPropertyDefaultBool('OpenLastFile',True))
         self.Add(XMLPropertyDefaultBool('RetainLastFilesOpened',True))
-        self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',LastFiles()))
+        self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',arrayType=LastFiles()))
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
 
 class OnlineHelp(XMLConfiguration):

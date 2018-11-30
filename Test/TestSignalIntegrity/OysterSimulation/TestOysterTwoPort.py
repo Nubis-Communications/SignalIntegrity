@@ -116,7 +116,7 @@ class TestOysterTest(unittest.TestCase,
 
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterCalStandardSimulation.xml')
+        result = self.GetSimulationResultsCheck('OysterCalStandardSimulation.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -149,7 +149,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.SimulationResultsChecker('OysterSimulationTwoPort.xml')
+        result = self.SimulationResultsChecker('OysterSimulationTwoPort.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -288,10 +288,10 @@ class TestOysterTest(unittest.TestCase,
         plt.grid(False)
         if plotthem: plt.show()
 
-        calStandards=[self.SParameterResultsChecker('OysterFixtureShort.xml')[0],
-              self.SParameterResultsChecker('OysterFixtureOpen.xml')[0],
-              self.SParameterResultsChecker('OysterFixtureLoad.xml')[0],
-              self.SParameterResultsChecker('OysterFixtureThru.xml')[0]]
+        calStandards=[self.SParameterResultsChecker('OysterFixtureShort.si')[0],
+              self.SParameterResultsChecker('OysterFixtureOpen.si')[0],
+              self.SParameterResultsChecker('OysterFixtureLoad.si')[0],
+              self.SParameterResultsChecker('OysterFixtureThru.si')[0]]
 
         ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
@@ -311,8 +311,8 @@ class TestOysterTest(unittest.TestCase,
         DUTRawCalcSp=cm.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTRawCalcSp, self.NameForTest()+'_RawCalc.s2p')
 
-        DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureDeembed.xml')[1][0]
-        DUTActualSp=self.SParameterResultsChecker('OysterDut.xml')[0]
+        DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureDeembed.si')[1][0]
+        DUTActualSp=self.SParameterResultsChecker('OysterDut.si')[0]
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
         si.test.SignalIntegrityAppTestHelper.plotErrors=False
@@ -346,9 +346,9 @@ class TestOysterTest(unittest.TestCase,
 
         #self.assertTrue(SpAreEqual,'s-parameters not equal')
 
-        self.SParameterResultsChecker('OysterDeembeddingFixture.xml')[0]
-        NewFixture1=self.SParameterResultsChecker('OysterErrorTermsDeembed1.xml')[0]
-        NewFixture2=self.SParameterResultsChecker('OysterErrorTermsDeembed2.xml')[0]
+        self.SParameterResultsChecker('OysterDeembeddingFixture.si')[0]
+        NewFixture1=self.SParameterResultsChecker('OysterErrorTermsDeembed1.si')[0]
+        NewFixture2=self.SParameterResultsChecker('OysterErrorTermsDeembed2.si')[0]
 
         for n in range(len(cm)):
             S1=NewFixture1[n]
@@ -419,9 +419,9 @@ class TestOysterTest(unittest.TestCase,
  
         #self.assertTrue(SpAreEqual,'s-parameters not equal')
 
-        self.SParameterResultsChecker('OysterDeembeddingFixture.xml')[0]
-        self.SParameterResultsChecker('OysterErrorTermsDeembed1.xml')[0]
-        self.SParameterResultsChecker('OysterErrorTermsDeembed2.xml')[0]
+        self.SParameterResultsChecker('OysterDeembeddingFixture.si')[0]
+        self.SParameterResultsChecker('OysterErrorTermsDeembed1.si')[0]
+        self.SParameterResultsChecker('OysterErrorTermsDeembed2.si')[0]
 
         short1=self.SParameterResultsChecker('OysterShort1')[0]
         short2=self.SParameterResultsChecker('OysterShort2')[0]
@@ -505,7 +505,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterMonteCarlo.xml')
+        result = self.GetSimulationResultsCheck('OysterMonteCarlo.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -626,7 +626,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterMonteCarlo.xml')
+        result = self.GetSimulationResultsCheck('OysterMonteCarlo.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -748,7 +748,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterSimulationTwoPort.xml')
+        result = self.GetSimulationResultsCheck('OysterSimulationTwoPort.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -765,10 +765,10 @@ class TestOysterTest(unittest.TestCase,
         spDict['DUT']=tdr.RawMeasuredSParameters([[outputWaveforms[outputNames.index('IThru11')],outputWaveforms[outputNames.index('IThru21')]],
                                                    [outputWaveforms[outputNames.index('IThru12')],outputWaveforms[outputNames.index('IThru22')]]])
 
-        calStandards=[self.SParameterResultsChecker('OysterFixtureShort.xml')[0],
-              self.SParameterResultsChecker('OysterFixtureOpen.xml')[0],
-              self.SParameterResultsChecker('OysterFixtureLoad.xml')[0],
-              self.SParameterResultsChecker('OysterFixtureThru.xml')[0]]
+        calStandards=[self.SParameterResultsChecker('OysterFixtureShort.si')[0],
+              self.SParameterResultsChecker('OysterFixtureOpen.si')[0],
+              self.SParameterResultsChecker('OysterFixtureLoad.si')[0],
+              self.SParameterResultsChecker('OysterFixtureThru.si')[0]]
 
 #         calStandards=[si.sp.SParameterFile('CalShort.s1p'),
 #               si.sp.SParameterFile('CalOpen.s1p'),
@@ -793,7 +793,7 @@ class TestOysterTest(unittest.TestCase,
         DUTRawCalcSp=cm.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTRawCalcSp, self.NameForTest()+'_RawCalc.s2p')
 
-        DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureIdealThruDeembed.xml')[1][0]
+        DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureIdealThruDeembed.si')[1][0]
         DUTActualSp=si.sp.dev.TLineLossless(f,2,50.,0.)
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
@@ -840,7 +840,7 @@ class TestOysterTest(unittest.TestCase,
         rawwf21=outputWaveforms[outputNames.index('IThru21')]
         rawwf12=outputWaveforms[outputNames.index('IThru12')]
         rawwf22=outputWaveforms[outputNames.index('IThru22')]
-        pysi=self.Preliminary('OysterFixtureIdealThruDeembedMonteCarlo.xml')
+        pysi=self.Preliminary('OysterFixtureIdealThruDeembedMonteCarlo.si')
 
         for n in range(Num):
             print('wf: '+str(n))
@@ -1107,27 +1107,27 @@ class TestOysterTest(unittest.TestCase,
         plt.show()
     def testAAAMakeFixtures(self):
         serialNumberString='123456'
-        res=self.SParameterResultsChecker('OysterFixtureShort.xml')[0]
+        res=self.SParameterResultsChecker('OysterFixtureShort.si')[0]
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I1_1.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I2_1.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I3_1.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I4_1.s1p')
-        res=self.SParameterResultsChecker('OysterFixtureOpen.xml')[0]
+        res=self.SParameterResultsChecker('OysterFixtureOpen.si')[0]
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I1_2.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I2_2.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I3_2.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I4_2.s1p')
-        res=self.SParameterResultsChecker('OysterFixtureLoad.xml')[0]
+        res=self.SParameterResultsChecker('OysterFixtureLoad.si')[0]
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I1_3.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I2_3.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I3_3.s1p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I4_3.s1p')
-        res=self.SParameterResultsChecker('OysterFixtureThru.xml')[0]
+        res=self.SParameterResultsChecker('OysterFixtureThru.si')[0]
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I1_I2.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I3_I4.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I1_I4.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I2_I3.s2p')
-        res=self.SParameterResultsChecker('OysterFixtureOutput.xml')[0]
+        res=self.SParameterResultsChecker('OysterFixtureOutput.si')[0]
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I1_O1.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I2_O2.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I3_O3.s2p')

@@ -54,7 +54,7 @@ class PartPicture(object):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically,rotationPoint=None):
         if rotationPoint==None:
             if len(pinList)==1:
-                self.rotationPoint=pinList[0].pinConnectionPoint
+                self.rotationPoint=pinList[0]['ConnectionPoint']
             else:
                 self.rotationPoint = ((innerBox[0][0]+innerBox[1][0])/2.,(innerBox[0][1]+innerBox[1][1])/2.)
         else:
@@ -72,59 +72,60 @@ class PartPicture(object):
         ct=CoordinateTranslater(self.rotationPoint,self.orientation,self.mirroredHorizontally,self.mirroredVertically)
         self.pinList = copy.deepcopy(self.pinListSupplied)
         for pin in self.pinList:
-            if pin.pinOrientation=='t':
+            pinOrientation=pin['Orientation']
+            if pinOrientation=='t':
                 if self.orientation=='0':
-                    if self.mirroredVertically: pin.pinOrientation = 'b'
-                    else: pin.pinOrientation='t'
+                    if self.mirroredVertically: pin['Orientation']='b'
+                    else: pin['Orientation']='t'
                 elif self.orientation=='90':
-                    if self.mirroredHorizontally: pin.pinOrientation='r'
-                    else: pin.pinOrientation='l'
+                    if self.mirroredHorizontally: pin['Orientation']='r'
+                    else: pin['Orientation']='l'
                 elif self.orientation=='180':
-                    if self.mirroredVertically: pin.pinOrientation='t'
-                    else: pin.pinOrientation='b'
+                    if self.mirroredVertically: pin['Orientation']='t'
+                    else: pin['Orientation']='b'
                 elif self.orientation=='270':
-                    if self.mirroredHorizontally: pin.pinOrientation='l'
-                    else: pin.pinOrientation='r'
-            elif pin.pinOrientation=='l':
+                    if self.mirroredHorizontally: pin['Orientation']='l'
+                    else: pin['Orientation']='r'
+            elif pinOrientation=='l':
                 if self.orientation=='0':
-                    if self.mirroredHorizontally: pin.pinOrientation='r'
-                    else: pin.pinOrientation='l'
+                    if self.mirroredHorizontally: pin['Orientation']='r'
+                    else: pin['Orientation']='l'
                 elif self.orientation=='90':
-                    if self.mirroredVertically: pin.pinOrientation='t'
-                    else: pin.pinOrientation='b'
+                    if self.mirroredVertically: pin['Orientation']='t'
+                    else: pin['Orientation']='b'
                 elif self.orientation=='180':
-                    if self.mirroredHorizontally: pin.pinOrientation='l'
-                    else: pin.pinOrientation='r'
+                    if self.mirroredHorizontally: pin['Orientation']='l'
+                    else: pin['Orientation']='r'
                 elif self.orientation=='270':
-                    if self.mirroredVertically: pin.pinOrientation = 'b'
-                    else: pin.pinOrientation='t'
-            elif pin.pinOrientation == 'b':
+                    if self.mirroredVertically: pin['Orientation']='b'
+                    else: pin['Orientation']='t'
+            elif pinOrientation == 'b':
                 if self.orientation=='0':
-                    if self.mirroredVertically: pin.pinOrientation='t'
-                    else: pin.pinOrientation='b'
+                    if self.mirroredVertically: pin['Orientation']='t'
+                    else: pin['Orientation']='b'
                 elif self.orientation=='90':
-                    if self.mirroredHorizontally: pin.pinOrientation='l'
-                    else: pin.pinOrientation='r'
+                    if self.mirroredHorizontally: pin['Orientation']='l'
+                    else: pin['Orientation']='r'
                 elif self.orientation=='180':
-                    if self.mirroredVertically: pin.pinOrientation = 'b'
-                    else: pin.pinOrientation='t'
+                    if self.mirroredVertically: pin['Orientation']='b'
+                    else: pin['Orientation']='t'
                 elif self.orientation=='270':
-                    if self.mirroredHorizontally: pin.pinOrientation='r'
-                    else: pin.pinOrientation='l'
-            elif pin.pinOrientation=='r':
+                    if self.mirroredHorizontally: pin['Orientation']='r'
+                    else: pin['Orientation']='l'
+            elif pinOrientation=='r':
                 if self.orientation=='0':
-                    if self.mirroredHorizontally: pin.pinOrientation='l'
-                    else: pin.pinOrientation='r'
+                    if self.mirroredHorizontally: pin['Orientation']='l'
+                    else: pin['Orientation']='r'
                 elif self.orientation=='90':
-                    if self.mirroredVertically: pin.pinOrientation = 'b'
-                    else: pin.pinOrientation='t'
+                    if self.mirroredVertically: pin['Orientation']='b'
+                    else: pin['Orientation']='t'
                 elif self.orientation=='180':
-                    if self.mirroredHorizontally: pin.pinOrientation='r'
-                    else: pin.pinOrientation='l'
+                    if self.mirroredHorizontally: pin['Orientation']='r'
+                    else: pin['Orientation']='l'
                 elif self.orientation=='270':
-                    if self.mirroredVertically: pin.pinOrientation='t'
-                    else: pin.pinOrientation='b'
-            pin.pinConnectionPoint = ct.Translate(pin.pinConnectionPoint)
+                    if self.mirroredVertically: pin['Orientation']='t'
+                    else: pin['Orientation']='b'
+            pin['ConnectionPoint']=str(ct.Translate(pin['ConnectionPoint']))
         self.boundingBox=[ct.Translate(self.boundingBoxSupplied[0]),ct.Translate(self.boundingBoxSupplied[1])]
         self.boundingBox=[(min(self.boundingBox[0][0],self.boundingBox[1][0]),min(self.boundingBox[0][1],self.boundingBox[1][1])),
                      (max(self.boundingBox[0][0],self.boundingBox[1][0]),max(self.boundingBox[0][1],self.boundingBox[1][1]))]
@@ -232,7 +233,8 @@ class PartPicture(object):
             canvas.create_text(locations[v][0],locations[v][1],
                 text=self.visiblePartPropertyList[v],anchor=anchorString,fill=self.color)
     def PinCoordinates(self):
-        return [(pin.pinConnectionPoint[0]+self.origin[0],pin.pinConnectionPoint[1]+self.origin[1]) for pin in self.pinList]
+
+        return [(pin['ConnectionPoint'][0]+self.origin[0],pin['ConnectionPoint'][1]+self.origin[1]) for pin in self.pinList]
     def Selected(self,selected):
         if selected:
             self.color='blue'
@@ -414,9 +416,9 @@ class PartPicture(object):
         canvas.create_text(p[0],p[1],text=c,fill=self.color)
 
 class PartPictureXMLClassFactory(object):
-    def __init__(self,xml,ports):
-        partPictureClassList=[]
+    def __init__(self,device,xml,ports):
         partPictureSelected = 0
+        partPictureClassList=[]
         origin=(0,0)
         orientation='0'
         mirroredVertically=False
@@ -450,6 +452,17 @@ class PartPictureXMLClassFactory(object):
                 mirroredVertically = eval(item.text)
             elif item.tag == 'mirrored_horizontally':
                 mirroredHorizontally = eval(item.text)
+        if partPictureClassList[partPictureSelected] in device.partPicture.partPictureClassList:
+            partPictureSelected=device.partPicture.partPictureClassList.index(partPictureClassList[partPictureSelected])
+        self.result=PartPictureVariable(device.partPicture.partPictureClassList,ports,partPictureSelected,origin,orientation,mirroredHorizontally,mirroredVertically)
+
+class PartPictureFromProject(object):
+    def __init__(self,partPictureClassList,partPictureProject,ports):
+        partPictureSelected = partPictureClassList.index(partPictureProject['ClassName'])
+        origin=partPictureProject['Origin']
+        orientation=str(partPictureProject['Orientation'])
+        mirroredVertically=partPictureProject['MirroredVertically']
+        mirroredHorizontally=partPictureProject['MirroredHorizontally']
         self.result=PartPictureVariable(partPictureClassList,ports,partPictureSelected,origin,orientation,mirroredHorizontally,mirroredVertically)
 
 class PartPictureVariable(object):
@@ -465,27 +478,6 @@ class PartPictureVariable(object):
         origin=self.current.origin
         self.partPictureSelected = item
         self.current=eval(self.partPictureClassList[self.partPictureSelected])(self.ports,origin,orientation,mirroredHorizontally,mirroredVertically)
-    def xml(self):
-        thisElement=et.Element('part_picture')
-        classNamesElement = et.Element('class_names')
-        classNamesElementsList = []
-        for className in self.partPictureClassList:
-            classNameElement=et.Element('class_name')
-            classNameElement.text=className
-            classNamesElementsList.append(classNameElement)
-        classNamesElement.extend(classNamesElementsList)
-        selectedElement = et.Element('selected')
-        selectedElement.text = str(self.partPictureSelected)
-        originElement = et.Element('origin')
-        originElement.text=str(self.current.origin)
-        orientationElement = et.Element('orientation')
-        orientationElement.text=str(self.current.orientation)
-        mirroredVerticallyElement = et.Element('mirrored_vertically')
-        mirroredVerticallyElement.text=str(self.current.mirroredVertically)
-        mirroredHorizontallyElement = et.Element('mirrored_horizontally')
-        mirroredHorizontallyElement.text=str(self.current.mirroredHorizontally)
-        thisElement.extend([classNamesElement,selectedElement,originElement,orientationElement,mirroredVerticallyElement,mirroredHorizontallyElement])
-        return thisElement
 
 class PartPictureBox(PartPicture):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically):
@@ -1299,7 +1291,7 @@ class PartPictureVariableVoltageAmplifierTwoPort(PartPictureVariable):
 
 class PartPictureVoltageAmplifierFourPort(PartPictureAmp):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureAmp.__init__(self,origin,[PartPin(1,(0,3),'l',False,True,True),PartPin(2,(0,1),'l',False,True,True),PartPin(3,(4,3),'r',False,True,True),PartPin(4,(4,1),'r',False,True,True)],[(1,0),(4,4)],[(1,0),(4,4)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureAmp.__init__(self,origin,[PartPin(1,(0,3),'l',False,True,True),PartPin(2,(0,1),'l',False,True,True),PartPin(3,(4,3),'r',False,True,True),PartPin(4,(4,1),'r',False,True,True)],[(1,0),(3,4)],[(1,0),(3,4)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         # plus and minus signs on the sensing port
         PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1.5)
@@ -1318,7 +1310,7 @@ class PartPictureVoltageAmplifierFourPort(PartPictureAmp):
 
 class PartPictureVoltageAmplifierFourPortAlt(PartPictureAmp):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureAmp.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(0,3),'l',False,True,True),PartPin(4,(4,3),'r',False,True,True),PartPin(3,(4,1),'r',False,True,True)],[(1,0),(4,4)],[(1,0),(4,4)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
+        PartPictureAmp.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True),PartPin(2,(0,3),'l',False,True,True),PartPin(4,(4,3),'r',False,True,True),PartPin(3,(4,1),'r',False,True,True)],[(1,0),(3,4)],[(1,0),(3,4)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         # plus and minus signs on the sensing port
         PartPicture.DrawMinusPlus(self,canvas,grid,drawingOrigin,1.5)
@@ -1549,7 +1541,7 @@ class PartPictureStim(PartPicture):
         if not connected is None:
             for pinIndex in range(len(self.pinList)):
                 pin = self.pinList[pinIndex]
-                if pin.pinNumber == 2:
+                if pin['Number'] == 2:
                     connected[pinIndex]=True
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
 

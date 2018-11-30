@@ -28,17 +28,14 @@ else:
 
 import matplotlib
 import math
-import sys
-import os
 
 from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.MenuSystemHelpers import Doer
-
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
-
 from SignalIntegrity.App.ToSI import ToSI,FromSI
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
+import SignalIntegrity.App.Project
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -68,7 +65,7 @@ class ViewerProperty(Frame):
         self.partProperty=partProperty
         self.callBack=callBack
         self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        propertyLabel = Label(self,width=25,text=self.partProperty.description+': ',anchor='e')
+        propertyLabel = Label(self,width=25,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=LEFT, expand=NO, fill=X)
         propertyEntry = Entry(self,textvariable=self.propertyString)
         propertyEntry.config(width=15)
@@ -317,7 +314,7 @@ class SParametersDialog(Toplevel):
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
         
-        if not self.parent.preferences.GetValue('Appearance.PlotCursorValues'):
+        if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.topLeftPlot.format_coord = lambda x, y: ''
             self.topRightPlot.format_coord = lambda x, y: ''
             self.bottomLeftPlot.format_coord = lambda x, y: ''
@@ -585,13 +582,12 @@ class SParametersDialog(Toplevel):
     def onResample(self):
         import SignalIntegrity.Lib as si
         self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
-            self.parent.calculationProperties.endFrequency,
-            self.parent.calculationProperties.frequencyPoints))
+            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']))
         self.PlotSParameter()
 
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
-        #self.parent.calculationProperties.CalculationPropertiesDialog().lift(self)
 
     def onMatplotlib2TikZ(self):
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],

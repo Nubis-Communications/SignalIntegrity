@@ -107,10 +107,10 @@
 %  <polyline lc="black">88,-72 92,-72</polyline>
 %  <polyline lc="black">88,-72 16,-72</polyline>
 %  <polyline lc="black">16,-72 16,-52</polyline>
-%  <ellipse x="88" y="-72" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="88" y="-40" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="96" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="40" y="-44" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="88" y="-72" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="40" y="-12" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="116" y="-72" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
@@ -224,10 +224,10 @@
 \path[line width=0.30mm, draw=black] (88,-72) -- (92,-72);
 \path[line width=0.30mm, draw=black] (88,-72) -- (16,-72);
 \path[line width=0.30mm, draw=black] (16,-72) -- (16,-52);
-\path[line width=0.30mm, draw=black, fill=black] (88,-72) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (88,-40) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (96,-28) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (40,-44) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (88,-72) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (40,-12) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (116,-72) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

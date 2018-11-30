@@ -18,11 +18,9 @@ PreferencesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
-from SignalIntegrity.App.MenuSystemHelpers import Doer
 
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
-        self.preferences=preferences
         PropertiesDialog.__init__(self,parent,preferences,parent,'Preferences')
         self.fontSizeFrame=CalculationProperty(self.propertyListFrame,'font size',None,self.onUpdatePreferences,preferences,'Appearance.FontSize')
         self.backgroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'background color',None,self.onUpdateColors,preferences,'Appearance.Color.Background')
@@ -40,14 +38,14 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
         self.Finish()
     def onUpdatePreferences(self):
-        self.onlineHelpURL.Show(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'))
+        self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
         self.project.SaveToFile()
-        HelpSystemKeys.InstallHelpURLBase(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'),
-                                          self.preferences.GetValue('OnlineHelp.URL'),
+        HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
+                                          self.project['OnlineHelp.URL'],
                                           self.parent.installdir)
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()
     def Finish(self):
-        self.onlineHelpURL.Show(self.preferences.GetValue('OnlineHelp.UseOnlineHelp'))
+        self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
         PropertiesDialog.Finish(self)
