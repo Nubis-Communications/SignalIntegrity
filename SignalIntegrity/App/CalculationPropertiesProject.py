@@ -28,6 +28,7 @@ else:
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
+import SignalIntegrity.App.Project
 
 class CalculationProperty(tk.Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
@@ -280,7 +281,7 @@ class PropertiesDialog(tk.Toplevel):
         self.top=top
         self.withdraw()
         self.title(title)
-        img = tk.PhotoImage(file=self.top.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.project=project

@@ -72,18 +72,19 @@ class SignalIntegrityApp(tk.Frame):
 
         tk.Frame.__init__(self, self.root)
         self.pack(fill=tk.BOTH, expand=tk.YES)
-        self.installdir=os.path.dirname(os.path.abspath(__file__))
+        SignalIntegrity.App.Installdir=os.path.dirname(os.path.abspath(__file__))+'/'
+        SignalIntegrity.App.IconsBaseDir=SignalIntegrity.App.Installdir+'icons/png/'
+        SignalIntegrity.App.IconsDir=SignalIntegrity.App.IconsBaseDir+'16x16/actions/'
 
         self.root.title(__project__+' - '+__version__)
 
-        img = tk.PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif)
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
         Doer.helpKeys = HelpSystemKeys(SignalIntegrity.App.Preferences['OnlineHelp.RebuildHelpKeys'])
 
         HelpSystemKeys.InstallHelpURLBase(SignalIntegrity.App.Preferences['OnlineHelp.UseOnlineHelp'],
-                                          SignalIntegrity.App.Preferences['OnlineHelp.URL'],
-                                          self.installdir)
+                                          SignalIntegrity.App.Preferences['OnlineHelp.URL'])
 
         # status bar
         self.statusbar=StatusBar(self)
@@ -232,7 +233,7 @@ class SignalIntegrityApp(tk.Frame):
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        iconsdir=self.installdir+'/icons/png/16x16/actions/'
+        iconsdir=SignalIntegrity.App.IconsDir+''
         self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-new-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif',).Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
@@ -675,7 +676,7 @@ class SignalIntegrityApp(tk.Frame):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         spnp.AddLines(netList)
-        progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
+        progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
@@ -717,7 +718,7 @@ class SignalIntegrityApp(tk.Frame):
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 
-        progressDialog = ProgressDialog(self,self.installdir,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
+        progressDialog = ProgressDialog(self,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:

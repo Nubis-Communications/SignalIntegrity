@@ -377,47 +377,6 @@ class PartPicture(object):
         p=(mx,my)
         canvas.create_text(p[0],p[1],text=c,fill=self.color)
 
-class PartPictureXMLClassFactory(object):
-    def __init__(self,device,xml,ports):
-        partPictureSelected = 0
-        partPictureClassList=[]
-        origin=(0,0)
-        orientation='0'
-        mirroredVertically=False
-        mirroredHorizontally=False
-        for item in xml:
-            if item.tag == 'class_names':
-                for classNameElement in item:
-                    if classNameElement.tag == 'class_name':
-                        # for backward compatibility
-                        className=classNameElement.text
-                        if className in ['PartPictureOnePort','PartPictureTwoPort','PartPictureThreePort','PartPictureFourPort']:
-                                className='PartPictureSpecifiedPorts'
-                        if className in ['PartPictureTwoPortSide','PartPictureThreePortSide','PartPictureFourPortSide']:
-                                className='PartPictureSpecifiedPortsSide'
-                        if className in ['PartPictureSystemOnePort','PartPictureSystemTwoPort','PartPictureSystemThreePort','PartPictureSystemFourPort']:
-                                className='PartPictureSystem'
-                        if className in ['PartPictureSystemTwoPortSide','PartPictureSystemThreePortSide','PartPictureSystemFourPortSide']:
-                                className='PartPictureSystemSide'
-                        if className in ['PartPictureUnknownOnePort','PartPictureUnknownTwoPort','PartPictureUnknownThreePort','PartPictureUnknownFourPort']:
-                                className='PartPictureUnknown'
-                        if className in ['PartPictureUnknownTwoPortSide','PartPictureUnknownThreePortSide','PartPictureUnknownFourPortSide']:
-                                className='PartPictureUnknownSide'
-                        partPictureClassList.append(className)
-            elif item.tag == 'selected':
-                partPictureSelected = int(item.text)
-            elif item.tag == 'origin':
-                origin = eval(item.text)
-            elif item.tag == 'orientation':
-                orientation = item.text
-            elif item.tag == 'mirrored_vertically':
-                mirroredVertically = eval(item.text)
-            elif item.tag == 'mirrored_horizontally':
-                mirroredHorizontally = eval(item.text)
-        if partPictureClassList[partPictureSelected] in device.partPicture.partPictureClassList:
-            partPictureSelected=device.partPicture.partPictureClassList.index(partPictureClassList[partPictureSelected])
-        self.result=PartPictureVariable(device.partPicture.partPictureClassList,ports,partPictureSelected,origin,orientation,mirroredHorizontally,mirroredVertically)
-
 class PartPictureFromProject(object):
     def __init__(self,partPictureClassList,partPictureProject,ports):
         partPictureSelected = partPictureClassList.index(partPictureProject['ClassName'])

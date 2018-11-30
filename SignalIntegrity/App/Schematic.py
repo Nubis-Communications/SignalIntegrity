@@ -24,7 +24,7 @@ else:
 
 import copy
 
-from SignalIntegrity.App.Device import DeviceXMLClassFactory,DeviceFromProject
+from SignalIntegrity.App.Device import DeviceFromProject
 from SignalIntegrity.App.NetList import NetList
 from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
 from SignalIntegrity.App.MenuSystemHelpers import Doer
@@ -46,26 +46,6 @@ class Schematic(object):
                 returnedDevice=None
             if not returnedDevice is None:
                 self.deviceList.append(returnedDevice)
-    # Legacy File Format
-    def InitFromXml(self,schematicElement):
-        self.__init__()
-        for child in schematicElement:
-            if child.tag == 'devices':
-                for deviceElement in child:
-                    try:
-                        returnedDevice=DeviceXMLClassFactory(deviceElement).result
-                    except NameError: # part picture doesn't exist
-                        returnedDevice=None
-                    if not returnedDevice is None:
-                        # hack to fix port numbering of old four port transmission lines
-                        from SignalIntegrity.App.Device import DeviceTelegrapherFourPort
-                        if isinstance(returnedDevice,DeviceTelegrapherFourPort):
-                            if returnedDevice.partPicture.current.pinList[1]['Number']==3:
-                                returnedDevice.partPicture.current.pinList[1]['Number']=2
-                                returnedDevice.partPicture.current.pinList[2]['Number']=3
-                        self.deviceList.append(returnedDevice)
-            elif child.tag == 'wires':
-                SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires']=WireList().InitFromXml(child)
     def NetList(self):
         self.Consolidate()
         return NetList(self)
@@ -1550,32 +1530,3 @@ class Drawing(tk.Frame):
         self.schematic = Schematic()
         self.schematic.InitFromProject()
         self.stateMachine = DrawingStateMachine(self)
-
-    # Legacy File Format
-    def InitFromXml(self,drawingElement):
-        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        drawingPropertiesProject['Grid']=32
-        drawingPropertiesProject['Originx']=0
-        drawingPropertiesProject['Originy']=0
-        self.schematic = Schematic()
-        self.stateMachine = DrawingStateMachine(self)
-        for child in drawingElement:
-            if child.tag == 'schematic':
-                self.schematic.InitFromXml(child)
-            elif child.tag == 'drawing_properties':
-                for drawingPropertyElement in child:
-                    drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-                    if drawingPropertyElement.tag == 'grid':
-                        drawingPropertiesProject['Grid'] = float(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'originx':
-                        drawingPropertiesProject['Originx'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'originy':
-                        drawingPropertiesProject['Originy'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'width':
-                        drawingPropertiesProject['Width'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'height':
-                        drawingPropertiesProject['Height'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'geometry':
-                        drawingPropertiesProject['Geometry'] = drawingPropertyElement.text
-                self.canvas.config(width=drawingPropertiesProject['Width'],height=drawingPropertiesProject['Height'])
-                self.parent.root.geometry(drawingPropertiesProject['Geometry'].split('+')[0])

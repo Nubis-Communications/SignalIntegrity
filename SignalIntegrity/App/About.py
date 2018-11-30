@@ -28,13 +28,14 @@ import webbrowser
 import textwrap
 
 from SignalIntegrity.__about__ import __version__,__url__,__copyright__,__description__,__author__,__email__,__project__
+import SignalIntegrity.App.Project
 
 class CreditsDialog(tk.Toplevel):
     def __init__(self,parent):
         self.parent=parent
         textToShow = [' '+__project__+' was written by:','','\t {} \t <{}>'.format(__author__,__email__)]
         tk.Toplevel.__init__(self, parent)
-        self.img = tk.PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('Credits')
@@ -71,8 +72,8 @@ class LicenseDialog(tk.Toplevel):
             'You should have received a copy of the GNU General Public License along with this program.',
             'If not, see <https://www.gnu.org/licenses/>']
         tk.Toplevel.__init__(self, parent)
-        self.img = tk.PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
-        self.gnuimg=tk.PhotoImage(file=parent.parent.installdir+'/icons/png/gpl.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.gnuimg=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'gpl.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('License')
@@ -99,8 +100,8 @@ class AboutDialog(tk.Toplevel):
 
         tk.Toplevel.__init__(self, parent)
 
-        self.img = tk.PhotoImage(file=parent.installdir+'/icons/png/AppIcon2.gif')
-        self.img2 = tk.PhotoImage(file=parent.installdir+'/icons/png/tlecroy-logo-15.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.img2 = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'tlecroy-logo-15.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('About '+__project__)

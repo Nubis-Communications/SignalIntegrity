@@ -92,7 +92,7 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.title(title+': '+self.fileparts.FileNameTitle())
 
-        img = tk.PhotoImage(file=self.parent.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
@@ -161,13 +161,13 @@ class SParametersDialog(tk.Toplevel):
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-open-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
-        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'document-open-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(self,bd=2,relief=tk.SUNKEN).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
         topFrame=tk.Frame(self)
         topFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)

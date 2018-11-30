@@ -87,7 +87,7 @@ class SignalIntegrityAppHeadless(object):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
         SignalIntegrity.App.Preferences=Preferences()
-        self.installdir=os.path.dirname(os.path.abspath(__file__))
+        SignalIntegrity.App.InstallDir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
 
     def NullCommand(self):

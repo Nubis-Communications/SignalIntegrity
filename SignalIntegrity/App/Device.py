@@ -145,54 +145,6 @@ class DeviceFromProject(object):
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
 
-class DeviceXMLClassFactory(object):
-    def __init__(self,xml):
-        propertiesList=[]
-        partPicture=None
-        className='Device'
-        ports=None
-        for child in xml:
-            if child.tag == 'class_name':
-                className=child.text
-            if child.tag == 'part_properties':
-                for partPropertyElement in child:
-                    partProperty=PartPropertyXMLClassFactory(partPropertyElement).result
-                    propertiesList.append(partProperty)
-                    if partProperty['Keyword']=='ports':
-                        ports=partProperty.GetValue()
-                    if partProperty['PropertyName']=='description':
-                        partDescription=partProperty.GetValue()
-        self.result=None
-        if partDescription=='Variable Port File':
-            self.result=DeviceFile([PartPropertyDescription('Variable Port File'),PartPropertyPorts(ports,False)],PartPictureVariableSpecifiedPorts(ports))
-        elif partDescription=='Variable Port Unknown':
-            self.result=DeviceUnknown([PartPropertyDescription('Variable Port Unknown'),PartPropertyPorts(ports,False)],PartPictureVariableUnknown(ports))
-        elif partDescription=='Variable Port System':
-            self.result=DeviceSystem([PartPropertyDescription('Variable Port System'),PartPropertyPorts(ports,False)],PartPictureVariableSystem(ports))
-        else:
-            for device in DeviceList+DeviceListSystem+DeviceListUnknown:
-                if (str(device.__class__).split('.')[-1].strip('\'>') == className):
-                    devicePorts = device.PartPropertyByKeyword('ports')
-                    if (devicePorts is None):
-                        match=True
-                    elif (devicePorts.GetValue() == ports):
-                        match=True
-                    else:
-                        match=False
-                    if match:
-                        self.result=copy.deepcopy(device)
-                        break
-        for child in xml:
-            if child.tag == 'part_picture':
-                self.result.partPicture=PartPictureXMLClassFactory(self.result,child,ports).result
-        for partProperty in propertiesList:
-            for devicePartProperty in self.result.propertiesList:
-                if partProperty['Keyword'] == devicePartProperty['Keyword']:
-                    devicePartProperty['Value']=partProperty['Value']
-                    devicePartProperty['Visible']=partProperty['Visible']
-                    if partProperty['Keyword'] != 'pn':
-                        devicePartProperty['KeywordVisible']=partProperty['KeywordVisible']
-
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(values=[('file',True)])

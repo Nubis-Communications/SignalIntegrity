@@ -49,7 +49,7 @@ class SimulatorDialog(tk.Toplevel):
         self.parent=parent
         self.withdraw()
         self.title('Simulation')
-        img = tk.PhotoImage(file=self.parent.parent.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
@@ -93,7 +93,7 @@ class SimulatorDialog(tk.Toplevel):
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        iconsdir=self.parent.parent.installdir+'/icons/png/16x16/actions/'
+        iconsdir=SignalIntegrity.App.IconsDir+''
         self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(self,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
@@ -277,7 +277,7 @@ class Simulator(object):
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
+        progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
@@ -307,7 +307,7 @@ class Simulator(object):
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+        progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
@@ -356,7 +356,7 @@ class Simulator(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
+        progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
@@ -373,7 +373,7 @@ class Simulator(object):
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+        progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:

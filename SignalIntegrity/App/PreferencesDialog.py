@@ -42,8 +42,7 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
-                                          self.project['OnlineHelp.URL'],
-                                          self.parent.installdir)
+                                          self.project['OnlineHelp.URL'])
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()

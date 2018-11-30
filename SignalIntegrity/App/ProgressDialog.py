@@ -23,6 +23,8 @@ if sys.version_info.major < 3:
 else:
     import tkinter as tk
 
+import SignalIntegrity.App.Project
+
 from math import floor
        
 class ProgressDialog(tk.Toplevel):
@@ -30,7 +32,7 @@ class ProgressDialog(tk.Toplevel):
         tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.title(title)
-        img = tk.PhotoImage(file=installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.barFrame=tk.Frame(self)
