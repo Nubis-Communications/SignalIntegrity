@@ -61,7 +61,7 @@ from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(Frame):
-    def __init__(self,runMainLoop=True):        # make absolutely sure the directory of this file is the first in the
+    def __init__(self,projectFileName=None,runMainLoop=True):        # make absolutely sure the directory of this file is the first in the
         # python path
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
@@ -289,7 +289,8 @@ class SignalIntegrityApp(Frame):
         self.deltaHeight=0
         self.bind('<Configure>',self.onResize)
 
-        projectFileName = SignalIntegrity.App.Preferences.GetLastFileOpened()
+        if projectFileName is None:
+            projectFileName = SignalIntegrity.App.Preferences.GetLastFileOpened()
 
         if not projectFileName == None:
             try:
@@ -308,7 +309,6 @@ class SignalIntegrityApp(Frame):
             self.deltaWidth=event.width-600
             self.deltaHeight=event.height-600
             self.knowDelta=True
-            print self.deltaWidth,self.deltaHeight
         #print 'width: '+str(event.width)+', height'+str(event.height)
         self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
 
@@ -930,7 +930,10 @@ class SignalIntegrityApp(Frame):
             Doer.helpKeys.SaveToFile()
 
 def main():
-    SignalIntegrityApp()
+    projectFileName = None
+    if len(sys.argv) >= 2:
+        projectFileName=sys.argv[1]
+    SignalIntegrityApp(projectFileName)
 
 if __name__ == '__main__':
     main()
