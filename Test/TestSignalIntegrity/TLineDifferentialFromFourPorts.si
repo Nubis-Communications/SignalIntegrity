@@ -1,0 +1,491 @@
+<Project>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>740x643+345+282</Geometry>
+			<Originy>0</Originy>
+			<Originx>0</Originx>
+			<Height>604</Height>
+			<Width>740</Width>
+			<Grid>16.0</Grid>
+		</DrawingProperties>
+		<Schematic>
+			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(18, 26)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 26)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 23)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(18, 23)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(22, 23)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 23)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 26)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(22, 26)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(18, 18)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 18)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 16)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(22, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 16)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(22, 14)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(25, 14)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(18, 14)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 14)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 22)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(18, 22)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(18, 15)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(22, 22)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(24, 22)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(24, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 16)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(23, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 18)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(22, 18)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(18, 19)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(22, 19)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(25, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+			</Wires>
+			<Devices>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureTransmissionLineFourPort</ClassName>
+						<Origin>(18, 13)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>T1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureTransmissionLineFourPort</ClassName>
+						<Origin>(18, 17)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>T2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureTransmissionLineFourPort</ClassName>
+						<Origin>(18, 21)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>T3</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureTransmissionLineFourPort</ClassName>
+						<Origin>(18, 25)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>T4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceGround</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureGround</ClassName>
+						<Origin>(17, 27)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>G1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceGround</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureGround</ClassName>
+						<Origin>(21, 27)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>G2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<ClassName>PartPicturePort</ClassName>
+						<Origin>(12, 13)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>1</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value></Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<ClassName>PartPicturePort</ClassName>
+						<Origin>(22, 13)</Origin>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>2</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value></Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<ClassName>PartPicturePort</ClassName>
+						<Origin>(12, 18)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>3</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value></Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<ClassName>PartPicturePort</ClassName>
+						<Origin>(22, 18)</Origin>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>4</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value></Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
+		</Schematic>
+	</Drawing>
+	<CalculationProperties>
+		<UserSampleRate>20000000000.0</UserSampleRate>
+		<EndFrequency>10000000000.0</EndFrequency>
+		<FrequencyPoints>200</FrequencyPoints>
+	</CalculationProperties>
+</Project>

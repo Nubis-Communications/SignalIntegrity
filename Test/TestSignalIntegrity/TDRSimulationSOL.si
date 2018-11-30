@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
+			<Geometry>833x764+146+152</Geometry>
 			<Originy>3</Originy>
 			<Originx>0</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
+			<Height>723</Height>
+			<Width>833</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
