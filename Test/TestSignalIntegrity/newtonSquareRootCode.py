@@ -3,7 +3,7 @@ def newtonSquareRoot(Y):
     if Y<=1e-32: return 0.0
     # in practice, exponent is directly extracted from fp number
     E=int(math.ceil(math.log(Y,2.)))
-    Eeven=E/2*2==E
+    Eeven=E//2*2==E
     y=Y/pow(2.0,E) # in practice, is the mantissa of the fp number
     seed=[0.72,0.737,0.76,0.78,0.8,0.82,0.84,0.856,0.876,
           0.892,0.91,0.927,0.943,0.961,0.975,0.993]
