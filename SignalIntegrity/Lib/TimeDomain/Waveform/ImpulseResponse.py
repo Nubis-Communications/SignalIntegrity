@@ -60,7 +60,7 @@ class ImpulseResponse(Waveform):
 
         Supplying fd supplies the resulting frequency response resampled onto another frequency scale.
 
-        @param fd (optional) instance of class FrequencyDescriptor (defaults to None).
+        @param fd (optional) instance of class FrequencyList (defaults to None).
         @param adjustLength (optional) bool whether to adjust the length. (defaults to True).
 
         @note All impulse responses are evenly spaced

@@ -148,7 +148,7 @@ class FrequencyResponse(FrequencyDomain):
         return FrequencyResponse(fdp,newresp)
     def Resample(self,fdp):
         """Resamples to a different set of frequencies
-        @param fdp instance of class FrequencyDescriptor to resample to
+        @param fdp instance of class FrequencyList to resample to
         @return instance of class FrequencyResponse containing resampled self
         @remark
         Resampling first attempts to find a ratio of numbers of points
@@ -192,7 +192,7 @@ class FrequencyResponse(FrequencyDomain):
         return TD
     def ResampleCZT(self,fdp,speedy=True):
         """Uses the chirp z transform is used to resample.
-        @param fdp instance of class FrequencyDescriptor to resample to
+        @param fdp instance of class FrequencyList to resample to
         @param speedy (optional) bool whether to use the fast version of the CZT()
         @return instance of class FrequencyResponse containing resampled self
         @see FrequencyResponse.Resample()
