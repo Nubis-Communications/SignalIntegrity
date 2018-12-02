@@ -83,6 +83,10 @@ class FrequencyResponse(FrequencyDomain):
 
         Much of these options are meant for internal use.  Mostly you should simply use ImpulseResponse()
         with the default arguments.
+        @remark td can also be supplied as a float or int.  In this situation, the TimeDescriptor corresponding
+        to the internal FrequencyList is used, but the td supplied supplants the sample rate of the TimeDescriptor.
+        In this way, only the sample rate can be specified in the resampling, and all processing as shown in the
+        table above will assume that a time descriptor has been supplied of this calculated type.
         """
         fd = self.FrequencyList()
         if isinstance(td,float) or isinstance(td,int):
