@@ -28,8 +28,8 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testTransistorSimpleSymbolic(self):
-        symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{equation}',eqsuffix='\\end{equation}')
-        symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
+        symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{multline}',eqsuffix='\\end{multline}')
+        symbolic._AddEq('\\mathbf{S}=\\ldots\\\\'+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
         symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
         # pragma: exclude
