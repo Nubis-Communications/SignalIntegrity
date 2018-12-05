@@ -41,15 +41,7 @@ if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
-import platform
-if platform.system() == 'Linux':
-    if sys.version_info.major < 3:
-        from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
-    else:
-        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-else:
-    from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 from matplotlib.collections import LineCollection
@@ -196,13 +188,7 @@ class SParametersDialog(Toplevel):
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
         self.topLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
-        if platform.system() == 'Linux':
-            if sys.version_info.major < 3:
-                self.topLeftToolbar = NavigationToolbar2TkAgg( self.topLeftCanvas, topLeftFrame )
-            else:
-                self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
-        else:
-            self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
+        self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
         self.topLeftToolbar.update()
         self.topLeftCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
@@ -210,13 +196,7 @@ class SParametersDialog(Toplevel):
         self.topRightPlot=self.topRightFigure.add_subplot(111)
         self.topRightCanvas=FigureCanvasTkAgg(self.topRightFigure, master=topRightFrame)
         self.topRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
-        if platform.system() == 'Linux':
-            if sys.version_info.major < 3:
-                self.topRightToolbar = NavigationToolbar2TkAgg( self.topRightCanvas, topRightFrame )
-            else:
-                self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
-        else:
-            self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
+        self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
         self.topRightToolbar.update()
         self.topRightCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
         self.topRightCanvasControlsFrame=Frame(topRightFrame)
@@ -229,13 +209,7 @@ class SParametersDialog(Toplevel):
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
         self.bottomLeftCanvas=FigureCanvasTkAgg(self.bottomLeftFigure, master=bottomLeftFrame)
         self.bottomLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
-        if platform.system() == 'Linux':
-            if sys.version_info.major < 3:
-                self.bottomLeftToolbar = NavigationToolbar2TkAgg( self.bottomLeftCanvas, bottomLeftFrame )
-            else:
-                self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
-        else:
-            self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
+        self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
         self.bottomLeftToolbar.update()
         self.bottomLeftCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
@@ -243,13 +217,7 @@ class SParametersDialog(Toplevel):
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
         self.bottomRightCanvas=FigureCanvasTkAgg(self.bottomRightFigure, master=bottomRightFrame)
         self.bottomRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
-        if platform.system() == 'Linux':
-            if sys.version_info.major < 3:
-                self.bottomRightToolbar = NavigationToolbar2TkAgg( self.bottomRightCanvas, bottomRightFrame )
-            else:
-                self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
-        else:
-            self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
+        self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
         self.bottomRightToolbar.update()
         self.bottomRightCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
 
