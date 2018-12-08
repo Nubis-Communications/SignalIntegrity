@@ -28,7 +28,7 @@ else:
     from tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
     from tkinter import font
     from tkinter import messagebox
-    #from messagebox import askyesnocancel
+
 
 import copy
 import os
@@ -310,6 +310,7 @@ class SignalIntegrityApp(Frame):
             self.deltaHeight=event.height-600
             self.knowDelta=True
         #print 'width: '+str(event.width)+', height'+str(event.height)
+        
         self.deltaWidth=4
         self.deltaHeight=50
         self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
