@@ -310,7 +310,12 @@ class SignalIntegrityApp(Frame):
             self.deltaHeight=event.height-600
             self.knowDelta=True
         #print 'width: '+str(event.width)+', height'+str(event.height)
+        self.deltaWidth=4
+        self.deltaHeight=50
         self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
 
     def onKey(self,event):
 #       print "pressed", repr(event.keycode), repr(event.keysym)
