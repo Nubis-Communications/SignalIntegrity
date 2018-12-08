@@ -27,13 +27,8 @@ def Tee(P=None):
     @return the list of list s-parameter matrix for a tee connection.
     @remark A tee connection is a dot in a schematic.
     """
-    if P is None:
-        P=3
-    mat=empty((P,P))
-    mat.fill(2.0/P)
-    for r in range(P):
-        mat.itemset((r,r),(2.0-P)/P)
-    return mat.tolist()
+    if P is None: P=3
+    return [[(2.-P)/P if r==c else 2./P for c in range(P)] for r in range(P)]
 # pragma: silent exclude
 
 def TeeThreePortSafe(Z,Z0=50.):
