@@ -7,8 +7,7 @@ sdp.AddLines(['device T 3','device rb 2','device Cms 4','device Cps 4','device r
               'connect rb 2 Cms 1','connect Cms 3 Cps 1','connect Cps 3 T 1',
               'connect T 3 Cps 4','connect Cps 2 rx 1','connect T 2 Ccs 1',
               'connect Ccs 2 Cms 4','connect Cms 2 rc 1'])
-ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small',
-    eqprefix='\\begin{multline} ',eqsuffix=' \\end{multline}')
+ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
 symbolic=si.sd.Symbolic(size='small')
 rb=si.sy.SeriesZ('r_b')
 symbolic._AddEq('\\mathbf{rb}='+ssps._LaTeXMatrix(rb))

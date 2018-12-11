@@ -69,8 +69,7 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
                       'connect rb 2 Cms 1','connect Cms 3 Cps 1','connect Cps 3 T 1',
                       'connect T 3 Cps 4','connect Cps 2 rx 1','connect T 2 Ccs 1',
                       'connect Ccs 2 Cms 4','connect Cms 2 rc 1'])
-        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small',
-            eqprefix='\\begin{multline} ',eqsuffix=' \\end{multline}')
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         symbolic=si.sd.Symbolic(size='small')
         rb=si.sy.SeriesZ('r_b')
         symbolic._AddEq('\\mathbf{rb}='+ssps._LaTeXMatrix(rb))
@@ -92,7 +91,10 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
         for n in range(len(ssps.m_lines)):
-            ssps.m_lines[n]=ssps.m_lines[n].replace('\\mathbf{W_{xx}} = ','\\mathbf{W_{xx}} =\\ldots\\\\ ')
+            if 'W_{xx}' in ssps.m_lines[n]:
+                ssps.m_lines[n]=ssps.m_lines[n].replace('\\[ \\mathbf{W_{xx}} = ','\\begin{multline*} \\mathbf{W_{xx}} =\\ldots\\\\ ')
+                for n in range(n,len(ssps.m_lines)):
+                    ssps.m_lines[n]=ssps.m_lines[n].replace('\\right) \\]','\\right)\\end{multline*}')
         self.CheckSymbolicResult(self.id()+'Defs',symbolic,'Transistor')
         self.CheckSymbolicResult(self.id(),ssps,'Transistor')
     def testTransistorSymbolicZO(self):
