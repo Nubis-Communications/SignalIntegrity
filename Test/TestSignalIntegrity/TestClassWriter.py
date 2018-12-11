@@ -311,7 +311,7 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteDeembedderSymbolic(self):
         fileName="../../SignalIntegrity/Lib/SystemDescriptions/DeembedderSymbolic.py"
         className='DeembedderSymbolic'
@@ -327,7 +327,7 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteDeembedderNumericParser(self):
         fileName="../../SignalIntegrity/Lib/Parsers/DeembedderNumericParser.py"
         className='DeembedderNumericParser'
@@ -335,7 +335,7 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName)
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteReferenceImpedance(self):
         fileName="../../SignalIntegrity/Lib/Conversions/ReferenceImpedance.py"
         className=''
