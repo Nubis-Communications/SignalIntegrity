@@ -23,10 +23,7 @@ class DeembedderNumeric(Deembedder,Numeric):
             F21=self.Dagger(G33,Left=G23,Right=G34,Mul=True)-G24
             F22=self.Dagger(G33,Left=G23,Right=G35,Mul=True)-G25
         else:# no internal nodes
-            F11=-G14
-            F12=-G15
-            F21=-G24
-            F22=-G25
+            F11=-G14; F12=-G15; F21=-G24; F22=-G25
         #if long and skinny F12 then
         #F12.getI()=(F12.transpose()*F12).getI()*F12.transpose()
         #if short and fat F12, F12.getI() is wrong
@@ -35,6 +32,5 @@ class DeembedderNumeric(Deembedder,Numeric):
         AL=self.Partition(A)# partition for multiple unknown devices
         BL=self.Partition(B)
         Su=[self.Dagger(AL[u],Left=BL[u],Mul=True).tolist() for u in range(len(AL))]
-        if (len(Su)==1):# only one result
-            return Su[0]# return the one result, not as a list
+        if (len(Su)==1): return Su[0]# return the one result, not as a list
         return Su# return the list of results

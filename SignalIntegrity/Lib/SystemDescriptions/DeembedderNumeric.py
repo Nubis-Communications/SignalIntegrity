@@ -79,10 +79,7 @@ class DeembedderNumeric(Deembedder,Numeric):
                 raise SignalIntegrityExceptionNumeric('cannot invert G33')
             # pragma: include
         else:# no internal nodes
-            F11=-G14
-            F12=-G15
-            F21=-G24
-            F22=-G25
+            F11=-G14; F12=-G15; F21=-G24; F22=-G25
         # pragma: silent exclude
         try:
         # pragma: include outdent
@@ -105,6 +102,5 @@ class DeembedderNumeric(Deembedder,Numeric):
         except:
             raise SignalIntegrityExceptionNumeric('cannot invert A')
         # pragma: include
-        if (len(Su)==1):# only one result
-            return Su[0]# return the one result, not as a list
+        if (len(Su)==1): return Su[0]# return the one result, not as a list
         return Su# return the list of results
