@@ -19,6 +19,8 @@ PartPin.py
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 from SignalIntegrity.App.ProjectFile import PartPinConfiguration
+import SignalIntegrity.App.Project
+
 # pinOrientation is 't','b','l','r'
 # coordinates are relative to part
 class PartPin(PartPinConfiguration):
@@ -63,5 +65,5 @@ class PartPin(PartPinConfiguration):
         # comment this in for editing book
         #if self.pinNumberingMatters:
         #    self.pinNumberVisible=True
-        if self['NumberVisible']:
+        if self['NumberVisible'] or SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']:
             canvas.create_text(textx,texty,text=str(self['Number']),fill=color)
