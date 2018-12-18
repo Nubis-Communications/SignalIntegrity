@@ -1,29 +1,29 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
 %  <polyline lc="black">18,-50 20,-52 18,-54</polyline>
 %  <polyline lc="black">24,-52 20,-52</polyline>
-%  <text x="18" y="-52" t="1" h="3" halign="r" lc="black"/>
+%  <text x="18" y="-53" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">78,-50 76,-52 78,-54</polyline>
 %  <polyline lc="black">72,-52 76,-52</polyline>
-%  <text x="78" y="-52" t="2" h="3" halign="l" lc="black"/>
+%  <text x="78" y="-53" t="2" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">18,-58 20,-60 18,-62</polyline>
 %  <polyline lc="black">24,-60 20,-60</polyline>
-%  <text x="18" y="-60" t="3" h="3" halign="r" lc="black"/>
+%  <text x="18" y="-61" t="3" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">78,-58 76,-60 78,-62</polyline>
 %  <polyline lc="black">72,-60 76,-60</polyline>
-%  <text x="78" y="-60" t="4" h="3" halign="l" lc="black"/>
-%  <text x="62" y="-52" t="+" h="3" halign="c" lc="black"/>
-%  <text x="62" y="-60" t="-" h="3" halign="c" lc="black"/>
-%  <text x="66" y="-52" t="DP" h="3" halign="c" lc="black"/>
-%  <text x="66" y="-60" t="CP" h="3" halign="c" lc="black"/>
+%  <text x="78" y="-61" t="4" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-53" t="+" h="3" halign="c" lc="black"/>
+%  <text x="62" y="-61" t="-" h="3" halign="c" lc="black"/>
+%  <text x="66" y="-53" t="D" h="3" halign="c" lc="black"/>
+%  <text x="66" y="-61" t="C" h="3" halign="c" lc="black"/>
 %  <rect x="60" y="-48" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">56,-52 60,-52</polyline>
 %  <polyline lc="black">56,-60 60,-60</polyline>
 %  <polyline lc="black">72,-52 68,-52</polyline>
 %  <polyline lc="black">72,-60 68,-60</polyline>
-%  <text x="34" y="-52" t="+" h="3" halign="c" lc="black"/>
-%  <text x="34" y="-60" t="-" h="3" halign="c" lc="black"/>
-%  <text x="30" y="-52" t="DP" h="3" halign="c" lc="black"/>
-%  <text x="30" y="-60" t="CP" h="3" halign="c" lc="black"/>
+%  <text x="34" y="-53" t="+" h="3" halign="c" lc="black"/>
+%  <text x="34" y="-61" t="-" h="3" halign="c" lc="black"/>
+%  <text x="30" y="-53" t="D" h="3" halign="c" lc="black"/>
+%  <text x="30" y="-61" t="C" h="3" halign="c" lc="black"/>
 %  <rect x="28" y="-48" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">40,-52 36,-52</polyline>
 %  <polyline lc="black">40,-60 36,-60</polyline>
@@ -37,18 +37,18 @@
 %  <polyline lc="black">40,-56 44,-56</polyline>
 %  <polyline lc="black">56,-52 52,-52</polyline>
 %  <polyline lc="black">56,-56 52,-56</polyline>
-%  <text x="48" y="-48" t="0 Ohm" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-45.5" t="58.5 nH" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-43" t="0 S" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-40.5" t="20.0 pF" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-38" t="0 Ohm" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-35.5" t="58.5 nH" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-33" t="0 S" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-30.5" t="20.0 pF" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-28" t="0 S" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-25.5" t="13.5 nH" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-23" t="1.11111111 pF" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-20.5" t="0" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-47" t="0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-44" t="58.5 nH" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-41" t="0 S" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-38" t="20.0 pF" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-35" t="0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-32" t="58.5 nH" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-29" t="0 S" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-26" t="20.0 pF" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-23" t="0 S" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-20" t="13.5 nH" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-17" t="1.11111111 pF" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-14" t="0" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">40,-56 40,-60</polyline>
 %  <polyline lc="black">56,-56 56,-60</polyline>
 %</TpX>
@@ -56,29 +56,29 @@
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
 \path[line width=0.30mm, draw=black] (18,-50) -- (20,-52) -- (18,-54);
 \path[line width=0.30mm, draw=black] (24,-52) -- (20,-52);
-\draw[black] (18,-52) node[anchor=base east]{1};
+\draw[black] (18,-53) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (78,-50) -- (76,-52) -- (78,-54);
 \path[line width=0.30mm, draw=black] (72,-52) -- (76,-52);
-\draw[black] (78,-52) node[anchor=base west]{2};
+\draw[black] (78,-53) node[anchor=base west]{2};
 \path[line width=0.30mm, draw=black] (18,-58) -- (20,-60) -- (18,-62);
 \path[line width=0.30mm, draw=black] (24,-60) -- (20,-60);
-\draw[black] (18,-60) node[anchor=base east]{3};
+\draw[black] (18,-61) node[anchor=base east]{3};
 \path[line width=0.30mm, draw=black] (78,-58) -- (76,-60) -- (78,-62);
 \path[line width=0.30mm, draw=black] (72,-60) -- (76,-60);
-\draw[black] (78,-60) node[anchor=base west]{4};
-\draw[black] (62,-52) node[anchor=base]{+};
-\draw[black] (62,-60) node[anchor=base]{-};
-\draw[black] (66,-52) node[anchor=base]{DP};
-\draw[black] (66,-60) node[anchor=base]{CP};
+\draw[black] (78,-61) node[anchor=base west]{4};
+\draw[black] (62,-53) node[anchor=base]{+};
+\draw[black] (62,-61) node[anchor=base]{-};
+\draw[black] (66,-53) node[anchor=base]{D};
+\draw[black] (66,-61) node[anchor=base]{C};
 \path[line width=0.30mm, draw=black] (60,-64) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (56,-52) -- (60,-52);
 \path[line width=0.30mm, draw=black] (56,-60) -- (60,-60);
 \path[line width=0.30mm, draw=black] (72,-52) -- (68,-52);
 \path[line width=0.30mm, draw=black] (72,-60) -- (68,-60);
-\draw[black] (34,-52) node[anchor=base]{+};
-\draw[black] (34,-60) node[anchor=base]{-};
-\draw[black] (30,-52) node[anchor=base]{DP};
-\draw[black] (30,-60) node[anchor=base]{CP};
+\draw[black] (34,-53) node[anchor=base]{+};
+\draw[black] (34,-61) node[anchor=base]{-};
+\draw[black] (30,-53) node[anchor=base]{D};
+\draw[black] (30,-61) node[anchor=base]{C};
 \path[line width=0.30mm, draw=black] (28,-64) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (40,-52) -- (36,-52);
 \path[line width=0.30mm, draw=black] (40,-60) -- (36,-60);
@@ -92,18 +92,18 @@
 \path[line width=0.30mm, draw=black] (40,-56) -- (44,-56);
 \path[line width=0.30mm, draw=black] (56,-52) -- (52,-52);
 \path[line width=0.30mm, draw=black] (56,-56) -- (52,-56);
-\draw[black] (48,-48) node[anchor=base]{0 Ohm};
-\draw[black] (48,-45.5) node[anchor=base]{58.5 nH};
-\draw[black] (48,-43) node[anchor=base]{0 S};
-\draw[black] (48,-40.5) node[anchor=base]{20.0 pF};
-\draw[black] (48,-38) node[anchor=base]{0 Ohm};
-\draw[black] (48,-35.5) node[anchor=base]{58.5 nH};
-\draw[black] (48,-33) node[anchor=base]{0 S};
-\draw[black] (48,-30.5) node[anchor=base]{20.0 pF};
-\draw[black] (48,-28) node[anchor=base]{0 S};
-\draw[black] (48,-25.5) node[anchor=base]{13.5 nH};
-\draw[black] (48,-23) node[anchor=base]{1.11111111 pF};
-\draw[black] (48,-20.5) node[anchor=base]{0};
+\draw[black] (48,-47) node[anchor=base]{0 Ohm};
+\draw[black] (48,-44) node[anchor=base]{58.5 nH};
+\draw[black] (48,-41) node[anchor=base]{0 S};
+\draw[black] (48,-38) node[anchor=base]{20.0 pF};
+\draw[black] (48,-35) node[anchor=base]{0 Ohm};
+\draw[black] (48,-32) node[anchor=base]{58.5 nH};
+\draw[black] (48,-29) node[anchor=base]{0 S};
+\draw[black] (48,-26) node[anchor=base]{20.0 pF};
+\draw[black] (48,-23) node[anchor=base]{0 S};
+\draw[black] (48,-20) node[anchor=base]{13.5 nH};
+\draw[black] (48,-17) node[anchor=base]{1.11111111 pF};
+\draw[black] (48,-14) node[anchor=base]{0};
 \path[line width=0.30mm, draw=black] (40,-56) -- (40,-60);
 \path[line width=0.30mm, draw=black] (56,-56) -- (56,-60);
 \end{tikzpicture}%

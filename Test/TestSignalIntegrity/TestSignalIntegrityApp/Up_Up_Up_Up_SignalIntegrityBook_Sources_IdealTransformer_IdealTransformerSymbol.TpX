@@ -11,22 +11,22 @@
 %  <polyline lc="black">50,-24 50,-40</polyline>
 %  <ellipse x="38.5" y="-25.5" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="56.5" y="-25.5" dx="1" dy="-1" lc="black" fill="black"/>
-%  <text x="36" y="-32" t="P" h="3" halign="c" lc="black"/>
-%  <text x="60" y="-32" t="S" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-33" t="P" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-33" t="S" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">32,-24 40,-24</polyline>
 %  <polyline lc="black">32,-40 40,-40</polyline>
 %  <polyline lc="black">64,-24 56,-24</polyline>
 %  <polyline lc="black">64,-40 56,-40</polyline>
-%  <text x="48" y="-20" t="a" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-19" t="a" h="3" halign="c" lc="black"/>
 %  <rect x="40" y="-16" w="16" h="-32" lc="black"/>
 %  <polyline lc="black">32,-24 40,-24</polyline>
-%  <text x="34" y="-22" t="1" h="3" halign="c" lc="black"/>
+%  <text x="35" y="-23" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">32,-40 40,-40</polyline>
-%  <text x="34" y="-38" t="2" h="3" halign="c" lc="black"/>
+%  <text x="35" y="-39" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">64,-24 56,-24</polyline>
-%  <text x="62" y="-22" t="3" h="3" halign="c" lc="black"/>
+%  <text x="61" y="-23" t="3" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">64,-40 56,-40</polyline>
-%  <text x="62" y="-38" t="4" h="3" halign="c" lc="black"/>
+%  <text x="61" y="-39" t="4" h="3" halign="l" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -42,20 +42,20 @@
 \path[line width=0.30mm, draw=black] (50,-24) -- (50,-40);
 \path[line width=0.30mm, draw=black, fill=black] (38.5,-25.5) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (56.5,-25.5) ellipse (0.5mm and -0.5mm);
-\draw[black] (36,-32) node[anchor=base]{P};
-\draw[black] (60,-32) node[anchor=base]{S};
+\draw[black] (36,-33) node[anchor=base]{P};
+\draw[black] (60,-33) node[anchor=base]{S};
 \path[line width=0.30mm, draw=black] (32,-24) -- (40,-24);
 \path[line width=0.30mm, draw=black] (32,-40) -- (40,-40);
 \path[line width=0.30mm, draw=black] (64,-24) -- (56,-24);
 \path[line width=0.30mm, draw=black] (64,-40) -- (56,-40);
-\draw[black] (48,-20) node[anchor=base]{a};
+\draw[black] (48,-19) node[anchor=base]{a};
 \path[line width=0.30mm, draw=black] (40,-48) rectangle +(16,32);
 \path[line width=0.30mm, draw=black] (32,-24) -- (40,-24);
-\draw[black] (34,-22) node[anchor=base]{1};
+\draw[black] (35,-23) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (32,-40) -- (40,-40);
-\draw[black] (34,-38) node[anchor=base]{2};
+\draw[black] (35,-39) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (64,-24) -- (56,-24);
-\draw[black] (62,-22) node[anchor=base]{3};
+\draw[black] (61,-23) node[anchor=base west]{3};
 \path[line width=0.30mm, draw=black] (64,-40) -- (56,-40);
-\draw[black] (62,-38) node[anchor=base]{4};
+\draw[black] (61,-39) node[anchor=base west]{4};
 \end{tikzpicture}%

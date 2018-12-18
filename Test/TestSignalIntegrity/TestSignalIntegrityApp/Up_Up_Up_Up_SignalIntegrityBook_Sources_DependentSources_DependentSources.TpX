@@ -19,7 +19,7 @@
 %  <polyline lc="black">40,-16 40,-24</polyline>
 %  <polyline lw="2" lc="red">39,-15 41,-17</polyline>
 %  <polyline lw="2" lc="red">41,-15 39,-17</polyline>
-%  <text x="52" y="-32" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="52" y="-33" t="gain 1.0 " h="3" halign="l" lc="black"/>
 %  <polygon lc="black">96,-24 102,-32 96,-40 90,-32 96,-24</polygon>
 %  <polyline arr1="h44" arrs="0.5" lc="black">80,-26 80,-38</polyline>
 %  <polyline arr1="h44" arrs="0.5" lc="black">96,-26 96,-38</polyline>
@@ -36,7 +36,7 @@
 %  <polyline lc="black">96,-16 96,-24</polyline>
 %  <polyline lw="2" lc="red">95,-15 97,-17</polyline>
 %  <polyline lw="2" lc="red">97,-15 95,-17</polyline>
-%  <text x="108" y="-32" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="108" y="-33" t="gain 1.0 " h="3" halign="l" lc="black"/>
 %  <polygon lc="black">40,-72 46,-80 40,-88 34,-80 40,-72</polygon>
 %  <polyline lc="black">22.5,-75 25.5,-75</polyline>
 %  <polyline lc="black">24,-73.5 24,-76.5</polyline>
@@ -55,7 +55,7 @@
 %  <polyline lc="black">40,-64 40,-72</polyline>
 %  <polyline lw="2" lc="red">39,-63 41,-65</polyline>
 %  <polyline lw="2" lc="red">41,-63 39,-65</polyline>
-%  <text x="52" y="-80" t="gain 1.0 A/V" h="3" halign="l" lc="black"/>
+%  <text x="52" y="-81" t="gain 1.0 A/V" h="3" halign="l" lc="black"/>
 %  <polygon lc="black">96,-72 102,-80 96,-88 90,-80 96,-72</polygon>
 %  <polyline arr1="h44" arrs="0.5" lc="black">80,-74 80,-86</polyline>
 %  <polyline lc="black">94.5,-75 97.5,-75</polyline>
@@ -74,24 +74,24 @@
 %  <polyline lc="black">96,-64 96,-72</polyline>
 %  <polyline lw="2" lc="red">95,-63 97,-65</polyline>
 %  <polyline lw="2" lc="red">97,-63 95,-65</polyline>
-%  <text x="108" y="-80" t="gain 1.0 V/A" h="3" halign="l" lc="black"/>
+%  <text x="108" y="-81" t="gain 1.0 V/A" h="3" halign="l" lc="black"/>
 %  <rect x="48" y="-112" w="32" h="-16" lc="black"/>
 %  <polyline lc="black">56,-136 56,-128</polyline>
 %  <polyline lw="2" lc="red">55,-135 57,-137</polyline>
 %  <polyline lw="2" lc="red">57,-135 55,-137</polyline>
-%  <text x="58" y="-134" t="1" h="3" halign="c" lc="black"/>
+%  <text x="58" y="-135" t="1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">72,-136 72,-128</polyline>
 %  <polyline lw="2" lc="red">71,-135 73,-137</polyline>
 %  <polyline lw="2" lc="red">73,-135 71,-137</polyline>
-%  <text x="74" y="-134" t="2" h="3" halign="c" lc="black"/>
+%  <text x="74" y="-135" t="2" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">56,-104 56,-112</polyline>
 %  <polyline lw="2" lc="red">55,-103 57,-105</polyline>
 %  <polyline lw="2" lc="red">57,-103 55,-105</polyline>
-%  <text x="58" y="-106" t="3" h="3" halign="c" lc="black"/>
+%  <text x="58" y="-107" t="3" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">72,-104 72,-112</polyline>
 %  <polyline lw="2" lc="red">71,-103 73,-105</polyline>
 %  <polyline lw="2" lc="red">73,-103 71,-105</polyline>
-%  <text x="74" y="-106" t="4" h="3" halign="c" lc="black"/>
+%  <text x="74" y="-107" t="4" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -115,7 +115,7 @@
 \path[line width=0.30mm, draw=black] (40,-16) -- (40,-24);
 \path[line width=0.6mm, draw=red] (39,-15) -- (41,-17);
 \path[line width=0.6mm, draw=red] (41,-15) -- (39,-17);
-\draw[black] (52,-32) node[anchor=base west]{gain 1.0 };
+\draw[black] (52,-33) node[anchor=base west]{gain 1.0 };
 \path[line width=0.30mm, draw=black] (96,-24) -- (102,-32) -- (96,-40) -- (90,-32) -- (96,-24) -- cycle;
 \path[line width=0.30mm, draw=black, <-] (80,-26) -- (80,-38);
 \path[line width=0.30mm, draw=black, <-] (96,-26) -- (96,-38);
@@ -132,7 +132,7 @@
 \path[line width=0.30mm, draw=black] (96,-16) -- (96,-24);
 \path[line width=0.6mm, draw=red] (95,-15) -- (97,-17);
 \path[line width=0.6mm, draw=red] (97,-15) -- (95,-17);
-\draw[black] (108,-32) node[anchor=base west]{gain 1.0 };
+\draw[black] (108,-33) node[anchor=base west]{gain 1.0 };
 \path[line width=0.30mm, draw=black] (40,-72) -- (46,-80) -- (40,-88) -- (34,-80) -- (40,-72) -- cycle;
 \path[line width=0.30mm, draw=black] (22.5,-75) -- (25.5,-75);
 \path[line width=0.30mm, draw=black] (24,-73.5) -- (24,-76.5);
@@ -151,7 +151,7 @@
 \path[line width=0.30mm, draw=black] (40,-64) -- (40,-72);
 \path[line width=0.6mm, draw=red] (39,-63) -- (41,-65);
 \path[line width=0.6mm, draw=red] (41,-63) -- (39,-65);
-\draw[black] (52,-80) node[anchor=base west]{gain 1.0 A/V};
+\draw[black] (52,-81) node[anchor=base west]{gain 1.0 A/V};
 \path[line width=0.30mm, draw=black] (96,-72) -- (102,-80) -- (96,-88) -- (90,-80) -- (96,-72) -- cycle;
 \path[line width=0.30mm, draw=black, <-] (80,-74) -- (80,-86);
 \path[line width=0.30mm, draw=black] (94.5,-75) -- (97.5,-75);
@@ -170,22 +170,22 @@
 \path[line width=0.30mm, draw=black] (96,-64) -- (96,-72);
 \path[line width=0.6mm, draw=red] (95,-63) -- (97,-65);
 \path[line width=0.6mm, draw=red] (97,-63) -- (95,-65);
-\draw[black] (108,-80) node[anchor=base west]{gain 1.0 V/A};
+\draw[black] (108,-81) node[anchor=base west]{gain 1.0 V/A};
 \path[line width=0.30mm, draw=black] (48,-128) rectangle +(32,16);
 \path[line width=0.30mm, draw=black] (56,-136) -- (56,-128);
 \path[line width=0.6mm, draw=red] (55,-135) -- (57,-137);
 \path[line width=0.6mm, draw=red] (57,-135) -- (55,-137);
-\draw[black] (58,-134) node[anchor=base]{1};
+\draw[black] (58,-133) node[anchor=north]{1};
 \path[line width=0.30mm, draw=black] (72,-136) -- (72,-128);
 \path[line width=0.6mm, draw=red] (71,-135) -- (73,-137);
 \path[line width=0.6mm, draw=red] (73,-135) -- (71,-137);
-\draw[black] (74,-134) node[anchor=base]{2};
+\draw[black] (74,-133) node[anchor=north]{2};
 \path[line width=0.30mm, draw=black] (56,-104) -- (56,-112);
 \path[line width=0.6mm, draw=red] (55,-103) -- (57,-105);
 \path[line width=0.6mm, draw=red] (57,-103) -- (55,-105);
-\draw[black] (58,-106) node[anchor=base]{3};
+\draw[black] (58,-107) node[anchor=base]{3};
 \path[line width=0.30mm, draw=black] (72,-104) -- (72,-112);
 \path[line width=0.6mm, draw=red] (71,-103) -- (73,-105);
 \path[line width=0.6mm, draw=red] (73,-103) -- (71,-105);
-\draw[black] (74,-106) node[anchor=base]{4};
+\draw[black] (74,-107) node[anchor=base]{4};
 \end{tikzpicture}%

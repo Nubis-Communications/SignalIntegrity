@@ -6,13 +6,13 @@
 %  <polyline lc="black">12,-36 12,-40</polyline>
 %  <polygon fill="black">9.333,-40 14.667,-40 12,-42.667 9.333,-40</polygon>
 %  <polyline lc="black">12,-24 12,-28</polyline>
-%  <text x="18" y="-32" t="VirtualProbeExampleSimulation2_Vinsim.txt" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-33" t="VirtualProbeExampleSimulation2_Vinsim.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">13,-11 11,-13</polyline>
 %  <polyline lc="black">13,-13 11,-11</polyline>
 %  <polyline lc="black">12,-16 12,-12</polyline>
 %  <polyline lw="3" lc="black">16,-16 14,-18</polyline>
 %  <polyline lc="black">14,-18 12,-20</polyline>
-%  <text x="16" y="-16" t="Vinsim" h="3" halign="l" lc="black"/>
+%  <text x="16" y="-15" t="Vinsim" h="3" halign="l" lc="black"/>
 %  <ellipse x="96" y="-32" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">95.25,-29.5 96.75,-29.5</polyline>
 %  <polyline lc="black">96,-28.75 96,-30.25</polyline>
@@ -20,13 +20,13 @@
 %  <polyline lc="black">96,-36 96,-40</polyline>
 %  <polygon fill="black">93.333,-40 98.667,-40 96,-42.667 93.333,-40</polygon>
 %  <polyline lc="black">96,-24 96,-28</polyline>
-%  <text x="102" y="-32" t="VirtualProbeExample_Vin.txt" h="3" halign="l" lc="black"/>
+%  <text x="102" y="-33" t="VirtualProbeExample_Vin.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">97,-11 95,-13</polyline>
 %  <polyline lc="black">97,-13 95,-11</polyline>
 %  <polyline lc="black">96,-16 96,-12</polyline>
 %  <polyline lw="3" lc="black">100,-16 98,-18</polyline>
 %  <polyline lc="black">98,-18 96,-20</polyline>
-%  <text x="100" y="-16" t="Vin" h="3" halign="l" lc="black"/>
+%  <text x="100" y="-15" t="Vin" h="3" halign="l" lc="black"/>
 %  <ellipse x="12" y="-80" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">11.25,-77.5 12.75,-77.5</polyline>
 %  <polyline lc="black">12,-76.75 12,-78.25</polyline>
@@ -34,13 +34,13 @@
 %  <polyline lc="black">12,-84 12,-88</polyline>
 %  <polygon fill="black">9.333,-88 14.667,-88 12,-90.667 9.333,-88</polygon>
 %  <polyline lc="black">12,-72 12,-76</polyline>
-%  <text x="18" y="-80" t="VirtualProbeExampleSimulation2_Voutsim.txt" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-81" t="VirtualProbeExampleSimulation2_Voutsim.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">13,-59 11,-61</polyline>
 %  <polyline lc="black">13,-61 11,-59</polyline>
 %  <polyline lc="black">12,-64 12,-60</polyline>
 %  <polyline lw="3" lc="black">16,-64 14,-66</polyline>
 %  <polyline lc="black">14,-66 12,-68</polyline>
-%  <text x="16" y="-64" t="Voutsim" h="3" halign="l" lc="black"/>
+%  <text x="16" y="-63" t="Voutsim" h="3" halign="l" lc="black"/>
 %  <ellipse x="96" y="-80" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">95.25,-77.5 96.75,-77.5</polyline>
 %  <polyline lc="black">96,-76.75 96,-78.25</polyline>
@@ -48,13 +48,13 @@
 %  <polyline lc="black">96,-84 96,-88</polyline>
 %  <polygon fill="black">93.333,-88 98.667,-88 96,-90.667 93.333,-88</polygon>
 %  <polyline lc="black">96,-72 96,-76</polyline>
-%  <text x="102" y="-80" t="VirtualProbeExample_Vout.txt" h="3" halign="l" lc="black"/>
+%  <text x="102" y="-81" t="VirtualProbeExample_Vout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">97,-59 95,-61</polyline>
 %  <polyline lc="black">97,-61 95,-59</polyline>
 %  <polyline lc="black">96,-64 96,-60</polyline>
 %  <polyline lw="3" lc="black">100,-64 98,-66</polyline>
 %  <polyline lc="black">98,-66 96,-68</polyline>
-%  <text x="100" y="-64" t="Vout" h="3" halign="l" lc="black"/>
+%  <text x="100" y="-63" t="Vout" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">12,-16 12,-20</polyline>
 %  <polyline lc="black">12,-20 12,-24</polyline>
 %  <polyline lc="black">96,-16 96,-20</polyline>
@@ -77,13 +77,13 @@
 \path[line width=0.30mm, draw=black] (12,-36) -- (12,-40);
 \path[line width=0.30mm, fill=black] (9.333,-40) -- (14.667,-40) -- (12,-42.667) -- (9.333,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (12,-24) -- (12,-28);
-\draw[black] (18,-32) node[anchor=base west]{VirtualProbeExampleSimulation2\textunderscore Vinsim.txt};
+\draw[black] (18,-33) node[anchor=base west]{VirtualProbeExampleSimulation2\textunderscore Vinsim.txt};
 \path[line width=0.30mm, draw=black] (13,-11) -- (11,-13);
 \path[line width=0.30mm, draw=black] (13,-13) -- (11,-11);
 \path[line width=0.30mm, draw=black] (12,-16) -- (12,-12);
 \path[line width=0.9mm, draw=black] (16,-16) -- (14,-18);
 \path[line width=0.30mm, draw=black] (14,-18) -- (12,-20);
-\draw[black] (16,-16) node[anchor=base west]{Vinsim};
+\draw[black] (16,-15) node[anchor=base west]{Vinsim};
 \path[line width=0.30mm, draw=black] (96,-32) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (95.25,-29.5) -- (96.75,-29.5);
 \path[line width=0.30mm, draw=black] (96,-28.75) -- (96,-30.25);
@@ -91,13 +91,13 @@
 \path[line width=0.30mm, draw=black] (96,-36) -- (96,-40);
 \path[line width=0.30mm, fill=black] (93.333,-40) -- (98.667,-40) -- (96,-42.667) -- (93.333,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (96,-24) -- (96,-28);
-\draw[black] (102,-32) node[anchor=base west]{VirtualProbeExample\textunderscore Vin.txt};
+\draw[black] (102,-33) node[anchor=base west]{VirtualProbeExample\textunderscore Vin.txt};
 \path[line width=0.30mm, draw=black] (97,-11) -- (95,-13);
 \path[line width=0.30mm, draw=black] (97,-13) -- (95,-11);
 \path[line width=0.30mm, draw=black] (96,-16) -- (96,-12);
 \path[line width=0.9mm, draw=black] (100,-16) -- (98,-18);
 \path[line width=0.30mm, draw=black] (98,-18) -- (96,-20);
-\draw[black] (100,-16) node[anchor=base west]{Vin};
+\draw[black] (100,-15) node[anchor=base west]{Vin};
 \path[line width=0.30mm, draw=black] (12,-80) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (11.25,-77.5) -- (12.75,-77.5);
 \path[line width=0.30mm, draw=black] (12,-76.75) -- (12,-78.25);
@@ -105,13 +105,13 @@
 \path[line width=0.30mm, draw=black] (12,-84) -- (12,-88);
 \path[line width=0.30mm, fill=black] (9.333,-88) -- (14.667,-88) -- (12,-90.667) -- (9.333,-88) -- cycle;
 \path[line width=0.30mm, draw=black] (12,-72) -- (12,-76);
-\draw[black] (18,-80) node[anchor=base west]{VirtualProbeExampleSimulation2\textunderscore Voutsim.txt};
+\draw[black] (18,-81) node[anchor=base west]{VirtualProbeExampleSimulation2\textunderscore Voutsim.txt};
 \path[line width=0.30mm, draw=black] (13,-59) -- (11,-61);
 \path[line width=0.30mm, draw=black] (13,-61) -- (11,-59);
 \path[line width=0.30mm, draw=black] (12,-64) -- (12,-60);
 \path[line width=0.9mm, draw=black] (16,-64) -- (14,-66);
 \path[line width=0.30mm, draw=black] (14,-66) -- (12,-68);
-\draw[black] (16,-64) node[anchor=base west]{Voutsim};
+\draw[black] (16,-63) node[anchor=base west]{Voutsim};
 \path[line width=0.30mm, draw=black] (96,-80) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (95.25,-77.5) -- (96.75,-77.5);
 \path[line width=0.30mm, draw=black] (96,-76.75) -- (96,-78.25);
@@ -119,13 +119,13 @@
 \path[line width=0.30mm, draw=black] (96,-84) -- (96,-88);
 \path[line width=0.30mm, fill=black] (93.333,-88) -- (98.667,-88) -- (96,-90.667) -- (93.333,-88) -- cycle;
 \path[line width=0.30mm, draw=black] (96,-72) -- (96,-76);
-\draw[black] (102,-80) node[anchor=base west]{VirtualProbeExample\textunderscore Vout.txt};
+\draw[black] (102,-81) node[anchor=base west]{VirtualProbeExample\textunderscore Vout.txt};
 \path[line width=0.30mm, draw=black] (97,-59) -- (95,-61);
 \path[line width=0.30mm, draw=black] (97,-61) -- (95,-59);
 \path[line width=0.30mm, draw=black] (96,-64) -- (96,-60);
 \path[line width=0.9mm, draw=black] (100,-64) -- (98,-66);
 \path[line width=0.30mm, draw=black] (98,-66) -- (96,-68);
-\draw[black] (100,-64) node[anchor=base west]{Vout};
+\draw[black] (100,-63) node[anchor=base west]{Vout};
 \path[line width=0.30mm, draw=black] (12,-16) -- (12,-20);
 \path[line width=0.30mm, draw=black] (12,-20) -- (12,-24);
 \path[line width=0.30mm, draw=black] (96,-16) -- (96,-20);

@@ -25,6 +25,10 @@ class TikZ(object):
         self.lineList.append('\\centering\n')
         self.lineList.append('\\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]\n')
         self.scale=.25
+        self.textSize=None
+    def SetTextSize(self,textSize):
+        self.textSize=textSize
+        return self
     def Format(self,num):
         return "{0:0.3f}".format(num).rstrip('0').rstrip('.')
     def Finish(self):
@@ -82,8 +86,7 @@ class TikZ(object):
         if 'fill' in kw:
             line=line+'['+kw['fill']+']'
         x=float(args[0])*self.scale
-        y=-1.*float(args[1])*self.scale
-        line=line+' ('+self.Format(x)+','+self.Format(y)+')'
+        y=-1.*float(args[1]+4)*self.scale
         if 'anchor' in kw:
             alignString='halign='
             alignment='base'
@@ -92,6 +95,8 @@ class TikZ(object):
                 alignment='north'
             else:
                 alignment='base'
+            if 's' in anchorString:
+                y=y+2
             if 'e' in anchorString:
                 alignment=alignment+' east'
             elif 'w' in anchorString:
@@ -99,13 +104,17 @@ class TikZ(object):
             alignString=' node[anchor='+alignment+']'
         else:
             alignString=' node[anchor=base]'
+        line=line+' ('+self.Format(x)+','+self.Format(y)+')'
         line=line+alignString
         textToWrite=kw['text']
         textToWrite=textToWrite.replace('_','\\textunderscore ')
         #hack to deal with unicode sigma
         if textToWrite==u"\u03C3":
             textToWrite='$\sigma$'
-        line=line+'{'+textToWrite+'};\n'
+        if self.textSize is None:
+            line=line+'{'+textToWrite+'};\n'
+        else:
+            line=line+'{\\'+self.textSize+'{'+textToWrite+'}};\n'
         self.lineList.append(line)
     def create_polygon(self, *args, **kw):
         line='\\path[line width=0.30mm'

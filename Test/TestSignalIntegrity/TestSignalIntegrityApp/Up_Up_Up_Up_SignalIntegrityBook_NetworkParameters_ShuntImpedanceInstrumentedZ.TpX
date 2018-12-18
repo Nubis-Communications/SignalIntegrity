@@ -15,17 +15,17 @@
 %  <polyline lc="black">72,-32 72,-40</polyline>
 %  <rect x="64" y="-24" w="16" h="-32" lc="black"/>
 %  <polyline lc="black">56,-32 64,-32</polyline>
-%  <text x="58" y="-30" t="1" h="3" halign="c" lc="black"/>
+%  <text x="59" y="-31" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">56,-48 64,-48</polyline>
 %  <polyline lw="2" lc="red">55,-47 57,-49</polyline>
 %  <polyline lw="2" lc="red">57,-47 55,-49</polyline>
-%  <text x="58" y="-46" t="2" h="3" halign="c" lc="black"/>
+%  <text x="59" y="-47" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">88,-32 80,-32</polyline>
-%  <text x="86" y="-30" t="3" h="3" halign="c" lc="black"/>
+%  <text x="85" y="-31" t="3" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">88,-48 80,-48</polyline>
 %  <polyline lw="2" lc="red">87,-47 89,-49</polyline>
 %  <polyline lw="2" lc="red">89,-47 87,-49</polyline>
-%  <text x="86" y="-46" t="4" h="3" halign="c" lc="black"/>
+%  <text x="85" y="-47" t="4" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">72,-32 56,-32</polyline>
 %  <polyline lc="black">72,-32 88,-32</polyline>
 %  <polyline lc="black">56,-32 32,-32</polyline>
@@ -52,17 +52,17 @@
 \path[line width=0.30mm, draw=black] (72,-32) -- (72,-40);
 \path[line width=0.30mm, draw=black] (64,-56) rectangle +(16,32);
 \path[line width=0.30mm, draw=black] (56,-32) -- (64,-32);
-\draw[black] (58,-30) node[anchor=base]{1};
+\draw[black] (59,-31) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (56,-48) -- (64,-48);
 \path[line width=0.6mm, draw=red] (55,-47) -- (57,-49);
 \path[line width=0.6mm, draw=red] (57,-47) -- (55,-49);
-\draw[black] (58,-46) node[anchor=base]{2};
+\draw[black] (59,-47) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (88,-32) -- (80,-32);
-\draw[black] (86,-30) node[anchor=base]{3};
+\draw[black] (85,-31) node[anchor=base west]{3};
 \path[line width=0.30mm, draw=black] (88,-48) -- (80,-48);
 \path[line width=0.6mm, draw=red] (87,-47) -- (89,-49);
 \path[line width=0.6mm, draw=red] (89,-47) -- (87,-49);
-\draw[black] (86,-46) node[anchor=base]{4};
+\draw[black] (85,-47) node[anchor=base west]{4};
 \path[line width=0.30mm, draw=black] (72,-32) -- (56,-32);
 \path[line width=0.30mm, draw=black] (72,-32) -- (88,-32);
 \path[line width=0.30mm, draw=black] (56,-32) -- (32,-32);

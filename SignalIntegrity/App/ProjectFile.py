@@ -62,6 +62,7 @@ class PartPinConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('NumberVisible'))
         self.Add(XMLPropertyDefaultBool('Visible'))
         self.Add(XMLPropertyDefaultBool('NumberingMatters'))
+        self.Add(XMLPropertyDefaultString('NumberSide','n'))
 
 class PartPictureConfiguration(XMLConfiguration):
     def __init__(self):

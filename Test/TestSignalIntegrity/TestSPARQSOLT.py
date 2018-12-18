@@ -39,6 +39,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #self.forceWritePictures=True
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQSolt, 'simdict'):
             TestSPARQSolt.simdict=dict()

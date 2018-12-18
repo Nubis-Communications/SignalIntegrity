@@ -47,6 +47,7 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
     usePickle=False
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #self.forceWritePictures=True
     def tearDown(self):
         si.m.tdr.TDRWaveformToSParameterConverter.taper=True
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()

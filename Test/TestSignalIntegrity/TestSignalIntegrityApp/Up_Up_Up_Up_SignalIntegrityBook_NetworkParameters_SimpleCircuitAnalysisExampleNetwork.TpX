@@ -8,14 +8,14 @@
 %  <polyline lc="black">24,-36 24,-40</polyline>
 %  <rect x="36" y="-32" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">32,-36 36,-36</polyline>
-%  <text x="34" y="-34" t="1" h="3" halign="c" lc="black"/>
+%  <text x="35" y="-35" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">48,-36 44,-36</polyline>
-%  <text x="46" y="-34" t="2" h="3" halign="c" lc="black"/>
-%  <text x="40" y="-30" t="YS" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-35" t="2" h="3" halign="l" lc="black"/>
+%  <text x="40" y="-29" t="YS" h="3" halign="c" lc="black"/>
 %  <rect x="72" y="-32" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">68,-36 72,-36</polyline>
-%  <text x="70" y="-34" t="1" h="3" halign="c" lc="black"/>
-%  <text x="76" y="-30" t="YL" h="3" halign="c" lc="black"/>
+%  <text x="71" y="-35" t="1" h="3" halign="r" lc="black"/>
+%  <text x="76" y="-29" t="YL" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">24,-36 32,-36</polyline>
 %  <polyline lc="black">48,-36 68,-36</polyline>
 %</TpX>
@@ -30,14 +30,14 @@
 \path[line width=0.30mm, draw=black] (24,-36) -- (24,-40);
 \path[line width=0.30mm, draw=black] (36,-40) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (32,-36) -- (36,-36);
-\draw[black] (34,-34) node[anchor=base]{1};
+\draw[black] (35,-35) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (48,-36) -- (44,-36);
-\draw[black] (46,-34) node[anchor=base]{2};
-\draw[black] (40,-30) node[anchor=base]{YS};
+\draw[black] (45,-35) node[anchor=base west]{2};
+\draw[black] (40,-29) node[anchor=base]{YS};
 \path[line width=0.30mm, draw=black] (72,-40) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (68,-36) -- (72,-36);
-\draw[black] (70,-34) node[anchor=base]{1};
-\draw[black] (76,-30) node[anchor=base]{YL};
+\draw[black] (71,-35) node[anchor=base east]{1};
+\draw[black] (76,-29) node[anchor=base]{YL};
 \path[line width=0.30mm, draw=black] (24,-36) -- (32,-36);
 \path[line width=0.30mm, draw=black] (48,-36) -- (68,-36);
 \end{tikzpicture}%

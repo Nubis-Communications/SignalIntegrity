@@ -6,13 +6,13 @@
 %  <polyline lc="black">8,-24 8,-28</polyline>
 %  <polygon fill="black">5.333,-28 10.667,-28 8,-30.667 5.333,-28</polygon>
 %  <polyline lc="black">8,-12 8,-16</polyline>
-%  <text x="14" y="-20" t="Il_calc" h="3" halign="l" lc="black"/>
+%  <text x="14" y="-21" t="Il_calc" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">9,-7 7,-9</polyline>
 %  <polyline lc="black">9,-9 7,-7</polyline>
 %  <polyline lc="black">8,-12 8,-8</polyline>
 %  <polyline lw="3" lc="black">12,-8 10,-10</polyline>
 %  <polyline lc="black">10,-10 8,-12</polyline>
-%  <text x="12" y="-8" t="Il_calc" h="3" halign="l" lc="black"/>
+%  <text x="12" y="-7" t="Il_calc" h="3" halign="l" lc="black"/>
 %  <ellipse x="28" y="-20" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">27.25,-17.5 28.75,-17.5</polyline>
 %  <polyline lc="black">28,-16.75 28,-18.25</polyline>
@@ -20,13 +20,13 @@
 %  <polyline lc="black">28,-24 28,-28</polyline>
 %  <polygon fill="black">25.333,-28 30.667,-28 28,-30.667 25.333,-28</polygon>
 %  <polyline lc="black">28,-12 28,-16</polyline>
-%  <text x="34" y="-20" t="Il_meas" h="3" halign="l" lc="black"/>
+%  <text x="34" y="-21" t="Il_meas" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">29,-7 27,-9</polyline>
 %  <polyline lc="black">29,-9 27,-7</polyline>
 %  <polyline lc="black">28,-12 28,-8</polyline>
 %  <polyline lw="3" lc="black">32,-8 30,-10</polyline>
 %  <polyline lc="black">30,-10 28,-12</polyline>
-%  <text x="32" y="-8" t="Il_meas" h="3" halign="l" lc="black"/>
+%  <text x="32" y="-7" t="Il_meas" h="3" halign="l" lc="black"/>
 %  <ellipse x="8" y="-12" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="28" y="-12" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
@@ -39,13 +39,13 @@
 \path[line width=0.30mm, draw=black] (8,-24) -- (8,-28);
 \path[line width=0.30mm, fill=black] (5.333,-28) -- (10.667,-28) -- (8,-30.667) -- (5.333,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (8,-12) -- (8,-16);
-\draw[black] (14,-20) node[anchor=base west]{Il\textunderscore calc};
+\draw[black] (14,-21) node[anchor=base west]{Il\textunderscore calc};
 \path[line width=0.30mm, draw=black] (9,-7) -- (7,-9);
 \path[line width=0.30mm, draw=black] (9,-9) -- (7,-7);
 \path[line width=0.30mm, draw=black] (8,-12) -- (8,-8);
 \path[line width=0.9mm, draw=black] (12,-8) -- (10,-10);
 \path[line width=0.30mm, draw=black] (10,-10) -- (8,-12);
-\draw[black] (12,-8) node[anchor=base west]{Il\textunderscore calc};
+\draw[black] (12,-7) node[anchor=base west]{Il\textunderscore calc};
 \path[line width=0.30mm, draw=black] (28,-20) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (27.25,-17.5) -- (28.75,-17.5);
 \path[line width=0.30mm, draw=black] (28,-16.75) -- (28,-18.25);
@@ -53,13 +53,13 @@
 \path[line width=0.30mm, draw=black] (28,-24) -- (28,-28);
 \path[line width=0.30mm, fill=black] (25.333,-28) -- (30.667,-28) -- (28,-30.667) -- (25.333,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (28,-12) -- (28,-16);
-\draw[black] (34,-20) node[anchor=base west]{Il\textunderscore meas};
+\draw[black] (34,-21) node[anchor=base west]{Il\textunderscore meas};
 \path[line width=0.30mm, draw=black] (29,-7) -- (27,-9);
 \path[line width=0.30mm, draw=black] (29,-9) -- (27,-7);
 \path[line width=0.30mm, draw=black] (28,-12) -- (28,-8);
 \path[line width=0.9mm, draw=black] (32,-8) -- (30,-10);
 \path[line width=0.30mm, draw=black] (30,-10) -- (28,-12);
-\draw[black] (32,-8) node[anchor=base west]{Il\textunderscore meas};
+\draw[black] (32,-7) node[anchor=base west]{Il\textunderscore meas};
 \path[line width=0.30mm, draw=black, fill=black] (8,-12) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (28,-12) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

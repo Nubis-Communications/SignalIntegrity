@@ -6,13 +6,13 @@
 %  <polyline lc="black">32,-52 32,-56</polyline>
 %  <polygon fill="black">29.333,-56 34.667,-56 32,-58.667 29.333,-56</polygon>
 %  <polyline lc="black">32,-40 32,-44</polyline>
-%  <text x="38" y="-48" t="TestVRM_Vout.txt" h="3" halign="l" lc="black"/>
+%  <text x="38" y="-49" t="TestVRM_Vout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">33,-35 31,-37</polyline>
 %  <polyline lc="black">33,-37 31,-35</polyline>
 %  <polyline lc="black">32,-40 32,-36</polyline>
 %  <polyline lw="3" lc="black">36,-36 34,-38</polyline>
 %  <polyline lc="black">34,-38 32,-40</polyline>
-%  <text x="36" y="-36" t="VO1" h="3" halign="l" lc="black"/>
+%  <text x="36" y="-35" t="VO1" h="3" halign="l" lc="black"/>
 %  <ellipse x="84" y="-48" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">83.25,-45.5 84.75,-45.5</polyline>
 %  <polyline lc="black">84,-44.75 84,-46.25</polyline>
@@ -20,13 +20,13 @@
 %  <polyline lc="black">84,-52 84,-56</polyline>
 %  <polygon fill="black">81.333,-56 86.667,-56 84,-58.667 81.333,-56</polygon>
 %  <polyline lc="black">84,-40 84,-44</polyline>
-%  <text x="90" y="-48" t="TestVRMModel_Vout.txt" h="3" halign="l" lc="black"/>
+%  <text x="90" y="-49" t="TestVRMModel_Vout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">85,-35 83,-37</polyline>
 %  <polyline lc="black">85,-37 83,-35</polyline>
 %  <polyline lc="black">84,-40 84,-36</polyline>
 %  <polyline lw="3" lc="black">88,-36 86,-38</polyline>
 %  <polyline lc="black">86,-38 84,-40</polyline>
-%  <text x="88" y="-36" t="VO2" h="3" halign="l" lc="black"/>
+%  <text x="88" y="-35" t="VO2" h="3" halign="l" lc="black"/>
 %  <ellipse x="32" y="-84" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">31.25,-81.5 32.75,-81.5</polyline>
 %  <polyline lc="black">32,-80.75 32,-82.25</polyline>
@@ -34,13 +34,13 @@
 %  <polyline lc="black">32,-88 32,-92</polyline>
 %  <polygon fill="black">29.333,-92 34.667,-92 32,-94.667 29.333,-92</polygon>
 %  <polyline lc="black">32,-76 32,-80</polyline>
-%  <text x="38" y="-84" t="TestVRM_Iout.txt" h="3" halign="l" lc="black"/>
+%  <text x="38" y="-85" t="TestVRM_Iout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">33,-71 31,-73</polyline>
 %  <polyline lc="black">33,-73 31,-71</polyline>
 %  <polyline lc="black">32,-76 32,-72</polyline>
 %  <polyline lw="3" lc="black">36,-72 34,-74</polyline>
 %  <polyline lc="black">34,-74 32,-76</polyline>
-%  <text x="36" y="-72" t="VO3" h="3" halign="l" lc="black"/>
+%  <text x="36" y="-71" t="VO3" h="3" halign="l" lc="black"/>
 %  <ellipse x="84" y="-84" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">83.25,-81.5 84.75,-81.5</polyline>
 %  <polyline lc="black">84,-80.75 84,-82.25</polyline>
@@ -48,13 +48,13 @@
 %  <polyline lc="black">84,-88 84,-92</polyline>
 %  <polygon fill="black">81.333,-92 86.667,-92 84,-94.667 81.333,-92</polygon>
 %  <polyline lc="black">84,-76 84,-80</polyline>
-%  <text x="90" y="-84" t="TestVRMModel_Iout.txt" h="3" halign="l" lc="black"/>
+%  <text x="90" y="-85" t="TestVRMModel_Iout.txt" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">85,-71 83,-73</polyline>
 %  <polyline lc="black">85,-73 83,-71</polyline>
 %  <polyline lc="black">84,-76 84,-72</polyline>
 %  <polyline lw="3" lc="black">88,-72 86,-74</polyline>
 %  <polyline lc="black">86,-74 84,-76</polyline>
-%  <text x="88" y="-72" t="VO4" h="3" halign="l" lc="black"/>
+%  <text x="88" y="-71" t="VO4" h="3" halign="l" lc="black"/>
 %  <ellipse x="32" y="-76" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="84" y="-40" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="32" y="-40" dx="1" dy="-1" lc="black" fill="black"/>
@@ -69,13 +69,13 @@
 \path[line width=0.30mm, draw=black] (32,-52) -- (32,-56);
 \path[line width=0.30mm, fill=black] (29.333,-56) -- (34.667,-56) -- (32,-58.667) -- (29.333,-56) -- cycle;
 \path[line width=0.30mm, draw=black] (32,-40) -- (32,-44);
-\draw[black] (38,-48) node[anchor=base west]{TestVRM\textunderscore Vout.txt};
+\draw[black] (38,-49) node[anchor=base west]{TestVRM\textunderscore Vout.txt};
 \path[line width=0.30mm, draw=black] (33,-35) -- (31,-37);
 \path[line width=0.30mm, draw=black] (33,-37) -- (31,-35);
 \path[line width=0.30mm, draw=black] (32,-40) -- (32,-36);
 \path[line width=0.9mm, draw=black] (36,-36) -- (34,-38);
 \path[line width=0.30mm, draw=black] (34,-38) -- (32,-40);
-\draw[black] (36,-36) node[anchor=base west]{VO1};
+\draw[black] (36,-35) node[anchor=base west]{VO1};
 \path[line width=0.30mm, draw=black] (84,-48) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (83.25,-45.5) -- (84.75,-45.5);
 \path[line width=0.30mm, draw=black] (84,-44.75) -- (84,-46.25);
@@ -83,13 +83,13 @@
 \path[line width=0.30mm, draw=black] (84,-52) -- (84,-56);
 \path[line width=0.30mm, fill=black] (81.333,-56) -- (86.667,-56) -- (84,-58.667) -- (81.333,-56) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-40) -- (84,-44);
-\draw[black] (90,-48) node[anchor=base west]{TestVRMModel\textunderscore Vout.txt};
+\draw[black] (90,-49) node[anchor=base west]{TestVRMModel\textunderscore Vout.txt};
 \path[line width=0.30mm, draw=black] (85,-35) -- (83,-37);
 \path[line width=0.30mm, draw=black] (85,-37) -- (83,-35);
 \path[line width=0.30mm, draw=black] (84,-40) -- (84,-36);
 \path[line width=0.9mm, draw=black] (88,-36) -- (86,-38);
 \path[line width=0.30mm, draw=black] (86,-38) -- (84,-40);
-\draw[black] (88,-36) node[anchor=base west]{VO2};
+\draw[black] (88,-35) node[anchor=base west]{VO2};
 \path[line width=0.30mm, draw=black] (32,-84) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (31.25,-81.5) -- (32.75,-81.5);
 \path[line width=0.30mm, draw=black] (32,-80.75) -- (32,-82.25);
@@ -97,13 +97,13 @@
 \path[line width=0.30mm, draw=black] (32,-88) -- (32,-92);
 \path[line width=0.30mm, fill=black] (29.333,-92) -- (34.667,-92) -- (32,-94.667) -- (29.333,-92) -- cycle;
 \path[line width=0.30mm, draw=black] (32,-76) -- (32,-80);
-\draw[black] (38,-84) node[anchor=base west]{TestVRM\textunderscore Iout.txt};
+\draw[black] (38,-85) node[anchor=base west]{TestVRM\textunderscore Iout.txt};
 \path[line width=0.30mm, draw=black] (33,-71) -- (31,-73);
 \path[line width=0.30mm, draw=black] (33,-73) -- (31,-71);
 \path[line width=0.30mm, draw=black] (32,-76) -- (32,-72);
 \path[line width=0.9mm, draw=black] (36,-72) -- (34,-74);
 \path[line width=0.30mm, draw=black] (34,-74) -- (32,-76);
-\draw[black] (36,-72) node[anchor=base west]{VO3};
+\draw[black] (36,-71) node[anchor=base west]{VO3};
 \path[line width=0.30mm, draw=black] (84,-84) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (83.25,-81.5) -- (84.75,-81.5);
 \path[line width=0.30mm, draw=black] (84,-80.75) -- (84,-82.25);
@@ -111,13 +111,13 @@
 \path[line width=0.30mm, draw=black] (84,-88) -- (84,-92);
 \path[line width=0.30mm, fill=black] (81.333,-92) -- (86.667,-92) -- (84,-94.667) -- (81.333,-92) -- cycle;
 \path[line width=0.30mm, draw=black] (84,-76) -- (84,-80);
-\draw[black] (90,-84) node[anchor=base west]{TestVRMModel\textunderscore Iout.txt};
+\draw[black] (90,-85) node[anchor=base west]{TestVRMModel\textunderscore Iout.txt};
 \path[line width=0.30mm, draw=black] (85,-71) -- (83,-73);
 \path[line width=0.30mm, draw=black] (85,-73) -- (83,-71);
 \path[line width=0.30mm, draw=black] (84,-76) -- (84,-72);
 \path[line width=0.9mm, draw=black] (88,-72) -- (86,-74);
 \path[line width=0.30mm, draw=black] (86,-74) -- (84,-76);
-\draw[black] (88,-72) node[anchor=base west]{VO4};
+\draw[black] (88,-71) node[anchor=base west]{VO4};
 \path[line width=0.30mm, draw=black, fill=black] (32,-76) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (84,-40) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (32,-40) ellipse (0.5mm and -0.5mm);

@@ -33,6 +33,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         si.test.SourcesTesterHelper.__init__(self)
         si.test.RoutineWriterTesterHelper.__init__(self)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        #self.forceWritePictures=True
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):

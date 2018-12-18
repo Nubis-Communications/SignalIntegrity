@@ -24,7 +24,7 @@ import SignalIntegrity.App.Project
 # pinOrientation is 't','b','l','r'
 # coordinates are relative to part
 class PartPin(PartPinConfiguration):
-    def __init__(self,pinNumber,pinConnectPoint,pinOrientation,pinNumberVisible=True,pinVisible=True, pinNumberingMatters=True):
+    def __init__(self,pinNumber,pinConnectPoint,pinOrientation,pinNumberVisible=True,pinVisible=True, pinNumberingMatters=True, numberSide='n'):
         PartPinConfiguration.__init__(self)
         self['Number']=pinNumber
         self['ConnectionPoint']=str(pinConnectPoint)
@@ -32,6 +32,7 @@ class PartPin(PartPinConfiguration):
         self['NumberVisible']=pinNumberVisible
         self['Visible']=pinVisible
         self['NumberingMatters']=pinNumberingMatters
+        self['NumberSide']=numberSide
     def DrawPin(self,canvas,grid,partOrigin,color,connected):
         pinConnectionPoint=self['ConnectionPoint']
         startx=(pinConnectionPoint[0]+partOrigin[0])*grid
@@ -40,30 +41,47 @@ class PartPin(PartPinConfiguration):
         endy=starty
         textGrid=16
         pinOrientation=self['Orientation']
+        numberSide=self['NumberSide']
         if pinOrientation == 't':
+            anchorString='s'
             endy=endy+grid
-            textx=startx+textGrid/2
-            texty=starty+textGrid/2
+            texty=starty+textGrid
+            if numberSide in ['n','br','tl','rt','lb']:
+                textx=startx+textGrid/2
+            else:
+                textx=startx-textGrid/2
         elif pinOrientation == 'b':
+            anchorString='n'
             endy=endy-grid
-            textx=startx+textGrid/2
-            texty=starty-textGrid/2
+            texty=starty-textGrid
+            if numberSide in ['n','bl','tr','rb','lt']:
+                textx=startx+textGrid/2
+            else:
+                textx=startx-textGrid/2
         elif pinOrientation == 'l':
+            anchorString='e'
             endx=endx+grid
-            textx=startx+textGrid/2
-            texty=starty-textGrid/2
+            textx=startx+textGrid*3/4
+            if numberSide in ['n','tl','br','rt','lb']:
+                texty=starty-textGrid/2
+            else:
+                texty=starty+textGrid/2
         elif pinOrientation =='r':
+            anchorString='w'
             endx=endx-grid
-            textx=startx-textGrid/2
-            texty=starty-textGrid/2
+            textx=startx-textGrid*3/4
+            if numberSide in ['n','tr','bl','rb','lt']:
+                texty=starty-textGrid/2
+            else:
+                texty=starty+textGrid/2
         if self['Visible']:
             canvas.create_line(startx,starty,endx,endy,fill=color)
-        if not connected:
+        if not connected and not SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']:
             size=max(1,grid/8)
             canvas.create_line(startx-size,starty-size,startx+size,starty+size,fill='red',width=2)
             canvas.create_line(startx+size,starty-size,startx-size,starty+size,fill='red',width=2)
         # comment this in for editing book
         #if self.pinNumberingMatters:
         #    self.pinNumberVisible=True
-        if self['NumberVisible'] or SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']:
-            canvas.create_text(textx,texty,text=str(self['Number']),fill=color)
+        if self['NumberVisible'] or (self['NumberingMatters'] and SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']):
+            canvas.create_text(textx,texty,text=str(self['Number']),anchor=anchorString,fill=color)

@@ -7,7 +7,7 @@
 %  <polyline lc="black">16,-16 16,-20</polyline>
 %  <polyline lc="black">24,-32 24,-28</polyline>
 %  <polyline lc="black">24,-16 24,-20</polyline>
-%  <text x="30" y="-24" t="a" h="3" halign="l" lc="black"/>
+%  <text x="30" y="-25" t="a" h="3" halign="l" lc="black"/>
 %  <polygon lc="black">48,-20 51,-24 48,-28 45,-24 48,-20</polygon>
 %  <polyline lc="black">39.25,-21.5 40.75,-21.5</polyline>
 %  <polyline lc="black">40,-20.75 40,-22.25</polyline>
@@ -20,24 +20,24 @@
 %  <polyline lc="black">40,-16 40,-20</polyline>
 %  <polyline lc="black">48,-32 48,-28</polyline>
 %  <polyline lc="black">48,-16 48,-20</polyline>
-%  <text x="54" y="-24" t="a" h="3" halign="l" lc="black"/>
+%  <text x="54" y="-25" t="a" h="3" halign="l" lc="black"/>
 %  <rect x="28" y="-44" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">24,-48 28,-48</polyline>
 %  <polyline lw="2" lc="red">23.5,-47.5 24.5,-48.5</polyline>
 %  <polyline lw="2" lc="red">24.5,-47.5 23.5,-48.5</polyline>
-%  <text x="26" y="-46" t="1" h="3" halign="c" lc="black"/>
+%  <text x="27" y="-47" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">24,-56 28,-56</polyline>
 %  <polyline lw="2" lc="red">23.5,-55.5 24.5,-56.5</polyline>
 %  <polyline lw="2" lc="red">24.5,-55.5 23.5,-56.5</polyline>
-%  <text x="26" y="-54" t="2" h="3" halign="c" lc="black"/>
+%  <text x="27" y="-55" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">40,-48 36,-48</polyline>
 %  <polyline lw="2" lc="red">39.5,-47.5 40.5,-48.5</polyline>
 %  <polyline lw="2" lc="red">40.5,-47.5 39.5,-48.5</polyline>
-%  <text x="38" y="-46" t="3" h="3" halign="c" lc="black"/>
+%  <text x="37" y="-47" t="3" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">40,-56 36,-56</polyline>
 %  <polyline lw="2" lc="red">39.5,-55.5 40.5,-56.5</polyline>
 %  <polyline lw="2" lc="red">40.5,-55.5 39.5,-56.5</polyline>
-%  <text x="38" y="-54" t="4" h="3" halign="c" lc="black"/>
+%  <text x="37" y="-55" t="4" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">64,-16 56,-16</polyline>
 %  <polyline lc="black">56,-16 56,-36</polyline>
 %  <polyline lc="black">56,-36 16,-36</polyline>
@@ -71,7 +71,7 @@
 \path[line width=0.30mm, draw=black] (16,-16) -- (16,-20);
 \path[line width=0.30mm, draw=black] (24,-32) -- (24,-28);
 \path[line width=0.30mm, draw=black] (24,-16) -- (24,-20);
-\draw[black] (30,-24) node[anchor=base west]{a};
+\draw[black] (30,-25) node[anchor=base west]{a};
 \path[line width=0.30mm, draw=black] (48,-20) -- (51,-24) -- (48,-28) -- (45,-24) -- (48,-20) -- cycle;
 \path[line width=0.30mm, draw=black] (39.25,-21.5) -- (40.75,-21.5);
 \path[line width=0.30mm, draw=black] (40,-20.75) -- (40,-22.25);
@@ -84,24 +84,24 @@
 \path[line width=0.30mm, draw=black] (40,-16) -- (40,-20);
 \path[line width=0.30mm, draw=black] (48,-32) -- (48,-28);
 \path[line width=0.30mm, draw=black] (48,-16) -- (48,-20);
-\draw[black] (54,-24) node[anchor=base west]{a};
+\draw[black] (54,-25) node[anchor=base west]{a};
 \path[line width=0.30mm, draw=black] (28,-60) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (24,-48) -- (28,-48);
 \path[line width=0.6mm, draw=red] (23.5,-47.5) -- (24.5,-48.5);
 \path[line width=0.6mm, draw=red] (24.5,-47.5) -- (23.5,-48.5);
-\draw[black] (26,-46) node[anchor=base]{1};
+\draw[black] (27,-47) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (24,-56) -- (28,-56);
 \path[line width=0.6mm, draw=red] (23.5,-55.5) -- (24.5,-56.5);
 \path[line width=0.6mm, draw=red] (24.5,-55.5) -- (23.5,-56.5);
-\draw[black] (26,-54) node[anchor=base]{2};
+\draw[black] (27,-55) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (40,-48) -- (36,-48);
 \path[line width=0.6mm, draw=red] (39.5,-47.5) -- (40.5,-48.5);
 \path[line width=0.6mm, draw=red] (40.5,-47.5) -- (39.5,-48.5);
-\draw[black] (38,-46) node[anchor=base]{3};
+\draw[black] (37,-47) node[anchor=base west]{3};
 \path[line width=0.30mm, draw=black] (40,-56) -- (36,-56);
 \path[line width=0.6mm, draw=red] (39.5,-55.5) -- (40.5,-56.5);
 \path[line width=0.6mm, draw=red] (40.5,-55.5) -- (39.5,-56.5);
-\draw[black] (38,-54) node[anchor=base]{4};
+\draw[black] (37,-55) node[anchor=base west]{4};
 \path[line width=0.30mm, draw=black] (64,-16) -- (56,-16);
 \path[line width=0.30mm, draw=black] (56,-16) -- (56,-36);
 \path[line width=0.30mm, draw=black] (56,-36) -- (16,-36);

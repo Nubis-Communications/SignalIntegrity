@@ -9,12 +9,12 @@
 %  <polyline lc="black">36,-32 37,-30 38,-34 39,-30 40,-34 41,-30 42,-34 43,-30 44,-32</polyline>
 %  <polyline lc="black">32,-32 36,-32</polyline>
 %  <polyline lc="black">48,-32 44,-32</polyline>
-%  <text x="40" y="-28" t="Rs" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-27" t="Rs" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">56,-40 58,-41 54,-42 58,-43 54,-44 58,-45 54,-46 58,-47 56,-48</polyline>
 %  <polyline lc="black">56,-48 56,-52</polyline>
 %  <polygon fill="black">58.667,-52 53.333,-52 56,-54.667 58.667,-52</polygon>
 %  <polyline lc="black">56,-36 56,-40</polyline>
-%  <text x="52" y="-46" t="Rl" h="3" halign="r" lc="black"/>
+%  <text x="52" y="-47" t="Rl" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">24,-36 24,-32</polyline>
 %  <polyline lc="black">24,-32 32,-32</polyline>
 %  <polyline lc="black">48,-32 56,-32</polyline>
@@ -32,12 +32,12 @@
 \path[line width=0.30mm, draw=black] (36,-32) -- (37,-30) -- (38,-34) -- (39,-30) -- (40,-34) -- (41,-30) -- (42,-34) -- (43,-30) -- (44,-32);
 \path[line width=0.30mm, draw=black] (32,-32) -- (36,-32);
 \path[line width=0.30mm, draw=black] (48,-32) -- (44,-32);
-\draw[black] (40,-28) node[anchor=base]{Rs};
+\draw[black] (40,-27) node[anchor=base]{Rs};
 \path[line width=0.30mm, draw=black] (56,-40) -- (58,-41) -- (54,-42) -- (58,-43) -- (54,-44) -- (58,-45) -- (54,-46) -- (58,-47) -- (56,-48);
 \path[line width=0.30mm, draw=black] (56,-48) -- (56,-52);
 \path[line width=0.30mm, fill=black] (58.667,-52) -- (53.333,-52) -- (56,-54.667) -- (58.667,-52) -- cycle;
 \path[line width=0.30mm, draw=black] (56,-36) -- (56,-40);
-\draw[black] (52,-46) node[anchor=base east]{Rl};
+\draw[black] (52,-47) node[anchor=base east]{Rl};
 \path[line width=0.30mm, draw=black] (24,-36) -- (24,-32);
 \path[line width=0.30mm, draw=black] (24,-32) -- (32,-32);
 \path[line width=0.30mm, draw=black] (48,-32) -- (56,-32);

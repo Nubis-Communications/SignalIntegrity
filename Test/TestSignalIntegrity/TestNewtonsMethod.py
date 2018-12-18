@@ -183,8 +183,8 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
         # pragma: silent exclude
         import matplotlib.pyplot as plt
         plt.cla()
-        plt.plot(f,[20*math.log10(y) for y in mS21],label='$\\left|S_{21}\\right|$',color='black')
-        plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='gray')
+        plt.plot(f,[20*math.log10(y) for y in mS21],label='$\\left|S_{21}\\right|$',color='gray')
+        plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='black')
         plt.legend(loc='upper right',labelspacing=0.1)
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')
@@ -213,8 +213,8 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
         # pragma: silent exclude
         import matplotlib.pyplot as plt
         plt.cla()
-        plt.plot(f,[20*math.log10(y) for y in mS21],label='$\\left|S_{21}\\right|$',color='black')
-        plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='gray')
+        plt.plot(f,[20*math.log10(y) for y in mS21],label='$\\left|S_{21}\\right|$',color='gray')
+        plt.plot(f,[20*math.log10(y[0]) for y in yf],label='fitted',color='black')
         plt.legend(loc='upper right',labelspacing=0.1)
         plt.xlabel('frequency (GHz)')
         plt.ylabel('magnitude (dB)')

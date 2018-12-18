@@ -7,12 +7,12 @@
 %  <polyline lc="black">24,-36 24,-40</polyline>
 %  <polygon fill="black">21.333,-40 26.667,-40 24,-42.667 21.333,-40</polygon>
 %  <polyline lc="black">24,-24 24,-28</polyline>
-%  <text x="30" y="-34.5" t="0 s" h="3" halign="l" lc="black"/>
-%  <text x="30" y="-32" t="1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="30" y="-36" t="0 s" h="3" halign="l" lc="black"/>
+%  <text x="30" y="-33" t="1.0 V" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">32,-20 33,-18 34,-22 35,-18 36,-22 37,-18 38,-22 39,-18 40,-20</polyline>
 %  <polyline lc="black">28,-20 32,-20</polyline>
 %  <polyline lc="black">44,-20 40,-20</polyline>
-%  <text x="36" y="-16" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-15" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">48,-28 48,-31</polyline>
 %  <polyline lc="black">45.333,-31 50.667,-31</polyline>
 %  <polyline lc="black">45.333,-33 50.667,-33</polyline>
@@ -20,13 +20,13 @@
 %  <polyline lc="black">48,-36 48,-40</polyline>
 %  <polygon fill="black">45.333,-40 50.667,-40 48,-42.667 45.333,-40</polygon>
 %  <polyline lc="black">48,-24 48,-28</polyline>
-%  <text x="52" y="-34" t="100.0 pF" h="3" halign="l" lc="black"/>
+%  <text x="52" y="-35" t="100.0 pF" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">20,-16 22,-18</polyline>
 %  <polyline lc="black">22,-18 24,-20</polyline>
-%  <text x="20" y="-16" t="Vin" h="3" halign="r" lc="black"/>
+%  <text x="20" y="-15" t="Vin" h="3" halign="r" lc="black"/>
 %  <polyline lw="3" lc="black">52,-16 50,-18</polyline>
 %  <polyline lc="black">50,-18 48,-20</polyline>
-%  <text x="52" y="-16" t="Vout" h="3" halign="l" lc="black"/>
+%  <text x="52" y="-15" t="Vout" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">24,-24 24,-20</polyline>
 %  <polyline lc="black">44,-20 48,-20</polyline>
 %  <polyline lc="black">24,-20 28,-20</polyline>
@@ -44,12 +44,12 @@
 \path[line width=0.30mm, draw=black] (24,-36) -- (24,-40);
 \path[line width=0.30mm, fill=black] (21.333,-40) -- (26.667,-40) -- (24,-42.667) -- (21.333,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (24,-24) -- (24,-28);
-\draw[black] (30,-34.5) node[anchor=base west]{0 s};
-\draw[black] (30,-32) node[anchor=base west]{1.0 V};
+\draw[black] (30,-36) node[anchor=base west]{0 s};
+\draw[black] (30,-33) node[anchor=base west]{1.0 V};
 \path[line width=0.30mm, draw=black] (32,-20) -- (33,-18) -- (34,-22) -- (35,-18) -- (36,-22) -- (37,-18) -- (38,-22) -- (39,-18) -- (40,-20);
 \path[line width=0.30mm, draw=black] (28,-20) -- (32,-20);
 \path[line width=0.30mm, draw=black] (44,-20) -- (40,-20);
-\draw[black] (36,-16) node[anchor=base]{50.0 Ohm};
+\draw[black] (36,-15) node[anchor=base]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (48,-28) -- (48,-31);
 \path[line width=0.30mm, draw=black] (45.333,-31) -- (50.667,-31);
 \path[line width=0.30mm, draw=black] (45.333,-33) -- (50.667,-33);
@@ -57,13 +57,13 @@
 \path[line width=0.30mm, draw=black] (48,-36) -- (48,-40);
 \path[line width=0.30mm, fill=black] (45.333,-40) -- (50.667,-40) -- (48,-42.667) -- (45.333,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (48,-24) -- (48,-28);
-\draw[black] (52,-34) node[anchor=base west]{100.0 pF};
+\draw[black] (52,-35) node[anchor=base west]{100.0 pF};
 \path[line width=0.9mm, draw=black] (20,-16) -- (22,-18);
 \path[line width=0.30mm, draw=black] (22,-18) -- (24,-20);
-\draw[black] (20,-16) node[anchor=base east]{Vin};
+\draw[black] (20,-15) node[anchor=base east]{Vin};
 \path[line width=0.9mm, draw=black] (52,-16) -- (50,-18);
 \path[line width=0.30mm, draw=black] (50,-18) -- (48,-20);
-\draw[black] (52,-16) node[anchor=base west]{Vout};
+\draw[black] (52,-15) node[anchor=base west]{Vout};
 \path[line width=0.30mm, draw=black] (24,-24) -- (24,-20);
 \path[line width=0.30mm, draw=black] (44,-20) -- (48,-20);
 \path[line width=0.30mm, draw=black] (24,-20) -- (28,-20);
