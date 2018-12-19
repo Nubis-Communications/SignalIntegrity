@@ -20,7 +20,7 @@ import sys
 if sys.version_info.major < 3:
     from Tkinter import Toplevel,Frame,Button
     from Tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
-    from ScrolledText import ScrolledText
+    import ScrolledText as scrolledtext
 else:
     from tkinter import Toplevel,Frame,Button
     from tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
@@ -236,10 +236,7 @@ class NetListFrame(Frame):
     def __init__(self,parent,textToShow):
         Frame.__init__(self,parent)
         self.title = 'NetList'
-        if sys.version_info.major < 3:
-            self.text=ScrolledText(self)
-        else:
-            self.text=scrolledtext.ScrolledText(self)
+        self.text=scrolledtext.ScrolledText(self)
         self.text.pack(side=TOP, fill=BOTH, expand=YES)
         for line in textToShow:
             self.text.insert(END,line+'\n')

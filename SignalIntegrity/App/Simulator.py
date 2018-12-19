@@ -21,7 +21,7 @@ import sys
 if sys.version_info.major < 3:
     from Tkinter import Toplevel,Frame,PhotoImage,Menu,Button
     from Tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
-    import tkMessageBox
+    import tkMessageBox as messagebox
 else:
     from tkinter import Toplevel,Frame,PhotoImage,Menu,Button
     from tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
@@ -234,16 +234,10 @@ class SimulatorDialog(Toplevel):
         try:
             PlotTikZ(filename,self.f)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
     def onHelp(self):
         if Doer.helpKeys is None:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Help System','Cannot find or open this help element')
-            else:
-                messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')            
             return
         Doer.helpKeys.Open('sec:Simulator-Dialog')
 
@@ -289,10 +283,7 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         #self.transferMatrices.SParameters().WriteToFile('xfer.sXp')
@@ -303,10 +294,7 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.SourceNames()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         diresp=si.fd.Differentiator(fd).Response()
@@ -325,10 +313,7 @@ class Simulator(object):
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         for r in range(len(outputWaveformList)):
@@ -377,10 +362,7 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
@@ -390,20 +372,14 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.outputWaveformLabels=netList.OutputNames()

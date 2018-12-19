@@ -24,7 +24,7 @@ if sys.version_info.major < 3:
 else:
     from tkinter import Frame,Entry,Label,StringVar,Toplevel,PhotoImage,BooleanVar,Menu,Button
     from tkinter import TOP,X,YES,LEFT,NO,SUNKEN,RAISED,NONE,BOTH
-    from tkinter import messagebox
+    import tkMessageBox as messagebox
 
 import matplotlib
 import math
@@ -568,10 +568,7 @@ class SParametersDialog(Toplevel):
         try:
             PlotTikZ(filename,self.topLeftFigure)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('Magnitude.tex', ''))
         filename=fp.filename
 
@@ -585,10 +582,7 @@ class SParametersDialog(Toplevel):
         try:
             PlotTikZ(filename,self.topRightFigure)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('Phase.tex', ''))
         filename=fp.filename
 
@@ -602,10 +596,7 @@ class SParametersDialog(Toplevel):
         try:
             PlotTikZ(filename,self.bottomLeftFigure)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('ImpulseResponse.tex', ''))
         filename=fp.filename
 
@@ -619,17 +610,11 @@ class SParametersDialog(Toplevel):
         try:
             PlotTikZ(filename,self.bottomRightFigure)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onHelp(self):
         if Doer.helpKeys is None:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Help System','Cannot find or open this help element')
-            else:
-                messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')            
             return
         Doer.helpKeys.Open('sec:S-parameter-Viewer')
 

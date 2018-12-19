@@ -20,7 +20,7 @@ import sys
 if sys.version_info.major < 3:
     from Tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
     from Tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
-    import tkMessageBox
+    import tkMessageBox as messagebox
 else:
     from tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
     from tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
@@ -123,11 +123,7 @@ class DeviceProperty(Frame):
                 try:
                     sp=si.sp.SParameterFile(filename)
                 except si.SignalIntegrityException as e:
-                    if sys.version_info.major < 3:
-                        tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                    else:
-                        messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                    return
+                    messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                     return
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
                 spd.grab_set()
@@ -138,10 +134,7 @@ class DeviceProperty(Frame):
                 try:
                     wf=self.parent.device.Waveform()
                 except si.SignalIntegrityException as e:
-                    if sys.version_info.major < 3:
-                        tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-                    else:
-                        messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+                    messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
                     return
                 sd=SimulatorDialog(self.parent.parent)
                 sd.title(filenametoshow)
@@ -312,10 +305,7 @@ class DeviceProperties(Frame):
         try:
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
         fileParts=copy.copy(self.parent.parent.fileparts)
         fileParts.filename=fileParts.filename+'_'+referenceDesignator
@@ -330,10 +320,7 @@ class DeviceProperties(Frame):
         try:
             wf=device.Waveform()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+            messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
             return
         sim=self.parent.parent.simulator
         sd=sim.SimulatorDialog()

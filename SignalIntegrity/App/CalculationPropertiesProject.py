@@ -21,7 +21,7 @@ import sys
 if sys.version_info.major < 3:
     from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
     from Tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
-    from tkColorChooser import askcolor
+    import tkColorChooser as colorchooser
 else:
     from tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
     from tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
@@ -256,10 +256,7 @@ class CalculationPropertyColor(Frame):
     def GetString(self):
         return self.string.get()
     def onPressed(self,event=None):
-        if sys.version_info.major < 3:
-            color = askcolor()[1]
-        else:
-            color = colorchooser.askcolor()[1]
+        color = colorchooser.askcolor()[1]
         if not color is None:
             self.SetString(color)
             if not ((self.project is None) or (self.projectPath is None)):

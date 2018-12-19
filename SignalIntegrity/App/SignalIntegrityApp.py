@@ -20,9 +20,8 @@ import sys
 if sys.version_info.major < 3:
     from Tkinter import Frame,PhotoImage,Menu,Button,Tk
     from Tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
-    import tkFont
-    import tkMessageBox
-    from tkMessageBox import askyesnocancel
+    import tkFont as font
+    import tkMessageBox as messagebox
 else:
     from tkinter import Frame,PhotoImage,Menu,Button,Tk
     from tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
@@ -533,10 +532,7 @@ class SignalIntegrityApp(Frame):
             tpx.lineList=tpx.lineList+tikz.lineList
             tpx.WriteToFile(filename)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onAddPart(self):
         self.onAddPartFromSpecificList(DeviceList+DeviceListUnknown+DeviceListSystem)
@@ -685,10 +681,7 @@ class SignalIntegrityApp(Frame):
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
             return
         SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
@@ -730,10 +723,7 @@ class SignalIntegrityApp(Frame):
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Deembedder',e.parameter+': '+e.message)
+            messagebox.showerror('Deembedder',e.parameter+': '+e.message)
             return
         unknownNames=dnp.m_sd.UnknownNames()
         if len(unknownNames)==1:
@@ -768,10 +758,7 @@ class SignalIntegrityApp(Frame):
 
     def onHelp(self):
         if Doer.helpKeys is None:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Help System','Cannot find or open this help element')
-            else:
-                messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')            
             return
         Doer.helpKeys.Open('sec:Introduction')
 
@@ -854,10 +841,7 @@ class SignalIntegrityApp(Frame):
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
-            if sys.version_info.major < 3:
-                default_font = tkFont.nametofont("TkDefaultFont")
-            else:
-                default_font = font.nametofont("TkDefaultFont")
+            default_font = font.nametofont("TkDefaultFont")
             try:
                 default_font.configure(size=fontSizeDesired)
                 self.root.option_add("*Font", default_font)
@@ -914,10 +898,7 @@ class SignalIntegrityApp(Frame):
         if not SignalIntegrity.App.Preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
-        if sys.version_info.major < 3:
-            doit =  askyesnocancel('Wait....','Do you want to save the current project first?')
-        else:
-            doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
+        doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
 
         if doit is None:
             return False
