@@ -78,7 +78,7 @@ class SignalIntegrityApp(tk.Frame):
 
         self.root.title(__project__+' - '+__version__)
 
-        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif)
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
         Doer.helpKeys = HelpSystemKeys(SignalIntegrity.App.Preferences['OnlineHelp.RebuildHelpKeys'])
