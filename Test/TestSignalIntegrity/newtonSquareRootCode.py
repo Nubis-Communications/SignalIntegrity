@@ -11,5 +11,5 @@ def newtonSquareRoot(Y):
     si=int(math.floor(y*32))-16
     x=seed[si]
     for _ in range(3): x=(x+y/x)/2.0
-    x=x*pow(2.0,E/2)*(1.4142135623730951 if not Eeven else 1.0)
+    x=x*pow(2.0,E//2)*(1.4142135623730951 if not Eeven else 1.0)
     return x
