@@ -16,6 +16,7 @@ DeviceProperties.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+import os
 import sys
 if sys.version_info.major < 3:
     import Tkinter as tk
@@ -99,7 +100,7 @@ class DeviceProperty(tk.Frame):
             initialDirectory=currentFileParts.AbsoluteFilePath()
             initialFile=currentFileParts.filename+extension
         filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,extension)],
+                                 filetypes=[(filetypename,extension),('project','.si')],
                                  initialdir=initialDirectory,
                                  initialfile=initialFile)
         if filename is None:
@@ -108,7 +109,7 @@ class DeviceProperty(tk.Frame):
             filename=''
         filename=str(filename)
         if filename != '':
-            filename=FileParts(filename).FullFilePathExtension(extension)
+            filename=FileParts(filename).FullFilePathExtension()
             self.propertyString.set(filename)
             self.partProperty.SetValueFromString(self.propertyString.get())
             self.callBack()
@@ -118,13 +119,25 @@ class DeviceProperty(tk.Frame):
         if filename != '':
             import SignalIntegrity.Lib as si
             if self.partProperty['PropertyName'] == 'filename':
-                try:
-                    sp=si.sp.SParameterFile(filename)
-                except si.SignalIntegrityException as e:
-                    messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                    return
-                spd=SParametersDialog(self.parent.parent.parent,sp,filename)
-                spd.grab_set()
+                if FileParts(filename).fileext == '.si':
+                    result=os.system('SignalIntegrity '+filename)
+                    if result != 0:
+                        if sys.version_info.major < 3:
+                            tkMessageBox.showerror('ProjectFile','could not be opened')
+                        else:
+                            messagebox.showerror('ProjectFile','could not be opened')
+                        return
+                else:
+                    try:
+                        sp=si.sp.SParameterFile(filename)
+                    except si.SignalIntegrityException as e:
+                        if sys.version_info.major < 3:
+                            tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+                        else:
+                            messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+                        return
+                    spd=SParametersDialog(self.parent.parent.parent,sp,filename)
+                    spd.grab_set()
             elif self.partProperty['PropertyName'] == 'waveformfilename':
                 filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
                 if filenametoshow is None:

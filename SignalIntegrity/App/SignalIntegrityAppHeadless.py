@@ -28,17 +28,18 @@ from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
+from SignalIntegrity.App.TikZ import TikZ
+
 import SignalIntegrity.App.Project
 
 class DrawingHeadless(object):
     def __init__(self,parent):
         self.parent=parent
-        self.canvas = None
+        self.canvas = TikZ()
         self.schematic = Schematic()
     def DrawSchematic(self,canvas=None):
         if canvas==None:
             canvas=self.canvas
-            canvas.delete(tk.ALL)
         if SignalIntegrity.App.Project is None:
             return
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
@@ -46,17 +47,48 @@ class DrawingHeadless(object):
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
+        foundAPort=False
+        foundASource=False
+        foundAnOutput=False
+        foundSomething=False
+        foundAMeasure=False
+        foundAStim=False
+        foundAnUnknown=False
+        foundASystem=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
+            foundSomething=True
             devicePinsConnected=devicePinConnectedList[deviceIndex]
             device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)
+            deviceType = device['partname'].GetValue()
+            if  deviceType == 'Port':
+                foundAPort = True
+            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                foundAnOutput = True
+            elif deviceType == 'Stim':
+                foundAStim = True
+            elif deviceType == 'Measure':
+                foundAMeasure = True
+            elif deviceType == 'System':
+                foundASystem = True
+            elif deviceType == 'Unknown':
+                foundAnUnknown = True
+            elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+                foundASource = True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
+            foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
         for dot in self.schematic.DotList():
             size=grid/8
             canvas.create_oval((dot[0]+originx)*grid-size,(dot[1]+originy)*grid-size,
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
+        self.foundSomething=foundSomething
+        self.canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
+        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
+        self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
+        self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
+        self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed
         return canvas
     def InitFromXml(self,drawingElement):
         self.schematic = Schematic()
@@ -291,3 +323,27 @@ class SignalIntegrityAppHeadless(object):
             if self.fileparts.filename != '':
                 filename.append(self.fileparts.filename+'_'+filename)
         return (unknownNames,sp,filename)
+
+def ProjectSParameters(filename):
+    import copy
+    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    sp=None
+    try:
+        app=SignalIntegrityAppHeadless()
+        if app.OpenProjectFile(os.path.realpath(filename)):
+            app.Drawing.DrawSchematic()
+            if app.Drawing.canCalculateSParameters:
+                result=app.CalculateSParameters()
+                if result is None:
+                    return None
+                sp=result[0]
+            elif app.Drawing.canDeembed:
+                result=app.Deembed()
+                if result is None:
+                    return None
+                sp=result[1][0]
+    except:
+        pass
+    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    return sp
+
