@@ -16,9 +16,6 @@ SignalIntegrityAppHeadless.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-
-import xml.etree.ElementTree as et
-
 import sys
 if sys.version_info.major < 3:
     import Tkinter as tk
@@ -80,7 +77,6 @@ class DrawingHeadless(object):
         self.schematic.InitFromProject()
 
 class SignalIntegrityAppHeadless(object):
-    switchxmltosi=False
     def __init__(self):
         # make absolutely sure the directory of this file is the first in the
         # python path
@@ -105,23 +101,8 @@ class SignalIntegrityAppHeadless(object):
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
-
-            if self.switchxmltosi:
-                if self.fileparts.fileext == '.xml':
-                    if os.path.exists(self.fileparts.FullFilePathExtension('.si')):
-                        if os.path.exists(self.fileparts.FullFilePathExtension('.xml')):
-                            os.remove(self.fileparts.FullFilePathExtension('.xml'))
-                        self.fileparts.fileext='.si'
-                    else:
-                        self.fileparts.fileext='.xml'
-
-            if self.fileparts.fileext == '.xml':
-                self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
-                if self.switchxmltosi:
-                    self.SaveProject()
-            else:
-                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
-                self.Drawing.InitFromProject()
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.InitFromProject()
         except:
             return False
         self.Drawing.schematic.Consolidate()
@@ -131,37 +112,6 @@ class SignalIntegrityAppHeadless(object):
             for vertexProject in wireProject['Vertices']:
                 vertexProject['Selected']=False
         return True
-
-    # Legacy File Format
-    def OpenProjectFileLegacy(self,oldfilename):
-        SignalIntegrity.App.Project=ProjectFile()
-        tree=et.parse(oldfilename)
-        root=tree.getroot()
-        for child in root:
-            if child.tag == 'drawing':
-                self.Drawing.InitFromXml(child)
-            elif child.tag == 'calculation_properties':
-                calculationProperties=CalculationProperties().InitFromXml(child)
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
-        from SignalIntegrity.App.ProjectFile import DeviceConfiguration
-        SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
-        for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
-            deviceProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices'][d]
-            device=self.Drawing.schematic.deviceList[d]
-            deviceProject['ClassName']=device.__class__.__name__
-            partPictureProject=deviceProject['PartPicture']
-            partPicture=device.partPicture
-            partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
-            partPictureProject['Origin']=partPicture.current.origin
-            partPictureProject['Orientation']=partPicture.current.orientation
-            partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
-            partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
-            deviceProject['PartProperties']=device.propertiesList
-        SignalIntegrity.App.Project.dict['CalculationProperties']=calculationProperties
-        self.Drawing.InitFromProject()
-        return self
 
     def SaveProjectToFile(self,filename):
         self.fileparts=FileParts(filename)

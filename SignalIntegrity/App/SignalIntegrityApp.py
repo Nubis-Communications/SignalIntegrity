@@ -332,44 +332,13 @@ class SignalIntegrityApp(tk.Frame):
     def onReadProjectFromFile(self):
         if not self.CheckSaveCurrentProject():
             return
-        # Legacy File Format
-        filename=AskOpenFileName(filetypes=[('si', '.si'),('legacy','.xml')],
+
+        filename=AskOpenFileName(filetypes=[('si', '.si')],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension('.si'))
-
         if filename is None:
             return
         self.OpenProjectFile(filename)
-
-    # Legacy File Format
-    def OpenProjectFileLegacy(self,oldfilename):
-        import xml.etree.ElementTree as et
-        SignalIntegrity.App.Project=ProjectFile()
-        tree=et.parse(oldfilename)
-        root=tree.getroot()
-        for child in root:
-            if child.tag == 'drawing':
-                self.Drawing.InitFromXml(child)
-            elif child.tag == 'calculation_properties':
-                from SignalIntegrity.App.ProjectFile import CalculationProperties
-                calculationProperties=CalculationProperties().InitFromXml(child)
-        from SignalIntegrity.App.ProjectFile import DeviceConfiguration
-        SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
-        for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
-            deviceProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices'][d]
-            device=self.Drawing.schematic.deviceList[d]
-            deviceProject['ClassName']=device.__class__.__name__
-            partPictureProject=deviceProject['PartPicture']
-            partPicture=device.partPicture
-            partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
-            partPictureProject['Origin']=partPicture.current.origin
-            partPictureProject['Orientation']=partPicture.current.orientation
-            partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
-            partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
-            deviceProject['PartProperties']=device.propertiesList
-        SignalIntegrity.App.Project.dict['CalculationProperties']=calculationProperties
-        self.Drawing.InitFromProject()
-        return self
 
     def OpenProjectFile(self,filename):
         if filename is None:
@@ -383,14 +352,9 @@ class SignalIntegrityApp(tk.Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-
-        if self.fileparts.fileext == '.xml':
-            self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
-        else:
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
-            self.Drawing.InitFromProject()
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
+        SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+        self.Drawing.InitFromProject()
+        self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
         self.Drawing.stateMachine.Nothing()
         self.history.Event('read project')
         self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
