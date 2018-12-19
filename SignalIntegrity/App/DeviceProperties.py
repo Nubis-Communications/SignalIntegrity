@@ -44,8 +44,8 @@ class DeviceProperty(tk.Frame):
         self.partProperty=partProperty
         self.callBack=parent.UpdatePicture
         self.propertyString=tk.StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        self.propertyVisible=IntVar(value=int(self.partProperty['Visible']))
-        self.keywordVisible=IntVar(value=int(self.partProperty['KeywordVisible']))
+        self.propertyVisible=tk.IntVar(value=int(self.partProperty['Visible']))
+        self.keywordVisible=tk.IntVar(value=int(self.partProperty['KeywordVisible']))
         propertyVisibleCheckBox = tk.Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible)
         propertyVisibleCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         keywordVisibleCheckBox = tk.Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
@@ -198,10 +198,10 @@ class DeviceProperties(tk.Frame):
         mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         mirrorLabel = tk.Label(mirrorFrame,text='mirror: ')
         mirrorLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        self.mirrorVerticallyVar=IntVar(value=int(self.device.partPicture.current.mirroredVertically))
+        self.mirrorVerticallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredVertically))
         mirrorVerticallyCheckBox = tk.Checkbutton(mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange)
         mirrorVerticallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        self.mirrorHorizontallyVar=IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
+        self.mirrorHorizontallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
         mirrorHorizontallyCheckBox = tk.Checkbutton(mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
         mirrorHorizontallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         if advancedMode:
