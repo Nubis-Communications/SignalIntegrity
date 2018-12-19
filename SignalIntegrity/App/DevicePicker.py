@@ -21,22 +21,20 @@ DevicePicker.py
 
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Frame,Toplevel,Button
-    from Tkinter import BOTH,YES,TOP,LEFT
+    import Tkinter as tk
     import ttk
 else:
-    from tkinter import Frame,Toplevel,Button
-    from tkinter import BOTH,YES,TOP,LEFT
+    import tkinter as tk
     from tkinter import ttk
 
 #from Device import *
 
-class DevicePicker(Frame):
+class DevicePicker(tk.Frame):
     def __init__(self,parent,deviceList):
-        Frame.__init__(self,parent)
+        tk.Frame.__init__(self,parent)
         self.config()
         self.tree = ttk.Treeview(self)
-        self.tree.pack(fill=BOTH,expand=YES)
+        self.tree.pack(fill=tk.BOTH,expand=tk.YES)
         self.tree["columns"]=("description")
         self.tree.column("description")
         self.tree.heading("description", text="Description")
@@ -58,9 +56,9 @@ class DevicePicker(Frame):
         item = self.tree.selection()[0]
         self.selected=self.tree.item(item,'tags')[0]
 
-class DevicePickerDialog(Toplevel):
+class DevicePickerDialog(tk.Toplevel):
     def __init__(self,parent,deviceList):
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
         self.transient(parent)
 
         self.title('Add Part')
@@ -71,7 +69,7 @@ class DevicePickerDialog(Toplevel):
 
         self.DevicePicker = DevicePicker(self,deviceList)
         self.initial_focus = self.body(self.DevicePicker)
-        self.DevicePicker.pack(side=TOP,fill=BOTH,expand=YES,padx=5, pady=5)
+        self.DevicePicker.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
 
         self.buttonbox()
 
@@ -101,12 +99,12 @@ class DevicePickerDialog(Toplevel):
         # add standard button box. override if you don't want the
         # standard buttons
 
-        box = Frame(self)
+        box = tk.Frame(self)
 
-        w = Button(box, text="OK", width=10, command=self.ok)
-        w.pack(side=LEFT, padx=5, pady=5)
-        w = Button(box, text="Cancel", width=10, command=self.cancel)
-        w.pack(side=LEFT, padx=5, pady=5)
+        w = tk.Button(box, text="OK", width=10, command=self.ok)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
+        w = tk.Button(box, text="Cancel", width=10, command=self.cancel)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
 
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)

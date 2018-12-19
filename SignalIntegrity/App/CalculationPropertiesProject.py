@@ -19,31 +19,29 @@ CalculationPropertiesProject.py
 
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
-    from Tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
+    import Tkinter as tk
     import tkColorChooser as colorchooser
 else:
-    from tkinter import Toplevel,PhotoImage,Frame,Button,Label,StringVar,Entry,Radiobutton
-    from tkinter import TOP,YES,LEFT,X,NO,NORMAL,RAISED,W
+    import tkinter as tk
     from tkinter import colorchooser
 
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 
-class CalculationProperty(Frame):
+class CalculationProperty(tk.Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
-        Frame.__init__(self,parentFrame)
+        tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
         self.updateStringsCallback=updateStringsCallback
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=TOP,fill=X,expand=YES)
-        self.string=StringVar()
-        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
-        self.label.pack(side=LEFT, expand=NO, fill=X)
-        self.entry = Entry(self,textvariable=self.string)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.string=tk.StringVar()
+        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        self.entry = tk.Entry(self,textvariable=self.string)
         self.entry.config(width=30,readonlybackground='light gray')
         self.entry.bind('<Return>',self.onEntered)
         self.entry.bind('<Tab>',self.onEntered)
@@ -53,12 +51,12 @@ class CalculationProperty(Frame):
         self.entry.bind('<Button-3>',self.onUntouchedLoseFocus)
         self.entry.bind('<Escape>',self.onUntouchedLoseFocus)
         self.entry.bind('<FocusOut>',self.onUntouched)
-        self.entry.pack(side=LEFT, expand=YES, fill=X)
+        self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
             self.SetString((self.project[self.projectPath]))
         self.SetReadOnly(False)
     def SetReadOnly(self,readOnly=False):
-        self.entry.config(state='readonly' if readOnly else NORMAL)
+        self.entry.config(state='readonly' if readOnly else tk.NORMAL)
     def SetString(self,value):
         self.string.set(value)
     def GetString(self):
@@ -80,7 +78,7 @@ class CalculationProperty(Frame):
         self.parentFrame.focus()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=TOP,fill=X,expand=YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -131,22 +129,22 @@ class CalculationPropertySI(CalculationProperty):
     def GetString(self):
         return FromSI(self.string.get(),self.unitString)
 
-class CalculationPropertyTrueFalseButton(Frame):
+class CalculationPropertyTrueFalseButton(tk.Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
-        Frame.__init__(self,parentFrame)
+        tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
         self.updateStringsCallback=updateStringsCallback
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=TOP,fill=X,expand=YES)
-        self.string=StringVar()
-        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
-        self.label.pack(side=LEFT, expand=NO, fill=X)
-        self.entry = Button(self,text='None',command=self.onPressed)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.string=tk.StringVar()
+        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        self.entry = tk.Button(self,text='None',command=self.onPressed)
         self.entry.config(width=30)
         self.entry.bind('<Return>',self.onPressed)
-        self.entry.pack(side=LEFT, expand=YES, fill=X)
+        self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
             self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
@@ -163,7 +161,7 @@ class CalculationPropertyTrueFalseButton(Frame):
         self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=TOP,fill=X,expand=YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -172,24 +170,24 @@ class CalculationPropertyTrueFalseButton(Frame):
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 
-class CalculationPropertyChoices(Frame):
+class CalculationPropertyChoices(tk.Frame):
     couplingChoices = [('50 Ohm', 'DC50'),('1 MOhm', 'DC1M')]
     bandwidthChoices = [('20 MHz', '20MHz'),('200 MHz','200MHz')]
     
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,choiceStrings,project=None,projectPath=None):
-        Frame.__init__(self,parentFrame)
+        tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
         self.updateStringsCallback=updateStringsCallback
         self.choiceStrings=choiceStrings
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=TOP,fill=X,expand=YES)
-        self.string=StringVar()
-        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
-        self.label.pack(side=LEFT, expand=NO, fill=X)
-        self.entry = Frame(self)
-        self.entry.config(width=30,borderwidth=1,relief=RAISED)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.string=tk.StringVar()
+        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        self.entry = tk.Frame(self)
+        self.entry.config(width=30,borderwidth=1,relief=tk.RAISED)
 #         self.entry.bind('<Return>',self.onPressed)
 #         self.entry.bind('<Tab>',self.onEntered)
         self.entry.bind('<Button-1>',self.onTouched)
@@ -197,10 +195,10 @@ class CalculationPropertyChoices(Frame):
 #         self.entry.bind('<Button-3>',self.onUntouchedLoseFocus)
 #         self.entry.bind('<Escape>',self.onUntouchedLoseFocus)
         self.entry.bind('<FocusOut>',self.onUntouched)
-        self.entry.pack(side=LEFT, expand=YES, fill=X)
+        self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         for text,value in self.choiceStrings:
-            b = Radiobutton(self.entry,text=text,variable=self.string,value=value,command=self.onPressed)
-            b.pack(anchor=W)
+            b = tk.Radiobutton(self.entry,text=text,variable=self.string,value=value,command=self.onPressed)
+            b.pack(anchor=tk.W)
         if not ((self.project is None) or (self.projectPath is None)):
             self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
@@ -220,7 +218,7 @@ class CalculationPropertyChoices(Frame):
         self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=TOP,fill=X,expand=YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -229,22 +227,22 @@ class CalculationPropertyChoices(Frame):
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 
-class CalculationPropertyColor(Frame):
+class CalculationPropertyColor(tk.Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
-        Frame.__init__(self,parentFrame)
+        tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
         self.updateStringsCallback=updateStringsCallback
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=TOP,fill=X,expand=YES)
-        self.string=StringVar()
-        self.label = Label(self,width=40,text=textLabel+': ',anchor='e')
-        self.label.pack(side=LEFT, expand=NO, fill=X)
-        self.entry = Button(self,command=self.onPressed)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.string=tk.StringVar()
+        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        self.entry = tk.Button(self,command=self.onPressed)
         self.entry.config(width=30)
         self.entry.bind('<Return>',self.onPressed)
-        self.entry.pack(side=LEFT, expand=YES, fill=X)
+        self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
             self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
@@ -266,7 +264,7 @@ class CalculationPropertyColor(Frame):
             self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=TOP,fill=X,expand=YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -275,19 +273,19 @@ class CalculationPropertyColor(Frame):
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 
-class PropertiesDialog(Toplevel):
+class PropertiesDialog(tk.Toplevel):
     def __init__(self,parent,project,top,title):
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.top=top
         self.withdraw()
         self.title(title)
-        img = PhotoImage(file=self.top.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=self.top.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.project=project
-        self.propertyListFrame = Frame(self)
-        self.propertyListFrame.pack(side=TOP,fill=X,expand=NO)
+        self.propertyListFrame = tk.Frame(self)
+        self.propertyListFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
     def Finish(self):
         (x,y)=(self.top.root.winfo_x()+self.top.root.winfo_width()/2-self.winfo_width()/2,
             self.top.root.winfo_y()+self.top.root.winfo_height()/2-self.winfo_height()/2)

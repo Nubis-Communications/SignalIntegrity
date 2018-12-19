@@ -21,9 +21,9 @@ import xml.etree.ElementTree as et
 
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import ALL
+    import Tkinter as tk
 else:
-    from tkinter import ALL
+    import tkinter as tk
 
 import os
 
@@ -41,7 +41,7 @@ class DrawingHeadless(object):
     def DrawSchematic(self,canvas=None):
         if canvas==None:
             canvas=self.canvas
-            canvas.delete(ALL)
+            canvas.delete(tk.ALL)
         if SignalIntegrity.App.Project is None:
             return
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']

@@ -18,12 +18,10 @@ SParameterViewerWindow.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Frame,Entry,Label,StringVar,Toplevel,PhotoImage,BooleanVar,Menu,Button
-    from Tkinter import TOP,X,YES,LEFT,NO,SUNKEN,RAISED,NONE,BOTH
+    import Tkinter as tk
     import tkMessageBox
 else:
-    from tkinter import Frame,Entry,Label,StringVar,Toplevel,PhotoImage,BooleanVar,Menu,Button
-    from tkinter import TOP,X,YES,LEFT,NO,SUNKEN,RAISED,NONE,BOTH
+    import tkinter as tk
     import tkMessageBox as messagebox
 
 import matplotlib
@@ -49,24 +47,24 @@ from matplotlib.collections import LineCollection
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
-class ViewerProperty(Frame):
+class ViewerProperty(tk.Frame):
     def __init__(self,parentFrame,partProperty,callBack):
-        Frame.__init__(self,parentFrame)
-        self.pack(side=TOP,fill=X,expand=YES)
+        tk.Frame.__init__(self,parentFrame)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.parentFrame=parentFrame
         self.partProperty=partProperty
         self.callBack=callBack
-        self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        propertyLabel = Label(self,width=25,text=self.partProperty['Description']+': ',anchor='e')
-        propertyLabel.pack(side=LEFT, expand=NO, fill=X)
-        propertyEntry = Entry(self,textvariable=self.propertyString)
+        self.propertyString=tk.StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
+        propertyLabel = tk.Label(self,width=25,text=self.partProperty['Description']+': ',anchor='e')
+        propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        propertyEntry = tk.Entry(self,textvariable=self.propertyString)
         propertyEntry.config(width=15)
         propertyEntry.bind('<Return>',self.onEntered)
         propertyEntry.bind('<FocusIn>',self.onTouched)
         propertyEntry.bind('<Button-3>',self.onUntouched)
         propertyEntry.bind('<Escape>',self.onUntouched)
         propertyEntry.bind('<FocusOut>',self.onUntouched)
-        propertyEntry.pack(side=LEFT, expand=NO, fill=X)
+        propertyEntry.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
     def onEntered(self,event):
         self.partProperty.SetValueFromString(self.propertyString.get())
         self.onUntouched(event)
@@ -77,9 +75,9 @@ class ViewerProperty(Frame):
         self.callBack()
         self.parentFrame.focus()
 
-class SParametersDialog(Toplevel):
+class SParametersDialog(tk.Toplevel):
     def __init__(self, parent,sp,filename=None,title=None,buttonLabels=None):
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
         self.fileparts=FileParts(filename)
@@ -94,15 +92,15 @@ class SParametersDialog(Toplevel):
             else:
                 self.title(title+': '+self.fileparts.FileNameTitle())
 
-        img = PhotoImage(file=self.parent.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=self.parent.installdir+'/icons/png/AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
-        self.variableLineWidth = BooleanVar()
-        self.showPassivityViolations = BooleanVar()
-        self.showCausalityViolations = BooleanVar()
-        self.showImpedance = BooleanVar()
-        self.logScale =  BooleanVar()
+        self.variableLineWidth = tk.BooleanVar()
+        self.showPassivityViolations = tk.BooleanVar()
+        self.showCausalityViolations = tk.BooleanVar()
+        self.showImpedance = tk.BooleanVar()
+        self.logScale =  tk.BooleanVar()
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File')
@@ -127,17 +125,17 @@ class SParametersDialog(Toplevel):
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
         # The menu system
-        TheMenu=Menu(self)
+        TheMenu=tk.Menu(self)
         self.config(menu=TheMenu)
         # ------
-        FileMenu=Menu(self)
+        FileMenu=tk.Menu(self)
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
         self.WriteSParametersToFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
         self.ReadSParametersFromFileDoer.AddMenuElement(FileMenu,label="Open File",accelerator='Ctrl+O',underline=0)
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
-        CalcMenu=Menu(self)
+        CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
         #CalcMenu.add_separator()
@@ -147,7 +145,7 @@ class SParametersDialog(Toplevel):
         self.EnforceCausalityDoer.AddMenuElement(CalcMenu,label='Enforce Causality',underline=9)
         self.WaveletDenoiseDoer.AddMenuElement(CalcMenu,label='Wavelet Denoise',underline=0)
         # ------
-        ViewMenu=Menu(self)
+        ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
         self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9,onvalue=True,offvalue=False,variable=self.variableLineWidth)
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
@@ -155,78 +153,78 @@ class SParametersDialog(Toplevel):
         self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
         self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4,onvalue=True,offvalue=False,variable=self.logScale)
         # ------
-        HelpMenu=Menu(self)
+        HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
 
         # The Toolbar
-        ToolBarFrame = Frame(self)
-        ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(self,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        ToolBarFrame = tk.Frame(self)
+        ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-open-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(self,bd=2,relief=tk.SUNKEN).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=self.parent.installdir+'/icons/png/16x16/actions/help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
-        topFrame=Frame(self)
-        topFrame.pack(side=TOP,fill=BOTH,expand=YES)
-        bottomFrame=Frame(self)
-        bottomFrame.pack(side=TOP,fill=BOTH,expand=YES)
-        topLeftFrame=Frame(topFrame)
-        topLeftFrame.pack(side=LEFT,fill=BOTH,expand=YES)
-        topRightFrame=Frame(topFrame)
-        topRightFrame.pack(side=LEFT,fill=BOTH,expand=YES)
-        bottomLeftFrame=Frame(bottomFrame)
-        bottomLeftFrame.pack(side=LEFT,fill=BOTH,expand=YES)
-        bottomRightFrame=Frame(bottomFrame)
-        bottomRightFrame.pack(side=LEFT,fill=BOTH,expand=YES)
+        topFrame=tk.Frame(self)
+        topFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        bottomFrame=tk.Frame(self)
+        bottomFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        topLeftFrame=tk.Frame(topFrame)
+        topLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        topRightFrame=tk.Frame(topFrame)
+        topRightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        bottomLeftFrame=tk.Frame(bottomFrame)
+        bottomLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        bottomRightFrame=tk.Frame(bottomFrame)
+        bottomRightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
 
         self.topLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
-        self.topLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
+        self.topLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
         self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
         self.topLeftToolbar.update()
-        self.topLeftCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
+        self.topLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         self.topRightFigure=Figure(figsize=(5,2), dpi=100)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
         self.topRightCanvas=FigureCanvasTkAgg(self.topRightFigure, master=topRightFrame)
-        self.topRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
+        self.topRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
         self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
         self.topRightToolbar.update()
-        self.topRightCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
-        self.topRightCanvasControlsFrame=Frame(topRightFrame)
-        self.topRightCanvasControlsFrame.pack(side=TOP, fill=X, expand=NO)
-        Button(self.topRightCanvasControlsFrame,text='unwrap',command=self.onUnwrap).pack(side=LEFT,expand=NO,fill=NONE)
+        self.topRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        self.topRightCanvasControlsFrame=tk.Frame(topRightFrame)
+        self.topRightCanvasControlsFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
+        tk.Button(self.topRightCanvasControlsFrame,text='unwrap',command=self.onUnwrap).pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
         self.delay=PartPropertyDelay(0.)
         self.delayViewerProperty=ViewerProperty(self.topRightCanvasControlsFrame,self.delay,self.onDelayEntered)
 
         self.bottomLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
         self.bottomLeftCanvas=FigureCanvasTkAgg(self.bottomLeftFigure, master=bottomLeftFrame)
-        self.bottomLeftCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
+        self.bottomLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
         self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
         self.bottomLeftToolbar.update()
-        self.bottomLeftCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
+        self.bottomLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         self.bottomRightFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
         self.bottomRightCanvas=FigureCanvasTkAgg(self.bottomRightFigure, master=bottomRightFrame)
-        self.bottomRightCanvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
+        self.bottomRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
         self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
         self.bottomRightToolbar.update()
-        self.bottomRightCanvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
+        self.bottomRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-        controlsFrame = Frame(self)
-        controlsFrame.pack(side=TOP,fill=X,expand=NO)
-        self.sButtonsFrame = Frame(controlsFrame, bd=1, relief=SUNKEN)
-        self.sButtonsFrame.pack(side=LEFT,expand=NO,fill=NONE)
-        self.resampleButton=Button(controlsFrame,text='resample',command=self.onResample)
-        self.resampleButton.pack(side=LEFT,expand=NO,fill=NONE)
+        controlsFrame = tk.Frame(self)
+        controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.sButtonsFrame = tk.Frame(controlsFrame, bd=1, relief=tk.SUNKEN)
+        self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        self.resampleButton=tk.Button(controlsFrame,text='resample',command=self.onResample)
+        self.resampleButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
 
         self.sp=sp
 
@@ -252,11 +250,11 @@ class SParametersDialog(Toplevel):
         self.buttons=[]
         for toP in range(len(buttonLabels)):
             buttonrow=[]
-            rowFrame=Frame(self.sButtonsFrame)
-            rowFrame.pack(side=TOP,expand=NO,fill=NONE)
+            rowFrame=tk.Frame(self.sButtonsFrame)
+            rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
             for fromP in range(len(buttonLabels[0])):
-                thisButton=Button(rowFrame,text=buttonLabels[toP][fromP],width=len(buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
-                thisButton.pack(side=LEFT,fill=NONE,expand=NO)
+                thisButton=tk.Button(rowFrame,text=buttonLabels[toP][fromP],width=len(buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+                thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
 
@@ -268,7 +266,7 @@ class SParametersDialog(Toplevel):
         except:
             self.Matplotlib2tikzDoer.Activate(False)
 
-        self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
         self.PlotSParameter()
         self.deiconify()
         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
@@ -442,10 +440,10 @@ class SParametersDialog(Toplevel):
         self.bottomRightCanvas.draw()
 
     def onSelectSParameter(self,toP,fromP):
-        self.buttons[self.toPort-1][self.fromPort-1].config(relief=RAISED)
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.RAISED)
         self.toPort = toP
         self.fromPort = fromP
-        self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
         self.PlotSParameter()
 
     def onAutoscale(self):
@@ -522,16 +520,16 @@ class SParametersDialog(Toplevel):
         self.buttons=[]
         for toP in range(numPorts):
             buttonrow=[]
-            rowFrame=Frame(self.sButtonsFrame)
-            rowFrame.pack(side=TOP,expand=NO,fill=NONE)
+            rowFrame=tk.Frame(self.sButtonsFrame)
+            rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
             for fromP in range(numPorts):
-                thisButton=Button(rowFrame,text=self.buttonLabels[toP][fromP],command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
-                thisButton.pack(side=LEFT,fill=NONE,expand=NO)
+                thisButton=tk.Button(rowFrame,text=self.buttonLabels[toP][fromP],command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+                thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
         self.fromPort = 1
         self.toPort = 1
-        self.buttons[self.toPort-1][self.fromPort-1].config(relief=SUNKEN)
+        self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
         self.PlotSParameter()
 
     def onWriteSParametersToFile(self):

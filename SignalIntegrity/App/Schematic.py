@@ -18,11 +18,9 @@ Schematic.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Menu,Frame,Canvas
-    from Tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
+    import Tkinter as tk
 else:
-    from tkinter import Menu,Frame,Canvas
-    from tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
+    import tkinter as tk
 
 import copy
 
@@ -429,7 +427,7 @@ class DrawingStateMachine(object):
             self.parent.parent.HelpDoer.Activate(True)
             self.parent.parent.ControlHelpDoer.Activate(True)
             self.parent.parent.EscapeDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.clear()
             self.parent.DrawSchematic()
     def onMouseButton1_Nothing(self,event):
@@ -491,7 +489,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Part Selected')
             self.parent.DrawSchematic()
     def onMouseButton1_DeviceSelected(self,event):
@@ -574,7 +572,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(True)
             self.parent.parent.DuplicateVertexDoer.Activate(True)
             self.parent.parent.DeleteWireDoer.Activate(True)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Wire Selected')
             self.parent.DrawSchematic()
     def onMouseButton1_WireSelected(self,event):
@@ -642,7 +640,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Part In Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_PartLoaded(self,event):
@@ -711,7 +709,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Drawing Wires')
             self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
@@ -798,7 +796,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=SUNKEN)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.SUNKEN)
             self.parent.parent.statusbar.set('Panning')
             self.parent.DrawSchematic()
     def onMouseButton1_Panning(self,event):
@@ -864,7 +862,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Selecting')
             self.parent.DrawSchematic()
     def onMouseButton1_Selecting(self,event):
@@ -994,7 +992,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Multiple Selections')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleSelections(self,event):
@@ -1100,7 +1098,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Selecting More')
             self.parent.DrawSchematic()
     def onMouseButton1_SelectingMore(self,event):
@@ -1203,7 +1201,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Multiple Items in Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleItemsOnClipboard(self,event):
@@ -1297,26 +1295,26 @@ class DrawingStateMachine(object):
         else:
             self.Nothing(True)
 
-class Drawing(Frame):
+class Drawing(tk.Frame):
     def __init__(self,parent):
-        Frame.__init__(self,parent)
+        tk.Frame.__init__(self,parent)
         self.parent=parent
-        self.canvas = Canvas(self,relief=SUNKEN,borderwidth=1,width=600,height=600)
-        self.canvas.pack(side=TOP, fill=BOTH, expand=YES)
+        self.canvas = tk.Canvas(self,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
+        self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
-        self.deviceTearOffMenu=Menu(self, tearoff=0)
+        self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
-        self.canvasTearOffMenu=Menu(self, tearoff=0)
+        self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
         self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
         self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
         self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
-        self.wireTearOffMenu=Menu(self, tearoff=0)
+        self.wireTearOffMenu=tk.Menu(self, tearoff=0)
         self.wireTearOffMenu.add_command(label="Delete Vertex",command=self.DeleteSelectedVertex)
         self.wireTearOffMenu.add_command(label="Duplicate Vertex",command=self.DuplicateSelectedVertex)
         self.wireTearOffMenu.add_command(label="Delete Wire",command=self.DeleteSelectedWire)
-        self.multipleSelectionsTearOffMenu=Menu(self, tearoff=0)
+        self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
         self.multipleSelectionsTearOffMenu.add_command(label="Cut Selected",command=self.CutMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Delete Selected",command=self.DeleteMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Duplicate Selected",command=self.DuplicateMultipleSelections)
@@ -1337,7 +1335,7 @@ class Drawing(Frame):
     def DrawSchematic(self,canvas=None):
         if canvas is None:
             canvas=self.canvas
-            canvas.delete(ALL)
+            canvas.delete(tk.ALL)
         if SignalIntegrity.App.Project is None:
             return canvas
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
