@@ -14,12 +14,12 @@
 %  <polyline lc="black">26,-34 28,-36 26,-38</polyline>
 %  <polyline lc="black">32,-36 28,-36</polyline>
 %  <text x="26" y="-37" t="2" h="3" halign="r" lc="black"/>
+%  <text x="56" y="-33" t="S" h="3" halign="c" lc="black"/>
 %  <rect x="52" y="-24" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">48,-28 52,-28</polyline>
 %  <text x="51" y="-27" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">48,-36 52,-36</polyline>
 %  <text x="51" y="-35" t="2" h="3" halign="r" lc="black"/>
-%  <text x="56" y="-21" t="S" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -38,10 +38,10 @@
 \path[line width=0.30mm, draw=black] (26,-34) -- (28,-36) -- (26,-38);
 \path[line width=0.30mm, draw=black] (32,-36) -- (28,-36);
 \draw[black] (26,-37) node[anchor=base east]{2};
+\draw[black] (56,-33) node[anchor=base]{S};
 \path[line width=0.30mm, draw=black] (52,-40) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (48,-28) -- (52,-28);
 \draw[black] (51,-27) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (48,-36) -- (52,-36);
 \draw[black] (51,-35) node[anchor=base east]{2};
-\draw[black] (56,-21) node[anchor=base]{S};
 \end{tikzpicture}%

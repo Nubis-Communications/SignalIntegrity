@@ -735,13 +735,10 @@ class PartPictureVariableMutual(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureMutual'],4)
 
-class PartPictureIdealTransformer(PartPicture):
-    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+class PartPictureIdealTransformerBase(PartPicture):
+    def __init__(self,origin,pinlist,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,origin,
-                             [PartPin(1,(0,1),'l',False,True,True,'tl'),
-                              PartPin(2,(0,3),'l',False,True,True,'bl'),
-                              PartPin(3,(4,1),'r',False,True,True,'tr'),
-                              PartPin(4,(4,3),'r',False,True,True,'br')],
+                             pinlist,
                              [(1,1),(3,3)],[(0,0),(4,4)],(2,0.5),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
@@ -790,11 +787,7 @@ class PartPictureIdealTransformer(PartPicture):
         p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
         canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
         # dot on the secondary
-        lx=(drawingOrigin[0]+self.origin[0]+3)*grid
-        ty=(drawingOrigin[1]+self.origin[1]+1)*grid+grid/8
-        size=grid/8
-        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
-        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
+        # secondary dotted by derived class
         # primary label
         x=(drawingOrigin[0]+self.origin[0])*grid+grid/2
         y=(drawingOrigin[1]+self.origin[1]+2)*grid
@@ -807,9 +800,45 @@ class PartPictureIdealTransformer(PartPicture):
         canvas.create_text(p[0],p[1],text='S',fill=self.color)
         PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
 
+class PartPictureIdealTransformer(PartPictureIdealTransformerBase):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureIdealTransformerBase.__init__(self,origin,
+                             [PartPin(1,(0,1),'l',False,True,True,'tl'),
+                              PartPin(2,(0,3),'l',False,True,True,'bl'),
+                              PartPin(3,(4,1),'r',False,True,True,'tr'),
+                              PartPin(4,(4,3),'r',False,True,True,'br')],
+                             orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # dot on the secondary
+        lx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid+grid/8
+        size=grid/8
+        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
+        PartPictureIdealTransformerBase.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureIdealTransformerAlt(PartPictureIdealTransformerBase):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureIdealTransformerBase.__init__(self,origin,
+                             [PartPin(1,(0,1),'l',False,True,True,'tl'),
+                              PartPin(2,(0,3),'l',False,True,True,'bl'),
+                              PartPin(4,(4,1),'r',False,True,True,'tr'),
+                              PartPin(3,(4,3),'r',False,True,True,'br')],
+                             orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # dot on the secondary
+        lx=(drawingOrigin[0]+self.origin[0]+3)*grid
+        ty=(drawingOrigin[1]+self.origin[1]+3)*grid-grid/4
+        size=grid/8
+        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
+        PartPictureIdealTransformerBase.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
 class PartPictureVariableIdealTransformer(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureIdealTransformer'],4)
+        PartPictureVariable.__init__(self,['PartPictureIdealTransformer','PartPictureIdealTransformerAlt'],4)
 
 class PartPictureResistorTwoPort(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
