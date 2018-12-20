@@ -291,8 +291,8 @@ class SParametersDialog(tk.Toplevel):
 
         y=fr.Response('dB')
 
-        freqLabel=ToSI(fr.Frequencies()[-1],'Hz')[-3:]
-        freqLabelDivisor=FromSI('1. '+freqLabel,'Hz')
+        self.freqLabel=ToSI(fr.Frequencies()[-1],'Hz')[-3:]
+        freqLabelDivisor=FromSI('1. '+self.freqLabel,'Hz')
 
         x=fr.Frequencies(freqLabelDivisor)
 
@@ -342,7 +342,7 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftPlot.set_ylim(ymin=max(min(y)-1.,-60.0))
         self.topLeftPlot.set_ylim(ymax=max(y)+1.)
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
-        self.topLeftPlot.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
+        self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
         y=fr.Response('deg')
         x=fr.Frequencies(freqLabelDivisor)
@@ -370,7 +370,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.set_ylim(ymin=min(y)-1)
         self.topRightPlot.set_ylim(ymax=max(y)+1)
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
-        self.topRightPlot.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
+        self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
         if ir is not None:
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:2]=='i/' or self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
@@ -444,6 +444,8 @@ class SParametersDialog(tk.Toplevel):
         self.toPort = toP
         self.fromPort = fromP
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
+        self.delay.SetValueFromString(str(0))
+        self.delayViewerProperty.onUntouched(None)
         self.PlotSParameter()
 
     def onAutoscale(self):
@@ -491,6 +493,8 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.set_xlim(xmax=max(x))
         self.topRightPlot.set_ylim(ymin=min(y)-1)
         self.topRightPlot.set_ylim(ymax=max(y)+1)
+        self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
+        self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
         self.topRightCanvas.draw()
 
     def onReferenceImpedanceEntered(self):
