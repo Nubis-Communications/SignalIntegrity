@@ -1,7 +1,9 @@
-device D1 4 voltagecontrolledvoltagesource 1.0
-device Zi 2 R 50.0
-device Zo 2 R 0.0
-device D2 4 file None
-connect Zi 1 D1 1 D1 3
-connect D1 2 Zi 2
-connect Zo 1 D1 4
+device $\alpha$ 4 voltagecontrolledvoltagesource 1.0
+device $Z_i$ 2 R 50.0
+device $Z_o$ 2 R 0.0
+port 3 $Z_i$ 1
+connect $Z_i$ 1 $\alpha$ 1 $\alpha$ 3
+port 1 $\alpha$ 2
+connect $\alpha$ 2 $Z_i$ 2
+connect $Z_o$ 1 $\alpha$ 4
+port 2 $Z_o$ 2

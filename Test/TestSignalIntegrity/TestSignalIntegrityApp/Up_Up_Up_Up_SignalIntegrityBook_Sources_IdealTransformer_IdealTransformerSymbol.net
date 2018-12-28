@@ -1,6 +1,1 @@
 device a 4 idealtransformer 1.0
-device D1 4 file None
-connect D1 1 a 1
-connect a 2 D1 2
-connect D1 3 a 3
-connect a 4 D1 4

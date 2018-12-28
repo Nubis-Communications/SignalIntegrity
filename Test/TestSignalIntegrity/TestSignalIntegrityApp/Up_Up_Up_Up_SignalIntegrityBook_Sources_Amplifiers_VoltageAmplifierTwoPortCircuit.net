@@ -1,7 +1,7 @@
 device G2 1 ground
 device G3 1 ground
 device D3 4 voltageamplifier gain 1.0 zi 100000000.0 zo 0.0
-connect G2 1 D3 3
-connect D3 1 G3 1
-port 1 D3 2
-port 2 D3 4
+connect G2 1 D3 4
+connect G3 1 D3 2
+port 1 D3 1
+port 2 D3 3

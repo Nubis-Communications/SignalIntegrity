@@ -1,37 +1,37 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polygon lc="black">56,-28 59,-32 56,-36 53,-32 56,-28</polygon>
 %  <polyline lc="black">47.25,-29.5 48.75,-29.5</polyline>
 %  <polyline lc="black">48,-28.75 48,-30.25</polyline>
 %  <polyline lc="black">47.25,-34.5 48.75,-34.5</polyline>
 %  <polyline lc="black">55.25,-29.5 56.75,-29.5</polyline>
 %  <polyline lc="black">56,-28.75 56,-30.25</polyline>
 %  <polyline lc="black">55.25,-34.5 56.75,-34.5</polyline>
+%  <polygon lc="black">56,-28 59,-32 56,-36 53,-32 56,-28</polygon>
 %  <rect x="44" y="-28" w="16" h="-8" lc="black"/>
 %  <polyline lc="black">48,-40 48,-36</polyline>
 %  <polyline lc="black">48,-24 48,-28</polyline>
 %  <polyline lc="black">56,-40 56,-36</polyline>
 %  <polyline lc="black">56,-24 56,-28</polyline>
-%  <text x="62" y="-33" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="62" y="-33" t="$\alpha$" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">40,-36 38,-35 42,-34 38,-33 42,-32 38,-31 42,-30 38,-29 40,-28</polyline>
 %  <polyline lc="black">40,-40 40,-36</polyline>
 %  <polyline lc="black">40,-24 40,-28</polyline>
-%  <text x="36" y="-33" t="Zi" h="3" halign="r" lc="black"/>
+%  <text x="36" y="-33" t="$Z_i$" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">60,-24 61,-22 62,-26 63,-22 64,-26 65,-22 66,-26 67,-22 68,-24</polyline>
 %  <polyline lc="black">56,-24 60,-24</polyline>
 %  <polyline lc="black">72,-24 68,-24</polyline>
-%  <text x="64" y="-19" t="Zo" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">30,-38 32,-40 30,-42</polyline>
-%  <polyline lc="black">36,-40 32,-40</polyline>
-%  <text x="30" y="-41" t="1" h="3" halign="r" lc="black"/>
+%  <text x="64" y="-19" t="$Z_o$" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">30,-22 32,-24 30,-26</polyline>
 %  <polyline lc="black">36,-24 32,-24</polyline>
-%  <text x="30" y="-25" t="2" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">78,-38 76,-40 78,-42</polyline>
-%  <polyline lc="black">72,-40 76,-40</polyline>
-%  <text x="78" y="-41" t="3" h="3" halign="l" lc="black"/>
+%  <text x="30" y="-25" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">30,-38 32,-40 30,-42</polyline>
+%  <polyline lc="black">36,-40 32,-40</polyline>
+%  <text x="30" y="-41" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">78,-22 76,-24 78,-26</polyline>
 %  <polyline lc="black">72,-24 76,-24</polyline>
-%  <text x="78" y="-25" t="4" h="3" halign="l" lc="black"/>
+%  <text x="78" y="-25" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">78,-38 76,-40 78,-42</polyline>
+%  <polyline lc="black">72,-40 76,-40</polyline>
+%  <text x="78" y="-41" t="4" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">56,-40 72,-40</polyline>
 %  <polyline lc="black">48,-24 40,-24</polyline>
 %  <polyline lc="black">48,-40 40,-40</polyline>
@@ -42,39 +42,39 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.30mm, draw=black] (56,-28) -- (59,-32) -- (56,-36) -- (53,-32) -- (56,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (47.25,-29.5) -- (48.75,-29.5);
 \path[line width=0.30mm, draw=black] (48,-28.75) -- (48,-30.25);
 \path[line width=0.30mm, draw=black] (47.25,-34.5) -- (48.75,-34.5);
 \path[line width=0.30mm, draw=black] (55.25,-29.5) -- (56.75,-29.5);
 \path[line width=0.30mm, draw=black] (56,-28.75) -- (56,-30.25);
 \path[line width=0.30mm, draw=black] (55.25,-34.5) -- (56.75,-34.5);
+\path[line width=0.30mm, draw=black] (56,-28) -- (59,-32) -- (56,-36) -- (53,-32) -- (56,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (44,-36) rectangle +(16,8);
 \path[line width=0.30mm, draw=black] (48,-40) -- (48,-36);
 \path[line width=0.30mm, draw=black] (48,-24) -- (48,-28);
 \path[line width=0.30mm, draw=black] (56,-40) -- (56,-36);
 \path[line width=0.30mm, draw=black] (56,-24) -- (56,-28);
-\draw[black] (62,-33) node[anchor=base west]{gain 1.0 };
+\draw[black] (62,-33) node[anchor=base west]{$\alpha$};
 \path[line width=0.30mm, draw=black] (40,-36) -- (38,-35) -- (42,-34) -- (38,-33) -- (42,-32) -- (38,-31) -- (42,-30) -- (38,-29) -- (40,-28);
 \path[line width=0.30mm, draw=black] (40,-40) -- (40,-36);
 \path[line width=0.30mm, draw=black] (40,-24) -- (40,-28);
-\draw[black] (36,-33) node[anchor=base east]{Zi};
+\draw[black] (36,-33) node[anchor=base east]{$Z_i$};
 \path[line width=0.30mm, draw=black] (60,-24) -- (61,-22) -- (62,-26) -- (63,-22) -- (64,-26) -- (65,-22) -- (66,-26) -- (67,-22) -- (68,-24);
 \path[line width=0.30mm, draw=black] (56,-24) -- (60,-24);
 \path[line width=0.30mm, draw=black] (72,-24) -- (68,-24);
-\draw[black] (64,-19) node[anchor=base]{Zo};
-\path[line width=0.30mm, draw=black] (30,-38) -- (32,-40) -- (30,-42);
-\path[line width=0.30mm, draw=black] (36,-40) -- (32,-40);
-\draw[black] (30,-41) node[anchor=base east]{1};
+\draw[black] (64,-19) node[anchor=base]{$Z_o$};
 \path[line width=0.30mm, draw=black] (30,-22) -- (32,-24) -- (30,-26);
 \path[line width=0.30mm, draw=black] (36,-24) -- (32,-24);
-\draw[black] (30,-25) node[anchor=base east]{2};
-\path[line width=0.30mm, draw=black] (78,-38) -- (76,-40) -- (78,-42);
-\path[line width=0.30mm, draw=black] (72,-40) -- (76,-40);
-\draw[black] (78,-41) node[anchor=base west]{3};
+\draw[black] (30,-25) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (30,-38) -- (32,-40) -- (30,-42);
+\path[line width=0.30mm, draw=black] (36,-40) -- (32,-40);
+\draw[black] (30,-41) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (78,-22) -- (76,-24) -- (78,-26);
 \path[line width=0.30mm, draw=black] (72,-24) -- (76,-24);
-\draw[black] (78,-25) node[anchor=base west]{4};
+\draw[black] (78,-25) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (78,-38) -- (76,-40) -- (78,-42);
+\path[line width=0.30mm, draw=black] (72,-40) -- (76,-40);
+\draw[black] (78,-41) node[anchor=base west]{4};
 \path[line width=0.30mm, draw=black] (56,-40) -- (72,-40);
 \path[line width=0.30mm, draw=black] (48,-24) -- (40,-24);
 \path[line width=0.30mm, draw=black] (48,-40) -- (40,-40);

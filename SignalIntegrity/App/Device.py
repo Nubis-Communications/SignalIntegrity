@@ -296,37 +296,52 @@ class DeviceVoltageAmplifierFourPort(Device):
 class DeviceOperationalAmplifier(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='opamp',values=[('gain',True),('zi',True),('zo',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('OperationalAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyVoltageGain(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableOperationalAmplifier())
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('OperationalAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyVoltageGain(100e3),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableOperationalAmplifier())
 
 class DeviceCurrentControlledCurrentSourceFourPort(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='currentcontrolledcurrentsource',values=[('gain',False)])
         Device.__init__(self,netlist,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('CurrentControlledCurrentSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyCurrentGain(1.0)]+propertiesList,PartPictureVariableCurrentControlledCurrentSourceFourPort())
 
+class DeviceCurrentAmplifierTwoPort(Device):
+    def __init__(self,propertiesList):
+        netlist=DeviceNetListLine(partname='currentamplifier',values=[('gain',True),('zi',True),('zo',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('CurrentAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyCurrentGain(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableCurrentAmplifierTwoPort())
+
 class DeviceCurrentAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='currentamplifier',values=[('gain',True),('zi',True),('zo',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('CurrentAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyCurrentGain(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableCurrentControlledCurrentSourceFourPortSwapped())
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('CurrentAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyCurrentGain(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableCurrentAmplifierFourPort())
 
 class DeviceVoltageControlledCurrentSourceFourPort(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='voltagecontrolledcurrentsource',values=[('gain',False)])
         Device.__init__(self,netlist,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('VoltageControlledCurrentSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransconductance(1.0)]+propertiesList,PartPictureVariableVoltageControlledCurrentSourceFourPort())
 
+class DeviceTransconductanceAmplifierTwoPort(Device):
+    def __init__(self,propertiesList):
+        netlist=DeviceNetListLine(partname='transconductanceamplifier',values=[('gain',True),('zi',True),('zo',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransconductanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransconductance(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableTransconductanceAmplifierTwoPort())
+
 class DeviceTransconductanceAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='transconductanceamplifier',values=[('gain',True),('zi',True),('zo',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransconductanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransconductance(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableVoltageControlledCurrentSourceFourPort())
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransconductanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransconductance(1.0),PartPropertyInputImpedance(1e8),PartPropertyOutputImpedance(1e8)]+propertiesList,PartPictureVariableTransconductanceAmplifierFourPort())
 
 class DeviceCurrentControlledVoltageSourceFourPort(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='currentcontrolledvoltagesource',values=[('gain',False)])
         Device.__init__(self,netlist,[PartPropertyCategory('Dependent Sources'),PartPropertyPartName('CurrentControlledVoltageSource'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransresistance(1.0)]+propertiesList,PartPictureVariableCurrentControlledVoltageSourceFourPort())
 
+class DeviceTransresistanceAmplifierTwoPort(Device):
+    def __init__(self,propertiesList):
+        netlist=DeviceNetListLine(partname='transresistanceamplifier',values=[('gain',True),('zi',True),('zo',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransresistanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransresistance(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableTransresistanceAmplifierTwoPort())
+
 class DeviceTransresistanceAmplifierFourPort(Device):
     def __init__(self,propertiesList):
         netlist=DeviceNetListLine(partname='transresistanceamplifier',values=[('gain',True),('zi',True),('zo',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransresistanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransresistance(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableCurrentControlledVoltageSourceFourPortSwapped())
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('TransresistanceAmplifier'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyTransresistance(1.0),PartPropertyInputImpedance(0.),PartPropertyOutputImpedance(0.)]+propertiesList,PartPictureVariableTransresistanceAmplifierFourPort())
 
 class DeviceTransmissionLine(Device):
     def __init__(self,propertiesList,partPicture):
@@ -398,6 +413,12 @@ class DeviceCurrentOutputProbe(Device):
         self['offset']['Visible']=False
         self['td']['Visible']=False
 
+class DeviceNPNTransistor(Device):
+    def __init__(self,propertiesList):
+        netlist=DeviceNetListLine(partname='npntransistor',values=[('gm',True),('rpi',True),('ro',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('NPN Transistor'),PartPropertyDefaultReferenceDesignator('Q?'),PartPropertyGm(200.0),PartPropertyRpi(200e3),PartPropertyOutputResistance(200e3),PartPropertyPorts(3)]+propertiesList,PartPictureVariableNPNTransister())
+
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),
               DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),
@@ -448,13 +469,17 @@ DeviceList = [
               DeviceVoltageAmplifierFourPort([PartPropertyDescription('Four Port Voltage Amplifier'),PartPropertyPorts(4)]),
               DeviceOperationalAmplifier([PartPropertyDescription('Operational Amplifier'),PartPropertyPorts(3)]),
               DeviceCurrentControlledCurrentSourceFourPort([PartPropertyDescription('Four Port Current Controlled Current Source'),PartPropertyPorts(4)]),
+              DeviceCurrentAmplifierTwoPort([PartPropertyDescription('Two Port Current Amplifier'),PartPropertyPorts(2)]),
               DeviceCurrentAmplifierFourPort([PartPropertyDescription('Four Port Current Amplifier'),PartPropertyPorts(4)]),
               DeviceVoltageControlledCurrentSourceFourPort([PartPropertyDescription('Four Port Voltage Controlled Current Source'),PartPropertyPorts(4)]),
+              DeviceTransconductanceAmplifierTwoPort([PartPropertyDescription('Two Port Transconductance Amplifier'),PartPropertyPorts(2)]),
               DeviceTransconductanceAmplifierFourPort([PartPropertyDescription('Four Port Transconductance Amplifier'),PartPropertyPorts(4)]),
               DeviceCurrentControlledVoltageSourceFourPort([PartPropertyDescription('Four Port Current Controlled Voltage Source'),PartPropertyPorts(4)]),
+              DeviceTransresistanceAmplifierTwoPort([PartPropertyDescription('Two Port Transresistance Amplifier'),PartPropertyPorts(2)]),
               DeviceTransresistanceAmplifierFourPort([PartPropertyDescription('Four Port Transresistance Amplifier'),PartPropertyPorts(4)]),
               DeviceCurrentOutputProbe(),
-              DeviceVoltageOutputProbe()
+              DeviceVoltageOutputProbe(),
+              #DeviceNPNTransistor([PartPropertyDescription('NPN Transistor')])
               ]
 
 DeviceListUnknown = [

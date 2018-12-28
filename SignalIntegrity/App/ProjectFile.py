@@ -67,7 +67,8 @@ class PartPinConfiguration(XMLConfiguration):
 class PartPictureConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'PartPicture')
-        self.Add(XMLPropertyDefaultString('ClassName'))
+        self.Add(XMLPropertyDefaultInt('Index',None))
+        self.Add(XMLPropertyDefaultString('ClassName',write=False))
         self.Add(XMLPropertyDefaultCoord('Origin'))
         self.Add(XMLPropertyDefaultInt('Orientation'))
         self.Add(XMLPropertyDefaultBool('MirroredVertically',False))
@@ -173,6 +174,7 @@ class ProjectFile(ProjectFileBase):
             deviceProject['ClassName']=device.__class__.__name__
             partPictureProject=deviceProject['PartPicture']
             partPicture=device.partPicture
+            partPictureProject['Index']=partPicture.partPictureSelected
             partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
             partPictureProject['Origin']=partPicture.current.origin
             partPictureProject['Orientation']=partPicture.current.orientation

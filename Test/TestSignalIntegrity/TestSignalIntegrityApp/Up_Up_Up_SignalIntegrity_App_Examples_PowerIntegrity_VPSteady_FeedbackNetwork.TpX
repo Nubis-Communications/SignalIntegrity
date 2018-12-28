@@ -44,23 +44,29 @@
 %  <polyline lc="black">26.75,-45.5 25.25,-45.5</polyline>
 %  <polyline lc="black">26,-44.75 26,-46.25</polyline>
 %  <polyline lc="black">26.75,-50.5 25.25,-50.5</polyline>
+%  <polyline lc="black">22.75,-45.5 21.25,-45.5</polyline>
+%  <polyline lc="black">22,-44.75 22,-46.25</polyline>
+%  <polyline lc="black">22.75,-50.5 21.25,-50.5</polyline>
 %  <polyline lc="black">22,-44 16,-44</polyline>
 %  <polyline lc="black">22,-52 16,-52</polyline>
 %  <polyline lc="black">28,-40 16,-48 28,-56 28,-40</polyline>
-%  <polyline lc="black">32,-52 28,-52</polyline>
 %  <polyline lc="black">32,-44 28,-44</polyline>
-%  <polyline lc="black">16,-52 20,-52</polyline>
+%  <polyline lc="black">32,-52 28,-52</polyline>
 %  <polyline lc="black">16,-44 20,-44</polyline>
+%  <polyline lc="black">16,-52 20,-52</polyline>
 %  <polyline lc="black">26.75,-13.5 25.25,-13.5</polyline>
 %  <polyline lc="black">26,-12.75 26,-14.25</polyline>
 %  <polyline lc="black">26.75,-18.5 25.25,-18.5</polyline>
+%  <polyline lc="black">22.75,-13.5 21.25,-13.5</polyline>
+%  <polyline lc="black">22,-12.75 22,-14.25</polyline>
+%  <polyline lc="black">22.75,-18.5 21.25,-18.5</polyline>
 %  <polyline lc="black">22,-12 16,-12</polyline>
 %  <polyline lc="black">22,-20 16,-20</polyline>
 %  <polyline lc="black">28,-8 16,-16 28,-24 28,-8</polyline>
-%  <polyline lc="black">32,-20 28,-20</polyline>
 %  <polyline lc="black">32,-12 28,-12</polyline>
-%  <polyline lc="black">16,-20 20,-20</polyline>
+%  <polyline lc="black">32,-20 28,-20</polyline>
 %  <polyline lc="black">16,-12 20,-12</polyline>
+%  <polyline lc="black">16,-20 20,-20</polyline>
 %  <text x="24" y="-7" t="gain 100.0 " h="3" halign="c" lc="black"/>
 %  <polyline lc="black">40,-16 40,-19</polyline>
 %  <polyline lc="black">37.333,-19 42.667,-19</polyline>
@@ -161,23 +167,29 @@
 \path[line width=0.30mm, draw=black] (26.75,-45.5) -- (25.25,-45.5);
 \path[line width=0.30mm, draw=black] (26,-44.75) -- (26,-46.25);
 \path[line width=0.30mm, draw=black] (26.75,-50.5) -- (25.25,-50.5);
+\path[line width=0.30mm, draw=black] (22.75,-45.5) -- (21.25,-45.5);
+\path[line width=0.30mm, draw=black] (22,-44.75) -- (22,-46.25);
+\path[line width=0.30mm, draw=black] (22.75,-50.5) -- (21.25,-50.5);
 \path[line width=0.30mm, draw=black] (22,-44) -- (16,-44);
 \path[line width=0.30mm, draw=black] (22,-52) -- (16,-52);
 \path[line width=0.30mm, draw=black] (28,-40) -- (16,-48) -- (28,-56) -- (28,-40);
-\path[line width=0.30mm, draw=black] (32,-52) -- (28,-52);
 \path[line width=0.30mm, draw=black] (32,-44) -- (28,-44);
-\path[line width=0.30mm, draw=black] (16,-52) -- (20,-52);
+\path[line width=0.30mm, draw=black] (32,-52) -- (28,-52);
 \path[line width=0.30mm, draw=black] (16,-44) -- (20,-44);
+\path[line width=0.30mm, draw=black] (16,-52) -- (20,-52);
 \path[line width=0.30mm, draw=black] (26.75,-13.5) -- (25.25,-13.5);
 \path[line width=0.30mm, draw=black] (26,-12.75) -- (26,-14.25);
 \path[line width=0.30mm, draw=black] (26.75,-18.5) -- (25.25,-18.5);
+\path[line width=0.30mm, draw=black] (22.75,-13.5) -- (21.25,-13.5);
+\path[line width=0.30mm, draw=black] (22,-12.75) -- (22,-14.25);
+\path[line width=0.30mm, draw=black] (22.75,-18.5) -- (21.25,-18.5);
 \path[line width=0.30mm, draw=black] (22,-12) -- (16,-12);
 \path[line width=0.30mm, draw=black] (22,-20) -- (16,-20);
 \path[line width=0.30mm, draw=black] (28,-8) -- (16,-16) -- (28,-24) -- (28,-8);
-\path[line width=0.30mm, draw=black] (32,-20) -- (28,-20);
 \path[line width=0.30mm, draw=black] (32,-12) -- (28,-12);
-\path[line width=0.30mm, draw=black] (16,-20) -- (20,-20);
+\path[line width=0.30mm, draw=black] (32,-20) -- (28,-20);
 \path[line width=0.30mm, draw=black] (16,-12) -- (20,-12);
+\path[line width=0.30mm, draw=black] (16,-20) -- (20,-20);
 \draw[black] (24,-7) node[anchor=base]{gain 100.0 };
 \path[line width=0.30mm, draw=black] (40,-16) -- (40,-19);
 \path[line width=0.30mm, draw=black] (37.333,-19) -- (42.667,-19);

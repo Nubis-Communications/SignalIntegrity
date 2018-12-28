@@ -13,23 +13,26 @@
 %  <polyline lc="black">25.25,-25.5 26.75,-25.5</polyline>
 %  <polyline lc="black">26,-24.75 26,-26.25</polyline>
 %  <polyline lc="black">25.25,-30.5 26.75,-30.5</polyline>
+%  <polyline lc="black">29.25,-25.5 30.75,-25.5</polyline>
+%  <polyline lc="black">30,-24.75 30,-26.25</polyline>
+%  <polyline lc="black">29.25,-30.5 30.75,-30.5</polyline>
 %  <polyline lc="black">30,-24 36,-24</polyline>
 %  <polyline lc="black">30,-32 36,-32</polyline>
 %  <polyline lc="black">24,-20 36,-28 24,-36 24,-20</polyline>
-%  <polyline lc="black">20,-32 24,-32</polyline>
 %  <polyline lc="black">20,-24 24,-24</polyline>
-%  <polyline lc="black">36,-32 32,-32</polyline>
+%  <polyline lc="black">20,-32 24,-32</polyline>
 %  <polyline lc="black">36,-24 32,-24</polyline>
+%  <polyline lc="black">36,-32 32,-32</polyline>
 %  <polyline lc="black">20,-36 18,-37 22,-38 18,-39 22,-40 18,-41 22,-42 18,-43 20,-44</polyline>
 %  <polyline lc="black">20,-44 20,-48</polyline>
 %  <polygon fill="black">17.333,-48 22.667,-48 20,-50.667 17.333,-48</polygon>
 %  <polyline lc="black">20,-32 20,-36</polyline>
-%  <text x="24" y="-43" t="Zi" h="3" halign="l" lc="black"/>
+%  <text x="24" y="-43" t="$Z_i$" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">20,-20 18,-19 22,-18 18,-17 22,-16 18,-15 22,-14 18,-13 20,-12</polyline>
 %  <polyline lc="black">20,-12 20,-8</polyline>
 %  <polygon fill="black">17.333,-8 22.667,-8 20,-5.333 17.333,-8</polygon>
 %  <polyline lc="black">20,-24 20,-20</polyline>
-%  <text x="24" y="-15" t="Zi" h="3" halign="l" lc="black"/>
+%  <text x="24" y="-15" t="$Z_i$" h="3" halign="l" lc="black"/>
 %  <ellipse x="20" y="-32" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="20" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
@@ -49,23 +52,26 @@
 \path[line width=0.30mm, draw=black] (25.25,-25.5) -- (26.75,-25.5);
 \path[line width=0.30mm, draw=black] (26,-24.75) -- (26,-26.25);
 \path[line width=0.30mm, draw=black] (25.25,-30.5) -- (26.75,-30.5);
+\path[line width=0.30mm, draw=black] (29.25,-25.5) -- (30.75,-25.5);
+\path[line width=0.30mm, draw=black] (30,-24.75) -- (30,-26.25);
+\path[line width=0.30mm, draw=black] (29.25,-30.5) -- (30.75,-30.5);
 \path[line width=0.30mm, draw=black] (30,-24) -- (36,-24);
 \path[line width=0.30mm, draw=black] (30,-32) -- (36,-32);
 \path[line width=0.30mm, draw=black] (24,-20) -- (36,-28) -- (24,-36) -- (24,-20);
-\path[line width=0.30mm, draw=black] (20,-32) -- (24,-32);
 \path[line width=0.30mm, draw=black] (20,-24) -- (24,-24);
-\path[line width=0.30mm, draw=black] (36,-32) -- (32,-32);
+\path[line width=0.30mm, draw=black] (20,-32) -- (24,-32);
 \path[line width=0.30mm, draw=black] (36,-24) -- (32,-24);
+\path[line width=0.30mm, draw=black] (36,-32) -- (32,-32);
 \path[line width=0.30mm, draw=black] (20,-36) -- (18,-37) -- (22,-38) -- (18,-39) -- (22,-40) -- (18,-41) -- (22,-42) -- (18,-43) -- (20,-44);
 \path[line width=0.30mm, draw=black] (20,-44) -- (20,-48);
 \path[line width=0.30mm, fill=black] (17.333,-48) -- (22.667,-48) -- (20,-50.667) -- (17.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (20,-32) -- (20,-36);
-\draw[black] (24,-43) node[anchor=base west]{Zi};
+\draw[black] (24,-43) node[anchor=base west]{$Z_i$};
 \path[line width=0.30mm, draw=black] (20,-20) -- (18,-19) -- (22,-18) -- (18,-17) -- (22,-16) -- (18,-15) -- (22,-14) -- (18,-13) -- (20,-12);
 \path[line width=0.30mm, draw=black] (20,-12) -- (20,-8);
 \path[line width=0.30mm, fill=black] (17.333,-8) -- (22.667,-8) -- (20,-5.333) -- (17.333,-8) -- cycle;
 \path[line width=0.30mm, draw=black] (20,-24) -- (20,-20);
-\draw[black] (24,-15) node[anchor=base west]{Zi};
+\draw[black] (24,-15) node[anchor=base west]{$Z_i$};
 \path[line width=0.30mm, draw=black, fill=black] (20,-32) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (20,-24) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

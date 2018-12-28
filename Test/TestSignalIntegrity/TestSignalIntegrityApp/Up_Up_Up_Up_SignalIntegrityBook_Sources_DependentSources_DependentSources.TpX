@@ -1,11 +1,11 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <polygon lc="black">40,-24 46,-32 40,-40 34,-32 40,-24</polygon>
 %  <polyline lc="black">22.5,-27 25.5,-27</polyline>
 %  <polyline lc="black">24,-25.5 24,-28.5</polyline>
 %  <polyline lc="black">22.5,-37 25.5,-37</polyline>
 %  <polyline lc="black">38.5,-27 41.5,-27</polyline>
 %  <polyline lc="black">40,-25.5 40,-28.5</polyline>
 %  <polyline lc="black">38.5,-37 41.5,-37</polyline>
+%  <polygon lc="black">40,-24 46,-32 40,-40 34,-32 40,-24</polygon>
 %  <rect x="16" y="-24" w="32" h="-16" lc="black"/>
 %  <polyline lc="black">24,-48 24,-40</polyline>
 %  <polyline lw="2" lc="red">23,-47 25,-49</polyline>
@@ -20,9 +20,9 @@
 %  <polyline lw="2" lc="red">39,-15 41,-17</polyline>
 %  <polyline lw="2" lc="red">41,-15 39,-17</polyline>
 %  <text x="52" y="-33" t="gain 1.0 " h="3" halign="l" lc="black"/>
-%  <polygon lc="black">96,-24 102,-32 96,-40 90,-32 96,-24</polygon>
 %  <polyline arr1="h44" arrs="0.5" lc="black">80,-26 80,-38</polyline>
 %  <polyline arr1="h44" arrs="0.5" lc="black">96,-26 96,-38</polyline>
+%  <polygon lc="black">96,-24 102,-32 96,-40 90,-32 96,-24</polygon>
 %  <rect x="72" y="-24" w="32" h="-16" lc="black"/>
 %  <polyline lc="black">80,-48 80,-40</polyline>
 %  <polyline lw="2" lc="red">79,-47 81,-49</polyline>
@@ -37,11 +37,11 @@
 %  <polyline lw="2" lc="red">95,-15 97,-17</polyline>
 %  <polyline lw="2" lc="red">97,-15 95,-17</polyline>
 %  <text x="108" y="-33" t="gain 1.0 " h="3" halign="l" lc="black"/>
-%  <polygon lc="black">40,-72 46,-80 40,-88 34,-80 40,-72</polygon>
 %  <polyline lc="black">22.5,-75 25.5,-75</polyline>
 %  <polyline lc="black">24,-73.5 24,-76.5</polyline>
 %  <polyline lc="black">22.5,-85 25.5,-85</polyline>
 %  <polyline arr1="h44" arrs="0.5" lc="black">40,-74 40,-86</polyline>
+%  <polygon lc="black">40,-72 46,-80 40,-88 34,-80 40,-72</polygon>
 %  <rect x="16" y="-72" w="32" h="-16" lc="black"/>
 %  <polyline lc="black">24,-96 24,-88</polyline>
 %  <polyline lw="2" lc="red">23,-95 25,-97</polyline>
@@ -56,11 +56,11 @@
 %  <polyline lw="2" lc="red">39,-63 41,-65</polyline>
 %  <polyline lw="2" lc="red">41,-63 39,-65</polyline>
 %  <text x="52" y="-81" t="gain 1.0 A/V" h="3" halign="l" lc="black"/>
-%  <polygon lc="black">96,-72 102,-80 96,-88 90,-80 96,-72</polygon>
 %  <polyline arr1="h44" arrs="0.5" lc="black">80,-74 80,-86</polyline>
 %  <polyline lc="black">94.5,-75 97.5,-75</polyline>
 %  <polyline lc="black">96,-73.5 96,-76.5</polyline>
 %  <polyline lc="black">94.5,-85 97.5,-85</polyline>
+%  <polygon lc="black">96,-72 102,-80 96,-88 90,-80 96,-72</polygon>
 %  <rect x="72" y="-72" w="32" h="-16" lc="black"/>
 %  <polyline lc="black">80,-96 80,-88</polyline>
 %  <polyline lw="2" lc="red">79,-95 81,-97</polyline>
@@ -95,13 +95,13 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\path[line width=0.30mm, draw=black] (40,-24) -- (46,-32) -- (40,-40) -- (34,-32) -- (40,-24) -- cycle;
 \path[line width=0.30mm, draw=black] (22.5,-27) -- (25.5,-27);
 \path[line width=0.30mm, draw=black] (24,-25.5) -- (24,-28.5);
 \path[line width=0.30mm, draw=black] (22.5,-37) -- (25.5,-37);
 \path[line width=0.30mm, draw=black] (38.5,-27) -- (41.5,-27);
 \path[line width=0.30mm, draw=black] (40,-25.5) -- (40,-28.5);
 \path[line width=0.30mm, draw=black] (38.5,-37) -- (41.5,-37);
+\path[line width=0.30mm, draw=black] (40,-24) -- (46,-32) -- (40,-40) -- (34,-32) -- (40,-24) -- cycle;
 \path[line width=0.30mm, draw=black] (16,-40) rectangle +(32,16);
 \path[line width=0.30mm, draw=black] (24,-48) -- (24,-40);
 \path[line width=0.6mm, draw=red] (23,-47) -- (25,-49);
@@ -116,9 +116,9 @@
 \path[line width=0.6mm, draw=red] (39,-15) -- (41,-17);
 \path[line width=0.6mm, draw=red] (41,-15) -- (39,-17);
 \draw[black] (52,-33) node[anchor=base west]{gain 1.0 };
-\path[line width=0.30mm, draw=black] (96,-24) -- (102,-32) -- (96,-40) -- (90,-32) -- (96,-24) -- cycle;
 \path[line width=0.30mm, draw=black, <-] (80,-26) -- (80,-38);
 \path[line width=0.30mm, draw=black, <-] (96,-26) -- (96,-38);
+\path[line width=0.30mm, draw=black] (96,-24) -- (102,-32) -- (96,-40) -- (90,-32) -- (96,-24) -- cycle;
 \path[line width=0.30mm, draw=black] (72,-40) rectangle +(32,16);
 \path[line width=0.30mm, draw=black] (80,-48) -- (80,-40);
 \path[line width=0.6mm, draw=red] (79,-47) -- (81,-49);
@@ -133,11 +133,11 @@
 \path[line width=0.6mm, draw=red] (95,-15) -- (97,-17);
 \path[line width=0.6mm, draw=red] (97,-15) -- (95,-17);
 \draw[black] (108,-33) node[anchor=base west]{gain 1.0 };
-\path[line width=0.30mm, draw=black] (40,-72) -- (46,-80) -- (40,-88) -- (34,-80) -- (40,-72) -- cycle;
 \path[line width=0.30mm, draw=black] (22.5,-75) -- (25.5,-75);
 \path[line width=0.30mm, draw=black] (24,-73.5) -- (24,-76.5);
 \path[line width=0.30mm, draw=black] (22.5,-85) -- (25.5,-85);
 \path[line width=0.30mm, draw=black, <-] (40,-74) -- (40,-86);
+\path[line width=0.30mm, draw=black] (40,-72) -- (46,-80) -- (40,-88) -- (34,-80) -- (40,-72) -- cycle;
 \path[line width=0.30mm, draw=black] (16,-88) rectangle +(32,16);
 \path[line width=0.30mm, draw=black] (24,-96) -- (24,-88);
 \path[line width=0.6mm, draw=red] (23,-95) -- (25,-97);
@@ -152,11 +152,11 @@
 \path[line width=0.6mm, draw=red] (39,-63) -- (41,-65);
 \path[line width=0.6mm, draw=red] (41,-63) -- (39,-65);
 \draw[black] (52,-81) node[anchor=base west]{gain 1.0 A/V};
-\path[line width=0.30mm, draw=black] (96,-72) -- (102,-80) -- (96,-88) -- (90,-80) -- (96,-72) -- cycle;
 \path[line width=0.30mm, draw=black, <-] (80,-74) -- (80,-86);
 \path[line width=0.30mm, draw=black] (94.5,-75) -- (97.5,-75);
 \path[line width=0.30mm, draw=black] (96,-73.5) -- (96,-76.5);
 \path[line width=0.30mm, draw=black] (94.5,-85) -- (97.5,-85);
+\path[line width=0.30mm, draw=black] (96,-72) -- (102,-80) -- (96,-88) -- (90,-80) -- (96,-72) -- cycle;
 \path[line width=0.30mm, draw=black] (72,-88) rectangle +(32,16);
 \path[line width=0.30mm, draw=black] (80,-96) -- (80,-88);
 \path[line width=0.6mm, draw=red] (79,-95) -- (81,-97);

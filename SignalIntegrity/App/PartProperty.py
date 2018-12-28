@@ -267,3 +267,16 @@ class PartPropertyWeight(PartProperty):
 class PartPropertyReferenceImpedance(PartProperty):
     def __init__(self,impedance=50.,keyword='z0',):
         PartProperty.__init__(self,'impedance',type='float',unit='Ohm',keyword=keyword,description='reference impedance (Ohms)',value=impedance,visible=True,keywordVisible=True)
+
+class PartPropertyGm(PartProperty):
+    def __init__(self,Gm=1.0):
+        PartProperty.__init__(self,'Gm',type='float',unit='A/V',keyword='gm',description='Gm (A/V)',value=Gm,visible=True)
+
+class PartPropertyRpi(PartProperty):
+    def __init__(self,rpi=1e8):
+        PartProperty.__init__(self,'Rpi',type='float',unit='Ohm',keyword='rpi',description='base/emitter resistance (Ohms)',value=rpi,visible=True)
+
+class PartPropertyOutputResistance(PartProperty):
+    def __init__(self,ro=1e8):
+        PartProperty.__init__(self,'ro',type='float',unit='Ohm',keyword='ro',description='collector/emitter output resistance (Ohms)',value=ro,visible=True)
+

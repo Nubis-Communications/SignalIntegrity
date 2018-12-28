@@ -107,7 +107,12 @@ class TikZ(object):
         line=line+' ('+self.Format(x)+','+self.Format(y)+')'
         line=line+alignString
         textToWrite=kw['text']
-        textToWrite=textToWrite.replace('_','\\textunderscore ')
+        inmath=False
+        if len(textToWrite)>1:
+            if (textToWrite[0]=='$' and textToWrite[-1]=='$'):
+                inmath=True
+        if not inmath:
+            textToWrite=textToWrite.replace('_','\\textunderscore ')
         #hack to deal with unicode sigma
         if textToWrite==u"\u03C3":
             textToWrite='$\sigma$'

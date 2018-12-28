@@ -47,6 +47,9 @@ class PartPin(PartPinConfiguration):
             texty=starty+textGrid
             if numberSide in ['n','br','tl','rt','lb']:
                 textx=startx+textGrid/2
+            elif numberSide in ['nx']:
+                textx=startx+textGrid/2
+                texty=starty+textGrid/4
             else:
                 textx=startx-textGrid/2
         elif pinOrientation == 'b':
@@ -55,6 +58,9 @@ class PartPin(PartPinConfiguration):
             texty=starty-textGrid
             if numberSide in ['n','bl','tr','rb','lt']:
                 textx=startx+textGrid/2
+            elif numberSide in ['nx']:
+                textx=startx+textGrid/2
+                texty=starty-textGrid/4
             else:
                 textx=startx-textGrid/2
         elif pinOrientation == 'l':
@@ -63,6 +69,9 @@ class PartPin(PartPinConfiguration):
             textx=startx+textGrid*3/4
             if numberSide in ['n','tl','br','rt','lb']:
                 texty=starty-textGrid/2
+            elif numberSide in ['nx']:
+                texty=starty-textGrid/2
+                textx=startx-textGrid/4
             else:
                 texty=starty+textGrid/2
         elif pinOrientation =='r':
@@ -71,6 +80,9 @@ class PartPin(PartPinConfiguration):
             textx=startx-textGrid*3/4
             if numberSide in ['n','tr','bl','rb','lt']:
                 texty=starty-textGrid/2
+            elif numberSide in ['nx']:
+                texty=starty-textGrid/2
+                textx=startx+textGrid/4
             else:
                 texty=starty+textGrid/2
         if self['Visible']:

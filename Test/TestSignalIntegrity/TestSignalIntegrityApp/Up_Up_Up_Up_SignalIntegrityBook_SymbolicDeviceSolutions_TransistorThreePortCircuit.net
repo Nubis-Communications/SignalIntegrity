@@ -1,13 +1,13 @@
 device Zo 2 R 50.0
-device D1 4 transconductanceamplifier gain 1.0 zi 100000000.0 zo 100000000.0
 device R1 2 R 50.0
-device C1 2 C 1e-12
-device C2 2 C 1e-12
+device C1 2 C 1e-12 esr 0.0 df 0.0
+device C2 2 C 1e-12 esr 0.0 df 0.0
 device R2 2 R 50.0
-device C3 2 C 1e-12
+device C3 2 C 1e-12 esr 0.0 df 0.0
 device R3 2 R 50.0
 device R4 2 R 50.0
-connect D1 4 C1 1 R1 1 Zo 1 R2 1 D1 1
-connect Zo 2 D1 3 C3 2 R4 1 C2 2
-connect D1 2 C1 2 R3 2 R1 2 C2 1
-connect R4 2 R2 2 R3 1
+device D2 4 voltagecontrolledcurrentsource 1.0
+connect D2 4 Zo 1 D2 1 C1 1 R1 1 R2 1
+connect Zo 2 C3 2 C2 2 R4 1 D2 3
+connect C2 1 R3 2 D2 2 R1 2 C1 2
+connect R2 2 R3 1 R4 2
