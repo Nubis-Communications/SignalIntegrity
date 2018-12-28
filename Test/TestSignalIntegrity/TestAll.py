@@ -24,6 +24,7 @@ import unittest
 
 from TestAdaptDecimate import *
 from TestBook import *
+from TestBookDevices import *
 from TestChirpZTransform import *
 from TestClassWriter import *
 from TestCommonElements import *

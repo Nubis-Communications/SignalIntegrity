@@ -27,12 +27,74 @@ import os
 class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
     checkPictures=True
     def __init__(self, methodName='runTest'):
-        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.abspath('../../../SignalIntegrityBook/SignalIntegrityApp'))
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.abspath('../../../SignalIntegrityBook/Sources'))
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         #si.test.SignalIntegrityAppTestHelper.forceWritePictures=True
-        os.chdir(self.path)
-        self.book=os.path.exists('../../../../SignalIntegrityBook/')
+        pass
+    def testSources(self):
+        filesList=[
+            'Amplifiers/TransresistanceAmplifierTwoPortCircuit.si',
+            'Amplifiers/TransresistanceAmplifierFourPortCircuit.si',
+            'Amplifiers/VoltageAmplifierFourPortSymbol.si',
+            'Amplifiers/OperationalAmplifierSymbol.si',
+            'Amplifiers/VoltageAmplifierTwoPortSymbol.si',
+            'Amplifiers/CurrentAmplifierFourPortSymbol.si',
+            'Amplifiers/OperationalAmplifierCircuit.si',
+            'Amplifiers/CurrentAmplifierFourPortCircuit.si',
+            'Amplifiers/TransresistanceAmplifierTwoPortSymbol.si',
+            'Amplifiers/CurrentAmplifierThreePortCircuit.si',
+            'Amplifiers/CurrentAmplifierTwoPortSymbol.si',
+            'Amplifiers/VoltageAmplifierThreePortCircuit.si',
+            'Amplifiers/VoltageAmplifierFourPortCircuit.si',
+            'Amplifiers/TransresistanceAmplifierThreePortCircuit.si',
+            'Amplifiers/CurrentAmplifierTwoPortCircuit.si',
+            'Amplifiers/VoltageAmplifierTwoPortCircuit.si',
+            'Amplifiers/TransconductanceAmplifierTwoPortSymbol.si',
+            'Amplifiers/TransresistanceAmplifierFourPortSymbol.si',
+            'Amplifiers/TransconductanceAmplifierTwoPortCircuit.si',
+            'Amplifiers/TransconductanceAmplifierFourPortCircuit.si',
+            'Amplifiers/TransconductanceAmplifierThreePortCircuit.si',
+            'Amplifiers/TransconductanceAmplifierFourPortSymbol.si',
+            'Transistors/TransistorSimpleThreePortCircuit.si',
+            #'Transistors/TransistorNPNSymbol.si',
+            'IdealTransformer/testIdealTransformer.si',
+            'IdealTransformer/IdealTransformerSP.si',
+            'IdealTransformer/IdealTransformerCircuit.si',
+            'IdealTransformer/IdealTransformerSymbol.si',
+            'CurrentSources/CurrentSourceOnePortCircuit.si',
+            'CurrentSources/CurrentSourceOnePortShuntZCircuit.si',
+            'CurrentSources/CurrentSourceCircuit.si',
+            'SenseElements/VoltageSenseTwoPortCircuit.si',
+            'SenseElements/CurrentSenseTwoPortCircuit.si',
+            'DependentSources/CurrentControlledVoltageSourceSymbol.si',
+            'DependentSources/CurrentControlledCurrentSourceSymbol.si',
+            'DependentSources/VoltageControlledVoltageSourceSymbol.si',
+            'DependentSources/VoltageControlledCurrentSourceSymbol.si',
+            #'DependentSources/DependentSources.si',
+            'VoltageSources/VoltageSourceOnePortCircuit.si',
+            'VoltageSources/VoltageSourceCircuit.si',
+            'VoltageSources/VoltageSourceOnePortSeriesZCircuit.si'
+            ]
+        os.chdir(os.path.dirname(__file__))
+        self.path=os.path.abspath('../../../SignalIntegrityBook/Sources')
+        self.book=os.path.exists(self.path)
+        if not self.book:
+            return
+        for filename in filesList:
+            os.chdir(os.path.dirname(__file__))
+            self.path=os.path.abspath('../../../SignalIntegrityBook/Sources')
+            os.chdir(self.path)
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            import SignalIntegrity.App.Project
+            pysi=SignalIntegrityAppHeadless()
+            SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']=True
+            self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
+            #SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=16.
+            #pysi.SaveProjectToFile(pysi.fileparts.filename)
+            self.path=os.getcwd()
+            self.PictureChecker(pysi,pysi.fileparts.filename)
+
     def testBookDevices(self):
         filesList=[
             'File.si',
@@ -78,19 +140,24 @@ class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper
             'VoltageControlledCurrentSource.si',
             'VoltageControlledVoltageSource.si',
         ]
+        os.chdir(os.path.dirname(__file__))
+        self.path=os.path.abspath('../../../SignalIntegrityBook/SignalIntegrityApp')
+        self.book=os.path.exists(self.path)
+        if not self.book:
+            return
+        os.chdir(self.path)
         for filename in filesList:
-            self.setUp()
-            if not 'SignalIntegrityBook' in filename or self.book:
-                #print filename
-                os.chdir(self.path)
-                from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
-                import SignalIntegrity.App.Project
-                pysi=SignalIntegrityAppHeadless()
-                SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']=True
-                self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
-                SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=16.
-                pysi.SaveProjectToFile(filename)
-                self.PictureChecker(pysi,filename)
+            os.chdir(os.path.dirname(__file__))
+            self.path=os.path.abspath('../../../SignalIntegrityBook/SignalIntegrityApp')
+            os.chdir(self.path)
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            import SignalIntegrity.App.Project
+            pysi=SignalIntegrityAppHeadless()
+            SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']=True
+            self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
+            #SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=16.
+            #pysi.SaveProjectToFile(filename)
+            self.PictureChecker(pysi,filename)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
