@@ -115,13 +115,13 @@ class FrequencyDomain(list):
             if fl.CheckEvenlySpaced():
                 f.write(str(fl.N)+'\n')
                 f.write(str(fl.Fe)+'\n')
-                for v in self.Response():
+                for v in self.Values():
                     f.write(str(v.real)+' '+str(v.imag)+'\n')
             else:
                 f.write('UnevenlySpaced\n')
                 for n in range(len(fl)):
-                    f.write(str(fl[n])+' '+str(self.Response()[n].real)+' '+
-                    str(self.Response()[n].imag)+'\n')
+                    f.write(str(fl[n])+' '+str(self.Values()[n].real)+' '+
+                    str(self.Values()[n].imag)+'\n')
         return self
     def __eq__(self,other):
         """overloads ==

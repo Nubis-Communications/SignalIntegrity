@@ -36,7 +36,7 @@ import math
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
 class TestOysterTest(unittest.TestCase,
-        si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
+        si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):
     relearn=True
     plot=True
     debug=False
@@ -241,6 +241,15 @@ class TestOysterTest(unittest.TestCase,
                                                    [outputWaveforms[outputNames.index('Thru12')],outputWaveforms[outputNames.index('Thru22')]]])
         spDict['DUT']=tdr.RawMeasuredSParameters([[outputWaveforms[outputNames.index('DUT11')],outputWaveforms[outputNames.index('DUT21')]],
                                                    [outputWaveforms[outputNames.index('DUT12')],outputWaveforms[outputNames.index('DUT22')]]])
+
+        for key in spDict:
+            item = spDict[key]
+            if isinstance(item,si.td.wf.Waveform):
+                self.CheckWaveformResult(item,self.NameForTest()+'_'+key+'.txt',key+' incorrect')
+            elif isinstance(item,si.fd.FrequencyContent):
+                self.CheckFrequencyResponseResult(item,self.NameForTest()+'_'+key+'.txt',key+' incorrect')
+            elif isinstance(item,si.sp.SParameters):
+                self.CheckSParametersResult(item,self.NameForTest()+'_'+key+'.s'+str(item.m_P)+'p',key+' incorrect')
 
         baseNames=['Short1','Open1','Load1']
 
