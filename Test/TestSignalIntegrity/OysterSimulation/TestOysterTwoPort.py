@@ -38,11 +38,11 @@ import math
 class TestOysterTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
-    plot=False
+    plot=True
     debug=False
     checkPictures=True
     epsilon=50e-12
-    usePickle=False
+    usePickle=True
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def tearDown(self):
@@ -134,6 +134,7 @@ class TestOysterTest(unittest.TestCase,
         self.SParameterRegressionChecker(spDict['CalThru'], 'CalThru.s2p')
     def testOysterTwoPort(self):
         pass
+        print(self.id())
         ports=2
         f=si.fd.EvenlySpacedFrequencyList(40e9,8000)
         reflectNames=['Short','Open','Load']
@@ -149,12 +150,14 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.SimulationResultsChecker('OysterSimulationTwoPort.si')
+        print('starting simulation')
+        result = self.SimulationResultsChecker('OysterSimulationTwoPortNew.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=self.NoisyWaveforms(result[3])
-
+        
+        print('generating raw measured s-parameters')
         reflectName='Short'
         portName='1'
         baseName=reflectName+portName
@@ -288,11 +291,13 @@ class TestOysterTest(unittest.TestCase,
         plt.grid(False)
         if plotthem: plt.show()
 
+        print('generating cal standards')
         calStandards=[self.SParameterResultsChecker('OysterFixtureShort.si')[0],
               self.SParameterResultsChecker('OysterFixtureOpen.si')[0],
               self.SParameterResultsChecker('OysterFixtureLoad.si')[0],
               self.SParameterResultsChecker('OysterFixtureThru.si')[0]]
 
+        print('generating calibration measurements')
         ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
@@ -303,14 +308,17 @@ class TestOysterTest(unittest.TestCase,
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(2,2),spDict['Thru'].FrequencyResponse(1,2),calStandards[3].PortReorder([2,1]),1,0,'Thru122'),
             ]
 
+        print('calculating error terms')
         cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
         Fixture=cm.Fixtures()
         for p in range(ports):
             self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'OysterFixtureFile'+str(p+1)+'.s'+str(ports*2)+'p')
 
+        print('undeembedded DUT calculation')
         DUTRawCalcSp=cm.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTRawCalcSp, self.NameForTest()+'_RawCalc.s2p')
 
+        print('performing deembedding')
         DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureDeembed.si')[1][0]
         DUTActualSp=self.SParameterResultsChecker('OysterDut.si')[0]
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
@@ -345,11 +353,12 @@ class TestOysterTest(unittest.TestCase,
                         plt.show()
 
         #self.assertTrue(SpAreEqual,'s-parameters not equal')
-
+        print('generating deembedding fixture for error terms merge')
         self.SParameterResultsChecker('OysterDeembeddingFixture.si')[0]
         NewFixture1=self.SParameterResultsChecker('OysterErrorTermsDeembed1.si')[0]
         NewFixture2=self.SParameterResultsChecker('OysterErrorTermsDeembed2.si')[0]
 
+        print('merging error terms')
         for n in range(len(cm)):
             S1=NewFixture1[n]
             S2=NewFixture2[n]
@@ -383,6 +392,7 @@ class TestOysterTest(unittest.TestCase,
         for p in range(ports):
             self.SParameterRegressionChecker(FixtureNew[p],self.NameForTest()+'OysterFixtureFileNew'+str(p+1)+'.s'+str(ports*2)+'p')
  
+        print('performing new DUT calculation')
         DUTCalcNewSp=cm.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTCalcNewSp, self.NameForTest()+'_NewCalc.s2p')
  
@@ -418,7 +428,7 @@ class TestOysterTest(unittest.TestCase,
                         plt.show()
  
         #self.assertTrue(SpAreEqual,'s-parameters not equal')
-
+        print('checking and getting files for newer calculation')
         self.SParameterResultsChecker('OysterDeembeddingFixture.si')[0]
         self.SParameterResultsChecker('OysterErrorTermsDeembed1.si')[0]
         self.SParameterResultsChecker('OysterErrorTermsDeembed2.si')[0]
@@ -432,11 +442,13 @@ class TestOysterTest(unittest.TestCase,
         thru1=self.SParameterResultsChecker('OysterThru1')[0]
         thru2=self.SParameterResultsChecker('OysterThru2')[0]
 
+        print('generating calibration standards')
         calStandards=[si.m.calkit.ShortStandard(f),
               si.m.calkit.OpenStandard(f),
               si.m.calkit.LoadStandard(f),
               si.m.calkit.ThruStandard(f)]
 
+        print('generating calibration measurements')
         ml=[si.m.cal.ReflectCalibrationMeasurement(short1.FrequencyResponse(1,1),calStandards[0],0,'Short1'),
             si.m.cal.ReflectCalibrationMeasurement(short2.FrequencyResponse(1,1),calStandards[0],1,'Short2'),
             si.m.cal.ReflectCalibrationMeasurement(open1.FrequencyResponse(1,1),calStandards[1],0,'Open1'),
@@ -447,11 +459,13 @@ class TestOysterTest(unittest.TestCase,
             si.m.cal.ThruCalibrationMeasurement(thru2.FrequencyResponse(2,2),thru2.FrequencyResponse(1,2),calStandards[3],1,0,'Thru122'),
             ]
 
+        print('calculating error terms')
         cmnewer=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
         FixtureNewer=cmnewer.Fixtures()
         for p in range(ports):
             self.SParameterRegressionChecker(FixtureNewer[p],self.NameForTest()+'OysterFixtureFileNewer'+str(p+1)+'.s'+str(ports*2)+'p')
 
+        print('newer DUT calculation')
         DUTCalcNewerSp=cmnewer.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTCalcNewerSp, self.NameForTest()+'_NewerCalc.s2p')
 
@@ -733,6 +747,7 @@ class TestOysterTest(unittest.TestCase,
 
     def testOysterIdealThruRecovery(self):
         pass
+        print(self.id())
         ports=2
         f=si.fd.EvenlySpacedFrequencyList(40e9,8000)
         spDict=dict()
@@ -747,13 +762,14 @@ class TestOysterTest(unittest.TestCase,
 
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
-
-        result = self.GetSimulationResultsCheck('OysterSimulationTwoPort.si')
+        print('starting simulation')
+        result = self.GetSimulationResultsCheck('OysterSimulationTwoPortNew.si')
+        print('simulation complete')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
         outputWaveforms=self.NoisyWaveforms(result[3])
-
+        print('converting to raw measured s-parameters')
         spDict['Short1']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Short')])
         spDict['Short2']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Short')])
         spDict['Open1']=tdr.RawMeasuredSParameters(outputWaveforms[outputNames.index('Open')])
@@ -764,7 +780,7 @@ class TestOysterTest(unittest.TestCase,
                                                    [outputWaveforms[outputNames.index('Thru12')],outputWaveforms[outputNames.index('Thru22')]]])
         spDict['DUT']=tdr.RawMeasuredSParameters([[outputWaveforms[outputNames.index('IThru11')],outputWaveforms[outputNames.index('IThru21')]],
                                                    [outputWaveforms[outputNames.index('IThru12')],outputWaveforms[outputNames.index('IThru22')]]])
-
+        print('generating cal standards')
         calStandards=[self.SParameterResultsChecker('OysterFixtureShort.si')[0],
               self.SParameterResultsChecker('OysterFixtureOpen.si')[0],
               self.SParameterResultsChecker('OysterFixtureLoad.si')[0],
@@ -775,6 +791,7 @@ class TestOysterTest(unittest.TestCase,
 #               si.sp.SParameterFile('CalLoad.s1p'),
 #               si.sp.SParameterFile('CalThru.s2p')]
 
+        print('generating calibration measurements')
         ml=[si.m.cal.ReflectCalibrationMeasurement(spDict['Short1'].FrequencyResponse(1,1),calStandards[0],0,'Short1'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Short2'].FrequencyResponse(1,1),calStandards[0],1,'Short2'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Open1'].FrequencyResponse(1,1),calStandards[1],0,'Open1'),
@@ -785,14 +802,17 @@ class TestOysterTest(unittest.TestCase,
             si.m.cal.ThruCalibrationMeasurement(spDict['Thru'].FrequencyResponse(2,2),spDict['Thru'].FrequencyResponse(1,2),calStandards[3].PortReorder([2,1]),1,0,'Thru122'),
             ]
 
+        print('performing calibration')
         cm=si.m.cal.Calibration(ports,f,ml).CalculateErrorTerms()
         Fixture=cm.Fixtures()
         for p in range(ports):
             self.SParameterRegressionChecker(Fixture[p],self.NameForTest()+'OysterFixtureFile'+str(p+1)+'.s'+str(ports*2)+'p')
 
+        print('calculating DUT')
         DUTRawCalcSp=cm.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTRawCalcSp, self.NameForTest()+'_RawCalc.s2p')
 
+        print('performing deembedding')
         DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureIdealThruDeembed.si')[1][0]
         DUTActualSp=si.sp.dev.TLineLossless(f,2,50.,0.)
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
@@ -1140,7 +1160,8 @@ class TestOysterTest(unittest.TestCase,
                 pickle.dump(self.simdict,open("simresults.p","wb"))
 
 if __name__ == "__main__":
-    runProfiler=False
+    print('profiling')
+    runProfiler=True
     if runProfiler:
         import cProfile
         cProfile.run('unittest.main()','stats')

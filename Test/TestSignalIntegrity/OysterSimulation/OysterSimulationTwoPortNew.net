@@ -1,0 +1,120 @@
+voltagesource VS1 1
+device R2 2 R 50.0
+device R3 2 R 50.0
+device R5 2 R 50.0
+device D4 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device R7 2 R 50.0
+device D8 1 file OysterShort.si
+device D11 1 file OysterOpen.si
+device D14 1 file OysterLoad.si
+device D16 2 file OysterOuterPath.si
+device R1 2 R 50.0
+device R4 1 R 50.0
+device D23 3 file Diplexer.s3p
+device R6 1 R 50.0
+device R8 1 R 50.0
+device R9 2 R 50.0
+device R10 1 R 50.0
+device R11 2 R 50.0
+device R12 1 R 50.0
+device R14 2 R 50.0
+device R15 1 R 50.0
+device R17 2 R 50.0
+device R18 1 R 50.0
+device D60 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D73 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D80 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D81 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D82 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D83 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D84 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D85 2 voltageamplifier gain 2.0 zi 100000000.0 zo 0.0
+device D1 2 file OysterPath.si
+device D2 2 file OysterPath.si
+device D3 2 file OysterPath.si
+device D5 2 file OysterThru.si
+device D6 2 file OysterThru.si
+device D7 2 file OysterPath.si
+device D9 2 file OysterPath.si
+device D10 2 file OysterPath.si
+device D12 2 file OysterPath.si
+device D13 2 file OysterPath.si
+device D15 2 file OysterOuterPath.si
+device D20 2 file OysterPath.si
+device D17 2 file OysterOuterPath.si
+device D18 3 file Diplexer.s3p
+device R13 1 R 50.0
+device D19 2 file OysterPath.si
+device D21 2 file OysterOuterPath.si
+device D22 2 file OysterPath.si
+device D24 2 file OysterOuterPath.si
+device D26 2 file OysterPath.si
+device D27 2 file OysterOuterPath.si
+device D28 2 file OysterPath.si
+device D25 2 file OysterOuterPath.si
+device D29 2 file OysterPath.si
+device D30 2 file OysterOuterPath.si
+device D31 2 file OysterPath.si
+output D1 1
+connect D1 1 R2 2
+connect D81 1 D4 1 D84 1 D80 1 D60 1 D83 1 D82 1 D73 1 VS1 1 D85 1
+connect R2 1 D4 2
+output D2 1
+connect D2 1 R3 2
+connect D60 2 R3 1
+output R5 2
+connect R5 2 D3 1
+connect R5 1 D73 2
+output D13 1
+connect D13 1 R7 2
+connect R7 1 D82 2
+connect D8 1 D1 2
+connect D11 1 D2 2
+connect D3 2 D14 1
+connect D16 1 D13 2
+connect D16 2 D23 1
+output D7 1
+connect D7 1 R1 2
+connect D80 2 R1 1
+output R4 1
+connect R4 1 D10 1
+connect D15 2 D23 2
+connect R8 1 D23 3
+output R6 1
+connect R6 1 D20 1
+output D12 1
+connect D12 1 R9 2
+connect R9 1 D81 2
+output R10 1
+connect R10 1 D9 1
+output R11 1
+connect R11 1 D22 1
+connect R11 2 D83 2
+output D19 1
+connect D19 1 R12 1
+output D26 1
+connect D26 1 R14 2
+connect R14 1 D84 2
+output D28 1
+connect D28 1 R15 1
+output R17 1
+connect R17 1 D31 1
+connect D85 2 R17 2
+output D29 1
+connect D29 1 R18 1
+connect D5 1 D7 2
+connect D10 2 D5 2
+connect D6 1 D9 2
+connect D12 2 D6 2
+connect D15 1 D20 2
+connect D17 1 D19 2
+connect D18 1 D17 2
+connect D21 2 D18 2
+connect D18 3 R13 1
+connect D21 1 D22 2
+connect D24 1 D26 2
+connect D24 2 D27 2
+connect D27 1 D28 2
+connect D29 2 D25 1
+connect D30 2 D25 2
+connect D30 1 D31 2

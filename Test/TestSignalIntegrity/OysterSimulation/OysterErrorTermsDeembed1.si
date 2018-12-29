@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>658x217+451+407</Geometry>
+			<Geometry>658x217+28+57</Geometry>
 			<Originy>-17</Originy>
 			<Originx>0</Originx>
-			<Height>174</Height>
-			<Width>658</Width>
+			<Height>182</Height>
+			<Width>649</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -75,10 +75,10 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSpecifiedPorts</ClassName>
 						<Origin>(29, 22)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -105,10 +105,10 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSpecifiedPorts</ClassName>
 						<Origin>(11, 22)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -135,10 +135,10 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<ClassName>PartPicturePort</ClassName>
 						<Origin>(1, 22)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -156,7 +156,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -165,10 +165,10 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<ClassName>PartPicturePort</ClassName>
 						<Origin>(1, 24)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -186,7 +186,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -195,10 +195,10 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<ClassName>PartPicturePort</ClassName>
 						<Origin>(34, 22)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -216,7 +216,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -225,10 +225,10 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<ClassName>PartPicturePort</ClassName>
 						<Origin>(34, 24)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -246,7 +246,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -257,7 +257,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>8e+11</UserSampleRate>
-		<EndFrequency>40000000000.0</EndFrequency>
 		<FrequencyPoints>8000</FrequencyPoints>
+		<EndFrequency>40000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>
