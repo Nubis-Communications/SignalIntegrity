@@ -83,5 +83,6 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.frequencyResolutionFrame.UpdateStrings()
         self.userSampleRateFrame.UpdateStrings()
         self.baseSampleRateFrame.UpdateStrings()
+        self.baseSamplePeriodFrame.UpdateStrings()
         self.timePointsFrame.UpdateStrings()
         self.impulseResponseLengthFrame.UpdateStrings()
