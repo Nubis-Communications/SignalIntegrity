@@ -29,6 +29,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.frequencyResolutionFrame=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
         self.userSampleRateFrame=CalculationPropertySI(self.propertyListFrame,'User Sample Rate',self.onuserSampleRateEntered,None,self.project,'UserSampleRate','S/s')
         self.baseSampleRateFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
+        self.baseSamplePeriodFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePointsFrame=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
         self.Finish()
@@ -54,6 +55,12 @@ class CalculationPropertiesDialog(PropertiesDialog):
 
     def onbaseSampleRateEntered(self,event):
         self.project['EndFrequency']=nextHigher12458(self.project['BaseSampleRate'])/2.
+        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
+        self.UpdateStrings()
+
+    def onbaseSamplePeriodEntered(self,event):
+        self.project['EndFrequency']=nextHigher12458(1./self.project['BaseSamplePeriod'])/2.
         self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
