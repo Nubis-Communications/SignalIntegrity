@@ -247,6 +247,25 @@ class DrawingStateMachine(object):
         self.selectedDevices = [device.selected for device in self.parent.schematic.deviceList]
         self.SelectingMore()
 
+    def MoveSelectedObjects(self,x,y):
+        for d in range(len(self.parent.schematic.deviceList)):
+            device=self.parent.schematic.deviceList[d]
+            if device.selected:
+                device.partPicture.current.origin=(device.partPicture.current.origin[0]+x,device.partPicture.current.origin[1]+y)
+        for w in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Wires'])):
+            wireProject=SignalIntegrity.App.Project['Drawing.Schematic.Wires'][w]
+            for v in range(len(wireProject['Vertices'])):
+                vertexProject=wireProject['Vertices'][v]
+                if vertexProject['Selected']:
+                    vertexProject['Coord']=(vertexProject['Coord'][0]+x,vertexProject['Coord'][1]+y)
+        self.parent.DrawSchematic()
+
+    def MoveDrawingOrigin(self,x,y):
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        drawingPropertiesProject['Originx']=drawingPropertiesProject['Originx']+x
+        drawingPropertiesProject['Originy']=drawingPropertiesProject['Originy']+y
+        self.parent.DrawSchematic()
+
     def Locked(self):
         if not hasattr(self,'locked'):
             locked=False
@@ -343,6 +362,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_NoProject(self,event):
         pass
+    def onRightKey_NoProject(self,event):
+        pass
+    def onLeftKey_NoProject(self,event):
+        pass
+    def onUpKey_NoProject(self,event):
+        pass
+    def onDownKey_NoProject(self,event):
+        pass
+    def onEscapeKey_NoProject(self,event):
+        pass
 
     def Nothing(self,force=False):
         if not hasattr(self,'state'):
@@ -365,6 +394,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Nothing)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Nothing)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Nothing)
+            self.parent.canvas.bind('<Right>',self.onRightKey_Nothing)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_Nothing)
+            self.parent.canvas.bind('<Up>',self.onUpKey_Nothing)
+            self.parent.canvas.bind('<Down>',self.onDownKey_Nothing)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_Nothing)
+            self.parent.focus_set()
             self.parent.parent.NewProjectDoer.Activate(True)
             self.parent.parent.OpenProjectDoer.Activate(True)
             self.parent.parent.SaveProjectDoer.Activate(True)
@@ -436,6 +471,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_Nothing(self,event):
         pass
+    def onRightKey_Nothing(self,event):
+        pass
+    def onLeftKey_Nothing(self,event):
+        pass
+    def onUpKey_Nothing(self,event):
+        pass
+    def onDownKey_Nothing(self,event):
+        pass
+    def onEscapeKey_Nothing(self,event):
+        pass
 
     def DeviceSelected(self,force=False):
         if self.state != 'DeviceSelected' or force:
@@ -457,6 +502,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_DeviceSelected)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_DeviceSelected)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_DeviceSelected)
+            self.parent.canvas.bind('<Right>',self.onRightKey_DeviceSelected)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_DeviceSelected)
+            self.parent.canvas.bind('<Up>',self.onUpKey_DeviceSelected)
+            self.parent.canvas.bind('<Down>',self.onDownKey_DeviceSelected)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_DeviceSelected)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(True)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(True)
             self.parent.parent.FlipPartVerticallyDoer.Activate(True)
@@ -517,6 +568,26 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_DeviceSelected(self,event):
         pass
+    def onRightKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(1,0)
+            self.Unlock()
+    def onLeftKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(-1,0)
+            self.Unlock()
+    def onUpKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,-1)
+            self.Unlock()
+    def onDownKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,1)
+            self.Unlock()
+    def onEscapeKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def WireSelected(self,force=False):
         if self.state != 'WireSelected' or force:
@@ -540,6 +611,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_WireSelected)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_WireSelected)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_WireSelected)
+            self.parent.canvas.bind('<Right>',self.onRightKey_WireSelected)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_WireSelected)
+            self.parent.canvas.bind('<Up>',self.onUpKey_WireSelected)
+            self.parent.canvas.bind('<Down>',self.onDownKey_WireSelected)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_WireSelected)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -591,6 +668,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_WireSelected(self,event):
         pass
+    def onRightKey_WireSelected(self,event):
+        pass
+    def onLeftKey_WireSelected(self,event):
+        pass
+    def onUpKey_WireSelected(self,event):
+        pass
+    def onDownKey_WireSelected(self,event):
+        pass
+    def onEscapeKey_WireSelected(self,event):
+        pass
 
     def PartLoaded(self,force=False):
         if self.state!='PartLoaded' or force:
@@ -608,6 +695,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_PartLoaded)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_PartLoaded)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_PartLoaded)
+            self.parent.canvas.bind('<Right>',self.onRightKey_PartLoaded)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_PartLoaded)
+            self.parent.canvas.bind('<Up>',self.onUpKey_PartLoaded)
+            self.parent.canvas.bind('<Down>',self.onDownKey_PartLoaded)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_PartLoaded)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -660,6 +753,16 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_PartLoaded(self,event):
         pass
+    def onRightKey_PartLoaded(self,event):
+        pass
+    def onLeftKey_PartLoaded(self,event):
+        pass
+    def onUpKey_PartLoaded(self,event):
+        pass
+    def onDownKey_PartLoaded(self,event):
+        pass
+    def onEscapeKey_PartLoaded(self,event):
+        pass
 
     def WireLoaded(self,force=False):
         if self.state != 'WireLoaded' or force:
@@ -677,6 +780,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_WireLoaded)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_WireLoaded)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_WireLoaded)
+            self.parent.canvas.bind('<Right>',self.onRightKey_WireLoaded)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_WireLoaded)
+            self.parent.canvas.bind('<Up>',self.onUpKey_WireLoaded)
+            self.parent.canvas.bind('<Down>',self.onDownKey_WireLoaded)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_WireLoaded)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -747,6 +856,16 @@ class DrawingStateMachine(object):
             self.parent.wireLoaded['Vertices'][-1]['Coord']=coord
             self.parent.DrawSchematic()
             self.Unlock()
+    def onRightKey_WireLoaded(self,event):
+        pass
+    def onLeftKey_WireLoaded(self,event):
+        pass
+    def onUpKey_WireLoaded(self,event):
+        pass
+    def onDownKey_WireLoaded(self,event):
+        pass
+    def onEscapeKey_WireLoaded(self,event):
+        pass
 
     def Panning(self,force=False):
         if self.state != 'Panning' or force:
@@ -764,6 +883,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Panning)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Panning)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Panning)
+            self.parent.canvas.bind('<Right>',self.onRightKey_Panning)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_Panning)
+            self.parent.canvas.bind('<Up>',self.onUpKey_Panning)
+            self.parent.canvas.bind('<Down>',self.onDownKey_Panning)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_Panning)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -813,6 +938,26 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_Panning(self,event):
         pass
+    def onRightKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(1,0)
+            self.Unlock()
+    def onLeftKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(-1,0)
+            self.Unlock()
+    def onUpKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(0,-1)
+            self.Unlock()
+    def onDownKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(0,1)
+            self.Unlock()
+    def onEscapeKey_Panning(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def Selecting(self,force=False):
         if self.state != 'Selecting' or force:
@@ -830,6 +975,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Selecting)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Selecting)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Selecting)
+            self.parent.canvas.bind('<Right>',self.onRightKey_Selecting)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_Selecting)
+            self.parent.canvas.bind('<Up>',self.onUpKey_Selecting)
+            self.parent.canvas.bind('<Down>',self.onDownKey_Selecting)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_Selecting)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -941,6 +1092,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_Selecting(self,event):
         pass
+    def onRightKey_Selecting(self,event):
+        pass
+    def onLeftKey_Selecting(self,event):
+        pass
+    def onUpKey_Selecting(self,event):
+        pass
+    def onDownKey_Selecting(self,event):
+        pass
+    def onEscapeKey_Selecting(self,event):
+        pass
 
     def MultipleSelections(self,force=False):
         if self.state != 'Multiple Selections' or force:
@@ -960,6 +1121,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_MultipleSelections)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_MultipleSelections)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_MultipleSelections)
+            self.parent.canvas.bind('<Right>',self.onRightKey_MultipleSelections)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_MultipleSelections)
+            self.parent.canvas.bind('<Up>',self.onUpKey_MultipleSelections)
+            self.parent.canvas.bind('<Down>',self.onDownKey_MultipleSelections)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_MultipleSelections)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -1051,6 +1218,26 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_MultipleSelections(self,event):
         pass
+    def onRightKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(1,0)
+            self.Unlock()
+    def onLeftKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(-1,0)
+            self.Unlock()
+    def onUpKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,-1)
+            self.Unlock()
+    def onDownKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,1)
+            self.Unlock()
+    def onEscapeKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def SelectingMore(self,force=False):
         if self.state != 'Selecting More' or force:
@@ -1066,6 +1253,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_SelectingMore)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_SelectingMore)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_SelectingMore)
+            self.parent.canvas.bind('<Right>',self.onRightKey_SelectingMore)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_SelectingMore)
+            self.parent.canvas.bind('<Up>',self.onUpKey_SelectingMore)
+            self.parent.canvas.bind('<Down>',self.onDownKey_SelectingMore)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_SelectingMore)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -1154,6 +1347,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_SelectingMore(self,event):
         pass
+    def onRightKey_SelectingMore(self,event):
+        pass
+    def onLeftKey_SelectingMore(self,event):
+        pass
+    def onUpKey_SelectingMore(self,event):
+        pass
+    def onDownKey_SelectingMore(self,event):
+        pass
+    def onEscapeKey_SelectingMore(self,event):
+        pass
 
     def MultipleItemsOnClipboard(self,force=False):
         if self.state != 'MultipleItemsOnClipboard' or force:
@@ -1169,6 +1372,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Right>',self.onRightKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Up>',self.onUpKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Down>',self.onDownKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_MultipleItemsOnClipboard)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -1249,6 +1458,16 @@ class DrawingStateMachine(object):
             self.DispatchBasedOnSelections()
             self.Unlock()
     def onMouseMotion_MultipleItemsOnClipboard(self,event):
+        pass
+    def onRightKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onLeftKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onUpKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onDownKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onEscapeKey_MultipleItemsOnClipboard(self,event):
         pass
 
     def ForceIntializeState(self):
