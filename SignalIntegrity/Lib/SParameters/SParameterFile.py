@@ -55,9 +55,9 @@ class SParameterFile(SParameters):
                 raise SignalIntegrityExceptionSParameterFile('s-parameters could not be produced by '+name)
         else:
             try:
-            # pragma: include outdent
+            # pragma: include outdent outdent
                 self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
-            # pragma: silent exclude indent
+            # pragma: silent exclude indent indent
             except:
                 raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
         # pragma: include
