@@ -44,53 +44,25 @@
 %  <polyline lw="3" lc="black">124,-20 122,-22</polyline>
 %  <polyline lc="black">122,-22 120,-24</polyline>
 %  <text x="124" y="-19" t="Vout" h="3" halign="l" lc="black"/>
-%  <polyline arr2="h44" arrs="0.5" lc="black">97,-24 103,-24</polyline>
-%  <polyline lc="black">97.5,-16.75 97.5,-15.25</polyline>
-%  <polyline lc="black">96.75,-16 98.25,-16</polyline>
-%  <polyline lc="black">102.5,-16.75 102.5,-15.25</polyline>
-%  <polygon lc="black">96,-16 100,-13 104,-16 100,-19 96,-16</polygon>
-%  <rect x="96" y="-12" w="8" h="-16" lc="black"/>
-%  <polyline lc="black">108,-24 104,-24</polyline>
-%  <polyline lc="black">92,-24 96,-24</polyline>
-%  <polyline lc="black">108,-16 104,-16</polyline>
-%  <polyline lc="black">92,-16 96,-16</polyline>
-%  <polygon fill="black">112,-18.667 112,-13.333 114.667,-16 112,-18.667</polygon>
-%  <polyline lc="black">108,-16 112,-16</polyline>
-%  <polyline lc="black">87,-15 89,-17</polyline>
-%  <polyline lc="black">89,-15 87,-17</polyline>
-%  <polyline lc="black">92,-16 88,-16</polyline>
-%  <polyline lw="3" lc="black">88,-12 90,-14</polyline>
-%  <polyline lc="black">90,-14 92,-16</polyline>
-%  <text x="88" y="-11" t="Iout" h="3" halign="r" lc="black"/>
-%  <polyline arr2="h44" arrs="0.5" lc="black">49,-24 55,-24</polyline>
-%  <polyline lc="black">49.5,-16.75 49.5,-15.25</polyline>
-%  <polyline lc="black">48.75,-16 50.25,-16</polyline>
-%  <polyline lc="black">54.5,-16.75 54.5,-15.25</polyline>
-%  <polygon lc="black">48,-16 52,-13 56,-16 52,-19 48,-16</polygon>
-%  <rect x="48" y="-12" w="8" h="-16" lc="black"/>
-%  <polyline lc="black">60,-24 56,-24</polyline>
-%  <polyline lc="black">44,-24 48,-24</polyline>
-%  <polyline lc="black">60,-16 56,-16</polyline>
-%  <polyline lc="black">44,-16 48,-16</polyline>
-%  <polygon fill="black">64,-18.667 64,-13.333 66.667,-16 64,-18.667</polygon>
-%  <polyline lc="black">60,-16 64,-16</polyline>
-%  <polyline lc="black">39,-15 41,-17</polyline>
-%  <polyline lc="black">41,-15 39,-17</polyline>
-%  <polyline lc="black">44,-16 40,-16</polyline>
-%  <polyline lw="3" lc="black">40,-12 42,-14</polyline>
-%  <polyline lc="black">42,-14 44,-16</polyline>
-%  <text x="40" y="-11" t="Iin" h="3" halign="r" lc="black"/>
 %  <polyline lw="3" lc="black">36,-20 38,-22</polyline>
 %  <polyline lc="black">38,-22 40,-24</polyline>
 %  <text x="36" y="-19" t="Vin" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">84,-24 92,-24</polyline>
-%  <polyline lc="black">108,-24 120,-24</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">55,-24 49,-24</polyline>
+%  <rect x="48" y="-22" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">44,-24 48,-24</polyline>
+%  <polyline lc="black">60,-24 56,-24</polyline>
+%  <text x="52" y="-19" t="Iin" h="3" halign="c" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">103,-24 97,-24</polyline>
+%  <rect x="96" y="-22" w="8" h="-4" lc="black"/>
+%  <polyline lc="black">92,-24 96,-24</polyline>
+%  <polyline lc="black">108,-24 104,-24</polyline>
+%  <text x="100" y="-19" t="Iout" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">28,-24 40,-24</polyline>
 %  <polyline lc="black">60,-24 68,-24</polyline>
 %  <polyline lc="black">40,-24 44,-24</polyline>
-%  <ellipse x="92" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
+%  <polyline lc="black">84,-24 92,-24</polyline>
+%  <polyline lc="black">108,-24 120,-24</polyline>
 %  <ellipse x="40" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="44" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="120" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
@@ -140,52 +112,24 @@
 \path[line width=0.9mm, draw=black] (124,-20) -- (122,-22);
 \path[line width=0.30mm, draw=black] (122,-22) -- (120,-24);
 \draw[black] (124,-19) node[anchor=base west]{Vout};
-\path[line width=0.30mm, draw=black, ->] (97,-24) -- (103,-24);
-\path[line width=0.30mm, draw=black] (97.5,-16.75) -- (97.5,-15.25);
-\path[line width=0.30mm, draw=black] (96.75,-16) -- (98.25,-16);
-\path[line width=0.30mm, draw=black] (102.5,-16.75) -- (102.5,-15.25);
-\path[line width=0.30mm, draw=black] (96,-16) -- (100,-13) -- (104,-16) -- (100,-19) -- (96,-16) -- cycle;
-\path[line width=0.30mm, draw=black] (96,-28) rectangle +(8,16);
-\path[line width=0.30mm, draw=black] (108,-24) -- (104,-24);
-\path[line width=0.30mm, draw=black] (92,-24) -- (96,-24);
-\path[line width=0.30mm, draw=black] (108,-16) -- (104,-16);
-\path[line width=0.30mm, draw=black] (92,-16) -- (96,-16);
-\path[line width=0.30mm, fill=black] (112,-18.667) -- (112,-13.333) -- (114.667,-16) -- (112,-18.667) -- cycle;
-\path[line width=0.30mm, draw=black] (108,-16) -- (112,-16);
-\path[line width=0.30mm, draw=black] (87,-15) -- (89,-17);
-\path[line width=0.30mm, draw=black] (89,-15) -- (87,-17);
-\path[line width=0.30mm, draw=black] (92,-16) -- (88,-16);
-\path[line width=0.9mm, draw=black] (88,-12) -- (90,-14);
-\path[line width=0.30mm, draw=black] (90,-14) -- (92,-16);
-\draw[black] (88,-11) node[anchor=base east]{Iout};
-\path[line width=0.30mm, draw=black, ->] (49,-24) -- (55,-24);
-\path[line width=0.30mm, draw=black] (49.5,-16.75) -- (49.5,-15.25);
-\path[line width=0.30mm, draw=black] (48.75,-16) -- (50.25,-16);
-\path[line width=0.30mm, draw=black] (54.5,-16.75) -- (54.5,-15.25);
-\path[line width=0.30mm, draw=black] (48,-16) -- (52,-13) -- (56,-16) -- (52,-19) -- (48,-16) -- cycle;
-\path[line width=0.30mm, draw=black] (48,-28) rectangle +(8,16);
-\path[line width=0.30mm, draw=black] (60,-24) -- (56,-24);
-\path[line width=0.30mm, draw=black] (44,-24) -- (48,-24);
-\path[line width=0.30mm, draw=black] (60,-16) -- (56,-16);
-\path[line width=0.30mm, draw=black] (44,-16) -- (48,-16);
-\path[line width=0.30mm, fill=black] (64,-18.667) -- (64,-13.333) -- (66.667,-16) -- (64,-18.667) -- cycle;
-\path[line width=0.30mm, draw=black] (60,-16) -- (64,-16);
-\path[line width=0.30mm, draw=black] (39,-15) -- (41,-17);
-\path[line width=0.30mm, draw=black] (41,-15) -- (39,-17);
-\path[line width=0.30mm, draw=black] (44,-16) -- (40,-16);
-\path[line width=0.9mm, draw=black] (40,-12) -- (42,-14);
-\path[line width=0.30mm, draw=black] (42,-14) -- (44,-16);
-\draw[black] (40,-11) node[anchor=base east]{Iin};
 \path[line width=0.9mm, draw=black] (36,-20) -- (38,-22);
 \path[line width=0.30mm, draw=black] (38,-22) -- (40,-24);
 \draw[black] (36,-19) node[anchor=base east]{Vin};
-\path[line width=0.30mm, draw=black] (84,-24) -- (92,-24);
-\path[line width=0.30mm, draw=black] (108,-24) -- (120,-24);
+\path[line width=0.30mm, draw=black, <-] (55,-24) -- (49,-24);
+\path[line width=0.30mm, draw=black] (48,-26) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (44,-24) -- (48,-24);
+\path[line width=0.30mm, draw=black] (60,-24) -- (56,-24);
+\draw[black] (52,-19) node[anchor=base]{Iin};
+\path[line width=0.30mm, draw=black, <-] (103,-24) -- (97,-24);
+\path[line width=0.30mm, draw=black] (96,-26) rectangle +(8,4);
+\path[line width=0.30mm, draw=black] (92,-24) -- (96,-24);
+\path[line width=0.30mm, draw=black] (108,-24) -- (104,-24);
+\draw[black] (100,-19) node[anchor=base]{Iout};
 \path[line width=0.30mm, draw=black] (28,-24) -- (40,-24);
 \path[line width=0.30mm, draw=black] (60,-24) -- (68,-24);
 \path[line width=0.30mm, draw=black] (40,-24) -- (44,-24);
-\path[line width=0.30mm, draw=black, fill=black] (92,-16) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black] (84,-24) -- (92,-24);
+\path[line width=0.30mm, draw=black] (108,-24) -- (120,-24);
 \path[line width=0.30mm, draw=black, fill=black] (40,-24) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (44,-16) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (120,-24) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%
