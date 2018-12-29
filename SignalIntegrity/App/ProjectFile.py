@@ -123,6 +123,7 @@ class CalculationProperties(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
         self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
         self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
+        self.Add(XMLPropertyDefaultFloat('UserSamplePeriod',write=False))
         self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))
         self.Add(XMLPropertyDefaultFloat('BaseSamplePeriod',write=False))
         self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
@@ -135,6 +136,7 @@ class CalculationProperties(XMLConfiguration):
     def CalculateOthersFromBaseInformation(self):
         self['BaseSampleRate']=self['EndFrequency']*2
         self['BaseSamplePeriod']=1./self['BaseSampleRate']
+        self['UserSamplePeriod']=1./self['UserSampleRate']
         self['TimePoints']=self['FrequencyPoints']*2
         self['FrequencyResolution']=self['EndFrequency']/self['FrequencyPoints']
         self['ImpulseResponseLength']=1./self['FrequencyResolution']
