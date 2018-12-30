@@ -98,7 +98,10 @@ class DeviceProperty(tk.Frame):
             initialFile=''
         else:
             initialDirectory=currentFileParts.AbsoluteFilePath()
-            initialFile=currentFileParts.filename+extension
+            if currentFileParts.fileext in ['.si',extension]:
+                initialFile=currentFileParts.FileNameWithExtension()
+            else:
+                initialFile=currentFileParts.filename+extension
         filename=AskOpenFileName(parent=self,
                                  filetypes=[(filetypename,extension),('project','.si')],
                                  initialdir=initialDirectory,
@@ -113,6 +116,14 @@ class DeviceProperty(tk.Frame):
             self.propertyString.set(filename)
             self.partProperty.SetValueFromString(self.propertyString.get())
             self.callBack()
+        if self.partProperty['PropertyName'] == 'waveformfilename':
+            filename=self.partProperty.GetValue()
+            isProject=FileParts(filename).fileext == '.si'
+            for propertyFrame in self.parent.propertyFrameList:
+                if propertyFrame.partProperty['PropertyName']=='wfprojname':
+                    propertyFrame.partProperty['Hidden']=not isProject
+        self.callBack()
+
     def onFileView(self):
         self.parentFrame.focus()
         filename=self.partProperty.GetValue()
@@ -202,8 +213,6 @@ class DeviceProperties(tk.Frame):
             fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
             ext=str.lower(fileName).split('.')[-1]
             self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext != 'si')
-            if self.device.propertiesList[keywords.index('wfprojname')]['Hidden']:
-                self.device.propertiesList[keywords.index('wfprojname')]['Visible']=False
         propertyListFrame = tk.Frame(self)
         propertyListFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         propertyListFrame.bind("<Return>", parent.ok)
