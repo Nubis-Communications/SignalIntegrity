@@ -160,6 +160,12 @@ class DeviceProperty(tk.Frame):
         self.callBack()
     def onEntered(self,event):
         self.partProperty.SetValueFromString(self.propertyString.get())
+        if self.partProperty['PropertyName'] == 'waveformfilename':
+            filename=self.partProperty.GetValue()
+            isProject=FileParts(filename).fileext == '.si'
+            for propertyFrame in self.parent.propertyFrameList:
+                if propertyFrame.partProperty['PropertyName']=='wfprojname':
+                    propertyFrame.partProperty['Hidden']=not isProject
         self.callBack()
         self.onUntouchedLoseFocus(event)
     def onTouched(self,event):
@@ -204,25 +210,25 @@ class DeviceProperties(tk.Frame):
         self.propertyFrameList=[]
         for partProperty in self.device.propertiesList:
             self.propertyFrameList.append(DeviceProperty(propertyListFrame,self,partProperty))
-        rotationFrame = tk.Frame(propertyListFrame)
-        rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.rotationFrame = tk.Frame(propertyListFrame)
+        self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.rotationString=tk.StringVar(value=str(self.device.partPicture.current.orientation))
-        rotationLabel = tk.Label(rotationFrame,text='rotation: ')
+        rotationLabel = tk.Label(self.rotationFrame,text='rotation: ')
         rotationLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(rotationFrame,text='0',variable=self.rotationString,value='0',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(rotationFrame,text='90',variable=self.rotationString,value='90',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(rotationFrame,text='180',variable=self.rotationString,value='180',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(rotationFrame,text='270',variable=self.rotationString,value='270',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Button(rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        mirrorFrame=tk.Frame(propertyListFrame)
-        mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        mirrorLabel = tk.Label(mirrorFrame,text='mirror: ')
+        tk.Radiobutton(self.rotationFrame,text='0',variable=self.rotationString,value='0',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='90',variable=self.rotationString,value='90',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='180',variable=self.rotationString,value='180',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='270',variable=self.rotationString,value='270',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Button(self.rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        self.mirrorFrame=tk.Frame(propertyListFrame)
+        self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        mirrorLabel = tk.Label(self.mirrorFrame,text='mirror: ')
         mirrorLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         self.mirrorVerticallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredVertically))
-        mirrorVerticallyCheckBox = tk.Checkbutton(mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange)
+        mirrorVerticallyCheckBox = tk.Checkbutton(self.mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange)
         mirrorVerticallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         self.mirrorHorizontallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
-        mirrorHorizontallyCheckBox = tk.Checkbutton(mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
+        mirrorHorizontallyCheckBox = tk.Checkbutton(self.mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
         mirrorHorizontallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         if advancedMode:
             advancedModeFrame=tk.Frame(propertyListFrame)
@@ -265,7 +271,16 @@ class DeviceProperties(tk.Frame):
             offsetx=max(-minx,0)
             offsety=max(-miny,0)
             self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
-
+        # also update part properties as some may have become hidden or unhidden
+        self.mirrorFrame.pack_forget()
+        self.rotationFrame.pack_forget()
+        for propertyFrame in self.propertyFrameList:
+            propertyFrame.pack_forget()
+        for propertyFrame in self.propertyFrameList:
+            if not propertyFrame.partProperty['Hidden']:
+                propertyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
     def onToggleRotation(self):
         self.device.partPicture.current.Rotate()
         self.rotationString.set(str(self.device.partPicture.current.orientation))

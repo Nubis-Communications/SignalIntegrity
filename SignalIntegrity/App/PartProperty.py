@@ -35,7 +35,7 @@ class PartProperty(PartPropertyConfiguration):
     def PropertyString(self,stype='raw'):
         if stype=='attr':
             result=''
-            if self.GetValue('Visible'):
+            if self.GetValue('Visible') and not self.GetValue('Hidden'):
                 if self.GetValue('KeywordVisible'):
                     if self.GetValue('Keyword') != None and self.GetValue('Keyword') != 'None':
                         result=result+self.GetValue('Keyword')+' '
