@@ -87,6 +87,8 @@ class Device(object):
                 if ext == 'si':
                     from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectWaveform
                     waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue())
+                    if waveform is None:
+                        raise si.SignalIntegrityExceptionWaveform('project file: '+fileName+' could not produce waveform: '+self['wfprojname'].GetValue())
                 else:
                     waveform = si.td.wf.Waveform().ReadFromFile(fileName)
             elif wfType == 'step':
