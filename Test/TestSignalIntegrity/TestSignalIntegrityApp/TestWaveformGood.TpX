@@ -1,0 +1,35 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="48" y="-48" dx="16" dy="-16" lc="black"/>
+%  <polyline lc="black">46.5,-43 49.5,-43</polyline>
+%  <polyline lc="black">48,-41.5 48,-44.5</polyline>
+%  <polyline lc="black">46.5,-53 49.5,-53</polyline>
+%  <polyline lc="black">48,-56 48,-64</polyline>
+%  <polygon fill="black">42.667,-64 53.333,-64 48,-69.333 42.667,-64</polygon>
+%  <polyline lc="black">48,-32 48,-40</polyline>
+%  <text x="60" y="-52" t="RLCTest2.si" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-49" t="Vo" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">50,-22 46,-26</polyline>
+%  <polyline lc="black">50,-26 46,-22</polyline>
+%  <polyline lc="black">48,-32 48,-24</polyline>
+%  <polyline lw="3" lc="black">56,-24 52,-28</polyline>
+%  <polyline lc="black">52,-28 48,-32</polyline>
+%  <ellipse x="48" y="-32" dx="2" dy="-2" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (48,-48) ellipse (8mm and -8mm);
+\path[line width=0.30mm, draw=black] (46.5,-43) -- (49.5,-43);
+\path[line width=0.30mm, draw=black] (48,-41.5) -- (48,-44.5);
+\path[line width=0.30mm, draw=black] (46.5,-53) -- (49.5,-53);
+\path[line width=0.30mm, draw=black] (48,-56) -- (48,-64);
+\path[line width=0.30mm, fill=black] (42.667,-64) -- (53.333,-64) -- (48,-69.333) -- (42.667,-64) -- cycle;
+\path[line width=0.30mm, draw=black] (48,-32) -- (48,-40);
+\draw[black] (60,-52) node[anchor=base west]{RLCTest2.si};
+\draw[black] (60,-49) node[anchor=base west]{Vo};
+\path[line width=0.30mm, draw=black] (50,-22) -- (46,-26);
+\path[line width=0.30mm, draw=black] (50,-26) -- (46,-22);
+\path[line width=0.30mm, draw=black] (48,-32) -- (48,-24);
+\path[line width=0.9mm, draw=black] (56,-24) -- (52,-28);
+\path[line width=0.30mm, draw=black] (52,-28) -- (48,-32);
+\path[line width=0.30mm, draw=black, fill=black] (48,-32) ellipse (1mm and -1mm);
+\end{tikzpicture}%

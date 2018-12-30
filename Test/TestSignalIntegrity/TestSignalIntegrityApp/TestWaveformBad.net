@@ -1,0 +1,4 @@
+voltagesource VS1 1
+device O1 1 open
+output O1 1
+connect O1 1 VS1 1
