@@ -334,16 +334,35 @@ def ProjectSParameters(filename):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParameters:
                 result=app.CalculateSParameters()
-                if result is None:
-                    return None
-                sp=result[0]
+                if not result is None:
+                    sp=result[0]
             elif app.Drawing.canDeembed:
                 result=app.Deembed()
-                if result is None:
-                    return None
-                sp=result[1][0]
+                if not result is None:
+                    sp=result[1][0]
     except:
         pass
     SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
     return sp
 
+def ProjectWaveform(filename,wfname):
+    import copy
+    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    wf=None
+    try:
+        app=SignalIntegrityAppHeadless()
+        if app.OpenProjectFile(os.path.realpath(filename)):
+            app.Drawing.DrawSchematic()
+            result=None
+            if app.Drawing.canSimulate:
+                result=app.Simulate()
+            elif app.Drawing.canVirtualProbe:
+                result=app.VirtualProbe()
+            if not result is None:
+                (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=result
+                if wfname in outputWaveformLabels:
+                    wf=outputWaveformList[outputWaveformLabels.index(wfname)]
+    except:
+        pass
+    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    return wf

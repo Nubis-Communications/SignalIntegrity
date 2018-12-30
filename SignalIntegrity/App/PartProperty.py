@@ -282,8 +282,8 @@ class PartPropertyOutputResistance(PartProperty):
 
 class PartPropertyWaveformType(PartProperty):
     def __init__(self,wfType=None):
-        PartProperty.__init__(self,'wftype',type='string',unit=None,keyword='wftype',description='waveform type',value=wfType,visible=False)
+        PartProperty.__init__(self,'wftype',type='string',unit=None,keyword='wftype',description='waveform type',value=wfType,hidden=True,visible=False)
 
 class PartPropertyWaveformProjectName(PartProperty):
     def __init__(self,wfProjName=None):
-        PartProperty.__init__(self,'wfprojname',type='string',unit=None,keyword='wfprojname',description='waveform project name',value=wfProjName,visible=False)
+        PartProperty.__init__(self,'wfprojname',type='string',unit=None,keyword='wfprojname',keywordVisible=False,description='waveform project name',value=wfProjName,visible=False)

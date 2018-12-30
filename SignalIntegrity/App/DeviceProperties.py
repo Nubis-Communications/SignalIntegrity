@@ -122,36 +122,36 @@ class DeviceProperty(tk.Frame):
                 if FileParts(filename).fileext == '.si':
                     result=os.system('SignalIntegrity '+filename)
                     if result != 0:
-                        if sys.version_info.major < 3:
-                            tkMessageBox.showerror('ProjectFile','could not be opened')
-                        else:
-                            messagebox.showerror('ProjectFile','could not be opened')
+                        messagebox.showerror('ProjectFile','could not be opened')
                         return
                 else:
                     try:
                         sp=si.sp.SParameterFile(filename)
                     except si.SignalIntegrityException as e:
-                        if sys.version_info.major < 3:
-                            tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                        else:
-                            messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+                        messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                         return
                     spd=SParametersDialog(self.parent.parent.parent,sp,filename)
                     spd.grab_set()
             elif self.partProperty['PropertyName'] == 'waveformfilename':
-                filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
-                if filenametoshow is None:
-                    filenametoshow=''
-                try:
-                    wf=self.parent.device.Waveform()
-                except si.SignalIntegrityException as e:
-                    messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-                    return
-                sd=SimulatorDialog(self.parent.parent)
-                sd.title(filenametoshow)
-                sd.UpdateWaveforms([wf],[filenametoshow])
-                sd.state('normal')
-                sd.grab_set()
+                if FileParts(filename).fileext == '.si':
+                    result=os.system('SignalIntegrity '+filename)
+                    if result != 0:
+                        messagebox.showerror('ProjectFile','could not be opened')
+                        return
+                else:
+                    filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
+                    if filenametoshow is None:
+                        filenametoshow=''
+                    try:
+                        wf=self.parent.device.Waveform()
+                    except si.SignalIntegrityException as e:
+                        messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+                        return
+                    sd=SimulatorDialog(self.parent.parent)
+                    sd.title(filenametoshow)
+                    sd.UpdateWaveforms([wf],[filenametoshow])
+                    sd.state('normal')
+                    sd.grab_set()
     def onPropertyVisible(self):
         self.partProperty['Visible']=bool(self.propertyVisible.get())
         self.callBack()
@@ -191,6 +191,13 @@ class DeviceProperties(tk.Frame):
                     partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
                     self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
                     self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        keywords = [property['Keyword'] for property in self.device.propertiesList]
+        if 'wffile' in keywords:
+            fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
+            ext=str.lower(fileName).split('.')[-1]
+            self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext != 'si')
+            if self.device.propertiesList[keywords.index('wfprojname')]['Hidden']:
+                self.device.propertiesList[keywords.index('wfprojname')]['Visible']=False
         propertyListFrame = tk.Frame(self)
         propertyListFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         propertyListFrame.bind("<Return>", parent.ok)
