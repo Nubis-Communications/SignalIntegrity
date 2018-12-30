@@ -280,3 +280,10 @@ class PartPropertyOutputResistance(PartProperty):
     def __init__(self,ro=1e8):
         PartProperty.__init__(self,'ro',type='float',unit='Ohm',keyword='ro',description='collector/emitter output resistance (Ohms)',value=ro,visible=True)
 
+class PartPropertyWaveformType(PartProperty):
+    def __init__(self,wfType=None):
+        PartProperty.__init__(self,'wftype',type='string',unit=None,keyword='wftype',description='waveform type',value=wfType,visible=False)
+
+class PartPropertyWaveformProjectName(PartProperty):
+    def __init__(self,wfProjName=None):
+        PartProperty.__init__(self,'wfprojname',type='string',unit=None,keyword='wfprojname',description='waveform project name',value=wfProjName,visible=False)
