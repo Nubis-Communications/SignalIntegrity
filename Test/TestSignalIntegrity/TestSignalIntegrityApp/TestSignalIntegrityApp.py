@@ -76,6 +76,18 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertIsNone(result, filename+' produced something - this is unexpected')
+    def testSignalIntegrityAppProjectSParametersExample(self):
+        self.SParameterResultsChecker('TestSParametersGood.si')
+    def testSignalIntegrityAppProjectSParameterExampleBad(self):
+        filename='TestSParametersBad.si'
+        pysi=self.Preliminary(filename)
+        result=pysi.CalculateSParameters()
+        self.assertIsNone(result, filename+' produced something - this is unexpected')
+    def testSignalIntegrityAppProjectSParameterExampleBadPorts(self):
+        filename='TestSParametersBadPorts.si'
+        pysi=self.Preliminary(filename)
+        result=pysi.CalculateSParameters()
+        self.assertIsNone(result, filename+' produced something - this is unexpected')
     def testSignalIntegrityAppExamplesStepGeneratorTest(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/StepGeneratorTest.si')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest(self):

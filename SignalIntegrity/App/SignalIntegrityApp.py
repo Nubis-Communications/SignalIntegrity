@@ -58,12 +58,12 @@ from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(tk.Frame):
-    def __init__(self,projectFileName=None,runMainLoop=True):        # make absolutely sure the directory of this file is the first in the
-        # python path
+    def __init__(self,projectFileName=None,runMainLoop=True,external=False):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
 
         SignalIntegrity.App.Preferences=Preferences()
+        self.external=external
         self.root = tk.Tk()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -409,7 +409,7 @@ class SignalIntegrityApp(tk.Frame):
         #self.root.title('SignalIntegrity')
 
     def AnotherFileOpened(self,filename):
-        SignalIntegrity.App.Preferences.AnotherFileOpened(filename)
+        SignalIntegrity.App.Preferences.AnotherFileOpened(filename,not self.external)
         self.UpdateRecentProjectsMenu()
 
     def UpdateRecentProjectsMenu(self):
@@ -881,9 +881,13 @@ class SignalIntegrityApp(tk.Frame):
 
 def main():
     projectFileName = None
+    external=False
     if len(sys.argv) >= 2:
         projectFileName=sys.argv[1]
-    SignalIntegrityApp(projectFileName)
+    for arg in sys.argv[2:]:
+        if arg=='--external':
+            external=True
+    SignalIntegrityApp(projectFileName,external=external)
 
 if __name__ == '__main__':
     main()

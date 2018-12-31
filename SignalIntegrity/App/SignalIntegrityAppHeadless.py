@@ -327,6 +327,7 @@ class SignalIntegrityAppHeadless(object):
 def ProjectSParameters(filename):
     import copy
     ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    cwdCopy=os.getcwd()
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
@@ -343,11 +344,13 @@ def ProjectSParameters(filename):
     except:
         pass
     SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    os.chdir(cwdCopy)
     return sp
 
 def ProjectWaveform(filename,wfname):
     import copy
     ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    cwdCopy=os.getcwd()
     wf=None
     try:
         app=SignalIntegrityAppHeadless()
@@ -365,4 +368,5 @@ def ProjectWaveform(filename,wfname):
     except:
         pass
     SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    os.chdir(cwdCopy)
     return wf

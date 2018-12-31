@@ -13,53 +13,41 @@
 			</Wires>
 			<Devices>
 				<Device>
-					<ClassName>DeviceVoltageSource</ClassName>
+					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(4, 0)</Origin>
-						<Index>0</Index>
+						<Origin>(6, -1)</Origin>
+						<Index>1</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>wffile</Keyword>
-							<Value>../../../SignalIntegrity/App/Examples/RLCTest2.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>wftype</Keyword>
-							<Value>file</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>wfprojname</Keyword>
-							<Value>Vc</Value>
+							<Keyword>file</Keyword>
+							<Value>../../../SignalIntegrity/App/Examples/CascCableFilter.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
-							<Value>1</Value>
+							<Value>4</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>VS1</Value>
+							<Value>D1</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceOpen</ClassName>
+					<ClassName>Port</ClassName>
 					<PartPicture>
 						<Origin>(3, -1)</Origin>
 						<Index>0</Index>
-						<Orientation>270</Orientation>
+						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
@@ -71,17 +59,53 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>1</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>O1</Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceOutput</ClassName>
+					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(5, -1)</Origin>
+						<Origin>(7, -1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>2</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>None</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<Origin>(3, 1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -89,26 +113,50 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>1.0</Value>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>offset</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>td</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
+							<Keyword>pn</Keyword>
+							<Value>3</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>VO1</Value>
+							<Value>None</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<Origin>(7, 1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<Value>4</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -119,7 +167,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>2</FrequencyPoints>
+		<FrequencyPoints>2000</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>

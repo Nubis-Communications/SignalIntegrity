@@ -130,8 +130,9 @@ class DeviceProperty(tk.Frame):
         if filename != '':
             import SignalIntegrity.Lib as si
             if self.partProperty['PropertyName'] == 'filename':
-                if FileParts(filename).fileext == '.si':
-                    result=os.system('SignalIntegrity '+filename)
+                fp=FileParts(filename)
+                if fp.fileext == '.si':
+                    result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
                     if result != 0:
                         messagebox.showerror('ProjectFile','could not be opened')
                         return
@@ -145,7 +146,7 @@ class DeviceProperty(tk.Frame):
                     spd.grab_set()
             elif self.partProperty['PropertyName'] == 'waveformfilename':
                 if FileParts(filename).fileext == '.si':
-                    result=os.system('SignalIntegrity '+filename)
+                    result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
                     if result != 0:
                         messagebox.showerror('ProjectFile','could not be opened')
                         return

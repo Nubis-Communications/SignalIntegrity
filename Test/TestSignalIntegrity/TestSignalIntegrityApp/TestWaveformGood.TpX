@@ -7,7 +7,7 @@
 %  <polygon fill="black">42.667,-64 53.333,-64 48,-69.333 42.667,-64</polygon>
 %  <polyline lc="black">48,-32 48,-40</polyline>
 %  <text x="60" y="-52" t="RLCTest2.si" h="3" halign="l" lc="black"/>
-%  <text x="60" y="-49" t="Vo" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-49" t="Vc" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">50,-22 46,-26</polyline>
 %  <polyline lc="black">50,-26 46,-22</polyline>
 %  <polyline lc="black">48,-32 48,-24</polyline>
@@ -25,7 +25,7 @@
 \path[line width=0.30mm, fill=black] (42.667,-64) -- (53.333,-64) -- (48,-69.333) -- (42.667,-64) -- cycle;
 \path[line width=0.30mm, draw=black] (48,-32) -- (48,-40);
 \draw[black] (60,-52) node[anchor=base west]{RLCTest2.si};
-\draw[black] (60,-49) node[anchor=base west]{Vo};
+\draw[black] (60,-49) node[anchor=base west]{Vc};
 \path[line width=0.30mm, draw=black] (50,-22) -- (46,-26);
 \path[line width=0.30mm, draw=black] (50,-26) -- (46,-22);
 \path[line width=0.30mm, draw=black] (48,-32) -- (48,-24);
