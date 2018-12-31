@@ -616,7 +616,7 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<Up>',self.onUpKey_WireSelected)
             self.parent.canvas.bind('<Down>',self.onDownKey_WireSelected)
             self.parent.canvas.bind('<Escape>',self.onEscapeKey_WireSelected)
-            self.parent.focus_set()
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -669,15 +669,25 @@ class DrawingStateMachine(object):
     def onMouseMotion_WireSelected(self,event):
         pass
     def onRightKey_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.MoveSelectedObjects(1,0)
+            self.Unlock()
     def onLeftKey_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.MoveSelectedObjects(-1,0)
+            self.Unlock()
     def onUpKey_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.MoveSelectedObjects(0,-1)
+            self.Unlock()
     def onDownKey_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.MoveSelectedObjects(0,1)
+            self.Unlock()
     def onEscapeKey_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def PartLoaded(self,force=False):
         if self.state!='PartLoaded' or force:
