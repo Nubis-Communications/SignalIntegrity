@@ -42,7 +42,6 @@ class TestOysterTest(unittest.TestCase,
     debug=False
     checkPictures=True
     epsilon=50e-12
-    usePickle=True
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def tearDown(self):
@@ -54,19 +53,6 @@ class TestOysterTest(unittest.TestCase,
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
-    def GetSimulationResultsCheck(self,filename):
-        if not hasattr(TestOysterTest, 'simdict'):
-            TestOysterTest.simdict=dict()
-            if TestOysterTest.usePickle:
-                try:
-                    import pickle
-                    TestOysterTest.simdict=pickle.load(open("simresults.p","rb"))
-                except:
-                    pass
-        if filename in TestOysterTest.simdict:
-            return TestOysterTest.simdict[filename]
-        TestOysterTest.simdict[filename] = self.SimulationResultsChecker(filename)
-        return TestOysterTest.simdict[filename]
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def NoisyWaveforms(self,wfList):
@@ -103,7 +89,7 @@ class TestOysterTest(unittest.TestCase,
         self.ResampleSParameterFile('Diplexer', 3)
         self.ResampleSParameterFile('Adapter', 2)
     def testAAAOysterCalStandardSimulation(self):
-        return
+        pass
         ports=2
         f=si.fd.EvenlySpacedFrequencyList(40e9,8000)
         spDict=dict()
@@ -116,7 +102,7 @@ class TestOysterTest(unittest.TestCase,
 
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterCalStandardSimulation.si')
+        result = self.SimulationResultsChecker('OysterCalStandardSimulation.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -329,7 +315,7 @@ class TestOysterTest(unittest.TestCase,
 
         print('performing deembedding')
         DUTCalcSp=self.DeembeddingResultsChecker('OysterFixtureDeembed.si')[1][0]
-        DUTActualSp=self.SParameterResultsChecker('OysterDut.si')[0]
+        DUTActualSp=self.SParameterResultsChecker('OysterDut.si')[0].Resample(DUTCalcSp.m_f)
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-2)
 
         si.test.SignalIntegrityAppTestHelper.plotErrors=False
@@ -478,7 +464,7 @@ class TestOysterTest(unittest.TestCase,
         DUTCalcNewerSp=cmnewer.DutCalculation(spDict['DUT'])
         self.SParameterRegressionChecker(DUTCalcNewerSp, self.NameForTest()+'_NewerCalc.s2p')
 
-        SpAreEqual=self.SParametersAreEqual(DUTCalcNewerSp, DUTActualSp,1e-2)
+        SpAreEqual=self.SParametersAreEqual(DUTCalcNewerSp, DUTActualSp,2e-2)
 
         si.test.SignalIntegrityAppTestHelper.plotErrors=False
 
@@ -512,7 +498,7 @@ class TestOysterTest(unittest.TestCase,
         self.assertTrue(SpAreEqual,'s-parameters not equal')
 
     def testZOysterMonteCarlo(self):
-        return
+        pass
         ports=2
         f=si.fd.EvenlySpacedFrequencyList(40e9,8000)
         reflectNames=['Short','Open','Load']
@@ -528,7 +514,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterMonteCarlo.si')
+        result = self.SimulationResultsChecker('OysterMonteCarlo.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -586,7 +572,7 @@ class TestOysterTest(unittest.TestCase,
         rawwf=outputWaveforms[outputNames.index(wfName)]
         Avg=1000000
         sigma=707e-6/math.sqrt(Avg)
-        TDRWaveformToSParameterConverter.sigmaMultiple=5
+        si.m.tdr.TDRWaveformToSParameterConverter.sigmaMultiple=5
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
             WindowRaisedCosineDuration=50e-12,
@@ -621,6 +607,8 @@ class TestOysterTest(unittest.TestCase,
 
             res[n]=cm.DutCalculation(sp)
 
+        plotthem=False
+        
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title(wfName+' with '+str(Avg)+' averages')
@@ -630,10 +618,10 @@ class TestOysterTest(unittest.TestCase,
         plt.ylabel('amplitude (dB)')
         plt.ylim(ymin=-60,ymax=30)
         plt.grid(True)
-        plt.show()
+        if plotthem: plt.show()
 
     def testZOysterMonteCarloThru(self):
-        return
+        pass
         ports=2
         f=si.fd.EvenlySpacedFrequencyList(40e9,8000)
         reflectNames=['Short','Open','Load']
@@ -649,7 +637,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        result = self.GetSimulationResultsCheck('OysterMonteCarlo.si')
+        result = self.SimulationResultsChecker('OysterMonteCarlo.si')
         sourceNames=result[0]
         outputNames=result[1]
         transferMatrices=result[2]
@@ -691,7 +679,7 @@ class TestOysterTest(unittest.TestCase,
         DUTCalcNewerSp=cm.DutCalculation(sp)
         self.SParameterRegressionChecker(DUTCalcNewerSp, self.NameForTest()+'_'+wfName+'Calc.s2p')
 
-        si.test.SignalIntegrityAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=False
 
         if si.test.SignalIntegrityAppTestHelper.plotErrors:
             import matplotlib.pyplot as plt
@@ -714,7 +702,7 @@ class TestOysterTest(unittest.TestCase,
 
         Avg=10000
         sigma=707e-6/math.sqrt(Avg)
-        TDRWaveformToSParameterConverter.sigmaMultiple=5
+        si.m.tdr.TDRWaveformToSParameterConverter.sigmaMultiple=5
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(
             Step=False,Inverted=False,Length=50e-9,
             WindowRaisedCosineDuration=50e-12,
@@ -737,7 +725,7 @@ class TestOysterTest(unittest.TestCase,
 
             res[n]=cm.DutCalculation(sp)
 
-        si.test.SignalIntegrityAppTestHelper.plotErrors=True
+        si.test.SignalIntegrityAppTestHelper.plotErrors=False
 
         if si.test.SignalIntegrityAppTestHelper.plotErrors:
             import matplotlib.pyplot as plt
@@ -772,7 +760,7 @@ class TestOysterTest(unittest.TestCase,
         #sigma=1e-18
         si.td.wf.Waveform.adaptionStrategy='Linear'
         print('starting simulation')
-        result = self.GetSimulationResultsCheck('OysterSimulationTwoPortNew.si')
+        result = self.SimulationResultsChecker('OysterSimulationTwoPortNew.si')
         print('simulation complete')
         sourceNames=result[0]
         outputNames=result[1]
@@ -1161,12 +1149,6 @@ class TestOysterTest(unittest.TestCase,
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I2_O2.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I3_O3.s2p')
         self.SParameterRegressionChecker(res,serialNumberString+'_'+'I4_O4.s2p')
-
-    def testZZZZRunAfterAllTestsCompleted(self):
-        if TestOysterTest.usePickle:
-            if not os.path.exists('simresults.p'):
-                import pickle
-                pickle.dump(self.simdict,open("simresults.p","wb"))
 
 if __name__ == "__main__":
     print('profiling')

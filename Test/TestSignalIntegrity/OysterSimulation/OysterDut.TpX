@@ -3,9 +3,9 @@
 %  <polyline lc="black">48,-16 48,-20</polyline>
 %  <text x="50" y="-19" t="1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">56,-16 56,-20</polyline>
-%  <text x="58" y="-19" t="2" h="3" halign="c" lc="black"/>
+%  <text x="58" y="-19" t="3" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">52,-32 52,-28</polyline>
-%  <text x="54" y="-31" t="3" h="3" halign="c" lc="black"/>
+%  <text x="54" y="-31" t="2" h="3" halign="c" lc="black"/>
 %  <text x="42" y="-25" t="Diplexer.s3p" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">52,-36 50,-37 54,-38 50,-39 54,-40 50,-41 54,-42 50,-43 52,-44</polyline>
 %  <polyline lc="black">52,-44 52,-48</polyline>
@@ -27,9 +27,9 @@
 \path[line width=0.30mm, draw=black] (48,-16) -- (48,-20);
 \draw[black] (50,-19) node[anchor=base]{1};
 \path[line width=0.30mm, draw=black] (56,-16) -- (56,-20);
-\draw[black] (58,-19) node[anchor=base]{2};
+\draw[black] (58,-19) node[anchor=base]{3};
 \path[line width=0.30mm, draw=black] (52,-32) -- (52,-28);
-\draw[black] (54,-29) node[anchor=north]{3};
+\draw[black] (54,-29) node[anchor=north]{2};
 \draw[black] (42,-25) node[anchor=base east]{Diplexer.s3p};
 \path[line width=0.30mm, draw=black] (52,-36) -- (50,-37) -- (54,-38) -- (50,-39) -- (54,-40) -- (50,-41) -- (54,-42) -- (50,-43) -- (52,-44);
 \path[line width=0.30mm, draw=black] (52,-44) -- (52,-48);

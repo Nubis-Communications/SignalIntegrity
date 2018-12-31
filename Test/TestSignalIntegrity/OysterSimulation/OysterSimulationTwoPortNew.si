@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1190x851+98+131</Geometry>
-			<Originy>-16</Originy>
-			<Originx>-3</Originx>
-			<Height>1</Height>
-			<Width>1</Width>
+			<Geometry>912x723+28+57</Geometry>
+			<Originy>-20</Originy>
+			<Originx>-11</Originx>
+			<Height>682</Height>
+			<Width>918</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -13,239 +13,183 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(11, 42)</Coord>
+							<Coord>(17, 42)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(7, 42)</Coord>
+							<Coord>(13, 42)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(7, 43)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(27, 22)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(20, 22)</Coord>
+							<Coord>(13, 43)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(27, 27)</Coord>
+							<Coord>(27, 26)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, 27)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(27, 32)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(20, 32)</Coord>
+							<Coord>(22, 26)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(27, 48)</Coord>
+							<Coord>(27, 30)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, 48)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(27, 37)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(20, 37)</Coord>
+							<Coord>(22, 30)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(55, 48)</Coord>
+							<Coord>(27, 34)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(60, 48)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(55, 59)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(60, 59)</Coord>
+							<Coord>(22, 34)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(27, 70)</Coord>
+							<Coord>(27, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, 70)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(55, 70)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(60, 70)</Coord>
+							<Coord>(22, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(55, 81)</Coord>
+							<Coord>(27, 38)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(60, 81)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(11, 22)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(11, 27)</Coord>
+							<Coord>(22, 38)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(11, 27)</Coord>
+							<Coord>(55, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 32)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(11, 32)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(11, 37)</Coord>
+							<Coord>(60, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(11, 37)</Coord>
+							<Coord>(55, 50)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 42)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(11, 42)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(11, 48)</Coord>
+							<Coord>(61, 50)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(11, 48)</Coord>
+							<Coord>(27, 54)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 70)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(11, 70)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(11, 85)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(69, 85)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(69, 81)</Coord>
+							<Coord>(22, 54)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 22)</Coord>
+							<Coord>(55, 54)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 22)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(31, 27)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(33, 27)</Coord>
+							<Coord>(60, 54)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 32)</Coord>
+							<Coord>(55, 58)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 32)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(31, 37)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(39, 37)</Coord>
+							<Coord>(61, 58)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(43, 37)</Coord>
+							<Coord>(17, 26)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(51, 37)</Coord>
+							<Coord>(17, 30)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 42)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 46)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(31, 26)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(33, 26)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(31, 30)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(33, 30)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(31, 34)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(33, 34)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(31, 38)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(39, 38)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(43, 38)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(51, 38)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -272,140 +216,120 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 48)</Coord>
+							<Coord>(31, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 48)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(37, 48)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(40, 48)</Coord>
+							<Coord>(33, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(42, 48)</Coord>
+							<Coord>(37, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(45, 48)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(49, 48)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(51, 48)</Coord>
+							<Coord>(39, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 59)</Coord>
+							<Coord>(43, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 59)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(37, 59)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(40, 59)</Coord>
+							<Coord>(45, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(42, 59)</Coord>
+							<Coord>(49, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(45, 59)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(49, 59)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(51, 59)</Coord>
+							<Coord>(51, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 70)</Coord>
+							<Coord>(31, 50)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 70)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(37, 70)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(45, 70)</Coord>
+							<Coord>(33, 50)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(49, 70)</Coord>
+							<Coord>(49, 50)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(51, 70)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(31, 81)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(33, 81)</Coord>
+							<Coord>(51, 50)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(37, 81)</Coord>
+							<Coord>(31, 54)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(45, 81)</Coord>
+							<Coord>(33, 54)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(49, 81)</Coord>
+							<Coord>(37, 54)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(51, 81)</Coord>
+							<Coord>(45, 54)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(49, 54)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(51, 54)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(31, 58)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(33, 58)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(37, 58)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(45, 58)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(49, 58)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(51, 58)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -415,47 +339,27 @@
 							<Coord>(27, 42)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, 42)</Coord>
+							<Coord>(23, 42)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(27, 59)</Coord>
+							<Coord>(27, 50)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, 59)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(69, 81)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(69, 59)</Coord>
+							<Coord>(23, 50)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(69, 59)</Coord>
+							<Coord>(27, 58)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(69, 42)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(27, 81)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(20, 81)</Coord>
+							<Coord>(23, 58)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -465,17 +369,113 @@
 							<Coord>(55, 42)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(60, 42)</Coord>
+							<Coord>(61, 42)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(55, 37)</Coord>
+							<Coord>(55, 38)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(60, 37)</Coord>
+							<Coord>(60, 38)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(37, 50)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(39, 50)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(43, 50)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(45, 50)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 30)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 34)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 34)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 38)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 38)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 42)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 46)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 54)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 54)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, 61)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(66, 61)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(66, 58)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(66, 50)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(66, 42)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(66, 58)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(66, 50)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -484,7 +484,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 21)</Origin>
+						<Origin>(27, 25)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -520,7 +520,7 @@
 				<Device>
 					<ClassName>DeviceVoltageSource</ClassName>
 					<PartPicture>
-						<Origin>(6, 43)</Origin>
+						<Origin>(12, 43)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -531,6 +531,18 @@
 							<Keyword>wffile</Keyword>
 							<Value>ScientificPulserSamplerScopeWfOnWafer2_incwf.txt</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>file</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wfprojname</Keyword>
+							<Value>None</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -548,39 +560,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(16, 21)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 26)</Origin>
+						<Origin>(27, 29)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -614,39 +596,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(16, 26)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R3</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 31)</Origin>
+						<Origin>(27, 33)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -680,39 +632,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(16, 31)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R5</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<Origin>(11, 20)</Origin>
+						<Origin>(17, 24)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -733,7 +655,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
+							<Value>50.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -754,7 +676,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 47)</Origin>
+						<Origin>(27, 45)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -788,39 +710,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(16, 47)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R7</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 21)</Origin>
+						<Origin>(33, 25)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -850,7 +742,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 26)</Origin>
+						<Origin>(33, 29)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -880,7 +772,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 31)</Origin>
+						<Origin>(33, 33)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -910,7 +802,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 47)</Origin>
+						<Origin>(33, 45)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -940,7 +832,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 36)</Origin>
+						<Origin>(27, 37)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -976,37 +868,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(16, 36)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(59, 37)</Origin>
+						<Origin>(59, 38)</Origin>
 						<Index>0</Index>
 						<Orientation>90</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1036,7 +898,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(55, 36)</Origin>
+						<Origin>(55, 37)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1072,22 +934,22 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(39, 48)</Origin>
-						<Index>0</Index>
-						<Orientation>270</Orientation>
+						<Origin>(39, 45)</Origin>
+						<Index>1</Index>
+						<Orientation>180</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
+						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>Diplexer.s3p</Value>
+							<Value>OysterDut.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
-							<Value>3</Value>
+							<Value>2</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -1102,7 +964,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(59, 48)</Origin>
+						<Origin>(59, 46)</Origin>
 						<Index>0</Index>
 						<Orientation>90</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1132,7 +994,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(55, 47)</Origin>
+						<Origin>(55, 45)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1161,36 +1023,6 @@
 							<Keyword>ref</Keyword>
 							<Value>DUT21</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(40, 52)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R8</Value>
-							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
@@ -1234,37 +1066,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(60, 41)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R9</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(19, 42)</Origin>
+						<Origin>(22, 42)</Origin>
 						<Index>0</Index>
 						<Orientation>90</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -1330,7 +1132,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(55, 58)</Origin>
+						<Origin>(55, 49)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1366,37 +1168,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(60, 58)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R11</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(19, 59)</Origin>
+						<Origin>(22, 50)</Origin>
 						<Index>0</Index>
 						<Orientation>90</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -1426,7 +1198,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 58)</Origin>
+						<Origin>(27, 49)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -1462,7 +1234,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 69)</Origin>
+						<Origin>(27, 53)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -1498,37 +1270,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(16, 69)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R14</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(59, 70)</Origin>
+						<Origin>(59, 54)</Origin>
 						<Index>0</Index>
 						<Orientation>90</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1558,7 +1300,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(55, 69)</Origin>
+						<Origin>(55, 53)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1594,7 +1336,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(55, 80)</Origin>
+						<Origin>(55, 57)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -1630,37 +1372,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(60, 80)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R17</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(19, 81)</Origin>
+						<Origin>(22, 58)</Origin>
 						<Index>0</Index>
 						<Orientation>90</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -1690,7 +1402,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(27, 80)</Origin>
+						<Origin>(27, 57)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -1724,345 +1436,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(11, 25)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D60</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(11, 30)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D73</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(11, 35)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D80</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(64, 40)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D81</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(11, 46)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D82</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(64, 57)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D83</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(11, 68)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D84</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Origin>(64, 79)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<Value>2.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<Value>100000000.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D85</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 21)</Origin>
+						<Origin>(27, 25)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2092,7 +1468,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 26)</Origin>
+						<Origin>(27, 29)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2122,7 +1498,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 31)</Origin>
+						<Origin>(27, 33)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2152,7 +1528,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(39, 36)</Origin>
+						<Origin>(39, 37)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2212,7 +1588,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 36)</Origin>
+						<Origin>(27, 37)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2272,7 +1648,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(51, 36)</Origin>
+						<Origin>(51, 37)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2332,7 +1708,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 47)</Origin>
+						<Origin>(27, 45)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2362,7 +1738,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(45, 47)</Origin>
+						<Origin>(45, 45)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2392,7 +1768,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(51, 47)</Origin>
+						<Origin>(51, 45)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2422,7 +1798,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 58)</Origin>
+						<Origin>(33, 49)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2452,67 +1828,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(39, 59)</Origin>
-						<Index>0</Index>
-						<Orientation>270</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>Diplexer.s3p</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>3</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D18</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceResistor</ClassName>
-					<PartPicture>
-						<Origin>(40, 63)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>r</Keyword>
-							<Value>50.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>R13</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(27, 58)</Origin>
+						<Origin>(27, 49)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2542,7 +1858,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(45, 58)</Origin>
+						<Origin>(45, 49)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2572,7 +1888,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(51, 58)</Origin>
+						<Origin>(51, 49)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2602,7 +1918,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 69)</Origin>
+						<Origin>(33, 53)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2632,7 +1948,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 69)</Origin>
+						<Origin>(27, 53)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2662,7 +1978,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(45, 69)</Origin>
+						<Origin>(45, 53)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2692,7 +2008,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(51, 69)</Origin>
+						<Origin>(51, 53)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2722,7 +2038,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(33, 80)</Origin>
+						<Origin>(33, 57)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2752,7 +2068,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(27, 80)</Origin>
+						<Origin>(27, 57)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -2782,7 +2098,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(45, 80)</Origin>
+						<Origin>(45, 57)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2812,7 +2128,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(51, 80)</Origin>
+						<Origin>(51, 57)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -2834,6 +2150,372 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<Value>D31</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Origin>(39, 49)</Origin>
+						<Index>1</Index>
+						<Orientation>180</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<Value>OysterDut.si</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D18</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(17, 28)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D32</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(17, 32)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D33</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(17, 36)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D34</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(17, 44)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D35</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(17, 52)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D36</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(61, 40)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D37</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(61, 48)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D38</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Origin>(61, 56)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>2.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<Value>100000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<Value>50.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D39</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
