@@ -1,6 +1,0 @@
-device D2 2 file OysterOuterPath.si
-device D1 2 file OysterOuterPath.si
-port 1 D2 1
-port 2 D1 1
-port 3 D2 2
-port 4 D1 2

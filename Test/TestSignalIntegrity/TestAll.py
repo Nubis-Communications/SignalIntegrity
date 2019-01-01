@@ -60,7 +60,6 @@ from TestTimeDomain import *
 from TestTline import *
 from TestVirtualProbe import *
 from TestWavelets import *
-#from OysterSimulation import *
 from ScientificPulserSampler import *
 from Sequid import *
 from TDRSimulationFourPortScaled import *

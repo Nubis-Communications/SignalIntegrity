@@ -1,4 +1,0 @@
-device D13 2 file TeledyneRelayClosed.s2p
-device D14 1 file WeinschelLoad.s1p
-port 1 D13 1
-connect D13 2 D14 1

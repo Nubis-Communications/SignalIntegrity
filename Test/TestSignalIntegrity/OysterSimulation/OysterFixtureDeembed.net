@@ -1,8 +1,0 @@
-system file TestOysterTest_testOysterTwoPort_RawCalc.s2p
-unknown U1 2
-device D2 2 file OysterOuterPath.si
-device D3 2 file OysterOuterPath.si
-port 1 D2 1
-port 2 D3 1
-connect U1 1 D2 2
-connect D3 2 U1 2

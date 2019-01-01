@@ -1,7 +1,0 @@
-device D22 2 file TeledyneRelayClosed.s2p
-device D24 2 file SemiRigidCable2.s2p
-device D25 2 file TeledyneRelayClosed.s2p
-port 1 D22 1
-connect D22 2 D24 1
-connect D24 2 D25 2
-port 2 D25 1

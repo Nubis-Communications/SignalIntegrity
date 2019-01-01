@@ -1,8 +1,0 @@
-device D1 4 file OysterErrorTermsDeembed2.s4p
-device R1 1 R 50.0
-device R2 1 R 50.0
-device O1 1 open
-connect R1 1 D1 1
-port 1 D1 2
-connect R2 1 D1 3
-connect D1 4 O1 1
