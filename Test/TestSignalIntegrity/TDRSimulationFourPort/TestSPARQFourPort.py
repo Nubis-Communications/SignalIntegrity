@@ -23,7 +23,7 @@ import os
 
 from numpy import matrix
 
-class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
+class TestSPARQFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                         si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
@@ -39,19 +39,19 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         #self.forceWritePictures=True
     def GetSimulationResultsCheck(self,filename):
-        if not hasattr(TestSPARQFourPort, 'simdict'):
-            TestSPARQFourPort.simdict=dict()
-            if TestSPARQFourPort.usePickle:
+        if not hasattr(TestSPARQFourPortTest, 'simdict'):
+            TestSPARQFourPortTest.simdict=dict()
+            if TestSPARQFourPortTest.usePickle:
                 try:
                     import pickle
-                    TestSPARQFourPort.simdict=pickle.load(open("simresults.p","rb"))
+                    TestSPARQFourPortTest.simdict=pickle.load(open("simresults.p","rb"))
                 except:
                     pass
-        if filename in TestSPARQFourPort.simdict:
-            return TestSPARQFourPort.simdict[filename]
+        if filename in TestSPARQFourPortTest.simdict:
+            return TestSPARQFourPortTest.simdict[filename]
         print("In TestSPARQFourPort, performing the sim for: "+filename)
-        TestSPARQFourPort.simdict[filename] = self.SimulationResultsChecker(filename)
-        return TestSPARQFourPort.simdict[filename]
+        TestSPARQFourPortTest.simdict[filename] = self.SimulationResultsChecker(filename)
+        return TestSPARQFourPortTest.simdict[filename]
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testResampleCheby(self):
@@ -130,7 +130,7 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
 
-        if TestSPARQFourPort.usePickle:
+        if TestSPARQFourPortTest.usePickle:
             if not os.path.exists('simresults.p'):
                 import pickle
                 pickle.dump(self.simdict,open("simresults.p","wb"))
@@ -327,21 +327,6 @@ class TestSPARQFourPort(unittest.TestCase,si.test.SParameterCompareHelper,
                 plt.show()
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-4),'s-parameters not equal')
-    def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):
-        fileName='../../SignalIntegrity/Lib/Measurement/TDR/TDRWaveformToSParameterConverter.py'
-        className='TDRWaveformToSParameterConverter'
-        firstDef='__init__'
-        allfuncs=self.EntireListOfClassFunctions(fileName,className)
-        allfuncs.remove(firstDef)
-        allfuncs.remove('Convert')
-        allfuncs.remove('_ExtractionWindows')
-        defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteTDRWaveformToSParameterConverterClassCodeConvert(self):
-        fileName='../../SignalIntegrity/Lib/Measurement/TDR/TDRWaveformToSParameterConverter.py'
-        className='TDRWaveformToSParameterConverter'
-        defName=['Convert']
-        self.WriteClassCode(fileName,className,defName)
 
 if __name__ == "__main__":
     unittest.main()

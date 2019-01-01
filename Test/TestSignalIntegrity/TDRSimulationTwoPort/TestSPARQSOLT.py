@@ -1455,16 +1455,6 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         N=200
         sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
         self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
-    def testWriteErrorTermsCodeCalibration(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
-        className='ErrorTerms'
-        defName=['ReflectCalibration','ThruCalibration','ExCalibration','TransferThruCalibration']
-        self.WriteClassCode(fileName,className,defName,lineDefs=True)
-    def testWriteErrorTermsCodeDut(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
-        className='ErrorTerms'
-        defName=['DutCalculation','DutCalculationAlternate','Fixture']
-        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testTDRSimulationSOLT2(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
         sourceNames=result[0]
@@ -1859,46 +1849,6 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(calkit.openStandard, self.NameForTest()+'_OpenStandard.s1p')
         self.SParameterRegressionChecker(calkit.loadStandard, self.NameForTest()+'_LoadStandard.s1p')
         self.SParameterRegressionChecker(calkit.thruStandard, self.NameForTest()+'_ThruStandard.s2p')
-    def testWriteCalibrationKitCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/CalibrationKit.py"
-        className='CalibrationKit'
-        firstDef='__init__'
-        allfuncs=self.EntireListOfClassFunctions(fileName,className)
-        allfuncs.remove(firstDef)
-        defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName,lineDefs=True)
-    def testWriteCalibrationConstantsCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/CalibrationKit.py"
-        className='CalibrationConstants'
-        defName=['__init__']
-        self.WriteClassCode(fileName,className,defName)
-        defName=['ReadFromFile']
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteOffsetCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/Offset.py"
-        className='Offset'
-        defName=['__init__']
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteThruStandardCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/ThruStandard.py"
-        className='ThruStandard'
-        defName=['__init__']
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteShortStandardCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/ShortStandard.py"
-        className='ShortStandard'
-        defName=['__init__']
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteOpenStandardCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/OpenStandard.py"
-        className='OpenStandard'
-        defName=['__init__']
-        self.WriteClassCode(fileName,className,defName)
-    def testWriteLoadStandardCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/CalKit/Standards/LoadStandard.py"
-        className='LoadStandard'
-        defName=['__init__']
-        self.WriteClassCode(fileName,className,defName)
     def testVNASimulationSOLT(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.si')
         sourceNames=result[0]
@@ -2099,19 +2049,5 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
-
-    def testWriteCalibrationCode(self):
-        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/Calibration.py"
-        className='Calibration'
-        firstDef='__init__'
-        allfuncs=self.EntireListOfClassFunctions(fileName,className)
-        allfuncs.remove(firstDef)
-        allfuncs.remove('__getitem__')
-        allfuncs.remove('__len__')
-        allfuncs.remove('WriteToFile')
-        allfuncs.remove('Fixtures')
-        defName=[firstDef]+allfuncs
-        self.WriteClassCode(fileName,className,defName,lineDefs=True)
-
 if __name__ == "__main__":
     unittest.main()

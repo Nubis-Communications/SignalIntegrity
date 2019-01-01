@@ -50,8 +50,6 @@ from TestSimulator import *
 from TestSources import *
 from TestSParameterEnforcements import *
 from TestSParameterFile import *
-from TestSPARQFourPort import *
-from TestSPARQSOLT import *
 from TestSplines import *
 from TestSubcircuit import *
 from TestSystemDescription import *
@@ -60,6 +58,8 @@ from TestTimeDomain import *
 from TestTline import *
 from TestVirtualProbe import *
 from TestWavelets import *
+from TDRSimulationTwoPort import *
+from TDRSimulationFourPort import *
 from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
 from YuriyWaveTest import *
