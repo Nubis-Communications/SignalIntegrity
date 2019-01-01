@@ -1,5 +1,5 @@
 """
-TestSPARQFourPortScaled.py
+TestTDRFourPortSOLTScaled.py
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
@@ -36,7 +36,7 @@ import math
 # you must set usePickle to True for it to perform this caching.  It cuts the time from about
 # 1 minute to about 20 seconds
 #------------------------------------------------------------------------------ 
-class TestSPARQFourPortScaledTest(unittest.TestCase,
+class TestTDRFourPortScaledTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper,
         si.test.RoutineWriterTesterHelper):
     relearn=True
@@ -44,32 +44,29 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
     debug=False
     checkPictures=True
     epsilon=50e-12
-    usePickle=False
     def setUp(self):
+        self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         #self.forceWritePictures=True
     def tearDown(self):
         si.m.tdr.TDRWaveformToSParameterConverter.taper=True
         si.wl.WaveletDenoiser.wavelet=si.wl.WaveletDaubechies16()
         si.td.wf.Waveform.adaptionStrategy='SinX'
+        os.chdir(self.cwd)
+        unittest.TestCase.tearDown(self)
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def GetSimulationResultsCheck(self,filename):
-        if not hasattr(TestSPARQFourPortScaledTest, 'simdict'):
-            TestSPARQFourPortScaledTest.simdict=dict()
-            if TestSPARQFourPortScaledTest.usePickle:
-                try:
-                    import pickle
-                    TestSPARQFourPortScaledTest.simdict=pickle.load(open("simresults.p","rb"))
-                except:
-                    pass
-        if filename in TestSPARQFourPortScaledTest.simdict:
-            return TestSPARQFourPortScaledTest.simdict[filename]
-        TestSPARQFourPortScaledTest.simdict[filename] = self.SimulationResultsChecker(filename)
-        return TestSPARQFourPortScaledTest.simdict[filename]
+        if not hasattr(TestTDRFourPortScaledTest, 'simdict'):
+            TestTDRFourPortScaledTest.simdict=dict()
+        if filename in TestTDRFourPortScaledTest.simdict:
+            return TestTDRFourPortScaledTest.simdict[filename]
+        print("In TestTDRFourPortScaledTest, performing the sim for: "+filename)
+        TestTDRFourPortScaledTest.simdict[filename] = self.SimulationResultsChecker(filename)
+        return TestTDRFourPortScaledTest.simdict[filename]
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testVNAFourPort(self):
@@ -2643,11 +2640,6 @@ class TestSPARQFourPortScaledTest(unittest.TestCase,
                         plt.show()
 
         self.assertTrue(SpAreEqual,'s-parameters not equal')
-    def testZZZZRunAfterAllTestsCompleted(self):
-        if TestSPARQFourPortScaledTest.usePickle:
-            if not os.path.exists('simresults.p'):
-                import pickle
-                pickle.dump(self.simdict,open("simresults.p","wb"))
 
 if __name__ == "__main__":
     runProfiler=False
