@@ -61,7 +61,6 @@ from TestTline import *
 from TestVirtualProbe import *
 from TestWavelets import *
 from ScientificPulserSampler import *
-from Sequid import *
 from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
 from YuriyWaveTest import *
