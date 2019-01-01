@@ -36,8 +36,12 @@ class TestSPARQFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
+        self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         #self.forceWritePictures=True
+    def tearDown(self):
+        os.chdir(self.cwd)
+        unittest.TestCase.tearDown(self)
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestSPARQFourPortTest, 'simdict'):
             TestSPARQFourPortTest.simdict=dict()

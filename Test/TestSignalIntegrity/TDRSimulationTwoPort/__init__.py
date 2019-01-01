@@ -20,4 +20,4 @@ __init__.py
 
 from __future__ import absolute_import
 
-from .TestSPARQSOLT import TestSPARQSolt
+from .TestTDRTwoPortSOLT import TestTDRTwoPortTest

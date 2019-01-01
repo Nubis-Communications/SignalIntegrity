@@ -1,5 +1,5 @@
 """
-TestSPARQSOLT.py
+TestTDRTwoPortSOLT.py
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 
 from numpy import matrix
 
-class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
+class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                     si.test.SignalIntegrityAppTestHelper,
                     si.test.RoutineWriterTesterHelper):
     relearn=True
@@ -38,16 +38,20 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
     def setUp(self):
+        self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         #self.forceWritePictures=True
+    def tearDown(self):
+        os.chdir(self.cwd)
+        unittest.TestCase.tearDown(self)
     def GetSimulationResultsCheck(self,filename):
-        if not hasattr(TestSPARQSolt, 'simdict'):
-            TestSPARQSolt.simdict=dict()
-        if filename in TestSPARQSolt.simdict:
-            return TestSPARQSolt.simdict[filename]
-        TestSPARQSolt.simdict[filename] = self.SimulationResultsChecker(filename)
-        return TestSPARQSolt.simdict[filename]
-    def testSPARQSOLPerfectButWithLength(self):
+        if not hasattr(TestTDRTwoPortTest, 'simdict'):
+            TestTDRTwoPortTest.simdict=dict()
+        if filename in TestTDRTwoPortTest.simdict:
+            return TestTDRTwoPortTest.simdict[filename]
+        TestTDRTwoPortTest.simdict[filename] = self.SimulationResultsChecker(filename)
+        return TestTDRTwoPortTest.simdict[filename]
+    def testTDRSOLPerfectButWithLength(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
@@ -131,7 +135,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
 
-    def testSPARQSOLImPerfectButWithLength(self):
+    def testTDRSOLImPerfectButWithLength(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
@@ -385,7 +389,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
 
         et=cm.ErrorTerms()
 
-    def testSPARQSOLClosedForm(self):
+    def testTDRSOLClosedForm(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
@@ -480,7 +484,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         os.chdir(currentDirectory)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
-    def testSPARQSOLPerfectButWithLengthDelay(self):
+    def testTDRSOLPerfectButWithLengthDelay(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
@@ -570,7 +574,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
 
-    def testSPARQSOLImPerfectButWithLengthDelay(self):
+    def testTDRSOLImPerfectButWithLengthDelay(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
@@ -1055,7 +1059,7 @@ class TestSPARQSolt(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 5e-4),'s-parameters not equal')
 
-    def testSPARQSOLImPerfectButWithLengthDelayCalStd(self):
+    def testTDRSOLImPerfectButWithLengthDelayCalStd(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
