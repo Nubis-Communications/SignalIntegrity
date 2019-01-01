@@ -55,9 +55,7 @@ class ResultsCache(object):
         if not self.CheckTimes(self.filename+self.extra):
             return False
         try:
-            f = open(self.filename+self.extra, 'rb')
-            tmp_dict = pickle.load(f)
-            f.close()
+            with open(self.filename+self.extra,'rb') as f: tmp_dict = pickle.load(f)
         except:
             return False
         try:
@@ -79,11 +77,10 @@ class ResultsCache(object):
         """
         if self.filename is None:
             return
-        f = open(self.filename+self.extra, 'wb')
+
         members = [attr for attr in dir(self) if not callable(getattr(self, attr)) and not attr.startswith("__")]
         pickleDict = {x:self.__dict__[x] for x in members}
-        pickle.dump(pickleDict, f, 2)
-        f.close()
+        with open(self.filename+self.extra, 'wb') as f: pickle.dump(pickleDict, f, 2)
         return self
     def FileTime(self,filename):
         """
