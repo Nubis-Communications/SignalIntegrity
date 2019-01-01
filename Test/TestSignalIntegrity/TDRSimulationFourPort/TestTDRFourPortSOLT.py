@@ -1,5 +1,5 @@
 """
-TestSPARQFourPort.py
+TestTDRFourPortSOLT.py
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
@@ -23,13 +23,12 @@ import os
 
 from numpy import matrix
 
-class TestSPARQFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
+class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                         si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
     relearn=True
     plot=False
     debug=False
     checkPictures=True
-    usePickle=False
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
@@ -43,19 +42,13 @@ class TestSPARQFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         os.chdir(self.cwd)
         unittest.TestCase.tearDown(self)
     def GetSimulationResultsCheck(self,filename):
-        if not hasattr(TestSPARQFourPortTest, 'simdict'):
-            TestSPARQFourPortTest.simdict=dict()
-            if TestSPARQFourPortTest.usePickle:
-                try:
-                    import pickle
-                    TestSPARQFourPortTest.simdict=pickle.load(open("simresults.p","rb"))
-                except:
-                    pass
-        if filename in TestSPARQFourPortTest.simdict:
-            return TestSPARQFourPortTest.simdict[filename]
-        print("In TestSPARQFourPort, performing the sim for: "+filename)
-        TestSPARQFourPortTest.simdict[filename] = self.SimulationResultsChecker(filename)
-        return TestSPARQFourPortTest.simdict[filename]
+        if not hasattr(TestTDRFourPortTest, 'simdict'):
+            TestTDRFourPortTest.simdict=dict()
+        if filename in TestTDRFourPortTest.simdict:
+            return TestTDRFourPortTest.simdict[filename]
+        print("In TestTDRFourPortTest, performing the sim for: "+filename)
+        TestTDRFourPortTest.simdict[filename] = self.SimulationResultsChecker(filename)
+        return TestTDRFourPortTest.simdict[filename]
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testResampleCheby(self):
@@ -133,11 +126,6 @@ class TestSPARQFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
                                             matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
                                             for n in range(len(f))])
-
-        if TestSPARQFourPortTest.usePickle:
-            if not os.path.exists('simresults.p'):
-                import pickle
-                pickle.dump(self.simdict,open("simresults.p","wb"))
 
         f=spDict['Dut'].f()
 
