@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.1.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -177,21 +177,21 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">WindowForwardHalfWidthTime</td><td>(optional) float amount of time in extraction window on forward side of incident wave (defaults to 0). </td></tr>
     <tr><td class="paramname">WindowReverseHalfWidthTime</td><td>(optional) float amount of time in extraction window on reverse side of incident wave (defaults to None). </td></tr>
-    <tr><td class="paramname">WindowRaisedCosineDuration</td><td>(optional) float amount of time to tape extraction window with raised cosine (defaults to 0). </td></tr>
+    <tr><td class="paramname">WindowRaisedCosineDuration</td><td>(optional) float amount of time to taper extraction window with raised cosine (defaults to 0). </td></tr>
     <tr><td class="paramname">Step</td><td>(optional) boolean True if waveforms are steps, False if waveforms are impulses (defaults to True). </td></tr>
-    <tr><td class="paramname">Length</td><td>(optional) float length of time to clip waveform to (defaults to 0). </td></tr>
+    <tr><td class="paramname">Length</td><td>(optional) float length of time to clip waveform to (defaults to 0 meaning no clipping). </td></tr>
     <tr><td class="paramname">Denoise</td><td>(optiona) boolean whether to perform wavelet denoising (defaults to False). </td></tr>
     <tr><td class="paramname">DenoisePercent</td><td>(optional) percent of end portion of the waveform used during denoising for noise statistics estimation (defaults to 30 percent). </td></tr>
-    <tr><td class="paramname">Inverted</td><td>(optional) boolean whether the waveform is invertede (defaults to False). </td></tr>
-    <tr><td class="paramname">fd</td><td>(optional) instance of class FrequencyDescriptor used to define desired frequencies for the s-parameters (defaults to None). </td></tr>
+    <tr><td class="paramname">Inverted</td><td>(optional) boolean whether the waveform is inverted (defaults to False). </td></tr>
+    <tr><td class="paramname">fd</td><td>(optional) instance of class FrequencyList used to define desired frequencies for the s-parameters (defaults to None). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>if fd is None or not provided, then the frequencies will correspond to the time descriptor of the trimmed waveform. </dd>
-<dd>
-if WindowReverseHalfWidthTime is None, then it defaults to the WindowForwardHalfWidthTime </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>if fd is None or not provided, then the frequencies will correspond to the time descriptor of the trimmed waveform. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>TimeDescriptor </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>if WindowReverseHalfWidthTime is None, then it defaults to the WindowForwardHalfWidthTime </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml#l00068">68</a> of file <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml">TDRWaveformToSParameterConverter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml#l00069">69</a> of file <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml">TDRWaveformToSParameterConverter.py</a>.</p>
 
 </div>
 </div>
@@ -233,7 +233,7 @@ if WindowReverseHalfWidthTime is None, then it defaults to the WindowForwardHalf
 <p>Each element at index d in wfList is a list of waveforms where the zero based dth waveform contains the incident and the others don't. (i.e. they are the waveforms measured at the ports of the DUT when zero based port d is driven).</p>
 <p>For a P port DUT, wfList must be PxP. </p><dl class="section note"><dt>Note</dt><dd>for one port measurements, wfList can be a single measurement (as opposed to a 1x1 list of list of one element). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml#l00094">94</a> of file <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml">TDRWaveformToSParameterConverter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml#l00095">95</a> of file <a class="el" href="TDRWaveformToSParameterConverter_8py_source.xhtml">TDRWaveformToSParameterConverter.py</a>.</p>
 
 </div>
 </div>

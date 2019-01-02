@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.1.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -250,9 +250,9 @@ Additional Inherited Members</h2></td></tr>
 <tr>
 <td align="center">True </td><td align="center">True </td><td align="center">X </td><td align="left">CZT resamples to td - ad forced to T </td></tr>
 </table>
-<p>Much of these options are meant for internal use. Mostly you should simply use <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml#aa301152e06c3881589eb5c70d53734f6" title="the time-domain impulse response ">ImpulseResponse()</a> with the default arguments. </p>
+<p>Much of these options are meant for internal use. Mostly you should simply use <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml#aa301152e06c3881589eb5c70d53734f6" title="the time-domain impulse response ">ImpulseResponse()</a> with the default arguments. </p><dl class="section remark"><dt>Remarks</dt><dd>td can also be supplied as a float or int. In this situation, the TimeDescriptor corresponding to the internal <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList.xhtml">FrequencyList</a> is used, but the td supplied supplants the sample rate of the TimeDescriptor. In this way, only the sample rate can be specified in the resampling, and all processing as shown in the table above will assume that a time descriptor has been supplied of this calculated type. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="FrequencyResponse_8py_source.xhtml#l00092">92</a> of file <a class="el" href="FrequencyResponse_8py_source.xhtml">FrequencyResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FrequencyResponse_8py_source.xhtml#l00096">96</a> of file <a class="el" href="FrequencyResponse_8py_source.xhtml">FrequencyResponse.py</a>.</p>
 
 </div>
 </div>
@@ -285,7 +285,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Resamples to a different set of frequencies. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fdp</td><td>instance of class FrequencyDescriptor to resample to </td></tr>
+    <tr><td class="paramname">fdp</td><td>instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList.xhtml">FrequencyList</a> to resample to </td></tr>
   </table>
   </dd>
 </dl>
@@ -297,7 +297,7 @@ Additional Inherited Members</h2></td></tr>
 <dd>
 Spline </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="FrequencyResponse_8py_source.xhtml#l00174">174</a> of file <a class="el" href="FrequencyResponse_8py_source.xhtml">FrequencyResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FrequencyResponse_8py_source.xhtml#l00178">178</a> of file <a class="el" href="FrequencyResponse_8py_source.xhtml">FrequencyResponse.py</a>.</p>
 
 </div>
 </div>
@@ -336,7 +336,7 @@ Spline </dd></dl>
 <p>Uses the chirp z transform is used to resample. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fdp</td><td>instance of class FrequencyDescriptor to resample to </td></tr>
+    <tr><td class="paramname">fdp</td><td>instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList.xhtml">FrequencyList</a> to resample to </td></tr>
     <tr><td class="paramname">speedy</td><td>(optional) bool whether to use the fast version of the CZT() </td></tr>
   </table>
   </dd>
@@ -346,7 +346,7 @@ Spline </dd></dl>
 <dd>
 CZT() </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="FrequencyResponse_8py_source.xhtml#l00210">210</a> of file <a class="el" href="FrequencyResponse_8py_source.xhtml">FrequencyResponse.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FrequencyResponse_8py_source.xhtml#l00214">214</a> of file <a class="el" href="FrequencyResponse_8py_source.xhtml">FrequencyResponse.py</a>.</p>
 
 </div>
 </div>
