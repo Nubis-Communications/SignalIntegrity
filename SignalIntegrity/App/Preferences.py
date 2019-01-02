@@ -62,7 +62,9 @@ class Preferences(PreferencesFile):
                 self.Write(self.preferencesFileName)
             except:
                 pass
-    def AnotherFileOpened(self,filename):
+    def AnotherFileOpened(self,filename,keepTrackOfFile=True):
+        if not keepTrackOfFile:
+            return
         filepath=os.getcwd()
         lastFiles=self['ProjectFiles.LastFile']
         if self['ProjectFiles.RetainLastFilesOpened']:

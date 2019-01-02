@@ -19,30 +19,30 @@ ProgressDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Toplevel,PhotoImage,Frame,Canvas,Button
-    from Tkinter import TOP,SUNKEN,BOTH,YES,NO
+    import Tkinter as tk
 else:
-    from tkinter import Toplevel,PhotoImage,Frame,Canvas,Button
-    from tkinter import TOP,SUNKEN,BOTH,YES,NO
+    import tkinter as tk
+
+import SignalIntegrity.App.Project
 
 from math import floor
        
-class ProgressDialog(Toplevel):
-    def __init__(self, parent, installdir, title, classOfThing, thingToDo, granularity=1.0):
-        Toplevel.__init__(self, parent)
+class ProgressDialog(tk.Toplevel):
+    def __init__(self, parent, title, classOfThing, thingToDo, granularity=1.0):
+        tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.title(title)
-        img = PhotoImage(file=installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
-        self.barFrame=Frame(self)
-        self.barFrame.pack(side=TOP)
-        self.bar = Canvas(self.barFrame,relief=SUNKEN,borderwidth=1,width=600,height=10)
-        self.bar.pack(side=TOP,fill=BOTH,expand=YES)
-        self.buttonFrame=Frame(self)
-        self.buttonFrame.pack(side=TOP)
-        self.stopButton = Button(self.buttonFrame,text='Stop',command=self.onStop)
-        self.stopButton.pack(side=TOP,fill=BOTH,expand=NO)
+        self.barFrame=tk.Frame(self)
+        self.barFrame.pack(side=tk.TOP)
+        self.bar = tk.Canvas(self.barFrame,relief=tk.SUNKEN,borderwidth=1,width=600,height=10)
+        self.bar.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.buttonFrame=tk.Frame(self)
+        self.buttonFrame.pack(side=tk.TOP)
+        self.stopButton = tk.Button(self.buttonFrame,text='Stop',command=self.onStop)
+        self.stopButton.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.NO)
         self.stopCommand=False
         self.isShowing=False
         self.thingToDo = thingToDo

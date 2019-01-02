@@ -22,6 +22,7 @@ import os
 class SignalIntegrityAppTestHelper:
     relearn=True
     plotErrors=False
+    forceWritePictures=False
     def __init__(self,path):
         self.path=path
     def FileNameForTest(self,filename):
@@ -40,7 +41,7 @@ class SignalIntegrityAppTestHelper:
             tpx.lineList=tpx.lineList+tikz.lineList
         except:
             self.assertTrue(False,filename + ' couldnt be drawn')
-        if not os.path.exists(testFilename):
+        if not os.path.exists(testFilename) or self.forceWritePictures:
             tpx.WriteToFile(testFilename)
             if not self.relearn:
                 self.assertTrue(False, testFilename + ' not found')

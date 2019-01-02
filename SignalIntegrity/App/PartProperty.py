@@ -16,8 +16,6 @@ PartProperty.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-import xml.etree.ElementTree as et
-
 from SignalIntegrity.App.ToSI import ToSI,FromSI
 from SignalIntegrity.App.ProjectFile import PartPropertyConfiguration
 
@@ -37,7 +35,7 @@ class PartProperty(PartPropertyConfiguration):
     def PropertyString(self,stype='raw'):
         if stype=='attr':
             result=''
-            if self.GetValue('Visible'):
+            if self.GetValue('Visible') and not self.GetValue('Hidden'):
                 if self.GetValue('KeywordVisible'):
                     if self.GetValue('Keyword') != None and self.GetValue('Keyword') != 'None':
                         result=result+self.GetValue('Keyword')+' '
@@ -108,95 +106,6 @@ class PartProperty(PartPropertyConfiguration):
             return float(self.GetValue('Value'))
         else:
             return self.GetValue('Value')
-
-class PartPropertyXMLClassFactory(PartProperty):
-    def __init__(self,xml):
-        propertyName=''
-        keyword=None
-        description=None
-        value=None
-        hidden=False
-        visible=False
-        ptype='string'
-        unit=None
-        keywordVisible=False
-        for item in xml:
-            if item.tag == 'keyword':
-                keyword = item.text
-            elif item.tag == 'property_name':
-                propertyName = item.text
-                # this fixes a misspelling I corrected but breaks
-                # lots of old projects
-                if propertyName == 'resistence':
-                    propertyName = 'resistance'
-                if propertyName == 'Resistance':
-                    propertyName = 'resistance'
-            elif item.tag == 'description':
-                description = item.text
-            elif item.tag == 'value':
-                value = item.text
-            elif item.tag == 'hidden':
-                hidden = eval(item.text)
-            elif item.tag == 'visible':
-                visible = eval(item.text)
-            elif item.tag == 'keyword_visible':
-                keywordVisible = eval(item.text)
-            elif item.tag == 'type':
-                ptype = item.text
-            elif item.tag == 'unit':
-                unit = item.text
-        # legacy change - all part properties must have keywords
-        if propertyName == 'portnumber':
-            keyword='pn'
-            keywordVisible=False
-        elif propertyName == 'reference':
-            keyword='ref'
-            keywordVisible=False
-        elif propertyName == 'defaultreference':
-            keyword='defref'
-            keywordVisible=False
-        elif propertyName == 'ports':
-            keyword='ports'
-            keywordVisible=False
-        elif propertyName == 'filename':
-            keyword='file'
-            keywordVisible=False
-        elif propertyName == 'type':
-            keyword='partname'
-            keywordVisible=False
-        elif propertyName == 'category':
-            keyword='cat'
-            keywordVisible=False
-        elif propertyName == 'description':
-            keyword='desc'
-            keywordVisible=False
-        elif propertyName == 'waveformfilename':
-            keyword='wffile'
-            keywordVisible=False
-
-        if keyword is None:
-            raise
-        # hack because stupid xml outputs none for empty string
-        if ptype == 'float' and (unit is None or unit == 'None'):
-            unit = ''
-        self.result=PartProperty(propertyName,ptype,unit,keyword,description,value,hidden,visible,keywordVisible)
-
-class PartPropertyFromProject(PartProperty):
-    def __init__(self,partPropertyProject):
-        propertyName=partPropertyProject['PropertyName']
-        keyword=partPropertyProject['Keyword']
-        description=partPropertyProject['Description']
-        value=partPropertyProject['Value']
-        hidden=partPropertyProject['Hidden']
-        visible=partPropertyProject['Visible']
-        ptype=partPropertyProject['Type']
-        unit=partPropertyProject['Unit']
-        keywordVisible=partPropertyProject['KeywordVisible']
-        inProjectFile=partPropertyProject['InProjectFile']
-        # hack because stupid xml outputs none for empty string
-        if ptype == 'float' and (unit is None or unit == 'None'):
-            unit = ''
-        self.result=PartProperty(propertyName,ptype,unit,keyword,description,value,hidden,visible,keywordVisible,inProjectFile)
 
 class PartPropertyReadOnly(PartProperty):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):
@@ -358,3 +267,23 @@ class PartPropertyWeight(PartProperty):
 class PartPropertyReferenceImpedance(PartProperty):
     def __init__(self,impedance=50.,keyword='z0',):
         PartProperty.__init__(self,'impedance',type='float',unit='Ohm',keyword=keyword,description='reference impedance (Ohms)',value=impedance,visible=True,keywordVisible=True)
+
+class PartPropertyGm(PartProperty):
+    def __init__(self,Gm=1.0):
+        PartProperty.__init__(self,'Gm',type='float',unit='A/V',keyword='gm',description='Gm (A/V)',value=Gm,visible=True)
+
+class PartPropertyRpi(PartProperty):
+    def __init__(self,rpi=1e8):
+        PartProperty.__init__(self,'Rpi',type='float',unit='Ohm',keyword='rpi',description='base/emitter resistance (Ohms)',value=rpi,visible=True)
+
+class PartPropertyOutputResistance(PartProperty):
+    def __init__(self,ro=1e8):
+        PartProperty.__init__(self,'ro',type='float',unit='Ohm',keyword='ro',description='collector/emitter output resistance (Ohms)',value=ro,visible=True)
+
+class PartPropertyWaveformType(PartProperty):
+    def __init__(self,wfType=None):
+        PartProperty.__init__(self,'wftype',type='string',unit=None,keyword='wftype',description='waveform type',value=wfType,hidden=True,visible=False)
+
+class PartPropertyWaveformProjectName(PartProperty):
+    def __init__(self,wfProjName=None):
+        PartProperty.__init__(self,'wfprojname',type='string',unit=None,keyword='wfprojname',keywordVisible=False,description='waveform project name',value=wfProjName,visible=False)

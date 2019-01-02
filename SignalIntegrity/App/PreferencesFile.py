@@ -36,6 +36,7 @@ class Appearance(XMLConfiguration):
         XMLConfiguration.__init__(self,'Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
         self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
+        self.Add(XMLPropertyDefaultBool('AllPinNumbersVisible',False))
         self.SubDir(Color())
 
 class Calculation(XMLConfiguration):

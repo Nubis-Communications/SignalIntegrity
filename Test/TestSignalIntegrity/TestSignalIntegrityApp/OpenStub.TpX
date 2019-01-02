@@ -5,14 +5,14 @@
 %  <polyline lc="black">56,-28 70,-28</polyline>
 %  <polyline lc="black">48,-24 56,-24</polyline>
 %  <polyline lc="black">80,-24 72,-24</polyline>
-%  <text x="64" y="-16" t="100.0 ps" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-13.5" t="100.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-15" t="100.0 ps" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-12" t="100.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">90,-26 86,-22</polyline>
 %  <polyline lc="black">86,-26 90,-22</polyline>
 %  <polyline lc="black">80,-24 88,-24</polyline>
 %  <polyline lc="black">36,-20 40,-24 36,-28</polyline>
 %  <polyline lc="black">48,-24 40,-24</polyline>
-%  <text x="36" y="-24" t="1" h="3" halign="r" lc="black"/>
+%  <text x="36" y="-25" t="1" h="3" halign="r" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -22,12 +22,12 @@
 \path[line width=0.30mm, draw=black] (56,-28) -- (70,-28);
 \path[line width=0.30mm, draw=black] (48,-24) -- (56,-24);
 \path[line width=0.30mm, draw=black] (80,-24) -- (72,-24);
-\draw[black] (64,-16) node[anchor=base]{100.0 ps};
-\draw[black] (64,-13.5) node[anchor=base]{100.0 Ohm};
+\draw[black] (64,-15) node[anchor=base]{100.0 ps};
+\draw[black] (64,-12) node[anchor=base]{100.0 Ohm};
 \path[line width=0.30mm, draw=black] (90,-26) -- (86,-22);
 \path[line width=0.30mm, draw=black] (86,-26) -- (90,-22);
 \path[line width=0.30mm, draw=black] (80,-24) -- (88,-24);
 \path[line width=0.30mm, draw=black] (36,-20) -- (40,-24) -- (36,-28);
 \path[line width=0.30mm, draw=black] (48,-24) -- (40,-24);
-\draw[black] (36,-24) node[anchor=base east]{1};
+\draw[black] (36,-25) node[anchor=base east]{1};
 \end{tikzpicture}%

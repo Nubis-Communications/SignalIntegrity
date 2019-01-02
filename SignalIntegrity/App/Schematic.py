@@ -18,15 +18,13 @@ Schematic.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Menu,Frame,Canvas
-    from Tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
+    import Tkinter as tk
 else:
-    from tkinter import Menu,Frame,Canvas
-    from tkinter import RAISED,SUNKEN,BOTH,YES,TOP,ALL
+    import tkinter as tk
 
 import copy
 
-from SignalIntegrity.App.Device import DeviceXMLClassFactory,DeviceFromProject
+from SignalIntegrity.App.Device import DeviceFromProject
 from SignalIntegrity.App.NetList import NetList
 from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
 from SignalIntegrity.App.MenuSystemHelpers import Doer
@@ -48,26 +46,6 @@ class Schematic(object):
                 returnedDevice=None
             if not returnedDevice is None:
                 self.deviceList.append(returnedDevice)
-    # Legacy File Format
-    def InitFromXml(self,schematicElement):
-        self.__init__()
-        for child in schematicElement:
-            if child.tag == 'devices':
-                for deviceElement in child:
-                    try:
-                        returnedDevice=DeviceXMLClassFactory(deviceElement).result
-                    except NameError: # part picture doesn't exist
-                        returnedDevice=None
-                    if not returnedDevice is None:
-                        # hack to fix port numbering of old four port transmission lines
-                        from SignalIntegrity.App.Device import DeviceTelegrapherFourPort
-                        if isinstance(returnedDevice,DeviceTelegrapherFourPort):
-                            if returnedDevice.partPicture.current.pinList[1]['Number']==3:
-                                returnedDevice.partPicture.current.pinList[1]['Number']=2
-                                returnedDevice.partPicture.current.pinList[2]['Number']=3
-                        self.deviceList.append(returnedDevice)
-            elif child.tag == 'wires':
-                SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires']=WireList().InitFromXml(child)
     def NetList(self):
         self.Consolidate()
         return NetList(self)
@@ -269,6 +247,25 @@ class DrawingStateMachine(object):
         self.selectedDevices = [device.selected for device in self.parent.schematic.deviceList]
         self.SelectingMore()
 
+    def MoveSelectedObjects(self,x,y):
+        for d in range(len(self.parent.schematic.deviceList)):
+            device=self.parent.schematic.deviceList[d]
+            if device.selected:
+                device.partPicture.current.origin=(device.partPicture.current.origin[0]+x,device.partPicture.current.origin[1]+y)
+        for w in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Wires'])):
+            wireProject=SignalIntegrity.App.Project['Drawing.Schematic.Wires'][w]
+            for v in range(len(wireProject['Vertices'])):
+                vertexProject=wireProject['Vertices'][v]
+                if vertexProject['Selected']:
+                    vertexProject['Coord']=(vertexProject['Coord'][0]+x,vertexProject['Coord'][1]+y)
+        self.parent.DrawSchematic()
+
+    def MoveDrawingOrigin(self,x,y):
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        drawingPropertiesProject['Originx']=drawingPropertiesProject['Originx']+x
+        drawingPropertiesProject['Originy']=drawingPropertiesProject['Originy']+y
+        self.parent.DrawSchematic()
+
     def Locked(self):
         if not hasattr(self,'locked'):
             locked=False
@@ -365,6 +362,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_NoProject(self,event):
         pass
+    def onRightKey_NoProject(self,event):
+        pass
+    def onLeftKey_NoProject(self,event):
+        pass
+    def onUpKey_NoProject(self,event):
+        pass
+    def onDownKey_NoProject(self,event):
+        pass
+    def onEscapeKey_NoProject(self,event):
+        pass
 
     def Nothing(self,force=False):
         if not hasattr(self,'state'):
@@ -387,6 +394,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Nothing)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Nothing)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Nothing)
+            self.parent.canvas.bind('<Right>',self.onRightKey_Nothing)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_Nothing)
+            self.parent.canvas.bind('<Up>',self.onUpKey_Nothing)
+            self.parent.canvas.bind('<Down>',self.onDownKey_Nothing)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_Nothing)
+            self.parent.focus_set()
             self.parent.parent.NewProjectDoer.Activate(True)
             self.parent.parent.OpenProjectDoer.Activate(True)
             self.parent.parent.SaveProjectDoer.Activate(True)
@@ -429,7 +442,7 @@ class DrawingStateMachine(object):
             self.parent.parent.HelpDoer.Activate(True)
             self.parent.parent.ControlHelpDoer.Activate(True)
             self.parent.parent.EscapeDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.clear()
             self.parent.DrawSchematic()
     def onMouseButton1_Nothing(self,event):
@@ -458,6 +471,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_Nothing(self,event):
         pass
+    def onRightKey_Nothing(self,event):
+        pass
+    def onLeftKey_Nothing(self,event):
+        pass
+    def onUpKey_Nothing(self,event):
+        pass
+    def onDownKey_Nothing(self,event):
+        pass
+    def onEscapeKey_Nothing(self,event):
+        pass
 
     def DeviceSelected(self,force=False):
         if self.state != 'DeviceSelected' or force:
@@ -479,6 +502,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_DeviceSelected)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_DeviceSelected)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_DeviceSelected)
+            self.parent.canvas.bind('<Right>',self.onRightKey_DeviceSelected)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_DeviceSelected)
+            self.parent.canvas.bind('<Up>',self.onUpKey_DeviceSelected)
+            self.parent.canvas.bind('<Down>',self.onDownKey_DeviceSelected)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_DeviceSelected)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(True)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(True)
             self.parent.parent.FlipPartVerticallyDoer.Activate(True)
@@ -491,7 +520,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Part Selected')
             self.parent.DrawSchematic()
     def onMouseButton1_DeviceSelected(self,event):
@@ -539,6 +568,26 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_DeviceSelected(self,event):
         pass
+    def onRightKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(1,0)
+            self.Unlock()
+    def onLeftKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(-1,0)
+            self.Unlock()
+    def onUpKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,-1)
+            self.Unlock()
+    def onDownKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,1)
+            self.Unlock()
+    def onEscapeKey_DeviceSelected(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def WireSelected(self,force=False):
         if self.state != 'WireSelected' or force:
@@ -562,6 +611,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_WireSelected)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_WireSelected)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_WireSelected)
+            self.parent.canvas.bind('<Right>',self.onRightKey_WireSelected)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_WireSelected)
+            self.parent.canvas.bind('<Up>',self.onUpKey_WireSelected)
+            self.parent.canvas.bind('<Down>',self.onDownKey_WireSelected)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_WireSelected)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -574,7 +629,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(True)
             self.parent.parent.DuplicateVertexDoer.Activate(True)
             self.parent.parent.DeleteWireDoer.Activate(True)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Wire Selected')
             self.parent.DrawSchematic()
     def onMouseButton1_WireSelected(self,event):
@@ -613,6 +668,26 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_WireSelected(self,event):
         pass
+    def onRightKey_WireSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(1,0)
+            self.Unlock()
+    def onLeftKey_WireSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(-1,0)
+            self.Unlock()
+    def onUpKey_WireSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,-1)
+            self.Unlock()
+    def onDownKey_WireSelected(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,1)
+            self.Unlock()
+    def onEscapeKey_WireSelected(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def PartLoaded(self,force=False):
         if self.state!='PartLoaded' or force:
@@ -630,6 +705,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_PartLoaded)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_PartLoaded)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_PartLoaded)
+            self.parent.canvas.bind('<Right>',self.onRightKey_PartLoaded)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_PartLoaded)
+            self.parent.canvas.bind('<Up>',self.onUpKey_PartLoaded)
+            self.parent.canvas.bind('<Down>',self.onDownKey_PartLoaded)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_PartLoaded)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -642,7 +723,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Part In Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_PartLoaded(self,event):
@@ -682,6 +763,16 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_PartLoaded(self,event):
         pass
+    def onRightKey_PartLoaded(self,event):
+        pass
+    def onLeftKey_PartLoaded(self,event):
+        pass
+    def onUpKey_PartLoaded(self,event):
+        pass
+    def onDownKey_PartLoaded(self,event):
+        pass
+    def onEscapeKey_PartLoaded(self,event):
+        pass
 
     def WireLoaded(self,force=False):
         if self.state != 'WireLoaded' or force:
@@ -699,6 +790,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_WireLoaded)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_WireLoaded)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_WireLoaded)
+            self.parent.canvas.bind('<Right>',self.onRightKey_WireLoaded)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_WireLoaded)
+            self.parent.canvas.bind('<Up>',self.onUpKey_WireLoaded)
+            self.parent.canvas.bind('<Down>',self.onDownKey_WireLoaded)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_WireLoaded)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -711,7 +808,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Drawing Wires')
             self.parent.DrawSchematic()
     def onMouseButton1_WireLoaded(self,event):
@@ -769,6 +866,16 @@ class DrawingStateMachine(object):
             self.parent.wireLoaded['Vertices'][-1]['Coord']=coord
             self.parent.DrawSchematic()
             self.Unlock()
+    def onRightKey_WireLoaded(self,event):
+        pass
+    def onLeftKey_WireLoaded(self,event):
+        pass
+    def onUpKey_WireLoaded(self,event):
+        pass
+    def onDownKey_WireLoaded(self,event):
+        pass
+    def onEscapeKey_WireLoaded(self,event):
+        pass
 
     def Panning(self,force=False):
         if self.state != 'Panning' or force:
@@ -786,6 +893,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Panning)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Panning)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Panning)
+            self.parent.canvas.bind('<Right>',self.onRightKey_Panning)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_Panning)
+            self.parent.canvas.bind('<Up>',self.onUpKey_Panning)
+            self.parent.canvas.bind('<Down>',self.onDownKey_Panning)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_Panning)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -798,7 +911,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=SUNKEN)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.SUNKEN)
             self.parent.parent.statusbar.set('Panning')
             self.parent.DrawSchematic()
     def onMouseButton1_Panning(self,event):
@@ -835,6 +948,26 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_Panning(self,event):
         pass
+    def onRightKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(1,0)
+            self.Unlock()
+    def onLeftKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(-1,0)
+            self.Unlock()
+    def onUpKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(0,-1)
+            self.Unlock()
+    def onDownKey_Panning(self,event):
+        if not self.Locked():
+            self.MoveDrawingOrigin(0,1)
+            self.Unlock()
+    def onEscapeKey_Panning(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def Selecting(self,force=False):
         if self.state != 'Selecting' or force:
@@ -852,6 +985,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Selecting)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Selecting)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_Selecting)
+            self.parent.canvas.bind('<Right>',self.onRightKey_Selecting)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_Selecting)
+            self.parent.canvas.bind('<Up>',self.onUpKey_Selecting)
+            self.parent.canvas.bind('<Down>',self.onDownKey_Selecting)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_Selecting)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -864,7 +1003,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Selecting')
             self.parent.DrawSchematic()
     def onMouseButton1_Selecting(self,event):
@@ -963,6 +1102,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_Selecting(self,event):
         pass
+    def onRightKey_Selecting(self,event):
+        pass
+    def onLeftKey_Selecting(self,event):
+        pass
+    def onUpKey_Selecting(self,event):
+        pass
+    def onDownKey_Selecting(self,event):
+        pass
+    def onEscapeKey_Selecting(self,event):
+        pass
 
     def MultipleSelections(self,force=False):
         if self.state != 'Multiple Selections' or force:
@@ -982,6 +1131,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_MultipleSelections)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_MultipleSelections)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_MultipleSelections)
+            self.parent.canvas.bind('<Right>',self.onRightKey_MultipleSelections)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_MultipleSelections)
+            self.parent.canvas.bind('<Up>',self.onUpKey_MultipleSelections)
+            self.parent.canvas.bind('<Down>',self.onDownKey_MultipleSelections)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_MultipleSelections)
+            self.parent.canvas.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -994,7 +1149,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Multiple Selections')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleSelections(self,event):
@@ -1073,6 +1228,26 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_MultipleSelections(self,event):
         pass
+    def onRightKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(1,0)
+            self.Unlock()
+    def onLeftKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(-1,0)
+            self.Unlock()
+    def onUpKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,-1)
+            self.Unlock()
+    def onDownKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.MoveSelectedObjects(0,1)
+            self.Unlock()
+    def onEscapeKey_MultipleSelections(self,event):
+        if not self.Locked():
+            self.Nothing()
+            self.Unlock()
 
     def SelectingMore(self,force=False):
         if self.state != 'Selecting More' or force:
@@ -1088,6 +1263,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_SelectingMore)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_SelectingMore)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_SelectingMore)
+            self.parent.canvas.bind('<Right>',self.onRightKey_SelectingMore)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_SelectingMore)
+            self.parent.canvas.bind('<Up>',self.onUpKey_SelectingMore)
+            self.parent.canvas.bind('<Down>',self.onDownKey_SelectingMore)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_SelectingMore)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -1100,7 +1281,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Selecting More')
             self.parent.DrawSchematic()
     def onMouseButton1_SelectingMore(self,event):
@@ -1176,6 +1357,16 @@ class DrawingStateMachine(object):
         pass
     def onMouseMotion_SelectingMore(self,event):
         pass
+    def onRightKey_SelectingMore(self,event):
+        pass
+    def onLeftKey_SelectingMore(self,event):
+        pass
+    def onUpKey_SelectingMore(self,event):
+        pass
+    def onDownKey_SelectingMore(self,event):
+        pass
+    def onEscapeKey_SelectingMore(self,event):
+        pass
 
     def MultipleItemsOnClipboard(self,force=False):
         if self.state != 'MultipleItemsOnClipboard' or force:
@@ -1191,6 +1382,12 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Right>',self.onRightKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Left>',self.onLeftKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Up>',self.onUpKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Down>',self.onDownKey_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Escape>',self.onEscapeKey_MultipleItemsOnClipboard)
+            self.parent.focus_set()
             self.parent.parent.RotatePartDoer.Activate(False)
             self.parent.parent.FlipPartHorizontallyDoer.Activate(False)
             self.parent.parent.FlipPartVerticallyDoer.Activate(False)
@@ -1203,7 +1400,7 @@ class DrawingStateMachine(object):
             self.parent.parent.DeleteVertexDoer.Activate(False)
             self.parent.parent.DuplicateVertexDoer.Activate(False)
             self.parent.parent.DeleteWireDoer.Activate(False)
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=RAISED)
+            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Multiple Items in Clipboard')
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleItemsOnClipboard(self,event):
@@ -1272,6 +1469,16 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseMotion_MultipleItemsOnClipboard(self,event):
         pass
+    def onRightKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onLeftKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onUpKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onDownKey_MultipleItemsOnClipboard(self,event):
+        pass
+    def onEscapeKey_MultipleItemsOnClipboard(self,event):
+        pass
 
     def ForceIntializeState(self):
         if self.state == 'Nothing':
@@ -1297,26 +1504,26 @@ class DrawingStateMachine(object):
         else:
             self.Nothing(True)
 
-class Drawing(Frame):
+class Drawing(tk.Frame):
     def __init__(self,parent):
-        Frame.__init__(self,parent)
+        tk.Frame.__init__(self,parent)
         self.parent=parent
-        self.canvas = Canvas(self,relief=SUNKEN,borderwidth=1,width=600,height=600)
-        self.canvas.pack(side=TOP, fill=BOTH, expand=YES)
+        self.canvas = tk.Canvas(self,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
+        self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
-        self.deviceTearOffMenu=Menu(self, tearoff=0)
+        self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
-        self.canvasTearOffMenu=Menu(self, tearoff=0)
+        self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
         self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
         self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
         self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
-        self.wireTearOffMenu=Menu(self, tearoff=0)
+        self.wireTearOffMenu=tk.Menu(self, tearoff=0)
         self.wireTearOffMenu.add_command(label="Delete Vertex",command=self.DeleteSelectedVertex)
         self.wireTearOffMenu.add_command(label="Duplicate Vertex",command=self.DuplicateSelectedVertex)
         self.wireTearOffMenu.add_command(label="Delete Wire",command=self.DeleteSelectedWire)
-        self.multipleSelectionsTearOffMenu=Menu(self, tearoff=0)
+        self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
         self.multipleSelectionsTearOffMenu.add_command(label="Cut Selected",command=self.CutMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Delete Selected",command=self.DeleteMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Duplicate Selected",command=self.DuplicateMultipleSelections)
@@ -1337,7 +1544,7 @@ class Drawing(Frame):
     def DrawSchematic(self,canvas=None):
         if canvas is None:
             canvas=self.canvas
-            canvas.delete(ALL)
+            canvas.delete(tk.ALL)
         if SignalIntegrity.App.Project is None:
             return canvas
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
@@ -1552,32 +1759,3 @@ class Drawing(Frame):
         self.schematic = Schematic()
         self.schematic.InitFromProject()
         self.stateMachine = DrawingStateMachine(self)
-
-    # Legacy File Format
-    def InitFromXml(self,drawingElement):
-        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        drawingPropertiesProject['Grid']=32
-        drawingPropertiesProject['Originx']=0
-        drawingPropertiesProject['Originy']=0
-        self.schematic = Schematic()
-        self.stateMachine = DrawingStateMachine(self)
-        for child in drawingElement:
-            if child.tag == 'schematic':
-                self.schematic.InitFromXml(child)
-            elif child.tag == 'drawing_properties':
-                for drawingPropertyElement in child:
-                    drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-                    if drawingPropertyElement.tag == 'grid':
-                        drawingPropertiesProject['Grid'] = float(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'originx':
-                        drawingPropertiesProject['Originx'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'originy':
-                        drawingPropertiesProject['Originy'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'width':
-                        drawingPropertiesProject['Width'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'height':
-                        drawingPropertiesProject['Height'] = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'geometry':
-                        drawingPropertiesProject['Geometry'] = drawingPropertyElement.text
-                self.canvas.config(width=drawingPropertiesProject['Width'],height=drawingPropertiesProject['Height'])
-                self.parent.root.geometry(drawingPropertiesProject['Geometry'].split('+')[0])

@@ -7,34 +7,34 @@
 %  <polyline lc="black">12,-36 12,-40</polyline>
 %  <polygon fill="black">9.333,-40 14.667,-40 12,-42.667 9.333,-40</polygon>
 %  <polyline lc="black">12,-24 12,-28</polyline>
-%  <text x="18" y="-39.5" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
-%  <text x="18" y="-37" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
-%  <text x="18" y="-34.5" t="t0 0 s" h="3" halign="l" lc="black"/>
-%  <text x="18" y="-32" t="VS1" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-42" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-39" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-36" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-33" t="VS1" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">20,-16 21,-14 22,-18 23,-14 24,-18 25,-14 26,-18 27,-14 28,-16</polyline>
 %  <polyline lc="black">16,-16 20,-16</polyline>
 %  <polyline lc="black">32,-16 28,-16</polyline>
-%  <text x="24" y="-12" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-11" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">56,-28 54,-29 58,-30 54,-31 58,-32 54,-33 58,-34 54,-35 56,-36</polyline>
 %  <polyline lc="black">56,-36 56,-40</polyline>
 %  <polygon fill="black">53.333,-40 58.667,-40 56,-42.667 53.333,-40</polygon>
 %  <polyline lc="black">56,-24 56,-28</polyline>
-%  <text x="60" y="-34" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-35" t="50.0 Ohm" h="3" halign="l" lc="black"/>
 %  <rect x="40" y="-12" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">36,-16 40,-16</polyline>
-%  <text x="38" y="-14" t="1" h="3" halign="c" lc="black"/>
+%  <text x="39" y="-15" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">52,-16 48,-16</polyline>
-%  <text x="50" y="-14" t="2" h="3" halign="c" lc="black"/>
-%  <text x="44" y="-10" t="lpfilter.s2p" h="3" halign="c" lc="black"/>
+%  <text x="49" y="-15" t="2" h="3" halign="l" lc="black"/>
+%  <text x="44" y="-9" t="lpfilter.s2p" h="3" halign="c" lc="black"/>
 %  <polyline lw="3" lc="black">8,-12 10,-14</polyline>
 %  <polyline lc="black">10,-14 12,-16</polyline>
-%  <text x="8" y="-12" t="VS" h="3" halign="r" lc="black"/>
+%  <text x="8" y="-11" t="VS" h="3" halign="r" lc="black"/>
 %  <polyline lw="3" lc="black">36,-20 34,-18</polyline>
 %  <polyline lc="black">34,-18 32,-16</polyline>
-%  <text x="36" y="-22" t="VI" h="3" halign="l" lc="black"/>
+%  <text x="36" y="-23" t="VI" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">60,-12 58,-14</polyline>
 %  <polyline lc="black">58,-14 56,-16</polyline>
-%  <text x="60" y="-12" t="VO" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-11" t="VO" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">12,-24 12,-16</polyline>
 %  <polyline lc="black">52,-16 56,-16</polyline>
 %  <polyline lc="black">32,-16 36,-16</polyline>
@@ -54,34 +54,34 @@
 \path[line width=0.30mm, draw=black] (12,-36) -- (12,-40);
 \path[line width=0.30mm, fill=black] (9.333,-40) -- (14.667,-40) -- (12,-42.667) -- (9.333,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (12,-24) -- (12,-28);
-\draw[black] (18,-39.5) node[anchor=base west]{ho -100.0 ns};
-\draw[black] (18,-37) node[anchor=base west]{dur 200.0 ns};
-\draw[black] (18,-34.5) node[anchor=base west]{t0 0 s};
-\draw[black] (18,-32) node[anchor=base west]{VS1};
+\draw[black] (18,-42) node[anchor=base west]{ho -100.0 ns};
+\draw[black] (18,-39) node[anchor=base west]{dur 200.0 ns};
+\draw[black] (18,-36) node[anchor=base west]{t0 0 s};
+\draw[black] (18,-33) node[anchor=base west]{VS1};
 \path[line width=0.30mm, draw=black] (20,-16) -- (21,-14) -- (22,-18) -- (23,-14) -- (24,-18) -- (25,-14) -- (26,-18) -- (27,-14) -- (28,-16);
 \path[line width=0.30mm, draw=black] (16,-16) -- (20,-16);
 \path[line width=0.30mm, draw=black] (32,-16) -- (28,-16);
-\draw[black] (24,-12) node[anchor=base]{50.0 Ohm};
+\draw[black] (24,-11) node[anchor=base]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (56,-28) -- (54,-29) -- (58,-30) -- (54,-31) -- (58,-32) -- (54,-33) -- (58,-34) -- (54,-35) -- (56,-36);
 \path[line width=0.30mm, draw=black] (56,-36) -- (56,-40);
 \path[line width=0.30mm, fill=black] (53.333,-40) -- (58.667,-40) -- (56,-42.667) -- (53.333,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (56,-24) -- (56,-28);
-\draw[black] (60,-34) node[anchor=base west]{50.0 Ohm};
+\draw[black] (60,-35) node[anchor=base west]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (40,-20) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (36,-16) -- (40,-16);
-\draw[black] (38,-14) node[anchor=base]{1};
+\draw[black] (39,-15) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (52,-16) -- (48,-16);
-\draw[black] (50,-14) node[anchor=base]{2};
-\draw[black] (44,-10) node[anchor=base]{lpfilter.s2p};
+\draw[black] (49,-15) node[anchor=base west]{2};
+\draw[black] (44,-9) node[anchor=base]{lpfilter.s2p};
 \path[line width=0.9mm, draw=black] (8,-12) -- (10,-14);
 \path[line width=0.30mm, draw=black] (10,-14) -- (12,-16);
-\draw[black] (8,-12) node[anchor=base east]{VS};
+\draw[black] (8,-11) node[anchor=base east]{VS};
 \path[line width=0.9mm, draw=black] (36,-20) -- (34,-18);
 \path[line width=0.30mm, draw=black] (34,-18) -- (32,-16);
-\draw[black] (36,-20) node[anchor=north west]{VI};
+\draw[black] (36,-21) node[anchor=north west]{VI};
 \path[line width=0.9mm, draw=black] (60,-12) -- (58,-14);
 \path[line width=0.30mm, draw=black] (58,-14) -- (56,-16);
-\draw[black] (60,-12) node[anchor=base west]{VO};
+\draw[black] (60,-11) node[anchor=base west]{VO};
 \path[line width=0.30mm, draw=black] (12,-24) -- (12,-16);
 \path[line width=0.30mm, draw=black] (52,-16) -- (56,-16);
 \path[line width=0.30mm, draw=black] (32,-16) -- (36,-16);

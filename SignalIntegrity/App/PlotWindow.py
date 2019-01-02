@@ -19,11 +19,9 @@ PlotWindow.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Toplevel,PhotoImage,Button,Frame
-    from Tkinter import TOP,X,BOTH,NO,LEFT
+    import Tkinter as tk
 else:
-    from tkinter import Toplevel,PhotoImage,Button,Frame
-    from tkinter import TOP,X,BOTH,NO,LEFT
+    import tkinter as tk
     
 import matplotlib
 
@@ -33,25 +31,17 @@ if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
-import platform
-if platform.system() == 'Linux':
-    if sys.version_info.major < 3:
-        from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
-    else:
-        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-else:
-    from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 
-class PlotDialog(Toplevel):
+class PlotDialog(tk.Toplevel):
     def __init__(self, parent):
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
         self.title('Results')
-        img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
@@ -64,21 +54,15 @@ class PlotDialog(Toplevel):
         self.waveformNamesList=None
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         #canvas.show()
-        self.canvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
+        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
 
-        if platform.system() == 'Linux':
-            if sys.version_info.major < 3:
-                toolbar = NavigationToolbar2TkAgg( self.canvas, self )
-            else:
-                toolbar = NavigationToolbar2Tk( self.canvas, self )
-        else:
-            toolbar = NavigationToolbar2Tk( self.canvas, self )
+        toolbar = NavigationToolbar2Tk( self.canvas, self )
         toolbar.update()
-        self.canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
+        self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-        controlsFrame = Frame(self)
-        Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=LEFT,expand=NO,fill=X)
-        controlsFrame.pack(side=TOP,fill=X,expand=NO)
+        controlsFrame = tk.Frame(self)
+        tk.Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
     def onAutoscale(self):
         self.plt.autoscale(True)

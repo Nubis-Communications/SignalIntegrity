@@ -18,12 +18,10 @@ NetList.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Toplevel,Frame,Button
-    from Tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
-    from ScrolledText import ScrolledText
+    import Tkinter as tk
+    import ScrolledText as scrolledtext
 else:
-    from tkinter import Toplevel,Frame,Button
-    from tkinter import TOP,BOTH,YES,LEFT,END,ACTIVE
+    import tkinter as tk
     from tkinter import scrolledtext
 
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
@@ -232,22 +230,19 @@ class NetList(object):
     def MeasureNames(self):
         return self.measureNames
 
-class NetListFrame(Frame):
+class NetListFrame(tk.Frame):
     def __init__(self,parent,textToShow):
-        Frame.__init__(self,parent)
+        tk.Frame.__init__(self,parent)
         self.title = 'NetList'
-        if sys.version_info.major < 3:
-            self.text=ScrolledText(self)
-        else:
-            self.text=scrolledtext.ScrolledText(self)
-        self.text.pack(side=TOP, fill=BOTH, expand=YES)
+        self.text=scrolledtext.ScrolledText(self)
+        self.text.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         for line in textToShow:
-            self.text.insert(END,line+'\n')
+            self.text.insert(tk.END,line+'\n')
         self.text.configure(state='disabled')
 
-class NetListDialog(Toplevel):
+class NetListDialog(tk.Toplevel):
     def __init__(self,parent,textToShow):
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
         self.transient(parent)
 
         self.title('NetList')
@@ -259,7 +254,7 @@ class NetListDialog(Toplevel):
 
         self.NetListFrame = NetListFrame(self,textToShow)
         self.initial_focus = self.body(self.NetListFrame)
-        self.NetListFrame.pack(side=TOP,fill=BOTH,expand=YES,padx=5, pady=5)
+        self.NetListFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
 
         self.buttonbox()
 
@@ -289,12 +284,12 @@ class NetListDialog(Toplevel):
         # add standard button box. override if you don't want the
         # standard buttons
 
-        box = Frame(self)
+        box = tk.Frame(self)
 
-        w = Button(box, text="OK", width=10, command=self.ok, default=ACTIVE)
-        w.pack(side=LEFT, padx=5, pady=5)
-        w = Button(box, text="Cancel", width=10, command=self.cancel)
-        w.pack(side=LEFT, padx=5, pady=5)
+        w = tk.Button(box, text="OK", width=10, command=self.ok, default=tk.ACTIVE)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
+        w = tk.Button(box, text="Cancel", width=10, command=self.cancel)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
 
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)

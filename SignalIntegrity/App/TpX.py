@@ -70,13 +70,15 @@ class TpX(object):
         self.lineList.append(line)
     def create_text(self, *args, **kw):
         x=float(args[0])*self.scale
-        y=-1.*float(args[1])*self.scale
+        y=-1.*float(args[1]+4)*self.scale
         if 'anchor' in kw:
             alignString='halign='
             alignment='"c"'
             anchorString=kw['anchor']
             if 'n' in anchorString:
                 y=y-2
+            elif 's' in anchorString:
+                y=y+2
             if anchorString=='n' or anchorString=='s':
                 alignment='"c"'
             elif anchorString=='ne' or anchorString=='e' or anchorString=='se':

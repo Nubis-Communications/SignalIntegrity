@@ -47,7 +47,7 @@ class FrequencyContent(FrequencyDomain):
     def __init__(self,wf,fd=None):
         """Constructor
         @param wf in instance of class Waveform
-        @param fd (optional) an instance of class FrequencyDescriptor (defaults to None)
+        @param fd (optional) an instance of class FrequencyList (defaults to None)
         @remark
         initializes itself internally by computing the frequency content of the waveform.
 
@@ -65,7 +65,7 @@ class FrequencyContent(FrequencyDomain):
         to think about the vagaries of the DFT.
 
         @see TimeDescriptor
-        @see FrequencyDescriptor
+        @see FrequencyList
         @see ChirpZTransform
         """
         td=wf.td

@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
+			<Geometry>1110x790+28+57</Geometry>
 			<Originy>8</Originy>
 			<Originx>30</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>8.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -15,10 +15,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierTwoPort</ClassName>
 						<Origin>(-19, 3)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -57,10 +57,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierTwoPort</ClassName>
 						<Origin>(-6, 3)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -99,10 +99,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierTwoPort</ClassName>
 						<Origin>(2, 3)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -141,10 +141,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierTwoPort</ClassName>
 						<Origin>(10, 3)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -183,10 +183,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPort</ClassName>
 						<Origin>(-20, 23)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -225,10 +225,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPort</ClassName>
 						<Origin>(-6, 23)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -267,10 +267,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPort</ClassName>
 						<Origin>(3, 23)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -309,10 +309,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPort</ClassName>
 						<Origin>(13, 23)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -351,10 +351,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPortAlt</ClassName>
 						<Origin>(-20, 42)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>1</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -393,10 +393,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPortAlt</ClassName>
 						<Origin>(-6, 41)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>1</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -435,10 +435,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPortAlt</ClassName>
 						<Origin>(3, 41)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>1</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -477,10 +477,10 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageAmplifierFourPortAlt</ClassName>
 						<Origin>(12, 41)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>1</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -519,10 +519,10 @@
 				<Device>
 					<ClassName>DeviceOperationalAmplifier</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOperationalAmplifier</ClassName>
 						<Origin>(-20, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -561,10 +561,10 @@
 				<Device>
 					<ClassName>DeviceOperationalAmplifier</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOperationalAmplifier</ClassName>
 						<Origin>(-6, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -603,10 +603,10 @@
 				<Device>
 					<ClassName>DeviceOperationalAmplifier</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOperationalAmplifier</ClassName>
 						<Origin>(2, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -645,10 +645,10 @@
 				<Device>
 					<ClassName>DeviceOperationalAmplifier</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOperationalAmplifier</ClassName>
 						<Origin>(12, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -687,10 +687,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwapped</ClassName>
 						<Origin>(35, 2)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -729,10 +729,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwapped</ClassName>
 						<Origin>(54, 2)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -771,10 +771,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwapped</ClassName>
 						<Origin>(68, 2)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -813,10 +813,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwapped</ClassName>
 						<Origin>(79, 2)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -855,10 +855,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwappedAlt</ClassName>
 						<Origin>(35, 14)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -897,10 +897,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwappedAlt</ClassName>
 						<Origin>(54, 14)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -939,10 +939,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwappedAlt</ClassName>
 						<Origin>(68, 14)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -981,10 +981,10 @@
 				<Device>
 					<ClassName>DeviceCurrentAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledCurrentSourceFourPortSwappedAlt</ClassName>
 						<Origin>(79, 14)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1023,10 +1023,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPort</ClassName>
 						<Origin>(35, 27)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1065,10 +1065,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPort</ClassName>
 						<Origin>(54, 27)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1107,10 +1107,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPort</ClassName>
 						<Origin>(68, 27)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1149,10 +1149,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPort</ClassName>
 						<Origin>(79, 27)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1191,10 +1191,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPortAlt</ClassName>
 						<Origin>(35, 41)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1233,10 +1233,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPortAlt</ClassName>
 						<Origin>(54, 42)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1275,10 +1275,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPortAlt</ClassName>
 						<Origin>(68, 42)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1317,10 +1317,10 @@
 				<Device>
 					<ClassName>DeviceTransconductanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageControlledCurrentSourceFourPortAlt</ClassName>
 						<Origin>(79, 42)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1359,10 +1359,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwapped</ClassName>
 						<Origin>(35, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1401,10 +1401,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwapped</ClassName>
 						<Origin>(54, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1443,10 +1443,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwapped</ClassName>
 						<Origin>(67, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1485,10 +1485,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwapped</ClassName>
 						<Origin>(79, 57)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1527,10 +1527,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwappedAlt</ClassName>
 						<Origin>(35, 71)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1569,10 +1569,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwappedAlt</ClassName>
 						<Origin>(54, 71)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>90</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1611,10 +1611,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwappedAlt</ClassName>
 						<Origin>(67, 71)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>180</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1653,10 +1653,10 @@
 				<Device>
 					<ClassName>DeviceTransresistanceAmplifierFourPort</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentControlledVoltageSourceFourPortSwappedAlt</ClassName>
 						<Origin>(79, 71)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>2</Index>
 						<Orientation>270</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>

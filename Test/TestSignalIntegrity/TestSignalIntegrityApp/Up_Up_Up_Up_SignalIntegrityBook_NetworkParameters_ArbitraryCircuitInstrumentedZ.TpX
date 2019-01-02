@@ -44,28 +44,28 @@
 %  <polyline lc="black">84,-60 88,-60</polyline>
 %  <polyline lw="2" lc="red">83.5,-59.5 84.5,-60.5</polyline>
 %  <polyline lw="2" lc="red">84.5,-59.5 83.5,-60.5</polyline>
-%  <text x="86" y="-58" t="1" h="3" halign="c" lc="black"/>
+%  <text x="87" y="-59" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">84,-68 88,-68</polyline>
 %  <polyline lw="2" lc="red">83.5,-67.5 84.5,-68.5</polyline>
 %  <polyline lw="2" lc="red">84.5,-67.5 83.5,-68.5</polyline>
-%  <text x="86" y="-66" t="2" h="3" halign="c" lc="black"/>
+%  <text x="87" y="-67" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">100,-64 96,-64</polyline>
 %  <polyline lw="2" lc="red">99.5,-63.5 100.5,-64.5</polyline>
 %  <polyline lw="2" lc="red">100.5,-63.5 99.5,-64.5</polyline>
-%  <text x="98" y="-62" t="3" h="3" halign="c" lc="black"/>
+%  <text x="97" y="-63" t="3" h="3" halign="l" lc="black"/>
 %  <rect x="108" y="-60" w="16" h="-8" lc="black"/>
 %  <polyline lc="black">112,-72 112,-68</polyline>
 %  <polyline lw="2" lc="red">111.5,-71.5 112.5,-72.5</polyline>
 %  <polyline lw="2" lc="red">112.5,-71.5 111.5,-72.5</polyline>
-%  <text x="114" y="-70" t="1" h="3" halign="c" lc="black"/>
+%  <text x="114" y="-71" t="1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">120,-72 120,-68</polyline>
 %  <polyline lw="2" lc="red">119.5,-71.5 120.5,-72.5</polyline>
 %  <polyline lw="2" lc="red">120.5,-71.5 119.5,-72.5</polyline>
-%  <text x="122" y="-70" t="2" h="3" halign="c" lc="black"/>
+%  <text x="122" y="-71" t="2" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">116,-56 116,-60</polyline>
 %  <polyline lw="2" lc="red">115.5,-55.5 116.5,-56.5</polyline>
 %  <polyline lw="2" lc="red">116.5,-55.5 115.5,-56.5</polyline>
-%  <text x="118" y="-58" t="3" h="3" halign="c" lc="black"/>
+%  <text x="118" y="-59" t="3" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">64,-32 64,-16</polyline>
 %  <polyline lc="black">32,-16 32,-12</polyline>
 %  <polyline lc="black">32,-12 80,-12</polyline>
@@ -131,28 +131,28 @@
 \path[line width=0.30mm, draw=black] (84,-60) -- (88,-60);
 \path[line width=0.6mm, draw=red] (83.5,-59.5) -- (84.5,-60.5);
 \path[line width=0.6mm, draw=red] (84.5,-59.5) -- (83.5,-60.5);
-\draw[black] (86,-58) node[anchor=base]{1};
+\draw[black] (87,-59) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (84,-68) -- (88,-68);
 \path[line width=0.6mm, draw=red] (83.5,-67.5) -- (84.5,-68.5);
 \path[line width=0.6mm, draw=red] (84.5,-67.5) -- (83.5,-68.5);
-\draw[black] (86,-66) node[anchor=base]{2};
+\draw[black] (87,-67) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (100,-64) -- (96,-64);
 \path[line width=0.6mm, draw=red] (99.5,-63.5) -- (100.5,-64.5);
 \path[line width=0.6mm, draw=red] (100.5,-63.5) -- (99.5,-64.5);
-\draw[black] (98,-62) node[anchor=base]{3};
+\draw[black] (97,-63) node[anchor=base west]{3};
 \path[line width=0.30mm, draw=black] (108,-68) rectangle +(16,8);
 \path[line width=0.30mm, draw=black] (112,-72) -- (112,-68);
 \path[line width=0.6mm, draw=red] (111.5,-71.5) -- (112.5,-72.5);
 \path[line width=0.6mm, draw=red] (112.5,-71.5) -- (111.5,-72.5);
-\draw[black] (114,-70) node[anchor=base]{1};
+\draw[black] (114,-69) node[anchor=north]{1};
 \path[line width=0.30mm, draw=black] (120,-72) -- (120,-68);
 \path[line width=0.6mm, draw=red] (119.5,-71.5) -- (120.5,-72.5);
 \path[line width=0.6mm, draw=red] (120.5,-71.5) -- (119.5,-72.5);
-\draw[black] (122,-70) node[anchor=base]{2};
+\draw[black] (122,-69) node[anchor=north]{2};
 \path[line width=0.30mm, draw=black] (116,-56) -- (116,-60);
 \path[line width=0.6mm, draw=red] (115.5,-55.5) -- (116.5,-56.5);
 \path[line width=0.6mm, draw=red] (116.5,-55.5) -- (115.5,-56.5);
-\draw[black] (118,-58) node[anchor=base]{3};
+\draw[black] (118,-59) node[anchor=base]{3};
 \path[line width=0.30mm, draw=black] (64,-32) -- (64,-16);
 \path[line width=0.30mm, draw=black] (32,-16) -- (32,-12);
 \path[line width=0.30mm, draw=black] (32,-12) -- (80,-12);

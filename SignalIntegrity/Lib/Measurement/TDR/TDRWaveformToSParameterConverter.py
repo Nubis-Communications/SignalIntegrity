@@ -46,20 +46,21 @@ class TDRWaveformToSParameterConverter(object):
         forward side of incident wave (defaults to 0).
         @param WindowReverseHalfWidthTime (optional) float amount of time in extraction window on
         reverse side of incident wave (defaults to None).
-        @param WindowRaisedCosineDuration (optional) float amount of time to tape extraction
+        @param WindowRaisedCosineDuration (optional) float amount of time to taper extraction
         window with raised cosine (defaults to 0).
         @param Step (optional) boolean True if waveforms are steps, False if waveforms are
         impulses (defaults to True).
-        @param Length (optional) float length of time to clip waveform to (defaults to 0).
+        @param Length (optional) float length of time to clip waveform to (defaults to 0 meaning no clipping).
         @param Denoise (optiona) boolean whether to perform wavelet denoising (defaults to False).
         @param DenoisePercent (optional) percent of end portion of the waveform used
         during denoising for noise statistics estimation (defaults to 30 percent).
-        @param Inverted (optional) boolean whether the waveform is invertede
+        @param Inverted (optional) boolean whether the waveform is inverted
         (defaults to False).
-        @param fd (optional) instance of class FrequencyDescriptor used to define desired
+        @param fd (optional) instance of class FrequencyList used to define desired
         frequencies for the s-parameters (defaults to None).
         @note if fd is None or not provided, then the frequencies will correspond to
         the time descriptor of the trimmed waveform.
+        @see TimeDescriptor
         @note if WindowReverseHalfWidthTime is None, then it defaults to the WindowForwardHalfWidthTime
         """
         self.wfhwt=WindowForwardHalfWidthTime

@@ -1,22 +1,23 @@
-% This file was created by matplotlib2tikz v0.6.18.
+% This file was created by matplotlib2tikz v0.5.1.
 \begin{tikzpicture}
-
 \begin{axis}[
+width=3.5in,
+height=2.5in,
 legend cell align={left},
 legend entries={{$\left|S_{21}\right|$},{fitted}},
 legend style={draw=white!80.0!black},
 tick align=outside,
 tick pos=left,
-x grid style={lightgray!92.026143790849673!black},
+x grid style={lightgray!92.0261!black},
 xlabel={frequency (GHz)},
 xmin=-1, xmax=21,
-y grid style={lightgray!92.026143790849673!black},
+y grid style={lightgray!92.0261!black},
 ylabel={magnitude (dB)},
 ymin=-1.13665, ymax=0.0730424
 ]
+\addlegendimage{no markers, lightgray!66.9281!black}
 \addlegendimage{no markers, black}
-\addlegendimage{no markers, lightgray!66.928104575163388!black}
-\addplot [semithick, black]
+\addplot [semithick, lightgray!66.9281!black]
 table [row sep=\\]{%
 0	-5.21155e-05 \\
 0.1	-0.056153 \\
@@ -220,7 +221,7 @@ table [row sep=\\]{%
 19.9	-1.07377 \\
 20	-1.07842 \\
 };
-\addplot [semithick, lightgray!66.928104575163388!black]
+\addplot [semithick, black]
 table [row sep=\\]{%
 0	0.0180562 \\
 0.1	-0.0551883 \\

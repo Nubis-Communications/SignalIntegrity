@@ -1,8 +1,9 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <text x="36" y="-24" t="+" h="3" halign="c" lc="black"/>
-%  <text x="36" y="-40" t="-" h="3" halign="c" lc="black"/>
-%  <text x="44" y="-24" t="DV" h="3" halign="c" lc="black"/>
-%  <text x="44" y="-40" t="CV" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-25" t="+" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-41" t="-" h="3" halign="c" lc="black"/>
+%  <text x="44" y="-25" t="D" h="3" halign="c" lc="black"/>
+%  <text x="44" y="-41" t="C" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-33" t="V" h="3" halign="c" lc="black"/>
 %  <rect x="32" y="-16" w="16" h="-32" lc="black"/>
 %  <polyline lc="black">24,-24 32,-24</polyline>
 %  <polyline lw="2" lc="red">23,-23 25,-25</polyline>
@@ -19,10 +20,11 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\draw[black] (36,-24) node[anchor=base]{+};
-\draw[black] (36,-40) node[anchor=base]{-};
-\draw[black] (44,-24) node[anchor=base]{DV};
-\draw[black] (44,-40) node[anchor=base]{CV};
+\draw[black] (36,-25) node[anchor=base]{+};
+\draw[black] (36,-41) node[anchor=base]{-};
+\draw[black] (44,-25) node[anchor=base]{D};
+\draw[black] (44,-41) node[anchor=base]{C};
+\draw[black] (40,-33) node[anchor=base]{V};
 \path[line width=0.30mm, draw=black] (32,-48) rectangle +(16,32);
 \path[line width=0.30mm, draw=black] (24,-24) -- (32,-24);
 \path[line width=0.6mm, draw=red] (23,-23) -- (25,-25);

@@ -83,6 +83,10 @@ class FrequencyResponse(FrequencyDomain):
 
         Much of these options are meant for internal use.  Mostly you should simply use ImpulseResponse()
         with the default arguments.
+        @remark td can also be supplied as a float or int.  In this situation, the TimeDescriptor corresponding
+        to the internal FrequencyList is used, but the td supplied supplants the sample rate of the TimeDescriptor.
+        In this way, only the sample rate can be specified in the resampling, and all processing as shown in the
+        table above will assume that a time descriptor has been supplied of this calculated type.
         """
         fd = self.FrequencyList()
         if isinstance(td,float) or isinstance(td,int):
@@ -148,7 +152,7 @@ class FrequencyResponse(FrequencyDomain):
         return FrequencyResponse(fdp,newresp)
     def Resample(self,fdp):
         """Resamples to a different set of frequencies
-        @param fdp instance of class FrequencyDescriptor to resample to
+        @param fdp instance of class FrequencyList to resample to
         @return instance of class FrequencyResponse containing resampled self
         @remark
         Resampling first attempts to find a ratio of numbers of points
@@ -192,7 +196,7 @@ class FrequencyResponse(FrequencyDomain):
         return TD
     def ResampleCZT(self,fdp,speedy=True):
         """Uses the chirp z transform is used to resample.
-        @param fdp instance of class FrequencyDescriptor to resample to
+        @param fdp instance of class FrequencyList to resample to
         @param speedy (optional) bool whether to use the fast version of the CZT()
         @return instance of class FrequencyResponse containing resampled self
         @see FrequencyResponse.Resample()

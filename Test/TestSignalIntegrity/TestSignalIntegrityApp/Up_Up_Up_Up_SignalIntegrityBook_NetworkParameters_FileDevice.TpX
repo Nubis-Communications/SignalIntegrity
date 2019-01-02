@@ -3,12 +3,12 @@
 %  <polyline lc="black">12,-20 16,-20</polyline>
 %  <polyline lw="2" lc="red">11.5,-19.5 12.5,-20.5</polyline>
 %  <polyline lw="2" lc="red">12.5,-19.5 11.5,-20.5</polyline>
-%  <text x="14" y="-18" t="1" h="3" halign="c" lc="black"/>
+%  <text x="15" y="-19" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">28,-20 24,-20</polyline>
 %  <polyline lw="2" lc="red">27.5,-19.5 28.5,-20.5</polyline>
 %  <polyline lw="2" lc="red">28.5,-19.5 27.5,-20.5</polyline>
-%  <text x="26" y="-18" t="2" h="3" halign="c" lc="black"/>
-%  <text x="20" y="-14" t="Z" h="3" halign="c" lc="black"/>
+%  <text x="25" y="-19" t="2" h="3" halign="l" lc="black"/>
+%  <text x="20" y="-13" t="Z" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -16,10 +16,10 @@
 \path[line width=0.30mm, draw=black] (12,-20) -- (16,-20);
 \path[line width=0.6mm, draw=red] (11.5,-19.5) -- (12.5,-20.5);
 \path[line width=0.6mm, draw=red] (12.5,-19.5) -- (11.5,-20.5);
-\draw[black] (14,-18) node[anchor=base]{1};
+\draw[black] (15,-19) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (28,-20) -- (24,-20);
 \path[line width=0.6mm, draw=red] (27.5,-19.5) -- (28.5,-20.5);
 \path[line width=0.6mm, draw=red] (28.5,-19.5) -- (27.5,-20.5);
-\draw[black] (26,-18) node[anchor=base]{2};
-\draw[black] (20,-14) node[anchor=base]{Z};
+\draw[black] (25,-19) node[anchor=base west]{2};
+\draw[black] (20,-13) node[anchor=base]{Z};
 \end{tikzpicture}%

@@ -44,7 +44,8 @@ class TransferMatricesProcessor(CallBacker):
         """processes input waveforms and produces output waveforms
         @param wfl list of Waveform input waveforms to process.
         @param td (optional) instance of class TimeDescriptor.  If this is included,
-        all final waveforms are adapted to this descriptor.
+        all final waveforms are adapted to this descriptor.  Otherwise, the sample rates of
+        each waveform are used in the computeation of the impulse responses.
         @remark
         Externally, the order of the input and output waveforms are known.  The
         input waveforms must be provided in that order and the output waveforms are

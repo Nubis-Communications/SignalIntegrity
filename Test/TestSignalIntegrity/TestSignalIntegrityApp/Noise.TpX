@@ -1,13 +1,13 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <text x="32" y="-56" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-57" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
 %  <ellipse x="32" y="-56" dx="16" dy="-16" lc="black"/>
 %  <polyline lc="black">30.5,-51 33.5,-51</polyline>
 %  <polyline lc="black">32,-49.5 32,-52.5</polyline>
 %  <polyline lc="black">30.5,-61 33.5,-61</polyline>
 %  <polyline lc="black">32,-40 32,-48</polyline>
 %  <polyline lc="black">32,-72 32,-64</polyline>
-%  <text x="44" y="-56" t="1.0 mVrms" h="3" halign="l" lc="black"/>
-%  <text x="80" y="-56" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
+%  <text x="44" y="-57" t="1.0 mVrms" h="3" halign="l" lc="black"/>
+%  <text x="80" y="-57" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
 %  <ellipse x="80" y="-56" dx="16" dy="-16" lc="black"/>
 %  <polyline lc="black">78.5,-51 81.5,-51</polyline>
 %  <polyline lc="black">80,-49.5 80,-52.5</polyline>
@@ -15,7 +15,7 @@
 %  <polyline lc="black">80,-64 80,-72</polyline>
 %  <polygon fill="black">74.667,-72 85.333,-72 80,-77.333 74.667,-72</polygon>
 %  <polyline lc="black">80,-40 80,-48</polyline>
-%  <text x="92" y="-56" t="10.0 mVrms" h="3" halign="l" lc="black"/>
+%  <text x="92" y="-57" t="10.0 mVrms" h="3" halign="l" lc="black"/>
 %  <polygon fill="black">26.667,-80 37.333,-80 32,-85.333 26.667,-80</polygon>
 %  <polyline lc="black">32,-72 32,-80</polyline>
 %  <polyline lc="black">34,-30 30,-34</polyline>
@@ -33,15 +33,15 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\draw[black] (32,-56) node[anchor=base]{$\sigma$};
+\draw[black] (32,-57) node[anchor=base]{$\sigma$};
 \path[line width=0.30mm, draw=black] (32,-56) ellipse (8mm and -8mm);
 \path[line width=0.30mm, draw=black] (30.5,-51) -- (33.5,-51);
 \path[line width=0.30mm, draw=black] (32,-49.5) -- (32,-52.5);
 \path[line width=0.30mm, draw=black] (30.5,-61) -- (33.5,-61);
 \path[line width=0.30mm, draw=black] (32,-40) -- (32,-48);
 \path[line width=0.30mm, draw=black] (32,-72) -- (32,-64);
-\draw[black] (44,-56) node[anchor=base west]{1.0 mVrms};
-\draw[black] (80,-56) node[anchor=base]{$\sigma$};
+\draw[black] (44,-57) node[anchor=base west]{1.0 mVrms};
+\draw[black] (80,-57) node[anchor=base]{$\sigma$};
 \path[line width=0.30mm, draw=black] (80,-56) ellipse (8mm and -8mm);
 \path[line width=0.30mm, draw=black] (78.5,-51) -- (81.5,-51);
 \path[line width=0.30mm, draw=black] (80,-49.5) -- (80,-52.5);
@@ -49,7 +49,7 @@
 \path[line width=0.30mm, draw=black] (80,-64) -- (80,-72);
 \path[line width=0.30mm, fill=black] (74.667,-72) -- (85.333,-72) -- (80,-77.333) -- (74.667,-72) -- cycle;
 \path[line width=0.30mm, draw=black] (80,-40) -- (80,-48);
-\draw[black] (92,-56) node[anchor=base west]{10.0 mVrms};
+\draw[black] (92,-57) node[anchor=base west]{10.0 mVrms};
 \path[line width=0.30mm, fill=black] (26.667,-80) -- (37.333,-80) -- (32,-85.333) -- (26.667,-80) -- cycle;
 \path[line width=0.30mm, draw=black] (32,-72) -- (32,-80);
 \path[line width=0.30mm, draw=black] (34,-30) -- (30,-34);

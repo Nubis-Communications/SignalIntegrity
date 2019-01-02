@@ -26,15 +26,17 @@ if sys.version_info.major < 3:
 else:
     from urllib.request import urlopen
 
+import SignalIntegrity.App.Project
+
 class HelpSystemKeys(object):
     controlHelpUrlBase=None
     keydict={}
     @staticmethod
-    def InstallHelpURLBase(useOnlineHelp,urlBase,installdir):
+    def InstallHelpURLBase(useOnlineHelp,urlBase):
         if useOnlineHelp:
-            HelpSystemKeys.controlHelpUrlBase=urlBase
+            HelpSystemKeys.controlHelpUrlBase=urlBase+'/'
         else:
-            HelpSystemKeys.controlHelpUrlBase='file://'+installdir
+            HelpSystemKeys.controlHelpUrlBase='file://'+SignalIntegrity.App.InstallDir
         HelpSystemKeys.keydict={}
     def __init__(self,force=False):
         HelpSystemKeys.controlHelpUrlBase=None
@@ -44,7 +46,7 @@ class HelpSystemKeys(object):
         if force:
             raise ValueError
         try:
-            lines = urlopen(self.controlHelpUrlBase+'/Help/Help.html.LyXconv/helpkeys')
+            lines = urlopen(self.controlHelpUrlBase+'Help/Help.html.LyXconv/helpkeys')
         except:
             return
         for line in lines:
@@ -64,14 +66,14 @@ class HelpSystemKeys(object):
         url=self[helpString]
         if not url is None:
             import webbrowser
-            url = self.controlHelpUrlBase+'/Help/Help.html.LyXconv/'+url
+            url = self.controlHelpUrlBase+'Help/Help.html.LyXconv/'+url
             url=url.replace('\\','/')
             webbrowser.open(url)
     def Build(self):
         path=self.controlHelpUrlBase
         if path is None:
             path=os.getcwd()
-        path=path+'/Help/Help.html.LyXconv'
+        path=path+'Help/Help.html.LyXconv'
         self.keydict={}
         filename=path+'/Help.html'
         try:

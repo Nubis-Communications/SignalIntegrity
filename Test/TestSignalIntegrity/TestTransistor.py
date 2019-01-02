@@ -28,8 +28,8 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def testTransistorSimpleSymbolic(self):
-        symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{equation}',eqsuffix='\\end{equation}')
-        symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
+        symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{multline}',eqsuffix='\\end{multline}')
+        symbolic._AddEq('\\mathbf{S}=\\ldots\\\\'+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
         symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
         # pragma: exclude
@@ -90,6 +90,11 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         symbolic.Emit()
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
+        for n in range(len(ssps.m_lines)):
+            if 'W_{xx}' in ssps.m_lines[n]:
+                ssps.m_lines[n]=ssps.m_lines[n].replace('\\[ \\mathbf{W_{xx}} = ','\\begin{multline*} \\mathbf{W_{xx}} =\\ldots\\\\ ')
+                for n in range(n,len(ssps.m_lines)):
+                    ssps.m_lines[n]=ssps.m_lines[n].replace('\\right) \\]','\\right)\\end{multline*}')
         self.CheckSymbolicResult(self.id()+'Defs',symbolic,'Transistor')
         self.CheckSymbolicResult(self.id(),ssps,'Transistor')
     def testTransistorSymbolicZO(self):

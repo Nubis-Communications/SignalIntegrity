@@ -1,7 +1,10 @@
-device D2 4 file None
-device B 4 currentcontrolledcurrentsource 1.0
-device Zo 2 R 50.0
-device Zi 2 R 0.0
-connect Zi 2 B 1
-connect B 3 Zo 1
-connect B 4 Zo 2
+device $Z_i$ 2 R 50.0
+device $\beta$ 4 currentcontrolledcurrentsource 1.0
+device $Z_o$ 2 R 50.0
+port 1 $Z_i$ 1
+connect $Z_i$ 2 $\beta$ 1
+port 2 $\beta$ 2
+port 3 $Z_o$ 1
+connect $Z_o$ 1 $\beta$ 4
+port 4 $Z_o$ 2
+connect $Z_o$ 2 $\beta$ 3

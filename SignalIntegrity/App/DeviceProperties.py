@@ -16,14 +16,13 @@ DeviceProperties.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+import os
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
-    from Tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
-    import tkMessageBox
+    import Tkinter as tk
+    import tkMessageBox as messagebox
 else:
-    from tkinter import Frame,StringVar,IntVar,Checkbutton,Label,Entry,Button,Radiobutton,Canvas,Toplevel
-    from tkinter import LEFT,NO,X,TOP,YES,NONE,CENTER,BOTH,SUNKEN,ALL
+    import tkinter as tk
     from tkinter import messagebox
 
 import copy
@@ -35,26 +34,26 @@ from SignalIntegrity.App.Simulator import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 import SignalIntegrity.App.Project
 
-class DeviceProperty(Frame):
+class DeviceProperty(tk.Frame):
     def __init__(self,parentFrame,parent,partProperty):
-        Frame.__init__(self,parentFrame)
+        tk.Frame.__init__(self,parentFrame)
         if not partProperty['Hidden']:
-            self.pack(side=TOP,fill=X,expand=YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.parent=parent
         self.parentFrame=parentFrame
         self.device=parent.device
         self.partProperty=partProperty
         self.callBack=parent.UpdatePicture
-        self.propertyString=StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        self.propertyVisible=IntVar(value=int(self.partProperty['Visible']))
-        self.keywordVisible=IntVar(value=int(self.partProperty['KeywordVisible']))
-        propertyVisibleCheckBox = Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible)
-        propertyVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
-        keywordVisibleCheckBox = Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
-        keywordVisibleCheckBox.pack(side=LEFT,expand=NO,fill=X)
-        propertyLabel = Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
-        propertyLabel.pack(side=LEFT, expand=NO, fill=X)
-        self.propertyEntry = Entry(self,textvariable=self.propertyString)
+        self.propertyString=tk.StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
+        self.propertyVisible=tk.IntVar(value=int(self.partProperty['Visible']))
+        self.keywordVisible=tk.IntVar(value=int(self.partProperty['KeywordVisible']))
+        propertyVisibleCheckBox = tk.Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible)
+        propertyVisibleCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        keywordVisibleCheckBox = tk.Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
+        keywordVisibleCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        propertyLabel = tk.Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
+        propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        self.propertyEntry = tk.Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)
         self.propertyEntry.bind('<Return>',self.onEntered)
         self.propertyEntry.bind('<Tab>',self.onEntered)
@@ -64,14 +63,14 @@ class DeviceProperty(Frame):
         self.propertyEntry.bind('<Button-3>',self.onUntouchedLoseFocus)
         self.propertyEntry.bind('<Escape>',self.onUntouchedLoseFocus)
         self.propertyEntry.bind('<FocusOut>',self.onUntouched)
-        self.propertyEntry.pack(side=LEFT, expand=YES, fill=X)
+        self.propertyEntry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if self.partProperty['Type'] == 'file':
-            self.propertyFileBrowseButton = Button(self,text='browse',command=self.onFileBrowse)
-            self.propertyFileBrowseButton.pack(side=LEFT,expand=NO,fill=X)
+            self.propertyFileBrowseButton = tk.Button(self,text='browse',command=self.onFileBrowse)
+            self.propertyFileBrowseButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
             if self.partProperty['PropertyName'] == 'filename' or\
                 self.partProperty['PropertyName'] == 'waveformfilename':
-                self.propertyFileViewButton = Button(self,text='view',command=self.onFileView)
-                self.propertyFileViewButton.pack(side=LEFT,expand=NO,fill=X)
+                self.propertyFileViewButton = tk.Button(self,text='view',command=self.onFileView)
+                self.propertyFileViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
     def onFileBrowse(self):
         # this is a seemingly ugly workaround
         # I do this because when you change the number of ports and then touch the file
@@ -99,9 +98,12 @@ class DeviceProperty(Frame):
             initialFile=''
         else:
             initialDirectory=currentFileParts.AbsoluteFilePath()
-            initialFile=currentFileParts.filename+extension
+            if currentFileParts.fileext in ['.si',extension]:
+                initialFile=currentFileParts.FileNameWithExtension()
+            else:
+                initialFile=currentFileParts.filename+extension
         filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,extension)],
+                                 filetypes=[(filetypename,extension),('project','.si')],
                                  initialdir=initialDirectory,
                                  initialfile=initialFile)
         if filename is None:
@@ -110,44 +112,58 @@ class DeviceProperty(Frame):
             filename=''
         filename=str(filename)
         if filename != '':
-            filename=FileParts(filename).FullFilePathExtension(extension)
+            filename=FileParts(filename).FullFilePathExtension()
             self.propertyString.set(filename)
             self.partProperty.SetValueFromString(self.propertyString.get())
             self.callBack()
+        if self.partProperty['PropertyName'] == 'waveformfilename':
+            filename=self.partProperty.GetValue()
+            isProject=FileParts(filename).fileext == '.si'
+            for propertyFrame in self.parent.propertyFrameList:
+                if propertyFrame.partProperty['PropertyName']=='wfprojname':
+                    propertyFrame.partProperty['Hidden']=not isProject
+        self.callBack()
+
     def onFileView(self):
         self.parentFrame.focus()
         filename=self.partProperty.GetValue()
         if filename != '':
             import SignalIntegrity.Lib as si
             if self.partProperty['PropertyName'] == 'filename':
-                try:
-                    sp=si.sp.SParameterFile(filename)
-                except si.SignalIntegrityException as e:
-                    if sys.version_info.major < 3:
-                        tkMessageBox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                    else:
+                fp=FileParts(filename)
+                if fp.fileext == '.si':
+                    result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
+                    if result != 0:
+                        messagebox.showerror('ProjectFile','could not be opened')
+                        return
+                else:
+                    try:
+                        sp=si.sp.SParameterFile(filename)
+                    except si.SignalIntegrityException as e:
                         messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                    return
-                    return
-                spd=SParametersDialog(self.parent.parent.parent,sp,filename)
-                spd.grab_set()
+                        return
+                    spd=SParametersDialog(self.parent.parent.parent,sp,filename)
+                    spd.grab_set()
             elif self.partProperty['PropertyName'] == 'waveformfilename':
-                filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
-                if filenametoshow is None:
-                    filenametoshow=''
-                try:
-                    wf=self.parent.device.Waveform()
-                except si.SignalIntegrityException as e:
-                    if sys.version_info.major < 3:
-                        tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-                    else:
+                if FileParts(filename).fileext == '.si':
+                    result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
+                    if result != 0:
+                        messagebox.showerror('ProjectFile','could not be opened')
+                        return
+                else:
+                    filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
+                    if filenametoshow is None:
+                        filenametoshow=''
+                    try:
+                        wf=self.parent.device.Waveform()
+                    except si.SignalIntegrityException as e:
                         messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-                    return
-                sd=SimulatorDialog(self.parent.parent)
-                sd.title(filenametoshow)
-                sd.UpdateWaveforms([wf],[filenametoshow])
-                sd.state('normal')
-                sd.grab_set()
+                        return
+                    sd=SimulatorDialog(self.parent.parent)
+                    sd.title(filenametoshow)
+                    sd.UpdateWaveforms([wf],[filenametoshow])
+                    sd.state('normal')
+                    sd.grab_set()
     def onPropertyVisible(self):
         self.partProperty['Visible']=bool(self.propertyVisible.get())
         self.callBack()
@@ -156,6 +172,12 @@ class DeviceProperty(Frame):
         self.callBack()
     def onEntered(self,event):
         self.partProperty.SetValueFromString(self.propertyString.get())
+        if self.partProperty['PropertyName'] == 'waveformfilename':
+            filename=self.partProperty.GetValue()
+            isProject=FileParts(filename).fileext == '.si'
+            for propertyFrame in self.parent.propertyFrameList:
+                if propertyFrame.partProperty['PropertyName']=='wfprojname':
+                    propertyFrame.partProperty['Hidden']=not isProject
         self.callBack()
         self.onUntouchedLoseFocus(event)
     def onTouched(self,event):
@@ -169,92 +191,106 @@ class DeviceProperty(Frame):
     def onUntouchedLoseFocus(self,event):
         self.parentFrame.focus()
 
-class DeviceProperties(Frame):
+class DeviceProperties(tk.Frame):
     def __init__(self,parent,device,advancedMode=False):
-        Frame.__init__(self,parent)
+        tk.Frame.__init__(self,parent)
         self.parent=parent
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
         if isinstance(self.device,Device): # part other than file - allow viewing
             if not 'file name' in [property['Description'] for property in self.device.propertiesList]:
                 if self.device.netlist['DeviceName']=='device':
-                    partViewFrame=Frame(self)
-                    partViewFrame.pack(side=TOP,fill=X,expand=YES)
-                    self.partViewButton = Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
-                    self.partViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
+                    partViewFrame=tk.Frame(self)
+                    partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+                    self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
+                    self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagesource','currentsource']:
-                    partViewFrame=Frame(self)
-                    partViewFrame.pack(side=TOP,fill=X,expand=YES)
-                    self.waveformViewButton = Button(partViewFrame,text='view waveform',command=self.onWaveformView)
-                    self.waveformViewButton.pack(expand=NO,fill=NONE,anchor=CENTER)
-        propertyListFrame = Frame(self)
-        propertyListFrame.pack(side=TOP,fill=X,expand=NO)
+                    partViewFrame=tk.Frame(self)
+                    partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+                    self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
+                    self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        keywords = [property['Keyword'] for property in self.device.propertiesList]
+        if 'wffile' in keywords:
+            fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
+            ext=str.lower(fileName).split('.')[-1]
+            self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext != 'si')
+        propertyListFrame = tk.Frame(self)
+        propertyListFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         propertyListFrame.bind("<Return>", parent.ok)
         self.propertyFrameList=[]
         for partProperty in self.device.propertiesList:
             self.propertyFrameList.append(DeviceProperty(propertyListFrame,self,partProperty))
-        rotationFrame = Frame(propertyListFrame)
-        rotationFrame.pack(side=TOP,fill=X,expand=NO)
-        self.rotationString=StringVar(value=str(self.device.partPicture.current.orientation))
-        rotationLabel = Label(rotationFrame,text='rotation: ')
-        rotationLabel.pack(side=LEFT,expand=NO,fill=X)
-        Radiobutton(rotationFrame,text='0',variable=self.rotationString,value='0',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
-        Radiobutton(rotationFrame,text='90',variable=self.rotationString,value='90',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
-        Radiobutton(rotationFrame,text='180',variable=self.rotationString,value='180',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
-        Radiobutton(rotationFrame,text='270',variable=self.rotationString,value='270',command=self.onOrientationChange).pack(side=LEFT,expand=NO,fill=X)
-        Button(rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=LEFT,expand=NO,fill=X)
-        mirrorFrame=Frame(propertyListFrame)
-        mirrorFrame.pack(side=TOP,fill=X,expand=NO)
-        mirrorLabel = Label(mirrorFrame,text='mirror: ')
-        mirrorLabel.pack(side=LEFT,expand=NO,fill=X)
-        self.mirrorVerticallyVar=IntVar(value=int(self.device.partPicture.current.mirroredVertically))
-        mirrorVerticallyCheckBox = Checkbutton(mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange)
-        mirrorVerticallyCheckBox.pack(side=LEFT,expand=NO,fill=X)
-        self.mirrorHorizontallyVar=IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
-        mirrorHorizontallyCheckBox = Checkbutton(mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
-        mirrorHorizontallyCheckBox.pack(side=LEFT,expand=NO,fill=X)
+        self.rotationFrame = tk.Frame(propertyListFrame)
+        self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.rotationString=tk.StringVar(value=str(self.device.partPicture.current.orientation))
+        rotationLabel = tk.Label(self.rotationFrame,text='rotation: ')
+        rotationLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='0',variable=self.rotationString,value='0',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='90',variable=self.rotationString,value='90',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='180',variable=self.rotationString,value='180',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Radiobutton(self.rotationFrame,text='270',variable=self.rotationString,value='270',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Button(self.rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        self.mirrorFrame=tk.Frame(propertyListFrame)
+        self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        mirrorLabel = tk.Label(self.mirrorFrame,text='mirror: ')
+        mirrorLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        self.mirrorVerticallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredVertically))
+        mirrorVerticallyCheckBox = tk.Checkbutton(self.mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange)
+        mirrorVerticallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        self.mirrorHorizontallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
+        mirrorHorizontallyCheckBox = tk.Checkbutton(self.mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
+        mirrorHorizontallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         if advancedMode:
-            advancedModeFrame=Frame(propertyListFrame)
-            advancedModeFrame.pack(side=TOP,fill=X,expand=NO)
-            pinNumbersLabel = Label(advancedModeFrame,text='pin numbers:')
-            pinNumbersLabel.pack(side=LEFT,expand=NO,fill=X)
-            pinNumbersOnButton = Button(advancedModeFrame,text='on',command=self.onPinNumbersOn)
-            pinNumbersOnButton.pack(side=LEFT,expand=NO,fill=X)
-            pinNumbersOffButton = Button(advancedModeFrame,text='off',command=self.onPinNumbersOff)
-            pinNumbersOffButton.pack(side=LEFT,expand=NO,fill=X)
-            showBoxLabel = Label(advancedModeFrame,text='  show box:')
-            showBoxLabel.pack(side=LEFT,expand=NO,fill=X)
-            showBoxOnButton = Button(advancedModeFrame,text='on',command=self.onShowBoxOn)
-            showBoxOnButton.pack(side=LEFT,expand=NO,fill=X)
-            showBoxOffButton = Button(advancedModeFrame,text='off',command=self.onShowBoxOff)
-            showBoxOffButton.pack(side=LEFT,expand=NO,fill=X)
-        partPictureFrame = Frame(self)
-        partPictureFrame.pack(side=TOP,fill=BOTH,expand=YES)
-        self.partPictureCanvas = Canvas(partPictureFrame)
-        self.partPictureCanvas.config(relief=SUNKEN,borderwidth=1)
-        self.partPictureCanvas.pack(side=TOP,fill=BOTH,expand=YES)
+            advancedModeFrame=tk.Frame(propertyListFrame)
+            advancedModeFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            pinNumbersLabel = tk.Label(advancedModeFrame,text='pin numbers:')
+            pinNumbersLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            pinNumbersOnButton = tk.Button(advancedModeFrame,text='on',command=self.onPinNumbersOn)
+            pinNumbersOnButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            pinNumbersOffButton = tk.Button(advancedModeFrame,text='off',command=self.onPinNumbersOff)
+            pinNumbersOffButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            showBoxLabel = tk.Label(advancedModeFrame,text='  show box:')
+            showBoxLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            showBoxOnButton = tk.Button(advancedModeFrame,text='on',command=self.onShowBoxOn)
+            showBoxOnButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            showBoxOffButton = tk.Button(advancedModeFrame,text='off',command=self.onShowBoxOff)
+            showBoxOffButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        partPictureFrame = tk.Frame(self)
+        partPictureFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.partPictureCanvas = tk.Canvas(partPictureFrame)
+        self.partPictureCanvas.config(relief=tk.SUNKEN,borderwidth=1)
+        self.partPictureCanvas.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
         device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
-        (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(ALL) # bounding box that contains part picture
+        (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(tk.ALL) # bounding box that contains part picture
         if minx < 0 or miny < 0: # the top or left side of the picture is clipped
             # adjust the picture so that the left and top of the picture is in the window
             offsetx=max(-minx,0)
             offsety=max(-miny,0)
-            self.partPictureCanvas.move(ALL,offsetx,offsety)
+            self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
 
     def UpdatePicture(self):
-        self.partPictureCanvas.delete(ALL)
+        self.partPictureCanvas.delete(tk.ALL)
         if not self.device['ports'] is None:
             self.device.partPicture.ports=self.device['ports'].GetValue()
         self.device.partPicture.SwitchPartPicture(self.device.partPicture.partPictureSelected)
         self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
-        (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(ALL) # bounding box that contains part picture
+        (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(tk.ALL) # bounding box that contains part picture
         if minx < 0 or miny < 0: # the top or left side of the picture is clipped
             # adjust the picture so that the left and top of the picture is in the window
             offsetx=max(-minx,0)
             offsety=max(-miny,0)
-            self.partPictureCanvas.move(ALL,offsetx,offsety)
-
+            self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
+        # also update part properties as some may have become hidden or unhidden
+        self.mirrorFrame.pack_forget()
+        self.rotationFrame.pack_forget()
+        for propertyFrame in self.propertyFrameList:
+            propertyFrame.pack_forget()
+        for propertyFrame in self.propertyFrameList:
+            if not propertyFrame.partProperty['Hidden']:
+                propertyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
     def onToggleRotation(self):
         self.device.partPicture.current.Rotate()
         self.rotationString.set(str(self.device.partPicture.current.orientation))
@@ -312,10 +348,7 @@ class DeviceProperties(Frame):
         try:
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return
         fileParts=copy.copy(self.parent.parent.fileparts)
         fileParts.filename=fileParts.filename+'_'+referenceDesignator
@@ -330,10 +363,7 @@ class DeviceProperties(Frame):
         try:
             wf=device.Waveform()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+            messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
             return
         sim=self.parent.parent.simulator
         sd=sim.SimulatorDialog()
@@ -341,9 +371,9 @@ class DeviceProperties(Frame):
         sim.UpdateWaveforms([wf],[referenceDesignator])
         sd.grab_set()
 
-class DevicePropertiesDialog(Toplevel):
+class DevicePropertiesDialog(tk.Toplevel):
     def __init__(self,parent,device):
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
         self.transient(parent)
         self.device = copy.deepcopy(device)
         self.title(self.device['desc'].PropertyString(stype='raw'))
@@ -351,7 +381,7 @@ class DevicePropertiesDialog(Toplevel):
         self.result = None
         self.DeviceProperties = DeviceProperties(self,self.device)
         self.initial_focus = self.DeviceProperties
-        self.DeviceProperties.pack(side=TOP,fill=BOTH,expand=YES,padx=5, pady=5)
+        self.DeviceProperties.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
         self.buttonbox()
         self.wait_visibility(self)
         self.grab_set()
@@ -366,11 +396,11 @@ class DevicePropertiesDialog(Toplevel):
     def buttonbox(self):
         # add standard button box. override if you don't want the
         # standard buttons
-        box = Frame(self)
-        w = Button(box, text="OK", width=10, command=self.ok)
-        w.pack(side=LEFT, padx=5, pady=5)
-        w = Button(box, text="Cancel", width=10, command=self.cancel)
-        w.pack(side=LEFT, padx=5, pady=5)
+        box = tk.Frame(self)
+        w = tk.Button(box, text="OK", width=10, command=self.ok)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
+        w = tk.Button(box, text="Cancel", width=10, command=self.cancel)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
         box.pack()

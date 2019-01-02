@@ -16,14 +16,11 @@ SignalIntegrityAppHeadless.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-
-import xml.etree.ElementTree as et
-
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import ALL
+    import Tkinter as tk
 else:
-    from tkinter import ALL
+    import tkinter as tk
 
 import os
 
@@ -31,17 +28,18 @@ from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
+from SignalIntegrity.App.TikZ import TikZ
+
 import SignalIntegrity.App.Project
 
 class DrawingHeadless(object):
     def __init__(self,parent):
         self.parent=parent
-        self.canvas = None
+        self.canvas = TikZ()
         self.schematic = Schematic()
     def DrawSchematic(self,canvas=None):
         if canvas==None:
             canvas=self.canvas
-            canvas.delete(ALL)
         if SignalIntegrity.App.Project is None:
             return
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
@@ -49,17 +47,48 @@ class DrawingHeadless(object):
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
+        foundAPort=False
+        foundASource=False
+        foundAnOutput=False
+        foundSomething=False
+        foundAMeasure=False
+        foundAStim=False
+        foundAnUnknown=False
+        foundASystem=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
+            foundSomething=True
             devicePinsConnected=devicePinConnectedList[deviceIndex]
             device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)
+            deviceType = device['partname'].GetValue()
+            if  deviceType == 'Port':
+                foundAPort = True
+            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                foundAnOutput = True
+            elif deviceType == 'Stim':
+                foundAStim = True
+            elif deviceType == 'Measure':
+                foundAMeasure = True
+            elif deviceType == 'System':
+                foundASystem = True
+            elif deviceType == 'Unknown':
+                foundAnUnknown = True
+            elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+                foundASource = True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
+            foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
         for dot in self.schematic.DotList():
             size=grid/8
             canvas.create_oval((dot[0]+originx)*grid-size,(dot[1]+originy)*grid-size,
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
+        self.foundSomething=foundSomething
+        self.canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
+        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
+        self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
+        self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
+        self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed
         return canvas
     def InitFromXml(self,drawingElement):
         self.schematic = Schematic()
@@ -80,16 +109,14 @@ class DrawingHeadless(object):
         self.schematic.InitFromProject()
 
 class SignalIntegrityAppHeadless(object):
-    switchxmltosi=False
     def __init__(self):
         # make absolutely sure the directory of this file is the first in the
         # python path
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
         SignalIntegrity.App.Preferences=Preferences()
-        self.installdir=os.path.dirname(os.path.abspath(__file__))
+        SignalIntegrity.App.InstallDir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
-        self.calculationProperties=CalculationProperties()
 
     def NullCommand(self):
         pass
@@ -106,23 +133,8 @@ class SignalIntegrityAppHeadless(object):
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
-
-            if self.switchxmltosi:
-                if self.fileparts.fileext == '.xml':
-                    if os.path.exists(self.fileparts.FullFilePathExtension('.si')):
-                        if os.path.exists(self.fileparts.FullFilePathExtension('.xml')):
-                            os.remove(self.fileparts.FullFilePathExtension('.xml'))
-                        self.fileparts.fileext='.si'
-                    else:
-                        self.fileparts.fileext='.xml'
-
-            if self.fileparts.fileext == '.xml':
-                self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
-                if self.switchxmltosi:
-                    self.SaveProject()
-            else:
-                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
-                self.Drawing.InitFromProject()
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.InitFromProject()
         except:
             return False
         self.Drawing.schematic.Consolidate()
@@ -132,37 +144,6 @@ class SignalIntegrityAppHeadless(object):
             for vertexProject in wireProject['Vertices']:
                 vertexProject['Selected']=False
         return True
-
-    # Legacy File Format
-    def OpenProjectFileLegacy(self,oldfilename):
-        SignalIntegrity.App.Project=ProjectFile()
-        tree=et.parse(oldfilename)
-        root=tree.getroot()
-        for child in root:
-            if child.tag == 'drawing':
-                self.Drawing.InitFromXml(child)
-            elif child.tag == 'calculation_properties':
-                calculationProperties=CalculationProperties().InitFromXml(child)
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=self.Drawing.grid
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originx']=self.Drawing.originx
-        SignalIntegrity.App.Project['Drawing.DrawingProperties.Originy']=self.Drawing.originy
-        from SignalIntegrity.App.ProjectFile import DeviceConfiguration
-        SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
-        for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
-            deviceProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices'][d]
-            device=self.Drawing.schematic.deviceList[d]
-            deviceProject['ClassName']=device.__class__.__name__
-            partPictureProject=deviceProject['PartPicture']
-            partPicture=device.partPicture
-            partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
-            partPictureProject['Origin']=partPicture.current.origin
-            partPictureProject['Orientation']=partPicture.current.orientation
-            partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
-            partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
-            deviceProject['PartProperties']=device.propertiesList
-        SignalIntegrity.App.Project.dict['CalculationProperties']=calculationProperties
-        self.Drawing.InitFromProject()
-        return self
 
     def SaveProjectToFile(self,filename):
         self.fileparts=FileParts(filename)
@@ -342,3 +323,50 @@ class SignalIntegrityAppHeadless(object):
             if self.fileparts.filename != '':
                 filename.append(self.fileparts.filename+'_'+filename)
         return (unknownNames,sp,filename)
+
+def ProjectSParameters(filename):
+    import copy
+    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    cwdCopy=os.getcwd()
+    sp=None
+    try:
+        app=SignalIntegrityAppHeadless()
+        if app.OpenProjectFile(os.path.realpath(filename)):
+            app.Drawing.DrawSchematic()
+            if app.Drawing.canCalculateSParameters:
+                result=app.CalculateSParameters()
+                if not result is None:
+                    sp=result[0]
+            elif app.Drawing.canDeembed:
+                result=app.Deembed()
+                if not result is None:
+                    sp=result[1][0]
+    except:
+        pass
+    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    os.chdir(cwdCopy)
+    return sp
+
+def ProjectWaveform(filename,wfname):
+    import copy
+    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    cwdCopy=os.getcwd()
+    wf=None
+    try:
+        app=SignalIntegrityAppHeadless()
+        if app.OpenProjectFile(os.path.realpath(filename)):
+            app.Drawing.DrawSchematic()
+            result=None
+            if app.Drawing.canSimulate:
+                result=app.Simulate()
+            elif app.Drawing.canVirtualProbe:
+                result=app.VirtualProbe()
+            if not result is None:
+                (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=result
+                if wfname in outputWaveformLabels:
+                    wf=outputWaveformList[outputWaveformLabels.index(wfname)]
+    except:
+        pass
+    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    os.chdir(cwdCopy)
+    return wf

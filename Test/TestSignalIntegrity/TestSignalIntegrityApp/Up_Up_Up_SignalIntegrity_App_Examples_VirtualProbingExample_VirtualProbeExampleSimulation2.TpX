@@ -1,58 +1,58 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
 %  <rect x="100" y="-24" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">96,-28 100,-28</polyline>
-%  <text x="98" y="-26" t="1" h="3" halign="c" lc="black"/>
+%  <text x="99" y="-27" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">96,-36 100,-36</polyline>
-%  <text x="98" y="-34" t="2" h="3" halign="c" lc="black"/>
+%  <text x="99" y="-35" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">112,-28 108,-28</polyline>
-%  <text x="110" y="-26" t="3" h="3" halign="c" lc="black"/>
+%  <text x="109" y="-27" t="3" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">112,-36 108,-36</polyline>
-%  <text x="110" y="-34" t="4" h="3" halign="c" lc="black"/>
-%  <text x="104" y="-22" t="Sparq_demo_16.s4p" h="3" halign="c" lc="black"/>
+%  <text x="109" y="-35" t="4" h="3" halign="l" lc="black"/>
+%  <text x="104" y="-21" t="Sparq_demo_16.s4p" h="3" halign="c" lc="black"/>
 %  <ellipse x="52" y="-24" dx="-8" dy="-8" lc="black"/>
 %  <polyline lc="black">52.75,-21.5 51.25,-21.5</polyline>
 %  <polyline lc="black">52,-20.75 52,-22.25</polyline>
 %  <polyline lc="black">52.75,-26.5 51.25,-26.5</polyline>
 %  <polyline lc="black">52,-16 52,-20</polyline>
 %  <polyline lc="black">52,-32 52,-28</polyline>
-%  <text x="46" y="-24" t="Waveform_CableTxPWf.txt" h="3" halign="r" lc="black"/>
+%  <text x="46" y="-25" t="Waveform_CableTxPWf.txt" h="3" halign="r" lc="black"/>
 %  <ellipse x="52" y="-40" dx="-8" dy="8" lc="black"/>
 %  <polyline lc="black">52.75,-42.5 51.25,-42.5</polyline>
 %  <polyline lc="black">52,-43.25 52,-41.75</polyline>
 %  <polyline lc="black">52.75,-37.5 51.25,-37.5</polyline>
 %  <polyline lc="black">52,-48 52,-44</polyline>
 %  <polyline lc="black">52,-32 52,-36</polyline>
-%  <text x="46" y="-40" t="Waveform_CableTxMWf.txt" h="3" halign="r" lc="black"/>
+%  <text x="46" y="-41" t="Waveform_CableTxMWf.txt" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">56,-16 57,-14 58,-18 59,-14 60,-18 61,-14 62,-18 63,-14 64,-16</polyline>
 %  <polyline lc="black">52,-16 56,-16</polyline>
 %  <polyline lc="black">68,-16 64,-16</polyline>
-%  <text x="60" y="-12" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-11" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">56,-48 57,-50 58,-46 59,-50 60,-46 61,-50 62,-46 63,-50 64,-48</polyline>
 %  <polyline lc="black">52,-48 56,-48</polyline>
 %  <polyline lc="black">68,-48 64,-48</polyline>
-%  <text x="60" y="-54" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-55" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polygon fill="black">48,-29.333 48,-34.667 45.333,-32 48,-29.333</polygon>
 %  <polyline lc="black">52,-32 48,-32</polyline>
 %  <polyline lc="black">140,-40 141,-38 142,-42 143,-38 144,-42 145,-38 146,-42 147,-38 148,-40</polyline>
 %  <polyline lc="black">148,-40 152,-40</polyline>
 %  <polygon fill="black">152,-37.333 152,-42.667 154.667,-40 152,-37.333</polygon>
 %  <polyline lc="black">136,-40 140,-40</polyline>
-%  <text x="146" y="-46" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="146" y="-47" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">140,-24 141,-26 142,-22 143,-26 144,-22 145,-26 146,-22 147,-26 148,-24</polyline>
 %  <polyline lc="black">148,-24 152,-24</polyline>
 %  <polygon fill="black">152,-26.667 152,-21.333 154.667,-24 152,-26.667</polygon>
 %  <polyline lc="black">136,-24 140,-24</polyline>
-%  <text x="146" y="-20" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="146" y="-19" t="50.0 Ohm" h="3" halign="c" lc="black"/>
 %  <polyline lw="3" lc="black">76,-24 74,-26</polyline>
 %  <polyline lc="black">74,-26 72,-28</polyline>
-%  <text x="76" y="-24" t="Vinsim" h="3" halign="l" lc="black"/>
+%  <text x="76" y="-23" t="Vinsim" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">124.75,-29.5 123.25,-29.5</polyline>
 %  <polyline lc="black">124,-28.75 124,-30.25</polyline>
 %  <polyline lc="black">124.75,-34.5 123.25,-34.5</polyline>
 %  <rect x="122" y="-28" w="4" h="-8" lc="black"/>
 %  <polyline lc="black">124,-40 124,-36</polyline>
 %  <polyline lc="black">124,-24 124,-28</polyline>
-%  <text x="128" y="-32" t="Voutsim" h="3" halign="l" lc="black"/>
+%  <text x="128" y="-33" t="Voutsim" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">68,-16 68,-28</polyline>
 %  <polyline lc="black">68,-28 72,-28</polyline>
 %  <polyline lc="black">68,-48 68,-36</polyline>
@@ -75,58 +75,58 @@
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
 \path[line width=0.30mm, draw=black] (100,-40) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (96,-28) -- (100,-28);
-\draw[black] (98,-26) node[anchor=base]{1};
+\draw[black] (99,-27) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (96,-36) -- (100,-36);
-\draw[black] (98,-34) node[anchor=base]{2};
+\draw[black] (99,-35) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (112,-28) -- (108,-28);
-\draw[black] (110,-26) node[anchor=base]{3};
+\draw[black] (109,-27) node[anchor=base west]{3};
 \path[line width=0.30mm, draw=black] (112,-36) -- (108,-36);
-\draw[black] (110,-34) node[anchor=base]{4};
-\draw[black] (104,-22) node[anchor=base]{Sparq\textunderscore demo\textunderscore 16.s4p};
+\draw[black] (109,-35) node[anchor=base west]{4};
+\draw[black] (104,-21) node[anchor=base]{Sparq\textunderscore demo\textunderscore 16.s4p};
 \path[line width=0.30mm, draw=black] (52,-24) ellipse (-4mm and -4mm);
 \path[line width=0.30mm, draw=black] (52.75,-21.5) -- (51.25,-21.5);
 \path[line width=0.30mm, draw=black] (52,-20.75) -- (52,-22.25);
 \path[line width=0.30mm, draw=black] (52.75,-26.5) -- (51.25,-26.5);
 \path[line width=0.30mm, draw=black] (52,-16) -- (52,-20);
 \path[line width=0.30mm, draw=black] (52,-32) -- (52,-28);
-\draw[black] (46,-24) node[anchor=base east]{Waveform\textunderscore CableTxPWf.txt};
+\draw[black] (46,-25) node[anchor=base east]{Waveform\textunderscore CableTxPWf.txt};
 \path[line width=0.30mm, draw=black] (52,-40) ellipse (-4mm and 4mm);
 \path[line width=0.30mm, draw=black] (52.75,-42.5) -- (51.25,-42.5);
 \path[line width=0.30mm, draw=black] (52,-43.25) -- (52,-41.75);
 \path[line width=0.30mm, draw=black] (52.75,-37.5) -- (51.25,-37.5);
 \path[line width=0.30mm, draw=black] (52,-48) -- (52,-44);
 \path[line width=0.30mm, draw=black] (52,-32) -- (52,-36);
-\draw[black] (46,-40) node[anchor=base east]{Waveform\textunderscore CableTxMWf.txt};
+\draw[black] (46,-41) node[anchor=base east]{Waveform\textunderscore CableTxMWf.txt};
 \path[line width=0.30mm, draw=black] (56,-16) -- (57,-14) -- (58,-18) -- (59,-14) -- (60,-18) -- (61,-14) -- (62,-18) -- (63,-14) -- (64,-16);
 \path[line width=0.30mm, draw=black] (52,-16) -- (56,-16);
 \path[line width=0.30mm, draw=black] (68,-16) -- (64,-16);
-\draw[black] (60,-12) node[anchor=base]{50.0 Ohm};
+\draw[black] (60,-11) node[anchor=base]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (56,-48) -- (57,-50) -- (58,-46) -- (59,-50) -- (60,-46) -- (61,-50) -- (62,-46) -- (63,-50) -- (64,-48);
 \path[line width=0.30mm, draw=black] (52,-48) -- (56,-48);
 \path[line width=0.30mm, draw=black] (68,-48) -- (64,-48);
-\draw[black] (60,-52) node[anchor=north]{50.0 Ohm};
+\draw[black] (60,-53) node[anchor=north]{50.0 Ohm};
 \path[line width=0.30mm, fill=black] (48,-29.333) -- (48,-34.667) -- (45.333,-32) -- (48,-29.333) -- cycle;
 \path[line width=0.30mm, draw=black] (52,-32) -- (48,-32);
 \path[line width=0.30mm, draw=black] (140,-40) -- (141,-38) -- (142,-42) -- (143,-38) -- (144,-42) -- (145,-38) -- (146,-42) -- (147,-38) -- (148,-40);
 \path[line width=0.30mm, draw=black] (148,-40) -- (152,-40);
 \path[line width=0.30mm, fill=black] (152,-37.333) -- (152,-42.667) -- (154.667,-40) -- (152,-37.333) -- cycle;
 \path[line width=0.30mm, draw=black] (136,-40) -- (140,-40);
-\draw[black] (146,-44) node[anchor=north]{50.0 Ohm};
+\draw[black] (146,-45) node[anchor=north]{50.0 Ohm};
 \path[line width=0.30mm, draw=black] (140,-24) -- (141,-26) -- (142,-22) -- (143,-26) -- (144,-22) -- (145,-26) -- (146,-22) -- (147,-26) -- (148,-24);
 \path[line width=0.30mm, draw=black] (148,-24) -- (152,-24);
 \path[line width=0.30mm, fill=black] (152,-26.667) -- (152,-21.333) -- (154.667,-24) -- (152,-26.667) -- cycle;
 \path[line width=0.30mm, draw=black] (136,-24) -- (140,-24);
-\draw[black] (146,-20) node[anchor=base]{50.0 Ohm};
+\draw[black] (146,-19) node[anchor=base]{50.0 Ohm};
 \path[line width=0.9mm, draw=black] (76,-24) -- (74,-26);
 \path[line width=0.30mm, draw=black] (74,-26) -- (72,-28);
-\draw[black] (76,-24) node[anchor=base west]{Vinsim};
+\draw[black] (76,-23) node[anchor=base west]{Vinsim};
 \path[line width=0.30mm, draw=black] (124.75,-29.5) -- (123.25,-29.5);
 \path[line width=0.30mm, draw=black] (124,-28.75) -- (124,-30.25);
 \path[line width=0.30mm, draw=black] (124.75,-34.5) -- (123.25,-34.5);
 \path[line width=0.30mm, draw=black] (122,-36) rectangle +(4,8);
 \path[line width=0.30mm, draw=black] (124,-40) -- (124,-36);
 \path[line width=0.30mm, draw=black] (124,-24) -- (124,-28);
-\draw[black] (128,-32) node[anchor=base west]{Voutsim};
+\draw[black] (128,-33) node[anchor=base west]{Voutsim};
 \path[line width=0.30mm, draw=black] (68,-16) -- (68,-28);
 \path[line width=0.30mm, draw=black] (68,-28) -- (72,-28);
 \path[line width=0.30mm, draw=black] (68,-48) -- (68,-36);

@@ -1,0 +1,44 @@
+% DESCRIPTION [Enter manufacturer and model number of calkit]
+%
+% C0 (fF) - OPEN
+% C1 (1e-27 F/Hz) - OPEN
+% C2 (1e-36 F/Hz^2) - OPEN
+% C3 (1e-45 F/Hz^3) - OPEN
+% offset delay (pS) - OPEN
+% real(Zo) of offset length - OPEN
+% offset loss (GOhm/s) - OPEN
+% L0 (pH) - SHORT
+% L1 (1e-24 H/Hz) - SHORT
+% L2 (1e-33 H/Hz^2) - SHORT
+% L3 (1e-42 H/Hz^3) - SHORT
+% offset delay (pS) - SHORT
+% real(Zo) of offset length - SHORT
+% offset loss (GOhm/s) - SHORT
+% load resistance (Ohm) - LOAD
+% offset delay (pS) - LOAD
+% real(Zo) of offset length - LOAD
+% offset loss (GOhm/s) - LOAD
+% offset delay (pS) - THRU
+% real(Zo) of offset length - THRU
+% offset loss (GOhm/s) - THRU
+0
+0
+0
+0
+0
+50
+0
+0
+0
+0
+0
+0
+50
+0
+50
+0
+50
+0
+0
+50
+0

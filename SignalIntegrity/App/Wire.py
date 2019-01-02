@@ -127,11 +127,6 @@ class Vertex(VertexConfiguration):
         if isinstance(item,(int,slice)):
             return self['Coord'][item]
         else: return VertexConfiguration.__getitem__(self,item)
-    # Legacy File Format
-    def InitFromXml(self,vertexElement):
-        self['Selected']=False
-        self['Coord'] = eval(vertexElement.text)
-        return self
     def IsAt(self,coord,augmentor,distanceAllowed):
         xc=float(coord[0]+augmentor[0])
         yc=float(coord[1]+augmentor[1])
@@ -229,15 +224,6 @@ class Wire(XMLConfiguration):
         self.__init__()
         self['Vertices']=[Vertex(vertexProject['Coord'],vertexProject['Selected']) for vertexProject in wireProject['Vertices']]
         return self
-    # Legacy File Format
-    def InitFromXml(self,wireElement):
-        self.__init__()
-        for child in wireElement:
-            if child.tag == 'vertex':
-                vertex=Vertex((0,0))
-                vertex.InitFromXml(child)
-                self.append(vertex)
-        return self
     def CoordinateList(self):
         return [vertex['Coord'] for vertex in self]
 
@@ -250,15 +236,6 @@ class WireList(XMLProperty):
     def InitFromProject(self,wiresListProject):
         self.__init__()
         self.SetValue(None,[Wire().InitFromProject(wireProject) for wireProject in wiresListProject])
-        return self
-    # Legacy File Format
-    def InitFromXml(self,wiresElement):
-        self.__init__()
-        for child in wiresElement:
-            if child.tag == 'wire':
-                wire=Wire()
-                wire.InitFromXml(child)
-                self.GetValue(None).append(wire)
         return self
     def RemoveEmptyWires(self):
         wiresNeedRemoval=False

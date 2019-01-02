@@ -3,20 +3,20 @@
 %  <polyline lc="black">56,-28 60,-28</polyline>
 %  <polyline lw="2" lc="red">55.5,-27.5 56.5,-28.5</polyline>
 %  <polyline lw="2" lc="red">56.5,-27.5 55.5,-28.5</polyline>
-%  <text x="58" y="-26" t="1" h="3" halign="c" lc="black"/>
+%  <text x="59" y="-27" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">56,-36 60,-36</polyline>
 %  <polyline lw="2" lc="red">55.5,-35.5 56.5,-36.5</polyline>
 %  <polyline lw="2" lc="red">56.5,-35.5 55.5,-36.5</polyline>
-%  <text x="58" y="-34" t="2" h="3" halign="c" lc="black"/>
+%  <text x="59" y="-35" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">72,-28 68,-28</polyline>
 %  <polyline lw="2" lc="red">71.5,-27.5 72.5,-28.5</polyline>
 %  <polyline lw="2" lc="red">72.5,-27.5 71.5,-28.5</polyline>
-%  <text x="70" y="-26" t="3" h="3" halign="c" lc="black"/>
+%  <text x="69" y="-27" t="3" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">72,-36 68,-36</polyline>
 %  <polyline lw="2" lc="red">71.5,-35.5 72.5,-36.5</polyline>
 %  <polyline lw="2" lc="red">72.5,-35.5 71.5,-36.5</polyline>
-%  <text x="70" y="-34" t="4" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-22" t="Z" h="3" halign="c" lc="black"/>
+%  <text x="69" y="-35" t="4" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-21" t="Z" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -24,18 +24,18 @@
 \path[line width=0.30mm, draw=black] (56,-28) -- (60,-28);
 \path[line width=0.6mm, draw=red] (55.5,-27.5) -- (56.5,-28.5);
 \path[line width=0.6mm, draw=red] (56.5,-27.5) -- (55.5,-28.5);
-\draw[black] (58,-26) node[anchor=base]{1};
+\draw[black] (59,-27) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (56,-36) -- (60,-36);
 \path[line width=0.6mm, draw=red] (55.5,-35.5) -- (56.5,-36.5);
 \path[line width=0.6mm, draw=red] (56.5,-35.5) -- (55.5,-36.5);
-\draw[black] (58,-34) node[anchor=base]{2};
+\draw[black] (59,-35) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (72,-28) -- (68,-28);
 \path[line width=0.6mm, draw=red] (71.5,-27.5) -- (72.5,-28.5);
 \path[line width=0.6mm, draw=red] (72.5,-27.5) -- (71.5,-28.5);
-\draw[black] (70,-26) node[anchor=base]{3};
+\draw[black] (69,-27) node[anchor=base west]{3};
 \path[line width=0.30mm, draw=black] (72,-36) -- (68,-36);
 \path[line width=0.6mm, draw=red] (71.5,-35.5) -- (72.5,-36.5);
 \path[line width=0.6mm, draw=red] (72.5,-35.5) -- (71.5,-36.5);
-\draw[black] (70,-34) node[anchor=base]{4};
-\draw[black] (64,-22) node[anchor=base]{Z};
+\draw[black] (69,-35) node[anchor=base west]{4};
+\draw[black] (64,-21) node[anchor=base]{Z};
 \end{tikzpicture}%

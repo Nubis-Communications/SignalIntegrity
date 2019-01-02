@@ -19,11 +19,9 @@ MenuSystemHelpers.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import PhotoImage,Button,Frame,Label
-    from Tkinter import SUNKEN,W,X
+    import Tkinter as tk
 else:
-    from tkinter import PhotoImage,Button,Frame,Label
-    from tkinter import SUNKEN,W,X
+    import tkinter as tk
 
 class MenuElement(object):
     def __init__(self,menu,**kw):
@@ -62,10 +60,10 @@ class CheckButtonMenuElement(object):
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
         if 'iconfile' in kw:
-            self.icon = PhotoImage(file=kw['iconfile'])
+            self.icon = tk.PhotoImage(file=kw['iconfile'])
             del kw['iconfile']
             kw['image']=self.icon
-        self.button=Button(frame,kw)
+        self.button=tk.Button(frame,kw)
         self.active=None
         if 'state' in kw:
             active=kw['state'] == 'normal'
@@ -151,11 +149,11 @@ class Doer(object):
             self.keyBindElement.Activate(active)
         return self
 
-class StatusBar(Frame):
+class StatusBar(tk.Frame):
     def __init__(self, master):
-        Frame.__init__(self, master)
-        self.label = Label(self, bd=1, relief=SUNKEN, anchor=W)
-        self.label.pack(fill=X)
+        tk.Frame.__init__(self, master)
+        self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W)
+        self.label.pack(fill=tk.X)
     def set(self, format, *args):
         self.label.config(text=format % args)
         self.label.update_idletasks()

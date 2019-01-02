@@ -20,8 +20,7 @@ FilePicker.py
 
 import sys
 if sys.version_info.major < 3:
-    from tkFileDialog import asksaveasfilename
-    from tkFileDialog import askopenfilename
+    import tkFileDialog as filedialog
 else:
     from tkinter import filedialog
 
@@ -36,15 +35,9 @@ def _FileNameChecker(filename):
     return filename
 
 def AskSaveAsFilename(**kw):
-    if sys.version_info.major < 3:
-        filename=asksaveasfilename(**kw)
-    else:
-        filename=filedialog.asksaveasfilename(**kw)
+    filename=filedialog.asksaveasfilename(**kw)
     return _FileNameChecker(filename)
 
 def AskOpenFileName(**kw):
-    if sys.version_info.major < 3:
-        filename=askopenfilename(**kw)
-    else:
-        filename=filedialog.askopenfilename(**kw)
+    filename=filedialog.askopenfilename(**kw)
     return _FileNameChecker(filename)

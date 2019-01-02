@@ -19,46 +19,40 @@ About.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Toplevel,PhotoImage,Frame,Button,Label,Message
-    from Tkinter import TOP,BOTH,LEFT,YES,X,END,CENTER
-    import webbrowser
-    import textwrap
-    from ScrolledText import ScrolledText
+    import Tkinter as tk
+    import ScrolledText as scrolledtext
 else:
-    from tkinter import Toplevel,PhotoImage,Frame,Button,Label,Message
-    from tkinter import TOP,BOTH,LEFT,YES,X,END,CENTER
-    import webbrowser
-    import textwrap
+    import tkinter as tk
     from tkinter import scrolledtext
+import webbrowser
+import textwrap
 
 from SignalIntegrity.__about__ import __version__,__url__,__copyright__,__description__,__author__,__email__,__project__
+import SignalIntegrity.App.Project
 
-class CreditsDialog(Toplevel):
+class CreditsDialog(tk.Toplevel):
     def __init__(self,parent):
         self.parent=parent
         textToShow = [' '+__project__+' was written by:','','\t {} \t <{}>'.format(__author__,__email__)]
-        Toplevel.__init__(self, parent)
-        self.img = PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
+        tk.Toplevel.__init__(self, parent)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('Credits')
-        if sys.version_info.major < 3:
-            self.text=ScrolledText(self,height=8,width=50)
-        else:
-            self.text=scrolledtext.ScrolledText(self,height=8,width=50)
-        self.text.pack(side=TOP, fill=BOTH, expand=YES)
+        self.text=scrolledtext.ScrolledText(self,height=8,width=50)
+        self.text.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         for line in textToShow:
-            self.text.insert(END,line+'\n')
-        buttonsFrame = Frame(self)
-        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
-        closeButton = Button(buttonsFrame,text='Close',command=self.destroy)
-        closeButton.pack(side=LEFT,expand=YES)
+            self.text.insert(tk.END,line+'\n')
+        buttonsFrame = tk.Frame(self)
+        buttonsFrame.pack(side=tk.TOP,expand=tk.YES,fill=tk.X,anchor='s')
+        closeButton = tk.Button(buttonsFrame,text='Close',command=self.destroy)
+        closeButton.pack(side=tk.LEFT,expand=tk.YES)
         self.text.focus_set()
         self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
             self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
         self.text.configure(state='disabled')
  
-class LicenseDialog(Toplevel):
+class LicenseDialog(tk.Toplevel):
     def __init__(self,parent):
         self.parent=parent
         textToShow=[
@@ -77,25 +71,22 @@ class LicenseDialog(Toplevel):
             '',
             'You should have received a copy of the GNU General Public License along with this program.',
             'If not, see <https://www.gnu.org/licenses/>']
-        Toplevel.__init__(self, parent)
-        self.img = PhotoImage(file=parent.parent.installdir+'/icons/png/AppIcon2.gif')
-        self.gnuimg=PhotoImage(file=parent.parent.installdir+'/icons/png/gpl.gif')
+        tk.Toplevel.__init__(self, parent)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.gnuimg=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'gpl.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('License')
-        self.gnu=Button(self,image=self.gnuimg,command=self.onHyper)
-        self.gnu.pack(side=TOP,fill=BOTH,expand=YES)
-        if sys.version_info.major < 3:
-            self.text=ScrolledText(self)
-        else:
-            self.text=scrolledtext.ScrolledText(self)
-        self.text.pack(side=TOP, fill=BOTH, expand=YES)
+        self.gnu=tk.Button(self,image=self.gnuimg,command=self.onHyper)
+        self.gnu.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.text=scrolledtext.ScrolledText(self)
+        self.text.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         for line in textToShow:
-            self.text.insert(END,line+'\n')
-        buttonsFrame = Frame(self)
-        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
-        closeButton = Button(buttonsFrame,text='Close',command=self.destroy)
-        closeButton.pack(side=LEFT,expand=YES)
+            self.text.insert(tk.END,line+'\n')
+        buttonsFrame = tk.Frame(self)
+        buttonsFrame.pack(side=tk.TOP,expand=tk.YES,fill=tk.X,anchor='s')
+        closeButton = tk.Button(buttonsFrame,text='Close',command=self.destroy)
+        closeButton.pack(side=tk.LEFT,expand=tk.YES)
         self.text.focus_set()
         self.geometry("%+d%+d" % (self.parent.winfo_x()+self.parent.winfo_width()/2-self.winfo_width()/2,
             self.parent.winfo_y()+self.parent.winfo_height()/2-self.winfo_height()/2))
@@ -103,38 +94,38 @@ class LicenseDialog(Toplevel):
     def onHyper(self):
         webbrowser.open_new(r"https://www.gnu.org/licenses/gpl-3.0.html")
 
-class AboutDialog(Toplevel):
+class AboutDialog(tk.Toplevel):
     def __init__(self,parent):
         self.parent = parent
 
-        Toplevel.__init__(self, parent)
+        tk.Toplevel.__init__(self, parent)
 
-        self.img = PhotoImage(file=parent.installdir+'/icons/png/AppIcon2.gif')
-        self.img2 = PhotoImage(file=parent.installdir+'/icons/png/tlecroy-logo-15.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.img2 = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'tlecroy-logo-15.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('About '+__project__)
         self.focus_set()
-        lecroyLabel = Label(self,image=self.img2)
-        lecroyLabel.pack(side=TOP,expand=YES,fill=BOTH)
-        iconLabel = Label(self, image=self.img)
-        iconLabel.pack(side=TOP,expand=YES,fill=BOTH)
-        msg = Message(self,text=__description__,justify=CENTER, width=500)
-        msg.pack(side=TOP,expand=YES,fill=BOTH)
-        msg = Message(self,text="version: %s" % (__version__),justify=CENTER, width=500)
-        msg.pack(side=TOP,expand=YES,fill=BOTH)
-        msg = Message(self,text=__copyright__,justify=CENTER, width=500)
-        msg.pack(side=TOP,expand=YES,fill=BOTH)
-        hyperLink = Button(self,text=__url__, command=self.onHyper, borderwidth=0)
-        hyperLink.pack(side=TOP,expand=YES,fill=X)
-        buttonsFrame = Frame(self)
-        buttonsFrame.pack(side=TOP,expand=YES,fill=X,anchor='s')
-        creditsButton = Button(buttonsFrame,text='Credits', command=self.onCredits, width=10)
-        creditsButton.pack(side=LEFT,expand=YES)
-        licenseButton = Button(buttonsFrame,text='License', command=self.onLicense, width=10)
-        licenseButton.pack(side=LEFT,expand=YES)
-        closeButton = Button(buttonsFrame,text='Close',command=self.destroy, width=10)
-        closeButton.pack(side=LEFT,expand=YES)
+        lecroyLabel = tk.Label(self,image=self.img2)
+        lecroyLabel.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
+        iconLabel = tk.Label(self, image=self.img)
+        iconLabel.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
+        msg = tk.Message(self,text=__description__,justify=tk.CENTER, width=500)
+        msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
+        msg = tk.Message(self,text="version: %s" % (__version__),justify=tk.CENTER, width=500)
+        msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
+        msg = tk.Message(self,text=__copyright__,justify=tk.CENTER, width=500)
+        msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
+        hyperLink = tk.Button(self,text=__url__, command=self.onHyper, borderwidth=0)
+        hyperLink.pack(side=tk.TOP,expand=tk.YES,fill=tk.X)
+        buttonsFrame = tk.Frame(self)
+        buttonsFrame.pack(side=tk.TOP,expand=tk.YES,fill=tk.X,anchor='s')
+        creditsButton = tk.Button(buttonsFrame,text='Credits', command=self.onCredits, width=10)
+        creditsButton.pack(side=tk.LEFT,expand=tk.YES)
+        licenseButton = tk.Button(buttonsFrame,text='License', command=self.onLicense, width=10)
+        licenseButton.pack(side=tk.LEFT,expand=tk.YES)
+        closeButton = tk.Button(buttonsFrame,text='Close',command=self.destroy, width=10)
+        closeButton.pack(side=tk.LEFT,expand=tk.YES)
         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 

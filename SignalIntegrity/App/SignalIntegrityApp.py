@@ -18,17 +18,14 @@ SignalIntegrityApp.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Frame,PhotoImage,Menu,Button,Tk
-    from Tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
-    import tkFont
-    import tkMessageBox
-    from tkMessageBox import askyesnocancel
+    import Tkinter as tk
+    import tkFont as font
+    import tkMessageBox as messagebox
 else:
-    from tkinter import Frame,PhotoImage,Menu,Button,Tk
-    from tkinter import LEFT,NO,NONE,RAISED,X,TOP,SUNKEN,BOTTOM,BOTH,RIGHT,E,YES
+    import tkinter as tk
     from tkinter import font
     from tkinter import messagebox
-    #from messagebox import askyesnocancel
+
 
 import copy
 import os
@@ -60,33 +57,34 @@ from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertie
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
-class SignalIntegrityApp(Frame):
-    def __init__(self,projectFileName=None,runMainLoop=True):        # make absolutely sure the directory of this file is the first in the
-        # python path
+class SignalIntegrityApp(tk.Frame):
+    def __init__(self,projectFileName=None,runMainLoop=True,external=False):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
 
         SignalIntegrity.App.Preferences=Preferences()
-        self.root = Tk()
+        self.external=external
+        self.root = tk.Tk()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.UpdateColorsAndFonts()
 
-        Frame.__init__(self, self.root)
-        self.pack(fill=BOTH, expand=YES)
-        self.installdir=os.path.dirname(os.path.abspath(__file__))
+        tk.Frame.__init__(self, self.root)
+        self.pack(fill=tk.BOTH, expand=tk.YES)
+        SignalIntegrity.App.Installdir=os.path.dirname(os.path.abspath(__file__))+'/'
+        SignalIntegrity.App.IconsBaseDir=SignalIntegrity.App.Installdir+'icons/png/'
+        SignalIntegrity.App.IconsDir=SignalIntegrity.App.IconsBaseDir+'16x16/actions/'
 
         self.root.title(__project__+' - '+__version__)
 
-        img = PhotoImage(file=self.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
 
         Doer.helpKeys = HelpSystemKeys(SignalIntegrity.App.Preferences['OnlineHelp.RebuildHelpKeys'])
 
         HelpSystemKeys.InstallHelpURLBase(SignalIntegrity.App.Preferences['OnlineHelp.UseOnlineHelp'],
-                                          SignalIntegrity.App.Preferences['OnlineHelp.URL'],
-                                          self.installdir)
+                                          SignalIntegrity.App.Preferences['OnlineHelp.URL'])
 
         # status bar
         self.statusbar=StatusBar(self)
@@ -135,7 +133,7 @@ class SignalIntegrityApp(Frame):
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
         self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('Control-Help:S-parameter-Viewer')
-        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Calculate-Button')
+        self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Calculate-tk.Button')
         self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('Control-Help:Calculate-S-parameters')
         self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('Control-Help:Simulate')
         self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('Control-Help:Virtual-Probe')
@@ -152,11 +150,11 @@ class SignalIntegrityApp(Frame):
         self.BuildHelpKeysDoer = Doer(self.onBuildHelpKeys).AddKeyBindElement(self.root,'<Control-Alt-h>').Activate(True)
 
         # The menu system
-        TheMenu=Menu(self.root)
+        TheMenu=tk.Menu(self.root)
         self.root.config(menu=TheMenu)
-        self.FileMenu=Menu(self)
+        self.FileMenu=tk.Menu(self)
         TheMenu.add_cascade(label='File',menu=self.FileMenu,underline=0)
-        self.RecentsMenu=Menu(self.FileMenu)
+        self.RecentsMenu=tk.Menu(self.FileMenu)
         self.FileMenu.add_cascade(label='Open Recent Projects',menu=self.RecentsMenu,underline=5)
         self.RecentProject0Doer.AddMenuElement(self.RecentsMenu,label='')
         self.RecentProject1Doer.AddMenuElement(self.RecentsMenu,label='')
@@ -173,7 +171,7 @@ class SignalIntegrityApp(Frame):
         self.ExportNetListDoer.AddMenuElement(self.FileMenu,label="Export NetList",underline=0)
         self.ExportTpXDoer.AddMenuElement(self.FileMenu,label="Export LaTeX (TikZ)",underline=7)
         # ------
-        EditMenu=Menu(self)
+        EditMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Edit',menu=EditMenu,underline=0)
         self.UndoDoer.AddMenuElement(EditMenu,label="Undo",accelerator='Ctrl+Z', underline=0)
         self.RedoDoer.AddMenuElement(EditMenu,label="Redo",accelerator='Ctrl+Shift+Z',underline=0)
@@ -181,9 +179,9 @@ class SignalIntegrityApp(Frame):
         # ------
         self.DeleteSelectedDoer.AddMenuElement(EditMenu,label='Delete Selected',accelerator='Del',underline=0)
         self.DuplicateSelectedDoer.AddMenuElement(EditMenu,label='Duplicate Selected',accelerator='Ctrl+C',underline=1)
-        self.CutSelectedDoer.AddMenuElement(EditMenu,label='Cut Selected',accelerator='Ctrl+X',underline=0)
+        self.CutSelectedDoer.AddMenuElement(EditMenu,label='Cut Selected',accelerator='Ctrl+tk.X',underline=0)
         # ------
-        PartsMenu=Menu(self)
+        PartsMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Parts',menu=PartsMenu,underline=0)
         self.AddPartDoer.AddMenuElement(PartsMenu,label='Add Part',underline=0)
         self.AddPortDoer.AddMenuElement(PartsMenu,label='Add Port',underline=6)
@@ -201,7 +199,7 @@ class SignalIntegrityApp(Frame):
         self.FlipPartHorizontallyDoer.AddMenuElement(PartsMenu,label='Flip Horizontally',underline=5)
         self.FlipPartVerticallyDoer.AddMenuElement(PartsMenu,label='Flip Vertically',underline=5)
         # ------
-        WireMenu=Menu(self)
+        WireMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Wires',menu=WireMenu,underline=0)
         self.AddWireDoer.AddMenuElement(WireMenu,label='Add Wire',underline=0)
         WireMenu.add_separator()
@@ -209,13 +207,13 @@ class SignalIntegrityApp(Frame):
         self.DuplicateVertexDoer.AddMenuElement(WireMenu,label='Duplicate Vertex',underline=1)
         self.DeleteWireDoer.AddMenuElement(WireMenu,label='Delete Wire',underline=0)
         # ------
-        ViewMenu=Menu(self)
+        ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
         self.ZoomInDoer.AddMenuElement(ViewMenu,label='Zoom In',underline=5)
         self.ZoomOutDoer.AddMenuElement(ViewMenu,label='Zoom Out',underline=5)
         self.PanDoer.AddMenuElement(ViewMenu,label='Pan',underline=0)
         # ------
-        CalcMenu=Menu(self)
+        CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
         self.SParameterViewerDoer.AddMenuElement(CalcMenu,label='S-parameter Viewer',underline=12)
@@ -225,7 +223,7 @@ class SignalIntegrityApp(Frame):
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
         # ------
-        HelpMenu=Menu(self)
+        HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
@@ -233,41 +231,41 @@ class SignalIntegrityApp(Frame):
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
 
         # The Toolbar
-        ToolBarFrame = Frame(self)
-        ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        iconsdir=self.installdir+'/icons/png/16x16/actions/'
-        self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-new-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif',).Pack(side=LEFT,fill=NONE,expand=NO)
-        self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(ToolBarFrame,bd=2,relief=SUNKEN).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-add-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-delete-6.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.AddWireDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'draw-line-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.DuplicateSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-copy-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.RotatePartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-rotate-left-4.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.FlipPartHorizontallyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-flip-horizontal-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.FlipPartVerticallyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-flip-vertical-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.ZoomInDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'zoom-in-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ZoomOutDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'zoom-out-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.PanDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-move.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        ToolBarFrame = tk.Frame(self)
+        ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        iconsdir=SignalIntegrity.App.IconsDir+''
+        self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-new-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif',).Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,bd=2,relief=tk.SUNKEN).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-add-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-delete-6.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.AddWireDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'draw-line-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.DuplicateSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-copy-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.RotatePartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-rotate-left-4.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.FlipPartHorizontallyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-flip-horizontal-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.FlipPartVerticallyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'object-flip-vertical-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.ZoomInDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'zoom-in-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.ZoomOutDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'zoom-out-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.PanDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-move.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         # ------
-        UndoFrame=Frame(ToolBarFrame)
-        UndoFrame.pack(side=RIGHT,fill=NONE,expand=NO,anchor=E)
-        self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-undo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
-        self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=LEFT,fill=NONE,expand=NO,anchor=E)
+        UndoFrame=tk.Frame(ToolBarFrame)
+        UndoFrame.pack(side=tk.RIGHT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
+        self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-undo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
+        self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
 
         # The Drawing (which contains the schecmatic)
         self.Drawing=Drawing(self)
-        self.Drawing.pack(side=TOP,fill=BOTH,expand=YES)
+        self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
 
-        self.statusbar.pack(side=BOTTOM,fill=X,expand=NO)
+        self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
         self.root.bind('<Key>',self.onKey)
 
         SignalIntegrity.App.Project=ProjectFile()
@@ -310,7 +308,13 @@ class SignalIntegrityApp(Frame):
             self.deltaHeight=event.height-600
             self.knowDelta=True
         #print 'width: '+str(event.width)+', height'+str(event.height)
+        
+        self.deltaWidth=4
+        self.deltaHeight=50
         self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
 
     def onKey(self,event):
 #       print "pressed", repr(event.keycode), repr(event.keysym)
@@ -328,44 +332,13 @@ class SignalIntegrityApp(Frame):
     def onReadProjectFromFile(self):
         if not self.CheckSaveCurrentProject():
             return
-        # Legacy File Format
-        filename=AskOpenFileName(filetypes=[('si', '.si'),('legacy','.xml')],
+
+        filename=AskOpenFileName(filetypes=[('si', '.si')],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension('.si'))
-
         if filename is None:
             return
         self.OpenProjectFile(filename)
-
-    # Legacy File Format
-    def OpenProjectFileLegacy(self,oldfilename):
-        import xml.etree.ElementTree as et
-        SignalIntegrity.App.Project=ProjectFile()
-        tree=et.parse(oldfilename)
-        root=tree.getroot()
-        for child in root:
-            if child.tag == 'drawing':
-                self.Drawing.InitFromXml(child)
-            elif child.tag == 'calculation_properties':
-                from SignalIntegrity.App.ProjectFile import CalculationProperties
-                calculationProperties=CalculationProperties().InitFromXml(child)
-        from SignalIntegrity.App.ProjectFile import DeviceConfiguration
-        SignalIntegrity.App.Project['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(self.Drawing.schematic.deviceList))]
-        for d in range(len(SignalIntegrity.App.Project['Drawing.Schematic.Devices'])):
-            deviceProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices'][d]
-            device=self.Drawing.schematic.deviceList[d]
-            deviceProject['ClassName']=device.__class__.__name__
-            partPictureProject=deviceProject['PartPicture']
-            partPicture=device.partPicture
-            partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
-            partPictureProject['Origin']=partPicture.current.origin
-            partPictureProject['Orientation']=partPicture.current.orientation
-            partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
-            partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
-            deviceProject['PartProperties']=device.propertiesList
-        SignalIntegrity.App.Project.dict['CalculationProperties']=calculationProperties
-        self.Drawing.InitFromProject()
-        return self
 
     def OpenProjectFile(self,filename):
         if filename is None:
@@ -379,14 +352,9 @@ class SignalIntegrityApp(Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-
-        if self.fileparts.fileext == '.xml':
-            self.OpenProjectFileLegacy(self.fileparts.FullFilePathExtension('.xml'))
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.xml'))
-        else:
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
-            self.Drawing.InitFromProject()
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
+        SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+        self.Drawing.InitFromProject()
+        self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
         self.Drawing.stateMachine.Nothing()
         self.history.Event('read project')
         self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
@@ -441,7 +409,7 @@ class SignalIntegrityApp(Frame):
         #self.root.title('SignalIntegrity')
 
     def AnotherFileOpened(self,filename):
-        SignalIntegrity.App.Preferences.AnotherFileOpened(filename)
+        SignalIntegrity.App.Preferences.AnotherFileOpened(filename,not self.external)
         self.UpdateRecentProjectsMenu()
 
     def UpdateRecentProjectsMenu(self):
@@ -527,10 +495,7 @@ class SignalIntegrityApp(Frame):
             tpx.lineList=tpx.lineList+tikz.lineList
             tpx.WriteToFile(filename)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
     def onAddPart(self):
         self.onAddPartFromSpecificList(DeviceList+DeviceListUnknown+DeviceListSystem)
@@ -675,14 +640,11 @@ class SignalIntegrityApp(Frame):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         spnp.AddLines(netList)
-        progressDialog = ProgressDialog(self,self.installdir,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
+        progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
             return
         SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
@@ -720,14 +682,11 @@ class SignalIntegrityApp(Frame):
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 
-        progressDialog = ProgressDialog(self,self.installdir,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
+        progressDialog = ProgressDialog(self,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Deembedder',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Deembedder',e.parameter+': '+e.message)
+            messagebox.showerror('Deembedder',e.parameter+': '+e.message)
             return
         unknownNames=dnp.m_sd.UnknownNames()
         if len(unknownNames)==1:
@@ -762,10 +721,7 @@ class SignalIntegrityApp(Frame):
 
     def onHelp(self):
         if Doer.helpKeys is None:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Help System','Cannot find or open this help element')
-            else:
-                messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')            
             return
         Doer.helpKeys.Open('sec:Introduction')
 
@@ -848,10 +804,7 @@ class SignalIntegrityApp(Frame):
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
-            if sys.version_info.major < 3:
-                default_font = tkFont.nametofont("TkDefaultFont")
-            else:
-                default_font = font.nametofont("TkDefaultFont")
+            default_font = font.nametofont("TkDefaultFont")
             try:
                 default_font.configure(size=fontSizeDesired)
                 self.root.option_add("*Font", default_font)
@@ -859,7 +812,7 @@ class SignalIntegrityApp(Frame):
             except:
                 pass
 
-        w=Button(self.root)
+        w=tk.Button(self.root)
 
         backgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Background']
         if backgroundColor is None:
@@ -908,10 +861,7 @@ class SignalIntegrityApp(Frame):
         if not SignalIntegrity.App.Preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
-        if sys.version_info.major < 3:
-            doit =  askyesnocancel('Wait....','Do you want to save the current project first?')
-        else:
-            doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
+        doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
 
         if doit is None:
             return False
@@ -931,9 +881,13 @@ class SignalIntegrityApp(Frame):
 
 def main():
     projectFileName = None
+    external=False
     if len(sys.argv) >= 2:
         projectFileName=sys.argv[1]
-    SignalIntegrityApp(projectFileName)
+    for arg in sys.argv[2:]:
+        if arg=='--external':
+            external=True
+    SignalIntegrityApp(projectFileName,external=external)
 
 if __name__ == '__main__':
     main()

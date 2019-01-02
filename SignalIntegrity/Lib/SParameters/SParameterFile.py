@@ -22,6 +22,7 @@ from numpy import empty
 from numpy import array
 import cmath
 import math
+import os
 import sys
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
@@ -43,12 +44,22 @@ class SParameterFile(SParameters):
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
-        try:
-        # pragma: include outdent
-            self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
-        # pragma: silent exclude indent
-        except:
-            raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
+        ext=str.lower(name).split('.')[-1]
+        if ext == 'si':
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
+            sp=ProjectSParameters(name)
+            if not sp is None:
+                SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+                return
+            else:
+                raise SignalIntegrityExceptionSParameterFile('s-parameters could not be produced by '+name)
+        else:
+            try:
+            # pragma: include outdent outdent
+                self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
+            # pragma: silent exclude indent indent
+            except:
+                raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
         # pragma: include
         freqMul = 1e6
         complexType = 'MA'

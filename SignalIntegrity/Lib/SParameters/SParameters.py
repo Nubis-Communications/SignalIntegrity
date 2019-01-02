@@ -31,9 +31,12 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
 from SignalIntegrity.Lib.SParameters.SParameterManipulation import SParameterManipulation
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
+from SignalIntegrity.__about__ import __project__,__version__,__description__,__url__
 
 class SParameters(SParameterManipulation):
     """Class containing s-parameters"""
+    header=['File created by '+__project__+' v'+ __version__+': '+__description__,
+        __url__]
     def __init__(self,f,data,Z0=50.0):
         """Constructor
         @param f list of frequencies
@@ -115,6 +118,7 @@ class SParameters(SParameterManipulation):
                 if 'db' in lineList: cpxType = 'DB'
                 if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
         spfile=open(name,'w')
+        for lin in self.header: spfile.write(('! '+lin if lin[0] != '!' else lin)+'\n')
         spfile.write('# '+fToken+' '+cpxType+' '+self.m_sToken+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
@@ -165,3 +169,8 @@ class SParameters(SParameterManipulation):
                 self.m_d[n]=ReferenceImpedance(self.m_d[n],Z0,self.m_Z0)
         self.m_Z0=Z0
         return self
+    ##
+    # @var header
+    # list of strings that form the default header written whenever files are written
+    # the default is the project, version, and description and a link to the SignalIntegrity
+    # website.

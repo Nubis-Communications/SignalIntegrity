@@ -62,11 +62,13 @@ class PartPinConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('NumberVisible'))
         self.Add(XMLPropertyDefaultBool('Visible'))
         self.Add(XMLPropertyDefaultBool('NumberingMatters'))
+        self.Add(XMLPropertyDefaultString('NumberSide','n'))
 
 class PartPictureConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'PartPicture')
-        self.Add(XMLPropertyDefaultString('ClassName'))
+        self.Add(XMLPropertyDefaultInt('Index',None))
+        self.Add(XMLPropertyDefaultString('ClassName',write=False))
         self.Add(XMLPropertyDefaultCoord('Origin'))
         self.Add(XMLPropertyDefaultInt('Orientation'))
         self.Add(XMLPropertyDefaultBool('MirroredVertically',False))
@@ -121,7 +123,9 @@ class CalculationProperties(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
         self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
         self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
+        self.Add(XMLPropertyDefaultFloat('UserSamplePeriod',write=False))
         self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))
+        self.Add(XMLPropertyDefaultFloat('BaseSamplePeriod',write=False))
         self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
         self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
         self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
@@ -131,6 +135,8 @@ class CalculationProperties(XMLConfiguration):
         return self
     def CalculateOthersFromBaseInformation(self):
         self['BaseSampleRate']=self['EndFrequency']*2
+        self['BaseSamplePeriod']=1./self['BaseSampleRate']
+        self['UserSamplePeriod']=1./self['UserSampleRate']
         self['TimePoints']=self['FrequencyPoints']*2
         self['FrequencyResolution']=self['EndFrequency']/self['FrequencyPoints']
         self['ImpulseResponseLength']=1./self['FrequencyResolution']
@@ -172,6 +178,7 @@ class ProjectFile(ProjectFileBase):
             deviceProject['ClassName']=device.__class__.__name__
             partPictureProject=deviceProject['PartPicture']
             partPicture=device.partPicture
+            partPictureProject['Index']=partPicture.partPictureSelected
             partPictureProject['ClassName']=partPicture.partPictureClassList[partPicture.partPictureSelected]
             partPictureProject['Origin']=partPicture.current.origin
             partPictureProject['Orientation']=partPicture.current.orientation

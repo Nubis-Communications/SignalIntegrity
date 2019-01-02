@@ -19,12 +19,10 @@ Simulator.py
 
 import sys
 if sys.version_info.major < 3:
-    from Tkinter import Toplevel,Frame,PhotoImage,Menu,Button
-    from Tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
-    import tkMessageBox
+    import Tkinter as tk
+    import tkMessageBox as messagebox
 else:
-    from tkinter import Toplevel,Frame,PhotoImage,Menu,Button
-    from tkinter import TOP,NO,RAISED,LEFT,X,NONE,BOTH
+    import tkinter as tk
     from tkinter import messagebox
 
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
@@ -41,25 +39,17 @@ if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
-import platform
-if platform.system() == 'Linux':
-    if sys.version_info.major < 3:
-        from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
-    else:
-        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-else:
-    from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 
-class SimulatorDialog(Toplevel):
+class SimulatorDialog(tk.Toplevel):
     def __init__(self, parent):
-        Toplevel.__init__(self, parent.parent)
+        tk.Toplevel.__init__(self, parent.parent)
         self.parent=parent
         self.withdraw()
         self.title('Simulation')
-        img = PhotoImage(file=self.parent.parent.installdir+'/icons/png/AppIcon2.gif')
+        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
@@ -79,39 +69,39 @@ class SimulatorDialog(Toplevel):
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
         # The menu system
-        TheMenu=Menu(self)
+        TheMenu=tk.Menu(self)
         self.config(menu=TheMenu)
-        FileMenu=Menu(self)
+        FileMenu=tk.Menu(self)
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
         self.WaveformSaveDoer.AddMenuElement(FileMenu,label="Save Waveforms",underline=0)
         self.WaveformReadDoer.AddMenuElement(FileMenu,label="Read Waveforms",underline=0)
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
-        CalcMenu=Menu(self)
+        CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
         self.ExamineTransferMatricesDoer.AddMenuElement(CalcMenu,label='View Transfer Parameters',underline=0)
         CalcMenu.add_separator()
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Recalculate',underline=0)
         # ------
-        HelpMenu=Menu(self)
+        HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
 
         # The Toolbar
-        ToolBarFrame = Frame(self)
-        ToolBarFrame.pack(side=TOP,fill=X,expand=NO)
-        iconsdir=self.parent.parent.installdir+'/icons/png/16x16/actions/'
-        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(self,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        Frame(ToolBarFrame,height=2,bd=2,relief=RAISED).pack(side=LEFT,fill=X,padx=5,pady=5)
-        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=LEFT,fill=NONE,expand=NO)
-        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=LEFT,fill=NONE,expand=NO)
+        ToolBarFrame = tk.Frame(self)
+        ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        iconsdir=SignalIntegrity.App.IconsDir+''
+        self.WaveformReadDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(self,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
         self.f = Figure(figsize=(6,4), dpi=100)
         self.plt = self.f.add_subplot(111)
@@ -122,22 +112,16 @@ class SimulatorDialog(Toplevel):
         self.waveformNamesList=None
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         #canvas.show()
-        self.canvas.get_tk_widget().pack(side=TOP, fill=X, expand=1)
+        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
 
-        if platform.system() == 'Linux':
-            if sys.version_info.major < 3:
-                toolbar = NavigationToolbar2TkAgg( self.canvas, self )
-            else:
-                toolbar = NavigationToolbar2Tk( self.canvas, self )
-        else:
-            toolbar = NavigationToolbar2Tk( self.canvas, self )
+        toolbar = NavigationToolbar2Tk( self.canvas, self )
 
         toolbar.update()
-        self.canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
+        self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-        controlsFrame = Frame(self)
-        Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=LEFT,expand=NO,fill=X)
-        controlsFrame.pack(side=TOP,fill=X,expand=NO)
+        controlsFrame = tk.Frame(self)
+        tk.Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
         try:
             from matplotlib2tikz import save as tikz_save
@@ -248,16 +232,10 @@ class SimulatorDialog(Toplevel):
         try:
             PlotTikZ(filename,self.f)
         except:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Export LaTeX','LaTeX could not be generated or written ')
-            else:
-                messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
     def onHelp(self):
         if Doer.helpKeys is None:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Help System','Cannot find or open this help element')
-            else:
-                messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')            
             return
         Doer.helpKeys.Open('sec:Simulator-Dialog')
 
@@ -299,14 +277,11 @@ class Simulator(object):
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
+        progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         #self.transferMatrices.SParameters().WriteToFile('xfer.sXp')
@@ -317,10 +292,7 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.SourceNames()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         diresp=si.fd.Differentiator(fd).Response()
@@ -335,14 +307,11 @@ class Simulator(object):
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='Linear'
 
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+        progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Simulator',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
         for r in range(len(outputWaveformList)):
@@ -387,14 +356,11 @@ class Simulator(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
+        progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
@@ -404,20 +370,14 @@ class Simulator(object):
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
-        progressDialog=ProgressDialog(self.parent,self.parent.installdir,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+        progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            if sys.version_info.major < 3:
-                tkMessageBox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            else:
-                messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         self.outputWaveformLabels=netList.OutputNames()
@@ -438,7 +398,7 @@ class Simulator(object):
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,self.parent.calculationProperties.userSampleRate))
+            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('Virtual Probe: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)

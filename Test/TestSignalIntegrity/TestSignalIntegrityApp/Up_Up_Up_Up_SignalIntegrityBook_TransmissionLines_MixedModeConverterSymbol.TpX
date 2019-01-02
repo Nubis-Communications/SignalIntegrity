@@ -1,8 +1,8 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <text x="20" y="-16" t="+" h="3" halign="c" lc="black"/>
-%  <text x="20" y="-32" t="-" h="3" halign="c" lc="black"/>
-%  <text x="28" y="-16" t="DP" h="3" halign="c" lc="black"/>
-%  <text x="28" y="-32" t="CP" h="3" halign="c" lc="black"/>
+%  <text x="20" y="-17" t="+" h="3" halign="c" lc="black"/>
+%  <text x="20" y="-33" t="-" h="3" halign="c" lc="black"/>
+%  <text x="28" y="-17" t="D" h="3" halign="c" lc="black"/>
+%  <text x="28" y="-33" t="C" h="3" halign="c" lc="black"/>
 %  <rect x="16" y="-8" w="16" h="-32" lc="black"/>
 %  <polyline lc="black">8,-16 16,-16</polyline>
 %  <polyline lw="2" lc="red">7,-15 9,-17</polyline>
@@ -19,10 +19,10 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\draw[black] (20,-16) node[anchor=base]{+};
-\draw[black] (20,-32) node[anchor=base]{-};
-\draw[black] (28,-16) node[anchor=base]{DP};
-\draw[black] (28,-32) node[anchor=base]{CP};
+\draw[black] (20,-17) node[anchor=base]{+};
+\draw[black] (20,-33) node[anchor=base]{-};
+\draw[black] (28,-17) node[anchor=base]{D};
+\draw[black] (28,-33) node[anchor=base]{C};
 \path[line width=0.30mm, draw=black] (16,-40) rectangle +(16,32);
 \path[line width=0.30mm, draw=black] (8,-16) -- (16,-16);
 \path[line width=0.6mm, draw=red] (7,-15) -- (9,-17);
