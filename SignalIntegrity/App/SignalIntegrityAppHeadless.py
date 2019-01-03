@@ -90,20 +90,6 @@ class DrawingHeadless(object):
         self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
         self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed
         return canvas
-    def InitFromXml(self,drawingElement):
-        self.schematic = Schematic()
-        for child in drawingElement:
-            if child.tag == 'schematic':
-                self.schematic.InitFromXml(child)
-            elif child.tag == 'drawing_properties':
-                for drawingPropertyElement in child:
-                    if drawingPropertyElement.tag == 'grid':
-                        self.grid = float(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'originx':
-                        self.originx = int(drawingPropertyElement.text)
-                    elif drawingPropertyElement.tag == 'originy':
-                        self.originy = int(drawingPropertyElement.text)
-
     def InitFromProject(self):
         self.schematic = Schematic()
         self.schematic.InitFromProject()
