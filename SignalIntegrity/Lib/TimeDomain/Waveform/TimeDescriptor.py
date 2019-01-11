@@ -187,6 +187,17 @@ class TimeDescriptor(object):
         @note the index does not have to correspond to a point inside the list of times.
         """
         return self.H+float(k)/self.Fs
+    def IndexOfTime(self,t,Integer=True):
+        """point index corresponding to time
+        @param t float time of point
+        @param Integer (optional, defaults to True) whether to return nearest integer.
+        Otherwise, returns float with possible fractional index
+        @return index of point corresponding to time
+        @note the index may not correspond to a point inside the list of times.
+        """
+        index=(t-self.H)*self.Fs
+        if Integer: index=int(index)
+        return index
     def Print(self):
         """prints an ascii version of the time descriptor"""
         print('HorOffset:  '+str(self.H))
