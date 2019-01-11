@@ -301,8 +301,8 @@ class Simulator(object):
             for c in range(len(self.inputWaveformList)):
                 if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='d/':
                     #print 'differentiate: '+self.outputWaveformLabels[r]
-                    for n in range(len(self.transferMatrices.Matrices)):
-                        self.transferMatrices.Matrices[n][r][c]=self.transferMatrices.Matrices[n][r][c]*diresp[n]
+                    for n in range(len(self.transferMatrices)):
+                        self.transferMatrices[n][r][c]=self.transferMatrices[n][r][c]*diresp[n]
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='Linear'
