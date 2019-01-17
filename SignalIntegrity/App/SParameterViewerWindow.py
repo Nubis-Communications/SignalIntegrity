@@ -94,7 +94,7 @@ class SParametersDialog(tk.Toplevel):
 
         img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
-        self.protocol("WM_DELETE_WINDOW", self.destroy)
+        self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.variableLineWidth = tk.BooleanVar()
         self.showPassivityViolations = tk.BooleanVar()
@@ -272,6 +272,9 @@ class SParametersDialog(tk.Toplevel):
         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 
+    def onClosing(self):
+        self.withdraw()
+        self.destroy()
 
     def PlotSParameter(self):
         import SignalIntegrity.Lib as si

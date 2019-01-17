@@ -51,7 +51,7 @@ class SimulatorDialog(tk.Toplevel):
         self.title('Simulation')
         img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, img)
-        self.protocol("WM_DELETE_WINDOW", self.destroy)
+        self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement('Control-Help:Save-Waveforms')
@@ -133,6 +133,10 @@ class SimulatorDialog(tk.Toplevel):
 
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
+
+    def onClosing(self):
+        self.withdraw()
+        self.destroy()
 
     def onAutoscale(self):
         self.plt.autoscale(True)

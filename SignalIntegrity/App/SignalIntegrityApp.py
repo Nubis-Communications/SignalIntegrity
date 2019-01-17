@@ -65,6 +65,7 @@ class SignalIntegrityApp(tk.Frame):
         SignalIntegrity.App.Preferences=Preferences()
         self.external=external
         self.root = tk.Tk()
+        self.root.withdraw()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
 
@@ -298,7 +299,7 @@ class SignalIntegrityApp(tk.Frame):
                 self.Drawing.stateMachine.NoProject(True)
 
         self.UpdateRecentProjectsMenu()
-
+        self.root.deiconify()
         if runMainLoop:
             self.root.mainloop()
 
@@ -872,6 +873,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def onClosing(self):
         if self.CheckSaveCurrentProject():
+            self.root.withdraw()
             self.root.destroy()
 
     def onBuildHelpKeys(self):
