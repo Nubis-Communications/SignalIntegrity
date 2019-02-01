@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.1.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -80,8 +80,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for TimeDescriptor:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor__coll__graph.svg" width="135" height="323"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor__coll__graph.svg" width="124" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -125,6 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a424294098a65aea372b401299964e433"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor.xhtml#a424294098a65aea372b401299964e433">TimeOfPoint</a> (self, k)</td></tr>
 <tr class="memdesc:a424294098a65aea372b401299964e433"><td class="mdescLeft">&#160;</td><td class="mdescRight">time corresponding to point index  <a href="#a424294098a65aea372b401299964e433">More...</a><br /></td></tr>
 <tr class="separator:a424294098a65aea372b401299964e433"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa6cd0b55d37653c9405e5d834536c0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor.xhtml#a8aa6cd0b55d37653c9405e5d834536c0">IndexOfTime</a> (self, t, Integer=True)</td></tr>
+<tr class="memdesc:a8aa6cd0b55d37653c9405e5d834536c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">point index corresponding to time  <a href="#a8aa6cd0b55d37653c9405e5d834536c0">More...</a><br /></td></tr>
+<tr class="separator:a8aa6cd0b55d37653c9405e5d834536c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0203fc9c617eec80ba28741251ee3b86"><td class="memItemLeft" align="right" valign="top"><a id="a0203fc9c617eec80ba28741251ee3b86"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor.xhtml#a0203fc9c617eec80ba28741251ee3b86">Print</a> (self)</td></tr>
 <tr class="memdesc:a0203fc9c617eec80ba28741251ee3b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints an ascii version of the time descriptor <br /></td></tr>
@@ -519,6 +521,53 @@ the horizontal offset is compared with an epsilong of 0.001% of the sample perio
 <dl class="section return"><dt>Returns</dt><dd>instance of EvenlySpacedFrequencyList containing list of frequencies that correspond to this time descriptor. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TimeDescriptor_8py_source.xhtml#l00178">178</a> of file <a class="el" href="TimeDescriptor_8py_source.xhtml">TimeDescriptor.py</a>.</p>
+
+</div>
+</div>
+<a id="a8aa6cd0b55d37653c9405e5d834536c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aa6cd0b55d37653c9405e5d834536c0">&#9670;&nbsp;</a></span>IndexOfTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def IndexOfTime </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>Integer</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>point index corresponding to time </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>float time of point </td></tr>
+    <tr><td class="paramname">Integer</td><td>(optional, defaults to True) whether to return nearest integer. Otherwise, returns float with possible fractional index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>index of point corresponding to time </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>the index may not correspond to a point inside the list of times. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TimeDescriptor_8py_source.xhtml#l00214">214</a> of file <a class="el" href="TimeDescriptor_8py_source.xhtml">TimeDescriptor.py</a>.</p>
 
 </div>
 </div>
