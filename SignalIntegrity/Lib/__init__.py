@@ -37,4 +37,3 @@ from .Rat import *
 from . import Measurement as m
 from . import Test as test
 from . import Fit as fit
-from . import Oyster as oy
