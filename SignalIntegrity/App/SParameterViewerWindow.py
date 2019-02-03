@@ -276,6 +276,10 @@ class SParametersDialog(tk.Toplevel):
         self.withdraw()
         self.destroy()
 
+    def destroy(self):
+        tk.Toplevel.withdraw(self)
+        tk.Toplevel.destroy(self)
+
     def PlotSParameter(self):
         import SignalIntegrity.Lib as si
         self.topLeftPlot.cla()

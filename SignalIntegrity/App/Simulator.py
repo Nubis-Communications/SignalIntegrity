@@ -138,6 +138,10 @@ class SimulatorDialog(tk.Toplevel):
         self.withdraw()
         self.destroy()
 
+    def destroy(self):
+        tk.Toplevel.withdraw(self)
+        tk.Toplevel.destroy(self)
+
     def onAutoscale(self):
         self.plt.autoscale(True)
         self.f.canvas.draw()
