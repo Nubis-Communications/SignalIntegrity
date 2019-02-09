@@ -270,6 +270,7 @@ class SignalIntegrityApp(tk.Frame):
         self.root.bind('<Key>',self.onKey)
 
         SignalIntegrity.App.Project=ProjectFile()
+        self.Drawing.InitFromProject()
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
