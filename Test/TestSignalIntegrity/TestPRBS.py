@@ -29,7 +29,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testPRBS7(self):
-        prbs7Calc=si.prbs.PseudoRandomBitPattern(7)
+        prbs7Calc=si.prbs.PseudoRandomPolynomial(7).Pattern()
         with open('prbs7.txt','rU' if sys.version_info.major < 3 else 'r') as f:
             prbs7Regression=[int(e) for e in f.readline().split()]
         self.assertEqual(prbs7Calc, prbs7Regression, 'prbs 7 failed')
@@ -38,22 +38,58 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
         bitrate=1e9
         samplesPerUI=100
         amplitude=0.5
-        wf=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,bitrate*samplesPerUI)
+        delay=0.
+        wf=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
         self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
     def testPRBS9Waveform(self):
         risetime=300e-12
         bitrate=1e9
         samplesPerUI=10
         amplitude=0.5
-        wf=si.prbs.PseudoRandomWaveform(9,bitrate,amplitude,risetime,bitrate*samplesPerUI)
+        delay=0.
+        wf=si.prbs.PseudoRandomWaveform(9,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
         self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
     def testPRBS11Waveform(self):
         risetime=300e-12
         bitrate=1e9
         samplesPerUI=10
         amplitude=0.5
-        wf=si.prbs.PseudoRandomWaveform(11,bitrate,amplitude,risetime,bitrate*samplesPerUI)
+        delay=0.
+        wf=si.prbs.PseudoRandomWaveform(11,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
         self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
+    def testPRBS93(self):
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            prbsCalc=si.prbs.PseudoRandomPolynomial(93).Pattern()
+        self.assertEqual(cm.exception.parameter,'PseudoRandomPolynomial')
+    def testPRBS11WaveformWrongRisetime(self):
+        risetime=600e-12
+        bitrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            wf=si.prbs.PseudoRandomWaveform(11,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
+        self.assertEqual(cm.exception.parameter,'Waveform')
+    def testPRBS7WaveformNoSampleRate(self):
+        risetime=300e-12
+        bitrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        wf=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay)
+        wf2=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
+        self.assertEqual(wf, wf2, 'prbs no sample rate specified incorrect')
+    def testPRBS7WaveformTd(self):
+        risetime=300e-12
+        bitrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        wf=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay)
+        td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**7-1),bitrate*10.)
+        wf2=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,td)
+        self.assertEqual(wf, wf2, 'prbs with time descriptor incorrect')
+
 
 if __name__ == "__main__":
     unittest.main()

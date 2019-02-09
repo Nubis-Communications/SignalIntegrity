@@ -19,6 +19,8 @@
 # If not, see <https://www.gnu.org/licenses/>
 import math
 
+from SignalIntegrity.Lib.Exception import SignalIntegrityException
+
 class PseudoRandomPolynomial(list):
     """generates pseudo-random bit patterns
 
@@ -73,6 +75,8 @@ class PseudoRandomPolynomial(list):
         """
         if isinstance(polynomial,int):
             number=polynomial
+            if not number in self.polynomials:
+                raise SignalIntegrityException('PseudoRandomPolynomial','pseudo-random polynomial not found')
             polynomial=[0 for _ in range(number+1)]
             for c in self.polynomials[number]: polynomial[c]=1
         list.__init__(self,polynomial)

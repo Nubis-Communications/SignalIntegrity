@@ -302,3 +302,15 @@ class PartPropertyWaveformType(PartProperty):
 class PartPropertyWaveformProjectName(PartProperty):
     def __init__(self,wfProjName=None):
         PartProperty.__init__(self,'wfprojname',type='string',unit=None,keyword='wfprojname',keywordVisible=False,description='waveform project name',value=wfProjName,visible=False)
+
+class PartPropertyBitRate(PartProperty):
+    def __init__(self,bitRate=1e9):
+        PartProperty.__init__(self,'bitRate',type='float',unit='b/s',keyword='br',description='bit rate (b/s)',value=bitRate,visible=True)
+
+class PartPropertyRisetime(PartProperty):
+    def __init__(self,risetime=0.0):
+        PartProperty.__init__(self,'risetime',type='float',unit='s',keyword='rt',description='risetime (s)',value=risetime,visible=False)
+
+class PartPropertyPRBSPolynomial(PartProperty):
+    def __init__(self,poly=7):
+        PartProperty.__init__(self,'prbs',type='int',unit='',keyword='prbs',description='prbs polynomial order',value=poly,visible=True,keywordVisible=True)
