@@ -293,7 +293,7 @@ class SignalIntegrityApp(tk.Frame):
 
         if not projectFileName == None:
             try:
-                self.OpenProjectFile(projectFileName)
+                self.OpenProjectFile(projectFileName,False)
             except:
                 self.onClearSchematic()
                 self.Drawing.stateMachine.NoProject(True)
@@ -312,6 +312,7 @@ class SignalIntegrityApp(tk.Frame):
         
         self.deltaWidth=4
         self.deltaHeight=50
+
         try:
             self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
             SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
@@ -344,7 +345,7 @@ class SignalIntegrityApp(tk.Frame):
             return
         self.OpenProjectFile(filename)
 
-    def OpenProjectFile(self,filename):
+    def OpenProjectFile(self,filename,showError=True):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -356,12 +357,16 @@ class SignalIntegrityApp(tk.Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-        SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
-        self.Drawing.InitFromProject()
-        self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
-        self.Drawing.stateMachine.Nothing()
-        self.history.Event('read project')
-        self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
+        try:
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.InitFromProject()
+            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.stateMachine.Nothing()
+            self.history.Event('read project')
+            self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
+        except:
+            if showError:
+                messagebox.showerror('Project File:',self.fileparts.FileNameWithExtension()+' could not be opened')
 
     def onNewProject(self):
         if not self.CheckSaveCurrentProject():
