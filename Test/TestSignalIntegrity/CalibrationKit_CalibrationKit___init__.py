@@ -28,7 +28,7 @@ class CalibrationKit(object):
     def WriteToFile(self,filename,calkitname=None):
         self.Constants.WriteToFile(filename, calkitname)
         return self
-    def WriteStandardsToFiles(self,filenamePrefix):
+    def WriteStandardsToFiles(self,filenamePrefix=''):
         self.shortStandard.WriteToFile(filenamePrefix+'Short')
         self.openStandard.WriteToFile(filenamePrefix+'Open')
         self.loadStandard.WriteToFile(filenamePrefix+'Load')

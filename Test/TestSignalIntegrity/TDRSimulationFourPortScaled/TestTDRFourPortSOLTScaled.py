@@ -1704,11 +1704,26 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             ]
 
         cm=si.m.cal.Calibration(ports,f,ml)
+
+        # test that fixtures matches fixtures written (tests both the fixtures() and writing of them
         Fixture=cm.Fixtures()
         cm.WriteToFile('testFixtureWrite')
         for p in range(ports):
             self.SParameterRegressionChecker(Fixture[p],'testFixtureWrite'+str(p+1)+'.s'+str(ports*2)+'p')
+
+        # test whether the calibration initialization from fixtures written matches the old fixtures
+        fixtureList=[si.sp.SParameterFile('testFixtureWrite'+str(p+1)+'.s'+str(ports*2)+'p') for p in range(ports)]
+        cm2=si.m.cal.Calibration(ports,fixtureList[0].m_f)
+        cm2.InitializeFromFixtures(fixtureList)
+        Fixture2=cm2.Fixtures()
+
+        for p in range(ports):
+            self.SParameterRegressionChecker(Fixture2[p],'testFixtureWrite'+str(p+1)+'.s'+str(ports*2)+'p')
+
+        # remove these fixture files
+        for p in range(ports):
             os.remove('testFixtureWrite'+str(p+1)+'.s'+str(ports*2)+'p')
+
         for p in range(ports):
             self.SParameterRegressionChecker(Fixture[p],'xferNoneBAInverse'+str(p+1)+'.s'+str(ports*2)+'p')
 
