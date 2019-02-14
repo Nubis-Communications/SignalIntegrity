@@ -38,6 +38,19 @@ class Calibration(object):
         self.calibrationMatrix=[[[] for _ in range(self.ports)]
                                 for _ in range(self.ports)]
         self.AddMeasurements(calibrationList)
+    def InitializeFromFixtures(self,fixtureList):
+        """initializes the calibration from list of fixtures
+        @param fixtureList list of instances of class SParameters
+
+        For a given number of ports P, there should be P fixtures in the list
+        and each fixture should be 2P port s-parameters
+        """
+        self.ports=len(fixtureList)
+        self.f=fixtureList[0].m_f
+        self.calibrationMatrix=[[[] for _ in range(self.ports)]
+                                for _ in range(self.ports)]
+        self.ET=[ErrorTerms().InitializeFromFixtures([fixture[n]
+                for fixture in fixtureList]) for n in range(len(self))]
     def __getitem__(self,item): return self.ET[item]
     """overloads [item]
     @param item integer row of error terms matrix to access
@@ -130,13 +143,16 @@ class Calibration(object):
             for n in range(len(self.f)):
                 self[n].TransferThruCalibration()
         return self
-    def DutCalculation(self,sRaw):
+    def DutCalculation(self,sRaw,portList=None):
         """calculates the Dut.\n
         converts the raw measured s-parameters of the DUT into calibrated s-parameter
-        measurements.
+        measurements.\n
+        If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @param sRaw instance of class SParameters of the raw measurement of the DUT.
+        @param (optional) list of zero based port numbers of the DUT
         @return instance of class SParameters of the calibrated DUT measurement.
         """
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculation(sRaw[n])
+        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
                                    for n in range(len(self))])

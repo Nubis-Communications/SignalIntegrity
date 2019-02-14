@@ -56,10 +56,32 @@ class ErrorTerms(object):
         each row and column of the error terms to zero.
 
         @param numPorts integer number of ports for the error terms
+        @return self
         """
         self.numPorts=numPorts
         self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)]
                  for _ in range(self.numPorts)]
+        return self
+    def InitializeFromFixtures(self,fixtureList):
+        """Initialize from list of fixtures
+
+        @param fixtureList list of list of list s-parameter fixture matrices
+        @return self
+        The number of matrices is the number of ports P and each matrix must be
+        2P x 2P corresponding to the fixture format
+        """
+        self.Initialize(len(fixtureList))
+        for r in range(len(fixtureList)):
+            for c in range(len(fixtureList)):
+                if r==c:
+                    self.ET[r][r][0]=fixtureList[r][r][r]
+                    self.ET[r][r][1]=fixtureList[r][r][r+self.numPorts]
+                    self.ET[r][r][2]=fixtureList[r][r+self.numPorts][r+self.numPorts]
+                else:
+                    # Ex
+                    self.ET[r][c][0]=fixtureList[c][r][c]
+                    self.ET[r][c][1]=fixtureList[c][r][r+self.numPorts]
+                    self.ET[r][c][2]=fixtureList[c][r+self.numPorts][r+self.numPorts]
         return self
     def __getitem__(self,item):
         """overloads [item]
@@ -227,16 +249,20 @@ class ErrorTerms(object):
                     B[r][m]=bprime[r][0]
             S=(matrix(B)*matrix(A).getI()).tolist()
             return S
-    def DutCalculation(self,sRaw):
+    def DutCalculation(self,sRaw,pl=None):
         """Calculates a DUT
         @param sRaw list of list s-parameter matrix of raw measured DUT
+        @param pl (optional) list of zero based port numbers of the DUT
         @return list of list s-parameter matrix of calibrated DUT measurement
         @remark This provides a newer, simpler DUT calculation
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @see DutCalculationAlternate
         """
-        B=[[(sRaw[r][c]-self[r][c][0])/self[r][c][1] for c in range(len(sRaw))]
+        if pl is None: pl = [p for p in range(len(sRaw))]
+        B=[[(sRaw[r][c]-self[pl[r]][pl[c]][0])/self[pl[r]][pl[c]][1] for c in range(len(sRaw))]
            for r in  range(len(sRaw))]
-        A=[[B[r][c]*self[r][c][2]+(1 if r==c else 0) for c in range(len(sRaw))]
+        A=[[B[r][c]*self[pl[r]][pl[c]][2]+(1 if r==c else 0) for c in range(len(sRaw))]
            for r in range(len(sRaw))]
         S=(matrix(B)*matrix(A).getI()).tolist()
         return S

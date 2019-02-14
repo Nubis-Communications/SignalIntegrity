@@ -361,7 +361,7 @@ class CalibrationKit(object):
         """
         self.Constants.WriteToFile(filename, calkitname)
         return self
-    def WriteStandardsToFiles(self,filenamePrefix):
+    def WriteStandardsToFiles(self,filenamePrefix=''):
         """Writes the standards to s-parameter files.
         @param filenamePrefix string name of prefix for standards file names
         @return self
