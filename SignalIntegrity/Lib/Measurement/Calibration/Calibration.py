@@ -21,6 +21,8 @@ Calibration
 from SignalIntegrity.Lib.Measurement.Calibration.ErrorTerms import ErrorTerms
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from numpy import hstack,vstack,matrix
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+import sys
 
 class Calibration(object):
     """Generates calibrated s-parameter measurements"""
@@ -75,14 +77,67 @@ class Calibration(object):
                         hstack((matrix(self[n].Fixture(p)[1][0]),
                                 matrix(self[n].Fixture(p)[1][1]))))).tolist()
                     for n in range(len(self))]) for p in range(self.ports)]
-    def WriteToFile(self,filename):
-        """Writes the error terms to a file
-        @param filename name of the file to write the error terms to.
+    def WriteFixturesToFiles(self,filename):
+        """Writes the error terms to a files in the form of fixtures
+        @param filename prefix of the files to write the error terms to.
+
+        For a P port calibration, this writes P s-parameter files where each
+        file is a 2P port fixture file.
         """
         Fixture=self.Fixtures()
         for p in range(self.ports):
             Fixture[p].WriteToFile(filename+str(p+1))
         return self
+    def WriteToFile(self,filename):
+        """Writes the error terms to a file in LeCroy format
+        @param filename name of file to write the error terms to
+
+        The LeCroy format is for each row, for each column, for each error-term,
+        for each frequency point, the error term is written on a line as the real and imaginary part.
+        the first line of the file contains three numbers, the number of ports, the number of frequency
+        points (-1) and the end frequency.
+        """
+        lines=[]
+        ports=self.ports
+        numPoints=len(self)
+        endFrequency=self.f[-1]
+        lines.append(str(ports)+' '+str(numPoints-1)+' '+str(endFrequency)+'\n')
+        for r in range(ports):
+            for c in range(ports):
+                for t in range(3):
+                    for n in range(numPoints):
+                        et=self[n].ET[r][c][t]
+                        lines.append('%15.10e ' % et.real + '%15.10e\n' % et.imag)
+        with open(filename,'w') as f:
+            f.writelines(lines)
+    def ReadFromFile(self,filename):
+        """Reads the error terms to a file in LeCroy format
+        @param filename name of file to read the error terms from
+
+        The LeCroy format is for each row, for each column, for each error-term,
+        for each frequency point, the error term is written on a line as the real and imaginary part.
+        the first line of the file contains three numbers, the number of ports, the number of frequency
+        points (-1) and the end frequency.
+        """
+        with open(filename,'rU' if sys.version_info.major < 3 else 'r') as f:
+            lines=f.readlines()
+        tokens=lines[0].split(' ')
+        self.ports=int(tokens[0])
+        numPoints=int(tokens[1])
+        endFrequency=float(tokens[2])
+        self.f=EvenlySpacedFrequencyList(endFrequency,numPoints)
+        self.calibrationMatrix=[[[] for _ in range(self.ports)]
+                                for _ in range(self.ports)]
+        self.ET=[ErrorTerms().Initialize(self.ports) for n in range(numPoints+1)]
+        lineIndex=1
+        for r in range(self.ports):
+            for c in range(self.ports):
+                for t in range(3):
+                    for n in range(numPoints+1):
+                        lineStrings=lines[lineIndex].split(' ')
+                        lineIndex=lineIndex+1
+                        self[n].ET[r][c][t]=float(lineStrings[0])+1j*float(lineStrings[1])
+
     def AddMeasurements(self,calibrationList=[]):
         """Adds calibration measurements
         @param calibrationList list of instances of class CalibrationMeasurement.
@@ -104,8 +159,7 @@ class Calibration(object):
     def CalculateErrorTerms(self,force=False):
         """Calculates the error terms
         @param force (optional) boolean whether to force it to calculate the error terms.
-        @remark
-        If error terms have not been calculated or force, then the error terms are calculated
+        @remark If error terms have not been calculated or force, then the error terms are calculated
         from instances of CalibrationMeasurement provided during the calibration."""
         if (not self.ET is None) and (not force):
             return self

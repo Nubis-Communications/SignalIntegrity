@@ -692,7 +692,9 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs.remove(firstDef)
         allfuncs.remove('__getitem__')
         allfuncs.remove('__len__')
+        allfuncs.remove('WriteFixturesToFiles')
         allfuncs.remove('WriteToFile')
+        allfuncs.remove('ReadFromFile')
         allfuncs.remove('Fixtures')
         allfuncs.remove('InitializeFromFixtures')
         defName=[firstDef]+allfuncs
