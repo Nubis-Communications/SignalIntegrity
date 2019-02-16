@@ -198,7 +198,7 @@ class ErrorTerms(object):
                                 didOne=True
                                 continue
         return self
-    def Fixture(self,m):
+    def Fixture(self,m,pl=None):
         """Fixture
 
         For a P port measurement, the s-parameters are for a 2*P port
@@ -207,19 +207,25 @@ class ErrorTerms(object):
         the first P ports are the instrument port connections and the remaining
         ports connect to the DUT.
 
-        @param m driven port
+        @param m integer driven port
+        @param pl (optional) list of zero based port numbers of the DUT
         @return a list of list s-parameter matrix
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        m is assumed to be in integer zero based index in the ports list pl
         """
-        E=[[zeros((self.numPorts,self.numPorts),complex).tolist(),
-            zeros((self.numPorts,self.numPorts),complex).tolist()],
-           [zeros((self.numPorts,self.numPorts),complex).tolist(),
-            zeros((self.numPorts,self.numPorts),complex).tolist()]]
-        for n in range(self.numPorts):
-            ETn=self[n][m]
-            E[0][0][m][n]=ETn[0]
-            E[0][1][n][n]=ETn[1]
-            E[1][1][n][n]=ETn[2]
-        E[1][0][m][m]=1.
+        if pl is None: pl = [p for p in range(self.numPorts)]
+        numPorts=len(pl)
+        E=[[zeros((numPorts,numPorts),complex).tolist(),
+            zeros((numPorts,numPorts),complex).tolist()],
+           [zeros((numPorts,numPorts),complex).tolist(),
+            zeros((numPorts,numPorts),complex).tolist()]]
+        for n in range(numPorts):
+            ETn=self[pl[n]][m]
+            E[0][0][pl[m]][pl[n]]=ETn[0]
+            E[0][1][pl[n]][pl[n]]=ETn[1]
+            E[1][1][pl[n]][pl[n]]=ETn[2]
+        E[1][0][pl[m]][pl[m]]=1.
         return E
     def DutCalculationAlternate(self,sRaw):
         """Alternate Dut Calculation

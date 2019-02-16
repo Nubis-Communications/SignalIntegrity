@@ -66,39 +66,55 @@ class Calibration(object):
     """overloads len()
     @return the number of rows in the error terms (which is the number of ports).
     """
-    def Fixtures(self):
+    def Fixtures(self,pl=None):
         """Fixtures
         @return the error terms as fixtures
+        @param pl (optional) list of zero based port numbers of the DUT
+
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in the calibration, otherwise ports can be specified where the DUT is connected.
         """
         self.CalculateErrorTerms()
+        if pl is None: pl = [p for p in range(self.ports)]
+        ports=len(pl)
         return [SParameters(self.f,[
-                vstack((hstack((matrix(self[n].Fixture(p)[0][0]),
-                                matrix(self[n].Fixture(p)[0][1]))),
-                        hstack((matrix(self[n].Fixture(p)[1][0]),
-                                matrix(self[n].Fixture(p)[1][1]))))).tolist()
-                    for n in range(len(self))]) for p in range(self.ports)]
-    def WriteFixturesToFiles(self,filename):
+                vstack((hstack((matrix(self[n].Fixture(p,pl)[0][0]),
+                                matrix(self[n].Fixture(p,pl)[0][1]))),
+                        hstack((matrix(self[n].Fixture(p,pl)[1][0]),
+                                matrix(self[n].Fixture(p,pl)[1][1]))))).tolist()
+                    for n in range(len(self))]) for p in range(ports)]
+    def WriteFixturesToFiles(self,filename,pl=None):
         """Writes the error terms to a files in the form of fixtures
         @param filename prefix of the files to write the error terms to.
+        @param pl (optional) list of zero based port numbers of the DUT
 
         For a P port calibration, this writes P s-parameter files where each
         file is a 2P port fixture file.
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in the calibration, otherwise ports can be specified where the DUT is connected.
+
         """
-        Fixture=self.Fixtures()
-        for p in range(self.ports):
+        if pl is None: pl = [p for p in range(self.ports)]
+        ports=len(pl)
+        Fixture=self.Fixtures(pl)
+        for p in range(ports):
             Fixture[p].WriteToFile(filename+str(p+1))
         return self
-    def WriteToFile(self,filename):
+    def WriteToFile(self,filename,pl=None):
         """Writes the error terms to a file in LeCroy format
         @param filename name of file to write the error terms to
+        @param pl (optional) list of zero based port numbers of the DUT.
 
         The LeCroy format is for each row, for each column, for each error-term,
         for each frequency point, the error term is written on a line as the real and imaginary part.
         the first line of the file contains three numbers, the number of ports, the number of frequency
         points (-1) and the end frequency.
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in the calibration, otherwise ports can be specified where the DUT is connected.
         """
+        if pl is None: pl = [p for p in range(self.ports)]
+        ports=len(pl)
         lines=[]
-        ports=self.ports
         numPoints=len(self)
         endFrequency=self.f[-1]
         lines.append(str(ports)+' '+str(numPoints-1)+' '+str(endFrequency)+'\n')
@@ -106,7 +122,7 @@ class Calibration(object):
             for c in range(ports):
                 for t in range(3):
                     for n in range(numPoints):
-                        et=self[n].ET[r][c][t]
+                        et=self[n].ET[pl[r]][pl[c]][t]
                         lines.append('%15.10e ' % et.real + '%15.10e\n' % et.imag)
         with open(filename,'w') as f:
             f.writelines(lines)
