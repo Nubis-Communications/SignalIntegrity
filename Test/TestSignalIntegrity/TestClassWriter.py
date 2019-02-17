@@ -697,6 +697,8 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs.remove('ReadFromFile')
         allfuncs.remove('Fixtures')
         allfuncs.remove('InitializeFromFixtures')
+        allfuncs.remove('DutUnCalculation')
+        allfuncs.remove('DutCalculationAlternate')
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):

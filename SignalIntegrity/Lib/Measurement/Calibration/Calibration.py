@@ -22,6 +22,7 @@ from SignalIntegrity.Lib.Measurement.Calibration.ErrorTerms import ErrorTerms
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from numpy import hstack,vstack,matrix
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 import sys
 
 class Calibration(object):
@@ -215,6 +216,22 @@ class Calibration(object):
             for n in range(len(self.f)):
                 self[n].TransferThruCalibration()
         return self
+    def DutCalculationAlternate(self,sRaw,portList=None):
+        """Alternate Dut Calculation
+        @deprecated This provides a DUT calculation according to the Wittwer method,
+        but a better,simpler method has been found.
+
+        converts the raw measured s-parameters of the DUT into calibrated s-parameter
+        measurements.\n
+        If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        @param sRaw instance of class SParameters of the raw measurement of the DUT.
+        @param portList (optional) list of zero based port numbers of the DUT
+        @return instance of class SParameters of the calibrated DUT measurement.
+        """
+        self.CalculateErrorTerms()
+        return SParameters(self.f,[self[n].DutCalculationAlternate(sRaw[n],portList)
+                                   for n in range(len(self))])
     def DutCalculation(self,sRaw,portList=None):
         """calculates the Dut.\n
         converts the raw measured s-parameters of the DUT into calibrated s-parameter
@@ -222,9 +239,44 @@ class Calibration(object):
         If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @param sRaw instance of class SParameters of the raw measurement of the DUT.
-        @param (optional) list of zero based port numbers of the DUT
+        @param portList (optional) list of zero based port numbers of the DUT
         @return instance of class SParameters of the calibrated DUT measurement.
         """
         self.CalculateErrorTerms()
         return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
                                    for n in range(len(self))])
+    def DutUnCalculation(self,S,portList=None):
+        """Un-calcualates the DUT.\n
+        This calculates the expected raw measured DUT based on the DUT actually calculated.\n
+        @see DutCalculation
+        @param S instance of class SParameters of measured DUT from these error-terms.
+        @param portList (optional) list of zero based port numbers used for the DUT calcualtion
+        @return instance of class SParameters of the raw measured s-parameters that calculated this DUT
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        @todo There must be a faster and more elegant way to do this.  And at the ErrorTerms level.
+        """
+        self.CalculateErrorTerms()
+        if portList is None: portList=[p for p in range(self.ports)]
+        ports=len(portList)
+
+        sspn=SystemSParametersNumeric()
+        sspn.AddDevice('F',2*ports)
+        sspn.AddDevice('D',ports)
+        for p in range(ports):
+            sspn.AddPort('F',p+1,p+1)
+            sspn.ConnectDevicePort('F',ports+p+1,'D',p+1)
+
+        rd=[None for n in range(len(self.f))]
+        fixtureList=self.Fixtures(portList)
+        for n in range(len(self.f)):
+            rm=[[None for c in range(ports)] for r in range(ports)]
+            sspn.AssignSParameters('D',S[n])
+            for p in range(ports):
+                sspn.AssignSParameters('F',fixtureList[p][n])
+                spp=sspn.SParameters()
+                for r in range(ports):
+                    rm[r][p]=spp[r][p]
+            rd[n]=rm
+
+        return SParameters(self.f,rd)

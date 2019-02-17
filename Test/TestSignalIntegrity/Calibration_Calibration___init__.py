@@ -59,7 +59,9 @@ class Calibration(object):
             for n in range(len(self.f)):
                 self[n].TransferThruCalibration()
         return self
+...
     def DutCalculation(self,sRaw,portList=None):
         self.CalculateErrorTerms()
         return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
                                    for n in range(len(self))])
+...
