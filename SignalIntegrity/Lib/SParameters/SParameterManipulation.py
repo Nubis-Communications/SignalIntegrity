@@ -125,3 +125,31 @@ class SParameterManipulation(object):
                     for r in range(len(pr))]
                         for n in range(len(sp.m_d))]
         return sp
+    def LimitImpulseResponseLength(self,lengths):
+        """limits the impulse response length of the ports
+        @param lengths tuple or list of list of tuple impulse response lengths where the
+        tuple contains the negative time limit and the positive time limit.
+        @return self (with impulse responses limited)
+        @remark if the lengths are a single number, it is assumed to be the single
+        length, otherwise if the lengths is a list of list, it is length to be enforced
+        for each port-port connection.
+        """
+        if not isinstance(lengths,list):
+            lengths=[[lengths for _ in range(self.m_P)] for _ in range(self.m_P)]
+        for toPort in range(self.m_P):
+            for fromPort in range(self.m_P):
+                (negativeTimeLimit,positiveTimeLimit)=lengths[toPort][fromPort]
+                fr=self.FrequencyResponse(toPort+1,fromPort+1)
+                ir=fr.ImpulseResponse()
+                if ir is not None:
+                    t=ir.td
+                    for k in range(len(t)):
+                        if t[k]<=negativeTimeLimit:
+                            ir[k]=0.
+                        if t[k]>=positiveTimeLimit:
+                            ir[k]=0.
+                    fr=ir.FrequencyResponse()
+                    frv=fr.Response()
+                    for n in range(len(frv)):
+                        self.m_d[n][toPort][fromPort]=frv[n]
+        return self

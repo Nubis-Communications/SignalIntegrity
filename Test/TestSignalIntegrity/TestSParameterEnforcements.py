@@ -48,6 +48,18 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.WaveletDenoise()
         self.CheckSParametersResult(sf, wdfn, 'wavelet denoised s-parameters incorrect')
+    def testImpulseResponseLimitingSingle(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
+        sf.LimitImpulseResponseLength((-0.5e-12,3e-9))
+        self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters incorrect')
+    def testImpulseResponseLimitingList(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
+        sf.LimitImpulseResponseLength([[(-0.5e-12,3e-9),(-0.5e-12,5e-9)],[(-0.5e-12,5e-9),(-0.5e-12,3e-9)]])
+        self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters incorrect')
 
 if __name__ == "__main__":
     unittest.main()

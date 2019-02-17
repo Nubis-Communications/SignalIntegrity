@@ -94,6 +94,7 @@ class Calibration(object):
         number of ports in the calibration, otherwise ports can be specified where the DUT is connected.
 
         """
+        self.CalculateErrorTerms()
         if pl is None: pl = [p for p in range(self.ports)]
         ports=len(pl)
         Fixture=self.Fixtures(pl)
@@ -112,6 +113,7 @@ class Calibration(object):
         @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
         number of ports in the calibration, otherwise ports can be specified where the DUT is connected.
         """
+        self.CalculateErrorTerms()
         if pl is None: pl = [p for p in range(self.ports)]
         ports=len(pl)
         lines=[]
