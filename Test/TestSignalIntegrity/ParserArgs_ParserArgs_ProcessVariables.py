@@ -8,9 +8,13 @@ class ParserArgs():
             self.m_args = dict([('$'+args[i]+'$',args[i+1])
                 for i in range(0,len(args),2)])
     def ReplaceArgs(self,lineList):
+        replacedOne=False
         for i in range(len(lineList)):
             if lineList[i] in self.m_vars:
+                replacedOne=True
                 lineList[i] = self.m_vars[lineList[i]]
+        if replacedOne:
+            lineList=' '.join(lineList).split()
         return lineList
     def ProcessVariables(self,lineList):
         if lineList[0] == 'var':

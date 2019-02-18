@@ -75,6 +75,21 @@ class PartProperty(PartPropertyConfiguration):
             else:
                 value = str(self.GetValue('Value'))
             return value
+        elif stype == 'netlist':
+            if self.GetValue('Type')=='string':
+                value = self.GetValue('Value')
+            elif self.GetValue('Type')=='file':
+                value=self.GetValue('Value')
+                if not value is None:
+                    if ' ' in value:
+                        value = "'"+value+"'"
+            elif self.GetValue('Type')=='int':
+                value = self.GetValue('Value')
+            elif self.GetValue('Type')=='float':
+                value = str(float(self.GetValue('Value')))
+            else:
+                value = str(self.GetValue('Value'))
+            return value
         else:
             raise ValueError
             return str(self['Value'])

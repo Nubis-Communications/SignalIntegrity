@@ -234,7 +234,6 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGC import TLineDifferentialRLGC
         # pragma: include
         self.dev=None
-        argsList=' '.join(argsList).split()
         if len(argsList) == 0:
             return False
         name=argsList[0].lower()
