@@ -40,6 +40,7 @@ from TestImpedanceProfile import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *
+from TestPRBS import *
 from TestRefImp import *
 from TestRLGC import *
 from TestRLGCLevMar import *
