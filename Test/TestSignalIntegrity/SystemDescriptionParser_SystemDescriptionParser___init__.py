@@ -5,9 +5,13 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.m_lines=[]
         self.m_addThru = False
         self.AssignArguments(args)
+        self.known=None
     def SystemDescription(self):
         if self.m_sd is None: self._ProcessLines()
         return self.m_sd
+    def AddKnownDevices(self,known):
+        self.known=known
+        return self
     def AddLine(self,line):
         self.m_sd = None
         if len(line) == 0: return
@@ -49,5 +53,9 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
     def _ProcessLines(self,exclusionList=[]):
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]
+        if not self.known is None:
+            for key in self.known.keys():
+                self.m_spcl.append(LineSplitter(key))
+                self.m_spc.append((None,self.known[key].Resample(self.m_f)))
         for line in self.m_lines: self._ProcessLine(line,exclusionList)
         return self
