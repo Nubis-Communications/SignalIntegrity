@@ -20,6 +20,8 @@
 
 from numpy import matrix,zeros,identity
 from numpy.linalg import det
+from numpy.linalg import norm
+import cmath
 
 class ErrorTerms(object):
     """Error terms for VNA and TDR based s-parameter calculations.
@@ -149,6 +151,50 @@ class ErrorTerms(object):
         (El,Et)=(ElEt[0][0],ElEt[1][0])
         self[n][m]=[Ex,Et,El]
         return self
+    def UnknownThruCalibration(self,Sm,Sest,firstPort,secondPort):
+        """Computes the unknown thru
+
+        for a given set of measurements of a thru and an estimate of the thru the actual value of the
+        thru is calculated.
+
+        @param Sm list of list raw sparameter measurement of the thru.
+        @param Sest list of list estimate of the thru
+        @param firstPort integer zero based port number of port 1 of thru standard
+        @param secondPort integer zero based port number of port 2 of thru standard
+        @return list of list sparameter value of the thru
+        @remark normally this algorithm is used to compute the error terms directly (which are actually
+        calculated here), but only the recovered thru value is returned.  This is so that an actual thru
+        measurement can be created with this thru value.  If the thru measurement is provided with this
+        calculated value of the thru, the error terms will be recalculated as calculated here, but returning
+        the value of the thru allows the estimate to be checked for validity, and more importantly, allows
+        for multiple thru measurements to be provided to allow for overconstrained, better calibrations.
+        Additionally, the s-parameters of the entire thru measurement (not just at a single frequency) can be
+        impulse response limited to provide an even more improved estimate of the thru.
+        """
+        # pragma: silent exclude
+        # comment this in for debugging - it allows one to compare ET and EL calculated here with what it would
+        # be with a known thru calibration
+#         self.ThruCalibration(Sm[0][0], Sm[1][0],Sest,secondPort, firstPort)
+#         self.ThruCalibration(Sm[1][1], Sm[0][1],[[Sest[1][1],Sest[1][0]],[Sest[0][1],Sest[0][0]]],firstPort,secondPort)
+        # pragma: include
+        [ED1,ER1,ES1]=self[firstPort][firstPort]
+        [ED2,ER2,ES2]=self[secondPort][secondPort]
+        [EX12,ET12,EL12]=self[firstPort][secondPort]
+        [EX21,ET21,EL21]=self[secondPort][firstPort]
+        p=cmath.sqrt((Sm[0][1]-EX12)/(Sm[1][0]-EX21))
+        ET21=cmath.sqrt(ER1)*cmath.sqrt(ER2)/p
+        ET12=cmath.sqrt(ER1)*cmath.sqrt(ER2)*p
+        EL21=ES2
+        EL12=ES1
+        DutCalc1=ErrorTerms([[[ED1,ER1,ES1],[EX12,ET12,EL12]],
+                             [[EX21,ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
+        DutCalc2=ErrorTerms([[[ED1,ER1,ES1],[EX12,-ET12,EL12]],
+                             [[EX21,-ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
+        if norm(matrix(DutCalc1)-matrix(Sest)) < norm(matrix(DutCalc2)-matrix(Sest)):
+            return DutCalc1
+        else:
+            return DutCalc2
+
     def ExCalibration(self,b2a1,n,m):
         """Computes the crosstalk term
 

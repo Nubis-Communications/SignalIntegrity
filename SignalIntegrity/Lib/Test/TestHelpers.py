@@ -358,7 +358,11 @@ class RoutineWriterTesterHelper(object):
                     outputFile.write(line)
         regression=DocStripped(outputFileName,False).doc
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
+#         for line in regression:
+#             if len(line)>self.maxLineLength:
+#                 print line
         self.assertTrue(max([len(line) for line in regression])<=self.maxLineLength,outputFileName + ' has line that is too long: ')
+
         self.assertTrue(len(regression)<=self.maxNumLines,outputFileName + ' has too many lines: '+str(len(regression)))
         if lineDefs:
             if not os.path.exists(lineDefFileName):

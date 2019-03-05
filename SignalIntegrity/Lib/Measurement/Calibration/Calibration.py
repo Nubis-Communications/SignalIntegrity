@@ -23,7 +23,10 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from numpy import hstack,vstack,matrix
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
+from SignalIntegrity.Lib.Measurement.Calibration.CalibrationMeasurements import ThruCalibrationMeasurement
+from SignalIntegrity.Lib.Devices.Thru import Thru
 import sys
+import copy
 
 class Calibration(object):
     """Generates calibrated s-parameter measurements"""
@@ -132,6 +135,7 @@ class Calibration(object):
     def ReadFromFile(self,filename):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
+        @return self
 
         The LeCroy format is for each row, for each column, for each error-term,
         for each frequency point, the error term is written on a line as the real and imaginary part.
@@ -156,7 +160,7 @@ class Calibration(object):
                         lineStrings=lines[lineIndex].split(' ')
                         lineIndex=lineIndex+1
                         self[n].ET[r][c][t]=float(lineStrings[0])+1j*float(lineStrings[1])
-
+        return self
     def AddMeasurements(self,calibrationList=[]):
         """Adds calibration measurements
         @param calibrationList list of instances of class CalibrationMeasurement.
@@ -169,52 +173,119 @@ class Calibration(object):
                 self.calibrationMatrix[otherPort][portDriven].\
                     append(calibrationMeasurement)
             elif (calibrationMeasurement.type=='thru') or\
-                (calibrationMeasurement.type=='xtalk'):
+                (calibrationMeasurement.type=='xtalk') or\
+                (calibrationMeasurement.type=='reciprocal'):
                 portDriven=calibrationMeasurement.portDriven
                 otherPort=calibrationMeasurement.otherPort
                 self.calibrationMatrix[otherPort][portDriven].\
                     append(calibrationMeasurement)
         return self
+    def _CalculateReflectErrorTerms(self,measurements):
+        """calculates the reflect error terms ED, ER, ES for all ports and frequencies.
+        @param measurements list of list of calibration measurements where each column corresponds to
+        a driven port and each row corresponds to a measured port.
+        """
+        for port in range(self.ports):
+            measurementList=measurements[port][port]
+            for n in range(len(self)):
+                hatGamma=[meas.gamma[n] for meas in measurementList]
+                Gamma=[meas.Gamma[n][0][0] for meas in measurementList]
+                self[n].ReflectCalibration(hatGamma,Gamma,port)
+    def _CalculateXtalkErrorTerms(self,measurements):
+        """calculates the crosstalk error terms EX for all port combinations and frequencies.
+        @param measurements list of list of calibration measurements where each column corresponds to
+        a driven port and each row corresponds to a measured port.
+        """
+        for other in range(self.ports):
+            for driven in range(self.ports):
+                if (other != driven):
+                    measurementList=measurements[other][driven]
+                    xtalkMeasurementList=[]
+                    for meas in measurementList:
+                        if meas.type=='xtalk': xtalkMeasurementList.append(meas)
+                    if len(xtalkMeasurementList)!=0:
+                        for n in range(len(self.f)):
+                            self[n].ExCalibration(
+                                xtalkMeasurementList[0].b2a1[n],other,driven)
+    def _CalculateUnknownThruErrorTerms(self,measurements):
+        """calculates the unknown thru standards for each unknown thru measurement.
+        @param measurements list of list of calibration measurements where each column corresponds to
+        a driven port and each row corresponds to a measured port.
+        @remark measurements is affected by this function and the returned measurements should be used
+        subsequently.  Unknown thru measurements create thru measurements using the recovered thru standards.
+        """
+        for other in range(self.ports):
+            for driven in range(self.ports):
+                if (other != driven):
+                    for meas in measurements[other][driven]:
+                        if meas.type=='reciprocal':
+                            Sestsp= [s for s in meas.S] if not (meas.S is None)\
+                                else [Thru() for _ in range(len(self.f))]
+                            for n in range(len(self.f)):
+                                Sestsp[n]=self[n].UnknownThruCalibration(
+                                    meas.Smeasured[n],
+                                    Sestsp[n] if not meas.S is None
+                                        else Sestsp[max(n-1,0)],
+                                    driven,other)
+                            measurements[other][driven].append(
+                                ThruCalibrationMeasurement(
+                                meas.Smeasured.FrequencyResponse(1,1),
+                                meas.Smeasured.FrequencyResponse(2,1),
+                                SParameters(self.f,Sestsp),other,driven))
+                            measurements[driven][other].append(
+                                ThruCalibrationMeasurement(
+                                meas.Smeasured.FrequencyResponse(2,2),
+                                meas.Smeasured.FrequencyResponse(1,2),
+                                SParameters(self.f,Sestsp).PortReorder([1,0]),
+                                driven,other))
+    def _CalculateThruErrorTerms(self,measurements):
+        """calculates the thru error terms EL and ET for each port combination and frequency.
+        @param measurements list of list of calibration measurements where each column corresponds to
+        a driven port and each row corresponds to a measured port.
+        """
+        for other in range(self.ports):
+            for driven in range(self.ports):
+                if (other != driven):
+                    measurementList=measurements[other][driven]
+                    thruMeasurementList=[]
+                    for meas in measurementList:
+                        if meas.type=='thru': thruMeasurementList.append(meas)
+                    if len(thruMeasurementList)!=0:
+                        for n in range(len(self.f)):
+                            b1a1=[meas.b1a1[n] for meas in thruMeasurementList]
+                            b2a1=[meas.b2a1[n] for meas in thruMeasurementList]
+                            S=[meas.S[n] for meas in thruMeasurementList]
+                            self[n].ThruCalibration(b1a1,b2a1,S,other,driven)
+    def _CalculateTransferThruErrorTerms(self):
+        """calculates the transfer thru error terms EL and ET for each port combination and frequency not
+        already covered by an actual thru calibration.
+        @param measurements list of list of calibration measurements where each column corresponds to
+        a driven port and each row corresponds to a measured port.
+        """
+        if Calibration.FillInTransferThru:
+            for n in range(len(self.f)): self[n].TransferThruCalibration()
     def CalculateErrorTerms(self,force=False):
         """Calculates the error terms
+
+        The error terms are calculated in a specific order so that dependencies can be satisfied.
+
+        The reflect error terms are computed first, then the crosstalk error terms.  The unknown thru
+        error terms are calculated which need the reflect and crosstalk error terms.  The unknown thru
+        recovers the thru which is passed to thru error terms calculations (the reason for this is to
+        allow for multiple thru standards computations).  Finally, the transfer thru error terms are
+        calculated which depend on the thru error terms.
         @param force (optional) boolean whether to force it to calculate the error terms.
         @remark If error terms have not been calculated or force, then the error terms are calculated
         from instances of CalibrationMeasurement provided during the calibration."""
         if (not self.ET is None) and (not force):
             return self
         self.ET=[ErrorTerms().Initialize(self.ports) for _ in range(len(self))]
-        for port in range(self.ports):
-            measurementList=self.calibrationMatrix[port][port]
-            for n in range(len(self)):
-                hatGamma=[measurement.gamma[n] for measurement in measurementList]
-                Gamma=[measurement.Gamma[n][0][0] for measurement in measurementList]
-                self[n].ReflectCalibration(hatGamma,Gamma,port)
-        for otherPort in range(self.ports):
-            for drivenPort in range(self.ports):
-                if (otherPort != drivenPort):
-                    measurementList=self.calibrationMatrix[otherPort][drivenPort]
-                    xtalkMeasurementList=[]
-                    thruMeasurementList=[]
-                    for meas in measurementList:
-                        if meas.type=='xtalk':
-                            xtalkMeasurementList.append(meas)
-                        elif meas.type=='thru':
-                            thruMeasurementList.append(meas)
-                    if len(xtalkMeasurementList)!=0:
-                        for n in range(len(self.f)):
-                            self[n].ExCalibration(xtalkMeasurementList[0].b2a1[n],
-                                    otherPort,drivenPort)
-                    if len(thruMeasurementList)!=0:
-                        for n in range(len(self.f)):
-                            b1a1=[measurement.b1a1[n]
-                                  for measurement in thruMeasurementList]
-                            b2a1=[measurement.b2a1[n]
-                                  for measurement in thruMeasurementList]
-                            S=[measurement.S[n] for measurement in thruMeasurementList]
-                            self[n].ThruCalibration(b1a1,b2a1,S,otherPort,drivenPort)
-        if Calibration.FillInTransferThru:
-            for n in range(len(self.f)):
-                self[n].TransferThruCalibration()
+        measurements=copy.deepcopy(self.calibrationMatrix)
+        self._CalculateReflectErrorTerms(measurements)
+        self._CalculateXtalkErrorTerms(measurements)
+        self._CalculateUnknownThruErrorTerms(measurements)
+        self._CalculateThruErrorTerms(measurements)
+        self._CalculateTransferThruErrorTerms()
         return self
     def DutCalculationAlternate(self,sRaw,portList=None):
         """Alternate Dut Calculation
