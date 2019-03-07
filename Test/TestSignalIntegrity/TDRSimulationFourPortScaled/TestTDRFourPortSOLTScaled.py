@@ -975,12 +975,12 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(1,1),calStandards[2],3,'Load4'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru12'],calStandards[3],0,1,'Thru12'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru13'],calStandards[3],0,2,'Thru13'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru14'],calStandards[3],0,3,'Thru14'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru23'],calStandards[3],1,2,'Thru23'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru24'],calStandards[3],1,3,'Thru24'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru34'],calStandards[3],2,3,'Thru34')
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru12'],calStandards[3],0,1,None,'Thru12'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru13'],calStandards[3],0,2,None,'Thru13'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru14'],calStandards[3],0,3,None,'Thru14'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru23'],calStandards[3],1,2,None,'Thru23'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru24'],calStandards[3],1,3,None,'Thru24'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru34'],calStandards[3],2,3,None,'Thru34')
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
@@ -1138,10 +1138,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(1,1),calStandards[2],3,'Load4'),
             #si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru12'],calStandards[3],0,1,'Thru12'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru13'],calStandards[3],0,2,'Thru13'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru14'],calStandards[3],0,3,'Thru14'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru23'],calStandards[3],1,2,'Thru23'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru24'],calStandards[3],1,3,'Thru24'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru13'],calStandards[3],0,2,None,'Thru13'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru14'],calStandards[3],0,3,None,'Thru14'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru23'],calStandards[3],1,2,None,'Thru23'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru24'],calStandards[3],1,3,None,'Thru24'),
             #si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru34'],calStandards[3],2,3,'Thru34')
             ]
 
@@ -1299,12 +1299,12 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load2'].FrequencyResponse(1,1),calStandards[2],1,'Load2'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load3'].FrequencyResponse(1,1),calStandards[2],2,'Load3'),
             si.m.cal.ReflectCalibrationMeasurement(spDict['Load4'].FrequencyResponse(1,1),calStandards[2],3,'Load4'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru12'],None,0,1,'Thru12'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru12'],None,0,1,None,'Thru12'),
 #             si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru13'],calStandards[3],0,2,'Thru13'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru14'],None,0,3,'Thru14'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru23'],None,1,2,'Thru23'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru14'],None,0,3,None,'Thru14'),
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru23'],None,1,2,None,'Thru23'),
 #             si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru24'],calStandards[3],1,3,'Thru24'),
-            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru34'],None,2,3,'Thru34')
+            si.m.cal.UnknownThruCalibrationMeasurement(spDict['Thru34'],None,2,3,None,'Thru34')
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
