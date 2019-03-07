@@ -30,19 +30,19 @@ class Calibration(object):
                                 Sestsp[n]=self[n].UnknownThruCalibration(
                                     meas.Smeasured[n],
                                     Sestsp[n] if not meas.S is None
-                                        else Sestsp[max(n-1,0)],
-                                    driven,other)
+                                    else Sestsp[max(n-1,0)],driven,other)
+                            Sest=SParameters(self.f,Sestsp)
+                            Sest=Sest.LimitImpulseResponseLength(meas.limit)
                             measurements[other][driven].append(
                                 ThruCalibrationMeasurement(
                                 meas.Smeasured.FrequencyResponse(1,1),
                                 meas.Smeasured.FrequencyResponse(2,1),
-                                SParameters(self.f,Sestsp),other,driven))
+                                Sest,other,driven))
                             measurements[driven][other].append(
                                 ThruCalibrationMeasurement(
                                 meas.Smeasured.FrequencyResponse(2,2),
                                 meas.Smeasured.FrequencyResponse(1,2),
-                                SParameters(self.f,Sestsp).PortReorder([1,0]),
-                                driven,other))
+                                Sest.PortReorder([1,0]),driven,other))
     def _CalculateThruErrorTerms(self,measurements):
         for other in range(self.ports):
             for driven in range(self.ports):

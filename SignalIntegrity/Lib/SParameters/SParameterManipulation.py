@@ -134,6 +134,7 @@ class SParameterManipulation(object):
         length, otherwise if the lengths is a list of list, it is length to be enforced
         for each port-port connection.
         """
+        if lengths is None: return self
         if not isinstance(lengths,list):
             lengths=[[lengths for _ in range(self.m_P)] for _ in range(self.m_P)]
         for toPort in range(self.m_P):
