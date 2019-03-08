@@ -117,9 +117,9 @@ class DrawingConfiguration(XMLConfiguration):
         self.SubDir(DrawingPropertiesConfiguration())
         self.SubDir(SchematicConfiguration())
 
-class CalculationProperties(XMLConfiguration):
-    def __init__(self):
-        XMLConfiguration.__init__(self,'CalculationProperties')
+class CalculationPropertiesBase(XMLConfiguration):
+    def __init__(self,Name):
+        XMLConfiguration.__init__(self,Name)
         self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
         self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
         self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
@@ -157,6 +157,10 @@ class CalculationProperties(XMLConfiguration):
         self['UserSampleRate']=userSampleRate
         self.CalculateOthersFromBaseInformation()
         return self
+
+class CalculationProperties(CalculationPropertiesBase):
+    def __init__(self):
+        CalculationPropertiesBase.__init__(self,'CalculationProperties')
 
 class ProjectFile(ProjectFileBase):
     def __init__(self):

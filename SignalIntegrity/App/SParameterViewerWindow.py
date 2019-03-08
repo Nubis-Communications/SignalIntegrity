@@ -29,11 +29,15 @@ import math
 
 from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
 from SignalIntegrity.App.Files import FileParts
-from SignalIntegrity.App.MenuSystemHelpers import Doer
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.App.ToSI import ToSI,FromSI
-from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
+from SignalIntegrity.App.SParameterProperties import SParameterProperties
+from SignalIntegrity.App.SParameterPropertiesDialog import SParameterPropertiesDialog
+from SignalIntegrity.App.InformationMessage import InformationMessage
 import SignalIntegrity.App.Project
+
+import SignalIntegrity.Lib as si
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
@@ -108,7 +112,7 @@ class SParametersDialog(tk.Toplevel):
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
-        self.ResampleDoer = Doer(self.onResample).AddHelpElement('Control-Help:Resample')
+        self.SParameterPropertiesDoer = Doer(self.onSParameterProperties)
         self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement('Control-Help:Enforce-Passivity')
         self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement('Control-Help:Enforce-Causality')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise')
@@ -138,8 +142,8 @@ class SParametersDialog(tk.Toplevel):
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
+        self.SParameterPropertiesDoer.AddMenuElement(CalcMenu,label='S-parameter Properties',underline=0)
         #CalcMenu.add_separator()
-        self.ResampleDoer.AddMenuElement(CalcMenu,label='Resample',underline=0)
         #CalcMenu.add_separator()
         self.EnforcePassivityDoer.AddMenuElement(CalcMenu,label='Enforce Passivity',underline=8)
         self.EnforceCausalityDoer.AddMenuElement(CalcMenu,label='Enforce Causality',underline=9)
@@ -163,15 +167,21 @@ class SParametersDialog(tk.Toplevel):
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.ReadSParametersFromFileDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'document-open-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.WriteSParametersToFileDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
-        tk.Frame(self,bd=2,relief=tk.SUNKEN).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
-        self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.SParameterPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=SignalIntegrity.App.IconsDir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
-        topFrame=tk.Frame(self)
+        self.dialogFrame = tk.Frame(self, borderwidth=5)
+        self.dialogFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+
+        self.statusbar=StatusBar(self.dialogFrame)
+        self.statusbar.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+
+        topFrame=tk.Frame(self.dialogFrame)
         topFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
-        bottomFrame=tk.Frame(self)
+        bottomFrame=tk.Frame(self.dialogFrame)
         bottomFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         topLeftFrame=tk.Frame(topFrame)
         topLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
@@ -219,20 +229,18 @@ class SParametersDialog(tk.Toplevel):
         self.bottomRightToolbar.update()
         self.bottomRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-        controlsFrame = tk.Frame(self)
+        controlsFrame = tk.Frame(self.dialogFrame)
         controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.sButtonsFrame = tk.Frame(controlsFrame, bd=1, relief=tk.SUNKEN)
         self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
-        self.resampleButton=tk.Button(controlsFrame,text='resample',command=self.onResample)
-        self.resampleButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
 
         self.sp=sp
+        self.properties=SParameterProperties()
+        self.UpdatePropertiesFromSParameters()
 
         if buttonLabels is None:
             numPorts=self.sp.m_P
             buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
-            self.referenceImpedance=PartPropertyReferenceImpedance(self.sp.m_Z0)
-            self.referenceImpedanceProperty=ViewerProperty(controlsFrame,self.referenceImpedance,self.onReferenceImpedanceEntered)
         else:
             # button labels are a proxy for transfer parameters (until I do something better)
             self.showPassivityViolations.set(False)
@@ -272,6 +280,60 @@ class SParametersDialog(tk.Toplevel):
 #         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
 #             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 
+    def UpdatePropertiesFromSParameters(self):
+        self.properties['FrequencyPoints']=len(self.sp.m_f)-1
+        self.properties['EndFrequency']=self.sp.m_f[-1]
+        self.properties['ReferenceImpedance']=self.sp.m_Z0
+        if si.fd.FrequencyList(self.sp.m_f).CheckEvenlySpaced():
+            self.properties.CalculateOthersFromBaseInformation()
+            (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength()
+            self.properties['TimeLimitNegative']=negativeTime
+            self.properties['TimeLimitPositive']=positiveTime
+            self.statusbar.set(str(self.properties['FrequencyPoints'])+
+                '(+1) frequency points to '+ToSI(self.properties['EndFrequency'],'Hz')+
+                ', Evenly Spaced in '+ToSI(self.properties['FrequencyResolution'],'Hz')+
+                ' steps, Z0='+ToSI(self.properties['ReferenceImpedance'],'Ohm'))
+        else:
+            self.statusbar.set(str(self.properties['FrequencyPoints']+1)+
+                ' frequency points, last frequency is '+ToSI(self.properties['EndFrequency'],'Hz')+
+                ', Unevenly spaced, Z0='+ToSI(self.properties['ReferenceImpedance'],'Ohm'))
+            self.properties['BaseSampleRate']=None
+            self.properties['BaseSamplePeriod']=None
+            self.properties['UserSamplePeriod']=None
+            self.properties['TimePoints']=None
+            self.properties['FrequencyResolution']=None
+            self.properties['ImpulseResponseLength']=None
+            self.properties['TimeLimitNegative']=None
+            self.properties['TimeLimitPositive']=None
+
+    def UpdateSParametersFromProperties(self):
+        msg=None
+        if not self.properties['TimePoints'] is None:
+            if (self.properties['FrequencyPoints']!=len(self.sp.m_f)-1) or\
+                self.properties['EndFrequency']!=self.sp.m_f[-1]:
+                if msg is None:
+                    msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
+                self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
+                    self.properties['EndFrequency'],
+                    self.properties['FrequencyPoints']))
+                self.UpdatePropertiesFromSParameters()
+            else:
+                (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength()
+                if (self.properties['TimeLimitNegative']>negativeTime) or\
+                    self.properties['TimeLimitPositive']<positiveTime:
+                    if msg is None:
+                        msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
+                    self.sp=self.sp.LimitImpulseResponseLength((self.properties['TimeLimitNegative'],self.properties['TimeLimitPositive']))
+                    self.UpdatePropertiesFromSParameters()
+        if self.properties['ReferenceImpedance'] != self.sp.m_Z0:
+            if msg is None:
+                msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
+            self.sp.SetReferenceImpedance(self.properties['ReferenceImpedance'])
+            self.UpdatePropertiesFromSParameters()
+        if not msg is None:
+            msg.destroy()
+        self.PlotSParameter()
+
     def onClosing(self):
         self.withdraw()
         self.destroy()
@@ -281,7 +343,6 @@ class SParametersDialog(tk.Toplevel):
         tk.Toplevel.destroy(self)
 
     def PlotSParameter(self):
-        import SignalIntegrity.Lib as si
         self.topLeftPlot.cla()
         self.topRightPlot.cla()
         self.bottomLeftPlot.cla()
@@ -424,7 +485,7 @@ class SParametersDialog(tk.Toplevel):
             x=stepResponse.Times(timeLabelDivisor)
 
             if self.showImpedance.get() and (self.fromPort == self.toPort):
-                Z0=self.referenceImpedance.GetValue()
+                Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
                 x=[xv/2 for xv in x]
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
@@ -504,14 +565,10 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
         self.topRightCanvas.draw()
 
-    def onReferenceImpedanceEntered(self):
-        self.sp.SetReferenceImpedance(self.referenceImpedance.GetValue())
-        self.PlotSParameter()
-
     def onReadSParametersFromFile(self):
-        import SignalIntegrity.Lib as si
         filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
+                                 initialfile=self.fileparts.FileNameWithExtension(),
                                  parent=self)
         if filename is None:
             return
@@ -522,8 +579,7 @@ class SParametersDialog(tk.Toplevel):
         self.title('S-parameters: '+self.fileparts.FileNameTitle())
 
         self.sp=si.sp.SParameterFile(filename)
-        self.referenceImpedance.SetValueFromString(str(self.sp.m_Z0))
-        self.referenceImpedanceProperty.propertyString.set(self.referenceImpedance.PropertyString(stype='entry'))
+        self.UpdatePropertiesFromSParameters()
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
         numPorts=self.sp.m_P
@@ -556,15 +612,19 @@ class SParametersDialog(tk.Toplevel):
         self.fileparts=FileParts(filename)
         self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))
 
-    def onResample(self):
-        import SignalIntegrity.Lib as si
-        self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
-            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']))
-        self.PlotSParameter()
-
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
+
+    def onSParameterProperties(self):
+        if not hasattr(self, 'SParameterPropertiesDialog'):
+            self.SParameterPropertiesDialog = SParameterPropertiesDialog(self,self.properties)
+        if self.SParameterPropertiesDialog == None:
+            self.SParameterPropertiesDialog= SParameterPropertiesDialog(self,self.properties)
+        else:
+            if not self.SParameterPropertiesDialog.winfo_exists():
+                self.SParameterPropertiesDialog=SParameterPropertiesDialog(self,self.properties)
+        self.SParameterPropertiesDialog.grab_set()
+
 
     def onMatplotlib2TikZ(self):
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
@@ -637,14 +697,17 @@ class SParametersDialog(tk.Toplevel):
 
     def onEnforcePassivity(self):
         self.sp.EnforcePassivity()
+        self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 
     def onEnforceCausality(self):
         self.sp.EnforceCausality()
+        self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 
     def onWaveletDenoise(self):
         self.sp.WaveletDenoise()
+        self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 
 

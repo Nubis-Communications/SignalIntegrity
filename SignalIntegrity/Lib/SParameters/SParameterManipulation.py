@@ -125,6 +125,42 @@ class SParameterManipulation(object):
                     for r in range(len(pr))]
                         for n in range(len(sp.m_d))]
         return sp
+    def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False):
+        """determines the impulse response lengths of the ports by comparing impulse response to threshold.
+        @param epsilon (optional, defaults to 1e-6) absolute threshold on impulse response.
+        @param allLengths (optional, defaults to False) whether to return the lengths of each port combination
+        @return returns a tuple containining (negativeTime,positiveTime) if allLengths is false (default) containing
+        the most negative time and most positive time for all impulse responses, otherwise if allLengths is true, it returns
+        a list of list of tuples as stated for each impulse response.
+        """
+        lengths=[[(None,None) for _ in range(self.m_P)] for _ in range(self.m_P)]
+        for toPort in range(self.m_P):
+            for fromPort in range(self.m_P):
+                (negativeTimeLimit,positiveTimeLimit)=(None,None)
+                fr=self.FrequencyResponse(toPort+1,fromPort+1)
+                ir=fr.ImpulseResponse()
+                if ir is not None:
+                    t=ir.td
+                    for k in range(len(t)):
+                        if t[k]<0.:
+                            if negativeTimeLimit is None:
+                                if abs(ir[k])>epsilon:
+                                    negativeTimeLimit=t[k]
+                        else:
+                            if abs(ir[k])>epsilon:
+                                positiveTimeLimit=t[k]
+                    if negativeTimeLimit is None:
+                        negativeTimeLimit=0.0
+                    if positiveTimeLimit is None:
+                        positiveTimeLimit=0.0
+                    maxlength=ir.td.K/ir.td.Fs/2.
+                    negativeTimeLimit=max(-maxlength,math.floor(negativeTimeLimit*ir.td.Fs)/ir.td.Fs)
+                    positiveTimeLimit=min(maxlength,math.ceil(positiveTimeLimit*ir.td.Fs)/ir.td.Fs)
+                    lengths[toPort][fromPort]=(negativeTimeLimit,positiveTimeLimit)
+        if allLengths: return lengths
+        negativeLengths=[lengths[toPort][fromPort][0] for toPort in range(self.m_P) for fromPort in range(self.m_P)]
+        positiveLengths=[lengths[toPort][fromPort][1] for toPort in range(self.m_P) for fromPort in range(self.m_P)]
+        return (min(negativeLengths),max(positiveLengths))
     def LimitImpulseResponseLength(self,lengths):
         """limits the impulse response length of the ports
         @param lengths tuple or list of list of tuple impulse response lengths where the
