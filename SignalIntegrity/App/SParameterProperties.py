@@ -17,7 +17,26 @@ SParameterProperties.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFile import CalculationPropertiesBase
-from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat
+from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool
+
+class PlotConfiguration(XMLConfiguration):
+    def __init__(self,name):
+        XMLConfiguration.__init__(self,name)
+        self.Add(XMLPropertyDefaultBool('Initialized',False))
+        self.Add(XMLPropertyDefaultFloat('MinX'))
+        self.Add(XMLPropertyDefaultFloat('MaxX'))
+        self.Add(XMLPropertyDefaultFloat('MinY'))
+        self.Add(XMLPropertyDefaultFloat('MaxY'))
+
+class SParameterPlotsConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'SParameterPlotConfiguration')
+        self.SubDir(PlotConfiguration('Magnitude'))
+        self.SubDir(PlotConfiguration('Phase'))
+        self.SubDir(PlotConfiguration('Impulse'))
+        self.SubDir(PlotConfiguration('Step'))
+        self.SubDir(PlotConfiguration('Impedance'))
+        self.Add(XMLPropertyDefaultFloat('Delay',0.0))
 
 class SParameterProperties(CalculationPropertiesBase):
     def __init__(self):
@@ -25,6 +44,7 @@ class SParameterProperties(CalculationPropertiesBase):
         self.Add(XMLPropertyDefaultFloat('ReferenceImpedance',50.0))
         self.Add(XMLPropertyDefaultFloat('TimeLimitNegative',-100e-12))
         self.Add(XMLPropertyDefaultFloat('TimeLimitPositive',10e-9))
+        self.Add(XMLProperty('Plot',[[SParameterPlotsConfiguration() for _ in range(0)] for _ in range(0)],'array',arrayType=SParameterPlotsConfiguration()))
 
 class SParameterPropertiesProject(ProjectFileBase):
     def __init__(self):

@@ -32,7 +32,7 @@ from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.App.ToSI import ToSI,FromSI
-from SignalIntegrity.App.SParameterProperties import SParameterProperties
+from SignalIntegrity.App.SParameterProperties import SParameterProperties,SParameterPlotsConfiguration
 from SignalIntegrity.App.SParameterPropertiesDialog import SParameterPropertiesDialog
 from SignalIntegrity.App.InformationMessage import InformationMessage
 import SignalIntegrity.App.Project
@@ -236,7 +236,7 @@ class SParametersDialog(tk.Toplevel):
 
         self.sp=sp
         self.properties=SParameterProperties()
-        self.UpdatePropertiesFromSParameters()
+        self.UpdatePropertiesFromSParameters(new=True)
 
         if buttonLabels is None:
             numPorts=self.sp.m_P
@@ -280,7 +280,55 @@ class SParametersDialog(tk.Toplevel):
 #         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
 #             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 
-    def UpdatePropertiesFromSParameters(self):
+    def onTopLeftXLimitChange(self,ax):
+        xlim=ax.get_xlim()
+        if not self.topLeftPlotProperties is None:
+            self.topLeftPlotProperties['MinX']=xlim[0]
+            self.topLeftPlotProperties['MaxX']=xlim[1]
+
+    def onTopLeftYLimitChange(self,ax):
+        ylim=ax.get_ylim()
+        if not self.topLeftPlotProperties is None:
+            self.topLeftPlotProperties['MinY']=ylim[0]
+            self.topLeftPlotProperties['MaxY']=ylim[1]
+
+    def onTopRightXLimitChange(self,ax):
+        xlim=ax.get_xlim()
+        if not self.topRightPlotProperties is None:
+            self.topRightPlotProperties['MinX']=xlim[0]
+            self.topRightPlotProperties['MaxX']=xlim[1]
+
+    def onTopRightYLimitChange(self,ax):
+        ylim=ax.get_ylim()
+        if not self.topRightPlotProperties is None:
+            self.topRightPlotProperties['MinY']=ylim[0]
+            self.topRightPlotProperties['MaxY']=ylim[1]
+
+    def onBottomLeftXLimitChange(self,ax):
+        xlim=ax.get_xlim()
+        if not self.bottomLeftPlotProperties is None:
+            self.bottomLeftPlotProperties['MinX']=xlim[0]
+            self.bottomLeftPlotProperties['MaxX']=xlim[1]
+
+    def onBottomLeftYLimitChange(self,ax):
+        ylim=ax.get_ylim()
+        if not self.bottomLeftPlotProperties is None:
+            self.bottomLeftPlotProperties['MinY']=ylim[0]
+            self.bottomLeftPlotProperties['MaxY']=ylim[1]
+
+    def onBottomRightXLimitChange(self,ax):
+        xlim=ax.get_xlim()
+        if not self.bottomRightPlotProperties is None:
+            self.bottomRightPlotProperties['MinX']=xlim[0]
+            self.bottomRightPlotProperties['MaxX']=xlim[1]
+
+    def onBottomRightYLimitChange(self,ax):
+        ylim=ax.get_ylim()
+        if not self.bottomRightPlotProperties is None:
+            self.bottomRightPlotProperties['MinY']=ylim[0]
+            self.bottomRightPlotProperties['MaxY']=ylim[1]
+
+    def UpdatePropertiesFromSParameters(self,new=False):
         self.properties['FrequencyPoints']=len(self.sp.m_f)-1
         self.properties['EndFrequency']=self.sp.m_f[-1]
         self.properties['ReferenceImpedance']=self.sp.m_Z0
@@ -305,6 +353,8 @@ class SParametersDialog(tk.Toplevel):
             self.properties['ImpulseResponseLength']=None
             self.properties['TimeLimitNegative']=None
             self.properties['TimeLimitPositive']=None
+        if new:
+            self.properties['Plot']=[[SParameterPlotsConfiguration() for _ in range(self.sp.m_P)] for _ in range(self.sp.m_P)]
 
     def UpdateSParametersFromProperties(self):
         msg=None
@@ -348,6 +398,12 @@ class SParametersDialog(tk.Toplevel):
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
         
+        self.topLeftPlotProperties=None
+        self.topRightPlotProperties=None
+        self.bottomLeftPlotProperties=None
+        self.bottomRightPlotProperties=None
+        plotProperties=self.properties['Plot'][self.toPort-1][self.fromPort-1]
+
         if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.topLeftPlot.format_coord = lambda x, y: ''
             self.topRightPlot.format_coord = lambda x, y: ''
@@ -405,10 +461,20 @@ class SParametersDialog(tk.Toplevel):
                 s=[c[2] for c in self.passivityViolations],
                 color='red')
 
-        self.topLeftPlot.set_xlim(xmin=min(x))
-        self.topLeftPlot.set_xlim(xmax=max(x))
-        self.topLeftPlot.set_ylim(ymin=max(min(y)-1.,-60.0))
-        self.topLeftPlot.set_ylim(ymax=max(y)+1.)
+        self.topLeftPlotProperties=plotProperties['Magnitude']
+
+        if not self.topLeftPlotProperties['Initialized']:
+            self.topLeftPlotProperties['MinX']=min(x)
+            self.topLeftPlotProperties['MaxX']=max(x)
+            self.topLeftPlotProperties['MinY']=max(min(y)-1.,-60.0)
+            self.topLeftPlotProperties['MaxY']=max(y)+1.
+            self.topLeftPlotProperties['Initialized']=True
+
+        self.topLeftPlot.set_xlim(xmin=self.topLeftPlotProperties['MinX'])
+        self.topLeftPlot.set_xlim(xmax=self.topLeftPlotProperties['MaxX'])
+        self.topLeftPlot.set_ylim(ymin=self.topLeftPlotProperties['MinY'])
+        self.topLeftPlot.set_ylim(ymax=self.topLeftPlotProperties['MaxY'])
+
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
@@ -433,10 +499,20 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.topRightPlot.plot(x,y)
 
-        self.topRightPlot.set_xlim(xmin=min(x))
-        self.topRightPlot.set_xlim(xmax=max(x))
-        self.topRightPlot.set_ylim(ymin=min(y)-1)
-        self.topRightPlot.set_ylim(ymax=max(y)+1)
+        self.topRightPlotProperties=plotProperties['Phase']
+
+        if not self.topRightPlotProperties['Initialized']:
+            self.topRightPlotProperties['MinX']=min(x)
+            self.topRightPlotProperties['MaxX']=max(x)
+            self.topRightPlotProperties['MinY']=min(y)-1
+            self.topRightPlotProperties['MaxY']=max(y)+1
+            self.topRightPlotProperties['Initialized']=True
+
+        self.topRightPlot.set_xlim(xmin=self.topRightPlotProperties['MinX'])
+        self.topRightPlot.set_xlim(xmax=self.topRightPlotProperties['MaxX'])
+        self.topRightPlot.set_ylim(ymin=self.topRightPlotProperties['MinY'])
+        self.topRightPlot.set_ylim(ymax=self.topRightPlotProperties['MaxY'])
+
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
@@ -470,10 +546,20 @@ class SParametersDialog(tk.Toplevel):
                     s=[c[2] for c in self.causalityViolations],
                     color='red')
 
-            self.bottomLeftPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
-            self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
-            self.bottomLeftPlot.set_xlim(xmin=min(x))
-            self.bottomLeftPlot.set_xlim(xmax=max(x))
+            self.bottomLeftPlotProperties=plotProperties['Impulse']
+
+            if not self.bottomLeftPlotProperties['Initialized']:
+                self.bottomLeftPlotProperties['MinX']=min(x)
+                self.bottomLeftPlotProperties['MaxX']=max(x)
+                self.bottomLeftPlotProperties['MinY']=min(min(y)*1.05,-0.1)
+                self.bottomLeftPlotProperties['MaxY']=max(max(y)*1.05,0.1)
+                self.bottomLeftPlotProperties['Initialized']=True
+
+            self.bottomLeftPlot.set_xlim(xmin=self.bottomLeftPlotProperties['MinX'])
+            self.bottomLeftPlot.set_xlim(xmax=self.bottomLeftPlotProperties['MaxX'])
+            self.bottomLeftPlot.set_ylim(ymin=self.bottomLeftPlotProperties['MinY'])
+            self.bottomLeftPlot.set_ylim(ymax=self.bottomLeftPlotProperties['MaxY'])
+
             self.bottomLeftPlot.set_ylabel('amplitude',fontsize=10)
             self.bottomLeftPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
 
@@ -485,27 +571,47 @@ class SParametersDialog(tk.Toplevel):
             x=stepResponse.Times(timeLabelDivisor)
 
             if self.showImpedance.get() and (self.fromPort == self.toPort):
+                self.bottomRightPlotProperties=plotProperties['Impedance']
                 Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
                 x=[xv/2 for xv in x]
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 self.bottomRightPlot.set_xlabel('length ('+timeLabel+')',fontsize=10)
-                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,Z0-1))
+                if not self.bottomRightPlotProperties['Initialized']:
+                    self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,Z0-1)
             else:
+                self.bottomRightPlotProperties=plotProperties['Step']
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
-                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
+                if not self.bottomRightPlotProperties['Initialized']:
+                    self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,-0.1)
 
             self.bottomRightPlot.plot(x,y)
 
-            self.bottomRightPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
-            self.bottomRightPlot.set_xlim(xmin=min(x))
-            self.bottomRightPlot.set_xlim(xmax=max(x))
+            if not self.bottomRightPlotProperties['Initialized']:
+                self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
+                self.bottomRightPlotProperties['MinX']=min(x)
+                self.bottomRightPlotProperties['MaxX']=max(x)
+                self.bottomRightPlotProperties['Initialized']=True
+
+            self.bottomRightPlot.set_xlim(xmin=self.bottomRightPlotProperties['MinX'])
+            self.bottomRightPlot.set_xlim(xmax=self.bottomRightPlotProperties['MaxX'])
+            self.bottomRightPlot.set_ylim(ymin=self.bottomRightPlotProperties['MinY'])
+            self.bottomRightPlot.set_ylim(ymax=self.bottomRightPlotProperties['MaxY'])
 
         self.topLeftCanvas.draw()
         self.topRightCanvas.draw()
         self.bottomLeftCanvas.draw()
         self.bottomRightCanvas.draw()
+
+        self.topLeftPlot.callbacks.connect('xlim_changed', self.onTopLeftXLimitChange)
+        self.topLeftPlot.callbacks.connect('ylim_changed', self.onTopLeftYLimitChange)
+        self.topRightPlot.callbacks.connect('xlim_changed', self.onTopRightXLimitChange)
+        self.topRightPlot.callbacks.connect('ylim_changed', self.onTopRightYLimitChange)
+        self.bottomLeftPlot.callbacks.connect('xlim_changed', self.onBottomLeftXLimitChange)
+        self.bottomLeftPlot.callbacks.connect('ylim_changed', self.onBottomLeftYLimitChange)
+        self.bottomRightPlot.callbacks.connect('xlim_changed', self.onBottomRightXLimitChange)
+        self.bottomRightPlot.callbacks.connect('ylim_changed', self.onBottomRightYLimitChange)
 
     def onSelectSParameter(self,toP,fromP):
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.RAISED)
@@ -579,7 +685,7 @@ class SParametersDialog(tk.Toplevel):
         self.title('S-parameters: '+self.fileparts.FileNameTitle())
 
         self.sp=si.sp.SParameterFile(filename)
-        self.UpdatePropertiesFromSParameters()
+        self.UpdatePropertiesFromSParameters(new=True)
         for widget in self.sButtonsFrame.winfo_children():
             widget.destroy()
         numPorts=self.sp.m_P
