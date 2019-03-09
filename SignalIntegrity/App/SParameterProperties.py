@@ -38,13 +38,23 @@ class SParameterPlotsConfiguration(XMLConfiguration):
         self.SubDir(PlotConfiguration('Impedance'))
         self.Add(XMLPropertyDefaultFloat('Delay',0.0))
 
+class PlotProperties(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Plot')
+        self.Add(XMLProperty('S',[[SParameterPlotsConfiguration() for _ in range(0)] for _ in range(0)],'array',arrayType=SParameterPlotsConfiguration()))
+        self.Add(XMLPropertyDefaultBool('VariableLineWidth',False))
+        self.Add(XMLPropertyDefaultBool('ShowPassivityViolations',False))
+        self.Add(XMLPropertyDefaultBool('ShowCausalityViolations',False))
+        self.Add(XMLPropertyDefaultBool('ShowImpedance',False))
+        self.Add(XMLPropertyDefaultBool('LogScale',False))
+
 class SParameterProperties(CalculationPropertiesBase):
     def __init__(self):
         CalculationPropertiesBase.__init__(self,'SParameterProperties')
         self.Add(XMLPropertyDefaultFloat('ReferenceImpedance',50.0))
         self.Add(XMLPropertyDefaultFloat('TimeLimitNegative',-100e-12))
         self.Add(XMLPropertyDefaultFloat('TimeLimitPositive',10e-9))
-        self.Add(XMLProperty('Plot',[[SParameterPlotsConfiguration() for _ in range(0)] for _ in range(0)],'array',arrayType=SParameterPlotsConfiguration()))
+        self.SubDir(PlotProperties())
 
 class SParameterPropertiesProject(ProjectFileBase):
     def __init__(self):

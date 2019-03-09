@@ -120,11 +120,11 @@ class SParametersDialog(tk.Toplevel):
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
         # ------
-        self.VariableLineWidthDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Variable-Line-Width')
-        self.ShowPassivityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Show-Passivity-Violations')
-        self.ShowCausalityViolationsDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Show-Causality-Violations')
-        self.ShowImpedanceDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Show-Impedance')
-        self.LogScaleDoer = Doer(self.PlotSParameter).AddHelpElement('Control-Help:Log-Scale')
+        self.VariableLineWidthDoer = Doer(self.onVariableLineWidth).AddHelpElement('Control-Help:Variable-Line-Width')
+        self.ShowPassivityViolationsDoer = Doer(self.onShowPassivityViolations).AddHelpElement('Control-Help:Show-Passivity-Violations')
+        self.ShowCausalityViolationsDoer = Doer(self.onShowCausalityViolations).AddHelpElement('Control-Help:Show-Causality-Violations')
+        self.ShowImpedanceDoer = Doer(self.onShowImpedance).AddHelpElement('Control-Help:Show-Impedance')
+        self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -243,6 +243,7 @@ class SParametersDialog(tk.Toplevel):
             buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
         else:
             # button labels are a proxy for transfer parameters (until I do something better)
+            self.properties['Plot.ShowPassivityViolations']=False
             self.showPassivityViolations.set(False)
             self.ShowPassivityViolationsDoer.Activate(False)
             self.ShowCausalityViolationsDoer.Activate(False)
@@ -279,6 +280,26 @@ class SParametersDialog(tk.Toplevel):
         self.deiconify()
 #         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
 #             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
+
+    def onVariableLineWidth(self):
+        self.properties['Plot.VariableLineWidth']=self.variableLineWidth.get()
+        self.PlotSParameter()
+
+    def onShowPassivityViolations(self):
+        self.properties['Plot.ShowPassivityViolations']=self.showPassivityViolations.get()
+        self.PlotSParameter()
+
+    def onShowCausalityViolations(self):
+        self.properties['Plot.ShowCausalityViolations']=self.showCausalityViolations.get()
+        self.PlotSParameter()
+
+    def onShowImpedance(self):
+        self.properties['Plot.ShowImpedance']=self.showImpedance.get()
+        self.PlotSParameter()
+
+    def onLogScale(self):
+        self.properties['Plot.LogScale']=self.logScale.get()
+        self.PlotSParameter()
 
     def onTopLeftXLimitChange(self,ax):
         xlim=ax.get_xlim()
@@ -354,7 +375,13 @@ class SParametersDialog(tk.Toplevel):
             self.properties['TimeLimitNegative']=None
             self.properties['TimeLimitPositive']=None
         if new:
-            self.properties['Plot']=[[SParameterPlotsConfiguration() for _ in range(self.sp.m_P)] for _ in range(self.sp.m_P)]
+            self.properties['Plot.S']=[[SParameterPlotsConfiguration() for _ in range(self.sp.m_P)] for _ in range(self.sp.m_P)]
+        self.variableLineWidth.set(self.properties['Plot.VariableLineWidth'])
+        self.showPassivityViolations.set(self.properties['Plot.ShowPassivityViolations'])
+        self.showCausalityViolations.set(self.properties['Plot.ShowCausalityViolations'])
+        self.showImpedance.set(self.properties['Plot.ShowImpedance'])
+        self.logScale.set(self.properties['Plot.LogScale'])
+
 
     def UpdateSParametersFromProperties(self):
         msg=None
@@ -402,7 +429,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlotProperties=None
         self.bottomLeftPlotProperties=None
         self.bottomRightPlotProperties=None
-        plotProperties=self.properties['Plot'][self.toPort-1][self.fromPort-1]
+        self.plotProperties=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
 
         if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.topLeftPlot.format_coord = lambda x, y: ''
@@ -420,7 +447,7 @@ class SParametersDialog(tk.Toplevel):
 
         x=fr.Frequencies(freqLabelDivisor)
 
-        if self.showPassivityViolations.get():
+        if self.properties['Plot.ShowPassivityViolations']:
             self.passivityViolations=[]
             s=self.sp._LargestSingularValues()
             for n in range(len(s)):
@@ -436,7 +463,7 @@ class SParametersDialog(tk.Toplevel):
 #         if self.logScale.get():
 #             fastway=False
 
-        if self.variableLineWidth.get():
+        if self.properties['Plot.VariableLineWidth']:
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -444,24 +471,31 @@ class SParametersDialog(tk.Toplevel):
                 self.topLeftPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    if self.logScale.get():
+                    if self.properties['Plot.LogScale']:
                         self.topLeftPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
                         self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            if self.logScale.get():
+            if self.properties['Plot.LogScale']:
                 self.topLeftPlot.semilogx(x,y)
             else:
                 self.topLeftPlot.plot(x,y)
 
-        if self.showPassivityViolations.get():
+        if self.properties['Plot.ShowPassivityViolations']:
             self.topLeftPlot.scatter(
                 [c[0] for c in self.passivityViolations],
                 [c[1] for c in self.passivityViolations],
                 s=[c[2] for c in self.passivityViolations],
                 color='red')
 
-        self.topLeftPlotProperties=plotProperties['Magnitude']
+        self.topLeftPlotProperties=self.plotProperties['Magnitude']
+
+        self.topLeftToolbar.update()
+        self.topLeftPlot.set_xlim(xmin=min(x))
+        self.topLeftPlot.set_xlim(xmax=max(x))
+        self.topLeftPlot.set_ylim(ymin=max(min(y)-1.,-60.0))
+        self.topLeftPlot.set_ylim(ymax=max(y)+1.)
+        self.topLeftToolbar.push_current()
 
         if not self.topLeftPlotProperties['Initialized']:
             self.topLeftPlotProperties['MinX']=min(x)
@@ -478,10 +512,13 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
-        y=fr.Response('deg')
-        x=fr.Frequencies(freqLabelDivisor)
+        TD = self.plotProperties['Delay']
+        frph=fr._DelayBy(-TD)
 
-        if self.variableLineWidth.get():
+        y=frph.Response('deg')
+        x=frph.Frequencies(freqLabelDivisor)
+
+        if self.properties['Plot.VariableLineWidth']:
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -489,17 +526,24 @@ class SParametersDialog(tk.Toplevel):
                 self.topRightPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    if self.logScale.get():
+                    if self.properties['Plot.LogScale']:
                         self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
                         self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            if self.logScale.get():
+            if self.properties['Plot.LogScale']:
                 self.topRightPlot.semilogx(x,y)
             else:
                 self.topRightPlot.plot(x,y)
 
-        self.topRightPlotProperties=plotProperties['Phase']
+        self.topRightPlotProperties=self.plotProperties['Phase']
+
+        self.topRightToolbar.update()
+        self.topRightPlot.set_xlim(xmin=min(x))
+        self.topRightPlot.set_xlim(xmax=max(x))
+        self.topRightPlot.set_ylim(ymin=min(y)-1)
+        self.topRightPlot.set_ylim(ymax=max(y)+1)
+        self.topRightToolbar.push_current()
 
         if not self.topRightPlotProperties['Initialized']:
             self.topRightPlotProperties['MinX']=min(x)
@@ -533,7 +577,7 @@ class SParametersDialog(tk.Toplevel):
 
             self.bottomLeftPlot.plot(x,y)
 
-            if self.showCausalityViolations.get():
+            if self.properties['Plot.ShowCausalityViolations']:
                 self.causalityViolations=[]
                 Ts=1./ir.td.Fs/1e-9
                 for k in range(len(x)):
@@ -546,7 +590,14 @@ class SParametersDialog(tk.Toplevel):
                     s=[c[2] for c in self.causalityViolations],
                     color='red')
 
-            self.bottomLeftPlotProperties=plotProperties['Impulse']
+            self.bottomLeftPlotProperties=self.plotProperties['Impulse']
+
+            self.bottomLeftToolbar.update()
+            self.bottomLeftPlot.set_xlim(xmin=min(x))
+            self.bottomLeftPlot.set_xlim(xmax=max(x))
+            self.bottomLeftPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
+            self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
+            self.bottomLeftToolbar.push_current()
 
             if not self.bottomLeftPlotProperties['Initialized']:
                 self.bottomLeftPlotProperties['MinX']=min(x)
@@ -570,28 +621,38 @@ class SParametersDialog(tk.Toplevel):
             y=stepResponse.Values()
             x=stepResponse.Times(timeLabelDivisor)
 
-            if self.showImpedance.get() and (self.fromPort == self.toPort):
-                self.bottomRightPlotProperties=plotProperties['Impedance']
+            self.bottomRightToolbar.update()
+
+            if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                self.bottomRightPlotProperties=self.plotProperties['Impedance']
                 Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
                 x=[xv/2 for xv in x]
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 self.bottomRightPlot.set_xlabel('length ('+timeLabel+')',fontsize=10)
+
+                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,Z0-1))
                 if not self.bottomRightPlotProperties['Initialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,Z0-1)
             else:
-                self.bottomRightPlotProperties=plotProperties['Step']
+                self.bottomRightPlotProperties=self.plotProperties['Step']
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
+                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
                 if not self.bottomRightPlotProperties['Initialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,-0.1)
 
             self.bottomRightPlot.plot(x,y)
 
+            self.bottomRightPlot.set_xlim(xmin=min(x))
+            self.bottomRightPlot.set_xlim(xmax=max(x))
+            self.bottomRightPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
+            self.bottomRightToolbar.push_current()
+
             if not self.bottomRightPlotProperties['Initialized']:
-                self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
                 self.bottomRightPlotProperties['MinX']=min(x)
                 self.bottomRightPlotProperties['MaxX']=max(x)
+                self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
                 self.bottomRightPlotProperties['Initialized']=True
 
             self.bottomRightPlot.set_xlim(xmin=self.bottomRightPlotProperties['MinX'])
@@ -618,7 +679,9 @@ class SParametersDialog(tk.Toplevel):
         self.toPort = toP
         self.fromPort = fromP
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
-        self.delay.SetValueFromString(str(0))
+        self.plotProperties=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+        delay=self.plotProperties['Delay']
+        self.delay.SetValueFromString(str(delay))
         self.delayViewerProperty.onUntouched(None)
         self.PlotSParameter()
 
@@ -634,6 +697,7 @@ class SParametersDialog(tk.Toplevel):
             TD = ir.Times()[idx] # the time of the main peak
         else:
             TD=0.
+        self.plotProperties['Delay']=TD
         self.delay.SetValueFromString(str(TD))
         self.delayViewerProperty.onUntouched(None)
 
@@ -641,12 +705,13 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.cla()
         fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         TD = self.delay.GetValue()
+        self.plotProperties['Delay']=TD
         fr=fr._DelayBy(-TD)
         lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
         fastway=True
-        if self.variableLineWidth.get():
+        if self.properties['Plot.VariableLineWidth']:
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -654,19 +719,35 @@ class SParametersDialog(tk.Toplevel):
                 self.topRightPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    if self.logScale.get():
+                    if self.properties['Plot.LogScale']:
                         self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
                         self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            if self.logScale.get():
+            if self.properties['Plot.LogScale']:
                 self.topRightPlot.semilogx(x,y)
             else:
                 self.topRightPlot.plot(x,y)
+
+        self.topRightToolbar.update()
         self.topRightPlot.set_xlim(xmin=min(x))
         self.topRightPlot.set_xlim(xmax=max(x))
         self.topRightPlot.set_ylim(ymin=min(y)-1)
         self.topRightPlot.set_ylim(ymax=max(y)+1)
+        self.topRightToolbar.push_current()
+
+        if not self.topRightPlotProperties['Initialized']:
+            self.topRightPlotProperties['MinX']=min(x)
+            self.topRightPlotProperties['MaxX']=max(x)
+            self.topRightPlotProperties['MinY']=min(y)-1
+            self.topRightPlotProperties['MaxY']=max(y)+1
+            self.topRightPlotProperties['Initialized']=True
+
+        self.topRightPlot.set_xlim(xmin=self.topRightPlotProperties['MinX'])
+        self.topRightPlot.set_xlim(xmax=self.topRightPlotProperties['MaxX'])
+        self.topRightPlot.set_ylim(ymin=self.topRightPlotProperties['MinY'])
+        self.topRightPlot.set_ylim(ymax=self.topRightPlotProperties['MaxY'])
+
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
         self.topRightCanvas.draw()
@@ -703,6 +784,9 @@ class SParametersDialog(tk.Toplevel):
         self.fromPort = 1
         self.toPort = 1
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
+        self.plotProperties=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+        self.delay.SetValueFromString(str(self.plotProperties['Delay']))
+        self.delayViewerProperty.onUntouched(None)
         self.PlotSParameter()
 
     def onWriteSParametersToFile(self):
