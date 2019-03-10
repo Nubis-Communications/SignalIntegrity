@@ -182,9 +182,9 @@ class SimulatorDialog(tk.Toplevel):
                 mint=mint/timeLabelDivisor
                 maxt=maxt/timeLabelDivisor
             if not mint is None:
-                self.plt.set_xlim(xmin=mint)
+                self.plt.set_xlim(left=mint)
             if not maxt is None:
-                self.plt.set_xlim(xmax=maxt)
+                self.plt.set_xlim(right=maxt)
 
         for wfi in range(len(self.waveformList)):
             wf=self.waveformList[wfi]

@@ -52,6 +52,14 @@ from matplotlib.collections import LineCollection
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
+class NavigationToolbar(NavigationToolbar2Tk):
+    def __init__(self, canvas, window,homeCallback=None):
+        NavigationToolbar2Tk.__init__(self,canvas,window)
+        self.homeCallback=homeCallback
+    def home(self, *args):
+        if not self.homeCallback is None:
+            self.homeCallback()
+
 class SParametersDialog(tk.Toplevel):
     def __init__(self, parent,sp,filename=None,title=None,buttonLabels=None):
         tk.Toplevel.__init__(self, parent)
@@ -169,7 +177,7 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
         self.topLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
-        self.topLeftToolbar = NavigationToolbar2Tk( self.topLeftCanvas, topLeftFrame )
+        self.topLeftToolbar = NavigationToolbar( self.topLeftCanvas, topLeftFrame ,self.onTopLeftHome)
         self.topLeftToolbar.update()
         self.topLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
@@ -177,7 +185,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot=self.topRightFigure.add_subplot(111)
         self.topRightCanvas=FigureCanvasTkAgg(self.topRightFigure, master=topRightFrame)
         self.topRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
-        self.topRightToolbar = NavigationToolbar2Tk( self.topRightCanvas, topRightFrame )
+        self.topRightToolbar = NavigationToolbar( self.topRightCanvas, topRightFrame ,self.onTopRightHome)
         self.topRightToolbar.update()
         self.topRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
         self.topRightCanvasControlsFrame=tk.Frame(topRightFrame)
@@ -190,7 +198,7 @@ class SParametersDialog(tk.Toplevel):
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
         self.bottomLeftCanvas=FigureCanvasTkAgg(self.bottomLeftFigure, master=bottomLeftFrame)
         self.bottomLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
-        self.bottomLeftToolbar = NavigationToolbar2Tk( self.bottomLeftCanvas, bottomLeftFrame )
+        self.bottomLeftToolbar = NavigationToolbar( self.bottomLeftCanvas, bottomLeftFrame ,self.onBottomLeftHome)
         self.bottomLeftToolbar.update()
         self.bottomLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
@@ -198,7 +206,7 @@ class SParametersDialog(tk.Toplevel):
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
         self.bottomRightCanvas=FigureCanvasTkAgg(self.bottomRightFigure, master=bottomRightFrame)
         self.bottomRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
-        self.bottomRightToolbar = NavigationToolbar2Tk( self.bottomRightCanvas, bottomRightFrame )
+        self.bottomRightToolbar = NavigationToolbar( self.bottomRightCanvas, bottomRightFrame , self.onBottomRightHome)
         self.bottomRightToolbar.update()
         self.bottomRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
@@ -322,6 +330,26 @@ class SParametersDialog(tk.Toplevel):
         if not self.bottomRightPlotProperties is None:
             self.bottomRightPlotProperties['MinY']=ylim[0]
             self.bottomRightPlotProperties['MaxY']=ylim[1]
+
+    def onTopLeftHome(self):
+        if not self.topLeftPlotProperties is None:
+            self.topLeftPlotProperties['Initialized']=False
+            self.PlotSParameter()
+
+    def onTopRightHome(self):
+        if not self.topRightPlotProperties is None:
+            self.topRightPlotProperties['Initialized']=False
+            self.PlotSParameter()
+
+    def onBottomLeftHome(self):
+        if not self.bottomLeftPlotProperties is None:
+            self.bottomLeftPlotProperties['Initialized']=False
+            self.PlotSParameter()
+
+    def onBottomRightHome(self):
+        if not self.bottomRightPlotProperties is None:
+            self.bottomRightPlotProperties['Initialized']=False
+            self.PlotSParameter()
 
     def UpdatePropertiesFromSParameters(self,new=False):
         self.properties['FrequencyPoints']=len(self.sp.m_f)-1
@@ -470,13 +498,6 @@ class SParametersDialog(tk.Toplevel):
 
         self.topLeftPlotProperties=self.plotProperties['Magnitude']
 
-        self.topLeftToolbar.update()
-        self.topLeftPlot.set_xlim(xmin=min(x))
-        self.topLeftPlot.set_xlim(xmax=max(x))
-        self.topLeftPlot.set_ylim(ymin=max(min(y)-1.,-60.0))
-        self.topLeftPlot.set_ylim(ymax=max(y)+1.)
-        self.topLeftToolbar.push_current()
-
         if not self.topLeftPlotProperties['Initialized']:
             self.topLeftPlotProperties['MinX']=min(x)
             self.topLeftPlotProperties['MaxX']=max(x)
@@ -484,10 +505,17 @@ class SParametersDialog(tk.Toplevel):
             self.topLeftPlotProperties['MaxY']=max(y)+1.
             self.topLeftPlotProperties['Initialized']=True
 
-        self.topLeftPlot.set_xlim(xmin=self.topLeftPlotProperties['MinX'])
-        self.topLeftPlot.set_xlim(xmax=self.topLeftPlotProperties['MaxX'])
-        self.topLeftPlot.set_ylim(ymin=self.topLeftPlotProperties['MinY'])
-        self.topLeftPlot.set_ylim(ymax=self.topLeftPlotProperties['MaxY'])
+        if self.properties['Plot.LogScale']:
+            if max(x)>0:
+                for value in x:
+                    if value>0.:
+                        self.topLeftPlot.set_xlim(left=value)
+                        break
+        else:
+            self.topLeftPlot.set_xlim(left=self.topLeftPlotProperties['MinX'])
+        self.topLeftPlot.set_xlim(right=self.topLeftPlotProperties['MaxX'])
+        self.topLeftPlot.set_ylim(bottom=self.topLeftPlotProperties['MinY'])
+        self.topLeftPlot.set_ylim(top=self.topLeftPlotProperties['MaxY'])
 
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
@@ -519,13 +547,6 @@ class SParametersDialog(tk.Toplevel):
 
         self.topRightPlotProperties=self.plotProperties['Phase']
 
-        self.topRightToolbar.update()
-        self.topRightPlot.set_xlim(xmin=min(x))
-        self.topRightPlot.set_xlim(xmax=max(x))
-        self.topRightPlot.set_ylim(ymin=min(y)-1)
-        self.topRightPlot.set_ylim(ymax=max(y)+1)
-        self.topRightToolbar.push_current()
-
         if not self.topRightPlotProperties['Initialized']:
             self.topRightPlotProperties['MinX']=min(x)
             self.topRightPlotProperties['MaxX']=max(x)
@@ -533,10 +554,17 @@ class SParametersDialog(tk.Toplevel):
             self.topRightPlotProperties['MaxY']=max(y)+1
             self.topRightPlotProperties['Initialized']=True
 
-        self.topRightPlot.set_xlim(xmin=self.topRightPlotProperties['MinX'])
-        self.topRightPlot.set_xlim(xmax=self.topRightPlotProperties['MaxX'])
-        self.topRightPlot.set_ylim(ymin=self.topRightPlotProperties['MinY'])
-        self.topRightPlot.set_ylim(ymax=self.topRightPlotProperties['MaxY'])
+        if self.properties['Plot.LogScale']:
+            if max(x)>0:
+                for value in x:
+                    if value>0:
+                        self.topRightPlot.set_xlim(left=value)
+                        break
+        else:
+            self.topRightPlot.set_xlim(left=self.topRightPlotProperties['MinX'])
+        self.topRightPlot.set_xlim(right=self.topRightPlotProperties['MaxX'])
+        self.topRightPlot.set_ylim(bottom=self.topRightPlotProperties['MinY'])
+        self.topRightPlot.set_ylim(top=self.topRightPlotProperties['MaxY'])
 
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
@@ -573,13 +601,6 @@ class SParametersDialog(tk.Toplevel):
 
             self.bottomLeftPlotProperties=self.plotProperties['Impulse']
 
-            self.bottomLeftToolbar.update()
-            self.bottomLeftPlot.set_xlim(xmin=min(x))
-            self.bottomLeftPlot.set_xlim(xmax=max(x))
-            self.bottomLeftPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
-            self.bottomLeftPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
-            self.bottomLeftToolbar.push_current()
-
             if not self.bottomLeftPlotProperties['Initialized']:
                 self.bottomLeftPlotProperties['MinX']=min(x)
                 self.bottomLeftPlotProperties['MaxX']=max(x)
@@ -587,10 +608,10 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomLeftPlotProperties['MaxY']=max(max(y)*1.05,0.1)
                 self.bottomLeftPlotProperties['Initialized']=True
 
-            self.bottomLeftPlot.set_xlim(xmin=self.bottomLeftPlotProperties['MinX'])
-            self.bottomLeftPlot.set_xlim(xmax=self.bottomLeftPlotProperties['MaxX'])
-            self.bottomLeftPlot.set_ylim(ymin=self.bottomLeftPlotProperties['MinY'])
-            self.bottomLeftPlot.set_ylim(ymax=self.bottomLeftPlotProperties['MaxY'])
+            self.bottomLeftPlot.set_xlim(left=self.bottomLeftPlotProperties['MinX'])
+            self.bottomLeftPlot.set_xlim(right=self.bottomLeftPlotProperties['MaxX'])
+            self.bottomLeftPlot.set_ylim(bottom=self.bottomLeftPlotProperties['MinY'])
+            self.bottomLeftPlot.set_ylim(top=self.bottomLeftPlotProperties['MaxY'])
 
             self.bottomLeftPlot.set_ylabel('amplitude',fontsize=10)
             self.bottomLeftPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
@@ -612,23 +633,16 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 self.bottomRightPlot.set_xlabel('length ('+timeLabel+')',fontsize=10)
 
-                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,Z0-1))
                 if not self.bottomRightPlotProperties['Initialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,Z0-1)
             else:
                 self.bottomRightPlotProperties=self.plotProperties['Step']
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
-                self.bottomRightPlot.set_ylim(ymin=min(min(y)*1.05,-0.1))
                 if not self.bottomRightPlotProperties['Initialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,-0.1)
 
             self.bottomRightPlot.plot(x,y)
-
-            self.bottomRightPlot.set_xlim(xmin=min(x))
-            self.bottomRightPlot.set_xlim(xmax=max(x))
-            self.bottomRightPlot.set_ylim(ymax=max(max(y)*1.05,0.1))
-            self.bottomRightToolbar.push_current()
 
             if not self.bottomRightPlotProperties['Initialized']:
                 self.bottomRightPlotProperties['MinX']=min(x)
@@ -636,15 +650,20 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
                 self.bottomRightPlotProperties['Initialized']=True
 
-            self.bottomRightPlot.set_xlim(xmin=self.bottomRightPlotProperties['MinX'])
-            self.bottomRightPlot.set_xlim(xmax=self.bottomRightPlotProperties['MaxX'])
-            self.bottomRightPlot.set_ylim(ymin=self.bottomRightPlotProperties['MinY'])
-            self.bottomRightPlot.set_ylim(ymax=self.bottomRightPlotProperties['MaxY'])
+            self.bottomRightPlot.set_xlim(left=self.bottomRightPlotProperties['MinX'])
+            self.bottomRightPlot.set_xlim(right=self.bottomRightPlotProperties['MaxX'])
+            self.bottomRightPlot.set_ylim(bottom=self.bottomRightPlotProperties['MinY'])
+            self.bottomRightPlot.set_ylim(top=self.bottomRightPlotProperties['MaxY'])
 
         self.topLeftCanvas.draw()
         self.topRightCanvas.draw()
         self.bottomLeftCanvas.draw()
         self.bottomRightCanvas.draw()
+
+        self.topLeftToolbar.update()
+        self.topRightToolbar.update()
+        self.bottomLeftToolbar.update()
+        self.bottomRightToolbar.update()
 
         self.topLeftPlot.callbacks.connect('xlim_changed', self.onTopLeftXLimitChange)
         self.topLeftPlot.callbacks.connect('ylim_changed', self.onTopLeftYLimitChange)
@@ -709,13 +728,6 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.topRightPlot.plot(x,y)
 
-        self.topRightToolbar.update()
-        self.topRightPlot.set_xlim(xmin=min(x))
-        self.topRightPlot.set_xlim(xmax=max(x))
-        self.topRightPlot.set_ylim(ymin=min(y)-1)
-        self.topRightPlot.set_ylim(ymax=max(y)+1)
-        self.topRightToolbar.push_current()
-
         if not self.topRightPlotProperties['Initialized']:
             self.topRightPlotProperties['MinX']=min(x)
             self.topRightPlotProperties['MaxX']=max(x)
@@ -723,14 +735,23 @@ class SParametersDialog(tk.Toplevel):
             self.topRightPlotProperties['MaxY']=max(y)+1
             self.topRightPlotProperties['Initialized']=True
 
-        self.topRightPlot.set_xlim(xmin=self.topRightPlotProperties['MinX'])
-        self.topRightPlot.set_xlim(xmax=self.topRightPlotProperties['MaxX'])
-        self.topRightPlot.set_ylim(ymin=self.topRightPlotProperties['MinY'])
-        self.topRightPlot.set_ylim(ymax=self.topRightPlotProperties['MaxY'])
+        if self.properties['Plot.LogScale']:
+            if max(x)>0:
+                for value in x:
+                    if value>0:
+                        self.topRightPlot.set_xlim(left=value)
+                        break
+        else:
+            self.topRightPlot.set_xlim(left=self.topRightPlotProperties['MinX'])
+        self.topRightPlot.set_xlim(right=self.topRightPlotProperties['MaxX'])
+        self.topRightPlot.set_ylim(bottom=self.topRightPlotProperties['MinY'])
+        self.topRightPlot.set_ylim(top=self.topRightPlotProperties['MaxY'])
 
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
         self.topRightCanvas.draw()
+        self.topRightToolbar.update()
+
 
     def onReadSParametersFromFile(self):
         filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
