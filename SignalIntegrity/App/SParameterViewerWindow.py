@@ -121,8 +121,8 @@ class SParametersDialog(tk.Toplevel):
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
         CalcMenu=tk.Menu(self)
-        TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
-        self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
+        TheMenu.add_cascade(label='Properties',menu=CalcMenu,underline=0)
+        #self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
         self.SParameterPropertiesDoer.AddMenuElement(CalcMenu,label='S-parameter Properties',underline=0)
         #CalcMenu.add_separator()
         #CalcMenu.add_separator()
