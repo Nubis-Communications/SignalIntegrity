@@ -35,6 +35,7 @@ from SignalIntegrity.App.ToSI import ToSI,FromSI
 from SignalIntegrity.App.SParameterProperties import SParameterProperties,SParameterPlotsConfiguration
 from SignalIntegrity.App.SParameterPropertiesDialog import SParameterPropertiesDialog
 from SignalIntegrity.App.InformationMessage import InformationMessage
+from SignalIntegrity.App.CalculationPropertiesProject import CalculationPropertySI
 import SignalIntegrity.App.Project
 
 import SignalIntegrity.Lib as si
@@ -50,34 +51,6 @@ from matplotlib.collections import LineCollection
 
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
-
-class ViewerProperty(tk.Frame):
-    def __init__(self,parentFrame,partProperty,callBack):
-        tk.Frame.__init__(self,parentFrame)
-        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
-        self.parentFrame=parentFrame
-        self.partProperty=partProperty
-        self.callBack=callBack
-        self.propertyString=tk.StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
-        propertyLabel = tk.Label(self,width=25,text=self.partProperty['Description']+': ',anchor='e')
-        propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
-        propertyEntry = tk.Entry(self,textvariable=self.propertyString)
-        propertyEntry.config(width=15)
-        propertyEntry.bind('<Return>',self.onEntered)
-        propertyEntry.bind('<FocusIn>',self.onTouched)
-        propertyEntry.bind('<Button-3>',self.onUntouched)
-        propertyEntry.bind('<Escape>',self.onUntouched)
-        propertyEntry.bind('<FocusOut>',self.onUntouched)
-        propertyEntry.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
-    def onEntered(self,event):
-        self.partProperty.SetValueFromString(self.propertyString.get())
-        self.onUntouched(event)
-    def onTouched(self,event):
-        self.propertyString.set('')
-    def onUntouched(self,event):
-        self.propertyString.set(self.partProperty.PropertyString(stype='entry'))
-        self.callBack()
-        self.parentFrame.focus()
 
 class SParametersDialog(tk.Toplevel):
     def __init__(self, parent,sp,filename=None,title=None,buttonLabels=None):
@@ -210,8 +183,8 @@ class SParametersDialog(tk.Toplevel):
         self.topRightCanvasControlsFrame=tk.Frame(topRightFrame)
         self.topRightCanvasControlsFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
         tk.Button(self.topRightCanvasControlsFrame,text='unwrap',command=self.onUnwrap).pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
-        self.delay=PartPropertyDelay(0.)
-        self.delayViewerProperty=ViewerProperty(self.topRightCanvasControlsFrame,self.delay,self.onDelayEntered)
+        self.delayViewerProperty=CalculationPropertySI(self.topRightCanvasControlsFrame,'Delay',self.onDelayEntered,None,None,None,'s')
+        self.delayViewerProperty.label.config(width=10)
 
         self.bottomLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
@@ -275,8 +248,9 @@ class SParametersDialog(tk.Toplevel):
         except:
             self.Matplotlib2tikzDoer.Activate(False)
 
-        self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
-        self.PlotSParameter()
+        self.onSelectSParameter(self.toPort, self.fromPort)
+#         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
+#         self.PlotSParameter()
         self.deiconify()
 #         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
 #             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
@@ -385,31 +359,37 @@ class SParametersDialog(tk.Toplevel):
 
     def UpdateSParametersFromProperties(self):
         msg=None
+        spChanged=False
         if not self.properties['TimePoints'] is None:
-            if (self.properties['FrequencyPoints']!=len(self.sp.m_f)-1) or\
-                self.properties['EndFrequency']!=self.sp.m_f[-1]:
+            (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength()
+            if (self.properties['TimeLimitNegative']>negativeTime) or\
+                self.properties['TimeLimitPositive']<positiveTime:
+                if msg is None:
+                    msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
+                self.sp=self.sp.LimitImpulseResponseLength((self.properties['TimeLimitNegative'],self.properties['TimeLimitPositive']))
+                spChanged=True
+            if not si.fd.FrequencyList(self.sp.m_f).CheckEvenlySpaced() or\
+                (self.properties['FrequencyPoints']!=len(self.sp.m_f)-1) or\
+                (self.properties['EndFrequency']!=self.sp.m_f[-1]):
                 if msg is None:
                     msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
                 self.sp=self.sp.Resample(si.fd.EvenlySpacedFrequencyList(
                     self.properties['EndFrequency'],
                     self.properties['FrequencyPoints']))
-                self.UpdatePropertiesFromSParameters()
-            else:
-                (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength()
-                if (self.properties['TimeLimitNegative']>negativeTime) or\
-                    self.properties['TimeLimitPositive']<positiveTime:
-                    if msg is None:
-                        msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
-                    self.sp=self.sp.LimitImpulseResponseLength((self.properties['TimeLimitNegative'],self.properties['TimeLimitPositive']))
-                    self.UpdatePropertiesFromSParameters()
+                spChanged=True
+
         if self.properties['ReferenceImpedance'] != self.sp.m_Z0:
             if msg is None:
                 msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
             self.sp.SetReferenceImpedance(self.properties['ReferenceImpedance'])
+            spChanged=True
+
+        if spChanged:
             self.UpdatePropertiesFromSParameters()
         if not msg is None:
             msg.destroy()
-        self.PlotSParameter()
+        if spChanged:
+            self.PlotSParameter()
 
     def onClosing(self):
         self.withdraw()
@@ -424,7 +404,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.cla()
         self.bottomLeftPlot.cla()
         self.bottomRightPlot.cla()
-        
+
         self.topLeftPlotProperties=None
         self.topRightPlotProperties=None
         self.bottomLeftPlotProperties=None
@@ -516,6 +496,7 @@ class SParametersDialog(tk.Toplevel):
         frph=fr._DelayBy(-TD)
 
         y=frph.Response('deg')
+
         x=frph.Frequencies(freqLabelDivisor)
 
         if self.properties['Plot.VariableLineWidth']:
@@ -680,9 +661,7 @@ class SParametersDialog(tk.Toplevel):
         self.fromPort = fromP
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
         self.plotProperties=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
-        delay=self.plotProperties['Delay']
-        self.delay.SetValueFromString(str(delay))
-        self.delayViewerProperty.onUntouched(None)
+        self.delayViewerProperty.SetString(self.plotProperties['Delay'])
         self.PlotSParameter()
 
     def onAutoscale(self):
@@ -698,13 +677,14 @@ class SParametersDialog(tk.Toplevel):
         else:
             TD=0.
         self.plotProperties['Delay']=TD
-        self.delay.SetValueFromString(str(TD))
-        self.delayViewerProperty.onUntouched(None)
+        self.delayViewerProperty.SetString(TD)
+        self.delayViewerProperty.onEntered(None)
 
-    def onDelayEntered(self):
+    def onDelayEntered(self,event):
         self.topRightPlot.cla()
         fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
-        TD = self.delay.GetValue()
+        TD = self.delayViewerProperty.GetString()
+        self.delayViewerProperty.SetString(TD)
         self.plotProperties['Delay']=TD
         fr=fr._DelayBy(-TD)
         lw=[min(1.,math.sqrt(w))*1.5 for w in fr.Response('mag')]
@@ -785,8 +765,7 @@ class SParametersDialog(tk.Toplevel):
         self.toPort = 1
         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
         self.plotProperties=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
-        self.delay.SetValueFromString(str(self.plotProperties['Delay']))
-        self.delayViewerProperty.onUntouched(None)
+        self.delayViewerProperty.SetString(self.plotProperties['Delay'])
         self.PlotSParameter()
 
     def onWriteSParametersToFile(self):
