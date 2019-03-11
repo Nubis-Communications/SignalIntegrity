@@ -22,9 +22,10 @@ from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefau
 class PlotConfiguration(XMLConfiguration):
     def __init__(self,name):
         XMLConfiguration.__init__(self,name)
-        self.Add(XMLPropertyDefaultBool('Initialized',False))
+        self.Add(XMLPropertyDefaultBool('XInitialized',False))
         self.Add(XMLPropertyDefaultFloat('MinX'))
         self.Add(XMLPropertyDefaultFloat('MaxX'))
+        self.Add(XMLPropertyDefaultBool('YInitialized',False))
         self.Add(XMLPropertyDefaultFloat('MinY'))
         self.Add(XMLPropertyDefaultFloat('MaxY'))
 
@@ -48,6 +49,22 @@ class PlotProperties(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('ShowImpedance',False))
         self.Add(XMLPropertyDefaultBool('LogScale',False))
 
+class SParameterZoomProperties(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Zoom')
+        self.Add(XMLPropertyDefaultBool('JoinFrequenciesWithin',True))
+        self.Add(XMLPropertyDefaultBool('JoinTimesWithin',True))
+        self.Add(XMLPropertyDefaultBool('JoinFrequenciesWithOthers',True))
+        self.Add(XMLPropertyDefaultBool('JoinTimesWithOthers',True))
+        self.Add(XMLPropertyDefaultBool('JoinMagnitudeWithOthers',True))
+        self.Add(XMLPropertyDefaultBool('JoinPhaseWithOthers',True))
+        self.Add(XMLPropertyDefaultBool('JoinImpulseWithOthers',True))
+        self.Add(XMLPropertyDefaultBool('JoinStepImpedanceWithOthers',True))
+        self.Add(XMLPropertyDefaultBool('JoinAll',False))
+        self.Add(XMLPropertyDefaultBool('JoinOffDiagonal',False))
+        self.Add(XMLPropertyDefaultBool('JoinReciprocals',True))
+        self.Add(XMLPropertyDefaultBool('JoinReflects',True))
+
 class SParameterProperties(CalculationPropertiesBase):
     def __init__(self):
         CalculationPropertiesBase.__init__(self,'SParameterProperties')
@@ -55,6 +72,7 @@ class SParameterProperties(CalculationPropertiesBase):
         self.Add(XMLPropertyDefaultFloat('TimeLimitNegative',-100e-12))
         self.Add(XMLPropertyDefaultFloat('TimeLimitPositive',10e-9))
         self.SubDir(PlotProperties())
+        self.SubDir(SParameterZoomProperties())
 
 class SParameterPropertiesProject(ProjectFileBase):
     def __init__(self):

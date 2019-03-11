@@ -17,6 +17,7 @@ SParameterViewerWindow.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import sys
+
 if sys.version_info.major < 3:
     import Tkinter as tk
     import tkMessageBox as messagebox
@@ -87,6 +88,19 @@ class SParametersDialog(tk.Toplevel):
         self.showImpedance = tk.BooleanVar()
         self.logScale =  tk.BooleanVar()
 
+        self.JoinFrequenciesWithin = tk.BooleanVar()
+        self.JoinTimesWithin = tk.BooleanVar()
+        self.JoinFrequenciesWithOthers = tk.BooleanVar()
+        self.JoinTimesWithOthers = tk.BooleanVar()
+        self.JoinMagnitudeWithOthers = tk.BooleanVar()
+        self.JoinPhaseWithOthers = tk.BooleanVar()
+        self.JoinImpulseWithOthers = tk.BooleanVar()
+        self.JoinStepImpedanceWithOthers = tk.BooleanVar()
+        self.JoinAll = tk.BooleanVar()
+        self.JoinOffDiagonal = tk.BooleanVar()
+        self.JoinReciprocals = tk.BooleanVar()
+        self.JoinReflects = tk.BooleanVar()
+
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement('Control-Help:Save-S-parameter-File')
@@ -107,6 +121,19 @@ class SParametersDialog(tk.Toplevel):
         self.ShowImpedanceDoer = Doer(self.onShowImpedance).AddHelpElement('Control-Help:Show-Impedance')
         self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale')
         # ------
+        self.JoinFrequenciesWithinDoer = Doer(self.onJoinFrequenciesWithin)
+        self.JoinTimesWithinDoer = Doer(self.onJoinTimesWithin)
+        self.JoinFrequenciesWithOthersDoer = Doer(self.onJoinFrequenciesWithOthers)
+        self.JoinTimesWithOthersDoer = Doer(self.onJoinTimesWithOthers)
+        self.JoinMagnitudeWithOthersDoer = Doer(self.onJoinMagnitudeWithOthers)
+        self.JoinPhaseWithOthersDoer = Doer(self.onJoinPhaseWithOthers)
+        self.JoinImpulseWithOthersDoer = Doer(self.onJoinImpulseWithOthers)
+        self.JoinStepImpedanceWithOthersDoer = Doer(self.onJoinStepImpedanceWithOthers)
+        self.JoinAllDoer = Doer(self.onJoinAll)
+        self.JoinOffDiagonalDoer = Doer(self.onJoinOffDiagonal)
+        self.JoinReciprocalsDoer = Doer(self.onJoinReciprocals)
+        self.JoinReflectsDoer = Doer(self.onJoinReflects)
+        #-------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
         # The menu system
@@ -120,15 +147,15 @@ class SParametersDialog(tk.Toplevel):
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
-        CalcMenu=tk.Menu(self)
-        TheMenu.add_cascade(label='Properties',menu=CalcMenu,underline=0)
-        #self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=0)
-        self.SParameterPropertiesDoer.AddMenuElement(CalcMenu,label='S-parameter Properties',underline=0)
-        #CalcMenu.add_separator()
-        #CalcMenu.add_separator()
-        self.EnforcePassivityDoer.AddMenuElement(CalcMenu,label='Enforce Passivity',underline=8)
-        self.EnforceCausalityDoer.AddMenuElement(CalcMenu,label='Enforce Causality',underline=9)
-        self.WaveletDenoiseDoer.AddMenuElement(CalcMenu,label='Wavelet Denoise',underline=0)
+        PropertiesMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='Properties',menu=PropertiesMenu,underline=0)
+        #self.CalculationPropertiesDoer.AddMenuElement(PropertiesMenu,label='Calculation Properties',underline=0)
+        self.SParameterPropertiesDoer.AddMenuElement(PropertiesMenu,label='S-parameter Properties',underline=0)
+        #PropertiesMenu.add_separator()
+        #PropertiesMenu.add_separator()
+        self.EnforcePassivityDoer.AddMenuElement(PropertiesMenu,label='Enforce Passivity',underline=8)
+        self.EnforceCausalityDoer.AddMenuElement(PropertiesMenu,label='Enforce Causality',underline=9)
+        self.WaveletDenoiseDoer.AddMenuElement(PropertiesMenu,label='Wavelet Denoise',underline=0)
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
@@ -137,6 +164,23 @@ class SParametersDialog(tk.Toplevel):
         self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
         self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
         self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4,onvalue=True,offvalue=False,variable=self.logScale)
+        #-------
+        ZoomMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='Zoom',menu=ZoomMenu,underline=0)
+        self.JoinFrequenciesWithinDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Frequencies Within Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithin)
+        self.JoinTimesWithinDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Times Within Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinTimesWithin)
+        ZoomMenu.add_separator()
+        self.JoinFrequenciesWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Frequencies With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithOthers)
+        self.JoinTimesWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Times With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinTimesWithOthers)
+        self.JoinMagnitudeWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Magnitude Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinMagnitudeWithOthers)
+        self.JoinPhaseWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Phase Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinPhaseWithOthers)
+        self.JoinImpulseWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Impulse Response Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinImpulseWithOthers)
+        self.JoinStepImpedanceWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Step Response/Impedance Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinStepImpedanceWithOthers)
+        ZoomMenu.add_separator()
+        self.JoinAllDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join All Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinAll)
+        self.JoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Off-Diagnonal Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinOffDiagonal)
+        self.JoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Reciprocal Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinReciprocals)
+        self.JoinReflectsDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Reflect Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinReflects)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -251,6 +295,8 @@ class SParametersDialog(tk.Toplevel):
         self.fromPort = 1
         self.toPort = 1
 
+        self.LimitChangeLock=False
+
         try:
             from matplotlib2tikz import save as tikz_save
         except:
@@ -283,72 +329,291 @@ class SParametersDialog(tk.Toplevel):
         self.properties['Plot.LogScale']=bool(self.logScale.get())
         self.PlotSParameter()
 
+    def onJoinFrequenciesWithin(self):
+        self.properties['Zoom.JoinFrequenciesWithin']=bool(self.JoinFrequenciesWithin.get())
+
+    def onJoinTimesWithin(self):
+        self.properties['Zoom.JoinTimesWithin']=bool(self.JoinTimesWithin.get())
+
+    def onJoinFrequenciesWithOthers(self):
+        self.properties['Zoom.JoinFrequenciesWithOthers']=bool(self.JoinFrequenciesWithOthers.get())
+
+    def onJoinTimesWithOthers(self):
+        self.properties['Zoom.JoinTimesWithOthers']=bool(self.JoinTimesWithOthers.get())
+
+    def onJoinMagnitudeWithOthers(self):
+        self.properties['Zoom.JoinMagnitudeWithOthers']=bool(self.JoinMagnitudeWithOthers.get())
+
+    def onJoinPhaseWithOthers(self):
+        self.properties['Zoom.JoinPhaseWithOthers']=bool(self.JoinPhaseWithOthers.get())
+
+    def onJoinImpulseWithOthers(self):
+        self.properties['Zoom.JoinImpulseWithOthers']=bool(self.JoinImpulseWithOthers.get())
+
+    def onJoinStepImpedanceWithOthers(self):
+        self.properties['Zoom.JoinStepImpedanceWithOthers']=bool(self.JoinStepImpedanceWithOthers.get())
+
+    def onJoinAll(self):
+        self.properties['Zoom.JoinAll']=bool(self.JoinAll.get())
+
+    def onJoinOffDiagonal(self):
+        self.properties['Zoom.JoinOffDiagonal']=bool(self.JoinOffDiagonal.get())
+
+    def onJoinReciprocals(self):
+        self.properties['Zoom.JoinReciprocals']=bool(self.JoinReciprocals.get())
+
+    def onJoinReflects(self):
+        self.properties['Zoom.JoinReflects']=bool(self.JoinReflects.get())
+
+    def JoinIt(self,thisToPortToJoin,thisFromPortToJoin):
+        zoomProperties=self.properties['Zoom']
+        if zoomProperties['JoinAll']:
+            return True
+        if (thisToPortToJoin == thisFromPortToJoin) and (self.fromPort == self.toPort) and zoomProperties['JoinReflects']:
+            return True
+        if (thisToPortToJoin != thisFromPortToJoin) and (self.fromPort != self.toPort) and zoomProperties['JoinOffDiagonal']:
+            return True
+        if (thisToPortToJoin == self.fromPort) and (thisFromPortToJoin == self.toPort) and zoomProperties['JoinReciprocals']:
+            return True
+        return False
+
     def onTopLeftXLimitChange(self,ax):
-        xlim=ax.get_xlim()
-        if not self.topLeftPlotProperties is None:
-            self.topLeftPlotProperties['MinX']=xlim[0]
-            self.topLeftPlotProperties['MaxX']=xlim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            xlim=ax.get_xlim()
+            if not self.topLeftPlotProperties is None:
+                self.topLeftPlotProperties['MinX']=xlim[0]
+                self.topLeftPlotProperties['MaxX']=xlim[1]
+                if self.properties['Zoom.JoinFrequenciesWithin']:
+                    self.topRightPlotProperties['MinX']=self.topLeftPlotProperties['MinX']
+                    self.topRightPlotProperties['MaxX']=self.topLeftPlotProperties['MaxX']
+                    self.topRightPlot.set_xlim(left=self.topRightPlotProperties['MinX'])
+                    self.topRightPlot.set_xlim(right=self.topRightPlotProperties['MaxX'])
+                    self.topRightCanvas.draw()
+                if self.properties['Zoom.JoinFrequenciesWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                spPlotPropertiesToJoinTo['Magnitude.XInitialized']=True
+                                spPlotPropertiesToJoinTo['Magnitude.MinX']=spPlotPropertiesToJoinFrom['Magnitude.MinX']
+                                spPlotPropertiesToJoinTo['Magnitude.MaxX']=spPlotPropertiesToJoinFrom['Magnitude.MaxX']
+                                if self.properties['Zoom.JoinFrequenciesWithin']:
+                                    spPlotPropertiesToJoinTo['Phase.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Phase.MinX']=spPlotPropertiesToJoinFrom['Magnitude.MinX']
+                                    spPlotPropertiesToJoinTo['Phase.MaxX']=spPlotPropertiesToJoinFrom['Magnitude.MaxX']
+            self.LimitChangeLock=False
 
     def onTopLeftYLimitChange(self,ax):
-        ylim=ax.get_ylim()
-        if not self.topLeftPlotProperties is None:
-            self.topLeftPlotProperties['MinY']=ylim[0]
-            self.topLeftPlotProperties['MaxY']=ylim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            ylim=ax.get_ylim()
+            if not self.topLeftPlotProperties is None:
+                self.topLeftPlotProperties['MinY']=ylim[0]
+                self.topLeftPlotProperties['MaxY']=ylim[1]
+                if self.properties['Zoom.JoinMagnitudeWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                spPlotPropertiesToJoinTo['Magnitude.YInitialized']=True
+                                spPlotPropertiesToJoinTo['Magnitude.MinY']=spPlotPropertiesToJoinFrom['Magnitude.MinY']
+                                spPlotPropertiesToJoinTo['Magnitude.MaxY']=spPlotPropertiesToJoinFrom['Magnitude.MaxY']
+            self.LimitChangeLock=False
 
     def onTopRightXLimitChange(self,ax):
-        xlim=ax.get_xlim()
-        if not self.topRightPlotProperties is None:
-            self.topRightPlotProperties['MinX']=xlim[0]
-            self.topRightPlotProperties['MaxX']=xlim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            xlim=ax.get_xlim()
+            if not self.topRightPlotProperties is None:
+                self.topRightPlotProperties['MinX']=xlim[0]
+                self.topRightPlotProperties['MaxX']=xlim[1]
+                if self.properties['Zoom.JoinFrequenciesWithin']:
+                    self.topLeftPlotProperties['MinX']=self.topRightPlotProperties['MinX']
+                    self.topLeftPlotProperties['MaxX']=self.topRightPlotProperties['MaxX']
+                    self.topLeftPlot.set_xlim(left=self.topLeftPlotProperties['MinX'])
+                    self.topLeftPlot.set_xlim(right=self.topLeftPlotProperties['MaxX'])
+                    self.topLeftCanvas.draw()
+                if self.properties['Zoom.JoinFrequenciesWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                spPlotPropertiesToJoinTo['Phase.XInitialized']=True
+                                spPlotPropertiesToJoinTo['Phase.MinX']=spPlotPropertiesToJoinFrom['Phase.MinX']
+                                spPlotPropertiesToJoinTo['Phase.MaxX']=spPlotPropertiesToJoinFrom['Phase.MaxX']
+                                if self.properties['Zoom.JoinFrequenciesWithin']:
+                                    spPlotPropertiesToJoinTo['Magnitude.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Magnitude.MinX']=spPlotPropertiesToJoinFrom['Phase.MinX']
+                                    spPlotPropertiesToJoinTo['Magnitude.MaxX']=spPlotPropertiesToJoinFrom['Phase.MaxX']
+            self.LimitChangeLock=False
 
     def onTopRightYLimitChange(self,ax):
-        ylim=ax.get_ylim()
-        if not self.topRightPlotProperties is None:
-            self.topRightPlotProperties['MinY']=ylim[0]
-            self.topRightPlotProperties['MaxY']=ylim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            ylim=ax.get_ylim()
+            if not self.topRightPlotProperties is None:
+                self.topRightPlotProperties['MinY']=ylim[0]
+                self.topRightPlotProperties['MaxY']=ylim[1]
+                if self.properties['Zoom.JoinPhaseWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                spPlotPropertiesToJoinTo['Phase.YInitialized']=True
+                                spPlotPropertiesToJoinTo['Phase.MinY']=spPlotPropertiesToJoinFrom['Phase.MinY']
+                                spPlotPropertiesToJoinTo['Phase.MaxY']=spPlotPropertiesToJoinFrom['Phase.MaxY']
+            self.LimitChangeLock=False
 
     def onBottomLeftXLimitChange(self,ax):
-        xlim=ax.get_xlim()
-        if not self.bottomLeftPlotProperties is None:
-            self.bottomLeftPlotProperties['MinX']=xlim[0]
-            self.bottomLeftPlotProperties['MaxX']=xlim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            xlim=ax.get_xlim()
+            if not self.bottomLeftPlotProperties is None:
+                self.bottomLeftPlotProperties['MinX']=xlim[0]
+                self.bottomLeftPlotProperties['MaxX']=xlim[1]
+                if self.properties['Zoom.JoinTimesWithin']:
+                    if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                        self.plotProperties['Impedance.MinX']=self.plotProperties['Impulse.MinX']/2.
+                        self.plotProperties['Impedance.MaxX']=self.plotProperties['Impulse.MaxX']/2.
+                        self.plotProperties['Impedance.Initialized']=True
+                    self.plotProperties['Step.MinX']=self.plotProperties['Impulse.MinX']
+                    self.plotProperties['Step.MaxX']=self.plotProperties['Impulse.MaxX']
+                    self.plotProperties['Step.Initialized']=True
+                    self.bottomRightPlot.set_xlim(left=self.bottomRightPlotProperties['MinX'])
+                    self.bottomRightPlot.set_xlim(right=self.bottomRightPlotProperties['MaxX'])
+                    self.bottomRightCanvas.draw()
+                if self.properties['Zoom.JoinTimesWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                spPlotPropertiesToJoinTo['Impulse.XInitialized']=True
+                                spPlotPropertiesToJoinTo['Impulse.MinX']=spPlotPropertiesToJoinFrom['Impulse.MinX']
+                                spPlotPropertiesToJoinTo['Impulse.MaxX']=spPlotPropertiesToJoinFrom['Impulse.MaxX']
+                                if self.properties['Zoom.JoinTimesWithin']:
+                                    spPlotPropertiesToJoinTo['Step.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Step.MinX']=spPlotPropertiesToJoinFrom['Step.MinX']
+                                    spPlotPropertiesToJoinTo['Step.MaxX']=spPlotPropertiesToJoinFrom['Step.MaxX']
+                                    spPlotPropertiesToJoinTo['Impedance.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Impedance.MinX']=spPlotPropertiesToJoinFrom['Impedance.MinX']
+                                    spPlotPropertiesToJoinTo['Impedance.MaxX']=spPlotPropertiesToJoinFrom['Impedance.MaxX']
+            self.LimitChangeLock=False
 
     def onBottomLeftYLimitChange(self,ax):
-        ylim=ax.get_ylim()
-        if not self.bottomLeftPlotProperties is None:
-            self.bottomLeftPlotProperties['MinY']=ylim[0]
-            self.bottomLeftPlotProperties['MaxY']=ylim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            ylim=ax.get_ylim()
+            if not self.bottomLeftPlotProperties is None:
+                self.bottomLeftPlotProperties['MinY']=ylim[0]
+                self.bottomLeftPlotProperties['MaxY']=ylim[1]
+                if self.properties['Zoom.JoinImpulseWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                spPlotPropertiesToJoinTo['Impulse.YInitialized']=True
+                                spPlotPropertiesToJoinTo['Impulse.MinY']=spPlotPropertiesToJoinFrom['Impulse.MinY']
+                                spPlotPropertiesToJoinTo['Impulse.MaxY']=spPlotPropertiesToJoinFrom['Impulse.MaxY']
+            self.LimitChangeLock=False
 
     def onBottomRightXLimitChange(self,ax):
-        xlim=ax.get_xlim()
-        if not self.bottomRightPlotProperties is None:
-            self.bottomRightPlotProperties['MinX']=xlim[0]
-            self.bottomRightPlotProperties['MaxX']=xlim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            xlim=ax.get_xlim()
+            if not self.bottomRightPlotProperties is None:
+                self.bottomRightPlotProperties['MinX']=xlim[0]
+                self.bottomRightPlotProperties['MaxX']=xlim[1]
+                if self.properties['Zoom.JoinTimesWithin']:
+                    if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                        self.plotProperties['Impulse.MinX']=self.plotProperties['Impedance.MinX']*2.
+                        self.plotProperties['Impulse.MaxX']=self.plotProperties['Impedance.MaxX']*2.
+                        self.plotProperties['Impulse.Initialized']=True
+                        self.plotProperties['Step.MinX']=self.plotProperties['Impedance.MinX']*2.
+                        self.plotProperties['Step.MaxX']=self.plotProperties['Impedance.MaxX']*2.
+                        self.plotProperties['Step.Initialized']=True
+                    else:
+                        self.plotProperties['Impulse.MinX']=self.plotProperties['Step.MinX']
+                        self.plotProperties['Impulse.MaxX']=self.plotProperties['Step.MaxX']
+                        self.plotProperties['Impulse.Initialized']=True
+                        self.plotProperties['Impedance.MinX']=self.plotProperties['Step.MinX']/2.
+                        self.plotProperties['Impedance.MaxX']=self.plotProperties['Step.MaxX']/2.
+                        self.plotProperties['Impedance.Initialized']=True
+                    self.bottomLeftPlot.set_xlim(left=self.bottomLeftPlotProperties['MinX'])
+                    self.bottomLeftPlot.set_xlim(right=self.bottomLeftPlotProperties['MaxX'])
+                    self.bottomLeftCanvas.draw()
+                if self.properties['Zoom.JoinTimesWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                                    spPlotPropertiesToJoinTo['Impedance.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Impedance.MinX']=spPlotPropertiesToJoinFrom['Impedance.MinX']
+                                    spPlotPropertiesToJoinTo['Impedance.MaxX']=spPlotPropertiesToJoinFrom['Impedance.MaxX']
+                                else:
+                                    spPlotPropertiesToJoinTo['Step.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Step.MinX']=spPlotPropertiesToJoinFrom['Step.MinX']
+                                    spPlotPropertiesToJoinTo['Step.MaxX']=spPlotPropertiesToJoinFrom['Step.MaxX']
+                                if self.properties['Zoom.JoinTimesWithin']:
+                                    spPlotPropertiesToJoinTo['Impulse.XInitialized']=True
+                                    spPlotPropertiesToJoinTo['Impulse.MinX']=spPlotPropertiesToJoinFrom['Impulse.MinX']
+                                    spPlotPropertiesToJoinTo['Impulse.MaxX']=spPlotPropertiesToJoinFrom['Impulse.MaxX']
+            self.LimitChangeLock=False
 
     def onBottomRightYLimitChange(self,ax):
-        ylim=ax.get_ylim()
-        if not self.bottomRightPlotProperties is None:
-            self.bottomRightPlotProperties['MinY']=ylim[0]
-            self.bottomRightPlotProperties['MaxY']=ylim[1]
+        if not self.LimitChangeLock:
+            self.LimitChangeLock=True
+            ylim=ax.get_ylim()
+            if not self.bottomRightPlotProperties is None:
+                self.bottomRightPlotProperties['MinY']=ylim[0]
+                self.bottomRightPlotProperties['MaxY']=ylim[1]
+                if self.properties['Zoom.JoinStepImpedanceWithOthers']:
+                    spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
+                    for thisToPort in range(1,self.sp.m_P+1):
+                        for thisFromPort in range(1,self.sp.m_P+1):
+                            if self.JoinIt(thisToPort,thisFromPort):
+                                spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
+                                if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                                    spPlotPropertiesToJoinTo['Impedance.YInitialized']=True
+                                    spPlotPropertiesToJoinTo['Impedance.MinY']=spPlotPropertiesToJoinFrom['Impedance.MinY']
+                                    spPlotPropertiesToJoinTo['Impedance.MaxY']=spPlotPropertiesToJoinFrom['Impedance.MaxY']
+                                else:
+                                    spPlotPropertiesToJoinTo['Step.YInitialized']=True
+                                    spPlotPropertiesToJoinTo['Step.MinY']=spPlotPropertiesToJoinFrom['Step.MinY']
+                                    spPlotPropertiesToJoinTo['Step.MaxY']=spPlotPropertiesToJoinFrom['Step.MaxY']
+
+            self.LimitChangeLock=False
 
     def onTopLeftHome(self):
         if not self.topLeftPlotProperties is None:
-            self.topLeftPlotProperties['Initialized']=False
+            self.topLeftPlotProperties['XInitialized']=False
+            self.topLeftPlotProperties['YInitialized']=False
             self.PlotSParameter()
 
     def onTopRightHome(self):
         if not self.topRightPlotProperties is None:
-            self.topRightPlotProperties['Initialized']=False
+            self.topRightPlotProperties['XInitialized']=False
+            self.topRightPlotProperties['YInitialized']=False
             self.PlotSParameter()
 
     def onBottomLeftHome(self):
         if not self.bottomLeftPlotProperties is None:
-            self.bottomLeftPlotProperties['Initialized']=False
+            self.bottomLeftPlotProperties['XInitialized']=False
+            self.bottomLeftPlotProperties['YInitialized']=False
             self.PlotSParameter()
 
     def onBottomRightHome(self):
         if not self.bottomRightPlotProperties is None:
-            self.bottomRightPlotProperties['Initialized']=False
+            self.bottomRightPlotProperties['XInitialized']=False
+            self.bottomRightPlotProperties['YInitialized']=False
             self.PlotSParameter()
 
     def UpdatePropertiesFromSParameters(self,new=False):
@@ -383,7 +648,18 @@ class SParametersDialog(tk.Toplevel):
         self.showCausalityViolations.set(self.properties['Plot.ShowCausalityViolations'])
         self.showImpedance.set(self.properties['Plot.ShowImpedance'])
         self.logScale.set(self.properties['Plot.LogScale'])
-
+        self.JoinFrequenciesWithin.set(self.properties['Zoom.JoinFrequenciesWithin'])
+        self.JoinTimesWithin.set(self.properties['Zoom.JoinTimesWithin'])
+        self.JoinFrequenciesWithOthers.set(self.properties['Zoom.JoinFrequenciesWithOthers'])
+        self.JoinTimesWithOthers.set(self.properties['Zoom.JoinTimesWithOthers'])
+        self.JoinMagnitudeWithOthers.set(self.properties['Zoom.JoinMagnitudeWithOthers'])
+        self.JoinPhaseWithOthers.set(self.properties['Zoom.JoinPhaseWithOthers'])
+        self.JoinImpulseWithOthers.set(self.properties['Zoom.JoinImpulseWithOthers'])
+        self.JoinStepImpedanceWithOthers.set(self.properties['Zoom.JoinStepImpedanceWithOthers'])
+        self.JoinAll.set(self.properties['Zoom.JoinAll'])
+        self.JoinOffDiagonal.set(self.properties['Zoom.JoinOffDiagonal'])
+        self.JoinReciprocals.set(self.properties['Zoom.JoinReciprocals'])
+        self.JoinReflects.set(self.properties['Zoom.JoinReflects'])
 
     def UpdateSParametersFromProperties(self):
         msg=None
@@ -498,12 +774,14 @@ class SParametersDialog(tk.Toplevel):
 
         self.topLeftPlotProperties=self.plotProperties['Magnitude']
 
-        if not self.topLeftPlotProperties['Initialized']:
+        if not self.topLeftPlotProperties['XInitialized']:
             self.topLeftPlotProperties['MinX']=min(x)
             self.topLeftPlotProperties['MaxX']=max(x)
+            self.topLeftPlotProperties['XInitialized']=True
+        if not self.topLeftPlotProperties['YInitialized']:
             self.topLeftPlotProperties['MinY']=max(min(y)-1.,-60.0)
             self.topLeftPlotProperties['MaxY']=max(y)+1.
-            self.topLeftPlotProperties['Initialized']=True
+            self.topLeftPlotProperties['YInitialized']=True
 
         if self.properties['Plot.LogScale']:
             if max(x)>0:
@@ -547,12 +825,14 @@ class SParametersDialog(tk.Toplevel):
 
         self.topRightPlotProperties=self.plotProperties['Phase']
 
-        if not self.topRightPlotProperties['Initialized']:
+        if not self.topRightPlotProperties['XInitialized']:
             self.topRightPlotProperties['MinX']=min(x)
             self.topRightPlotProperties['MaxX']=max(x)
+            self.topRightPlotProperties['XInitialized']=True
+        if not self.topRightPlotProperties['YInitialized']:
             self.topRightPlotProperties['MinY']=min(y)-1
             self.topRightPlotProperties['MaxY']=max(y)+1
-            self.topRightPlotProperties['Initialized']=True
+            self.topRightPlotProperties['YInitialized']=True
 
         if self.properties['Plot.LogScale']:
             if max(x)>0:
@@ -601,12 +881,14 @@ class SParametersDialog(tk.Toplevel):
 
             self.bottomLeftPlotProperties=self.plotProperties['Impulse']
 
-            if not self.bottomLeftPlotProperties['Initialized']:
+            if not self.bottomLeftPlotProperties['XInitialized']:
                 self.bottomLeftPlotProperties['MinX']=min(x)
                 self.bottomLeftPlotProperties['MaxX']=max(x)
+                self.bottomLeftPlotProperties['XInitialized']=True
+            if not self.bottomLeftPlotProperties['YInitialized']:
                 self.bottomLeftPlotProperties['MinY']=min(min(y)*1.05,-0.1)
                 self.bottomLeftPlotProperties['MaxY']=max(max(y)*1.05,0.1)
-                self.bottomLeftPlotProperties['Initialized']=True
+                self.bottomLeftPlotProperties['YInitialized']=True
 
             self.bottomLeftPlot.set_xlim(left=self.bottomLeftPlotProperties['MinX'])
             self.bottomLeftPlot.set_xlim(right=self.bottomLeftPlotProperties['MaxX'])
@@ -633,22 +915,32 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 self.bottomRightPlot.set_xlabel('length ('+timeLabel+')',fontsize=10)
 
-                if not self.bottomRightPlotProperties['Initialized']:
+                if not self.bottomRightPlotProperties['YInitialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,Z0-1)
             else:
                 self.bottomRightPlotProperties=self.plotProperties['Step']
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
-                if not self.bottomRightPlotProperties['Initialized']:
+                if not self.bottomRightPlotProperties['YInitialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,-0.1)
 
             self.bottomRightPlot.plot(x,y)
 
-            if not self.bottomRightPlotProperties['Initialized']:
+            if not self.bottomRightPlotProperties['XInitialized']:
                 self.bottomRightPlotProperties['MinX']=min(x)
                 self.bottomRightPlotProperties['MaxX']=max(x)
+                self.bottomRightPlotProperties['XInitialized']=True
+                if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                    self.plotProperties['Step.MinX']=self.bottomRightPlotProperties['MinX']*2.0
+                    self.plotProperties['Step.MaxX']=self.bottomRightPlotProperties['MaxX']*2.0
+                    self.plotProperties['Step.XInitialized']=True
+                else:
+                    self.plotProperties['Impedance.MinX']=self.bottomRightPlotProperties['MinX']/2.0
+                    self.plotProperties['Impedance.MaxX']=self.bottomRightPlotProperties['MaxX']/2.0
+                    self.plotProperties['Impedance.XInitialized']=True
+            if not self.bottomRightPlotProperties['YInitialized']:
                 self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
-                self.bottomRightPlotProperties['Initialized']=True
+                self.bottomRightPlotProperties['YInitialized']=True
 
             self.bottomRightPlot.set_xlim(left=self.bottomRightPlotProperties['MinX'])
             self.bottomRightPlot.set_xlim(right=self.bottomRightPlotProperties['MaxX'])
@@ -728,12 +1020,14 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.topRightPlot.plot(x,y)
 
-        if not self.topRightPlotProperties['Initialized']:
+        if not self.topRightPlotProperties['XInitialized']:
             self.topRightPlotProperties['MinX']=min(x)
             self.topRightPlotProperties['MaxX']=max(x)
+            self.topRightPlotProperties['XInitialized']=True
+        if not self.topRightPlotProperties['YInitialized']:
             self.topRightPlotProperties['MinY']=min(y)-1
             self.topRightPlotProperties['MaxY']=max(y)+1
-            self.topRightPlotProperties['Initialized']=True
+            self.topRightPlotProperties['YInitialized']=True
 
         if self.properties['Plot.LogScale']:
             if max(x)>0:
