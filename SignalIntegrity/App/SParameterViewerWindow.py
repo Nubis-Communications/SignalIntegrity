@@ -264,23 +264,23 @@ class SParametersDialog(tk.Toplevel):
 #             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 
     def onVariableLineWidth(self):
-        self.properties['Plot.VariableLineWidth']=self.variableLineWidth.get()
+        self.properties['Plot.VariableLineWidth']=bool(self.variableLineWidth.get())
         self.PlotSParameter()
 
     def onShowPassivityViolations(self):
-        self.properties['Plot.ShowPassivityViolations']=self.showPassivityViolations.get()
+        self.properties['Plot.ShowPassivityViolations']=bool(self.showPassivityViolations.get())
         self.PlotSParameter()
 
     def onShowCausalityViolations(self):
-        self.properties['Plot.ShowCausalityViolations']=self.showCausalityViolations.get()
+        self.properties['Plot.ShowCausalityViolations']=bool(self.showCausalityViolations.get())
         self.PlotSParameter()
 
     def onShowImpedance(self):
-        self.properties['Plot.ShowImpedance']=self.showImpedance.get()
+        self.properties['Plot.ShowImpedance']=bool(self.showImpedance.get())
         self.PlotSParameter()
 
     def onLogScale(self):
-        self.properties['Plot.LogScale']=self.logScale.get()
+        self.properties['Plot.LogScale']=bool(self.logScale.get())
         self.PlotSParameter()
 
     def onTopLeftXLimitChange(self,ax):
