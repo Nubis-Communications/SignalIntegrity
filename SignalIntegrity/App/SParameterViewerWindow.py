@@ -477,7 +477,7 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomLeftPlotProperties['MinX']=xlim[0]
                 self.bottomLeftPlotProperties['MaxX']=xlim[1]
                 if self.properties['Zoom.JoinTimesWithin']:
-                    if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                    if (self.fromPort == self.toPort):
                         self.plotProperties['Impedance.MinX']=self.plotProperties['Impulse.MinX']/2.
                         self.plotProperties['Impedance.MaxX']=self.plotProperties['Impulse.MaxX']/2.
                         self.plotProperties['Impedance.Initialized']=True
