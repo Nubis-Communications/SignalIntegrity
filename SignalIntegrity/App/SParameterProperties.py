@@ -18,6 +18,8 @@ SParameterProperties.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFile import CalculationPropertiesBase
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool
+from __builtin__ import True
+from pickle import TRUE
 
 class PlotConfiguration(XMLConfiguration):
     def __init__(self,name):
@@ -49,21 +51,52 @@ class PlotProperties(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('ShowImpedance',False))
         self.Add(XMLPropertyDefaultBool('LogScale',False))
 
-class SParameterZoomProperties(XMLConfiguration):
+class ZoomJoinProperties(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Zoom')
-        self.Add(XMLPropertyDefaultBool('JoinFrequenciesWithin',True))
-        self.Add(XMLPropertyDefaultBool('JoinTimesWithin',True))
-        self.Add(XMLPropertyDefaultBool('JoinFrequenciesWithOthers',True))
-        self.Add(XMLPropertyDefaultBool('JoinTimesWithOthers',True))
+        XMLConfiguration.__init__(self,'Join')
+        self.Add(XMLPropertyDefaultBool('All',False))
+        self.Add(XMLPropertyDefaultBool('OffDiagonal',False))
+        self.Add(XMLPropertyDefaultBool('Reciprocals',False))
+        self.Add(XMLPropertyDefaultBool('Reflects',False))
+
+class ZoomFrequenciesProperties(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Frequencies')
+        self.Add(XMLPropertyDefaultBool('JoinWithin',True))
+        self.Add(XMLPropertyDefaultBool('JoinWithOthers',True))
+        self.SubDir(ZoomJoinProperties())
+        self['Join.All']=True
+        self['Join.OffDiagonal']=True
+        self['Join.Reciprocals']=True
+        self['Join.Reflects']=True
+
+class ZoomTimesProperties(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Times')
+        self.Add(XMLPropertyDefaultBool('JoinWithin',True))
+        self.Add(XMLPropertyDefaultBool('JoinWithOthers',True))
+        self.SubDir(ZoomJoinProperties())
+        self['Join.OffDiagonal']=True
+        self['Join.Reciprocals']=True
+        self['Join.Reflects']=True
+
+class ZoomVerticalProperties(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Vertical')
         self.Add(XMLPropertyDefaultBool('JoinMagnitudeWithOthers',True))
         self.Add(XMLPropertyDefaultBool('JoinPhaseWithOthers',True))
         self.Add(XMLPropertyDefaultBool('JoinImpulseWithOthers',True))
         self.Add(XMLPropertyDefaultBool('JoinStepImpedanceWithOthers',True))
-        self.Add(XMLPropertyDefaultBool('JoinAll',False))
-        self.Add(XMLPropertyDefaultBool('JoinOffDiagonal',False))
-        self.Add(XMLPropertyDefaultBool('JoinReciprocals',True))
-        self.Add(XMLPropertyDefaultBool('JoinReflects',True))
+        self.SubDir(ZoomJoinProperties())
+        self['Join.Reciprocals']=True
+        self['Join.Reflects']=True
+
+class SParameterZoomProperties(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Zoom')
+        self.SubDir(ZoomFrequenciesProperties())
+        self.SubDir(ZoomTimesProperties())
+        self.SubDir(ZoomVerticalProperties())
 
 class SParameterProperties(CalculationPropertiesBase):
     def __init__(self):

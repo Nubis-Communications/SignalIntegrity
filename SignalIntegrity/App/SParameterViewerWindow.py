@@ -96,11 +96,18 @@ class SParametersDialog(tk.Toplevel):
         self.JoinPhaseWithOthers = tk.BooleanVar()
         self.JoinImpulseWithOthers = tk.BooleanVar()
         self.JoinStepImpedanceWithOthers = tk.BooleanVar()
-        self.JoinAll = tk.BooleanVar()
-        self.JoinOffDiagonal = tk.BooleanVar()
-        self.JoinReciprocals = tk.BooleanVar()
-        self.JoinReflects = tk.BooleanVar()
-
+        self.FrequenciesJoinAll = tk.BooleanVar()
+        self.FrequenciesJoinOffDiagonal = tk.BooleanVar()
+        self.FrequenciesJoinReciprocals = tk.BooleanVar()
+        self.FrequenciesJoinReflects = tk.BooleanVar()
+        self.TimesJoinAll = tk.BooleanVar()
+        self.TimesJoinOffDiagonal = tk.BooleanVar()
+        self.TimesJoinReciprocals = tk.BooleanVar()
+        self.TimesJoinReflects = tk.BooleanVar()
+        self.VerticalJoinAll = tk.BooleanVar()
+        self.VerticalJoinOffDiagonal = tk.BooleanVar()
+        self.VerticalJoinReciprocals = tk.BooleanVar()
+        self.VerticalJoinReflects = tk.BooleanVar()
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement('Control-Help:Save-S-parameter-File')
@@ -129,10 +136,18 @@ class SParametersDialog(tk.Toplevel):
         self.JoinPhaseWithOthersDoer = Doer(self.onJoinPhaseWithOthers)
         self.JoinImpulseWithOthersDoer = Doer(self.onJoinImpulseWithOthers)
         self.JoinStepImpedanceWithOthersDoer = Doer(self.onJoinStepImpedanceWithOthers)
-        self.JoinAllDoer = Doer(self.onJoinAll)
-        self.JoinOffDiagonalDoer = Doer(self.onJoinOffDiagonal)
-        self.JoinReciprocalsDoer = Doer(self.onJoinReciprocals)
-        self.JoinReflectsDoer = Doer(self.onJoinReflects)
+        self.FrequenciesJoinAllDoer = Doer(self.onFrequenciesJoinAll)
+        self.FrequenciesJoinOffDiagonalDoer = Doer(self.onFrequenciesJoinOffDiagonal)
+        self.FrequenciesJoinReciprocalsDoer = Doer(self.onFrequenciesJoinReciprocals)
+        self.FrequenciesJoinReflectsDoer = Doer(self.onFrequenciesJoinReflects)
+        self.TimesJoinAllDoer = Doer(self.onTimesJoinAll)
+        self.TimesJoinOffDiagonalDoer = Doer(self.onTimesJoinOffDiagonal)
+        self.TimesJoinReciprocalsDoer = Doer(self.onTimesJoinReciprocals)
+        self.TimesJoinReflectsDoer = Doer(self.onTimesJoinReflects)
+        self.VerticalJoinAllDoer = Doer(self.onVerticalJoinAll)
+        self.VerticalJoinOffDiagonalDoer = Doer(self.onVerticalJoinOffDiagonal)
+        self.VerticalJoinReciprocalsDoer = Doer(self.onVerticalJoinReciprocals)
+        self.VerticalJoinReflectsDoer = Doer(self.onVerticalJoinReflects)
         #-------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -167,20 +182,37 @@ class SParametersDialog(tk.Toplevel):
         #-------
         ZoomMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Zoom',menu=ZoomMenu,underline=0)
-        self.JoinFrequenciesWithinDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Frequencies Within Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithin)
-        self.JoinTimesWithinDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Times Within Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinTimesWithin)
-        ZoomMenu.add_separator()
-        self.JoinFrequenciesWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Frequencies With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithOthers)
-        self.JoinTimesWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Times With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinTimesWithOthers)
-        self.JoinMagnitudeWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Magnitude Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinMagnitudeWithOthers)
-        self.JoinPhaseWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Phase Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinPhaseWithOthers)
-        self.JoinImpulseWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Impulse Response Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinImpulseWithOthers)
-        self.JoinStepImpedanceWithOthersDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Step Response/Impedance Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinStepImpedanceWithOthers)
-        ZoomMenu.add_separator()
-        self.JoinAllDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join All Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinAll)
-        self.JoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Off-Diagnonal Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinOffDiagonal)
-        self.JoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Reciprocal Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinReciprocals)
-        self.JoinReflectsDoer.AddCheckButtonMenuElement(ZoomMenu,label='Join Reflect Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinReflects)
+        ZoomFrequenciesMenu=tk.Menu(self)
+        ZoomMenu.add_cascade(label='Frequencies',menu=ZoomFrequenciesMenu,underline=0)
+        self.JoinFrequenciesWithinDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Within Views',underline=5,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithin)
+        ZoomFrequenciesMenu.add_separator()
+        self.JoinFrequenciesWithOthersDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join With Other Views',underline=10,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithOthers)
+        ZoomFrequenciesMenu.add_separator()
+        self.FrequenciesJoinAllDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join All Views',underline=5,onvalue=True,offvalue=False,variable=self.FrequenciesJoinAll)
+        self.FrequenciesJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Off-Diagnonal Views',underline=9,onvalue=True,offvalue=False,variable=self.FrequenciesJoinOffDiagonal)
+        self.FrequenciesJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Reciprocal Views',underline=5,onvalue=True,offvalue=False,variable=self.FrequenciesJoinReciprocals)
+        self.FrequenciesJoinReflectsDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Reflect Views',underline=7,onvalue=True,offvalue=False,variable=self.FrequenciesJoinReflects)
+        ZoomTimesMenu=tk.Menu(self)
+        ZoomMenu.add_cascade(label='Times',menu=ZoomTimesMenu,underline=0)
+        self.JoinTimesWithinDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Within Views',underline=5,onvalue=True,offvalue=False,variable=self.JoinTimesWithin)
+        ZoomTimesMenu.add_separator()
+        self.JoinTimesWithOthersDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join With Other Views',underline=10,onvalue=True,offvalue=False,variable=self.JoinTimesWithOthers)
+        ZoomTimesMenu.add_separator()
+        self.TimesJoinAllDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join All Views',underline=5,onvalue=True,offvalue=False,variable=self.TimesJoinAll)
+        self.TimesJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Off-Diagnonal Views',underline=9,onvalue=True,offvalue=False,variable=self.TimesJoinOffDiagonal)
+        self.TimesJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Reciprocal Views',underline=5,onvalue=True,offvalue=False,variable=self.TimesJoinReciprocals)
+        self.TimesJoinReflectsDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Reflect Views',underline=7,onvalue=True,offvalue=False,variable=self.TimesJoinReflects)
+        ZoomVerticalMenu=tk.Menu(self)
+        ZoomMenu.add_cascade(label='Vertical',menu=ZoomVerticalMenu,underline=0)
+        self.JoinMagnitudeWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Magnitude Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinMagnitudeWithOthers)
+        self.JoinPhaseWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Phase Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinPhaseWithOthers)
+        self.JoinImpulseWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Impulse Response Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinImpulseWithOthers)
+        self.JoinStepImpedanceWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Step Response/Impedance Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinStepImpedanceWithOthers)
+        ZoomVerticalMenu.add_separator()
+        self.VerticalJoinAllDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join All Views',underline=5,onvalue=True,offvalue=False,variable=self.VerticalJoinAll)
+        self.VerticalJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Off-Diagnonal Views',underline=9,onvalue=True,offvalue=False,variable=self.VerticalJoinOffDiagonal)
+        self.VerticalJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Reciprocal Views',underline=5,onvalue=True,offvalue=False,variable=self.VerticalJoinReciprocals)
+        self.VerticalJoinReflectsDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Reflect Views',underline=7,onvalue=True,offvalue=False,variable=self.VerticalJoinReflects)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -329,51 +361,123 @@ class SParametersDialog(tk.Toplevel):
         self.properties['Plot.LogScale']=bool(self.logScale.get())
         self.PlotSParameter()
 
+    def ZoomJoinActivations(self):
+        self.FrequenciesJoinAllDoer.Activate(self.properties['Zoom.Frequencies.JoinWithOthers'])
+        self.FrequenciesJoinOffDiagonalDoer.Activate(self.properties['Zoom.Frequencies.JoinWithOthers']
+            and not self.properties['Zoom.Frequencies.Join.All'])
+        self.FrequenciesJoinReciprocalsDoer.Activate(self.properties['Zoom.Frequencies.JoinWithOthers']
+            and not self.properties['Zoom.Frequencies.Join.All'] and not self.properties['Zoom.Frequencies.Join.OffDiagonal'])        
+        self.FrequenciesJoinReflectsDoer.Activate(self.properties['Zoom.Frequencies.JoinWithOthers']
+            and not self.properties['Zoom.Frequencies.Join.All'])
+        self.TimesJoinAllDoer.Activate(self.properties['Zoom.Times.JoinWithOthers'])
+        self.TimesJoinOffDiagonalDoer.Activate(self.properties['Zoom.Times.JoinWithOthers']
+            and not self.properties['Zoom.Times.Join.All'])
+        self.TimesJoinReciprocalsDoer.Activate(self.properties['Zoom.Times.JoinWithOthers']
+            and not self.properties['Zoom.Times.Join.All'] and not self.properties['Zoom.Times.Join.OffDiagonal'])        
+        self.TimesJoinReflectsDoer.Activate(self.properties['Zoom.Times.JoinWithOthers']
+            and not self.properties['Zoom.Times.Join.All'])
+        verticalsActive = self.properties['Zoom.Vertical.JoinMagnitudeWithOthers'] or\
+                self.properties['Zoom.Vertical.JoinPhaseWithOthers'] or\
+                self.properties['Zoom.Vertical.JoinImpulseWithOthers'] or\
+                self.properties['Zoom.Vertical.JoinStepImpedanceWithOthers']
+        self.VerticalJoinAllDoer.Activate(verticalsActive)
+        self.VerticalJoinOffDiagonalDoer.Activate(verticalsActive
+            and not self.properties['Zoom.Vertical.Join.All'])
+        self.VerticalJoinReciprocalsDoer.Activate(verticalsActive
+            and not self.properties['Zoom.Vertical.Join.All'] and not self.properties['Zoom.Vertical.Join.OffDiagonal'])        
+        self.VerticalJoinReflectsDoer.Activate(verticalsActive
+            and not self.properties['Zoom.Vertical.Join.All'])
+
+
     def onJoinFrequenciesWithin(self):
-        self.properties['Zoom.JoinFrequenciesWithin']=bool(self.JoinFrequenciesWithin.get())
+        self.properties['Zoom.Frequencies.JoinWithin']=bool(self.JoinFrequenciesWithin.get())
+        self.ZoomJoinActivations()
 
     def onJoinTimesWithin(self):
-        self.properties['Zoom.JoinTimesWithin']=bool(self.JoinTimesWithin.get())
+        self.properties['Zoom.Times.JoinWithin']=bool(self.JoinTimesWithin.get())
+        self.ZoomJoinActivations()
 
     def onJoinFrequenciesWithOthers(self):
-        self.properties['Zoom.JoinFrequenciesWithOthers']=bool(self.JoinFrequenciesWithOthers.get())
+        self.properties['Zoom.Frequencies.JoinWithOthers']=bool(self.JoinFrequenciesWithOthers.get())
+        self.ZoomJoinActivations()
 
     def onJoinTimesWithOthers(self):
-        self.properties['Zoom.JoinTimesWithOthers']=bool(self.JoinTimesWithOthers.get())
+        self.properties['Zoom.Times.JoinWithOthers']=bool(self.JoinTimesWithOthers.get())
+        self.ZoomJoinActivations()
 
     def onJoinMagnitudeWithOthers(self):
-        self.properties['Zoom.JoinMagnitudeWithOthers']=bool(self.JoinMagnitudeWithOthers.get())
+        self.properties['Zoom.Vertical.JoinMagnitudeWithOthers']=bool(self.JoinMagnitudeWithOthers.get())
+        self.ZoomJoinActivations()
 
     def onJoinPhaseWithOthers(self):
-        self.properties['Zoom.JoinPhaseWithOthers']=bool(self.JoinPhaseWithOthers.get())
+        self.properties['Zoom.Vertical.JoinPhaseWithOthers']=bool(self.JoinPhaseWithOthers.get())
+        self.ZoomJoinActivations()
 
     def onJoinImpulseWithOthers(self):
-        self.properties['Zoom.JoinImpulseWithOthers']=bool(self.JoinImpulseWithOthers.get())
+        self.properties['Zoom.Vertical.JoinImpulseWithOthers']=bool(self.JoinImpulseWithOthers.get())
+        self.ZoomJoinActivations()
 
     def onJoinStepImpedanceWithOthers(self):
-        self.properties['Zoom.JoinStepImpedanceWithOthers']=bool(self.JoinStepImpedanceWithOthers.get())
+        self.properties['Zoom.Vertical.JoinStepImpedanceWithOthers']=bool(self.JoinStepImpedanceWithOthers.get())
+        self.ZoomJoinActivations()
 
-    def onJoinAll(self):
-        self.properties['Zoom.JoinAll']=bool(self.JoinAll.get())
+    def onFrequenciesJoinAll(self):
+        self.properties['Zoom.Frequencies.Join.All']=bool(self.FrequenciesJoinAll.get())
+        self.ZoomJoinActivations()
 
-    def onJoinOffDiagonal(self):
-        self.properties['Zoom.JoinOffDiagonal']=bool(self.JoinOffDiagonal.get())
+    def onFrequenciesJoinOffDiagonal(self):
+        self.properties['Zoom.Frequencies.Join.OffDiagonal']=bool(self.FrequenciesJoinOffDiagonal.get())
+        self.ZoomJoinActivations()
 
-    def onJoinReciprocals(self):
-        self.properties['Zoom.JoinReciprocals']=bool(self.JoinReciprocals.get())
+    def onFrequenciesJoinReciprocals(self):
+        self.properties['Zoom.Frequencies.Join.Reciprocals']=bool(self.FrequenciesJoinReciprocals.get())
+        self.ZoomJoinActivations()
 
-    def onJoinReflects(self):
-        self.properties['Zoom.JoinReflects']=bool(self.JoinReflects.get())
+    def onFrequenciesJoinReflects(self):
+        self.properties['Zoom.Frequencies.Join.Reflects']=bool(self.FrequenciesJoinReflects.get())
+        self.ZoomJoinActivations()
 
-    def JoinIt(self,thisToPortToJoin,thisFromPortToJoin):
-        zoomProperties=self.properties['Zoom']
-        if zoomProperties['JoinAll']:
+    def onTimesJoinAll(self):
+        self.properties['Zoom.Times.Join.All']=bool(self.TimesJoinAll.get())
+        self.ZoomJoinActivations()
+
+    def onTimesJoinOffDiagonal(self):
+        self.properties['Zoom.Times.Join.OffDiagonal']=bool(self.TimesJoinOffDiagonal.get())
+        self.ZoomJoinActivations()
+
+    def onTimesJoinReciprocals(self):
+        self.properties['Zoom.Times.Join.Reciprocals']=bool(self.TimesJoinReciprocals.get())
+        self.ZoomJoinActivations()
+
+    def onTimesJoinReflects(self):
+        self.properties['Zoom.Times.Join.Reflects']=bool(self.TimesJoinReflects.get())
+        self.ZoomJoinActivations()
+
+    def onVerticalJoinAll(self):
+        self.properties['Zoom.Vertical.Join.All']=bool(self.VerticalJoinAll.get())
+        self.ZoomJoinActivations()
+
+    def onVerticalJoinOffDiagonal(self):
+        self.properties['Zoom.Vertical.Join.OffDiagonal']=bool(self.VerticalJoinOffDiagonal.get())
+        self.ZoomJoinActivations()
+
+    def onVerticalJoinReciprocals(self):
+        self.properties['Zoom.Vertical.Join.Reciprocals']=bool(self.VerticalJoinReciprocals.get())
+        self.ZoomJoinActivations()
+
+    def onVerticalJoinReflects(self):
+        self.properties['Zoom.Vertical.Join.Reflects']=bool(self.VerticalJoinReflects.get())
+        self.ZoomJoinActivations()
+
+    def JoinIt(self,thisToPortToJoin,thisFromPortToJoin,category):
+        zoomProperties=self.properties['Zoom'][category]['Join']
+        if zoomProperties['All']:
             return True
-        if (thisToPortToJoin == thisFromPortToJoin) and (self.fromPort == self.toPort) and zoomProperties['JoinReflects']:
+        if (thisToPortToJoin == thisFromPortToJoin) and (self.fromPort == self.toPort) and zoomProperties['Reflects']:
             return True
-        if (thisToPortToJoin != thisFromPortToJoin) and (self.fromPort != self.toPort) and zoomProperties['JoinOffDiagonal']:
+        if (thisToPortToJoin != thisFromPortToJoin) and (self.fromPort != self.toPort) and zoomProperties['OffDiagonal']:
             return True
-        if (thisToPortToJoin == self.fromPort) and (thisFromPortToJoin == self.toPort) and zoomProperties['JoinReciprocals']:
+        if (thisToPortToJoin == self.fromPort) and (thisFromPortToJoin == self.toPort) and zoomProperties['Reciprocals']:
             return True
         return False
 
@@ -384,22 +488,22 @@ class SParametersDialog(tk.Toplevel):
             if not self.topLeftPlotProperties is None:
                 self.topLeftPlotProperties['MinX']=xlim[0]
                 self.topLeftPlotProperties['MaxX']=xlim[1]
-                if self.properties['Zoom.JoinFrequenciesWithin']:
+                if self.properties['Zoom.Frequencies.JoinWithin']:
                     self.topRightPlotProperties['MinX']=self.topLeftPlotProperties['MinX']
                     self.topRightPlotProperties['MaxX']=self.topLeftPlotProperties['MaxX']
                     self.topRightPlot.set_xlim(left=self.topRightPlotProperties['MinX'])
                     self.topRightPlot.set_xlim(right=self.topRightPlotProperties['MaxX'])
                     self.topRightCanvas.draw()
-                if self.properties['Zoom.JoinFrequenciesWithOthers']:
+                if self.properties['Zoom.Frequencies.JoinWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Frequencies'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 spPlotPropertiesToJoinTo['Magnitude.XInitialized']=True
                                 spPlotPropertiesToJoinTo['Magnitude.MinX']=spPlotPropertiesToJoinFrom['Magnitude.MinX']
                                 spPlotPropertiesToJoinTo['Magnitude.MaxX']=spPlotPropertiesToJoinFrom['Magnitude.MaxX']
-                                if self.properties['Zoom.JoinFrequenciesWithin']:
+                                if self.properties['Zoom.Frequencies.JoinWithin']:
                                     spPlotPropertiesToJoinTo['Phase.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Phase.MinX']=spPlotPropertiesToJoinFrom['Magnitude.MinX']
                                     spPlotPropertiesToJoinTo['Phase.MaxX']=spPlotPropertiesToJoinFrom['Magnitude.MaxX']
@@ -412,11 +516,11 @@ class SParametersDialog(tk.Toplevel):
             if not self.topLeftPlotProperties is None:
                 self.topLeftPlotProperties['MinY']=ylim[0]
                 self.topLeftPlotProperties['MaxY']=ylim[1]
-                if self.properties['Zoom.JoinMagnitudeWithOthers']:
+                if self.properties['Zoom.Vertical.JoinMagnitudeWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Vertical'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 spPlotPropertiesToJoinTo['Magnitude.YInitialized']=True
                                 spPlotPropertiesToJoinTo['Magnitude.MinY']=spPlotPropertiesToJoinFrom['Magnitude.MinY']
@@ -430,22 +534,22 @@ class SParametersDialog(tk.Toplevel):
             if not self.topRightPlotProperties is None:
                 self.topRightPlotProperties['MinX']=xlim[0]
                 self.topRightPlotProperties['MaxX']=xlim[1]
-                if self.properties['Zoom.JoinFrequenciesWithin']:
+                if self.properties['Zoom.Frequencies.JoinWithin']:
                     self.topLeftPlotProperties['MinX']=self.topRightPlotProperties['MinX']
                     self.topLeftPlotProperties['MaxX']=self.topRightPlotProperties['MaxX']
                     self.topLeftPlot.set_xlim(left=self.topLeftPlotProperties['MinX'])
                     self.topLeftPlot.set_xlim(right=self.topLeftPlotProperties['MaxX'])
                     self.topLeftCanvas.draw()
-                if self.properties['Zoom.JoinFrequenciesWithOthers']:
+                if self.properties['Zoom.Frequencies.JoinWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Frequencies'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 spPlotPropertiesToJoinTo['Phase.XInitialized']=True
                                 spPlotPropertiesToJoinTo['Phase.MinX']=spPlotPropertiesToJoinFrom['Phase.MinX']
                                 spPlotPropertiesToJoinTo['Phase.MaxX']=spPlotPropertiesToJoinFrom['Phase.MaxX']
-                                if self.properties['Zoom.JoinFrequenciesWithin']:
+                                if self.properties['Zoom.Frequencies.JoinWithin']:
                                     spPlotPropertiesToJoinTo['Magnitude.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Magnitude.MinX']=spPlotPropertiesToJoinFrom['Phase.MinX']
                                     spPlotPropertiesToJoinTo['Magnitude.MaxX']=spPlotPropertiesToJoinFrom['Phase.MaxX']
@@ -458,11 +562,11 @@ class SParametersDialog(tk.Toplevel):
             if not self.topRightPlotProperties is None:
                 self.topRightPlotProperties['MinY']=ylim[0]
                 self.topRightPlotProperties['MaxY']=ylim[1]
-                if self.properties['Zoom.JoinPhaseWithOthers']:
+                if self.properties['Zoom.Vertical.JoinPhaseWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Vertical'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 spPlotPropertiesToJoinTo['Phase.YInitialized']=True
                                 spPlotPropertiesToJoinTo['Phase.MinY']=spPlotPropertiesToJoinFrom['Phase.MinY']
@@ -476,7 +580,7 @@ class SParametersDialog(tk.Toplevel):
             if not self.bottomLeftPlotProperties is None:
                 self.bottomLeftPlotProperties['MinX']=xlim[0]
                 self.bottomLeftPlotProperties['MaxX']=xlim[1]
-                if self.properties['Zoom.JoinTimesWithin']:
+                if self.properties['Zoom.Times.JoinWithin']:
                     if (self.fromPort == self.toPort):
                         self.plotProperties['Impedance.MinX']=self.plotProperties['Impulse.MinX']/2.
                         self.plotProperties['Impedance.MaxX']=self.plotProperties['Impulse.MaxX']/2.
@@ -487,16 +591,16 @@ class SParametersDialog(tk.Toplevel):
                     self.bottomRightPlot.set_xlim(left=self.bottomRightPlotProperties['MinX'])
                     self.bottomRightPlot.set_xlim(right=self.bottomRightPlotProperties['MaxX'])
                     self.bottomRightCanvas.draw()
-                if self.properties['Zoom.JoinTimesWithOthers']:
+                if self.properties['Zoom.Times.JoinWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Times'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 spPlotPropertiesToJoinTo['Impulse.XInitialized']=True
                                 spPlotPropertiesToJoinTo['Impulse.MinX']=spPlotPropertiesToJoinFrom['Impulse.MinX']
                                 spPlotPropertiesToJoinTo['Impulse.MaxX']=spPlotPropertiesToJoinFrom['Impulse.MaxX']
-                                if self.properties['Zoom.JoinTimesWithin']:
+                                if self.properties['Zoom.Times.JoinWithin']:
                                     spPlotPropertiesToJoinTo['Step.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Step.MinX']=spPlotPropertiesToJoinFrom['Step.MinX']
                                     spPlotPropertiesToJoinTo['Step.MaxX']=spPlotPropertiesToJoinFrom['Step.MaxX']
@@ -512,11 +616,11 @@ class SParametersDialog(tk.Toplevel):
             if not self.bottomLeftPlotProperties is None:
                 self.bottomLeftPlotProperties['MinY']=ylim[0]
                 self.bottomLeftPlotProperties['MaxY']=ylim[1]
-                if self.properties['Zoom.JoinImpulseWithOthers']:
+                if self.properties['Zoom.Vertical.JoinImpulseWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Vertical'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 spPlotPropertiesToJoinTo['Impulse.YInitialized']=True
                                 spPlotPropertiesToJoinTo['Impulse.MinY']=spPlotPropertiesToJoinFrom['Impulse.MinY']
@@ -530,7 +634,7 @@ class SParametersDialog(tk.Toplevel):
             if not self.bottomRightPlotProperties is None:
                 self.bottomRightPlotProperties['MinX']=xlim[0]
                 self.bottomRightPlotProperties['MaxX']=xlim[1]
-                if self.properties['Zoom.JoinTimesWithin']:
+                if self.properties['Zoom.Times.JoinWithin']:
                     if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
                         self.plotProperties['Impulse.MinX']=self.plotProperties['Impedance.MinX']*2.
                         self.plotProperties['Impulse.MaxX']=self.plotProperties['Impedance.MaxX']*2.
@@ -548,11 +652,11 @@ class SParametersDialog(tk.Toplevel):
                     self.bottomLeftPlot.set_xlim(left=self.bottomLeftPlotProperties['MinX'])
                     self.bottomLeftPlot.set_xlim(right=self.bottomLeftPlotProperties['MaxX'])
                     self.bottomLeftCanvas.draw()
-                if self.properties['Zoom.JoinTimesWithOthers']:
+                if self.properties['Zoom.Times.JoinWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Times'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
                                     spPlotPropertiesToJoinTo['Impedance.XInitialized']=True
@@ -562,7 +666,7 @@ class SParametersDialog(tk.Toplevel):
                                     spPlotPropertiesToJoinTo['Step.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Step.MinX']=spPlotPropertiesToJoinFrom['Step.MinX']
                                     spPlotPropertiesToJoinTo['Step.MaxX']=spPlotPropertiesToJoinFrom['Step.MaxX']
-                                if self.properties['Zoom.JoinTimesWithin']:
+                                if self.properties['Zoom.Times.JoinWithin']:
                                     spPlotPropertiesToJoinTo['Impulse.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Impulse.MinX']=spPlotPropertiesToJoinFrom['Impulse.MinX']
                                     spPlotPropertiesToJoinTo['Impulse.MaxX']=spPlotPropertiesToJoinFrom['Impulse.MaxX']
@@ -575,11 +679,11 @@ class SParametersDialog(tk.Toplevel):
             if not self.bottomRightPlotProperties is None:
                 self.bottomRightPlotProperties['MinY']=ylim[0]
                 self.bottomRightPlotProperties['MaxY']=ylim[1]
-                if self.properties['Zoom.JoinStepImpedanceWithOthers']:
+                if self.properties['Zoom.Vertical.JoinStepImpedanceWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
-                            if self.JoinIt(thisToPort,thisFromPort):
+                            if self.JoinIt(thisToPort,thisFromPort,'Vertical'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
                                 if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
                                     spPlotPropertiesToJoinTo['Impedance.YInitialized']=True
@@ -589,7 +693,6 @@ class SParametersDialog(tk.Toplevel):
                                     spPlotPropertiesToJoinTo['Step.YInitialized']=True
                                     spPlotPropertiesToJoinTo['Step.MinY']=spPlotPropertiesToJoinFrom['Step.MinY']
                                     spPlotPropertiesToJoinTo['Step.MaxY']=spPlotPropertiesToJoinFrom['Step.MaxY']
-
             self.LimitChangeLock=False
 
     def onTopLeftHome(self):
@@ -648,18 +751,27 @@ class SParametersDialog(tk.Toplevel):
         self.showCausalityViolations.set(self.properties['Plot.ShowCausalityViolations'])
         self.showImpedance.set(self.properties['Plot.ShowImpedance'])
         self.logScale.set(self.properties['Plot.LogScale'])
-        self.JoinFrequenciesWithin.set(self.properties['Zoom.JoinFrequenciesWithin'])
-        self.JoinTimesWithin.set(self.properties['Zoom.JoinTimesWithin'])
-        self.JoinFrequenciesWithOthers.set(self.properties['Zoom.JoinFrequenciesWithOthers'])
-        self.JoinTimesWithOthers.set(self.properties['Zoom.JoinTimesWithOthers'])
-        self.JoinMagnitudeWithOthers.set(self.properties['Zoom.JoinMagnitudeWithOthers'])
-        self.JoinPhaseWithOthers.set(self.properties['Zoom.JoinPhaseWithOthers'])
-        self.JoinImpulseWithOthers.set(self.properties['Zoom.JoinImpulseWithOthers'])
-        self.JoinStepImpedanceWithOthers.set(self.properties['Zoom.JoinStepImpedanceWithOthers'])
-        self.JoinAll.set(self.properties['Zoom.JoinAll'])
-        self.JoinOffDiagonal.set(self.properties['Zoom.JoinOffDiagonal'])
-        self.JoinReciprocals.set(self.properties['Zoom.JoinReciprocals'])
-        self.JoinReflects.set(self.properties['Zoom.JoinReflects'])
+        self.JoinFrequenciesWithin.set(self.properties['Zoom.Frequencies.JoinWithin'])
+        self.JoinTimesWithin.set(self.properties['Zoom.Times.JoinWithin'])
+        self.JoinFrequenciesWithOthers.set(self.properties['Zoom.Frequencies.JoinWithOthers'])
+        self.JoinTimesWithOthers.set(self.properties['Zoom.Times.JoinWithOthers'])
+        self.JoinMagnitudeWithOthers.set(self.properties['Zoom.Vertical.JoinMagnitudeWithOthers'])
+        self.JoinPhaseWithOthers.set(self.properties['Zoom.Vertical.JoinPhaseWithOthers'])
+        self.JoinImpulseWithOthers.set(self.properties['Zoom.Vertical.JoinImpulseWithOthers'])
+        self.JoinStepImpedanceWithOthers.set(self.properties['Zoom.Vertical.JoinStepImpedanceWithOthers'])
+        self.FrequenciesJoinAll.set(self.properties['Zoom.Frequencies.Join.All'])
+        self.FrequenciesJoinOffDiagonal.set(self.properties['Zoom.Frequencies.Join.OffDiagonal'])
+        self.FrequenciesJoinReciprocals.set(self.properties['Zoom.Frequencies.Join.Reciprocals'])
+        self.FrequenciesJoinReflects.set(self.properties['Zoom.Frequencies.Join.Reflects'])
+        self.TimesJoinAll.set(self.properties['Zoom.Times.Join.All'])
+        self.TimesJoinOffDiagonal.set(self.properties['Zoom.Times.Join.OffDiagonal'])
+        self.TimesJoinReciprocals.set(self.properties['Zoom.Times.Join.Reciprocals'])
+        self.TimesJoinReflects.set(self.properties['Zoom.Times.Join.Reflects'])
+        self.VerticalJoinAll.set(self.properties['Zoom.Vertical.Join.All'])
+        self.VerticalJoinOffDiagonal.set(self.properties['Zoom.Vertical.Join.OffDiagonal'])
+        self.VerticalJoinReciprocals.set(self.properties['Zoom.Vertical.Join.Reciprocals'])
+        self.VerticalJoinReflects.set(self.properties['Zoom.Vertical.Join.Reflects'])
+        self.ZoomJoinActivations()
 
     def UpdateSParametersFromProperties(self):
         msg=None
