@@ -256,6 +256,7 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftToolbar = NavigationToolbar( self.topLeftCanvas, topLeftFrame ,self.onTopLeftHome)
         self.topLeftToolbar.update()
         self.topLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        self.topLeftToolbar.pan()
 
         self.topRightFigure=Figure(figsize=(5,2), dpi=100)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
@@ -264,6 +265,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightToolbar = NavigationToolbar( self.topRightCanvas, topRightFrame ,self.onTopRightHome)
         self.topRightToolbar.update()
         self.topRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        self.topRightToolbar.pan()
         self.topRightCanvasControlsFrame=tk.Frame(topRightFrame)
         self.topRightCanvasControlsFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
         tk.Button(self.topRightCanvasControlsFrame,text='unwrap',command=self.onUnwrap).pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
@@ -277,6 +279,7 @@ class SParametersDialog(tk.Toplevel):
         self.bottomLeftToolbar = NavigationToolbar( self.bottomLeftCanvas, bottomLeftFrame ,self.onBottomLeftHome)
         self.bottomLeftToolbar.update()
         self.bottomLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        self.bottomLeftToolbar.pan()
 
         self.bottomRightFigure=Figure(figsize=(5,2), dpi=100)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
@@ -285,6 +288,7 @@ class SParametersDialog(tk.Toplevel):
         self.bottomRightToolbar = NavigationToolbar( self.bottomRightCanvas, bottomRightFrame , self.onBottomRightHome)
         self.bottomRightToolbar.update()
         self.bottomRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        self.bottomRightToolbar.pan()
 
         controlsFrame = tk.Frame(self.dialogFrame)
         controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -778,12 +782,13 @@ class SParametersDialog(tk.Toplevel):
         spChanged=False
         if not self.properties['TimePoints'] is None:
             (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength()
-            if (self.properties['TimeLimitNegative']>negativeTime) or\
-                self.properties['TimeLimitPositive']<positiveTime:
-                if msg is None:
-                    msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
-                self.sp=self.sp.LimitImpulseResponseLength((self.properties['TimeLimitNegative'],self.properties['TimeLimitPositive']))
-                spChanged=True
+            if not (negativeTime is None) and not (positiveTime is None) and not (self.properties['TimeLimitNegative'] is None) and not (self.properties['TimeLimitPositive'] is None):
+                if (self.properties['TimeLimitNegative']>negativeTime) or\
+                    self.properties['TimeLimitPositive']<positiveTime:
+                    if msg is None:
+                        msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
+                    self.sp=self.sp.LimitImpulseResponseLength((self.properties['TimeLimitNegative'],self.properties['TimeLimitPositive']))
+                    spChanged=True
             if not si.fd.FrequencyList(self.sp.m_f).CheckEvenlySpaced() or\
                 (self.properties['FrequencyPoints']!=len(self.sp.m_f)-1) or\
                 (self.properties['EndFrequency']!=self.sp.m_f[-1]):

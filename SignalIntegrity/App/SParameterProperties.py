@@ -18,8 +18,6 @@ SParameterProperties.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFile import CalculationPropertiesBase
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool
-from __builtin__ import True
-from pickle import TRUE
 
 class PlotConfiguration(XMLConfiguration):
     def __init__(self,name):
