@@ -60,6 +60,16 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.LimitImpulseResponseLength([[(-0.5e-12,3e-9),(-0.5e-12,5e-9)],[(-0.5e-12,5e-9),(-0.5e-12,3e-9)]])
         self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters incorrect')
+    def testDetermineImpulseResponseLimits(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        lengths=sf.DetermineImpulseResponseLength(allLengths=True)
+        self.assertTrue(lengths==[[(-5e-08, 5e-08), (-5e-08, 5e-08)], [(-5e-08, 4.9975e-08), (-5e-08, 5e-08)]],'initialial impulse response lengths incorrect')
+        sf.LimitImpulseResponseLength([[(0,3e-9),(0,5e-9)],[(0,5e-9),(0,3e-9)]])
+        lengths=sf.DetermineImpulseResponseLength(allLengths=True)
+        self.assertTrue(lengths==[[(0.0, 3e-09),(0.0, 5e-09)],[(0.0, 5e-09),(0.0, 3e-09)]],'limited impulse response lengths incorrect')
+        lengths=sf.DetermineImpulseResponseLength()
+        self.assertTrue(lengths==(0.0,5.e-9),'limited impulse response lengths incorrect')
 
 if __name__ == "__main__":
     unittest.main()
