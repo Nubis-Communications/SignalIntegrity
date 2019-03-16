@@ -20,4 +20,4 @@ from __future__ import absolute_import
 # If not, see <https://www.gnu.org/licenses/>
 from .ErrorTerms import ErrorTerms
 from .Calibration import Calibration
-from .CalibrationMeasurements import CalibrationMeasurement,ReflectCalibrationMeasurement,ThruCalibrationMeasurement,XtalkCalibrationMeasurement
+from .CalibrationMeasurements import CalibrationMeasurement,ReflectCalibrationMeasurement,ThruCalibrationMeasurement,UnknownThruCalibrationMeasurement,XtalkCalibrationMeasurement

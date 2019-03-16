@@ -21,6 +21,10 @@ import math
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class TLineTwoPortRLGCApproximate(SParameters):
+    """s-parameters of two port RLGC (telegrapher's) transmission line
+    calculated by approximating distributed parameters with a finite number
+    of sections specified."""
+    rtFraction=.01
     def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0):
         """Constructor
         @param f list of float frequencies

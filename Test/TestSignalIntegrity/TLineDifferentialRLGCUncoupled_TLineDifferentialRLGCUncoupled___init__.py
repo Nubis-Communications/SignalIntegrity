@@ -5,7 +5,7 @@ class TLineDifferentialRLGCUncoupled(SParameters):
                       'port 1 TP 1 2 TN 1 3 TP 2 4 TN 2'])
         self.m_sspn=SystemSParametersNumeric(sdp.SystemDescription())
         self.m_spdl=[('TP',TLineTwoPortRLGC(f,Rp,Rsep,Lp,Gp,Cp,dfp,Z0,K)),
-                     ('TO',TLineTwoPortRLGC(f,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K))]
+                     ('TN',TLineTwoPortRLGC(f,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         for ds in self.m_spdl:

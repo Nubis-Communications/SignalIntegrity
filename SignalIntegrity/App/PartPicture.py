@@ -313,6 +313,39 @@ class PartPicture(object):
             p[4][0],p[4][1],
             p[5][0],p[5][1],
             fill=self.color)
+    def DrawPRBSSymbol(self,canvas,grid,drawingOrigin):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        mx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        my=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=[ct.Translate((mx-grid/2,my+3*grid/8)),
+            ct.Translate((mx-grid/4-grid/8,my+3*grid/8)),
+            ct.Translate((mx-grid/4+grid/8,my-3*grid/8)),
+            ct.Translate((mx+grid/4-grid/8,my-3*grid/8)),
+            ct.Translate((mx+grid/4+grid/8,my+3*grid/8)),
+            ct.Translate((mx+grid/2,my+3*grid/8))]
+        canvas.create_line(p[0][0],p[0][1],
+            p[1][0],p[1][1],
+            p[2][0],p[2][1],
+            p[3][0],p[3][1],
+            p[4][0],p[4][1],
+            p[5][0],p[5][1],
+            fill=self.color)
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        mx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        my=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=[ct.Translate((mx-grid/2,my-3*grid/8)),
+            ct.Translate((mx-grid/4-grid/8,my-3*grid/8)),
+            ct.Translate((mx-grid/4+grid/8,my+3*grid/8)),
+            ct.Translate((mx+grid/4-grid/8,my+3*grid/8)),
+            ct.Translate((mx+grid/4+grid/8,my-3*grid/8)),
+            ct.Translate((mx+grid/2,my-3*grid/8))]
+        canvas.create_line(p[0][0],p[0][1],
+            p[1][0],p[1][1],
+            p[2][0],p[2][1],
+            p[3][0],p[3][1],
+            p[4][0],p[4][1],
+            p[5][0],p[5][1],
+            fill=self.color)
     def ArcConverter(self,start,extent,rotationAngle,mirroredVertically,mirroredHorizontally):
         start=(start+rotationAngle)%360
         if mirroredVertically:
@@ -1062,6 +1095,17 @@ class PartPictureVariableVoltageSourcePulseGeneratorTwoPort(PartPictureVariable)
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourcePulseGeneratorTwoPort'],2)
 
+class PartPictureVoltageSourcePRBSGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawPRBSSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureVoltageSourceTwoPort.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourcePRBSGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourcePRBSGeneratorTwoPort'],2)
+
 class PartPictureVoltageSourceSineGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
@@ -1119,6 +1163,17 @@ class PartPictureVoltageSourcePulseGeneratorOnePort(PartPictureVoltageSourceOneP
 class PartPictureVariableVoltageSourcePulseGeneratorOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourcePulseGeneratorOnePort'],1)
+
+class PartPictureVoltageSourcePRBSGeneratorOnePort(PartPictureVoltageSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawPRBSSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureVoltageSourceOnePort.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourcePRBSGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourcePRBSGeneratorOnePort'],1)
 
 class PartPictureVoltageSourceSineGeneratorOnePort(PartPictureVoltageSourceOnePort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

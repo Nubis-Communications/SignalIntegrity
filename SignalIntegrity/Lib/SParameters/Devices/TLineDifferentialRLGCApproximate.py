@@ -27,6 +27,7 @@ class TLineDifferentialRLGCApproximate(SParameters):
     """s-parameters of differential RLGC (telegrapher's) transmission line
     calculated by approximating distributed parameters with a finite number
     of sections specified."""
+    rtFraction=.01
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
                          Cm, dfm, Gm, Lm, Z0=50., K=0):

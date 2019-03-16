@@ -40,6 +40,7 @@ from TestImpedanceProfile import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *
+from TestPRBS import *
 from TestRefImp import *
 from TestRLGC import *
 from TestRLGCLevMar import *
@@ -62,6 +63,7 @@ from TDRSimulationTwoPort import *
 from TDRSimulationFourPort import *
 from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
+from TestSParametersParser import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *
 

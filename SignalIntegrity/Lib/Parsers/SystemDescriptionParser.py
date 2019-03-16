@@ -44,6 +44,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.m_lines=[]
         self.m_addThru = False
         self.AssignArguments(args)
+        self.known=None
     def SystemDescription(self):
         """calculates and gets the system description
         @return instance of class SystemDescription
@@ -51,6 +52,17 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         """
         if self.m_sd is None: self._ProcessLines()
         return self.m_sd
+    def AddKnownDevices(self,known):
+        """adds a dictionary of known devices
+        @param known dictionary of known devices
+        @return self
+        @remark the dictionary of known devices is such that the key value looks like a netlist line following
+        the device keyword and the reference designator.  The value is the s-parameters.  This addition of known
+        devices allows weird devices to be defined by their s-parameters, but more importantly, allows the parser
+        to be used for solutions where a file device does not need to be in a file.
+        """
+        self.known=known
+        return self
     def AddLine(self,line):
         """adds a single line of a netlist
         @param line string line of a netlist
@@ -126,8 +138,13 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         """
         # pragma: silent exclude
         from SignalIntegrity.Lib.SystemDescriptions.SystemDescription import SystemDescription
+        from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         # pragma: include
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]
+        if not self.known is None:
+            for key in self.known.keys():
+                self.m_spcl.append(LineSplitter(key))
+                self.m_spc.append((None,self.known[key].Resample(self.m_f)))
         for line in self.m_lines: self._ProcessLine(line,exclusionList)
         return self

@@ -20,6 +20,8 @@
 
 from numpy import matrix,zeros,identity
 from numpy.linalg import det
+from numpy.linalg import norm
+import cmath
 
 class ErrorTerms(object):
     """Error terms for VNA and TDR based s-parameter calculations.
@@ -56,10 +58,32 @@ class ErrorTerms(object):
         each row and column of the error terms to zero.
 
         @param numPorts integer number of ports for the error terms
+        @return self
         """
         self.numPorts=numPorts
         self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)]
                  for _ in range(self.numPorts)]
+        return self
+    def InitializeFromFixtures(self,fixtureList):
+        """Initialize from list of fixtures
+
+        @param fixtureList list of list of list s-parameter fixture matrices
+        @return self
+        The number of matrices is the number of ports P and each matrix must be
+        2P x 2P corresponding to the fixture format
+        """
+        self.Initialize(len(fixtureList))
+        for r in range(len(fixtureList)):
+            for c in range(len(fixtureList)):
+                if r==c:
+                    self.ET[r][r][0]=fixtureList[r][r][r]
+                    self.ET[r][r][1]=fixtureList[r][r][r+self.numPorts]
+                    self.ET[r][r][2]=fixtureList[r][r+self.numPorts][r+self.numPorts]
+                else:
+                    # Ex
+                    self.ET[r][c][0]=fixtureList[c][r][c]
+                    self.ET[r][c][1]=fixtureList[c][r][r+self.numPorts]
+                    self.ET[r][c][2]=fixtureList[c][r+self.numPorts][r+self.numPorts]
         return self
     def __getitem__(self,item):
         """overloads [item]
@@ -127,6 +151,50 @@ class ErrorTerms(object):
         (El,Et)=(ElEt[0][0],ElEt[1][0])
         self[n][m]=[Ex,Et,El]
         return self
+    def UnknownThruCalibration(self,Sm,Sest,firstPort,secondPort):
+        """Computes the unknown thru
+
+        for a given set of measurements of a thru and an estimate of the thru the actual value of the
+        thru is calculated.
+
+        @param Sm list of list raw sparameter measurement of the thru.
+        @param Sest list of list estimate of the thru
+        @param firstPort integer zero based port number of port 1 of thru standard
+        @param secondPort integer zero based port number of port 2 of thru standard
+        @return list of list sparameter value of the thru
+        @remark normally this algorithm is used to compute the error terms directly (which are actually
+        calculated here), but only the recovered thru value is returned.  This is so that an actual thru
+        measurement can be created with this thru value.  If the thru measurement is provided with this
+        calculated value of the thru, the error terms will be recalculated as calculated here, but returning
+        the value of the thru allows the estimate to be checked for validity, and more importantly, allows
+        for multiple thru measurements to be provided to allow for overconstrained, better calibrations.
+        Additionally, the s-parameters of the entire thru measurement (not just at a single frequency) can be
+        impulse response limited to provide an even more improved estimate of the thru.
+        """
+        # pragma: silent exclude
+        # comment this in for debugging - it allows one to compare ET and EL calculated here with what it would
+        # be with a known thru calibration
+#         self.ThruCalibration(Sm[0][0], Sm[1][0],Sest,secondPort, firstPort)
+#         self.ThruCalibration(Sm[1][1], Sm[0][1],[[Sest[1][1],Sest[1][0]],[Sest[0][1],Sest[0][0]]],firstPort,secondPort)
+        # pragma: include
+        [ED1,ER1,ES1]=self[firstPort][firstPort]
+        [ED2,ER2,ES2]=self[secondPort][secondPort]
+        [EX12,ET12,EL12]=self[firstPort][secondPort]
+        [EX21,ET21,EL21]=self[secondPort][firstPort]
+        p=cmath.sqrt((Sm[0][1]-EX12)/(Sm[1][0]-EX21))
+        ET21=cmath.sqrt(ER1)*cmath.sqrt(ER2)/p
+        ET12=cmath.sqrt(ER1)*cmath.sqrt(ER2)*p
+        EL21=ES2
+        EL12=ES1
+        DutCalc1=ErrorTerms([[[ED1,ER1,ES1],[EX12,ET12,EL12]],
+                             [[EX21,ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
+        DutCalc2=ErrorTerms([[[ED1,ER1,ES1],[EX12,-ET12,EL12]],
+                             [[EX21,-ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
+        if norm(matrix(DutCalc1)-matrix(Sest)) < norm(matrix(DutCalc2)-matrix(Sest)):
+            return DutCalc1
+        else:
+            return DutCalc2
+
     def ExCalibration(self,b2a1,n,m):
         """Computes the crosstalk term
 
@@ -176,7 +244,7 @@ class ErrorTerms(object):
                                 didOne=True
                                 continue
         return self
-    def Fixture(self,m):
+    def Fixture(self,m,pl=None):
         """Fixture
 
         For a P port measurement, the s-parameters are for a 2*P port
@@ -185,58 +253,71 @@ class ErrorTerms(object):
         the first P ports are the instrument port connections and the remaining
         ports connect to the DUT.
 
-        @param m driven port
+        @param m integer driven port
+        @param pl (optional) list of zero based port numbers of the DUT
         @return a list of list s-parameter matrix
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        m is assumed to be in integer zero based index in the ports list pl
         """
-        E=[[zeros((self.numPorts,self.numPorts),complex).tolist(),
-            zeros((self.numPorts,self.numPorts),complex).tolist()],
-           [zeros((self.numPorts,self.numPorts),complex).tolist(),
-            zeros((self.numPorts,self.numPorts),complex).tolist()]]
-        for n in range(self.numPorts):
-            ETn=self[n][m]
+        if pl is None: pl = [p for p in range(self.numPorts)]
+        numPorts=len(pl)
+        E=[[zeros((numPorts,numPorts),complex).tolist(),
+            zeros((numPorts,numPorts),complex).tolist()],
+           [zeros((numPorts,numPorts),complex).tolist(),
+            zeros((numPorts,numPorts),complex).tolist()]]
+        for n in range(numPorts):
+            ETn=self[pl[n]][pl[m]]
             E[0][0][m][n]=ETn[0]
             E[0][1][n][n]=ETn[1]
             E[1][1][n][n]=ETn[2]
         E[1][0][m][m]=1.
         return E
-    def DutCalculationAlternate(self,sRaw):
+    def DutCalculationAlternate(self,sRaw,pl=None):
         """Alternate Dut Calculation
         @deprecated This provides a DUT calculation according to the Wittwer method,
         but a better,simpler method has been found.
         @param sRaw list of list s-parameter matrix of raw measured DUT
+        @param pl (optional) list of zero based port numbers of the DUT
         @return list of list s-parameter matrix of calibrated DUT measurement
         @see DutCalculation
         """
-        if self.numPorts==1:
-            (Ed,Er,Es)=self[0][0]
+        if pl is None: pl = [p for p in range(len(sRaw))]
+        numPorts=len(pl)
+        if numPorts==1:
+            (Ed,Er,Es)=self[pl[0]][pl[0]]
             gamma=sRaw[0][0]
             Gamma=(gamma-Ed)/((gamma-Ed)*Es+Er)
             return [[Gamma]]
         else:
-            A=zeros((self.numPorts,self.numPorts),complex).tolist()
-            B=zeros((self.numPorts,self.numPorts),complex).tolist()
-            I=(identity(self.numPorts)).tolist()
-            for m in range(self.numPorts):
-                E=self.Fixture(m)
-                b=matrix([[sRaw[r][m]] for r in range(self.numPorts)])
-                Im=matrix([[I[r][m]] for r in range(self.numPorts)])
+            A=zeros((numPorts,numPorts),complex).tolist()
+            B=zeros((numPorts,numPorts),complex).tolist()
+            I=(identity(numPorts)).tolist()
+            for m in range(numPorts):
+                E=self.Fixture(m,pl)
+                b=matrix([[sRaw[r][m]] for r in range(numPorts)])
+                Im=matrix([[I[r][m]] for r in range(numPorts)])
                 bprime=(matrix(E[0][1]).getI()*(b-matrix(E[0][0])*Im)).tolist()
                 aprime=(matrix(E[1][0])*Im+matrix(E[1][1])*matrix(bprime)).tolist()
-                for r in range(self.numPorts):
+                for r in range(numPorts):
                     A[r][m]=aprime[r][0]
                     B[r][m]=bprime[r][0]
             S=(matrix(B)*matrix(A).getI()).tolist()
             return S
-    def DutCalculation(self,sRaw):
+    def DutCalculation(self,sRaw,pl=None):
         """Calculates a DUT
         @param sRaw list of list s-parameter matrix of raw measured DUT
+        @param pl (optional) list of zero based port numbers of the DUT
         @return list of list s-parameter matrix of calibrated DUT measurement
         @remark This provides a newer, simpler DUT calculation
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @see DutCalculationAlternate
         """
-        B=[[(sRaw[r][c]-self[r][c][0])/self[r][c][1] for c in range(len(sRaw))]
-           for r in  range(len(sRaw))]
-        A=[[B[r][c]*self[r][c][2]+(1 if r==c else 0) for c in range(len(sRaw))]
+        if pl is None: pl = [p for p in range(len(sRaw))]
+        B=[[(sRaw[r][c]-self[pl[r]][pl[c]][0])/self[pl[r]][pl[c]][1]
+            for c in range(len(sRaw))] for r in  range(len(sRaw))]
+        A=[[B[r][c]*self[pl[r]][pl[c]][2]+(1 if r==c else 0) for c in range(len(sRaw))]
            for r in range(len(sRaw))]
         S=(matrix(B)*matrix(A).getI()).tolist()
         return S

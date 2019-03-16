@@ -254,6 +254,8 @@ class SignalIntegrityApp(tk.Frame):
         self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.SParameterViewerDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'sp-view.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         # ------
@@ -270,6 +272,7 @@ class SignalIntegrityApp(tk.Frame):
         self.root.bind('<Key>',self.onKey)
 
         SignalIntegrity.App.Project=ProjectFile()
+        self.Drawing.InitFromProject()
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
@@ -293,7 +296,7 @@ class SignalIntegrityApp(tk.Frame):
 
         if not projectFileName == None:
             try:
-                self.OpenProjectFile(projectFileName)
+                self.OpenProjectFile(projectFileName,False)
             except:
                 self.onClearSchematic()
                 self.Drawing.stateMachine.NoProject(True)
@@ -312,6 +315,7 @@ class SignalIntegrityApp(tk.Frame):
         
         self.deltaWidth=4
         self.deltaHeight=50
+
         try:
             self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
             SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
@@ -344,7 +348,7 @@ class SignalIntegrityApp(tk.Frame):
             return
         self.OpenProjectFile(filename)
 
-    def OpenProjectFile(self,filename):
+    def OpenProjectFile(self,filename,showError=True):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -356,12 +360,16 @@ class SignalIntegrityApp(tk.Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
-        SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
-        self.Drawing.InitFromProject()
-        self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
-        self.Drawing.stateMachine.Nothing()
-        self.history.Event('read project')
-        self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
+        try:
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.InitFromProject()
+            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
+            self.Drawing.stateMachine.Nothing()
+            self.history.Event('read project')
+            self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
+        except:
+            if showError:
+                messagebox.showerror('Project File:',self.fileparts.FileNameWithExtension()+' could not be opened')
 
     def onNewProject(self):
         if not self.CheckSaveCurrentProject():

@@ -79,6 +79,26 @@ class ThruCalibrationMeasurement(CalibrationMeasurement):
         self.portDriven=portDriven
         self.otherPort=otherPort
 
+class UnknownThruCalibrationMeasurement(CalibrationMeasurement):
+    """An unknown thru calibration measurement taken between two ports."""
+    def __init__(self,Smeasured,SStandard,port1,port2,limit=None,name=None):
+        """Constructor
+        @param Smeasured instance of SParameters measured. 
+        @param SStandard instance of SParameters for the two-port thru calibration standard being measured.  This is an estimate of the
+        thru standard, otherwise None can be supplied and the algorithm will try to figure it out itself.
+        @param port1 integer zero based port number of the first port assumed to be connected to port 1 of the standard.
+        @param port2 integer zero based port number of the second port assumed to be connected to port 2 of the standard.
+        @param limit (optional) tuple of floats containing negative and positive time limit for the impulse response of the recovered thru
+        @param name (optional) string representing the name of the measurement.
+        @note the name is not actually used for anything.
+        """
+        CalibrationMeasurement.__init__(self,'reciprocal',name)
+        self.Smeasured=Smeasured
+        self.S=SStandard
+        self.portDriven=port1
+        self.otherPort=port2
+        self.limit=limit
+
 class XtalkCalibrationMeasurement(CalibrationMeasurement):
     """ A crosstalk calibration measurement typically taken between two ports that
     are completely unconnected."""

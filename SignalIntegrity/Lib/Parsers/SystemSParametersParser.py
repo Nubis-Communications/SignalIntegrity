@@ -71,7 +71,8 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         result = []
         for n in range(len(self.m_f)):
             for d in range(len(spc)):
-                self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
+                if not spc[d][0] is None:
+                    self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(SystemSParametersNumeric(self.m_sd).SParameters(
                 solvetype=solvetype))
             # pragma: silent exclude

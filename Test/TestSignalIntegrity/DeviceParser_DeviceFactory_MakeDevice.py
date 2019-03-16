@@ -2,7 +2,6 @@ class DeviceFactory(list):
 ...
     def MakeDevice(self,ports,argsList,f):
         self.dev=None
-        argsList=' '.join(argsList).split()
         if len(argsList) == 0:
             return False
         name=argsList[0].lower()

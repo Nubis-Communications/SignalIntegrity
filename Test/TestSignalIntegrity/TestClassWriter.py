@@ -637,8 +637,18 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testWriteErrorTermsCodeCalibration(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['ReflectCalibration','ThruCalibration','ExCalibration','TransferThruCalibration']
+        defName=['ReflectCalibration','ThruCalibration','ExCalibration']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteErrorTermsCodeCalibrationTransferThru(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['TransferThruCalibration']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteErrorTermsCodeCalibrationUnknownThru(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['UnknownThruCalibration']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteErrorTermsCodeDut(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
@@ -687,14 +697,12 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testWriteCalibrationCode(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/Calibration.py"
         className='Calibration'
-        firstDef='__init__'
-        allfuncs=self.EntireListOfClassFunctions(fileName,className)
-        allfuncs.remove(firstDef)
-        allfuncs.remove('__getitem__')
-        allfuncs.remove('__len__')
-        allfuncs.remove('WriteToFile')
-        allfuncs.remove('Fixtures')
-        defName=[firstDef]+allfuncs
+        defName=['__init__','AddMeasurements','CalculateErrorTerms','DutCalculation']
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteCalibrationCodeDetails(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/Calibration.py"
+        className='Calibration'
+        defName=['_CalculateReflectErrorTerms','_CalculateXtalkErrorTerms','_CalculateUnknownThruErrorTerms','_CalculateThruErrorTerms','_CalculateTransferThruErrorTerms']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteTDRWaveformToSParameterConverterClassCodeExceptConvert(self):
         fileName='../../SignalIntegrity/Lib/Measurement/TDR/TDRWaveformToSParameterConverter.py'

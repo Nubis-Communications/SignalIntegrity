@@ -285,10 +285,17 @@ class PropertiesDialog(tk.Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.project=project
-        self.propertyListFrame = tk.Frame(self)
+        self.propertyListFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.propertyListFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+
     def Finish(self):
-        (x,y)=(self.top.root.winfo_x()+self.top.root.winfo_width()/2-self.winfo_width()/2,
-            self.top.root.winfo_y()+self.top.root.winfo_height()/2-self.winfo_height()/2)
-        self.geometry("%+d%+d" % (x,y))
+#         (x,y)=(self.top.root.winfo_x()+self.top.root.winfo_width()/2-self.winfo_width()/2,
+#             self.top.root.winfo_y()+self.top.root.winfo_height()/2-self.winfo_height()/2)
+#         self.geometry("%+d%+d" % (x,y))
         self.deiconify()
+    def onClosing(self):
+        self.withdraw()
+        self.destroy()
+    def destroy(self):
+        tk.Toplevel.withdraw(self)
+        tk.Toplevel.destroy(self)
