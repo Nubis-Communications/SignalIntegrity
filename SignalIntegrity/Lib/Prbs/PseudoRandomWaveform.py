@@ -60,7 +60,7 @@ class SerialDataWaveform(Waveform):
         if T>unitInterval:
             # todo: would like to handle this case in the future
             raise SignalIntegrityExceptionWaveform('PRBS risetime too high\nfor waveform generation. '+\
-                   'Limit is '+ToSI(unitInterval/2.*self.rtvsT,'s')+' for given bitrate')
+                   'Limit is '+ToSI(unitInterval*self.rtvsT,'s')+' for given bitrate')
         v=[0. for _ in range(len(td))]
         for k in range(len(td)):
             t=td[k]
