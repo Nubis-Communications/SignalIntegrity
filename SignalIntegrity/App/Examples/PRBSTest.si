@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>990x621+28+57</Geometry>
+			<Geometry>990x621+-10+19</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
-			<Height>578</Height>
-			<Width>989</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>20.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -49,10 +49,10 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(39, -13)</Coord>
+							<Coord>(41, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(44, -13)</Coord>
+							<Coord>(46, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -78,7 +78,7 @@
 							<Coord>(21, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(23, -13)</Coord>
+							<Coord>(22, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -95,20 +95,10 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
+							<Coord>(29, -11)</Coord>
+						</Vertex>
+						<Vertex>
 							<Coord>(27, -11)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(25, -11)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(44, -13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(44, 4)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -162,6 +152,26 @@
 						</Vertex>
 						<Vertex>
 							<Coord>(4, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(46, -13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(46, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(22, -13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(25, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -326,7 +336,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(23, -14)</Origin>
+						<Origin>(25, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -356,7 +366,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(43, 4)</Origin>
+						<Origin>(45, 4)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -422,7 +432,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(44, -14)</Origin>
+						<Origin>(46, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -449,8 +459,8 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>VO1</Value>
-							<Visible>False</Visible>
+							<Value>Vout</Value>
+							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
@@ -557,7 +567,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>rt</Keyword>
-							<Value>5e-11</Value>
+							<Value>1.18e-10</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -638,7 +648,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(31, -14)</Origin>
+						<Origin>(33, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -668,7 +678,7 @@
 				<Device>
 					<ClassName>DevicePowerMixedModeConverter</ClassName>
 					<PartPicture>
-						<Origin>(27, -14)</Origin>
+						<Origin>(29, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -692,7 +702,7 @@
 				<Device>
 					<ClassName>DevicePowerMixedModeConverter</ClassName>
 					<PartPicture>
-						<Origin>(35, -14)</Origin>
+						<Origin>(37, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -716,7 +726,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(24, -11)</Origin>
+						<Origin>(26, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -746,7 +756,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(38, -11)</Origin>
+						<Origin>(40, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -895,6 +905,42 @@
 							<Keyword>ref</Keyword>
 							<Value>D7</Value>
 							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceOutput</ClassName>
+					<PartPicture>
+						<Origin>(22, -14)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>0.5</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>offset</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>1.47e-09</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>Vin</Value>
+							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
