@@ -70,7 +70,7 @@ class TLineDifferentialRLGC(SParameters):
         of any one small section is no more than one percent of the fastest possible risetime. 
         """
         balanced = Rp==Rn and Rsep==Rsen and Lp==Ln and Gp==Gn and Cp==Cn
-        uncoupled = Cm==0 and (Cm != 0 and dfm==0) and Gm==0 and Lm==0
+        uncoupled = Cm==0 and Gm==0 and Lm==0
         if K != 0 or (not balanced and not uncoupled):
             # pragma: silent exclude
             from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate

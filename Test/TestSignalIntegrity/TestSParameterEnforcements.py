@@ -70,6 +70,15 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         self.assertTrue(lengths==[[(0.0, 3e-09),(0.0, 5e-09)],[(0.0, 5e-09),(0.0, 3e-09)]],'limited impulse response lengths incorrect')
         lengths=sf.DetermineImpulseResponseLength()
         self.assertTrue(lengths==(0.0,5.e-9),'limited impulse response lengths incorrect')
+    def testDetermineImpulseResponseNoImpulseResponse(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        unevensp=si.sp.SParameters(sf.m_f[1:],sf[1:])
+        lengths=unevensp.DetermineImpulseResponseLength(allLengths=True)
+        self.assertTrue(lengths==[[(None, None), (None, None)], [(None, None), (None, None)]],'initialial impulse response lengths incorrect')
+        unevensp.LimitImpulseResponseLength([[(0,3e-9),(0,5e-9)],[(0,5e-9),(0,3e-9)]])
+        lengths=unevensp.DetermineImpulseResponseLength()
+        self.assertTrue(lengths==(None,None),'limited impulse response lengths incorrect')
 
 if __name__ == "__main__":
     unittest.main()

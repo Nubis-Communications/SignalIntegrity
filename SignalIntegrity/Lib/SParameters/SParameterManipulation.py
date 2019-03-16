@@ -160,11 +160,11 @@ class SParameterManipulation(object):
         if allLengths: return lengths
         negativeLengths=[lengths[toPort][fromPort][0] for toPort in range(self.m_P) for fromPort in range(self.m_P)]
         positiveLengths=[lengths[toPort][fromPort][1] for toPort in range(self.m_P) for fromPort in range(self.m_P)]
-        if all(negativeLengths) is None: minNegativeLengths = None
+        if all(length is None for length in negativeLengths): minNegativeLengths = None
         else:
             negativeLengths=[length if length is not None else 0.0 for length in negativeLengths]
             minNegativeLengths = min(negativeLengths)
-        if all(positiveLengths) is None: maxPositiveLengths = None
+        if all(length is None for length in positiveLengths): maxPositiveLengths = None
         else:
             positiveLengths=[length if length is not None else 0.0 for length in positiveLengths]
             maxPositiveLengths = max(positiveLengths)

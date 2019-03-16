@@ -571,6 +571,43 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         self.assertAlmostEqual(wfdict['RsZc'][8], 0, 12, 'simulation incorrect')
         self.assertAlmostEqual(wfdict['FlZc'][8], m1*GlZc*GsZc*GlZc*GsZc*GlZc*GsZc, 12, 'simulation incorrect')
         self.assertAlmostEqual(wfdict['RlZc'][8], m1*GlZc*GsZc*GlZc*GsZc*GlZc*GsZc*GlZc, 12, 'simulation incorrect')
+    def testFourPortRLGCBalanced0(self):
+        Zc=60.
+        Zc=60.
+        Td=100e-12
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,200)
+        spTline=si.p.SystemSParametersNumericParser(fd).AddLines(
+            ['device T1 2 tline zc 60 td 100e-12',
+             'device T2 2 tline zc 60 td 100e-12',
+             'port 1 T1 1',
+             'port 2 T2 1',
+             'port 3 T1 2',
+             'port 4 T2 2']).SParameters()
+        L=Zc*Td
+        C=Td/Zc
+        spTline2=si.sp.dev.TLineDifferentialRLGC(fd, Rp=0, Rsep=0, Lp=L, Gp=0, Cp=C, dfp=0,
+                         Rn=0, Rsen=0, Ln=L, Gn=0, Cn=C, dfn=0,
+                         Cm=0, dfm=0, Gm=0, Lm=0, Z0=50., K=0)
+
+        self.assertTrue(self.SParametersAreEqual(spTline,spTline2), 'differential tline rlgc balanced s-parameters incorrect')
+    def testFourPortRLGCBalanced10000(self):
+        Zc=60.
+        Td=100e-12
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,200)
+        spTline=si.p.SystemSParametersNumericParser(fd).AddLines(
+            ['device T1 2 tline zc 60 td 100e-12',
+             'device T2 2 tline zc 60 td 100e-12',
+             'port 1 T1 1',
+             'port 2 T2 1',
+             'port 3 T1 2',
+             'port 4 T2 2']).SParameters()
+        L=Zc*Td
+        C=Td/Zc
+        spTline2=si.sp.dev.TLineDifferentialRLGC(fd, Rp=0, Rsep=0, Lp=L, Gp=0, Cp=C, dfp=0,
+                         Rn=0, Rsen=0, Ln=L, Gn=0, Cn=C, dfn=0,
+                         Cm=0, dfm=0, Gm=0, Lm=0, Z0=50., K=10000000)
+
+        self.assertTrue(self.SParametersAreEqual(spTline,spTline2), 'differential tline rlgc balanced s-parameters incorrect')
 
 if __name__ == '__main__':
     unittest.main()
