@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['pattern',['Pattern',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0ed2764806fe35efa9d5115a47f125ef',1,'SignalIntegrity::Lib::Prbs::PseudoRandomPolynomial::PseudoRandomPolynomial']]],
+  ['patternlength',['PatternLength',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a1aa9376a9a845bd4be3cadf3f954a76b',1,'SignalIntegrity::Lib::Prbs::PseudoRandomPolynomial::PseudoRandomPolynomial']]],
   ['permutationmatrix',['PermutationMatrix',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#a0219d0273e733c10fc33cd240d9beac9',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]],
   ['pmeasurementlist',['pMeasurementList',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml#af72b7ac7a9d1aa3b37f74ab894c2050d',1,'SignalIntegrity::Lib::SystemDescriptions::VirtualProbe::VirtualProbe']]],
   ['polynomial',['Polynomial',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationPolynomial.xhtml#ab268105477bd1955b7bfcb4450295fad',1,'SignalIntegrity::Lib::Measurement::CalKit::Standards::TerminationPolynomial::TerminationPolynomial']]],

@@ -16,6 +16,7 @@ var searchData=
   ['tlinelossless',['TLineLossless',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::TLineLossless']]],
   ['tlinetwoportrlgc',['TLineTwoPortRLGC',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::TLineTwoPortRLGC']]],
   ['tlinetwoportrlgcanalytic',['TLineTwoPortRLGCAnalytic',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::TLineTwoPortRLGCAnalytic']]],
+  ['tlinetwoportrlgcapproximate',['TLineTwoPortRLGCApproximate',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::TLineTwoPortRLGCApproximate']]],
   ['transfermatrices',['TransferMatrices',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::TransferMatrices']]],
   ['transfermatricesprocessor',['TransferMatricesProcessor',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::TransferMatricesProcessor']]]
 ];

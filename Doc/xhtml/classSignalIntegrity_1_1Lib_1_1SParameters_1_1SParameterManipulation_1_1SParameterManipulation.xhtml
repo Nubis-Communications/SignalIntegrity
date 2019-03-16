@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.2</span>
+   &#160;<span id="projectnumber">1.1.3</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -78,12 +78,12 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for SParameterManipulation:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph.svg" width="3708" height="802"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph.svg" width="3946" height="846"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for SParameterManipulation:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__coll__graph.svg" width="175" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__coll__graph.svg" width="226" height="191"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -103,12 +103,64 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a979f42e9c8bf72ce90999a24da8a839d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a979f42e9c8bf72ce90999a24da8a839d">PortReorder</a> (self, pr)</td></tr>
 <tr class="memdesc:a979f42e9c8bf72ce90999a24da8a839d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reorders the ports to port ordering of the port numbers supplied.  <a href="#a979f42e9c8bf72ce90999a24da8a839d">More...</a><br /></td></tr>
 <tr class="separator:a979f42e9c8bf72ce90999a24da8a839d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4976e854764ebdc65229e9f99f68f577"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a4976e854764ebdc65229e9f99f68f577">DetermineImpulseResponseLength</a> (self, epsilon=1e-6, allLengths=False)</td></tr>
+<tr class="memdesc:a4976e854764ebdc65229e9f99f68f577"><td class="mdescLeft">&#160;</td><td class="mdescRight">determines the impulse response lengths of the ports by comparing impulse response to threshold.  <a href="#a4976e854764ebdc65229e9f99f68f577">More...</a><br /></td></tr>
+<tr class="separator:a4976e854764ebdc65229e9f99f68f577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b686921bbdf34872a7a5080356eccc5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a1b686921bbdf34872a7a5080356eccc5">LimitImpulseResponseLength</a> (self, lengths)</td></tr>
+<tr class="memdesc:a1b686921bbdf34872a7a5080356eccc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">limits the impulse response length of the ports  <a href="#a1b686921bbdf34872a7a5080356eccc5">More...</a><br /></td></tr>
+<tr class="separator:a1b686921bbdf34872a7a5080356eccc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for manipulations on s-parameters involving passivity, causality, etc. </p>
 
 <p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00028">28</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4976e854764ebdc65229e9f99f68f577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4976e854764ebdc65229e9f99f68f577">&#9670;&nbsp;</a></span>DetermineImpulseResponseLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def DetermineImpulseResponseLength </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>epsilon</em> = <code>1e-6</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>allLengths</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>determines the impulse response lengths of the ports by comparing impulse response to threshold. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">epsilon</td><td>(optional, defaults to 1e-6) absolute threshold on impulse response. </td></tr>
+    <tr><td class="paramname">allLengths</td><td>(optional, defaults to False) whether to return the lengths of each port combination </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns a tuple containining (negativeTime,positiveTime) if allLengths is false (default) containing the most negative time and most positive time for all impulse responses, otherwise if allLengths is true, it returns a list of list of tuples as stated for each impulse response. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00144">144</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+
+</div>
+</div>
 <a id="ab0534e987c24d15ff3bcba7ef74ec1d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0534e987c24d15ff3bcba7ef74ec1d1">&#9670;&nbsp;</a></span>EnforceCausality()</h2>
 
@@ -207,6 +259,46 @@ Public Member Functions</h2></td></tr>
 <p>This is checked by generating the impulse response corresponding to the frequency response of each s-parameter from and to port combination. </p>
 
 <p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00059">59</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+
+</div>
+</div>
+<a id="a1b686921bbdf34872a7a5080356eccc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b686921bbdf34872a7a5080356eccc5">&#9670;&nbsp;</a></span>LimitImpulseResponseLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def LimitImpulseResponseLength </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lengths</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>limits the impulse response length of the ports </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lengths</td><td>tuple or list of list of tuple impulse response lengths where the tuple contains the negative time limit and the positive time limit. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>self (with impulse responses limited) </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>if the lengths are a single number, it is assumed to be the single length, otherwise if the lengths is a list of list, it is length to be enforced for each port-port connection. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00190">190</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
