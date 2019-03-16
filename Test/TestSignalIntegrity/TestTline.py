@@ -608,6 +608,36 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
                          Cm=0, dfm=0, Gm=0, Lm=0, Z0=50., K=10000000)
 
         self.assertTrue(self.SParametersAreEqual(spTline,spTline2), 'differential tline rlgc balanced s-parameters incorrect')
+    def testFourPortRLGCApproximate(self):
+        Zc=60.
+        Td=100e-12
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,200)
+        L=Zc*Td
+        C=Td/Zc
+        Zc=60.
+        Td=100e-12
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,200)
+        spTline1=si.sp.dev.TLineDifferentialRLGCApproximate(fd, Rp=0, Rsep=0, Lp=L, Gp=0, Cp=C, dfp=0,
+                         Rn=0, Rsen=0, Ln=L, Gn=0, Cn=C, dfn=0,
+                         Cm=0, dfm=0, Gm=0, Lm=0, Z0=50., K=0)
+        spTline2=si.sp.dev.TLineDifferentialRLGCApproximate(fd, Rp=0, Rsep=0, Lp=L, Gp=0, Cp=C, dfp=0,
+                         Rn=0, Rsen=0, Ln=L, Gn=0, Cn=C, dfn=0,
+                         Cm=0, dfm=0, Gm=0, Lm=0, Z0=50., K=888)
+
+        self.assertTrue(self.SParametersAreEqual(spTline1,spTline2), 'differential tline rlgc balanced s-parameters incorrect')
+    def testTwoPortRLGCApproximate(self):
+        Zc=60.
+        Td=100e-12
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,200)
+        L=Zc*Td
+        C=Td/Zc
+        Zc=60.
+        Td=100e-12
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,200)
+        spTline1=si.sp.dev.TLineTwoPortRLGCApproximate(fd, R=0, Rse=0, L=L, G=0, C=C, df=0, Z0=50., K=0)
+        spTline2=si.sp.dev.TLineTwoPortRLGCApproximate(fd, R=0, Rse=0, L=L, G=0, C=C, df=0, Z0=50., K=888)
+
+        self.assertTrue(self.SParametersAreEqual(spTline1,spTline2), 'single ended tline rlgc balanced s-parameters incorrect')
 
 if __name__ == '__main__':
     unittest.main()
