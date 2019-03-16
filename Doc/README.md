@@ -31,6 +31,7 @@ si.m.calkit | SignalIntegrity.Lib.Measurement.CalKit | Calibration kits
 si.m.tdr | SignalIntegrity.Lib.Measurement.TDR | Time-domain reflectometry
 si.p | SignalIntegrity.Lib.Parsers | Netlist parsers
 si.p.dev | SignalIntegrity.Lib.Parsers.Devices | Netlist parser devices
+si.prbs | SignalIntegrity.Lib.Prbs | Pseudo-random polynomials and waveforms
 si.rat | SignalIntegrity.Lib.Rat | The RAT function
 si.sp | SignalIntegrity.Lib.SParameters | S-parameters
 si.sp.dev | SignalIntegrity.Lib.SParameters.Devices | S-parameter devices
