@@ -39,7 +39,7 @@ class SerialDataWaveform(Waveform):
         is specified, then a time descriptor for one pattern length is generated with the sample rate specified.  Otherwise
         the time descriptor specified is used.
         @return self, a waveform.
-        @throw SignalIntegrityWaveform exception is raised if the risetime exceeds 59% of the unit interval as this causes
+        @throw SignalIntegrityExceptionWaveform exception is raised if the risetime exceeds 59% of the unit interval as this causes
         the calculation to fail.
         @todo the failure for a given risetime is due to the simplicity of the algorithm which should be improved at some point.
         this simplicity is that it only looks at adjacent bits to determine the intersymbol effect of the risetime.
