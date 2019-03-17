@@ -99,6 +99,16 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest3(self):
         if not self.book: return
         self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation3.si')
+    def testPAM4Example(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PAM4Example.si')
+    def testPRBSGenerator(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSGenerator.si')
+    def testPRBSTest(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si')
+    def testPRBSTest2(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest2.si')
+    def testCommonModeProbe(self):
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/CommonModeProbe.si')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.si',
