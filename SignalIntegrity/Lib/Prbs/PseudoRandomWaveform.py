@@ -45,6 +45,7 @@ class SerialDataWaveform(Waveform):
         this simplicity is that it only looks at adjacent bits to determine the intersymbol effect of the risetime.
         @note the left edge of the first bit in the pattern is at the delay time.  But because a cosine is used for
         the risetime emulation, the 50% point of the cosine is reached at this edge.
+        @note the risetime is adjusted if it is too low relative to the sample period.
         """
         if tdOrFs is None:
             sampleRate=10.*bitRate
@@ -54,7 +55,7 @@ class SerialDataWaveform(Waveform):
             td=self.TimeDescriptor(bitRate, sampleRate, len(pattern))
         else:
             td=tdOrFs
-        T=risetime/self.rtvsT
+        T=max(risetime/self.rtvsT,1/td.Fs)
         patternTimeLength=len(pattern)/bitRate
         unitInterval=1./bitRate
         if T>unitInterval:
