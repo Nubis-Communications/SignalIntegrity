@@ -4,8 +4,8 @@
 			<Geometry>990x621+28+57</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
-			<Height>578</Height>
-			<Width>989</Width>
+			<Height>292</Height>
+			<Width>996</Width>
 			<Grid>20.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -108,7 +108,7 @@
 							<Coord>(44, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(44, 4)</Coord>
+							<Coord>(44, -11)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -356,7 +356,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(43, 4)</Origin>
+						<Origin>(43, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -647,7 +647,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>VirtualProbingExample/Sparq_demo_16.s4p</Value>
+							<Value>../VirtualProbingExample/Sparq_demo_16.s4p</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
