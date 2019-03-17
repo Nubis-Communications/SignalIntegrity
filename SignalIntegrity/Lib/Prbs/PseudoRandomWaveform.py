@@ -107,3 +107,18 @@ class PseudoRandomWaveform(SerialDataWaveform):
             SerialDataWaveform.__init__(self,PseudoRandomPolynomial(polynomial).Pattern(),bitrate,amplitude,risetime,delay,tdOrFs)
         except SignalIntegrityException as e:
             raise SignalIntegrityExceptionWaveform(e.message)
+
+class ClockWaveform(SerialDataWaveform):
+    """a clock waveform"""
+    def __init__(self,polynomial,clockfrequency,amplitude=1.0,risetime=0.,delay=0.,tdOrFs=None):
+        """constructor
+        @param clockfrequency float rate of clock in Hz
+        @param amplitude, risetime, delay, tdOrFs all pertain to the derived SerialDataWaveform class
+        @see SerialDataWaveform
+        @return self, a waveform.
+        @note this uses the serial data waveform class with bitrate specified as half the clock frequency
+        and a bitrate of twice the clockfreqeuncy.
+        """
+        SerialDataWaveform.__init__(self,[1,0],clockfrequency*2,amplitude,risetime,delay,tdOrFs)
+
+
