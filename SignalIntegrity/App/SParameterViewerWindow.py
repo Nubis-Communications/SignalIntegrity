@@ -315,6 +315,12 @@ class SParametersDialog(tk.Toplevel):
             self.WaveletDenoiseDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
 
+            self.properties['Zoom.Times.Join.All']=True
+            self.properties['Zoom.Frequencies.Join.All']=True
+            self.properties['Zoom.Vertical.Join.All']=True
+            self.UpdatePropertiesFromSParameters()
+            self.ZoomJoinActivations()
+
         self.buttonLabels=buttonLabels
 
         self.buttons=[]
