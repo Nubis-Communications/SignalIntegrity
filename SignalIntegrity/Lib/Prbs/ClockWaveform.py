@@ -1,5 +1,5 @@
 """
- pseudo-random waveform
+ clock waveform
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
@@ -20,22 +20,20 @@
 import math
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
-from SignalIntegrity.Lib.Prbs.PseudoRandomPolynomial import PseudoRandomPolynomial
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveform,SignalIntegrityException
 from SignalIntegrity.Lib.Prbs.SerialDataWaveform import SerialDataWaveform
 
-class PseudoRandomWaveform(SerialDataWaveform):
-    """a PRBS waveform with a given PRBS polynomial"""
-    def __init__(self,polynomial,bitrate,amplitude=1.0,risetime=0.,delay=0.,tdOrFs=None):
+class ClockWaveform(SerialDataWaveform):
+    """a clock waveform"""
+    def __init__(self,clockfrequency,amplitude=1.0,risetime=0.,delay=0.,tdOrFs=None):
         """constructor
-        @param polynomial integer polynomial number
-        @param bitrate, amplitude, risetime, delay, tdOrFs all pertain to the derived SerialDataWaveform class
+        @param clockfrequency float rate of clock in Hz
+        @param amplitude, risetime, delay, tdOrFs all pertain to the derived SerialDataWaveform class
         @see SerialDataWaveform
         @return self, a waveform.
-        @throw SignalIntegrityWaveform exception is raised if the polynomial number cannot be found
-        @see PseudoRandomPolynomial
+        @note this uses the serial data waveform class with bitrate specified as half the clock frequency
+        and a bitrate of twice the clockfreqeuncy.
         """
-        try:
-            SerialDataWaveform.__init__(self,PseudoRandomPolynomial(polynomial).Pattern(),bitrate,amplitude,risetime,delay,tdOrFs)
-        except SignalIntegrityException as e:
-            raise SignalIntegrityExceptionWaveform(e.message)
+        SerialDataWaveform.__init__(self,[1,0],clockfrequency*2,amplitude,risetime,delay,tdOrFs)
+
+
