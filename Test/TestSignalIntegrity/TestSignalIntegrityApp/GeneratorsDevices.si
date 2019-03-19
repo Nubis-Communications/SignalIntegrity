@@ -1,10 +1,10 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
+			<Geometry>1920x984+-1+26</Geometry>
 			<Originy>8</Originy>
 			<Originx>30</Originx>
-			<Height>318</Height>
+			<Height>320</Height>
 			<Width>711</Width>
 			<Grid>8.0</Grid>
 		</DrawingProperties>
@@ -15,10 +15,10 @@
 				<Device>
 					<ClassName>DeviceVoltageNoiseSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceNoiseSourceOnePort</ClassName>
 						<Origin>(-26, -3)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -44,6 +44,12 @@
 							<Keyword>vrms</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>noise</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -63,10 +69,10 @@
 				<Device>
 					<ClassName>DeviceVoltageNoiseSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceNoiseSourceTwoPort</ClassName>
 						<Origin>(-26, 5)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -92,6 +98,12 @@
 							<Keyword>vrms</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>noise</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -111,10 +123,10 @@
 				<Device>
 					<ClassName>DeviceVoltageStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceStepGeneratorOnePort</ClassName>
 						<Origin>(-26, 12)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -146,6 +158,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -165,10 +183,10 @@
 				<Device>
 					<ClassName>DeviceVoltageStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceStepGeneratorTwoPort</ClassName>
 						<Origin>(-26, 18)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -200,6 +218,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -219,10 +243,10 @@
 				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourcePulseGeneratorOnePort</ClassName>
 						<Origin>(-26, 25)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -260,6 +284,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -279,10 +309,10 @@
 				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourcePulseGeneratorTwoPort</ClassName>
 						<Origin>(-26, 33)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -320,6 +350,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -339,10 +375,10 @@
 				<Device>
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceSineGeneratorOnePort</ClassName>
 						<Origin>(-26, 40)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -380,6 +416,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -399,10 +441,10 @@
 				<Device>
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceSineGeneratorTwoPort</ClassName>
 						<Origin>(-26, 48)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -440,6 +482,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -459,10 +507,10 @@
 				<Device>
 					<ClassName>DeviceCurrentStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceStepGeneratorOnePort</ClassName>
 						<Origin>(24, 12)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -494,6 +542,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -513,10 +567,10 @@
 				<Device>
 					<ClassName>DeviceCurrentStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceStepGeneratorTwoPort</ClassName>
 						<Origin>(24, 19)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -548,6 +602,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -567,10 +627,10 @@
 				<Device>
 					<ClassName>DeviceCurrentPulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourcePulseGeneratorOnePort</ClassName>
 						<Origin>(24, 25)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -608,6 +668,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -627,10 +693,10 @@
 				<Device>
 					<ClassName>DeviceCurrentPulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourcePulseGeneratorTwoPort</ClassName>
 						<Origin>(24, 32)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -668,6 +734,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -687,10 +759,10 @@
 				<Device>
 					<ClassName>DeviceCurrentSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceSineGeneratorOnePort</ClassName>
 						<Origin>(24, 39)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -728,6 +800,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -747,10 +825,10 @@
 				<Device>
 					<ClassName>DeviceCurrentSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceSineGeneratorTwoPort</ClassName>
 						<Origin>(24, 47)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -788,6 +866,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -807,10 +891,10 @@
 				<Device>
 					<ClassName>DeviceVoltageNoiseSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceNoiseSourceOnePort</ClassName>
 						<Origin>(-3, -3)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -836,6 +920,12 @@
 							<Keyword>vrms</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>noise</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -855,10 +945,10 @@
 				<Device>
 					<ClassName>DeviceVoltageNoiseSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceNoiseSourceTwoPort</ClassName>
 						<Origin>(-3, 5)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -884,6 +974,12 @@
 							<Keyword>vrms</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>noise</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -903,10 +999,10 @@
 				<Device>
 					<ClassName>DeviceVoltageStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceStepGeneratorOnePort</ClassName>
 						<Origin>(-3, 12)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -938,6 +1034,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -957,10 +1059,10 @@
 				<Device>
 					<ClassName>DeviceVoltageStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceStepGeneratorTwoPort</ClassName>
 						<Origin>(-3, 18)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -992,6 +1094,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1011,10 +1119,10 @@
 				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourcePulseGeneratorOnePort</ClassName>
 						<Origin>(-3, 25)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1052,6 +1160,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1071,10 +1185,10 @@
 				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourcePulseGeneratorTwoPort</ClassName>
 						<Origin>(-3, 33)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1112,6 +1226,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1131,10 +1251,10 @@
 				<Device>
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceSineGeneratorOnePort</ClassName>
 						<Origin>(-3, 40)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1172,6 +1292,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1191,10 +1317,10 @@
 				<Device>
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceSineGeneratorTwoPort</ClassName>
 						<Origin>(-3, 48)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1232,6 +1358,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1251,10 +1383,10 @@
 				<Device>
 					<ClassName>DeviceCurrentStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceStepGeneratorOnePort</ClassName>
 						<Origin>(43, 12)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1286,6 +1418,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1305,10 +1443,10 @@
 				<Device>
 					<ClassName>DeviceCurrentStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceStepGeneratorTwoPort</ClassName>
 						<Origin>(43, 19)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1340,6 +1478,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1359,10 +1503,10 @@
 				<Device>
 					<ClassName>DeviceCurrentPulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourcePulseGeneratorOnePort</ClassName>
 						<Origin>(43, 25)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1400,6 +1544,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1419,10 +1569,10 @@
 				<Device>
 					<ClassName>DeviceCurrentPulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourcePulseGeneratorTwoPort</ClassName>
 						<Origin>(43, 32)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1460,6 +1610,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1479,10 +1635,10 @@
 				<Device>
 					<ClassName>DeviceCurrentSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceSineGeneratorOnePort</ClassName>
 						<Origin>(43, 39)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1520,6 +1676,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1539,10 +1701,10 @@
 				<Device>
 					<ClassName>DeviceCurrentSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceSineGeneratorTwoPort</ClassName>
 						<Origin>(43, 47)</Origin>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1583,6 +1745,12 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>2</Value>
 							<Visible>False</Visible>
@@ -1599,10 +1767,10 @@
 				<Device>
 					<ClassName>DeviceVoltageNoiseSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceNoiseSourceOnePort</ClassName>
 						<Origin>(2, -3)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1628,6 +1796,12 @@
 							<Keyword>vrms</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>noise</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1647,10 +1821,10 @@
 				<Device>
 					<ClassName>DeviceVoltageNoiseSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceNoiseSourceTwoPort</ClassName>
 						<Origin>(2, 5)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1679,6 +1853,12 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>noise</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>2</Value>
 							<Visible>False</Visible>
@@ -1695,10 +1875,10 @@
 				<Device>
 					<ClassName>DeviceVoltageStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceStepGeneratorOnePort</ClassName>
 						<Origin>(2, 12)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1730,6 +1910,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1749,10 +1935,10 @@
 				<Device>
 					<ClassName>DeviceVoltageStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceStepGeneratorTwoPort</ClassName>
 						<Origin>(2, 18)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1784,6 +1970,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1803,10 +1995,10 @@
 				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourcePulseGeneratorOnePort</ClassName>
 						<Origin>(2, 25)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1844,6 +2036,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1863,10 +2061,10 @@
 				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourcePulseGeneratorTwoPort</ClassName>
 						<Origin>(2, 33)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1904,6 +2102,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1923,10 +2127,10 @@
 				<Device>
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceSineGeneratorOnePort</ClassName>
 						<Origin>(2, 40)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -1964,6 +2168,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -1983,10 +2193,10 @@
 				<Device>
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceSineGeneratorTwoPort</ClassName>
 						<Origin>(2, 48)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2024,6 +2234,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -2043,10 +2259,10 @@
 				<Device>
 					<ClassName>DeviceCurrentStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceStepGeneratorOnePort</ClassName>
 						<Origin>(51, 12)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2078,6 +2294,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -2097,10 +2319,10 @@
 				<Device>
 					<ClassName>DeviceCurrentStepGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceStepGeneratorTwoPort</ClassName>
 						<Origin>(51, 19)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2132,6 +2354,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>step</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -2151,10 +2379,10 @@
 				<Device>
 					<ClassName>DeviceCurrentPulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourcePulseGeneratorOnePort</ClassName>
 						<Origin>(51, 25)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2192,6 +2420,12 @@
 							<Keyword>a</Keyword>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -2211,10 +2445,10 @@
 				<Device>
 					<ClassName>DeviceCurrentPulseGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourcePulseGeneratorTwoPort</ClassName>
 						<Origin>(51, 32)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2255,6 +2489,12 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>pulse</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>2</Value>
 							<Visible>False</Visible>
@@ -2271,10 +2511,10 @@
 				<Device>
 					<ClassName>DeviceCurrentSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceSineGeneratorOnePort</ClassName>
 						<Origin>(51, 39)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2312,6 +2552,12 @@
 							<Keyword>ph</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -2331,10 +2577,10 @@
 				<Device>
 					<ClassName>DeviceCurrentSineGenerator</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCurrentSourceSineGeneratorTwoPort</ClassName>
 						<Origin>(51, 47)</Origin>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<Index>0</Index>
 						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -2375,6 +2621,12 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>sine</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>2</Value>
 							<Visible>False</Visible>
@@ -2388,12 +2640,1212 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-26, 56)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG25</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-26, 78)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG26</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-3, 56)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG27</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-26, 69)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG28</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-3, 69)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG29</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-3, 78)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG30</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-26, 92)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG31</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<PartPicture>
+						<Origin>(-3, 92)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>br</Keyword>
+							<Value>1000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>prbs</Keyword>
+							<Value>7</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>prbs</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG32</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(2, 56)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG33</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(23, 56)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG34</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(2, 69)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG35</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(23, 69)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG36</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(2, 78)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG37</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(23, 78)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG38</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(2, 92)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG39</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(23, 92)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-1e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>2e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG40</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 		</Schematic>
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>40000000000.0</UserSampleRate>
-		<EndFrequency>20000000000.0</EndFrequency>
 		<FrequencyPoints>400</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>
