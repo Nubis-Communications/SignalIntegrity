@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>766x332+28+57</Geometry>
+			<Geometry>766x573+28+57</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
-			<Height>293</Height>
-			<Width>996</Width>
+			<Height>526</Height>
+			<Width>766</Width>
 			<Grid>20.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -47,6 +47,46 @@
 						</Vertex>
 						<Vertex>
 							<Coord>(13, -13)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(29, -1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(34, -1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(10, -1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(13, -1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(34, -1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(34, 1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -310,7 +350,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
-							<Value>1.47e-09</Value>
+							<Value>1.43582350986e-09</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -396,6 +436,312 @@
 							<Keyword>ref</Keyword>
 							<Value>Vcommon</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceResistor</ClassName>
+					<PartPicture>
+						<Origin>(13, -2)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>r</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>R5</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceResistor</ClassName>
+					<PartPicture>
+						<Origin>(33, 1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>r</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>R6</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceOutput</ClassName>
+					<PartPicture>
+						<Origin>(34, -2)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<Value>0.1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>offset</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>Vclock</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Origin>(21, -2)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<Value>../VirtualProbingExample/Sparq_demo_16.s4p</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DevicePowerMixedModeConverter</ClassName>
+					<PartPicture>
+						<Origin>(17, -2)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>MM3</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DevicePowerMixedModeConverter</ClassName>
+					<PartPicture>
+						<Origin>(25, -2)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>MM4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceResistor</ClassName>
+					<PartPicture>
+						<Origin>(14, 1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>r</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>R7</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceResistor</ClassName>
+					<PartPicture>
+						<Origin>(28, 1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>r</Keyword>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>R8</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageClockGenerator</ClassName>
+					<PartPicture>
+						<Origin>(9, -1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ho</Keyword>
+							<Value>-5e-07</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>dur</Keyword>
+							<Value>1e-06</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>t0</Keyword>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f</Keyword>
+							<Value>5000000000.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>fs</Keyword>
+							<Value>40000000000.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<Value>clock</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>VG1</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>

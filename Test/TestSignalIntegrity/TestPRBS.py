@@ -89,7 +89,14 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
         td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**7-1),bitrate*10.)
         wf2=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,td)
         self.assertEqual(wf, wf2, 'prbs with time descriptor incorrect')
-
-
+    def testClockWaveform(self):
+        clockRate=1.234e9
+        risetime=200e-12
+        delay=25e-9
+        Fs=40e9
+        td=si.td.wf.TimeDescriptor(-10e-9,int(20e-9*Fs),Fs)
+        wf=si.prbs.ClockWaveform(clockRate,1.0,risetime,delay,td)
+        wf2=si.prbs.SerialDataWaveform([1,0],clockRate*2.,1.0,risetime,delay,td)
+        self.assertEqual(wf, wf2, 'clock waveform incorrect')
 if __name__ == "__main__":
     unittest.main()

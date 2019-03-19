@@ -6,6 +6,14 @@ device MM2 4 mixedmode
 device R3 1 R 50.0
 device R4 1 R 50.0
 voltagesource VS1 1
+device R5 2 R 50.0
+device R6 1 R 50.0
+device D1 4 file ../VirtualProbingExample/Sparq_demo_16.s4p
+device MM3 4 mixedmode
+device MM4 4 mixedmode
+device R7 1 R 50.0
+device R8 1 R 50.0
+voltagesource VG1 1
 output VS1 1
 connect VS1 1 R1 1
 connect R1 2 MM1 3
@@ -18,3 +26,13 @@ connect MM2 2 D4 4
 connect R3 1 MM1 4
 output R4 1
 connect R4 1 MM2 4
+connect R5 1 VG1 1
+connect R5 2 MM3 3
+output MM4 3
+connect MM4 3 R6 1
+connect MM3 1 D1 1
+connect D1 2 MM3 2
+connect D1 3 MM4 1
+connect D1 4 MM4 2
+connect MM3 4 R7 1
+connect R8 1 MM4 4
