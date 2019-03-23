@@ -662,8 +662,8 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testWriteErrorTermsCodeDut(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['DutCalculation']
-        self.WriteClassCode(fileName,className,defName)
+        defName=['DutCalculation','DutUnCalculation']
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteErrorTermsCodeFixture(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'

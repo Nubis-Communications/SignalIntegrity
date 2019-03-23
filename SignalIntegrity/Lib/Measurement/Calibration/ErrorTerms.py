@@ -182,10 +182,8 @@ class ErrorTerms(object):
         [EX12,ET12,EL12]=self[firstPort][secondPort]
         [EX21,ET21,EL21]=self[secondPort][firstPort]
         p=cmath.sqrt((Sm[0][1]-EX12)/(Sm[1][0]-EX21))
-        ET21=cmath.sqrt(ER1)*cmath.sqrt(ER2)/p
-        ET12=cmath.sqrt(ER1)*cmath.sqrt(ER2)*p
-        EL21=ES2
-        EL12=ES1
+        [EX12,ET12,EL12]=[EX12,cmath.sqrt(ER1)*cmath.sqrt(ER2)*p,ES1]
+        [EX21,ET21,EL21]=[EX21,cmath.sqrt(ER1)*cmath.sqrt(ER2)/p,ES2]
         DutCalc1=ErrorTerms([[[ED1,ER1,ES1],[EX12,ET12,EL12]],
                              [[EX21,ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
         DutCalc2=ErrorTerms([[[ED1,ER1,ES1],[EX12,-ET12,EL12]],
@@ -321,3 +319,18 @@ class ErrorTerms(object):
            for r in range(len(sRaw))]
         S=(matrix(B)*matrix(A).getI()).tolist()
         return S
+    def DutUnCalculation(self,S,pl=None):
+        """undoes the DUT calculation
+        @param S list of list s-parameter matrix a DUT
+        @param pl (optional) list of zero based port numbers of the DUT
+        @return list of list s-parameter matrix of raw measured s-parameters
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        """
+        if pl is None: pl = [p for p in range(len(S))]
+        A=[[(1 if r==c else 0) - S[r][c]*self[pl[r]][pl[c]][2] for c in range(len(S))]
+           for r in range(len(S))]
+        C=(matrix(S)*matrix(A).getI()).tolist()
+        Sraw=[[(C[r][c]*self[pl[r]][pl[c]][1]+self[pl[r]][pl[c]][0])
+            for c in range(len(S))] for r in  range(len(S))]
+        return Sraw
