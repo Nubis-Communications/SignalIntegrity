@@ -192,7 +192,6 @@ class ErrorTerms(object):
             return DutCalc1
         else:
             return DutCalc2
-
     def ExCalibration(self,b2a1,n,m):
         """Computes the crosstalk term
 

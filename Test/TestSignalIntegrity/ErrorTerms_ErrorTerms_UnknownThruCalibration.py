@@ -16,5 +16,4 @@ class ErrorTerms(object):
             return DutCalc1
         else:
             return DutCalc2
-
 ...
