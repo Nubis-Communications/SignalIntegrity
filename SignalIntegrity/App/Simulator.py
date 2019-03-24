@@ -115,8 +115,8 @@ class SimulatorDialog(tk.Toplevel):
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
 
         toolbar = NavigationToolbar2Tk( self.canvas, self )
-
         toolbar.update()
+        toolbar.pan()
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         controlsFrame = tk.Frame(self)
