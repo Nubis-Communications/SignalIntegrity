@@ -365,4 +365,3 @@ class Calibration(object):
         self.CalculateErrorTerms()
         return SParameters(self.f,[self[n].DutUnCalculation(S[n],portList)
                                    for n in range(len(self))])
-
