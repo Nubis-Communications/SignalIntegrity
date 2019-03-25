@@ -634,11 +634,21 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
-    def testWriteErrorTermsCodeCalibration(self):
+    def testWriteErrorTermsCodeReflectCalibration(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['ReflectCalibration','ThruCalibration','ExCalibration']
-        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+        defName=['ReflectCalibration']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteErrorTermsCodeThruCalibration(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['ThruCalibration']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteErrorTermsCodeExCalibration(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['ExCalibration']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteErrorTermsCodeCalibrationTransferThru(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
@@ -652,8 +662,13 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testWriteErrorTermsCodeDut(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['DutCalculation','DutCalculationAlternate','Fixture']
+        defName=['DutCalculation','DutUnCalculation']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteErrorTermsCodeFixture(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['Fixture']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteCalibrationKitCode(self):
         fileName="../../SignalIntegrity/Lib/Measurement/CalKit/CalibrationKit.py"
         className='CalibrationKit'

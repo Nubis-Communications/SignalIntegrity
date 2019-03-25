@@ -694,6 +694,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTUnCalculationSp=cm.DutUnCalculation(DUTCalcSpAlternate)
         self.assertTrue(self.SParametersAreEqual(DUTUnCalculationSp, spDict['Dut'], 1e-3),'s-parameters not equal')
+        DUTUnCalculationSp=cm.DutUnCalculationAlternate(DUTCalcSpAlternate)
+        self.assertTrue(self.SParametersAreEqual(DUTUnCalculationSp, spDict['Dut'], 1e-3),'s-parameters not equal')
 
     def testTDRFourPortTransferThru(self):
         ports=4

@@ -25,8 +25,7 @@ class Calibration(object):
         return self
 ...
     def CalculateErrorTerms(self,force=False):
-        if (not self.ET is None) and (not force):
-            return self
+        if (not self.ET is None) and (not force): return self
         self.ET=[ErrorTerms().Initialize(self.ports) for _ in range(len(self))]
         measurements=copy.deepcopy(self.calibrationMatrix)
         self._CalculateReflectErrorTerms(measurements)
