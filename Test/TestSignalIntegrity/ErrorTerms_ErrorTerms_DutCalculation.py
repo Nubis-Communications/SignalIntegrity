@@ -10,9 +10,12 @@ class ErrorTerms(object):
         return S
     def DutUnCalculation(self,S,pl=None):
         if pl is None: pl = [p for p in range(len(S))]
-        A=[[(1 if r==c else 0) - S[r][c]*self[pl[r]][pl[c]][2] for c in range(len(S))]
-           for r in range(len(S))]
-        C=(matrix(S)*matrix(A).getI()).tolist()
-        Sraw=[[(C[r][c]*self[pl[r]][pl[c]][1]+self[pl[r]][pl[c]][0])
-            for c in range(len(S))] for r in  range(len(S))]
-        return Sraw
+        Sp=[[None for c in range(len(S))] for r in range(len(S))]
+        Si=matrix(S).getI()
+        for c in range(len(S)):
+            E=self.Fixture(c,pl)
+            Em=[[matrix(E[0][0]),matrix(E[0][1])],[matrix(E[1][0]),matrix(E[1][1])]]
+            col=(Em[0][0]*Em[1][0]+Em[0][1]*(Si-Em[1][1]).getI()*Em[1][0]).tolist()
+            for r in range(len(S)): Sp[r][c]=col[r][c]
+        return Sp
+...
