@@ -327,6 +327,26 @@ class ErrorTerms(object):
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         """
         if pl is None: pl = [p for p in range(len(S))]
+        Sp=[[None for c in range(len(S))] for r in range(len(S))]
+        Si=matrix(S).getI()
+        for c in range(len(S)):
+            E=self.Fixture(c,pl)
+            Em=[[matrix(E[0][0]),matrix(E[0][1])],[matrix(E[1][0]),matrix(E[1][1])]]
+            col=(Em[0][0]*Em[1][0]+Em[0][1]*(Si-Em[1][1]).getI()*Em[1][0]).tolist()
+            for r in range(len(S)): Sp[r][c]=col[r][c]
+        return Sp
+    def DutUnCalculationWrongIThink(self,S,pl=None):
+        """undoes the DUT calculation
+        @param S list of list s-parameter matrix a DUT
+        @param pl (optional) list of zero based port numbers of the DUT
+        @return list of list s-parameter matrix of raw measured s-parameters
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        @warning I believe this is wrong - I need to compare to DutCalculation above.  I
+        believe it might be right if we assume the ES and EL terms are the same.
+        @see DutUnCalculation
+        """
+        if pl is None: pl = [p for p in range(len(S))]
         A=[[(1 if r==c else 0) - S[r][c]*self[pl[r]][pl[c]][2] for c in range(len(S))]
            for r in range(len(S))]
         C=(matrix(S)*matrix(A).getI()).tolist()

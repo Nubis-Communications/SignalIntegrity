@@ -132,6 +132,7 @@ class Calibration(object):
                         lines.append('%15.10e ' % et.real + '%15.10e\n' % et.imag)
         with open(filename,'w') as f:
             f.writelines(lines)
+        return self
     def ReadFromFile(self,filename):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
