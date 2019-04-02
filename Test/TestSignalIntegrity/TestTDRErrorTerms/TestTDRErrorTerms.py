@@ -368,12 +368,8 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         sp[fd.N][0][0]=sp[fd.N][0][0]*2
         sp.WriteToFile('TestRef.s1p')
 
-        # now I want to measure the K*g term
-        self.K1g=resDict[name+'1_inc_fc']
-        self.K2g=resDict[name+'2_inc_fc']
-        
         cs=si.m.calkit.CalibrationKit(f=fd)
-        
+
         short1measurement=tdr.RawMeasuredSParameters(resDict['ShortV1'])
         short2measurement=tdr.RawMeasuredSParameters(resDict['ShortV2'])
         open1measurement=tdr.RawMeasuredSParameters(resDict['OpenV1'])
@@ -382,7 +378,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         load2measurement=tdr.RawMeasuredSParameters(resDict['LoadV2'])
         thrumeasurement=tdr.RawMeasuredSParameters([[resDict['Thru1V1'],resDict['Thru1V2']],[resDict['Thru2V1'],resDict['Thru2V2']]])
 
-        cm=si.m.cal.Calibration(2,fd,[
+        cmTDR=si.m.cal.Calibration(2,fd,[
             si.m.cal.ReflectCalibrationMeasurement(short1measurement.FrequencyResponse(1,1),cs.shortStandard,0,'Short1'),
             si.m.cal.ReflectCalibrationMeasurement(open1measurement.FrequencyResponse(1,1),cs.openStandard,0,'Open1'),
             si.m.cal.ReflectCalibrationMeasurement(load1measurement.FrequencyResponse(1,1),cs.loadStandard,0,'Load1'),
@@ -392,8 +388,8 @@ class TestTDRErrorTermsTest(unittest.TestCase,
             si.m.cal.ThruCalibrationMeasurement(thrumeasurement.FrequencyResponse(1,1),thrumeasurement.FrequencyResponse(2,1),cs.thruStandard,0,1,'Thru1'),
             si.m.cal.ThruCalibrationMeasurement(thrumeasurement.FrequencyResponse(2,2),thrumeasurement.FrequencyResponse(1,2),cs.thruStandard,1,0,'Thru2'),
             ])
-        
-        cm.WriteToFile('calibration.l12t').WriteFixturesToFiles('ErrorTermFixture')
+
+        #cmTDR.WriteToFile('calibration.l12t').WriteFixturesToFiles('ErrorTermFixture')
 
         # calculate the error terms using equations
         F1sp=resDict['Fixture1']
@@ -432,12 +428,17 @@ class TestTDRErrorTermsTest(unittest.TestCase,
             ET21=F121*F212*g2/g1*(1+G2)/(1+rho1)*(1-rho1*G1)/((F211*G2-1)*(F111*G1-1))
             ET12=F221*F112*g1/g2*(1+G1)/(1+rho2)*(1-rho2*G2)/((F111*G1-1)*(F211*G2-1))            
             ET[n].ET=[[[ED1,ER1,ES1],[0,ET12,EL12]],[[0,ET21,EL21],[ED2,ER2,ES2]]]
-        cm=si.m.cal.Calibration(2,fd)
-        cm.ET=ET
-        cm.WriteFixturesToFiles('TwoPortCalEquations')
+        cmEq=si.m.cal.Calibration(2,fd)
+        cmEq.ET=ET
+        #cmEq.WriteFixturesToFiles('TwoPortCalEquations')
 
+        FixturesActual=cmTDR.Fixtures()
+        FixturesEquations=cmEq.Fixtures()
 
-        # confirm equation for raw measured s-parameters with short connected
+        for p in range(len(FixturesActual)):
+            self.assertTrue(self.SParametersAreEqual(FixturesActual[p],FixturesEquations[p]),'Fixture '+str(p+1)+' not equal')
+
+        # confirm equation for raw measured s-parameters at port 1 with short connected
         Fsp=resDict['Fixture1']
         rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
         Gammasp=resDict['Gamma1']
@@ -453,9 +454,110 @@ class TestTDRErrorTermsTest(unittest.TestCase,
             Gp=Gammasp[n][0][0]
             Shat[n]=(((rho*Fp22-dFp)*Gp+rho*Fp22-dFp)*S11+(Fp11-rho)*Gp+Fp11-rho)/((1+rho)*((dFp*Gp-Fp22)*S11-Gp*Fp11+1))
         Shatsp=si.sp.SParameters(Fsp.m_f,[[[s]] for s in Shat])
-        Shatsp.WriteToFile('Short1RawEquation.s1p')
-        short1measurement.WriteToFile('Short1RawMeasured.s1p')
-        
+        #Shatsp.WriteToFile('Short1RawEquation.s1p')
+        #short1measurement.WriteToFile('Short1RawMeasured.s1p')
+        self.assertTrue(self.SParametersAreEqual(Shatsp,short1measurement),'raw short 1 measurement equation wrong')
+
+        # confirm equation for raw measured s-parameters at port 2 with short connected
+        Fsp=resDict['Fixture2']
+        rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
+        Gammasp=resDict['Gamma2']
+        S11=-1
+        Shat=[None for _ in range(len(Fsp))]
+        for n in range(len(Fsp)):
+            Fp=Fsp[n]
+            Fp11=Fp[0][0]
+            Fp12=Fp[0][1]
+            Fp21=Fp[1][0]
+            Fp22=Fp[1][1]
+            dFp=Fp11*Fp22-Fp12*Fp21
+            Gp=Gammasp[n][0][0]
+            Shat[n]=(((rho*Fp22-dFp)*Gp+rho*Fp22-dFp)*S11+(Fp11-rho)*Gp+Fp11-rho)/((1+rho)*((dFp*Gp-Fp22)*S11-Gp*Fp11+1))
+        Shatsp=si.sp.SParameters(Fsp.m_f,[[[s]] for s in Shat])
+        #Shatsp.WriteToFile('Short2RawEquation.s1p')
+        #short2measurement.WriteToFile('Short2RawMeasured.s1p')
+        self.assertTrue(self.SParametersAreEqual(Shatsp,short2measurement),'raw short 2 measurement equation wrong')
+
+        # confirm equation for raw measured s-parameters at port 1 with open connected
+        Fsp=resDict['Fixture1']
+        rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
+        Gammasp=resDict['Gamma1']
+        S11=1
+        Shat=[None for _ in range(len(Fsp))]
+        for n in range(len(Fsp)):
+            Fp=Fsp[n]
+            Fp11=Fp[0][0]
+            Fp12=Fp[0][1]
+            Fp21=Fp[1][0]
+            Fp22=Fp[1][1]
+            dFp=Fp11*Fp22-Fp12*Fp21
+            Gp=Gammasp[n][0][0]
+            Shat[n]=(((rho*Fp22-dFp)*Gp+rho*Fp22-dFp)*S11+(Fp11-rho)*Gp+Fp11-rho)/((1+rho)*((dFp*Gp-Fp22)*S11-Gp*Fp11+1))
+        Shatsp=si.sp.SParameters(Fsp.m_f,[[[s]] for s in Shat])
+        #Shatsp.WriteToFile('Open1RawEquation.s1p')
+        #open1measurement.WriteToFile('Open1RawMeasured.s1p')
+        self.assertTrue(self.SParametersAreEqual(Shatsp,open1measurement),'raw open 1 measurement equation wrong')
+
+        # confirm equation for raw measured s-parameters at port 2 with open connected
+        Fsp=resDict['Fixture2']
+        rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
+        Gammasp=resDict['Gamma2']
+        S11=1
+        Shat=[None for _ in range(len(Fsp))]
+        for n in range(len(Fsp)):
+            Fp=Fsp[n]
+            Fp11=Fp[0][0]
+            Fp12=Fp[0][1]
+            Fp21=Fp[1][0]
+            Fp22=Fp[1][1]
+            dFp=Fp11*Fp22-Fp12*Fp21
+            Gp=Gammasp[n][0][0]
+            Shat[n]=(((rho*Fp22-dFp)*Gp+rho*Fp22-dFp)*S11+(Fp11-rho)*Gp+Fp11-rho)/((1+rho)*((dFp*Gp-Fp22)*S11-Gp*Fp11+1))
+        Shatsp=si.sp.SParameters(Fsp.m_f,[[[s]] for s in Shat])
+        #Shatsp.WriteToFile('Open2RawEquation.s1p')
+        #open2measurement.WriteToFile('Open2RawMeasured.s1p')
+        self.assertTrue(self.SParametersAreEqual(Shatsp,open2measurement),'raw open 2 measurement equation wrong')
+
+        # confirm equation for raw measured s-parameters at port 1 with load connected
+        Fsp=resDict['Fixture1']
+        rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
+        Gammasp=resDict['Gamma1']
+        S11=0
+        Shat=[None for _ in range(len(Fsp))]
+        for n in range(len(Fsp)):
+            Fp=Fsp[n]
+            Fp11=Fp[0][0]
+            Fp12=Fp[0][1]
+            Fp21=Fp[1][0]
+            Fp22=Fp[1][1]
+            dFp=Fp11*Fp22-Fp12*Fp21
+            Gp=Gammasp[n][0][0]
+            Shat[n]=(((rho*Fp22-dFp)*Gp+rho*Fp22-dFp)*S11+(Fp11-rho)*Gp+Fp11-rho)/((1+rho)*((dFp*Gp-Fp22)*S11-Gp*Fp11+1))
+        Shatsp=si.sp.SParameters(Fsp.m_f,[[[s]] for s in Shat])
+        #Shatsp.WriteToFile('Load1RawEquation.s1p')
+        #load1measurement.WriteToFile('Load1RawMeasured.s1p')
+        self.assertTrue(self.SParametersAreEqual(Shatsp,load1measurement),'raw load 1 measurement equation wrong')
+
+        # confirm equation for raw measured s-parameters at port 2 with load connected
+        Fsp=resDict['Fixture2']
+        rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
+        Gammasp=resDict['Gamma2']
+        S11=0
+        Shat=[None for _ in range(len(Fsp))]
+        for n in range(len(Fsp)):
+            Fp=Fsp[n]
+            Fp11=Fp[0][0]
+            Fp12=Fp[0][1]
+            Fp21=Fp[1][0]
+            Fp22=Fp[1][1]
+            dFp=Fp11*Fp22-Fp12*Fp21
+            Gp=Gammasp[n][0][0]
+            Shat[n]=(((rho*Fp22-dFp)*Gp+rho*Fp22-dFp)*S11+(Fp11-rho)*Gp+Fp11-rho)/((1+rho)*((dFp*Gp-Fp22)*S11-Gp*Fp11+1))
+        Shatsp=si.sp.SParameters(Fsp.m_f,[[[s]] for s in Shat])
+        #Shatsp.WriteToFile('Load2RawEquation.s1p')
+        #load1measurement.WriteToFile('Load2RawMeasured.s1p')
+        self.assertTrue(self.SParametersAreEqual(Shatsp,load2measurement),'raw load 2 measurement equation wrong')
+
         # confirm equation for measured voltage with short connected
         Fsp=resDict['Fixture1']
         rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
@@ -497,31 +599,6 @@ class TestTDRErrorTermsTest(unittest.TestCase,
             vhat[n]=(1+rho)/(1-rho*Gp)*(1-Gp)/2*V*g
         vhatsp=si.sp.SParameters(Fsp.m_f,[[[vh]] for vh in vhat])
         vhatsp.WriteToFile('ShortV1IncEquation.s1p')
-        
-        # calculate the error terms using equations
-        Fsp=resDict['Fixture1']
-        rho=si.ip.ImpedanceProfile(Fsp,1,1)[0]
-        Gammasp=resDict['Gamma1']
-        S11=-1
-        V=self.V1
-        g=self.g1
-        # m = (1/sqZ0)*(1-Gamma)/2*V
-        ET=[si.m.cal.ErrorTerms().Initialize(1) for n in range(len(Fsp))]
-        for n in range(len(Fsp)):
-            Fp=Fsp[n]
-            Fp11=Fp[0][0]
-            Fp12=Fp[0][1]
-            Fp21=Fp[1][0]
-            Fp22=Fp[1][1]
-            dFp=Fp11*Fp22-Fp12*Fp21
-            Gp=Gammasp[n][0][0]
-            ED=(rho-Fp11-Fp11*Gp+rho*Gp)/((1+rho)*(Fp11*Gp-1))
-            ES=(Gp*dFp-Fp22)/(Fp11*Gp-1)
-            ER=(1+(1-rho)*Gp-rho*Gp*Gp)/((1+rho)*(Fp11*Gp-1)**2)
-            ET[n].ET[0][0]=[ED,ER,ES]
-        cm=si.m.cal.Calibration(1,fd)
-        cm.ET=ET
-        cm.WriteFixturesToFiles('SinglePortCalEquations')
 
         # confirm equation for measured voltage at port 2 with thru connected
         Fpsp=resDict['Fixture1']
@@ -587,6 +664,6 @@ class TestTDRErrorTermsTest(unittest.TestCase,
 
         return
 
-        
+
 if __name__ == "__main__":
         unittest.main()
