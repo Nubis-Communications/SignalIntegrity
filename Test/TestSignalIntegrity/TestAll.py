@@ -54,6 +54,7 @@ from TestSParameterFile import *
 from TestSplines import *
 from TestSubcircuit import *
 from TestSystemDescription import *
+from TestTDRErrorTerms import *
 from TestTeeProblem import *
 from TestTimeDomain import *
 from TestTline import *
