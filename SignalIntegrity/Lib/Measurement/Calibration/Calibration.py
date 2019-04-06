@@ -57,6 +57,7 @@ class Calibration(object):
                                 for _ in range(self.ports)]
         self.ET=[ErrorTerms().InitializeFromFixtures([fixture[n]
                 for fixture in fixtureList]) for n in range(len(self))]
+        return self
     def __getitem__(self,item): return self.ET[item]
     """overloads [item]
     @param item integer row of error terms matrix to access
