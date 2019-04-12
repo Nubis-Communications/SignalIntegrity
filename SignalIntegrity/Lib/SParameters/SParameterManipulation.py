@@ -93,7 +93,7 @@ class SParameterManipulation(object):
         w=WaveletDaubechies4()
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
-                fr=self.FrequencyResponse(toPort,fromPort)
+                fr=self.FrequencyResponse(toPort+1,fromPort+1)
                 ir=fr.ImpulseResponse()
                 if ir is not None:
                     irl=len(ir)
