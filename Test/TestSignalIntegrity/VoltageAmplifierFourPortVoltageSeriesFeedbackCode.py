@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 sdp=si.p.SystemDescriptionParser()
 sdp.AddLines(['device D 4','device F 4',
     'port 1 D 1 2 F 4 3 D 3 4 F 2',

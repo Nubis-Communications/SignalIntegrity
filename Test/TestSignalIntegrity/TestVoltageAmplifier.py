@@ -221,8 +221,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier 2 Full')
     def testVoltageAmplifierTwoPort(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device DV 4','device G 1 ground',
-            'port 1 DV 1 2 DV 3',
+        sdp.AddLines(['device DV 4','device G 1 ground','port 1 DV 1 2 DV 3',
             'connect DV 2 G 1','connect DV 4 G 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         DV=si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o')
@@ -321,8 +320,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Two Port Voltage Series Feedback')
     def testVoltageAmplifierTwoPortVoltageSeriesFeedback(self):
         sdp=si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 4','device F 2','device G 1 ground',
-            'port 1 D 1 2 D 3',
+        sdp.AddLines(['device D 4','device F 2','device G 1 ground','port 1 D 1 2 D 3',
             'connect D 2 F 2','connect D 3 F 1','connect D 4 G 1'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.VoltageAmplifier(4,'\\alpha','Z_i','Z_o'))

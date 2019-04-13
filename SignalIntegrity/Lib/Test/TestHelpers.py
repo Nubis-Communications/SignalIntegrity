@@ -157,7 +157,7 @@ class RoutineWriterTesterHelper(object):
     maxNumLines=67
     maxLineLength=88
     def __init__(self, methodName='runTest'):
-        self.standardHeader = ['import SignalIntegrity.Lib as si\n','\n']
+        self.standardHeader = ['import SignalIntegrity.Lib as si\n']
     def execfile(self,filepath, globals=None, locals=None):
         if globals is None:
             globals = {}

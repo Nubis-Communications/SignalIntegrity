@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 vps=si.sd.VirtualProbeSymbolic(size='small')
 vps.AddDevice('T',1)
 vps.AddDevice('C',2)

@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 ss=si.sd.SimulatorSymbolic()
 ss.AddDevice('S',2)
 ss.AddDevice('\\Gamma_l',1)

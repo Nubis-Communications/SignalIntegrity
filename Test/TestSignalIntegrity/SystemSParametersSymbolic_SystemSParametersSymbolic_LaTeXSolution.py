@@ -41,14 +41,10 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
         sWxa=self._LaTeXMatrix(Wxa)
         sWxx=self._LaTeXMatrix(Wxx)
         if size=='biggest':
-            if len(Wba) != 0:
-                self._AddEq('\\mathbf{W_{ba}} = '+sWba)
-            if len(Wbx) != 0:
-                self._AddEq('\\mathbf{W_{bx}} = '+sWbx)
-            if len(Wxa) != 0:
-                self._AddEq('\\mathbf{W_{xa}} = '+sWxa)
-            if len(Wxx) != 0:
-                self._AddEq('\\mathbf{W_{xx}} = '+sWxx)
+            if len(Wba) != 0: self._AddEq('\\mathbf{W_{ba}} = '+sWba)
+            if len(Wbx) != 0: self._AddEq('\\mathbf{W_{bx}} = '+sWbx)
+            if len(Wxa) != 0: self._AddEq('\\mathbf{W_{xa}} = '+sWxa)
+            if len(Wxx) != 0: self._AddEq('\\mathbf{W_{xx}} = '+sWxx)
             self._AddEq('\\mathbf{S}=\\mathbf{W_{ba}}+\\mathbf{W_{bx}}\\cdot'+\
                 '\\left[ '+I+\
                 ' -\\mathbf{W_{xx}}\\right]^{-1}\\cdot\\mathbf{W_{xa}}')

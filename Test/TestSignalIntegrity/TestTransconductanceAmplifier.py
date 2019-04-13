@@ -30,13 +30,24 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 4','device ZI 2','device ZO 2',
             'port 1 ZI 1 2 ZI 2 3 ZO 1 4 ZO 2',
-            'connect ZI 1 D 2','connect ZI 2 D 1',
-            'connect ZO 1 D 4','connect ZO 2 D 3'])
+            'connect ZI 1 D 2','connect ZI 2 D 1','connect ZO 1 D 4','connect ZO 2 D 3'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('D',si.sy.VoltageControlledCurrentSource('\\delta'))
         ssps.AssignSParameters('ZI',si.sy.SeriesZ('Z_i'))
         ssps.AssignSParameters('ZO',si.sy.SeriesZ('Z_o'))
-        ssps.LaTeXSolution(size='big').Emit()
+        ssps.LaTeXSolution(size='biggest').Emit()
+        # pragma: exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port')
+    def testTransconductanceAmplifierFourPortAlternate(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D 4','device ZI 4','device ZO 4',
+            'port 1 ZI 1 2 ZI 2 3 ZO 1 4 ZO 2',
+            'connect ZI 3 D 2','connect ZI 4 D 1','connect ZO 3 D 4','connect ZO 4 D 3'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.AssignSParameters('D',si.sy.VoltageControlledCurrentSource('\\delta'))
+        ssps.AssignSParameters('ZI',si.sy.ShuntZ(4,'Z_i'))
+        ssps.AssignSParameters('ZO',si.sy.ShuntZ(4,'Z_o'))
+        ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Four Port')
     def testTransconductanceAmplifierFourPortSymbolic(self):
@@ -232,6 +243,8 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Two Port incorrect')
     def testTransconductanceAmplifierFourPortCode(self):
         self.WriteCode('TestTransconductanceAmplifier.py','testTransconductanceAmplifierFourPort(self)',self.standardHeader)
+    def testTransconductanceAmplifierFourPortAlternateCode(self):
+        self.WriteCode('TestTransconductanceAmplifier.py','testTransconductanceAmplifierFourPortAlternate(self)',self.standardHeader)
     def testTransconductanceAmplifierThreePortCode(self):
         self.WriteCode('TestTransconductanceAmplifier.py','testTransconductanceAmplifierThreePort(self)',self.standardHeader)
     def testTransconductanceAmplifierThreePortAlternateCode(self):

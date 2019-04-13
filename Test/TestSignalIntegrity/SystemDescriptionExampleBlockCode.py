@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 from numpy import array
 D=si.sd.SystemDescription()
 D.AddDevice('D1',2)
