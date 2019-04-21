@@ -154,7 +154,7 @@ class SourcesTesterHelper(object):
         self.assertTrue(regression == comparison,Text + ' incorrect with ' + fileName)
 
 class RoutineWriterTesterHelper(object):
-    maxNumLines=67
+    maxNumLines=65
     maxLineLength=88
     def __init__(self, methodName='runTest'):
         self.standardHeader = ['import SignalIntegrity.Lib as si\n']

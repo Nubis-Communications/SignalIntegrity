@@ -60,12 +60,10 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
         # pragma: include
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
         size = args['size'] if 'size' in args else 'normal'
-        AN=self.PortBNames()
-        BN=self.PortANames()
+        AN=self.PortBNames(); BN=self.PortANames()
         if solvetype=='direct':
             self._LaTeXSi()
-            BN=self.PortANames()
-            AN=self.PortBNames()
+            BN=self.PortANames(); AN=self.PortBNames()
             n=self.NodeVector()
             SCI=Device.SymbolicMatrix('Si',len(n))
             B=[[0]*len(BN) for p in range(len(BN))]
@@ -129,8 +127,7 @@ class SystemSParametersSymbolic(SystemDescriptionSymbolic):
                 '\\left[ '+I+\
                 ' -\\mathbf{W_{xx}}\\right]^{-1}\\cdot\\mathbf{W_{xa}}')
         elif size=='big':
-            self._AddEq('\\mathbf{Wi} = '+' \\left[ '+I+\
-                ' - '+sWxx+' \\right]^{-1} ')
+            self._AddEq('\\mathbf{Wi} = '+' \\left[ '+I+' - '+sWxx+' \\right]^{-1} ')
             # pragma: silent exclude
             if AllZeroMatrix(Wba):
                 self._AddEq('\\mathbf{S} = '+sWbx+\

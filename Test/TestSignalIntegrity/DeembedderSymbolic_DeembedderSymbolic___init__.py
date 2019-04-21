@@ -4,10 +4,8 @@ class DeembedderSymbolic(Deembedder,Symbolic):
         Symbolic.__init__(self,**args)
         self.m_Sk = args['known'] if 'known' in args else 'Sk'
     def SymbolicSolution(self):
-        Bmsd=self.PortANames()
-        Amsd=self.PortBNames()
-        Adut=self.DutANames()
-        Bdut=self.DutBNames()
+        Bmsd=self.PortANames(); Amsd=self.PortBNames()
+        Adut=self.DutANames(); Bdut=self.DutBNames()
         Internals=self.OtherNames(Bmsd+Amsd+Adut+Bdut)
         sF11=snG14=self._LaTeXMatrix(self.WeightsMatrix(Bmsd,Amsd))
         sF12=snG15=self._LaTeXMatrix(self.WeightsMatrix(Bmsd,Bdut))
@@ -41,12 +39,10 @@ class DeembedderSymbolic(Deembedder,Symbolic):
         self._AddEq('\\mathbf{A}=\\mathbf{F_{21}}+ \\mathbf{F_{22}}\\cdot\\mathbf{B}')
         A=Device.SymbolicMatrix('A',len(Bdut),len(Bmsd))
         B=Device.SymbolicMatrix('B',len(Bdut),len(Bmsd))
-        AL=self.Partition(matrix(A))# partition for multiple unknown devices
-        BL=self.Partition(matrix(B))
+        AL=self.Partition(matrix(A)); BL=self.Partition(matrix(B))
         AL=[AL[u].tolist() for u in range(len(AL))]
         BL=[BL[u].tolist() for u in range(len(BL))]
-        un=self.UnknownNames()
-        up=self.UnknownPorts()
+        un=self.UnknownNames(); up=self.UnknownPorts()
         if len(AL)==1: #only one unknown device
             if len(Bmsd)!=len(Bdut): #if short and fat A
                 sAi='\\cdot \\mathbf{A}^H \\cdot\\left[ \\mathbf{A} \\cdot'+\
