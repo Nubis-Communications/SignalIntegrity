@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import linalg,dot,diag
+from numpy import linalg,dot,diag,matrix
 import math
 
 class SParameterManipulation(object):
@@ -197,4 +197,12 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        return self
+    def EnforceReciprocity(self):
+        for n in range(len(self.m_d)):
+            for r in range(len(self.m_d[n])):
+                for c in range(r,len(self.m_d[n])):
+                    if c>r:
+                        self.m_d[n][r][c]=(self.m_d[n][r][c]+self.m_d[n][c][r])/2.
+                        self.m_d[n][c][r]=self.m_d[n][r][c]
         return self

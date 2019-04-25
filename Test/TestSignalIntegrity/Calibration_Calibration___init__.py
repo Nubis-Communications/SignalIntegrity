@@ -35,8 +35,8 @@ class Calibration(object):
         self._CalculateTransferThruErrorTerms()
         return self
 ...
-    def DutCalculation(self,sRaw,portList=None):
+    def DutCalculation(self,sRaw,portList=None,reciprocal=False):
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
+        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList,reciprocal)
                                    for n in range(len(self))])
 ...

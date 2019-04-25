@@ -434,6 +434,21 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='SParameters'
         defName=['Resample']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersEnforceReciprocity(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/SParameterManipulation.py"
+        className='SParameterManipulation'
+        defName=['EnforceReciprocity']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersEnforcePassivity(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/SParameterManipulation.py"
+        className='SParameterManipulation'
+        defName=['EnforcePassivity','_LargestSingularValues']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersEnforceCausality(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/SParameterManipulation.py"
+        className='SParameterManipulation'
+        defName=['EnforceCausality']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteOpen(self):
         fileName="../../SignalIntegrity/Lib/Devices/Open.py"
         className=''
@@ -664,6 +679,11 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='ErrorTerms'
         defName=['DutCalculation','DutUnCalculation']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteErrorTermsCodeDutEnforceReciprocity(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['_EnforceReciprocity']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteErrorTermsCodeFixture(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'

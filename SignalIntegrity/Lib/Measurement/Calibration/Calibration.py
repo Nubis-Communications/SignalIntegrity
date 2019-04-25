@@ -288,7 +288,7 @@ class Calibration(object):
         self._CalculateThruErrorTerms(measurements)
         self._CalculateTransferThruErrorTerms()
         return self
-    def DutCalculationAlternate(self,sRaw,portList=None):
+    def DutCalculationAlternate(self,sRaw,portList=None,reciprocal=False):
         """Alternate Dut Calculation
         @deprecated This provides a DUT calculation according to the Wittwer method,
         but a better,simpler method has been found.
@@ -299,12 +299,14 @@ class Calibration(object):
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @param sRaw instance of class SParameters of the raw measurement of the DUT.
         @param portList (optional) list of zero based port numbers of the DUT
+        @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return instance of class SParameters of the calibrated DUT measurement.
+        @remark if reciprocity is True, the reciprocity is enforced in the calculation
         """
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculationAlternate(sRaw[n],portList)
+        return SParameters(self.f,[self[n].DutCalculationAlternate(sRaw[n],portList,reciprocal)
                                    for n in range(len(self))])
-    def DutCalculation(self,sRaw,portList=None):
+    def DutCalculation(self,sRaw,portList=None,reciprocal=False):
         """calculates the Dut.\n
         converts the raw measured s-parameters of the DUT into calibrated s-parameter
         measurements.\n
@@ -312,10 +314,12 @@ class Calibration(object):
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @param sRaw instance of class SParameters of the raw measurement of the DUT.
         @param portList (optional) list of zero based port numbers of the DUT
+        @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return instance of class SParameters of the calibrated DUT measurement.
+        @remark if reciprocity is True, the reciprocity is enforced in the calculation
         """
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
+        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList,reciprocal)
                                    for n in range(len(self))])
     def DutUnCalculationAlternate(self,S,portList=None):
         """Un-calcualates the DUT.\n

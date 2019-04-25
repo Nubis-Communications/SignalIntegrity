@@ -270,13 +270,16 @@ class ErrorTerms(object):
             E[1][1][n][n]=ETn[2]
         E[1][0][m][m]=1.
         return E
-    def DutCalculationAlternate(self,sRaw,pl=None):
+    def DutCalculationAlternate(self,sRaw,pl=None,reciprocal=False):
         """Alternate Dut Calculation
         @deprecated This provides a DUT calculation according to the Wittwer method,
         but a better,simpler method has been found.
         @param sRaw list of list s-parameter matrix of raw measured DUT
         @param pl (optional) list of zero based port numbers of the DUT
+        @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return list of list s-parameter matrix of calibrated DUT measurement
+        @remark if reciprocity is True, the reciprocity is enforced in the calculation
+        @see _EnforceReciprocity
         @see DutCalculation
         """
         if pl is None: pl = [p for p in range(len(sRaw))]
@@ -299,24 +302,50 @@ class ErrorTerms(object):
                 for r in range(numPorts):
                     A[r][m]=aprime[r][0]
                     B[r][m]=bprime[r][0]
-            S=(matrix(B)*matrix(A).getI()).tolist()
-            return S
-    def DutCalculation(self,sRaw,pl=None):
+        if not reciprocal: S=(matrix(B)*matrix(A).getI()).tolist()
+        else: S=self._EnforceReciprocity(A,B)
+        return S
+    def DutCalculation(self,sRaw,pl=None,reciprocal=False):
         """Calculates a DUT
         @param sRaw list of list s-parameter matrix of raw measured DUT
         @param pl (optional) list of zero based port numbers of the DUT
+        @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return list of list s-parameter matrix of calibrated DUT measurement
         @remark This provides a newer, simpler DUT calculation
         @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        @remark if reciprocity is True, the reciprocity is enforced in the calculation
+        @see _EnforceReciprocity
         @see DutCalculationAlternate
         """
-        if pl is None: pl = [p for p in range(len(sRaw))]
+        P=len(sRaw); Pr=range(P)
+        if pl is None: pl = [p for p in Pr]
         B=[[(sRaw[r][c]-self[pl[r]][pl[c]][0])/self[pl[r]][pl[c]][1]
-            for c in range(len(sRaw))] for r in  range(len(sRaw))]
-        A=[[B[r][c]*self[pl[r]][pl[c]][2]+(1 if r==c else 0) for c in range(len(sRaw))]
-           for r in range(len(sRaw))]
-        S=(matrix(B)*matrix(A).getI()).tolist()
+            for c in Pr] for r in  Pr]
+        A=[[B[r][c]*self[pl[r]][pl[c]][2]+(1 if r==c else 0) for c in Pr] for r in Pr]
+        if not reciprocal: S=(matrix(B)*matrix(A).getI()).tolist()
+        else: S=self._EnforceReciprocity(A,B)
+        return S
+    def _EnforceReciprocity(self,A,B):
+        """Given S*A=B, Calculates a DUT in S enforcing reciprocity
+        @param A list of list matrix
+        @param B list of list matrix
+        @return list of list s-parameter matrix of calibrated DUT measurement with reciprocity enforced
+        @see DutCalculation, DutCalculationAlternate
+        """
+        P=len(A); Pr=range(P)
+        M=[[None for _ in Pr] for _ in Pr]
+        for c in Pr:
+            for r in Pr:
+                M[r][c]=M[c][r] if r < c else r-c+(0 if c==0 else M[P-1][c-1]+1)
+        L=[[0. for c in range(M[P-1][P-1]+1)] for r in range(P*P)]
+        b=[None for r in range(P*P)]
+        for r in Pr:
+            for c in Pr:
+                b[r*P+c]=[B[r][c]]
+                for p in Pr: L[p*P+r][M[p][c]]=A[c][r]
+        sv=(matrix(L).getI()*matrix(b)).tolist()
+        S=[[sv[M[r][c]][0] for c in Pr] for r in Pr]
         return S
     def DutUnCalculation(self,S,pl=None):
         """undoes the DUT calculation
@@ -335,21 +364,3 @@ class ErrorTerms(object):
             col=(Em[0][0]*Em[1][0]+Em[0][1]*(Si-Em[1][1]).getI()*Em[1][0]).tolist()
             for r in range(len(S)): Sp[r][c]=col[r][c]
         return Sp
-    def DutUnCalculationWrongIThink(self,S,pl=None):
-        """undoes the DUT calculation
-        @param S list of list s-parameter matrix a DUT
-        @param pl (optional) list of zero based port numbers of the DUT
-        @return list of list s-parameter matrix of raw measured s-parameters
-        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
-        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
-        @warning I believe this is wrong - I need to compare to DutCalculation above.  I
-        believe it might be right if we assume the ES and EL terms are the same.
-        @see DutUnCalculation
-        """
-        if pl is None: pl = [p for p in range(len(S))]
-        A=[[(1 if r==c else 0) - S[r][c]*self[pl[r]][pl[c]][2] for c in range(len(S))]
-           for r in range(len(S))]
-        C=(matrix(S)*matrix(A).getI()).tolist()
-        Sraw=[[(C[r][c]*self[pl[r]][pl[c]][1]+self[pl[r]][pl[c]][0])
-            for c in range(len(S))] for r in  range(len(S))]
-        return Sraw
