@@ -754,6 +754,23 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='TDRWaveformToSParameterConverter'
         defName=['Convert']
         self.WriteClassCode(fileName,className,defName)
-
+    def testWriteWaveletCode(self):
+        fileName='../../SignalIntegrity/Lib/Wavelets/Wavelets.py'
+        className='Wavelet'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteWaveletDenoiserCode(self):
+        fileName="../../SignalIntegrity/Lib/Wavelets/WaveletDenoiser.py"
+        className='WaveletDenoiser'
+        defName=['DenoisedWaveform']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteWaveletDaubechies4(self):
+        fileName="../../SignalIntegrity/Lib/Wavelets/Wavelets.py"
+        className='WaveletDaubechies4'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()

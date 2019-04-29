@@ -74,10 +74,13 @@ class WaveletDenoiser(object):
 #         plt.grid(True)
 #         plt.show()
         # pragma: include
-        dwf =  Waveform(pwf.td,w.IDWT([0 if abs(x) < t*mult else x for (x,t) in zip(X,T)]))
+        dwf=Waveform(pwf.td,w.IDWT(
+            [0 if abs(x) < t*mult else x for (x,t) in zip(X,T)]))
         dwf=dwf*WaveformTrimmer(PadLeft,0)
         return dwf
+        # pragma: exclude
     @staticmethod
+    # pragma: include
     def DerivativeThresholdCalc(X,h,pct=30.,isDerivative=True):
         L=len(h)
         K=len(X)
