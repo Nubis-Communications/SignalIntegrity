@@ -41,6 +41,7 @@ from TestImpedanceProfile import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *
+from TestPowerDelivery import *
 from TestPRBS import *
 from TestRefImp import *
 from TestRLGC import *
