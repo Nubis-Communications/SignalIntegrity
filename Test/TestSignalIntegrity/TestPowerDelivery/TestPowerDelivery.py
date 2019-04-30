@@ -23,8 +23,16 @@ import SignalIntegrity.App as siapp
 from random import random
 from numpy import matrix
 from math import sqrt
+import os
 
 class TestPowerDeliveryTest(unittest.TestCase):
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        unittest.TestCase.setUp(self)
+    def tearDown(self):
+        os.chdir(self.cwd)
+        unittest.TestCase.tearDown(self)
     def testPowerDelivery(self):
         proj=siapp.SignalIntegrityAppHeadless()
         proj.OpenProjectFile('PowerDelivery.si')
