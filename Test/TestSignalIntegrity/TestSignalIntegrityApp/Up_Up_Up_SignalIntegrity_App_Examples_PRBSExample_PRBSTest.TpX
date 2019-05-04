@@ -125,6 +125,19 @@
 %  <text x="37.5" y="-102" t="t0 0 s" h="3" halign="r" lc="black"/>
 %  <text x="37.5" y="-99" t="f 5.0 GHz" h="3" halign="r" lc="black"/>
 %  <text x="37.5" y="-96" t="a 1.0 V" h="3" halign="r" lc="black"/>
+%  <rect x="185" y="-20" w="10" h="-10" lc="black"/>
+%  <polyline lc="black">180,-25 185,-25</polyline>
+%  <text x="183" y="-24" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">200,-25 195,-25</polyline>
+%  <text x="197" y="-24" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">210,-40 207.5,-41.25 212.5,-42.5 207.5,-43.75 212.5,-45 207.5,-46.25 212.5,-47.5 207.5,-48.75 210,-50</polyline>
+%  <polyline lc="black">210,-50 210,-55</polyline>
+%  <polygon fill="black">206.667,-55 213.333,-55 210,-58.333 206.667,-55</polygon>
+%  <polyline lc="black">210,-35 210,-40</polyline>
+%  <text x="215" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">215,-20 212.5,-22.5</polyline>
+%  <polyline lc="black">212.5,-22.5 210,-25</polyline>
+%  <text x="215" y="-19" t="Veq" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">140,-25 165,-25</polyline>
 %  <polyline lc="black">80,-35 70,-35</polyline>
 %  <polyline lc="black">165,-25 165,-35</polyline>
@@ -132,10 +145,14 @@
 %  <polyline lc="black">140,-85 165,-85</polyline>
 %  <polyline lc="black">80,-95 70,-95</polyline>
 %  <polyline lc="black">45,-85 60,-85</polyline>
+%  <polyline lc="black">165,-25 180,-25</polyline>
+%  <polyline lc="black">200,-25 210,-25</polyline>
+%  <polyline lc="black">210,-25 210,-35</polyline>
 %  <polyline lc="black">165,-85 165,-95</polyline>
 %  <ellipse x="165" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="165" y="-85" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="45" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="210" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="140" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %</TpX>
 \centering
@@ -266,6 +283,19 @@
 \draw[black] (37.5,-102) node[anchor=base east]{t0 0 s};
 \draw[black] (37.5,-99) node[anchor=base east]{f 5.0 GHz};
 \draw[black] (37.5,-96) node[anchor=base east]{a 1.0 V};
+\path[line width=0.30mm, draw=black] (185,-30) rectangle +(10,10);
+\path[line width=0.30mm, draw=black] (180,-25) -- (185,-25);
+\draw[black] (183,-24) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (200,-25) -- (195,-25);
+\draw[black] (197,-24) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (210,-40) -- (207.5,-41.25) -- (212.5,-42.5) -- (207.5,-43.75) -- (212.5,-45) -- (207.5,-46.25) -- (212.5,-47.5) -- (207.5,-48.75) -- (210,-50);
+\path[line width=0.30mm, draw=black] (210,-50) -- (210,-55);
+\path[line width=0.30mm, fill=black] (206.667,-55) -- (213.333,-55) -- (210,-58.333) -- (206.667,-55) -- cycle;
+\path[line width=0.30mm, draw=black] (210,-35) -- (210,-40);
+\draw[black] (215,-48.5) node[anchor=base west]{50.0 Ohm};
+\path[line width=0.9mm, draw=black] (215,-20) -- (212.5,-22.5);
+\path[line width=0.30mm, draw=black] (212.5,-22.5) -- (210,-25);
+\draw[black] (215,-19) node[anchor=base west]{Veq};
 \path[line width=0.30mm, draw=black] (140,-25) -- (165,-25);
 \path[line width=0.30mm, draw=black] (80,-35) -- (70,-35);
 \path[line width=0.30mm, draw=black] (165,-25) -- (165,-35);
@@ -273,9 +303,13 @@
 \path[line width=0.30mm, draw=black] (140,-85) -- (165,-85);
 \path[line width=0.30mm, draw=black] (80,-95) -- (70,-95);
 \path[line width=0.30mm, draw=black] (45,-85) -- (60,-85);
+\path[line width=0.30mm, draw=black] (165,-25) -- (180,-25);
+\path[line width=0.30mm, draw=black] (200,-25) -- (210,-25);
+\path[line width=0.30mm, draw=black] (210,-25) -- (210,-35);
 \path[line width=0.30mm, draw=black] (165,-85) -- (165,-95);
 \path[line width=0.30mm, draw=black, fill=black] (165,-25) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (165,-85) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (45,-25) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (210,-25) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (140,-35) ellipse (0.625mm and -0.625mm);
 \end{tikzpicture}%

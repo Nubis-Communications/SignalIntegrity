@@ -108,8 +108,7 @@ class RLGCFitter(LevMar):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]
         return v
-    @staticmethod
-    def AdjustVariablesAfterIteration(a):
+    def AdjustVariablesAfterIteration(self,a):
         for r in range(len(a)):
             a[r][0]=abs(a[r][0].real)
         return a
@@ -219,8 +218,7 @@ class RLGCFitter2(LevMar):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]
         return v
-    @staticmethod
-    def AdjustVariablesAfterIteration(a):
+    def AdjustVariablesAfterIteration(self,a):
         for r in range(len(a)):
             a[r][0]=abs(a[r][0].real)
         return a
