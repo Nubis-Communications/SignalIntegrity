@@ -193,7 +193,7 @@ class SignalIntegrityAppHeadless(object):
             return None
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='Linear'
+        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
 
         try:
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
@@ -241,7 +241,7 @@ class SignalIntegrityAppHeadless(object):
             return None
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='Linear'
+        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
 
         try:
             inputWaveformList=self.Drawing.schematic.InputWaveforms()
