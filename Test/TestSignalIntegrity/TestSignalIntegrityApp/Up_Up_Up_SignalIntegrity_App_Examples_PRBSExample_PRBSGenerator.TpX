@@ -127,8 +127,8 @@
 %  <polyline lc="black">10,-95 10,-100</polyline>
 %  <polyline lc="black">55,-25 50,-25</polyline>
 %  <polyline lc="black">55,-60 50,-60</polyline>
-%  <ellipse x="10" y="-60" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="115" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="10" y="-60" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="10" y="-95" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %</TpX>
 \centering
@@ -261,7 +261,7 @@
 \path[line width=0.30mm, draw=black] (10,-95) -- (10,-100);
 \path[line width=0.30mm, draw=black] (55,-25) -- (50,-25);
 \path[line width=0.30mm, draw=black] (55,-60) -- (50,-60);
-\path[line width=0.30mm, draw=black, fill=black] (10,-60) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (115,-25) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (10,-60) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (10,-95) ellipse (0.625mm and -0.625mm);
 \end{tikzpicture}%

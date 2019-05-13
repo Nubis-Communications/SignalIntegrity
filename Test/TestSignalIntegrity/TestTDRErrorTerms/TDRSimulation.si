@@ -97,6 +97,12 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>w</Keyword>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
@@ -400,6 +406,12 @@
 							<Keyword>t0</Keyword>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
@@ -750,7 +762,7 @@
 		</Schematic>
 	</Drawing>
 	<CalculationProperties>
-		<UserSampleRate>5e-12</UserSampleRate>
+		<UserSampleRate>2e+11</UserSampleRate>
 		<FrequencyPoints>1000</FrequencyPoints>
 		<EndFrequency>1e+11</EndFrequency>
 	</CalculationProperties>
