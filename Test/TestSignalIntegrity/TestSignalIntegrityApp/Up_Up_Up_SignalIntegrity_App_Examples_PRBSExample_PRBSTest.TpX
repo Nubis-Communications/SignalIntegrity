@@ -3,52 +3,34 @@
 %  <polyline lc="black">60,-25 65,-25</polyline>
 %  <polyline lc="black">80,-25 75,-25</polyline>
 %  <text x="70" y="-19" t="50.0 Ohm" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">165,-40 162.5,-41.25 167.5,-42.5 162.5,-43.75 167.5,-45 162.5,-46.25 167.5,-47.5 162.5,-48.75 165,-50</polyline>
-%  <polyline lc="black">165,-50 165,-55</polyline>
-%  <polygon fill="black">161.667,-55 168.333,-55 165,-58.333 161.667,-55</polygon>
-%  <polyline lc="black">165,-35 165,-40</polyline>
-%  <text x="170" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polyline lw="3" lc="black">170,-20 167.5,-22.5</polyline>
-%  <polyline lc="black">167.5,-22.5 165,-25</polyline>
-%  <text x="170" y="-19" t="Vdiff" h="3" halign="l" lc="black"/>
-%  <rect x="105" y="-20" w="10" h="-20" lc="black"/>
-%  <polyline lc="black">100,-25 105,-25</polyline>
-%  <text x="103" y="-24" t="1" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">100,-35 105,-35</polyline>
-%  <text x="103" y="-34" t="2" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">120,-25 115,-25</polyline>
-%  <text x="117" y="-24" t="3" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">120,-35 115,-35</polyline>
-%  <text x="117" y="-34" t="4" h="3" halign="l" lc="black"/>
-%  <text x="110" y="-16.5" t="Sparq_demo_16.s4p" h="3" halign="c" lc="black"/>
-%  <text x="92.5" y="-26" t="+" h="3" halign="c" lc="black"/>
-%  <text x="92.5" y="-36" t="-" h="3" halign="c" lc="black"/>
-%  <text x="87.5" y="-26" t="D" h="3" halign="c" lc="black"/>
-%  <text x="87.5" y="-36" t="C" h="3" halign="c" lc="black"/>
-%  <rect x="85" y="-20" w="10" h="-20" lc="black"/>
-%  <polyline lc="black">100,-25 95,-25</polyline>
-%  <polyline lc="black">100,-35 95,-35</polyline>
-%  <polyline lc="black">80,-25 85,-25</polyline>
-%  <polyline lc="black">80,-35 85,-35</polyline>
-%  <text x="127.5" y="-26" t="+" h="3" halign="c" lc="black"/>
-%  <text x="127.5" y="-36" t="-" h="3" halign="c" lc="black"/>
-%  <text x="132.5" y="-26" t="D" h="3" halign="c" lc="black"/>
-%  <text x="132.5" y="-36" t="C" h="3" halign="c" lc="black"/>
-%  <rect x="125" y="-20" w="10" h="-20" lc="black"/>
-%  <polyline lc="black">120,-25 125,-25</polyline>
-%  <polyline lc="black">120,-35 125,-35</polyline>
-%  <polyline lc="black">140,-25 135,-25</polyline>
-%  <polyline lc="black">140,-35 135,-35</polyline>
+%  <polyline lc="black">145,-40 142.5,-41.25 147.5,-42.5 142.5,-43.75 147.5,-45 142.5,-46.25 147.5,-47.5 142.5,-48.75 145,-50</polyline>
+%  <polyline lc="black">145,-50 145,-55</polyline>
+%  <polygon fill="black">141.667,-55 148.333,-55 145,-58.333 141.667,-55</polygon>
+%  <polyline lc="black">145,-35 145,-40</polyline>
+%  <text x="150" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">150,-20 147.5,-22.5</polyline>
+%  <polyline lc="black">147.5,-22.5 145,-25</polyline>
+%  <text x="150" y="-19" t="Vdiff" h="3" halign="l" lc="black"/>
+%  <rect x="95" y="-20" w="10" h="-20" lc="black"/>
+%  <polyline lc="black">90,-25 95,-25</polyline>
+%  <text x="93" y="-24" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">90,-35 95,-35</polyline>
+%  <text x="93" y="-34" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">110,-25 105,-25</polyline>
+%  <text x="107" y="-24" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">110,-35 105,-35</polyline>
+%  <text x="107" y="-34" t="4" h="3" halign="l" lc="black"/>
+%  <text x="100" y="-16.5" t="SparqDemoMixedMode.si" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">70,-40 67.5,-41.25 72.5,-42.5 67.5,-43.75 72.5,-45 67.5,-46.25 72.5,-47.5 67.5,-48.75 70,-50</polyline>
 %  <polyline lc="black">70,-50 70,-55</polyline>
 %  <polygon fill="black">66.667,-55 73.333,-55 70,-58.333 66.667,-55</polygon>
 %  <polyline lc="black">70,-35 70,-40</polyline>
-%  <text x="75" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">140,-40 137.5,-41.25 142.5,-42.5 137.5,-43.75 142.5,-45 137.5,-46.25 142.5,-47.5 137.5,-48.75 140,-50</polyline>
-%  <polyline lc="black">140,-50 140,-55</polyline>
-%  <polygon fill="black">136.667,-55 143.333,-55 140,-58.333 136.667,-55</polygon>
-%  <polyline lc="black">140,-35 140,-40</polyline>
-%  <text x="145" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="75" y="-48.5" t="90.0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">120,-40 117.5,-41.25 122.5,-42.5 117.5,-43.75 122.5,-45 117.5,-46.25 122.5,-47.5 117.5,-48.75 120,-50</polyline>
+%  <polyline lc="black">120,-50 120,-55</polyline>
+%  <polygon fill="black">116.667,-55 123.333,-55 120,-58.333 116.667,-55</polygon>
+%  <polyline lc="black">120,-35 120,-40</polyline>
+%  <text x="125" y="-48.5" t="90.0 Ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">50,-20 47.5,-22.5</polyline>
 %  <polyline lc="black">47.5,-22.5 45,-25</polyline>
 %  <text x="50" y="-19" t="Vin" h="3" halign="l" lc="black"/>
@@ -61,59 +43,31 @@
 %  <polyline lc="black">45,-25 45,-30</polyline>
 %  <text x="37.5" y="-39" t="PRBSGenerator.si" h="3" halign="r" lc="black"/>
 %  <text x="37.5" y="-36" t="Vgen" h="3" halign="r" lc="black"/>
-%  <polyline lw="3" lc="black">145,-30 142.5,-32.5</polyline>
-%  <polyline lc="black">142.5,-32.5 140,-35</polyline>
-%  <text x="145" y="-29" t="Vcommon" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">125,-30 122.5,-32.5</polyline>
+%  <polyline lc="black">122.5,-32.5 120,-35</polyline>
+%  <text x="125" y="-29" t="Vcommon" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">65,-85 66.25,-82.5 67.5,-87.5 68.75,-82.5 70,-87.5 71.25,-82.5 72.5,-87.5 73.75,-82.5 75,-85</polyline>
 %  <polyline lc="black">60,-85 65,-85</polyline>
 %  <polyline lc="black">80,-85 75,-85</polyline>
 %  <text x="70" y="-79" t="50.0 Ohm" h="3" halign="c" lc="black"/>
-%  <polyline lc="black">165,-100 162.5,-101.25 167.5,-102.5 162.5,-103.75 167.5,-105 162.5,-106.25 167.5,-107.5 162.5,-108.75 165,-110</polyline>
-%  <polyline lc="black">165,-110 165,-115</polyline>
-%  <polygon fill="black">161.667,-115 168.333,-115 165,-118.333 161.667,-115</polygon>
-%  <polyline lc="black">165,-95 165,-100</polyline>
-%  <text x="170" y="-108.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polyline lw="3" lc="black">170,-80 167.5,-82.5</polyline>
-%  <polyline lc="black">167.5,-82.5 165,-85</polyline>
-%  <text x="170" y="-79" t="Vclock" h="3" halign="l" lc="black"/>
-%  <rect x="105" y="-80" w="10" h="-20" lc="black"/>
-%  <polyline lc="black">100,-85 105,-85</polyline>
-%  <text x="103" y="-84" t="1" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">100,-95 105,-95</polyline>
-%  <text x="103" y="-94" t="2" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">120,-85 115,-85</polyline>
-%  <text x="117" y="-84" t="3" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">120,-95 115,-95</polyline>
-%  <text x="117" y="-94" t="4" h="3" halign="l" lc="black"/>
-%  <text x="110" y="-76.5" t="Sparq_demo_16.s4p" h="3" halign="c" lc="black"/>
-%  <text x="92.5" y="-86" t="+" h="3" halign="c" lc="black"/>
-%  <text x="92.5" y="-96" t="-" h="3" halign="c" lc="black"/>
-%  <text x="87.5" y="-86" t="D" h="3" halign="c" lc="black"/>
-%  <text x="87.5" y="-96" t="C" h="3" halign="c" lc="black"/>
-%  <rect x="85" y="-80" w="10" h="-20" lc="black"/>
-%  <polyline lc="black">100,-85 95,-85</polyline>
-%  <polyline lc="black">100,-95 95,-95</polyline>
-%  <polyline lc="black">80,-85 85,-85</polyline>
-%  <polyline lc="black">80,-95 85,-95</polyline>
-%  <text x="127.5" y="-86" t="+" h="3" halign="c" lc="black"/>
-%  <text x="127.5" y="-96" t="-" h="3" halign="c" lc="black"/>
-%  <text x="132.5" y="-86" t="D" h="3" halign="c" lc="black"/>
-%  <text x="132.5" y="-96" t="C" h="3" halign="c" lc="black"/>
-%  <rect x="125" y="-80" w="10" h="-20" lc="black"/>
-%  <polyline lc="black">120,-85 125,-85</polyline>
-%  <polyline lc="black">120,-95 125,-95</polyline>
-%  <polyline lc="black">140,-85 135,-85</polyline>
-%  <polyline lc="black">140,-95 135,-95</polyline>
+%  <polyline lc="black">145,-100 142.5,-101.25 147.5,-102.5 142.5,-103.75 147.5,-105 142.5,-106.25 147.5,-107.5 142.5,-108.75 145,-110</polyline>
+%  <polyline lc="black">145,-110 145,-115</polyline>
+%  <polygon fill="black">141.667,-115 148.333,-115 145,-118.333 141.667,-115</polygon>
+%  <polyline lc="black">145,-95 145,-100</polyline>
+%  <text x="150" y="-108.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">150,-80 147.5,-82.5</polyline>
+%  <polyline lc="black">147.5,-82.5 145,-85</polyline>
+%  <text x="150" y="-79" t="Vclock" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">70,-100 67.5,-101.25 72.5,-102.5 67.5,-103.75 72.5,-105 67.5,-106.25 72.5,-107.5 67.5,-108.75 70,-110</polyline>
 %  <polyline lc="black">70,-110 70,-115</polyline>
 %  <polygon fill="black">66.667,-115 73.333,-115 70,-118.333 66.667,-115</polygon>
 %  <polyline lc="black">70,-95 70,-100</polyline>
-%  <text x="75" y="-108.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">140,-100 137.5,-101.25 142.5,-102.5 137.5,-103.75 142.5,-105 137.5,-106.25 142.5,-107.5 137.5,-108.75 140,-110</polyline>
-%  <polyline lc="black">140,-110 140,-115</polyline>
-%  <polygon fill="black">136.667,-115 143.333,-115 140,-118.333 136.667,-115</polygon>
-%  <polyline lc="black">140,-95 140,-100</polyline>
-%  <text x="145" y="-108.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="75" y="-108.5" t="90.0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">120,-100 117.5,-101.25 122.5,-102.5 117.5,-103.75 122.5,-105 117.5,-106.25 122.5,-107.5 117.5,-108.75 120,-110</polyline>
+%  <polyline lc="black">120,-110 120,-115</polyline>
+%  <polygon fill="black">116.667,-115 123.333,-115 120,-118.333 116.667,-115</polygon>
+%  <polyline lc="black">120,-95 120,-100</polyline>
+%  <text x="125" y="-108.5" t="90.0 Ohm" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">47.5,-96.875 47.5,-93.125 46.25,-93.125 46.25,-96.875 45,-96.875 45,-93.125 43.75,-93.125 43.75,-96.875 42.5,-96.875 42.5,-93.125</polyline>
 %  <ellipse x="45" y="-95" dx="-10" dy="-10" lc="black"/>
 %  <polyline lc="black">45.938,-91.875 44.062,-91.875</polyline>
@@ -125,35 +79,50 @@
 %  <text x="37.5" y="-102" t="t0 0 s" h="3" halign="r" lc="black"/>
 %  <text x="37.5" y="-99" t="f 5.0 GHz" h="3" halign="r" lc="black"/>
 %  <text x="37.5" y="-96" t="a 1.0 V" h="3" halign="r" lc="black"/>
-%  <rect x="185" y="-20" w="10" h="-10" lc="black"/>
-%  <polyline lc="black">180,-25 185,-25</polyline>
-%  <text x="183" y="-24" t="1" h="3" halign="r" lc="black"/>
-%  <polyline lc="black">200,-25 195,-25</polyline>
-%  <text x="197" y="-24" t="2" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">210,-40 207.5,-41.25 212.5,-42.5 207.5,-43.75 212.5,-45 207.5,-46.25 212.5,-47.5 207.5,-48.75 210,-50</polyline>
-%  <polyline lc="black">210,-50 210,-55</polyline>
-%  <polygon fill="black">206.667,-55 213.333,-55 210,-58.333 206.667,-55</polygon>
-%  <polyline lc="black">210,-35 210,-40</polyline>
-%  <text x="215" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
-%  <polyline lw="3" lc="black">215,-20 212.5,-22.5</polyline>
-%  <polyline lc="black">212.5,-22.5 210,-25</polyline>
-%  <text x="215" y="-19" t="Veq" h="3" halign="l" lc="black"/>
-%  <polyline lc="black">140,-25 165,-25</polyline>
-%  <polyline lc="black">80,-35 70,-35</polyline>
-%  <polyline lc="black">165,-25 165,-35</polyline>
+%  <rect x="165" y="-20" w="10" h="-10" lc="black"/>
+%  <polyline lc="black">160,-25 165,-25</polyline>
+%  <text x="163" y="-24" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">180,-25 175,-25</polyline>
+%  <text x="177" y="-24" t="2" h="3" halign="l" lc="black"/>
+%  <text x="170" y="-16.5" t="FFE.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">190,-40 187.5,-41.25 192.5,-42.5 187.5,-43.75 192.5,-45 187.5,-46.25 192.5,-47.5 187.5,-48.75 190,-50</polyline>
+%  <polyline lc="black">190,-50 190,-55</polyline>
+%  <polygon fill="black">186.667,-55 193.333,-55 190,-58.333 186.667,-55</polygon>
+%  <polyline lc="black">190,-35 190,-40</polyline>
+%  <text x="195" y="-48.5" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">195,-20 192.5,-22.5</polyline>
+%  <polyline lc="black">192.5,-22.5 190,-25</polyline>
+%  <text x="195" y="-19" t="Veq" h="3" halign="l" lc="black"/>
+%  <rect x="95" y="-80" w="10" h="-20" lc="black"/>
+%  <polyline lc="black">90,-85 95,-85</polyline>
+%  <text x="93" y="-84" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">90,-95 95,-95</polyline>
+%  <text x="93" y="-94" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">110,-85 105,-85</polyline>
+%  <text x="107" y="-84" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">110,-95 105,-95</polyline>
+%  <text x="107" y="-94" t="4" h="3" halign="l" lc="black"/>
+%  <text x="100" y="-76.5" t="SparqDemoMixedMode.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">110,-25 145,-25</polyline>
+%  <polyline lc="black">90,-35 70,-35</polyline>
+%  <polyline lc="black">145,-25 145,-35</polyline>
 %  <polyline lc="black">45,-25 60,-25</polyline>
-%  <polyline lc="black">140,-85 165,-85</polyline>
-%  <polyline lc="black">80,-95 70,-95</polyline>
+%  <polyline lc="black">110,-85 145,-85</polyline>
+%  <polyline lc="black">90,-95 70,-95</polyline>
 %  <polyline lc="black">45,-85 60,-85</polyline>
-%  <polyline lc="black">165,-25 180,-25</polyline>
-%  <polyline lc="black">200,-25 210,-25</polyline>
-%  <polyline lc="black">210,-25 210,-35</polyline>
-%  <polyline lc="black">165,-85 165,-95</polyline>
-%  <ellipse x="165" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
-%  <ellipse x="165" y="-85" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <polyline lc="black">145,-25 160,-25</polyline>
+%  <polyline lc="black">180,-25 190,-25</polyline>
+%  <polyline lc="black">190,-25 190,-35</polyline>
+%  <polyline lc="black">145,-85 145,-95</polyline>
+%  <polyline lc="black">80,-25 90,-25</polyline>
+%  <polyline lc="black">120,-35 110,-35</polyline>
+%  <polyline lc="black">120,-95 110,-95</polyline>
+%  <polyline lc="black">90,-85 80,-85</polyline>
+%  <ellipse x="145" y="-85" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="45" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
-%  <ellipse x="210" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
-%  <ellipse x="140" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="190" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="145" y="-25" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="120" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -161,52 +130,34 @@
 \path[line width=0.30mm, draw=black] (60,-25) -- (65,-25);
 \path[line width=0.30mm, draw=black] (80,-25) -- (75,-25);
 \draw[black] (70,-19) node[anchor=base]{50.0 Ohm};
-\path[line width=0.30mm, draw=black] (165,-40) -- (162.5,-41.25) -- (167.5,-42.5) -- (162.5,-43.75) -- (167.5,-45) -- (162.5,-46.25) -- (167.5,-47.5) -- (162.5,-48.75) -- (165,-50);
-\path[line width=0.30mm, draw=black] (165,-50) -- (165,-55);
-\path[line width=0.30mm, fill=black] (161.667,-55) -- (168.333,-55) -- (165,-58.333) -- (161.667,-55) -- cycle;
-\path[line width=0.30mm, draw=black] (165,-35) -- (165,-40);
-\draw[black] (170,-48.5) node[anchor=base west]{50.0 Ohm};
-\path[line width=0.9mm, draw=black] (170,-20) -- (167.5,-22.5);
-\path[line width=0.30mm, draw=black] (167.5,-22.5) -- (165,-25);
-\draw[black] (170,-19) node[anchor=base west]{Vdiff};
-\path[line width=0.30mm, draw=black] (105,-40) rectangle +(10,20);
-\path[line width=0.30mm, draw=black] (100,-25) -- (105,-25);
-\draw[black] (103,-24) node[anchor=base east]{1};
-\path[line width=0.30mm, draw=black] (100,-35) -- (105,-35);
-\draw[black] (103,-34) node[anchor=base east]{2};
-\path[line width=0.30mm, draw=black] (120,-25) -- (115,-25);
-\draw[black] (117,-24) node[anchor=base west]{3};
-\path[line width=0.30mm, draw=black] (120,-35) -- (115,-35);
-\draw[black] (117,-34) node[anchor=base west]{4};
-\draw[black] (110,-16.5) node[anchor=base]{Sparq\textunderscore demo\textunderscore 16.s4p};
-\draw[black] (92.5,-26) node[anchor=base]{+};
-\draw[black] (92.5,-36) node[anchor=base]{-};
-\draw[black] (87.5,-26) node[anchor=base]{D};
-\draw[black] (87.5,-36) node[anchor=base]{C};
-\path[line width=0.30mm, draw=black] (85,-40) rectangle +(10,20);
-\path[line width=0.30mm, draw=black] (100,-25) -- (95,-25);
-\path[line width=0.30mm, draw=black] (100,-35) -- (95,-35);
-\path[line width=0.30mm, draw=black] (80,-25) -- (85,-25);
-\path[line width=0.30mm, draw=black] (80,-35) -- (85,-35);
-\draw[black] (127.5,-26) node[anchor=base]{+};
-\draw[black] (127.5,-36) node[anchor=base]{-};
-\draw[black] (132.5,-26) node[anchor=base]{D};
-\draw[black] (132.5,-36) node[anchor=base]{C};
-\path[line width=0.30mm, draw=black] (125,-40) rectangle +(10,20);
-\path[line width=0.30mm, draw=black] (120,-25) -- (125,-25);
-\path[line width=0.30mm, draw=black] (120,-35) -- (125,-35);
-\path[line width=0.30mm, draw=black] (140,-25) -- (135,-25);
-\path[line width=0.30mm, draw=black] (140,-35) -- (135,-35);
+\path[line width=0.30mm, draw=black] (145,-40) -- (142.5,-41.25) -- (147.5,-42.5) -- (142.5,-43.75) -- (147.5,-45) -- (142.5,-46.25) -- (147.5,-47.5) -- (142.5,-48.75) -- (145,-50);
+\path[line width=0.30mm, draw=black] (145,-50) -- (145,-55);
+\path[line width=0.30mm, fill=black] (141.667,-55) -- (148.333,-55) -- (145,-58.333) -- (141.667,-55) -- cycle;
+\path[line width=0.30mm, draw=black] (145,-35) -- (145,-40);
+\draw[black] (150,-48.5) node[anchor=base west]{50.0 Ohm};
+\path[line width=0.9mm, draw=black] (150,-20) -- (147.5,-22.5);
+\path[line width=0.30mm, draw=black] (147.5,-22.5) -- (145,-25);
+\draw[black] (150,-19) node[anchor=base west]{Vdiff};
+\path[line width=0.30mm, draw=black] (95,-40) rectangle +(10,20);
+\path[line width=0.30mm, draw=black] (90,-25) -- (95,-25);
+\draw[black] (93,-24) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (90,-35) -- (95,-35);
+\draw[black] (93,-34) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (110,-25) -- (105,-25);
+\draw[black] (107,-24) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (110,-35) -- (105,-35);
+\draw[black] (107,-34) node[anchor=base west]{4};
+\draw[black] (100,-16.5) node[anchor=base]{SparqDemoMixedMode.si};
 \path[line width=0.30mm, draw=black] (70,-40) -- (67.5,-41.25) -- (72.5,-42.5) -- (67.5,-43.75) -- (72.5,-45) -- (67.5,-46.25) -- (72.5,-47.5) -- (67.5,-48.75) -- (70,-50);
 \path[line width=0.30mm, draw=black] (70,-50) -- (70,-55);
 \path[line width=0.30mm, fill=black] (66.667,-55) -- (73.333,-55) -- (70,-58.333) -- (66.667,-55) -- cycle;
 \path[line width=0.30mm, draw=black] (70,-35) -- (70,-40);
-\draw[black] (75,-48.5) node[anchor=base west]{50.0 Ohm};
-\path[line width=0.30mm, draw=black] (140,-40) -- (137.5,-41.25) -- (142.5,-42.5) -- (137.5,-43.75) -- (142.5,-45) -- (137.5,-46.25) -- (142.5,-47.5) -- (137.5,-48.75) -- (140,-50);
-\path[line width=0.30mm, draw=black] (140,-50) -- (140,-55);
-\path[line width=0.30mm, fill=black] (136.667,-55) -- (143.333,-55) -- (140,-58.333) -- (136.667,-55) -- cycle;
-\path[line width=0.30mm, draw=black] (140,-35) -- (140,-40);
-\draw[black] (145,-48.5) node[anchor=base west]{50.0 Ohm};
+\draw[black] (75,-48.5) node[anchor=base west]{90.0 Ohm};
+\path[line width=0.30mm, draw=black] (120,-40) -- (117.5,-41.25) -- (122.5,-42.5) -- (117.5,-43.75) -- (122.5,-45) -- (117.5,-46.25) -- (122.5,-47.5) -- (117.5,-48.75) -- (120,-50);
+\path[line width=0.30mm, draw=black] (120,-50) -- (120,-55);
+\path[line width=0.30mm, fill=black] (116.667,-55) -- (123.333,-55) -- (120,-58.333) -- (116.667,-55) -- cycle;
+\path[line width=0.30mm, draw=black] (120,-35) -- (120,-40);
+\draw[black] (125,-48.5) node[anchor=base west]{90.0 Ohm};
 \path[line width=0.9mm, draw=black] (50,-20) -- (47.5,-22.5);
 \path[line width=0.30mm, draw=black] (47.5,-22.5) -- (45,-25);
 \draw[black] (50,-19) node[anchor=base west]{Vin};
@@ -219,59 +170,31 @@
 \path[line width=0.30mm, draw=black] (45,-25) -- (45,-30);
 \draw[black] (37.5,-39) node[anchor=base east]{PRBSGenerator.si};
 \draw[black] (37.5,-36) node[anchor=base east]{Vgen};
-\path[line width=0.9mm, draw=black] (145,-30) -- (142.5,-32.5);
-\path[line width=0.30mm, draw=black] (142.5,-32.5) -- (140,-35);
-\draw[black] (145,-29) node[anchor=base west]{Vcommon};
+\path[line width=0.9mm, draw=black] (125,-30) -- (122.5,-32.5);
+\path[line width=0.30mm, draw=black] (122.5,-32.5) -- (120,-35);
+\draw[black] (125,-29) node[anchor=base west]{Vcommon};
 \path[line width=0.30mm, draw=black] (65,-85) -- (66.25,-82.5) -- (67.5,-87.5) -- (68.75,-82.5) -- (70,-87.5) -- (71.25,-82.5) -- (72.5,-87.5) -- (73.75,-82.5) -- (75,-85);
 \path[line width=0.30mm, draw=black] (60,-85) -- (65,-85);
 \path[line width=0.30mm, draw=black] (80,-85) -- (75,-85);
 \draw[black] (70,-79) node[anchor=base]{50.0 Ohm};
-\path[line width=0.30mm, draw=black] (165,-100) -- (162.5,-101.25) -- (167.5,-102.5) -- (162.5,-103.75) -- (167.5,-105) -- (162.5,-106.25) -- (167.5,-107.5) -- (162.5,-108.75) -- (165,-110);
-\path[line width=0.30mm, draw=black] (165,-110) -- (165,-115);
-\path[line width=0.30mm, fill=black] (161.667,-115) -- (168.333,-115) -- (165,-118.333) -- (161.667,-115) -- cycle;
-\path[line width=0.30mm, draw=black] (165,-95) -- (165,-100);
-\draw[black] (170,-108.5) node[anchor=base west]{50.0 Ohm};
-\path[line width=0.9mm, draw=black] (170,-80) -- (167.5,-82.5);
-\path[line width=0.30mm, draw=black] (167.5,-82.5) -- (165,-85);
-\draw[black] (170,-79) node[anchor=base west]{Vclock};
-\path[line width=0.30mm, draw=black] (105,-100) rectangle +(10,20);
-\path[line width=0.30mm, draw=black] (100,-85) -- (105,-85);
-\draw[black] (103,-84) node[anchor=base east]{1};
-\path[line width=0.30mm, draw=black] (100,-95) -- (105,-95);
-\draw[black] (103,-94) node[anchor=base east]{2};
-\path[line width=0.30mm, draw=black] (120,-85) -- (115,-85);
-\draw[black] (117,-84) node[anchor=base west]{3};
-\path[line width=0.30mm, draw=black] (120,-95) -- (115,-95);
-\draw[black] (117,-94) node[anchor=base west]{4};
-\draw[black] (110,-76.5) node[anchor=base]{Sparq\textunderscore demo\textunderscore 16.s4p};
-\draw[black] (92.5,-86) node[anchor=base]{+};
-\draw[black] (92.5,-96) node[anchor=base]{-};
-\draw[black] (87.5,-86) node[anchor=base]{D};
-\draw[black] (87.5,-96) node[anchor=base]{C};
-\path[line width=0.30mm, draw=black] (85,-100) rectangle +(10,20);
-\path[line width=0.30mm, draw=black] (100,-85) -- (95,-85);
-\path[line width=0.30mm, draw=black] (100,-95) -- (95,-95);
-\path[line width=0.30mm, draw=black] (80,-85) -- (85,-85);
-\path[line width=0.30mm, draw=black] (80,-95) -- (85,-95);
-\draw[black] (127.5,-86) node[anchor=base]{+};
-\draw[black] (127.5,-96) node[anchor=base]{-};
-\draw[black] (132.5,-86) node[anchor=base]{D};
-\draw[black] (132.5,-96) node[anchor=base]{C};
-\path[line width=0.30mm, draw=black] (125,-100) rectangle +(10,20);
-\path[line width=0.30mm, draw=black] (120,-85) -- (125,-85);
-\path[line width=0.30mm, draw=black] (120,-95) -- (125,-95);
-\path[line width=0.30mm, draw=black] (140,-85) -- (135,-85);
-\path[line width=0.30mm, draw=black] (140,-95) -- (135,-95);
+\path[line width=0.30mm, draw=black] (145,-100) -- (142.5,-101.25) -- (147.5,-102.5) -- (142.5,-103.75) -- (147.5,-105) -- (142.5,-106.25) -- (147.5,-107.5) -- (142.5,-108.75) -- (145,-110);
+\path[line width=0.30mm, draw=black] (145,-110) -- (145,-115);
+\path[line width=0.30mm, fill=black] (141.667,-115) -- (148.333,-115) -- (145,-118.333) -- (141.667,-115) -- cycle;
+\path[line width=0.30mm, draw=black] (145,-95) -- (145,-100);
+\draw[black] (150,-108.5) node[anchor=base west]{50.0 Ohm};
+\path[line width=0.9mm, draw=black] (150,-80) -- (147.5,-82.5);
+\path[line width=0.30mm, draw=black] (147.5,-82.5) -- (145,-85);
+\draw[black] (150,-79) node[anchor=base west]{Vclock};
 \path[line width=0.30mm, draw=black] (70,-100) -- (67.5,-101.25) -- (72.5,-102.5) -- (67.5,-103.75) -- (72.5,-105) -- (67.5,-106.25) -- (72.5,-107.5) -- (67.5,-108.75) -- (70,-110);
 \path[line width=0.30mm, draw=black] (70,-110) -- (70,-115);
 \path[line width=0.30mm, fill=black] (66.667,-115) -- (73.333,-115) -- (70,-118.333) -- (66.667,-115) -- cycle;
 \path[line width=0.30mm, draw=black] (70,-95) -- (70,-100);
-\draw[black] (75,-108.5) node[anchor=base west]{50.0 Ohm};
-\path[line width=0.30mm, draw=black] (140,-100) -- (137.5,-101.25) -- (142.5,-102.5) -- (137.5,-103.75) -- (142.5,-105) -- (137.5,-106.25) -- (142.5,-107.5) -- (137.5,-108.75) -- (140,-110);
-\path[line width=0.30mm, draw=black] (140,-110) -- (140,-115);
-\path[line width=0.30mm, fill=black] (136.667,-115) -- (143.333,-115) -- (140,-118.333) -- (136.667,-115) -- cycle;
-\path[line width=0.30mm, draw=black] (140,-95) -- (140,-100);
-\draw[black] (145,-108.5) node[anchor=base west]{50.0 Ohm};
+\draw[black] (75,-108.5) node[anchor=base west]{90.0 Ohm};
+\path[line width=0.30mm, draw=black] (120,-100) -- (117.5,-101.25) -- (122.5,-102.5) -- (117.5,-103.75) -- (122.5,-105) -- (117.5,-106.25) -- (122.5,-107.5) -- (117.5,-108.75) -- (120,-110);
+\path[line width=0.30mm, draw=black] (120,-110) -- (120,-115);
+\path[line width=0.30mm, fill=black] (116.667,-115) -- (123.333,-115) -- (120,-118.333) -- (116.667,-115) -- cycle;
+\path[line width=0.30mm, draw=black] (120,-95) -- (120,-100);
+\draw[black] (125,-108.5) node[anchor=base west]{90.0 Ohm};
 \path[line width=0.30mm, draw=black] (47.5,-96.875) -- (47.5,-93.125) -- (46.25,-93.125) -- (46.25,-96.875) -- (45,-96.875) -- (45,-93.125) -- (43.75,-93.125) -- (43.75,-96.875) -- (42.5,-96.875) -- (42.5,-93.125);
 \path[line width=0.30mm, draw=black] (45,-95) ellipse (-5mm and -5mm);
 \path[line width=0.30mm, draw=black] (45.938,-91.875) -- (44.062,-91.875);
@@ -283,33 +206,48 @@
 \draw[black] (37.5,-102) node[anchor=base east]{t0 0 s};
 \draw[black] (37.5,-99) node[anchor=base east]{f 5.0 GHz};
 \draw[black] (37.5,-96) node[anchor=base east]{a 1.0 V};
-\path[line width=0.30mm, draw=black] (185,-30) rectangle +(10,10);
-\path[line width=0.30mm, draw=black] (180,-25) -- (185,-25);
-\draw[black] (183,-24) node[anchor=base east]{1};
-\path[line width=0.30mm, draw=black] (200,-25) -- (195,-25);
-\draw[black] (197,-24) node[anchor=base west]{2};
-\path[line width=0.30mm, draw=black] (210,-40) -- (207.5,-41.25) -- (212.5,-42.5) -- (207.5,-43.75) -- (212.5,-45) -- (207.5,-46.25) -- (212.5,-47.5) -- (207.5,-48.75) -- (210,-50);
-\path[line width=0.30mm, draw=black] (210,-50) -- (210,-55);
-\path[line width=0.30mm, fill=black] (206.667,-55) -- (213.333,-55) -- (210,-58.333) -- (206.667,-55) -- cycle;
-\path[line width=0.30mm, draw=black] (210,-35) -- (210,-40);
-\draw[black] (215,-48.5) node[anchor=base west]{50.0 Ohm};
-\path[line width=0.9mm, draw=black] (215,-20) -- (212.5,-22.5);
-\path[line width=0.30mm, draw=black] (212.5,-22.5) -- (210,-25);
-\draw[black] (215,-19) node[anchor=base west]{Veq};
-\path[line width=0.30mm, draw=black] (140,-25) -- (165,-25);
-\path[line width=0.30mm, draw=black] (80,-35) -- (70,-35);
-\path[line width=0.30mm, draw=black] (165,-25) -- (165,-35);
+\path[line width=0.30mm, draw=black] (165,-30) rectangle +(10,10);
+\path[line width=0.30mm, draw=black] (160,-25) -- (165,-25);
+\draw[black] (163,-24) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (180,-25) -- (175,-25);
+\draw[black] (177,-24) node[anchor=base west]{2};
+\draw[black] (170,-16.5) node[anchor=base]{FFE.si};
+\path[line width=0.30mm, draw=black] (190,-40) -- (187.5,-41.25) -- (192.5,-42.5) -- (187.5,-43.75) -- (192.5,-45) -- (187.5,-46.25) -- (192.5,-47.5) -- (187.5,-48.75) -- (190,-50);
+\path[line width=0.30mm, draw=black] (190,-50) -- (190,-55);
+\path[line width=0.30mm, fill=black] (186.667,-55) -- (193.333,-55) -- (190,-58.333) -- (186.667,-55) -- cycle;
+\path[line width=0.30mm, draw=black] (190,-35) -- (190,-40);
+\draw[black] (195,-48.5) node[anchor=base west]{50.0 Ohm};
+\path[line width=0.9mm, draw=black] (195,-20) -- (192.5,-22.5);
+\path[line width=0.30mm, draw=black] (192.5,-22.5) -- (190,-25);
+\draw[black] (195,-19) node[anchor=base west]{Veq};
+\path[line width=0.30mm, draw=black] (95,-100) rectangle +(10,20);
+\path[line width=0.30mm, draw=black] (90,-85) -- (95,-85);
+\draw[black] (93,-84) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (90,-95) -- (95,-95);
+\draw[black] (93,-94) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (110,-85) -- (105,-85);
+\draw[black] (107,-84) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (110,-95) -- (105,-95);
+\draw[black] (107,-94) node[anchor=base west]{4};
+\draw[black] (100,-76.5) node[anchor=base]{SparqDemoMixedMode.si};
+\path[line width=0.30mm, draw=black] (110,-25) -- (145,-25);
+\path[line width=0.30mm, draw=black] (90,-35) -- (70,-35);
+\path[line width=0.30mm, draw=black] (145,-25) -- (145,-35);
 \path[line width=0.30mm, draw=black] (45,-25) -- (60,-25);
-\path[line width=0.30mm, draw=black] (140,-85) -- (165,-85);
-\path[line width=0.30mm, draw=black] (80,-95) -- (70,-95);
+\path[line width=0.30mm, draw=black] (110,-85) -- (145,-85);
+\path[line width=0.30mm, draw=black] (90,-95) -- (70,-95);
 \path[line width=0.30mm, draw=black] (45,-85) -- (60,-85);
-\path[line width=0.30mm, draw=black] (165,-25) -- (180,-25);
-\path[line width=0.30mm, draw=black] (200,-25) -- (210,-25);
-\path[line width=0.30mm, draw=black] (210,-25) -- (210,-35);
-\path[line width=0.30mm, draw=black] (165,-85) -- (165,-95);
-\path[line width=0.30mm, draw=black, fill=black] (165,-25) ellipse (0.625mm and -0.625mm);
-\path[line width=0.30mm, draw=black, fill=black] (165,-85) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black] (145,-25) -- (160,-25);
+\path[line width=0.30mm, draw=black] (180,-25) -- (190,-25);
+\path[line width=0.30mm, draw=black] (190,-25) -- (190,-35);
+\path[line width=0.30mm, draw=black] (145,-85) -- (145,-95);
+\path[line width=0.30mm, draw=black] (80,-25) -- (90,-25);
+\path[line width=0.30mm, draw=black] (120,-35) -- (110,-35);
+\path[line width=0.30mm, draw=black] (120,-95) -- (110,-95);
+\path[line width=0.30mm, draw=black] (90,-85) -- (80,-85);
+\path[line width=0.30mm, draw=black, fill=black] (145,-85) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (45,-25) ellipse (0.625mm and -0.625mm);
-\path[line width=0.30mm, draw=black, fill=black] (210,-25) ellipse (0.625mm and -0.625mm);
-\path[line width=0.30mm, draw=black, fill=black] (140,-35) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (190,-25) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (145,-25) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (120,-35) ellipse (0.625mm and -0.625mm);
 \end{tikzpicture}%

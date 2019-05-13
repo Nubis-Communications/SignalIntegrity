@@ -342,8 +342,9 @@ class Simulator(object):
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
+        userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
@@ -405,8 +406,9 @@ class Simulator(object):
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
+        userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
         self.SimulatorDialog().title('Virtual Probe: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
