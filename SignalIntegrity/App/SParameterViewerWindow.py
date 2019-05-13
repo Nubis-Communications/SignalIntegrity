@@ -1242,7 +1242,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.topLeftFigure)
+            si.test.PlotTikZ(filename,self.topLeftFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('Magnitude.tex', ''))
@@ -1256,7 +1256,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.topRightFigure)
+            si.test.PlotTikZ(filename,self.topRightFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('Phase.tex', ''))
@@ -1270,7 +1270,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.bottomLeftFigure)
+            si.test.PlotTikZ(filename,self.bottomLeftFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('ImpulseResponse.tex', ''))
@@ -1284,7 +1284,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.bottomRightFigure)
+            si.test.PlotTikZ(filename,self.bottomRightFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
