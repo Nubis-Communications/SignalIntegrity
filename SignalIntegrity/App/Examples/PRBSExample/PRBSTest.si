@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1100x573+2093+85</Geometry>
+			<Geometry>1100x573+40+69</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
-			<Height>530</Height>
-			<Width>1102</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>20.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -13,17 +13,17 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(29, -13)</Coord>
+							<Coord>(23, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(34, -13)</Coord>
+							<Coord>(30, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(17, -11)</Coord>
+							<Coord>(19, -11)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(15, -11)</Coord>
@@ -33,10 +33,10 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(34, -13)</Coord>
+							<Coord>(30, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(34, -11)</Coord>
+							<Coord>(30, -11)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -53,17 +53,17 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(29, -1)</Coord>
+							<Coord>(23, -1)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(34, -1)</Coord>
+							<Coord>(30, -1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(17, 1)</Coord>
+							<Coord>(19, 1)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(15, 1)</Coord>
@@ -83,40 +83,80 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(34, -13)</Coord>
+							<Coord>(30, -13)</Coord>
 						</Vertex>
+						<Vertex>
+							<Coord>(33, -13)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
 						<Vertex>
 							<Coord>(37, -13)</Coord>
 						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
 						<Vertex>
-							<Coord>(41, -13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(43, -13)</Coord>
+							<Coord>(39, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(43, -13)</Coord>
+							<Coord>(39, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(43, -11)</Coord>
+							<Coord>(39, -11)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(34, -1)</Coord>
+							<Coord>(30, -1)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(34, 1)</Coord>
+							<Coord>(30, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(17, -13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(19, -13)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(25, -11)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, -11)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(25, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(19, -1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(17, -1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -155,7 +195,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(33, -11)</Origin>
+						<Origin>(29, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -185,7 +225,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(34, -14)</Origin>
+						<Origin>(30, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -221,8 +261,8 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(21, -14)</Origin>
-						<Index>0</Index>
+						<Origin>(19, -14)</Origin>
+						<Index>1</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
@@ -230,7 +270,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>../VirtualProbingExample/Sparq_demo_16.s4p</Value>
+							<Value>SparqDemoMixedMode.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -249,54 +289,6 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DevicePowerMixedModeConverter</ClassName>
-					<PartPicture>
-						<Origin>(17, -14)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>MM1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DevicePowerMixedModeConverter</ClassName>
-					<PartPicture>
-						<Origin>(25, -14)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>MM2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
 						<Origin>(14, -11)</Origin>
@@ -308,7 +300,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
-							<Value>50.0</Value>
+							<Value>90.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -329,7 +321,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(28, -11)</Origin>
+						<Origin>(24, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -338,7 +330,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
-							<Value>50.0</Value>
+							<Value>90.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -437,7 +429,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(29, -12)</Origin>
+						<Origin>(25, -12)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -503,7 +495,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(33, 1)</Origin>
+						<Origin>(29, 1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -533,7 +525,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(34, -2)</Origin>
+						<Origin>(30, -2)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -567,84 +559,6 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(21, -2)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>../VirtualProbingExample/Sparq_demo_16.s4p</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DevicePowerMixedModeConverter</ClassName>
-					<PartPicture>
-						<Origin>(17, -2)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>MM3</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DevicePowerMixedModeConverter</ClassName>
-					<PartPicture>
-						<Origin>(25, -2)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>MM4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
 						<Origin>(14, 1)</Origin>
@@ -656,7 +570,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
-							<Value>50.0</Value>
+							<Value>90.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -677,7 +591,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(28, 1)</Origin>
+						<Origin>(24, 1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -686,7 +600,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
-							<Value>50.0</Value>
+							<Value>90.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -716,13 +630,13 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ho</Keyword>
-							<Value>-5e-07</Value>
+							<Value>-5e-08</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>dur</Keyword>
-							<Value>1e-06</Value>
+							<Value>1e-05</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -779,8 +693,8 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(37, -14)</Origin>
-						<Index>0</Index>
+						<Origin>(33, -14)</Origin>
+						<Index>1</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
@@ -789,8 +703,8 @@
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<Value>FFE.si</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
@@ -809,7 +723,7 @@
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<Origin>(42, -11)</Origin>
+						<Origin>(38, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -839,7 +753,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(43, -14)</Origin>
+						<Origin>(39, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -860,7 +774,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
-							<Value>-4e-10</Value>
+							<Value>-2e-10</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -872,12 +786,42 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Origin>(19, -2)</Origin>
+						<Index>1</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<Value>SparqDemoMixedMode.si</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 		</Schematic>
 	</Drawing>
 	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>2000</FrequencyPoints>
+		<UserSampleRate>4e+11</UserSampleRate>
+		<FrequencyPoints>1000</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>

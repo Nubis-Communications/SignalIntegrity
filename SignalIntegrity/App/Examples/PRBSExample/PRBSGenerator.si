@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>525x621+365+319</Geometry>
+			<Geometry>523x621+85+114</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
-			<Height>578</Height>
-			<Width>990</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>20.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -13,26 +13,26 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(17, 1)</Coord>
+							<Coord>(19, 1)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(12, 1)</Coord>
+							<Coord>(11, 1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(21, -6)</Coord>
-						</Vertex>
-						<Vertex>
 							<Coord>(23, -6)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(23, -11)</Coord>
+							<Coord>(25, -6)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(21, -11)</Coord>
+							<Coord>(25, -11)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, -11)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -42,40 +42,40 @@
 							<Coord>(16, -6)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(17, -6)</Coord>
+							<Coord>(19, -6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
-						<Vertex>
-							<Coord>(21, 1)</Coord>
-						</Vertex>
 						<Vertex>
 							<Coord>(23, 1)</Coord>
 						</Vertex>
 						<Vertex>
+							<Coord>(25, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(25, -4)</Coord>
+						</Vertex>
+						<Vertex>
 							<Coord>(23, -4)</Coord>
 						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
 						<Vertex>
-							<Coord>(21, -4)</Coord>
+							<Coord>(23, -13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(24, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(21, -13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(22, -13)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(17, -13)</Coord>
+							<Coord>(19, -13)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(16, -13)</Coord>
@@ -85,53 +85,73 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(7, -13)</Coord>
+							<Coord>(6, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(4, -13)</Coord>
+							<Coord>(3, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(4, -6)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(7, -6)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(4, -6)</Coord>
+							<Coord>(3, -6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(7, 1)</Coord>
+							<Coord>(6, -6)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(4, 1)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(4, -6)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(4, 1)</Coord>
+							<Coord>(3, -6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(4, 1)</Coord>
+							<Coord>(6, 1)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(4, 4)</Coord>
+							<Coord>(3, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(3, -6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(3, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(3, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(3, 2)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(12, -13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(11, -13)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(12, -6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(11, -6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -140,7 +160,7 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<Origin>(17, 0)</Origin>
+						<Origin>(19, 0)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -182,7 +202,7 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<Origin>(17, -7)</Origin>
+						<Origin>(19, -7)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -224,7 +244,7 @@
 				<Device>
 					<ClassName>DeviceGround</ClassName>
 					<PartPicture>
-						<Origin>(16, 3)</Origin>
+						<Origin>(18, 3)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -248,7 +268,7 @@
 				<Device>
 					<ClassName>DeviceGround</ClassName>
 					<PartPicture>
-						<Origin>(16, -4)</Origin>
+						<Origin>(18, -4)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -272,7 +292,7 @@
 				<Device>
 					<ClassName>DeviceGround</ClassName>
 					<PartPicture>
-						<Origin>(20, 3)</Origin>
+						<Origin>(22, 3)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -305,7 +325,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
-							<Value>1e-09</Value>
+							<Value>1.002475252e-09</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -332,7 +352,7 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierFourPort</ClassName>
 					<PartPicture>
-						<Origin>(17, -14)</Origin>
+						<Origin>(19, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -374,7 +394,7 @@
 				<Device>
 					<ClassName>DeviceGround</ClassName>
 					<PartPicture>
-						<Origin>(16, -11)</Origin>
+						<Origin>(18, -11)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -398,7 +418,7 @@
 				<Device>
 					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
 					<PartPicture>
-						<Origin>(3, 4)</Origin>
+						<Origin>(2, 2)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -407,13 +427,13 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ho</Keyword>
-							<Value>-5e-07</Value>
+							<Value>-1e-07</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>dur</Keyword>
-							<Value>1e-06</Value>
+							<Value>1e-05</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -425,7 +445,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>br</Keyword>
-							<Value>5000000000.0</Value>
+							<Value>4987654300.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -485,7 +505,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
-							<Value>2e-09</Value>
+							<Value>2.004950503e-09</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -512,7 +532,7 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<Origin>(7, -1)</Origin>
+						<Origin>(6, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -554,7 +574,7 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<Origin>(7, -8)</Origin>
+						<Origin>(6, -8)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -596,7 +616,7 @@
 				<Device>
 					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
 					<PartPicture>
-						<Origin>(7, -15)</Origin>
+						<Origin>(6, -15)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -638,7 +658,7 @@
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<Origin>(22, -14)</Origin>
+						<Origin>(24, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -674,7 +694,7 @@
 				<Device>
 					<ClassName>DeviceOpen</ClassName>
 					<PartPicture>
-						<Origin>(20, -14)</Origin>
+						<Origin>(22, -14)</Origin>
 						<Index>0</Index>
 						<Orientation>180</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -700,7 +720,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>2000</FrequencyPoints>
+		<FrequencyPoints>400</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>

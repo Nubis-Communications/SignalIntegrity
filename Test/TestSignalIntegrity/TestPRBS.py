@@ -26,19 +26,16 @@ import SignalIntegrity.App as siapp
 class EqualizerFitter(si.fit.LevMar):
     def __init__(self,callback=None):
         si.fit.LevMar.__init__(self,callback)
-    def Initialize(self,decodedWf,idealLevels,pre,post):
-        self.idealLevels=idealLevels
-        self.pre=pre
-        self.post=post
+    def Initialize(self,decodedWf,levels,pre,post):
+        self.levels=levels; self.pre=pre; self.post=post
         a=[[0.] for _ in range(pre+post+1)]
-        a[pre][0]=1.0
         self.x=[[v] for v in decodedWf.Values()]
         y=[[m] for m in self.Decode(self.x)[pre:len(self.x)-post]]
         si.fit.LevMar.Initialize(self,a,y)
         self.m_epsilon=0.0000001
     def Decode(self,x):
-        return [self.idealLevels[min(list(zip([abs(v[0]-d)
-            for d in self.idealLevels],range(len(self.idealLevels)))))[1]]
+        return [self.levels[min(list(zip([abs(v[0]-d)
+            for d in self.levels],range(len(self.levels)))))[1]]
                 for v in x]
     def fF(self,a):
         return [[sum([a[i][0]*self.x[k-i+self.pre][0]
@@ -54,6 +51,9 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+    def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        unittest.TestCase.setUp(self)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testPRBS7(self):
@@ -131,24 +131,48 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
     def testPRBSDecimate(self):
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
-        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=app.Simulate()
+        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
         prbswf=outputWaveformList[outputWaveformLabels.index('Vdiff')]
-        H=prbswf.td.H
-        bitrate=5e9
-        ui=1./bitrate
+        H=prbswf.td.H; bitrate=4.9876543e9; ui=1./bitrate
         dH=int(H/ui)*ui-56e-12+ui
         lastTime=prbswf.Times()[-1]
         dK=int((lastTime-ui-dH)/ui)
         print(dK)
-        decwf=prbswf.Adapt(si.td.wf.TimeDescriptor(dH,dK,bitrate))
+        si.td.wf.Waveform.adaptionStrategy='Linear'
+        decwftd=si.td.wf.TimeDescriptor(dH,dK,bitrate)
+        decwf=si.td.wf.Waveform(decwftd,[prbswf.Measure(t) for t in decwftd.Times()])
+        #decwf=prbswf.Adapt(si.td.wf.TimeDescriptor(dH,dK,bitrate))
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         decwf.WriteToFile('decodedWf.txt')
     def testEqualizerFit(self):
         decwf=si.td.wf.Waveform().ReadFromFile('decodedWf.txt')
         self.m_fitter=EqualizerFitter(self.PrintProgress)
-        self.m_fitter.Initialize(decwf,[-0.25,-0.1667/2.,0.1667/2.,0.25],2,2)
+        self.m_fitter.Initialize(decwf,[-0.25,-0.1667/2.,0.1667/2.,0.25],1,1)
         self.m_fitter.Solve()
         print(self.m_fitter.Results())
-
+    def testEyePatterns(self):
+        import numpy as np
+        app=siapp.SignalIntegrityAppHeadless()
+        app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
+        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
+        prbswf=outputWaveformList[outputWaveformLabels.index('Veq')]
+        bitrate=4.9876543e9; ui=1./bitrate
+        times=prbswf.Times()
+        timesInBit=[((t-56e-12)/3./ui-int((t-56e-12)/3./ui))*3.*ui
+            for t in times]
+        from PIL import Image
+        R=400; C=600
+        EyeWfCols=[int(t/3./ui*C) for t in timesInBit]
+        EyeWfRows=[int((v+0.3)/0.6*R) for v in prbswf.Values()]
+        bitmap=[[0 for c in range(C)] for _ in range(R)]
+        for i in range(len(EyeWfRows)):
+            bitmap[EyeWfRows[i]][EyeWfCols[i]]=\
+                bitmap[EyeWfRows[i]][EyeWfCols[i]]+1
+        maxValue=(max([max(v) for v in bitmap]))
+        bitmap=[[int((maxValue - float(bitmap[r][c]))/maxValue*255.0)
+                 for c in range(C)] for r in range(R)]
+        I8=np.squeeze(np.asarray(np.matrix(bitmap))).astype(np.uint8)
+        img=Image.fromarray(I8)
+        img.save('file.png')
 if __name__ == "__main__":
     unittest.main()
