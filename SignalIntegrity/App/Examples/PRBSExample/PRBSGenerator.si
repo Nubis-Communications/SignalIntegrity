@@ -1,7 +1,7 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>523x621+85+114</Geometry>
+			<Geometry>523x621+28+57</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
 			<Height>1</Height>
@@ -433,7 +433,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>dur</Keyword>
-							<Value>1e-05</Value>
+							<Value>1.1e-06</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
