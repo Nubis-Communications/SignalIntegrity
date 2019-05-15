@@ -42,7 +42,8 @@ class EqualizerFitter(si.fit.LevMar):
             for i in range(self.pre+self.post+1)])]
                 for k in range(self.pre,len(self.x)-self.post)]
     def AdjustVariablesAfterIteration(self,a):
-        self.y=[[v] for v in self.Decode(self.x)[self.pre:len(self.x)-self.post]]
+        self.y=[[v]
+            for v in self.Decode(self.x)[self.pre:len(self.x)-self.post]]
         return si.fit.LevMar.AdjustVariablesAfterIteration(self,a)
     def Results(self):
         return self.m_a
@@ -133,7 +134,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
         app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
         prbswf=outputWaveformList[outputWaveformLabels.index('Vdiff')]
-        H=prbswf.td.H; bitrate=4.9876543e9; ui=1./bitrate
+        H=prbswf.td.H; bitrate=5e9; ui=1./bitrate
         dH=int(H/ui)*ui-56e-12+ui
         lastTime=prbswf.Times()[-1]
         dK=int((lastTime-ui-dH)/ui)
@@ -150,15 +151,17 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
         self.m_fitter.Initialize(decwf,[-0.25,-0.1667/2.,0.1667/2.,0.25],1,1)
         self.m_fitter.Solve()
         print(self.m_fitter.Results())
-    def testEyePatterns(self):
+    @staticmethod
+    def EyePattern(project,waveform,delay):
         import numpy as np
+        import SignalIntegrity.App as siapp
         app=siapp.SignalIntegrityAppHeadless()
-        app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
+        app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
-        prbswf=outputWaveformList[outputWaveformLabels.index('Veq')]
-        bitrate=4.9876543e9; ui=1./bitrate
+        prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
+        bitrate=5e9; ui=1./bitrate
         times=prbswf.Times()
-        timesInBit=[((t-56e-12)/3./ui-int((t-56e-12)/3./ui))*3.*ui
+        timesInBit=[((t-delay)/3./ui-int((t-delay)/3./ui))*3.*ui
             for t in times]
         from PIL import Image
         R=400; C=600
@@ -173,6 +176,13 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper):
                  for c in range(C)] for r in range(R)]
         I8=np.squeeze(np.asarray(np.matrix(bitmap))).astype(np.uint8)
         img=Image.fromarray(I8)
-        img.save('file.png')
+        img.save(waveform+'.png')
+    def testEyePatternVdiff(self):
+        project=os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si')
+        self.EyePattern(project,'Vdiff',56e-12)
+    def testEyePatternVeq(self):
+        project=os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si')
+        self.EyePattern(project,'Veq',56e-12)
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,7 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>523x621+28+57</Geometry>
+			<Geometry>523x621+40+69</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
 			<Height>1</Height>
@@ -325,7 +325,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
-							<Value>1.002475252e-09</Value>
+							<Value>1e-09</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -445,7 +445,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>br</Keyword>
-							<Value>4987654300.0</Value>
+							<Value>5000000000.0</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
@@ -505,7 +505,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
-							<Value>2.004950503e-09</Value>
+							<Value>2e-09</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
