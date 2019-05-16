@@ -228,7 +228,11 @@ class RoutineWriterTesterHelper(object):
                             if lineToAppend[-1]!='\n':
                                 lineToAppend=lineToAppend+'\n'
                             sourceCode.append(lineToAppend)
+        scriptName = Routine.replace('test','')
         scriptName = Routine.replace('test','').replace('(self)','').replace('(self,)','')
+        splitscriptName=scriptName.split('(')
+        if len(splitscriptName)==2:
+            scriptName=splitscriptName[0]
         scriptFileName=scriptName + 'Code.py'
         self.CheckRoutineWriterResult(scriptFileName,sourceCode,Routine + ' source code')
         old_stdout = sys.stdout
@@ -265,6 +269,7 @@ class RoutineWriterTesterHelper(object):
             defName=[defName]
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         outputFileName=fileName.split('/')[-1].split('.')[0]+'_'+className+'_'+defName[0]
+        outputFileName=outputFileName.replace('Test','')
         lineDefFileName=outputFileName+'_LineNums.tex'
         outputFileName=outputFileName+'.py'
         if checkNames:

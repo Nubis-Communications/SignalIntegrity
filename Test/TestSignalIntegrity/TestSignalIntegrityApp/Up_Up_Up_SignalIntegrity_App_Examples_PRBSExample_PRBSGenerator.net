@@ -3,11 +3,11 @@ device D2 4 voltageamplifier gain 0.33333333 zi 50.0 zo 0.0
 device G1 1 ground
 device G2 1 ground
 device G3 1 ground
-device T1 2 tline zc 50.0 td 1.002475252e-09
+device T1 2 tline zc 50.0 td 1e-09
 device D3 4 voltageamplifier gain 0.333333333 zi 50.0 zo 0.0
 device G4 1 ground
 voltagesource VG3 1
-device T2 2 tline zc 50.0 td 2.004950503e-09
+device T2 2 tline zc 50.0 td 2e-09
 device D5 2 voltageamplifier gain 2.0 zi 100000000.0 zo 50.0
 device D6 2 voltageamplifier gain 2.0 zi 100000000.0 zo 50.0
 device D7 2 voltageamplifier gain 2.0 zi 100000000.0 zo 50.0
