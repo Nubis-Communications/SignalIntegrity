@@ -35,6 +35,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
         PropertiesDialog.bind(self,'<Return>',self.ok)
         PropertiesDialog.bind(self,'<Escape>',self.cancel)
+        PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
         self.Save()
         self.Finish()
 
@@ -95,8 +96,13 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriodFrame.UpdateStrings()
         self.timePointsFrame.UpdateStrings()
         self.impulseResponseLengthFrame.UpdateStrings()
-    
+
+    def onClosing(self):
+        self.ok(None)
+
     def ok(self,event):
+        self.parent.statusbar.set('Calculation Properties Modified')
+        self.parent.history.Event('modify calculation properties')
         PropertiesDialog.destroy(self)
         
     def cancel(self,event):
