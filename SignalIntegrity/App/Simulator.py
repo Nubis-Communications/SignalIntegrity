@@ -43,6 +43,8 @@ from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 
+import math
+
 class SimulatorDialog(tk.Toplevel):
     def __init__(self, parent):
         tk.Toplevel.__init__(self, parent.parent)
@@ -62,6 +64,17 @@ class SimulatorDialog(tk.Toplevel):
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
         self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement('Control-Help:View-Transfer-Parameters')
         self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement('Control-Help:Recalculate')
+        # ------
+        self.viewTimeDomain = tk.BooleanVar()
+        self.viewTimeDomain.set(True)
+        self.viewTimeDomainDoer = Doer(self.onViewTimeDomain)
+
+        self.viewSpectralContent = tk.BooleanVar()
+        self.viewSpectralContentDoer = Doer(self.onViewSpectralContent)
+
+        self.viewSpectralDensity = tk.BooleanVar()
+        self.viewSpectralDensityDoer = Doer(self.onViewSpectralDensity)
+
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
@@ -84,6 +97,12 @@ class SimulatorDialog(tk.Toplevel):
         self.ExamineTransferMatricesDoer.AddMenuElement(CalcMenu,label='View Transfer Parameters',underline=0)
         CalcMenu.add_separator()
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Recalculate',underline=0)
+        # ------
+        ViewMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.viewTimeDomainDoer.AddCheckButtonMenuElement(ViewMenu,label='View Time-domain',underline=5,onvalue=True,offvalue=False,variable=self.viewTimeDomain)
+        self.viewSpectralContentDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Content',underline=14,onvalue=True,offvalue=False,variable=self.viewSpectralContent)
+        self.viewSpectralDensityDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Density',underline=14,onvalue=True,offvalue=False,variable=self.viewSpectralDensity)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -146,7 +165,109 @@ class SimulatorDialog(tk.Toplevel):
         self.plt.autoscale(True)
         self.f.canvas.draw()
 
+    def PlotWaveformsFrequencyContent(self,density=False):
+        self.lift(self.parent.parent)
+        self.plt.cla()
+
+        import SignalIntegrity.Lib as si
+        fd=si.fd.EvenlySpacedFrequencyList(
+            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
+            )
+
+        if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
+            self.plt.format_coord = lambda x, y: ''
+
+        if not self.waveformList == None:
+            self.plt.autoscale(False)
+
+        self.frequencyContentList=[wf.FrequencyContent(fd) for wf in self.waveformList]
+
+        minf=None
+        maxf=None
+        for wfi in range(len(self.waveformList)):
+            fc=self.frequencyContentList[wfi]
+            fcFrequencies=fc.Frequencies()
+            if len(fcFrequencies)==0:
+                continue
+            fcValues=fc.Values('dBm')
+            fcName=str(self.waveformNamesList[wfi])
+            minf=fcFrequencies[0] if minf is None else min(minf,fcFrequencies[0])
+            maxf=fcFrequencies[-1] if maxf is None else max(maxf,fcFrequencies[-1])
+
+        freqLabel='Hz'
+        freqLabelDivisor=1.
+        if not self.waveformList is None:
+            if (not minf is None) and (not maxf is None):
+                durLabelFrequency=(maxf-minf)
+                freqLabel=ToSI(durLabelFrequency,'Hz')[-3:]
+                freqLabelDivisor=FromSI('1. '+freqLabel,'Hz')
+                minf=minf/freqLabelDivisor
+                maxf=maxf/freqLabelDivisor
+            if not minf is None:
+                self.plt.set_xlim(left=minf)
+            if not maxf is None:
+                self.plt.set_xlim(right=maxf)
+
+        if density:
+            self.plt.set_ylabel('magnitude (dBm/'+freqLabel+')',fontsize=10)
+        else:
+            self.plt.set_ylabel('magnitude (dBm)',fontsize=10)
+
+        minv=None
+        maxv=None
+        for wfi in range(len(self.frequencyContentList)):
+            fc=self.frequencyContentList[wfi]
+            fcFrequencies=fc.Frequencies(freqLabelDivisor)
+            if len(fcFrequencies)==0:
+                continue
+            if density:
+                adder=10.*math.log10(freqLabelDivisor)
+                fcValues=[v+adder for v in fc.Values('dBmPerHz')]
+            else:
+                fcValues=fc.Values('dBm')
+            minv=min(fcValues) if minv is None else min(minv,min(fcValues))
+            maxv=max(fcValues) if maxv is None else max(maxv,max(fcValues))
+
+            fcName=str(self.waveformNamesList[wfi])
+            self.plt.plot(fcFrequencies,fcValues,label=fcName)
+
+        self.plt.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
+        self.plt.legend(loc='upper right',labelspacing=0.1)
+
+        self.plt.set_ylim(bottom=minv)
+        self.plt.set_ylim(top=maxv)
+
+        self.f.canvas.draw()
+        return self
+
     def UpdateWaveforms(self,waveformList, waveformNamesList):
+        self.waveformList=waveformList
+        self.waveformNamesList=waveformNamesList
+        if self.viewTimeDomain.get():
+            self.PlotWaveformsTimeDomain()
+        elif self.viewSpectralContent.get():
+            self.PlotWaveformsFrequencyContent(density=False)
+        elif self.viewSpectralDensity.get():
+            self.PlotWaveformsFrequencyContent(density=True)
+        return self
+
+    def onViewTimeDomain(self):
+        self.viewSpectralDensity.set(False)
+        self.viewSpectralContent.set(False)
+        self.PlotWaveformsTimeDomain()
+
+    def onViewSpectralContent(self):
+        self.viewTimeDomain.set(False)
+        self.viewSpectralDensity.set(False)
+        self.PlotWaveformsFrequencyContent(density=False)
+
+    def onViewSpectralDensity(self):
+        self.viewTimeDomain.set(False)
+        self.viewSpectralContent.set(False)
+        self.PlotWaveformsFrequencyContent(density=True)
+
+    def PlotWaveformsTimeDomain(self):
         self.lift(self.parent.parent)
         self.plt.cla()
         self.plt.set_ylabel('amplitude',fontsize=10)
@@ -157,9 +278,6 @@ class SimulatorDialog(tk.Toplevel):
         if not self.waveformList == None:
             self.plt.autoscale(False)
 
-        self.waveformList=waveformList
-        self.waveformNamesList=waveformNamesList
-
         mint=None
         maxt=None
         for wfi in range(len(self.waveformList)):
@@ -169,8 +287,8 @@ class SimulatorDialog(tk.Toplevel):
                 continue
             wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
-            mint=wfTimes[0] if mint is None else max(mint,wfTimes[0])
-            maxt=wfTimes[-1] if maxt is None else min(maxt,wfTimes[-1])
+            mint=wfTimes[0] if mint is None else min(mint,wfTimes[0])
+            maxt=wfTimes[-1] if maxt is None else max(maxt,wfTimes[-1])
 
         timeLabel='s'
         timeLabelDivisor=1.
@@ -186,6 +304,8 @@ class SimulatorDialog(tk.Toplevel):
             if not maxt is None:
                 self.plt.set_xlim(right=maxt)
 
+        minv=None
+        maxv=None
         for wfi in range(len(self.waveformList)):
             wf=self.waveformList[wfi]
             wfTimes=wf.Times(timeLabelDivisor)
@@ -194,9 +314,15 @@ class SimulatorDialog(tk.Toplevel):
             wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
             self.plt.plot(wfTimes,wfValues,label=wfName)
+            minv=min(wfValues) if minv is None else min(minv,min(wfValues))
+            maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
 
         self.plt.set_xlabel('time ('+timeLabel+')',fontsize=10)
         self.plt.legend(loc='upper right',labelspacing=0.1)
+
+        self.plt.set_ylim(bottom=minv)
+        self.plt.set_ylim(top=maxv)
+
         self.f.canvas.draw()
         return self
 
