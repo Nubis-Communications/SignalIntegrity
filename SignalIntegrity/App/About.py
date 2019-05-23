@@ -112,7 +112,7 @@ class AboutDialog(tk.Toplevel):
         iconLabel.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
         msg = tk.Message(self,text=__description__,justify=tk.CENTER, width=500)
         msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
-        msg = tk.Message(self,text="version: %s" % (__version__),justify=tk.CENTER, width=500)
+        msg = tk.Message(self,text="version: %s on Python %d.%d" % (__version__,sys.version_info.major,sys.version_info.minor),justify=tk.CENTER, width=500)
         msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
         msg = tk.Message(self,text=__copyright__,justify=tk.CENTER, width=500)
         msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
