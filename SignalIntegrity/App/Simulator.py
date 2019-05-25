@@ -370,10 +370,16 @@ class SimulatorDialog(tk.Toplevel):
                           'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
+        if self.viewTimeDomain.get():
+            suffix='Waveforms'
+        elif self.viewSpectralContent.get():
+            suffix='SpectralContent'
+        elif self.viewSpectralDensity.get():
+            suffix='SpectralDensity'
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',
                                    initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
-                                   initialfile=self.parent.parent.fileparts.filename+'Waveforms.tex')
+                                   initialfile=self.parent.parent.fileparts.filename+suffix+'.tex')
         if filename is None:
             return
         try:
