@@ -44,6 +44,7 @@ from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
 import math
+from numpy import mean,std
 
 class SimulatorDialog(tk.Toplevel):
     def __init__(self, parent):
@@ -121,6 +122,11 @@ class SimulatorDialog(tk.Toplevel):
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+
+        labelFrame = tk.Frame(self)
+        labelFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.plotLabel = tk.Label(labelFrame,fg='black')
+        self.plotLabel.pack(fill=tk.X)
 
         self.f = Figure(figsize=(6,4), dpi=100)
         self.plt = self.f.add_subplot(111)
@@ -210,12 +216,15 @@ class SimulatorDialog(tk.Toplevel):
                 self.plt.set_xlim(right=maxf)
 
         if density:
+            self.plotLabel.config(text='Spectral Density')
             self.plt.set_ylabel('magnitude (dBm/'+freqLabel+')',fontsize=10)
         else:
+            self.plotLabel.config(text='Spectral Content')
             self.plt.set_ylabel('magnitude (dBm)',fontsize=10)
 
         minv=None
         maxv=None
+        minvStd=None
         for wfi in range(len(self.frequencyContentList)):
             fc=self.frequencyContentList[wfi]
             fcFrequencies=fc.Frequencies(freqLabelDivisor)
@@ -228,9 +237,12 @@ class SimulatorDialog(tk.Toplevel):
                 fcValues=fc.Values('dBm')
             minv=min(fcValues) if minv is None else min(minv,min(fcValues))
             maxv=max(fcValues) if maxv is None else max(maxv,max(fcValues))
+            minvStd=mean(fcValues)-0.5*std(fcValues) if minvStd is None else min(minvStd,mean(fcValues)-0.5*std(fcValues))
 
             fcName=str(self.waveformNamesList[wfi])
             self.plt.plot(fcFrequencies,fcValues,label=fcName)
+
+        minv = max(minv,minvStd)
 
         self.plt.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
         self.plt.legend(loc='upper right',labelspacing=0.1)
@@ -271,6 +283,7 @@ class SimulatorDialog(tk.Toplevel):
         self.lift(self.parent.parent)
         self.plt.cla()
         self.plt.set_ylabel('amplitude',fontsize=10)
+        self.plotLabel.config(text='Time-domain View')
 
         if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.plt.format_coord = lambda x, y: ''
