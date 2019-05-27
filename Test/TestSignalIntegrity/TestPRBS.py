@@ -26,10 +26,10 @@ import SignalIntegrity.App as siapp
 class EqualizerFitter(si.fit.LevMar):
     def __init__(self,callback=None):
         si.fit.LevMar.__init__(self,callback)
-    def Initialize(self,decodedWf,levels,pre,post):
+    def Initialize(self,sampledWf,levels,pre,post):
         self.levels=levels; self.pre=pre; self.post=post
         a=[[0.] for _ in range(pre+post+1)]
-        self.x=[[v] for v in decodedWf.Values()]
+        self.x=[[v] for v in sampledWf.Values()]
         y=[[m] for m in self.Decode(self.x)[pre:len(self.x)-post]]
         si.fit.LevMar.Initialize(self,a,y)
         self.m_epsilon=0.0000001
