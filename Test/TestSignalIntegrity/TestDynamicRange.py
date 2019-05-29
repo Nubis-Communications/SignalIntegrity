@@ -35,8 +35,8 @@ class TestDynamicRangeTest(unittest.TestCase):
     def testDynamicRange(self):
         Fse=204.8e9
         fbw=Fse/2
-        N=-44
-        A=3.2e-12
+        N=-44.3
+        A=2e-12
         Fsa=100e6
         Tw=1
         Tse=1./Fse
