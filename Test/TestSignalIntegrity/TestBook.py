@@ -756,14 +756,14 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5 Parser File')
     def testSymbolicVirtualProbeExample1(self):
         vps=si.sd.VirtualProbeSymbolic(size='small')
-        vps.AddDevice('T',1)
+        vps.AddDevice('\\Gamma_T',1)
         vps.AddDevice('C',2)
-        vps.AddDevice('R',1)
-        vps.ConnectDevicePort('T',1,'C',1)
-        vps.ConnectDevicePort('C',2,'R',1)
-        vps.AssignM('T',1,'m1')
-        vps.pMeasurementList = [('T',1)]
-        vps.pOutputList = [('R',1)]
+        vps.AddDevice('\\Gamma_R',1)
+        vps.ConnectDevicePort('\\Gamma_T',1,'C',1)
+        vps.ConnectDevicePort('C',2,'\\Gamma_R',1)
+        vps.AssignM('\\Gamma_T',1,'m1')
+        vps.pMeasurementList = [('\\Gamma_T',1)]
+        vps.pOutputList = [('\\Gamma_R',1)]
         vps.LaTeXEquations().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 1')
