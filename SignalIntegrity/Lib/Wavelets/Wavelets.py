@@ -44,8 +44,7 @@ class Wavelet(object):
         @param xi list of float input waveform values.
         @warning length of xi must be a power of 2.
         """
-        x=list(xi)
-        N=len(x)
+        x=list(xi); N=len(x)
         B=self.intlog2(N)-self.intlog2(self.L)+1
         for i in range(B):
             X=list(x)
@@ -54,8 +53,7 @@ class Wavelet(object):
                         for l in range(self.L)])
                 X[k+N//2]=sum([x[(2*k+l+N-2)%N]*self.g[l]
                         for l in range(self.L)])
-            x=list(X)
-            N=N//2
+            x=list(X); N=N//2
         return X
     def IDWT(self,XI):
         """
@@ -63,8 +61,7 @@ class Wavelet(object):
         @param XI list of float wavelet transform.
         @warning length of XI must be a power of 2.
         """
-        X=list(XI)
-        N=len(X)
+        X=list(XI); N=len(X)
         B=self.intlog2(N)-self.intlog2(self.L)+1
         N=self.L
         for i in range(B):
@@ -76,8 +73,7 @@ class Wavelet(object):
                 x[2*k+1]=sum([self.h[2*l+1]*X[(k-l+(N//2))%(N//2)]+
                     self.g[2*l+1]*X[(k+1-l+(N//2))%(N//2)+(N//2)]
                         for l in range(self.L//2)])
-            X=list(x)
-            N=2*N
+            X=list(x); N=2*N
         return x
     @staticmethod
     def intlog2(x):

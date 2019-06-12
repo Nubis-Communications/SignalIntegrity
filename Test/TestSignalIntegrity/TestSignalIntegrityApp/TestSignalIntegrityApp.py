@@ -43,6 +43,9 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         self.SimulationResultsChecker('FilterTest.si')
     def testSignalIntegrityAppExamplesRLCTest2(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2.si')
+    def testSignalIntegrityAppExamplesRLCTestSP(self):
+        sp=self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2SP.si')[0]
+        spref=si.sp.SParameters(sp.m_f,[si.cvt.ReferenceImpedance(s,[0.0000001,5000000,5000000]) for s in sp])
     def testSignalIntegrityAppDeembedCableFilter(self):
         self.DeembeddingResultsChecker('../../../SignalIntegrity/App/Examples/DeembedCableFilter.si')
     def testSignalIntegrityAppExampleSparameterExampleSParameterGenerationExample(self):
