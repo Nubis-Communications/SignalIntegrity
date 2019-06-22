@@ -425,20 +425,20 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3 Parser File')
     def testSymbolicDeembeddingExample1Old(self):
         d=si.sd.Deembedder()
-        d.AddDevice('D',2)
+        d.AddDevice('S',2)
         d.AddUnknown('Su',1)
-        d.ConnectDevicePort('D',2,'Su',1)
-        d.AddPort('D',1,1)
+        d.ConnectDevicePort('S',2,'Su',1)
+        d.AddPort('S',1,1)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1')
     def testSymbolicDeembeddingExample1(self):
         ds=si.sd.DeembedderSymbolic(size='small',known='\\Gamma_{msd}')
-        ds.AddDevice('D',2)
+        ds.AddDevice('S',2)
         ds.AddUnknown('\\Gamma_{dut}',1)
-        ds.ConnectDevicePort('D',2,'\\Gamma_{dut}',1)
-        ds.AddPort('D',1,1)
+        ds.ConnectDevicePort('S',2,'\\Gamma_{dut}',1)
+        ds.AddPort('S',1,1)
         ds.SymbolicSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1')
