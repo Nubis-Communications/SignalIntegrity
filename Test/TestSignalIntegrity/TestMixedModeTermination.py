@@ -23,6 +23,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import math
 import os
+from App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
 class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -75,6 +76,16 @@ class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelp
         self.CheckSymbolicResult(self.id(), ssps, self.id())
     def testPiTerminationSymbolicCode(self):
         self.WriteCode('TestMixedModeTermination.py','testPiTerminationMixedModeSymbolic(self)',self.standardHeader)
-
+    def testMixedModeConversion(self):
+        import SignalIntegrity.App as siapp
+        pysi=siapp.SignalIntegrityAppHeadless()
+        pysi.OpenProjectFile('MixedMode.si')
+        netlist=[line.replace(' file None','') for line in pysi.Drawing.schematic.NetList().Text()]
+        sd=si.p.SystemDescriptionParser().AddLines(netlist).SystemDescription()
+        sd.AssignSParameters('MM1',si.dev.MixedModeConverter())
+        sd.AssignSParameters('MM2',si.dev.MixedModeConverter())
+        ssps=si.sd.SystemSParametersSymbolic(sd,size='small')
+        ssps.DocStart().LaTeXSolution().DocEnd().WriteToFile('mixedmode.tex')
+        
 if __name__ == '__main__':
     unittest.main()
