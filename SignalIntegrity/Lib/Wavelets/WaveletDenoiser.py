@@ -55,11 +55,8 @@ class WaveletDenoiser(object):
         @see Wavelet
         """
         w=WaveletDenoiser.wavelet
-        Ki=wf.td.K
-        Kf=int(pow(2,math.ceil(log2(wf.td.K))))
-        PadLeft=Kf-Ki
-        pct=pct*Ki/Kf
-        pwf=wf*WaveformTrimmer(-PadLeft,0)
+        Ki=wf.td.K; Kf=int(pow(2,math.ceil(log2(wf.td.K))))
+        PadLeft=Kf-Ki; pct=pct*Ki/Kf; pwf=wf*WaveformTrimmer(-PadLeft,0)
         X=w.DWT(pwf.Values())
         T=WaveletDenoiser.DerivativeThresholdCalc(X,w.h,pct,isDerivative)
         # pragma: silent exclude
@@ -76,9 +73,8 @@ class WaveletDenoiser(object):
         # pragma: include
         dwf=Waveform(pwf.td,w.IDWT(
             [0 if abs(x) < t*mult else x for (x,t) in zip(X,T)]))
-        dwf=dwf*WaveformTrimmer(PadLeft,0)
-        return dwf
-        # pragma: exclude
+        return dwf*WaveformTrimmer(PadLeft,0)
+        # pragma: silent exclude
     @staticmethod
     # pragma: include
     def DerivativeThresholdCalc(X,h,pct=30.,isDerivative=True):
