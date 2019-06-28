@@ -29,8 +29,9 @@ class RLGCFitter(LevMar):
         self.rho2=[r*r for r in self.rho]
         self.eg=[cmath.exp(-g) for g in self.gamma]
         self.e2g=[egx*egx for egx in self.eg]
-        self.S11=[r*(1-e2)/(1-r2*e2) for (r,e2,r2) in zip(self.rho,self.e2g,self.rho2)]
-        self.S12=[(1-r2)*e/(1-r2*e2) for (r2,e,e2) in zip(self.rho2,self.eg,self.e2g)]
+        self.D=[1-r2*e2 for (e2,r2) in zip(self.e2g,self.rho2)]
+        self.S11=[r*(1-e2)/d for (r,e2,d) in zip(self.rho,self.e2g,self.D)]
+        self.S12=[(1-r2)*e/d for (r2,e,d) in zip(self.rho2,self.eg,self.D)]
         S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
         vS=self.VectorizeSp(S)
         return vS
