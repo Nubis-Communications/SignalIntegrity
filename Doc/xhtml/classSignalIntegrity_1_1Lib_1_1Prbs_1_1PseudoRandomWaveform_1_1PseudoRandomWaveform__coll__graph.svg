@@ -22,7 +22,7 @@
 <!-- Node4 -->
 <g id="node2" class="node">
 <title>Node4</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1SerialDataWaveform.xhtml" target="_top" xlink:title="a serial data NRZ waveform ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" target="_top" xlink:title="a serial data NRZ waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="12,-94.5 12,-162.5 119,-162.5 119,-94.5 12,-94.5"/>
 <text text-anchor="middle" x="65.5" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SerialDataWaveform</text>
 <polyline fill="none" stroke="#000000" points="12,-143.5 119,-143.5 "/>

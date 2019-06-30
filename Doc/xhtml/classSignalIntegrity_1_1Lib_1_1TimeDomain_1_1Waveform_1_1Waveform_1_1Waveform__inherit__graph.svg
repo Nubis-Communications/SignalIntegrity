@@ -53,7 +53,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1SerialDataWaveform.xhtml" target="_top" xlink:title="a serial data NRZ waveform ">
+<g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" target="_top" xlink:title="a serial data NRZ waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="155,-116.5 155,-184.5 262,-184.5 262,-116.5 155,-116.5"/>
 <text text-anchor="middle" x="208.5" y="-172.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SerialDataWaveform</text>
 <polyline fill="none" stroke="#000000" points="155,-165.5 262,-165.5 "/>
@@ -70,10 +70,10 @@
 <path fill="none" stroke="#191970" d="M406.0478,-297.7688C366.9256,-273.7392 314.8574,-240.2218 271.5,-207 262.5204,-200.1195 253.243,-192.2666 244.6593,-184.6486"/>
 <polygon fill="none" stroke="#191970" points="404.3351,-300.824 414.6927,-303.0539 407.9864,-294.8517 404.3351,-300.824"/>
 </g>
-<!-- Node4 -->
-<g id="node5" class="node">
-<title>Node4</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" target="_top" xlink:title="impulse response of a filter as a waveform ">
+<!-- Node5 -->
+<g id="node6" class="node">
+<title>Node5</title>
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" target="_top" xlink:title="impulse response of a filter as a waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="280.5,-94.5 280.5,-206.5 402.5,-206.5 402.5,-94.5 280.5,-94.5"/>
 <text text-anchor="middle" x="341.5" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ImpulseResponse</text>
 <polyline fill="none" stroke="#000000" points="280.5,-187.5 402.5,-187.5 "/>
@@ -88,16 +88,16 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node4 -->
-<g id="edge4" class="edge">
-<title>Node0&#45;&gt;Node4</title>
+<!-- Node0&#45;&gt;Node5 -->
+<g id="edge5" class="edge">
+<title>Node0&#45;&gt;Node5</title>
 <path fill="none" stroke="#191970" d="M408.9766,-250.3434C398.987,-235.5621 388.7851,-220.4665 379.4385,-206.6367"/>
 <polygon fill="none" stroke="#191970" points="406.3264,-252.6727 414.8257,-258.9982 412.1261,-248.7531 406.3264,-252.6727"/>
 </g>
-<!-- Node5 -->
-<g id="node6" class="node">
-<title>Node5</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" target="_top" xlink:title="noise waveform ">
+<!-- Node6 -->
+<g id="node7" class="node">
+<title>Node6</title>
+<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" target="_top" xlink:title="noise waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="421,-122 421,-179 508,-179 508,-122 421,-122"/>
 <text text-anchor="middle" x="464.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">NoiseWaveform</text>
 <polyline fill="none" stroke="#000000" points="421,-160 508,-160 "/>
@@ -107,16 +107,16 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node5 -->
-<g id="edge5" class="edge">
-<title>Node0&#45;&gt;Node5</title>
+<!-- Node0&#45;&gt;Node6 -->
+<g id="edge6" class="edge">
+<title>Node0&#45;&gt;Node6</title>
 <path fill="none" stroke="#191970" d="M464.5,-233.2989C464.5,-213.4887 464.5,-194.2011 464.5,-179.2325"/>
 <polygon fill="none" stroke="#191970" points="461.0001,-233.3661 464.5,-243.3661 468.0001,-233.3661 461.0001,-233.3661"/>
 </g>
-<!-- Node6 -->
-<g id="node7" class="node">
-<title>Node6</title>
-<g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" target="_top" xlink:title="pulse waveform ">
+<!-- Node7 -->
+<g id="node8" class="node">
+<title>Node7</title>
+<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" target="_top" xlink:title="pulse waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="526.5,-122 526.5,-179 612.5,-179 612.5,-122 526.5,-122"/>
 <text text-anchor="middle" x="569.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PulseWaveform</text>
 <polyline fill="none" stroke="#000000" points="526.5,-160 612.5,-160 "/>
@@ -126,16 +126,16 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node6 -->
-<g id="edge6" class="edge">
-<title>Node0&#45;&gt;Node6</title>
+<!-- Node0&#45;&gt;Node7 -->
+<g id="edge7" class="edge">
+<title>Node0&#45;&gt;Node7</title>
 <path fill="none" stroke="#191970" d="M519.1766,-237.7272C531.5048,-216.3584 543.6726,-195.2674 552.9547,-179.1784"/>
 <polygon fill="none" stroke="#191970" points="516.0446,-236.1522 514.079,-246.5631 522.1079,-239.6503 516.0446,-236.1522"/>
 </g>
-<!-- Node7 -->
-<g id="node8" class="node">
-<title>Node7</title>
-<g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" target="_top" xlink:title="sinewave waveform ">
+<!-- Node8 -->
+<g id="node9" class="node">
+<title>Node8</title>
+<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" target="_top" xlink:title="sinewave waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="631,-122 631,-179 712,-179 712,-122 631,-122"/>
 <text text-anchor="middle" x="671.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SineWaveform</text>
 <polyline fill="none" stroke="#000000" points="631,-160 712,-160 "/>
@@ -145,49 +145,68 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node7 -->
-<g id="edge7" class="edge">
-<title>Node0&#45;&gt;Node7</title>
+<!-- Node0&#45;&gt;Node8 -->
+<g id="edge8" class="edge">
+<title>Node0&#45;&gt;Node8</title>
 <path fill="none" stroke="#191970" d="M522.067,-290.2925C552.6571,-266.936 590.2818,-236.6924 621.5,-207 630.5165,-198.4242 639.7266,-188.4326 647.7449,-179.257"/>
 <polygon fill="none" stroke="#191970" points="519.8924,-287.5491 514.0444,-296.3837 524.1254,-293.1242 519.8924,-287.5491"/>
 </g>
-<!-- Node8 -->
-<g id="node9" class="node">
-<title>Node8</title>
-<g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" target="_top" xlink:title="step waveform ">
+<!-- Node9 -->
+<g id="node10" class="node">
+<title>Node9</title>
+<g id="a_node10"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" target="_top" xlink:title="step waveform ">
 <polygon fill="#ffffff" stroke="#000000" points="730.5,-122 730.5,-179 812.5,-179 812.5,-122 730.5,-122"/>
 <text text-anchor="middle" x="771.5" y="-167" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">StepWaveform</text>
 <polyline fill="none" stroke="#000000" points="730.5,-160 812.5,-160 "/>
-<text text-anchor="middle" x="771.5" y="-148" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+<text text-anchor="start" x="738.5" y="-148" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ rtvsT</text>
 <polyline fill="none" stroke="#000000" points="730.5,-141 812.5,-141 "/>
 <text text-anchor="start" x="738.5" y="-129" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node8 -->
-<g id="edge8" class="edge">
-<title>Node0&#45;&gt;Node8</title>
+<!-- Node0&#45;&gt;Node9 -->
+<g id="edge9" class="edge">
+<title>Node0&#45;&gt;Node9</title>
 <path fill="none" stroke="#191970" d="M523.6508,-311.3377C578.2652,-290.0799 659.9866,-253.7929 721.5,-207 731.925,-199.0698 741.8349,-188.7138 750.0413,-179.0373"/>
 <polygon fill="none" stroke="#191970" points="522.1948,-308.1476 514.1169,-315.0032 524.7068,-314.6814 522.1948,-308.1476"/>
 </g>
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" target="_top" xlink:title="a PRBS waveform with a given PRBS polynomial ">
-<polygon fill="#ffffff" stroke="#000000" points="143,-.5 143,-57.5 274,-57.5 274,-.5 143,-.5"/>
-<text text-anchor="middle" x="208.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PseudoRandomWaveform</text>
-<polyline fill="none" stroke="#000000" points="143,-38.5 274,-38.5 "/>
-<text text-anchor="middle" x="208.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="143,-19.5 274,-19.5 "/>
-<text text-anchor="start" x="151" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
+<g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" target="_top" xlink:title="a clock waveform ">
+<polygon fill="#ffffff" stroke="#000000" points="101,-.5 101,-57.5 188,-57.5 188,-.5 101,-.5"/>
+<text text-anchor="middle" x="144.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ClockWaveform</text>
+<polyline fill="none" stroke="#000000" points="101,-38.5 188,-38.5 "/>
+<text text-anchor="middle" x="144.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="101,-19.5 188,-19.5 "/>
+<text text-anchor="start" x="109" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge3" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="#191970" d="M208.5,-105.9985C208.5,-89.8293 208.5,-72.0026 208.5,-57.5775"/>
-<polygon fill="none" stroke="#191970" points="205.0001,-106.3321 208.5,-116.3321 212.0001,-106.3322 205.0001,-106.3321"/>
+<path fill="none" stroke="#191970" d="M185.7867,-107.3802C177.0798,-90.8507 167.3687,-72.4148 159.5532,-57.5775"/>
+<polygon fill="none" stroke="#191970" points="182.7449,-109.1157 190.5021,-116.3321 188.9383,-105.8533 182.7449,-109.1157"/>
+</g>
+<!-- Node4 -->
+<g id="node5" class="node">
+<title>Node4</title>
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" target="_top" xlink:title="a PRBS waveform with a given PRBS polynomial ">
+<polygon fill="#ffffff" stroke="#000000" points="206,-.5 206,-57.5 337,-57.5 337,-.5 206,-.5"/>
+<text text-anchor="middle" x="271.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PseudoRandomWaveform</text>
+<polyline fill="none" stroke="#000000" points="206,-38.5 337,-38.5 "/>
+<text text-anchor="middle" x="271.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="206,-19.5 337,-19.5 "/>
+<text text-anchor="start" x="214" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">+ __init__()</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge4" class="edge">
+<title>Node2&#45;&gt;Node4</title>
+<path fill="none" stroke="#191970" d="M230.8584,-107.3802C239.4292,-90.8507 248.9886,-72.4148 256.682,-57.5775"/>
+<polygon fill="none" stroke="#191970" points="227.7127,-105.8435 226.2167,-116.3321 233.927,-109.0657 227.7127,-105.8435"/>
 </g>
 </g>
 </svg>

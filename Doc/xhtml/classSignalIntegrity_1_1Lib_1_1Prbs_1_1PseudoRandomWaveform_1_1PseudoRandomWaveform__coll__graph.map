@@ -1,4 +1,4 @@
 <map id="PseudoRandomWaveform" name="PseudoRandomWaveform">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform " alt="" coords="21,292,164,384"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform " alt="" coords="21,292,164,384"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms " alt="" coords="27,5,159,244"/>
 </map>

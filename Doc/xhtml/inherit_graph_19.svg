@@ -9,117 +9,117 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 898)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-898 596,-898 596,4 -4,4"/>
-<!-- Node50 -->
+<!-- Node51 -->
 <g id="node1" class="node">
-<title>Node50</title>
+<title>Node51</title>
 <g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" target="_top" xlink:title="Class for manipulations on s&#45;parameters involving passivity, causality, etc. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-437.5 0,-456.5 123,-456.5 123,-437.5 0,-437.5"/>
 <text text-anchor="middle" x="61.5" y="-444.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SParameterManipulation</text>
 </a>
 </g>
 </g>
-<!-- Node51 -->
+<!-- Node52 -->
 <g id="node2" class="node">
-<title>Node51</title>
+<title>Node52</title>
 <g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" target="_top" xlink:title="Class containing s&#45;parameters. ">
 <polygon fill="#ffffff" stroke="#000000" points="180,-437.5 180,-456.5 254,-456.5 254,-437.5 180,-437.5"/>
 <text text-anchor="middle" x="217" y="-444.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SParameters</text>
 </a>
 </g>
 </g>
-<!-- Node50&#45;&gt;Node51 -->
+<!-- Node51&#45;&gt;Node52 -->
 <g id="edge1" class="edge">
-<title>Node50&#45;&gt;Node51</title>
+<title>Node51&#45;&gt;Node52</title>
 <path fill="none" stroke="#191970" d="M133.8239,-447C149.79,-447 166.0627,-447 179.9314,-447"/>
 <polygon fill="#191970" stroke="#191970" points="133.4046,-443.5001 123.4045,-447 133.4045,-450.5001 133.4046,-443.5001"/>
 </g>
-<!-- Node52 -->
+<!-- Node53 -->
 <g id="node3" class="node">
-<title>Node52</title>
+<title>Node53</title>
 <g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledLaunches_1_1PeeledLaunches.xhtml" target="_top" xlink:title="S&#45;parameters with launches peeled from them. ">
 <polygon fill="#ffffff" stroke="#000000" points="351.5,-570.5 351.5,-589.5 440.5,-589.5 440.5,-570.5 351.5,-570.5"/>
 <text text-anchor="middle" x="396" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PeeledLaunches</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node52 -->
+<!-- Node52&#45;&gt;Node53 -->
 <g id="edge2" class="edge">
-<title>Node51&#45;&gt;Node52</title>
+<title>Node52&#45;&gt;Node53</title>
 <path fill="none" stroke="#191970" d="M226.9668,-465.5474C241.7639,-491.2096 272.0366,-537.0799 311,-561 322.9844,-568.3574 337.4792,-572.8767 351.0787,-575.6489"/>
 <polygon fill="#191970" stroke="#191970" points="230.0042,-463.808 222.0675,-456.7895 223.8951,-467.2255 230.0042,-463.808"/>
 </g>
-<!-- Node53 -->
+<!-- Node54 -->
 <g id="node4" class="node">
-<title>Node53</title>
+<title>Node54</title>
 <g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml" target="_top" xlink:title="s&#45;parameters of peeled impedance profile from port calculates the impedance profile looking into a po...">
 <polygon fill="#ffffff" stroke="#000000" points="335,-532.5 335,-551.5 457,-551.5 457,-532.5 335,-532.5"/>
 <text text-anchor="middle" x="396" y="-539.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PeeledPortSParameters</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node53 -->
+<!-- Node52&#45;&gt;Node54 -->
 <g id="edge3" class="edge">
-<title>Node51&#45;&gt;Node53</title>
+<title>Node52&#45;&gt;Node54</title>
 <path fill="none" stroke="#191970" d="M232.9974,-463.9026C250.4995,-481.37 280.1908,-508.1208 311,-523 319.0336,-526.8798 327.8791,-529.9805 336.7355,-532.4551"/>
 <polygon fill="#191970" stroke="#191970" points="235.3504,-461.303 225.8534,-456.6064 230.3487,-466.2003 235.3504,-461.303"/>
 </g>
-<!-- Node54 -->
+<!-- Node55 -->
 <g id="node5" class="node">
-<title>Node54</title>
+<title>Node55</title>
 <g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1LoadStandard_1_1LoadStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a load standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="357.5,-494.5 357.5,-513.5 434.5,-513.5 434.5,-494.5 357.5,-494.5"/>
 <text text-anchor="middle" x="396" y="-501.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">LoadStandard</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node54 -->
+<!-- Node52&#45;&gt;Node55 -->
 <g id="edge4" class="edge">
-<title>Node51&#45;&gt;Node54</title>
+<title>Node52&#45;&gt;Node55</title>
 <path fill="none" stroke="#191970" d="M247.151,-460.6639C265.3674,-468.5461 289.2045,-478.2091 311,-485 325.8697,-489.633 342.5338,-493.6136 357.1412,-496.7168"/>
 <polygon fill="#191970" stroke="#191970" points="248.4821,-457.4259 237.9184,-456.6137 245.6699,-463.8362 248.4821,-457.4259"/>
 </g>
-<!-- Node55 -->
+<!-- Node56 -->
 <g id="node6" class="node">
-<title>Node55</title>
+<title>Node56</title>
 <g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml" target="_top" xlink:title="class providing the s&#45;parameters of an offset portion of the various calibration standards for a cali...">
 <polygon fill="#ffffff" stroke="#000000" points="374,-456.5 374,-475.5 418,-475.5 418,-456.5 374,-456.5"/>
 <text text-anchor="middle" x="396" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Offset</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node55 -->
+<!-- Node52&#45;&gt;Node56 -->
 <g id="edge5" class="edge">
-<title>Node51&#45;&gt;Node55</title>
+<title>Node52&#45;&gt;Node56</title>
 <path fill="none" stroke="#191970" d="M264.2284,-452.0131C299.7045,-455.7787 346.6838,-460.7653 373.901,-463.6543"/>
 <polygon fill="#191970" stroke="#191970" points="264.4025,-448.512 254.0889,-450.9368 263.6636,-455.4729 264.4025,-448.512"/>
 </g>
-<!-- Node57 -->
+<!-- Node58 -->
 <g id="node8" class="node">
-<title>Node57</title>
+<title>Node58</title>
 <g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard.xhtml" target="_top" xlink:title="class providing the s&#45;parameters of an open standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="356.5,-418.5 356.5,-437.5 435.5,-437.5 435.5,-418.5 356.5,-418.5"/>
 <text text-anchor="middle" x="396" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">OpenStandard</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node57 -->
+<!-- Node52&#45;&gt;Node58 -->
 <g id="edge7" class="edge">
-<title>Node51&#45;&gt;Node57</title>
+<title>Node52&#45;&gt;Node58</title>
 <path fill="none" stroke="#191970" d="M264.3022,-441.9791C293.031,-438.9297 329.2825,-435.0817 356.4753,-432.1954"/>
 <polygon fill="#191970" stroke="#191970" points="263.6636,-438.5271 254.0889,-443.0632 264.4025,-445.488 263.6636,-438.5271"/>
 </g>
-<!-- Node58 -->
+<!-- Node59 -->
 <g id="node9" class="node">
-<title>Node58</title>
+<title>Node59</title>
 <g id="a_node9"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ShortStandard_1_1ShortStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a short standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="356.5,-380.5 356.5,-399.5 435.5,-399.5 435.5,-380.5 356.5,-380.5"/>
 <text text-anchor="middle" x="396" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ShortStandard</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node58 -->
+<!-- Node52&#45;&gt;Node59 -->
 <g id="edge8" class="edge">
-<title>Node51&#45;&gt;Node58</title>
+<title>Node52&#45;&gt;Node59</title>
 <path fill="none" stroke="#191970" d="M247.151,-433.3361C265.3674,-425.4539 289.2045,-415.7909 311,-409 325.581,-404.4569 341.8873,-400.5412 356.288,-397.4649"/>
 <polygon fill="#191970" stroke="#191970" points="245.6699,-430.1638 237.9184,-437.3863 248.4821,-436.5741 245.6699,-430.1638"/>
 </g>
@@ -132,9 +132,9 @@
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node1 -->
+<!-- Node52&#45;&gt;Node1 -->
 <g id="edge9" class="edge">
-<title>Node51&#45;&gt;Node1</title>
+<title>Node52&#45;&gt;Node1</title>
 <path fill="none" stroke="#191970" d="M218.6888,-466.8118C225.4875,-541.8659 253.306,-807.3802 311,-865 317.4195,-871.4112 325.499,-875.8609 334.1078,-878.9163"/>
 <polygon fill="#191970" stroke="#191970" points="222.172,-466.4665 217.8067,-456.8128 215.1991,-467.0817 222.172,-466.4665"/>
 </g>
@@ -147,264 +147,264 @@
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node2 -->
+<!-- Node52&#45;&gt;Node2 -->
 <g id="edge10" class="edge">
-<title>Node51&#45;&gt;Node2</title>
+<title>Node52&#45;&gt;Node2</title>
 <path fill="none" stroke="#191970" d="M219.1643,-466.7928C227.2811,-537.3864 258.1777,-775.3575 311,-827 317.7036,-833.5539 326.1458,-838.0477 335.0913,-841.0948"/>
 <polygon fill="#191970" stroke="#191970" points="222.616,-466.1665 218.0207,-456.6201 215.6599,-466.9486 222.616,-466.1665"/>
 </g>
-<!-- Node59 -->
+<!-- Node60 -->
 <g id="node12" class="node">
-<title>Node59</title>
+<title>Node60</title>
 <g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1MixedModeTline_1_1MixedModeTLine.xhtml" target="_top" xlink:title="s&#45;parameters of a mixed&#45;mode, balanced transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="350.5,-342.5 350.5,-361.5 441.5,-361.5 441.5,-342.5 350.5,-342.5"/>
 <text text-anchor="middle" x="396" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">MixedModeTLine</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node59 -->
+<!-- Node52&#45;&gt;Node60 -->
 <g id="edge11" class="edge">
-<title>Node51&#45;&gt;Node59</title>
+<title>Node52&#45;&gt;Node60</title>
 <path fill="none" stroke="#191970" d="M232.9974,-430.0974C250.4995,-412.63 280.1908,-385.8792 311,-371 323.1186,-365.1474 337.0844,-361.0677 350.1485,-358.2357"/>
 <polygon fill="#191970" stroke="#191970" points="230.3487,-427.7997 225.8534,-437.3936 235.3504,-432.697 230.3487,-427.7997"/>
 </g>
-<!-- Node60 -->
+<!-- Node61 -->
 <g id="node13" class="node">
-<title>Node60</title>
+<title>Node61</title>
 <g id="a_node13"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Mutual_1_1Mutual.xhtml" target="_top" xlink:title="s&#45;parameters of a mutual inductance ">
 <polygon fill="#ffffff" stroke="#000000" points="373,-304.5 373,-323.5 419,-323.5 419,-304.5 373,-304.5"/>
 <text text-anchor="middle" x="396" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Mutual</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node60 -->
+<!-- Node52&#45;&gt;Node61 -->
 <g id="edge12" class="edge">
-<title>Node51&#45;&gt;Node60</title>
+<title>Node52&#45;&gt;Node61</title>
 <path fill="none" stroke="#191970" d="M226.9668,-428.4526C241.7639,-402.7904 272.0366,-356.9201 311,-333 329.8143,-321.4497 354.8153,-316.8941 372.8269,-315.1117"/>
 <polygon fill="#191970" stroke="#191970" points="223.8951,-426.7745 222.0675,-437.2105 230.0042,-430.192 223.8951,-426.7745"/>
 </g>
-<!-- Node61 -->
+<!-- Node62 -->
 <g id="node14" class="node">
-<title>Node61</title>
+<title>Node62</title>
 <g id="a_node14"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesC_1_1SeriesC.xhtml" target="_top" xlink:title="s&#45;parameters of a series capacitance ">
 <polygon fill="#ffffff" stroke="#000000" points="370,-266.5 370,-285.5 422,-285.5 422,-266.5 370,-266.5"/>
 <text text-anchor="middle" x="396" y="-273.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SeriesC</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node61 -->
+<!-- Node52&#45;&gt;Node62 -->
 <g id="edge13" class="edge">
-<title>Node51&#45;&gt;Node61</title>
+<title>Node52&#45;&gt;Node62</title>
 <path fill="none" stroke="#191970" d="M223.3558,-427.5633C235.1245,-394.7811 263.5293,-328.7772 311,-295 328.1256,-282.8145 351.7131,-278.2602 369.6965,-276.6426"/>
 <polygon fill="#191970" stroke="#191970" points="219.9453,-426.718 219.999,-437.3127 226.564,-428.9969 219.9453,-426.718"/>
 </g>
-<!-- Node62 -->
+<!-- Node63 -->
 <g id="node15" class="node">
-<title>Node62</title>
+<title>Node63</title>
 <g id="a_node15"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesL_1_1SeriesL.xhtml" target="_top" xlink:title="s&#45;parameters of a series inductance ">
 <polygon fill="#ffffff" stroke="#000000" points="371,-228.5 371,-247.5 421,-247.5 421,-228.5 371,-228.5"/>
 <text text-anchor="middle" x="396" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SeriesL</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node62 -->
+<!-- Node52&#45;&gt;Node63 -->
 <g id="edge14" class="edge">
-<title>Node51&#45;&gt;Node62</title>
+<title>Node52&#45;&gt;Node63</title>
 <path fill="none" stroke="#191970" d="M220.884,-427.1907C229.6187,-388.1596 254.6213,-301.2676 311,-257 328.0071,-243.6463 352.5364,-239.2827 370.8775,-238.0322"/>
 <polygon fill="#191970" stroke="#191970" points="217.3987,-426.7559 218.7583,-437.2631 224.2478,-428.2014 217.3987,-426.7559"/>
 </g>
-<!-- Node63 -->
+<!-- Node64 -->
 <g id="node16" class="node">
-<title>Node63</title>
+<title>Node64</title>
 <g id="a_node16"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesRse_1_1SeriesRse.xhtml" target="_top" xlink:title="s&#45;parameters of series skin&#45;effect Resistance ">
 <polygon fill="#ffffff" stroke="#000000" points="365,-190.5 365,-209.5 427,-209.5 427,-190.5 365,-190.5"/>
 <text text-anchor="middle" x="396" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SeriesRse</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node63 -->
+<!-- Node52&#45;&gt;Node64 -->
 <g id="edge15" class="edge">
-<title>Node51&#45;&gt;Node63</title>
+<title>Node52&#45;&gt;Node64</title>
 <path fill="none" stroke="#191970" d="M219.0756,-427.3227C224.8581,-382.8775 245.3187,-274.3036 311,-219 325.8056,-206.5336 347.0556,-201.7836 364.6042,-200.1502"/>
 <polygon fill="#191970" stroke="#191970" points="215.5834,-427.0511 217.8791,-437.3942 222.5345,-427.877 215.5834,-427.0511"/>
 </g>
-<!-- Node64 -->
+<!-- Node65 -->
 <g id="node17" class="node">
-<title>Node64</title>
+<title>Node65</title>
 <g id="a_node17"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TerminationC_1_1TerminationC.xhtml" target="_top" xlink:title="s&#45;parameters of a termination (one&#45;port) capacitance ">
 <polygon fill="#ffffff" stroke="#000000" points="358.5,-152.5 358.5,-171.5 433.5,-171.5 433.5,-152.5 358.5,-152.5"/>
 <text text-anchor="middle" x="396" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationC</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node64 -->
+<!-- Node52&#45;&gt;Node65 -->
 <g id="edge16" class="edge">
-<title>Node51&#45;&gt;Node64</title>
+<title>Node52&#45;&gt;Node65</title>
 <path fill="none" stroke="#191970" d="M217.7794,-427.176C220.8509,-377.6055 236.0266,-247.4915 311,-181 323.8968,-169.5622 342.1632,-164.5434 358.4594,-162.4949"/>
 <polygon fill="#191970" stroke="#191970" points="214.2682,-427.3041 217.2494,-437.4708 221.259,-427.664 214.2682,-427.3041"/>
 </g>
-<!-- Node65 -->
+<!-- Node66 -->
 <g id="node18" class="node">
-<title>Node65</title>
+<title>Node66</title>
 <g id="a_node18"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TerminationL_1_1TerminationL.xhtml" target="_top" xlink:title="s&#45;parameters of a termination (one&#45;port) inductance ">
 <polygon fill="#ffffff" stroke="#000000" points="359.5,-114.5 359.5,-133.5 432.5,-133.5 432.5,-114.5 359.5,-114.5"/>
 <text text-anchor="middle" x="396" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TerminationL</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node65 -->
+<!-- Node52&#45;&gt;Node66 -->
 <g id="edge17" class="edge">
-<title>Node51&#45;&gt;Node65</title>
+<title>Node52&#45;&gt;Node66</title>
 <path fill="none" stroke="#191970" d="M220.4437,-427.3208C231.4856,-366.4396 267.8174,-182.8603 311,-143 323.8889,-131.1027 342.5496,-126.0862 359.1051,-124.1576"/>
 <polygon fill="#191970" stroke="#191970" points="216.9923,-426.739 218.6803,-437.1985 223.8834,-427.9692 216.9923,-426.739"/>
 </g>
-<!-- Node66 -->
+<!-- Node67 -->
 <g id="node19" class="node">
-<title>Node66</title>
+<title>Node67</title>
 <g id="a_node19"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGC_1_1TLineDifferentialRLGC.xhtml" target="_top" xlink:title="s&#45;parameters of differential RLGC (telegrapher&#39;s) transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="338,-76.5 338,-95.5 454,-95.5 454,-76.5 338,-76.5"/>
 <text text-anchor="middle" x="396" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGC</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node66 -->
+<!-- Node52&#45;&gt;Node67 -->
 <g id="edge18" class="edge">
-<title>Node51&#45;&gt;Node66</title>
+<title>Node52&#45;&gt;Node67</title>
 <path fill="none" stroke="#191970" d="M219.7618,-427.086C229.3206,-361.0198 263.0568,-150.681 311,-105 318.4442,-97.907 327.931,-93.2416 337.85,-90.2146"/>
 <polygon fill="#191970" stroke="#191970" points="216.2438,-426.9663 218.3036,-437.3589 223.1743,-427.95 216.2438,-426.9663"/>
 </g>
-<!-- Node67 -->
+<!-- Node68 -->
 <g id="node20" class="node">
-<title>Node67</title>
+<title>Node68</title>
 <g id="a_node20"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml" target="_top" xlink:title="s&#45;parameters of differential RLGC (telegrapher&#39;s) transmission line calculated by approximating distr...">
 <polygon fill="#ffffff" stroke="#000000" points="311,-38.5 311,-57.5 481,-57.5 481,-38.5 311,-38.5"/>
 <text text-anchor="middle" x="396" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGCApproximate</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node67 -->
+<!-- Node52&#45;&gt;Node68 -->
 <g id="edge19" class="edge">
-<title>Node51&#45;&gt;Node67</title>
+<title>Node52&#45;&gt;Node68</title>
 <path fill="none" stroke="#191970" d="M219.1643,-427.2072C227.2811,-356.6136 258.1777,-118.6425 311,-67 314.8924,-63.1945 319.371,-60.0836 324.1939,-57.5471"/>
 <polygon fill="#191970" stroke="#191970" points="215.6599,-427.0514 218.0207,-437.3799 222.616,-427.8335 215.6599,-427.0514"/>
 </g>
-<!-- Node68 -->
+<!-- Node69 -->
 <g id="node21" class="node">
-<title>Node68</title>
+<title>Node69</title>
 <g id="a_node21"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCBalanced_1_1TLineDifferentialRLGCBalanced.xhtml" target="_top" xlink:title="s&#45;parameters of analytic balanced differential RLGC (telegrapher&#39;s) transmission line. ">
 <polygon fill="#ffffff" stroke="#000000" points="318,-.5 318,-19.5 474,-19.5 474,-.5 318,-.5"/>
 <text text-anchor="middle" x="396" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGCBalanced</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node68 -->
+<!-- Node52&#45;&gt;Node69 -->
 <g id="edge20" class="edge">
-<title>Node51&#45;&gt;Node68</title>
+<title>Node52&#45;&gt;Node69</title>
 <path fill="none" stroke="#191970" d="M218.6888,-427.1882C225.4875,-352.1341 253.306,-86.6198 311,-29 314.7447,-25.2601 319.0543,-22.1877 323.7043,-19.6702"/>
 <polygon fill="#191970" stroke="#191970" points="215.1991,-426.9183 217.8067,-437.1872 222.172,-427.5335 215.1991,-426.9183"/>
 </g>
-<!-- Node69 -->
+<!-- Node70 -->
 <g id="node22" class="node">
-<title>Node69</title>
+<title>Node70</title>
 <g id="a_node22"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled.xhtml" target="_top" xlink:title="s&#45;parameters of analytic uncoupled differential RLGC (telegrapher&#39;s) transmission line...">
 <polygon fill="#ffffff" stroke="#000000" points="315,-798.5 315,-817.5 477,-817.5 477,-798.5 315,-798.5"/>
 <text text-anchor="middle" x="396" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineDifferentialRLGCUncoupled</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node69 -->
+<!-- Node52&#45;&gt;Node70 -->
 <g id="edge21" class="edge">
-<title>Node51&#45;&gt;Node69</title>
+<title>Node52&#45;&gt;Node70</title>
 <path fill="none" stroke="#191970" d="M219.7618,-466.914C229.3206,-532.9802 263.0568,-743.319 311,-789 314.9411,-792.7551 319.4546,-795.8298 324.3017,-798.3412"/>
 <polygon fill="#191970" stroke="#191970" points="223.1743,-466.05 218.3036,-456.6411 216.2438,-467.0337 223.1743,-466.05"/>
 </g>
-<!-- Node70 -->
+<!-- Node71 -->
 <g id="node23" class="node">
-<title>Node70</title>
+<title>Node71</title>
 <g id="a_node23"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineLossless_1_1TLineLossless.xhtml" target="_top" xlink:title="s&#45;parameters of ideal lossless single&#45;ended transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="356,-760.5 356,-779.5 436,-779.5 436,-760.5 356,-760.5"/>
 <text text-anchor="middle" x="396" y="-767.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineLossless</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node70 -->
+<!-- Node52&#45;&gt;Node71 -->
 <g id="edge22" class="edge">
-<title>Node51&#45;&gt;Node70</title>
+<title>Node52&#45;&gt;Node71</title>
 <path fill="none" stroke="#191970" d="M220.4437,-466.6792C231.4856,-527.5604 267.8174,-711.1397 311,-751 323,-762.0768 340.0032,-767.1891 355.6524,-769.3981"/>
 <polygon fill="#191970" stroke="#191970" points="223.8834,-466.0308 218.6803,-456.8015 216.9923,-467.261 223.8834,-466.0308"/>
 </g>
-<!-- Node71 -->
+<!-- Node72 -->
 <g id="node24" class="node">
-<title>Node71</title>
+<title>Node72</title>
 <g id="a_node24"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGC_1_1TLineTwoPortRLGC.xhtml" target="_top" xlink:title="s&#45;parameters of single&#45;ended RLGC (telegraphers) transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="343.5,-722.5 343.5,-741.5 448.5,-741.5 448.5,-722.5 343.5,-722.5"/>
 <text text-anchor="middle" x="396" y="-729.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineTwoPortRLGC</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node71 -->
+<!-- Node52&#45;&gt;Node72 -->
 <g id="edge23" class="edge">
-<title>Node51&#45;&gt;Node71</title>
+<title>Node52&#45;&gt;Node72</title>
 <path fill="none" stroke="#191970" d="M217.7794,-466.824C220.8509,-516.3945 236.0266,-646.5085 311,-713 319.9373,-720.9262 331.4531,-725.7698 343.105,-728.6786"/>
 <polygon fill="#191970" stroke="#191970" points="221.259,-466.336 217.2494,-456.5292 214.2682,-466.6959 221.259,-466.336"/>
 </g>
-<!-- Node72 -->
+<!-- Node73 -->
 <g id="node25" class="node">
-<title>Node72</title>
+<title>Node73</title>
 <g id="a_node25"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml" target="_top" xlink:title="s&#45;parameters of analytic single&#45;ended telegraphers transmission line ">
 <polygon fill="#ffffff" stroke="#000000" points="326,-684.5 326,-703.5 466,-703.5 466,-684.5 326,-684.5"/>
 <text text-anchor="middle" x="396" y="-691.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineTwoPortRLGCAnalytic</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node72 -->
+<!-- Node52&#45;&gt;Node73 -->
 <g id="edge24" class="edge">
-<title>Node51&#45;&gt;Node72</title>
+<title>Node52&#45;&gt;Node73</title>
 <path fill="none" stroke="#191970" d="M219.0756,-466.6773C224.8581,-511.1225 245.3187,-619.6964 311,-675 315.5111,-678.7983 320.6205,-681.8803 326.0411,-684.3761"/>
 <polygon fill="#191970" stroke="#191970" points="222.5345,-466.123 217.8791,-456.6058 215.5834,-466.9489 222.5345,-466.123"/>
 </g>
-<!-- Node73 -->
+<!-- Node74 -->
 <g id="node26" class="node">
-<title>Node73</title>
+<title>Node74</title>
 <g id="a_node26"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml" target="_top" xlink:title="s&#45;parameters of two port RLGC (telegrapher&#39;s) transmission line calculated by approximating distribut...">
 <polygon fill="#ffffff" stroke="#000000" points="316,-646.5 316,-665.5 476,-665.5 476,-646.5 316,-646.5"/>
 <text text-anchor="middle" x="396" y="-653.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TLineTwoPortRLGCApproximate</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node73 -->
+<!-- Node52&#45;&gt;Node74 -->
 <g id="edge25" class="edge">
-<title>Node51&#45;&gt;Node73</title>
+<title>Node52&#45;&gt;Node74</title>
 <path fill="none" stroke="#191970" d="M220.884,-466.8093C229.6187,-505.8404 254.6213,-592.7324 311,-637 315.8762,-640.8287 321.3707,-643.9183 327.1604,-646.4075"/>
 <polygon fill="#191970" stroke="#191970" points="224.2478,-465.7986 218.7583,-456.7369 217.3987,-467.2441 224.2478,-465.7986"/>
 </g>
-<!-- Node74 -->
+<!-- Node75 -->
 <g id="node27" class="node">
-<title>Node74</title>
+<title>Node75</title>
 <g id="a_node27"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml" target="_top" xlink:title="class for s&#45;parameters read from a file ">
 <polygon fill="#ffffff" stroke="#000000" points="354,-608.5 354,-627.5 438,-627.5 438,-608.5 354,-608.5"/>
 <text text-anchor="middle" x="396" y="-615.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">SParameterFile</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node74 -->
+<!-- Node52&#45;&gt;Node75 -->
 <g id="edge26" class="edge">
-<title>Node51&#45;&gt;Node74</title>
+<title>Node52&#45;&gt;Node75</title>
 <path fill="none" stroke="#191970" d="M223.3558,-466.4367C235.1245,-499.2189 263.5293,-565.2228 311,-599 323.4438,-607.8542 339.2993,-612.6793 353.9375,-615.2764"/>
 <polygon fill="#191970" stroke="#191970" points="226.564,-465.0031 219.999,-456.6873 219.9453,-467.282 226.564,-465.0031"/>
 </g>
-<!-- Node56 -->
+<!-- Node57 -->
 <g id="node7" class="node">
-<title>Node56</title>
+<title>Node57</title>
 <g id="a_node7"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard.xhtml" target="_top" xlink:title="Class providing the s&#45;parameters of a thru standard as commonly defined for a calibration kit...">
 <polygon fill="#ffffff" stroke="#000000" points="517,-456.5 517,-475.5 592,-475.5 592,-456.5 517,-456.5"/>
 <text text-anchor="middle" x="554.5" y="-463.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ThruStandard</text>
 </a>
 </g>
 </g>
-<!-- Node55&#45;&gt;Node56 -->
+<!-- Node56&#45;&gt;Node57 -->
 <g id="edge6" class="edge">
-<title>Node55&#45;&gt;Node56</title>
+<title>Node56&#45;&gt;Node57</title>
 <path fill="none" stroke="#191970" d="M428.3466,-466C453.9908,-466 489.8703,-466 516.8121,-466"/>
 <polygon fill="#191970" stroke="#191970" points="428.0388,-462.5001 418.0387,-466 428.0387,-469.5001 428.0388,-462.5001"/>
 </g>

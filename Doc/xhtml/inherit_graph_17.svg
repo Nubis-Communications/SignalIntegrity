@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 290)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-290 753,-290 753,4 -4,4"/>
-<!-- Node89 -->
+<!-- Node90 -->
 <g id="node1" class="node">
-<title>Node89</title>
+<title>Node90</title>
 <g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" target="_top" xlink:title="handles numeric details of derived class solutions ">
 <polygon fill="#ffffff" stroke="#000000" points="322.5,-67.5 322.5,-86.5 375.5,-86.5 375.5,-67.5 322.5,-67.5"/>
 <text text-anchor="middle" x="349" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Numeric</text>
@@ -27,9 +27,9 @@
 </a>
 </g>
 </g>
-<!-- Node89&#45;&gt;Node3 -->
+<!-- Node90&#45;&gt;Node3 -->
 <g id="edge1" class="edge">
-<title>Node89&#45;&gt;Node3</title>
+<title>Node90&#45;&gt;Node3</title>
 <path fill="none" stroke="#191970" d="M385.4074,-86.6836C405.8522,-92.1048 431.8368,-98.9671 455,-105 466.9372,-108.1091 479.9673,-111.4667 491.7209,-114.482"/>
 <polygon fill="#191970" stroke="#191970" points="386.123,-83.2524 375.5597,-84.0703 384.3274,-90.0182 386.123,-83.2524"/>
 </g>
@@ -42,9 +42,9 @@
 </a>
 </g>
 </g>
-<!-- Node89&#45;&gt;Node6 -->
+<!-- Node90&#45;&gt;Node6 -->
 <g id="edge2" class="edge">
-<title>Node89&#45;&gt;Node6</title>
+<title>Node90&#45;&gt;Node6</title>
 <path fill="none" stroke="#191970" d="M385.5906,-78.8295C413.208,-80.2104 451.3381,-82.1169 481.3391,-83.617"/>
 <polygon fill="#191970" stroke="#191970" points="385.722,-75.3318 375.5596,-78.328 385.3723,-82.3231 385.722,-75.3318"/>
 </g>
@@ -57,9 +57,9 @@
 </a>
 </g>
 </g>
-<!-- Node89&#45;&gt;Node15 -->
+<!-- Node90&#45;&gt;Node15 -->
 <g id="edge3" class="edge">
-<title>Node89&#45;&gt;Node15</title>
+<title>Node90&#45;&gt;Node15</title>
 <path fill="none" stroke="#191970" d="M380.5259,-63.5191C401.4877,-54.7272 429.7109,-43.2169 455,-34 468.9584,-28.9127 484.5841,-23.7661 497.867,-19.5505"/>
 <polygon fill="#191970" stroke="#191970" points="379.0075,-60.3608 371.1535,-67.4717 381.7277,-66.8107 379.0075,-60.3608"/>
 </g>
@@ -72,15 +72,15 @@
 </a>
 </g>
 </g>
-<!-- Node89&#45;&gt;Node9 -->
+<!-- Node90&#45;&gt;Node9 -->
 <g id="edge4" class="edge">
-<title>Node89&#45;&gt;Node9</title>
+<title>Node90&#45;&gt;Node9</title>
 <path fill="none" stroke="#191970" d="M385.6568,-68.4737C435.8185,-58.3861 528.1587,-45.4958 603,-67 635.2507,-76.2666 667.1379,-100.682 683.2285,-114.3619"/>
 <polygon fill="#191970" stroke="#191970" points="384.6881,-65.1004 375.6146,-70.5704 386.1188,-71.9527 384.6881,-65.1004"/>
 </g>
-<!-- Node48 -->
+<!-- Node49 -->
 <g id="node6" class="node">
-<title>Node48</title>
+<title>Node49</title>
 <g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" target="_top" xlink:title="base class for all symbolic solutions. ">
 <polygon fill="#ffffff" stroke="#000000" points="161,-247.5 161,-266.5 218,-266.5 218,-247.5 161,-247.5"/>
 <text text-anchor="middle" x="189.5" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Symbolic</text>
@@ -96,9 +96,9 @@
 </a>
 </g>
 </g>
-<!-- Node48&#45;&gt;Node4 -->
+<!-- Node49&#45;&gt;Node4 -->
 <g id="edge5" class="edge">
-<title>Node48&#45;&gt;Node4</title>
+<title>Node49&#45;&gt;Node4</title>
 <path fill="none" stroke="#191970" d="M228.3157,-254.8277C288.1775,-251.4775 403.3256,-245.0333 472.4519,-241.1647"/>
 <polygon fill="#191970" stroke="#191970" points="227.9418,-251.343 218.153,-255.3964 228.333,-258.3321 227.9418,-251.343"/>
 </g>
@@ -111,9 +111,9 @@
 </a>
 </g>
 </g>
-<!-- Node48&#45;&gt;Node11 -->
+<!-- Node49&#45;&gt;Node11 -->
 <g id="edge6" class="edge">
-<title>Node48&#45;&gt;Node11</title>
+<title>Node49&#45;&gt;Node11</title>
 <path fill="none" stroke="#191970" d="M228.1198,-261.6005C243.4171,-263.4227 261.4943,-265.5761 278.9431,-267.6547"/>
 <polygon fill="#191970" stroke="#191970" points="228.3592,-258.1043 218.0154,-260.3968 227.5312,-265.0552 228.3592,-258.1043"/>
 </g>

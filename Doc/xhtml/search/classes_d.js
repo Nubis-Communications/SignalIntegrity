@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['serialdatawaveform',['SerialDataWaveform',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1SerialDataWaveform.xhtml',1,'SignalIntegrity::Lib::Prbs::PseudoRandomWaveform']]],
+  ['serialdatawaveform',['SerialDataWaveform',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml',1,'SignalIntegrity::Lib::Prbs::SerialDataWaveform']]],
   ['seriesc',['SeriesC',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesC_1_1SeriesC.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::SeriesC']]],
   ['seriesl',['SeriesL',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesL_1_1SeriesL.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::SeriesL']]],
   ['seriesrse',['SeriesRse',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesRse_1_1SeriesRse.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::SeriesRse']]],
