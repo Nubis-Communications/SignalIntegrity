@@ -43,6 +43,9 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         self.SimulationResultsChecker('FilterTest.si')
     def testSignalIntegrityAppExamplesRLCTest2(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2.si')
+    def testSignalIntegrityAppExamplesRLCTestSP(self):
+        sp=self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2SP.si')[0]
+        spref=si.sp.SParameters(sp.m_f,[si.cvt.ReferenceImpedance(s,[0.0000001,5000000,5000000]) for s in sp])
     def testSignalIntegrityAppDeembedCableFilter(self):
         self.DeembeddingResultsChecker('../../../SignalIntegrity/App/Examples/DeembedCableFilter.si')
     def testSignalIntegrityAppExampleSparameterExampleSParameterGenerationExample(self):
@@ -99,6 +102,16 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest3(self):
         if not self.book: return
         self.SimulationResultsChecker('../../../../SignalIntegrityBook/Measurement/TDRSimulation3.si')
+    def testPAM4Example(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PAM4Example.si')
+    def testPRBSGenerator(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSGenerator.si')
+    def testPRBSTest(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si')
+    def testPRBSTest2(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest2.si')
+    def testCommonModeProbe(self):
+        self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/CommonModeProbe.si')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.si',

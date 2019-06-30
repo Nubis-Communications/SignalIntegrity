@@ -1,0 +1,105 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">41.562,-26.875 43.438,-26.875</polyline>
+%  <polyline lc="black">42.5,-25.938 42.5,-27.812</polyline>
+%  <polyline lc="black">41.562,-33.125 43.438,-33.125</polyline>
+%  <polyline lc="black">46.562,-26.875 48.438,-26.875</polyline>
+%  <polyline lc="black">47.5,-25.938 47.5,-27.812</polyline>
+%  <polyline lc="black">46.562,-33.125 48.438,-33.125</polyline>
+%  <polyline lc="black">47.5,-25 55,-25</polyline>
+%  <polyline lc="black">47.5,-35 55,-35</polyline>
+%  <polyline lc="black">40,-20 55,-30 40,-40 40,-20</polyline>
+%  <polyline lc="black">35,-25 40,-25</polyline>
+%  <polyline lc="black">35,-35 40,-35</polyline>
+%  <polyline lc="black">55,-25 50,-25</polyline>
+%  <polyline lc="black">55,-35 50,-35</polyline>
+%  <text x="45" y="-19" t="gain 500.0 m" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-16" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-13" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">41.562,-66.875 43.438,-66.875</polyline>
+%  <polyline lc="black">42.5,-65.938 42.5,-67.812</polyline>
+%  <polyline lc="black">41.562,-73.125 43.438,-73.125</polyline>
+%  <polyline lc="black">46.562,-66.875 48.438,-66.875</polyline>
+%  <polyline lc="black">47.5,-65.938 47.5,-67.812</polyline>
+%  <polyline lc="black">46.562,-73.125 48.438,-73.125</polyline>
+%  <polyline lc="black">47.5,-65 55,-65</polyline>
+%  <polyline lc="black">47.5,-75 55,-75</polyline>
+%  <polyline lc="black">40,-60 55,-70 40,-80 40,-60</polyline>
+%  <polyline lc="black">35,-65 40,-65</polyline>
+%  <polyline lc="black">35,-75 40,-75</polyline>
+%  <polyline lc="black">55,-65 50,-65</polyline>
+%  <polyline lc="black">55,-75 50,-75</polyline>
+%  <text x="45" y="-59" t="gain 500.0 m" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-56" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-53" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <polygon fill="black">31.667,-40 38.333,-40 35,-43.333 31.667,-40</polygon>
+%  <polyline lc="black">35,-35 35,-40</polyline>
+%  <polygon fill="black">31.667,-80 38.333,-80 35,-83.333 31.667,-80</polygon>
+%  <polyline lc="black">35,-75 35,-80</polyline>
+%  <polygon fill="black">51.667,-80 58.333,-80 55,-83.333 51.667,-80</polygon>
+%  <polyline lc="black">55,-75 55,-80</polyline>
+%  <polyline lc="black">27.5,-22.5 30,-25 27.5,-27.5</polyline>
+%  <polyline lc="black">35,-25 30,-25</polyline>
+%  <text x="27.5" y="-26" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">27.5,-62.5 30,-65 27.5,-67.5</polyline>
+%  <polyline lc="black">35,-65 30,-65</polyline>
+%  <text x="27.5" y="-66" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">62.5,-22.5 60,-25 62.5,-27.5</polyline>
+%  <polyline lc="black">55,-25 60,-25</polyline>
+%  <text x="62.5" y="-26" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">55,-35 65,-35</polyline>
+%  <polyline lc="black">65,-35 65,-65</polyline>
+%  <polyline lc="black">65,-65 55,-65</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (41.562,-26.875) -- (43.438,-26.875);
+\path[line width=0.30mm, draw=black] (42.5,-25.938) -- (42.5,-27.812);
+\path[line width=0.30mm, draw=black] (41.562,-33.125) -- (43.438,-33.125);
+\path[line width=0.30mm, draw=black] (46.562,-26.875) -- (48.438,-26.875);
+\path[line width=0.30mm, draw=black] (47.5,-25.938) -- (47.5,-27.812);
+\path[line width=0.30mm, draw=black] (46.562,-33.125) -- (48.438,-33.125);
+\path[line width=0.30mm, draw=black] (47.5,-25) -- (55,-25);
+\path[line width=0.30mm, draw=black] (47.5,-35) -- (55,-35);
+\path[line width=0.30mm, draw=black] (40,-20) -- (55,-30) -- (40,-40) -- (40,-20);
+\path[line width=0.30mm, draw=black] (35,-25) -- (40,-25);
+\path[line width=0.30mm, draw=black] (35,-35) -- (40,-35);
+\path[line width=0.30mm, draw=black] (55,-25) -- (50,-25);
+\path[line width=0.30mm, draw=black] (55,-35) -- (50,-35);
+\draw[black] (45,-19) node[anchor=base]{gain 500.0 m};
+\draw[black] (45,-16) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (45,-13) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, draw=black] (41.562,-66.875) -- (43.438,-66.875);
+\path[line width=0.30mm, draw=black] (42.5,-65.938) -- (42.5,-67.812);
+\path[line width=0.30mm, draw=black] (41.562,-73.125) -- (43.438,-73.125);
+\path[line width=0.30mm, draw=black] (46.562,-66.875) -- (48.438,-66.875);
+\path[line width=0.30mm, draw=black] (47.5,-65.938) -- (47.5,-67.812);
+\path[line width=0.30mm, draw=black] (46.562,-73.125) -- (48.438,-73.125);
+\path[line width=0.30mm, draw=black] (47.5,-65) -- (55,-65);
+\path[line width=0.30mm, draw=black] (47.5,-75) -- (55,-75);
+\path[line width=0.30mm, draw=black] (40,-60) -- (55,-70) -- (40,-80) -- (40,-60);
+\path[line width=0.30mm, draw=black] (35,-65) -- (40,-65);
+\path[line width=0.30mm, draw=black] (35,-75) -- (40,-75);
+\path[line width=0.30mm, draw=black] (55,-65) -- (50,-65);
+\path[line width=0.30mm, draw=black] (55,-75) -- (50,-75);
+\draw[black] (45,-59) node[anchor=base]{gain 500.0 m};
+\draw[black] (45,-56) node[anchor=base]{zi 100.0 MOhm};
+\draw[black] (45,-53) node[anchor=base]{zo 0 Ohm};
+\path[line width=0.30mm, fill=black] (31.667,-40) -- (38.333,-40) -- (35,-43.333) -- (31.667,-40) -- cycle;
+\path[line width=0.30mm, draw=black] (35,-35) -- (35,-40);
+\path[line width=0.30mm, fill=black] (31.667,-80) -- (38.333,-80) -- (35,-83.333) -- (31.667,-80) -- cycle;
+\path[line width=0.30mm, draw=black] (35,-75) -- (35,-80);
+\path[line width=0.30mm, fill=black] (51.667,-80) -- (58.333,-80) -- (55,-83.333) -- (51.667,-80) -- cycle;
+\path[line width=0.30mm, draw=black] (55,-75) -- (55,-80);
+\path[line width=0.30mm, draw=black] (27.5,-22.5) -- (30,-25) -- (27.5,-27.5);
+\path[line width=0.30mm, draw=black] (35,-25) -- (30,-25);
+\draw[black] (27.5,-26) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (27.5,-62.5) -- (30,-65) -- (27.5,-67.5);
+\path[line width=0.30mm, draw=black] (35,-65) -- (30,-65);
+\draw[black] (27.5,-66) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (62.5,-22.5) -- (60,-25) -- (62.5,-27.5);
+\path[line width=0.30mm, draw=black] (55,-25) -- (60,-25);
+\draw[black] (62.5,-26) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (55,-35) -- (65,-35);
+\path[line width=0.30mm, draw=black] (65,-35) -- (65,-65);
+\path[line width=0.30mm, draw=black] (65,-65) -- (55,-65);
+\end{tikzpicture}%

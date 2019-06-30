@@ -182,6 +182,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         DUTCalcSp=cm.DutCalculation(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
+        DUTCalcSp=cm.DutCalculation(spDict['Dut'],reciprocal=True)
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')        
         DUTActualSp=si.sp.SParameterFile('FourPortDUT.s4p').Resample(f)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s4p')
         SpAreEqual=self.SParametersAreEqual(DUTCalcSp, DUTActualSp,1e-3)
@@ -692,7 +694,11 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         # slip in a test for alternate DUT calculation and for DUT uncalculation
         DUTCalcSpAlternate=cm.DutCalculationAlternate(spDict['Dut'])
         self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
+        DUTCalcSpAlternate=cm.DutCalculationAlternate(spDict['Dut'],reciprocal=True)
+        self.SParameterRegressionChecker(DUTCalcSp, self.NameForTest()+'_Calc.s4p')
         DUTUnCalculationSp=cm.DutUnCalculation(DUTCalcSpAlternate)
+        self.assertTrue(self.SParametersAreEqual(DUTUnCalculationSp, spDict['Dut'], 1e-3),'s-parameters not equal')
+        DUTUnCalculationSp=cm.DutUnCalculationAlternate(DUTCalcSpAlternate)
         self.assertTrue(self.SParametersAreEqual(DUTUnCalculationSp, spDict['Dut'], 1e-3),'s-parameters not equal')
 
     def testTDRFourPortTransferThru(self):

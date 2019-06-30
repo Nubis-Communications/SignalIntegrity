@@ -193,7 +193,7 @@ class SignalIntegrityAppHeadless(object):
             return None
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='Linear'
+        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
 
         try:
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
@@ -215,8 +215,9 @@ class SignalIntegrityAppHeadless(object):
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
+        userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
@@ -241,7 +242,7 @@ class SignalIntegrityAppHeadless(object):
             return None
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='Linear'
+        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
 
         try:
             inputWaveformList=self.Drawing.schematic.InputWaveforms()
@@ -271,8 +272,9 @@ class SignalIntegrityAppHeadless(object):
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
+        userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
-            si.td.wf.TimeDescriptor(wf.td.H,wf.td.K,SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']))
+            si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 

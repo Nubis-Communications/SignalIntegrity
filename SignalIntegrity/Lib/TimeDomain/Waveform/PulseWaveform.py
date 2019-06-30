@@ -23,21 +23,27 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.StepWaveform import StepWaveform
 
 class PulseWaveform(Waveform):
     """pulse waveform"""
-    def __init__(self,td,Amplitude=1.,StartTime=0.,PulseWidth=0):
+    def __init__(self,td,Amplitude=1.,StartTime=0.,PulseWidth=0.,Risetime=0.):
         """Constructor
 
-        constructs a waveform with mean and normally distributed noise.
+        constructs a waveform with a single pulse.
 
         @param td instance of class TimeDescriptor containing time axis of waveform.
         @param Amplitude (optional) float amplitude of pulse (defaults to unity).
         @param StartTime (optional) float starting time of the pulse (defaults to zero).
         @param PulseWidth (optional) float the width of the pulse (defaults to zero).
+        @param risetime (optional) float risetime in seconds (defaults to 0.)
 
         @note The amplitude can be positive or negative, with negative providing a negative
         pulse.
         @note if the pulse appears entirely within the samples, then the waveform will be all zero.
+        @note actual risetime used is the sample period if less than that is specified
+        @note risetime is applied on the rising and falling edge.  risetimes greater than
+        1.72 times the pulse width will diminish the pulse amplitude.
+        @note the risetime is applied such that the pulse reaches half amplitude at the start
+        time specified.  Please note the expected non-causality.
         """
         StopTime=StartTime+PulseWidth
-        stepup=StepWaveform(td,Amplitude,StartTime)
-        stepdown=StepWaveform(td,Amplitude,StopTime)
+        stepup=StepWaveform(td,Amplitude,StartTime,Risetime)
+        stepdown=StepWaveform(td,Amplitude,StopTime,Risetime)
         Waveform.__init__(self,td,[stepup[k]-stepdown[k] for k in range(len(stepup))])

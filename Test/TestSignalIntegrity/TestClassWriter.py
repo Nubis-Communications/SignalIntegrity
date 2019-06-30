@@ -434,6 +434,21 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='SParameters'
         defName=['Resample']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersEnforceReciprocity(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/SParameterManipulation.py"
+        className='SParameterManipulation'
+        defName=['EnforceReciprocity']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersEnforcePassivity(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/SParameterManipulation.py"
+        className='SParameterManipulation'
+        defName=['EnforcePassivity','_LargestSingularValues']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteSParametersEnforceCausality(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/SParameterManipulation.py"
+        className='SParameterManipulation'
+        defName=['EnforceCausality']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteOpen(self):
         fileName="../../SignalIntegrity/Lib/Devices/Open.py"
         className=''
@@ -634,11 +649,21 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs.remove(firstDef)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
-    def testWriteErrorTermsCodeCalibration(self):
+    def testWriteErrorTermsCodeReflectCalibration(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['ReflectCalibration','ThruCalibration','ExCalibration']
-        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+        defName=['ReflectCalibration']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteErrorTermsCodeThruCalibration(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['ThruCalibration']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteErrorTermsCodeExCalibration(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['ExCalibration']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteErrorTermsCodeCalibrationTransferThru(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
@@ -652,8 +677,18 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testWriteErrorTermsCodeDut(self):
         fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
         className='ErrorTerms'
-        defName=['DutCalculation','DutCalculationAlternate','Fixture']
+        defName=['DutCalculation','DutUnCalculation']
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteErrorTermsCodeDutEnforceReciprocity(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['_EnforceReciprocity']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteErrorTermsCodeFixture(self):
+        fileName="../../SignalIntegrity/Lib/Measurement/Calibration/ErrorTerms.py"
+        className='ErrorTerms'
+        defName=['Fixture']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteCalibrationKitCode(self):
         fileName="../../SignalIntegrity/Lib/Measurement/CalKit/CalibrationKit.py"
         className='CalibrationKit'
@@ -719,6 +754,23 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='TDRWaveformToSParameterConverter'
         defName=['Convert']
         self.WriteClassCode(fileName,className,defName)
-
+    def testWriteWaveletCode(self):
+        fileName='../../SignalIntegrity/Lib/Wavelets/Wavelets.py'
+        className='Wavelet'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        self.WriteClassCode(fileName,className,defName,lineDefs=True)
+    def testWriteWaveletDenoiserCode(self):
+        fileName="../../SignalIntegrity/Lib/Wavelets/WaveletDenoiser.py"
+        className='WaveletDenoiser'
+        defName=['DenoisedWaveform']
+        self.WriteClassCode(fileName,className,defName)
+    def testWriteWaveletDaubechies4(self):
+        fileName="../../SignalIntegrity/Lib/Wavelets/Wavelets.py"
+        className='WaveletDaubechies4'
+        defName=['__init__']
+        self.WriteClassCode(fileName,className,defName)
 if __name__ == '__main__':
     unittest.main()

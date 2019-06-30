@@ -101,8 +101,7 @@ class LevMar(CallBacker):
             for r in range(R):
                 J[r][m]=pFpam[r][0]
         return J
-    @staticmethod
-    def AdjustVariablesAfterIteration(a):
+    def AdjustVariablesAfterIteration(self,a):
         """AdjustVariablesAfterIteration
         @param a list of lists matrix a
         a contains the new variables produced as a result of an iteration

@@ -19,10 +19,12 @@ StepWaveform.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+import math
 
 class StepWaveform(Waveform):
     """step waveform"""
-    def __init__(self,td,Amplitude=1.,StartTime=0.):
+    rtvsT=0.5903445
+    def __init__(self,td,Amplitude=1.,StartTime=0.,risetime=0.):
         """Constructor
 
         constructs a step waveform.
@@ -30,10 +32,25 @@ class StepWaveform(Waveform):
         @param td instance of class TimeDescriptor containing time axis of waveform.
         @param Amplitude (optional) float amplitude of step (defaults to unity).
         @param StartTime (optional) float starting time of the pulse (defaults to zero).
+        @param risetime (optional) float risetime in seconds (defaults to 0.)
 
         @note The amplitude can be positive or negative, with negative providing a negative
         pulse.
         @note The step starts at the first sample point after the start time specified.
+        @note actual risetime used is the sample period if less than that is specified
+        @note the risetime is applied such that the step reaches half amplitude at the start
+        time specified.  Please note the expected non-causality.
         """
         x=[0 if t < StartTime else Amplitude for t in td.Times()]
+        T=risetime/self.rtvsT
+        rcStart=max(0,td.IndexOfTime(StartTime-T/2.))
+        if td.TimeOfPoint(rcStart)<StartTime-T/2: rcStart=min(rcStart+1,len(td)-1)
+        rcEnd=min(len(td)-1,td.IndexOfTime(StartTime+T/2.))
+        if td.TimeOfPoint(rcEnd)>StartTime+T/2: rcEnd=max(rcEnd-1,0)
+        for i in range(rcStart,rcEnd+1):
+            try:
+                x[i]=Amplitude*\
+                    (math.sin((td.TimeOfPoint(i)-StartTime)/T*math.pi)+1.)/2.
+            except ZeroDivisionError:
+                pass
         Waveform.__init__(self,td,x)

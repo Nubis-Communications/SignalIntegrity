@@ -33,6 +33,10 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriodFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePointsFrame=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
+        PropertiesDialog.bind(self,'<Return>',self.ok)
+        PropertiesDialog.bind(self,'<Escape>',self.cancel)
+        PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
+        self.Save()
         self.Finish()
 
     def onendFrequencyEntered(self,event):
@@ -92,3 +96,26 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriodFrame.UpdateStrings()
         self.timePointsFrame.UpdateStrings()
         self.impulseResponseLengthFrame.UpdateStrings()
+
+    def onClosing(self):
+        self.ok(None)
+
+    def ok(self,event):
+        self.parent.statusbar.set('Calculation Properties Modified')
+        self.parent.history.Event('modify calculation properties')
+        PropertiesDialog.destroy(self)
+        
+    def cancel(self,event):
+        self.Restore()
+        PropertiesDialog.destroy(self)
+
+    def Save(self):
+        self.saved={'EndFrequency':self.project['EndFrequency'],
+                    'FrequencyPoints':self.project['FrequencyPoints'],
+                    'UserSampleRate':self.project['UserSampleRate']}
+    
+    def Restore(self):
+        for key in self.saved:
+            self.project[key]=self.saved[key]
+        self.project.CalculateOthersFromBaseInformation()
+

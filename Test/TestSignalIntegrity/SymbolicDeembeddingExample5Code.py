@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 ds=si.sd.DeembedderSymbolic(size='small')
 ds.AddDevice('D1',2)
 ds.AddDevice('D2',2)

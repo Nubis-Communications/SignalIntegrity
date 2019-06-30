@@ -242,12 +242,20 @@ class SParametersDialog(tk.Toplevel):
         bottomFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         topLeftFrame=tk.Frame(topFrame)
         topLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        self.topLeftLabel = tk.Label(topLeftFrame,fg='black')
+        self.topLeftLabel.pack(fill=tk.X)
         topRightFrame=tk.Frame(topFrame)
         topRightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        self.topRightLabel = tk.Label(topRightFrame,fg='black')
+        self.topRightLabel.pack(fill=tk.X)
         bottomLeftFrame=tk.Frame(bottomFrame)
         bottomLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        self.bottomLeftLabel = tk.Label(bottomLeftFrame,fg='black')
+        self.bottomLeftLabel.pack(fill=tk.X)
         bottomRightFrame=tk.Frame(bottomFrame)
         bottomRightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        self.bottomRightlabel = tk.Label(bottomRightFrame,fg='black')
+        self.bottomRightlabel.pack(fill=tk.X)
 
         self.topLeftFigure=Figure(figsize=(5,2), dpi=100)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
@@ -314,6 +322,12 @@ class SParametersDialog(tk.Toplevel):
             self.EnforceCausalityDoer.Activate(False)
             self.WaveletDenoiseDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
+
+            self.properties['Zoom.Times.Join.All']=True
+            self.properties['Zoom.Frequencies.Join.All']=True
+            self.properties['Zoom.Vertical.Join.All']=True
+            self.UpdatePropertiesFromSParameters()
+            self.ZoomJoinActivations()
 
         self.buttonLabels=buttonLabels
 
@@ -890,6 +904,7 @@ class SParametersDialog(tk.Toplevel):
                 color='red')
 
         self.topLeftPlotProperties=self.plotProperties['Magnitude']
+        self.topLeftLabel.config(text='Magnitude')
 
         if not self.topLeftPlotProperties['XInitialized']:
             self.topLeftPlotProperties['MinX']=min(x)
@@ -941,6 +956,7 @@ class SParametersDialog(tk.Toplevel):
                 self.topRightPlot.plot(x,y)
 
         self.topRightPlotProperties=self.plotProperties['Phase']
+        self.topRightLabel.config(text='Phase')
 
         if not self.topRightPlotProperties['XInitialized']:
             self.topRightPlotProperties['MinX']=min(x)
@@ -997,6 +1013,7 @@ class SParametersDialog(tk.Toplevel):
                     color='red')
 
             self.bottomLeftPlotProperties=self.plotProperties['Impulse']
+            self.bottomLeftLabel.config(text='Impulse Response')
 
             if not self.bottomLeftPlotProperties['XInitialized']:
                 self.bottomLeftPlotProperties['MinX']=min(x)
@@ -1025,6 +1042,7 @@ class SParametersDialog(tk.Toplevel):
             self.bottomRightToolbar.update()
 
             if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                self.bottomRightlabel.config(text='Impdedance Profile')
                 self.bottomRightPlotProperties=self.plotProperties['Impedance']
                 Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
@@ -1035,6 +1053,7 @@ class SParametersDialog(tk.Toplevel):
                 if not self.bottomRightPlotProperties['YInitialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,Z0-1)
             else:
+                self.bottomRightlabel.config(text='Step Response')
                 self.bottomRightPlotProperties=self.plotProperties['Step']
                 self.bottomRightPlot.set_ylabel('amplitude',fontsize=10)
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
@@ -1236,7 +1255,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.topLeftFigure)
+            si.test.PlotTikZ(filename,self.topLeftFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('Magnitude.tex', ''))
@@ -1250,7 +1269,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.topRightFigure)
+            si.test.PlotTikZ(filename,self.topRightFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('Phase.tex', ''))
@@ -1264,7 +1283,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.bottomLeftFigure)
+            si.test.PlotTikZ(filename,self.bottomLeftFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
         fp=FileParts(filename.replace('ImpulseResponse.tex', ''))
@@ -1278,7 +1297,7 @@ class SParametersDialog(tk.Toplevel):
             return
 
         try:
-            PlotTikZ(filename,self.bottomRightFigure)
+            si.test.PlotTikZ(filename,self.bottomRightFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 

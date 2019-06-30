@@ -57,6 +57,7 @@ class Calibration(object):
                                 for _ in range(self.ports)]
         self.ET=[ErrorTerms().InitializeFromFixtures([fixture[n]
                 for fixture in fixtureList]) for n in range(len(self))]
+        return self
     def __getitem__(self,item): return self.ET[item]
     """overloads [item]
     @param item integer row of error terms matrix to access
@@ -132,6 +133,7 @@ class Calibration(object):
                         lines.append('%15.10e ' % et.real + '%15.10e\n' % et.imag)
         with open(filename,'w') as f:
             f.writelines(lines)
+        return self
     def ReadFromFile(self,filename):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
@@ -277,8 +279,7 @@ class Calibration(object):
         @param force (optional) boolean whether to force it to calculate the error terms.
         @remark If error terms have not been calculated or force, then the error terms are calculated
         from instances of CalibrationMeasurement provided during the calibration."""
-        if (not self.ET is None) and (not force):
-            return self
+        if (not self.ET is None) and (not force): return self
         self.ET=[ErrorTerms().Initialize(self.ports) for _ in range(len(self))]
         measurements=copy.deepcopy(self.calibrationMatrix)
         self._CalculateReflectErrorTerms(measurements)
@@ -287,7 +288,7 @@ class Calibration(object):
         self._CalculateThruErrorTerms(measurements)
         self._CalculateTransferThruErrorTerms()
         return self
-    def DutCalculationAlternate(self,sRaw,portList=None):
+    def DutCalculationAlternate(self,sRaw,portList=None,reciprocal=False):
         """Alternate Dut Calculation
         @deprecated This provides a DUT calculation according to the Wittwer method,
         but a better,simpler method has been found.
@@ -298,12 +299,14 @@ class Calibration(object):
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @param sRaw instance of class SParameters of the raw measurement of the DUT.
         @param portList (optional) list of zero based port numbers of the DUT
+        @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return instance of class SParameters of the calibrated DUT measurement.
+        @remark if reciprocity is True, the reciprocity is enforced in the calculation
         """
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculationAlternate(sRaw[n],portList)
+        return SParameters(self.f,[self[n].DutCalculationAlternate(sRaw[n],portList,reciprocal)
                                    for n in range(len(self))])
-    def DutCalculation(self,sRaw,portList=None):
+    def DutCalculation(self,sRaw,portList=None,reciprocal=False):
         """calculates the Dut.\n
         converts the raw measured s-parameters of the DUT into calibrated s-parameter
         measurements.\n
@@ -311,12 +314,14 @@ class Calibration(object):
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
         @param sRaw instance of class SParameters of the raw measurement of the DUT.
         @param portList (optional) list of zero based port numbers of the DUT
+        @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return instance of class SParameters of the calibrated DUT measurement.
+        @remark if reciprocity is True, the reciprocity is enforced in the calculation
         """
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
+        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList,reciprocal)
                                    for n in range(len(self))])
-    def DutUnCalculation(self,S,portList=None):
+    def DutUnCalculationAlternate(self,S,portList=None):
         """Un-calcualates the DUT.\n
         This calculates the expected raw measured DUT based on the DUT actually calculated.\n
         @see DutCalculation
@@ -325,7 +330,10 @@ class Calibration(object):
         @return instance of class SParameters of the raw measured s-parameters that calculated this DUT
         @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
         number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
-        @todo There must be a faster and more elegant way to do this.  And at the ErrorTerms level.
+        @deprecated This method utilizes fixtures and embeds them.  Originally, I could not figure out
+        how to do this with just the error-terms.  This was figured out finally and is more efficient, but
+        this method is retained for comparison of results.
+        @see DutUnCalculation
         """
         self.CalculateErrorTerms()
         if portList is None: portList=[p for p in range(self.ports)]
@@ -349,5 +357,17 @@ class Calibration(object):
                 for r in range(ports):
                     rm[r][p]=spp[r][p]
             rd[n]=rm
-
         return SParameters(self.f,rd)
+    def DutUnCalculation(self,S,portList=None):
+        """Un-calcualates the DUT.\n
+        This calculates the expected raw measured DUT based on the DUT actually calculated.\n
+        @see DutCalculation
+        @param S instance of class SParameters of measured DUT from these error-terms.
+        @param portList (optional) list of zero based port numbers used for the DUT calcualtion
+        @return instance of class SParameters of the raw measured s-parameters that calculated this DUT
+        @remark If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
+        number of ports in sRaw, otherwise ports can be specified where the DUT is connected.
+        """
+        self.CalculateErrorTerms()
+        return SParameters(self.f,[self[n].DutUnCalculation(S[n],portList)
+                                   for n in range(len(self))])

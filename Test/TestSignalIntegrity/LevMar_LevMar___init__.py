@@ -27,8 +27,7 @@ class LevMar(CallBacker):
             for r in range(R):
                 J[r][m]=pFpam[r][0]
         return J
-    @staticmethod
-    def AdjustVariablesAfterIteration(a):
+    def AdjustVariablesAfterIteration(self,a):
         return a
     def Initialize(self,a,y,w=None):
         self.m_a = copy.copy(a)

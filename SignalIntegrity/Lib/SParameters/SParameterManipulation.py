@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import linalg,dot,diag
+from numpy import linalg,dot,diag,matrix
 import math
 
 class SParameterManipulation(object):
@@ -73,15 +73,12 @@ class SParameterManipulation(object):
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
                 ir=fr.ImpulseResponse()
                 if ir is not None:
-                    t=ir.td
-                    Ts=1./ir.td.Fs
+                    t=ir.td; Ts=1./ir.td.Fs
                     for k in range(len(t)):
-                        if t[k]<=-Ts:
-                            ir[k]=0.
+                        if t[k]<=-Ts: ir[k]=0.
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()
-                    for n in range(len(frv)):
-                        self.m_d[n][toPort][fromPort]=frv[n]
+                    for n in range(len(frv)): self.m_d[n][toPort][fromPort]=frv[n]
         return self
     def WaveletDenoise(self,threshold=0.0001):
         """Denoises the s-parameters
@@ -93,7 +90,7 @@ class SParameterManipulation(object):
         w=WaveletDaubechies4()
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
-                fr=self.FrequencyResponse(toPort,fromPort)
+                fr=self.FrequencyResponse(toPort+1,fromPort+1)
                 ir=fr.ImpulseResponse()
                 if ir is not None:
                     irl=len(ir)
@@ -197,4 +194,12 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        return self
+    def EnforceReciprocity(self):
+        for n in range(len(self.m_d)):
+            for r in range(len(self.m_d[n])):
+                for c in range(r,len(self.m_d[n])):
+                    if c>r:
+                        self.m_d[n][r][c]=(self.m_d[n][r][c]+self.m_d[n][c][r])/2.
+                        self.m_d[n][c][r]=self.m_d[n][r][c]
         return self

@@ -25,8 +25,7 @@ class Calibration(object):
         return self
 ...
     def CalculateErrorTerms(self,force=False):
-        if (not self.ET is None) and (not force):
-            return self
+        if (not self.ET is None) and (not force): return self
         self.ET=[ErrorTerms().Initialize(self.ports) for _ in range(len(self))]
         measurements=copy.deepcopy(self.calibrationMatrix)
         self._CalculateReflectErrorTerms(measurements)
@@ -36,8 +35,8 @@ class Calibration(object):
         self._CalculateTransferThruErrorTerms()
         return self
 ...
-    def DutCalculation(self,sRaw,portList=None):
+    def DutCalculation(self,sRaw,portList=None,reciprocal=False):
         self.CalculateErrorTerms()
-        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList)
+        return SParameters(self.f,[self[n].DutCalculation(sRaw[n],portList,reciprocal)
                                    for n in range(len(self))])
 ...

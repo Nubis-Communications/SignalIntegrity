@@ -25,6 +25,7 @@ import unittest
 from TestAdaptDecimate import *
 from TestBook import *
 from TestBookDevices import *
+from TestCascading import *
 from TestChirpZTransform import *
 from TestClassWriter import *
 from TestCommonElements import *
@@ -40,6 +41,7 @@ from TestImpedanceProfile import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *
+from TestPowerDelivery import *
 from TestPRBS import *
 from TestRefImp import *
 from TestRLGC import *
@@ -54,6 +56,7 @@ from TestSParameterFile import *
 from TestSplines import *
 from TestSubcircuit import *
 from TestSystemDescription import *
+from TestTDRErrorTerms import *
 from TestTeeProblem import *
 from TestTimeDomain import *
 from TestTline import *

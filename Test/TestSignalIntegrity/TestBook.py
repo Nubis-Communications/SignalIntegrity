@@ -272,10 +272,9 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         sspn.AddPort('L', 1, 1)  # add a port at port 1 of left device
         sspn.AddPort('R', 2, 2)  # add a port at port 2 of right device
         sspn.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
-        fl=[i*100.*1e6 for i in range(100+1)]
+        fl=[i*100.*1e6 for i in range(100+1)]; sp=[]
         spl=si.sp.SParameterFile('cable.s2p',50.).Resample(fl)
         spr=si.sp.SParameterFile('filter.s2p',50.).Resample(fl)
-        sp=[]
         for n in range(len(fl)):
             sspn.AssignSParameters('L',spl[n])
             sspn.AssignSParameters('R',spr[n])
@@ -292,11 +291,9 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         sspn.AddPort('L', 1, 1)  # add a port at port 1 of left device
         sspn.AddPort('R', 2, 2)  # add a port at port 2 of right device
         sspn.ConnectDevicePort('L', 2, 'R', 1)  # connect the other ports
-        fl=[i*100.*1e6 for i in range(100+1)]
-        spdl=[]
+        fl=[i*100.*1e6 for i in range(100+1)]; spdl=[]; sp=[]
         spdl.append(('L',si.sp.SParameterFile('cable.s2p',50.).Resample(fl)))
         spdl.append(('R',si.sp.SParameterFile('filter.s2p',50.).Resample(fl)))
-        sp=[]
         for n in range(len(fl)):
             for ds in spdl: sspn.AssignSParameters(ds[0],ds[1][n])
             sp.append(sspn.SParameters())
@@ -428,20 +425,20 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3 Parser File')
     def testSymbolicDeembeddingExample1Old(self):
         d=si.sd.Deembedder()
-        d.AddDevice('D',2)
+        d.AddDevice('S',2)
         d.AddUnknown('Su',1)
-        d.ConnectDevicePort('D',2,'Su',1)
-        d.AddPort('D',1,1)
+        d.ConnectDevicePort('S',2,'Su',1)
+        d.AddPort('S',1,1)
         symbolic=si.sd.DeembedderSymbolic(d,size='small')
         symbolic.SymbolicSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 1')
     def testSymbolicDeembeddingExample1(self):
         ds=si.sd.DeembedderSymbolic(size='small',known='\\Gamma_{msd}')
-        ds.AddDevice('D',2)
+        ds.AddDevice('S',2)
         ds.AddUnknown('\\Gamma_{dut}',1)
-        ds.ConnectDevicePort('D',2,'\\Gamma_{dut}',1)
-        ds.AddPort('D',1,1)
+        ds.ConnectDevicePort('S',2,'\\Gamma_{dut}',1)
+        ds.AddPort('S',1,1)
         ds.SymbolicSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ds,'Book Example Symbolic Deembedding Solution 1')
@@ -759,14 +756,14 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Deembedding Solution 5 Parser File')
     def testSymbolicVirtualProbeExample1(self):
         vps=si.sd.VirtualProbeSymbolic(size='small')
-        vps.AddDevice('T',1)
+        vps.AddDevice('\\Gamma_T',1)
         vps.AddDevice('C',2)
-        vps.AddDevice('R',1)
-        vps.ConnectDevicePort('T',1,'C',1)
-        vps.ConnectDevicePort('C',2,'R',1)
-        vps.AssignM('T',1,'m1')
-        vps.pMeasurementList = [('T',1)]
-        vps.pOutputList = [('R',1)]
+        vps.AddDevice('\\Gamma_R',1)
+        vps.ConnectDevicePort('\\Gamma_T',1,'C',1)
+        vps.ConnectDevicePort('C',2,'\\Gamma_R',1)
+        vps.AssignM('\\Gamma_T',1,'m1')
+        vps.pMeasurementList = [('\\Gamma_T',1)]
+        vps.pOutputList = [('\\Gamma_R',1)]
         vps.LaTeXEquations().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),vps,'Book Example Symbolic Virtual Probe 1')

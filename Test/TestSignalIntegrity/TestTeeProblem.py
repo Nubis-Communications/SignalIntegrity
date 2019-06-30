@@ -39,6 +39,7 @@ class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
     def id(self):
         return 'TestTeeProblem.'+'.'.join(unittest.TestCase.id(self).split('.')[-2:])
     def setUp(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
         si.sd.Numeric.trySVD=True
         unittest.TestCase.setUp(self)
     def tearDown(self):

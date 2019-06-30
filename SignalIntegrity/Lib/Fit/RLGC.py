@@ -62,8 +62,9 @@ class RLGCFitter(LevMar):
         self.rho2=[r*r for r in self.rho]
         self.eg=[cmath.exp(-g) for g in self.gamma]
         self.e2g=[egx*egx for egx in self.eg]
-        self.S11=[r*(1-e2)/(1-r2*e2) for (r,e2,r2) in zip(self.rho,self.e2g,self.rho2)]
-        self.S12=[(1-r2)*e/(1-r2*e2) for (r2,e,e2) in zip(self.rho2,self.eg,self.e2g)]
+        self.D=[1-r2*e2 for (e2,r2) in zip(self.e2g,self.rho2)]
+        self.S11=[r*(1-e2)/d for (r,e2,d) in zip(self.rho,self.e2g,self.D)]
+        self.S12=[(1-r2)*e/d for (r2,e,d) in zip(self.rho2,self.eg,self.D)]
         S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
         vS=self.VectorizeSp(S)
         return vS
@@ -81,35 +82,25 @@ class RLGCFitter(LevMar):
                 for (z,y,dz,dy) in zip(self.Z,self.Y,dZ[i],dY[i])]
                     for i in range(6)]
         drho=[[2.*dzc*self.Z0/((zc+self.Z0)*(zc+self.Z0))
-                for (zc,dzc) in zip(self.Zc,dZc[i])]
-                    for i in range(6)]
-        e3g=[egx*egx*egx for egx in self.eg]
-        e4g=[egx*egx*egx*egx for egx in self.eg]
-        rho3=[r*r*r for r in self.rho]
-        rho4=[r*r*r*r for r in self.rho]
-        dS11=[[(2*r*e2-2.*r3*e2)/((r2*e2-1)*(r2*e2-1))*dg+
-            (-e2-r2*e4+1.+r2*e2)/((r2*e2-1)*(r2*e2-1))*dr
-                for (r,r2,r3,r4,e,e2,e3,e4,dg,dr) in
-                    zip(self.rho,self.rho2,rho3,rho4,self.eg,
-                        self.e2g,e3g,e4g,dgammadx,drhodx)]
-                            for (dgammadx,drhodx) in zip(dgamma,drho)]
-        dS12=[[(e3*r4-e-e3*r2+e*r2)/((r2*e2-1)*(r2*e2-1))*dg+
-            (-2.*e*r+2.*e3*r)/((r2*e2-1)*(r2*e2-1))*dr
-                for (r,r2,r3,r4,e,e2,e3,e4,dg,dr) in
-                    zip(self.rho,self.rho2,rho3,rho4,self.eg,
-                        self.e2g,e3g,e4g,dgammadx,drhodx)]
-                            for (dgammadx,drhodx) in zip(dgamma,drho)]
+                for (zc,dzc) in zip(self.Zc,dZc[i])] for i in range(6)]
+        D2=[d*d for d in self.D]
+        dS11=[[-2.*r*e2*(r2-1)/d2*dg+(1-e2)*(1+r2*e2)/d2*dr
+                for (r,r2,e2,d2,dg,dr) in
+                    zip(self.rho,self.rho2,self.e2g,D2,dgdx,drdx)]
+                            for (dgdx,drdx) in zip(dgamma,drho)]
+        dS12=[[e*(r2-1)*(1+r2*e2)/d2*dg-2.*r*e*(1-e2)/d2*dr
+                for (r,r2,e,e2,d2,dg,dr) in
+                    zip(self.rho,self.rho2,self.eg,self.e2g,D2,dgdx,drdx)]
+                            for (dgdx,drdx) in zip(dgamma,drho)]
         dS=[[[[dS11[i][n],dS12[i][n]],[dS12[i][n],dS11[i][n]]]
-                for n in range(len(self.f))]
-                    for i in range(6)]
+                for n in range(len(self.f))] for i in range(6)]
         vdS=[self.VectorizeSp(ds) for ds in dS]
         return [[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))]
     def VectorizeSp(self,sp):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]
         return v
-    @staticmethod
-    def AdjustVariablesAfterIteration(a):
+    def AdjustVariablesAfterIteration(self,a):
         for r in range(len(a)):
             a[r][0]=abs(a[r][0].real)
         return a
@@ -219,8 +210,7 @@ class RLGCFitter2(LevMar):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]
         return v
-    @staticmethod
-    def AdjustVariablesAfterIteration(a):
+    def AdjustVariablesAfterIteration(self,a):
         for r in range(len(a)):
             a[r][0]=abs(a[r][0].real)
         return a

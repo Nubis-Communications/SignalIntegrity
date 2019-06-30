@@ -68,7 +68,7 @@ class CalculationProperty(tk.Frame):
                 self.project[self.projectPath]=self.GetString()
         if not self.enteredCallback is None:
             self.enteredCallback(event)
-        self.onUntouchedLoseFocus(event)
+        return self.onUntouchedLoseFocus(event)
     def onTouched(self,event):
         self.UpdateStrings()
     def onCleared(self,event):
@@ -77,6 +77,7 @@ class CalculationProperty(tk.Frame):
         self.UpdateStrings()
     def onUntouchedLoseFocus(self,event):
         self.parentFrame.focus()
+        return "break"
     def Show(self,whetherTo=True):
         if whetherTo:
             self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)

@@ -23,6 +23,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import math
 import os
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
 class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -33,12 +34,8 @@ class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelp
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
         sdp=si.p.SystemDescriptionParser().AddLines([
-            'device MM 4 mixedmode',
-            'device S 2',
-            'connect S 1 MM 1',
-            'connect MM 2 S 2',
-            'port 1 MM 3',
-            'port 2 MM 4'])
+            'device MM 4 mixedmode','device S 2','connect S 1 MM 1',
+            'connect MM 2 S 2','port 1 MM 3 2 MM 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
@@ -50,15 +47,8 @@ class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelp
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
         sdp=si.p.SystemDescriptionParser().AddLines([
-            'device MM 4 mixedmode',
-            'device R1 2',
-            'device R2 2',
-            'device R3 1',
-            'connect MM 1 R1 2',
-            'connect MM 2 R2 1',
-            'port 1 MM 3',
-            'port 2 MM 4',
-            'connect R1 1 R2 2 R3 1'])
+            'device MM 4 mixedmode','device R1 2','device R2 2','device R3 1','connect MM 1 R1 2',
+            'connect R1 1 R2 2 R3 1','connect MM 2 R2 1','port 1 MM 3 2 MM 4',])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('R1',si.sy.SeriesZ('Z_1'))
         ssps.AssignSParameters('R2',si.sy.SeriesZ('Z_2'))
@@ -74,14 +64,8 @@ class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelp
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         # pragma: include
         sdp=si.p.SystemDescriptionParser().AddLines([
-            'device MM 4 mixedmode',
-            'device Z3 2',
-            'device Z1 1',
-            'device Z2 1',
-            'connect MM 1 Z3 2 Z1 1',
-            'connect MM 2 Z3 1 Z2 1',
-            'port 1 MM 3',
-            'port 2 MM 4'])
+            'device MM 4 mixedmode','device Z3 2','device Z1 1','device Z2 1',
+            'connect MM 1 Z3 2 Z1 1','connect MM 2 Z3 1 Z2 1','port 1 MM 3 2 MM 4'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.AssignSParameters('Z3',si.sy.SeriesZ('Z_3'))
         ssps.AssignSParameters('Z1',si.sy.ShuntZ(1,'Z_1'))
@@ -92,6 +76,16 @@ class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelp
         self.CheckSymbolicResult(self.id(), ssps, self.id())
     def testPiTerminationSymbolicCode(self):
         self.WriteCode('TestMixedModeTermination.py','testPiTerminationMixedModeSymbolic(self)',self.standardHeader)
-
+    def testMixedModeConversion(self):
+        import SignalIntegrity.App as siapp
+        pysi=siapp.SignalIntegrityAppHeadless()
+        pysi.OpenProjectFile('MixedMode.si')
+        netlist=[line.replace(' file None','') for line in pysi.Drawing.schematic.NetList().Text()]
+        sd=si.p.SystemDescriptionParser().AddLines(netlist).SystemDescription()
+        sd.AssignSParameters('MM1',si.dev.MixedModeConverter())
+        sd.AssignSParameters('MM2',si.dev.MixedModeConverter())
+        ssps=si.sd.SystemSParametersSymbolic(sd,size='small')
+        ssps.DocStart().LaTeXSolution().DocEnd().WriteToFile('mixedmode.tex')
+        
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 ssps=si.sd.SystemSParametersSymbolic()
 ssps.AddDevice('S',2)
 ssps.AddDevice('\\Gamma_l',1)

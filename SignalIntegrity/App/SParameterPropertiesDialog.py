@@ -40,11 +40,15 @@ class SParameterPropertiesDialog(PropertiesDialog):
         self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
         self.referenceImpedanceEntryFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.referenceImpedanceEntryFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.referenceImpedanceFrame=CalculationPropertySI(self.referenceImpedanceEntryFrame,'Reference Impedance',self.UpdateStrings,None,self.project,'ReferenceImpedance','Ohm')
+        self.referenceImpedanceFrame=CalculationPropertySI(self.referenceImpedanceEntryFrame,'Reference Impedance',self.onReferenceImpedanceEntered,None,self.project,'ReferenceImpedance','Ohm')
         self.timeLimitsFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.timeLimitsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.negativeTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Negative Time Limit',self.onNegativeTimeLimitEntered,None,self.project,'TimeLimitNegative','s')
         self.positiveTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Positive Time Limit',self.onPositiveTimeLimitEntered,None,self.project,'TimeLimitPositive','s')
+        PropertiesDialog.bind(self,'<Return>',self.ok)
+        PropertiesDialog.bind(self,'<Escape>',self.cancel)
+        PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
+        self.Save()
         self.Finish()
 
     def onInherit(self):
@@ -100,6 +104,9 @@ class SParameterPropertiesDialog(PropertiesDialog):
         if self.project['TimeLimitPositive']<0.:
             self.project['TimeLimitPositive']=0.
             self.positiveTimeFrame.UpdateStrings()
+    
+    def onReferenceImpedanceEntered(self,event):
+        self.UpdateStrings()
 
     def UpdateStrings(self):
         self.project.CalculateOthersFromBaseInformation()
@@ -114,4 +121,27 @@ class SParameterPropertiesDialog(PropertiesDialog):
 
     def destroy(self):
         PropertiesDialog.destroy(self)
+
+    def onClosing(self):
+        self.ok(None)
+
+    def ok(self,event):
+        self.destroy()
         self.parent.UpdateSParametersFromProperties()
+        
+    def cancel(self,event):
+        self.Restore()
+        self.destroy()
+
+    def Save(self):
+        self.saved={'EndFrequency':self.project['EndFrequency'],
+                    'FrequencyPoints':self.project['FrequencyPoints'],
+                    'UserSampleRate':self.project['UserSampleRate'],
+                    'ReferenceImpedance':self.project['ReferenceImpedance'],
+                    'TimeLimitNegative':self.project['TimeLimitNegative'],
+                    'TimeLimitPositive':self.project['TimeLimitPositive']}
+    
+    def Restore(self):
+        for key in self.saved:
+            self.project[key]=self.saved[key]
+        self.project.CalculateOthersFromBaseInformation()

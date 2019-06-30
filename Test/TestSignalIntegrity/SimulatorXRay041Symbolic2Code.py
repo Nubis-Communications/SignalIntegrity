@@ -1,5 +1,4 @@
 import SignalIntegrity.Lib as si
-
 sp = si.p.SimulatorParser()
 sp.AddLine('device X 4')
 sp.AddLine('device P 2')
