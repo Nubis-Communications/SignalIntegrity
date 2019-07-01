@@ -81,6 +81,45 @@ def CurrentAmplifierThreePort(G,Zi,Zo):
             [S21,S22,S23],
             [S31,S32,S33]]
 
+def CurrentAmplifierThreePortWithoutDenom(G,Zi,Zo):
+    """symbolic three port current amplifier
+    @param G string current gain
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Lib.Devices.CurrentAmplifier.CurrentAmplifierThreePort
+    @remark this returns the s-parameter matrix without the denominator element
+    @see CurrentAmplifierThreePortDenom
+    """
+    S11=Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zi+'-'+G+'\\cdot '+Zo+'\\right)-Z0^2'
+    S12='2\\cdot Z0^2'
+    S13='2\\cdot Z0^2+2\\cdot '+Zo+'\\cdot Z0'
+    S21='2\\cdot Z0^2+2\\cdot '+G+'\\cdot '+Zo+'\\cdot Z0'
+    S22=Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zo+'-'+G+'\\cdot '+Zo+'\\right)-Z0^2'
+    S23='2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zi+'-2\\cdot '+G+'\\cdot '+Zo+'\\right)'
+    S31='2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zo+'-2\\cdot '+G+'\\cdot '+Zo+'\\right)'
+    S32='2\\cdot Z0^2+2\\cdot '+Zi+'\\cdot Z0'
+    S33=Zo+'\\cdot '+Zi+'-Z0^2+'+G+'\\cdot '+Zo+'\\cdot Z0'
+    return [[S11,S12,S13],
+            [S21,S22,S23],
+            [S31,S32,S33]]
+
+def CurrentAmplifierThreePortDenom(G,Zi,Zo):
+    """symbolic three port current amplifier
+    @param G string current gain
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return the denominator element common in the s-parameter matrix as a string
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Lib.Devices.CurrentAmplifier.CurrentAmplifierThreePort
+    @see CurrentAmplifierThreePortWithoutDenom
+    """
+    D='3\\cdot Z0^2+\\left(2\\cdot '+Zo+'+2\\cdot '+Zi+'-'+G+'\\cdot '+Zo+'\\right)\\cdot Z0+'+Zo+'\\cdot '+Zi
+    return D
+
 def CurrentAmplifierTwoPort(G,Zi,Zo):
     """symbolic two port current amplifier
     @param G string current gain

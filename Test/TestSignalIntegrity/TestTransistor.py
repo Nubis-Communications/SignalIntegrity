@@ -29,7 +29,8 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         unittest.TestCase.__init__(self,methodName)
     def testTransistorSimpleSymbolic(self):
         symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{multline}',eqsuffix='\\end{multline}')
-        symbolic._AddEq('\\mathbf{S}=\\ldots\\\\'+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePort('-g_m', 'r_{\\pi}', 'r_o')))
+        symbolic._AddEq('\\mathbf{S}=\\frac{1}{'+si.sy.TransconductanceAmplifierThreePortDenom('-g_m','r_{\\pi}','r_o')+
+                        '}\\cdot\\ldots\\\\\\ldots\\cdot '+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePortWithoutDenom('-g_m','r_{\\pi}','r_o')))
         symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
         # pragma: exclude
@@ -83,10 +84,10 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         symbolic._AddEq('\\mathbf{Ccs}='+ssps._LaTeXMatrix(Ccs))
         Cps=si.sy.ShuntZ(4,'\\frac{1}{C_{\\pi}\\cdot s}')
         symbolic._AddEq('\\mathbf{Cps}='+ssps._LaTeXMatrix(Cps))
-        T=si.sy.TransconductanceAmplifier(3,'-g_m', 'r_{\\pi}', 'r_o')
-        symbolic._AddEq('\\mathbf{T}=\\ldots')
+        T=si.sy.TransconductanceAmplifierThreePortWithoutDenom('-g_m','r_{\\pi}','r_o')
+        D=si.sy.TransconductanceAmplifierThreePortDenom('-g_m','r_{\\pi}','r_o')
+        symbolic._AddEq('\\mathbf{T}='+'\\frac{1}{'+D+'}'+'\\cdot\\ldots')
         symbolic._AddEq(ssps._LaTeXMatrix(T))
-        symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
