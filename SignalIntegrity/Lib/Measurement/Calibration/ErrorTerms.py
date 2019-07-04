@@ -80,7 +80,6 @@ class ErrorTerms(object):
                     self.ET[r][r][1]=fixtureList[r][r][r+self.numPorts]
                     self.ET[r][r][2]=fixtureList[r][r+self.numPorts][r+self.numPorts]
                 else:
-                    # Ex
                     self.ET[r][c][0]=fixtureList[c][r][c]
                     self.ET[r][c][1]=fixtureList[c][r][r+self.numPorts]
                     self.ET[r][c][2]=fixtureList[c][r+self.numPorts][r+self.numPorts]
@@ -265,7 +264,7 @@ class ErrorTerms(object):
             zeros((numPorts,numPorts),complex).tolist()]]
         for n in range(numPorts):
             ETn=self[pl[n]][pl[m]]
-            E[0][0][m][n]=ETn[0]
+            E[0][0][n][m]=ETn[0]
             E[0][1][n][n]=ETn[1]
             E[1][1][n][n]=ETn[2]
         E[1][0][m][m]=1.
