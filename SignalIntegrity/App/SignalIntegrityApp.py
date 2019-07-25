@@ -658,6 +658,14 @@ class SignalIntegrityApp(tk.Frame):
         progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
+            portdict={}
+            for device in self.Drawing.schematic.deviceList:
+                if device.PartPropertyByKeyword('partname').GetValue() == 'Port':
+                    delay=device.PartPropertyByKeyword('td').GetValue()
+                    portNumber=device.PartPropertyByKeyword('pn').GetValue()
+                    portdict[portNumber]=delay
+            td=[portdict[p+1] for p in range(len(portdict))]
+            sp=si.ip.PeeledLaunches(sp,td,method='estimated')
         except si.SignalIntegrityException as e:
             messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
             return

@@ -212,7 +212,8 @@ class DeviceIdealTransformer(Device):
 class Port(Device):
     def __init__(self,portNumber=1):
         netlist=DeviceNetListLine(devicename='port',showReference=False,showports=False,values=[('pn',False)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartPropertyPortNumber(portNumber)],partPicture=PartPictureVariablePort())
+        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartPropertyDelay(0.0),PartPropertyPortNumber(portNumber)],partPicture=PartPictureVariablePort())
+        self['td']['Visible']=False
 
 class DeviceGround(Device):
     def __init__(self):
