@@ -667,7 +667,7 @@ class SignalIntegrityApp(tk.Frame):
                     portNumber=device.PartPropertyByKeyword('pn').GetValue()
                     portdict[portNumber]=delay
             td=[portdict[p+1] for p in range(len(portdict))]
-            sp=si.ip.PeeledLaunches(sp,td,method='exact')
+            sp=si.ip.PeeledLaunches(sp,td,method='estimated')
         except si.SignalIntegrityException as e:
             messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
             return None
