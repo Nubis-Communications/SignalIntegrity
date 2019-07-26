@@ -139,6 +139,7 @@ class SignalIntegrityApp(tk.Frame):
         self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('Control-Help:Simulate')
         self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('Control-Help:Virtual-Probe')
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed')
+        self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
@@ -223,6 +224,7 @@ class SignalIntegrityApp(tk.Frame):
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
+        self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -641,7 +643,7 @@ class SignalIntegrityApp(tk.Frame):
     def onDeleteSelectedWire(self):
         self.Drawing.DeleteSelectedWire()
 
-    def onCalculateSParameters(self):
+    def CalculateSParameters(self):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
@@ -665,11 +667,47 @@ class SignalIntegrityApp(tk.Frame):
                     portNumber=device.PartPropertyByKeyword('pn').GetValue()
                     portdict[portNumber]=delay
             td=[portdict[p+1] for p in range(len(portdict))]
-            sp=si.ip.PeeledLaunches(sp,td,method='estimated')
+            sp=si.ip.PeeledLaunches(sp,td,method='exact')
         except si.SignalIntegrityException as e:
             messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
+            return None
+        return sp
+
+    def onCalculateSParameters(self):
+        sp=self.CalculateSParameters()
+        if sp is None:
             return
         SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+
+    def PrintProgress(self,iteration):
+        self.statusbar.set('Fitting - iteration:'+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.m_mse))
+
+    def PlotResult(self,iteration):
+        self.PrintProgress(iteration)
+        return
+
+    def onRLGC(self):
+        import SignalIntegrity.Lib as si
+        sp=self.CalculateSParameters()
+        if sp is None:
+            return
+        stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
+        threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
+        for k in range(len(stepResponse)):
+            if stepResponse[k]>threshold: break
+        dly=stepResponse.Times()[k]
+        rho=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=False).Measure(dly)
+        Z0=sp.m_Z0*(1.+rho)/(1.-rho)
+        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
+        #pragma: silent exclude
+        self.plotInitialized=False
+        #pragma: include
+        self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PlotResult)
+        #print(self.m_fitter.Results())
+        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
+        print(self.m_fitter.Results())
+        fitsp=si.sp.SParameters(sp.f(),[s for s in si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)])
+        SParametersDialog(self,fitsp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()

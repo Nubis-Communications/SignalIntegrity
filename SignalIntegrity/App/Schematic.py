@@ -1556,6 +1556,7 @@ class Drawing(tk.Frame):
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
+        numPortsFound=0
         foundAPort=False
         foundASource=False
         foundAnOutput=False
@@ -1572,6 +1573,7 @@ class Drawing(tk.Frame):
             deviceType = device['partname'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
+                numPortsFound=numPortsFound+1
             elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput']:
                 foundAnOutput = True
             elif deviceType == 'Stim':
@@ -1594,12 +1596,14 @@ class Drawing(tk.Frame):
                                     fill='black',outline='black')
         canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
         canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
+        canRLGC=canCalculateSParameters and (numPortsFound == 2)
         canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
         canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed
         self.parent.SimulateDoer.Activate(canSimulate)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
+        self.parent.RLGCDoer.Activate(canRLGC)
         self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.DeembedDoer.Activate(canDeembed)
         self.parent.ClearProjectDoer.Activate(foundSomething)
