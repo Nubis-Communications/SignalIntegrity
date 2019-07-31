@@ -73,8 +73,8 @@ class SignalIntegrityApp(tk.Frame):
 
         tk.Frame.__init__(self, self.root)
         self.pack(fill=tk.BOTH, expand=tk.YES)
-        SignalIntegrity.App.Installdir=os.path.dirname(os.path.abspath(__file__))+'/'
-        SignalIntegrity.App.IconsBaseDir=SignalIntegrity.App.Installdir+'icons/png/'
+        SignalIntegrity.App.InstallDir=os.path.dirname(os.path.abspath(__file__))+'/'
+        SignalIntegrity.App.IconsBaseDir=SignalIntegrity.App.InstallDir+'icons/png/'
         SignalIntegrity.App.IconsDir=SignalIntegrity.App.IconsBaseDir+'16x16/actions/'
 
         self.root.title(__project__+' - '+__version__)
