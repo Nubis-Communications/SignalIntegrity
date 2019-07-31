@@ -23,7 +23,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import math
 import os
-from App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
 class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):

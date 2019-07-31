@@ -83,12 +83,20 @@ class TestOperationalAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.
         sdp.AddLines(['device D 3',
             'port 1 D 1 2 D 2 3 D 3'])
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),
-            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}',size='small')
         D=si.sy.OperationalAmplifier('Z_i','Z_d','Z_o','G')
         ssps.AssignSParameters('D',D)
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Operational Amplifier Symbolic')
+    def testOperationalAmplifierSymbolic2(self):
+        symbolic=si.sd.Symbolic(size='small')
+        D=si.sy.OperationalAmplifier('Z_i','Z_d','Z_o','G')
+        symbolic._AddEq('\\mathbf{S}=\\ldots')
+        symbolic._AddEq('\\ldots ='+symbolic._LaTeXMatrix(D))
+        symbolic.Emit()
+        # pragma: exclude
+        self.CheckSymbolicResult(self.id(),symbolic,'Operational Amplifier Symbolic 2')
 
 if __name__ == '__main__':
     unittest.main()

@@ -55,8 +55,9 @@ def ShuntZTwoPort(Z,Z0=50.):
     @remark Ports 1 and 2 are connected together and to one side of the impedance.\n
     The other side of the impedance is tied to ground.
     """
-    return [[-Z0*Z0/(Z0*Z0+2.*Z*Z0),2.*Z0*Z/(Z0*Z0+2.*Z*Z0)],
-        [2.*Z0*Z/(Z0*Z0+2.*Z*Z0),-Z0*Z0/(Z0*Z0+2.*Z*Z0)]]
+    D=(Z0+2.*Z)
+    return [[-Z0/D,2.*Z/D],
+        [2.*Z/D,-Z0/D]]
 # pragma: silent exclude
 def ShuntZFourPort(Z,Z0=50.):
     """ShuntZFourPort

@@ -9,7 +9,7 @@ class ErrorTerms(object):
             zeros((numPorts,numPorts),complex).tolist()]]
         for n in range(numPorts):
             ETn=self[pl[n]][pl[m]]
-            E[0][0][m][n]=ETn[0]
+            E[0][0][n][m]=ETn[0]
             E[0][1][n][n]=ETn[1]
             E[1][1][n][n]=ETn[2]
         E[1][0][m][m]=1.

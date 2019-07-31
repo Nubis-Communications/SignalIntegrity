@@ -123,6 +123,15 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),ssps,'Transconductance Amplifier Three Port Symbolic')
+    def testTransconductanceAmplifierThreePortSymbolic2(self):
+        symbolic=si.sd.Symbolic(size='small')
+        S=si.sy.TransconductanceAmplifierThreePortWithoutDenom('\\delta','Z_i','Z_o')
+        D=si.sy.TransconductanceAmplifierThreePortDenom('\\delta','Z_i','Z_o')
+        symbolic._AddEq('\\mathbf{S}=\\frac{1}{'+D+'}\\cdot\\ldots')
+        symbolic._AddEq('\\ldots\\cdot '+symbolic._LaTeXMatrix(S))
+        symbolic.Emit()
+        # pragma: exclude
+        self.CheckSymbolicResult(self.id(),symbolic,'Transconductance Amplifier Three Port Symbolic 2')
     def testTransconductanceAmplifierThreePortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
         G=10. # gain

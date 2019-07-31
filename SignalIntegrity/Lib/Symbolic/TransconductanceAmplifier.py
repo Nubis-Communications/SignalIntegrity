@@ -18,6 +18,16 @@ TransconductanceAmplifier.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+def _LineReplacer(line):
+    if isinstance(line,list):
+        return [_LineReplacer(l) for l in line]
+    else:
+        line=line.replace('--','+')
+        line=line.replace('+-','-')
+        line=line.replace('-2\\cdot -','+2\\cdot ')
+        line=line.replace('+2\\cdot -','-2\\cdot ')
+        return line
+
 def TransconductanceAmplifier(P,G,Zi,Zo):
     """symbolic 2,3, and 4 port transconductance amplifier
     @param P integer number of ports (2,3,4)\n
@@ -77,9 +87,48 @@ def TransconductanceAmplifierThreePort(G,Zi,Zo):
     S31='\\frac{2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zo+'-2\\cdot '+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\right)}{'+D+'}'
     S32='\\frac{2\\cdot Z0^2+2\\cdot '+Zi+'\\cdot Z0}{'+D+'}'
     S33='\\frac{'+Zo+'\\cdot '+Zi+'-Z0^2+'+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\cdot Z0}{'+D+'}'
-    return [[S11,S12,S13],
-            [S21,S22,S23],
-            [S31,S32,S33]]
+    return _LineReplacer([[S11,S12,S13],
+                          [S21,S22,S23],
+                          [S31,S32,S33]])
+
+def TransconductanceAmplifierThreePortWithoutDenom(G,Zi,Zo):
+    """symbolic three port transconductance amplifier
+    @param G string transconductance
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return list of list of string s-parameter matrix
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Lib.Devices.TransconductanceAmplifier.TransconductanceAmplifierThreePort
+    @remark this returns the s-parameter matrix without the denominator element
+    @see TransconductanceAmplifierThreePortDenom
+    """
+    S11=Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zi+'-'+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\right)-Z0^2'
+    S12='2\\cdot Z0^2'
+    S13='2\\cdot Z0^2+2\\cdot '+Zo+'\\cdot Z0'
+    S21='2\\cdot Z0^2+2\\cdot '+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\cdot Z0'
+    S22=Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zo+'-'+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\right)-Z0^2'
+    S23='2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zi+'-2\\cdot '+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\right)'
+    S31='2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zo+'-2\\cdot '+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\right)'
+    S32='2\\cdot Z0^2+2\\cdot '+Zi+'\\cdot Z0'
+    S33=Zo+'\\cdot '+Zi+'-Z0^2+'+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\cdot Z0'
+    return _LineReplacer([[S11,S12,S13],
+                          [S21,S22,S23],
+                          [S31,S32,S33]])
+
+def TransconductanceAmplifierThreePortDenom(G,Zi,Zo):
+    """symbolic three port transconductance amplifier
+    @param G string transconductance
+    @param Zi string input impedance
+    @param Zo string output impedance
+    @return the denominator element common in the s-parameter matrix as a string
+    containing LaTeX or ASCII strings for each element.
+    @note strings can be any valid LaTeX
+    @note this is the symbolic version of SignalIntegrity.Lib.Devices.TransconductanceAmplifier.TransconductanceAmplifierThreePort
+    @see TransconductanceAmplifierThreePortWithoutDenom
+    """
+    D='3\\cdot Z0^2+\\left(2\\cdot '+Zo+'+2\\cdot '+Zi+'-'+G+'\\cdot '+Zi+'\\cdot '+Zo+'\\right)\\cdot Z0+'+Zo+'\\cdot '+Zi
+    return _LineReplacer(D)
 
 def TransconductanceAmplifierTwoPort(G,Zi,Zo):
     """symbolic two port transconductance amplifier
