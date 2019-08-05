@@ -162,6 +162,14 @@ class SignalIntegrityAppHeadless(object):
         spnp.AddLines(netList)
         try:
             sp=spnp.SParameters()
+            portdict={}
+            for device in self.Drawing.schematic.deviceList:
+                if device.PartPropertyByKeyword('partname').GetValue() == 'Port':
+                    delay=device.PartPropertyByKeyword('td').GetValue()
+                    portNumber=device.PartPropertyByKeyword('pn').GetValue()
+                    portdict[portNumber]=delay
+            td=[portdict[p+1] for p in range(len(portdict))]
+            sp=si.ip.PeeledLaunches(sp,td,method='exact')
         except si.SignalIntegrityException as e:
             return None
         return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
