@@ -24,6 +24,7 @@ from SignalIntegrity.Lib.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters
 from SignalIntegrity.Lib.CallBacker import CallBacker
 from SignalIntegrity.Lib.ResultsCache import LinesCache
+from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""
@@ -83,6 +84,9 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
             # pragma: include
         self.sf = SParameters(self.m_f, result)
         # pragma: silent exclude
+        if hasattr(self, 'delayDict'):
+            td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(self.sf.m_P)]
+            self.sf=PeeledLaunches(self.sf,td,method='exact')
         self.CacheResult()
         # pragma: include
         return self.sf

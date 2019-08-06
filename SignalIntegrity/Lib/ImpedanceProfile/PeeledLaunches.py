@@ -20,7 +20,7 @@
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.ImpedanceProfile.PeeledPortSParameters import PeeledPortSParameters
-from SignalIntegrity.Lib.Parsers import DeembedderParser
+from SignalIntegrity.Lib.Parsers.DeembedderParser import DeembedderParser
 from SignalIntegrity.Lib.SystemDescriptions import DeembedderNumeric
 
 class PeeledLaunches(SParameters):

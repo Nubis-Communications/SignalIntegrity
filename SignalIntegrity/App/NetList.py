@@ -122,7 +122,9 @@ class NetList(object):
                     self.outputNames.append(schematic.deviceList[deviceIndex]['ref'].GetValue())
                 for port in portList:
                     deviceIndex = port[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                    line=schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString
+                    line=line.replace('td 0.0 ','')
+                    self.textToShow.append(line)
             if len(net) > 1:
                 # list the connections
                 thisConnectionString = 'connect'
