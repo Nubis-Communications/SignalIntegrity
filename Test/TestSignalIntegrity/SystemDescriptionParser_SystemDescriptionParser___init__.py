@@ -42,9 +42,12 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 self.m_sd.ConnectDevicePort(lineList[1],int(lineList[2]),
                     lineList[i],int(lineList[i+1]))
         elif lineList[0] == 'port':
-            for i in range((len(lineList)-1)//3):
-                self.m_sd.AddPort(lineList[i*3+2],int(lineList[i*3+3]),
-                    int(lineList[i*3+1]),self.m_addThru)
+            i=1
+            while i < len(lineList):
+                port=int(lineList[i])
+                dev=lineList[i+1]; devPort=int(lineList[i+2])
+                self.m_sd.AddPort(dev,devPort,port,self.m_addThru)
+                i=i+3
         else: self.m_ul.append(line)
     def _ProcessLines(self,exclusionList=[]):
         self.m_sd=SystemDescription()
