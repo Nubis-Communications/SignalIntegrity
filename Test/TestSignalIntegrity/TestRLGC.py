@@ -28,6 +28,14 @@ class TestRLGC(unittest.TestCase):
         spf=si.sp.SParameterFile('cable.s2p')
         rlgc = si.sp.RLGC(spf,si.fd.FrequencyList(spf.m_f).TimeDescriptor())
         pass
+    def testRLGCFitFromFile(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si','testRLGC').Fit()
+        pass
+    def testRLGCFitFromFileUnCached(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si',).Fit()
+        pass
 
 if __name__ == '__main__':
     unittest.main()

@@ -21,3 +21,4 @@ from __future__ import absolute_import
 from .LevMar import LevMar
 from .RLGC import RLGCFitter
 from .RLGC import RLGCFitter2
+from .RLGCFitFromFile import RLGCFitFromFile
