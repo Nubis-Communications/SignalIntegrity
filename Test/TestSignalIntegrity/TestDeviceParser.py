@@ -401,7 +401,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'thrustd',2,od='94.75e-12',oz0='50.0',ol='2.51e9')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,34)
+        self.assertEqual(L,35)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,[],[1,2,3]))
