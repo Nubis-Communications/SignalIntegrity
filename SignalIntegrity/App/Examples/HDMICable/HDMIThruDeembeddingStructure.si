@@ -1,7 +1,7 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+40+69</Geometry>
+			<Geometry>711x363+28+57</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
 			<Height>1</Height>
@@ -13,7 +13,7 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(7, 4)</Coord>
+							<Coord>(10, 4)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(15, 4)</Coord>
@@ -26,7 +26,27 @@
 							<Coord>(19, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(25, 4)</Coord>
+							<Coord>(26, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(30, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(35, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(6, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(3, 4)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -35,7 +55,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(22, 3)</Origin>
+						<Origin>(32, 3)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -107,7 +127,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(3, 3)</Origin>
+						<Origin>(6, 3)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -158,13 +178,49 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>sect</Keyword>
-							<Value>1.0</Value>
+							<Value>0.5</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<Value>T1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceRLGCFitFromFile</ClassName>
+					<PartPicture>
+						<Origin>(26, 3)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<Value>HDMIThruPortsPeeled.si</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>sect</Keyword>
+							<Value>0.5</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>T2</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
