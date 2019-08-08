@@ -74,7 +74,7 @@ class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper
             #'DependentSources/DependentSources.si',
             'VoltageSources/VoltageSourceOnePortCircuit.si',
             'VoltageSources/VoltageSourceCircuit.si',
-            'VoltageSources/VoltageSourceOnePortSeriesZCircuit.si'
+            #'VoltageSources/VoltageSourceOnePortSeriesZCircuit.si'
             ]
         os.chdir(os.path.dirname(__file__))
         self.path=os.path.abspath('../../../SignalIntegrityBook/Sources')
