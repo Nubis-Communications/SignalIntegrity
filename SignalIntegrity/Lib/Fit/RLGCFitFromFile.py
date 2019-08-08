@@ -51,3 +51,7 @@ class RLGCFitFromFile(LinesCache):
         self.RLGC=TLineTwoPortRLGCAnalytic(self.m_f, R, Rse, L, G, C, df, Z0=50.)
         self.CacheResult()
         return self.RLGC
+    def __getitem__(self,item):
+        if self.RLGC is None:
+            self.RLGC = self.Fit()
+        return self.RLGC[item]

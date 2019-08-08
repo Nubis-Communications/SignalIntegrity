@@ -83,10 +83,11 @@ class DeviceFactory(list):
         |tline                                  |2,4  |False    |zc=50 td=0                                                                                     | True                |sp.dev.TLineLossless(f,ports,zc,td)                                                              |
         |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect)                                             |
         |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50 sect=0 | True                |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect) |
-        |shortstd                               |1    |False    |od=0 oz0=50 ol=0 l0=0\n l1=0.0 l2=0 l3=0                                                       | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,l0,l1,l2,l3)                                                        |
-        |openstd                                |1    |False    |od=0 oz0=50 ol=0 c0=0\n c1=0 c2=0 c3=0                                                         | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,c0,c1,c2,c3)                                                         |
-        |loadstd                                |1    |False    |od=0 oz0=50 ol=0 tz0=50                                                                        | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,tz0)                                                                    |
-        |thrustd                                |2    |False    |od=0 oz0=50 ol=0                                                                               | True                |m.calkit.std.ThruStandard(f,od,oz0,ol)                                                                        |
+        |rlgcfit                                |2    |False    |file=None z0=50                                                                                | True                |fit.RLGCFitFromFile(f,file,None,Z0)                                                              |
+        |shortstd                               |1    |False    |od=0 oz0=50 ol=0 l0=0\n l1=0.0 l2=0 l3=0                                                       | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,l0,l1,l2,l3)                                              |
+        |openstd                                |1    |False    |od=0 oz0=50 ol=0 c0=0\n c1=0 c2=0 c3=0                                                         | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,c0,c1,c2,c3)                                               |
+        |loadstd                                |1    |False    |od=0 oz0=50 ol=0 tz0=50                                                                        | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,tz0)                                                       |
+        |thrustd                                |2    |False    |od=0 oz0=50 ol=0                                                                               | True                |m.calkit.std.ThruStandard(f,od,oz0,ol)                                                           |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -166,6 +167,7 @@ class DeviceFactory(list):
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
             float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']))"),
+        ParserDevice('rlgcfit',2,False,{'file':None,'z0':50},True,"RLGCFitFromFile(f,arg['file'],None,arg['z0'])"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
@@ -218,6 +220,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.Devices.TransresistanceAmplifier import TransresistanceAmplifier
         from SignalIntegrity.Lib.Devices.VoltageControlledVoltageSource import VoltageControlledVoltageSource
         from SignalIntegrity.Lib.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
+        from SignalIntegrity.Lib.Fit.RLGCFitFromFile import RLGCFitFromFile
         from SignalIntegrity.Lib.SParameters.Devices.Mutual import Mutual
         from SignalIntegrity.Lib.SParameters.Devices.SeriesC import SeriesC
         from SignalIntegrity.Lib.SParameters.Devices.SeriesL import SeriesL

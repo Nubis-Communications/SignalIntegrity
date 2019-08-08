@@ -457,6 +457,10 @@ class DeviceNPNTransistor(Device):
         netlist=DeviceNetListLine(partname='npntransistor',values=[('gm',True),('rpi',True),('ro',True)])
         Device.__init__(self,netlist,[PartPropertyCategory('Amplifiers'),PartPropertyPartName('NPN Transistor'),PartPropertyDefaultReferenceDesignator('Q?'),PartPropertyGm(200.0),PartPropertyRpi(200e3),PartPropertyOutputResistance(200e3),PartPropertyPorts(3)]+propertiesList,PartPictureVariableNPNTransister())
 
+class DeviceRLGCFitFromFile(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True)])
+        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('TransmissionLines'),PartPropertyPartName('RLGC Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName()],PartPictureVariableTransmissionLineTwoPort())
 
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),
@@ -523,6 +527,7 @@ DeviceList = [
               DeviceCurrentOutputProbe(),
               DeviceVoltageOutputProbe(),
               #DeviceNPNTransistor([PartPropertyDescription('NPN Transistor')])
+              DeviceRLGCFitFromFile()
               ]
 
 DeviceListUnknown = [
