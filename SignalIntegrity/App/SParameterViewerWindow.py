@@ -86,6 +86,8 @@ class SParametersDialog(tk.Toplevel):
         self.showPassivityViolations = tk.BooleanVar()
         self.showCausalityViolations = tk.BooleanVar()
         self.showImpedance = tk.BooleanVar()
+        self.showExcessInductance = tk.BooleanVar()
+        self.showExcessCapacitance = tk.BooleanVar()
         self.logScale =  tk.BooleanVar()
 
         self.JoinFrequenciesWithin = tk.BooleanVar()
@@ -126,6 +128,8 @@ class SParametersDialog(tk.Toplevel):
         self.ShowPassivityViolationsDoer = Doer(self.onShowPassivityViolations).AddHelpElement('Control-Help:Show-Passivity-Violations')
         self.ShowCausalityViolationsDoer = Doer(self.onShowCausalityViolations).AddHelpElement('Control-Help:Show-Causality-Violations')
         self.ShowImpedanceDoer = Doer(self.onShowImpedance).AddHelpElement('Control-Help:Show-Impedance')
+        self.ShowExcessInductanceDoer = Doer(self.onShowExcessInductance).AddHelpElement('Control-Help:Show-Excess-Inductance')
+        self.ShowExcessCapacitanceDoer = Doer(self.onShowExcessCapacitance).AddHelpElement('Control-Help:Show-Excess-Capacitance')
         self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale')
         # ------
         self.JoinFrequenciesWithinDoer = Doer(self.onJoinFrequenciesWithin)
@@ -178,6 +182,8 @@ class SParametersDialog(tk.Toplevel):
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
         self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
         self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
+        self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=14,onvalue=True,offvalue=False,variable=self.showExcessInductance)
+        self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=13,onvalue=True,offvalue=False,variable=self.showExcessCapacitance)
         self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4,onvalue=True,offvalue=False,variable=self.logScale)
         #-------
         ZoomMenu=tk.Menu(self)
@@ -317,6 +323,8 @@ class SParametersDialog(tk.Toplevel):
             self.ShowPassivityViolationsDoer.Activate(False)
             self.ShowCausalityViolationsDoer.Activate(False)
             self.ShowImpedanceDoer.Activate(False)
+            self.ShowExcessInductanceDoer.Activate(False)
+            self.ShowExcessCapacitanceDoer.Activate(False)
             #self.LogScaleDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
             self.EnforceCausalityDoer.Activate(False)
@@ -373,6 +381,26 @@ class SParametersDialog(tk.Toplevel):
 
     def onShowImpedance(self):
         self.properties['Plot.ShowImpedance']=bool(self.showImpedance.get())
+        self.showExcessInductance.set(False)
+        self.properties['Plot.ShowExcessInductance']=False
+        self.showExcessCapacitance.set(False)
+        self.properties['Plot.ShowExcessCapacitance']=False
+        self.PlotSParameter()
+
+    def onShowExcessInductance(self):
+        self.properties['Plot.ShowExcessInductance']=bool(self.showExcessInductance.get())
+        self.showImpedance.set(False)
+        self.properties['Plot.ShowImpedance']=False
+        self.showExcessCapacitance.set(False)
+        self.properties['Plot.ShowExcessCapacitance']=False
+        self.PlotSParameter()
+
+    def onShowExcessCapacitance(self):
+        self.properties['Plot.ShowExcessCapacitance']=bool(self.showExcessCapacitance.get())
+        self.showImpedance.set(False)
+        self.properties['Plot.ShowImpedance']=False
+        self.showExcessInductance.set(False)
+        self.properties['Plot.ShowExcessInductance']=False
         self.PlotSParameter()
 
     def onLogScale(self):
@@ -653,7 +681,7 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlotProperties['MinX']=xlim[0]
                 self.bottomRightPlotProperties['MaxX']=xlim[1]
                 if self.properties['Zoom.Times.JoinWithin']:
-                    if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                    if (self.properties['Plot.ShowImpedance'] or self.properties['Plot.ShowExcessInductance'] or self.properties['Plot.ShowExcessCapacitance'])and (self.fromPort == self.toPort):
                         self.plotProperties['Impulse.MinX']=self.plotProperties['Impedance.MinX']*2.
                         self.plotProperties['Impulse.MaxX']=self.plotProperties['Impedance.MaxX']*2.
                         self.plotProperties['Impulse.Initialized']=True
@@ -676,7 +704,7 @@ class SParametersDialog(tk.Toplevel):
                         for thisFromPort in range(1,self.sp.m_P+1):
                             if self.JoinIt(thisToPort,thisFromPort,'Times'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
-                                if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                                if (self.properties['Plot.ShowImpedance'] or self.properties['Plot.ShowExcessInductance'] or self.properties['Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
                                     spPlotPropertiesToJoinTo['Impedance.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Impedance.MinX']=spPlotPropertiesToJoinFrom['Impedance.MinX']
                                     spPlotPropertiesToJoinTo['Impedance.MaxX']=spPlotPropertiesToJoinFrom['Impedance.MaxX']
@@ -695,15 +723,15 @@ class SParametersDialog(tk.Toplevel):
             self.LimitChangeLock=True
             ylim=ax.get_ylim()
             if not self.bottomRightPlotProperties is None:
-                self.bottomRightPlotProperties['MinY']=ylim[0]
-                self.bottomRightPlotProperties['MaxY']=ylim[1]
+                self.bottomRightPlotProperties['MinY']=(ylim[0]-self.bottomRightPlotProperties['B'])/self.bottomRightPlotProperties['M']
+                self.bottomRightPlotProperties['MaxY']=(ylim[1]-self.bottomRightPlotProperties['B'])/self.bottomRightPlotProperties['M']
                 if self.properties['Zoom.Vertical.JoinStepImpedanceWithOthers']:
                     spPlotPropertiesToJoinFrom=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
                     for thisToPort in range(1,self.sp.m_P+1):
                         for thisFromPort in range(1,self.sp.m_P+1):
                             if self.JoinIt(thisToPort,thisFromPort,'Vertical'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
-                                if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                                if (self.properties['Plot.ShowImpedance'] or self.properties['Plot.ShowExcessInductance'] or self.properties['Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
                                     spPlotPropertiesToJoinTo['Impedance.YInitialized']=True
                                     spPlotPropertiesToJoinTo['Impedance.MinY']=spPlotPropertiesToJoinFrom['Impedance.MinY']
                                     spPlotPropertiesToJoinTo['Impedance.MaxY']=spPlotPropertiesToJoinFrom['Impedance.MaxY']
@@ -768,6 +796,8 @@ class SParametersDialog(tk.Toplevel):
         self.showPassivityViolations.set(self.properties['Plot.ShowPassivityViolations'])
         self.showCausalityViolations.set(self.properties['Plot.ShowCausalityViolations'])
         self.showImpedance.set(self.properties['Plot.ShowImpedance'])
+        self.showExcessInductance.set(self.properties['Plot.ShowExcessInductance'])
+        self.showExcessCapacitance.set(self.properties['Plot.ShowExcessCapacitance'])
         self.logScale.set(self.properties['Plot.LogScale'])
         self.JoinFrequenciesWithin.set(self.properties['Zoom.Frequencies.JoinWithin'])
         self.JoinTimesWithin.set(self.properties['Zoom.Times.JoinWithin'])
@@ -1038,11 +1068,11 @@ class SParametersDialog(tk.Toplevel):
             stepResponse=stepWaveform*firFilter
             y=stepResponse.Values()
             x=stepResponse.Times(timeLabelDivisor)
+            Ts=1./(stepWaveformTimeDescriptor.Fs)
 
             self.bottomRightToolbar.update()
 
-            if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
-                self.bottomRightlabel.config(text='Impdedance Profile')
+            if (self.properties['Plot.ShowImpedance'] or self.properties['Plot.ShowExcessInductance'] or self.properties['Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
                 self.bottomRightPlotProperties=self.plotProperties['Impedance']
                 Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
@@ -1052,6 +1082,40 @@ class SParametersDialog(tk.Toplevel):
 
                 if not self.bottomRightPlotProperties['YInitialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,Z0-1)
+                    self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
+                    self.bottomRightPlotProperties['YInitialized']=True
+                maxy=self.bottomRightPlotProperties['MaxY']
+                miny=self.bottomRightPlotProperties['MinY']
+
+                if self.properties['Plot.ShowImpedance']:
+                    self.bottomRightlabel.config(text='Impdedance Profile')
+                    self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
+                elif self.properties['Plot.ShowExcessInductance']:
+                    maxy=(maxy-Z0)*Ts
+                    miny=(miny-Z0)*Ts
+                    span=max(abs(maxy),abs(miny))
+                    yLabel=ToSI(span,'H')[-2:]
+                    yLabelDivisor=FromSI('1. '+yLabel,'H')
+                    maxy=maxy/yLabelDivisor
+                    miny=miny/yLabelDivisor
+                    y=[(yv-Z0)*Ts/yLabelDivisor for yv in y]
+                    self.bottomRightlabel.config(text='Excess Inductance Profile')
+                    self.bottomRightPlot.set_ylabel('Excess L ('+yLabel+')',fontsize=10)
+                elif self.properties['Plot.ShowExcessCapacitance']:
+                    maxy=(1./maxy-1./Z0)*Ts
+                    miny=(1./miny-1./Z0)*Ts
+                    span=max(abs(maxy),abs(miny))
+                    yLabel=ToSI(span,'F')[-2:]
+                    yLabelDivisor=FromSI('1. '+yLabel,'F')
+                    maxy=maxy/yLabelDivisor
+                    miny=miny/yLabelDivisor
+                    y=[(1./yv-1./Z0)*Ts/yLabelDivisor for yv in y]
+                    self.bottomRightlabel.config(text='Excess Capacitance Profile')
+                    self.bottomRightPlot.set_ylabel('Excess C ('+yLabel+')',fontsize=10)
+
+                self.bottomRightPlotProperties['M']=(maxy-miny)/(self.bottomRightPlotProperties['MaxY']-self.bottomRightPlotProperties['MinY'])
+                self.bottomRightPlotProperties['B']=maxy-(self.bottomRightPlotProperties['M']*self.bottomRightPlotProperties['MaxY'])
+
             else:
                 self.bottomRightlabel.config(text='Step Response')
                 self.bottomRightPlotProperties=self.plotProperties['Step']
@@ -1059,6 +1123,8 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
                 if not self.bottomRightPlotProperties['YInitialized']:
                     self.bottomRightPlotProperties['MinY']=min(min(y)*1.05,-0.1)
+                    self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
+                    self.bottomRightPlotProperties['YInitialized']=True
 
             self.bottomRightPlot.plot(x,y)
 
@@ -1066,7 +1132,7 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlotProperties['MinX']=min(x)
                 self.bottomRightPlotProperties['MaxX']=max(x)
                 self.bottomRightPlotProperties['XInitialized']=True
-                if self.properties['Plot.ShowImpedance'] and (self.fromPort == self.toPort):
+                if (self.properties['Plot.ShowImpedance'] or self.properties['Plot.ShowExcessInductance'] or self.properties['Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
                     self.plotProperties['Step.MinX']=self.bottomRightPlotProperties['MinX']*2.0
                     self.plotProperties['Step.MaxX']=self.bottomRightPlotProperties['MaxX']*2.0
                     self.plotProperties['Step.XInitialized']=True
@@ -1074,14 +1140,11 @@ class SParametersDialog(tk.Toplevel):
                     self.plotProperties['Impedance.MinX']=self.bottomRightPlotProperties['MinX']/2.0
                     self.plotProperties['Impedance.MaxX']=self.bottomRightPlotProperties['MaxX']/2.0
                     self.plotProperties['Impedance.XInitialized']=True
-            if not self.bottomRightPlotProperties['YInitialized']:
-                self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
-                self.bottomRightPlotProperties['YInitialized']=True
 
             self.bottomRightPlot.set_xlim(left=self.bottomRightPlotProperties['MinX'])
             self.bottomRightPlot.set_xlim(right=self.bottomRightPlotProperties['MaxX'])
-            self.bottomRightPlot.set_ylim(bottom=self.bottomRightPlotProperties['MinY'])
-            self.bottomRightPlot.set_ylim(top=self.bottomRightPlotProperties['MaxY'])
+            self.bottomRightPlot.set_ylim(bottom=self.bottomRightPlotProperties['MinY']*self.bottomRightPlotProperties['M']+self.bottomRightPlotProperties['B'])
+            self.bottomRightPlot.set_ylim(top=self.bottomRightPlotProperties['MaxY']*self.bottomRightPlotProperties['M']+self.bottomRightPlotProperties['B'])
 
         self.topLeftCanvas.draw()
         self.topRightCanvas.draw()

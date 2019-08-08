@@ -28,6 +28,8 @@ class PlotConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('YInitialized',False))
         self.Add(XMLPropertyDefaultFloat('MinY'))
         self.Add(XMLPropertyDefaultFloat('MaxY'))
+        self.Add(XMLPropertyDefaultFloat('M',1.0))
+        self.Add(XMLPropertyDefaultFloat('B',0.0))
 
 class SParameterPlotsConfiguration(XMLConfiguration):
     def __init__(self):
@@ -47,6 +49,8 @@ class PlotProperties(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('ShowPassivityViolations',False))
         self.Add(XMLPropertyDefaultBool('ShowCausalityViolations',False))
         self.Add(XMLPropertyDefaultBool('ShowImpedance',False))
+        self.Add(XMLPropertyDefaultBool('ShowExcessInductance',False))
+        self.Add(XMLPropertyDefaultBool('ShowExcessCapacitance',False))
         self.Add(XMLPropertyDefaultBool('LogScale',False))
 
 class ZoomJoinProperties(XMLConfiguration):
