@@ -275,6 +275,10 @@ class PartPropertySections(PartProperty):
     def __init__(self,sections=1):
         PartProperty.__init__(self,'sections',type='int',unit='',keyword='sect',description='sections',value=sections,visible=True,keywordVisible=False)
 
+class PartPropertyFloatSections(PartProperty):
+    def __init__(self,sections=1):
+        PartProperty.__init__(self,'sections',type='float',unit='',keyword='sect',description='sections',value=sections,visible=True,keywordVisible=False)
+
 class PartPropertyWeight(PartProperty):
     def __init__(self,weight=1.0):
         PartProperty.__init__(self,'weight',type='float',unit='',keyword='weight',description='weight',value=weight,visible=False)

@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+28+57</Geometry>
+			<Geometry>711x363+40+69</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>254</Height>
-			<Width>861</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -155,6 +155,12 @@
 							<Value>HDMIThruPortsPeeled.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>sect</Keyword>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>

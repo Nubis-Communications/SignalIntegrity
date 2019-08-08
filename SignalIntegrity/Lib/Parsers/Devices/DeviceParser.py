@@ -167,7 +167,7 @@ class DeviceFactory(list):
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
             float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']))"),
-        ParserDevice('rlgcfit',2,False,{'file':None,'z0':50},True,"RLGCFitFromFile(f,arg['file'],None,arg['z0'])"),
+        ParserDevice('rlgcfit',2,False,{'file':None,'sect':1,'z0':50},True,"RLGCFitFromFile(f,arg['file'],None,sect=float(arg['sect']),Z0=float(arg['z0']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
