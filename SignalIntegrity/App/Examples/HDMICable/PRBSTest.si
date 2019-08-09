@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>861x297+88+125</Geometry>
+			<Geometry>861x297+28+57</Geometry>
 			<Originy>18</Originy>
 			<Originx>-1</Originx>
-			<Height>1</Height>
-			<Width>1</Width>
+			<Height>320</Height>
+			<Width>711</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -483,7 +483,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>2e+12</UserSampleRate>
-		<FrequencyPoints>1000</FrequencyPoints>
+		<FrequencyPoints>2000</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>

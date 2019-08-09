@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>655x526+617+151</Geometry>
+			<Geometry>655x526+108+139</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>488</Height>
-			<Width>656</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>22.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -214,7 +214,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -250,7 +250,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -286,7 +286,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -322,7 +322,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>

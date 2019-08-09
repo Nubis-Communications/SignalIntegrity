@@ -1,7 +1,7 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+28+57</Geometry>
+			<Geometry>711x363+153+184</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
 			<Height>1</Height>
@@ -177,7 +177,7 @@
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>sect</Keyword>
+							<Keyword>scale</Keyword>
 							<Value>0.5</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
@@ -213,7 +213,7 @@
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>sect</Keyword>
+							<Keyword>scale</Keyword>
 							<Value>0.5</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>

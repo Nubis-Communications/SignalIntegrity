@@ -459,8 +459,8 @@ class DeviceNPNTransistor(Device):
 
 class DeviceRLGCFitFromFile(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True),('sect',True)])
-        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('TransmissionLines'),PartPropertyPartName('RLGC Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName(),PartPropertyFloatSections(sections=1)],PartPictureVariableTransmissionLineTwoPort())
+        netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True),('scale',True)])
+        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('TransmissionLines'),PartPropertyPartName('RLGC Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName(),PartPropertyScale(scale=1)],PartPictureVariableTransmissionLineTwoPort())
 
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),

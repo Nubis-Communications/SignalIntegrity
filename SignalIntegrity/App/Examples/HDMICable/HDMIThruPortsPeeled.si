@@ -1,11 +1,11 @@
 <Project>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+104+104</Geometry>
+			<Geometry>711x363+198+229</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>178</Height>
-			<Width>200</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -24,7 +24,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>HDMIFixtureThru.s2p</Value>
+							<Value>HDMIFixtureThruProcessed.s2p</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -119,7 +119,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>200</FrequencyPoints>
+		<FrequencyPoints>40</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>

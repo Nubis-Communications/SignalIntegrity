@@ -25,9 +25,9 @@ from SignalIntegrity.Lib.Fit.RLGC import RLGCFitter
 from SignalIntegrity.Lib.ResultsCache import LinesCache
 
 class RLGCFitFromFile(LinesCache):
-    def __init__(self,f,filename,cacheFileName=None,sect=1,Z0=None):
+    def __init__(self,f,filename,cacheFileName=None,scale=1,Z0=None):
         self.m_lines='device D1 2 file '+filename
-        self.sect=sect
+        self.scale=scale
         self.Z0=Z0
         self.m_args=None
         self.m_f=f
@@ -49,7 +49,7 @@ class RLGCFitFromFile(LinesCache):
         fitter=RLGCFitter(sp,guess)
         (R,L,G,C,Rse,df)=[r[0] for r in fitter.Solve().Results()]
         print(fitter.Results())
-        s=self.sect
+        s=self.scale
         self.RLGC=TLineTwoPortRLGCAnalytic(self.m_f, R*s, Rse*s, L*s, G*s, C*s, df, Z0=50.)
         self.CacheResult()
         return self.RLGC
