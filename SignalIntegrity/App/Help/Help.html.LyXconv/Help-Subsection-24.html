@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1078,26 +1078,26 @@ a:visited {
 <span class="next">Virtual Probing Example <a class="next" name="next" href="Help-Subsection-25.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-24"></a>Virtual Probing<a class="Label" name="sub:Virtual-Probing"> </a>
+<a class="toc" name="toc-Subsection-24"></a>Virtual Probing<a class="Label" name="subsec:Virtual-Probing"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for virtual probing and setting the calculation properties, the calculation is run using either the <a class="Reference" href="Help-Subsubsection-56.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> command or the <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for virtual probing and setting the calculation properties, the calculation is run using either the <a class="Reference" href="Help-Subsubsection-58.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> command or the <a class="Reference" href="Help-Subsubsection-55.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that virtual probing will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for virtual probing. This criteria for the schematic regarding elements are that the schematic must:
 </div>
 <ul>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-62.html#sub:Measure-Probe">Voltage Measure Probe↓</a>.
+have at least one <a class="Reference" href="Help-Subsection-65.html#subsec:Measure-Probe">Voltage Measure Probe↓</a>.
 </li>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-63.html#sub:Output-Probe">Voltage Output Probe↓</a>.
+have at least one <a class="Reference" href="Help-Subsection-66.html#subsec:Output-Probe">Voltage Output Probe↓</a>.
 </li>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-64.html#sub:Stim">Stim↓</a>
+have at least one <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↓</a>
 </li>
 <li>
-not have any other elements that don’t make sense for virtual probing including:<ul>
+not have any other elements that don’t make sense for virtual probing including:\begin_inset Separator latexpar\end_inset<ul>
 <li>
 ports
 </li>
@@ -1114,13 +1114,13 @@ system devices
 
 </ul>
 <div class="Standard">
-In virtual probing, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Section-13.html#sec:Netlist">Netlist↓</a> for more information on the net list and see <a class="Reference" href="Help-Subsubsection-23.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In virtual probing, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Section-14.html#sec:Netlist">Netlist↓</a> for more information on the net list and see <a class="Reference" href="Help-Subsubsection-25.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>VirtualProbeNumericParser</b> class as described in the software documentation after which the transfer parameters are extracted.
 </div>
 <div class="Standard">
-During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified (see <a class="Reference" href="Help-Subsection-23.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↑</a>). If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
+During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified (see <a class="Reference" href="Help-Subsection-23.html#subsec:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↑</a>). If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
 </div>
 <div class="Standard">
 Then, for each frequency point, the transfer parameters are generated.
@@ -1129,10 +1129,10 @@ Then, for each frequency point, the transfer parameters are generated.
 After the transfer parameters are generated, the input waveforms are produced or read from files and applied to the filters corresponding to the transfer parameters to generate output waveforms.
 </div>
 <div class="Standard">
-Sometimes, things go wrong and an error is generated. See <a class="Reference" href="Help-Section-14.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
+Sometimes, things go wrong and an error is generated. See <a class="Reference" href="Help-Section-15.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
 </div>
 <div class="Standard">
-If everything goes correctly, the <a class="Reference" href="Help-Section-10.html#sec:Simulator-Dialog">Simulator Dialog↓</a> will open with the ability to view the output waveforms calculated and save them to a file.
+If everything goes correctly, the <a class="Reference" href="Help-Section-11.html#sec:Simulator-Dialog">Simulator Dialog↓</a> will open with the ability to view the output waveforms calculated and save them to a file.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-23.html#next">Prev</a> Setting Calculation Properties for Virtual Probing</span>

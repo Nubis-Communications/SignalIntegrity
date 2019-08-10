@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1075,10 +1075,10 @@ a:visited {
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-10.html#next">Prev</a> Show Impedance</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Simulator Dialog <a class="next" name="next" href="Help-Section-10.html#prev">Next</a></span>
+<span class="next">Show Excess Capacitance <a class="next" name="next" href="Help-Subsubsection-12.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-11"></a>Log Scale<a class="Label" name="Control-Help:Log-Scale"> </a>
+<a class="toc" name="toc-Subsubsection-11"></a>Show Excess Inductance<a class="Label" name="Control-Help:Show-Excess-Inductance"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Log Scale
+View ▸ Show Excess Inductance
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Log Scale
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,S
+Alt+V,n
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+When s-parameter files are being viewed
 </td>
 
 </tr>
@@ -1141,28 +1141,18 @@ Always
 
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="LogScale.png" alt="figure LogScale.png" style="max-width: 1008px; max-height: 233px;"/>
+This setting causes the step responses (the lower right plot) to be displayed as excess inductance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess inductance is another way of plotting the impedance profile shown when setting <a class="Reference" href="Help-Subsubsection-10.html#Control-Help:Show-Impedance">Show Impedance↑</a>. For a given impedance <span class="formula"><i>Z</i></span>, a given reference impedance <span class="formula"><i>Z</i>0</span>, and a given impedance profile time per section <span class="formula"><i>Ts</i></span>, the excess inductance is given as:
+</div>
+<div class="Standard">
+<div class="formula">
+Δ<i>L</i> = <i>L</i> − <i>L</i>0 = <span class="symbol">(</span><i>Z</i> − <i>Z</i>0<span class="symbol">)</span>⋅2⋅<i>Ts</i>
+</div>
 
-</div>
-
-</div>
-<div class="Standard">
-Allows viewing magnitude and phase response on a logarithmic scale.
-</div>
-<div class="Standard">
-This view is like a Bode plot and is useful when viewing things with poles and zeros where Bode plots are useful.
-</div>
-<div class="Standard">
-It is also most useful in power integrity applications.
-</div>
-<div class="Standard">
-Unfortunately, Log Scale cannot operate properly along with <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Variable-Line-Width">Variable Line Width↑</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-10.html#next">Prev</a> Show Impedance</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Simulator Dialog <a class="next" name="next" href="Help-Section-10.html#prev">Next</a></span>
+<span class="next">Show Excess Capacitance <a class="next" name="next" href="Help-Subsubsection-12.html#prev">Next</a></span>
 </div>
 
 </div>

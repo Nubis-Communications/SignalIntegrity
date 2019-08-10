@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> OnlineHelp.UseOnlineHelp</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Preferences</span>
-<span class="next"><a class="next" name="next"> </a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> AskToSaveCurrentFile</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Preferences</span>
+<span class="next">OnlineHelp.UseOnlineHelp <a class="next" name="next" href="Help-Subsection--13.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--12"></a>OnlineHelp.URL<a class="Label" name="sub:OnlineHelp.URL"> </a>
+<a class="toc" name="toc-Subsection--12"></a>Cache.CacheResults<a class="Label" name="subsec:Cache.CacheResults"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-online help url
+cache results
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--11.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↑</a>
+<a class="Reference" href="Help-Subsection--12.html#subsec:Cache.CacheResults">Cache.CacheResults↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+True
 </div>
 
 </td>
@@ -1120,13 +1120,48 @@ http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
 
 </div>
 <div class="Standard">
-This preference is created for the unlikely event that the online software help system has been moved. It’s more likely that you would receive an updated software version from the new site and it would have the correct URL for the new help system location.
+This preference determines whether results will be <i>cached</i> to speed up computation.
 </div>
 <div class="Standard">
-Currently, the help system is located online at: ’http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App’.
+Caching is performed on transfer matrix calculations performed in <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> and on s-parameter results in <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a>. No caching is performed on any waveform results.
 </div>
 <div class="Standard">
-That being said, in a complicated manner, the help system can be retrieved from a branch called ’gh-pages’ from the git repository and placed on your local disk. This is especially useful for debugging as the help system is being modified. For example, if a git repository has been created in the directory ’SignalIntegrityPages’ and the gh-pages master branch pulled, the local help system can be accessed from ’file:///home/peterp/Work/SignalIntegrityPages/SignalIntegrity/App’. Note that in this case the actual base of the help system will be at ’/home/peterp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.LyXconv/Help.html’.
+Caching is performed by:
+</div>
+<ul>
+<li>
+Generating a hash corresponding to the <a class="Reference" href="Help-Section-14.html#sec:Netlist">Netlist↑</a> and calculation properties (see <a class="Reference" href="Help-Subsection-3.html#subsec:Setting-Calculation-Properties">Setting Calculation Properties↑</a>).
+</li>
+<li>
+Attempting to load a cache file.
+</li>
+<li>
+Comparing the hash to the hash stored in the cache file.
+</li>
+<li>
+Comparing the timestamp of the cache file to the timestamp of any of the files required in the calculation.
+</li>
+
+</ul>
+<div class="Standard">
+If this preference is True, whenever a calculation result is computed by the application, a cached result is written with a filename prefixed by the project file name, and suffixed with a concatenation of the word ’_cached’ and either ’TransferMatrices.p’ for <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> or ’SParameters.p’ for <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a>.
+</div>
+<div class="Standard">
+For example, the simulation project file named ’RLCTest.xml’ would produce cached transfer matrices named ’RLCTest_cachedTransferMatrices.p’ and the s-parameter project file ’CascadedTwoPorts’ would produce the cached s-parameters named ’CascadedTwoPorts_cachedSParameters.p’.
+</div>
+<div class="Standard">
+Again, when this preference is set to True, transfer matrices or s-parameters from a cached file would be utilized whenever <a class="Reference" href="Help-Subsection-36.html#subsec:Calculate">Calculate↑</a> is initiated, the cached file is found, the hash matches the hash of the netlist and calculation properties, and the timestamp of the cached file is later than any files utilized in the calculation.
+</div>
+<div class="Standard">
+Since only transfer matrices are cached in <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications, waveform processing always proceeds as usual.
+</div>
+<div class="Standard">
+Using caching greatly speeds up computation, but tends to litter the disk with these files, which can be quite large. It’s useful to occasionally delete all of the files named ’*_cached*.p’ from the system. This must be performed manually.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> AskToSaveCurrentFile</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Preferences</span>
+<span class="next">OnlineHelp.UseOnlineHelp <a class="next" name="next" href="Help-Subsection--13.html#prev">Next</a></span>
 </div>
 
 </div>

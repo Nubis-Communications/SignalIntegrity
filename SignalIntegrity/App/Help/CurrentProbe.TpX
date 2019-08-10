@@ -1,0 +1,37 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="4" Border="0.5" BitmapRes="20000" HatchingStep="0.5" DottedSize="0.125" DashSize="0.25" LineWidth="0.075" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline arr1="h44" arrs="0.25" lc="black">7.75,-8 6.25,-8</polyline>
+%  <rect x="6" y="-8.5" w="2" h="1" lc="black"/>
+%  <polyline lc="black">5,-8 6,-8</polyline>
+%  <polyline lw="2.00" lc="red">4.875,-7.875 5.125,-8.125</polyline>
+%  <polyline lw="2.00" lc="red">5.125,-7.875 4.875,-8.125</polyline>
+%  <polyline lc="black">9,-8 8,-8</polyline>
+%  <polyline lw="2.00" lc="red">8.875,-7.875 9.125,-8.125</polyline>
+%  <polyline lw="2.00" lc="red">9.125,-7.875 8.875,-8.125</polyline>
+%  <text x="7" y="-6.75" t="gain 1.0 V/A" h="0.75" halign="c" lc="black"/>
+%  <text x="7" y="-5.8125" t="offset 0 V" h="0.75" halign="c" lc="black"/>
+%  <text x="7" y="-4.875" t="td 0 s" h="0.75" halign="c" lc="black"/>
+%  <text x="7" y="-3.9375" t="I1" h="0.75" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=4.00mm, y=4.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (4.75,-8.63) rectangle +(4.50,5.40);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.08mm, draw=L] (7.75,-8.00) -- (6.25,-8.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.08mm, draw=L, fill=F] (7.75,-8.00) -- (7.05,-7.82) -- (7.05,-8.18) -- (7.75,-8.00) -- cycle;
+\path[line width=0.08mm, draw=L] (6.00,-7.50) [rotate around={270:(6.00,-7.50)}] rectangle +(1.00,2.00);
+\path[line width=0.08mm, draw=L] (5.00,-8.00) -- (6.00,-8.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.15mm, draw=L] (4.88,-7.88) -- (5.13,-8.13);
+\path[line width=0.15mm, draw=L] (5.13,-7.88) -- (4.88,-8.13);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.08mm, draw=L] (9.00,-8.00) -- (8.00,-8.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.15mm, draw=L] (8.88,-7.88) -- (9.13,-8.13);
+\path[line width=0.15mm, draw=L] (9.13,-7.88) -- (8.88,-8.13);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (7.00,-6.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{gain 1.0 V/A}};
+\draw[T] (7.00,-5.81) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{offset 0 V}};
+\draw[T] (7.00,-4.88) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{td 0 s}};
+\draw[T] (7.00,-3.94) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{I1}};
+\end{tikzpicture}%

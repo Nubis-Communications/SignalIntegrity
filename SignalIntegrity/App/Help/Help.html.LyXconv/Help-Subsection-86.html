@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,20 +1073,42 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-62.html#next">Prev</a> filename not found</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">filename not found <a class="next" name="next" href="Help-Subsubsection-63.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-85.html#next">Prev</a> output</span>
+<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Netlist</span>
+<span class="next">stimdef <a class="next" name="next" href="Help-Subsection-87.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-86"></a>WaveformFile<a class="Label" name="sub:WaveformFile"> </a>
+<a class="toc" name="toc-Subsection-86"></a>stim<a class="Label" name="subsec:stim"> </a>
 </h2>
 <div class="Standard">
-A <a class="Reference" href="Help-Section-15.html#sec:Waveform">Waveform↓</a> file was specified for reading and it could not be read
+A netlist line beginning with the keyword <i>stim</i> specifies a <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↑</a> and it’s connection to a device pin.
+</div>
+<div class="Standard">
+This should only appear in <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications, and there must be at least one statement like this in the netlist.
+</div>
+<div class="Standard">
+The syntax is the keyword <i>stim</i> followed by the name of the stim followed by a reference designator and pin number.
+</div>
+<div class="Standard">
+The reference designators refer to one of the <a class="Reference" href="Help-Section-13.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-81.html#subsec:device">device↑</a> command elsewhere in the netlist.
+</div>
+<div class="Standard">
+The pin numbers refer to a pin of the device from which the stimulus emanates.
+</div>
+<div class="Standard">
+The name of the stim is always a lowercase m followed by a number, where the number is unique and is generated automatically during netlist generation. The name and number have nothing to do with the reference designator for the stim which is unimportant.
+</div>
+<div class="Standard">
+<div class="Ovalbox" style="width: 100%;">
+<img class="embedded" src="warning.png" alt="figure warning.png" style="width: 38px; max-width: 128px; height: 38px; max-height: 128px;"/>
+If in your schematic, a <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="Help-Subsection-82.html#subsec:connect">connect↑</a> netlist lines.). The arbitrarily chosen device pin might be the right one or the wrong one and you might get the incorrect final result.
+</div>
+
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-62.html#next">Prev</a> filename not found</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">filename not found <a class="next" name="next" href="Help-Subsubsection-63.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-85.html#next">Prev</a> output</span>
+<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Netlist</span>
+<span class="next">stimdef <a class="next" name="next" href="Help-Subsection-87.html#prev">Next</a></span>
 </div>
 
 </div>

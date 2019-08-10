@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-40.html#next">Prev</a> Duplicate Part</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-40.html#next">Prev</a> Delete Part</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Parts</span>
-<span class="next">Flip Horizontally <a class="next" name="next" href="Help-Subsubsection-42.html#prev">Next</a></span>
+<span class="next">Duplicate Part <a class="next" name="next" href="Help-Subsubsection-42.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-41"></a>Rotate Part<a class="Label" name="Control-Help:Rotate-Part"> </a>
+<a class="toc" name="toc-Subsubsection-41"></a>Edit Properties<a class="Label" name="Control-Help:Edit-Properties"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-11.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+<a class="Reference" href="Help-Section-12.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-33.html#sub:Parts">Parts↑</a> ▸ Rotate Part
+<a class="Reference" href="Help-Subsection-33.html#subsec:Parts">Parts↑</a> ▸ Edit Properties
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+P,R
+Alt+P,E
 </td>
 
 </tr>
@@ -1123,8 +1123,7 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-<img class="embedded" src="object-rotate-left-4.png" alt="figure object-rotate-left-4.png" style="max-width: 16px; max-height: 16px;"/>
-
+None
 </td>
 
 </tr>
@@ -1137,17 +1136,91 @@ When a part is selected
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top">
+<i>Mouse Binding</i>
+</td>
+<td align="center" valign="top">
+double-click
+</td>
+
+</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-This rotates the picture of the part 90 degrees counter-clockwise.
+This edits the part properties for the selected part.
+</div>
+<div class="Standard">
+The selected part is indicated by a blue color in the schematic.
+</div>
+<div class="Standard">
+When a part is selected it shows this in the status message area.
+</div>
+<div class="Standard">
+This is also available through the context sensitive menu (right-click when part selected).
+</div>
+<div class="Standard">
+When a part is selected, editing the part properties brings up the part properties dialog:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertyVoltageAmplifier.png" alt="figure PartPropertyVoltageAmplifier.png" style="max-width: 394px; max-height: 492px;"/>
+
+</div>
+<div class="Standard">
+In the part properties dialog, you see the part properties at the top, followed by the part orientation settings, followed by a picture of the part as it will be shown in the schematic.
+</div>
+<div class="Standard">
+The part properties are shown with two checkboxes, followed by a label, followed by the value. When first opened for a part, the default values are shown.
+</div>
+<div class="Standard">
+The first checkbox determines whether the property is to be shown in the schematic.
+</div>
+<div class="Standard">
+The second checkbox determines whether the keyword for the property is displayed (unchecking this box just shows the value).
+</div>
+<div class="Standard">
+The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). <b><i>SignalIntegrityApp</i></b> never uses scientific notation or anything like that. Also, if the number has units, the units are shown.
+</div>
+<div class="Standard">
+To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the value that is already there. If you double-click, the entry is cleared and you can enter an entirely new value.
+</div>
+<div class="Standard">
+The units never need to be entered (but can be).
+</div>
+<div class="Standard">
+Numbers can be entered with exponents or with the engineering notation suffix. For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or 10e7.
+</div>
+<div class="Standard">
+The reference designator is entered by <b><i>SignalIntegrityApp</i></b> and is always unique at the time of entry. In that sense, it does not need to be modified or viewed in the schematic.
+</div>
+<div class="Standard">
+The orientation of a part can be altered through rotation and mirroring. The rotation shown is always for a rotation in the counter-clockwise direction, but usually one just presses the toggle button until it looks right. Mirroring vertically or horizontally is accomplished by checking the boxes.
+</div>
+<div class="Standard">
+You have no control over the exact placement of the text displayed with each part. It is placed justified properly depending on the orientation.
+</div>
+<div class="Standard">
+For many parts, there are alternate part pictures available. These are chosen by simply clicking inside the the part picture area of the dialog. For example, for the voltage amplifier shown, there is an alternate picture that has the voltage reference reversed at the input. Clicking in the part picture changes the picture to the following:
+</div>
+<div class="Standard">
+<img class="embedded" src="PartPropertyVoltageAmplifierAlt.png" alt="figure PartPropertyVoltageAmplifierAlt.png" style="max-width: 394px; max-height: 492px;"/>
+
+</div>
+<div class="Standard">
+After you are satisfied with all of the part property settings and the orientation, press OK. The part is now edited in the schematic.
+</div>
+<div class="Standard">
+If at any time you press Cancel, the properties of the part are left unchanged in the schematic.
+</div>
+<div class="Standard">
+Some devices have file properties. For example, the <a class="Reference" href="Help-Subsection-38.html#subsec:File-1">File↓</a> and <a class="Reference" href="Help-Subsection-80.html#subsec:System">System↓</a> devices have s-parameter files and the <a class="Reference" href="Help-Subsection-65.html#subsec:Measure-Probe">Voltage Measure Probe↓</a>, <a class="Reference" href="Help-Subsection-53.html#subsec:Voltage-Source">Voltage Source↓</a> and <a class="Reference" href="Help-Subsection-54.html#subsec:Current-Source">Current Source↓</a> have <a class="Reference" href="Help-Section-16.html#sec:Waveform">Waveform↓</a> files associated. In these cases, the files can be browsed to and selected and viewed in either the <a class="Reference" href="Help-Section-10.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a> or the <a class="Reference" href="Help-Section-11.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-40.html#next">Prev</a> Duplicate Part</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-40.html#next">Prev</a> Delete Part</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Parts</span>
-<span class="next">Flip Horizontally <a class="next" name="next" href="Help-Subsubsection-42.html#prev">Next</a></span>
+<span class="next">Duplicate Part <a class="next" name="next" href="Help-Subsubsection-42.html#prev">Next</a></span>
 </div>
 
 </div>

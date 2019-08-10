@@ -269,7 +269,7 @@ status open
 
 
 \backslash
-href{mailto:PeterP@LeCroy.com?subject=SignalIntegrity Project}{PeterP@LeCroy.com}
+href{mailto:PeterP@LeCroy.com?subject=SignalIntegrity Project}{peterp@LeCroy.com}
 \end_layout
 
 \end_inset
@@ -4704,7 +4704,7 @@ reference "sec:S-parameter-Viewer"
  to examine the s-parameter files in the system and invoking 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:Resample"
+reference "Control-Help:S-Parameter-Properties"
 
 \end_inset
 
@@ -5575,6 +5575,34 @@ reference "sec:S-parameter-Viewer"
 \end_layout
 
 \begin_layout Section
+RLGC Fit
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:RLGC-Fit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This calculates the s-parameters of an RLGC two-port transmission line fitted
+ to the s-parameters.
+ The fit is a least-mean-squared-error fit to a transmission line with the
+ parameters as provided in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Telegrapher---Two-Port"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
 S-parameter Viewer
 \begin_inset CommandInset label
 LatexCommand label
@@ -5904,11 +5932,11 @@ reference "subsec:S-Parameter-Viewer-File"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-Parameter-Viewer-Calculation"
+reference "subsec:S-Parameter-Viewer-Properties"
 
 \end_inset
 
- - resampling, and enforcements.
+ - s-parameter properties.
 \end_layout
 
 \begin_layout Itemize
@@ -6296,10 +6324,10 @@ This saves the current s-parameter file being viewed to disk.
 \end_layout
 
 \begin_layout Subsection
-S-Parameter Viewer Calculation Menu
+S-Parameter Viewer Properties Menu
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:S-Parameter-Viewer-Calculation"
+name "subsec:S-Parameter-Viewer-Properties"
 
 \end_inset
 
@@ -6307,13 +6335,16 @@ name "subsec:S-Parameter-Viewer-Calculation"
 \end_layout
 
 \begin_layout Standard
-The Calculate tasks are:
+The Properties tasks are:
 \end_layout
 
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:Resample"
+reference "Control-Help:S-Parameter-Properties"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -6351,10 +6382,10 @@ reference "Control-Help:Wavelet-Denoise"
 \end_layout
 
 \begin_layout Subsubsection
-Resample
+S-Parameter Properties
 \begin_inset CommandInset label
 LatexCommand label
-name "Control-Help:Resample"
+name "Control-Help:S-Parameter-Properties"
 
 \end_inset
 
@@ -6405,7 +6436,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Resample
+Properties ▸ S-parameter Properties
 \end_layout
 
 \end_inset
@@ -6427,7 +6458,7 @@ Navigation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Alt+C,R
+Alt+P,S
 \end_layout
 
 \end_inset
@@ -6507,7 +6538,35 @@ Always
 \end_layout
 
 \begin_layout Standard
-When s-parameters are produced as a result of a 
+\begin_inset Graphics
+	filename SParameterProperties.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This opens the s-parameters properties dialog.
+ All things in this dialog can be modified to alter the s-parameters.
+\end_layout
+
+\begin_layout Standard
+The top third contains all of the things that end up affecting the end frequency
+ and frequency points.
+ The other parameters are simply other ways of saying the same thing.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ When s-parameters are produced as a result of a 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Generation"
@@ -6530,7 +6589,7 @@ reference "Control-Help:Calculation-Properties"
 
  set at the time of the calculation.
  If they are changed after the calculation, the results can be resampled
- using this command.
+ by editing the values in this dialog.
 \end_layout
 
 \begin_layout Standard
@@ -6538,6 +6597,25 @@ Also, oftentimes s-parameters are being viewed from files and are therefore
  sampled however they are on the disk.
  Resampling them allows the user to see ahead of time how they will be resampled
  during calculation to look for bad behavior.
+\end_layout
+
+\begin_layout Standard
+The reference impedance of the s-parameters can be changed from the default,
+ which is the reference impedance of the s-parameters calculated or read
+ in from a file.
+\end_layout
+
+\begin_layout Standard
+The negative and positive time limit contains the time limits for the impulse
+ responses that have non-zero data.
+ lower the magnitude of these limits causes the s-parameters to be limited
+ in non-zero response to these limits.
+ This is helpful to smooth out s-parameter data.
+\end_layout
+
+\begin_layout Standard
+Note, the best effects for limiting negative time, as for enforcing causality,
+ is by setting the negative time limit the negative of the base sample period.
 \end_layout
 
 \begin_layout Subsubsection
@@ -6595,7 +6673,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Enforce Passivity
+Properties ▸ Enforce Passivity
 \end_layout
 
 \end_inset
@@ -6794,7 +6872,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Enforce Causality
+Properties ▸ Enforce Causality
 \end_layout
 
 \end_inset
@@ -6993,7 +7071,7 @@ Menu System
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calculate ▸ Wavelet Denoise
+Properties ▸ Wavelet Denoise
 \end_layout
 
 \end_inset
@@ -7193,6 +7271,36 @@ reference "Control-Help:Show-Impedance"
 
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Excess-Inductance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Excess-Capacitance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Log-Scale"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Variable Line Width
 \begin_inset CommandInset label
@@ -7347,6 +7455,21 @@ Always
 \end_inset
 
 
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VariableLineWidth.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -7367,6 +7490,20 @@ The line width of the magnitude response and phase response vary depending
  on the magnitude response of the s-parameter.
  If the magnitude is large, a large line width is used and if the magnitude
  is small, a small line width is used.
+\end_layout
+
+\begin_layout Standard
+Unfortunately, variable line width cannot operate properly along with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Log-Scale"
+
+\end_inset
+
+.
+ When both modes are set, they are both shown checked, but the variable
+ line width overrides and the plot is shown with a linear frequency axis
+ with variable line width.
 \end_layout
 
 \begin_layout Subsubsection
@@ -7519,6 +7656,21 @@ When s-parameter files are being viewed
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename PassivityViolations.png
 
 \end_inset
 
@@ -8008,10 +8160,6 @@ This calculation is an approximation because in systems with lots of or
 
 \begin_layout Standard
 Here is the step response:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -8027,10 +8175,6 @@ Here is the step response:
 
 \begin_layout Standard
 And here is the impedance profile calculated from the step response:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -8051,10 +8195,6 @@ Note that something unnatural had to be done about the step response going
 
 \begin_layout Standard
 Here is a zoom of the impedance profile:
-\begin_inset Separator latexpar
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -8084,6 +8224,599 @@ There are more accurate methods possible (called peeling), but these are
 \begin_layout Standard
 This command is not available (and does not make sense) when viewing transfer
  parameters.
+\end_layout
+
+\begin_layout Subsubsection
+Show Excess Inductance
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Show-Excess-Inductance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Show Excess Inductance
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,n
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This setting causes the step responses (the lower right plot) to be displayed
+ as excess inductance for the diagonal element s-parameters (S11, S22, S33,
+ etc.).
+ The excess inductance is another way of plotting the impedance profile
+ shown when setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
+
+\end_inset
+
+.
+ For a given impedance 
+\begin_inset Formula $Z$
+\end_inset
+
+, a given reference impedance 
+\begin_inset Formula $Z0$
+\end_inset
+
+, and a given impedance profile time per section 
+\begin_inset Formula $Ts$
+\end_inset
+
+, the excess inductance is given as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Delta L=L-L0=\left(Z-Z0\right)\cdot2\cdot Ts
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Show Excess Capacitance
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Show-Excess-Capacitance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Show Excess Capacitance
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,C
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This setting causes the step responses (the lower right plot) to be displayed
+ as excess capacitance for the diagonal element s-parameters (S11, S22,
+ S33, etc.).
+ The excess capacitance is another way of plotting the impedance profile
+ shown when setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
+
+\end_inset
+
+.
+ For a given impedance 
+\begin_inset Formula $Z$
+\end_inset
+
+, a given reference impedance 
+\begin_inset Formula $Z0$
+\end_inset
+
+, and a given impedance profile time per section 
+\begin_inset Formula $Ts$
+\end_inset
+
+, the excess capacitance is given as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Delta C=C-C0=\left(\frac{1}{Z}-\frac{1}{Z0}\right)\cdot2\cdot Ts
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that excess capacitance becomes more negative as the impedance rises
+ above 
+\begin_inset Formula $Z0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Log Scale
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Log-Scale"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Log Scale
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename LogScale.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Allows viewing magnitude and phase response on a logarithmic scale.
+\end_layout
+
+\begin_layout Standard
+This view is like a Bode plot and is useful when viewing things with poles
+ and zeros where Bode plots are useful.
+\end_layout
+
+\begin_layout Standard
+It is also most useful in power integrity applications.
+\end_layout
+
+\begin_layout Standard
+Unfortunately, Log Scale cannot operate properly along with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+.
+ When both modes are set, they are both shown checked, but the variable
+ line width overrides and the plot is shown with a linear frequency axis
+ with variable line width.
 \end_layout
 
 \begin_layout Section
@@ -8892,6 +9625,16 @@ name "subsec:Simulator-Calculation-Menu"
 
 \begin_layout Standard
 The Calculate tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -17538,43 +18281,399 @@ SignalIntegrityApp
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\[
-frequencyPoints=endFrequency\cdot impulseResponseLength
-\]
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="4">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="1.25in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="1.5in">
+<column alignment="center" valignment="top" width="1.5in">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Property
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Equation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Internal Property Name
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+user sample rate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+base
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $userSampleRate$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UserSampleRate
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+end frequency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+base
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $endfrequency$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EndFrequency
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+number of frequency points
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+base
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $frequencyPoints$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FrequencyPoints
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+base sample rate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+derived
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $baseSampleRate=2\cdot endFrequency$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+BaseSampleRate
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+number of time points
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+derived
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $timePoints=2\cdot frequencyPoints$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TimePoints
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+frequency resolution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+derived
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $frequencyResolution=\frac{endFrequency}{frequencyPoints}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FrequencyResolution
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+time length of impulse response
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+derived
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $impulseResponseLength=\frac{frequencyPoints}{endFrequency}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ImpulseResponseLength
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+user sample period
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+derived
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $userSamplePeriod=\frac{1}{userSampleRate}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+UserSamplePeriod
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula 
-\[
-frequencyResolution=\frac{1}{impulseResponseLength}
-\]
-
 \end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-baseSampleRate=2\cdot endFrequency
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-timePoints=2\cdot endFrequency\cdot impulseResponseLength
-\]
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
@@ -17695,6 +18794,50 @@ t\left[k\right]=\left(k-\frac{K}{2}\right)\cdot\frac{1}{Fs}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Depending on the application, it is useful to also read:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculating-S-parameters"
+
+\end_inset
+
+ for s-parameter calculation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties-for-Simulation"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties-for-Deembedding"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -17830,7 +18973,12 @@ Toolbar
 \begin_inset Text
 
 \begin_layout Plain Layout
-None
+\begin_inset Graphics
+	filename sp-view.png
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -18832,6 +19980,204 @@ reference "subsec:Deembedding-Calculation"
  for what happens when invoked and for the conditions for enabling this.
 \end_layout
 
+\begin_layout Subsubsection
+RLGC Fit
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:RLGC-Fit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculate"
+
+\end_inset
+
+ ▸ RLGC Fit
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,F
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename system-run-3.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameters can be calculated and there are two ports
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This invokes 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:RLGC-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:RLGC-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for what happens when invoked and for the conditions for enabling this.
+\end_layout
+
 \begin_layout Subsection
 Help
 \begin_inset CommandInset label
@@ -19631,6 +20977,16 @@ reference "subsec:Telegrapher---Four-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "subsec:RLGC-Fit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "subsec:Voltage-Source"
 
 \end_inset
@@ -19672,6 +21028,26 @@ reference "subsec:Voltage-Step-Generator"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Voltage-Pulse-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Voltage-PRBS-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Voltage-Clock-Generator"
 
 \end_inset
 
@@ -19752,6 +21128,26 @@ reference "subsec:Output-Probe"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Stim"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Current-Probe"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Voltage-Diff-Probe"
 
 \end_inset
 
@@ -22538,7 +23934,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+T?
 \end_layout
 
 \end_inset
@@ -22871,7 +24267,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+T?
 \end_layout
 
 \end_inset
@@ -23441,7 +24837,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+T?
 \end_layout
 
 \end_inset
@@ -24402,6 +25798,309 @@ Otherwise, if zero sections are specified and the lines are neither uncoupled
  In this case, the number of sections is calculated such that the round-trip
  time delay through any small section of the line is no longer than one
  percent of the fastest possible risetime.
+\end_layout
+
+\begin_layout Subsection
+RLGC Fit
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:RLGC-Fit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename RLGC.bmp
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+T?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This device is a two-port transmission line as in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Telegrapher---Two-Port"
+
+\end_inset
+
+ where the constants for the transmission line are formed by fitting the
+ s-parameters contained in the file specified to an RLGC transmission line.
+\end_layout
+
+\begin_layout Standard
+The fit is performed by estimating the impedance and the delay through the
+ line and using that to form a guess of the inductance and capacitance of
+ the line.
+ Initially no series resistance, skin-effect resistance, dissipation factor
+ of conductance is in the guess.
+\end_layout
+
+\begin_layout Standard
+The fit proceeds until it converges and the fitted s-parameters are used
+ as the device.
+\end_layout
+
+\begin_layout Standard
+The scale variable allows the fitted line to be scaled.
+ This is particularly useful when model fitting to perform a 2x thru de-embeddin
+g where a scale of 0.5 splits the model in half.
 \end_layout
 
 \begin_layout Subsection
@@ -25443,7 +27142,7 @@ name "subsec:Voltage-Step-Generator"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="5">
+<lyxtabular version="3" rows="9" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -25737,6 +27436,53 @@ s
 \begin_inset Text
 
 \begin_layout Plain Layout
+risetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 duration
 \end_layout
 
@@ -25862,6 +27608,10 @@ The waveform is 0 V until the start time, after which it jumps immediately
  to the amplitude specified for the remaining duration of the waveform.
 \end_layout
 
+\begin_layout Standard
+If a nonzero risetime is specified, the edge crosses 50% at the start time.
+\end_layout
+
 \begin_layout Subsection
 Voltage Pulse Generator
 \begin_inset CommandInset label
@@ -25890,7 +27640,7 @@ name "subsec:Voltage-Pulse-Generator"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="10" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -26231,6 +27981,53 @@ s
 \begin_inset Text
 
 \begin_layout Plain Layout
+risetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 duration
 \end_layout
 
@@ -26354,6 +28151,1145 @@ The waveform created has a sample rate as provided and extends in time from
 \begin_layout Standard
 The waveform is 0 V until the start time, after which it jumps immediately
  to the amplitude specified for the duration specified by the pulse width.
+\end_layout
+
+\begin_layout Standard
+If a nonzero risetime is specified, the first edge crosses 50% at the start
+ time.
+\end_layout
+
+\begin_layout Subsection
+Voltage PRBS Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Voltage-PRBS-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VoltagePRBSGenerator.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+VG?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+amplitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+V
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0 V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sample rate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S/s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+40.0 GS/s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+prbs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+prbs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+risetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+bitrate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+br
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b/s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0 Gb/s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+start time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+t0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+duration
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+dur
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200.0 ns
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+horizontal offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ho
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-100.0 ns
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The voltage PRBS generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a voltage pseudo-random NRZ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a sample rate as provided and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+The waveform uses the PRBS polynomial specified at the bitrate specified.
+\end_layout
+
+\begin_layout Standard
+If a nonzero risetime is specified, the first edge crosses 50% at the start
+ time.
+\end_layout
+
+\begin_layout Standard
+The maximum risetime is 59% of the unit interval (the reciprocal of the
+ bitrate).
+\end_layout
+
+\begin_layout Standard
+Warning - longer PRBS patterns (a high prbs number) take longer to calculate.
+\end_layout
+
+\begin_layout Subsection
+Voltage Clock Generator
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Voltage-Clock-Generator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VoltageClockGenerator.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+VG?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+amplitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+V
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0 V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sample rate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S/s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+40.0 GS/s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+risetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+frequency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hz
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0 MHz
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+start time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+t0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+duration
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+dur
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200.0 ns
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+horizontal offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ho
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-100.0 ns
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The voltage clock generator is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to provide a voltage clock 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Waveform"
+
+\end_inset
+
+ to the system.
+\end_layout
+
+\begin_layout Standard
+The waveform created has a clock rate as specified and extends in time from
+ the horizontal offset, the time of the first point in the waveform, for
+ the duration specified.
+\end_layout
+
+\begin_layout Standard
+If a nonzero risetime is specified, the first edge crosses 50% at the start
+ time.
+\end_layout
+
+\begin_layout Standard
+The maximum risetime is 59% of the clock period.
 \end_layout
 
 \begin_layout Subsection
@@ -26878,7 +29814,7 @@ name "subsec:Current-Step-Generator"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="5">
+<lyxtabular version="3" rows="9" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -27172,6 +30108,53 @@ s
 \begin_inset Text
 
 \begin_layout Plain Layout
+risetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 duration
 \end_layout
 
@@ -27297,6 +30280,11 @@ The waveform is 0 V until the start time, after which it jumps immediately
  to the amplitude specified for the remaining duration of the waveform.
 \end_layout
 
+\begin_layout Standard
+If a nonzero risetime is specified, the first edge crosses 50% at the start
+ time.
+\end_layout
+
 \begin_layout Subsection
 Current Pulse Generator
 \begin_inset CommandInset label
@@ -27325,7 +30313,7 @@ name "subsec:Current-Pulse-Generator"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="10" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -27666,6 +30654,53 @@ s
 \begin_inset Text
 
 \begin_layout Plain Layout
+risetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+rt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 duration
 \end_layout
 
@@ -27789,6 +30824,11 @@ The waveform created has a sample rate as provided and extends in time from
 \begin_layout Standard
 The waveform is 0 V until the start time, after which it jumps immediately
  to the amplitude specified for the duration specified by the pulse width.
+\end_layout
+
+\begin_layout Standard
+If a nonzero risetime is specified, the first edge crosses 50% at the start
+ time.
 \end_layout
 
 \begin_layout Subsection
@@ -29516,6 +32556,730 @@ reference "sec:Netlist"
 \end_inset
 
  for more information.
+\end_layout
+
+\begin_layout Subsection
+Current Probe
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Current-Probe"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename CurrentProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+VO?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+td
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+V
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+transconductance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+gain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+V/A
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The current probe is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to specify output current waveforms to be produced as a result
+ of the calculation.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Output-Probes-for Simulation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Output-Probes-for-Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When the waveforms are produced as a result of the calculation, you have
+ the capability of applying gain, offset and delay to the resulting waveform.
+\end_layout
+
+\begin_layout Standard
+Despite the fact that the probe measures current, it behaves like a scope
+ current probe, producing a voltage waveform.
+\end_layout
+
+\begin_layout Subsection
+Voltage Diff Probe
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Voltage-Diff-Probe"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename DiffProbe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+VO?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+td
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+voltage offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+V
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0 V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+voltage gain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+gain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The voltage diff probe is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to specify output waveforms to be produced as a result of
+ the calculation.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Output-Probes-for Simulation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Output-Probes-for-Virtual-Probing"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The voltage diff probe calculates the difference between the two voltages
+ at the plus and minus labeled connection points.
+\end_layout
+
+\begin_layout Standard
+When the waveforms are produced as a result of the calculation, you have
+ the capability of applying gain, offset and delay to the resulting waveform.
 \end_layout
 
 \begin_layout Subsection
@@ -34241,6 +38005,21 @@ Numerical Error
 This is the same error as Cannot Invert I-W or I-Wxx while calculating the
  simulator transfer parameters.
  It indicates pathological problems in the system described.
+ In many cases this can be resolved using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.TrySVD"
+
+\end_inset
+
+ preference in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -34444,6 +38223,24 @@ Examples of pathological cases that can be worked around are circuit nodes
  Sometimes, these can be worked around through the insertion of large resistors
  to ground or tiny series resistors.
  A detailed examination of the circuit would be necessary.
+\end_layout
+
+\begin_layout Standard
+Also, in many cases this can be resolved using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.TrySVD"
+
+\end_inset
+
+ preference in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -34781,7 +38578,7 @@ The preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="14" columns="4">
+<lyxtabular version="3" rows="15" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -35051,12 +38848,100 @@ Bool
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+show all pin numbers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.ShowAllPinNumbers"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+use SinX/X for resampling
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.UseSinX"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 False
 \end_layout
 
@@ -35171,7 +39056,7 @@ open last file on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
+reference "subsec:OpenLastFile"
 
 \end_inset
 
@@ -35340,7 +39225,7 @@ True
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -35349,16 +39234,13 @@ online help url
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:OnlineHelp.URL"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -35367,7 +39249,7 @@ noprefix "false"
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -35383,52 +39265,6 @@ Bool
 \noindent
 \align left
 http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-rebuild help keys on start
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:OnlineHelp.RebuildHelpKeys"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Bool
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-False
 \end_layout
 
 \end_inset
@@ -36271,6 +40107,270 @@ To remove the annoyance, this feature can be controlled by this preference.
 \end_layout
 
 \begin_layout Subsection*
+Appearance.ShowAllPinNumbers
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.ShowAllPinNumbers"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+show all pin numbers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.ShowAllPinNumbers"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By default, pin numbers are shown only for devices that require them, namely
+ all devices that take in a file.
+ In these cases, the pin numbering must match the port numbering of the
+ file being read.
+ Otherwise, internal devices known by the application have their pin numbers
+ inherent in the symbol and therefore it is not really necessary to know
+ how the pins are numbered.
+ That being said, when viewing the s-parameters of the device, or when simply
+ checking the symbol versus the s-parameters, it is sometimes useful to
+ see this numbering.
+ Setting this preference to True causes almost all devices to show pin numbers.
+ Devices that will not show pin numbers ever are devices that are perfectly
+ symmetric.
+\end_layout
+
+\begin_layout Subsection*
+Calculation.UseSinX/X
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Calculation.UseSinX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+use SinX/X for resampling
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.UseSinX"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By default, linear interpolation is used for waveform processing to upsample
+ from the base sample rate to the user sample rate (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties-for-Simulation"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Setting this preference to True causes SinX/X interpolation to be used instead.
+\end_layout
+
+\begin_layout Subsection*
 Calculation.TrySVD
 \begin_inset CommandInset label
 LatexCommand label
@@ -36699,7 +40799,7 @@ open last file on start
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Calculation.TrySVD"
+reference "subsec:OpenLastFile"
 
 \end_inset
 
@@ -37438,148 +41538,6 @@ rity/App'.
  Note that in this case the actual base of the help system will be at '/home/pet
 erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.\SpecialChar LyX
 conv/Help.html'.
-\end_layout
-
-\begin_layout Subsection*
-OnlineHelp.RebuildHelpKeys
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:OnlineHelp.RebuildHelpKeys"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="2cm">
-<column alignment="left" valignment="top" width="18cm">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Name
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Type
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-(Default) Value
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-rebuild help keys on start
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:OnlineHelp.RebuildHelpKeys"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Bool
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-False
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-The help system is connected with control help through a 
-\emph on
-help keys
-\emph default
- file.
- This is a file that contains, for each menu control element, the corresponding
- help system page containing help for that control.
-\end_layout
-
-\begin_layout Standard
-When the online help system is not in sync with the version of the software
- currently being run, then the help keys file will be incorrect.
- This preference causes the help keys to be rebuilt when the application
- starts.
-\end_layout
-
-\begin_layout Standard
-Generally, the usage is to set this to True, close the application, re-open
- the application (which will take a few extra seconds), and then set this
- preference to False again.
-\end_layout
-
-\begin_layout Standard
-In the future, these help keys will be placed with the help system and accessed
- only when the control help is invoked.
 \end_layout
 
 \end_body

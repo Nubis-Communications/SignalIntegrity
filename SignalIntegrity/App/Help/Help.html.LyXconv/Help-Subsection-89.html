@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,62 +1073,26 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Simulator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">Numeric <a class="next" name="next" href="Help-Subsection-90.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> unknown</span>
+<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Netlist</span>
+<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-15.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-89"></a>VirtualProbe<a class="Label" name="sub:VirtualProbe"> </a>
+<a class="toc" name="toc-Subsection-89"></a>system<a class="Label" name="subsec:system"> </a>
 </h2>
 <div class="Standard">
-<b>No Measures</b>
+A netlist line beginning with the keyword <i>system</i> defines an <a class="Reference" href="Help-Subsection-80.html#subsec:System">System↑</a> in the schematic.
 </div>
 <div class="Standard">
-There are no measure probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one measure probe prior to enabling the simulation calculation, but it does not check whether the measure probe is actually connected to anything. 
+This should appear only for <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> applications and there must be one such statement in the netlist.
 </div>
 <div class="Standard">
-By looking at your schematic, you can see this, because unconnected measure probes will have a red x on their connection pins. That being said, simply connecting a wire to the measure probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-<b>No Outputs</b>
-</div>
-<div class="Standard">
-There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.
-</div>
-<div class="Standard">
-By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-<b>No Sources</b>
-</div>
-<div class="Standard">
-There are no sources in the circuit. In the context of <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a class="Reference" href="Help-Subsection-64.html#sub:Stim">Stim↑</a> defined by a <a class="Reference" href="Help-Section-13.html#sec:Netlist">Netlist↑</a> line defining a <a class="Reference" href="Help-Subsection-81.html#sub:stim">stim↑</a> prior to enabling the <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> calculation, but it does not check whether the stim is actually connected to anything.
-</div>
-<div class="Standard">
-By looking at your schematic, you can examine unconnected stims, because they will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a stim makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-Stims also require that the end of the arrow is connected directly to a device port. This is because unlike waves which are present along a wire, stims represent waves that emanate from a device port. Unfortunately, the schematic editor allows you to make this mistake.
-</div>
-<div class="Standard">
-Also, stims must be connected to only one device port. While the schematic editor allows device ports to be connected directly together, when a stim is connected to a device port, the device port must be separated from others in the schematic by a small piece of wire.
-</div>
-<div class="Standard">
-<b>Numerical Error</b>
-</div>
-<div class="Standard">
-This is the same error as Cannot Invert I-W or I-Wxx while calculating the virtual probe transfer parameters. It indicates pathological problems in the system described.
-</div>
-<div class="Standard">
-<b>Incorrect Matrix Alignment</b>
-</div>
-<div class="Standard">
-This cryptic error is an all encompassing error to indicate that something is wrong with the number of stims or measures in your system. In virtual probing, the number of independent stims (stims without the non-arrow side connected) must be less than or equal to the number of measure probes in the system. This error probably indicates that this is not the case (I say probably because there are other sources of this error especially when hand created netlists are entered into the system).
+The syntax is the keyword <i>system</i> followed by the reference designator followed by the number of ports followed by the keyword <i>file</i> followed by the name of the file containing s-parameters that define the <a class="Reference" href="Help-Subsection-80.html#subsec:System">System↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Simulator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Errors and Exceptions</span>
-<span class="next">Numeric <a class="next" name="next" href="Help-Subsection-90.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> unknown</span>
+<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Netlist</span>
+<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-15.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-27.html#next">Prev</a> S-Parameter Viewer Calculation Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Calculation Menu</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-27.html#next">Prev</a> S-Parameter Viewer Properties Menu</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
 <span class="next">Enforce Passivity <a class="next" name="next" href="Help-Subsubsection-4.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-3"></a>Resample<a class="Label" name="Control-Help:Resample"> </a>
+<a class="toc" name="toc-Subsubsection-3"></a>S-Parameter Properties<a class="Label" name="Control-Help:S-Parameter-Properties"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-Calculate ▸ Resample
+Properties ▸ S-parameter Properties
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ Calculate ▸ Resample
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+C,R
+Alt+P,S
 </td>
 
 </tr>
@@ -1141,14 +1141,30 @@ Always
 
 </div>
 <div class="Standard">
-When s-parameters are produced as a result of a <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> or <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> application, they are sampled with the <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> set at the time of the calculation. If they are changed after the calculation, the results can be resampled using this command.
+<img class="embedded" src="SParameterProperties.png" alt="figure SParameterProperties.png" style="max-width: 580px; max-height: 328px;"/>
+
+</div>
+<div class="Standard">
+This opens the s-parameters properties dialog. All things in this dialog can be modified to alter the s-parameters.
+</div>
+<div class="Standard">
+The top third contains all of the things that end up affecting the end frequency and frequency points. The other parameters are simply other ways of saying the same thing. See <a class="Reference" href="Help-Subsection-3.html#subsec:Setting-Calculation-Properties">Setting Calculation Properties↑</a>. When s-parameters are produced as a result of a <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> or <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> application, they are sampled with the <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> set at the time of the calculation. If they are changed after the calculation, the results can be resampled by editing the values in this dialog.
 </div>
 <div class="Standard">
 Also, oftentimes s-parameters are being viewed from files and are therefore sampled however they are on the disk. Resampling them allows the user to see ahead of time how they will be resampled during calculation to look for bad behavior.
 </div>
+<div class="Standard">
+The reference impedance of the s-parameters can be changed from the default, which is the reference impedance of the s-parameters calculated or read in from a file.
+</div>
+<div class="Standard">
+The negative and positive time limit contains the time limits for the impulse responses that have non-zero data. lower the magnitude of these limits causes the s-parameters to be limited in non-zero response to these limits. This is helpful to smooth out s-parameter data.
+</div>
+<div class="Standard">
+Note, the best effects for limiting negative time, as for enforcing causality, is by setting the negative time limit the negative of the base sample period.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-27.html#next">Prev</a> S-Parameter Viewer Calculation Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Calculation Menu</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-27.html#next">Prev</a> S-Parameter Viewer Properties Menu</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
 <span class="next">Enforce Passivity <a class="next" name="next" href="Help-Subsubsection-4.html#prev">Next</a></span>
 </div>
 

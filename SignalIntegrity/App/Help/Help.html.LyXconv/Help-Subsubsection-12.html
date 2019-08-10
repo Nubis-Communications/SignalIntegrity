@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-12-04"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-29.html#next">Prev</a> Simulator File Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-29.html">Up</a> Simulator File Menu</span>
-<span class="next">Read Waveforms <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-11.html#next">Prev</a> Show Excess Inductance</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
+<span class="next">Log Scale <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-12"></a>Save Waveforms<a class="Label" name="Control-Help:Save-Waveforms"> </a>
+<a class="toc" name="toc-Subsubsection-12"></a>Show Excess Capacitance<a class="Label" name="Control-Help:Show-Excess-Capacitance"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-Simulator and Virtual Probe Dialog
+S-parameter Viewer Dialog
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ Simulator and Virtual Probe Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-File ▸ Save
+View ▸ Show Excess Capacitance
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ File ▸ Save
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,S
+Alt+V,C
 </td>
 
 </tr>
@@ -1123,8 +1123,7 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-<img class="embedded" src="document-save-2.png" alt="figure document-save-2.png" style="max-width: 16px; max-height: 16px;"/>
-
+None
 </td>
 
 </tr>
@@ -1133,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+When s-parameter files are being viewed
 </td>
 
 </tr>
@@ -1142,12 +1141,21 @@ Always
 
 </div>
 <div class="Standard">
-Saves an output <a class="Reference" href="Help-Section-15.html#sec:Waveform">Waveform↓</a> from <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>.
+This setting causes the step responses (the lower right plot) to be displayed as excess capacitance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess capacitance is another way of plotting the impedance profile shown when setting <a class="Reference" href="Help-Subsubsection-10.html#Control-Help:Show-Impedance">Show Impedance↑</a>. For a given impedance <span class="formula"><i>Z</i></span>, a given reference impedance <span class="formula"><i>Z</i>0</span>, and a given impedance profile time per section <span class="formula"><i>Ts</i></span>, the excess capacitance is given as:
+</div>
+<div class="Standard">
+<div class="formula">
+Δ<i>C</i> = <i>C</i> − <i>C</i>0 = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i></span><span class="ignored">)</span></span> − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i>0</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>⋅2⋅<i>Ts</i>
+</div>
+
+</div>
+<div class="Standard">
+Note that excess capacitance becomes more negative as the impedance rises above <span class="formula"><i>Z</i>0</span>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-29.html#next">Prev</a> Simulator File Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-29.html">Up</a> Simulator File Menu</span>
-<span class="next">Read Waveforms <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-11.html#next">Prev</a> Show Excess Inductance</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
+<span class="next">Log Scale <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
 </div>
 
 </div>

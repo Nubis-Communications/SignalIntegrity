@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2018-11-15"/>
+<meta name="create-date" content="2019-08-09"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> OnlineHelp.URL</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Preferences</span>
-<span class="next"><a class="next" name="next"> </a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> Cache.CacheResults</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Preferences</span>
+<span class="next">OnlineHelp.URL <a class="next" name="next" href="Help-Subsection--14.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--13"></a>OnlineHelp.RebuildHelpKeys<a class="Label" name="sub:OnlineHelp.RebuildHelpKeys"> </a>
+<a class="toc" name="toc-Subsection--13"></a>OnlineHelp.UseOnlineHelp<a class="Label" name="subsec:OnlineHelp.UseOnlineHelp"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-rebuild help keys on start
+use online help
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--13.html#sub:OnlineHelp.RebuildHelpKeys">OnlineHelp.RebuildHelpKeys↑</a>
+<a class="Reference" href="Help-Subsection--13.html#subsec:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-False
+True
 </div>
 
 </td>
@@ -1117,16 +1117,21 @@ False
 </tr>
 
 </table>
-The help system is connected with control help through a <i>help keys</i> file. This is a file that contains, for each menu control element, the corresponding help system page containing help for that control.
+
 </div>
 <div class="Standard">
-When the online help system is not in sync with the version of the software currently being run, then the help keys file will be incorrect. This preference causes the help keys to be rebuilt when the application starts.
+This preference determines whether the application uses online help. This is the preferred arrangement.
 </div>
 <div class="Standard">
-Generally, the usage is to set this to True, close the application, re-open the application (which will take a few extra seconds), and then set this preference to False again.
+If True, the help system will be accessed according to the <a class="Reference" href="Help-Subsection--14.html#subsec:OnlineHelp.URL">OnlineHelp.URL↓</a> preference.
 </div>
 <div class="Standard">
-In the future, these help keys will be placed with the help system and accessed only when the control help is invoked.
+If False, the help system is expected to be in a directory called ’Help’ under the ’SignalIntegrity/App’ directory.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> Cache.CacheResults</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Preferences</span>
+<span class="next">OnlineHelp.URL <a class="next" name="next" href="Help-Subsection--14.html#prev">Next</a></span>
 </div>
 
 </div>
