@@ -127,8 +127,8 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         symbolic=si.sd.Symbolic(size='small')
         S=si.sy.TransconductanceAmplifierThreePortWithoutDenom('\\delta','Z_i','Z_o')
         D=si.sy.TransconductanceAmplifierThreePortDenom('\\delta','Z_i','Z_o')
-        symbolic._AddEq('\\mathbf{S}=\\frac{1}{'+D+'}\\cdot\\ldots')
-        symbolic._AddEq('\\ldots\\cdot '+symbolic._LaTeXMatrix(S))
+        symbolic._AddEq('\\mathbf{S}=\\frac{1}{'+D+'}')
+        symbolic._AddEq('\\cdot '+symbolic._LaTeXMatrix(S))
         symbolic.Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Transconductance Amplifier Three Port Symbolic 2')

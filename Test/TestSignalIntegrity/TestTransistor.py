@@ -30,7 +30,7 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
     def testTransistorSimpleSymbolic(self):
         symbolic=si.sd.Symbolic(size='small',eqprefix='\\begin{multline}',eqsuffix='\\end{multline}')
         symbolic._AddEq('\\mathbf{S}=\\frac{1}{'+si.sy.TransconductanceAmplifierThreePortDenom('-g_m','r_{\\pi}','r_o')+
-                        '}\\cdot\\ldots\\\\\\ldots\\cdot '+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePortWithoutDenom('-g_m','r_{\\pi}','r_o')))
+                        '}\\\\\\cdot '+symbolic._LaTeXMatrix(si.sy.TransconductanceAmplifierThreePortWithoutDenom('-g_m','r_{\\pi}','r_o')))
         symbolic.m_lines = [line.replace('--','+') for line in symbolic.m_lines]
         symbolic.Emit()
         # pragma: exclude
@@ -86,14 +86,14 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         symbolic._AddEq('\\mathbf{Cps}='+ssps._LaTeXMatrix(Cps))
         T=si.sy.TransconductanceAmplifierThreePortWithoutDenom('-g_m','r_{\\pi}','r_o')
         D=si.sy.TransconductanceAmplifierThreePortDenom('-g_m','r_{\\pi}','r_o')
-        symbolic._AddEq('\\mathbf{T}='+'\\frac{1}{'+D+'}'+'\\cdot\\ldots')
-        symbolic._AddEq(ssps._LaTeXMatrix(T))
+        symbolic._AddEq('\\mathbf{T}='+'\\frac{1}{'+D+'}')
+        symbolic._AddEq('\\cdot '+ssps._LaTeXMatrix(T))
         symbolic.Emit()
         ssps.LaTeXSolution(size='biggest').Emit()
         # pragma: exclude
         for n in range(len(ssps.m_lines)):
             if 'W_{xx}' in ssps.m_lines[n]:
-                ssps.m_lines[n]=ssps.m_lines[n].replace('\\[ \\mathbf{W_{xx}} = ','\\begin{multline*} \\mathbf{W_{xx}} =\\ldots\\\\ ')
+                ssps.m_lines[n]=ssps.m_lines[n].replace('\\[ \\mathbf{W_{xx}} = ','\\begin{multline*} \\mathbf{W_{xx}}=\\\\')
                 for n in range(n,len(ssps.m_lines)):
                     ssps.m_lines[n]=ssps.m_lines[n].replace('\\right) \\]','\\right)\\end{multline*}')
         self.CheckSymbolicResult(self.id()+'Defs',symbolic,'Transistor')

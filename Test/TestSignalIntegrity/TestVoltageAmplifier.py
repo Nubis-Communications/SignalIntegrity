@@ -141,7 +141,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         ssps.AssignSParameters('DV',si.sy.VoltageAmplifier(3,'\\alpha','Z_i','Z_o'))
         ssps.LaTeXSolution().Emit()
         # pragma: exclude
-        ssps.m_lines[0]=ssps.m_lines[0].replace('\\mathbf{S} = ','\\mathbf{S} =\\ldots\\\\ ')
+        ssps.m_lines[0]=ssps.m_lines[0].replace('\\mathbf{S} = ','\\mathbf{S} =\\\\ ')
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port Symbolic')
     def testVoltageAmplifierThreePortNumeric(self):
         sdp=si.p.SystemDescriptionParser()

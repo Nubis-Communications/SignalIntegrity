@@ -92,8 +92,8 @@ class TestOperationalAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.
     def testOperationalAmplifierSymbolic2(self):
         symbolic=si.sd.Symbolic(size='small')
         D=si.sy.OperationalAmplifier('Z_i','Z_d','Z_o','G')
-        symbolic._AddEq('\\mathbf{S}=\\ldots')
-        symbolic._AddEq('\\ldots ='+symbolic._LaTeXMatrix(D))
+        symbolic._AddEq('\\mathbf{S}=')
+        symbolic._AddEq('='+symbolic._LaTeXMatrix(D))
         symbolic.Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Operational Amplifier Symbolic 2')
