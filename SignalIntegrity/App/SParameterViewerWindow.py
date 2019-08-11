@@ -116,7 +116,7 @@ class SParametersDialog(tk.Toplevel):
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
-        self.SParameterPropertiesDoer = Doer(self.onSParameterProperties)
+        self.SParameterPropertiesDoer = Doer(self.onSParameterProperties).AddHelpElement('Control-Help:S-Parameter-Properties')
         self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement('Control-Help:Enforce-Passivity')
         self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement('Control-Help:Enforce-Causality')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise')
@@ -182,8 +182,8 @@ class SParametersDialog(tk.Toplevel):
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
         self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
         self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
-        self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=14,onvalue=True,offvalue=False,variable=self.showExcessInductance)
-        self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=13,onvalue=True,offvalue=False,variable=self.showExcessCapacitance)
+        self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=13,onvalue=True,offvalue=False,variable=self.showExcessInductance)
+        self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=12,onvalue=True,offvalue=False,variable=self.showExcessCapacitance)
         self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4,onvalue=True,offvalue=False,variable=self.logScale)
         #-------
         ZoomMenu=tk.Menu(self)

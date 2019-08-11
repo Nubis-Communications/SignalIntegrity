@@ -139,7 +139,7 @@ class SignalIntegrityApp(tk.Frame):
         self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('Control-Help:Simulate')
         self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('Control-Help:Virtual-Probe')
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed')
-        self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC')
+        self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC-Fit')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')

@@ -1,7 +1,6 @@
 """
  RLGC fit from file
 """
-
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
@@ -22,21 +21,26 @@ from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGCAnalytic import TLi
 from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Fit.RLGC import RLGCFitter
-from SignalIntegrity.Lib.ResultsCache import LinesCache
 
-class RLGCFitFromFile(LinesCache):
-    def __init__(self,f,filename,cacheFileName=None,scale=1,Z0=None):
-        self.m_lines='device D1 2 file '+filename
+class RLGCFitFromFile(object):
+    """fits a two-port RLGC model to s-parameters from a file"""
+    def __init__(self,f,filename,scale=1,Z0=None):
+        """Constructor
+        @param f list of float frequencies
+        @param filename string name of s-parameter file or project that produces s-parameters
+        @param scale float (optional, defaults to 1.0) scaling to be applied on resulting fit
+        @param Z0 float (optional, defaults to None) reference impedance
+        @note fitting is not performed until an item from the fitted model is requested
+        """
         self.scale=scale
         self.Z0=Z0
-        self.m_args=None
         self.m_f=f
         self.spfile=filename
         self.RLGC=None
-        LinesCache.__init__(self,'RLGC',cacheFileName)
     def Fit(self):
-        if self.CheckCache():
-            return self.RLGC
+        """
+        Fits a two-port RLGC model for the specified s-parameter file
+        """
         sp=SParameterFile(self.spfile,self.Z0)
         stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
         threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
@@ -51,9 +55,12 @@ class RLGCFitFromFile(LinesCache):
         print(fitter.Results())
         s=self.scale
         self.RLGC=TLineTwoPortRLGCAnalytic(self.m_f, R*s, Rse*s, L*s, G*s, C*s, df, Z0=50.)
-        self.CacheResult()
         return self.RLGC
     def __getitem__(self,item):
+        """overloads [n]
+        @return list of list s-parameter matrix for the nth frequency element
+        @note if a fit has not yet been performed, it is performed prior to obtaining the element
+        """
         if self.RLGC is None:
             self.RLGC = self.Fit()
         return self.RLGC[item]
