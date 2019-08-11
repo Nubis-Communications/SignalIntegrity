@@ -35,7 +35,7 @@ class SParameterFile(SParameters):
     def __init__(self,name,Z0=None):
         """Constructor
         @param name string file name of s-parameter file to read.
-        @param Z0 (optional) real or complex reference impedance desired (defaults to 50 Ohms).
+        @param Z0 (optional) real or complex reference impedance desired (defaults to 50 ohms).
         Reads the s-parameter file and produces an instance of its base class SParameters.
 
         If the reference impedance of the Touchstone 1.0 file read is not the reference

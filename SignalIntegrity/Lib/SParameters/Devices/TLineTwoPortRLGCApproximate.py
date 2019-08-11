@@ -28,13 +28,13 @@ class TLineTwoPortRLGCApproximate(SParameters):
     def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0):
         """Constructor
         @param f list of float frequencies
-        @param R float DC series resistance (Ohms)
-        @param Rse float series skin-effect resistance (Ohms/sqrt(Hz))
+        @param R float DC series resistance (ohms)
+        @param Rse float series skin-effect resistance (ohms/sqrt(Hz))
         @param L float series inductance (H)
         @param G float DC conductance to ground (S)
         @param C float capacitance to ground (F)
         @param df float dissipation factor (loss-tangent) of capacitance to ground
-        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+        @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to zero)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
         approximation.

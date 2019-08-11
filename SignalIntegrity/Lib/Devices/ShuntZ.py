@@ -36,7 +36,7 @@ def ShuntZ(ports,Z,Z0=50.):
     Shunt impedance
     @param ports integer number of ports
     @param Z real or complex impedance of two-port impedance.
-    @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).
+    @param Z0 (optional) real or complex reference impedance (defaults to 50 ohms).
     @return list of list s-parameter matrix of a shunt impedance.\n
     @see ShuntZTwoPort
     @see ShuntZThreePort
@@ -50,7 +50,7 @@ def ShuntZTwoPort(Z,Z0=50.):
     """ShuntZTwoPort
     Two port shunt impedance
     @param Z real or complex impedance of two-port impedance.
-    @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).
+    @param Z0 (optional) real or complex reference impedance (defaults to 50 ohms).
     @return list of list s-parameter matrix of a shunt impedance.\n
     @remark Ports 1 and 2 are connected together and to one side of the impedance.\n
     The other side of the impedance is tied to ground.
@@ -63,7 +63,7 @@ def ShuntZFourPort(Z,Z0=50.):
     """ShuntZFourPort
     Four port shunt impedance
     @param Z real or complex impedance of two-port impedance.
-    @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).
+    @param Z0 (optional) real or complex reference impedance (defaults to 50 ohms).
     @return list of list s-parameter matrix of a shunt impedance.\n
     @remark Ports 1 and 3 are connected to port 1 of the device D provided.\n
     Ports 2 and 4 are connected to port 2 of the device D provided.\n
@@ -79,7 +79,7 @@ def ShuntZThreePort(Z,Z0=50.):
     """ShuntZThreePort
     Three port shunt impedance
     @param Z real or complex impedance of two-port impedance.
-    @param Z0 (optional) real or complex reference impedance (defaults to 50 Ohms).
+    @param Z0 (optional) real or complex reference impedance (defaults to 50 ohms).
     @return list of list s-parameter matrix of a shunt impedance.\n
     @remark Ports 1 and 2 are connected together and to port 1 impedance.\n
     Port 3 is the other port of the impedance.\n

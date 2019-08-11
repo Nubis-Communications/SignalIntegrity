@@ -2,7 +2,7 @@
 %  <polyline lc="black">88,-24 90,-20 92,-28 94,-20 96,-28 98,-20 100,-28 102,-20 104,-24</polyline>
 %  <polyline lc="black">80,-24 88,-24</polyline>
 %  <polyline lc="black">112,-24 104,-24</polyline>
-%  <text x="96" y="-15" t="500.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="96" y="-15" t="500.0 ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">152,-32 152,-38</polyline>
 %  <polyline lc="black">146.667,-38 157.333,-38</polyline>
 %  <polyline lc="black">146.667,-42 157.333,-42</polyline>
@@ -67,7 +67,7 @@
 \path[line width=0.30mm, draw=black] (88,-24) -- (90,-20) -- (92,-28) -- (94,-20) -- (96,-28) -- (98,-20) -- (100,-28) -- (102,-20) -- (104,-24);
 \path[line width=0.30mm, draw=black] (80,-24) -- (88,-24);
 \path[line width=0.30mm, draw=black] (112,-24) -- (104,-24);
-\draw[black] (96,-15) node[anchor=base]{500.0 Ohm};
+\draw[black] (96,-15) node[anchor=base]{500.0 ohm};
 \path[line width=0.30mm, draw=black] (152,-32) -- (152,-38);
 \path[line width=0.30mm, draw=black] (146.667,-38) -- (157.333,-38);
 \path[line width=0.30mm, draw=black] (146.667,-42) -- (157.333,-42);

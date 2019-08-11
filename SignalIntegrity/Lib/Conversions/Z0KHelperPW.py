@@ -34,7 +34,7 @@ def Z0KHelperPW(Z0,P):
     It operates by selecting the best possible choices with the specification
     of the least information.
 
-    If Z0 is not specified, the default 50 Ohms is selected.
+    If Z0 is not specified, the default 50 ohms is selected.
     The scaling factor is calculated as sqrt(|Re(Z0)|).
     These are provided in matrix form when needed and complex when needed
 

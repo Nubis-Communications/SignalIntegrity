@@ -11,18 +11,18 @@
 %  <polyline lc="black">164,-28 166,-27 162,-26 166,-25 162,-24 166,-23 162,-22 166,-21 164,-20</polyline>
 %  <polyline lc="black">164,-32 164,-28</polyline>
 %  <polyline lc="black">164,-16 164,-20</polyline>
-%  <text x="168" y="-28" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="168" y="-28" t="50.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="168" y="-25" t="Z1" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">164,-44 166,-43 162,-42 166,-41 162,-40 166,-39 162,-38 166,-37 164,-36</polyline>
 %  <polyline lc="black">164,-48 164,-44</polyline>
 %  <polyline lc="black">164,-32 164,-36</polyline>
-%  <text x="168" y="-44" t="40.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="168" y="-44" t="40.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="168" y="-41" t="Z2" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">188,-36 186,-37 190,-38 186,-39 190,-40 186,-41 190,-42 186,-43 188,-44</polyline>
 %  <polyline lc="black">188,-44 188,-48</polyline>
 %  <polygon fill="black">185.333,-48 190.667,-48 188,-50.667 185.333,-48</polygon>
 %  <polyline lc="black">188,-32 188,-36</polyline>
-%  <text x="192" y="-46" t="60.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="192" y="-46" t="60.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="192" y="-43" t="Z3" h="3" halign="l" lc="black"/>
 %  <text x="90" y="-29" t="+" h="3" halign="c" lc="black"/>
 %  <text x="90" y="-37" t="-" h="3" halign="c" lc="black"/>
@@ -198,18 +198,18 @@
 \path[line width=0.30mm, draw=black] (164,-28) -- (166,-27) -- (162,-26) -- (166,-25) -- (162,-24) -- (166,-23) -- (162,-22) -- (166,-21) -- (164,-20);
 \path[line width=0.30mm, draw=black] (164,-32) -- (164,-28);
 \path[line width=0.30mm, draw=black] (164,-16) -- (164,-20);
-\draw[black] (168,-28) node[anchor=base west]{50.0 Ohm};
+\draw[black] (168,-28) node[anchor=base west]{50.0 ohm};
 \draw[black] (168,-25) node[anchor=base west]{Z1};
 \path[line width=0.30mm, draw=black] (164,-44) -- (166,-43) -- (162,-42) -- (166,-41) -- (162,-40) -- (166,-39) -- (162,-38) -- (166,-37) -- (164,-36);
 \path[line width=0.30mm, draw=black] (164,-48) -- (164,-44);
 \path[line width=0.30mm, draw=black] (164,-32) -- (164,-36);
-\draw[black] (168,-44) node[anchor=base west]{40.0 Ohm};
+\draw[black] (168,-44) node[anchor=base west]{40.0 ohm};
 \draw[black] (168,-41) node[anchor=base west]{Z2};
 \path[line width=0.30mm, draw=black] (188,-36) -- (186,-37) -- (190,-38) -- (186,-39) -- (190,-40) -- (186,-41) -- (190,-42) -- (186,-43) -- (188,-44);
 \path[line width=0.30mm, draw=black] (188,-44) -- (188,-48);
 \path[line width=0.30mm, fill=black] (185.333,-48) -- (190.667,-48) -- (188,-50.667) -- (185.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (188,-32) -- (188,-36);
-\draw[black] (192,-46) node[anchor=base west]{60.0 Ohm};
+\draw[black] (192,-46) node[anchor=base west]{60.0 ohm};
 \draw[black] (192,-43) node[anchor=base west]{Z3};
 \draw[black] (90,-29) node[anchor=base]{+};
 \draw[black] (90,-37) node[anchor=base]{-};

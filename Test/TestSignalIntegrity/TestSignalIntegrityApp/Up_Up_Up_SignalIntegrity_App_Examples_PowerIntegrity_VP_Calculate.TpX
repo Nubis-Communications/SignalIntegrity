@@ -20,7 +20,7 @@
 %  <polyline lc="black">116,-64 116,-68</polyline>
 %  <polygon fill="black">113.333,-68 118.667,-68 116,-70.667 113.333,-68</polygon>
 %  <polyline lc="black">116,-52 116,-56</polyline>
-%  <text x="120" y="-63" t="1.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="120" y="-63" t="1.0 ohm" h="3" halign="l" lc="black"/>
 %  <polygon lc="black">32,-44 36,-41 40,-44 36,-47 32,-44</polygon>
 %  <polyline arr2="h44" arrs="0.5" lc="black">33,-52 39,-52</polyline>
 %  <polyline lc="black">33.5,-44.75 33.5,-43.25</polyline>
@@ -43,7 +43,7 @@
 %  <polyline lc="black">76,-52 77,-50 78,-54 79,-50 80,-54 81,-50 82,-54 83,-50 84,-52</polyline>
 %  <polyline lc="black">72,-52 76,-52</polyline>
 %  <polyline lc="black">88,-52 84,-52</polyline>
-%  <text x="80" y="-47" t="26.4 mOhm" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-47" t="26.4 mohm" h="3" halign="c" lc="black"/>
 %  <polygon fill="black">9.333,-68 14.667,-68 12,-70.667 9.333,-68</polygon>
 %  <polyline lc="black">12,-64 12,-68</polyline>
 %  <polyline arr2="h44" arrs="0.5" lc="black">4,-64 12,-64</polyline>
@@ -110,7 +110,7 @@
 \path[line width=0.30mm, draw=black] (116,-64) -- (116,-68);
 \path[line width=0.30mm, fill=black] (113.333,-68) -- (118.667,-68) -- (116,-70.667) -- (113.333,-68) -- cycle;
 \path[line width=0.30mm, draw=black] (116,-52) -- (116,-56);
-\draw[black] (120,-63) node[anchor=base west]{1.0 Ohm};
+\draw[black] (120,-63) node[anchor=base west]{1.0 ohm};
 \path[line width=0.30mm, draw=black] (32,-44) -- (36,-41) -- (40,-44) -- (36,-47) -- (32,-44) -- cycle;
 \path[line width=0.30mm, draw=black, ->] (33,-52) -- (39,-52);
 \path[line width=0.30mm, draw=black] (33.5,-44.75) -- (33.5,-43.25);
@@ -133,7 +133,7 @@
 \path[line width=0.30mm, draw=black] (76,-52) -- (77,-50) -- (78,-54) -- (79,-50) -- (80,-54) -- (81,-50) -- (82,-54) -- (83,-50) -- (84,-52);
 \path[line width=0.30mm, draw=black] (72,-52) -- (76,-52);
 \path[line width=0.30mm, draw=black] (88,-52) -- (84,-52);
-\draw[black] (80,-47) node[anchor=base]{26.4 mOhm};
+\draw[black] (80,-47) node[anchor=base]{26.4 mohm};
 \path[line width=0.30mm, fill=black] (9.333,-68) -- (14.667,-68) -- (12,-70.667) -- (9.333,-68) -- cycle;
 \path[line width=0.30mm, draw=black] (12,-64) -- (12,-68);
 \path[line width=0.30mm, draw=black, ->] (4,-64) -- (12,-64);

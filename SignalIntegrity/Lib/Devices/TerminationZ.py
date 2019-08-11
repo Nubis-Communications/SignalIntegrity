@@ -24,7 +24,7 @@ def TerminationZ(Z,Z0=None,K=None):
     """TerminationZ
     Termination impedance
     @param Z float or complex impedance.
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms).
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms).
     @param K (optional) float or complex scaling factor (defaults to sqrt(Z0))
     @return the list of list s-parameter matrix for a termination conductance.
     @see Z0KHelper to see how the reference impedance

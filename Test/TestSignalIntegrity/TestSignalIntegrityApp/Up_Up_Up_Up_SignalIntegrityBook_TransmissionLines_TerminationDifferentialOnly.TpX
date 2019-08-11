@@ -2,7 +2,7 @@
 %  <polyline lc="black">56,-36 58,-35 54,-34 58,-33 54,-32 58,-31 54,-30 58,-29 56,-28</polyline>
 %  <polyline lc="black">56,-40 56,-36</polyline>
 %  <polyline lc="black">56,-24 56,-28</polyline>
-%  <text x="60" y="-33" t="100.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-33" t="100.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="42" y="-29" t="+" h="3" halign="c" lc="black"/>
 %  <text x="42" y="-37" t="-" h="3" halign="c" lc="black"/>
 %  <text x="38" y="-29" t="D" h="3" halign="c" lc="black"/>
@@ -28,7 +28,7 @@
 \path[line width=0.30mm, draw=black] (56,-36) -- (58,-35) -- (54,-34) -- (58,-33) -- (54,-32) -- (58,-31) -- (54,-30) -- (58,-29) -- (56,-28);
 \path[line width=0.30mm, draw=black] (56,-40) -- (56,-36);
 \path[line width=0.30mm, draw=black] (56,-24) -- (56,-28);
-\draw[black] (60,-33) node[anchor=base west]{100.0 Ohm};
+\draw[black] (60,-33) node[anchor=base west]{100.0 ohm};
 \draw[black] (42,-29) node[anchor=base]{+};
 \draw[black] (42,-37) node[anchor=base]{-};
 \draw[black] (38,-29) node[anchor=base]{D};

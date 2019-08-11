@@ -41,7 +41,7 @@ def Mutual(Ll,Lr,M,f,Z0=None,K=None):
     @param Lr float self inductance of right leg
     @param M float mutual inductance between legs
     @param f float frequency
-    @param Z0 (optional) float or complex reference impedance (assumed 50 Ohms)
+    @param Z0 (optional) float or complex reference impedance (assumed 50 ohms)
     @param K (optional) float or complex scaling factor (actually unused).
     @return list of list representing s-parameter matrix of a mutual inductance
     @remark The device is four port.\n

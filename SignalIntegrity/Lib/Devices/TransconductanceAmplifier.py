@@ -25,7 +25,7 @@ def TransconductanceAmplifier(P,G,Zi,Zo,Z0=50.):
     @param G float transconductance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transconductance amplifier
     @remark The transconductance amplifier can be two, three or four ports
     @see TransconductanceAmplifierFourPort
@@ -45,7 +45,7 @@ def TransconductanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
     @param G float transconductance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transconductance amplifier
     @remark
     The voltage sense element senses the voltage with the plus terminal at port 1
@@ -80,7 +80,7 @@ def TransconductanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
     @param G float transconductance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transconductance amplifier.
     @remark
     The three port transconductance amplifier is the same as the four port transconductance amplifier with
@@ -111,7 +111,7 @@ def TransconductanceAmplifierTwoPort(G,Zi,Zo,Z0=50.):
     @param G float transconductance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transconductance amplifier
     @remark
     The two port transconductance amplifier is the same as the three port transconductance amplifier with

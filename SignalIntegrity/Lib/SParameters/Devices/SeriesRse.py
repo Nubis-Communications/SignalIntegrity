@@ -23,8 +23,8 @@ class SeriesRse(SParameters):
     def __init__(self,f,Rse,Z0=50.):
         """Constructor
         @param f list of float frequencies
-        @param Rse float resistance specified as Ohms/sqrt(Hz)
-        @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+        @param Rse float resistance specified as ohms/sqrt(Hz)
+        @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
         @note a skin-effect resistance is simply a resistance that is proportional to 
         the square-root of the frequency."""
         self.m_Rse=Rse

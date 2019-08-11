@@ -24,7 +24,7 @@ class TerminationL(SParameters):
         """Constructor
         @param f list of float frequencies
         @param L float inductance
-        @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+        @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
         @return the list of list s-parameter matrix for a termination inductance
         """
         self.m_L=L

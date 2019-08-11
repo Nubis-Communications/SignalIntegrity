@@ -95,7 +95,7 @@ class FrequencyContent(FrequencyDomain):
         Valid frequency content units are:\n
         - 'rms' - the root-mean-squared (rms) value.
         - 'dBm' - the values in decibels were 0 dBm corresponds to the voltage needed to deliver
-        1 mW to a 50 Ohm load.  It's computed as 20*Log(rms)+13.010.
+        1 mW to a 50 ohm load.  It's computed as 20*Log(rms)+13.010.
         - 'dBmPerHz' - the spectral density in dBm/Hz.
 
         If no unit is specified, the complex frequency content is returned.

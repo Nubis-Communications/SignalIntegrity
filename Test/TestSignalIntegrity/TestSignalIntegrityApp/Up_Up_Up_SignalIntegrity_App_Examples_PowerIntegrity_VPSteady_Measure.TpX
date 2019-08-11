@@ -20,7 +20,7 @@
 %  <polyline lc="black">152,-60 152,-64</polyline>
 %  <polygon fill="black">149.333,-64 154.667,-64 152,-66.667 149.333,-64</polygon>
 %  <polyline lc="black">152,-48 152,-52</polyline>
-%  <text x="156" y="-59" t="207.0 mOhm" h="3" halign="l" lc="black"/>
+%  <text x="156" y="-59" t="207.0 mohm" h="3" halign="l" lc="black"/>
 %  <polygon lc="black">52,-40 56,-37 60,-40 56,-43 52,-40</polygon>
 %  <polyline arr2="h44" arrs="0.5" lc="black">53,-48 59,-48</polyline>
 %  <polyline lc="black">53.5,-40.75 53.5,-39.25</polyline>
@@ -53,7 +53,7 @@
 %  <polyline lc="black">96,-48 97,-46 98,-50 99,-46 100,-50 101,-46 102,-50 103,-46 104,-48</polyline>
 %  <polyline lc="black">92,-48 96,-48</polyline>
 %  <polyline lc="black">108,-48 104,-48</polyline>
-%  <text x="100" y="-43" t="10.0 mOhm" h="3" halign="c" lc="black"/>
+%  <text x="100" y="-43" t="10.0 mohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">43,-15 45,-17</polyline>
 %  <polyline lc="black">45,-15 43,-17</polyline>
 %  <polyline lc="black">48,-16 44,-16</polyline>
@@ -170,7 +170,7 @@
 \path[line width=0.30mm, draw=black] (152,-60) -- (152,-64);
 \path[line width=0.30mm, fill=black] (149.333,-64) -- (154.667,-64) -- (152,-66.667) -- (149.333,-64) -- cycle;
 \path[line width=0.30mm, draw=black] (152,-48) -- (152,-52);
-\draw[black] (156,-59) node[anchor=base west]{207.0 mOhm};
+\draw[black] (156,-59) node[anchor=base west]{207.0 mohm};
 \path[line width=0.30mm, draw=black] (52,-40) -- (56,-37) -- (60,-40) -- (56,-43) -- (52,-40) -- cycle;
 \path[line width=0.30mm, draw=black, ->] (53,-48) -- (59,-48);
 \path[line width=0.30mm, draw=black] (53.5,-40.75) -- (53.5,-39.25);
@@ -203,7 +203,7 @@
 \path[line width=0.30mm, draw=black] (96,-48) -- (97,-46) -- (98,-50) -- (99,-46) -- (100,-50) -- (101,-46) -- (102,-50) -- (103,-46) -- (104,-48);
 \path[line width=0.30mm, draw=black] (92,-48) -- (96,-48);
 \path[line width=0.30mm, draw=black] (108,-48) -- (104,-48);
-\draw[black] (100,-43) node[anchor=base]{10.0 mOhm};
+\draw[black] (100,-43) node[anchor=base]{10.0 mohm};
 \path[line width=0.30mm, draw=black] (43,-15) -- (45,-17);
 \path[line width=0.30mm, draw=black] (45,-15) -- (43,-17);
 \path[line width=0.30mm, draw=black] (48,-16) -- (44,-16);

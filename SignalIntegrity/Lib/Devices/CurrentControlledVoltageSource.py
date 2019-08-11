@@ -22,7 +22,7 @@ def CurrentControlledVoltageSource(G,Z0=50.):
     """ CurrentControlledVoltageSource
     Current controlled voltage source
     @param G float or complex transresistance.
-    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms).
+    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 ohms).
     @return s-parameter matrix of a current controlled voltage source.
     The four port current controlled voltage source has
     the current sense element sensing the current

@@ -27,7 +27,7 @@ def TLineFourPortLossless(Zc,Td,f,Z0=50.):
     @param Zc float or complex characteristic impedance
     @param Td float electrical length (or time delay through the device)
     @param f float frequency
-    @param Z0 (optional) float or complex characteristic impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float or complex characteristic impedance (defaults to 50 ohms)
     @return list of list s-parameters of four-port lossless transmission line
     @remark
     This is actually an oddball construction and should not be confused with a typical differential

@@ -3,7 +3,7 @@
 %  <polyline lc="black">172,-44 172,-48</polyline>
 %  <polygon fill="black">169.333,-48 174.667,-48 172,-50.667 169.333,-48</polygon>
 %  <polyline lc="black">172,-32 172,-36</polyline>
-%  <text x="176" y="-43" t="5.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="176" y="-43" t="5.0 ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">176,-28 174,-30</polyline>
 %  <polyline lc="black">174,-30 172,-32</polyline>
 %  <text x="176" y="-27" t="Vout" h="3" halign="l" lc="black"/>
@@ -84,7 +84,7 @@
 \path[line width=0.30mm, draw=black] (172,-44) -- (172,-48);
 \path[line width=0.30mm, fill=black] (169.333,-48) -- (174.667,-48) -- (172,-50.667) -- (169.333,-48) -- cycle;
 \path[line width=0.30mm, draw=black] (172,-32) -- (172,-36);
-\draw[black] (176,-43) node[anchor=base west]{5.0 Ohm};
+\draw[black] (176,-43) node[anchor=base west]{5.0 ohm};
 \path[line width=0.9mm, draw=black] (176,-28) -- (174,-30);
 \path[line width=0.30mm, draw=black] (174,-30) -- (172,-32);
 \draw[black] (176,-27) node[anchor=base west]{Vout};

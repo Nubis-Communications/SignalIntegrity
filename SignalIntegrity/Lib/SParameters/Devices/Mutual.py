@@ -26,7 +26,7 @@ class Mutual(SParameters):
         """Constructor
         @param f list of frequencies.
         @param M float mutual inductance.
-        @param Z0 (optional) float or complex reference impdedance (defaults to 50 Ohms).
+        @param Z0 (optional) float or complex reference impdedance (defaults to 50 ohms).
         @remark
         This is a four-port device with no self inductance.\n
         The left leg is from port 1 to 2.\n

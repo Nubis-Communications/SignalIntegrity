@@ -153,11 +153,11 @@ class PartPropertyWaveformFileName(PartProperty):
 
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
-        PartProperty.__init__(self,'resistance',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'resistance (Ohms)',value=resistance,visible=True,keywordVisible=False)
+        PartProperty.__init__(self,'resistance',type='float',unit='ohm',keyword=keyword,description=descriptionPrefix+'resistance (ohms)',value=resistance,visible=True,keywordVisible=False)
 
 class PartPropertyResistanceSkinEffect(PartProperty):
     def __init__(self,resistance=0.,keyword='rse',descriptionPrefix=''):
-        PartProperty.__init__(self,'skineffectresistance',type='float',unit='Ohm/sqrt(Hz)',keyword=keyword,description=descriptionPrefix+'skin effect (Ohms/sqrt(Hz)))',value=resistance,visible=False,keywordVisible=False)
+        PartProperty.__init__(self,'skineffectresistance',type='float',unit='ohm/sqrt(Hz)',keyword=keyword,description=descriptionPrefix+'skin effect (ohms/sqrt(Hz)))',value=resistance,visible=False,keywordVisible=False)
 
 class PartPropertyCapacitance(PartProperty):
     def __init__(self,capacitance=1e-12,keyword='c',descriptionPrefix=''):
@@ -169,7 +169,7 @@ class PartPropertyDissipationFactor(PartProperty):
 
 class PartPropertyESR(PartProperty):
     def __init__(self,esr=0.,keyword='esr',descriptionPrefix=''):
-        PartProperty.__init__(self,'effectiveseriesresistance',type='float',unit='Ohm',keyword=keyword,description=descriptionPrefix+'ESR (Ohms)',value=esr,visible=False,keywordVisible=True)
+        PartProperty.__init__(self,'effectiveseriesresistance',type='float',unit='ohm',keyword=keyword,description=descriptionPrefix+'ESR (ohms)',value=esr,visible=False,keywordVisible=True)
 
 class PartPropertyInductance(PartProperty):
     def __init__(self,inductance=1e-9,keyword='l',descriptionPrefix=''):
@@ -209,11 +209,11 @@ class PartPropertyTransresistance(PartProperty):
 
 class PartPropertyInputImpedance(PartProperty):
     def __init__(self,inputImpedance=1e8):
-        PartProperty.__init__(self,'inputimpedance',type='float',unit='Ohm',keyword='zi',description='input impedance (Ohms)',value=inputImpedance,visible=True)
+        PartProperty.__init__(self,'inputimpedance',type='float',unit='ohm',keyword='zi',description='input impedance (ohms)',value=inputImpedance,visible=True)
 
 class PartPropertyOutputImpedance(PartProperty):
     def __init__(self,outputImpedance=0.):
-        PartProperty.__init__(self,'outputimpedance',type='float',unit='Ohm',keyword='zo',description='output impedance (Ohms)',value=outputImpedance,visible=True)
+        PartProperty.__init__(self,'outputimpedance',type='float',unit='ohm',keyword='zo',description='output impedance (ohms)',value=outputImpedance,visible=True)
 
 class PartPropertyHorizontalOffset(PartProperty):
     def __init__(self,horizontalOffset=-100e-9):
@@ -269,7 +269,7 @@ class PartPropertyDelay(PartProperty):
 
 class PartPropertyCharacteristicImpedance(PartProperty):
     def __init__(self,characteristicImpedance=50.):
-        PartProperty.__init__(self,'characteristicimpedance',type='float',unit='Ohm',keyword='zc',description='characteristic impedance (Ohms)',value=characteristicImpedance,visible=True)
+        PartProperty.__init__(self,'characteristicimpedance',type='float',unit='ohm',keyword='zc',description='characteristic impedance (ohms)',value=characteristicImpedance,visible=True)
 
 class PartPropertySections(PartProperty):
     def __init__(self,sections=1):
@@ -281,7 +281,7 @@ class PartPropertyWeight(PartProperty):
 
 class PartPropertyReferenceImpedance(PartProperty):
     def __init__(self,impedance=50.,keyword='z0',):
-        PartProperty.__init__(self,'impedance',type='float',unit='Ohm',keyword=keyword,description='reference impedance (Ohms)',value=impedance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'impedance',type='float',unit='ohm',keyword=keyword,description='reference impedance (ohms)',value=impedance,visible=True,keywordVisible=True)
 
 class PartPropertyGm(PartProperty):
     def __init__(self,Gm=1.0):
@@ -289,11 +289,11 @@ class PartPropertyGm(PartProperty):
 
 class PartPropertyRpi(PartProperty):
     def __init__(self,rpi=1e8):
-        PartProperty.__init__(self,'Rpi',type='float',unit='Ohm',keyword='rpi',description='base/emitter resistance (Ohms)',value=rpi,visible=True)
+        PartProperty.__init__(self,'Rpi',type='float',unit='ohm',keyword='rpi',description='base/emitter resistance (ohms)',value=rpi,visible=True)
 
 class PartPropertyOutputResistance(PartProperty):
     def __init__(self,ro=1e8):
-        PartProperty.__init__(self,'ro',type='float',unit='Ohm',keyword='ro',description='collector/emitter output resistance (Ohms)',value=ro,visible=True)
+        PartProperty.__init__(self,'ro',type='float',unit='ohm',keyword='ro',description='collector/emitter output resistance (ohms)',value=ro,visible=True)
 
 class PartPropertyWaveformType(PartProperty):
     def __init__(self,wfType=None):

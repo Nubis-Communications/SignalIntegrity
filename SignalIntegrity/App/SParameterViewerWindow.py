@@ -749,11 +749,11 @@ class SParametersDialog(tk.Toplevel):
             self.statusbar.set(str(self.properties['FrequencyPoints'])+
                 '(+1) frequency points to '+ToSI(self.properties['EndFrequency'],'Hz')+
                 ', Evenly Spaced in '+ToSI(self.properties['FrequencyResolution'],'Hz')+
-                ' steps, Z0='+ToSI(self.properties['ReferenceImpedance'],'Ohm'))
+                ' steps, Z0='+ToSI(self.properties['ReferenceImpedance'],'ohm'))
         else:
             self.statusbar.set(str(self.properties['FrequencyPoints']+1)+
                 ' frequency points, last frequency is '+ToSI(self.properties['EndFrequency'],'Hz')+
-                ', Unevenly spaced, Z0='+ToSI(self.properties['ReferenceImpedance'],'Ohm'))
+                ', Unevenly spaced, Z0='+ToSI(self.properties['ReferenceImpedance'],'ohm'))
             self.properties['BaseSampleRate']=None
             self.properties['BaseSamplePeriod']=None
             self.properties['UserSamplePeriod']=None
@@ -1047,7 +1047,7 @@ class SParametersDialog(tk.Toplevel):
                 Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
                 x=[xv/2 for xv in x]
-                self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
+                self.bottomRightPlot.set_ylabel('impedance (ohms)',fontsize=10)
                 self.bottomRightPlot.set_xlabel('length ('+timeLabel+')',fontsize=10)
 
                 if not self.bottomRightPlotProperties['YInitialized']:

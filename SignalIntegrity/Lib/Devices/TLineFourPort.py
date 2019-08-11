@@ -26,7 +26,7 @@ def TLineFourPort(Zc,gamma,Z0=50.):
     Ideal Four-port Transmission Line
     @param Zc float or complex characteristic impedance
     @param gamma float or complex propagation constant
-    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms).
+    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 ohms).
     @return the s-parameter matrix of a four-port transmission line
     @remark This is actually an oddball construction and should not be confused with a typical differential
     transmission line.\n

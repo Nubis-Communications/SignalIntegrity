@@ -173,7 +173,7 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
             self.updateStringsCallback()
 
 class CalculationPropertyChoices(tk.Frame):
-    couplingChoices = [('50 Ohm', 'DC50'),('1 MOhm', 'DC1M')]
+    couplingChoices = [('50 ohm', 'DC50'),('1 Mohm', 'DC1M')]
     bandwidthChoices = [('20 MHz', '20MHz'),('200 MHz','200MHz')]
     
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,choiceStrings,project=None,projectPath=None):

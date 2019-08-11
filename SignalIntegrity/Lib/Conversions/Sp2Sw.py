@@ -24,8 +24,8 @@ from SignalIntegrity.Lib.Conversions.Z0KHelperPW import Z0KHelperPW
 def Sp2Sw(Sp,Z0w=None,Z0p=None,Kw=None):
     """Converts power-wave s-parameters to pseudo-wave s-parameters
     @param Sp list of list power-wave based s-parameter matrix to convert
-    @param Z0w (optional) the reference impedance of the pseudo-wave based s-parameters (assumed 50 Ohms)
-    @param Z0p (optional) the reference impedance of the power-wave based s-parameters (assumed 50 Ohms)
+    @param Z0w (optional) the reference impedance of the pseudo-wave based s-parameters (assumed 50 ohms)
+    @param Z0p (optional) the reference impedance of the power-wave based s-parameters (assumed 50 ohms)
     @param Kw (optional) the scaling factor of the pseudo-wave based s-parameters (assumed to be sqrt(Z0w)
     @return the converted s-parameters in pseudo-waves
     @see Z0KHelper to see how the reference impedance

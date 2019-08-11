@@ -25,7 +25,7 @@ def CurrentAmplifier(P,G,Zi,Zo,Z0=50.):
     @param G float current gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a current amplifier    
     The current amplifier can be two, three or four ports
     @see CurrentAmplifierFourPort
@@ -45,7 +45,7 @@ def CurrentAmplifierFourPort(G,Zi,Zo,Z0=50.):
     @param G float current gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a current amplifier
     The current sense element senses the current entering port 1 and exiting port 2
     with a series resistance in the current sense path of Zi.
@@ -80,7 +80,7 @@ def CurrentAmplifierThreePort(G,Zi,Zo,Z0=50.):
     @param G float current gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a current amplifier
     The three port current amplifier is the same as the four port current amplifier with
     ports two and three connected together and exposed as a single port.
@@ -111,7 +111,7 @@ def CurrentAmplifierTwoPort(G,Zi,Zo,Z0=50.):
     @param G float current gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a current amplifier
     The two port current amplifier is the same as the three port current amplifier with
     port 3 grounded.

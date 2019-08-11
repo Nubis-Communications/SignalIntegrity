@@ -33,7 +33,7 @@ class MixedModeTLine(SParameters):
         @param Zc float or complex common-mode impedance
         @param Tc float common (or even-mode) electrical length (the common-mode
         propagation time.
-        @param Z0 (optional) float or complex reference impedance (defaults to 50 Ohms).
+        @param Z0 (optional) float or complex reference impedance (defaults to 50 ohms).
         @note The differential mode impedance is twice the odd-mode impedance.\n
         The common-mode impedance is half the even-mode impedance.\n
         @note The model is appropriate for a balanced transmission line.\n

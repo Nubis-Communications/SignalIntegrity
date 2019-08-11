@@ -23,7 +23,7 @@ def TerminationC(C,f,Z0=None,df=0.,esr=0.):
     """termination (one-port) capacitance
     @param C float capacitance
     @param f float frequency
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @param df (optional) float dissipation factor (or loss-tangent) (defaults to 0)
     @param esr (optional) float effective-series-resistance (defaults to 0)
     @return the list of list s-parameter matrix for a termination capacitance

@@ -19,7 +19,7 @@ class CalibrationConstants(object):
         self.openOffsetDelay=float(actualLines[4])*1e-12
         # % real(Zo) of offset length - OPEN
         self.openOffsetZ0=float(actualLines[5])
-        # % offset loss (GOhm/s) - OPEN
+        # % offset loss (Gohm/s) - OPEN
         self.openOffsetLoss=float(actualLines[6])*1e9
         # % L0 (pH) - SHORT
         self.shortL0=float(actualLines[7])*1e-12
@@ -33,21 +33,21 @@ class CalibrationConstants(object):
         self.shortOffsetDelay=float(actualLines[11])*1e-12
         # % real(Zo) of offset length - SHORT
         self.shortOffsetZ0=float(actualLines[12])
-        # % offset loss (GOhm/s) - SHORT
+        # % offset loss (Gohm/s) - SHORT
         self.shortOffsetLoss=float(actualLines[13])*1e9
-        # % load resistance (Ohm) - LOAD
+        # % load resistance (ohm) - LOAD
         self.loadZ=float(actualLines[14])
         # % offset delay (pS) - LOAD
         self.loadOffsetDelay=float(actualLines[15])*1e-12
         # % real(Zo) of offset length - LOAD
         self.loadOffsetZ0=float(actualLines[16])
-        # % offset loss (GOhm/s) - LOAD
+        # % offset loss (Gohm/s) - LOAD
         self.loadOffsetLoss=float(actualLines[17])*1e9
         # % offset delay (pS) - THRU
         self.thruOffsetDelay=float(actualLines[18])*1e-12
         # % real(Zo) of offset length - THRU
         self.thruOffsetZ0=float(actualLines[19])
-        # % offset loss (GOhm/s) - THRU
+        # % offset loss (Gohm/s) - THRU
         self.thruOffsetLoss=float(actualLines[20])*1e9
         return self
 ...

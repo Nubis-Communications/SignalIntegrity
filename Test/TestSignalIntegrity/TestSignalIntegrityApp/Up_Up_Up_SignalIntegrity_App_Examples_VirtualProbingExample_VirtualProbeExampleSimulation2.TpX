@@ -26,23 +26,23 @@
 %  <polyline lc="black">56,-16 57,-14 58,-18 59,-14 60,-18 61,-14 62,-18 63,-14 64,-16</polyline>
 %  <polyline lc="black">52,-16 56,-16</polyline>
 %  <polyline lc="black">68,-16 64,-16</polyline>
-%  <text x="60" y="-11" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-11" t="50.0 ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">56,-48 57,-50 58,-46 59,-50 60,-46 61,-50 62,-46 63,-50 64,-48</polyline>
 %  <polyline lc="black">52,-48 56,-48</polyline>
 %  <polyline lc="black">68,-48 64,-48</polyline>
-%  <text x="60" y="-55" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-55" t="50.0 ohm" h="3" halign="c" lc="black"/>
 %  <polygon fill="black">48,-29.333 48,-34.667 45.333,-32 48,-29.333</polygon>
 %  <polyline lc="black">52,-32 48,-32</polyline>
 %  <polyline lc="black">140,-40 141,-38 142,-42 143,-38 144,-42 145,-38 146,-42 147,-38 148,-40</polyline>
 %  <polyline lc="black">148,-40 152,-40</polyline>
 %  <polygon fill="black">152,-37.333 152,-42.667 154.667,-40 152,-37.333</polygon>
 %  <polyline lc="black">136,-40 140,-40</polyline>
-%  <text x="146" y="-47" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="146" y="-47" t="50.0 ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">140,-24 141,-26 142,-22 143,-26 144,-22 145,-26 146,-22 147,-26 148,-24</polyline>
 %  <polyline lc="black">148,-24 152,-24</polyline>
 %  <polygon fill="black">152,-26.667 152,-21.333 154.667,-24 152,-26.667</polygon>
 %  <polyline lc="black">136,-24 140,-24</polyline>
-%  <text x="146" y="-19" t="50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="146" y="-19" t="50.0 ohm" h="3" halign="c" lc="black"/>
 %  <polyline lw="3" lc="black">76,-24 74,-26</polyline>
 %  <polyline lc="black">74,-26 72,-28</polyline>
 %  <text x="76" y="-23" t="Vinsim" h="3" halign="l" lc="black"/>
@@ -100,23 +100,23 @@
 \path[line width=0.30mm, draw=black] (56,-16) -- (57,-14) -- (58,-18) -- (59,-14) -- (60,-18) -- (61,-14) -- (62,-18) -- (63,-14) -- (64,-16);
 \path[line width=0.30mm, draw=black] (52,-16) -- (56,-16);
 \path[line width=0.30mm, draw=black] (68,-16) -- (64,-16);
-\draw[black] (60,-11) node[anchor=base]{50.0 Ohm};
+\draw[black] (60,-11) node[anchor=base]{50.0 ohm};
 \path[line width=0.30mm, draw=black] (56,-48) -- (57,-50) -- (58,-46) -- (59,-50) -- (60,-46) -- (61,-50) -- (62,-46) -- (63,-50) -- (64,-48);
 \path[line width=0.30mm, draw=black] (52,-48) -- (56,-48);
 \path[line width=0.30mm, draw=black] (68,-48) -- (64,-48);
-\draw[black] (60,-53) node[anchor=north]{50.0 Ohm};
+\draw[black] (60,-53) node[anchor=north]{50.0 ohm};
 \path[line width=0.30mm, fill=black] (48,-29.333) -- (48,-34.667) -- (45.333,-32) -- (48,-29.333) -- cycle;
 \path[line width=0.30mm, draw=black] (52,-32) -- (48,-32);
 \path[line width=0.30mm, draw=black] (140,-40) -- (141,-38) -- (142,-42) -- (143,-38) -- (144,-42) -- (145,-38) -- (146,-42) -- (147,-38) -- (148,-40);
 \path[line width=0.30mm, draw=black] (148,-40) -- (152,-40);
 \path[line width=0.30mm, fill=black] (152,-37.333) -- (152,-42.667) -- (154.667,-40) -- (152,-37.333) -- cycle;
 \path[line width=0.30mm, draw=black] (136,-40) -- (140,-40);
-\draw[black] (146,-45) node[anchor=north]{50.0 Ohm};
+\draw[black] (146,-45) node[anchor=north]{50.0 ohm};
 \path[line width=0.30mm, draw=black] (140,-24) -- (141,-26) -- (142,-22) -- (143,-26) -- (144,-22) -- (145,-26) -- (146,-22) -- (147,-26) -- (148,-24);
 \path[line width=0.30mm, draw=black] (148,-24) -- (152,-24);
 \path[line width=0.30mm, fill=black] (152,-26.667) -- (152,-21.333) -- (154.667,-24) -- (152,-26.667) -- cycle;
 \path[line width=0.30mm, draw=black] (136,-24) -- (140,-24);
-\draw[black] (146,-19) node[anchor=base]{50.0 Ohm};
+\draw[black] (146,-19) node[anchor=base]{50.0 ohm};
 \path[line width=0.9mm, draw=black] (76,-24) -- (74,-26);
 \path[line width=0.30mm, draw=black] (74,-26) -- (72,-28);
 \draw[black] (76,-23) node[anchor=base west]{Vinsim};

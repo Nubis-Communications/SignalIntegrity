@@ -23,7 +23,7 @@ class SeriesL(SParameters):
         """Constructor
         @param f list of float frequencies
         @param L float inductance
-        @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+        @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
         """
         self.m_L=L
         SParameters.__init__(self,f,None,Z0)

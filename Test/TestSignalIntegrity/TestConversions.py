@@ -33,60 +33,60 @@ class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         R=100
         ABCD=[[1,-R],[0,1]]
         difference = linalg.norm(si.dev.SeriesZ(R)-array(si.cvt.ABCD2S(ABCD)))
-        self.assertTrue(difference<1e-10,'100 Ohm ABCD not equal S with default Z0, K')
+        self.assertTrue(difference<1e-10,'100 ohm ABCD not equal S with default Z0, K')
     def testS2ABCDDefault(self):
         R=100
         ABCD=[[1,-R],[0,1]]
         difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R))-array(ABCD))
-        self.assertTrue(difference<1e-10,'100 Ohm ABCD not equal S with default Z0, K')
+        self.assertTrue(difference<1e-10,'100 ohm ABCD not equal S with default Z0, K')
     def testABCD2S50(self):
         R=20
         ABCD=[[1,-R],[0,1]]
         Z0=50.0
         difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
-        self.assertTrue(difference<1e-10,'20 Ohm ABCD not equal S with  Z0=50 Ohm, default K')
+        self.assertTrue(difference<1e-10,'20 ohm ABCD not equal S with  Z0=50 ohm, default K')
     def testS2ABCD50(self):
         R=20
         ABCD=[[1,-R],[0,1]]
         Z0=50.0
         difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
-        self.assertTrue(difference<1e-10,'20 Ohm ABCD not equal S with  Z0=50 Ohm, default K')
+        self.assertTrue(difference<1e-10,'20 ohm ABCD not equal S with  Z0=50 ohm, default K')
     def testABCD2S150(self):
         R=85
         ABCD=[[1,-R],[0,1]]
         Z0=100.0
         difference = linalg.norm(si.dev.SeriesZ(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
-        self.assertTrue(difference<1e-10,'85 Ohm ABCD not equal S with  Z0=150 Ohm, default K')
+        self.assertTrue(difference<1e-10,'85 ohm ABCD not equal S with  Z0=150 ohm, default K')
     def testS2ABCD150(self):
         R=85
         ABCD=[[1,-R],[0,1]]
         Z0=100.0
         difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZ(R,Z0),Z0)-array(ABCD))
-        self.assertTrue(difference<1e-10,'85 Ohm ABCD not equal S with  Z0=150 Ohm, default K')
+        self.assertTrue(difference<1e-10,'85 ohm ABCD not equal S with  Z0=150 ohm, default K')
     def testABCD2SZ0ListConstant(self):
         R=29
         ABCD=[[1,-R],[0,1]]
         Z0=[45.,45.]
         difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
-        self.assertTrue(difference<1e-10,'29 Ohm ABCD not equal S with  Z0=list same, default K')
+        self.assertTrue(difference<1e-10,'29 ohm ABCD not equal S with  Z0=list same, default K')
     def testS2ABCDZ0ListConstant(self):
         R=29
         ABCD=[[1,-R],[0,1]]
         Z0=[45.,45.]
         difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
-        self.assertTrue(difference<1e-10,'29 Ohm ABCD not equal S with  Z0=list same, default K')
+        self.assertTrue(difference<1e-10,'29 ohm ABCD not equal S with  Z0=list same, default K')
     def testABCD2SZ0ListDifferent(self):
         R=134
         ABCD=[[1,-R],[0,1]]
         Z0=[25.,95.]
         difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
-        self.assertTrue(difference<1e-10,'134 Ohm ABCD not equal S with  Z0=list different, default K')
+        self.assertTrue(difference<1e-10,'134 ohm ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDZ0ListDifferent(self):
         R=134
         ABCD=[[1,-R],[0,1]]
         Z0=[25.,95.]
         difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
-        self.assertTrue(difference<1e-10,'134 Ohm ABCD not equal S with  Z0=list different, default K')
+        self.assertTrue(difference<1e-10,'134 ohm ABCD not equal S with  Z0=list different, default K')
     def testABCD2SComplexZ(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]

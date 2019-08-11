@@ -70,7 +70,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n)*200e6 for n in range(51)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
-        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        #differential 90 ohm, 1 ns - common-mode 20 ohm 1.2 ns
         Ls=58.5e-9
         Cs=20e-12
         Lm=13.5e-9
@@ -100,7 +100,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[(n+1)*200e6 for n in range(50)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
-        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        #differential 90 ohm, 1 ns - common-mode 20 ohm 1.2 ns
         Ls=58.5e-9
         Cs=20e-12
         Lm=13.5e-9
@@ -364,7 +364,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[n*200e6 for n in range(50)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
-        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        #differential 90 ohm, 1 ns - common-mode 20 ohm 1.2 ns
         Ls=58.5e-9
         Cs=20e-12
         Lm=13.5e-9
@@ -391,7 +391,7 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         f=[n*200e6 for n in range(50)]
         #SParametersAproximateTLineModel(f,Rsp,Lsp,Csp,Gsp,Rsm,Lsm,Csm,Gsm,Lm,Cm,Gm,Z0,K)
-        #differential 90 Ohm, 1 ns - common-mode 20 Ohm 1.2 ns
+        #differential 90 ohm, 1 ns - common-mode 20 ohm 1.2 ns
         Ls=58.5e-9
         Cs=20e-12
         Lm=13.5e-9

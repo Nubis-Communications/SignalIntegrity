@@ -26,7 +26,7 @@ class TLineLossless(SParameters):
         @param P integer number of ports (either 2 or 4)
         @param Zc float or complex characteristic impedance
         @param Td float electrical length (propagation time)
-        @param Z0 (optional) float or complex reference impedance (defaults to 50 Ohms) 
+        @param Z0 (optional) float or complex reference impedance (defaults to 50 ohms) 
         @note
         if two ports are specified, SignalIntegrity.Lib.Devices.TLineTwoPortLossless
         is used.\n

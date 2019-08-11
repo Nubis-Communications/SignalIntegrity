@@ -22,7 +22,7 @@ def VoltageControlledCurrentSource(G,Z0=50):
     """VoltageControlledCurrentSource
     Voltage controlled current source
     @param G float or complex transconductance
-    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 Ohms)
+    @param Z0 (optional) float or complex reference impedance Z0 (defaults to 50 ohms)
     @return list of list s-parameter matrix of a voltage controlled current source
     @remark
     The four port voltage controlled current source has

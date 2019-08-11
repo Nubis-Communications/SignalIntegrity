@@ -31,8 +31,8 @@ class ShortStandard(SParameters):
         """Constructor
         @param f list of frequencies
         @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
-        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 Ohms)
-        @param offsetLoss (optional) float loss due to skin-effect defined in GOhms/s at 1 GHz (defaults to 0).
+        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 ohms)
+        @param offsetLoss (optional) float loss due to skin-effect defined in Gohms/s at 1 GHz (defaults to 0).
         @param L0 (optional) float polynomial coefficient for inductance of short termination
         @param L1 (optional) float polynomial coefficient for inductance of short termination
         @param L2 (optional) float polynomial coefficient for inductance of short termination

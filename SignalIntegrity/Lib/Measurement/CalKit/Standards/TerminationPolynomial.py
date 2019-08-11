@@ -51,7 +51,7 @@ class TerminationCPolynomial(SParameters,TerminationPolynomial):
         @param C1 (optional) float polynomial term for f^1 (defaults to 0.0).
         @param C2 (optional) float polynomial term for f^2 (defaults to 0.0).
         @param C3 (optional) float polynomial term for f^3 (defaults to 0.0).
-        @param Z0 (optional) real or complex reference impedance Z0 (defaults to 50 Ohms).
+        @param Z0 (optional) real or complex reference impedance Z0 (defaults to 50 ohms).
         """
         TerminationPolynomial.__init__(self,C0,C1,C2,C3)
         SParameters.__init__(self,f,None,Z0)
@@ -78,7 +78,7 @@ class TerminationLPolynomial(SParameters,TerminationPolynomial):
         @param L1 (optional) float polynomial term for f^1 (defaults to 0.0).
         @param L2 (optional) float polynomial term for f^2 (defaults to 0.0).
         @param L3 (optional) float polynomial term for f^3 (defaults to 0.0).
-        @param Z0 (optional) real or complex reference impedance Z0 (defaults to 50 Ohms).
+        @param Z0 (optional) real or complex reference impedance Z0 (defaults to 50 ohms).
         """
         TerminationPolynomial.__init__(self,L0,L1,L2,L3)
         SParameters.__init__(self,f,None,Z0)

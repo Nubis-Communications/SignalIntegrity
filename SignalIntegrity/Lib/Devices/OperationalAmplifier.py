@@ -26,7 +26,7 @@ def OperationalAmplifier(Zi,Zd,Zo,G,Z0=50.):
     @param Zd real or complex input impedance across the plus and minus inputs.
     @param Zo real or complex output impedance.
     @param G real or complex gain of the op-amp.
-    @param Z0 (optional) real or complex reference impedance (default is 50 Ohms).
+    @param Z0 (optional) real or complex reference impedance (default is 50 ohms).
     @return the list of list s-parameter matrix of the s-parameters of a three port op-amp.
     Port 1 is - input, port 2 is + input and port 3 is output
     """

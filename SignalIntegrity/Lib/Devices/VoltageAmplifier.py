@@ -25,7 +25,7 @@ def VoltageAmplifier(P,G,Zi,Zo,Z0=50):
     @param G float voltage gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a voltage amplifier
     @remark
     The voltage amplifier can be two, three or four ports.\n
@@ -47,7 +47,7 @@ def VoltageAmplifierFourPort(G,Zi,Zo,Z0=50.):
     @param G float voltage gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a voltage amplifier
     @remark
     The voltage sense element senses the voltage with the plus terminal at port 1
@@ -82,7 +82,7 @@ def VoltageAmplifierThreePort(G,Zi,Zo,Z0=50.):
     @param G float voltage gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a voltage amplifier
     @remark
     The three port voltage amplifier is the same as the four port voltage amplifier with
@@ -112,7 +112,7 @@ def VoltageAmplifierTwoPort(G,Zi,Zo,Z0=50.):
     @param G float voltage gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a voltage amplifier
     @remark
     The two port voltage amplifier is the same as the three port voltage amplifier with

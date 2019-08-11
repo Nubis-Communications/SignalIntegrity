@@ -17,11 +17,11 @@
 %  <polyline lc="black">56,-28 58,-27 54,-26 58,-25 54,-24 58,-23 54,-22 58,-21 56,-20</polyline>
 %  <polyline lc="black">56,-32 56,-28</polyline>
 %  <polyline lc="black">56,-16 56,-20</polyline>
-%  <text x="60" y="-25" t="50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-25" t="50.0 ohm" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">56,-44 58,-43 54,-42 58,-41 54,-40 58,-39 54,-38 58,-37 56,-36</polyline>
 %  <polyline lc="black">56,-48 56,-44</polyline>
 %  <polyline lc="black">56,-32 56,-36</polyline>
-%  <text x="60" y="-41" t="40.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-41" t="40.0 ohm" h="3" halign="l" lc="black"/>
 %  <polygon fill="black">60,-34.667 60,-29.333 62.667,-32 60,-34.667</polygon>
 %  <polyline lc="black">56,-32 60,-32</polyline>
 %  <polyline lc="black">48,-28 48,-16</polyline>
@@ -50,11 +50,11 @@
 \path[line width=0.30mm, draw=black] (56,-28) -- (58,-27) -- (54,-26) -- (58,-25) -- (54,-24) -- (58,-23) -- (54,-22) -- (58,-21) -- (56,-20);
 \path[line width=0.30mm, draw=black] (56,-32) -- (56,-28);
 \path[line width=0.30mm, draw=black] (56,-16) -- (56,-20);
-\draw[black] (60,-25) node[anchor=base west]{50.0 Ohm};
+\draw[black] (60,-25) node[anchor=base west]{50.0 ohm};
 \path[line width=0.30mm, draw=black] (56,-44) -- (58,-43) -- (54,-42) -- (58,-41) -- (54,-40) -- (58,-39) -- (54,-38) -- (58,-37) -- (56,-36);
 \path[line width=0.30mm, draw=black] (56,-48) -- (56,-44);
 \path[line width=0.30mm, draw=black] (56,-32) -- (56,-36);
-\draw[black] (60,-41) node[anchor=base west]{40.0 Ohm};
+\draw[black] (60,-41) node[anchor=base west]{40.0 ohm};
 \path[line width=0.30mm, fill=black] (60,-34.667) -- (60,-29.333) -- (62.667,-32) -- (60,-34.667) -- cycle;
 \path[line width=0.30mm, draw=black] (56,-32) -- (60,-32);
 \path[line width=0.30mm, draw=black] (48,-28) -- (48,-16);

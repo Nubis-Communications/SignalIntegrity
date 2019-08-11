@@ -33,7 +33,7 @@ def Z0KHelper(Z0K,P):
     It operates by selecting the best possible choices with the specification
     of the least information.
 
-    If Z0 is not specified, the default 50 Ohms is selected and if the
+    If Z0 is not specified, the default 50 ohms is selected and if the
     scaling factor is not specified, the default sqrt(Z0) is chosen.
     These are provided in matrix form when needed and complex when needed
 

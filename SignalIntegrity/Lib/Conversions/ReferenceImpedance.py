@@ -25,7 +25,7 @@ def ReferenceImpedance(S,Z0f,Z0i=None,Kf=None,Ki=None):
     """Changes the reference impedance and scaling factor
     @param S s-parameter matrix to convert
     @param Z0f the reference impedance to convert to
-    @param Z0i (optional) the reference impedance of the s-parameters (assumed 50 Ohms)
+    @param Z0i (optional) the reference impedance of the s-parameters (assumed 50 ohms)
     @param Kf (optional) assumed to be sqrt(Z0f)
     @param Ki (optional) assumed to be sqrt(Z0i)
     @return the converted s-parameters

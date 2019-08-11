@@ -21,9 +21,9 @@ from numpy import math
 
 def SeriesRse(f,Rse,Z0=None):
     """Series Skin-effect Resistance
-    @param Rse float resistance specified as Ohms/sqrt(Hz)
+    @param Rse float resistance specified as ohms/sqrt(Hz)
     @param f float frequency
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a series resistance due to skin-effect
     """
     return SeriesZ(Rse*math.sqrt(f),Z0)

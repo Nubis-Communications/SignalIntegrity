@@ -1821,21 +1821,21 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         calkit.Constants.openC3=0.15966e-45          # % C3 (1e-45 F/Hz^3) - OPEN
         calkit.Constants.openOffsetDelay=29.243e-12  # % offset delay (pS) - OPEN
         calkit.Constants.openOffsetZ0=50.            # % real(Zo) of offset length - OPEN
-        calkit.Constants.openOffsetLoss=2.2e9        # % offset loss (GOhm/s) - OPEN
+        calkit.Constants.openOffsetLoss=2.2e9        # % offset loss (Gohm/s) - OPEN
         calkit.Constants.shortL0=2.0765e-12          # % L0 (pH) - SHORT
         calkit.Constants.shortL1=-108.54e-24         # % L1 (1e-24 H/Hz) - SHORT
         calkit.Constants.shortL2=2.1705e-33          # % L2 (1e-33 H/Hz^2) - SHORT
         calkit.Constants.shortL3=-0.1001e-42         # % L3 (1e-42 H/Hz^3) - SHORT
         calkit.Constants.shortOffsetDelay=31.785e-12 # % offset delay (pS) - SHORT
         calkit.Constants.shortOffsetZ0=50.           # % real(Zo) of offset length - SHORT
-        calkit.Constants.shortOffsetLoss=2.36e9      # % offset loss (GOhm/s) - SHORT
-        calkit.Constants.loadZ=50.                   # % load resistance (Ohm) - LOAD
+        calkit.Constants.shortOffsetLoss=2.36e9      # % offset loss (Gohm/s) - SHORT
+        calkit.Constants.loadZ=50.                   # % load resistance (ohm) - LOAD
         calkit.Constants.loadOffsetDelay=0.          # % offset delay (pS) - LOAD
         calkit.Constants.loadOffsetZ0=50.            # % real(Zo) of offset length - LOAD
-        calkit.Constants.loadOffsetLoss=0.           # % offset loss (GOhm/s) - LOAD
+        calkit.Constants.loadOffsetLoss=0.           # % offset loss (Gohm/s) - LOAD
         calkit.Constants.thruOffsetDelay=94.75e-12   # % offset delay (pS) - THRU
         calkit.Constants.thruOffsetZ0=50.            # % real(Zo) of offset length - THRU
-        calkit.Constants.thruOffsetLoss=2.52e9       # % offset loss (GOhm/s) - THRU
+        calkit.Constants.thruOffsetLoss=2.52e9       # % offset loss (Gohm/s) - THRU
 
         calkit.WriteToFile('Agilent85052D.cstd', 'Agilent 85052D 3.5mm cal kit')
 

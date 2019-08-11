@@ -13,8 +13,8 @@
 %  <polyline lc="black">55,-25 50,-25</polyline>
 %  <polyline lc="black">55,-35 50,-35</polyline>
 %  <text x="45" y="-19" t="gain 500.0 m" h="3" halign="c" lc="black"/>
-%  <text x="45" y="-16" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
-%  <text x="45" y="-13" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-16" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-13" t="zo 0 ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">41.562,-66.875 43.438,-66.875</polyline>
 %  <polyline lc="black">42.5,-65.938 42.5,-67.812</polyline>
 %  <polyline lc="black">41.562,-73.125 43.438,-73.125</polyline>
@@ -29,8 +29,8 @@
 %  <polyline lc="black">55,-65 50,-65</polyline>
 %  <polyline lc="black">55,-75 50,-75</polyline>
 %  <text x="45" y="-59" t="gain 500.0 m" h="3" halign="c" lc="black"/>
-%  <text x="45" y="-56" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
-%  <text x="45" y="-53" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-56" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="45" y="-53" t="zo 0 ohm" h="3" halign="c" lc="black"/>
 %  <polygon fill="black">31.667,-40 38.333,-40 35,-43.333 31.667,-40</polygon>
 %  <polyline lc="black">35,-35 35,-40</polyline>
 %  <polygon fill="black">31.667,-80 38.333,-80 35,-83.333 31.667,-80</polygon>
@@ -66,8 +66,8 @@
 \path[line width=0.30mm, draw=black] (55,-25) -- (50,-25);
 \path[line width=0.30mm, draw=black] (55,-35) -- (50,-35);
 \draw[black] (45,-19) node[anchor=base]{gain 500.0 m};
-\draw[black] (45,-16) node[anchor=base]{zi 100.0 MOhm};
-\draw[black] (45,-13) node[anchor=base]{zo 0 Ohm};
+\draw[black] (45,-16) node[anchor=base]{zi 100.0 Mohm};
+\draw[black] (45,-13) node[anchor=base]{zo 0 ohm};
 \path[line width=0.30mm, draw=black] (41.562,-66.875) -- (43.438,-66.875);
 \path[line width=0.30mm, draw=black] (42.5,-65.938) -- (42.5,-67.812);
 \path[line width=0.30mm, draw=black] (41.562,-73.125) -- (43.438,-73.125);
@@ -82,8 +82,8 @@
 \path[line width=0.30mm, draw=black] (55,-65) -- (50,-65);
 \path[line width=0.30mm, draw=black] (55,-75) -- (50,-75);
 \draw[black] (45,-59) node[anchor=base]{gain 500.0 m};
-\draw[black] (45,-56) node[anchor=base]{zi 100.0 MOhm};
-\draw[black] (45,-53) node[anchor=base]{zo 0 Ohm};
+\draw[black] (45,-56) node[anchor=base]{zi 100.0 Mohm};
+\draw[black] (45,-53) node[anchor=base]{zo 0 ohm};
 \path[line width=0.30mm, fill=black] (31.667,-40) -- (38.333,-40) -- (35,-43.333) -- (31.667,-40) -- cycle;
 \path[line width=0.30mm, draw=black] (35,-35) -- (35,-40);
 \path[line width=0.30mm, fill=black] (31.667,-80) -- (38.333,-80) -- (35,-83.333) -- (31.667,-80) -- cycle;

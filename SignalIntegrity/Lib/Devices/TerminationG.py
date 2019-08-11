@@ -24,7 +24,7 @@ def TerminationG(G,Z0=50.):
     """TerminationG
     Termination conductance
     @param G float conductance.
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms).
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms).
     @return the list of list s-parameter matrix for a termination conductance.
     """
     infinity=1e25

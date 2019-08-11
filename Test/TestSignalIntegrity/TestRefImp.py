@@ -45,7 +45,7 @@ class TestReferenceImpedanceTransformation(unittest.TestCase):
         theRealResult=array(si.sd.SystemSParametersNumeric(D).SParameters(solvetype='direct'))
         difference = linalg.norm(normalResult-theRealResult)
         self.assertTrue(difference<1e-10,'Reference Impedance Transformation incorrect')
-        #now let's convert it back to 50 Ohms
+        #now let's convert it back to 50 ohms
         D.AssignSParameters('D1',theRealResult.tolist())
         D.AssignSParameters('R1',si.dev.ReferenceImpedanceTransformer(50.0,Z01))
         D.AssignSParameters('R2',si.dev.ReferenceImpedanceTransformer(50.0,Z02))

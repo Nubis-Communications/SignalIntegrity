@@ -15,7 +15,7 @@
 ![Reference] 50 50
 
 !!!!Multiport descriptor profile: InputCount=2 TotalPortCount=2
-!DescriptorOutline={DescriptorType=SMatrix InputSpace=Terminal NormalizationType=Generalized NormalizationCommonZo=50 Ohm OutputFormat=MagnitudeAngle ListOfZo=(1:50)(2:25)}
+!DescriptorOutline={DescriptorType=SMatrix InputSpace=Terminal NormalizationType=Generalized NormalizationCommonZo=50 ohm OutputFormat=MagnitudeAngle ListOfZo=(1:50)(2:25)}
 !InputProfile={Name="Input1" IsTLineInput=True InputNumber=1 PortCount=1 FirstPortNumber=1 InputSpace=Terminal BlockType=SBlock NormalizationType=Generalized Zo=50}
 !InputProfile={Name="Input2" IsTLineInput=True InputNumber=2 PortCount=1 FirstPortNumber=2 InputSpace=Terminal BlockType=SBlock NormalizationType=Generalized Zo=25}
 

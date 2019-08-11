@@ -38,21 +38,21 @@ class CalibrationConstants(object):
     % C3 (1e-45 F/Hz^3) - OPEN
     % offset delay (pS) - OPEN
     % real(Zo) of offset length - OPEN
-    % offset loss (GOhm/s) - OPEN
+    % offset loss (Gohm/s) - OPEN
     % L0 (pH) - SHORT
     % L1 (1e-24 H/Hz) - SHORT
     % L2 (1e-33 H/Hz^2) - SHORT
     % L3 (1e-42 H/Hz^3) - SHORT
     % offset delay (pS) - SHORT
     % real(Zo) of offset length - SHORT
-    % offset loss (GOhm/s) - SHORT
-    % load resistance (Ohm) - LOAD
+    % offset loss (Gohm/s) - SHORT
+    % load resistance (ohm) - LOAD
     % offset delay (pS) - LOAD
     % real(Zo) of offset length - LOAD
-    % offset loss (GOhm/s) - LOAD
+    % offset loss (Gohm/s) - LOAD
     % offset delay (pS) - THRU
     % real(Zo) of offset length - THRU
-    % offset loss (GOhm/s) - THRU
+    % offset loss (Gohm/s) - THRU
     63.170000 
     -1178.000000
     109.600000
@@ -81,8 +81,8 @@ class CalibrationConstants(object):
         Initializes the calibration constants such that the calibration kit contains:
         - open standard - a perfect, lossless, lengthless open
         - short standard - a perfect, lossless, lengthless short
-        - load standard - a perfect, lossless, lengthless 50 Ohm termination
-        - thru standard - a perfect, lossless, lengthless 50 Ohm thru
+        - load standard - a perfect, lossless, lengthless 50 ohm termination
+        - thru standard - a perfect, lossless, lengthless 50 ohm thru
         """
         self.openC0=0.              # % C0 (fF) - OPEN
         self.openC1=0.              # % C1 (1e-27 F/Hz) - OPEN
@@ -90,21 +90,21 @@ class CalibrationConstants(object):
         self.openC3=0.              # % C3 (1e-45 F/Hz^3) - OPEN
         self.openOffsetDelay=0.     # % offset delay (pS) - OPEN
         self.openOffsetZ0=50.       # % real(Zo) of offset length - OPEN
-        self.openOffsetLoss=0.      # % offset loss (GOhm/s) - OPEN
+        self.openOffsetLoss=0.      # % offset loss (Gohm/s) - OPEN
         self.shortL0=0.             # % L0 (pH) - SHORT
         self.shortL1=0.             # % L1 (1e-24 H/Hz) - SHORT
         self.shortL2=0.             # % L2 (1e-33 H/Hz^2) - SHORT
         self.shortL3=0.             # % L3 (1e-42 H/Hz^3) - SHORT
         self.shortOffsetDelay=0.    # % offset delay (pS) - SHORT
         self.shortOffsetZ0=50.      # % real(Zo) of offset length - SHORT
-        self.shortOffsetLoss=0.     # % offset loss (GOhm/s) - SHORT
-        self.loadZ=50.              # % load resistance (Ohm) - LOAD
+        self.shortOffsetLoss=0.     # % offset loss (Gohm/s) - SHORT
+        self.loadZ=50.              # % load resistance (ohm) - LOAD
         self.loadOffsetDelay=0.     # % offset delay (pS) - LOAD
         self.loadOffsetZ0=50.       # % real(Zo) of offset length - LOAD
-        self.loadOffsetLoss=0.      # % offset loss (GOhm/s) - LOAD
+        self.loadOffsetLoss=0.      # % offset loss (Gohm/s) - LOAD
         self.thruOffsetDelay=0.     # % offset delay (pS) - THRU
         self.thruOffsetZ0=50.       # % real(Zo) of offset length - THRU
-        self.thruOffsetLoss=0.      # % offset loss (GOhm/s) - THRU
+        self.thruOffsetLoss=0.      # % offset loss (Gohm/s) - THRU
     def ReadFromFile(self,filename):
         """The file is read from the disk and the constants stored internally.
         @param filename string name of calibration constant file to read.
@@ -128,7 +128,7 @@ class CalibrationConstants(object):
         self.openOffsetDelay=float(actualLines[4])*1e-12
         # % real(Zo) of offset length - OPEN
         self.openOffsetZ0=float(actualLines[5])
-        # % offset loss (GOhm/s) - OPEN
+        # % offset loss (Gohm/s) - OPEN
         self.openOffsetLoss=float(actualLines[6])*1e9
         # % L0 (pH) - SHORT
         self.shortL0=float(actualLines[7])*1e-12
@@ -142,21 +142,21 @@ class CalibrationConstants(object):
         self.shortOffsetDelay=float(actualLines[11])*1e-12
         # % real(Zo) of offset length - SHORT
         self.shortOffsetZ0=float(actualLines[12])
-        # % offset loss (GOhm/s) - SHORT
+        # % offset loss (Gohm/s) - SHORT
         self.shortOffsetLoss=float(actualLines[13])*1e9
-        # % load resistance (Ohm) - LOAD
+        # % load resistance (ohm) - LOAD
         self.loadZ=float(actualLines[14])
         # % offset delay (pS) - LOAD
         self.loadOffsetDelay=float(actualLines[15])*1e-12
         # % real(Zo) of offset length - LOAD
         self.loadOffsetZ0=float(actualLines[16])
-        # % offset loss (GOhm/s) - LOAD
+        # % offset loss (Gohm/s) - LOAD
         self.loadOffsetLoss=float(actualLines[17])*1e9
         # % offset delay (pS) - THRU
         self.thruOffsetDelay=float(actualLines[18])*1e-12
         # % real(Zo) of offset length - THRU
         self.thruOffsetZ0=float(actualLines[19])
-        # % offset loss (GOhm/s) - THRU
+        # % offset loss (Gohm/s) - THRU
         self.thruOffsetLoss=float(actualLines[20])*1e9
         return self
     def WriteToFile(self,filename,calkitname=None):
@@ -179,42 +179,42 @@ class CalibrationConstants(object):
         line.append('% C3 (1e-45 F/Hz^3) - OPEN\n')
         line.append('% offset delay (pS) - OPEN\n')
         line.append('% real(Zo) of offset length - OPEN\n')
-        line.append('% offset loss (GOhm/s) - OPEN\n')
+        line.append('% offset loss (Gohm/s) - OPEN\n')
         line.append('% L0 (pH) - SHORT\n')
         line.append('% L1 (1e-24 H/Hz) - SHORT\n')
         line.append('% L2 (1e-33 H/Hz^2) - SHORT\n')
         line.append('% L3 (1e-42 H/Hz^3) - SHORT\n')
         line.append('% offset delay (pS) - SHORT\n')
         line.append('% real(Zo) of offset length - SHORT\n')
-        line.append('% offset loss (GOhm/s) - SHORT\n')
-        line.append('% load resistance (Ohm) - LOAD\n')
+        line.append('% offset loss (Gohm/s) - SHORT\n')
+        line.append('% load resistance (ohm) - LOAD\n')
         line.append('% offset delay (pS) - LOAD\n')
         line.append('% real(Zo) of offset length - LOAD\n')
-        line.append('% offset loss (GOhm/s) - LOAD\n')
+        line.append('% offset loss (Gohm/s) - LOAD\n')
         line.append('% offset delay (pS) - THRU\n')
         line.append('% real(Zo) of offset length - THRU\n')
-        line.append('% offset loss (GOhm/s) - THRU\n')
+        line.append('% offset loss (Gohm/s) - THRU\n')
         line.append('{:.12g}\n'.format(self.openC0/1e-15))            # % C0 (fF) - OPEN
         line.append('{:.12g}\n'.format(self.openC1/1e-27))            # % C1 (1e-27 F/Hz) - OPEN
         line.append('{:.12g}\n'.format(self.openC2/1e-36))            # % C2 (1e-36 F/Hz^2) - OPEN
         line.append('{:.12g}\n'.format(self.openC3/1e-45))            # % C3 (1e-45 F/Hz^3) - OPEN
         line.append('{:.12g}\n'.format(self.openOffsetDelay/1e-12))   # % offset delay (pS) - OPEN
         line.append('{:.12g}\n'.format(self.openOffsetZ0))            # % real(Zo) of offset length - OPEN
-        line.append('{:.12g}\n'.format(self.openOffsetLoss/1e9))      # % offset loss (GOhm/s) - OPEN
+        line.append('{:.12g}\n'.format(self.openOffsetLoss/1e9))      # % offset loss (Gohm/s) - OPEN
         line.append('{:.12g}\n'.format(self.shortL0/1e-12))           # % L0 (pH) - SHORT
         line.append('{:.12g}\n'.format(self.shortL1/1e-24))           # % L1 (1e-24 H/Hz) - SHORT
         line.append('{:.12g}\n'.format(self.shortL2/1e-33))           # % L2 (1e-33 H/Hz^2) - SHORT
         line.append('{:.12g}\n'.format(self.shortL3/1e-42))           # % L3 (1e-42 H/Hz^3) - SHORT
         line.append('{:.12g}\n'.format(self.shortOffsetDelay/1e-12))  # % offset delay (pS) - SHORT
         line.append('{:.12g}\n'.format(self.shortOffsetZ0))           # % real(Zo) of offset length - SHORT
-        line.append('{:.12g}\n'.format(self.shortOffsetLoss/1e9))      # % offset loss (GOhm/s) - SHORT
-        line.append('{:.12g}\n'.format(self.loadZ))                   # % load resistance (Ohm) - LOAD
+        line.append('{:.12g}\n'.format(self.shortOffsetLoss/1e9))      # % offset loss (Gohm/s) - SHORT
+        line.append('{:.12g}\n'.format(self.loadZ))                   # % load resistance (ohm) - LOAD
         line.append('{:.12g}\n'.format(self.loadOffsetDelay/1e-12))   # % offset delay (pS) - LOAD
         line.append('{:.12g}\n'.format(self.loadOffsetZ0))            # % real(Zo) of offset length - LOAD
-        line.append('{:.12g}\n'.format(self.loadOffsetLoss/1e9))      # % offset loss (GOhm/s) - LOAD
+        line.append('{:.12g}\n'.format(self.loadOffsetLoss/1e9))      # % offset loss (Gohm/s) - LOAD
         line.append('{:.12g}\n'.format(self.thruOffsetDelay/1e-12))   # % offset delay (pS) - THRU
         line.append('{:.12g}\n'.format(self.thruOffsetZ0))            # % real(Zo) of offset length - THRU
-        line.append('{:.12g}\n'.format(self.thruOffsetLoss/1e9))      # % offset loss (GOhm/s) - THRU
+        line.append('{:.12g}\n'.format(self.thruOffsetLoss/1e9))      # % offset loss (Gohm/s) - THRU
         with open(filename,'w') as f:
             f.writelines(line)
         return self
@@ -239,9 +239,9 @@ class CalibrationConstants(object):
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # *1e-12.
     ## @var openOffsetZ0
-    # float real characteristic impedance of offset to open in Ohms.
+    # float real characteristic impedance of offset to open in ohms.
     ## @var openOffsetLoss
-    # float open offset loss in Ohm/s at f0=1 GHz.
+    # float open offset loss in ohm/s at f0=1 GHz.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
     ## @var shortL0
@@ -265,21 +265,21 @@ class CalibrationConstants(object):
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # *1e-12.
     ## @var shortOffsetZ0
-    # float real characteristic impedance of offset to short in Ohms.
+    # float real characteristic impedance of offset to short in ohms.
     ## @var shortOffsetLoss
-    # float short offset loss in Ohm/s at f0=1 GHz.
+    # float short offset loss in ohm/s at f0=1 GHz.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
     ## @var loadZ
-    # float load resistance in Ohms.
+    # float load resistance in ohms.
     ## @var loadOffsetDelay
     # float load offset electrical length in s.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # *1e-12.
     ## @var loadOffsetZ0
-    # float real characteristic impedance of offset to load in Ohms.
+    # float real characteristic impedance of offset to load in ohms.
     ## @var loadOffsetLoss
-    # float load offset loss in Ohm/s at f0=1 GHz.
+    # float load offset loss in ohm/s at f0=1 GHz.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
     ## @var thruOffsetDelay
@@ -287,9 +287,9 @@ class CalibrationConstants(object):
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # *1e-12.
     ## @var thruOffsetZ0
-    # float real characteristic impedance of offset to thru in Ohms.
+    # float real characteristic impedance of offset to thru in ohms.
     ## @var thruOffsetLoss
-    # float thru offset loss in Ohm/s at f0=1 GHz.
+    # float thru offset loss in ohm/s at f0=1 GHz.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
 

@@ -40,7 +40,7 @@ class SParameterPropertiesDialog(PropertiesDialog):
         self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
         self.referenceImpedanceEntryFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.referenceImpedanceEntryFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.referenceImpedanceFrame=CalculationPropertySI(self.referenceImpedanceEntryFrame,'Reference Impedance',self.onReferenceImpedanceEntered,None,self.project,'ReferenceImpedance','Ohm')
+        self.referenceImpedanceFrame=CalculationPropertySI(self.referenceImpedanceEntryFrame,'Reference Impedance',self.onReferenceImpedanceEntered,None,self.project,'ReferenceImpedance','ohm')
         self.timeLimitsFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.timeLimitsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.negativeTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Negative Time Limit',self.onNegativeTimeLimitEntered,None,self.project,'TimeLimitNegative','s')

@@ -6,21 +6,21 @@
 % C3 (1e-45 F/Hz^3) - OPEN
 % offset delay (pS) - OPEN
 % real(Zo) of offset length - OPEN
-% offset loss (GOhm/s) - OPEN
+% offset loss (Gohm/s) - OPEN
 % L0 (pH) - SHORT
 % L1 (1e-24 H/Hz) - SHORT
 % L2 (1e-33 H/Hz^2) - SHORT
 % L3 (1e-42 H/Hz^3) - SHORT
 % offset delay (pS) - SHORT
 % real(Zo) of offset length - SHORT
-% offset loss (GOhm/s) - SHORT
-% load resistance (Ohm) - LOAD
+% offset loss (Gohm/s) - SHORT
+% load resistance (ohm) - LOAD
 % offset delay (pS) - LOAD
 % real(Zo) of offset length - LOAD
-% offset loss (GOhm/s) - LOAD
+% offset loss (Gohm/s) - LOAD
 % offset delay (pS) - THRU
 % real(Zo) of offset length - THRU
-% offset loss (GOhm/s) - THRU
+% offset loss (Gohm/s) - THRU
 0
 0
 0

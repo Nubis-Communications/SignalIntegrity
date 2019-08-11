@@ -38,7 +38,7 @@ def SeriesZ(Z,Z0=50.):
     """SeriesZ
     Series Impedance
     @param Z float or complex impedance
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a series impedance
     """
     return [[Z/(Z+2.*Z0),2.*Z0/(Z+2.*Z0)],[2*Z0/(Z+2.*Z0),Z/(Z+2.*Z0)]]

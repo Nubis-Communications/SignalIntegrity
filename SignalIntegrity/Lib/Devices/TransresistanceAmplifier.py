@@ -25,7 +25,7 @@ def TransresistanceAmplifier(P,G,Zi,Zo,Z0=50.):
     @param G float transresistance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transresistance amplifier
     @remark
     The transresistance amplifier can be two, three or four ports
@@ -46,7 +46,7 @@ def TransresistanceAmplifierFourPort(G,Zi,Zo,Z0=50.):
     @param G float transresistance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transresistance amplifier
     @remark
     The current sense element senses the current entering port 1 and exiting port 2
@@ -81,7 +81,7 @@ def TransresistanceAmplifierThreePort(G,Zi,Zo,Z0=50.):
     @param G float transresistance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transresistance amplifier
     @remark
     The three port transresistance amplifier is the same as the four port transresistance amplifier with
@@ -111,7 +111,7 @@ def TransresistanceAmplifierTwoPort(G,Zi,Zo,Z0=50.):
     @param G float transresistance gain
     @param Zi float or complex input impedance
     @param Zo float or complex output impedance
-    @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float reference impedance (defaults to 50 ohms)
     @return list of list s-parameter matrix for a transresistance amplifier
     @remark
     The two port transresistance amplifier is the same as the three port transresistance amplifier with

@@ -27,8 +27,8 @@ class TLineDifferentialRLGCBalanced(SParameters):
         ports are 1,2,3,4 is +1,-1, +2, -2
 
         @param f list of float frequencies
-        @param R float DC resistance of both legs (Ohms)
-        @param Rse float skin-effect resistance of both legs (Ohms/sqrt(Hz))
+        @param R float DC resistance of both legs (ohms)
+        @param Rse float skin-effect resistance of both legs (ohms/sqrt(Hz))
         @param L float inductance of both legs (H)
         @param G float DC conductance of both legs to ground (S)
         @param C float capacitance of both legs to ground (F)
@@ -37,7 +37,7 @@ class TLineDifferentialRLGCBalanced(SParameters):
         @param dfm float dissipation factor (loss-tangent) of mutual capacitance (F)
         @param Gm float mutual conductance (S)
         @param Lm float mutual inductance (H)
-        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+        @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to 0).
         If 0 is specified, then an analytic solution is provided otherwise an approximate solution is provided
         with all parametric values divided into the integer number of sections.

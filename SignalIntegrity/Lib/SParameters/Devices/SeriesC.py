@@ -25,7 +25,7 @@ class SeriesC(SParameters):
         """Constructor
         @param f list of float frequencies
         @param C float capacitance
-        @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+        @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
         @param df (optional) float dissipation factor (or loss-tangent) (defaults to 0)
         @param esr (optional) float effective-series-resistance (defaults to 0)
         @remark The s-parameters are evaluated using the single-frequency device

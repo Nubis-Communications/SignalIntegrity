@@ -30,8 +30,8 @@
 %  <polyline lc="black">64,-28 60,-28</polyline>
 %  <polyline lc="black">64,-36 60,-36</polyline>
 %  <text x="56" y="-23" t="1.0 " h="3" halign="c" lc="black"/>
-%  <text x="56" y="-20" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
-%  <text x="56" y="-17" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-20" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-17" t="zo 0 ohm" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">58.75,-49.5 57.25,-49.5</polyline>
 %  <polyline lc="black">58,-48.75 58,-50.25</polyline>
 %  <polyline lc="black">58.75,-54.5 57.25,-54.5</polyline>
@@ -92,8 +92,8 @@
 \path[line width=0.30mm, draw=black] (64,-28) -- (60,-28);
 \path[line width=0.30mm, draw=black] (64,-36) -- (60,-36);
 \draw[black] (56,-23) node[anchor=base]{1.0 };
-\draw[black] (56,-20) node[anchor=base]{zi 100.0 MOhm};
-\draw[black] (56,-17) node[anchor=base]{zo 0 Ohm};
+\draw[black] (56,-20) node[anchor=base]{zi 100.0 Mohm};
+\draw[black] (56,-17) node[anchor=base]{zo 0 ohm};
 \path[line width=0.30mm, draw=black] (58.75,-49.5) -- (57.25,-49.5);
 \path[line width=0.30mm, draw=black] (58,-48.75) -- (58,-50.25);
 \path[line width=0.30mm, draw=black] (58.75,-54.5) -- (57.25,-54.5);

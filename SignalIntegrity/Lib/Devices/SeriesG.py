@@ -24,7 +24,7 @@ def SeriesG(G,Z0=50.):
     """SeriesG
     Series Conductance
     @param G float conductance
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a series conductance
     @note This device will return the s-paramaters of a series impedance with impedance of 1/G.  If G
     is zero, it uses an impedance equal to 1e25.

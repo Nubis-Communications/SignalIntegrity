@@ -36,14 +36,14 @@ class TLineDifferentialRLGCApproximate(SParameters):
         ports are 1,2,3,4 is +1,-1, +2, -2
 
         @param f list of float frequencies
-        @param Rp float DC resistance of positive leg (Ohms)
-        @param Rsep float skin-effect resistance of positive leg (Ohms/sqrt(Hz))
+        @param Rp float DC resistance of positive leg (ohms)
+        @param Rsep float skin-effect resistance of positive leg (ohms/sqrt(Hz))
         @param Lp float inductance of positive leg (H)
         @param Gp float DC conductance of positive leg to ground (S)
         @param Cp float capacitance of positive leg to ground (F)
         @param dfp float dissipation factor (loss-tangent) of capacitance of positive leg to ground
-        @param Rn float DC resistance of negative leg (Ohms)
-        @param Rsen float skin-effect resistance of negative leg (Ohms/sqrt(Hz))
+        @param Rn float DC resistance of negative leg (ohms)
+        @param Rsen float skin-effect resistance of negative leg (ohms/sqrt(Hz))
         @param Ln float inductance of negative leg (H)
         @param Gn float DC conductance of negative leg to ground (S)
         @param Cn float capacitance of negative leg to ground (F)
@@ -52,7 +52,7 @@ class TLineDifferentialRLGCApproximate(SParameters):
         @param dfm float dissipation factor (loss-tangent) of mutual capacitance (F)
         @param Gm float mutual conductance (S)
         @param Lm float mutual inductance (H)
-        @param Z0 (optional) float reference impedance (defaults to 50 Ohms)
+        @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to 0)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
         approximation.

@@ -23,7 +23,7 @@ def SeriesL(L,f,Z0=None):
     """series inductance
     @param L float inductance
     @param f float frequency
-    @param Z0 (optional) float of complex reference impedance (defaults to 50 Ohms)
+    @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a series inductance
     """
     return SeriesZ(L*1j*2.*math.pi*f,Z0)

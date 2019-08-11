@@ -31,7 +31,7 @@ class TestYuriyNormalizationTest(unittest.TestCase,si.test.SParameterCompareHelp
         regular=si.sp.SParameterFile('Project1_t-line_Simulation_same.s2p')
         different=si.sp.SParameterFile('Project1_t-line_Simulation_diff.s2p')
         # The different file, is actually touchstone 2 and has reference impedance
-        # of 50 Ohms on port 1 and 25 Ohms on port 2
+        # of 50 ohms on port 1 and 25 ohms on port 2
         converted=si.sp.SParameters(different.f(),
             [si.cvt.ReferenceImpedance(S, 50.0, [50.0,25.0]) for S in different])
         self.assertTrue(self.SParametersAreEqual(regular, converted, 1e-9))

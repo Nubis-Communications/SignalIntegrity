@@ -28,7 +28,7 @@
 %  <polyline lc="black">108,-92 109,-90 110,-94 111,-90 112,-94 113,-90 114,-94 115,-90 116,-92</polyline>
 %  <polyline lc="black">104,-92 108,-92</polyline>
 %  <polyline lc="black">120,-92 116,-92</polyline>
-%  <text x="112" y="-87" t="1.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="112" y="-87" t="1.0 ohm" h="3" halign="c" lc="black"/>
 %  <polygon fill="black">117.333,-120 122.667,-120 120,-122.667 117.333,-120</polygon>
 %  <polyline lc="black">120,-116 120,-120</polyline>
 %  <polyline lc="black">28,-48 31,-48</polyline>
@@ -42,7 +42,7 @@
 %  <polyline lc="black">40,-60 40,-64</polyline>
 %  <polygon fill="black">37.333,-64 42.667,-64 40,-66.667 37.333,-64</polygon>
 %  <polyline lc="black">40,-48 40,-52</polyline>
-%  <text x="44" y="-59" t="1.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="44" y="-59" t="1.0 ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">20,-80 22,-82</polyline>
 %  <polyline lc="black">22,-82 24,-84</polyline>
 %  <text x="20" y="-79" t="di/Il" h="3" halign="r" lc="black"/>
@@ -145,7 +145,7 @@
 \path[line width=0.30mm, draw=black] (108,-92) -- (109,-90) -- (110,-94) -- (111,-90) -- (112,-94) -- (113,-90) -- (114,-94) -- (115,-90) -- (116,-92);
 \path[line width=0.30mm, draw=black] (104,-92) -- (108,-92);
 \path[line width=0.30mm, draw=black] (120,-92) -- (116,-92);
-\draw[black] (112,-87) node[anchor=base]{1.0 Ohm};
+\draw[black] (112,-87) node[anchor=base]{1.0 ohm};
 \path[line width=0.30mm, fill=black] (117.333,-120) -- (122.667,-120) -- (120,-122.667) -- (117.333,-120) -- cycle;
 \path[line width=0.30mm, draw=black] (120,-116) -- (120,-120);
 \path[line width=0.30mm, draw=black] (28,-48) -- (31,-48);
@@ -159,7 +159,7 @@
 \path[line width=0.30mm, draw=black] (40,-60) -- (40,-64);
 \path[line width=0.30mm, fill=black] (37.333,-64) -- (42.667,-64) -- (40,-66.667) -- (37.333,-64) -- cycle;
 \path[line width=0.30mm, draw=black] (40,-48) -- (40,-52);
-\draw[black] (44,-59) node[anchor=base west]{1.0 Ohm};
+\draw[black] (44,-59) node[anchor=base west]{1.0 ohm};
 \path[line width=0.9mm, draw=black] (20,-80) -- (22,-82);
 \path[line width=0.30mm, draw=black] (22,-82) -- (24,-84);
 \draw[black] (20,-79) node[anchor=base east]{di/Il};

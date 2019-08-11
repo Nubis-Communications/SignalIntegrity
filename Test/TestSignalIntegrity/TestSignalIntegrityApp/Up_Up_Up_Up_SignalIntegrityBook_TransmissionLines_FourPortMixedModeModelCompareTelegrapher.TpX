@@ -37,11 +37,11 @@
 %  <polyline lc="black">40,-56 44,-56</polyline>
 %  <polyline lc="black">56,-52 52,-52</polyline>
 %  <polyline lc="black">56,-56 52,-56</polyline>
-%  <text x="48" y="-47" t="0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-47" t="0 ohm" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-44" t="58.5 nH" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-41" t="0 S" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-38" t="20.0 pF" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-35" t="0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-35" t="0 ohm" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-32" t="58.5 nH" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-29" t="0 S" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-26" t="20.0 pF" h="3" halign="c" lc="black"/>
@@ -92,11 +92,11 @@
 \path[line width=0.30mm, draw=black] (40,-56) -- (44,-56);
 \path[line width=0.30mm, draw=black] (56,-52) -- (52,-52);
 \path[line width=0.30mm, draw=black] (56,-56) -- (52,-56);
-\draw[black] (48,-47) node[anchor=base]{0 Ohm};
+\draw[black] (48,-47) node[anchor=base]{0 ohm};
 \draw[black] (48,-44) node[anchor=base]{58.5 nH};
 \draw[black] (48,-41) node[anchor=base]{0 S};
 \draw[black] (48,-38) node[anchor=base]{20.0 pF};
-\draw[black] (48,-35) node[anchor=base]{0 Ohm};
+\draw[black] (48,-35) node[anchor=base]{0 ohm};
 \draw[black] (48,-32) node[anchor=base]{58.5 nH};
 \draw[black] (48,-29) node[anchor=base]{0 S};
 \draw[black] (48,-26) node[anchor=base]{20.0 pF};
