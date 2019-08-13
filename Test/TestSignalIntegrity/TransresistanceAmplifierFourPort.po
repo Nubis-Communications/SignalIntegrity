@@ -1,7 +1,8 @@
-\[ \mathbf{Wi} =  \left[ \mathbb{I}  - \left(\begin{smallmatrix} 0 & 0
-& 0 & 0 \\ 0 & 0 & \frac{\gamma }{2\cdot Z0} & 0 \\
-\frac{Z_i}{Z_i+2\cdot Z0} & 0 & 0 & 0 \\ 0 & \frac{Z_o}{Z_o+2\cdot Z0}
-& 0 & 0 \end{smallmatrix}\right) \right]^{-1}  \]
+\[ \mathbf{Wi} =  \left[ \boldsymbol{\mathbbm{I}}  -
+\left(\begin{smallmatrix} 0 & 0 & 0 & 0 \\ 0 & 0 & \frac{\gamma
+}{2\cdot Z0} & 0 \\ \frac{Z_i}{Z_i+2\cdot Z0} & 0 & 0 & 0 \\ 0 &
+\frac{Z_o}{Z_o+2\cdot Z0} & 0 & 0 \end{smallmatrix}\right)
+\right]^{-1}  \]
 \[ \mathbf{S} = \left(\begin{smallmatrix} \frac{Z_i}{Z_i+2\cdot Z0} &
 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & \frac{Z_o}{Z_o+2\cdot Z0} & 0 \\
 0 & \frac{\gamma }{2\cdot Z0} & 0 & 0 \end{smallmatrix}\right) +

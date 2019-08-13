@@ -1,10 +1,11 @@
 \documentclass[10pt]{article} \usepackage{amsmath} \usepackage{bbold}
 \begin{document}
-\[ \left[ \mathbb{I}  - \left(\begin{array}{cc} 0 & -1 \\ -1 & 0
-\end{array}\right)\right] \cdot \left(\begin{array}{c} n_{1} \\ n_{2}
-\end{array}\right) = \left(\begin{array}{c} 0 \\ m_{1}
+\[ \left[ \boldsymbol{\mathbbm{I}}  - \left(\begin{array}{cc} 0 & -1
+\\ -1 & 0 \end{array}\right)\right] \cdot \left(\begin{array}{c} n_{1}
+\\ n_{2} \end{array}\right) = \left(\begin{array}{c} 0 \\ m_{1}
 \end{array}\right) \]
-\[ \mathbf{Si} = \left[ \mathbb{I}  - \left(\begin{array}{cc} 0 & -1
-\\ -1 & 0 \end{array}\right) \right]^{-1} \]
+\[ \mathbf{Si} = \left[ \boldsymbol{\mathbbm{I}}  -
+\left(\begin{array}{cc} 0 & -1 \\ -1 & 0 \end{array}\right)
+\right]^{-1} \]
 \[ G_{11}=\left(Si_{12} + Si_{22}\right)\cdot V_{S1} \]
 \end{document}

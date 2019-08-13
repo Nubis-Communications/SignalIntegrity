@@ -1,7 +1,7 @@
 \[ \mathbf{S} = \left(\begin{smallmatrix} L_{11} & 0 \\ 0 & R_{22}
 \end{smallmatrix}\right) + \left(\begin{smallmatrix} 0 & 0 & 0 & 0 & 0
 & 0 & L_{12} & 0 \\ 0 & 0 & 0 & 0 & 0 & R_{21} & 0 & 0
-\end{smallmatrix}\right) \cdot \left[ \mathbb{I}  -
+\end{smallmatrix}\right) \cdot \left[ \boldsymbol{\mathbbm{I}}  -
 \left(\begin{smallmatrix} 0 & 0 & 0 & 0 & 0 & 0 & L_{22} & 0 \\ 0 & 0
 & 0 & 0 & 0 & R_{11} & 0 & 0 \\ 0 & 0 & 0 & 0 & M_{12} & 0 & 0 &
 M_{11} \\ 0 & 0 & 0 & 0 & M_{22} & 0 & 0 & M_{21} \\ 0 & 0 & 0 & -1 &

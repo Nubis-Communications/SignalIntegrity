@@ -24,5 +24,6 @@ Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\
 Z_i+Z0^2-\alpha\cdot Z_i\cdot Z0}{-Z_o\cdot Z_i-2\cdot Z_o\cdot
 Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\ -1 & 0
 \end{smallmatrix}\right) \]
-\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
+\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[
+\boldsymbol{\mathbbm{I}}
 -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]

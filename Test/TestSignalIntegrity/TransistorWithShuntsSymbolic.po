@@ -103,5 +103,6 @@ Cps_{41} & 0 & 0 & 0 & 0 & 0 & Cps_{42} & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 &
 0 & 0 & 0 & 0 & 0 & Ccs_{12} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 &
 Ccs_{21} & 0 & 0 & 0 & 0 & 0 & Ccs_{22} & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
 0 \end{smallmatrix}\right) \]
-\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
+\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[
+\boldsymbol{\mathbbm{I}}
 -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]

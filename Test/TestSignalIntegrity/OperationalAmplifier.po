@@ -21,5 +21,6 @@ Z0\cdot G}{\left(Zd+2\cdot Z0\right)\cdot\left(Zo+2\cdot Z0\right)} &
 \frac{Zo}{Zo+2\cdot Z0} \\ \frac{-Z0}{2\cdot Zi +Z0} & 0 & 0 & 0 & 0 &
 0 \\ 0 & \frac{-Z0}{2\cdot Zi +Z0} & 0 & 0 & 0 & 0 \\ 0 & 0 & -1 & 0 &
 0 & 0 \end{smallmatrix}\right) \]
-\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[ \mathbb{I}
+\[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[
+\boldsymbol{\mathbbm{I}}
 -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]

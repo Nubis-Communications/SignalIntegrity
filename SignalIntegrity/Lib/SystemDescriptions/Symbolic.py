@@ -48,7 +48,7 @@ class Symbolic():
         self.m_docEnd = args['docend'] if 'docend' in args else '\\end{document}'
         self.m_eqPrefix = args['eqprefix'] if 'eqprefix' in args else '\\[ '
         self.m_eqSuffix = args['eqsuffix'] if 'eqsuffix' in args else ' \\]'
-        self.m_identity = '\\mathbb{I} '
+        self.m_identity = '\\boldsymbol{\\mathbbm{I}} '
         self.m_eqEnvironment = args['eqenv'] if 'eqenv' in args else True
         self.m_small= (size == 'small')
     def Clear(self):
