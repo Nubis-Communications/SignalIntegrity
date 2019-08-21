@@ -85,7 +85,18 @@ def Matrix2Text(M):
                 subscripted=data.split('_')
                 if len(subscripted) == 2:
                     if subscripted[1][0] != '{' and subscripted[1][-1] != '}':
-                        data=subscripted[0]+'_{'+subscripted[1]+'}'
+                        try:
+                            _=int(subscripted[1])
+                            data=subscripted[0]+'_{'+subscripted[1]+'}'
+                        except:
+                            doublestring=subscripted[1].split(',')
+                            if len(doublestring)==2:
+                                try:
+                                    _=int(doublestring[0])
+                                    _=int(doublestring[1])
+                                    data=subscripted[0]+'_{'+subscripted[1]+'}'
+                                except:
+                                    pass
             Result[r][c] = data
     return Result
 
@@ -163,7 +174,10 @@ def SubscriptedVector(v):
     lv=[]
     for node in v:
         if isinstance(node,str):
-            if len(node)>1: lv.append(node[0]+'_'+node[1:])
-            else: lv.append(node)
+            idxs = [i for i in range(0, len(node)) if node[i].isdigit()]
+            if len(idxs)>0:
+                if idxs[0]>0:
+                    node=(node[0:idxs[0]]+'_'+node[idxs[0]:])
+            lv.append(node)
         else: lv.append(node)
     return [[i] for i in lv]

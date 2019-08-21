@@ -7,5 +7,5 @@
 \[ \mathbf{Si} = \left[ \boldsymbol{\mathbbm{I}}  -
 \left(\begin{array}{cc} 0 & -1 \\ -1 & 0 \end{array}\right)
 \right]^{-1} \]
-\[ G_{11}=\left(Si_{12} + Si_{22}\right)\cdot V_{S1} \]
+\[ G1_{1}=\left(Si_{12} + Si_{22}\right)\cdot VS_{1} \]
 \end{document}

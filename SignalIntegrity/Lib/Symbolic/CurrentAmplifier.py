@@ -82,7 +82,7 @@ def CurrentAmplifierThreePort(G,Zi,Zo):
             [S31,S32,S33]]
 
 def CurrentAmplifierThreePortWithoutDenom(G,Zi,Zo):
-    """symbolic three port current amplifier
+    """symbolic three port current amplifier without denominator
     @param G string current gain
     @param Zi string input impedance
     @param Zo string output impedance
@@ -107,7 +107,7 @@ def CurrentAmplifierThreePortWithoutDenom(G,Zi,Zo):
             [S31,S32,S33]]
 
 def CurrentAmplifierThreePortDenom(G,Zi,Zo):
-    """symbolic three port current amplifier
+    """symbolic three port current amplifier denominator
     @param G string current gain
     @param Zi string input impedance
     @param Zo string output impedance

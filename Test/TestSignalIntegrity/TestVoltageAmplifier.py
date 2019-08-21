@@ -143,6 +143,14 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         # pragma: exclude
         ssps.m_lines[0]=ssps.m_lines[0].replace('\\mathbf{S} = ','\\mathbf{S} =\\\\ ')
         self.CheckSymbolicResult(self.id(),ssps,'Voltage Amplifier Three Port Symbolic')
+    def testVoltageAmplifierThreePortSymbolic2(self):
+        symbolic=si.sd.Symbolic(size='small',eqprefix='$\\begin{alignedat}{1}',eqsuffix='\\end{alignedat}$')
+        S=si.sy.VoltageAmplifierThreePortWithoutDenom('\\alpha','Z_i','Z_o')
+        D=si.sy.VoltageAmplifierThreePortDenom('\\alpha','Z_i','Z_o')
+        symbolic._AddEq('\\mathbf{S}= & \\frac{1}{'+D+'}\\\\ & \\cdot '+symbolic._LaTeXMatrix(S))
+        symbolic.Emit()
+        # pragma: exclude
+        self.CheckSymbolicResult(self.id(),symbolic,'Voltage Amplifier Three Port Symbolic 2')
     def testVoltageAmplifierThreePortNumeric(self):
         sdp=si.p.SystemDescriptionParser()
         G=10. # gain
