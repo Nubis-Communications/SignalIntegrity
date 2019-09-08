@@ -90,16 +90,11 @@ class FrequencyList(list):
 
         if the unit supplied is otherwise invalid, None is returned.
         """
-        if unit == None:
-            return list(self)
-        elif isinstance(unit,float):
-            return (self/unit).Frequencies()
-        elif unit == 'GHz':
-            return (self/1.e9).Frequencies()
-        elif unit == 'MHz':
-            return (self/1.e6).Frequencies()
-        elif unit == 'kHz':
-            return (self/1.e3).Frequencies()
+        if unit == None: return list(self)
+        elif isinstance(unit,float): return (self/unit).Frequencies()
+        elif unit == 'GHz': return (self/1.e9).Frequencies()
+        elif unit == 'MHz': return (self/1.e6).Frequencies()
+        elif unit == 'kHz': return (self/1.e3).Frequencies()
     def CheckEvenlySpaced(self,epsilon=0.01):
         """checks and sets whether evenly spaced
         @param epsilon (optional) float difference tolerated in whether a frequency compared is the same.
@@ -110,8 +105,7 @@ class FrequencyList(list):
         Checks the frequencies to see if they conform to N+1 frequencies with for n=0..N, each frequency
         in the list is f[n]=n/N*Fe within the epsilon.
         """
-        if self.m_EvenlySpaced:
-            return True
+        if self.m_EvenlySpaced: return True
         for n in range(self.N+1):
             if abs(self[n]-self.Fe/self.N*n) > epsilon:
                 self.m_EvenlySpaced=False
@@ -125,19 +119,15 @@ class FrequencyList(list):
         @param d float frequency to divide each frequency by.
         @return an instance of class FrequencyList containing self divided by the amount specified.
         """
-        if self.EvenlySpaced():
-            return EvenlySpacedFrequencyList(self.Fe/d,self.N)
-        else:
-            return GenericFrequencyList([v/d for v in self])
+        if self.EvenlySpaced(): return EvenlySpacedFrequencyList(self.Fe/d,self.N)
+        else: return GenericFrequencyList([v/d for v in self])
     def __mul__(self,d):
         """overloads *
         @param d float frequency to multiply each frequency by.
         @return an instance of class FrequencyList containing self multiplied by the amount specified.
         """
-        if self.EvenlySpaced():
-            return EvenlySpacedFrequencyList(self.Fe*d,self.N)
-        else:
-            return GenericFrequencyList([v*d for v in self])
+        if self.EvenlySpaced(): return EvenlySpacedFrequencyList(self.Fe*d,self.N)
+        else: return GenericFrequencyList([v*d for v in self])
     def TimeDescriptor(self,Keven=True):
         """associated time descriptor
         @param Keven boolean (optional)
@@ -161,12 +151,9 @@ class FrequencyList(list):
         @return boolean True if the other is the same as self.
         @note the elements in the list are checked within an epsilon value of 1e-6.
         """
-        if self.m_EvenlySpaced != other.m_EvenlySpaced:
-            return False
-        if self.N != other.N:
-            return False
-        if abs(self.Fe - other.Fe) > 1e-5:
-            return False
+        if self.m_EvenlySpaced != other.m_EvenlySpaced: return False
+        if self.N != other.N: return False
+        if abs(self.Fe - other.Fe) > 1e-5: return False
         if not self.m_EvenlySpaced:
             for k in range(len(self)):
                 if abs(self[k]-other[k])>1e-6:
