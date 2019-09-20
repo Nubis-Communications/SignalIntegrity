@@ -21,6 +21,8 @@ LaTeX.py
 from numpy import empty,sign
 import math
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def RationalString(val):
     data = ''
     if isinstance(val,int):
@@ -43,7 +45,7 @@ def RationalString(val):
         elif d==n:
             return signStr+'1'
         elif ((d<10) and (n<10)):
-            return signStr+'\\frac{'+str(n)+'}{'+str(d)+'}'
+            return signStr+lfrac(str(n),str(d))
         # check for square-root of 2
         valsq2=val*math.sqrt(2.)
         (n,d)=Rat(valsq2)
@@ -53,7 +55,7 @@ def RationalString(val):
             denstr='\\sqrt{2}'
             if d != 1:
                 denstr=str(d)+'\\cdot'+denstr
-            return signStr+'\\frac{'+str(n)+'}{'+denstr+'}'
+            return signStr+lfrac(str(n),denstr)
         return signStr+str(val)
 
 def Matrix2Text(M):

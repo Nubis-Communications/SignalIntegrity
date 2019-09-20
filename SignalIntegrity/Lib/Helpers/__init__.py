@@ -21,3 +21,4 @@ from __future__ import absolute_import
 from .LaTeX import *
 from .AllZeroMatrix import *
 from .LineSplitter import *
+from .lfrac import lfrac

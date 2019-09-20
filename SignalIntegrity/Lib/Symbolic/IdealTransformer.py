@@ -18,6 +18,8 @@ IdealTransformer.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def IdealTransformer(a=1):
     """symbolic ideal transformer
 
@@ -55,8 +57,8 @@ def IdealTransformer(a=1):
     elif isinstance(a,str):
         asq=a+'^2'
         denom=asq+' + 1'
-    one=' \\frac{ 1 }{'+denom+'} '
-    a2=' \\frac{ '+asq+' }{ '+denom+' } '
-    a1=' \\frac{ '+a+' }{ '+denom+' } '
-    na=' -\\frac{ '+a+' }{ '+denom+' } '
+    one=' '+lfrac(' 1 ',denom)+' '
+    a2=' '+lfrac(' '+asq+' ',' '+denom+' ')+' '
+    a1=' '+lfrac(' '+a+' ',' '+denom+' ')+' '
+    na=' -'+lfrac(' '+a+' ',' '+denom+' ')+' '
     return [[one,a2,a1,na],[a2,one,na,a1],[a1,na,a2,one],[na,a1,one,a2]]

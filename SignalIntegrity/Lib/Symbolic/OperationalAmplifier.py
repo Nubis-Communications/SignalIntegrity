@@ -18,6 +18,8 @@ OperationalAmplifier.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def OperationalAmplifier(Zi,Zd,Zo,G):
     """symbolic operationalAmplifier
     Operational Amplifier
@@ -34,8 +36,8 @@ def OperationalAmplifier(Zi,Zd,Zo,G):
     @note strings can be any valid LaTeX
     @note this is the symbolic version of SignalIntegrity.Lib.Devices.OperationalAmplifier.OperationalAmplifier
     """
-    S11='\\frac{\\left(-2\\cdot '+Zi+' - '+Zd+' \\right)\\cdot Z0^2+ '+Zi+' ^2\\cdot '+Zd+' }{\\left(2\\cdot '+Zi+' + '+Zd+' \\right)\\cdot Z0^2+\\left(2\\cdot '+Zi+' \\cdot '+Zd+' +2\\cdot '+Zi+' ^2\\right)\\cdot Z0+ '+Zi+' ^2\\cdot '+Zd+' }'
-    S12='\\frac{2\\cdot '+Zi+' ^2\\cdot Z0}{\\left(2\\cdot '+Zi+' + '+Zd+' \\right)\\cdot Z0^2+\\left(2\\cdot '+Zi+' \\cdot '+Zd+' +2\\cdot '+Zi+' ^2\\right)\\cdot Z0+ '+Zi+' ^2\\cdot '+Zd+' }'
-    S32='\\frac{2\\cdot '+G+' \\cdot '+Zi+' \\cdot '+Zd+' \\cdot Z0}{\\left( '+Zo+' +Z0\\right)\\cdot \\left(\\left(2\\cdot '+Zi+' + '+Zd+' \\right)\\cdot Z0+ '+Zi+' \\cdot '+Zd+' \\right)}'
-    S33='\\frac{ '+Zo+' -Z0}{ '+Zo+' +Z0}'
+    S11=lfrac('\\left(-2\\cdot '+Zi+' - '+Zd+' \\right)\\cdot Z0^2+ '+Zi+' ^2\\cdot '+Zd+' ','\\left(2\\cdot '+Zi+' + '+Zd+' \\right)\\cdot Z0^2+\\left(2\\cdot '+Zi+' \\cdot '+Zd+' +2\\cdot '+Zi+' ^2\\right)\\cdot Z0+ '+Zi+' ^2\\cdot '+Zd+' ')
+    S12=lfrac('2\\cdot '+Zi+' ^2\\cdot Z0','\\left(2\\cdot '+Zi+' + '+Zd+' \\right)\\cdot Z0^2+\\left(2\\cdot '+Zi+' \\cdot '+Zd+' +2\\cdot '+Zi+' ^2\\right)\\cdot Z0+ '+Zi+' ^2\\cdot '+Zd+' ')
+    S32=lfrac('2\\cdot '+G+' \\cdot '+Zi+' \\cdot '+Zd+' \\cdot Z0','\\left( '+Zo+' +Z0\\right)\\cdot \\left(\\left(2\\cdot '+Zi+' + '+Zd+' \\right)\\cdot Z0+ '+Zi+' \\cdot '+Zd+' \\right)')
+    S33=lfrac(' '+Zo+' -Z0',' '+Zo+' +Z0')
     return [[S11,S12,'0'],[S12,S11,'0'],['-'+S32,S32,S33]]

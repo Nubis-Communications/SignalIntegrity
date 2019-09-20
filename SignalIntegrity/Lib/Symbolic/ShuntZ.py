@@ -18,6 +18,8 @@ ShuntZ.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def ShuntZ(P,Z):
     """symbolic shunt impedance
     @param P integer number of ports (1,2,3,4)
@@ -51,10 +53,10 @@ def ShuntZFourPort(Z):
     @todo check the port numbering
     """
     D='2\\cdot \\left('+Z+'+Z0\\right)'
-    return [['\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
-            ['\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}'],
-            ['\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{Z0}{'+D+'}'],
-            ['\\frac{Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+Z0}{'+D+'}','\\frac{Z0}{'+D+'}','\\frac{-Z0}{'+D+'}']]
+    return [[lfrac('-Z0',D),lfrac('Z0',D),lfrac('2\\cdot '+Z+'+Z0',D),lfrac('Z0',D)],
+            [lfrac('Z0',D),lfrac('-Z0',D),lfrac('Z0',D),lfrac('2\\cdot '+Z+'+Z0',D)],
+            [lfrac('2\\cdot '+Z+'+Z0',D),lfrac('Z0',D),lfrac('-Z0',D),lfrac('Z0',D)],
+            [lfrac('Z0',D),lfrac('2\\cdot '+Z+'+Z0',D),lfrac('Z0',D),lfrac('-Z0',D)]]
 
 def ShuntZThreePort(Z):
     """symbolic three port shunt impedance
@@ -68,9 +70,9 @@ def ShuntZThreePort(Z):
     @todo check the port numbering
     """
     D='2\\cdot '+Z+'+3\\cdot Z0'
-    return [['\\frac{-Z0}{'+D+'}','\\frac{2\\cdot '+Z+'+2\\cdot Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}'],
-            ['\\frac{2\\cdot '+Z+'+2\\cdot Z0}{'+D+'}','\\frac{-Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}'],
-            ['\\frac{2\\cdot Z0}{'+D+'}','\\frac{2\\cdot Z0}{'+D+'}','\\frac{2\\cdot '+Z+'-Z0}{'+D+'}']]
+    return [[lfrac('-Z0',D),lfrac('2\\cdot '+Z+'+2\\cdot Z0',D),lfrac('2\\cdot Z0',D)],
+            [lfrac('2\\cdot '+Z+'+2\\cdot Z0',D),lfrac('-Z0',D),lfrac('2\\cdot Z0',D)],
+            [lfrac('2\\cdot Z0',D),lfrac('2\\cdot Z0',D),lfrac('2\\cdot '+Z+'-Z0',D)]]
 
 def ShuntZTwoPort(Z):
     """symbolic two port shunt impedance
@@ -83,8 +85,8 @@ def ShuntZTwoPort(Z):
     The other side of the impedance is tied to ground.
     """
     D='2\\cdot '+Z+' +Z0'
-    return [['\\frac{-Z0}{'+D+'}','\\frac{2\\cdot '+Z+'}{'+D+'}'],
-            ['\\frac{2\\cdot '+Z+'}{'+D+'}','\\frac{-Z0}{'+D+'}']]
+    return [[lfrac('-Z0',D),lfrac('2\\cdot '+Z,D)],
+            [lfrac('2\\cdot '+Z,D),lfrac('-Z0',D)]]
 
 def ShuntZOnePort(Z):
     """symbolic four port shunt impedance
@@ -97,6 +99,6 @@ def ShuntZOnePort(Z):
     @note strings can be any valid LaTeX
     @note this is the symbolic version of SignalIntegrity.Lib.Devices.TerminationZ.TerminationZ
     """
-    return [['\\frac{ '+Z+' -Z0}{ '+Z+' +Z0}']]
+    return [[lfrac(' '+Z+' -Z0',' '+Z+' +Z0')]]
 
 

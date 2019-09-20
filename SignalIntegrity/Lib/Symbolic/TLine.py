@@ -18,6 +18,8 @@ TLine.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def TLine(P,rho,gamma):
     """symbolic two-port transmission
 
@@ -49,10 +51,9 @@ def TLineRho(Zc,ports=2):
     @note that rho is different for a four-port single-ended transmission line.
     """
     if ports == 2:
-        return ' \\frac{ '+Zc+'-Z0 }{ '+Zc+' + Z0 }'
+        return ' '+lfrac(' '+Zc+'-Z0 ',' '+Zc+' + Z0 ')
     elif ports == 4:
-        return ' \\frac{ \\frac{ '+Zc+' }{2} - Z0  }{ \\frac{ '+Zc+' }{2} + Z0 }'
-
+        return ' '+lfrac(' '+lfrac(' '+Zc+' ','2')+' - Z0  ',' '+lfrac(' '+Zc+' ','2')+' + Z0 ')
 def TLineGamma(Td):
     """string representation of gamma from the propagation time
     @param Td string propagation time
@@ -77,8 +78,8 @@ def TLineTwoPort(rho,gamma):
     L='e^{'+gamma+'}'
     L2='e^{2 \\cdot '+gamma+' } '
     D='1 - \\left[ '+rho+' \\right]^2 \\cdot '+L2
-    S1=' \\frac{ '+rho+' \\cdot \\left( 1 - '+L2+' \\right) }{ '+D+' }'
-    S2=' \\frac{ '+L+' \\cdot \\left( 1 - \\left[ '+rho+' \\right] ^2 \\right) }{ '+D+' } '
+    S1=' '+lfrac(' '+rho+' \\cdot \\left( 1 - '+L2+' \\right) ',' '+D+' ')
+    S2=' '+lfrac(' '+L+' \\cdot \\left( 1 - \\left[ '+rho+' \\right] ^2 \\right) ',' '+D+' ')+' '
     return [[S1,S2],[S2,S1]]
 
 def TLineFourPort(rho,gamma):
@@ -98,9 +99,9 @@ def TLineFourPort(rho,gamma):
     Y='e^{'+gamma+' } '
     Y2='e^{2 \\cdot '+gamma+' } '
     D='2 \\cdot \\left( 1 - '+Y2+' \\cdot \\left[ '+rho+' \\right]^2 \\right)'
-    S1= '\\frac{ 1 - '+Y2+' \\cdot \\left[ '+rho+' \\right]^2 + '+rho+' \\cdot \\left( 1 - '+Y2+' \\right) }{ '+D+' } '
-    S2= '\\frac{ \\left( 1 - \\left[ '+rho+' \\right]^2 \\right) \\cdot '+Y+' }{ '+D+' } '
-    S3= '\\frac{ 1 - '+Y2+' \\cdot \\left[ '+rho+' \\right]^2 - '+rho+' \\cdot \\left( 1 - '+Y2+' \\right)  }{ '+D+' } '
+    S1= lfrac(' 1 - '+Y2+' \\cdot \\left[ '+rho+' \\right]^2 + '+rho+' \\cdot \\left( 1 - '+Y2+' \\right) ',' '+D+' ')+' '
+    S2= lfrac(' \\left( 1 - \\left[ '+rho+' \\right]^2 \\right) \\cdot '+Y+' ',' '+D+' ')+' '
+    S3= lfrac(' 1 - '+Y2+' \\cdot \\left[ '+rho+' \\right]^2 - '+rho+' \\cdot \\left( 1 - '+Y2+' \\right)  ',' '+D+' ')+' '
     return [[S1,S2,S3,'-'+S2],
             [S2,S1,'-'+S2,S3],
             [S3,'-'+S2,S1,S2],

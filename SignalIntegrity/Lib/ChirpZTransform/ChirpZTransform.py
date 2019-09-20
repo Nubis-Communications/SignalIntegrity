@@ -42,7 +42,6 @@ def CZT(x,Fs,fs,fe,M,highSpeed=True):
     
     \f$m\in 0 \ldots M\f$
     
-    \f$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m}
     {M}\cdot F_{e}}\f$
     """
     M=int(M); K=len(x); fs=float(fs); Fs=float(Fs); fe=float(fe)

@@ -18,6 +18,8 @@ SeriesZ.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def SeriesZ(Z):
     """symbolic series impedance
     @param Z string impedance
@@ -26,5 +28,8 @@ def SeriesZ(Z):
     @note strings can be any valid LaTeX
     @note this is the symbolic version of SignalIntegrity.Lib.Devices.SeriesZ
     """
-    return [['\\frac{'+Z+'}{'+Z+'+2\\cdot Z0}','\\frac{2\\cdot Z0}{'+Z+'+2\\cdot Z0}'],
-            ['\\frac{2\\cdot Z0}{'+Z+'+2\\cdot Z0}','\\frac{'+Z+'}{'+Z+'+2\\cdot Z0}']]
+    return [[lfrac(Z,Z+'+2\\cdot Z0'),lfrac('2\\cdot Z0',Z+'+2\\cdot Z0')],
+            [lfrac('2\\cdot Z0',Z+'+2\\cdot Z0'),lfrac(Z,Z+'+2\\cdot Z0')]]
+
+def SeriesZPh(Z):
+    return SeriesZ(Z+'{\\vphantom{'+lfrac('X','b')+'}}')

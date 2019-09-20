@@ -24,6 +24,7 @@ from SignalIntegrity.Lib.SystemDescriptions.VirtualProbe import VirtualProbe
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersSymbolic import SystemSParametersSymbolic
 from SignalIntegrity.Lib.Helpers import Matrix2LaTeX
 from SignalIntegrity.Lib.Helpers import MatrixMultiply
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
 
 class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
     """
@@ -65,9 +66,9 @@ class VirtualProbeSymbolic(SystemSParametersSymbolic, VirtualProbe):
             numDeg=len(self.SIPrime(True)[0])
             inverse='^{-1}' if numDeg==numMeas else '^\\dagger'
             if oneElementVemsi and oneElementVeosi:
-                line = '\\frac{ '+veosi+' }{ '+vemsi+' } '
+                line = lfrac(' '+veosi+' ',' '+vemsi+' ')+' '
             elif oneElementVemsi and not oneElementVeosi:
-                line = veosi+' \\frac{1}{ '+vemsi+' } '
+                line = veosi+' '+lfrac('1',' '+vemsi+' ')+' '
             elif not oneElementVemsi and oneElementVeosi:
                 line = '\\left( '+veosi+'\\right)\\cdot '+vemsi+inverse
             elif not oneElementVemsi and not oneElementVeosi:

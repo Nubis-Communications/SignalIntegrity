@@ -115,7 +115,7 @@ class TestBookFormattingTest(unittest.TestCase):
     
     def testListPythonFiles(self):
         return
-        for filename in self.PythonFileList():
+        for filename in self._PythonFileList():
             print(filename)
     
     def testListTestFiles(self):
@@ -354,6 +354,76 @@ class TestBookFormattingTest(unittest.TestCase):
         with open(self.bookpath+'classhyphenation.tex','w') as f:
             f.writelines(lines)
 
+    def ConvertLine(self,line):
+        assembledLine=''
+        if '\\frac' in line:
+            #print(line)
+            for i in range(len(line)):
+                try:
+                    if line[i:i+5] == '\\frac':
+                        fracStart=i-1
+                        i=i+5
+                        keepGoing=True
+                        while keepGoing:
+                            if line[i]=='{':
+                                i=i+1
+                                numerStart=i
+                                i=i+1
+                                while keepGoing:
+                                    if line[i]=='}':
+                                        numerEnd=i-1
+                                        i=i+1
+                                        while keepGoing:
+                                            if line[i]=='{':
+                                                i=i+1
+                                                denomStart=i
+                                                i=i+1
+                                                while keepGoing:
+                                                    if line[i]=='}':
+                                                        denomEnd=i-1
+                                                        keepGoing=False
+                                                    else:
+                                                        i=i+1
+                                            else:
+                                                i=i+1
+                                    else:
+                                        i=i+1
+                            else:
+                                i=i+1
+                        print('ended')
+                        seg0=line[:fracStart]
+                        seg1="'+lfrac('"
+                        seg2=line[numerStart:numerEnd+1]+"','"
+                        seg3=line[denomStart:denomEnd+1]+"')+'"
+                        seg4=line[denomEnd+2:]
+                        print(line)
+                        newline=seg0+seg1+seg2+seg3+seg4
+                        newline=newline.replace("''+","").replace("+''","")
+                        print(newline)
+                        return self.ConvertLine(newline)
+                except:
+                    return assembledLine
+        else:
+            return line
+
+    def testFindFrac(self):
+        pythonFileList=self._PythonFileList()
+        fracFileList=[]
+        for file in pythonFileList:
+            with open(file,'r') as f:
+                lines=f.readlines()
+            for line in lines:
+                if '\\frac' in line:
+                    fracFileList.append(file)
+                    break
+        for file in fracFileList:
+            #print(file)
+            with open(file,'r') as f:
+                lines=f.readlines()
+            lines=[self.ConvertLine(line) for line in lines]
+            with open(file,'w') as f:
+                f.writelines(lines)
+            
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

@@ -18,6 +18,8 @@ CurrentControlledVoltageSource.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+from SignalIntegrity.Lib.Helpers.lfrac import lfrac
+
 def CurrentControlledVoltageSource(G):
     """symbolic current controlled voltage source
     @param G string transresistance
@@ -29,5 +31,5 @@ def CurrentControlledVoltageSource(G):
     """
     return  [['0','1','0','0'],
              ['1','0','0','0'],
-             ['-\\frac{'+G+' }{2\\cdot Z0}','\\frac{'+G+' }{2\\cdot Z0}','0','1'],
-             ['\\frac{'+G+' }{2\\cdot Z0}','-\\frac{'+G+' }{2\\cdot Z0}','1','0']]
+             ['-'+lfrac(G+' ','2\\cdot Z0'),lfrac(G+' ','2\\cdot Z0'),'0','1'],
+             [lfrac(G+' ','2\\cdot Z0'),'-'+lfrac(G+' ','2\\cdot Z0'),'1','0']]
