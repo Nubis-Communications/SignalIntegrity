@@ -1,19 +1,19 @@
 \[ \left[ \boldsymbol{\mathbbm{I}}  - \left(\begin{array}{cccccc} 0 &
 0 & S_{12} & 0 & 0 & S_{11} \\ 0 & 0 & S_{22} & 0 & 0 & S_{21} \\ 0 &
-\frac{ Zl -Z0}{ Zl +Z0} & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & -1 & 0 \\
-\frac{2\cdot Z0}{Zs+2\cdot Z0} & 0 & 0 & \frac{Zs}{Zs+2\cdot Z0} & 0 &
-0 \\ \frac{Zs}{Zs+2\cdot Z0} & 0 & 0 & \frac{2\cdot Z0}{Zs+2\cdot Z0}
-& 0 & 0 \end{array}\right)\right] \cdot \left(\begin{array}{c} n_{6}
-\\ n_{1} \\ n_{2} \\ n_{3} \\ n_{4} \\ n_{5} \end{array}\right) =
-\left(\begin{array}{c} 0 \\ 0 \\ 0 \\ m_{1} \\ 0 \\ 0
-\end{array}\right) \]
+\frac{ Z_l -Z0}{ Z_l +Z0} & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & -1 & 0 \\
+\frac{2\cdot Z0}{Z_s+2\cdot Z0} & 0 & 0 & \frac{Z_s}{Z_s+2\cdot Z0} &
+0 & 0 \\ \frac{Z_s}{Z_s+2\cdot Z0} & 0 & 0 & \frac{2\cdot
+Z0}{Z_s+2\cdot Z0} & 0 & 0 \end{array}\right)\right] \cdot
+\left(\begin{array}{c} n_{6} \\ n_{1} \\ n_{2} \\ n_{3} \\ n_{4} \\
+n_{5} \end{array}\right) = \left(\begin{array}{c} 0 \\ 0 \\ 0 \\ m_{1}
+\\ 0 \\ 0 \end{array}\right) \]
 \[ \mathbf{Si} = \left[ \boldsymbol{\mathbbm{I}}  -
 \left(\begin{array}{cccccc} 0 & 0 & S_{12} & 0 & 0 & S_{11} \\ 0 & 0 &
-S_{22} & 0 & 0 & S_{21} \\ 0 & \frac{ Zl -Z0}{ Zl +Z0} & 0 & 0 & 0 & 0
-\\ 0 & 0 & 0 & 0 & -1 & 0 \\ \frac{2\cdot Z0}{Zs+2\cdot Z0} & 0 & 0 &
-\frac{Zs}{Zs+2\cdot Z0} & 0 & 0 \\ \frac{Zs}{Zs+2\cdot Z0} & 0 & 0 &
-\frac{2\cdot Z0}{Zs+2\cdot Z0} & 0 & 0 \end{array}\right) \right]^{-1}
-\]
+S_{22} & 0 & 0 & S_{21} \\ 0 & \frac{ Z_l -Z0}{ Z_l +Z0} & 0 & 0 & 0 &
+0 \\ 0 & 0 & 0 & 0 & -1 & 0 \\ \frac{2\cdot Z0}{Z_s+2\cdot Z0} & 0 & 0
+& \frac{Z_s}{Z_s+2\cdot Z0} & 0 & 0 \\ \frac{Z_s}{Z_s+2\cdot Z0} & 0 &
+0 & \frac{2\cdot Z0}{Z_s+2\cdot Z0} & 0 & 0 \end{array}\right)
+\right]^{-1} \]
 \[ \left(\begin{array}{c} S_{1} \\ S_{2}
 \end{array}\right)=\left(\begin{array}{c} Si_{14} + Si_{64} \\ Si_{24}
 + Si_{34} \end{array}\right)\cdot V \]
