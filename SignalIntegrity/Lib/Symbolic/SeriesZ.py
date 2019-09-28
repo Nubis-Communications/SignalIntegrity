@@ -30,6 +30,3 @@ def SeriesZ(Z):
     """
     return [[lfrac(Z,Z+'+2\\cdot Z0'),lfrac('2\\cdot Z0',Z+'+2\\cdot Z0')],
             [lfrac('2\\cdot Z0',Z+'+2\\cdot Z0'),lfrac(Z,Z+'+2\\cdot Z0')]]
-
-def SeriesZPh(Z):
-    return SeriesZ(Z+'{\\vphantom{'+lfrac('X','b')+'}}')

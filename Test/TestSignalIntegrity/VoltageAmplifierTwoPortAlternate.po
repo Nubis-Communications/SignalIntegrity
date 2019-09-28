@@ -3,23 +3,23 @@ Z_i-2\cdot Z_i\cdot Z0+Z0^2+\alpha\cdot Z_i\cdot Z0}{-Z_o\cdot
 Z_i-2\cdot Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot
 Z_i\cdot Z0} & \frac{-2\cdot Z0^2}{-Z_o\cdot Z_i-2\cdot Z_o\cdot
 Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\
-\frac{-2\cdot Z0 \cdot\left(\alpha\cdot Z_i +Z0\right)}{-Z_o\cdot
-Z_i-2\cdot Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot
-Z_i\cdot Z0} & \frac{Z0^2-2\cdot Z_o\cdot Z0+\alpha\cdot Z_i\cdot
-Z0-Z_o\cdot Z_i}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot Z_i\cdot
-Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \end{smallmatrix}\right) \]
-\[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & \frac{-2\cdot
-Z0\cdot\left(Z_o +Z0\right)}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot
-Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\ 0 & \frac{2\cdot
-Z0\cdot\left(\alpha\cdot Z_i-Z_i-Z0\right)}{-Z_o\cdot Z_i-2\cdot
-Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0}
-\end{smallmatrix}\right) \]
-\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} \frac{2\cdot
-Z0\cdot\left(-Z0+\alpha\cdot Z_i-Z_o\right)}{-Z_o\cdot Z_i-2\cdot
+\frac{-2\cdot Z0 \cdot (\alpha\cdot Z_i +Z0 )}{-Z_o\cdot Z_i-2\cdot
 Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} &
-\frac{-2\cdot Z0\cdot\left(Z_i+Z0\right)}{-Z_o\cdot Z_i-2\cdot
-Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\
-0 & 0 \end{smallmatrix}\right) \]
+\frac{Z0^2-2\cdot Z_o\cdot Z0+\alpha\cdot Z_i\cdot Z0-Z_o\cdot
+Z_i}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot Z_i\cdot Z0-3\cdot
+Z0^2+\alpha\cdot Z_i\cdot Z0} \end{smallmatrix}\right) \]
+\[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & \frac{-2\cdot
+Z0\cdot (Z_o +Z0 )}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot Z_i\cdot
+Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\ 0 & \frac{2\cdot Z0\cdot
+(\alpha\cdot Z_i-Z_i-Z0 )}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot
+Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0}
+\end{smallmatrix}\right) \]
+\[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} \frac{2\cdot Z0\cdot
+(-Z0+\alpha\cdot Z_i-Z_o )}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot
+Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} & \frac{-2\cdot
+Z0\cdot (Z_i+Z0 )}{-Z_o\cdot Z_i-2\cdot Z_o\cdot Z0-2\cdot Z_i\cdot
+Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\ 0 & 0
+\end{smallmatrix}\right) \]
 \[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & \frac{-Z_o\cdot
 Z_i+Z0^2-\alpha\cdot Z_i\cdot Z0}{-Z_o\cdot Z_i-2\cdot Z_o\cdot
 Z0-2\cdot Z_i\cdot Z0-3\cdot Z0^2+\alpha\cdot Z_i\cdot Z0} \\ -1 & 0

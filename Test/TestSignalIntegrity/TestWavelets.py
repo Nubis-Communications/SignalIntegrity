@@ -23,6 +23,31 @@ import SignalIntegrity.Lib as si
 from numpy import linalg
 import math
 
+import struct
+import binascii
+def float_to_hex(f):
+    return binascii.hexlify(struct.pack('<f', f))
+
+def hex_to_float(h):
+    return struct.unpack('f', binascii.unhexlify(h))[0]
+
+def byte_to_hex(b):
+    h=''
+    for n in range(2):
+        h=str(hex(b%16)[-1])+h
+        b=(b-b%16)/16
+    return h
+
+def word_to_hex(b):
+    h=''
+    for n in range(2):
+        h=str(hex(b%16)[-1])+h
+        b=(b-b%16)/16
+    return h
+
+def hex_to_int(h):
+    return eval('0x'+h)
+   
 class TestWavelets(unittest.TestCase):
     def testDWT(self):
         K=16
@@ -165,4 +190,3 @@ class TestWavelets(unittest.TestCase):
         w=si.wl.WaveletDaubechies8()
         w=si.wl.WaveletDaubechies14()
         w=si.wl.WaveletHaar()
-        

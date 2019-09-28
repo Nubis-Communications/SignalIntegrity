@@ -49,8 +49,8 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_1',ssp,self.id())
         # pragma: include
-        ssp.AssignSParameters('\\Gamma_s',si.sy.ShuntZ(1,'Zs'))
-        ssp.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
+        ssp.AssignSParameters('\\Gamma_s',si.sy.ShuntZ(1,'Z_s'))
+        ssp.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Z_l'))
         ssp.Clear().LaTeXSystemEquation().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ssp,self.id())
@@ -66,8 +66,8 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_1',ssps,self.id())
         # pragma: include
-        ssps.AssignSParameters('\\Gamma_s',si.sy.ShuntZ(1,'Zs'))
-        ssps.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
+        ssps.AssignSParameters('\\Gamma_s',si.sy.ShuntZ(1,'Z_s'))
+        ssps.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Z_l'))
         ssps.Clear().LaTeXSystemEquation().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ssps,self.id())
@@ -80,17 +80,17 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         sd.ConnectDevicePort('S',2,'\\Gamma_l',1)
         s=si.sd.Simulator(sd)
         s.AddVoltageSource('V',1)
-        s.AddDevice('Zs',2)
-        s.ConnectDevicePort('V',1,'Zs',1)
-        s.ConnectDevicePort('Zs',2,'S',1)
+        s.AddDevice('Z_s',2)
+        s.ConnectDevicePort('V',1,'Z_s',1)
+        s.ConnectDevicePort('Z_s',2,'S',1)
         s.pOutputList = [('S',1),('S',2)]
         ss=si.sd.SimulatorSymbolic(s)
         # pragma: exclude
         # ss.LaTeXEquations().Emit()
         self.CheckSymbolicResult(self.id()+'_1',ss,self.id())
         # pragma: include
-        ss.AssignSParameters('Zs',si.sy.SeriesZ('Zs'))
-        ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
+        ss.AssignSParameters('Z_s',si.sy.SeriesZ('Z_s'))
+        ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Z_l'))
         ss.Clear().LaTeXEquations().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ss,self.id())
@@ -100,17 +100,17 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         ss.AddDevice('\\Gamma_l',1)
         ss.ConnectDevicePort('S',2,'\\Gamma_l',1)
         ss.AddVoltageSource('V',1)
-        ss.AddDevice('Zs',2)
-        ss.ConnectDevicePort('V',1,'Zs',1)
-        ss.ConnectDevicePort('Zs',2,'S',1)
+        ss.AddDevice('Z_s',2)
+        ss.ConnectDevicePort('V',1,'Z_s',1)
+        ss.ConnectDevicePort('Z_s',2,'S',1)
         ss.pOutputList = [('S',1),('S',2)]
         # pragma: exclude
         # ss.LaTeXEquations().Emit()
         self.CheckSymbolicResult(self.id()+'_1',ss,self.id())
         ss.Clear()
         # pragma: include
-        ss.AssignSParameters('Zs',si.sy.SeriesZ('Zs'))
-        ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Zl'))
+        ss.AssignSParameters('Z_s',si.sy.SeriesZ('Z_s'))
+        ss.AssignSParameters('\\Gamma_l',si.sy.ShuntZ(1,'Z_l'))
         ss.LaTeXEquations().Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id()+'_2',ss,self.id())

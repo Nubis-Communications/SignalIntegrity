@@ -52,7 +52,7 @@ def TransresistanceAmplifierFourPort(G,Zi,Zo):
     """
     D11=lfrac(Zi,Zi+'+2\\cdot Z0')
     D12=lfrac('2\\cdot Z0',Zi+'+2\\cdot Z0')
-    D31=lfrac('2\\cdot '+G+'\\cdot Z0','\\left('+Zo+'+2\\cdot Z0\\right)\\cdot\\left('+Zi+'+2\\cdot Z0\\right)')
+    D31=lfrac('2\\cdot '+G+'\\cdot Z0',' ('+Zo+'+2\\cdot Z0 )\\cdot ('+Zi+'+2\\cdot Z0 )')
     D33=lfrac(Zo,Zo+'+2\\cdot Z0')
     D34=lfrac('2\\cdot Z0',Zo+'+2\\cdot Z0')
     return [[D11,D12,'0','0'],
@@ -70,14 +70,14 @@ def TransresistanceAmplifierThreePort(G,Zi,Zo):
     @note strings can be any valid LaTeX
     @note this is the symbolic version of SignalIntegrity.Lib.Devices.TransresistanceAmplifier.TransresistanceAmplifierThreePort
     """
-    D='3\\cdot Z0^2+\\left(2\\cdot '+Zo+'+2\\cdot '+Zi+'-'+G+'\\right)\\cdot Z0+'+Zo+'\\cdot '+Zi
-    S11=lfrac(Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zi+'-'+G+'\\right)-Z0^2',D)
+    D='3\\cdot Z0^2+ (2\\cdot '+Zo+'+2\\cdot '+Zi+'-'+G+' )\\cdot Z0+'+Zo+'\\cdot '+Zi
+    S11=lfrac(Zo+'\\cdot '+Zi+'+Z0\\cdot  (2\\cdot '+Zi+'-'+G+' )-Z0^2',D)
     S12=lfrac('2\\cdot Z0^2',D)
     S13=lfrac('2\\cdot Z0^2+2\\cdot '+Zo+'\\cdot Z0',D)
     S21=lfrac('2\\cdot Z0^2+2\\cdot '+G+'\\cdot Z0',D)
-    S22=lfrac(Zo+'\\cdot '+Zi+'+Z0\\cdot \\left(2\\cdot '+Zo+'-'+G+'\\right)-Z0^2',D)
-    S23=lfrac('2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zi+'-2\\cdot '+G+'\\right)',D)
-    S31=lfrac('2\\cdot Z0^2+Z0\\cdot \\left(2\\cdot '+Zo+'-2\\cdot '+G+'\\right)',D)
+    S22=lfrac(Zo+'\\cdot '+Zi+'+Z0\\cdot  (2\\cdot '+Zo+'-'+G+' )-Z0^2',D)
+    S23=lfrac('2\\cdot Z0^2+Z0\\cdot  (2\\cdot '+Zi+'-2\\cdot '+G+' )',D)
+    S31=lfrac('2\\cdot Z0^2+Z0\\cdot  (2\\cdot '+Zo+'-2\\cdot '+G+' )',D)
     S32=lfrac('2\\cdot Z0^2+2\\cdot '+Zi+'\\cdot Z0',D)
     S33=lfrac(Zo+'\\cdot '+Zi+'-Z0^2+'+G+'\\cdot Z0',D)
     return [[S11,S12,S13],
@@ -95,4 +95,4 @@ def TransresistanceAmplifierTwoPort(G,Zi,Zo):
     @note this is the symbolic version of SignalIntegrity.Lib.Devices.TransresistanceAmplifier.TransresistanceAmplifierTwoPort
     """
     return [[lfrac(Zi+' - Z0',Zi+' + Z0'),'0'],
-            [lfrac('2\\cdot '+G+' \\cdot Z0','\\left( '+Zi+' +Z0\\right)\\cdot\\left( '+Zo+' + Z0\\right)'),lfrac(Zo+' - Z0',Zo+' + Z0')]]
+            [lfrac('2\\cdot '+G+' \\cdot Z0',' ( '+Zi+' +Z0 )\\cdot ( '+Zo+' + Z0 )'),lfrac(Zo+' - Z0',Zo+' + Z0')]]

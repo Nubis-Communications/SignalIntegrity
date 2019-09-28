@@ -52,7 +52,7 @@ def ShuntZFourPort(Z):
     Ports 2 and 4 are connected to port 2 of the device D provided.\n
     @todo check the port numbering
     """
-    D='2\\cdot \\left('+Z+'+Z0\\right)'
+    D='2\\cdot  ('+Z+'+Z0 )'
     return [[lfrac('-Z0',D),lfrac('Z0',D),lfrac('2\\cdot '+Z+'+Z0',D),lfrac('Z0',D)],
             [lfrac('Z0',D),lfrac('-Z0',D),lfrac('Z0',D),lfrac('2\\cdot '+Z+'+Z0',D)],
             [lfrac('2\\cdot '+Z+'+Z0',D),lfrac('Z0',D),lfrac('-Z0',D),lfrac('Z0',D)],

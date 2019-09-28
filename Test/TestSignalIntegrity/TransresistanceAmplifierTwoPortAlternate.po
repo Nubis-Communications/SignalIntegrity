@@ -1,29 +1,25 @@
 \[ \mathbf{W_{ba}} = \left(\begin{smallmatrix} \frac{Z_o\cdot
-Z_i+Z0\cdot \left(2\cdot Z_i-\gamma\right)-Z0^2}{3\cdot
-Z0^2+\left(2\cdot Z_o+2\cdot Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} &
-\frac{2\cdot Z0^2}{3\cdot Z0^2+\left(2\cdot Z_o+2\cdot
-Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} \\ \frac{2\cdot Z0^2+2\cdot
-\gamma\cdot Z0}{3\cdot Z0^2+\left(2\cdot Z_o+2\cdot
-Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} & \frac{Z_o\cdot Z_i+Z0\cdot
-\left(2\cdot Z_o-\gamma\right)-Z0^2}{3\cdot Z0^2+\left(2\cdot
-Z_o+2\cdot Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i}
-\end{smallmatrix}\right) \]
+Z_i+Z0\cdot  (2\cdot Z_i-\gamma )-Z0^2}{3\cdot Z0^2+ (2\cdot
+Z_o+2\cdot Z_i-\gamma )\cdot Z0+Z_o\cdot Z_i} & \frac{2\cdot
+Z0^2}{3\cdot Z0^2+ (2\cdot Z_o+2\cdot Z_i-\gamma )\cdot Z0+Z_o\cdot
+Z_i} \\ \frac{2\cdot Z0^2+2\cdot \gamma\cdot Z0}{3\cdot Z0^2+ (2\cdot
+Z_o+2\cdot Z_i-\gamma )\cdot Z0+Z_o\cdot Z_i} & \frac{Z_o\cdot
+Z_i+Z0\cdot  (2\cdot Z_o-\gamma )-Z0^2}{3\cdot Z0^2+ (2\cdot
+Z_o+2\cdot Z_i-\gamma )\cdot Z0+Z_o\cdot Z_i} \end{smallmatrix}\right)
+\]
 \[ \mathbf{W_{bx}} = \left(\begin{smallmatrix} 0 & \frac{2\cdot
-Z0^2+2\cdot Z_o\cdot Z0}{3\cdot Z0^2+\left(2\cdot Z_o+2\cdot
-Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} \\ 0 & \frac{2\cdot
-Z0^2+Z0\cdot \left(2\cdot Z_i-2\cdot \gamma\right)}{3\cdot
-Z0^2+\left(2\cdot Z_o+2\cdot Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i}
-\end{smallmatrix}\right) \]
+Z0^2+2\cdot Z_o\cdot Z0}{3\cdot Z0^2+ (2\cdot Z_o+2\cdot Z_i-\gamma
+)\cdot Z0+Z_o\cdot Z_i} \\ 0 & \frac{2\cdot Z0^2+Z0\cdot  (2\cdot
+Z_i-2\cdot \gamma )}{3\cdot Z0^2+ (2\cdot Z_o+2\cdot Z_i-\gamma )\cdot
+Z0+Z_o\cdot Z_i} \end{smallmatrix}\right) \]
 \[ \mathbf{W_{xa}} = \left(\begin{smallmatrix} \frac{2\cdot
-Z0^2+Z0\cdot \left(2\cdot Z_o-2\cdot \gamma\right)}{3\cdot
-Z0^2+\left(2\cdot Z_o+2\cdot Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} &
-\frac{2\cdot Z0^2+2\cdot Z_i\cdot Z0}{3\cdot Z0^2+\left(2\cdot
-Z_o+2\cdot Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} \\ 0 & 0
-\end{smallmatrix}\right) \]
+Z0^2+Z0\cdot  (2\cdot Z_o-2\cdot \gamma )}{3\cdot Z0^2+ (2\cdot
+Z_o+2\cdot Z_i-\gamma )\cdot Z0+Z_o\cdot Z_i} & \frac{2\cdot
+Z0^2+2\cdot Z_i\cdot Z0}{3\cdot Z0^2+ (2\cdot Z_o+2\cdot Z_i-\gamma
+)\cdot Z0+Z_o\cdot Z_i} \\ 0 & 0 \end{smallmatrix}\right) \]
 \[ \mathbf{W_{xx}} = \left(\begin{smallmatrix} 0 & \frac{Z_o\cdot
-Z_i-Z0^2+\gamma\cdot Z0}{3\cdot Z0^2+\left(2\cdot Z_o+2\cdot
-Z_i-\gamma\right)\cdot Z0+Z_o\cdot Z_i} \\ -1 & 0
-\end{smallmatrix}\right) \]
+Z_i-Z0^2+\gamma\cdot Z0}{3\cdot Z0^2+ (2\cdot Z_o+2\cdot Z_i-\gamma
+)\cdot Z0+Z_o\cdot Z_i} \\ -1 & 0 \end{smallmatrix}\right) \]
 \[ \mathbf{S}=\mathbf{W_{ba}}+\mathbf{W_{bx}}\cdot\left[
 \boldsymbol{\mathbbm{I}}
 -\mathbf{W_{xx}}\right]^{-1}\cdot\mathbf{W_{xa}} \]
