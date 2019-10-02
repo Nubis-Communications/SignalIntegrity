@@ -47,7 +47,7 @@ class ImpedanceProfile(list):
         self.m_fracD=fr._FractionalDelayTime()
         fr=fr._DelayBy(-self.m_fracD)
         S11 = fr.Values()
-        zn2 = [cmath.exp(-1j*2.*math.pi*n/N*1/2) for n in range(N+1)]
+        zn1 = [cmath.exp(-1j*math.pi*n/N) for n in range(N+1)]
         finished=False
         rho=0.0
         for _ in range(sections):
@@ -62,8 +62,8 @@ class ImpedanceProfile(list):
                 finished=True
                 continue
             rho2=rho*rho
-            S11=[(-S11[n]+S11[n]*rho2*zn2[n]-rho*zn2[n]+rho)/
-                (rho2+S11[n]*rho*zn2[n]-S11[n]*rho-zn2[n])
+            S11=[(-S11[n]+S11[n]*rho2*zn1[n]-rho*zn1[n]+rho)/
+                (rho2+S11[n]*rho*zn1[n]-S11[n]*rho-zn1[n])
                 for n in range(N+1)]
     def Z(self):
         """impedance list
