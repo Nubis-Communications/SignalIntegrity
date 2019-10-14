@@ -28,5 +28,5 @@ __organization__ = "Teledyne LeCroy, Inc."
 __url__ = "https://github.com/TeledyneLeCroy/SignalIntegrity"
 __copyright__ = u"Copyright {} 2018, {}".format(u"\u00A9",__organization__)
 __license__ = "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
-__version__ = "1.1.5"
+__version__ = "1.1.6"
 __status__ = "Development Status :: 5 - Production/Stable"
