@@ -38,6 +38,7 @@ class Wavelet(object):
         self.h=h
         self.L=len(self.h)
         self.g=[pow(-1.,l)*h[self.L-1-l] for l in range(self.L)]
+        self.W = []
     def DWT(self,xi):
         """
         performs the discrete wavelet transform (DWT).
@@ -55,6 +56,24 @@ class Wavelet(object):
                         for l in range(self.L)])
             x=list(X); N=N//2
         return X
+    def GenerateW(self,N):
+        if(len(self.W) == N):
+            return self.W
+        
+        Wt = []
+        for n in range(N):
+            x = [0.0 for _ in range(N)]
+            x[n] = 1.0
+            Wt.append(self.DWT(x))
+        
+        import numpy as np
+        
+        W = np.matrix(Wt)
+        self.W = W.transpose()
+       
+        return self.W
+            
+        
     def IDWT(self,XI):
         """
         peforms the inverse discrete wavelet transform (IDWT).
@@ -135,3 +154,4 @@ class WaveletHaar(Wavelet):
         """constructs a 2 tap Haar wavelet transformer"""
         Wavelet.__init__(self,[h*math.sqrt(2.)/2
             for h in [1.,1.]])
+
