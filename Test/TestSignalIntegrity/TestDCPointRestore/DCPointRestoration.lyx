@@ -1,0 +1,736 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+DC Point Restoration
+\end_layout
+
+\begin_layout Author
+Peter J.
+ Pupalaikis
+\end_layout
+
+\begin_layout Date
+12/23/20
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset FormulaMacro
+\newcommand{\Re}{\operatorname{Re}}
+{\operatorname{Re}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\Im}{\operatorname{Im}}
+{\operatorname{Im}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset FormulaMacro
+\newcommand{\identity}{\boldsymbol{\mathbbm{I}}}
+{\mathbf{\mathbb{I}}}
+\end_inset
+
+
+\lang english
+One is provide with s-parameters that are missing DC along other early points.
+ This algorithm assumes that they are evenly spaced.
+ This means that we want frequencies, for 
+\begin_inset Formula $N+1$
+\end_inset
+
+ frequency points, for 
+\begin_inset Formula $n\in0\ldots N$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+f_{\left[n\right]}=\frac{n}{N}\cdot Fe\mbox{,}
+\]
+
+\end_inset
+
+ but are missing the first 
+\begin_inset Formula $M$
+\end_inset
+
+ points in a vector 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+.
+ The goal here is to recover them.
+\end_layout
+
+\begin_layout Standard
+Given a time-domain vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ that is 
+\begin_inset Formula $K$
+\end_inset
+
+ points long, we know that the frequency content vector 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ is related to 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ through the DFT:
+\begin_inset Formula 
+\[
+X_{\left[n\right]}=\sum_{k=0}^{K-1}x_{k}\cdot e^{-j\cdot2\pi\cdot\frac{n\cdot k}{K}}\mbox{.}
+\]
+
+\end_inset
+
+This can be written in matrix form using the Fourier matrix, defined as
+\begin_inset Formula 
+\[
+\mathcal{F}_{k,n}=\frac{1}{K}\cdot e^{-j\cdot2\pi\cdot\frac{n\cdot k}{K}}\mbox{,}
+\]
+
+\end_inset
+
+and therefore
+\begin_inset Formula 
+\[
+\mathbf{X}=\mathbf{\mathcal{F}}\cdot\mathbf{x}\mbox{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given frequency points 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+, one goes in the other direction as
+\begin_inset Formula 
+\[
+\mathbf{x}=\mathcal{\mathbf{F}}^{-1}\cdot\mathbf{X}\mbox{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One defines the matrix 
+\begin_inset Formula $\mathbf{Fi}=\mathbf{\mathcal{F}}^{-1}$
+\end_inset
+
+ and partition the system as
+\begin_inset Formula 
+\[
+\left(\begin{array}{cccc}
+\underset{1\times1}{\mathbf{Fi_{11}}} & \underset{1\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{12}}} & \underset{1\times1}{\mathbf{Fi_{13}}} & \underset{1\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{14}}}\\
+\underset{\left(\frac{K}{2}-1\right)\times1}{\mathbf{Fi_{21}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{22}}} & \underset{\left(\frac{K}{2}-1\right)\times1}{\mathbf{Fi_{23}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{24}}}\\
+\underset{1\times1}{\mathbf{Fi_{31}}} & \underset{1\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{32}}} & \underset{1\times1}{\mathbf{Fi_{33}}} & \underset{1\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{34}}}\\
+\underset{\left(\frac{K}{2}-1\right)\times1}{\mathbf{Fi_{41}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{42}}} & \underset{\left(\frac{K}{2}-1\right)\times1}{\mathbf{Fi_{43}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{44}}}
+\end{array}\right)\cdot\left(\begin{array}{c}
+\underset{1}{\mathbf{X_{0}}}\\
+\underset{\frac{K}{2}-1}{\mathbf{X_{f}}}\\
+\underset{1}{\mathbf{X_{N}}}\\
+\underset{\frac{K}{2}-1}{\mathbf{X_{r}}}
+\end{array}\right)=\left(\begin{array}{c}
+\underset{1}{\mathbf{x_{0}}}\\
+\underset{\frac{K}{2}-1}{\mathbf{x_{f}}}\\
+\underset{1}{\mathbf{x_{N}}}\\
+\underset{\frac{K}{2}-1}{\mathbf{x_{r}}}
+\end{array}\right)\mbox{.}
+\]
+
+\end_inset
+
+The last equation can be written as
+\begin_inset Formula 
+\[
+\mathbf{Fi_{41}}\cdot\mathbf{X_{0}}+\mathbf{Fi_{42}}\cdot\mathbf{X_{f}}+\mathbf{Fi_{43}}\cdot\mathbf{X_{N}}+\mathbf{Fi_{44}}\cdot\mathbf{X_{r}}=\mathbf{x_{r}}
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+\mathbf{Fi_{41}}\cdot\mathbf{X_{0}}+\left(\begin{array}{ccc}
+\mathbf{Fi_{42}} & \mathbf{Fi_{43}} & \mathbf{Fi_{44}}\end{array}\right)\cdot\left(\begin{array}{c}
+\mathbf{X_{f}}\\
+\mathbf{X_{N}}\\
+\mathbf{X_{r}}
+\end{array}\right)=\mathbf{x_{r}}\mbox{.}
+\]
+
+\end_inset
+
+These equations have been partitioned for the following reasons denoted
+ by the subscripts on the frequency and time vector.
+\end_layout
+
+\begin_layout Itemize
+The 0 subscript represents the DC point in the frequency data and zero time
+ in the time vector.
+\end_layout
+
+\begin_layout Itemize
+The f subscript represents the forward, positive frequency points and the
+ time points after zero time in the time vector.
+\end_layout
+
+\begin_layout Itemize
+The N subscript represents the Nyquist rate point in the frequency data
+ and the most negative time point in the time vector.
+\end_layout
+
+\begin_layout Itemize
+The r subscript represents the negative frequency points (going in reverse)
+ and the negative time points in the time vector.
+\end_layout
+
+\begin_layout Standard
+For causality to be enforced, the negative time points must be zero, and
+ therefore 
+\begin_inset Formula $\mathbf{x_{r}}=\mathbf{0}$
+\end_inset
+
+.
+ Therefore, the equation is solved in a least squares sense as
+\begin_inset Formula 
+\[
+\mathbf{Fi_{41}}\cdot\mathbf{X_{0}}=-\left(\begin{array}{ccc}
+\mathbf{Fi_{42}} & \mathbf{Fi_{43}} & \mathbf{Fi_{44}}\end{array}\right)\cdot\left(\begin{array}{c}
+\mathbf{X_{f}}\\
+\mathbf{X_{N}}\\
+\mathbf{X_{r}}
+\end{array}\right)
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\mathbf{X_{0}}=-\mathbf{Fi_{41}}^{\dagger}\cdot\left(\begin{array}{ccc}
+\mathbf{Fi_{42}} & \mathbf{Fi_{43}} & \mathbf{Fi_{44}}\end{array}\right)\cdot\left(\begin{array}{c}
+\mathbf{X_{f}}\\
+\mathbf{X_{N}}\\
+\mathbf{X_{r}}
+\end{array}\right)\mbox{.}
+\]
+
+\end_inset
+
+For 
+\begin_inset Formula $M$
+\end_inset
+
+ initial points missing, the system is partitioned prior to solving as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(\begin{array}{cccc}
+\underset{1\times M}{\mathbf{Fi_{11}}} & \underset{1\times\left(\frac{K}{2}-M\right)}{\mathbf{Fi_{12}}} & \underset{1\times1}{\mathbf{Fi_{13}}} & \underset{1\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{14}}}\\
+\underset{\left(\frac{K}{2}-1\right)\times M}{\mathbf{Fi_{21}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-M\right)}{\mathbf{Fi_{22}}} & \underset{\left(\frac{K}{2}-1\right)\times1}{\mathbf{Fi_{23}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{24}}}\\
+\underset{1\times M}{\mathbf{Fi_{31}}} & \underset{1\times\left(\frac{K}{2}-M\right)}{\mathbf{Fi_{32}}} & \underset{1\times1}{\mathbf{Fi_{33}}} & \underset{1\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{34}}}\\
+\underset{\left(\frac{K}{2}-1\right)\times M}{\mathbf{Fi_{41}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-M\right)}{\mathbf{Fi_{42}}} & \underset{\left(\frac{K}{2}-1\right)\times1}{\mathbf{Fi_{43}}} & \underset{\left(\frac{K}{2}-1\right)\times\left(\frac{K}{2}-1\right)}{\mathbf{Fi_{44}}}
+\end{array}\right)\cdot\left(\begin{array}{c}
+\underset{M}{\mathbf{X_{0}}}\\
+\underset{\frac{K}{2}-M}{\mathbf{X_{f}}}\\
+\underset{1}{\mathbf{X_{N}}}\\
+\underset{\frac{K}{2}-1}{\mathbf{X_{r}}}
+\end{array}\right)=\left(\begin{array}{c}
+\underset{M}{\mathbf{x_{0}}}\\
+\underset{\frac{K}{2}-M}{\mathbf{x_{f}}}\\
+\underset{1}{\mathbf{x_{N}}}\\
+\underset{\frac{K}{2}-1}{\mathbf{x_{r}}}
+\end{array}\right)\mbox{.}
+\]
+
+\end_inset
+
+Thus, it has been shown that the DC point and even other missing frequency
+ points can be solved for given the other known frequency points, given
+ an assumption of causality on the result.
+\end_layout
+
+\begin_layout Section
+Better Version
+\end_layout
+
+\begin_layout Standard
+We have, in the frequency domain, the missing DC point 
+\begin_inset Formula $\mathbf{X_{0}}$
+\end_inset
+
+ along with 
+\begin_inset Formula $M-1$
+\end_inset
+
+ more missing frequency point 
+\begin_inset Formula $\mathbf{X_{mf}}$
+\end_inset
+
+, which of course has corresponding negative frequency points 
+\begin_inset Formula $\mathbf{X_{mr}}$
+\end_inset
+
+.
+ By applying the inverse Fourier matrix such that 
+\begin_inset Formula $\mathbf{Fi}\cdot\mathbf{X}=\mathbf{x}$
+\end_inset
+
+, we partition the problem for the known frequency points 
+\begin_inset Formula $\mathbf{X_{K}}$
+\end_inset
+
+ and the other unknown ones, and the positive time points 
+\begin_inset Formula $\mathbf{x_{p}}$
+\end_inset
+
+ and the negative time points 
+\begin_inset Formula $\mathbf{x_{n}}$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+There is the understanding that 
+\begin_inset Formula $\mathbf{x_{n}}$
+\end_inset
+
+ doesn't have to be strictly all of the negative time points, but rather
+ the negative time points for which it is desired to enforce that they are
+ zero.
+ 
+\end_layout
+
+\end_inset
+
+, one writes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(\begin{array}{cccc}
+\underset{\frac{K}{2}\times1}{\mathbf{Fi_{11}}} & \underset{\frac{K}{2}\times\left(M-1\right)}{\mathbf{Fi_{12}}} & \underset{\frac{K}{2}\times\sim}{\mathbf{Fi_{13}}} & \underset{\frac{K}{2}\times\left(M-1\right)}{\mathbf{Fi_{14}}}\\
+\underset{\frac{K}{2}\times1}{\mathbf{Fi_{21}}} & \underset{\frac{K}{2}\times\left(M-1\right)}{\mathbf{Fi_{22}}} & \underset{\frac{K}{2}\times\sim}{\mathbf{Fi_{23}}} & \underset{\frac{K}{2}\times\left(M-1\right)}{\mathbf{Fi_{24}}}
+\end{array}\right)\cdot\left(\begin{array}{c}
+\underset{1}{\mathbf{X_{0}}}\\
+\underset{M-1}{\mathbf{X_{mf}}}\\
+\underset{\sim}{\mathbf{X_{K}}}\\
+\underset{M-1}{\mathbf{X_{mr}}}
+\end{array}\right)=\left(\begin{array}{c}
+\underset{\frac{K}{2}}{\mathbf{x_{p}}}\\
+\underset{\frac{K}{2}}{\mathbf{x_{n}}}
+\end{array}\right)\mbox{.}
+\]
+
+\end_inset
+
+The bottom equation is the one of interest here where it is enforced that
+ 
+\begin_inset Formula $\mathbf{x_{n}}=\mathbf{0}$
+\end_inset
+
+ (i.e.
+ that the system is causal).
+ It is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathbf{Fi_{21}}\cdot\mathbf{X_{0}}+\mathbf{Fi_{22}}\cdot\mathbf{X_{mf}}+\mathbf{Fi_{23}}\cdot\mathbf{X_{K}}+\mathbf{Fi_{24}}\cdot\mathbf{X_{mr}}=\mathbf{x_{n}}=\mathbf{0}\mbox{.}\label{eq:MainEq}
+\end{equation}
+
+\end_inset
+
+Now, the negative frequency points 
+\begin_inset Formula $\mathbf{X_{mr}}$
+\end_inset
+
+ are related to the positive frequency points 
+\begin_inset Formula $\mathbf{X_{mf}}$
+\end_inset
+
+ in one is a flipped over vector of the other, and contain points that are
+ the complex conjugate of the other.
+ Therefore, there is a trivial permutation matrix that flips the vector
+ over such that 
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{P}\cdot\mathbf{X_{mf}}\right)^{*}=\mathbf{X_{mr}}\mbox{.}\label{eq:ConjugateFlipped}
+\end{equation}
+
+\end_inset
+
+Substituting 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:ConjugateFlipped"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ into 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "eq:MainEq"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ results in
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{Fi_{21}}\cdot\mathbf{X_{0}}+\mathbf{Fi_{22}}\cdot\mathbf{X_{mf}}+\mathbf{Fi_{23}}\cdot\mathbf{X_{K}}+\mathbf{Fi_{24}}\cdot\mathbf{\mathbf{P}\cdot\mathbf{X_{mf}}^{*}}=\mathbf{x_{n}}=\mathbf{0}\mbox{,}
+\]
+
+\end_inset
+
+ which can be rewritten by separating out the real and imaginary parts as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{multline*}
+\mathbf{Fi_{21}}\cdot\mathbf{X_{0}}\\
++\mathbf{Fi_{22}}\cdot\left[\Re\left(\mathbf{X_{mf}}\right)+j\cdot\Im\left(\mathbf{X_{mf}}\right)\right]\\
++\mathbf{Fi_{23}}\cdot\mathbf{X_{K}}+\mathbf{Fi_{24}}\cdot\mathbf{P}\cdot\left[\Re\left(\mathbf{X_{mf}}\right)-j\cdot\Im\left(\mathbf{X_{mf}}\right)\right]\\
+=\mathbf{x_{n}}=\mathbf{0}\mbox{.}
+\end{multline*}
+
+\end_inset
+
+These block matrices can be aggregated through augmentation and stacking
+ to write
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(\begin{array}{ccc}
+\mathbf{Fi_{21}} & \mathbf{Fi_{22}}+\mathbf{Fi_{24}}\cdot\mathbf{P} & j\cdot\left(\mathbf{\mathbf{Fi_{22}}-\mathbf{Fi_{24}}\cdot\mathbf{P}}\right)\end{array}\right)\cdot\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\Re\left(\mathbf{X_{mf}}\right)\\
+\Im\left(\mathbf{X_{mf}}\right)
+\end{array}\right)=-\mathbf{Fi_{23}}\cdot\mathbf{X_{K}}\mbox{,}
+\]
+
+\end_inset
+
+and solved as
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The matrix 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ multiplied from the right serves to flip the columns of the matrix to the
+ left.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\Re\left(\mathbf{X_{mf}}\right)\\
+\Im\left(\mathbf{X_{mf}}\right)
+\end{array}\right)=-\left(\begin{array}{ccc}
+\mathbf{Fi_{21}} & \mathbf{Fi_{22}}+\mathbf{Fi_{24}}\cdot\mathbf{P} & j\cdot\left(\mathbf{\mathbf{Fi_{22}}-\mathbf{Fi_{24}}\cdot\mathbf{P}}\right)\end{array}\right)^{\dagger}\cdot\mathbf{Fi_{23}}\cdot\mathbf{X_{K}}\mbox{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that while the matrix to which the 
+\begin_inset Formula $\dagger$
+\end_inset
+
+ is applied looks to be fat on the left-hand side (indicating a minimum
+ norm solution), it is, in practice, actually skinny.
+ This leads to a least-squares solution.
+ Note that one could quite easily pose this as a weighted least-squares
+ solution, which could enforce, for example, more negative-in-time points
+ to be more zero than the less negative-in-time points.
+\end_layout
+
+\begin_layout Section
+Enforcement of Realness on the result
+\end_layout
+
+\begin_layout Standard
+Because of how the problem has been posed in the previous section, there
+ is no enforcement of realness on the final result.
+ In other words, the result
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\Re\left(\mathbf{X_{mf}}\right)\\
+\Im\left(\mathbf{X_{mf}}\right)
+\end{array}\right)\mbox{,}
+\]
+
+\end_inset
+
+while looking real, are not actually enforced to be.
+\end_layout
+
+\begin_layout Standard
+To solve this, recognize that
+\begin_inset Formula 
+\[
+\mathbf{x}=\mathcal{\mathbf{F}}^{-1}\cdot\mathbf{X}
+\]
+
+\end_inset
+
+can be written as
+\begin_inset Formula 
+\[
+\mathbf{x}=\left[\Re\left(\mathcal{\mathbf{F}}^{-1}\right)+j\cdot\Im\left(\mathcal{\mathbf{F}}^{-1}\right)\right]\cdot\left[\Re\left(\mathbf{X}\right)+j\cdot\Im\left(\mathbf{X}\right)\right]\mbox{,}
+\]
+
+\end_inset
+
+which can be expanded to
+\begin_inset Formula 
+\[
+\mathbf{x}=\Re\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Re\left(\mathbf{X}\right)+j\cdot\Re\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Im\left(\mathbf{X}\right)+j\cdot\Im\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Re\left(\mathbf{X}\right)-\Im\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Im\left(\mathbf{X}\right)\mbox{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It turns out that:
+\begin_inset Formula 
+\[
+\mathbf{x}=j\cdot\Re\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Im\left(\mathbf{X}\right)+j\cdot\Im\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Re\left(\mathbf{X}\right)=\mathbf{0}\mbox{,}
+\]
+
+\end_inset
+
+and therefore, we have
+\begin_inset Formula 
+\[
+\mathbf{x}=\Re\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Re\left(\mathbf{X}\right)-\Im\left(\mathcal{\mathbf{F}}^{-1}\right)\cdot\Im\left(\mathbf{X}\right)\mbox{.}
+\]
+
+\end_inset
+
+This allows the partitioned matrix problem to be rewritten as
+\begin_inset Formula 
+\begin{multline*}
+\Re\left(\begin{array}{cccc}
+\mathbf{Fi_{11}} & \mathbf{Fi_{12}} & \mathbf{Fi_{13}} & \mathbf{Fi_{14}}\\
+\mathbf{Fi_{21}} & \mathbf{Fi_{22}} & \mathbf{Fi_{23}} & \mathbf{Fi_{24}}
+\end{array}\right)\cdot\Re\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\mathbf{X_{mf}}\\
+\mathbf{X_{K}}\\
+\mathbf{X_{mr}}
+\end{array}\right)\mbox{,}\\
+-\Im\left(\begin{array}{cccc}
+\mathbf{Fi_{11}} & \mathbf{Fi_{12}} & \mathbf{Fi_{13}} & \mathbf{Fi_{14}}\\
+\mathbf{Fi_{21}} & \mathbf{Fi_{22}} & \mathbf{Fi_{23}} & \mathbf{Fi_{24}}
+\end{array}\right)\cdot\Im\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\mathbf{X_{mf}}\\
+\mathbf{X_{K}}\\
+\mathbf{X_{mr}}
+\end{array}\right)\\
+=\left(\begin{array}{c}
+\mathbf{x_{p}}\\
+\mathbf{x_{n}}
+\end{array}\right)
+\end{multline*}
+
+\end_inset
+
+and since 
+\begin_inset Formula $\mathbf{x_{n}=\mathbf{0}}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\Re\left(\begin{array}{cccc}
+\mathbf{Fi_{21}} & \mathbf{Fi_{22}} & \mathbf{Fi_{23}} & \mathbf{Fi_{24}}\end{array}\right)\cdot\Re\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\mathbf{X_{mf}}\\
+\mathbf{X_{K}}\\
+\mathbf{X_{mr}}
+\end{array}\right)-\Im\left(\begin{array}{cccc}
+\mathbf{Fi_{21}} & \mathbf{Fi_{22}} & \mathbf{Fi_{23}} & \mathbf{Fi_{24}}\end{array}\right)\cdot\Im\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\mathbf{X_{mf}}\\
+\mathbf{X_{K}}\\
+\mathbf{X_{mr}}
+\end{array}\right)=\mathbf{0}\mbox{,}
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{multline*}
+\left(\begin{array}{ccc}
+\mathbf{Fi_{21}} & \Re\left(\mathbf{Fi_{24}}\right)\cdot\mathbf{P}+\Re\left(\mathbf{Fi_{22}}\right) & \Im\left(\mathbf{Fi_{24}}\right)\cdot\mathbf{P}-\Im\left(\mathbf{Fi_{22}}\right)\end{array}\right)\cdot\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\Re\mathbf{\left(X_{mf}\right)}\\
+\Im\left(\mathbf{X_{mf}}\right)
+\end{array}\right)\\
+=\Im\left(\mathbf{Fi_{23}}\right)\cdot\Im\left(\mathbf{X_{K}}\right)-\Re\left(\mathbf{Fi_{23}}\right)\cdot\Re\left(\mathbf{X_{K}}\right)\mbox{.}
+\end{multline*}
+
+\end_inset
+
+Therefore, the result, with realness enforced, becomes
+\begin_inset Formula 
+\begin{multline*}
+\left(\begin{array}{c}
+\mathbf{X_{0}}\\
+\Re\mathbf{\left(X_{mf}\right)}\\
+\Im\left(\mathbf{X_{mf}}\right)
+\end{array}\right)\\
+=\left(\begin{array}{ccc}
+\mathbf{Fi_{21}} & \Re\left(\mathbf{Fi_{24}}\right)\cdot\mathbf{P}+\Re\left(\mathbf{Fi_{22}}\right) & \Im\left(\mathbf{Fi_{24}}\right)\cdot\mathbf{P}-\Im\left(\mathbf{Fi_{22}}\right)\end{array}\right)^{\dagger}\cdot\left[\Im\left(\mathbf{Fi_{23}}\right)\cdot\Im\left(\mathbf{X_{K}}\right)-\Re\left(\mathbf{Fi_{23}}\right)\cdot\Re\left(\mathbf{X_{K}}\right)\right]\mbox{.}\\
+\end{multline*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

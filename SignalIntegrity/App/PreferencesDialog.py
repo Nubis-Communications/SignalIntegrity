@@ -17,6 +17,13 @@ PreferencesDialog.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+import sys
+
+if sys.version_info.major < 3:
+    import Tkinter as tk
+else:
+    import tkinter as tk
+
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor,CalculationPropertySI
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.App.Encryption import Encryption
@@ -37,6 +44,11 @@ class PreferencesDialog(PropertiesDialog):
         self.trySVD=CalculationPropertyTrueFalseButton(self.propertyListFrame,'try SVD in calculations (experimental)',None,self.onUpdatePreferences,preferences,'Calculation.TrySVD')
         self.checkConditionNumber=CalculationPropertyTrueFalseButton(self.propertyListFrame,'check the condition number in calculations',None,self.onUpdatePreferences,preferences,'Calculation.CheckConditionNumber')
         self.multiPortTee=CalculationPropertyTrueFalseButton(self.propertyListFrame,'employ multi-port tee elements',None,self.onUpdatePreferences,preferences,'Calculation.MultiPortTee')
+        self.DCFrame=tk.Frame(self.propertyListFrame)
+        self.DCFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO,anchor=tk.N)
+        self.tryRestoreLowFrequencyPoints=CalculationPropertyTrueFalseButton(self.DCFrame,'experimental DC restoration algorithm',None,self.onUpdatePreferences,preferences,'Calculation.DCRestore.Active')
+        self.negativePointsIgnored=CalculationPropertySI(self.DCFrame,'negative time points to ignore',None,self.onUpdatePreferences,preferences,'Calculation.DCRestore.NegativePointsToIgnore','pts')
+        self.enforceCausalityOnStep=CalculationPropertyTrueFalseButton(self.DCFrame,'enforce causality on step response',None,self.onUpdatePreferences,preferences,'Calculation.DCRestore.EnforceCausalityOnStepResponse')
         self.enforce12458=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enforce 12458 sequence in calculation properties',None,self.onUpdatePreferences,preferences,'Calculation.Enforce12458')
         self.logarithmicSolutions=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable logarithmically spaced frequencies solutions',None,self.onUpdatePreferences,preferences,'Calculation.LogarithmicSolutions')
         self.non50OhmReferenceImpedanceSolutions=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable non 50 ohm solutions',None,self.onUpdatePreferences,preferences,'Calculation.Non50OhmSolutions')
@@ -56,9 +68,13 @@ class PreferencesDialog(PropertiesDialog):
 
     def onUpdatePreferences(self):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
+        dcRestore=self.project['Calculation.DCRestore.Active']
+        self.negativePointsIgnored.Show(dcRestore)
+        self.enforceCausalityOnStep.Show(dcRestore)
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
+        self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()
@@ -75,5 +91,5 @@ class PreferencesDialog(PropertiesDialog):
         self.onUpdatePreferences()
 
     def Finish(self):
-        self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
+        self.onUpdatePreferences()
         PropertiesDialog.Finish(self)

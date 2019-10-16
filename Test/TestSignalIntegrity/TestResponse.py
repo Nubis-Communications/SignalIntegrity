@@ -26,7 +26,7 @@ import math
 import cmath
 import matplotlib.pyplot as plt
 
-class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
+class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper,si.test.SParameterCompareHelper):
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def testResampleResponseCompareSpline(self):
@@ -429,5 +429,90 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         frc=irc.FrequencyResponse()
         TD2=frc._FractionalDelayTime()
         self.assertAlmostEqual(TD1,TD2,None,'TimeDelay incorrect')
+    def testDCPointRestoreSimplest(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=0
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        K=8
+        h=[0 for _ in range(K)]
+        h[0]=2/K/2; h[1]=1/K/2; h[2]=3/K/2
+        ir=si.td.wf.ImpulseResponse(si.td.wf.TimeDescriptor(0.,K,1.),h).FrequencyResponse().ImpulseResponse()
+        fr=ir.FrequencyResponse()
+        frNoDC=si.fd.FrequencyResponse(fr.Frequencies()[1:],fr.Values()[1:])
+        frDCrestored=frNoDC.Resample(fr.FrequencyList())
+        self.assertEqual(fr, frDCrestored, 'DC point restore failed')
+    def testDCPointRestoreTwoPoints(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=0
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        K=8
+        h=[0 for _ in range(K)]
+        h[0]=2/K/2; h[1]=1/K/2; h[2]=3/K/2
+        ir=si.td.wf.ImpulseResponse(si.td.wf.TimeDescriptor(0.,K,1.),h).FrequencyResponse().ImpulseResponse()
+        fr=ir.FrequencyResponse()
+        frNoDC=si.fd.FrequencyResponse(fr.Frequencies()[2:],fr.Values()[2:])
+        frDCrestored=frNoDC.Resample(fr.FrequencyList())
+        self.assertEqual(fr, frDCrestored, 'Two point DC point restore failed')
+    def testDCPointRestoreThreePoints(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=0
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        K=8
+        h=[0 for _ in range(K)]
+        h[0]=2/K/2; h[1]=1/K/2; h[2]=3/K/2
+        ir=si.td.wf.ImpulseResponse(si.td.wf.TimeDescriptor(0.,K,1.),h).FrequencyResponse().ImpulseResponse()
+        fr=ir.FrequencyResponse()
+        frNoDC=si.fd.FrequencyResponse(fr.Frequencies()[3:],fr.Values()[3:])
+        frDCrestored=frNoDC.Resample(fr.FrequencyList())
+        self.assertEqual(fr, frDCrestored, 'Two point DC point restore failed')
+    def testRestoreDUT3DC(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=0
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        dut3=si.sp.SParameterFile('DUT3.S2P')
+        fd=si.fd.EvenlySpacedFrequencyList(3e9,1500)
+        dut3=dut3.Resample(fd)
+    def testRestoreFilter1points(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=10
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        PointsMissing=1
+        spFilterCausal=si.sp.SParameterFile('filter.s2p').EnforceCausality()
+        spFilterNoDC=si.sp.SParameters(spFilterCausal.m_f[PointsMissing:],spFilterCausal.m_d[PointsMissing:])
+        spFilterDCRestored=spFilterNoDC.Resample(spFilterCausal.m_f)
+        spFilterDCRestored.WriteToFile('filterDCRestored1Pt.s2p')
+        self.assertTrue(self.SParametersAreEqual(spFilterCausal,spFilterDCRestored,0.01))
+    def testRestoreFilter2points(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=10
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        PointsMissing=2
+        spFilterCausal=si.sp.SParameterFile('filter.s2p').EnforceCausality()
+        spFilterNoDC=si.sp.SParameters(spFilterCausal.m_f[PointsMissing:],spFilterCausal.m_d[PointsMissing:])
+        spFilterDCRestored=spFilterNoDC.Resample(spFilterCausal.m_f)
+        spFilterCausal.WriteToFile('filterCausal.s2p')
+        spFilterDCRestored.WriteToFile('filterDCRestored2Pts.s2p')
+        self.assertTrue(self.SParametersAreEqual(spFilterCausal,spFilterDCRestored,0.01))
+    def testRestoreFilter3points(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=10
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        PointsMissing=3
+        spFilterCausal=si.sp.SParameterFile('filter.s2p').EnforceCausality()
+        spFilterNoDC=si.sp.SParameters(spFilterCausal.m_f[PointsMissing:],spFilterCausal.m_d[PointsMissing:])
+        spFilterDCRestored=spFilterNoDC.Resample(spFilterCausal.m_f)
+        spFilterDCRestored.WriteToFile('filterDCRestored3Pts.s2p')
+        self.assertTrue(self.SParametersAreEqual(spFilterCausal,spFilterDCRestored,0.01))
+    def testRestoreFilter5points2(self):
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=True
+        si.fd.FrequencyResponse.negativePointsToIgnore=10
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=True
+        PointsMissing=5
+        spFilterCausal=si.sp.SParameterFile('filter.s2p').EnforceCausality()
+        spFilterNoDC=si.sp.SParameters(spFilterCausal.m_f[PointsMissing:],spFilterCausal.m_d[PointsMissing:])
+        spFilterDCRestored=spFilterNoDC.Resample(spFilterCausal.m_f)
+        spFilterDCRestored.WriteToFile('filterDCRestored5Pts.s2p')
+        self.assertTrue(self.SParametersAreEqual(spFilterCausal,spFilterDCRestored,0.01))
+
 if __name__ == '__main__':
     unittest.main()

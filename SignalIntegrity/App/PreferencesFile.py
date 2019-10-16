@@ -161,6 +161,18 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultInt('LimitText',60))
         self.SubDir(Color())
 
+class DCRestore(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'DCRestore')
+        self.Add(XMLPropertyDefaultBool('Active',False))
+        self.Add(XMLPropertyDefaultInt('NegativePointsToIgnore',10))
+        self.Add(XMLPropertyDefaultBool('EnforceCausalityOnStepResponse',False))
+    def ApplyPreferences(self):
+        import SignalIntegrity.Lib as si
+        si.fd.FrequencyResponse.tryRestoreLowFrequencyPoints=self['Active']
+        si.fd.FrequencyResponse.negativePointsToIgnore=self['NegativePointsToIgnore']
+        si.fd.FrequencyResponse.enforceCausalityOnStepResponse=self['EnforceCausalityOnStepResponse']
+
 class Variables(XMLConfiguration):
     def __init__(self):
         super().__init__('Variables')
@@ -178,6 +190,7 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('IgnoreMissingOtherWaveforms',True))
         self.Add(XMLPropertyDefaultBool('LogarithmicSolutions',False))
         self.Add(XMLPropertyDefaultBool('Non50OhmSolutions',False))
+        self.SubDir(DCRestore())
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
@@ -185,6 +198,7 @@ class Calculation(XMLConfiguration):
         si.sd.Numeric.trySVD=self['TrySVD']
         si.sd.Numeric.checkConditionNumber=self['CheckConditionNumber']
         si.p.SystemDescriptionParser.MultiPortTee=self['MultiPortTee']
+        self['DCRestore'].ApplyPreferences()
 
 class Cache(XMLConfiguration):
     def __init__(self):

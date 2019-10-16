@@ -19,7 +19,7 @@ Frequency Response
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import fft
+from numpy import fft,matrix,linalg
 import math
 import cmath
 
@@ -39,6 +39,9 @@ class FrequencyResponse(FrequencyDomain):
     instance of class FrequencyContent, would filter the waveform in the frequency-domain.
     @see ImpulseResponse
     """
+    tryRestoreLowFrequencyPoints=False
+    negativePointsToIgnore=2
+    enforceCausalityOnStepResponse=False
     oldSpline=True
     def __init__(self,f=None,resp=None):
         """Constructor
@@ -189,22 +192,19 @@ class FrequencyResponse(FrequencyDomain):
         @see FrequencyResponse.ResampleCZT()
         @see Spline
         """
-        fd=self.FrequencyList()
+        Result=FrequencyResponse(self.FrequencyList(),self.Values())
         # pragma: silent exclude
-        from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
-        if not fd.CheckEvenlySpaced():
-            if GenericFrequencyList([0]+fd).CheckEvenlySpaced():
-                # only the DC point is missing.  Restore that first
-                DCRestored=self._SplineResample(GenericFrequencyList([0]+fd))
-                return DCRestored.Resample(fdp)
+        if self.tryRestoreLowFrequencyPoints:
+            Result=Result.RestoreLowFrequencyPoints()
         # pragma: include
+        fd=Result.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
-        if not evenlySpaced: return self._SplineResample(fdp)
+        if not evenlySpaced: return Result._SplineResample(fdp)
         R=Rat(fd.Fe/fdp.Fe*fdp.N); ND1=R[0]; D2=R[1]
         if ND1 < fd.N: R=Rat(fd.Fe/fdp.Fe*fdp.N/fd.N); ND1=R[0]*fd.N; D2=R[1]
-        if  ND1 > 50000: return self.ResampleCZT(fdp)
-        if ND1 == fd.N: fr=self
-        else: fr=self.ImpulseResponse()._Pad(2*ND1).FrequencyResponse(None,False)
+        if  ND1 > 50000: return Result.ResampleCZT(fdp)
+        if ND1 == fd.N: fr=Result
+        else: fr=Result.ImpulseResponse()._Pad(2*ND1).FrequencyResponse(None,False)
         if D2*fdp.N != ND1: fr=fr._Pad(D2*fdp.N)
         if D2==1: return fr
         else: return fr._Decimate(D2)
@@ -242,3 +242,84 @@ class FrequencyResponse(FrequencyDomain):
         return FrequencyResponse(EvenlySpacedFrequencyList(Fei,Ni),
             CZT(ir.DelayBy(-TD).Values(),ir.td.Fs,0,Fei,Ni,speedy)).\
             _Pad(fdp.N)._DelayBy(-fd.N/2./fd.Fe+TD)
+    def RestoreLowFrequencyPoints(self):
+        """restores low frequency points
+        This algorithm works on a very special case of frequency responses only.  The criteria
+        for this algorithm is that the frequency response must contain frequency points must have
+        a constant delta frequency and be on a grid containing DC.  In other words, the first
+        frequency point must be at, for a given number of missing points M, and a deltaF at M*deltaF.
+        and each point should be at some (M+n)*deltaF.
+        If this criteria is met, solutions exist that can better determine these low frequency points
+        using causality as a criteria.
+        @return The new frequency response with the low frequency points potentially restored.
+        """
+        epsilon=1e-10
+        fd=self.FrequencyList()
+        if len(fd)<3:
+            return self
+        if abs(fd[0])<epsilon:
+            return self
+        spacing=fd[1]-fd[0]
+        for n in range(len(fd)):
+            if abs(math.floor(fd[n]/spacing+0.5)*spacing-fd[n])>epsilon:
+                return self
+        newfd=EvenlySpacedFrequencyList(fd[-1],math.floor(fd[-1]/spacing+0.5))
+        newtd=newfd.TimeDescriptor()
+        numMissing=int(fd[0]/spacing+0.5)
+        numEquations=int(newtd.K/2*0.75)
+        if numEquations < numMissing:
+            return self
+        L=self.negativePointsToIgnore
+        import scipy.linalg as la
+        import numpy as np
+        N=len(newfd)-1
+        K=2*N
+        M=numMissing
+        Fi=la.dft(K).conjugate()
+        if self.enforceCausalityOnStepResponse:
+            I=np.vstack((np.hstack((np.tril(np.ones((N,N))),np.ones((N,N)))),
+                         np.hstack((np.zeros((N,N)),np.tril(np.ones((N,N)))))))
+            Fi=I.dot(Fi)
+        def submatrix(M,rs,re,cs,ce): return M[rs:re+1,cs:ce+1]
+        Fi21=submatrix(Fi,K//2,K-L-1,0,0)
+        Fi22=submatrix(Fi,K//2,K-L-1,1,M-1) if M > 1 else 0
+        Fi23=submatrix(Fi,K//2,K-L-1,M,K-M)
+        Fi24=submatrix(Fi,K//2,K-L-1,K-M+1,K-1) if M > 1 else 0
+        XK=np.vstack((np.array(self.Values()).reshape(N+1-M,1),
+                      np.flip(np.array(self.Values()[:-1]).reshape(N-M,1)).conjugate()))
+# This is the solution NOT enforcing realness of the result
+#         A=np.hstack((Fi21,Fi22+np.fliplr(Fi24),1j*(Fi22-np.fliplr(Fi24)))) if M>1 else Fi21
+#         b=-Fi23.dot(XK)
+# This is the solution enforcing realness of the result
+        A=np.hstack((Fi21.real,Fi22.real+np.fliplr(Fi24.real),np.fliplr(Fi24.imag)-Fi22.imag)) if M>1 else Fi21.real
+        b=Fi23.imag.dot(XK.imag)-Fi23.real.dot(XK.real)
+        lstsqSolution=np.linalg.lstsq(A,b,rcond=None)
+        Xmissing=lstsqSolution[0]
+        Xmissing[0][0]=Xmissing[0][0].real
+# if there is some suspicion of the least squares solution, we can try to calculate it directly
+#         Xmissing=np.linalg.inv(A.conjugate().transpose().dot(A)).dot(A.conjugate().transpose()).dot(b)
+        if M>1:
+            Xmissing=np.vstack((Xmissing[0:1,0:1],Xmissing[1:M,0:1]+1j*Xmissing[M:M+M,0:1]))
+        Xmissing=Xmissing.flatten().tolist()
+        Xmissing[0]=Xmissing[0].real
+        fr = FrequencyResponse(newfd,Xmissing+self.Values())
+# We could enforce causality on the result, but this is not really a solution.
+# the solution is probably to enforce realness on the results in the least squares solution
+#         ir=fr.ImpulseResponse()
+#         if ir is not None: # enforce causality
+#             t=ir.td; Ts=1./ir.td.Fs
+#             for k in range(len(t)):
+#                 if t[k]<=-Ts: ir[k]=0.
+#             fr=ir.FrequencyResponse()
+        return fr
+    ##
+    # @var tryRestoreLowFrequencyPoints
+    # whether to try to restore low frequeny points.  Defaults to True (but the GUI application will
+    # control this through the preferences.
+    # This algorithm works on a very special case of frequency responses only.  The criteria
+    # for this algorithm is that the frequency response must contain frequency points must have
+    # a constant delta frequency and be on a grid containing DC.  In other words, the first
+    # frequency point must be at, for a given number of missing points M, and a deltaF at M*deltaF.
+    # and each point should be at some (M+n)*deltaF.
+    # If this criteria is met, solutions exist that can better determine these low frequency points
+    # using causality as a criteria.

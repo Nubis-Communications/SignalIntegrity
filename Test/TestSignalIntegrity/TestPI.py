@@ -40,6 +40,8 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=True
         self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
         self.MultiPortTee=False
+        self.TryRestoreLowFrequencyPoints=SignalIntegrity.App.Preferences['Calculation.DCRestore.Active']
+        SignalIntegrity.App.Preferences['Calculation.DCRestore.Active']=True
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -53,6 +55,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         SignalIntegrity.App.Preferences['Calculation.TrySVD']=self.TrySVD
         SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=self.CheckConditionNumber
         SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
+        SignalIntegrity.App.Preferences['Calculation.DCRestore.Active']=self.TryRestoreLowFrequencyPoints
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

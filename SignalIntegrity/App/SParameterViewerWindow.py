@@ -268,6 +268,8 @@ class SParametersDialog(tk.Toplevel):
         plotHeight=SignalIntegrity.App.Preferences['Appearance.PlotHeight']
         plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
 
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+
         self.topLeftFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
