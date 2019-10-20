@@ -106,19 +106,15 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         # pragma: include
         lineList=self.ReplaceArgs(LineSplitter(line))
-        if len(lineList) == 0: # pragma: no cover
-            return
-        if self.ProcessVariables(lineList):
-            return
-        elif lineList[0] in exclusionList:
-            self.m_ul.append(line)
+        if len(lineList) == 0: return
+        if self.ProcessVariables(lineList): return
+        elif lineList[0] in exclusionList: self.m_ul.append(line)
         elif lineList[0] == 'device':
             argList = lineList[3:]
             if [lineList[2]]+argList in self.m_spcl:
                 dev = DeviceParser(self.m_f,int(lineList[2]),None)
                 dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]
-            else:
-                dev=DeviceParser(self.m_f,int(lineList[2]),argList)
+            else: dev=DeviceParser(self.m_f,int(lineList[2]),argList)
             self.m_sd.AddDevice(lineList[1],int(lineList[2]),dev.m_sp)
             if not dev.m_spf is None:
                 self.m_spc.append((lineList[1],dev.m_spf))
