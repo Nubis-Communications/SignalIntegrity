@@ -165,7 +165,7 @@ class PartPropertyCapacitance(PartProperty):
 
 class PartPropertyDissipationFactor(PartProperty):
     def __init__(self,df=0.,keyword='df',descriptionPrefix=''):
-        PartProperty.__init__(self,'dissipationfactor',type='float',unit=' ',keyword=keyword,description=descriptionPrefix+'dissipation factor',value=df,visible=False,keywordVisible=True)
+        PartProperty.__init__(self,'dissipationfactor',type='float',unit='',keyword=keyword,description=descriptionPrefix+'dissipation factor',value=df,visible=False,keywordVisible=True)
 
 class PartPropertyESR(PartProperty):
     def __init__(self,esr=0.,keyword='esr',descriptionPrefix=''):

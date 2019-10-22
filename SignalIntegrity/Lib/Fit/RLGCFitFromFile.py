@@ -52,7 +52,12 @@ class RLGCFitFromFile(object):
         L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
         fitter=RLGCFitter(sp,guess)
         (R,L,G,C,Rse,df)=[r[0] for r in fitter.Solve().Results()]
-        print(fitter.Results())
+#         print "series resistance: "+ToSI(R,'ohm')
+#         print "series inductance: "+ToSI(L,'H')
+#         print "shunt conductance: "+ToSI(G,'S')
+#         print "shunt capacitance: "+ToSI(C,'F')
+#         print "skin-effect resistance: "+ToSI(Rse,'ohm/sqrt(Hz)')
+#         print "dissipation factor: "+ToSI(df,'')
         s=self.scale
         self.RLGC=TLineTwoPortRLGCAnalytic(self.m_f, R*s, Rse*s, L*s, G*s, C*s, df, Z0=50.)
         return self.RLGC

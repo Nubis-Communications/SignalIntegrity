@@ -17,6 +17,7 @@ SignalIntegrityApp.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import sys
+
 if sys.version_info.major < 3:
     import Tkinter as tk
     import tkFont as font
@@ -33,6 +34,7 @@ import os
 import matplotlib
 matplotlib.use('TkAgg')
 
+from SignalIntegrity.App.ToSI import ToSI
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
 from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
@@ -525,23 +527,8 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.stateMachine.Nothing()
         dpd=DevicePickerDialog(self,deviceList)
         if dpd.result != None:
-            if deviceList[dpd.result]['partname'].GetValue() == 'Port':
-                self.onAddPort()
-                return
-            else:
-                devicePicked=copy.deepcopy(deviceList[dpd.result])
-                devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
-                defaultProperty = devicePicked['defref']
-                if defaultProperty != None:
-                    defaultPropertyValue = defaultProperty.GetValue()
-                    uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                    if uniqueReferenceDesignator != None:
-                        devicePicked['ref'].SetValueFromString(uniqueReferenceDesignator)
-                dpe=DevicePropertiesDialog(self,devicePicked)
-            if dpe.result != None:
-                self.Drawing.partLoaded = dpe.result
-                self.Drawing.stateMachine.PartLoaded()
-
+            devicePicked=copy.deepcopy(deviceList[dpd.result])
+            self.AddSpecificPart(devicePicked)
     def onDeletePart(self):
         self.Drawing.DeleteSelectedDevice()
     def onDeleteSelected(self):
@@ -604,7 +591,7 @@ class SignalIntegrityApp(tk.Frame):
     def onAddStim(self):
         self.AddSpecificPart(DeviceStim())
 
-    def AddSpecificPart(self,part):
+    def AddSpecificPart(self,part,popDialog=True):
         self.Drawing.stateMachine.Nothing()
         devicePicked=part
         devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
@@ -614,9 +601,12 @@ class SignalIntegrityApp(tk.Frame):
             uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
             if uniqueReferenceDesignator != None:
                 devicePicked['ref'].SetValueFromString(uniqueReferenceDesignator)
-        dpe=DevicePropertiesDialog(self,devicePicked)
-        if dpe.result != None:
-            self.Drawing.partLoaded = dpe.result
+        if popDialog:
+            dpe=DevicePropertiesDialog(self,devicePicked)
+            if dpe.result != None:
+                part=dpe.result
+        if not part is None:
+            self.Drawing.partLoaded = part
             self.Drawing.stateMachine.PartLoaded()
 
     def onZoomIn(self):
@@ -697,9 +687,29 @@ class SignalIntegrityApp(tk.Frame):
         self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PlotResult)
         #print(self.m_fitter.Results())
         (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
-        print(self.m_fitter.Results())
+#         print "series resistance: "+ToSI(R,'ohm')
+#         print "series inductance: "+ToSI(L,'H')
+#         print "shunt conductance: "+ToSI(G,'S')
+#         print "shunt capacitance: "+ToSI(C,'F')
+#         print "skin-effect resistance: "+ToSI(Rse,'ohm/sqrt(Hz)')
+#         print "dissipation factor: "+ToSI(df,'')
         fitsp=si.sp.SParameters(sp.f(),[s for s in si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)])
         SParametersDialog(self,fitsp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+
+        for deviceToCheck in DeviceList:
+            if deviceToCheck['partname'].GetValue()=='Telegrapher':
+                if deviceToCheck['ports'].GetValue()==2:
+                    device=copy.deepcopy(deviceToCheck)
+                    break
+        
+        device['r'].SetValueFromString(str(R)); device['r']['KeywordVisible']=True; device['r']['Visible']=True
+        device['l'].SetValueFromString(str(L)); device['l']['KeywordVisible']=True; device['l']['Visible']=True
+        device['g'].SetValueFromString(str(G)); device['g']['KeywordVisible']=True; device['g']['Visible']=True
+        device['c'].SetValueFromString(str(C)); device['c']['KeywordVisible']=True; device['c']['Visible']=True
+        device['rse'].SetValueFromString(str(Rse)); device['rse']['KeywordVisible']=True; device['rse']['Visible']=True
+        device['df'].SetValueFromString(str(df)); device['df']['KeywordVisible']=True; device['df']['Visible']=True
+        device['sect']['KeywordVisible']=False; device['sect']['Visible']=False
+        self.AddSpecificPart(device,popDialog=False)
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
