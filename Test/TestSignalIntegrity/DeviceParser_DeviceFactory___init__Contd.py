@@ -5,19 +5,21 @@ class DeviceFactory(list):
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,
-            'g':0.,'z0':50.,'sect':0},True,"TLineTwoPortRLGC(f,\
+            'g':0.,'z0':50.,'sect':0,'scale':1.},True,"TLineTwoPortRLGC(f,\
             float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
-            float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']))"),
+            float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']),\
+            float(arg['scale']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
             'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
-            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':0},
+            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':0,'scale':1.},
             True,"TLineDifferentialRLGC(f, float(arg['rp']),float(arg['rsep']),\
             float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
-            float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']))"),
-        ParserDevice('rlgcfit',2,False,{'file':None,'sect':1,'z0':50},True,
-            "RLGCFitFromFile(f,arg['file'],None,sect=float(arg['sect']),\
+            float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']),\
+            float(arg['scale']))"),
+        ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
+            "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,

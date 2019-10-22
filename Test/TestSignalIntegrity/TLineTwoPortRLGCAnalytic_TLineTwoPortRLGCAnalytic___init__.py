@@ -1,7 +1,7 @@
 class TLineTwoPortRLGCAnalytic(SParameters):
-    def __init__(self,f, R, Rse, L, G, C, df, Z0=50.):
-        self.R=R;   self.Rse=Rse; self.L=L
-        self.G=G;   self.C=C;     self.df=df
+    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., scale=1.):
+        self.R=R*scale;   self.Rse=Rse*scale; self.L=L*scale
+        self.G=G*scale;   self.C=C*scale;     self.df=df
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         f=self.m_f[n]

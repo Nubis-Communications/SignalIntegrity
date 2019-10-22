@@ -25,7 +25,7 @@ class TLineDifferentialRLGC(SParameters):
     rtFraction=.01
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
-                         Cm, dfm, Gm, Lm, Z0=50., K=0):
+                         Cm, dfm, Gm, Lm, Z0=50., K=0, scale=1.):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -49,6 +49,7 @@ class TLineDifferentialRLGC(SParameters):
         @param Lm float mutual inductance (H)
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to zero)
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note Regarding number of sections, an approximate solution will be computed
         as a distributed line with the number of sections specified using the class
         TLineDifferentialRLGCApproximate, unless the number provided is zero (the default).\n
@@ -78,7 +79,7 @@ class TLineDifferentialRLGC(SParameters):
             self.sp=TLineDifferentialRLGCApproximate(f,
                         Rp, Rsep, Lp, Gp, Cp, dfp,
                         Rn, Rsen, Ln, Gn, Cn, dfn,
-                        Cm, dfm, Gm, Lm, Z0, K)
+                        Cm, dfm, Gm, Lm, Z0, K, scale)
         elif uncoupled:
             # pragma: silent exclude
             from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGCUncoupled import TLineDifferentialRLGCUncoupled
@@ -86,14 +87,14 @@ class TLineDifferentialRLGC(SParameters):
             self.sp=TLineDifferentialRLGCUncoupled(f,
                         Rp, Rsep, Lp, Gp, Cp, dfp,
                         Rn, Rsen, Ln, Gn, Cn, dfn,
-                        Z0, K)
+                        Z0, K, scale)
         elif balanced:
             # pragma: silent exclude
             from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGCBalanced import TLineDifferentialRLGCBalanced
             # pragma: include
             self.sp=TLineDifferentialRLGCBalanced(f,
                         Rp, Rsep, Lp, Gp, Cp, dfp,
-                        Cm, dfm, Gm, Lm, Z0, K)
+                        Cm, dfm, Gm, Lm, Z0, K, scale)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         """overloads [n]

@@ -81,8 +81,8 @@ class DeviceFactory(list):
         |transconductance\n amplifier           |2-4  |False    |gain=None zo=1e8 zi=1e8 z0=50                                                                  | False               |dev.TransconductanceAmplifier(ports,gain,zi,zo)                                                  |
         |opamp                                  |3    |False    |zi=1e8 zd=1e8 zo=0 gain=1e8 z0=50                                                              | False               |dev.OperationalAmplifier(zi,zd,zo,gain,z0)                                                       |
         |tline                                  |2,4  |False    |zc=50 td=0                                                                                     | True                |sp.dev.TLineLossless(f,ports,zc,td)                                                              |
-        |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect)                                             |
-        |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50 sect=0 | True                |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect) |
+        |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
+        |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50\n scale=1.0 sect=0 | True    |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect,scale) |
         |rlgcfit                                |2    |False    |file=None scale=1.0 z0=50                                                                      | True                |fit.RLGCFitFromFile(f,file,scale,Z0)                                                        |
         |shortstd                               |1    |False    |od=0 oz0=50 ol=0 l0=0\n l1=0.0 l2=0 l3=0                                                       | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,l0,l1,l2,l3)                                              |
         |openstd                                |1    |False    |od=0 oz0=50 ol=0 c0=0\n c1=0 c2=0 c3=0                                                         | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,c0,c1,c2,c3)                                               |
@@ -156,17 +156,19 @@ class DeviceFactory(list):
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,
-            'g':0.,'z0':50.,'sect':0},True,"TLineTwoPortRLGC(f,\
+            'g':0.,'z0':50.,'sect':0,'scale':1.},True,"TLineTwoPortRLGC(f,\
             float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
-            float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']))"),
+            float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']),\
+            float(arg['scale']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
             'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
-            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':0},
+            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':0,'scale':1.},
             True,"TLineDifferentialRLGC(f, float(arg['rp']),float(arg['rsep']),\
             float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
-            float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']))"),
+            float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']),\
+            float(arg['scale']))"),
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']))"),

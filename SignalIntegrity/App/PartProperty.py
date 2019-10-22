@@ -277,7 +277,7 @@ class PartPropertySections(PartProperty):
 
 class PartPropertyScale(PartProperty):
     def __init__(self,scale=1):
-        PartProperty.__init__(self,'scale',type='float',unit='',keyword='scale',description='scale',value=scale,visible=True,keywordVisible=False)
+        PartProperty.__init__(self,'scale',type='float',unit='',keyword='scale',description='scale',value=scale,visible=False,keywordVisible=True)
 
 class PartPropertyWeight(PartProperty):
     def __init__(self,weight=1.0):

@@ -21,7 +21,7 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 class TLineDifferentialRLGCBalanced(SParameters):
     """s-parameters of analytic balanced differential RLGC (telegrapher's) transmission
     line."""
-    def __init__(self,f,R,Rse,L,G,C,df,Cm,dfm,Gm,Lm,Z0=50.,K=0):
+    def __init__(self,f,R,Rse,L,G,C,df,Cm,dfm,Gm,Lm,Z0=50.,K=0,scale=1.):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -39,6 +39,7 @@ class TLineDifferentialRLGCBalanced(SParameters):
         @param Lm float mutual inductance (H)
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to 0).
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         If 0 is specified, then an analytic solution is provided otherwise an approximate solution is provided
         with all parametric values divided into the integer number of sections.
         """
@@ -52,9 +53,9 @@ class TLineDifferentialRLGCBalanced(SParameters):
                       'device TO 2','port 1 L 1 2 L 2 3 R 1 4 R 2','connect L 3 TO 1',
                       'connect R 3 TO 2','connect L 4 TE 1','connect R 4 TE 2'])
         self.m_sspn=SystemSParametersNumeric(sdp.SystemDescription())
-        self.m_spdl=[('TE',TLineTwoPortRLGC(f,R,Rse,L+Lm,G,C,df,Z0,K)),
+        self.m_spdl=[('TE',TLineTwoPortRLGC(f,R,Rse,L+Lm,G,C,df,Z0,K,scale)),
                      ('TO',TLineTwoPortRLGC(f,R,Rse,L-Lm,G+2*Gm,C+2*Cm,
-                                        (C*df+2*Cm*dfm)/(C+2*Cm),Z0,K))]
+                                        (C*df+2*Cm*dfm)/(C+2*Cm),Z0,K,scale))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         """overloads [n]

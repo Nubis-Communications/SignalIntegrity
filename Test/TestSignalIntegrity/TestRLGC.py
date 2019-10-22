@@ -30,11 +30,11 @@ class TestRLGC(unittest.TestCase):
         pass
     def testRLGCFitFromFile(self):
         fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
-        rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si','testRLGC').Fit()
+        rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si').Fit()
         pass
     def testRLGCFitFromFileUnCached(self):
         fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
-        rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si',).Fit()
+        rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si').Fit()
         pass
 
 if __name__ == '__main__':

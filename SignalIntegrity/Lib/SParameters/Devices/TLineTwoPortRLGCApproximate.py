@@ -25,7 +25,7 @@ class TLineTwoPortRLGCApproximate(SParameters):
     calculated by approximating distributed parameters with a finite number
     of sections specified."""
     rtFraction=.01
-    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0):
+    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0, scale=1.):
         """Constructor
         @param f list of float frequencies
         @param R float DC series resistance (ohms)
@@ -36,12 +36,15 @@ class TLineTwoPortRLGCApproximate(SParameters):
         @param df float dissipation factor (loss-tangent) of capacitance to ground
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to zero)
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
         approximation.
 
         The calculation is such that round-trip propagation time (twice the electrical length)
         of any one small section is no more than one percent of the fastest possible risetime.
         """
+        R=R*scale; Rse=Rse*scale; L=L*scale; G=G*scale; C=C*scale; df=df
+        K=int(K*scale+0.5)
         if K==0:
             """max possible electrical length"""
             Td=math.sqrt(L*C)

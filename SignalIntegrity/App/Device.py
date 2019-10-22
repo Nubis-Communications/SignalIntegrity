@@ -389,7 +389,7 @@ class DeviceTransmissionLine(Device):
 
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(partname='telegrapher',values=[('r',True),('rse',True),('l',True),('g',True),('c',True),('df',True),('sect',True)])
+        netlist=DeviceNetListLine(partname='telegrapher',values=[('r',True),('rse',True),('l',True),('g',True),('c',True),('df',True),('scale',True),('sect',True)])
         Device.__init__(self,netlist,[PartPropertyCategory('TransmissionLines'),
                               PartPropertyPartName('Telegrapher'),
                               PartPropertyDefaultReferenceDesignator('T?'),
@@ -399,6 +399,7 @@ class DeviceTelegrapherTwoPort(Device):
                               PartPropertyConductance(),
                               PartPropertyCapacitance(),
                               PartPropertyDissipationFactor(),
+                              PartPropertyScale(),
                               PartPropertySections(sections=0)]+propertiesList,partPicture)
 
 class DeviceTelegrapherFourPort(Device):
@@ -406,7 +407,7 @@ class DeviceTelegrapherFourPort(Device):
         netlist=DeviceNetListLine(partname='telegrapher',
             values=[('rp',True),('rsep',True),('lp',True),('gp',True),('cp',True),('dfp',True),
                     ('rn',True),('rsen',True),('ln',True),('gn',True),('cn',True),('dfn',True),
-                    ('lm',True),('gm',True),('cm',True),('dfm',True),('sect',True)])
+                    ('lm',True),('gm',True),('cm',True),('dfm',True),('scale',True),('sect',True)])
         Device.__init__(self,netlist,[PartPropertyCategory('TransmissionLines'),
                               PartPropertyPartName('Telegrapher'),
                               PartPropertyDefaultReferenceDesignator('T?'),
@@ -426,6 +427,7 @@ class DeviceTelegrapherFourPort(Device):
                               PartPropertyInductance(keyword='lm',descriptionPrefix='mutual '),
                               PartPropertyCapacitance(keyword='cm',descriptionPrefix='mutual '),
                               PartPropertyDissipationFactor(keyword='dfm',descriptionPrefix='mutual '),
+                              PartPropertyScale(),
                               PartPropertySections(sections=0)]+propertiesList,partPicture)
 
 class DeviceVoltageNoiseSource(Device):

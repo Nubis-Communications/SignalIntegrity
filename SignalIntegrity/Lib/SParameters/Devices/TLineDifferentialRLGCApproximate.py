@@ -30,7 +30,7 @@ class TLineDifferentialRLGCApproximate(SParameters):
     rtFraction=.01
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
-                         Cm, dfm, Gm, Lm, Z0=50., K=0):
+                         Cm, dfm, Gm, Lm, Z0=50., K=0, scale=1.):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -54,12 +54,17 @@ class TLineDifferentialRLGCApproximate(SParameters):
         @param Lm float mutual inductance (H)
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to 0)
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
         approximation.
 
         The calculation is such that round-trip propagation time (twice the electrical length)
         of any one small section is no more than one percent of the fastest possible risetime.
         """
+        Rp=Rp*scale; Rsep=Rsep*scale; Lp=Lp*scale; Gp=Gp*scale; Cp=Cp*scale; dfp=dfp
+        Rn=Rn*scale; Rsen=Rsen*scale; Ln=Ln*scale; Gn=Gn*scale; Cn=Cn*scale; dfn=dfn
+        Cm=Cm*scale; dfm=dfm; Gm=Gm*scale; Lm=Lm*scale
+        K=int(K*scale+0.5)
         if K==0:
             """max possible electrical length"""
             Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm))

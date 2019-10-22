@@ -85,7 +85,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceRLGCFitFromFile</ClassName>
+					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
 						<Origin>(24, 5)</Origin>
 						<Index>0</Index>
@@ -95,26 +95,20 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
 							<Keyword>file</Keyword>
 							<Value>CableInterior.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>scale</Keyword>
-							<Value>1.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
+							<Keyword>ports</Keyword>
+							<Value>2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>T1</Value>
+							<Value>D1</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>

@@ -1,5 +1,7 @@
 class TLineTwoPortRLGCApproximate(SParameters):
-    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0):
+    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., K=0, scale=1.):
+        R=R*scale; Rse=Rse*scale; L=L*scale; G=G*scale; C=C*scale; df=df
+        K=int(K*scale+0.5)
         if K==0:
             Td=math.sqrt(L*C)
             Rt=0.45/f[-1] # fastest risetime

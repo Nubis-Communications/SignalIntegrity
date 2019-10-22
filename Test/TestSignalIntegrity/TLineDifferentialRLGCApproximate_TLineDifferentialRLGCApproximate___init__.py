@@ -1,7 +1,11 @@
 class TLineDifferentialRLGCApproximate(SParameters):
     def __init__(self,f, Rp, Rsep, Lp, Gp, Cp, dfp,
                          Rn, Rsen, Ln, Gn, Cn, dfn,
-                         Cm, dfm, Gm, Lm, Z0=50., K=0):
+                         Cm, dfm, Gm, Lm, Z0=50., K=0, scale=1.):
+        Rp=Rp*scale; Rsep=Rsep*scale; Lp=Lp*scale; Gp=Gp*scale; Cp=Cp*scale; dfp=dfp
+        Rn=Rn*scale; Rsen=Rsen*scale; Ln=Ln*scale; Gn=Gn*scale; Cn=Cn*scale; dfn=dfn
+        Cm=Cm*scale; dfm=dfm; Gm=Gm*scale; Lm=Lm*scale
+        K=int(K*scale+0.5)
         if K==0:
             Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm))
             Rt=0.45/f[-1] # fastest risetime

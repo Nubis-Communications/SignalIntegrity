@@ -21,7 +21,7 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 class TLineDifferentialRLGCUncoupled(SParameters):
     """s-parameters of analytic uncoupled differential RLGC (telegrapher's) transmission
     line."""
-    def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0=50.,K=0):
+    def __init__(self,f,Rp,Rsep,Lp,Gp,Cp,dfp,Rn,Rsen,Ln,Gn,Cn,dfn,Z0=50.,K=0,scale=1.):
         """Constructor
 
         ports are 1,2,3,4 is +1,-1, +2, -2
@@ -41,6 +41,7 @@ class TLineDifferentialRLGCUncoupled(SParameters):
         @param dfn float dissipation factor (loss-tangent) of capacitance of negative leg to ground
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to 0).
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         If 0 is specified, then an analytic solution is provided otherwise an approximate solution is provided
         with all parametric values divided into the integer number of sections.
         """
@@ -53,8 +54,8 @@ class TLineDifferentialRLGCUncoupled(SParameters):
         sdp.AddLines(['device TP 2','device TN 2',
                       'port 1 TP 1 2 TN 1 3 TP 2 4 TN 2'])
         self.m_sspn=SystemSParametersNumeric(sdp.SystemDescription())
-        self.m_spdl=[('TP',TLineTwoPortRLGC(f,Rp,Rsep,Lp,Gp,Cp,dfp,Z0,K)),
-                     ('TN',TLineTwoPortRLGC(f,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K))]
+        self.m_spdl=[('TP',TLineTwoPortRLGC(f,Rp,Rsep,Lp,Gp,Cp,dfp,Z0,K,scale)),
+                     ('TN',TLineTwoPortRLGC(f,Rn,Rsen,Ln,Gn,Cn,dfn,Z0,K,scale))]
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         """overloads [n]

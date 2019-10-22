@@ -36,6 +36,12 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         #self.forceWritePictures=True
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
+        unittest.TestCase.tearDown(self)
     def FourPortTLineModel(self,f,Zo,TDo,Ze,TDe):
         sspp=si.p.SystemSParametersNumericParser(f)
         sspp.AddLines(['device D1 4 tline zc 50. td 1.e-9',

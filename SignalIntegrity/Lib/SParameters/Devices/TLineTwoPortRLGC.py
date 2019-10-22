@@ -23,7 +23,7 @@ from SignalIntegrity.Lib.Devices.TLineTwoPort import TLineTwoPort
 
 class TLineTwoPortRLGC(SParameters):
     """s-parameters of single-ended RLGC (telegraphers) transmission line"""
-    def __init__(self,f,R,Rse,L,G,C,df,Z0=50.,K=0):
+    def __init__(self,f,R,Rse,L,G,C,df,Z0=50.,K=0,scale=1.):
         """Constructor
         @param f list of float frequencies
         @param R float DC series resistance (ohms)
@@ -34,6 +34,7 @@ class TLineTwoPortRLGC(SParameters):
         @param df float dissipation factor (loss-tangent) of capacitance to ground
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to zero)
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note K=0 specifies the analytic transmission line calculation TLineTwoPortRLGCAnalytic.\n
         Otherwise, non-zero K specifies the numerical approximation TLineTwoPortRLGCApproximate.\n
         """
@@ -41,8 +42,8 @@ class TLineTwoPortRLGC(SParameters):
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGCAnalytic import TLineTwoPortRLGCAnalytic
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
         # pragma: include
-        if K==0: self.sp=TLineTwoPortRLGCAnalytic(f,R,Rse,L,G,C,df,Z0)
-        else: self.sp=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K)
+        if K==0: self.sp=TLineTwoPortRLGCAnalytic(f,R,Rse,L,G,C,df,Z0,scale)
+        else: self.sp=TLineTwoPortRLGCApproximate(f,R,Rse,L,G,C,df,Z0,K,scale)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         """overloads [n]

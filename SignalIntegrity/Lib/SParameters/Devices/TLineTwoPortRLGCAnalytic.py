@@ -22,7 +22,7 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class TLineTwoPortRLGCAnalytic(SParameters):
     """s-parameters of analytic single-ended telegraphers transmission line"""
-    def __init__(self,f, R, Rse, L, G, C, df, Z0=50.):
+    def __init__(self,f, R, Rse, L, G, C, df, Z0=50., scale=1.):
         """Constructor
         @param f list of float frequencies
         @param R float DC series resistance (ohms)
@@ -32,9 +32,10 @@ class TLineTwoPortRLGCAnalytic(SParameters):
         @param C float capacitance to ground (F)
         @param df float dissipation factor (loss-tangent) of capacitance to ground
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
+        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         """
-        self.R=R;   self.Rse=Rse; self.L=L
-        self.G=G;   self.C=C;     self.df=df
+        self.R=R*scale;   self.Rse=Rse*scale; self.L=L*scale
+        self.G=G*scale;   self.C=C*scale;     self.df=df
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n):
         """overloads [n]
