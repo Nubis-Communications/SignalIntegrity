@@ -620,11 +620,13 @@ class SignalIntegrityApp(tk.Frame):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         drawingPropertiesProject['Grid']=drawingPropertiesProject['Grid']+1.
         self.Drawing.DrawSchematic()
+        self.statusbar.set('Zoomed to grid: '+str(drawingPropertiesProject['Grid']))
 
     def onZoomOut(self):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         drawingPropertiesProject['Grid'] = max(1,drawingPropertiesProject['Grid']-1.)
         self.Drawing.DrawSchematic()
+        self.statusbar.set('Zoomed to grid: '+str(drawingPropertiesProject['Grid']))
 
     def onPan(self):
         self.Drawing.stateMachine.Panning()
