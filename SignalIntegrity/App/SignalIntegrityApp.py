@@ -835,6 +835,7 @@ class SignalIntegrityApp(tk.Frame):
             self.VirtualProbeDoer.Activate(True)
             self.SimulateDoer.Activate(True)
             self.DeembedDoer.Activate(True)
+            self.RLGCDoer.Activate(True)
             # ------
             self.HelpDoer.Activate(True)
             self.ControlHelpDoer.Activate(True)
