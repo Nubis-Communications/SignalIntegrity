@@ -381,6 +381,7 @@ class SignalIntegrityApp(tk.Frame):
         if filename is None:
             return
         SignalIntegrity.App.Project=ProjectFile()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
         self.Drawing.InitFromProject()
         self.Drawing.DrawSchematic()
         self.history.Event('new project')

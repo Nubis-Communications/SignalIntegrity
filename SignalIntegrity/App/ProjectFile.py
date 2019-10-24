@@ -98,7 +98,7 @@ class WireConfiguration(XMLConfiguration):
 class DrawingPropertiesConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DrawingProperties')
-        self.Add(XMLPropertyDefaultFloat('Grid',32.))
+        self.Add(XMLPropertyDefaultFloat('Grid',16.))
         self.Add(XMLPropertyDefaultInt('Originx',1))
         self.Add(XMLPropertyDefaultInt('Originy',4))
         self.Add(XMLPropertyDefaultInt('Width',711))

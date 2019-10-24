@@ -23,6 +23,7 @@ class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
         PropertiesDialog.__init__(self,parent,preferences,parent,'Preferences')
         self.fontSizeFrame=CalculationProperty(self.propertyListFrame,'font size',None,self.onUpdatePreferences,preferences,'Appearance.FontSize')
+        self.initialGridFrame=CalculationProperty(self.propertyListFrame,'initial grid',None,self.onUpdatePreferences,preferences,'Appearance.InitialGrid')
         self.backgroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'background color',None,self.onUpdateColors,preferences,'Appearance.Color.Background')
         self.foregroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.Foreground')
         #self.activeBackgroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'active background color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveBackground')
