@@ -5,7 +5,7 @@
 %  <polyline lc="black">24,-16 24,-24</polyline>
 %  <polyline lw="2" lc="red">23,-15 25,-17</polyline>
 %  <polyline lw="2" lc="red">25,-15 23,-17</polyline>
-%  <text x="32" y="-38.5" t="r 50.0 Ohm" h="3" halign="l" lc="black"/>
+%  <text x="32" y="-38.5" t="r 50.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="32" y="-36" t="R1" h="3" halign="l" lc="black"/>
 %</TpX>
 \centering
@@ -16,6 +16,6 @@
 \path[line width=0.30mm, draw=black] (24,-16) -- (24,-24);
 \path[line width=0.6mm, draw=red] (23,-15) -- (25,-17);
 \path[line width=0.6mm, draw=red] (25,-15) -- (23,-17);
-\draw[black] (32,-38.5) node[anchor=base west]{r 50.0 Ohm};
+\draw[black] (32,-38.5) node[anchor=base west]{r 50.0 ohm};
 \draw[black] (32,-36) node[anchor=base west]{R1};
 \end{tikzpicture}%

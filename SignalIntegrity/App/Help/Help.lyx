@@ -357,6 +357,77 @@ https://www.gnu.org/licenses/
 \end_layout
 
 \begin_layout Section
+On-line Video Examples
+\end_layout
+
+\begin_layout Standard
+The updated page of on-line video examples is 
+\begin_inset CommandInset href
+LatexCommand href
+name "HERE"
+target "https://github.com/TeledyneLeCroy/SignalIntegrity/wiki/Video-Examples"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Currently, there are two on-line video examples that demonstrate some of
+ the usage of 
+\series bold
+\emph on
+SignalIntegrity
+\series default
+\emph default
+:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "Mixed-mode s-parameter generation"
+target "http://teledynelecroy.github.io/SignalIntegrity/Videos/MixedMode.mp4"
+literal "false"
+
+\end_inset
+
+ - In this example video, a four-port differential s-parameter block is
+ converted to mixed-mode s-parameters using mode converters.
+ This example shows generally also how systems of interconnected s-parameter
+ blocks can be created in the schematic editor and how the s-parameters
+ of the interconnected system can be generated.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "TDR Simulation"
+target "http://teledynelecroy.github.io/SignalIntegrity/Videos/TDRSimulation.mp4"
+literal "false"
+
+\end_inset
+
+ - In this example video, a TDR simulation is performed with a mismatched
+ transmission line.
+ This example shows generally how sources and circuit elements are interconnecte
+d along with probes and time-domain simulations performed.
+ Additionally, it's educational regarding TDR, mismatched lines, and forward
+ and reverse wave propagation.
+\end_layout
+
+\begin_layout Standard
+They are slightly outdated, but convey proper information.
+ Note that originally, the tool was called PySI - user's should note the
+ change in name to SignalIntegrity.
+\end_layout
+
+\begin_layout Standard
+The intent is to update them and add more of them.
+\end_layout
+
+\begin_layout Section
 Introduction
 \begin_inset CommandInset label
 LatexCommand label
@@ -430,7 +501,20 @@ reference "sec:Deembedding"
 
 \end_inset
 
-s-parameters in systems.
+ s-parameters in systems.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:RLGC-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ of two-port transmission line models to a two-port system.
 \end_layout
 
 \begin_layout Standard
@@ -2161,7 +2245,7 @@ reference "subsec:Capacitor"
 
 \end_inset
 
-, and 50 Ohm 
+, and 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Resistor"
@@ -2177,7 +2261,7 @@ reference "subsec:Voltage-Step-Generator"
 
 \end_inset
 
- and probe initially the voltage at the 50 Ohm termination 
+ and probe initially the voltage at the 50 ohm termination 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Resistor"
@@ -2355,7 +2439,7 @@ reference "subsec:Capacitor"
 
 \end_inset
 
- and a one-port 50 Ohm 
+ and a one-port 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Resistor"
@@ -5586,10 +5670,7 @@ name "sec:RLGC-Fit"
 \end_layout
 
 \begin_layout Standard
-This calculates the s-parameters of an RLGC two-port transmission line fitted
- to the s-parameters.
- The fit is a least-mean-squared-error fit to a transmission line with the
- parameters as provided in 
+This calculates the s-parameters of a 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Telegrapher---Two-Port"
@@ -5599,7 +5680,91 @@ noprefix "false"
 
 \end_inset
 
-.
+ device fitted to the s-parameters of the schematic.
+\end_layout
+
+\begin_layout Standard
+When invoked, the system will:
+\end_layout
+
+\begin_layout Itemize
+Calculate the s-parameters of the schematic (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+Fit the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Telegrapher---Two-Port"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ device to the s-parameters.
+\end_layout
+
+\begin_layout Itemize
+Open the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ showing the s-parameters of the resulting device.
+\end_layout
+
+\begin_layout Itemize
+Place the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Telegrapher---Two-Port"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ device on the clipboard.
+\end_layout
+
+\begin_layout Standard
+With the fitted device on the clipboard, pressing the right mouse button
+ anywhere on the schematic will place the new device.
+\end_layout
+
+\begin_layout Standard
+The fit is performed iteratively using the Levenberg-Marquardt algorithm.
+ The fit progress is shown in the status message area, which shows the iteration
+ number and the mean-squared error.
+ Convergence is determined automatically.
+\end_layout
+
+\begin_layout Standard
+Devices that fit automatically can be placed in the schematic using the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:RLGC-Fit"
+
+\end_inset
+
+ device.
 \end_layout
 
 \begin_layout Section
@@ -5947,6 +6112,16 @@ reference "subsec:S-Parameter-Viewer-View"
 \end_inset
 
  - various viewing options.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Zoom"
+
+\end_inset
+
+ - various zooming options.
 \end_layout
 
 \begin_layout Subsection
@@ -6342,9 +6517,6 @@ The Properties tasks are:
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:S-Parameter-Properties"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -6559,9 +6731,6 @@ The top third contains all of the things that end up affecting the end frequency
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Setting-Calculation-Properties"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -6982,7 +7151,10 @@ This removes any causality violations by zeroing the impulse response prior
 Causality violations are shown using 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:Show-Passivity-Violations"
+reference "Control-Help:Show-Causality-Violations"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -8160,6 +8332,10 @@ This calculation is an approximation because in systems with lots of or
 
 \begin_layout Standard
 Here is the step response:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8175,6 +8351,10 @@ Here is the step response:
 
 \begin_layout Standard
 And here is the impedance profile calculated from the step response:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8190,11 +8370,15 @@ And here is the impedance profile calculated from the step response:
 
 \begin_layout Standard
 Note that something unnatural had to be done about the step response going
- above unity, which was to clip it at 3000 Ohms.
+ above unity, which was to clip it at 3000 ohms.
 \end_layout
 
 \begin_layout Standard
 Here is a zoom of the impedance profile:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8210,7 +8394,7 @@ Here is a zoom of the impedance profile:
 
 \begin_layout Standard
 Thus, we see that the early part of the impedance profile shows a jump to
- 100 Ohms for 100 ps as expected, and then a large impedance jump (the open).
+ 100 ohms for 100 ps as expected, and then a large impedance jump (the open).
  What goes on beyond this zoomed portion is a result of the multiple reflections
  and is not correct.
 \end_layout
@@ -8779,6 +8963,10 @@ Always
 \end_inset
 
 
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8819,6 +9007,929 @@ reference "Control-Help:Variable-Line-Width"
  with variable line width.
 \end_layout
 
+\begin_layout Subsection
+S-Parameter Viewer Zoom Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The zoom settings determine how zooming is performed and how zooms of various
+ plot elements are joined.
+\end_layout
+
+\begin_layout Standard
+The zoom settings are in three categories:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Frequency-Zoom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - how the frequency axis is zoomed.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Time-Zoom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - how the time axis is zoomed.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Vertical-Zoom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - how the vertical axis is zoomed.
+\end_layout
+
+\begin_layout Standard
+The default is that:
+\end_layout
+
+\begin_layout Itemize
+All frequencies zooms are joined for all s-parameter plots.
+\end_layout
+
+\begin_layout Itemize
+All reflect (on diagonal) s-parameter time zooms are joined.
+\end_layout
+
+\begin_layout Itemize
+All off-diagonal s-parameter time zooms are joined.
+\end_layout
+
+\begin_layout Itemize
+All reflect (on diagonal) s-parameter vertical zooms are joined for each
+ plot type.
+\end_layout
+
+\begin_layout Itemize
+All reciprocal (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ and 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+) s-parameter vertical zooms are joined for each plot type.
+\end_layout
+
+\begin_layout Subsubsection
+S-Parameter Viewer Frequency Zoom Options
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Frequency-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Frequency Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ Frequencies
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z,F
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This determines how the zooms of the horizontal axis of plots where the
+ axis is frequency are joined together.
+\end_layout
+
+\begin_layout Standard
+The default is that all frequency axes are joined.
+\end_layout
+
+\begin_layout Standard
+The options are:
+\end_layout
+
+\begin_layout Itemize
+Join within views (default) - this joins the phase and magnitude frequency
+ axis for a given s-parameter view.
+\end_layout
+
+\begin_layout Itemize
+Join with other views (default) - this joins the zoom to other s-parameters
+ not being viewed.
+ If this is set, then the rules for joining with the other plots are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join all views (default) - all s-parameter plots frequency axes are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join off-diagonal views - all s-parameter plots frequency axes that are
+ off the diagonal are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join reciprocal views - all reciprocal s-parameters (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Join reflect views - all s-parameter plots that are on the diagonal (i.e.
+ are reflect s-parameters 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+, 
+\begin_inset Formula $r==c$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection
+S-Parameter Viewer Time Zoom Options
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Time-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Times Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ Times
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z,T
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This determines how the zooms of the horizontal axis of plots where the
+ axis is time are joined together.
+\end_layout
+
+\begin_layout Standard
+The default is that time axes within a given view are joined, and that reflect
+ plots are joined with all others, and off-diagonal plots are joined with
+ all others.
+\end_layout
+
+\begin_layout Standard
+The options are:
+\end_layout
+
+\begin_layout Itemize
+Join within views (default) - this joins the impulse response, step response,
+ and impedance time axis for a given s-parameter view.
+\end_layout
+
+\begin_layout Itemize
+Join with other views (default) - this joins the zoom to other frequency-domain
+ s-parameters not being viewed.
+ If this is set, then the rules for joining with the other plots are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join all views - all s-parameter plots time axes are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join off-diagonal views (default) - all s-parameter plots time axes that
+ are off the diagonal are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join reciprocal views - all reciprocal s-parameters (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Join reflect views (default) - all time-domain s-parameter plots that are
+ on the diagonal (i.e.
+ are reflect s-parameters 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+, 
+\begin_inset Formula $r==c$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection
+S-Parameter Viewer Vertical Zoom Options
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Vertical-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Frequency Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ Vertical
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z,V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This determines how the zooms of the vertical axis of plots are joined together.
+\end_layout
+
+\begin_layout Standard
+The default is that reflect and reciprocal s-parameters zooms are all joined
+ vertically.
+\end_layout
+
+\begin_layout Standard
+The options are:
+\end_layout
+
+\begin_layout Itemize
+Join magnitude response zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Itemize
+Join phase response zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Itemize
+Join impulse response zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Itemize
+Join step response/impedance profile zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Standard
+All plots that are joined vertically follow a common set of rules:
+\end_layout
+
+\begin_layout Itemize
+Join all views - all common vertical zooms are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join off-diagonal views - all common vertical zooms for s-parameter off
+ the diagonal are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join reciprocal views (default) - all common vertical zooms for reciprocal
+ s-parameters (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+) are joined.
+\end_layout
+
+\begin_layout Itemize
+Join reflect views (default) - all common vertical zooms for s-parameters
+ that are on the diagonal (i.e.
+ are reflect s-parameters 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+, 
+\begin_inset Formula $r==c$
+\end_inset
+
+) are joined.
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Section
 Simulator Dialog
 \begin_inset CommandInset label
@@ -13552,7 +14663,7 @@ The units never need to be entered (but can be).
 
 \begin_layout Standard
 Numbers can be entered with exponents or with the engineering notation suffix.
- For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or
  10e7.
 \end_layout
 
@@ -15653,7 +16764,7 @@ The units never need to be entered (but can be).
 
 \begin_layout Standard
 Numbers can be entered with exponents or with the engineering notation suffix.
- For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or
  10e7.
 \end_layout
 
@@ -17560,8 +18671,32 @@ Always
 \end_layout
 
 \begin_layout Standard
-Zooms in on the schematic picture by doubling the number of pixels per grid
- point 
+Zooms in on the schematic picture by incrementing the number of pixels per
+ grid unit.
+\end_layout
+
+\begin_layout Standard
+The default number of pixels per grid unit are controlled by 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -17738,8 +18873,32 @@ Always
 \end_layout
 
 \begin_layout Standard
-Zooms out of the schematic picture by halving the number of pixels per grid
- point 
+Zooms out of the schematic picture by decrementing the number of pixels
+ per grid unit.
+\end_layout
+
+\begin_layout Standard
+The default number of pixels per grid unit are controlled by 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -18288,6 +19447,10 @@ SignalIntegrityApp
  applications and consist of virtually entirely interrelated properties.
  The base properties are the end frequency and the impulse response length.
  All other properties are based on one or both of these properties:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -20123,12 +21286,7 @@ Toolbar
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename system-run-3.png
-
-\end_inset
-
-
+None
 \end_layout
 
 \end_inset
@@ -20168,20 +21326,27 @@ This invokes
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:RLGC-Fit"
+
+\end_inset
+
+ to fit the s-parameters of a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-.
- See 
+ device to schematic.
+\end_layout
+
+\begin_layout Standard
+See 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:RLGC-Fit"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -21560,6 +22725,20 @@ reference "Control-Help:Calculation-Properties"
 .
 \end_layout
 
+\begin_layout Standard
+File names can be projects.
+ When browsing for file names, the default files type shown will be s-parameter
+ files, but you can click on the files type and the choice of project files
+ is shown.
+ Then other projects can be selected as the source of the s-parameters.
+ This allows nesting of projects.
+ When you do this, you must ensure that the project you select for the s-paramet
+er file is a project that produces s-parameters (i.e.
+ a de-embedding or s-parameter generation project) and that the number of
+ ports in the s-parameters produced matches the number of ports in your
+ file type.
+\end_layout
+
 \begin_layout Subsection
 Resistor
 \begin_inset CommandInset label
@@ -21768,7 +22947,7 @@ r
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohms
+ohms
 \end_layout
 
 \end_inset
@@ -21777,7 +22956,7 @@ Ohms
 \begin_inset Text
 
 \begin_layout Plain Layout
-50.0 Ohms
+50.0 ohms
 \end_layout
 
 \end_inset
@@ -24029,7 +25208,7 @@ zc
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohms
+ohms
 \end_layout
 
 \end_inset
@@ -24135,7 +25314,7 @@ name "subsec:Telegrapher---Two-Port"
 \begin_layout Standard
 \noindent
 \begin_inset Tabular
-<lyxtabular version="3" rows="11" columns="5">
+<lyxtabular version="3" rows="12" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -24372,6 +25551,53 @@ sect
 
 \begin_layout Plain Layout
 0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
 \end_layout
 
 \end_inset
@@ -24729,6 +25955,13 @@ If zero sections are specified (the default), an analytic solution is provided
  based on complete distribution of the parameters specified.
 \end_layout
 
+\begin_layout Standard
+To facilitate per-unit values, the model can be scaled by the amount specified.
+ In this way, half-size models can be made (such as for 2x thru situations),
+ or values can be considered as, for example, per meter, and the the scale
+ can be considered as the number of meters.
+\end_layout
+
 \begin_layout Subsection
 Telegrapher - Four Port
 \begin_inset CommandInset label
@@ -24752,7 +25985,7 @@ name "subsec:Telegrapher---Four-Port"
 \begin_layout Standard
 \noindent
 \begin_inset Tabular
-<lyxtabular version="3" rows="20" columns="5">
+<lyxtabular version="3" rows="21" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -24952,6 +26185,53 @@ sect
 \begin_inset Text
 
 \begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 mutual capacitance
 \end_layout
 
@@ -25085,7 +26365,10 @@ H
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.0 fH
+\begin_inset Formula $1.0\,\mathrm{fH}$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -25808,6 +27091,13 @@ Otherwise, if zero sections are specified and the lines are neither uncoupled
  In this case, the number of sections is calculated such that the round-trip
  time delay through any small section of the line is no longer than one
  percent of the fastest possible risetime.
+\end_layout
+
+\begin_layout Standard
+To facilitate per-unit values, the model can be scaled by the amount specified.
+ In this way, half-size models can be made (such as for 2x thru situations),
+ or values can be considered as, for example, per meter, and the the scale
+ can be considered as the number of meters.
 \end_layout
 
 \begin_layout Subsection
@@ -27614,12 +28904,14 @@ The waveform created has a sample rate as provided and extends in time from
 \end_layout
 
 \begin_layout Standard
-The waveform is 0 V until the start time, after which it jumps immediately
- to the amplitude specified for the remaining duration of the waveform.
+If zero risetime is specified, the waveform is 0 V until the start time,
+ after which it jumps immediately to the amplitude specified for the remaining
+ duration of the waveform.
 \end_layout
 
 \begin_layout Standard
 If a nonzero risetime is specified, the edge crosses 50% at the start time.
+ The risetime is implemented as a raised-cosine.
 \end_layout
 
 \begin_layout Subsection
@@ -28159,13 +29451,17 @@ The waveform created has a sample rate as provided and extends in time from
 \end_layout
 
 \begin_layout Standard
-The waveform is 0 V until the start time, after which it jumps immediately
- to the amplitude specified for the duration specified by the pulse width.
+If zero risetime is specified, the waveform is 0 V until the start time,
+ after which it jumps immediately to the amplitude specified for the duration
+ specified by the pulse width.
 \end_layout
 
 \begin_layout Standard
 If a nonzero risetime is specified, the first edge crosses 50% at the start
- time.
+ time and falls, crossing at 50% of the stop time (pulse width minus start
+ time).
+ In other words, the width of the pulse specified is the time between the
+ starting and ending 50% points.
 \end_layout
 
 \begin_layout Subsection
@@ -31357,7 +32653,7 @@ name "subsec:Port"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="5">
+<lyxtabular version="3" rows="3" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -31412,6 +32708,53 @@ Units
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+td
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -31434,7 +32777,7 @@ int
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+pn
 \end_layout
 
 \end_inset
@@ -31539,6 +32882,25 @@ reference "Control-Help:Add-Port"
 \end_inset
 
  command.
+\end_layout
+
+\begin_layout Standard
+Ports can be optionally specified with a delay value.
+ This is amount to peel from the port using impedance peeling techniques.
+ Peeling is performed by de-embedding a portion of the line from the port,
+ with the de-embedded device corresponding to an ideal transmission line
+ with the desired length, and characteristic impedance equal to the impedance
+ profile calculated for the length specified (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsection
@@ -34472,7 +35834,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34481,7 +35843,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -34519,7 +35881,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34528,7 +35890,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -34808,7 +36170,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34817,7 +36179,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -34855,7 +36217,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34864,7 +36226,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -35144,7 +36506,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35153,7 +36515,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -35191,7 +36553,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35200,7 +36562,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -35480,7 +36842,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35489,7 +36851,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -35527,7 +36889,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35536,7 +36898,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -36567,6 +37929,20 @@ reference "subsec:File-1"
 They take an s-parameter file name in the file name property.
  The in the Part Properties Dialog, you can browse to the file and view
  the file in the S-parameter Viewer if you want.
+\end_layout
+
+\begin_layout Standard
+File names can be projects.
+ When browsing for file names, the default files type shown will be s-parameter
+ files, but you can click on the files type and the choice of project files
+ is shown.
+ Then other projects can be selected as the source of the s-parameters.
+ This allows nesting of projects.
+ When you do this, you must ensure that the project you select for the s-paramet
+er file is a project that produces s-parameters (i.e.
+ a de-embedding or s-parameter generation project) and that the number of
+ ports in the s-parameters produced matches the number of ports in your
+ file type.
 \end_layout
 
 \begin_layout Section
@@ -38588,7 +39964,7 @@ The preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="15" columns="4">
+<lyxtabular version="3" rows="16" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -38674,13 +40050,60 @@ Int
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
 12
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+initial grid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
 \end_layout
 
 \end_inset
@@ -39418,6 +40841,161 @@ Unfortunately, changing the font generally does not take effect until the
 \begin_layout Standard
 Font sizes are not altered in any tikz or pgf plots outputs, which are geared
  to take the font of an enclosing document.
+\end_layout
+
+\begin_layout Subsection*
+Appearance.InitialGrid
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.InitialGrid"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+font size
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The grid size is the number of pixels per grid unit.
+ Smaller grid sizes make the objects in the drawing smaller and larger grid
+ sizes make them bigger.
+\end_layout
+
+\begin_layout Standard
+This grid size is affected by zooming (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Zoom-In"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Zoom-Out"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+The initial grid is the size of the grid for all new projects.
 \end_layout
 
 \begin_layout Subsection*

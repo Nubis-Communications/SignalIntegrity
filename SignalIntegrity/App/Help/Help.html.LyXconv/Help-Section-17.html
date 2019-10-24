@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,299 +1073,47 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-16.html#next">Prev</a> Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-97.html#next">Prev</a> DeviceParser</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Appearance.FontSize <a class="next" name="next" href="Help-Subsection--1.html#prev">Next</a></span>
+<span class="next">Preferences <a class="next" name="next" href="Help-Section-18.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-17"></a>Preferences<a class="Label" name="sec:Preferences"> </a>
+<a class="toc" name="toc-Section-17"></a>Waveform<a class="Label" name="sec:Waveform"> </a>
 </h1>
 <div class="Standard">
-in <b><i>SignalIntegrityApp</i></b>, there are a number of preferences that can be set by the user that alter the appearance, calculations, file handling, etc. When the application is opened for the first time, a default preference file is created with the default settings. These are located at:
+A Waveform consists of a sequence of points representing either voltage or current. It is defined by:
 </div>
 <ul>
 <li>
-On Windows machines - c:\LeCroy\SignalIntegrity\preferences.xml.
+The <i>horizontal offset</i>. The horizontal offset is simply the time of the first point in the waveform.
 </li>
 <li>
-On Linux Machines - ~/.signalIntegrity/preferences.xml.
+The number of points in the waveform.
+</li>
+<li>
+The sample rate.
+</li>
+<li>
+A sequence of points representing voltage or current.
 </li>
 
 </ul>
 <div class="Standard">
-The preferences are:
+Thus, for a horizontal offset <span class="formula"><i>h</i></span>, a number of points <span class="formula"><i>K</i></span>, and a sample rate <span class="formula"><i>Fs</i></span> and a sequence of <span class="formula"><i>K</i></span> points, for <span class="formula"><i>k</i> ∈ 0…<i>K</i> − 1</span>, we have the voltage or current value specified as <span class="formula"><i>v</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> and a time <span class="formula"><i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> where:
 </div>
 <div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Description</b>
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Name</b>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<b>Type</b>
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<b>(Default) Value</b>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-font size
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--1.html#subsec:Appearance.FontSize">Appearance.FontSize↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-12
+<div class="formula">
+<i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>k</i></span><span class="ignored">)/(</span><span class="denominator"><i>K</i></span><span class="ignored">)</span></span>⋅<span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Fs</i></span><span class="ignored">)</span></span> + <i>h</i>
 </div>
 
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-background color
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--2.html#subsec:Appearance.Color.Background">Appearance.Color.Background↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-String
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-gray
 </div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-foreground color
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--3.html#subsec:Appearance.Color.Foreground">Appearance.Color.Foreground↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-String
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-black
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-plot color
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--4.html#subsec:Appearance.Color.Plot">Appearance.Color.Plot↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-String
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-gray
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-show cursor values on plots
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--5.html#subsec:Appearance.PlotCursorValues">Appearance.PlotCursorValues↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-False
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-show all pin numbers
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--6.html#subsec:Appearance.ShowAllPinNumbers">Appearance.ShowAllPinNumbers↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-False
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-use SinX/X for resampling
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--7.html#subsec:Calculation.UseSinX">Calculation.UseSinX/X↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-False
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-try SVD in calculations (experimental)
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--8.html#subsec:Calculation.TrySVD">Calculation.TrySVD↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-False
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-retain recent project files
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--9.html#subsec:RetainLastFilesOpened">RetainLastFilesOpened↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-open last file on start
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--10.html#subsec:OpenLastFile">OpenLastFile↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-ask to save current file
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--11.html#subsec:AskToSaveCurrentFile">AskToSaveCurrentFile↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-cache results
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--12.html#subsec:Cache.CacheResults">Cache.CacheResults↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-use online help
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--13.html#subsec:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-online help url
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--14.html#subsec:OnlineHelp.URL">OnlineHelp.URL↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
-</div>
-
-</td>
-
-</tr>
-
-</table>
-
+<div class="Standard">
+A waveform file is a text file where the first line contains the horizontal offset, in seconds, the second line contains the integer number of points in the waveform, the third line contains the sample rate in samples per second, and the remaining lines contain the waveform values.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-16.html#next">Prev</a> Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-97.html#next">Prev</a> DeviceParser</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Appearance.FontSize <a class="next" name="next" href="Help-Subsection--1.html#prev">Next</a></span>
+<span class="next">Preferences <a class="next" name="next" href="Help-Section-18.html#prev">Next</a></span>
 </div>
 
 </div>

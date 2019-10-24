@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-31.html#next">Prev</a> Duplicate Selected</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-32.html">Up</a> Edit</span>
-<span class="next">Parts <a class="next" name="next" href="Help-Subsection-33.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-31.html#next">Prev</a> Undo</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Edit</span>
+<span class="next">Delete Selected <a class="next" name="next" href="Help-Subsubsection-33.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-32"></a>Cut Selected<a class="Label" name="Control-Help:Cut-Selected"> </a>
+<a class="toc" name="toc-Subsubsection-32"></a>Redo<a class="Label" name="Control-Help:Redo"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-12.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+<a class="Reference" href="Help-Section-13.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-32.html#subsec:Edit">Edit↑</a> ▸ Cut Selected
+<a class="Reference" href="Help-Subsection-33.html#sub:Edit">Edit↑</a> ▸ Redo
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+E,C
+Alt+E,R
 </td>
 
 </tr>
@@ -1114,7 +1114,7 @@ Alt+E,C
 <i>Key Binding</i>
 </td>
 <td align="center" valign="top">
-Ctrl+X
+Ctrl+Shift+Z
 </td>
 
 </tr>
@@ -1123,7 +1123,8 @@ Ctrl+X
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-None
+<img class="embedded" src="edit-redo-3.png" alt="figure edit-redo-3.png" style="max-width: 16px; max-height: 16px;"/>
+
 </td>
 
 </tr>
@@ -1132,7 +1133,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When one or more drawing element is selected
+When there is something that can be redone in the history buffer
 </td>
 
 </tr>
@@ -1141,21 +1142,21 @@ When one or more drawing element is selected
 
 </div>
 <div class="Standard">
-This command is available whenever a device is selected, a wire is selected, or if multiple items are selected. Which of these states is shown in the status message area.
+This redoes the last undo.
 </div>
 <div class="Standard">
-The items selected to be cut are shown as blue items in the schematic.
+This is available whenever an <a class="Reference" href="Help-Subsubsection-31.html#Control-Help:Undo">Undo↑</a> was issued.
 </div>
 <div class="Standard">
-When invoked, the selections are copied to memory and removed from the schematic and the mouse cursor changes to a finger indicating that the new copied parts will be placed where the finger points on the next mouse click.
+It becomes unavailable whenever a change occurs that causes an event to store the state in the <a class="Reference" href="Help-Subsubsection-30.html#sub:History-Buffer">History Buffer↑</a>.
 </div>
 <div class="Standard">
-This command is also available by right clicking while multiple devices are selected through a context sensitive menu.
+In other words, if you undo something or many things and then make a change to the schematic, the redo becomes unavailable.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-31.html#next">Prev</a> Duplicate Selected</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-32.html">Up</a> Edit</span>
-<span class="next">Parts <a class="next" name="next" href="Help-Subsection-33.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-31.html#next">Prev</a> Undo</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Edit</span>
+<span class="next">Delete Selected <a class="next" name="next" href="Help-Subsubsection-33.html#prev">Next</a></span>
 </div>
 
 </div>

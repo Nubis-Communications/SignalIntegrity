@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Voltage Mixed Mode Converter</span>
-<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Telegrapher - Two Port <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Power Mixed Mode Converter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-49"></a>Transmission Line<a class="Label" name="subsec:Transmission-Line"> </a>
+<a class="toc" name="toc-Subsection-49"></a>Voltage Mixed Mode Converter<a class="Label" name="sub:Voltage-Mixed-Mode-Converter"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TlineTwoPort.png" alt="figure TlineTwoPort.png" style="max-width: 152px; max-height: 94px;"/>
-<img class="embedded" src="TlineFourPort.png" alt="figure TlineFourPort.png" style="max-width: 152px; max-height: 114px;"/>
+<img class="embedded" src="VoltageMixedModeConverter.png" alt="figure VoltageMixedModeConverter.png" style="max-width: 152px; max-height: 144px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-T?
+D?
 </td>
 
 </tr>
@@ -1141,59 +1140,38 @@ string
 </td>
 
 </tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-characteristic impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zc
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Ohms
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-50.0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-time delay
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-td
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-This is a one- and two-port ideal transmission line with given characteristic impedance and delay.
+The voltage mixed mode converter is one that defines differential and common mode voltage with respect to positive and negative voltages as:
 </div>
 <div class="Standard">
-The four-port ideal transmission line only transmits the differential mode.
+<div class="formula">
+<i>V</i><sub><i>d</i></sub> = <i>V</i><sub> + </sub> − <i>V</i><sub> − </sub>
+</div>
+
 </div>
 <div class="Standard">
-A two-port ideal transmission line with zero delay is simply and ideal thru (no matter what the characteristic impedance).
+<div class="formula">
+<i>V</i><sub><i>c</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i><sub> + </sub> + <i>V</i><sub> − </sub></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span>
+</div>
+
+</div>
+<div class="Standard">
+This is the standard definition in industry for the time-domain and this device is used primarily to expose differential- and common-mode voltages in time-domain simulation or virtual probing applications.
+</div>
+<div class="Standard">
+The other kind of mixed-mode converter is the <a class="Reference" href="Help-Subsection-48.html#sub:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↑</a>.
+</div>
+<div class="Standard">
+See <a class="Reference" href="Help-Subsection-25.html#sub:Virtual-Probing-Example">Virtual Probing Example↑</a> for an example of this type of device is used.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Voltage Mixed Mode Converter</span>
-<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Telegrapher - Two Port <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Power Mixed Mode Converter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
 </div>
 
 </div>

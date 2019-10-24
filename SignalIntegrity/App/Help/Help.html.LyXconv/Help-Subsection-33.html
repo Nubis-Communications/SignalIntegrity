@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,74 +1073,47 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-32.html#next">Prev</a> Cut Selected</span>
-<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Add Part <a class="next" name="next" href="Help-Subsubsection-33.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-29.html#next">Prev</a> Export LaTeX (TikZ)</span>
+<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Main Schematic Dialog</span>
+<span class="next">History Buffer <a class="next" name="next" href="Help-Subsubsection-30.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-33"></a>Parts<a class="Label" name="subsec:Parts"> </a>
+<a class="toc" name="toc-Subsection-33"></a>Edit<a class="Label" name="sub:Edit"> </a>
 </h2>
 <div class="Standard">
-The Parts tasks are a category in the <a class="Reference" href="Help-Section-12.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> for adding all elements of the schematic (except the connection <a class="Reference" href="Help-Subsection-34.html#subsec:Wires">Wires↓</a>). All elements of the schematic are parts, but some parts are special and can be added more easily through menu commands:
+The Edit tasks are a category in the <a class="Reference" href="Help-Section-13.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> and are broken into two sections, one involving undo and redo of schematic edits and the other dealing with multiple selections:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsubsection-33.html#Control-Help:Add-Part">Add Part↓</a>- Adds any part to the schematic. These parts are cataloged in <a class="Reference" href="Help-Section-13.html#sec:Built-in-Devices">Built-in Devices (Parts)↓</a>.
+<a class="Reference" href="Help-Subsubsection-31.html#Control-Help:Undo">Undo↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-32.html#Control-Help:Redo">Redo↓</a>
 </li>
 
 </ul>
 <div class="Standard">
-The remaining add tasks are for adding special parts used for specific applications:
+and:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsubsection-34.html#Control-Help:Add-Port">Add Port↓</a> - Adds a <a class="Reference" href="Help-Subsection-64.html#subsec:Port">Port↓</a>. (used for <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a>)
+<a class="Reference" href="Help-Subsubsection-33.html#Control-Help:Delete-Selected">Delete Selected↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsubsection-35.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> - Adds an <a class="Reference" href="Help-Subsection-66.html#subsec:Output-Probe">Voltage Output Probe↓</a>. (used for <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>)
+<a class="Reference" href="Help-Subsubsection-34.html#Control-Help:Duplicate-Selected">Duplicate Selected↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsubsection-36.html#Control-Help:Add-Measure-Probe">Add Measure Probe↓</a> - Adds a <a class="Reference" href="Help-Subsection-65.html#subsec:Measure-Probe">Voltage Measure Probe↓</a>. (used only for <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Add-Stim">Add Stim↓</a> - Adds a <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↓</a>. (used only for <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-38.html#Control-Help:Add-Unknown">Add Unknown↓</a> - Adds a device whose s-parameters are unknown. (used only for <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-39.html#Control-Help:Add-System">Add System↓</a> - Adds a device that represents the s-parameters of a system. (used only for <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a>)
+<a class="Reference" href="Help-Subsubsection-35.html#Control-Help:Cut-Selected">Cut Selected↓</a>
 </li>
 
 </ul>
 <div class="Standard">
-If a part is selected, the following tasks are also possible:
+The undo and redo tasks depend on the <a class="Reference" href="Help-Subsubsection-30.html#sub:History-Buffer">History Buffer↓</a> which records the state of the schematic at various events.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-40.html#Control-Help:Delete-Part">Delete Part↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-41.html#Control-Help:Edit-Properties">Edit Properties↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-42.html#Control-Help:Duplicate-Part">Duplicate Part↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Rotate-Part">Rotate Part↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-44.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Flip-Vertically">Flip Vertically↓</a>
-</li>
-
-</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-32.html#next">Prev</a> Cut Selected</span>
-<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Add Part <a class="next" name="next" href="Help-Subsubsection-33.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-29.html#next">Prev</a> Export LaTeX (TikZ)</span>
+<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Main Schematic Dialog</span>
+<span class="next">History Buffer <a class="next" name="next" href="Help-Subsubsection-30.html#prev">Next</a></span>
 </div>
 
 </div>

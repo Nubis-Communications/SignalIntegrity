@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,62 +1073,74 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-45.html#next">Prev</a> Flip Vertically</span>
-<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Add Wire <a class="next" name="next" href="Help-Subsubsection-46.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-35.html#next">Prev</a> Cut Selected</span>
+<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Main Schematic Dialog</span>
+<span class="next">Add Part <a class="next" name="next" href="Help-Subsubsection-36.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-34"></a>Wires<a class="Label" name="subsec:Wires"> </a>
+<a class="toc" name="toc-Subsection-34"></a>Parts<a class="Label" name="sub:Parts"> </a>
 </h2>
 <div class="Standard">
-The Wires tasks are a category in the <a class="Reference" href="Help-Section-12.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> for dealing with wires:
+The Parts tasks are a category in the <a class="Reference" href="Help-Section-13.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> for adding all elements of the schematic (except the connection <a class="Reference" href="Help-Subsection-35.html#sub:Wires">Wires↓</a>). All elements of the schematic are parts, but some parts are special and can be added more easily through menu commands:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsubsection-46.html#Control-Help:Add-Wire">Add Wire↓</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Delete-Vertex">Delete Vertex↓</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-48.html#Control-Help:Duplicate-Vertex">Duplicate Vertex↓</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-49.html#Control-Help:Delete-Wire">Delete Wire↓</a>.
+<a class="Reference" href="Help-Subsubsection-36.html#Control-Help:Add-Part">Add Part↓</a>- Adds any part to the schematic. These parts are cataloged in <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↓</a>.
 </li>
 
 </ul>
 <div class="Standard">
-Wires are simply collections of vertices with implied lines between each adjacent vertex.
-</div>
-<div class="Standard">
-Although wires might look continuous in the schematic, a wire only every actually joins two nodes with a node being either a device port or a dot in the schematic where two or more wires or device ports connect. A wire joining two nodes may still contain several vertices as it snakes around the schematic.
-</div>
-<div class="Standard">
-wires are consolidated continuously as the schematic is drawn so a wire might be split or combined as things are connected.
-</div>
-<div class="Standard">
-Wires can be selected by:
+The remaining add tasks are for adding special parts used for specific applications:
 </div>
 <ul>
 <li>
-a vertex - in which case just the vertex can be deleted or moved or the entire wire containing the vertex can be deleted.
+<a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Add-Port">Add Port↓</a> - Adds a <a class="Reference" href="Help-Subsection-65.html#sub:Port">Port↓</a>. (used for <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Deembedding">Deembedding↑</a>)
 </li>
 <li>
-a segment (a line between two vertices), which is really just multiple selections of two vertices - in which case the two vertices can be moved or deleted.
+<a class="Reference" href="Help-Subsubsection-38.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> - Adds an <a class="Reference" href="Help-Subsection-67.html#sub:Output-Probe">Voltage Output Probe↓</a>. (used for <a class="Reference" href="Help-Section-7.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a>)
 </li>
 <li>
-multiple vertices.
+<a class="Reference" href="Help-Subsubsection-39.html#Control-Help:Add-Measure-Probe">Add Measure Probe↓</a> - Adds a <a class="Reference" href="Help-Subsection-66.html#sub:Measure-Probe">Voltage Measure Probe↓</a>. (used only for <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a>)
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-40.html#Control-Help:Add-Stim">Add Stim↓</a> - Adds a <a class="Reference" href="Help-Subsection-68.html#sub:Stim">Stim↓</a>. (used only for <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a>)
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-41.html#Control-Help:Add-Unknown">Add Unknown↓</a> - Adds a device whose s-parameters are unknown. (used only for <a class="Reference" href="Help-Section-8.html#sec:Deembedding">Deembedding↑</a>)
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-42.html#Control-Help:Add-System">Add System↓</a> - Adds a device that represents the s-parameters of a system. (used only for <a class="Reference" href="Help-Section-8.html#sec:Deembedding">Deembedding↑</a>)
 </li>
 
 </ul>
 <div class="Standard">
-Currently, wire handling is a bit awkward and will be improved in the future.
+If a part is selected, the following tasks are also possible:
 </div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Delete-Part">Delete Part↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-44.html#Control-Help:Edit-Properties">Edit Properties↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Duplicate-Part">Duplicate Part↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-46.html#Control-Help:Rotate-Part">Rotate Part↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-48.html#Control-Help:Flip-Vertically">Flip Vertically↓</a>
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-45.html#next">Prev</a> Flip Vertically</span>
-<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Add Wire <a class="next" name="next" href="Help-Subsubsection-46.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-35.html#next">Prev</a> Cut Selected</span>
+<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Main Schematic Dialog</span>
+<span class="next">Add Part <a class="next" name="next" href="Help-Subsubsection-36.html#prev">Next</a></span>
 </div>
 
 </div>

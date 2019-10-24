@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,108 +1073,47 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-9.html#next">Prev</a> RLGC Fit</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-25.html#next">Prev</a> Virtual Probing Example</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">S-Parameter Viewer File Menu <a class="next" name="next" href="Help-Subsection-26.html#prev">Next</a></span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="Help-Section-11.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-10"></a>S-parameter Viewer<a class="Label" name="sec:S-parameter-Viewer"> </a>
+<a class="toc" name="toc-Section-10"></a>RLGC Fit<a class="Label" name="sec:RLGC-Fit"> </a>
 </h1>
 <div class="Standard">
-The s-parameter viewer is a dialog that allows viewing of s-parameters or s-parameter-like things. An example of an s-parameter-like think are the transfer parameters used in the <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> applications. S-parameters are the primary result of the <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> application.
+This calculates the s-parameters of a <a class="Reference" href="Help-Subsection-51.html#sub:Telegrapher---Two-Port">Telegrapher - Two Port↓</a> device fitted to the s-parameters of the schematic.
 </div>
 <div class="Standard">
-The S-parameter viewer is invoked in the following ways:
+When invoked, the system will:
 </div>
 <ul>
 <li>
-As a result of a successful <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> or <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> calculation.
+Calculate the s-parameters of the schematic (see <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a>).
 </li>
 <li>
-When the transfer parameters are viewed from the <a class="Reference" href="Help-Section-11.html#sec:Simulator-Dialog">Simulator Dialog↓</a> during <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> or <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a>.
+Fit the <a class="Reference" href="Help-Subsection-51.html#sub:Telegrapher---Two-Port">Telegrapher - Two Port↓</a> device to the s-parameters.
 </li>
 <li>
-When browsing an s-parameter file in the part property dialog of a file device. (see the <a class="Reference" href="Help-Subsubsection-33.html#Control-Help:Add-Part">Add Part↓</a> and <a class="Reference" href="Help-Subsubsection-41.html#Control-Help:Edit-Properties">Edit Properties↓</a> commands, or the <a class="Reference" href="Help-Subsection-38.html#subsec:File-1">File↓</a> device)
+Open the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a> showing the s-parameters of the resulting device.
 </li>
 <li>
-When invoked from the <b><i>SignalIntegrityApp</i></b> main menu using the <a class="Reference" href="Help-Subsubsection-54.html#Control-Help:S-parameter-Viewer">S-parameter Viewer↓</a> command at any time to view any file.
+Place the <a class="Reference" href="Help-Subsection-51.html#sub:Telegrapher---Two-Port">Telegrapher - Two Port↓</a> device on the clipboard.
 </li>
 
 </ul>
 <div class="Standard">
-When the s-parameter viewer dialog is invoked from the menu, the user is asked to select a file for viewing. This file must have the extension .s[x]p where x is the number of ports. It must also be a valid touchstone file.
+With the fitted device on the clipboard, pressing the right mouse button anywhere on the schematic will place the new device.
 </div>
 <div class="Standard">
-<img class="embedded" src="SParameterViewerDialog.png" alt="figure SParameterViewerDialog.png" style="max-width: 1033px; max-height: 727px;"/>
-
+The fit is performed iteratively using the Levenberg-Marquardt algorithm. The fit progress is shown in the status message area, which shows the iteration number and the mean-squared error. Convergence is determined automatically.
 </div>
 <div class="Standard">
-The dialog is broken into four panes:
+Devices that fit automatically can be placed in the schematic using the <a class="Reference" href="Help-Subsection-53.html#sub:RLGC-Fit">RLGC Fit↓</a> device.
 </div>
-<ul>
-<li>
-Upper Left - Magnitude Response
-</li>
-<li>
-Upper Right - Phase Response
-</li>
-<li>
-Lower Left - Impulse Response
-</li>
-<li>
-Lower Right - Step Response
-</li>
-
-</ul>
-<div class="Standard">
-When s-parameters are read from a file, they are plotted exactly as read at the exact frequency points present in the file.
-</div>
-<div class="Standard">
-When s-parameters have been calculated, they are calculated according to the <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> as specified.
-</div>
-<div class="Standard">
-The calculation properties that you are allowed to specify force the result to be evenly spaced points from zero frequency to the end frequency specified. But for files read from the disk and produced outside these tools, the frequencies are often at odd locations and frequently don’t include the zero frequency points. In these cases, the impulse response and step response cannot be shown and the panes are blank.
-</div>
-<div class="Standard">
-Each of the dialog panes have their own, independent control of panning and zooming. These controls come standard with MatPlotLib (see <a class="URL" href="http://matplotlib.org">http://matplotlib.org</a>), the standard Python way of plotting things.
-</div>
-<div class="Standard">
-Below the panes are an array of buttons determining the s-parameters being shown. If transfer parameters are being shown, the buttons are named not by port numbers but rather as relationships between, in the case of simulation, output probe voltages and source voltages or, in the case of virtual probing, output probe voltages and measurement probe voltages.
-</div>
-<div class="Standard">
-The theory behind the s-parameter viewer dialog is that examination of s-parameters, particularly for signal integrity, must include the time-domain, as the time-domain tells you how the s-parameters will perform in time-domain simulations. Speaking simply, the impulse response of the s-parameter shown is equivalent to a time-domain filter that filters waveforms. When viewing the impulse response, you should be looking for causality and settling issues caused mostly by insufficient frequency resolution. If there are bumps in the impulse response prior to time zero or prior to the electrical length of the device (that are not insignificant), then you have causality violations. If the impulse occurs near the end of the impulse response and you see remnants that wrap to the beginning of the response, you have insufficient frequency resolution. The step response highlights these type of problems and additionally show problems when impulse responses settle to non-zero values at the beginning and end of the response. If you have these response problems from s-parameters read from a file, then there is really nothing you can do with them. If you have these issues as a result of a calculation, then sometimes these problems can be repaired by changing the <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>.
-</div>
-<div class="Standard">
-If the s-parameter file being viewed is an input file to any of the <b><i>SignalIntegrityApp</i></b> applications, then the file will end up getting resampled according to the <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> and the viewer is a good way to see the effects of this resampling, most importantly in the time-domain. As mentioned, if the s-parameter viewer dialog is invoked on a file, then the file is shown as read. Selecting resample from either the Calculate menu or the resample button shows what the s-parameters will look like when resampled by the application. If the time-domain results look poor after resampling, then you have a problem. Currently, in this version of <b><i>SignalIntegrityApp</i></b>, the resampling algorithms are geared towards strictly proper resampling of files with equally spaced points and the application does a poor job of extrapolation. Part of this is on purpose, because you really should make sure that your measurement instruments or other simulation tools provide the proper s-parameter files, but in the future, the intent is to add many more tools and algorithms for properly dealing with these situations.
-</div>
-<div class="Standard">
-Finally, in the s-parameter viewer dialog, you have the ability to read another file, or write the file to the disk using the file menu commands or toolbar buttons.
-</div>
-<div class="Standard">
-You can also view the magnitude response and phase response with a <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Variable-Line-Width">Variable Line Width↓</a> which helps especially in viewing the phase response.
-</div>
-<div class="Standard">
-Note that in the phase response there is the ability to unwrap the phase. Pressing this button does not strictly unwrap the phase, but calculates the principle delay in the impulse response (if the impulse response can be calculated) and removes this delay from the phase response shown. In the future, the intent is to probably entirely unwrap the phase, and to show the phase only when the magnitude response is not unreasonably small.
-</div>
-<div class="Standard">
-In the s-parameter viewer there are various menus that are available:
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-26.html#subsec:S-Parameter-Viewer-File">S-Parameter Viewer File Menu↓</a> - read and write files.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-27.html#subsec:S-Parameter-Viewer-Properties">S-Parameter Viewer Properties Menu↓</a> - s-parameter properties.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-28.html#subsec:S-Parameter-Viewer-View">S-Parameter Viewer View Menu↓</a> - various viewing options.
-</li>
-
-</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-9.html#next">Prev</a> RLGC Fit</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-25.html#next">Prev</a> Virtual Probing Example</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">S-Parameter Viewer File Menu <a class="next" name="next" href="Help-Subsection-26.html#prev">Next</a></span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="Help-Section-11.html#prev">Next</a></span>
 </div>
 
 </div>

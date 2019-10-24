@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-33.html#next">Prev</a> Add Part</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Parts</span>
-<span class="next">Add Output Probe <a class="next" name="next" href="Help-Subsubsection-35.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-33.html#next">Prev</a> Delete Selected</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Edit</span>
+<span class="next">Cut Selected <a class="next" name="next" href="Help-Subsubsection-35.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-34"></a>Add Port<a class="Label" name="Control-Help:Add-Port"> </a>
+<a class="toc" name="toc-Subsubsection-34"></a>Duplicate Selected<a class="Label" name="Control-Help:Duplicate-Selected"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-12.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+<a class="Reference" href="Help-Section-13.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-33.html#subsec:Parts">Parts↑</a> ▸ Add Port
+<a class="Reference" href="Help-Subsection-33.html#sub:Edit">Edit↑</a> ▸ Duplicate Selected
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+P,R
+Alt+E,U
 </td>
 
 </tr>
@@ -1114,7 +1114,7 @@ Alt+P,R
 <i>Key Binding</i>
 </td>
 <td align="center" valign="top">
-None
+Ctrl+C
 </td>
 
 </tr>
@@ -1123,7 +1123,8 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-None
+<img class="embedded" src="edit-copy-3.png" alt="figure edit-copy-3.png" style="max-width: 16px; max-height: 16px;"/>
+
 </td>
 
 </tr>
@@ -1132,7 +1133,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+When one or more drawing element is selected
 </td>
 
 </tr>
@@ -1141,71 +1142,24 @@ Always
 
 </div>
 <div class="Standard">
-This command is used to add ports to a schematic.
+This command is available whenever a device is selected, a wire is selected, or if multiple items are selected. Which of these states is shown in the status message area.
 </div>
 <div class="Standard">
-A <a class="Reference" href="Help-Subsection-64.html#subsec:Port">Port↓</a> is only added to schematics intended for <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> or for <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> applications.
+The items selected to be duplicated are shown as blue items in the schematic.
 </div>
 <div class="Standard">
-See <a class="Reference" href="Help-Subsection-2.html#subsec:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation↑</a> for s-parameter calculation applications.
+When invoked, the selections are copied to memory and the mouse cursor changes to a finger indicating that the new copied parts will be placed where the finger points on the next mouse click.
 </div>
 <div class="Standard">
-See <a class="Reference" href="Help-Subsection-13.html#subsec:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding↑</a> for deembedding applications.
+When the new parts are placed, all of the reference designators are updated to be unique names based on the default designator rules for the part.
 </div>
 <div class="Standard">
-This command is a shortcut which is the same as invoking <a class="Reference" href="Help-Subsubsection-33.html#Control-Help:Add-Part">Add Part↑</a> and selecting Port from the Special parts category.
-</div>
-<div class="Standard">
-<img class="embedded" src="PartPropertiesPort.png" alt="figure PartPropertiesPort.png" style="max-width: 394px; max-height: 429px;"/>
-
-</div>
-<div class="Standard">
-On this dialog, you see the only property, the port number, the orientation settings for the port, and a picture of the port element.
-</div>
-<div class="Standard">
-The port part property are shown with two checkboxes, followed by a label, followed by the port number. The port number is filled in by default as the lowest port number not already in the schematic.
-</div>
-<div class="Standard">
-The first checkbox determines whether the port number should be shown in the schematic.
-</div>
-<div class="Standard">
-The second checkbox is superfluous for ports. For part properties it determines whether the keyword for the property should be shown, but a port number does not have a keyword, just the number.
-</div>
-<div class="Standard">
-The port number is modified by clicking inside the white area where the port number value is shown. 
-</div>
-<div class="Standard">
-To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the port number that is already there. If you double-click, the entry is cleared and you can enter an entirely new port number.
-</div>
-<div class="Standard">
-keep in mind that when you have completed drawing your schematic, the port number values must be numbered from 1 to however many ports are present with no gaps in the numbers. Otherwise you will get an error when you go to calculate.
-</div>
-<div class="Standard">
-When you are satisfied with the port number and orientation, press OK.
-</div>
-<div class="Standard">
-The part properties dialog disappears and, when hovered over the canvas, you will see that your mouse cursor has now changed to a finger to indicate that the port can now be placed. left-clicking now has the port shown and selected:
-</div>
-<div class="Standard">
-<img class="embedded" src="PortInSchematic.png" alt="figure PortInSchematic.png" style="max-width: 469px; max-height: 221px;"/>
-
-</div>
-<div class="Standard">
-Keeping the button pressed, the port remains selected and can be precisely placed.
-</div>
-<div class="Standard">
-Note that until a port is connected, you will see a red x at the port connection point.
-</div>
-<div class="Standard">
-To change the port number after the port has been placed, simply double-click on the part to bring up the part properties, or select the port and use the <a class="Reference" href="Help-Subsubsection-41.html#Control-Help:Edit-Properties">Edit Properties↓</a> command.
-</div>
-<div class="Standard">
-If at any time in the process of adding a port, you press the Cancel button (or &lt;escape&gt;), the port addition is aborted and you return to the schematic with no new port added.
+This command is also available by right clicking while multiple devices are selected through a context sensitive menu.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-33.html#next">Prev</a> Add Part</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Parts</span>
-<span class="next">Add Output Probe <a class="next" name="next" href="Help-Subsubsection-35.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-33.html#next">Prev</a> Delete Selected</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-33.html">Up</a> Edit</span>
+<span class="next">Cut Selected <a class="next" name="next" href="Help-Subsubsection-35.html#prev">Next</a></span>
 </div>
 
 </div>

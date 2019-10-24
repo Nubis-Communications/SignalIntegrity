@@ -16,8 +16,8 @@
 %  <polyline lw="2" lc="red">71,-47 73,-49</polyline>
 %  <polyline lw="2" lc="red">73,-47 71,-49</polyline>
 %  <text x="84" y="-71.5" t="gain 1.0 " h="3" halign="l" lc="black"/>
-%  <text x="84" y="-69" t="zi 0 Ohm" h="3" halign="l" lc="black"/>
-%  <text x="84" y="-66.5" t="zo 100.0 MOhm" h="3" halign="l" lc="black"/>
+%  <text x="84" y="-69" t="zi 0 ohm" h="3" halign="l" lc="black"/>
+%  <text x="84" y="-66.5" t="zo 100.0 Mohm" h="3" halign="l" lc="black"/>
 %  <text x="84" y="-64" t="D1" h="3" halign="l" lc="black"/>
 %</TpX>
 \centering
@@ -39,7 +39,7 @@
 \path[line width=0.6mm, draw=red] (71,-47) -- (73,-49);
 \path[line width=0.6mm, draw=red] (73,-47) -- (71,-49);
 \draw[black] (84,-71.5) node[anchor=base west]{gain 1.0 };
-\draw[black] (84,-69) node[anchor=base west]{zi 0 Ohm};
-\draw[black] (84,-66.5) node[anchor=base west]{zo 100.0 MOhm};
+\draw[black] (84,-69) node[anchor=base west]{zi 0 ohm};
+\draw[black] (84,-66.5) node[anchor=base west]{zo 100.0 Mohm};
 \draw[black] (84,-64) node[anchor=base west]{D1};
 \end{tikzpicture}%

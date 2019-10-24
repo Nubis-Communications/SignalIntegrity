@@ -18,7 +18,7 @@
 %  <polyline lw="2" lc="red">39,-31 41,-33</polyline>
 %  <polyline lw="2" lc="red">41,-31 39,-33</polyline>
 %  <text x="24" y="-16" t="td 0 s" h="3" halign="c" lc="black"/>
-%  <text x="24" y="-13.5" t="zc 50.0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-13.5" t="zc 50.0 ohm" h="3" halign="c" lc="black"/>
 %  <text x="24" y="-11" t="T1" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
@@ -42,6 +42,6 @@
 \path[line width=0.6mm, draw=red] (39,-31) -- (41,-33);
 \path[line width=0.6mm, draw=red] (41,-31) -- (39,-33);
 \draw[black] (24,-16) node[anchor=base]{td 0 s};
-\draw[black] (24,-13.5) node[anchor=base]{zc 50.0 Ohm};
+\draw[black] (24,-13.5) node[anchor=base]{zc 50.0 ohm};
 \draw[black] (24,-11) node[anchor=base]{T1};
 \end{tikzpicture}%

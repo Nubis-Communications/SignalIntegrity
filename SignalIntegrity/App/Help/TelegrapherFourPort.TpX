@@ -15,14 +15,14 @@
 %  <polyline lc="black">40,-72 36,-72</polyline>
 %  <polyline lw="2" lc="red">39.5,-71.5 40.5,-72.5</polyline>
 %  <polyline lw="2" lc="red">40.5,-71.5 39.5,-72.5</polyline>
-%  <text x="32" y="-64" t="rp 0 Ohm" h="3" halign="c" lc="black"/>
-%  <text x="32" y="-60.75" t="rsep 0 Ohm/sqrt(Hz)" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-64" t="rp 0 ohm" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-60.75" t="rsep 0 ohm/sqrt(Hz)" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-57.5" t="lp 1.0 nH" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-54.25" t="gp 0 S" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-51" t="cp 1.0 pF" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-47.75" t="dfp 0  " h="3" halign="c" lc="black"/>
-%  <text x="32" y="-44.5" t="rn 0 Ohm" h="3" halign="c" lc="black"/>
-%  <text x="32" y="-41.25" t="rsen 0 Ohm/sqrt(Hz)" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-44.5" t="rn 0 ohm" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-41.25" t="rsen 0 ohm/sqrt(Hz)" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-38" t="ln 1.0 nH" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-34.75" t="gn 0 S" h="3" halign="c" lc="black"/>
 %  <text x="32" y="-31.5" t="cn 1.0 pF" h="3" halign="c" lc="black"/>
@@ -52,14 +52,14 @@
 \path[line width=0.30mm, draw=black] (40,-72) -- (36,-72);
 \path[line width=0.6mm, draw=red] (39.5,-71.5) -- (40.5,-72.5);
 \path[line width=0.6mm, draw=red] (40.5,-71.5) -- (39.5,-72.5);
-\draw[black] (32,-64) node[anchor=base]{rp 0 Ohm};
-\draw[black] (32,-60.75) node[anchor=base]{rsep 0 Ohm/sqrt(Hz)};
+\draw[black] (32,-64) node[anchor=base]{rp 0 ohm};
+\draw[black] (32,-60.75) node[anchor=base]{rsep 0 ohm/sqrt(Hz)};
 \draw[black] (32,-57.5) node[anchor=base]{lp 1.0 nH};
 \draw[black] (32,-54.25) node[anchor=base]{gp 0 S};
 \draw[black] (32,-51) node[anchor=base]{cp 1.0 pF};
 \draw[black] (32,-47.75) node[anchor=base]{dfp 0  };
-\draw[black] (32,-44.5) node[anchor=base]{rn 0 Ohm};
-\draw[black] (32,-41.25) node[anchor=base]{rsen 0 Ohm/sqrt(Hz)};
+\draw[black] (32,-44.5) node[anchor=base]{rn 0 ohm};
+\draw[black] (32,-41.25) node[anchor=base]{rsen 0 ohm/sqrt(Hz)};
 \draw[black] (32,-38) node[anchor=base]{ln 1.0 nH};
 \draw[black] (32,-34.75) node[anchor=base]{gn 0 S};
 \draw[black] (32,-31.5) node[anchor=base]{cn 1.0 pF};

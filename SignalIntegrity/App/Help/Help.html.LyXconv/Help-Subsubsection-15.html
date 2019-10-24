@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> Save Waveforms</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-29.html">Up</a> Simulator File Menu</span>
-<span class="next">Output to \SpecialChar LaTeX (TikZ) <a class="next" name="next" href="Help-Subsubsection-16.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> S-Parameter Viewer Frequency Zoom Options</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-29.html">Up</a> S-Parameter Viewer Zoom Menu</span>
+<span class="next">S-Parameter Viewer Vertical Zoom Options <a class="next" name="next" href="Help-Subsubsection-16.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-15"></a>Read Waveforms<a class="Label" name="subsec:Read-Waveforms"> </a>
+<a class="toc" name="toc-Subsubsection-15"></a>S-Parameter Viewer Time Zoom Options<a class="Label" name="Control-Help:S-Parameter-Viewer-Time-Zoom"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-Simulator and Virtual Probe Dialog
+S-parameter Viewer Times Zoom
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ Simulator and Virtual Probe Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-File ▸ Open
+Zoom ▸ Times
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ File ▸ Open
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,R
+Alt+Z,T
 </td>
 
 </tr>
@@ -1123,8 +1123,7 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-<img class="embedded" src="document-open-2.png" alt="figure document-open-2.png" style="max-width: 16px; max-height: 16px;"/>
-
+None
 </td>
 
 </tr>
@@ -1142,12 +1141,48 @@ Always
 
 </div>
 <div class="Standard">
-This is currently disabled and not implemented.
+This determines how the zooms of the horizontal axis of plots where the axis is time are joined together.
 </div>
+<div class="Standard">
+The default is that time axes within a given view are joined, and that reflect plots are joined with all others, and off-diagonal plots are joined with all others.
+</div>
+<div class="Standard">
+The options are:
+</div>
+<ul>
+<li>
+Join within views (default) - this joins the impulse response, step response, and impedance time axis for a given s-parameter view.
+</li>
+<li>
+Join with other views (default) - this joins the zoom to other frequency-domain s-parameters not being viewed. If this is set, then the rules for joining with the other plots are:<ul>
+<li>
+Join all views - all s-parameter plots time axes are joined. Otherwise, you can:<ul>
+<li>
+Join off-diagonal views (default) - all s-parameter plots time axes that are off the diagonal are joined. Otherwise, you can:<ul>
+<li>
+Join reciprocal views - all reciprocal s-parameters (i.e. <span class="formula"><i>S</i><sub><i>r</i>, <i>c</i></sub></span> with <span class="formula"><i>S</i><sub><i>c</i>, <i>r</i></sub></span> are joined).
+</li>
+
+</ul>
+
+</li>
+<li>
+Join reflect views (default) - all time-domain s-parameter plots that are on the diagonal (i.e. are reflect s-parameters <span class="formula"><i>S</i><sub><i>r</i>, <i>c</i></sub></span>, <span class="formula"><i>r</i> =  = <i>c</i></span> are joined).
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> Save Waveforms</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-29.html">Up</a> Simulator File Menu</span>
-<span class="next">Output to \SpecialChar LaTeX (TikZ) <a class="next" name="next" href="Help-Subsubsection-16.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> S-Parameter Viewer Frequency Zoom Options</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-29.html">Up</a> S-Parameter Viewer Zoom Menu</span>
+<span class="next">S-Parameter Viewer Vertical Zoom Options <a class="next" name="next" href="Help-Subsubsection-16.html#prev">Next</a></span>
 </div>
 
 </div>

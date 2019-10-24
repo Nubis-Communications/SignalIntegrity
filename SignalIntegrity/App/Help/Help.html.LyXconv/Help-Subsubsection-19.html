@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-31.html#next">Prev</a> File</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-31.html">Up</a> File</span>
-<span class="next">New Project <a class="next" name="next" href="Help-Subsubsection-20.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-18.html#next">Prev</a> Read Waveforms</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-30.html">Up</a> Simulator File Menu</span>
+<span class="next">Simulator Calculation Menu <a class="next" name="next" href="Help-Subsection-31.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-19"></a>Open Recent File<a class="Label" name="Control-Help:Open-Recent-File"> </a>
+<a class="toc" name="toc-Subsubsection-19"></a>Output to LaTeX (TikZ)<a class="Label" name="Control-Help:Output-to-LaTeX"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-12.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+Simulator and Virtual Probe Dialog
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-31.html#subsec:File">File↑</a> ▸ Open Recent Project
+File ▸ Output to LaTeX (TikZ)
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,R
+Alt+F,L
 </td>
 
 </tr>
@@ -1132,31 +1132,33 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-based on preference (<a class="Reference" href="Help-Subsection--9.html#subsec:RetainLastFilesOpened">RetainLastFilesOpened↓</a>)
+Always
 </td>
 
 </tr>
 
 </table>
-\begin_inset Separator latexpar\end_inset
-</div>
-<div class="Standard">
-<div class="center">
-<img class="embedded" src="LastFiles.png" alt="figure LastFiles.png" style="max-width: 645px; max-height: 354px;"/>
-
-</div>
 
 </div>
 <div class="Standard">
-This allows recently opened files to be selected easily, without having to navigate to them, with the assumption that the recent files are the most likely to be used.
+This causes the current plot to be output in a graphical file format called <a class="URL" href="https://www.ctan.org/pkg/pgf?lang=en">TikZ</a> which is interpreted in TeX and LaTeX based documents (see <a class="URL" href="https://tug.org/">TeX Users Group (TUG)</a>.
 </div>
 <div class="Standard">
-The availability of the last four files depends on the preference to retain the last files opened (<a class="Reference" href="Help-Subsection--9.html#subsec:RetainLastFilesOpened">RetainLastFilesOpened↓</a>).
+The TikZ file is directly importable into a LaTeX based document.
+</div>
+<div class="Standard">
+This will only be available if matplotlib2tikz is installed in your Python installation. See <a class="URL" href="https://github.com/nschloe/matplotlib2tikz">https://github.com/nschloe/matplotlib2tikz</a>.
+</div>
+<div class="Standard">
+Because of differences between graphics drawing commands, the TikZ will vary slightly from the actual plot shown in <b><i>SignalIntegrityApp</i></b>.
+</div>
+<div class="Standard">
+For .png or other rasterized graphics use the disk button on the plot toolbar.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-31.html#next">Prev</a> File</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-31.html">Up</a> File</span>
-<span class="next">New Project <a class="next" name="next" href="Help-Subsubsection-20.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-18.html#next">Prev</a> Read Waveforms</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-30.html">Up</a> Simulator File Menu</span>
+<span class="next">Simulator Calculation Menu <a class="next" name="next" href="Help-Subsection-31.html#prev">Next</a></span>
 </div>
 
 </div>

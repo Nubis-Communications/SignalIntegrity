@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,59 +1073,47 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-18.html#next">Prev</a> Deembedding Example</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-11.html#next">Prev</a> Simulation Example</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Drawing a Schematic for Virtual Probing <a class="next" name="next" href="Help-Subsection-19.html#prev">Next</a></span>
+<span class="next">Drawing a Schematic for Deembedding <a class="next" name="next" href="Help-Subsection-12.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-8"></a>Virtual Probing<a class="Label" name="sec:Virtual-Probing"> </a>
+<a class="toc" name="toc-Section-8"></a>Deembedding<a class="Label" name="sec:Deembedding"> </a>
 </h1>
 <div class="Standard">
-Virtual probing is about converting measurements made a various circuit locations to waveforms that would appear had the circuit been probed at other locations.
+Deembedding is related to <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a>. While <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a> solves for a system resulting from a circuit containing interconnected, known devices, deembedding solves for unknowns given the resulting system and a circuit containing interconnected, known and unknown devices.
 </div>
 <div class="Standard">
-Virtual probing can be used for a number of purposes including:
+The deembedding problem is stated as: Given a circuit containing interconnected devices, some of whose s-parameters are known and some unknown, and given the s-parameters of the entire system, solve for the s-parameters of the unknown devices.
+</div>
+<div class="Standard">
+The steps required for deembedding are:
 </div>
 <ul>
 <li>
-Time-domain deembedding - removing the effects of components, including probes from a measurement.
+<a class="Reference" href="Help-Subsection-12.html#sub:Drawing-a-Schematic-for-Deembedding">Drawing a Schematic for Deembedding↓</a> containing interconnected devices and wires with <a class="Reference" href="Help-Subsection-14.html#sub:Unknowns">Unknowns↓</a>.
 </li>
 <li>
-Undoing the effects of probe loading from a measurement.
+<a class="Reference" href="Help-Subsection-13.html#sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding↓</a>.
 </li>
 <li>
-Compliance testing or measuring well a system will perform under various conditions.
+<a class="Reference" href="Help-Subsection-15.html#sub:Defining-the-System">Defining the System↓</a>.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-16.html#sub:Setting-Calculation-Properties-for-Deembedding">Setting Calculation Properties for Deembedding↓</a>.
+</li>
+<li>
+Running the <a class="Reference" href="Help-Subsection-17.html#sub:Deembedding-Calculation">Deembedding Calculation↓</a>.
 </li>
 
 </ul>
 <div class="Standard">
-This section provides step-by-step instructions for virtual probing. You can read through this, or go immediately to the <a class="Reference" href="Help-Subsection-25.html#subsec:Virtual-Probing-Example">Virtual Probing Example↓</a>. 
-</div>
-<div class="Standard">
-In order to virtually probe a circuit, you first need a schematic containing a number of devices and interconnected with wires. See <a class="Reference" href="Help-Subsection-19.html#subsec:Drawing-a-Schematic-for-Virtual-Probing">Drawing a Schematic for Virtual Probing↓</a>.
-</div>
-<div class="Standard">
-You will need to supply probing points in the circuit for providing measured waveforms (<a class="Reference" href="Help-Subsection-20.html#subsec:Measure-Probes">Measure Probes↓</a>) and for specifying the output waveforms <i>(<a class="Reference" href="Help-Subsection-21.html#subsec:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↓</a></i>).
-</div>
-<div class="Standard">
-A <a class="Reference" href="Help-Subsection-20.html#subsec:Measure-Probes">Measure Probes↓</a> requires a <a class="Reference" href="Help-Section-16.html#sec:Waveform">Waveform↓</a> file that provides the waveform measured at that location. We talk about these in <a class="Reference" href="Help-Subsection-20.html#subsec:Measure-Probes">Measure Probes↓</a>.
-</div>
-<div class="Standard">
-An <a class="Reference" href="Help-Subsection-66.html#subsec:Output-Probe">Voltage Output Probe↓</a> supplies the location of the node for which the output waveform is desired, the name of the waveform in the simulation, and any gain, offset, or delay to be applied. In that sense it operates like a real probe (without loading effects). We talk about these in <a class="Reference" href="Help-Subsection-21.html#subsec:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↓</a>.
-</div>
-<div class="Standard">
-For virtual probing to work correctly, all sources of stimuli (i.e. waves entering the system, or sources of voltage and/or current) must be identified. In virtual probing, you don’t supply stimuli, only tell it how it enters the system. This identification of stimuli is achieved through the use of the <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↓</a>. This is discussed in <a class="Reference" href="Help-Subsection-22.html#subsec:Stimuli">Stimuli↓</a>.
-</div>
-<div class="Standard">
-Once you are ready for virtual probing, you should configure the Calculation properties. See <a class="Reference" href="Help-Subsection-23.html#subsec:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↓</a>.
-</div>
-<div class="Standard">
-Once a circuit is drawn containing at least one <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↓</a>, at least one <a class="Reference" href="Help-Subsection-65.html#subsec:Measure-Probe">Voltage Measure Probe↓</a> and at least one <a class="Reference" href="Help-Subsection-66.html#subsec:Output-Probe">Voltage Output Probe↓</a>, presumably with a circuit that has been properly configured, you can virtually probe the circuit. Virtual probing involves first the calculation of transfer parameters which are applied to the measured input waveforms to generate the output waveforms and the waveforms are displayed. See <a class="Reference" href="Help-Subsection-24.html#subsec:Virtual-Probing">Virtual Probing↓</a>.
+If you like, you can read the <a class="Reference" href="Help-Subsection-18.html#sub:Deembedding-Example">Deembedding Example↓</a> where hopefully everything will be clear.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-18.html#next">Prev</a> Deembedding Example</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-11.html#next">Prev</a> Simulation Example</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Drawing a Schematic for Virtual Probing <a class="next" name="next" href="Help-Subsection-19.html#prev">Next</a></span>
+<span class="next">Drawing a Schematic for Deembedding <a class="next" name="next" href="Help-Subsection-12.html#prev">Next</a></span>
 </div>
 
 </div>

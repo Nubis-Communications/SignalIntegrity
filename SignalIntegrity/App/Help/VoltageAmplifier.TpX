@@ -7,8 +7,8 @@
 %  <polyline lw="2.00" lc="red">35.5,-27.5 36.5,-28.5</polyline>
 %  <polyline lw="2.00" lc="red">36.5,-27.5 35.5,-28.5</polyline>
 %  <text x="24" y="-19" t="gain 1.0 " h="3" halign="c" lc="black"/>
-%  <text x="24" y="-15.75" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
-%  <text x="24" y="-12.5" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-15.75" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="24" y="-12.5" t="zo 0 ohm" h="3" halign="c" lc="black"/>
 %  <text x="24" y="-9.25" t="D1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">53.25,-25.5 54.75,-25.5</polyline>
 %  <polyline lc="black">54,-24.75 54,-26.25</polyline>
@@ -29,8 +29,8 @@
 %  <polyline lw="2.00" lc="red">63.5,-23.5 64.5,-24.5</polyline>
 %  <polyline lw="2.00" lc="red">64.5,-23.5 63.5,-24.5</polyline>
 %  <text x="56" y="-19" t="gain 1.0 " h="3" halign="c" lc="black"/>
-%  <text x="56" y="-15.75" t="zi 100.0 MOhm" h="3" halign="c" lc="black"/>
-%  <text x="56" y="-12.5" t="zo 0 Ohm" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-15.75" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-12.5" t="zo 0 ohm" h="3" halign="c" lc="black"/>
 %  <text x="56" y="-9.25" t="D2" h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
@@ -49,8 +49,8 @@
 \path[line width=0.60mm, draw=L] (36.50,-27.50) -- (35.50,-28.50);
 \definecolor{T}{rgb}{0,0,0}
 \draw[T] (24.00,-19.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{gain 1.0 }};
-\draw[T] (24.00,-15.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zi 100.0 MOhm}};
-\draw[T] (24.00,-12.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zo 0 Ohm}};
+\draw[T] (24.00,-15.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zi 100.0 Mohm}};
+\draw[T] (24.00,-12.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zo 0 ohm}};
 \draw[T] (24.00,-9.25) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{D1}};
 \definecolor{L}{rgb}{0,0,0}
 \path[line width=0.30mm, draw=L] (53.25,-25.50) -- (54.75,-25.50);
@@ -79,7 +79,7 @@
 \path[line width=0.60mm, draw=L] (63.50,-23.50) -- (64.50,-24.50);
 \path[line width=0.60mm, draw=L] (64.50,-23.50) -- (63.50,-24.50);
 \draw[T] (56.00,-19.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{gain 1.0 }};
-\draw[T] (56.00,-15.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zi 100.0 MOhm}};
-\draw[T] (56.00,-12.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zo 0 Ohm}};
+\draw[T] (56.00,-15.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zi 100.0 Mohm}};
+\draw[T] (56.00,-12.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{zo 0 ohm}};
 \draw[T] (56.00,-9.25) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{D2}};
 \end{tikzpicture}%

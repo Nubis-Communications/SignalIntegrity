@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-08-09"/>
+<meta name="create-date" content="2019-10-24"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,53 +1073,152 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-80.html#next">Prev</a> System</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-66.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">device <a class="next" name="next" href="Help-Subsection-81.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-39.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-14"></a>Netlist<a class="Label" name="sec:Netlist"> </a>
+<a class="toc" name="toc-Section-14"></a>Built-in Devices (Parts)<a class="Label" name="sec:Built-in-Devices"> </a>
 </h1>
 <div class="Standard">
-Netlists are the internal text based format of the schematic. There is a one-to-one correspondance between the netlist and the schematic from a device and connectivity standpoint.
-</div>
-<div class="Standard">
-each line in the netlist starts with one of the following keywords:
+<b><i>SignalIntegrity</i></b> defines the following built-in parts. If you don’t see what you want, you can always supply an s-parameter file through a <a class="Reference" href="Help-Subsection-39.html#sub:File-1">File↓</a> part.
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-81.html#subsec:device">device↓</a>- specifies one of the <a class="Reference" href="Help-Section-13.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
+<a class="Reference" href="Help-Subsection-39.html#sub:File-1">File↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-82.html#subsec:connect">connect↓</a>- specifies one or more device pin connections.
+<a class="Reference" href="Help-Subsection-40.html#sub:Resistor">Resistor↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-83.html#subsec:port">port↓</a>- specifies a <a class="Reference" href="Help-Subsection-64.html#subsec:Port">Port↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-5.html#sec:S-parameter-Generation">S-parameter Generation↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> applications).
+<a class="Reference" href="Help-Subsection-41.html#sub:Capacitor">Capacitor↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-84.html#subsec:meas">meas↓</a>- specifies a <a class="Reference" href="Help-Subsection-65.html#subsec:Measure-Probe">Voltage Measure Probe↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
+<a class="Reference" href="Help-Subsection-42.html#sub:Inductor">Inductor↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-85.html#subsec:output">output↓</a>- specifies an <a class="Reference" href="Help-Subsection-66.html#subsec:Output-Probe">Voltage Output Probe↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-6.html#sec:Simulation">Simulation↑</a> applications).
+<a class="Reference" href="Help-Subsection-43.html#sub:Mutual">Mutual↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-86.html#subsec:stim">stim↓</a>- specifies a <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↑</a> and it’s associated device pin. (used only for <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
+<a class="Reference" href="Help-Subsection-44.html#sub:IdealTransformer">IdealTransformer↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-87.html#subsec:stimdef">stimdef↓</a>- specifies the relationship between defining and dependent stims (see <a class="Reference" href="Help-Subsection-67.html#subsec:Stim">Stim↑</a>). (used only for <a class="Reference" href="Help-Section-8.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
+<a class="Reference" href="Help-Subsection-45.html#sub:Ground">Ground↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-88.html#subsec:unknown">unknown↓</a>- specifies an <a class="Reference" href="Help-Subsection-79.html#subsec:Unknown">Unknown↑</a> device (used only for <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> applications).
+<a class="Reference" href="Help-Subsection-46.html#sub:Open">Open↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-89.html#subsec:system">system↓</a>- specifies a <a class="Reference" href="Help-Subsection-80.html#subsec:System">System↑</a> device (used only for <a class="Reference" href="Help-Section-7.html#sec:Deembedding">Deembedding↑</a> applications).
+<a class="Reference" href="Help-Subsection-47.html#sub:DirectionalCoupler">Directional Coupler↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-48.html#sub:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-49.html#sub:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-50.html#sub:Transmission-Line">Transmission Line↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-51.html#sub:Telegrapher---Two-Port">Telegrapher - Two Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-52.html#sub:Telegrapher---Four-Port">Telegrapher - Four Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-53.html#sub:RLGC-Fit">RLGC Fit↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-54.html#sub:Voltage-Source">Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-55.html#sub:Current-Source">Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-56.html#sub:Voltage-Noise-Generator">Voltage Noise Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-57.html#sub:Voltage-Step-Generator">Voltage Step Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-58.html#sub:Voltage-Pulse-Generator">Voltage Pulse Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-59.html#sub:Voltage-PRBS-Generator">Voltage PRBS Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-60.html#sub:Voltage-Clock-Generator">Voltage Clock Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-61.html#sub:Voltage-Sine-Generator">Voltage Sine Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-62.html#sub:Current-Step-Generator">Current Step Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-63.html#sub:Current-Pulse-Generator">Current Pulse Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-64.html#sub:Current-Sine-Generator">Current Sine Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-65.html#sub:Port">Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-66.html#sub:Measure-Probe">Voltage Measure Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-67.html#sub:Output-Probe">Voltage Output Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-68.html#sub:Stim">Stim↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-69.html#sub:Current-Probe">Current Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-70.html#sub:Voltage-Diff-Probe">Voltage Diff Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-71.html#sub:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-71.html#sub:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-72.html#sub:Current-Controlled-Current-Source">Current Controlled Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-73.html#sub:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-74.html#sub:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-75.html#sub:Voltage-Amplifier">Voltage Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-76.html#sub:Current-Amplifier">Current Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-77.html#sub:Transconductance-Amplifier">Transconductance Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-78.html#sub:Transresistance-Amplifier">Transresistance Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-80.html#sub:Unknown">Unknown↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-81.html#sub:System">System↓</a>
 </li>
 
 </ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-80.html#next">Prev</a> System</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-66.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">device <a class="next" name="next" href="Help-Subsection-81.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-39.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -2146,7 +2146,7 @@ reference "sub:Capacitor"
 
 \end_inset
 
-, and 50 Ohm 
+, and 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Resistor"
@@ -2162,7 +2162,7 @@ reference "sub:Voltage-Step-Generator"
 
 \end_inset
 
- and probe initially the voltage at the 50 Ohm termination 
+ and probe initially the voltage at the 50 ohm termination 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Resistor"
@@ -2340,7 +2340,7 @@ reference "sub:Capacitor"
 
 \end_inset
 
- and a one-port 50 Ohm 
+ and a one-port 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sub:Resistor"
@@ -8005,7 +8005,7 @@ And here is the impedance profile calculated from the step response:
 
 \begin_layout Standard
 Note that something unnatural had to be done about the step response going
- above unity, which was to clip it at 3000 Ohms.
+ above unity, which was to clip it at 3000 ohms.
 \end_layout
 
 \begin_layout Standard
@@ -8026,7 +8026,7 @@ Here is a zoom of the impedance profile:
 
 \begin_layout Standard
 Thus, we see that the early part of the impedance profile shows a jump to
- 100 Ohms for 100 ps as expected, and then a large impedance jump (the open).
+ 100 ohms for 100 ps as expected, and then a large impedance jump (the open).
  What goes on beyond this zoomed portion is a result of the multiple reflections
  and is not correct.
 \end_layout
@@ -12528,7 +12528,7 @@ The units never need to be entered (but can be).
 
 \begin_layout Standard
 Numbers can be entered with exponents or with the engineering notation suffix.
- For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or
  10e7.
 \end_layout
 
@@ -14624,7 +14624,7 @@ The units never need to be entered (but can be).
 
 \begin_layout Standard
 Numbers can be entered with exponents or with the engineering notation suffix.
- For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or
  10e7.
 \end_layout
 
@@ -19887,7 +19887,7 @@ r
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohms
+ohms
 \end_layout
 
 \end_inset
@@ -19896,7 +19896,7 @@ Ohms
 \begin_inset Text
 
 \begin_layout Plain Layout
-50.0 Ohms
+50.0 ohms
 \end_layout
 
 \end_inset
@@ -22148,7 +22148,7 @@ zc
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohms
+ohms
 \end_layout
 
 \end_inset
@@ -30218,7 +30218,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -30227,7 +30227,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -30265,7 +30265,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -30274,7 +30274,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -30554,7 +30554,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -30563,7 +30563,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -30601,7 +30601,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -30610,7 +30610,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -30890,7 +30890,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -30899,7 +30899,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -30937,7 +30937,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -30946,7 +30946,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -31226,7 +31226,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -31235,7 +31235,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -31273,7 +31273,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -31282,7 +31282,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
