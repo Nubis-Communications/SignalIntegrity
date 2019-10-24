@@ -1,0 +1,86 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Plain Text Test
+\end_layout
+
+\begin_layout Standard
+This document will test whatever happens with plain text.
+\end_layout
+
+\begin_layout Section
+Paragraph Justification
+\end_layout
+
+\begin_layout Standard
+\align block
+Well, to discuss the implications of that sketch and to consider the moral
+ problems raised by the law-enforcement methods involved we have a duck,
+ a cat and a lizard.
+\end_layout
+
+\begin_layout Standard
+\align left
+Now first of all I'd like to put this question to you please, lizard.
+ How effective do you consider the legal weapons employed by legal customs
+ officers, nowadays?
+\end_layout
+
+\begin_layout Standard
+\align center
+Well while you're thinking about that, I'd like to bring the duck in here,
+ and ask her, if possible, to clarify the whole question of currency restriction
+s, and customs regulations in the world today.
+\end_layout
+
+\begin_layout Standard
+\align right
+Perhaps the cat would rather answer that?
+\end_layout
+
+\begin_layout Standard
+That is all for now.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,234 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+BibTeX Test
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Ethel the Frog
+\end_layout
+
+\begin_layout Standard
+Some random text.
+ With a random reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "randomref"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+The Other Other Operation
+\end_layout
+
+\begin_layout Standard
+And a book to prove that we have read one (untrue): 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "pythonesque:1971"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Spiny Norman
+\end_layout
+
+\begin_layout Standard
+We are going to need a reference here 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "reduced"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+In the Grillomat
+\end_layout
+
+\begin_layout Standard
+There are two kinds of vancouver references: with volume information
+\begin_inset CommandInset citation
+LatexCommand cite
+key "withvolume"
+
+\end_inset
+
+ and without
+\begin_inset CommandInset citation
+LatexCommand cite
+key "withoutvolume"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Alpha, Mr Belpit
+\end_layout
+
+\begin_layout Standard
+Two references in one: 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "alphabasic,alphavolume"
+
+\end_inset
+
+.
+ Also, a repeated reference
+\begin_inset CommandInset citation
+LatexCommand cite
+key "alphabasic"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibtex-plain"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibtex-vancouver"
+options "vancouver"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibtex-alpha"
+options "alpha"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "bibtex-latin1"
+options "alpha"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "bibtex-latin1"
+options "bibtotoc,alpha"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

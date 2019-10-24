@@ -1,0 +1,739 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass book
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+% DO NOT ALTER THIS PREAMBLE!!!
+%
+% This preamble is designed to ensure that the User's Guide prints
+% out as advertised. If you mess with this preamble,
+% parts of the User's Guide may not print out as expected.  If you
+% have problems LaTeXing this file, please contact 
+% the documentation team
+% email: lyx-docs@lists.lyx.org
+
+\usepackage{ifpdf} % part of the hyperref bundle
+\ifpdf % if pdflatex is used
+
+ % set fonts for nicer pdf view
+ \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+
+\fi % end if pdflatex is used
+
+% for correct jump positions whe clicking on a link to a float
+\usepackage[figure]{hypcap}
+
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+
+% redefine the \LyX macro for PDF bookmarks
+\def\LyX{\texorpdfstring{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+% define a short command for \textvisiblespace
+\newcommand{\spce}{\textvisiblespace}
+
+% macro for italic page numbers in the index
+\newcommand{\IndexDef}[1]{\textit{#1}}
+
+% redefine the greyed out note
+\end_preamble
+\options intoc,bibtotoc,idxtotoc,BCOR7mm,tablecaptionabove
+\use_default_options false
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_title "Index Test"
+\pdf_author "Alex Fernández"
+\pdf_subject "Reconstituted from various sources"
+\pdf_keywords "LyX"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false, pdfpagelabels,pdftex"
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Index Test
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+The Making
+\end_layout
+
+\begin_layout Chapter
+Explanations
+\end_layout
+
+\begin_layout Standard
+This chapter contains a lot of explanations for terms
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+terms
+\end_layout
+
+\end_inset
+
+, which you might want to 
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+look ! up
+\end_layout
+
+\end_inset
+
+look up later
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+later
+\end_layout
+
+\end_inset
+
+.
+ Because better sooner
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+sooner
+\end_layout
+
+\end_inset
+
+ than later, although later
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+later
+\end_layout
+
+\end_inset
+
+ has been repeated twice
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+twice
+\end_layout
+
+\end_inset
+
+.
+ Actually, thrice
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+thrice
+\end_layout
+
+\end_inset
+
+ now.
+\end_layout
+
+\begin_layout Standard
+Do you not want to look any of them up
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+look ! up
+\end_layout
+
+\end_inset
+
+ right now? No problem.
+ You will be able
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+able
+\end_layout
+
+\end_inset
+
+ to do it later, in the index
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+index
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Now we will add two cites in one, just because 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1,key-2"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+As we will see in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Bulk"
+
+\end_inset
+
+, not everything is clear.
+\end_layout
+
+\begin_layout Standard
+You could also look down
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+look ! down
+\end_layout
+
+\end_inset
+
+ on someone, but that is not nice.
+\end_layout
+
+\begin_layout Section
+
+\family typewriter
+Magical 
+\family roman
+type
+\family default
+ 
+\emph on
+face
+\emph default
+ 
+\series medium
+changes 
+\series default
+\noun on
+in
+\noun default
+ 
+\size normal
+the
+\size default
+ world
+\end_layout
+
+\begin_layout Standard
+Little more can be added, at least at this point.
+\end_layout
+
+\begin_layout Section
+
+\color red
+Color
+\color inherit
+
+\begin_inset space ~
+\end_inset
+
+and 
+\lang british
+colour
+\end_layout
+
+\begin_layout Standard
+At this other point, however, more could be added, but won't.
+\end_layout
+
+\begin_layout Section*
+Unnumbered Section
+\end_layout
+
+\begin_layout Standard
+They have a right to live too.
+\end_layout
+
+\begin_layout Itemize
+A list would be nice here.
+\end_layout
+
+\begin_layout Itemize
+Because it corrupts the next chapter's beginning.
+\end_layout
+
+\begin_layout Chapter
+Nomenclature
+\end_layout
+
+\begin_layout Standard
+We should explain what an index
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+index
+\end_layout
+
+\end_inset
+
+ is.
+ We can do that with the nomenclature
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "nomenclature"
+description "A list of common words with an explanation."
+
+\end_inset
+
+.
+ Normally we will want to mix index
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "index"
+description "A list of terms with a reference to where they occur."
+
+\end_inset
+
+
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+index
+\end_layout
+
+\end_inset
+
+ and nomenclature terms.
+ But what happens if we actually do? We will know later
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+later
+\end_layout
+
+\end_inset
+
+, when we generate
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "generate"
+description "An activity that requires a source and a destination, something like eLyXer does with files."
+
+\end_inset
+
+ the file.
+\end_layout
+
+\begin_layout Section
+Reminder
+\end_layout
+
+\begin_layout Standard
+We have to remind the reader that things will be remembered
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+remembered
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Remainder
+\end_layout
+
+\begin_layout Standard
+Whatever remains should be explained
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+explained
+\end_layout
+
+\end_inset
+
+ here.
+\end_layout
+
+\begin_layout Part
+The Additions
+\end_layout
+
+\begin_layout Chapter
+Bulk
+\begin_inset OptArg
+status open
+
+\begin_layout Plain Layout
+Bulk, or what used to be bulk text
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Bulk"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We actually need a lot more text
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+text
+\end_layout
+
+\end_inset
+
+ in order for our index
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+index
+\end_layout
+
+\end_inset
+
+ to have more terms
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+term
+\end_layout
+
+\end_inset
+
+; so we can find out if the links
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+link
+\end_layout
+
+\end_inset
+
+ are working.
+ Since they are anchors
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+anchor
+\end_layout
+
+\end_inset
+
+ inside the page
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+page
+\end_layout
+
+\end_inset
+
+, they might otherwise just take us to the 
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+top of the page
+\end_layout
+
+\end_inset
+
+top of the page, and we would not like that.
+\end_layout
+
+\begin_layout Standard
+Yes, it would be bad for us.
+ But on the other hand
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+hand
+\end_layout
+
+\end_inset
+
+ too much text
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+text
+\end_layout
+
+\end_inset
+
+ can hide 
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+error
+\end_layout
+
+\end_inset
+
+errors.
+ So not much more text
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+text
+\end_layout
+
+\end_inset
+
+ is needed.
+\end_layout
+
+\begin_layout Standard
+Thanks for reading us.
+\end_layout
+
+\begin_layout Part*
+Unnumbered Part
+\end_layout
+
+\begin_layout Chapter*
+Unnumbered Chapter
+\end_layout
+
+\begin_layout Standard
+This extra chapter contains nothing of interest except for a couple of unnumbere
+d parts (one actual part and one chapter).
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "toc-book.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset index_print
+LatexCommand printindex
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset nomencl_print
+LatexCommand printnomenclature
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "wordreference-elixir"
+
+\end_inset
+
+WordReference.com: 
+\begin_inset Quotes eld
+\end_inset
+
+definition of elixir
+\begin_inset Quotes erd
+\end_inset
+
+, accessed March 2009.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.wordreference.com/definition/elixir
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+W3C: 
+\begin_inset Quotes eld
+\end_inset
+
+HTML 4.01 Specification
+\begin_inset Quotes erd
+\end_inset
+
+, 24 December 1999.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.w3.org/TR/REC-html40/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+W3C: 
+\begin_inset Quotes eld
+\end_inset
+
+HTML 4.01 Specification
+\begin_inset Quotes erd
+\end_inset
+
+, 24 December 1999.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.w3.org/TR/REC-html40/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

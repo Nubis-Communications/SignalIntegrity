@@ -1,0 +1,214 @@
+#LyX 2.0.0svn created this file. For more info see http://www.lyx.org/
+\lyxformat 410
+\begin_document
+\begin_header
+\textclass book
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+References Test
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This note should not appear in the resulting page title
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Alex Fernández (elyxer@gmail.com)
+\end_layout
+
+\begin_layout Chapter
+First Chapter
+\end_layout
+
+\begin_layout Standard
+This first chapter contains the reference: 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:inchapter2"
+
+\end_inset
+
+, contained in chapter: 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Second-Chapter"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Sectioned
+\end_layout
+
+\begin_layout Standard
+This section contains a reference in brackets: 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "cha:inchapter2"
+
+\end_inset
+
+.
+ It should be on page: 
+\begin_inset CommandInset ref
+LatexCommand pageref
+reference "cha:inchapter2"
+
+\end_inset
+
+, and so be: 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "cha:inchapter2"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Adding a pretty reference: 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cha:inchapter2"
+
+\end_inset
+
+.
+ Now a named reference: 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "cha:inchapter2"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Chapter
+Second Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Second-Chapter"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This second chapter contains the label
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:inchapter2"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+URIs
+\end_layout
+
+\begin_layout Standard
+Now a couple of test URIs: 
+\begin_inset CommandInset href
+LatexCommand href
+name "Savannah interface"
+target "https://savannah.nongnu.org/bugs/?func=additem&group=elyxer"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://savannah.nongnu.org/bugs/?func=additem&group=elyxer"
+
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document

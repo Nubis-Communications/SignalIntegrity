@@ -1,0 +1,1213 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+% DO NOT ALTER THIS PREAMBLE!!!
+%
+% This preamble is designed to ensure that the User's Guide prints
+% out as advertised. If you mess with this preamble,
+% parts of the User's Guide may not print out as expected.  If you
+% have problems LaTeXing this file, please contact 
+% the documentation team
+% email: lyx-docs@lists.lyx.org
+
+\usepackage{ifpdf} % part of the hyperref bundle
+\ifpdf % if pdflatex is used
+
+ % set fonts for nicer pdf view
+ \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+
+\fi % end if pdflatex is used
+
+% for correct jump positions whe clicking on a link to a float
+\usepackage[figure]{hypcap}
+
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+
+% redefine the \LyX macro for PDF bookmarks
+\def\LyX{\texorpdfstring{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+% define a short command for \textvisiblespace
+\newcommand{\spce}{\textvisiblespace}
+
+% macro for italic page numbers in the index
+% test macro with a lot of spaces (bug #31243)
+\newcommand % Renewing a command with spaces and comments
+{ \IndexDef } [1] { \textit {#1} }
+
+% test macro with two arguments
+\newcommand{\preambleroot}[2]{\sqrt[#1]{#2}}
+
+% redefine the greyed out note
+
+\usepackage{mathrsfs}
+\usepackage{upgreek}
+\end_preamble
+\options intoc,bibtotoc,idxtotoc,BCOR7mm,tablecaptionabove
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_title "Math Test"
+\pdf_author "Alex Fernández"
+\pdf_subject "Taken from Guía de Usuario de Lyx, Ignacio García"
+\pdf_keywords "LyX"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false, pdfpagelabels,pdftex"
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Math Test
+\end_layout
+
+\begin_layout Section
+Limits
+\end_layout
+
+\begin_layout Standard
+A limit: 
+\begin_inset Formula \[
+\lim_{x\rightarrow\infty}\lyxlock f(x),\]
+
+\end_inset
+
+which should appear as 
+\begin_inset Formula $x\rightarrow\infty$
+\end_inset
+
+ in italics, and 
+\begin_inset Quotes fld
+\end_inset
+
+lim
+\begin_inset Quotes frd
+\end_inset
+
+ in plain style.
+ Inlined: 
+\begin_inset Formula $\lim_{x\rightarrow\infty}\lyxlock f(x)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+And why not, a sum: 
+\begin_inset Formula \[
+\sum_{i=1}^{\infty}a_{i},\]
+
+\end_inset
+
+where the sum's limits should appear below (
+\begin_inset Formula $i=1$
+\end_inset
+
+) and above (
+\begin_inset Formula $\infty$
+\end_inset
+
+) the 
+\begin_inset Formula $\sum$
+\end_inset
+
+ but to the right.
+ Inlined: 
+\begin_inset Formula $\sum_{i=1}^{\infty}a_{i}.$
+\end_inset
+
+ Integral: 
+\begin_inset Formula $\intop_{x=a}^{\infty}x\,\text{d}x.$
+\end_inset
+
+ Display mode:
+\begin_inset Formula \[
+\intop_{x=a}^{\infty}x\,\text{d}x.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can also integrate without limits: 
+\begin_inset Formula $\int A\,\text{d}x$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A sum inside another element (red color):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\textcolor{red}{\sum_{i=1}^{\infty}a_{i}}.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The placing of limits can be cofigured with the 
+\family typewriter
+
+\backslash
+limits
+\family default
+ and 
+\family typewriter
+
+\backslash
+nolimits
+\family default
+ macros: 
+\begin_inset Formula \[
+\lim\nolimits _{x\rightarrow\infty}\lyxlock f(x),\;\sum\nolimits _{i=1}^{\infty}x,\;\int\limits _{0}^{\infty}f(x)\,\mathrm{d}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Super- and Subscript
+\end_layout
+
+\begin_layout Standard
+When any element has both super- and subscript, they should appear like
+ inlined limits, one above the other: 
+\begin_inset Formula $a_{4}^{3}$
+\end_inset
+
+.
+ Also before an element: 
+\begin_inset Formula $_{2}^{3}\text{He}$
+\end_inset
+
+.
+ In display mode:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\sum_{i,j}a_{j}^{i}+\sum_{i,j}a_{i}^{j}=\sum_{i}a_{i}^{i},\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+_{1}^{2}\text{H}+{}_{1}^{2}\text{H}\rightarrow{}_{2}^{3}\text{He}+{}_{0}^{1}\text{n}.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Numeration
+\end_layout
+
+\begin_layout Standard
+Equations can be numbered, like 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:first"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+y=x\label{eq:first}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And also like 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:second"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+x=3\label{eq:second}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:second"
+
+\end_inset
+
+ comes after eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:first"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Some equations can also be numbered, even if they don't have a label.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+x=2y\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Other equations that contain * should not numbered, but perhaps aligned:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{align*}
+left &  & right\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Some environments allow for multiple labels: 
+\begin_inset Formula \begin{eqnarray}
+a & = & b\times c\label{eq:third}\\
+c\times d\times e & = & i.\label{eq:fourth}\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now a random environment:
+\begin_inset Formula $\begin{gathered}x\end{gathered}
+y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Brackets
+\end_layout
+
+\begin_layout Standard
+An array: 
+\begin_inset Formula \[
+\left[\begin{array}{lc}
+12 & 2\\
+3 & 4\times y^{x}\end{array}\right]\]
+
+\end_inset
+
+And an inline array 
+\begin_inset Formula $\left[\begin{array}[t]{cc}
+a & b\\
+c & dio\end{array}\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Arrays are separated by variable-size brackets: 
+\begin_inset Formula $\left(\begin{array}{cc}
+a & b\\
+c & d\end{array}\right)$
+\end_inset
+
+ 
+\begin_inset Formula $\left[\begin{array}{cc}
+a & b\\
+c & d\end{array}\right]$
+\end_inset
+
+ 
+\begin_inset Formula $\left\{ \begin{array}{cc}
+a & b\\
+c & d\end{array}\right\} $
+\end_inset
+
+ 
+\begin_inset Formula $\left\langle \begin{array}{cc}
+a & b\\
+c & d\end{array}\right\rangle $
+\end_inset
+
+ 
+\begin_inset Formula $\left|\begin{array}{cc}
+a & b\\
+c & d\end{array}\right|$
+\end_inset
+
+which might also differ on right and left 
+\begin_inset Formula $\left(\begin{array}{cc}
+a & b\\
+c & d\end{array}\right)$
+\end_inset
+
+ or use the empty opening 
+\begin_inset Formula $\left\{ \begin{array}{cc}
+a & b\\
+c & d\end{array}\right.$
+\end_inset
+
+ or closing: 
+\begin_inset Formula $\left.\begin{array}{cc}
+a & b\\
+c & d\end{array}\right|$
+\end_inset
+
+.
+ There are also fixed-size big brackets: 
+\begin_inset Formula $\left(a\right)$
+\end_inset
+
+ 
+\begin_inset Formula $\left[b\right]$
+\end_inset
+
+ 
+\begin_inset Formula $\left\{ c\right\} $
+\end_inset
+
+ 
+\begin_inset Formula $\left\langle d\right\rangle $
+\end_inset
+
+ 
+\begin_inset Formula $\left|e\right|$
+\end_inset
+
+ 
+\begin_inset Formula $\bigl\langle f\bigr\rangle$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Aligned brackets can be present: 
+\begin_inset Formula $\left(toText\right)$
+\end_inset
+
+.
+ One of them may be omitted: 
+\begin_inset Formula $\left.toText\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Aligned brackets can be applied to complex items:
+\begin_inset Formula \[
+s\times\left(1+\left(\begin{array}{cc}
+a_{11} & a_{21}\\
+a_{12} & a_{22}\end{array}\right)\times\left(\begin{array}{cc}
+1 & -1\\
+-1 & -1\end{array}\right)+\left\Vert \begin{array}{ccc}
+1 & -1 & 0\\
+-1 & 1 & 0\\
+0 & 0 & r\end{array}\right\Vert \right).\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Math brackets should not be mistaken for TeX brackets: 
+\begin_inset Formula $\frac{\mathcal{F}\left\{ s(x)\right\} }{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Fraction
+\end_layout
+
+\begin_layout Standard
+A big recursive fraction: 
+\begin_inset Formula \[
+\frac{1}{\left(1+\left(\frac{1}{1+\left(\frac{1}{1+2x}\lyxlock\right)}\lyxlock\right)\right)}\lyxlock\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A nice fraction: 
+\begin_inset Formula $\nicefrac{5}{6}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A non-diminishing fraction containing alignments:
+\begin_inset Formula \[
+\cfrac{1}{1+\left(\cfrac[l]{1}{1+x}\times\cfrac[r]{1}{1+x}\right)}.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A similar concept is a binomial coefficient: 
+\begin_inset Formula $\binom{A+1}{B}.$
+\end_inset
+
+ It can be prettily presented: 
+\begin_inset Formula \[
+\dbinom{A}{B+1}.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A symbol can be stacked over another using 
+\family typewriter
+
+\backslash
+stackrel
+\family default
+: 
+\begin_inset Formula $x\stackrel{R}{\rightarrow}y$
+\end_inset
+
+.
+ Anything can be stacked: 
+\begin_inset Formula $\stackrel{head}{heels}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Roots
+\end_layout
+
+\begin_layout Standard
+A square root: 
+\begin_inset Formula $\sqrt{3}.$
+\end_inset
+
+ A root in a fraction: 
+\begin_inset Formula $\sqrt{\frac{(78x+45y)\times\sqrt{Height}}{\sin(x+1)}+5}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A more complex square root in a fraction:
+\begin_inset Formula \[
+\frac{1}{\left(1+\sqrt{2}\left(\frac{1}{1+\sqrt{2}}\lyxlock\right)+\sqrt{\frac{1}{2}}\right)}\lyxlock.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Higher order roots: 
+\begin_inset Formula $\sqrt[3]{x+y}$
+\end_inset
+
+, 
+\begin_inset Formula $\sqrt[x+1]{Weight}$
+\end_inset
+
+.
+ In a fraction:
+\begin_inset Formula \[
+\frac{\sqrt[\nicefrac{7}{8}]{\frac{8}{4}x}}{\sqrt[s+5]{\frac{(78x+45y)\times\sqrt{Height}}{\sin(x+1)}+5}}\lyxlock.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Decorations
+\end_layout
+
+\begin_layout Subsection
+Cases
+\end_layout
+
+\begin_layout Standard
+Used to switch several values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+y=\begin{cases}
+x & i=0,\\
+x+1 & i<3\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cases may have more than two rows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+f(x)=\begin{cases}
+0 & x<0,\\
+\infty & x=0,\\
+0 & x>0\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Braces
+\end_layout
+
+\begin_layout Standard
+Values can be underbraced or overbraced.
+\begin_inset Formula \[
+\underbrace{a-b}=\overbrace{c+d+e}+f.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Underbraces and overbraces can contain text.
+\begin_inset Formula \[
+\overbrace{a-b}^{over}=\underbrace{c+\overbrace{d+e}^{over}+f}_{under}+g.\]
+
+\end_inset
+
+They can also be inlined: 
+\begin_inset Formula $\overbrace{a+b}^{over}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Spacing
+\end_layout
+
+\begin_layout Standard
+The command 
+\family typewriter
+
+\backslash
+raisebox
+\family default
+ is useful to, surprisingly, raise a little box, 
+\begin_inset Formula \[
+\raisebox{2mm}{raised}over\raisebox{-2mm}{lowered}\textrm{ and back}.\]
+
+\end_inset
+
+Like 
+\family typewriter
+
+\backslash
+mbox
+\family default
+, it puts its content in a text box.
+ It can also be used just for spacing:
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Formula $\raisebox{5mm}{}B^{V}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There are other spacing commands: 
+\family typewriter
+
+\backslash
+hspace
+\family default
+ 
+\begin_inset Formula $a\hspace{4mm}b$
+\end_inset
+
+, protected space 
+\begin_inset Formula $a\ b$
+\end_inset
+
+, and at 
+\begin_inset Quotes eld
+\end_inset
+
+block level
+\begin_inset Quotes erd
+\end_inset
+
+
+\family typewriter
+ 
+\backslash
+vspace
+\family default
+: 
+\begin_inset Formula $a\vspace{1cm}b$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There should be 1
+\begin_inset space ~
+\end_inset
+
+cm of vertical space above this paragraph.
+\end_layout
+
+\begin_layout Section
+Fonts
+\end_layout
+
+\begin_layout Standard
+This section tests font support.
+\end_layout
+
+\begin_layout Subsection
+Variables and Functions
+\end_layout
+
+\begin_layout Standard
+By default, letters denote variables and are taken from the 
+\family typewriter
+
+\backslash
+mathnormal
+\family default
+ font, which is italic: 
+\begin_inset Formula $\alpha x+\alpha y=\alpha(x+y)$
+\end_inset
+
+, with the exception of upright capital Greek letters, 
+\begin_inset Formula $G\ne\Gamma$
+\end_inset
+
+.
+ Letters run together represent different variables: 
+\begin_inset Formula $abcd=a\times b\times c\times d$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+There has been some trouble over some commands like Greek letters; some
+ of them should be italicized, as in: 
+\begin_inset Formula $\mu$
+\end_inset
+
+ or 
+\begin_inset Formula $\AA$
+\end_inset
+
+.
+ Others should not, as in 
+\begin_inset Formula $\Omega$
+\end_inset
+
+.
+ Upright Greek letters are also available: 
+\begin_inset Formula $\upmu\neq\mu$
+\end_inset
+
+.
+ An example from the LyX math guide: 
+\begin_inset Formula \[
+\uppi^{+}\to\upmu^{+}+\upnu_{\upmu}.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Functions names should be upright: 
+\begin_inset Formula $\sin(2\pi),\log(x),\tan\delta$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Mathematical Fonts
+\end_layout
+
+\begin_layout Standard
+Mathematical fonts used in equations include 
+\begin_inset Formula $\mathrm{Roman}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathrm
+\family default
+), 
+\begin_inset Formula $\mathsf{Sans\: Serif}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathsf
+\family default
+), 
+\begin_inset Formula $\mathtt{Typewriter}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathtt
+\family default
+), 
+\begin_inset Formula $\mathbf{Bold}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathbf
+\family default
+), 
+\begin_inset Formula $\mathscr{SCRIPT}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathscr
+\family default
+), 
+\begin_inset Formula $\mathcal{CALLIGRAPHIC}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathcal
+\family default
+), 
+\begin_inset Formula $\mathbb{BLACKBOARD\: BOLD}$
+\end_inset
+
+ (
+\family typewriter
+\noun on
+
+\backslash
+
+\noun default
+mathbb
+\family default
+), and 
+\begin_inset Formula $\mathfrak{Fraktur}$
+\end_inset
+
+ (
+\family typewriter
+
+\backslash
+mathfrak
+\family default
+).
+ For the latter, some single characters are translated to their Unicode
+ equivalents: 
+\begin_inset Formula $\mathscr{F}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbb{F}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathfrak{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Regular text in a formula can be achieved via text font commands like 
+\family typewriter
+
+\backslash
+textrm
+\family default
+: 
+\begin_inset Formula $5\:\textrm{to}\:10$
+\end_inset
+
+, via boxes like 
+\backslash
+mbox (prevents line breaks): 
+\begin_inset Formula $6\mbox{ is more than }5$
+\end_inset
+
+, or the AMSmath 
+\family typewriter
+
+\backslash
+text
+\family default
+ macro (scales like math symbols) 
+\begin_inset Formula $\text{base}_{\text{sub}}^{\text{super}}$
+\end_inset
+
+.
+ The content of an mbox is processed in LaTeX text mode.
+ This allows text font commands, e.g.
+ a switch to 
+\family sans
+\series bold
+\shape italic
+sans-serif-bold-italic
+\family default
+\series default
+\shape default
+, or the phonetic alphabet: 
+\begin_inset Formula $\mbox{\textbf{\textsf{\textbf{\textit{sfbfit}}}}, \textipa{tipa}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Units
+\end_layout
+
+\begin_layout Standard
+Units should be written upright, either with 
+\family typewriter
+
+\backslash
+mathrm
+\family default
+ or with macros from the 
+\family typewriter
+units
+\family default
+ package, e.g.
+ as simple unit, 
+\begin_inset Formula $\unit{km}$
+\end_inset
+
+, with magnitude, 
+\begin_inset Formula $\unit[57]{km}$
+\end_inset
+
+, with fractional unit, 
+\begin_inset Formula $\unitfrac[200]{km}{h}$
+\end_inset
+
+, or with a fraction before the units, 
+\begin_inset Formula $\unit[\nicefrac{3}{2}]{km}$
+\end_inset
+
+, 
+\begin_inset Formula $\unit[\frac{7}{16}]{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Sizes
+\end_layout
+
+\begin_layout Standard
+Sizes can be specified in formulas: 
+\begin_inset Formula ${\displaystyle \text{display}},{\textstyle \text{text}},{\scriptstyle \text{script}},{\scriptscriptstyle \text{scriptscript}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Colors and Boxes
+\end_layout
+
+\begin_layout Standard
+A colored box: 
+\begin_inset Formula $\colorbox{red}{aaa}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A framed box: 
+\begin_inset Formula $\framebox[2cm][c]{box}$
+\end_inset
+
+.
+ It can be aligned left: 
+\begin_inset Formula $\framebox[2cm][l]{box}$
+\end_inset
+
+ or right: 
+\begin_inset Formula $\framebox[2cm][r]{box}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Macros
+\end_layout
+
+\begin_layout Standard
+Definitions can be added as macros
+\begin_inset FormulaMacro
+\renewcommand{\stupidroot}[2]{\sqrt[#1]{#2}}
+{\sqrt[#1]{#2}}
+\end_inset
+
+.
+ Then they can be used in formulae: 
+\begin_inset Formula $\stupidroot{}{12}+\stupidroot 12$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Macro definitions can accept default parameters
+\begin_inset FormulaMacro
+\renewcommand{\defaultroot}[2][4][5]{\sqrt[#1]{#2}}
+{#1\sqrt{#2}}
+\end_inset
+
+.
+ Again, useful in formulae: 
+\begin_inset Formula $\defaultroot$
+\end_inset
+
+.
+ Default parameters can then be overriden: 
+\begin_inset Formula $\defaultroot[][y]+\defaultroot[x]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Other definitions from the preamble can be used: 
+\begin_inset Formula $\preambleroot{3}{4}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Definitions on the fly are also possible: 
+\begin_inset Formula $\newcommand{\ontheflyroot}[2]{\sqrt[#1]{#2}}\ontheflyroot{7}{8}$
+\end_inset
+
+, and used with different values: 
+\begin_inset Formula $\ontheflyroot{a}{b}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Macros may contain a literal parameter
+\begin_inset FormulaMacro
+\renewcommand{\colort}[1]{\colorbox{#1}{t}}
+{\colorbox{#1}{t}}
+\end_inset
+
+.
+ It should parse correctly: 
+\begin_inset Formula $\colort{red}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A macro with four parameters from the LyX detailed math guide
+\begin_inset FormulaMacro
+\renewcommand{\qG}[4][1,\,2]{#2_{#1}=-\frac{#3}{2}\pm\sqrt{\frac{#3^{2}}{4}-#4}}
+\end_inset
+
+.
+ Now in use: 
+\begin_inset Formula $1+\qG x{(1-x)}5-B$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Pathological Cases
+\end_layout
+
+\begin_layout Standard
+Empty equations have been known to fail: 
+\begin_inset Formula $ $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+An equation with an mbox containing a comment: 
+\begin_inset Formula $\mbox{text %comment
+more}$
+\end_inset
+
+, and a comment inside textrm: 
+\begin_inset Formula $\textrm{text %comment
+more}$
+\end_inset
+
+.
+ Finally, a comment at the end of a text function: 
+\begin_inset Formula $\mbox{only text%comment
+}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Bye-bye
+\end_layout
+
+\begin_layout Standard
+That's all folks!
+\end_layout
+
+\end_body
+\end_document

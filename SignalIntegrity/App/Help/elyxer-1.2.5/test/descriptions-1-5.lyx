@@ -1,0 +1,199 @@
+#LyX 1.5.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Descriptions Tests
+\end_layout
+
+\begin_layout Description
+First description.
+\end_layout
+
+\begin_layout Description
+Second\InsetSpace ~
+description.
+\end_layout
+
+\begin_layout Description
+Third\InsetSpace ~
+description\InsetSpace ~
+which\InsetSpace ~
+should\InsetSpace ~
+hold\InsetSpace ~
+all\InsetSpace ~
+words but these.
+\end_layout
+
+\begin_layout Description
+Fourth description.
+\end_layout
+
+\begin_layout Description
+Fifth\InsetSpace \space{}
+description\InsetSpace \thinspace{}
+with odd spaces.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Mixed
+\family default
+ font description.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+An even
+\family default
+ more difficult description with change of font in the middle.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+A
+\color red
+n 
+\family default
+i
+\color inherit
+mpossible description with intermixed changes of font and color.
+\end_layout
+
+\begin_layout Description
+A description which leads to 
+\family typewriter
+fixed 
+\color blue
+text 
+\color red
+in
+\color inherit
+ 
+\color green
+dif
+\family default
+(fere)
+\family typewriter
+nt
+\color inherit
+ 
+\color magenta
+colors
+\family default
+\color inherit
+.
+ And now 
+\family typewriter
+\series bold
+some
+\series default
+ more
+\family default
+.
+\end_layout
+
+\begin_layout Description
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+ERT precedes this description, it should be kept.
+\end_layout
+
+\begin_layout Description
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+ERT is the description
+\end_layout
+
+\end_inset
+
+ and not only the first word.
+\end_layout
+
+\begin_layout Description
+\begin_inset LatexCommand index
+name "Word"
+
+\end_inset
+
+Word that leads a description and which appears in the Index.
+\end_layout
+
+\begin_layout Description
+\begin_inset LatexCommand printindex
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

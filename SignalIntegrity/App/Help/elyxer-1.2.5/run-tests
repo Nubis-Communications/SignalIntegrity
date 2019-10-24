@@ -1,0 +1,143 @@
+#!/bin/bash
+
+#   eLyXer -- convert LyX source files to HTML output.
+#
+#   Copyright (C) 2009 Alex Fernández
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Alex 20090319: run all tests
+
+# remove result files from previous test runs
+rm -f "test/*-test.html"
+rm -f "test/subdir/*-test.html"
+
+# first from the current directory
+echo "Testing eLyXer -- any text below this line signals an error"
+for file in test/*.lyx; do
+	name=$(dirname "$file")/$(basename "$file" .lyx)
+	./elyxer.py --quiet --css ../docs/lyx.css "$name.lyx" "$name-test.html"
+	diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-test.html"
+done
+
+# now a limited subset of tests from within the directory
+cd test
+name="with images-1-5"
+../elyxer.py --quiet --css=../docs/lyx.css "$name.lyx" "$name-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-test.html"
+../elyxer.py --html --quiet --css ../docs/lyx.css "$name.lyx" "$name-html-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-html-good.html" "$name-html-test.html"
+../elyxer.py --quiet --css ../docs/lyx.css --imageformat ".jpg" "$name.lyx" "$name-jpg-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-jpg-good.html" "$name-jpg-test.html"
+../elyxer.py --quiet --css ../docs/lyx.css --noconvert "$name.lyx" "$name-noconvert-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-noconvert-good.html" "$name-noconvert-test.html"
+# test --imageformat copy
+cd copyimages
+../../elyxer.py --quiet --css ../../docs/lyx.css --imageformat "copy" "../$name.lyx" "$name-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-test.html"
+cd ..
+
+# directory tests
+cd subdir
+name="image-directory"
+image="mourning.png"
+rm -f $image
+../../elyxer.py --directory .. --quiet --css ../../docs/lyx.css "$name.lyx" "$name-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-test.html"
+if [ ! -e $image ]; then echo "$image is missing; bad conversion."; fi
+name="appendix-1-6"
+cp -f ../$name.lyx .
+../../elyxer.py --copyright --directory .. --quiet --css ../../docs/lyx.css "$name.lyx" "$name-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-test.html"
+cd ..
+
+# test TOC generation
+name="appendix-1-6"
+../elyxer.py --quiet --tocfor "$name-test.html" --css ../docs/toc.css --target contents "$name.lyx" "$name-toc-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-toc-good.html" "$name-toc-test.html"
+
+# test --notoclabels
+name="toc-book"
+../elyxer.py --quiet --notoclabels --css ../docs/lyx.css "$name.lyx" "$name-notoclabels-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-notoclabels-good.html" "$name-notoclabels-test.html"
+
+# test raw generation
+name="helloworld"
+../elyxer.py --quiet --raw "$name.lyx" "$name-raw-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-raw-good.html" "$name-raw-test.html"
+
+# test --css and --embedcss
+name="helloworld"
+../elyxer.py --quiet --css "http://elyxer.nongnu.org/lyx.css" --css ../docs/math.css \
+       --embedcss test.css "$name.lyx" "$name-embedcss-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-embedcss-good.html" "$name-embedcss-test.html"
+
+# test lowmem generation
+name="index-1-6"
+../elyxer.py --quiet --lowmem --css ../docs/lyx.css "$name.lyx" "$name-lowmem-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-lowmem-good.html" "$name-lowmem-test.html"
+
+# test Python 2.4 generation
+name="index-1-6"
+type -P python2.4 &> /dev/null
+if [ $? = 0 ] ; then
+	python2.4 ../elyxer.py --quiet --css ../docs/lyx.css "$name.lyx" "$name-py2.4-test.html"
+	diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-py2.4-test.html"
+else
+	echo "python2.4 not found, cannot test it"
+fi
+
+# test stdin + stdout generation
+name="footnotes-1-6"
+cat "$name.lyx" | ../elyxer.py --css ../docs/lyx.css > "$name-stdio-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-good.html" "$name-stdio-test.html"
+
+# test --splitpart generation
+name="index-1-6"
+testfiles="parts/$name-part-test*.html"
+rm -f $testfiles
+../elyxer.py --quiet --splitpart 1 --css ../../docs/lyx.css "$name.lyx" "parts/$name-part-test.html"
+for file in $testfiles; do
+	goodname=${file/"-test"/"-good"}
+	diff -u --ignore-matching-lines="create-date" "$goodname" "$file"
+done
+
+# test TOC generation for --splitpart
+name="index-1-6"
+../elyxer.py --quiet --tocfor "$name-part-test.html" --target "contents" --splitpart 1 --css ../../docs/toc.css "$name.lyx" "parts/$name-toc-test.html"
+diff -u --ignore-matching-lines="create-date" "parts/$name-toc-good.html" "parts/$name-toc-test.html"
+
+# test template generation
+name="helloworld"
+../elyxer.py --quiet --template template.html "$name.lyx" "$name-template-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-template-good.html" "$name-template-test.html"
+
+# test math2html
+result=$(../math2html.py 'N = \frac{\text{number of apples}}{7}')
+good='<i>N</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="text">number of apples</span></span><span class="ignored">)/(</span><span class="denominator">7</span><span class="ignored">)</span></span>'
+if [ "$result" != "$good" ] ; then
+	echo "Error in math2html: $result != $good"
+fi
+
+# test title with non-ASCII characters, Debian bug 639712
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=639712
+name="helloworld"
+../elyxer.py --quiet --css ../docs/lyx.css --title "By Fernández" "$name.lyx" "$name-test.html"
+diff -u --ignore-matching-lines="create-date" --ignore-matching-lines="<title>" "$name-good.html" "$name-test.html"
+
+# test simultaneous hover and end in footnotes
+name="footnotes-1-6"
+../elyxer.py --quiet --footnotes hover,end,number --css ../docs/lyx.css "$name.lyx" "$name-hover-end-test.html"
+diff -u --ignore-matching-lines="create-date" "$name-hover-end-good.html" "$name-hover-end-test.html"
+

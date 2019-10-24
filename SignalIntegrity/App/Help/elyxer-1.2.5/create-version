@@ -1,0 +1,75 @@
+#!/bin/bash
+
+#   eLyXer -- convert LyX source files to HTML output.
+#
+#   Copyright (C) 2009 Alex Fernández
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Alex 20090316: create a release
+
+VERSION=$(./elyxer.py --hardversion)
+DATE=$(./elyxer.py --versiondate)
+echo "Creating version $VERSION from $DATE"
+
+# Insert version date in changelog
+src/textchange.py "unreleased" $DATE docs/changelog.lyx
+./elyxer.py --title="eLyXer changelog" --css "lyx.css" docs/changelog.lyx docs/changelog.html
+
+# Tag and push code
+git tag -a -m "Version $VERSION from $DATE to be released" $VERSION
+git push
+
+# Add version to setup.py for PyPI
+cp src/setup.py setup.py
+src/textchange.py "unknown" $VERSION setup.py
+
+# make compressed files
+rm -rf dist/elyxer-$VERSION
+mkdir -p dist/elyxer-$VERSION
+rsync -a --exclude "build" --exclude "dist" \
+       --exclude ".git" --exclude "samples" \
+       --exclude "docs/cvs" --exclude "patch" \
+       --exclude "docs/jsMath" --exclude "docs/MathJax" \
+       --exclude "extras" --exclude "open-env" \
+       --exclude "test/*test.html" --exclude "test/subdir/*test.html" \
+       --exclude "test/parts/*part-test*.html" \
+       --exclude "docs/#*#" \
+      . dist/elyxer-$VERSION/
+cd dist/elyxer-$VERSION
+find . -name "*.pyc" | xargs rm -f
+find . -name "*.swp" | xargs rm -f
+find . -name "*.lyx~" | xargs rm -f
+find . -name "#*#" | xargs rm -f
+cd ..
+tar -czf elyxer-$VERSION.tar.gz elyxer-$VERSION
+rm -f elyxer-$VERSION.zip
+zip -qr elyxer-$VERSION.zip elyxer-$VERSION/*
+
+# Sign packages
+# gpg -b elyxer-$VERSION.tar.gz
+# gpg -b elyxer-$VERSION.zip
+
+# Upload to savannah
+# scp elyxer-$VERSION.tar.gz elyxer-$VERSION.tar.gz.sig alexfernandez@dl.sv.nongnu.org:/releases/elyxer/
+# scp elyxer-$VERSION.zip elyxer-$VERSION.zip.sig alexfernandez@dl.sv.nongnu.org:/releases/elyxer/
+
+# Upload docs
+cd ../docs
+./upload.sh
+cd ..
+
+# Register with the PyPI
+python setup.py register
+

@@ -1,0 +1,5 @@
+Plain text document.
+  To be included verbatim in a LyX document.
+
+Do not modify unless you want to test something.
+

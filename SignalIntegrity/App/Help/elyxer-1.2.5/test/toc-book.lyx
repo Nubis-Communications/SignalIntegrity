@@ -1,0 +1,269 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass book
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 1
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Book TOC Test
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Our Definition
+\end_layout
+
+\begin_layout Chapter
+The definition
+\end_layout
+
+\begin_layout Standard
+A TOC is a Table Of Contents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Section
+Hidden Section
+\end_layout
+
+\begin_layout Plain Layout
+This section should be hidden from mortals, and from the TOC.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+But I Already Knew That
+\end_layout
+
+\begin_layout Standard
+You were lucky.
+\end_layout
+
+\begin_layout Subsection
+I Want My Money Back
+\end_layout
+
+\begin_layout Standard
+There you have your 0€ back.
+\end_layout
+
+\begin_layout Subsubsection
+Completely Unfair Dude
+\end_layout
+
+\begin_layout Standard
+Hey, I didn't call you here.
+\end_layout
+
+\begin_layout Paragraph
+A Paragraph For You
+\end_layout
+
+\begin_layout Standard
+Totally uncalled for.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename elyxer-svg.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+eLyXer logo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Unordered Section
+\end_layout
+
+\begin_layout Standard
+Just to show that it works.
+\end_layout
+
+\begin_layout Standard
+And now a list.
+\end_layout
+
+\begin_layout Enumerate
+First item.
+\end_layout
+
+\begin_layout Enumerate
+We will embed an ordered subsection here just to fake it.
+\end_layout
+
+\begin_deeper
+\begin_layout Subsection
+There We Go
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+See if it's in your TOC.
+\end_layout
+
+\begin_layout Paragraph
+But There Is More
+\end_layout
+
+\begin_layout Standard
+And nothing else.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset index_print
+LatexCommand printindex
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\start_of_appendix
+Appendix
+\end_layout
+
+\begin_layout Standard
+An appendix here, an appendix there.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibtex-plain"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

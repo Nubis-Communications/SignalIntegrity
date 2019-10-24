@@ -1,0 +1,207 @@
+#LyX 1.6.5 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Image Scaling Tests
+\end_layout
+
+\begin_layout Section
+Scale
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+
+\end_inset
+
+PNG unscaled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+PNG scaled 50%.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer-eps.eps
+
+\end_inset
+
+Unscaled EPS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer-eps.eps
+	scale 50
+
+\end_inset
+
+EPS scaled 50%.
+\end_layout
+
+\begin_layout Section
+Exploring Width
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	width 50col%
+
+\end_inset
+
+50% column width.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	width 5cm
+
+\end_inset
+
+5cm wide.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	width 50line%
+
+\end_inset
+
+50% line width.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	width 5mm
+
+\end_inset
+
+5mm wide.
+\end_layout
+
+\begin_layout Section
+Exploring Height
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	height 50col%
+
+\end_inset
+
+50% column height.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	height 5cm
+
+\end_inset
+
+5cm high.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	height 50page%
+
+\end_inset
+
+50% page height.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename elyxer.png
+	lyxscale 50
+	height 5mm
+
+\end_inset
+
+5 mm high.
+\end_layout
+
+\end_body
+\end_document

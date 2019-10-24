@@ -1,0 +1,306 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Footnotes Tests
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+This is just some random section text used to insert some footnotes.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+And this is one of those footnotes.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+And this is a margin note, also tested here.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipisicing
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+adipisicing
+\end_layout
+
+\end_inset
+
+ elit
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+elit
+\end_layout
+
+\end_inset
+
+, sed do eiusmod
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+eiusmod
+\end_layout
+
+\end_inset
+
+ tempor incididunt ut labore et dolore magna aliqua.
+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ ut aliquip ex ea commodo consequat.
+ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+ eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+culpa
+\end_layout
+
+\end_inset
+
+ qui officia 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+officia
+\end_layout
+
+\end_inset
+
+ deserunt mollit anim id est laborum.
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+ tempor incididunt ut labore et dolore magna aliqua.
+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ ut aliquip ex ea commodo consequat.
+ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+ eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+ deserunt mollit anim id est laborum
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+laborum, laborum
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "eiusmod"
+description "eiusmod indeed"
+
+\end_inset
+
+ tempor incididunt ut 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+ut
+\end_layout
+
+\end_inset
+
+ labore
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+labore
+\end_layout
+
+\end_inset
+
+ et dolore magna aliqua.
+ Ut enim ad minim veniam, quis nostrud exercitation ullamco
+\begin_inset Index
+status open
+
+\begin_layout Plain Layout
+ullamco
+\end_layout
+
+\end_inset
+
+ laboris nisi ut aliquip ex ea commodo consequat.
+ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+ eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+ deserunt mollit anim id est laborum.
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+eiusmod
+\end_layout
+
+\end_inset
+
+ tempor incididunt ut labore et dolore magna aliqua.
+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+ ut aliquip ex ea commodo consequat.
+ Duis
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+Duis
+\end_layout
+
+\end_inset
+
+ aute irure dolor in reprehenderit in voluptate velit
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+velit
+\end_layout
+
+\end_inset
+
+ esse cillum dolore eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+ deserunt mollit anim id
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+id
+\end_layout
+
+\end_inset
+
+ est laborum.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset nomencl_print
+LatexCommand printnomenclature
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibtex-alpha"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset index_print
+LatexCommand printindex
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

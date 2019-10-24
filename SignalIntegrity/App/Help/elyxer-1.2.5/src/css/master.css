@@ -1,0 +1,372 @@
+/*
+*   eLyXer -- convert LyX source files to HTML output.
+*
+*   Copyright (C) 2009-2010 Alex Fernández
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see http://www.gnu.org/licenses/.
+*/
+/* --end--
+* Global CSS file for LyX documents.
+*/
+
+body {
+	font: 90% sans-serif;
+	background: #f9f9f9;
+	color: black;
+	margin: 0;
+	padding: 0;
+}
+
+#globalWrapper {
+	margin: 10px 5%;
+	padding: 20px;
+	background: #ffffff;
+	line-height: 1.5em;
+}
+
+/* Basic styles */
+a {
+	text-decoration: none;
+	background: none;
+}
+a:link {
+	color: #0030c0;
+}
+a:visited {
+	color: #603090;
+}
+a:active {
+	color: #ffa000;
+}
+a:hover {
+	text-decoration: underline;
+}
+h1 {
+	margin-top: 1em;
+	line-height: 1.5em;
+}
+h1.Part {
+	text-align: center;
+}
+h1.Part- {
+	text-align: center;
+}
+sup {
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-top;
+}
+sub {
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-bottom;
+}
+div.Standard {
+	margin: 1em 0;
+}
+div.Unindented {
+	margin: 0;
+}
+div.Indented {
+	text-indent: 30pt;
+	margin: 0;
+}
+div.Indented * {
+	text-indent: 0pt;
+}
+p.dir {
+	float: right;
+}
+p.printindex {
+	font-size: 0.90em;
+}
+a.printindex {
+	color: black;
+}
+table {
+	display: inline-table;
+	text-align: center;
+	border-collapse: collapse;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+tr.header {
+	border-bottom: thin solid #c0c0c0;
+	background: #ffffff;
+	font-weight: bold;
+}
+td {
+	padding: 1ex;
+	border: thin solid #f0f0f0;
+}
+td div.Standard {
+	margin: 0ex;
+	padding: 0ex;
+}
+div.caption div.Standard, div.table div.Standard {
+	margin: 0ex;
+	padding: 0ex;
+}
+td.numeric {
+	text-align: right;
+}
+td.empty {
+	text-align: center;
+}
+div.right {
+	text-align: right;
+}
+div.center {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+p.biblio {
+}
+div.Paragraph, div.Paragraph- {
+	font-weight: bold;
+	font-size: 103%;
+}
+span.versalitas, span.noun {
+	font-variant: small-caps;
+}
+span.sans {
+	font-family: sans-serif;
+}
+span.code {
+	font-family: monospace;
+}
+div.Plain {
+	display: inline;
+	width: auto;
+}
+h2 {
+	line-height: 1.4em;
+}
+span.Description-entry {
+	font-weight: bold;
+}
+span.List-entry {
+	display: inline-block;
+	width: 25%;
+	vertical-align: text-top;
+}
+span.List-contents {
+	display: inline-block;
+	width: 75%;
+	vertical-align: text-top;
+}
+div.Space {
+	display: none;
+}
+span.appendix {
+	display: none;
+}
+h1.biblio {
+}
+span.greyedout {
+	color: #808080;
+}
+div.Description, div.List, li {
+	margin: 1em 0;
+}
+li.nested {
+	list-style-type: none;
+}
+span.Info {
+	background: #f0f0f0;
+	border: thin solid #c0c0c0;
+}
+pre {
+	padding: 0em;
+	margin: 0em;
+	width: auto;
+	font-family: monospace;
+	line-height: 1.5em;
+}
+pre.LyX-Code {
+	margin: 0.5em 3em;
+}
+a.Label {
+	text-decoration: none;
+	color: #000000;
+}
+span.phantom {
+	color: #ffffff;
+}
+a.biblioentry {
+	color: black;
+}
+span.menuitem {
+	font-size: 105%;
+}
+span.normal {
+	font-style: normal;
+}
+div.PlainVisible {
+	width: auto;
+}
+div.indexgroup {
+	margin-left: 2em;
+}
+span.strong {
+	font-weight: bold;
+}
+
+/* Figures and Tables */
+img.embedded {
+	width: 100%;
+	_width: auto;
+}
+div.float {
+	margin-top: 1ex;
+	margin-bottom: 1ex;
+	text-align: center;
+}
+span.float {
+	margin-top: 1ex;
+	margin-bottom: 1ex;
+	text-align: center;
+}
+div.figure {
+	display: inline-block;
+	text-align: left;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.table {
+	display: inline-block;
+	text-align: left;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.algorithm {
+	display: inline-block;
+	text-align: left;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.caption {
+	text-align: center;
+	font-family: sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0.5ex;
+}
+img.figure {
+	width: 100%;
+	_width: auto;
+}
+div.multifigure {
+	padding: 1ex;
+	width: 100%;
+}
+div.multitable {
+	display: inline-block;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.multialgorithm {
+	display: inline-block;
+	padding: 1ex;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #c0c0c0;
+}
+div.wrap-l, div.wrap-o, div.wrap-i {
+	margin: 2ex;
+	float: left;
+}
+div.wrap-r {
+	margin: 2ex;
+	float: right;
+}
+div.listing {
+	display: inline-block;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0.5ex;
+	border: thin solid #c0c0c0;
+}
+span.number-left {
+	float: left;
+	background: #f0f0f0;
+	width: 3em;
+	text-align: right;
+	margin-right: 1em;
+}
+span.number-right {
+	float: right;
+	background: #f0f0f0;
+	width: 3em;
+	text-align: right;
+	margin-left: 1em;
+}
+
+/* Header */
+h1.title {
+	text-align: center;
+}
+h2.author {
+	text-align: center;
+}
+h2.Date {
+	text-align: center;
+}
+div.abstract {
+	margin: 1em 3em;
+	text-align: left;
+	font-size: 0.95em;
+}
+p.abstract-message {
+	text-align: center;
+	font-weight: bold;
+}
+div.tocheader {
+	margin: 1em 0;
+	font-size: large;
+}
+a.toc {
+	color: black;
+}
+div.tocindent {
+	padding: 0 0 0 2em;
+}
+div.toc {
+	margin: 0.5em 0;
+	font-size: 0.95em;
+}
+div.fulltoc {
+	padding: 1em;
+}
+div.warning {
+	font-size: 120%;
+	color:#cc0000;
+}
+div.Institute {
+	text-align: center;
+}
+@import "extras.css";
+@import "math.css";
+@import "obsolete.css";
+@import "print.css";

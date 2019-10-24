@@ -1,0 +1,53 @@
+/*
+* CSS section for print.
+*/
+@media print {
+body {
+	font: 90% serif;
+	background: #ffffff;
+	color: black;
+	margin: 0;
+	padding: 0;
+}
+#globalWrapper {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: #ffffff;
+	line-height: 1.5em;
+}
+span.FootOuter .Foot {
+	display: block;
+	position: relative;
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.FootOuter .HoverFoot {
+	display: block;
+	position: relative;
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+a:visited {
+	color: #0030c0;
+}
+/* end of print CSS */
+}

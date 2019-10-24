@@ -1,0 +1,260 @@
+#LyX 1.6.5 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options true
+\language spanish
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+List Test
+\end_layout
+
+\begin_layout Standard
+This document was created with LyX 1.6.2rc2, a great text editor.
+ It is used to test lists, descriptions and item lists.
+\end_layout
+
+\begin_layout Section
+List and Description
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+Ut enim ad minim veniam, quis nostrud exercitation
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+ullamco laboris nisi ut aliquip ex ea commodo consequat.
+ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+ eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+ deserunt mollit anim id est 
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+laborum.
+\end_layout
+
+\begin_layout Description
+Duis aute irure dolor in reprehenderit in
+\end_layout
+
+\begin_layout Description
+voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+\end_layout
+
+\begin_layout Section
+Itemize and Enumerate
+\end_layout
+
+\begin_layout Enumerate
+First enumerated,
+\end_layout
+
+\begin_layout Enumerate
+second enumerated.
+\end_layout
+
+\begin_layout Itemize
+First itemized,
+\end_layout
+
+\begin_layout Itemize
+second itemized.
+\end_layout
+
+\begin_layout Section
+Lists with Levels
+\end_layout
+
+\begin_layout Standard
+First a simple nested list.
+\end_layout
+
+\begin_layout Itemize
+Level one:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+level two first item,
+\end_layout
+
+\begin_layout Itemize
+level two second item.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Now a more complex example.
+\end_layout
+
+\begin_layout Itemize
+First in first level:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+first in second level,
+\end_layout
+
+\begin_layout Itemize
+second in second level,
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+second in first level:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+now third on second level:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+third level 1,
+\end_layout
+
+\begin_layout Itemize
+third level 2.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+back to third in first level.
+\end_layout
+
+\begin_layout Enumerate
+Now 1st in 1st level:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+1st on 2nd level:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+1st on 3rd level!
+\end_layout
+
+\begin_layout Enumerate
+2nd on 3rd level.
+\end_layout
+
+\begin_layout Itemize
+And now mixing 3rd level itemized,
+\end_layout
+
+\begin_layout Itemize
+and another.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+back to 2nd on 2nd street, sorry, level,
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+and back to 1st level:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Now with some non-list text.
+\end_layout
+
+\begin_layout Enumerate
+And an ordered list.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Just the nested text.
+\end_layout
+
+\begin_layout Standard
+Repeated twice.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Second element in the ordered list.
+\end_layout
+
+\begin_layout Itemize
+For a still more difficult number: unordered now.
+\end_layout
+
+\begin_layout Subsection
+And now a new subsection.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+3rd on 1st level.
+\end_layout
+
+\end_body
+\end_document

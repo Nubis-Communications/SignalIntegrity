@@ -1,0 +1,233 @@
+/*
+* Extras: colors, footnotes, boxes, spaces...
+*/
+
+/* Raw colors */
+span.red {
+	color: #c00000;
+}
+span.blue {
+	color: #0000c0;
+}
+span.green {
+	color: #00c000;
+}
+span.magenta {
+	color: #c000c0;
+}
+span.cyan {
+	color: #00c0c0;
+}
+span.yellow {
+	color: #c0c000;
+}
+span.white {
+	color: #ffffff;
+}
+
+/* Footnotes */
+span.SupFootMarker {
+	color: #0030c0;
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-top;
+}
+span.AlignFootMarker {
+	color: #0030c0;
+}
+div.EndFoot {
+	margin: 0.2ex;
+	background: #ffffff;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.MarginFoot {
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.HoverFoot {
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.FootOuter .HoverFoot {
+	display: none;
+	position: absolute;
+}
+span.FootOuter:hover .HoverFoot {
+	display: inline;
+	float: none;
+}
+span.Marginal {
+	float: right;
+	clear: right;
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	width: 30%;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.Note {
+	display: none;
+}
+
+/* Boxes */
+div.framed {
+	outline-style: solid;
+}
+div.frameless {
+}
+div.Frameless {
+}
+div.Boxed {
+	outline-width: thin;
+	outline-style: solid;
+}
+div.Framed {
+	outline-width: thin;
+	outline-style: solid;
+	line-height: 200%;
+}
+div.Doublebox {
+	outline-style: double;
+}
+div.Shadowbox {
+	outline-style: outset;
+}
+div.Shaded {
+	outline-style: inset;
+}
+div.ovalbox {
+	outline-style: groove;
+}
+div.Ovalbox {
+	outline-style: ridge;
+}
+hr.line {
+	display: inline-block;
+}
+
+/* Spaces */
+span.hspace {
+	display: inline-block;
+}
+span.vspace {
+	display: inline-block;
+	vertical-align: text-top;
+}
+span.hfill {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	min-width: 20mm;
+	background: #fff0f0;
+}
+div.defskip {
+	display: block;
+	height: 1em;
+}
+div.smallskip {
+	display: block;
+	height: 0.5em;
+}
+div.medskip {
+	display: block;
+	height: 1em;
+}
+div.bigskip {
+	display: block;
+	height: 2em;
+}
+div.vfill {
+	display: block;
+	height: 30em;
+}
+
+/* Sizes */
+span.scriptstyle {
+	font-size: 0.75em;
+}
+span.scriptscriptstyle {
+	font-size: 0.60em;
+}
+
+/* Chunks */
+div.chunk {
+	width: auto;
+}
+span.chunkleft span.chunkright {
+	font-style: normal;
+}
+span.chunkdecl {
+	font-style: italic;
+	padding: 0em 2em;
+}
+span.chunkref {
+	font-style: italic;
+}
+
+/* Split Part Navigation */
+div.splitheader {
+	margin: 0em;
+	padding: 0.1em;
+	text-align: center;
+	background: #f9f9f9;
+	overflow: auto;
+}
+span.next {
+	float: right;
+	width: 30%;
+	text-align: right;
+}
+span.up {
+	display: inline-block;
+	width: 30%;
+	text-align: center;
+}
+span.prev {
+	float: left;
+	width: 30%;
+	text-align: left;
+}
+hr.footer {
+	margin-top: 2em;
+}
+div.footer {
+	font-size: 0.90em;
+	margin: 1em 0;
+}
+
+/* Change Tracking */
+span.inserted {
+	color: #0000ff;
+}
+span.deleted {
+	color: #ff0000;
+	text-decoration: line-through;
+}
+
+/* Google Charts */
+img.chart {
+	vertical-align: middle;
+}

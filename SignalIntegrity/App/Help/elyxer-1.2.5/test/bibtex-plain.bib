@@ -1,0 +1,60 @@
+%% eLyXer: test BibTeX bibliography.
+%% Created on 20090905 by Alex Fernandez.
+
+@preamble { This text should be ignored. }
+
+@STRING{ tei = "The Spanish Inquisition" }
+
+@sTrIng { cleese = "Cleese, J.M." }
+
+@string{ inlowercase = "string in lowercase" }
+
+@article { randomref,
+	Author = {Colonel, S.W.},
+	Journal = {Journal of the   Society for Putting Things   onto Other Things},
+	Number = {1},
+	Pages = {1348--1350},
+	Publisher = {Monty Python Ltd},
+	Title = {{Summary for   Year 1969}},
+	Volume = {457},
+	Year = {1969}}
+
+Comment outside an entry
+
+@article{unused,
+	Author = {Teabag, J.M.},
+	Journal = {Journal of the Silly Walking Committee},
+	Number = {384},
+	Silly-Putty = putty-silly,
+	Pages = {589--1530},
+	Publisher = {Monty Python Ltd},
+	Title = {{Some 
+		Techniques 
+			from 
+			our 
+			French 
+			Cousins}},
+	Volume = {3},
+	Year = {1970}}
+
+@article{reduced,
+	Author = {Pudey, Z.X.},
+	Journal = {Private 		 Walkings},
+	Title = {My Silly Walks},
+	Year = {1970}}
+
+@COMMENT { Do not look at the pretty lights }
+
+@comment { "A comment including double quotes because we like it." }
+
+@book {pythonesque:1971,
+	Author = cleese #
+	       	" and Palin, M.E.",
+	Date-Added = {2009-09-05 16:32:00 +0100},
+	Date-Modified = {2009-09-05 16:33:00 +0100},
+	Publisher = "Python Monty " # "Editions",
+	Title = {{And Now for Something  Different 
+	      	from Voigtl{\"a}nder}},
+	Year = {1971},
+	Conceptual-Disaster = {{\"O}berg}
+	}

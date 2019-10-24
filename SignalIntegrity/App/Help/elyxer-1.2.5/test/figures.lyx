@@ -1,0 +1,985 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Figures Test
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList algorithm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Floats
+\end_layout
+
+\begin_layout Standard
+First, figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-random-image"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename random.png
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-random-image"
+
+\end_inset
+
+A random image
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next, figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Two-random-images."
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename lyx credits.png
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Random image A
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename lyx credits.png
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Random image B
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Two-random-images."
+
+\end_inset
+
+Two random images
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And last, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Three-random-images"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename random.png
+	width 30col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Random image A
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename random.png
+	width 30col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Random image B
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename random.png
+	width 30col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Random image C
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Three-random-images"
+
+\end_inset
+
+Three random images
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+That's all, folks.
+\end_layout
+
+\begin_layout Section
+Wraps
+\end_layout
+
+\begin_layout Standard
+Now with wraps.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "50col%"
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename random.png
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A wrapped image.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This image should wrap around the text.
+ The text should be fairly complete and cover several paragraphs, but we
+ might not get so much text.
+ After all typing just because tends to bore the readers, who bear the grunt
+ of the gruntwork of reading the resulting text.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Wrap figure
+lines 0
+placement o
+overhang 0in
+width "4cm"
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename random.png
+	width 4cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Exterior wrapped image.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The next wrapping image should be smaller, and has default (outer) placement.
+ Again, a lot of text would be required so the image fits around the text;
+ the wrapped image will probably fall on some other page in the PDF, anyway.
+\end_layout
+
+\begin_layout Section
+Algorithms and Listings
+\end_layout
+
+\begin_layout Standard
+We can also add a listing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+This listing appears here courtesy of the fine Ministry of Silly Walks.
+\end_layout
+
+\begin_layout Plain Layout
+
+And appear here it does alright.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And also a listing inside a float.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+This listing appears here courtesy of the fine Ministry of Silly Walks.
+\end_layout
+
+\begin_layout Plain Layout
+
+And appear here it does alright.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+An algorithm.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Another algorithm for the sake of it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+my_first_tex_command
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+it does not work at all!
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+end_command
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Another algorithm, embedded.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now the same text outside the algorithm.
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+my_first_tex_command
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+it does not work at all!
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+end_command
+\end_layout
+
+\begin_layout Standard
+And an algorithm without caption.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+my_first_tex_command
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+it should work this time!
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+end_command
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now a numbered listing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "numbers=left,stepnumber=1"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+This listing has been numbered.
+\end_layout
+
+\begin_layout Plain Layout
+
+Each line has its own number.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A numbered listing with a caption.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "numbers=left,stepnumber=1"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+This listing has a caption.
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+First caption which should not be numbered.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+It should not be numbered.
+\end_layout
+
+\begin_layout Plain Layout
+
+These lines, on the other hand, should.
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+This second caption should not be numbered either.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As soon as we can get to it: a LyX-Code.
+\end_layout
+
+\begin_layout LyX-Code
+This is LyX-Code.
+\end_layout
+
+\begin_layout LyX-Code
+Code-LyX it's not.
+\end_layout
+
+\begin_layout LyX-Code
+My heart will explode,
+\end_layout
+
+\begin_layout LyX-Code
+My tongue's in a knot.
+\end_layout
+
+\begin_layout Standard
+Another algorithm, this time without styling.
+\end_layout
+
+\begin_layout Quote
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+Who shall declare this good, that ill
+\end_layout
+
+\begin_layout Plain Layout
+When good and ill so intertwine
+\end_layout
+
+\begin_layout Plain Layout
+But to fulfil the vast design of an omniscient will.
+\end_layout
+
+\begin_layout Plain Layout
+When seeming again but turns to loss
+\end_layout
+
+\begin_layout Plain Layout
+When earthly treasure proves but dross
+\end_layout
+
+\begin_layout Plain Layout
+And what seems lost but turns again
+\end_layout
+
+\begin_layout Plain Layout
+To high eternal gain.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A poem by Dame Irene Stoat.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And many other things.
+\end_layout
+
+\begin_layout Section
+Boxes (Minipages)
+\end_layout
+
+\begin_layout Standard
+We can insert a box here:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\noindent
+Well I, I think that, er, nobody who has gone abroad should be allowed back
+ in the country.
+ I mean, er, blimey, blimey if they're not keen enough to stay here when
+ they're 'ere, why should we allow them back, er, at the tax-payers' expense?
+ I mean, be fair, I mean, I don't eat squirrels do I? I mean well perhaps
+ I do one or two but there's no law against that, is there? It's a free
+ country.
+ I mean if I want to eat a squirrel now and again, that's me own business,
+ innit? I mean, I'm no racialist.
+ I, oh, oh...
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A decorated centered box:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+CONFUSE-A-CAT LIMITED
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+INCORPORATING
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+AMAZE-A-VOLE LTD
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+STUN-A-STOAT LTD
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+PUZZLE-A-PUMA LTD
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+STARTLE-A-THOMPSON'S GAZELLE LTD
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+BEWILDEREBEEST INC
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+DISTRACT-A-BEE 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And a double-decorated box with a certain width:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Doublebox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+width "60col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Goodnight.
+ Ding-ding-ding-ding-ding, five, four, three, two, one\SpecialChar \ldots{}
+ Goodnight.
+ Ding-ding-ding-ding-ding, five, four, three, two, one\SpecialChar \ldots{}
+
+\end_layout
+
+\begin_layout Plain Layout
+Five, four, three, two, one, zero!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It was fine doing that.
+\end_layout
+
+\end_body
+\end_document

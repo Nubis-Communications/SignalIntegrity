@@ -1,0 +1,97 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes true
+\output_changes true
+\author "chenno,,," 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Change Test
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+
+\change_inserted 0 1283108483
+Prisoner: 
+\change_unchanged
+Well...
+ I'd just like to say, m'lud, I've got a family...
+ a wife and six kids...
+ and I ho
+\change_deleted 0 1283108130
+o
+\change_unchanged
+pe very much you don't have to take away my freedom...
+ because...
+ well, because m'lud freedom is a state much prized within the rea
+\change_inserted 0 1283108101
+l
+\change_unchanged
+m of civilized society.
+ It is a bond wherewith the savage man may charm the outward hatchments
+ of his soul, and soothe the troubled brea
+\change_inserted 0 1283108102
+s
+\change_unchanged
+t into a magnitude of quiet.
+ It is most precious as a blessed balm, the saviour of princes, the harbinger
+ of happiness, yea, the very stuff and pith of all we hold most dear.
+ What frees the prisoner in his lonely cell, chained within the bondage
+ of rude walls, far from the owl of Theb
+\change_deleted 0 1283108105
+b
+\change_unchanged
+es? What fires and stirs the woodcock in his springe or wakes the drowsy
+ apricot betides? What goddess doth the storm toss'd mariner offer her most
+ tempestuous prayers to? Freedom! Freedom! Freedom!
+\change_inserted 0 1283108446
+
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+
+\change_inserted 0 1283108472
+Judge: It's only a bloody parking offence.
+\change_unchanged
+
+\end_layout
+
+\end_body
+\end_document

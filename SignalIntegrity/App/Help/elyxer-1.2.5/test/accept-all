@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#   eLyXer -- convert LyX source files to HTML output.
+#
+#   Copyright (C) 2009 Alex Fernández
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Alex 20091129: accept all test files as good
+
+echo "Accepting all eLyXer test files as good"
+echo "You should only do this if you have made a large change in all test files"
+echo "  and you are sure that all files come out right!"
+
+# first from the test directory
+for oldfile in *-test.html; do
+  newfile=${oldfile/"test"/"good"}
+  mv -f "$oldfile" "$newfile"
+done
+
+# now the test file in subdir
+cd subdir
+for oldfile in *-test.html; do
+  newfile=${oldfile/"test"/"good"}
+  mv -f "$oldfile" "$newfile"
+done
+cd ..
+
+# and now for splitpart test files
+cd parts
+./accept-all
+

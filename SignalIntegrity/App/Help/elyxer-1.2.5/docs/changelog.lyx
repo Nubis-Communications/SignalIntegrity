@@ -1,0 +1,5196 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2011 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\usepackage{mathrsfs}
+\usepackage{mathabx}
+\renewcommand{\varGamma}{\Gamma}
+\renewcommand{\varOmega}{\Omega}
+\usepackage{color}
+\usepackage[gennarrow]{eurosym}
+\usepackage{upgreek}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\begin_inset Graphics
+	filename elyxer.svg
+	lyxscale 50
+
+\end_inset
+
+eLyXer Changelog
+\end_layout
+
+\begin_layout Standard
+This document lists all public versions, the date they were released on
+ and the changes they contain.
+ For more information about eLyXer visit the 
+\begin_inset CommandInset href
+LatexCommand href
+name "main page"
+target "index.html"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+1.2.5 (2013-01-11):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Solved a bug in the previous release: José Ramón's fix was not properly
+ applied in the executable 
+\family typewriter
+elyxer.py
+\family default
+.
+ Sorry about that.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.2.4 (2013-01-10):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Implemented generic converters, and 
+\family typewriter
+lyx -C
+\family default
+ as an image converter (thanks, Tommaso!).
+\end_layout
+
+\begin_layout Itemize
+Implemented command 
+\family typewriter
+
+\backslash
+today
+\family default
+: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added a Russian translation (thanks, Vladimir!).
+\end_layout
+
+\begin_layout Itemize
+Solved a bug when parsing a BibTeX entry with a trailing comma (thanks,
+ Bob!).
+\end_layout
+
+\begin_layout Itemize
+BibTeX: correctly use booktitle instead of journal in an 
+\family typewriter
+@inproceedings
+\family default
+ entry (thanks, Pascal!).
+\end_layout
+
+\begin_layout Itemize
+Expose language information as additional markup (using the 
+\family typewriter
+lang
+\family default
+ attribute in HTML).
+\end_layout
+
+\begin_layout Itemize
+Fix by Guenter Milde for 
+\family typewriter
+math2html
+\family default
+ under Python 3.0.
+\end_layout
+
+\begin_layout Itemize
+Convert em-dash only when surrounded by spaces (thanks, Robert).
+\end_layout
+
+\begin_layout Itemize
+Fix by José Ramón Álvarez Sánchez of problem in simultaneous use of 
+\family typewriter
+hover
+\family default
+ and 
+\family typewriter
+end
+\family default
+ options for footnotes (thanks, Tim!).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.2.3 (2011-08-31):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Changed the license for math2html from Apache v2 to FreeBSD 2-clause license,
+ to better suit integration with DocUtils.
+\end_layout
+
+\begin_layout Itemize
+Removed a false positive error which appeared during the tests: 
+\begin_inset Quotes eld
+\end_inset
+
+* No title in
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added most commands in Günter Milde's excellent 
+\begin_inset CommandInset href
+LatexCommand href
+name "list"
+target "http://milde.users.sourceforge.net/LUCR/Math/"
+
+\end_inset
+
+ of Unicode to LaTeX commands, except categories mathaccent, mathfence,
+ mathradical, mathover and mathunder.
+ Examples: 
+\family typewriter
+
+\backslash
+hash as
+\family default
+ 
+\family typewriter
+
+\begin_inset Formula $\hash$
+\end_inset
+
+, 
+\backslash
+smalltriangleleft
+\family default
+ as 
+\begin_inset Formula $\smalltriangleleft$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Deprecated option 
+\family typewriter
+--jsmath
+\family default
+, users are encouraged to use 
+\family typewriter
+--mathjax
+\family default
+ instead.
+\end_layout
+
+\begin_layout Itemize
+Added argument 
+\family typewriter
+--mathjax remote
+\family default
+ to access the MathJax CDN instead of hit a local copy.
+ Changed the Math showcase to work 
+\begin_inset CommandInset href
+LatexCommand href
+name "remotely"
+target "math-mathjax.html"
+
+\end_inset
+
+ by default.
+\end_layout
+
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "Debian bug 639712"
+target "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=639712"
+
+\end_inset
+
+: eLyXer didn't accept Unicode characters in 
+\family typewriter
+--title
+\family default
+ option, added test.
+\end_layout
+
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "Savannah bug 33961"
+target "https://savannah.nongnu.org/bugs/index.php?33961"
+
+\end_inset
+
+: eLyXer didn't support sub- or superscript insets as used in LyX 2.0, added
+ test.
+\end_layout
+
+\begin_layout Itemize
+Solved installation problem when 
+\family typewriter
+$PATH
+\family default
+ contains a directory which does not exist; the eLyXer binary was created
+ with the same name as said directory.
+ Now 
+\family typewriter
+install.py
+\family default
+ should just ignore the directory.
+ (Thanks, Jack!)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.2.2 (2011-06-12):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Bug in description: when a (non-empty) ERT is the first element of a description
+, use it as first word and make it bold.
+\end_layout
+
+\begin_layout Itemize
+Proper support for 
+\backslash
+scriptstyle and 
+\backslash
+scriptscriptstyle: 
+\begin_inset Formula ${\scriptstyle \text{script}},{\scriptscriptstyle \text{scriptscript}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "Bug #33156"
+target "https://savannah.nongnu.org/bugs/index.php?33156"
+
+\end_inset
+
+: CSS specification as in 
+\family typewriter
+--css=lyx.css
+\family default
+ was not working, solved now.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+noindent
+\family default
+ and 
+\family typewriter
+
+\backslash
+centering
+\family default
+ in ERTs.
+\end_layout
+
+\begin_layout Itemize
+Ignore BibTeX entries which are not publication entries.
+ Show a debug message for non-referenced entries.
+\end_layout
+
+\begin_layout Itemize
+Understand command 
+\family typewriter
+
+\backslash
+&
+\family default
+ in BibTeX files.
+\end_layout
+
+\begin_layout Itemize
+Bumped Lyx format supported (
+\family typewriter
+--lyxformat
+\family default
+) to 413 (LyX 2.0.0).
+\end_layout
+
+\begin_layout Itemize
+Solved error when parsing display formulas generated with LyX 2.0: 
+\family typewriter
+"Formula beginning 
+\backslash
+begin_inset Formula is unknown"
+\family default
+ (thanks, Pascal!).
+ Added test case.
+\end_layout
+
+\begin_layout Itemize
+Added a bunch of new symbols, including 
+\family typewriter
+
+\backslash
+textsection
+\family default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textsection
+\end_layout
+
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+textemdash
+\family default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textemdash
+\end_layout
+
+\end_inset
+
+ or 
+\family typewriter
+
+\backslash
+v{z}
+\family default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+v{z}
+\end_layout
+
+\end_inset
+
+ (thanks again, Pascal!).
+\end_layout
+
+\begin_layout Itemize
+Changed output characters for English quotes, from Unicode “ and ‘ to HTML
+ entities 
+\family typewriter
+&ldquo;
+\family default
+ and 
+\family typewriter
+&lsquo;
+\family default
+ (thanks, Marco!).
+\end_layout
+
+\begin_layout Itemize
+Make Flex styles in titles work (thanks, Tiago!).
+\end_layout
+
+\begin_layout Itemize
+Make custom Flex CharStyles work: generate HTML spans of the same class
+ as the Flex type (thanks again, Marco!).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.2.1 (2011-03-07):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wish list: support for formatted references (showing the part name and number)
+ and named references (showing the part title, equivalent to 
+\family typewriter
+
+\backslash
+nameref
+\family default
+).
+\end_layout
+
+\begin_layout Itemize
+Wish list: include part titles in 
+\family typewriter
+--splitpart
+\family default
+ navigation header.
+\end_layout
+
+\begin_layout Itemize
+Changed literal for previous page in 
+\family typewriter
+--splitpart
+\family default
+: now it's 
+\begin_inset Quotes eld
+\end_inset
+
+Prev
+\begin_inset Quotes erd
+\end_inset
+
+ instead of 
+\begin_inset Quotes eld
+\end_inset
+
+Previous
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Bug in 
+\family typewriter
+--notoclabels
+\family default
+: removed the 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+ after the part number but before the title shown in the TOC.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+5.
+\begin_inset space \quad{}
+\end_inset
+
+How to Make Friends
+\begin_inset Quotes erd
+\end_inset
+
+ is now 
+\begin_inset Quotes eld
+\end_inset
+
+5
+\begin_inset space \quad{}
+\end_inset
+
+How to Make Friends
+\begin_inset Quotes erd
+\end_inset
+
+ (thanks, José Ramón!).
+\end_layout
+
+\begin_layout Itemize
+Allow 
+\family typewriter
+math2html
+\family default
+ to be invoked using parameters (like 
+\family typewriter
+--debug
+\family default
+).
+\end_layout
+
+\begin_layout Itemize
+Bugs in ERT parsing: brackets 
+\family typewriter
+{}
+\family default
+ are not parsed correctly across different ERTs.
+ The TeX parser was being thrown off by escaped brackets as in 
+\family typewriter
+{
+\backslash
+{
+\backslash
+}}
+\family default
+, added test.
+ Comments are ignored now.
+\end_layout
+
+\begin_layout Itemize
+Solved conflict in CSS between 
+\family typewriter
+.script
+\family default
+ (used to properly layout super- and subscripts) and 
+\family typewriter
+span.script
+\family default
+ (used for the script-type 
+\family typewriter
+
+\backslash
+mathscr
+\family default
+ and 
+\family typewriter
+
+\backslash
+mathcal
+\family default
+ fonts).
+ Changed the latter to 
+\family typewriter
+span.scriptfont
+\family default
+, forcing an incompatible but unavoidable change in the CSS.
+\end_layout
+
+\begin_layout Itemize
+Forced 
+\family typewriter
+span.scriptfont
+\family default
+ to be shown as italic so it's properly displayed on Firefox.
+\end_layout
+
+\begin_layout Itemize
+Wish list: new option 
+\family typewriter
+--googlecharts
+\family default
+ adds support for formula images generated using Google Charts.
+\end_layout
+
+\begin_layout Itemize
+Wish list: merged options 
+\family typewriter
+--toc
+\family default
+ and 
+\family typewriter
+--toctarget
+\family default
+ into 
+\family typewriter
+--tocfor
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Wish list: options 
+\family typewriter
+--splitpart
+\family default
+ and 
+\family typewriter
+--tocfor
+\family default
+ (previously 
+\family typewriter
+--toc
+\family default
+) now work together.
+ Also: the separate TOC has a link to the main page.
+\end_layout
+
+\begin_layout Itemize
+Bug in 
+\family typewriter
+--splitpart
+\family default
+ combined with 
+\family typewriter
+--notoclabels
+\family default
+: unnumbered parts displayed an ugly colon as in 
+\begin_inset Quotes eld
+\end_inset
+
+Next : Section
+\begin_inset Quotes erd
+\end_inset
+
+, now removed (thanks, José Ramón!).
+\end_layout
+
+\begin_layout Itemize
+Modified the spacing in formulas so that words in the mathnormal font now
+ appear separated, as a product of variables.
+\end_layout
+
+\begin_layout Itemize
+Do not show limit symbols such as 
+\begin_inset Formula $\sum$
+\end_inset
+
+ or 
+\begin_inset Formula $\int$
+\end_inset
+
+ in a larger font than the rest for inline formulas.
+\end_layout
+
+\begin_layout Itemize
+Added support for 
+\backslash
+textcircled: 
+\begin_inset Formula $\textcircled w$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.2.0 (2011-01-30):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Bumped LyX version support to 410.
+\end_layout
+
+\begin_layout Itemize
+Correctly create big brackets for environments with odd alignments such
+ as matrix (thanks, Günther!).
+\end_layout
+
+\begin_layout Itemize
+Create and use big brackets for fractions and other structures, if needed.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--simplemath
+\family default
+ to avoid fancy math structures: do not
+\emph on
+ 
+\emph default
+generate multi-line Unicode brackets or stacked limits.
+\end_layout
+
+\begin_layout Itemize
+eLyXer is now a proper Python package, instead of just a coalesced script
+ 
+\family typewriter
+elyxer.py
+\family default
+ containing everything.
+ However only the script is installed right now.
+\end_layout
+
+\begin_layout Itemize
+Interpret TeXCode (previously known as Evil Red Text) as TeX commands and
+ formulas.
+\end_layout
+
+\begin_layout Itemize
+Support for TeX commands 
+\family typewriter
+
+\backslash
+textvisiblespace
+\family default
+, 
+\family typewriter
+
+\backslash
+AmS
+\family default
+, 
+\family typewriter
+
+\backslash
+parbox
+\family default
+, 
+\family typewriter
+
+\backslash
+tag
+\family default
+, 
+\family typewriter
+
+\backslash
+rule
+\family default
+, and more: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textvisiblespace
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+AmS
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+Game
+\family default
+: 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\Game$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Changed the navigation header for 
+\family typewriter
+--splitpart
+\family default
+ so that the left and right spans overflow (thanks, Axel!).
+\end_layout
+
+\begin_layout Itemize
+Bug in 
+\family typewriter
+--notoclabels
+\family default
+: labels such as 
+\begin_inset Quotes eld
+\end_inset
+
+Figure
+\begin_inset Quotes erd
+\end_inset
+
+ should be omitted in the TOC, but not in captions (thanks again, Axel!).
+\end_layout
+
+\begin_layout Itemize
+Bug in 
+\family typewriter
+--splitpart
+\family default
+: empty navigation links caused the header to look unbalanced, fixed now
+ with a non-breaking space.
+ Also, up link in the main page used to point to itself; now it's an empty
+ link (more thanks, Axel!).
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+limits
+\family default
+ and 
+\family typewriter
+
+\backslash
+nolimits
+\family default
+: control if the last symbol should show limits above or below the symbol
+ or not.
+\end_layout
+
+\begin_layout Itemize
+Bug in 
+\family typewriter
+
+\backslash
+vspace
+\family default
+: add the vertical space after the command, not before; or at least try
+ to.
+\end_layout
+
+\begin_layout Itemize
+Bug in 
+\family typewriter
+
+\backslash
+raisebox
+\family default
+: parse and display the contents as text mode.
+\end_layout
+
+\begin_layout Itemize
+Wish list: do not number captions in code listings.
+\end_layout
+
+\begin_layout Itemize
+Do not install as a module (to run as 
+\family typewriter
+python -m elyxer
+\family default
+) but only as a script (to run as 
+\family typewriter
+elyxer.py
+\family default
+).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.1.2 (2010-12-23):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wish list: display large Unicode symbols for sums and integrals in display
+ mode.
+\end_layout
+
+\begin_layout Itemize
+Also in display mode, place limits for commands that take them above or
+ below the symbol, instead of to the right.
+\end_layout
+
+\begin_layout Itemize
+Support for new Flex insets: Code, MenuItem, Noun, Strong; new Argument,
+ Phantom and line (ruler) insets; new style 
+\family typewriter
+
+\backslash
+strikeout
+\family default
+; new LaTeX commands 
+\family typewriter
+
+\backslash
+href
+\family default
+, 
+\family typewriter
+
+\backslash
+newline
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: apply a combining function only to the following character, not
+ to the next word.
+\end_layout
+
+\begin_layout Itemize
+Added reference format for 
+\family typewriter
+vpageref
+\family default
+ (
+\begin_inset Quotes eld
+\end_inset
+
+on page #
+\begin_inset Quotes erd
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+Improved math macro parsing: optional parameters, literal parameters, single-let
+ter parameters, parameter defaults with operations.
+\end_layout
+
+\begin_layout Itemize
+Display math cases, full-sized binomials (
+\family typewriter
+
+\backslash
+dbinom
+\family default
+) and array brackets using Unicode bracket pieces.
+\end_layout
+
+\begin_layout Itemize
+Change all table-type elements in formulas to spans and do the formatting
+ in the CSS, to generate valid XHTML.
+\end_layout
+
+\begin_layout Itemize
+Support graceful degradation of fractions and roots when the CSS is not
+ present.
+\end_layout
+
+\begin_layout Itemize
+Adjusted roots to insert the root power inside the radical symbol.
+\end_layout
+
+\begin_layout Itemize
+Adjusted nice fractions (
+\begin_inset Formula $\nicefrac{3}{4}$
+\end_inset
+
+) to improve their appearance.
+\end_layout
+
+\begin_layout Itemize
+Support for all upright Greek letters: 
+\begin_inset Formula $\upmu$
+\end_inset
+
+, 
+\begin_inset Formula $\uptau$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.1.1 (2010-12-13):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wish list: understand 
+\family typewriter
+
+\backslash
+url{}
+\family default
+ in BibTeX files.
+\end_layout
+
+\begin_layout Itemize
+Wish list: parse math formulas in BibTeX files.
+\end_layout
+
+\begin_layout Itemize
+Improved support for dotless i and j as 
+\family typewriter
+
+\backslash
+imath
+\family default
+ and 
+\family typewriter
+
+\backslash
+jmath
+\family default
+: 
+\begin_inset Formula $\imath$
+\end_inset
+
+, 
+\begin_inset Formula $\jmath$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Solved bug when parsing a quoted string inside a BibTeX file containing
+ a comma.
+\end_layout
+
+\begin_layout Itemize
+Added math environments 
+\family typewriter
+equation*
+\family default
+ and 
+\family typewriter
+matrix
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Do not break inline formulas at whitespace (thanks, José Ramón!).
+\end_layout
+
+\begin_layout Itemize
+Break up the CSS into pieces, and generate an independent 
+\family typewriter
+math.css
+\family default
+ for use within 
+\family typewriter
+math2html.py
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Ignore hyphens in option names, so e.g.
+ 
+\family typewriter
+--split-part
+\family default
+ is equivalent to 
+\family typewriter
+--splitpart
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Changed 
+\family typewriter
+--forceformat
+\family default
+ to 
+\family typewriter
+--imageformat
+\family default
+ (kept the old option for backwards compatibility).
+\end_layout
+
+\begin_layout Itemize
+Wish list: added 
+\family typewriter
+--imageformat "copy"
+\family default
+ to just copy images instead of converting them.
+\end_layout
+
+\begin_layout Itemize
+Wish list: added option 
+\family typewriter
+--embedcss "file.css"
+\family default
+ to embed the CSS styles in 
+\family typewriter
+file.css
+\family default
+ into the resulting HTML.
+\end_layout
+
+\begin_layout Itemize
+Wish list: more than one 
+\family typewriter
+--css
+\family default
+ options can be added to use several CSS files.
+\end_layout
+
+\begin_layout Itemize
+Wish list: display sub- and superscript aligned vertically (as in integrals).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.1.0 (2010-11-23):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wish list: understand 
+\family typewriter
+
+\backslash
+setcounter
+\family default
+ in the preamble to set the number of the first Chapter or Section.
+\end_layout
+
+\begin_layout Itemize
+Generate a new 
+\family typewriter
+math2html.py
+\family default
+ file with an API to convert raw LaTeX code to HTML, and a command line
+ utility.
+\end_layout
+
+\begin_layout Itemize
+Wish list: new option 
+\family typewriter
+--notoclabels
+\family default
+ to omit part labels in the TOC.
+\end_layout
+
+\begin_layout Itemize
+Wish list: make 
+\begin_inset Quotes eld
+\end_inset
+
+show changes in the output
+\begin_inset Quotes erd
+\end_inset
+
+ work for change tracking.
+\end_layout
+
+\begin_layout Itemize
+Solve an existing issue with Description and List layouts: correct splitting
+ of first words when intermixing styles.
+\end_layout
+
+\begin_layout Itemize
+Show decorations using Unicode combining characters, whenever possible.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+dddot
+\family default
+: 
+\begin_inset Formula $\dddot{o}$
+\end_inset
+
+ (with combining character) and 
+\family typewriter
+
+\backslash
+widehat
+\family default
+: 
+\begin_inset Formula $\widehat{abc}$
+\end_inset
+
+ (with character on top).
+\end_layout
+
+\begin_layout Itemize
+Wish list: add several options for 
+\begin_inset CommandInset href
+LatexCommand href
+name "footnote generation"
+target "userguide.html#sub:Footnotes"
+
+\end_inset
+
+ (align markers instead of using superscript, place markers at the bottom
+ of the page, use symbols for markers\SpecialChar \ldots{}
+).
+ Also added a generic 
+\family typewriter
+--footnotes
+\family default
+ option to aggregate them all.
+\end_layout
+
+\begin_layout Itemize
+Wish list: use 
+\family typewriter
+ps:use-cropbox=true
+\family default
+ in ImageMagick for PostScript and EPS images.
+\end_layout
+
+\begin_layout Itemize
+Support for dotless i and j: 
+\begin_inset Formula $\text{ı}$
+\end_inset
+
+, 
+\begin_inset Formula $\text{ȷ}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.0.4 (2010-10-29):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31342"
+target "https://savannah.nongnu.org/bugs/index.php?31342"
+
+\end_inset
+
+: detect appendices as they appear instead of looking at the containing
+ layout.
+\end_layout
+
+\begin_layout Itemize
+Also reported in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31342"
+target "https://savannah.nongnu.org/bugs/index.php?31342"
+
+\end_inset
+
+: set part name to 
+\begin_inset Quotes eld
+\end_inset
+
+Appendix A-Z
+\begin_inset Quotes erd
+\end_inset
+
+ in the TOC for appendices, instead of showing them as regular chapters
+ or sections.
+\end_layout
+
+\begin_layout Itemize
+Also reported in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31342"
+target "https://savannah.nongnu.org/bugs/index.php?31342"
+
+\end_inset
+
+: number parts and books using roman numerals, as in 
+\begin_inset Quotes eld
+\end_inset
+
+Part I
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+Book IV
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Fixed bug due to wrapped float placement not being mandatory anymore, despite
+ what 
+\family typewriter
+EmbeddedObjects.lyx
+\family default
+ says (thanks, Hans!).
+\end_layout
+
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31351"
+target "https://savannah.nongnu.org/bugs/index.php?31351"
+
+\end_inset
+
+: do not number (or add to the TOC) any document parts inside comments.
+\end_layout
+
+\begin_layout Itemize
+Also in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31351"
+target "https://savannah.nongnu.org/bugs/index.php?31351"
+
+\end_inset
+
+: the bibliography should be added to the TOC if so configured (and not
+ inside a comment), and split into its own page with 
+\family typewriter
+--splitpart
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Also in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31351"
+target "https://savannah.nongnu.org/bugs/index.php?31351"
+
+\end_inset
+
+: show the bibliography in regular size, not smaller than the main text
+ as before.
+\end_layout
+
+\begin_layout Itemize
+Changed header from 
+\begin_inset Quotes eld
+\end_inset
+
+Bibliography
+\begin_inset Quotes erd
+\end_inset
+
+ to 
+\begin_inset Quotes eld
+\end_inset
+
+References
+\begin_inset Quotes erd
+\end_inset
+
+ for document classes other than book and report.
+\end_layout
+
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31414"
+target "https://savannah.nongnu.org/bugs/index.php?31414"
+
+\end_inset
+
+: bootstrap creation of 
+\family typewriter
+conf/config.py
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Also in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31414"
+target "https://savannah.nongnu.org/bugs/index.php?31414"
+
+\end_inset
+
+: remodeled unit tests to try out Python 2.4 only if present, and to remove
+ test files from previous runs.
+\end_layout
+
+\begin_layout Itemize
+Show the 
+\begin_inset Quotes eld
+\end_inset
+
+Abstract
+\begin_inset Quotes erd
+\end_inset
+
+ header only for the first Abstract layout (thanks, Yaron!).
+\end_layout
+
+\begin_layout Itemize
+Do not separate consecutive Abstract paragraphs, and display the abstract
+ in slightly smaller font size.
+\end_layout
+
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31345"
+target "https://savannah.nongnu.org/bugs/index.php?31345"
+
+\end_inset
+
+: ignore preamble and comments in BibTeX files.
+ Use string definitions (
+\family typewriter
+@string
+\family default
+) in other entries.
+\end_layout
+
+\begin_layout Itemize
+Also in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31345"
+target "https://savannah.nongnu.org/bugs/index.php?31345"
+
+\end_inset
+
+: avoid endless loops for undesired characters in BibTeX entries.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+fbox
+\family default
+, 
+\family typewriter
+
+\backslash
+boxed
+\family default
+, 
+\family typewriter
+
+\backslash
+framebox
+\family default
+ and 
+\family typewriter
+
+\backslash
+fcolorbox
+\family default
+: 
+\begin_inset Formula $\fbox{\ensuremath{fbox}}$
+\end_inset
+
+, 
+\begin_inset Formula $\boxed{boxed}$
+\end_inset
+
+, 
+\begin_inset Formula $\framebox[25mm][l]{framebox}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.0.3 (2010-10-15):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Do not hide errors when parsing child documents.
+\end_layout
+
+\begin_layout Itemize
+Correctly convert documents even when images are not found.
+\end_layout
+
+\begin_layout Itemize
+Do not center the content in figure or table floats by default.
+\end_layout
+
+\begin_layout Itemize
+Correctly convert child documents even when inserted in layouts.
+\end_layout
+
+\begin_layout Itemize
+Generate navigation bars for first page created with 
+\family typewriter
+--splitpart
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added wishlist to the user guide to keep track of requested features.
+\end_layout
+
+\begin_layout Itemize
+Solved 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31243"
+target "https://savannah.nongnu.org/bugs/index.php?31243"
+
+\end_inset
+
+: spaces and comments in formulas (command definitions, empty formulas\SpecialChar \ldots{}
+).
+\end_layout
+
+\begin_layout Itemize
+Also reported in 
+\begin_inset CommandInset href
+LatexCommand href
+name "bug #31243"
+target "https://savannah.nongnu.org/bugs/index.php?31243"
+
+\end_inset
+
+: do not add numbering twice to child documents, and ignore child documents
+ in comments.
+\end_layout
+
+\begin_layout Itemize
+Added support for 
+\family typewriter
+
+\backslash
+stackrel
+\family default
+: 
+\begin_inset Formula $x\stackrel{R}{\rightarrow}y$
+\end_inset
+
+ (thanks, José Ramón!).
+\end_layout
+
+\begin_layout Itemize
+Added a lot of escaped characters to BibTeX parsing: 
+\family typewriter
+
+\backslash
+~n
+\family default
+, 
+\family typewriter
+
+\backslash
+'{
+\backslash
+i}
+\family default
+\SpecialChar \ldots{}
+ Also added a field 
+\family typewriter
+note
+\family default
+ to all BibTeX styles.
+\end_layout
+
+\begin_layout Itemize
+Show all references (even those not cited) in the bibliography if configured
+ to do so.
+\end_layout
+
+\begin_layout Itemize
+Understand relative sizes (e.g.
+ 
+\family typewriter
+10col%
+\family default
+) in spaces (thanks, Uwe!).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.0.2 (2010-09-20):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Updated 
+\begin_inset CommandInset href
+LatexCommand href
+name "MathJax"
+target "http://www.mathjax.org/"
+
+\end_inset
+
+ to version 1.0.1 -- no changes to eLyXer documents are necessary.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--noconvert
+\family default
+ to use images in their original formats, and avoid converting images altogether.
+\end_layout
+
+\begin_layout Itemize
+Output 
+\family typewriter
+<object>
+\family default
+ tags for SVG images.
+ Size information is not used as it causes problems on Firefox.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: include 
+\family typewriter
+booktitle
+\family default
+ tag for the 
+\family typewriter
+@incollection
+\family default
+ format.
+\end_layout
+
+\begin_layout Itemize
+BibTex: added a tag 
+\family typewriter
+<span class="bibcites">
+\family default
+ around all bibliographical cites, so they can be e.g.
+ superscripted.
+\end_layout
+
+\begin_layout Itemize
+Show footnotes as hovering text instead of as marginal notes.
+ Make the default footnote marker a bluish superscript letter in brackets:
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+like this
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Updated 
+\family typewriter
+--lyxformat
+\family default
+ to 398 (2.0alpha5); added warning if document version is bigger than that.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+textless
+\family default
+ and 
+\family typewriter
+
+\backslash
+textgreater
+\family default
+: 
+\begin_inset Formula $\textless$
+\end_inset
+
+, 
+\begin_inset Formula $\textgreater$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added adjustments for better printing to default CSS.
+\end_layout
+
+\begin_layout Itemize
+Added languages 
+\begin_inset Quotes eld
+\end_inset
+
+british
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+american
+\begin_inset Quotes erd
+\end_inset
+
+ (which translate to plain English).
+\end_layout
+
+\begin_layout Itemize
+Avoid extracting indexes out of the containing layout if there is anything
+ else in there (thanks, Amy!).
+ This bug caused some content to be lost (e.g.
+ child documents) if they were inside the same layout as e.g.
+ an alphabetical index.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.0.1 (2010-09-01):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+BibTeX: more robust parsing, specifically: correctly parse entries separated
+ by commas.
+ Support all TeX commands already available in math formulae.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+textasciitilde
+\family default
+: 
+\begin_inset Formula $\textasciitilde$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+textasciicircum
+\family default
+: 
+\begin_inset Formula $\textasciicircum$
+\end_inset
+
+ and a few other 
+\family typewriter
+
+\backslash
+text\SpecialChar \ldots{}
+
+\family default
+ symbols.
+ Also, 
+\family typewriter
+
+\backslash
+textrm
+\family default
+, 
+\family typewriter
+
+\backslash
+textsf
+\family default
+ and 
+\family typewriter
+
+\backslash
+textnormal
+\family default
+ should be working now in equations: 
+\begin_inset Formula $a+\textrm{roman}+\textsf{sans-serif}+\textnormal{normal}+b$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Improved support for custom horizontal and vertical spaces; absolute measures
+ can now be used.
+\end_layout
+
+\begin_layout Itemize
+Support for sizes in table columns, figures and boxes.
+\end_layout
+
+\begin_layout Itemize
+Solved bug in 
+\family typewriter
+--nofooter
+\family default
+ which required a dummy argument (thanks, Yan!).
+\end_layout
+
+\begin_layout Itemize
+Corrected box styling: 
+\family typewriter
+<div class="Frameless">
+\family default
+ is now indeed frameless, while 
+\family typewriter
+<div class="Framed">
+\family default
+ no longer has a double border.
+\end_layout
+
+\begin_layout Itemize
+Solved bug in text handling which separated consecutive centered lines with
+ a space.
+\end_layout
+
+\begin_layout Itemize
+Basic support for LyX change tracking.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+1.0.0 (2010-07-21):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Replicate the navigation bar for 
+\family typewriter
+--splitpart
+\family default
+ at the bottom of pages.
+ Use translated strings for 
+\begin_inset Quotes eld
+\end_inset
+
+Previous
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Up
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+Next
+\begin_inset Quotes erd
+\end_inset
+
+ links.
+ Also added an explanatory text to the 
+\begin_inset Quotes eld
+\end_inset
+
+up
+\begin_inset Quotes erd
+\end_inset
+
+ link in the navigation bar, as in: 
+\begin_inset Quotes eld
+\end_inset
+
+Up: Chapter 1
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added partial table of contents to pages generated with 
+\family typewriter
+--splitpart
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Dependency cleanup between code modules.
+\end_layout
+
+\begin_layout Itemize
+Child documents of type 
+\begin_inset Quotes eld
+\end_inset
+
+verbatim input
+\begin_inset Quotes erd
+\end_inset
+
+ are now correctly converted on versions of Python built without universal
+ newline support.
+\end_layout
+
+\begin_layout Itemize
+Include Index and Nomenclature in the Table of Contents.
+\end_layout
+
+\begin_layout Itemize
+When an Index, TOC, List of Figures\SpecialChar \ldots{}
+ and the like is embedded in another
+ layout, do not follow the style of the layout (thanks, Yaron!).
+\end_layout
+
+\begin_layout Itemize
+Solved a couple of XHTML validation errors: removed asterisks (*) in anchor
+ names, avoid empty rows in arrays or case statements.
+\end_layout
+
+\begin_layout Itemize
+Make index entries work in Descriptions.
+ Also, mixed styles should work again within Descriptions.
+\end_layout
+
+\begin_layout Itemize
+Group certain layouts together, such as Quote and Quotation.
+\end_layout
+
+\begin_layout Itemize
+Improved output for algorithms: do not run lines together, and do not separate
+ other lines with double space.
+\end_layout
+
+\begin_layout Itemize
+List of algorithms does now correctly extract the text from the caption.
+\end_layout
+
+\begin_layout Itemize
+Increased line height for h2 in the main CSS (thanks, Wolfgang!).
+\end_layout
+
+\begin_layout Itemize
+Better color support in formulas: 
+\family typewriter
+
+\backslash
+color
+\family default
+, 
+\family typewriter
+
+\backslash
+textcolor
+\family default
+, 
+\family typewriter
+
+\backslash
+colorbox
+\family default
+.
+ 
+\begin_inset Formula ${\color{blue}blue}$
+\end_inset
+
+, 
+\begin_inset Formula $\colorbox{yellow}{\color{blue}blue}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Formulas and formula labels are not colored by default.
+\end_layout
+
+\begin_layout Itemize
+Improved Index output: there is only one anchor for each entry, and entries
+ are not shown in italics.
+\end_layout
+
+\begin_layout Itemize
+Allow hierarchical index entries, of the form 
+\begin_inset Quotes eld
+\end_inset
+
+Main ! Secondary ! Final
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.99 (2010-06-24):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Added 
+\family typewriter
+--splitpart
+\family default
+ to online help (thanks, Sven!).
+\end_layout
+
+\begin_layout Itemize
+Restored compatibility with Python 2.4 (lost in 0.98 by mistake), added test
+ to ensure it does not happen again.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: improved template definitions for Vancouver style.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: better parsing of braces (in templates) and quotes (in 
+\family typewriter
+.bib
+\family default
+ files).
+ Nested braces in templates are supported.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: variable citing styles.
+ Enclose cites in brackets instead of using superscripts.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: export all BibTeX variables in 
+\family typewriter
+bib-\SpecialChar \ldots{}
+
+\family default
+ spans.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: limited author parsing, support for surname abbreviations as in
+ style 
+\emph on
+alpha
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+BibTeX: use the 
+\family typewriter
+file
+\family default
+ tag to show a link to the local file.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+
+\backslash
+oint
+\family default
+ and friends as a bigsymbol: 
+\begin_inset Formula $\oint x\text{·}dx$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+officialeuro
+\family default
+: 
+\begin_inset Formula $\officialeuro$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Fix captions in lists of figures which use standard layouts (thanks, Hans!).
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--template
+\family default
+ to use an HTML template and substitute 
+\family typewriter
+<!--$content-->
+\family default
+, 
+\family typewriter
+<!--$title-->
+\family default
+\SpecialChar \ldots{}
+
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--copyright
+\family default
+ to add a copyright notice at the bottom (no longer generated by default).
+ Deprecated old option 
+\family typewriter
+--nocopy
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added support for including files as a code listing.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.98 (2010-05-13):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+MathJax: workaround bug in MSIE, that causes it to fail to render anything.
+\end_layout
+
+\begin_layout Itemize
+Add a margin to LyX-Code.
+ Also improve line break separation inside LyX-Code.
+\end_layout
+
+\begin_layout Itemize
+Coalesce Python code: use relative paths when importing (thanks, Jack!).
+\end_layout
+
+\begin_layout Itemize
+Experimental installation script.
+\end_layout
+
+\begin_layout Itemize
+Avoid postprocessing child documents twice (thanks, Rainer!).
+\end_layout
+
+\begin_layout Itemize
+Solved bug when loading images from child documents in subdirectories (thanks,
+ Rainer!).
+\end_layout
+
+\begin_layout Itemize
+Solved bug in image scaling when only one dimension is set (thanks, Wolfgang!).
+\end_layout
+
+\begin_layout Itemize
+Corrected issue with one-liner 
+\family typewriter
+
+\backslash
+lstset
+\family default
+ (thanks again, Rainer!).
+\end_layout
+
+\begin_layout Itemize
+Improved lists of figures, tables and algorithms: use short title, better
+ labeling of floats.
+\end_layout
+
+\begin_layout Itemize
+Solved weird bug in float numbering when a chapter has only one layout.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+
+\backslash
+diagup
+\family default
+ and 
+\family typewriter
+
+\backslash
+diagdown
+\family default
+: 
+\begin_inset Formula $\diagup$
+\end_inset
+
+, 
+\begin_inset Formula $\diagdown$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+First public release of option 
+\family typewriter
+--splitpart [level]
+\family default
+: split resulting web page at the given level.
+\end_layout
+
+\begin_layout Itemize
+Support for macros, both in LyX macro inset and as 
+\family typewriter
+
+\backslash
+newcommand
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added URLs to most BibTeX formats.
+\end_layout
+
+\begin_layout Itemize
+Added BibTeX style 
+\begin_inset Quotes eld
+\end_inset
+
+vancouver
+\begin_inset Quotes erd
+\end_inset
+
+ for articles (thanks, John!).
+\end_layout
+
+\begin_layout Itemize
+Added a footer detailing eLyXer version and conversion date; it can be turned
+ off with 
+\family typewriter
+--nofooter
+\family default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.43 (2010-04-10):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Many BibTeX improvements: new style 
+\emph on
+abbrvnat
+\emph default
+, conditional formatting, look up types in lowercase, understand 
+\begin_inset Quotes eld
+\end_inset
+
+--
+\begin_inset Quotes erd
+\end_inset
+
+ as dash.
+\end_layout
+
+\begin_layout Itemize
+Added options for mathematical equations: 
+\family typewriter
+--jsmath
+\family default
+ to use 
+\begin_inset CommandInset href
+LatexCommand href
+name "jsMath"
+target "math-jsmath.html"
+
+\end_inset
+
+ and 
+\family typewriter
+--mathjax
+\family default
+ to use 
+\begin_inset CommandInset href
+LatexCommand href
+name "MathJax"
+target "math-jsmath.html"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added command help to 
+\family typewriter
+loremipsumize.py
+\family default
+ so it can be used outside of eLyXer.
+\end_layout
+
+\begin_layout Itemize
+Include internationalization files in 
+\family typewriter
+.zip
+\family default
+ file.
+\end_layout
+
+\begin_layout Itemize
+Solved bug in table parsing: separate different plain layouts (thanks, Sara!).
+\end_layout
+
+\begin_layout Itemize
+eLyXer compressed files now contain a single directory called 
+\family typewriter
+elyxer-$VERSION
+\family default
+, instead of just 
+\family typewriter
+elyxer
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added italicized uppercase Greek letters: 
+\begin_inset Formula $\varGamma\varOmega$
+\end_inset
+
+.
+ De-italicized regular uppercase Greek letters: 
+\begin_inset Formula $\Gamma\Omega$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.42 (2010-03-17):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Changed author everywhere to the real name, to avoid any copyleft uncertainties.
+\end_layout
+
+\begin_layout Itemize
+Remove hook in the main text (
+\color green
+[D→]
+\color inherit
+) from margin notes.
+\end_layout
+
+\begin_layout Itemize
+Do not crash when BibTeX files are not found, just show an error.
+\end_layout
+
+\begin_layout Itemize
+Added support for some IPA characters, including 
+\begin_inset Formula $\textcrh$
+\end_inset
+
+.
+ Better parsing of 
+\family typewriter
+
+\backslash
+textipa
+\family default
+ text.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--numberfoot
+\family default
+ to label footnotes with numbers instead of letters.
+\end_layout
+
+\begin_layout Itemize
+Solved bug in assignment of default formatting to references (thanks, Hans!).
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--raw
+\family default
+ to output raw HTML without header or footer.
+\end_layout
+
+\begin_layout Itemize
+Added French and Dutch translations.
+\end_layout
+
+\begin_layout Itemize
+Solved indenting problem for lists: only the first line was being indented.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.41 (2010-02-11):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Select the translation based on document language.
+\end_layout
+
+\begin_layout Itemize
+Added em-dash --- such as in this sentence, 
+\begin_inset Formula $\blacksquare$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+textup
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--converter inkscape
+\family default
+ to use Inkscape as SVG converter.
+\end_layout
+
+\begin_layout Itemize
+Solved bug when numbering unordered unique parts such as Part* (thanks,
+ Geremy!).
+\end_layout
+
+\begin_layout Itemize
+Show error instead of crashing when included document does not exist.
+\end_layout
+
+\begin_layout Itemize
+Support for all box styles.
+ In CSS: switched to 
+\family typewriter
+outline-style
+\family default
+ instead of 
+\family typewriter
+border
+\family default
+ for boxes.
+\end_layout
+
+\begin_layout Itemize
+Support for vertical space insets.
+\end_layout
+
+\begin_layout Itemize
+Support for references inside paragraphs and formatted references.
+\end_layout
+
+\begin_layout Itemize
+Listings are now converted using 
+\family typewriter
+<pre>
+\family default
+ tags, instead of 
+\family typewriter
+<code>
+\family default
+.
+ They are also justified left.
+\end_layout
+
+\begin_layout Itemize
+Solved bug that prevented numbered listings to appear numbered (thanks,
+ Sam!).
+\end_layout
+
+\begin_layout Itemize
+Support for generic Flex insets, incuding 
+\family typewriter
+Flex CharStyle:MenuItem
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+All 
+\family typewriter
+&nbsp;
+\family default
+ entities are now generated as the Unicode U+00A0 character.
+\end_layout
+
+\begin_layout Itemize
+New option 
+\family typewriter
+--iso885915
+\family default
+ to generate a document with ISO-8859-15 encoding.
+\end_layout
+
+\begin_layout Itemize
+Support for Sam Liddicott's 
+\begin_inset CommandInset href
+LatexCommand href
+name "Newfangle module"
+target "http://repo.or.cz/w/newfangle.git/blob_plain/master:/www/docs/newfangle.html"
+
+\end_inset
+
+ for literate programming.
+\end_layout
+
+\begin_layout Itemize
+Updated the developer guide for potential contributors; added link from
+ the main page.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+underbrace
+\family default
+ and 
+\family typewriter
+
+\backslash
+overbrace
+\family default
+ (as bars and without sub/superscripts).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.40 (2010-01-19):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Faster (about 25%) BibTeX file parsing.
+\end_layout
+
+\begin_layout Itemize
+Show version number after a crash.
+\end_layout
+
+\begin_layout Itemize
+Imported Jens Nöckel's contributed list of LaTeX to Unicode mappings: 
+\begin_inset Formula $\divideontimes$
+\end_inset
+
+, 
+\begin_inset Formula $\backepsilon$
+\end_inset
+
+ and many more.
+\end_layout
+
+\begin_layout Itemize
+Added support for compressed documents (Document\SpecialChar \menuseparator
+Compressed).
+\end_layout
+
+\begin_layout Itemize
+Added configurable alignment support for equation environments (thanks,
+ Jens!).
+ Multiple labels per formula are correctly processed.
+\end_layout
+
+\begin_layout Itemize
+Added a couple of note insets for Tufte document classes, appearing as side
+ notes without a reference (thanks, Joachim!).
+\end_layout
+
+\begin_layout Itemize
+Support for escaped characters in BibTeX files, added German umlauts for
+ starters.
+\end_layout
+
+\begin_layout Itemize
+Support for internationalization using GNU gettext files.
+ Added Spanish and German translations in the 
+\family typewriter
+po/
+\family default
+ folder.
+\end_layout
+
+\begin_layout Itemize
+Support for verbatim includes.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.39 (2009-12-20):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Avoid oversized images on IE6.
+\end_layout
+
+\begin_layout Itemize
+Solved several crashes with the LyX documentation (thanks, Uwe!).
+\end_layout
+
+\begin_layout Itemize
+Created script to lorem-ipsumize texts, found in 
+\family typewriter
+src/loremipsumize.py
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Solved some issues with BibTeX parsing; now it should work with most real-world
+ files (thanks, Ken!).
+ Also improved error reporting and implemented a new way of line-by-line
+ parsing from file, activated with 
+\family typewriter
+--lowmem
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Support for binomial coefficients: 
+\begin_inset Formula $\binom{A}{B}$
+\end_inset
+
+.
+ Ignore commands 
+\family typewriter
+
+\backslash
+leftroot
+\family default
+, 
+\family typewriter
+
+\backslash
+uproot
+\family default
+.
+ Generic support for variable commands in math mode.
+\end_layout
+
+\begin_layout Itemize
+Support for omitted aligned brackets: 
+\begin_inset Formula $\left.right\right)$
+\end_inset
+
+ (thanks, Jens!).
+\end_layout
+
+\begin_layout Itemize
+Solved bug with image conversion from directories (thanks, Olivier!).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.38 (2009-12-03):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Resized all logos in the documentation.
+\end_layout
+
+\begin_layout Itemize
+Solved bug in paragraph indentation that indented all formula spans and
+ elements.
+\end_layout
+
+\begin_layout Itemize
+Solved a couple of bugs in image scaling: wraps with images, images in figures.
+\end_layout
+
+\begin_layout Itemize
+Solved bug in TOC generation: article-class documents had their TOC depth
+ off-by-one.
+\end_layout
+
+\begin_layout Itemize
+Solved bug with listings inserted in documents using LyX 1.6, and improved
+ their looks.
+\end_layout
+
+\begin_layout Itemize
+Slight font size reduction on Firefox, and huge reduction on some other
+ proprietary browsers.
+ Now global font size specification is done using percents.
+\end_layout
+
+\begin_layout Itemize
+New commands: 
+\family typewriter
+
+\backslash
+gtrless
+\family default
+: 
+\begin_inset Formula $\gtrless$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+complement
+\family default
+: 
+\begin_inset Formula $\complement$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+measuredangle
+\family default
+: 
+\begin_inset Formula $\measuredangle$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+sphericalangle
+\family default
+: 
+\begin_inset Formula $\sphericalangle$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+nmid
+\family default
+: 
+\begin_inset Formula $\nmid$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+circeq
+\family default
+: 
+\begin_inset Formula $\circeq$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+lessgtr
+\family default
+: 
+\begin_inset Formula $\lessgtr$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+nparallel
+\family default
+: 
+\begin_inset Formula $\nparallel$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.37 (2009-11-30):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Further improvements in float manipulation: figures enclosing other figures
+ have their own tweaked CSS class (thanks, Olivier).
+\end_layout
+
+\begin_layout Itemize
+PNG and JPEG images are not rescaled anymore, and never shown above their
+ maximum size.
+ Width and height are set using CSS properties.
+\end_layout
+
+\begin_layout Itemize
+TOC generation for unordered entries (like 
+\family typewriter
+Section*
+\family default
+) and entries inserted in other layouts.
+ Max TOC depth and max numbering depth are honored.
+ Also solved bug in tagging of unordered parts.
+\end_layout
+
+\begin_layout Itemize
+Implemented indented paragraphs when specified in the document.
+\end_layout
+
+\begin_layout Itemize
+Horizontal fill is now shown as a fixed-width space.
+\end_layout
+
+\begin_layout Itemize
+Simplified postprocessing code.
+ Inclusion of child documents is now done inside a Standard layout.
+\end_layout
+
+\begin_layout Itemize
+Support for commands 
+\family typewriter
+
+\backslash
+varkappa
+\family default
+: 
+\begin_inset Formula $\varkappa$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+varnothing
+\family default
+: 
+\begin_inset Formula $\varnothing$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+mathring
+\family default
+: 
+\begin_inset Formula $\mathring{A}$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+backprime
+\family default
+: 
+\begin_inset Formula $\backprime$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+notin
+\family default
+: 
+\begin_inset Formula $\notin$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+hfill
+\family default
+: 
+\begin_inset Formula $\hfill$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+circledR
+\family default
+: 
+\begin_inset Formula $\circledR$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+hslash
+\family default
+: 
+\begin_inset Formula $\hslash$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+New option 
+\family typewriter
+--splitpart
+\family default
+ to split the output in multiple pages, one page per part; needs more tweaking.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.36 (2009-11-19):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+New in-memory processing of a document before file output, activated by
+ default.
+ It includes: TOC generation (TOC entries admit typefaces, colors, weights,
+ spaces, short titles but restrict most other content), sequential numbering
+ to bibliography entries, lists of floats (figures, tables, algorithms),
+ correct labeling of references and use of the embedded title as HTML title.
+\end_layout
+
+\begin_layout Itemize
+New option 
+\family typewriter
+--lowmem
+\family default
+ to do one-pass filtering only, to preserve memory (keeping the old behavior).
+\end_layout
+
+\begin_layout Itemize
+Updated the 
+\begin_inset CommandInset href
+LatexCommand href
+name "developer guide"
+target "devguide.html"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Change the postprocessing of equation labels so that only one anchor is
+ used for the whole equation.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+
+\backslash
+mathscr
+\family default
+ and a few script fonts: 
+\begin_inset Formula $\mathscr{hello}$
+\end_inset
+
+.
+ Added several characters for math script (
+\family typewriter
+
+\backslash
+mathscr
+\family default
+), fraktur (
+\family typewriter
+
+\backslash
+mathfrak
+\family default
+) and blackboard (
+\family typewriter
+
+\backslash
+mathbb
+\family default
+) fonts, and implemented the translation to Unicode chars: 
+\begin_inset Formula $\mathscr{F}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathfrak{F}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbb{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+New math commands: 
+\family typewriter
+
+\backslash
+dfrac
+\family default
+, implemented as 
+\family typewriter
+
+\backslash
+cfrac
+\family default
+; 
+\family typewriter
+
+\backslash
+c
+\family default
+ for cedilla, already implemented as characters and now as decoration: 
+\begin_inset Formula $\c{G}$
+\end_inset
+
+; thick space 
+\family typewriter
+
+\backslash
+;
+\family default
+ and quotes 
+\family typewriter
+"
+\family default
+: 
+\begin_inset Formula $"\;"$
+\end_inset
+
+; 
+\family typewriter
+
+\backslash
+hspace
+\family default
+ for horizontal space and 
+\family typewriter
+
+\backslash
+vspace
+\family default
+ for vertical space; and a few size commands: 
+\family typewriter
+
+\backslash
+big
+\family default
+, 
+\family typewriter
+
+\backslash
+Big
+\family default
+, 
+\family typewriter
+
+\backslash
+bigg
+\family default
+, 
+\family typewriter
+
+\backslash
+Bigg
+\family default
+, 
+\family typewriter
+
+\backslash
+middle
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added a 
+\family typewriter
+parent
+\family default
+ attribute to every 
+\family typewriter
+Container
+\family default
+, for easier processing.
+\end_layout
+
+\begin_layout Itemize
+Image conversion and display: process width and height in an image if both
+ are present; use % width of image within a float to scale the float; set
+ max scaling of images to 100% with 
+\family typewriter
+max-width
+\family default
+ CSS attribute.
+ (Thanks, Olivier and Uwe.)
+\end_layout
+
+\begin_layout Itemize
+Subfloats are numbered (a), (b) (instead of 
+\begin_inset Formula $x.y$
+\end_inset
+
+a, 
+\begin_inset Formula $x.y$
+\end_inset
+
+b).
+\end_layout
+
+\begin_layout Itemize
+Convert all pathnames for image conversion using 
+\family typewriter
+sys.getfilesystemencoding()
+\family default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.35 (2009-11-05):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Added new characters: 
+\family typewriter
+
+\backslash
+checkmark
+\family default
+ 
+\begin_inset Formula $\checkmark$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+blacklozenge
+\family default
+ 
+\begin_inset Formula $\blacklozenge$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+nexists
+\family default
+ 
+\begin_inset Formula $\nexists$
+\end_inset
+
+, 
+\family typewriter
+
+\backslash
+mathcircumflex
+\family default
+ 
+\begin_inset Formula $\mathcircumflex$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Updated all documentation to LyX 1.6.
+\end_layout
+
+\begin_layout Itemize
+Solved CSS validation error in 
+\family typewriter
+table.align
+\family default
+ (thanks, Olivier).
+\end_layout
+
+\begin_layout Itemize
+Solved XHTML validation error in greyed out note, removing useless 
+\family typewriter
+div
+\family default
+s.
+\end_layout
+
+\begin_layout Itemize
+Add a space after a fraction and before the units: 
+\begin_inset Formula $\unit[\nicefrac{3}{2}]{km}$
+\end_inset
+
+, 
+\begin_inset Formula $\unit[\frac{7}{16}]{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Corrected display of float within a float (thanks again, Olivier!).
+\end_layout
+
+\begin_layout Itemize
+Modified the meaning of 
+\family typewriter
+--toc
+\family default
+ to be an on/off switch; the old behavior is now under 
+\family typewriter
+--toctarget
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Changed the 2009-11-05 option 
+\family typewriter
+--cutpart
+\family default
+ to 
+\family typewriter
+--splitpart
+\family default
+: new option to split the output file in parts.
+ Not yet working correctly (for instance, links are not redirected).
+\end_layout
+
+\begin_layout Itemize
+eLyXer now understands and processes new Graphics options: 
+\family typewriter
+width 50col%
+\family default
+, 
+\family typewriter
+height 50theight%
+\family default
+ and friends (thanks, Uwe).
+\end_layout
+
+\begin_layout Itemize
+PDF images are cropped before conversion to PNG (thanks, Uwe).
+\end_layout
+
+\begin_layout Itemize
+Included child documents can be inserted using firstline and lastline (as
+ seen in 
+\family typewriter
+EmbeddedObjects.lyx
+\family default
+).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.34 (2009-10-28):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Support for child document inclusion (Insert\SpecialChar \menuseparator
+File\SpecialChar \menuseparator
+Child Document\SpecialChar \ldots{}
+).
+\end_layout
+
+\begin_layout Itemize
+Avoid generating images on different directories (relative paths starting
+ with 
+\family typewriter
+../
+\family default
+).
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+
+\backslash
+maltese
+\family default
+ 
+\begin_inset Formula $\maltese$
+\end_inset
+
+ and financial symbols $, €, ¥.
+\end_layout
+
+\begin_layout Itemize
+Removed annoying message 
+\begin_inset Quotes eld
+\end_inset
+
+Unexpected end of bracket
+\begin_inset Quotes erd
+\end_inset
+
+ when parsing empty brackets.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+raisebox
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Created new structure of 
+\family typewriter
+Writer
+\family default
+s, preparing for document segmentation and TOC generation.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.33 (2009-10-19):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+New TOC generation process based on an already-generated HTML document,
+ not ready for prime time yet.
+\end_layout
+
+\begin_layout Itemize
+Adapted 
+\family typewriter
+--help
+\family default
+ option so that it shows the executable file as invoked (
+\family typewriter
+elyxer.py
+\family default
+, 
+\family typewriter
+elyxer
+\family default
+ or whatever).
+ Expanded online help from this command.
+\end_layout
+
+\begin_layout Itemize
+Support for new text commands 
+\family typewriter
+
+\backslash
+textsf
+\family default
+, 
+\family typewriter
+
+\backslash
+texttt
+\family default
+, 
+\family typewriter
+
+\backslash
+textit
+\family default
+, 
+\family typewriter
+
+\backslash
+textbf
+\family default
+, 
+\family typewriter
+
+\backslash
+textsl
+\family default
+, 
+\family typewriter
+
+\backslash
+textsc
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Properly parse all text commands 
+\family typewriter
+
+\backslash
+text\SpecialChar \ldots{}
+
+\family default
+, including 
+\family typewriter
+
+\backslash
+textipa
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+cfrac
+\family default
+.
+ Now regular 
+\family typewriter
+
+\backslash
+frac
+\family default
+ shows embedded formulas smaller.
+\end_layout
+
+\begin_layout Itemize
+Do not number equations containing 
+\family typewriter
+*
+\family default
+, like in 
+\family typewriter
+
+\backslash
+begin{align*}
+\family default
+.
+ (Once more, thanks Uwe.)
+\end_layout
+
+\begin_layout Itemize
+Properly align equations for AMS align environment.
+ Other environments are parsed but not necessarily honored.
+\end_layout
+
+\begin_layout Itemize
+Correctly distinguish 
+\family typewriter
+
+\backslash
+epsilon
+\family default
+ 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ from 
+\family typewriter
+
+\backslash
+varepsilon
+\family default
+ 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added TeX-to-Unicode mappings from 
+\begin_inset CommandInset href
+LatexCommand href
+name "Markus Kuhn"
+target "http://www.cl.cam.ac.uk/~mgk25/ucs/examples/TeX.txt"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+unitfrac
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+
+\backslash
+dots
+\family default
+: 
+\begin_inset Formula $\dots$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.32 (2009-10-05):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Fixed unit processing.
+ Now units appear separated by a space after the number.
+\end_layout
+
+\begin_layout Itemize
+Repaired use of 
+\family typewriter
+AlphaCommand
+\family default
+s.
+ Decorations so defined in the configuration file appear again as a single
+ symbol: 
+\begin_inset Formula $\hat{a}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--lyxformat
+\family default
+ to return the highest LyX format that eLyXer understands.
+ Should help when integrating with 
+\family typewriter
+lyx2lyx
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Improved TOC (table of contents) generation.
+ Modified option 
+\family typewriter
+--toc
+\family default
+ to accept an URL, and documented it.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--target
+\family default
+ to add a target frame to every link.
+\end_layout
+
+\begin_layout Itemize
+Corrected equation numbering error: now all 
+\family typewriter
+
+\backslash
+begin{equation}\SpecialChar \ldots{}
+
+\backslash
+end{equation}
+\family default
+ formulae are numbered.
+ (Thanks once more, Uwe.)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.31 (2009-09-27):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Modified image parsing code to remove dependency on Python 2.5, expurging
+ 
+\family typewriter
+os.SEEK_CUR
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Removed the ill-fated 
+\family typewriter
+elyxerconv.py
+\family default
+ library file (but kept 
+\family typewriter
+io/convert.py
+\family default
+), see 
+\begin_inset CommandInset href
+LatexCommand href
+name "lyx-devel thread"
+target "http://www.mail-archive.com/lyx-devel@lists.lyx.org/msg154647.html"
+
+\end_inset
+
+.
+ Now the file 
+\family typewriter
+elyxer.py
+\family default
+ itself can be installed as a library, and run as a module with 
+\family typewriter
+python -m
+\family default
+.; see also 
+\begin_inset CommandInset href
+LatexCommand href
+name "lyx-devel thread"
+target "http://www.mail-archive.com/lyx-devel@lists.lyx.org/msg154749.html"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+eLyXer was added to the Python Package Index (
+\begin_inset CommandInset href
+LatexCommand href
+name "PyPI"
+target "http://pypi.python.org/pypi"
+
+\end_inset
+
+) starting with 0.30.
+ Now it should be automatically registered for each release.
+\end_layout
+
+\begin_layout Itemize
+Updated documentation (
+\begin_inset CommandInset href
+LatexCommand href
+name "user guide"
+target "userguide.html"
+
+\end_inset
+
+, 
+\family typewriter
+README
+\family default
+ file) with details of distutils installation.
+\end_layout
+
+\begin_layout Itemize
+Modified single string 
+\family typewriter
+Container
+\family default
+s (
+\family typewriter
+StringContainer
+\family default
+, 
+\family typewriter
+Constant
+\family default
+) so that they appear as empty 
+\family typewriter
+Container
+\family default
+s -- should speed up postprocessing.
+\end_layout
+
+\begin_layout Itemize
+Solved bug when parsing BibTeX files with incorrect lines.
+\end_layout
+
+\begin_layout Itemize
+Modified postprocessing to correctly process lists within tables.
+\end_layout
+
+\begin_layout Itemize
+In the process refactored postprocessing completely: now instead of unconditiona
+l postprocessor stages, each stage can add a postprocessing hook.
+ Should be faster -- but is indeed a bit slower.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.30 (2009-09-13):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Removed most comments from the final distributed file 
+\family typewriter
+elyxer.py
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\begin_inset CommandInset href
+LatexCommand href
+name "distutils"
+target "http://docs.python.org/distutils/index.html"
+
+\end_inset
+
+ support for cross-platform distribution.
+ The library 
+\family typewriter
+elyxerconv
+\family default
+ is added to local Python libraries.
+\end_layout
+
+\begin_layout Itemize
+Added command line option 
+\family typewriter
+--forceformat
+\family default
+: force eLyXer to convert all images to the given output format.
+\end_layout
+
+\begin_layout Itemize
+Switched all options in command line help to quotes: 
+\family typewriter
+--title
+\begin_inset space ~
+\end_inset
+
+
+\series bold
+<
+\series default
+title
+\series bold
+>
+\family default
+\series default
+ is now 
+\family typewriter
+--title
+\begin_inset space ~
+\end_inset
+
+
+\series bold
+"
+\series default
+title
+\series bold
+"
+\family default
+\series default
+.
+\end_layout
+
+\begin_layout Itemize
+Solved bug reported by Uwe Stöhr when reading Windows BibTeX file generated
+ by JabRef.
+ Now eLyXer tries several encodings for each file, initially UTF-8 and Cp1252.
+\end_layout
+
+\begin_layout Itemize
+Another bug, also reported by Uwe Stöhr, in branch selection.
+ Added test 
+\family typewriter
+branches.lyx
+\family default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.29 (2009-09-08):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Preliminary support for BibTeX.
+ Configurable output styles (albeit cumbersome and quite primitive).
+\end_layout
+
+\begin_layout Itemize
+Added new cite commands 
+\family typewriter
+citep
+\family default
+, 
+\family typewriter
+citet
+\family default
+, 
+\family typewriter
+citealt
+\family default
+; and reference command 
+\family typewriter
+prettyref
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+A couple of new math commands: 
+\family typewriter
+
+\backslash
+ldots
+\family default
+, 
+\family typewriter
+
+\backslash
+qquad
+\family default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.28 (2009-09-05):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Various fixes related to Windows integration.
+\end_layout
+
+\begin_layout Itemize
+Documented integration with LyX in the user guide.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.27 (2009-06-17):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Units without the magnitude (the number) are working.
+\end_layout
+
+\begin_layout Itemize
+Complex roots now working, added to the math showcase.
+\end_layout
+
+\begin_layout Itemize
+Leave JPEG images untransformed instead of converting them to PNG (or at
+ least transform them to JPEG).
+ Read JPEG image sizes.
+\end_layout
+
+\begin_layout Itemize
+More flexible configuration options for lists of values.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+--destdirectory
+\family default
+ option to convert images into.
+\end_layout
+
+\begin_layout Itemize
+Image conversion from a different directory (or even with absolute paths)
+ should work now.
+\end_layout
+
+\begin_layout Itemize
+Changed the whole infrastructure for formulae parsing.
+ More structured parsing should now be possible, e.g.
+ square brackets are first-class citizens.
+\end_layout
+
+\begin_layout Itemize
+Implemented nice fractions: 
+\begin_inset Formula $\nicefrac{7}{8}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Redid basic typography: default font is now sans-serif, which looks better
+ on your average browser.
+ Formulae have a bit more space around.
+\end_layout
+
+\begin_layout Itemize
+Imported the complete symbol list from the 
+\family typewriter
+unicodesymbols
+\family default
+ file in LyX.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.26 (2009-06-10):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Added a lot of new LaTeX commands, both for Unicode symbols and for math
+ functions.
+\end_layout
+
+\begin_layout Itemize
+New mechanism to include new lists of 
+\begin_inset Quotes eld
+\end_inset
+
+command:Unicode
+\begin_inset Quotes erd
+\end_inset
+
+ equivalents.
+\end_layout
+
+\begin_layout Itemize
+New decoration command 
+\family typewriter
+
+\backslash
+overrightarrow
+\family default
+, to show a long arrow above some text.
+\end_layout
+
+\begin_layout Itemize
+Solved bug: 
+\family typewriter
+--directory
+\family default
+ option was not working.
+ A new test for this option added.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.25 (2009-06-08):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Added new characters: German dash separator, a few arrows, horizontal ellipsis.
+\end_layout
+
+\begin_layout Itemize
+Automatic insertion of release date in the changelog upon version release.
+\end_layout
+
+\begin_layout Itemize
+New formula commands: phantom text (for spacing), mbox (literal text).
+\end_layout
+
+\begin_layout Itemize
+Solved two bugs in URLs: make FlexURLs point to the link in their contents,
+ and do not show 
+\begin_inset Quotes eld
+\end_inset
+
+mailto:
+\begin_inset Quotes erd
+\end_inset
+
+ in email links.
+\end_layout
+
+\begin_layout Itemize
+Properly display Date layouts as 
+\family typewriter
+<h2>
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Display a FATAL error (and terminate) when trying to read beyond the end
+ of the document.
+\end_layout
+
+\begin_layout Itemize
+Cross-platform support for newlines.
+ Besides the Unix 
+\family typewriter
+
+\backslash
+n
+\family default
+, now supports Windows (
+\family typewriter
+
+\backslash
+r
+\backslash
+n
+\family default
+) and Mac OS X (
+\family typewriter
+
+\backslash
+r
+\family default
+) newlines.
+\end_layout
+
+\begin_layout Itemize
+Support for 
+\family typewriter
+
+\backslash
+unit
+\family default
+ command, showing units for a magnitude.
+\end_layout
+
+\begin_layout Itemize
+New format for formulae (instead of 
+\family typewriter
+$\SpecialChar \ldots{}
+$
+\family default
+ or 
+\family typewriter
+
+\backslash
+[\SpecialChar \ldots{}
+
+\backslash
+]
+\family default
+): 
+\family typewriter
+
+\backslash
+command{\SpecialChar \ldots{}
+}
+\family default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.24 (2009-06-02):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Show sum and integral limits correctly in Konqueror, Safari and Chrome.
+\end_layout
+
+\begin_layout Itemize
+Also show roots and arrays correctly in those browsers.
+ Larger radical symbol looks better.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\begin_inset CommandInset href
+LatexCommand href
+name "Math Showcase"
+target "math.html"
+
+\end_inset
+
+ to test on 
+\begin_inset CommandInset href
+LatexCommand href
+name "browsershots.org"
+target "http://browsershots.org/"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Substituted medium mathematical spaces with midspaces for better browser
+ compatibility.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+--unicode
+\family default
+ option to switch on full Unicode output; right now only re-adds medium
+ mathematical spaces.
+\end_layout
+
+\begin_layout Itemize
+Included all Greek letters, upper and lower case; and common math symbols.
+\end_layout
+
+\begin_layout Itemize
+Make title from command line option prevail over PDF title.
+\end_layout
+
+\begin_layout Itemize
+Specified minimum browser versions in the user guide and in the requirements.
+\end_layout
+
+\begin_layout Itemize
+Documented option 
+\family typewriter
+--directory
+\family default
+ (it existed already but was not in the docs).
+\end_layout
+
+\begin_layout Itemize
+Option 
+\family typewriter
+--toc
+\family default
+ can generate a Table Of Contents.
+ Not documented because it is only a start for bigger things.
+\end_layout
+
+\begin_layout Itemize
+Repaired configuration export to 
+\family typewriter
+base.cfg
+\family default
+: now all objects in 
+\family typewriter
+config.py
+\family default
+ are automatically exported.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.23 (2009-05-24):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Corrected numbering and appearance of subfloats.
+\end_layout
+
+\begin_layout Itemize
+Plain layouts are not reflected in HTML output.
+\end_layout
+
+\begin_layout Itemize
+Unified table parsing, moved table starts to configuration file.
+\end_layout
+
+\begin_layout Itemize
+Use unicode output in debug and error messages.
+\end_layout
+
+\begin_layout Itemize
+Automated testing now shows unified diff, to show the file that doesn't
+ pass the tests.
+\end_layout
+
+\begin_layout Itemize
+Finally got UTF-8 output right (hopefully).
+\end_layout
+
+\begin_layout Itemize
+Display floats with tables properly aligned, and on a white background.
+ Listings are working too.
+\end_layout
+
+\begin_layout Itemize
+Show warning when document is created with LyX 1.4.
+\begin_inset Formula $x$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Transform 
+\family typewriter
+
+\backslash
+newpage
+\family default
+ to an empty paragraph.
+\end_layout
+
+\begin_layout Itemize
+Standard layouts can be 
+\family typewriter
+<div>
+\family default
+ or nothing at all, generating valid XHTML.
+\end_layout
+
+\begin_layout Itemize
+Added nomenclature commands for 1.5.
+\begin_inset Formula $x$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Got Index and nomenclature working again, added test file so they don't
+ break anymore.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.22 (2009-05-15):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Modified user guide to explain 
+\family typewriter
+--html
+\family default
+ option.
+\end_layout
+
+\begin_layout Itemize
+Solved a few bugs manifested when exporting to HTML 4.0 with 
+\family typewriter
+--html
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+More configurable containers: quote types, barred text, boxes, info insets\SpecialChar \ldots{}
+
+\end_layout
+
+\begin_layout Itemize
+Added note on the main page about slow mirrors and latest versions.
+\end_layout
+
+\begin_layout Itemize
+Standard layouts can now be translated to 
+\family typewriter
+<div>
+\family default
+ or to 
+\family typewriter
+<span>
+\family default
+, depending on the context.
+\end_layout
+
+\begin_layout Itemize
+Command endings can be deduced from starts in configuration file.
+\end_layout
+
+\begin_layout Itemize
+A bunch of new math symbols: nu, angle brackets.
+\end_layout
+
+\begin_layout Itemize
+Generalized big brackets of several types.
+ Consolidated parameter parsing in formulas.
+\end_layout
+
+\begin_layout Itemize
+Equation numbering is working.
+\end_layout
+
+\begin_layout Itemize
+Unknown commands are shown in red: 
+\begin_inset Formula $\unknown$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.21 (2009-05-11):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Command line option 
+\family typewriter
+--html
+\family default
+ to export to HTML 4.0.
+\end_layout
+
+\begin_layout Itemize
+Container endings are now configurable from the main config file.
+\end_layout
+
+\begin_layout Itemize
+Styles can be mixed and matched at will (like 
+\family typewriter
+typewriter 
+\series bold
+bold 
+\color blue
+in blue
+\family default
+\series default
+\color inherit
+).
+\end_layout
+
+\begin_layout Itemize
+All constant strings (such as 
+\begin_inset Quotes eld
+\end_inset
+
+Table of contents
+\begin_inset Quotes erd
+\end_inset
+
+) should now be configurable.
+\end_layout
+
+\begin_layout Itemize
+Added a few more colors: 
+\color green
+green
+\color inherit
+, 
+\color magenta
+magenta
+\color inherit
+, 
+\color cyan
+cyan
+\color inherit
+, 
+\color yellow
+yellow
+\color inherit
+, 
+\color white
+white
+\color inherit
+ (those two were yellow and white).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.20 (2009-05-09):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Command line option 
+\family typewriter
+--version
+\family default
+ to show the current version number and date.
+\end_layout
+
+\begin_layout Itemize
+Release date is now automatically added to the configuration.
+\end_layout
+
+\begin_layout Itemize
+Preliminary support for inset boxes.
+\end_layout
+
+\begin_layout Itemize
+Support for numbered listings.
+\end_layout
+
+\begin_layout Itemize
+Added 
+\family typewriter
+<meta>
+\family default
+ tag for 
+\family typewriter
+Content-Type
+\family default
+, to ease importing into word processors.
+\end_layout
+
+\begin_layout Itemize
+Automated version generation, taking version number and date from config,
+ and updating current version in the main page.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.19 (2009-05-07):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+More powerful configuration file manipulation: export to generic config
+ and Python files.
+\end_layout
+
+\begin_layout Itemize
+Start lines for every parsed structure can now be configured in the global
+ 
+\family typewriter
+base.cfg
+\family default
+ file.
+\end_layout
+
+\begin_layout Itemize
+New Info types 
+\family typewriter
+package
+\family default
+ and 
+\family typewriter
+textclass
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+New formula symbols: up and down arrows, long double arrows, Gamma and Upsilon,
+ mu, backslash.
+\end_layout
+
+\begin_layout Itemize
+Show line number and current line for generic errors.
+\end_layout
+
+\begin_layout Itemize
+Listings and document abstracts are displayed properly.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.18 (2009-05-04):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wrap floats are separated by a bit of space (two exes, actually) from the
+ text.
+\end_layout
+
+\begin_layout Itemize
+Solved bug when running without any arguments.
+\end_layout
+
+\begin_layout Itemize
+Main executable file is now changed from 
+\family typewriter
+elyxer
+\family default
+ to 
+\family typewriter
+elyxer.py
+\family default
+, to prevent problems on platforms that require the extension; main source
+ file has changed from 
+\family typewriter
+elyxer.py
+\family default
+ to 
+\family typewriter
+principal.py
+\family default
+, to avoid confusion.
+\end_layout
+
+\begin_layout Itemize
+Moved all parsing code to the new package 
+\family typewriter
+parse
+\family default
+, and configuration files to package 
+\family typewriter
+conf
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+All configuration is now read from (and written to) plain text files.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.17 (2009-04-27):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Alignment of table cells is now respected, both horizontally and vertically.
+\end_layout
+
+\begin_layout Itemize
+Wrap floats are actually floated left or right.
+\end_layout
+
+\begin_layout Itemize
+Correctly interpret symbols in formulae: 
+\begin_inset Formula $!$
+\end_inset
+
+, 
+\begin_inset Formula $;$
+\end_inset
+
+, 
+\begin_inset Formula $\leq$
+\end_inset
+
+, 
+\begin_inset Formula $\geq$
+\end_inset
+
+, 
+\begin_inset Formula $\neq,$
+\end_inset
+
+ 
+\begin_inset Formula $\in$
+\end_inset
+
+, 
+\begin_inset Formula $\ddots$
+\end_inset
+
+, and a few spaces.
+\end_layout
+
+\begin_layout Itemize
+In formulae, 
+\family typewriter
+
+\backslash
+displaystyle
+\family default
+ and friends are ignored.
+\end_layout
+
+\begin_layout Itemize
+Square roots are again displayed correctly, and even better than before!
+\end_layout
+
+\begin_layout Itemize
+Cases are working (not perfect: with a bar instead of a bracket, but working).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.16 (2009-04-22):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Document date is shown centered.
+\end_layout
+
+\begin_layout Itemize
+Special rows in a longtable are properly ignored.
+\end_layout
+
+\begin_layout Itemize
+Multicolumn cells are properly interpreted.
+\end_layout
+
+\begin_layout Itemize
+Sums and integral limits are properly displayed with respect to the symbol:
+ 
+\begin_inset Formula $\sum_{i=1}^{\infty}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.15 (2009-04-19):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Info insets (containing shortcuts) are now interpreted and shown.
+\end_layout
+
+\begin_layout Itemize
+LyX-Code is interpreted as a 
+\family typewriter
+<pre>
+\family default
+ tag.
+\end_layout
+
+\begin_layout Itemize
+Reorganized code into a few packages.
+\end_layout
+
+\begin_layout Itemize
+Line numbers are not shown for utility classes.
+\end_layout
+
+\begin_layout Itemize
+Floats (figures, tables and algorithms) are now numbered.
+\end_layout
+
+\begin_layout Itemize
+Float links point to the start of the table or figure, not to the caption.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.14 (2009-04-13):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Deeper layouts (of any kind, not just in lists) are now supported.
+\end_layout
+
+\begin_layout Itemize
+Appendices are numbered correctly (as A, B, C\SpecialChar \ldots{}
+).
+\end_layout
+
+\begin_layout Itemize
+Sections in deeper layouts are numbered correctly too.
+\end_layout
+
+\begin_layout Itemize
+Double dash does not catch Unix-style options: --css is not converted --
+ while the version with spaces is.
+\end_layout
+
+\begin_layout Itemize
+Corrected serious bug in formula parsing affecting inline arrays.
+\end_layout
+
+\begin_layout Itemize
+Arrays with vertical alignment are correctly parsed.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.13 (2009-04-12):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Lists are correctly displayed, instead of one list per item.
+\end_layout
+
+\begin_layout Itemize
+Lists can contain nested layouts.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+List
+\family default
+ layouts (not to mistake with 
+\family typewriter
+Enumerate
+\family default
+ or 
+\family typewriter
+Itemize
+\family default
+ lists) are processed correctly.
+\end_layout
+
+\begin_layout Itemize
+Changelog moved to separate document.
+\end_layout
+
+\begin_layout Itemize
+Read image sizes correctly on big-endian architectures (e.g.
+ Mac OS X on PowerPC).
+\end_layout
+
+\begin_layout Itemize
+Numeration of chapters, sections\SpecialChar \ldots{}
+ is working.
+\end_layout
+
+\begin_layout Itemize
+Error messages now show the line where they happen.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.12 (2009-04-05):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Arrays are parsed correctly and displayed acceptably.
+\end_layout
+
+\begin_layout Itemize
+Numbers and units are correctly separated.
+\end_layout
+
+\begin_layout Itemize
+Text decorations (such as 
+\begin_inset Formula $\hat{a}$
+\end_inset
+
+) are shown in line.
+\end_layout
+
+\begin_layout Itemize
+Variables are italicized.
+\end_layout
+
+\begin_layout Itemize
+Notes and comments are not output at all, greyed-out notes are shown in
+ grey.
+\end_layout
+
+\begin_layout Itemize
+LyX guides parse completely.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.11 (2009-03-27):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Arrays are at least well parsed (but still show wrong).
+\end_layout
+
+\begin_layout Itemize
+Integrals and sums appear as large characters.
+\end_layout
+
+\begin_layout Itemize
+Appendices are separated from the main document.
+\end_layout
+
+\begin_layout Itemize
+The bibliography appears separated with a title.
+\end_layout
+
+\begin_layout Itemize
+Floats appear centered on-screen.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.10 (2009-03-23):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Better handling of footnotes and margin notes: not overlapping and with
+ a reference in the text.
+\end_layout
+
+\begin_layout Itemize
+Better parsing of first word in a Description.
+\end_layout
+
+\begin_layout Itemize
+Short titles are ignored.
+\end_layout
+
+\begin_layout Itemize
+Added a few font families for equations.
+ Not that they display too well\SpecialChar \ldots{}
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.9 (2009-03-21):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Better formula parsing (including line breaks).
+ Supports a few math fonts.
+\end_layout
+
+\begin_layout Itemize
+Supports menu separator, text with bar, nomenclature and many more quote
+ types.
+\end_layout
+
+\begin_layout Itemize
+Single configuration file 
+\family typewriter
+general.py
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Layout of type Space is not shown.
+\end_layout
+
+\begin_layout Itemize
+Supports branches.
+ Inactive branches are not shown.
+\end_layout
+
+\begin_layout Itemize
+New symbols: greek letters, shapes: bullet, right triangle.
+\end_layout
+
+\begin_layout Itemize
+Added support for new style (1.6.
+\begin_inset Formula $x$
+\end_inset
+
+) index entries.
+\end_layout
+
+\begin_layout Itemize
+From LyX documentation: 
+\family typewriter
+UserGuide.lyx
+\family default
+ is now working (except for some math functions).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.8 (2009-03-20):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Can be run from other directories than the one with the document.
+\end_layout
+
+\begin_layout Itemize
+Tables have light grey separations.
+ Table spacing is now better adjusted.
+\end_layout
+
+\begin_layout Itemize
+Descriptions appear with the first word in bold), but only within the first
+ text style.
+ Changing style in the middle of a word may distract the algorithm.
+\end_layout
+
+\begin_layout Itemize
+Added support for Lyx notes (not rendered in the HTML), margin notes, pretty
+ quotes ‘’, weird spaces.
+\end_layout
+
+\begin_layout Itemize
+Added support for new style (1.6.
+\begin_inset Formula $x$
+\end_inset
+
+) hyperlinks, labels and references, TOC, index.
+\end_layout
+
+\begin_layout Itemize
+Uses PDF title if present.
+\end_layout
+
+\begin_layout Itemize
+From LyX documentation: 
+\family typewriter
+Intro.lyx
+\family default
+ is now working.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.7 (2009-03-16):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Images referenced by absolute path are converted to relative PNGs.
+\end_layout
+
+\begin_layout Itemize
+Range of supported quotes is greater.
+ Unknown quotes are now marked as errors but do not make the tool fail.
+\end_layout
+
+\begin_layout Itemize
+Default CSS is always on 
+\begin_inset CommandInset href
+LatexCommand href
+name "nongnu.org"
+target "http://www.nongnu.org/elyxer/lyx.css"
+
+\end_inset
+
+, it can be changed via command line option 
+\family typewriter
+--css
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+Reinstated layout classes for unknown types.
+\end_layout
+
+\begin_layout Itemize
+Updated documentation to include how to run on Windows.
+\end_layout
+
+\begin_layout Itemize
+Added meta generator tag to all pages.
+\end_layout
+
+\begin_layout Itemize
+Added option 
+\family typewriter
+--title
+\family default
+ to change the default page title.
+\end_layout
+
+\begin_layout Itemize
+Phonetic symbols appear in dark cyan: 
+\begin_inset Formula $\text{\textipa{[sample]}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Lots of small fixes and improvements to correctly parse the official LyX
+ guides (
+\family typewriter
+UserGuide.lyx
+\family default
+, 
+\family typewriter
+EmbeddedObjects.lyx
+\family default
+ and 
+\family typewriter
+Math.lyx
+\family default
+).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.6 (2009-03-15):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Added Flex URLs, Flex code.
+\end_layout
+
+\begin_layout Itemize
+Works with Python 2.3.5, but not yet Mac OS X terminal.
+\end_layout
+
+\begin_layout Itemize
+Alignment now works right (and center and left).
+\end_layout
+
+\begin_layout Itemize
+Modified license files to comply with Savannah policies.
+\end_layout
+
+\begin_layout Itemize
+Added index page and logo.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.5 (2009-03-14):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Inset parameters are all parsed correctly (including spaces in image paths).
+\end_layout
+
+\begin_layout Itemize
+Formulae and tables should work again (including complex formatting).
+\end_layout
+
+\begin_layout Itemize
+Modified to (mostly) run under Python 2.3.5 (Mac OS X Tiger).
+\end_layout
+
+\begin_layout Itemize
+Processes layouts ending in `*' (like `Section*').
+\end_layout
+
+\begin_layout Itemize
+Runtime options for help and to disable the copyright notice, debug, quietness.
+\end_layout
+
+\begin_layout Itemize
+Accepts scaling for images.
+\end_layout
+
+\begin_layout Itemize
+Nested lists working.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.4 (2009-03-12):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+When images do not exist warns but does not fail.
+\end_layout
+
+\begin_layout Itemize
+Author and title containing tags are properly processed.
+\end_layout
+
+\begin_layout Itemize
+Slanted text translated to italics.
+\end_layout
+
+\begin_layout Itemize
+Title no longer necessary to have a working document.
+\end_layout
+
+\begin_layout Itemize
+ERT is ignored.
+ Status line (open/collapsed) is ignored.
+\end_layout
+
+\begin_layout Itemize
+Supports footnotes, newlines, bibitem entries and citations.
+\end_layout
+
+\begin_layout Itemize
+Dev guide includes a 
+\family typewriter
+Container
+\family default
+ tutorial.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+0.3 (2009-03-11): Now works with generic Insets.
+\end_layout
+
+\begin_layout Itemize
+0.2 (2009-03-11): ImageMagick is not required anymore.
+\end_layout
+
+\begin_layout Itemize
+0.1 (2009-03-10): first public version.
+\end_layout
+
+\end_body
+\end_document

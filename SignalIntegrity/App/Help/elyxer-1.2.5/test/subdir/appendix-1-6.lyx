@@ -1,0 +1,1164 @@
+#LyX 1.6.5 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrbook
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2010 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+% DO NOT ALTER THIS PREAMBLE!!!
+%
+% This preamble is designed to ensure that the User's Guide prints
+% out as advertised. If you mess with this preamble,
+% parts of the User's Guide may not print out as expected.  If you
+% have problems LaTeXing this file, please contact 
+% the documentation team
+% email: lyx-docs@lists.lyx.org
+
+\usepackage{ifpdf} % part of the hyperref bundle
+\ifpdf % if pdflatex is used
+
+ % set fonts for nicer pdf view
+ \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+
+\fi % end if pdflatex is used
+
+% for correct jump positions whe clicking on a link to a float
+\usepackage[figure]{hypcap}
+
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+
+% redefine the \LyX macro for PDF bookmarks
+\def\LyX{\texorpdfstring{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+% define a short command for \textvisiblespace
+\newcommand{\spce}{\textvisiblespace}
+
+% macro for italic page numbers in the index
+\newcommand{\IndexDef}[1]{\textit{#1}}
+
+% redefine the greyed out note
+\end_preamble
+\options intoc,bibtotoc,idxtotoc,BCOR7mm,tablecaptionabove
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_title "Appendix Test"
+\pdf_author "Alex Fernández"
+\pdf_subject "Containing Numeration and Other Appendixy things"
+\pdf_keywords "LyX eLyXer"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false, pdfpagelabels,pdftex"
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Appendix Test
+\end_layout
+
+\begin_layout Author
+Alex Fernández (elyxer@gmail.com)
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Of How Our Hero Came and Went
+\end_layout
+
+\begin_layout Chapter
+The Coming
+\end_layout
+
+\begin_layout Standard
+Our hero came in.
+ He was tired.
+ He thought the world belonged to him.
+\end_layout
+
+\begin_layout Section
+The Meeting
+\end_layout
+
+\begin_layout Standard
+Our hero met with Laurinda.
+ She was smiling.
+ But our hero was not amused.
+ His whiskers were dripping wet, he was astonishingly thirsty, and the contradic
+tion was killing him.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Give me some beer, woman!
+\begin_inset Quotes erd
+\end_inset
+
+, he ordered.
+\end_layout
+
+\begin_layout Section
+The Melting
+\end_layout
+
+\begin_layout Standard
+Laurinda smiled again.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+But Wenceslau, you don't belong here.
+\begin_inset Quotes erd
+\end_inset
+
+ What a stupid thing to say at that precise moment, our hero thought to
+ himself.
+ Only that it came out loud.
+ At that precise moment he knew that the desired beer would not be forthcoming.
+\end_layout
+
+\begin_layout Standard
+He turned to the bartender and tried to obtain a beer by the very old method
+ of purchasing it.
+ But being ignored was not one of Laurinda's specialities.
+\end_layout
+
+\begin_layout Chapter
+The Going
+\end_layout
+
+\begin_layout Standard
+It could not last.
+ Laurinda's hips were flapping, and she was hopping mad.
+\end_layout
+
+\begin_layout Section
+Our Hero's Imagination
+\end_layout
+
+\begin_layout Standard
+Our hero imagined her as a rabbit with long ears and a fine set of tusks.
+ In a short time the image drifted to a walrus, and our hero could not help
+ letting his sinister smile giving him away.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rabbit-walrus"
+
+\end_inset
+
+ shows a gross approximation of the rabbit-walrus.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename rabbit-walrus.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rabbit-walrus"
+
+\end_inset
+
+The rabbit-walrus.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Laurinda's Anger
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+Wasn't it great
+\begin_inset Quotes erd
+\end_inset
+
+, said Laurinda.
+ Actually she said it in the present tense, but our poor storytelling skills
+ have changed that to a cheesy past.
+ Don't do this at home, kids.
+ You want to be regarded for your authenticity, and misquoting isn't going
+ to help much.
+\end_layout
+
+\begin_layout Standard
+Anyway, back to the story.
+ Laurinda wanted to hit him in the head with a big ham that she kept just
+ for occassions like this, and being a solid Hitchcock fan she was ready
+ to cook the ham afterwards and serve the resulting stew to any policemen
+ that might come by.
+ She was also a huge Almodóvar fan, but she was unaware that in an early
+ film the divine Pedro had copied the scene.
+ Actually both directors had copied the idea from a short story by Roald
+ Dahl, very much worth reading.
+ Although it must be said that in this story it was a lamb leg, which hardly
+ offers the consistency and stiffness necessary to kill a sturdy husband.
+\end_layout
+
+\begin_layout Standard
+But who cares.
+ Laurinda meanwhile had a funny appearance; if you want to see why please
+ direct your eyes to figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anger"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename laurindas-anger.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:anger"
+
+\end_inset
+
+Laurinda's anger pictured in a mildly humorous tone.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And yet, how furious was really Laurinda, whom we may optionally refer to
+ as Melinda from now on? Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:anger-time"
+
+\end_inset
+
+ vainly attempts to quantify it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Anger
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:anger-time"
+
+\end_inset
+
+Laurinda's anger as a function of time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the sake of Laurinda's furiousness, here is figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anger-again"
+
+\end_inset
+
+ again.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename laurindas-anger.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:anger-again"
+
+\end_inset
+
+Laurinda's anger, again.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+But how did Laurinda compute her anger? We cannot but speculate; here is
+ a stupid suggestion in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:computation"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+anger = time - 1
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:computation"
+
+\end_inset
+
+Laurinda computes her anger.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The result is in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:anger-time-again"
+
+\end_inset
+
+, proving we were right all along.
+ Also subtables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Only-Anger"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Only-Time"
+
+\end_inset
+
+ show anger and time, respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="1">
+<features>
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Anger
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Only-Anger"
+
+\end_inset
+
+Only Anger.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="1">
+<features>
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Only-Time"
+
+\end_inset
+
+Only Time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:anger-time-again"
+
+\end_inset
+
+Laurinda's anger quantified, divided in two.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Interested in that last table? Let us repeat it but without a label and
+ with a table and a subtable 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:rabbit-walrus-encore"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+Censored
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:rabbit-walrus-encore"
+
+\end_inset
+
+The rabbit-walrus does an encore.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Anger
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+One more time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Passing Away
+\end_layout
+
+\begin_layout Standard
+Our hero was passing by the village.
+ He had only stopped to say 
+\begin_inset Quotes eld
+\end_inset
+
+Hi!
+\begin_inset Quotes erd
+\end_inset
+
+ Again here our lousy skills have made us spoil the quote, but this time
+ for the opposite reasons: everyone knows how to say 
+\begin_inset Quotes eld
+\end_inset
+
+Hi!
+\begin_inset Quotes erd
+\end_inset
+
+, so we don't need an actual quote.
+ It is enough to report that the had stopped to say hi, even maybe qualifying
+ it a bit to make do for the missing exclamation sign: he could have stopped
+ to say a friendly hi.
+ Getting all literary he could have stopped to say a longing hi, although
+ this road leads to bizarreness.
+ It could be cool though.
+\end_layout
+
+\begin_layout Standard
+But anyway.
+ Laurinda was so mad, so hopping mad that she called her friend, the Assassin.
+ He was not in town at that precise moment, but that didn't help our hero
+ as he was just outside town killing people in a small barn.
+ Just for practice.
+\end_layout
+
+\begin_layout Standard
+Our hero left the village, but Laurinda cunningly annotated the MAC address
+ of his laptop's wifi card.
+ The lack of networking knowledge on the part of our hero (who really couldn't
+ tell a SYN packet from an ACK) was to play an important part in the story
+ -- if he had known how to change the MAC address, which identified him
+ with the precision of a surgeon's scalpel, he would have been safe.
+\end_layout
+
+\begin_layout Standard
+Let's not even get into that last scalpel metaphor, shall we not? It leaks
+ worse than the Titanic.
+\end_layout
+
+\begin_layout Part
+Of How Our Hero Went No More
+\end_layout
+
+\begin_layout Chapter
+The Killing
+\end_layout
+
+\begin_layout Standard
+Our hero led a happy existence for a long time afterwards, randomly avoiding
+ all points within connecting distance of a wifi network.
+ It could not last.
+\end_layout
+
+\begin_layout Standard
+Our hero went to the next village, found a friendly Moonrams cafe and connected
+ to the net.
+ Quickly the assassin (who knew the very people that run the internet, and
+ who by this display of nerdiness no longer merits the starting capital
+ letter) traced a bunch of IP packets coming from our hero's MAC address.
+ He deployed a team of murderous African bees, which as surely as a well-cared-f
+or AK-47 reached our hero and killed him with three fast stings.
+ Of course they died afterwards, being bees and all, so it was an astounding
+ feat this training of wild African bees just for this one murder.
+ Maybe the Assassin merits that capital letter after all.
+\end_layout
+
+\begin_layout Section
+The Passing Away
+\end_layout
+
+\begin_layout Standard
+Our hero was undone.
+ He was no more.
+ He was, actually, an ex-hero.
+ We shall narrate his wake soon.
+\end_layout
+
+\begin_layout Itemize
+But first a message from our kind sponsors.
+ They want to present you the next section in this deeper inset.
+\end_layout
+
+\begin_deeper
+\begin_layout Section
+The Mourning
+\end_layout
+
+\begin_layout Standard
+Everyone cried in the ceremony.
+ It was so sad that we need an image of this moment.
+ You can find it in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mourning"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Mental note: never pay the artist beforehand.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename mourning.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mourning"
+
+\end_inset
+
+A crude approximation to our hero's mourning.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And thusly everything happened.
+\end_layout
+
+\begin_layout Chapter
+The Mourning
+\end_layout
+
+\begin_layout Standard
+We have already talked at length about the mourning, and under sponsorship
+ no less, so no further details will be given here.
+ Suffice to say that our hero was mourned.
+ A lot.
+\end_layout
+
+\begin_layout Chapter
+\start_of_appendix
+The Rebirth
+\end_layout
+
+\begin_layout Standard
+Surprising everyone, our hero was about to make a comeback.
+\end_layout
+
+\begin_layout Section
+Coming Again
+\end_layout
+
+\begin_layout Standard
+As it happened, our hero had never died; he had just faked his own death
+ to find out his assassin.
+ It was not difficult, what with the capital letter and all.
+\end_layout
+
+\begin_layout Section
+Two is Better than One
+\end_layout
+
+\begin_layout Standard
+How to make another comeback? This is left as an exercise to the reader.
+\end_layout
+
+\begin_layout Chapter
+Our Recommendation to Kids
+\end_layout
+
+\begin_layout Standard
+Never trust killer bees.
+ Or Assassins.
+\end_layout
+
+\begin_layout Section
+Killer Bees and Their Perils
+\end_layout
+
+\begin_layout Standard
+A killer bee cannot be trained consistently, since it will die at the first
+ sting.
+ Better use killing wasps -- or, even better, solve your differencies talking.
+\end_layout
+
+\begin_layout Standard
+For the sake of your education, check figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:killer-bees"
+
+\end_inset
+
+.
+ It shows a bunch of killer bees, or something.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename mourning.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:killer-bees"
+
+\end_inset
+
+A gathering of killer bees.
+ Supposedly.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Assassins: Inherently Unreliable
+\end_layout
+
+\begin_layout Standard
+Someone who kills people (even for business) is not someone you want to
+ deal with.
+ Watch 
+\begin_inset Quotes eld
+\end_inset
+
+Fargo
+\begin_inset Quotes erd
+\end_inset
+
+ by the Coen Brothers if you don't believe me.
+ And remember: a hero under the belt is a feather on the hat.
+\end_layout
+
+\end_body
+\end_document

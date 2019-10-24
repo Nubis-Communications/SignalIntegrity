@@ -1,0 +1,148 @@
+/*
+* Obsolete definitions, kept for backwards compatibility.
+*/
+
+/* Footnotes */
+span.FootMarker {
+	color: #0030c0;
+	font-size: 0.75em;
+	line-height: 0.5em;
+	vertical-align: text-top;
+}
+span.Foot {
+	margin: 0.2ex;
+	border: thin solid #c0c0c0;
+	background: #ffffff;
+	padding: 0.5ex;
+	font-size: small;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-align: left;
+}
+span.FootOuter .Foot {
+	display: none;
+	position: absolute;
+}
+span.FootOuter:hover .Foot {
+	display: inline;
+	float: none;
+}
+
+/* Dotted box */
+span.dotted {
+	border-top: thin dotted;
+}
+
+/* Obsolete aligned structures */
+span.numerator-l {
+	display: block;
+	text-align: left;
+}
+span.numerator-r {
+	display: block;
+	text-align: right;
+}
+span.numeratorl {
+	display: block;
+	text-align: left;
+}
+span.numeratorr {
+	display: block;
+	text-align: right;
+}
+span.framebox- {
+	display: inline-block;
+	border: thin solid black;
+	text-align: center;
+	padding: 5px;
+}
+span.framebox-l {
+	display: inline-block;
+	border: thin solid black;
+	text-align: left;
+	padding: 5px;
+}
+span.framebox-r {
+	display: inline-block;
+	border: thin solid black;
+	text-align: right;
+	padding: 5px;
+}
+td.formula-l {
+	text-align: left;
+	padding: 0.2ex;
+	border: 0ex;
+}
+td.formula-c {
+	text-align: center;
+	padding: 0.2ex;
+	border: 0ex;
+}
+td.formula-r {
+	text-align: right;
+	padding: 0.2ex;
+	border: 0ex;
+}
+
+/* Obsolete limits */
+sub.bigsymbol {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+sup.bigsymbol {
+	display: table-row;
+	text-align: left;
+	line-height: 150%;
+}
+
+/* Obsolete cases */
+table.cases {
+	display: inline-block;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0.2em;
+	border-left: thin solid;
+	vertical-align: middle;
+}
+table.cases tr td {
+	padding-left: 1ex;
+	padding-right: 1em;
+}
+
+/* Obsolete binomials */
+span.fullbinom {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+span.upbinom {
+	display: block;
+	padding: 0em;
+}
+span.downbinom {
+	display: block;
+	padding: 0em;
+}
+
+/* Obsolete environments */
+table.formula {
+	display: inline-block;
+	text-align: center;
+	border-collapse: collapse;
+	margin: 0em;
+	vertical-align: middle;
+}
+td.formula {
+	padding: 0.2ex;
+	border: 0ex;
+}
+table.environment {
+	display: inline-block;
+	text-align: right;
+	margin: 0;
+	vertical-align: middle;
+}
+table.environment tr td {
+	padding: 0 1em;
+}

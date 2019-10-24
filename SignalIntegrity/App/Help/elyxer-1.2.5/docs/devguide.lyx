@@ -1,0 +1,3711 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%   eLyXer -- convert LyX source files to HTML output.
+%
+%   Copyright (C) 2009-2011 Alex Fernández
+%
+%   This program is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   This program is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\begin_inset Graphics
+	filename elyxer.svg
+	lyxscale 50
+
+\end_inset
+
+eLyXer Developer Guide
+\end_layout
+
+\begin_layout Author
+Alex Fernández (elyxer@gmail.com)
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Basics
+\end_layout
+
+\begin_layout Standard
+This document should help you get started if you want to understand how
+ eLyXer works, and maybe extending its functionality.
+ The package (including this guide and all accompanying materials) is licensed
+ under the 
+\begin_inset CommandInset href
+LatexCommand href
+name "GPL version 3"
+target "http://www.gnu.org/licenses/gpl-3.0-standalone.html"
+
+\end_inset
+
+ or, at your option, any later version.
+ See the 
+\family typewriter
+LICENSE
+\family default
+ file for details.
+ Also visit the 
+\begin_inset CommandInset href
+LatexCommand href
+name "main page"
+target "index.html"
+
+\end_inset
+
+ to find out about the latest developments.
+\end_layout
+
+\begin_layout Standard
+In this first section we will outline how eLyXer performs the basic tasks.
+ Next section will be devoted to more arcane matters.
+ The third section explains how to contribute to eLyXer, while the fourth
+ one deals with future planned extensions.
+ The fifth section includes things that will probably 
+\emph on
+not
+\emph default
+ be implemented.
+ Finally there is a FAQ that contains answers to questions asked privately
+ and on the lyx-devel list 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lyx-devel"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Getting eLyXer
+\end_layout
+
+\begin_layout Standard
+If you are interested in eLyXer from a developer perspective the first thing
+ to do is fetch the code.
+ It is included in the standard distribution, so just navigate to the 
+\family typewriter
+src/
+\family default
+ folder and take a look at the 
+\family typewriter
+.py
+\family default
+ Python code files.
+\end_layout
+
+\begin_layout Standard
+For more serious use, or if your distribution did not carry the source code,
+ or perhaps to get the latest copy of the code: you need to install the
+ tool 
+\family typewriter
+git
+\family default
+, created by Linus Torvalds (of Linux fame) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "git-download"
+
+\end_inset
+
+.
+ You will also need to have Python installed; versions at or above 2.4 should
+ be fine 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "python-download"
+
+\end_inset
+
+.
+ The code is hosted in Savannah 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "savannah-elyxer"
+
+\end_inset
+
+, a GNU project for hosting non-GNU projects.
+ So first you have to fetch the code:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ git clone git://git.sv.gnu.org/elyxer.git
+\end_layout
+
+\begin_layout Standard
+You should see some output similar to this:
+\end_layout
+
+\begin_layout LyX-Code
+Initialized empty Git repository in /home/user/install/elyxer/.git/
+\end_layout
+
+\begin_layout LyX-Code
+remote: Counting objects: 528, done.
+\end_layout
+
+\begin_layout LyX-Code
+remote: Compressing objects: 100% (157/157), done.
+\end_layout
+
+\begin_layout LyX-Code
+remote: Total 528 (delta 371), reused 528 (delta 371)
+\end_layout
+
+\begin_layout LyX-Code
+Receiving objects: 100% (528/528), 150.00 KiB | 140 KiB/s, done.
+\end_layout
+
+\begin_layout LyX-Code
+Resolving deltas: 100% (371/371), done.
+ 
+\end_layout
+
+\begin_layout Standard
+Now enter the directory that 
+\family typewriter
+git
+\family default
+ has created.
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ cd elyxer
+\end_layout
+
+\begin_layout Standard
+Your first task is to create the main executable file:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ ./make
+\end_layout
+
+\begin_layout Standard
+The build system for eLyXer will compile it for you, and even run some basic
+ tests.
+ (We will see later on section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Distribution"
+
+\end_inset
+
+ how this 
+\begin_inset Quotes eld
+\end_inset
+
+compilation
+\begin_inset Quotes erd
+\end_inset
+
+ is done.) Now you can try it out:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ cd docs/
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ ../elyxer.py devguide.lyx devguide2.html
+\end_layout
+
+\begin_layout Standard
+You have just created your first eLyXer page! The result is in 
+\family typewriter
+devguide2.html
+\family default
+; to view it in Firefox:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ firefox-bin devguide2.html
+\end_layout
+
+\begin_layout Standard
+If you want to debug eLyXer then it is better to run it from the source
+ code folder, instead of the compiled version.
+ For this you need to make just a small change, instead of 
+\family typewriter
+elyxer.py
+\family default
+ run 
+\family typewriter
+src/principal.py
+\family default
+:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ ../src/principal.py --debug devguide.lyx devguide2.html
+\end_layout
+
+\begin_layout Standard
+and you will see the internal debug messages.
+\end_layout
+
+\begin_layout Standard
+Note for Windows developers: on Windows eLyXer needs to be invoked using
+ the Python executable, and of course changing the slashes to backward-slashes:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+>
+\color inherit
+ Python ..
+\backslash
+elyxer.py devguide.lyx devguide2.html
+\end_layout
+
+\begin_layout Standard
+or for the source code version:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+>
+\color inherit
+ Python ..
+\backslash
+src
+\backslash
+elyxer.py devguide.lyx devguide2.html
+\end_layout
+
+\begin_layout Standard
+If you want to install the created version you just have to run the provided
+ install script as root:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+#
+\color inherit
+ ./install
+\end_layout
+
+\begin_layout Standard
+Once eLyXer has been installed it can be invoked as any other Unix command:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ elyxer.py devguide.lyx devguide3.html
+\end_layout
+
+\begin_layout Standard
+In the rest of this section we will delve a little bit into how eLyXer works.
+\end_layout
+
+\begin_layout Subsection
+
+\family typewriter
+Container
+\family default
+s
+\end_layout
+
+\begin_layout Standard
+The basic code artifact (or `class
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "class"
+description "A self-contained piece of code that hosts attributes (values) and methods (functions)."
+
+\end_inset
+
+' in Python talk) is the 
+\family typewriter
+Container
+\family default
+, located in the 
+\family typewriter
+gen
+\family default
+ package (file 
+\family typewriter
+src/gen/Container.py
+\family default
+).
+ Its responsibility is to take a bit of LyX code and generate working HTML
+ code.
+ This includes (with the aid of some helper classes): reading from file
+ a few lines, converting it to HTML, and writing the lines back to a second
+ file.
+\end_layout
+
+\begin_layout Standard
+The following figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Container-structure"
+
+\end_inset
+
+ shows how a 
+\family typewriter
+Container
+\family default
+ works.
+ Each type of 
+\family typewriter
+Container
+\family default
+ should have a 
+\family typewriter
+parser
+\family default
+ and an 
+\family typewriter
+output
+\family default
+, and a list of 
+\family typewriter
+contents
+\family default
+.
+ The 
+\family typewriter
+parser
+\family default
+ object receives LyX input and produces a list of 
+\family typewriter
+contents
+\family default
+ that is stored in the 
+\family typewriter
+Container
+\family default
+.
+ The 
+\family typewriter
+output
+\family default
+ object then converts those 
+\family typewriter
+contents
+\family default
+ to a portion of valid HTML code.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename container.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Container-structure"
+
+\end_inset
+
+Container structure.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Two important class attributes of a 
+\family typewriter
+Container
+\family default
+ are:
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+start
+\family default
+: a string of text containing the LyX command that we are about to process;
+\end_layout
+
+\begin_layout Itemize
+and 
+\family typewriter
+ending
+\family default
+, which is used on some 
+\family typewriter
+Container
+\family default
+s to determine when to stop parsing.
+\end_layout
+
+\begin_layout Standard
+A class called 
+\family typewriter
+ContainerFactory
+\family default
+ has the responsibility of creating the appropriate containers, as the strings
+ in their 
+\family typewriter
+start
+\family default
+ attributes are found.
+\end_layout
+
+\begin_layout Standard
+The basic method of a 
+\family typewriter
+Container
+\family default
+ is:
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+process()
+\family default
+: called after parsing the LyX text and before outputting the HTML result.
+ Here the 
+\family typewriter
+Container
+\family default
+ can alter its 
+\family typewriter
+contents
+\family default
+ as needed, once everything has been read and before it is output.
+\end_layout
+
+\begin_layout Standard
+Now we will see each subordinate class in detail.
+\end_layout
+
+\begin_layout Subsection
+
+\family typewriter
+Parser
+\family default
+s
+\end_layout
+
+\begin_layout Standard
+The package 
+\family typewriter
+parse
+\family default
+ contains almost all parsing code; it has been isolated on purpose so that
+ LyX format changes can be tackled just by changing the code in that directory.
+\end_layout
+
+\begin_layout Standard
+A 
+\family typewriter
+Parser
+\family default
+ has two main methods: 
+\family typewriter
+parseheader()
+\family default
+ and 
+\family typewriter
+parse()
+\family default
+.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+parseheader()
+\family default
+: parses the first line and returns the contents as a list of words.
+ This method is common for all 
+\family typewriter
+Parser
+\family default
+s.
+ For example, for the command 
+\family typewriter
+'
+\backslash
+
+\backslash
+emph on'
+\family default
+ the 
+\family typewriter
+Parser
+\family default
+ will return a list 
+\family typewriter
+['
+\backslash
+
+\backslash
+emph','on']
+\family default
+.
+ This list will end up in the 
+\family typewriter
+Container
+\family default
+ as an attribute 
+\family typewriter
+header
+\family default
+.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+parse()
+\family default
+: parses all the remaining lines of the command.
+ They will end up in the 
+\family typewriter
+Container
+\family default
+ as an attribute 
+\family typewriter
+contents
+\family default
+.
+ This method depends on the particular 
+\family typewriter
+Parser
+\family default
+ employed.
+\end_layout
+
+\begin_layout Standard
+Basic 
+\family typewriter
+Parser
+\family default
+s reside in the file 
+\family typewriter
+parser.py
+\family default
+.
+ Among them are the following usual classes:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+LoneCommand
+\family default
+: parses a single line containing a LyX command.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BoundedParser
+\family default
+: reads until it finds the 
+\family typewriter
+ending
+\family default
+.
+ For each line found within, the 
+\family typewriter
+BoundedParser
+\family default
+ will call the 
+\family typewriter
+ContainerFactory
+\family default
+ to recursively parse its contents.
+ The parser then returns everything found inside as a list.
+\end_layout
+
+\begin_layout Subsection
+Outputs
+\end_layout
+
+\begin_layout Standard
+Common outputs reside in 
+\family typewriter
+output.py
+\family default
+.
+ They have just one method:
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+gethtml()
+\family default
+: processes the contents of a 
+\family typewriter
+Container
+\family default
+ and returns a list with file lines.
+ Carriage returns 
+\family typewriter
+
+\backslash
+n
+\family default
+ must be added manually at the desired points; eLyXer will just merge all
+ lines and write them to file.
+\end_layout
+
+\begin_layout Standard
+Outputs do not however inherit from a common class; all you need is an object
+ with a method 
+\family typewriter
+gethtml(self,container)
+\family default
+ that processes the 
+\family typewriter
+Container
+\family default
+'s 
+\family typewriter
+contents
+\family default
+ (as a list attribute).
+ An output can also use all attributes of a 
+\family typewriter
+Container
+\family default
+ to do their job.
+\end_layout
+
+\begin_layout Subsection
+Tutorial: Adding Your Own 
+\family typewriter
+Container
+\end_layout
+
+\begin_layout Standard
+If you want to add your own 
+\family typewriter
+Container
+\family default
+ to the processing you do not need to modify all these files.
+ You just need to create your own source file that includes the 
+\family typewriter
+Container
+\family default
+, the 
+\family typewriter
+Parser
+\family default
+ and the 
+\family typewriter
+output
+\family default
+ (or reuse existing ones).
+ Once it is added to the 
+\family typewriter
+types
+\family default
+ in the 
+\family typewriter
+ContainerFactory
+\family default
+ eLyXer will happily start matching it against LyX commands as they are
+ parsed.
+\end_layout
+
+\begin_layout Standard
+There are good examples of parsing commands in just one file in 
+\family typewriter
+image.py
+\family default
+ and 
+\family typewriter
+formula.py
+\family default
+.
+ But let us build our own container 
+\family typewriter
+BibitemInset
+\family default
+ here.
+ We want to parse the LyX command in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-command"
+
+\end_inset
+
+.
+ In the resulting HTML we will generate an anchor: a single tag 
+\family typewriter
+<a name="mykey">
+\family default
+ with fixed text 
+\family typewriter
+"[ref]"
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+begin_inset CommandInset bibitem
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+LatexCommand bibitem
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+key "mykey"
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+end_inset
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:bibitem-command"
+
+\end_inset
+
+The LyX command to parse.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will call the 
+\family typewriter
+Container
+\family default
+ 
+\family typewriter
+BibitemInset
+\family default
+, and it will process precisely the inset that we have here.
+ We will place the class in 
+\family typewriter
+bibitem.py
+\family default
+.
+ So this file starts as shown in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-class"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+class BibitemInset(Container):
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+"An inset containing a bibitem command"
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+start = '
+\backslash
+
+\backslash
+begin_inset CommandInset bibitem'
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ending = '
+\backslash
+
+\backslash
+end_inset'
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:bibitem-class"
+
+\end_inset
+
+Class definition for 
+\family typewriter
+BibitemInset
+\family default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use the parser for a bounded command with start and ending, 
+\family typewriter
+BoundedParser
+\family default
+.
+ For the output we will generate a single HTML tag 
+\family typewriter
+<a>
+\family default
+, so the 
+\family typewriter
+TagOutput()
+\family default
+ is appropriate.
+ Finally we will set the 
+\family typewriter
+breaklines
+\family default
+ attribute to 
+\family typewriter
+False
+\family default
+, so that the output shows the tag in the same line as the contents: 
+\family typewriter
+<a \SpecialChar \ldots{}
+>[ref]</a>
+\family default
+.
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-init"
+
+\end_inset
+
+ shows the constructor.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+def __init__(self):
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.parser = BoundedParser()
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.output = TagOutput()
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.tag = 'a'
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.breaklines = False
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:bibitem-init"
+
+\end_inset
+
+Constructor for 
+\family typewriter
+BibitemInset
+\family default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+BoundedParser
+\family default
+ will automatically parse the header and the contents.
+ In the 
+\family typewriter
+process()
+\family default
+ method we will discard the first line with the 
+\family typewriter
+LatexCommand
+\family default
+, and place the key from the second line as link destination.
+ The class 
+\family typewriter
+StringContainer
+\family default
+ holds string constants; in our case we will have to isolate the key by
+ splitting the string around the double quote 
+\family typewriter
+"
+\family default
+, and then access the anchor with the same name.
+ The contents will be set to the fixed string 
+\family typewriter
+[ref]
+\family default
+.
+ The result is shown in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-process"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+def process(self):
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+#skip first line
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+del self.contents[0]
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# parse second line: fixed string
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+string = self.contents[0]
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# split around the "
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+key = string.contents[0].split('"')[1]
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# make tag and contents
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.tag = 'a name="' + key + '"'
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+string.contents[0] = '[ref] '
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:bibitem-process"
+
+\end_inset
+
+Processing for 
+\family typewriter
+BibitemInset
+\family default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And then we have to add the new class to the types parsed by the 
+\family typewriter
+ContainerFactory
+\family default
+; this has to be done outside the class definition.
+ The complete file is shown in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-complete"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+from parser import *
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+from output import *
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+from container import *
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+class BibitemInset(Container):
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+"An inset containing a bibitem command"
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+start = '
+\backslash
+
+\backslash
+begin_inset CommandInset bibitem'
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ending = '
+\backslash
+
+\backslash
+end_inset'
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+def __init__(self):
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.parser = BoundedParser()
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.output = TagOutput()
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.breaklines = False
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+def process(self):
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+#skip first line
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+del self.contents[0]
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# parse second line: fixed string
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+string = self.contents[0]
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# split around the "
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+key = string.contents[0].split('"')[1]
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+# make tag and contents
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+self.tag = 'a name="' + key + '"'
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+string.contents[0] = '[ref] '
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+ContainerFactory.types.append(BibitemInset)
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:bibitem-complete"
+
+\end_inset
+
+Full listing for 
+\family typewriter
+BibitemInset
+\family default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The end result of processing the command in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-command"
+
+\end_inset
+
+ is a valid anchor:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+<a name="mykey">[ref] </a>
+\end_layout
+
+\begin_layout Standard
+The final touch is to make sure that the class is run, importing it in the
+ file 
+\family typewriter
+gen/factory.py
+\family default
+, as shown in listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:bibitem-include"
+
+\end_inset
+
+.
+ This ensures that the 
+\family typewriter
+ContainerFactory
+\family default
+ will know what to do when it finds an element that corresponds to the 
+\family typewriter
+BibitemInset
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+
+\family typewriter
+\SpecialChar \ldots{}
+
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+from structure import *
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\series bold
+from bibitem import *
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+from container import *
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\SpecialChar \ldots{}
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:bibitem-include"
+
+\end_inset
+
+Importing the 
+\family typewriter
+BibitemInset
+\family default
+ from the factory file.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now this 
+\series bold
+Container
+\series default
+ is not too refined: the link text is fixed, and we need to do additional
+ processing on the bibitem entry to show consecutive numbers.
+ The approach is not very flexible either: e.g.
+ anchor text is fixed.
+ But in less than 20 lines we have parsed a new LyX command and have outputted
+ valid, working XHTML code.
+ The actual code is a bit different but follows the same principles; it
+ can be found in 
+\family typewriter
+src/bib/biblio.py
+\family default
+: in the classes 
+\family typewriter
+BiblioCite
+\family default
+ and 
+\family typewriter
+BiblioEntry
+\family default
+, and it processes bibliography entries and citations (with all our missing
+ bits) in about 50 lines.
+\end_layout
+
+\begin_layout Section
+Advanced Features
+\end_layout
+
+\begin_layout Standard
+This section tackles other, more complex features; all of them are included
+ in current versions.
+\end_layout
+
+\begin_layout Subsection
+Parse Tree
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Parse-Tree"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On initialization of the 
+\family typewriter
+ContainerFactory
+\family default
+, a 
+\family typewriter
+ParseTree
+\family default
+ is created to quickly pass each incoming LyX command to the appropriate
+ containers, which are created on demand.
+ For example, when the 
+\family typewriter
+ContainerFactory
+\family default
+ finds a command:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+
+\backslash
+
+\backslash
+emph on
+\end_layout
+
+\begin_layout Standard
+it will create and initialize an 
+\family typewriter
+EmphaticText
+\family default
+ object.
+ The 
+\family typewriter
+ParseTree
+\family default
+ works with words: it creates a tree where each keyword has its own node.
+ At that node there may be a leaf, which is a 
+\family typewriter
+Container
+\family default
+ class, and/or additional branches that point to other nodes.
+ If the tree finds a 
+\family typewriter
+Container
+\family default
+ leaf at the last node then it has found the right point; otherwise it must
+ backtrack to the last node with a 
+\family typewriter
+Container
+\family default
+ leaf.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:parsetree"
+
+\end_inset
+
+ shows a piece of the actual parse tree.
+ You can see how if the string to parse is 
+\family typewriter
+
+\backslash
+begin_inset LatexCommand
+\family default
+, at the node for the second keyword 
+\family typewriter
+LatexCommand
+\family default
+ there is no leaf, just two more branches 
+\family typewriter
+label
+\family default
+ and 
+\family typewriter
+ref
+\family default
+.
+ In this case the 
+\family typewriter
+ParseTree
+\family default
+ would backtrack to 
+\family typewriter
+begin_inset
+\family default
+, and choose the generic 
+\family typewriter
+Inset
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename parse tree.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:parsetree"
+
+\end_inset
+
+Portion of the parse tree.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Parsing is much faster this way, but there are disadvantages; for one, parsing
+ can only be done using whole words and not prefixes.
+ SGML tags (such as 
+\family typewriter
+<lyxtabular>
+\family default
+) pose particular problems: sometimes they may appear with attributes (as
+ in 
+\family typewriter
+<lyxtabular version="3">
+\family default
+), and in this case the starting word is 
+\family typewriter
+<lyxtabular
+\family default
+ without the trailing 
+\family typewriter
+'>'
+\family default
+ character.
+ So the parse tree removes any trailing 
+\family typewriter
+'>'
+\family default
+, and the start string would be just 
+\family typewriter
+<lyxtabular
+\family default
+; this way both starting words 
+\family typewriter
+<lyxtabular>
+\family default
+ and 
+\family typewriter
+<lyxtabular
+\family default
+ are recognized.
+\end_layout
+
+\begin_layout Subsection
+Postprocessors
+\end_layout
+
+\begin_layout Standard
+Some post-processing of the resulting HTML page can make the results look
+ much better.
+ The main stage in the postprocessing pipeline inserts a title 
+\begin_inset Quotes eld
+\end_inset
+
+Bibliography
+\begin_inset Quotes erd
+\end_inset
+
+ before the first bibliographical entry.
+ But more can be added to alter the result.
+ As eLyXer parses a LyX document it automatically numbers all chapters and
+ sections.
+ This is also done in the postprocessor.
+\end_layout
+
+\begin_layout Standard
+The package 
+\family typewriter
+post
+\family default
+ contains most postprocessing code, although some postprocessors are located
+ in the classes of their containers for easy access.
+\end_layout
+
+\begin_layout Subsection
+Mathematical Formulae
+\end_layout
+
+\begin_layout Standard
+Formulae in LyX are rendered beautifully into TeX and PDF documents.
+ For HTML the conversion is not so simple.
+ There are basically three options:
+\end_layout
+
+\begin_layout Itemize
+render the formula as an image (GIF or PNG), then import the image;
+\end_layout
+
+\begin_layout Itemize
+export a specific language called MathML
+\end_layout
+
+\begin_layout Itemize
+or render using a variety of Unicode characters, HTML and CSS wizardry 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "white-math"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+eLyXer employs the third technique, with varied results.
+ Basic fractions and square roots should be rendered fine, albeit at the
+ moment there may be some issues pending.
+ Complex fractions with several levels do not come out right.
+ (But see subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:MathML"
+
+\end_inset
+
+.)
+\end_layout
+
+\begin_layout Subsection
+MathML
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:MathML"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are two options in place to generate MathML, as suggested by Günther
+ Milne and Abdelrazak Younes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "milde-mathml,younes-elyxer"
+
+\end_inset
+
+.
+ Both rely on some JavaScript page manipulations, and they need to be hosted
+ on the same server as the documents.
+ MathJax is less mature but it has grown faster so it has become the preferred
+ option.
+\end_layout
+
+\begin_layout Standard
+To use this last option in your own pages you just have to add the 
+\family typewriter
+--mathjax
+\family default
+ option:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ elyxer.py --mathjax ./MathJax math.lyx math.html
+\end_layout
+
+\begin_layout Standard
+You will notice that the 
+\family typewriter
+--mathjax
+\family default
+ option requires an argument: the directory where MathJax resides.
+ MathJax needs to live on your server; after 
+\begin_inset CommandInset href
+LatexCommand href
+name "downloading the package"
+target "http://www.mathjax.org/download/"
+
+\end_inset
+
+, deploy it to your server and give the installation directory as an argument
+ to 
+\family typewriter
+--mathjax
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+In principle you might think of using some external installation of MathJax
+ to avoid downloading it and serving it from your server, e.g.
+ from Savannah:
+\end_layout
+
+\begin_layout LyX-Code
+
+\color blue
+$
+\color inherit
+ elyxer.py --mathjax http://elyxer.nongnu.org/MathJax/ math.lyx math.html
+\end_layout
+
+\begin_layout Standard
+This approach may not work on certain browsers for two reasons: JavaScript
+ loaded from a different site may not work, and WebFonts are also subject
+ to this same-origin policy.
+ If you have made it work it would be great to hear about it.
+\end_layout
+
+\begin_layout Subsection
+Baskets
+\end_layout
+
+\begin_layout Standard
+eLyXer supports a few distinct modes of operation.
+ In each incarnation the tasks to do are quite different:
+\end_layout
+
+\begin_layout Itemize
+A pure filter
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "filter"
+description "A type of program that reads from a file and writes to another file, keeping in memory only what is needed short term."
+
+\end_inset
+
+: read from disk and write to disk each 
+\family typewriter
+Container
+\family default
+, keeping no context in memory.
+\end_layout
+
+\begin_layout Itemize
+In-memory processing: read a complete file, process it and write it all
+ to disk.
+\end_layout
+
+\begin_layout Itemize
+TOC
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "TOC"
+description "Table of contents"
+
+\end_inset
+
+ generation: output just a table of contents for a LyX document.
+\end_layout
+
+\begin_layout Itemize
+Split document generation: separates each chapter, section or subsection
+ in a different file.
+\end_layout
+
+\begin_layout Standard
+How can it do so many different tasks without changing a lot of code? The
+ answer is in the file 
+\family typewriter
+gen/basket.py
+\family default
+.
+ A 
+\family typewriter
+Basket
+\family default
+ is an object that keeps 
+\family typewriter
+Container
+\family default
+s.
+ Once a batch is ready, the 
+\family typewriter
+Basket
+\family default
+ outputs them to disk or to some other 
+\family typewriter
+Basket
+\family default
+, but it may decide to just wait a little longer.
+\end_layout
+
+\begin_layout Standard
+The basic 
+\family typewriter
+Basket
+\family default
+ is the 
+\family typewriter
+WriterBasket
+\family default
+: it writes everything that it gets to disk immediately and then forgets
+ about it.
+ Some bits of state are kept around, like for example which biliography
+ entries have been found so far, but the bulk of the memory is released.
+\end_layout
+
+\begin_layout Standard
+Another more complex object is the 
+\family typewriter
+TOCBasket
+\family default
+: it checks if the 
+\family typewriter
+Container
+\family default
+ is worthy to appear in a TOC, and otherwise just discards it.
+ For chapters, sections and so on it converts them to TOC entries and outputs
+ them to disk.
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+MemoryBasket
+\family default
+ does most of its work in memory: it stores all 
+\family typewriter
+Container
+\family default
+s until they have all been read, then does some further processing on them
+ and outputs an improved version of the document, at the cost of using quite
+ more memory.
+ This allows us for example to generate a list of figures or to set consecutive
+ labels for bibliography entries (instead of just numbering them as they
+ appear in the text).
+\end_layout
+
+\begin_layout Standard
+The most complex kind of 
+\family typewriter
+Basket
+\family default
+ is the 
+\family typewriter
+SplittingBasket
+\family default
+: it writes each document part to a separate file, choosing what parts to
+ split depending on the configuration passed in the 
+\family typewriter
+--splitpart
+\family default
+ option.
+ By default it creates a TOC at the top of each page.
+\end_layout
+
+\begin_layout Subsection
+Hybrid Functions
+\end_layout
+
+\begin_layout Standard
+Math processing is very configurable; most of it is based on configuration
+ options found in 
+\family typewriter
+src/conf/base.cfg
+\family default
+.
+ Parsing can be done using a few simple functions: commands (contained in
+ 
+\family typewriter
+[FormulaConfig.commands]
+\family default
+) output some content and don't have any parameters, while one-parameter
+ functions (in 
+\family typewriter
+[FormulaConfig.onefunctions]
+\family default
+) take exactly one parameter and output an HTML tag.
+ Thus, the definition for 
+\backslash
+bar is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bar:span class="bar"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Whenever eLyXer finds the command it parses a parameter, then outputs the
+ tag 
+\family typewriter
+<span class="bar">
+\family default
+ surrounding the parameter.
+ For instance: e.g.
+ 
+\family typewriter
+
+\backslash
+bar{38}
+\family default
+ becomes 
+\family typewriter
+<span class="bar">38</span>
+\family default
+ in the output.
+ Decorating functions (in 
+\family typewriter
+[FormulaConfig.decoratingfunctions]
+\family default
+) place a symbol from in the definition above the parameter, and so on.
+\end_layout
+
+\begin_layout Standard
+Such simple processing is not always enough; there is a generic mechanism
+ for producing complex output from a number of parameters.
+ They are called hybrid functions.
+\end_layout
+
+\begin_layout Standard
+Each definition for a hybrid function contains: parser definition, output
+ definition and a number of function tags.
+ The parser definition tells eLyXer what to parse.
+ Hybrid functions can have any number of optional parameters, denoted as
+ 
+\family typewriter
+[$p]
+\family default
+; mandatory parameters are shown as 
+\family typewriter
+{$p}
+\family default
+.
+ Each parameter consists of the symbol 
+\family typewriter
+$
+\family default
+ followed by a letter or number: 
+\family typewriter
+$0
+\family default
+, 
+\family typewriter
+$p
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+The output definition contains regular text, plus parameters and functions.
+ Each function consists of the letter 
+\family typewriter
+f
+\family default
+ plus a number, such as 
+\family typewriter
+f0
+\family default
+; and each is associated with a tagged HTML element.
+ These function tags are the last part of the definition.
+ Presently there can be as many as 10 function tags (from 
+\family typewriter
+f0
+\family default
+ to 
+\family typewriter
+f9
+\family default
+).
+\end_layout
+
+\begin_layout Standard
+Let us see a simple example, equivalent to the above formula -- a one-parameter,
+ one-tag hybrid function:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fun:[{$p},f0{$p},span class="fun"]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The only function tag 
+\family typewriter
+f0
+\family default
+ generates the HTML tag 
+\family typewriter
+<span class="fun">
+\family default
+.
+ Whenever eLyXer finds 
+\family typewriter
+
+\backslash
+fun
+\family default
+ in a math formula, it will parse one parameter and put it into 
+\family typewriter
+$p
+\family default
+.
+ Then it will generate 
+\family typewriter
+f0{$p}
+\family default
+, i.e.
+ apply the tag 
+\family typewriter
+<span class="fun">
+\family default
+.
+ Putting it all together: 
+\family typewriter
+
+\backslash
+fun{38}
+\family default
+ becomes 
+\family typewriter
+<span class="fun">38</span>
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+Parameters can be parsed as a literal, in which case eLyXer will take everything
+ between the brackets without parsing it.
+ Literal parameters can be used within a tag definition.
+ A real life hybrid function with literal parameters:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+raisebox:[{$p!}{$1},f0{$1},span class="raisebox" style="vertical-align:
+ $p;"]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this case there are two mandatory parameters, the first one literal and
+ the second one a regular TeX expression.
+ The output is just one function tag, in this case using the first mandatory
+ parameter.
+ For instance, 
+\family typewriter
+
+\backslash
+raisebox{3cm}{5}
+\family default
+ would generate:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<span class="raisebox" style="vertical-align: 3cm;">5</span>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The parameter 
+\family typewriter
+$p
+\family default
+ is parsed as 
+\family typewriter
+3cm
+\family default
+, which is not parsed further.
+\end_layout
+
+\begin_layout Standard
+Hybrid functions are easy to configure once you get the hang of it.
+ Adding new TeX commands, even complex ones, becomes simply a matter of
+ configuration.
+\end_layout
+
+\begin_layout Section
+Developing and Contributing
+\end_layout
+
+\begin_layout Standard
+This chapter will show you how to further develop eLyXer and how to contribute
+ your own code.
+\end_layout
+
+\begin_layout Subsection
+Distribution
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Distribution"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You will notice that in the 
+\family typewriter
+src/
+\family default
+ folder there are several Python files, while in the main directory there
+ is just a big one called 
+\family typewriter
+elyxer.py
+\family default
+.
+ The reason is that before distributing the source code is coalesced and
+ placed on the main directory, so that users can run it without worrying
+ about libraries, directories and the such.
+ (They need of course to have Python 2.5 installed.) And the weapon is a little
+ Python script called 
+\family typewriter
+coalesce.py
+\family default
+ that does the dirty job of parsing dependencies and inserting them into
+ the main file.
+ There is also a 
+\family typewriter
+make
+\family default
+ Bash script that takes care of permissions and generates the documentation.
+ Just type
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\color blue
+$
+\color inherit
+ ./make
+\end_layout
+
+\begin_layout Standard
+at the prompt.
+ This coalesces all code and configuration into 
+\family typewriter
+elyxer.py
+\family default
+.
+ It is a primitive way perhaps to generate the 
+\begin_inset Quotes eld
+\end_inset
+
+binary
+\begin_inset Quotes erd
+\end_inset
+
+ (ok, not really a binary but a distributable Python file), but it works
+ great.
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+make
+\family default
+ script also runs all of the included tests to check that no functionality
+ has been lost from one release to the next.
+ These tests can also be run independently using the run-tests script:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\color blue
+$
+\color inherit
+ ./run-tests
+\end_layout
+
+\begin_layout Standard
+They are used to verify that no functionality is lost from one version to
+ the next -- although issues can certainly slip undetected if there is no
+ test for them.
+\end_layout
+
+\begin_layout Standard
+At the moment there is no way to do this packaging on non-Unix operating
+ systems with a single script, e.g.
+ a Windows 
+\family typewriter
+.bat
+\family default
+ script.
+ However the steps themselves are trivial.
+\end_layout
+
+\begin_layout Subsection
+Debugging
+\end_layout
+
+\begin_layout Standard
+Code problems are quite difficult to debug using the full 
+\family typewriter
+elyxer.py
+\family default
+ file.
+ It is much better to use the uncoalesced version instead, since it is quite
+ modular and neatly divided.
+ To do so you just need to locate the file 
+\family typewriter
+src/principal.py
+\family default
+ and run that instead of 
+\family typewriter
+elyxer.py
+\family default
+.
+ For example, if you are in the 
+\family typewriter
+docs/
+\family default
+ directory and you want to convert 
+\family typewriter
+math.lyx
+\family default
+ you can run eLyXer as:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\color blue
+$
+\color inherit
+ ../src/principal.py math.lyx math.html
+\end_layout
+
+\begin_layout Standard
+For extra debugging information you can activate the --debug option:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\color blue
+$
+\color inherit
+ ../src/principal.py --debug math.lyx math.html
+\end_layout
+
+\begin_layout Standard
+This will make any traces more meaningful and will let you follow the code
+ much more easily.
+\end_layout
+
+\begin_layout Subsection
+Configuration
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Configuration"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The make script does not just construct a single 
+\family typewriter
+.py
+\family default
+ file from all sources; it is also used to extract the configuration in
+ human-readable form and create a Python file which is then coalesced with
+ all the rest.
+ The original configuration file (the one you should modify) is called 
+\family typewriter
+base.cfg
+\family default
+, while the resulting Python file is called 
+\family typewriter
+config.py
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+The original configuration file uses this format:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[ContainerConfig.startendings]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin_deeper:
+\backslash
+end_deeper
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin_inset:
+\backslash
+end_inset
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin_layout:
+\backslash
+end_layout
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where each section header is enclosed in square brackets; it contains an
+ object name and a section name.
+ In the example above the object is called 
+\family typewriter
+ContainerConfig
+\family default
+, while the section is called 
+\family typewriter
+startendings
+\family default
+.
+ Inside each section there are a number of 
+\family typewriter
+key:value
+\family default
+ pairs separated by a colon; the key is used to reference the value in other
+ Python code.
+\end_layout
+
+\begin_layout Standard
+To create 
+\family typewriter
+config.py
+\family default
+ go to the 
+\family typewriter
+src/
+\family default
+ folder and type:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+\color blue
+$
+\color inherit
+ ./exportconfig py
+\end_layout
+
+\begin_layout Standard
+This will create all configuration objects to be used inside your Python
+ code, where each section will become an object attribute containing a map.
+ For instance, to access the first value above 
+\family typewriter
+
+\backslash
+end_deeper
+\family default
+ you would write in your Python code:
+\end_layout
+
+\begin_layout Quotation
+
+\family typewriter
+ContainerConfig.startendings['
+\backslash
+begin_deeper']
+\end_layout
+
+\begin_layout Standard
+Each section can contain as many values as needed.
+\end_layout
+
+\begin_layout Subsection
+License
+\end_layout
+
+\begin_layout Standard
+eLyXer is published under the GPL, version 3 or later 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "stallman-gplv3"
+
+\end_inset
+
+.
+ This basically means that you can modify the code and distribute the result
+ as desired, as long as you publish your modifications under the same license.
+ But consult a lawyer if you want an authoritative opinion.
+\end_layout
+
+\begin_layout Subsection
+Contributions
+\end_layout
+
+\begin_layout Standard
+All contributions will be published under this same license, so if you send
+ them this way you implicitly give your consent.
+ An explicit license grant would be even better and may be required for
+ larger contributions.
+\end_layout
+
+\begin_layout Standard
+Please send any suggestions, patches, ideas and whatever else related to
+ development to the 
+\begin_inset CommandInset href
+LatexCommand href
+name "mailing list"
+target "elyxer-users@nongnu.org"
+type "mailto:"
+
+\end_inset
+
+.
+ (Alternatively you may contact 
+\begin_inset CommandInset href
+LatexCommand href
+name "elyxer@gmail.com"
+target "elyxer@gmail.com"
+type "mailto:"
+
+\end_inset
+
+ privately.) If you are willing to create a patch and submit it, you should
+ patch against the proper sources in 
+\family typewriter
+src/
+\family default
+ and send it to the list.
+ This will make everyone's lives better than if you patch against 
+\family typewriter
+elyxer.py
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+The first external patches have started arriving during late 2009 and early
+ 2010 (provided by Olivier Ripoll, Geremy Condra and Simon South).
+ You can join in the fun!
+\end_layout
+
+\begin_layout Section
+Roadmap
+\end_layout
+
+\begin_layout Standard
+You can see what user features are planned for the near feature in the 
+\begin_inset CommandInset href
+LatexCommand href
+name "wish list"
+target "userguide.html#sub:Wish-List"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+After the release of eLyXer 1.0, the goal is full LyX document support; any
+ deviation from the output of LyX on e.g.
+ PDF will be considered as bugs.
+ (Keep in mind that some deviations arise in an inherent limitation in the
+ design of eLyXer, and these will logically not be considered as bugs.)
+\end_layout
+
+\begin_layout Standard
+For eLyXer 1.3.0 there are plans to convert it into a proper Python package
+ so it can be installed using full source code (and not a coalesced script
+ 
+\family typewriter
+elyxer.py
+\family default
+ that contains everything).
+ Also, once ERTs are parsed, eLyXer might be extended for 1.3.0 to translate
+ generic LaTeX documents.
+\end_layout
+
+\begin_layout Standard
+All this within the usual constraints: day job, family, etc.
+\end_layout
+
+\begin_layout Section
+Discarded Bits
+\end_layout
+
+\begin_layout Standard
+Some features suggested for eLyXer have been discarded; they do not fit
+ with the design of eLyXer or are too much effort for the proposed gains.
+\end_layout
+
+\begin_layout Subsection
+Spellchecking
+\end_layout
+
+\begin_layout Standard
+LyX can use a spellchecker to verify the words used.
+ However it is not interactive so you may forget to run it before generating
+ a version.
+ It is possible to integrate eLyXer with a spellchecker and verify the spelling
+ before generating the HTML, but it is not clear that it can be done cleanly.
+\end_layout
+
+\begin_layout Subsection
+URL Checking
+\end_layout
+
+\begin_layout Standard
+Another fun possibility is to make eLyXer check all the external URLs embedded
+ in the document.
+ However the Python facilities for URL checking are not very mature, at
+ least with Python 2.5: some of them do not return errors, others throw complex
+ exceptions that have to be parsed\SpecialChar \ldots{}
+ It is far easier to just create the HTML
+ page and use wget (or a similar tool) to recursively check all links in
+ the page.
+\end_layout
+
+\begin_layout Subsection
+Use of 
+\family typewriter
+lyx2lyx
+\family default
+ Framework
+\end_layout
+
+\begin_layout Standard
+Abdelrazak Younes suggests using the 
+\family typewriter
+lyx2lyx
+\family default
+ framework, which after all already knows about LyX formats 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "younes-elyxer"
+
+\end_inset
+
+.
+ It is an interesting suggestion, but one that for now does not fit well
+ with the design of eLyXer: a standalone tool to convert between two formats,
+ or as Kernighan and Plauger put it, a standalone 
+\emph on
+filter
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kernighan-filters"
+
+\end_inset
+
+.
+ Long-term maintenance might result a bit heavier with this approach though,
+ especially if LyX changes to a different file format in the future.
+\end_layout
+
+\begin_layout Section
+FAQ
+\end_layout
+
+\begin_layout Description
+Q: I don't like how your tool outputs my document, what can I do?
+\end_layout
+
+\begin_layout Description
+A: First make sure that you are using the proper CSS file, i.e.
+ copy the existing 
+\family typewriter
+docs/lyx.css
+\family default
+ file to your web page directory.
+ Next try to customize the CSS file to your liking; it is a flexible approach
+ that requires no code changes.
+ Then try changing the code (and submitting the patch back).
+\end_layout
+
+\begin_layout Description
+Q: How is the code maintained?
+\end_layout
+
+\begin_layout Description
+A: It is kept in a 
+\family typewriter
+git
+\family default
+ repository 
+\begin_inset CommandInset href
+LatexCommand href
+name "on Savannah"
+target "http://git.savannah.gnu.org/cgit/elyxer.git/"
+
+\end_inset
+
+.
+ Patches in 
+\family typewriter
+git
+\family default
+ format are welcome (but keep in mind that my knowledge of 
+\family typewriter
+git
+\family default
+ is even shallower than my Python skills).
+\end_layout
+
+\begin_layout Description
+Q: I found a bug, what should I do?
+\end_layout
+
+\begin_layout Description
+A: Just report it to the 
+\begin_inset CommandInset href
+LatexCommand href
+name "Savannah interface"
+target "https://savannah.nongnu.org/bugs/?func=additem&group=elyxer"
+
+\end_inset
+
+, to the 
+\begin_inset CommandInset href
+LatexCommand href
+name "mailing list"
+target "elyxer-users@nongnu.org"
+type "mailto:"
+
+\end_inset
+
+ or directly to the 
+\begin_inset CommandInset href
+LatexCommand href
+name "main author"
+target "mailto:elyxer@gmail.com"
+type "mailto:"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset nomencl_print
+LatexCommand printnomenclature
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "savannah-elyxer"
+
+\end_inset
+
+Free Software Foundation, Inc.: eLyXer summary.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://savannah.nongnu.org/projects/elyxer/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "white-math"
+
+\end_inset
+
+S White: 
+\begin_inset Quotes eld
+\end_inset
+
+Math in HTML with CSS
+\begin_inset Quotes erd
+\end_inset
+
+, accessed March 2009.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.zipcon.net/~swhite/docs/math/math.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "stallman-gplv3"
+
+\end_inset
+
+R S Stallman 
+\emph on
+et al
+\emph default
+: 
+\begin_inset Quotes eld
+\end_inset
+
+GNU GENERAL PUBLIC LICENSE
+\begin_inset Quotes erd
+\end_inset
+
+ version 3, 20070629.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.gnu.org/copyleft/gpl.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "milde-mathml"
+
+\end_inset
+
+G Milde: 
+\begin_inset Quotes eld
+\end_inset
+
+Re: eLyXer: LyX to HTML converter
+\begin_inset Quotes erd
+\end_inset
+
+, message to list 
+\emph on
+lyx-devel
+\emph default
+, 20090309.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.mail-archive.com/lyx-devel@lists.lyx.org/msg148627.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "younes-elyxer"
+
+\end_inset
+
+A Younes: 
+\begin_inset Quotes eld
+\end_inset
+
+Re: eLyXer: LyX to HTML converter
+\begin_inset Quotes erd
+\end_inset
+
+, message to list 
+\emph on
+lyx-devel
+\emph default
+, 20090309.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.mail-archive.com/lyx-devel@lists.lyx.org/msg148634.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "kernighan-filters"
+
+\end_inset
+
+B W Kernighan, P J Plauger: 
+\begin_inset Quotes eld
+\end_inset
+
+Software Tools
+\begin_inset Quotes erd
+\end_inset
+
+, ed.
+ Addison-Wesley Professional 1976, p.
+ 35.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "lyx-devel"
+
+\end_inset
+
+Various authors: 
+\begin_inset Quotes eld
+\end_inset
+
+lyx-devel mailing list
+\begin_inset Quotes erd
+\end_inset
+
+, accessed November 2009.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.mail-archive.com/lyx-devel@lists.lyx.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "git-download"
+
+\end_inset
+
+S Chacon: 
+\begin_inset Quotes eld
+\end_inset
+
+Git -- Download
+\begin_inset Quotes erd
+\end_inset
+
+, accessed November 2009.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://git-scm.com/download
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "python-download"
+
+\end_inset
+
+Python community: 
+\begin_inset Quotes eld
+\end_inset
+
+Download Python
+\begin_inset Quotes erd
+\end_inset
+
+, accessed November 2009.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.python.org/download/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
