@@ -61,6 +61,7 @@ var searchData=
   ['latex',['LaTeX',['../namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1LaTeX.xhtml',1,'SignalIntegrity::Lib::Helpers']]],
   ['lecroywaveform',['LeCroyWaveform',['../namespaceSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1LeCroyWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform']]],
   ['levmar',['LevMar',['../namespaceSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar.xhtml',1,'SignalIntegrity::Lib::Fit']]],
+  ['lfrac',['lfrac',['../namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1lfrac.xhtml',1,'SignalIntegrity::Lib::Helpers']]],
   ['lib',['Lib',['../namespaceSignalIntegrity_1_1Lib.xhtml',1,'SignalIntegrity']]],
   ['linesplitter',['LineSplitter',['../namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1LineSplitter.xhtml',1,'SignalIntegrity::Lib::Helpers']]],
   ['loadstandard',['LoadStandard',['../namespaceSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1LoadStandard.xhtml',1,'SignalIntegrity::Lib::Measurement::CalKit::Standards']]],

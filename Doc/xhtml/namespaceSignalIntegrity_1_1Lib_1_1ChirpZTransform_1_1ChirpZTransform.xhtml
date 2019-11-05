@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.4</span>
+   &#160;<span id="projectnumber">1.1.6</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -144,10 +144,8 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section remark"><dt>Remarks</dt><dd>Technically, the chirp-z transform can evaluate the z-transform at equi-angularly spaced points on a somewhat arbitrary arc, but here, we use it to compute equi-angularly spaced points on the rim of the unit circle, and as such, it is used simply to resample data. Usually, we set fs=0 and the result is an M+1 point DFT of the waveform from 0 to fs, without the same limitations imposed as the standard DFT.<br />
  The equation for the czt is:</dd></dl>
-<p><img class="formulaInl" alt="$m\in 0 \ldots M$" src="form_0.png"/></p>
-<p><img class="formulaInl" alt="$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m} {M}\cdot F_{e}}$" src="form_1.png"/> </p>
-
-<p class="definition">Definition at line <a class="el" href="ChirpZTransform_8py_source.xhtml#l00050">50</a> of file <a class="el" href="ChirpZTransform_8py_source.xhtml">ChirpZTransform.py</a>.</p>
+<p><img class="formulaInl" alt="$m\in 0 \ldots M$" src="form_0.png"/> </p><pre class="fragment">{M}\cdot F_{e}}</pre> 
+<p class="definition">Definition at line <a class="el" href="ChirpZTransform_8py_source.xhtml#l00049">49</a> of file <a class="el" href="ChirpZTransform_8py_source.xhtml">ChirpZTransform.py</a>.</p>
 
 </div>
 </div>
