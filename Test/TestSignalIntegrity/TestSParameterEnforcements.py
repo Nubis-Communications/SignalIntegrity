@@ -85,5 +85,11 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         sf.LimitImpulseResponseLength(([[(0,0),(0,5e-9)],[(0,0),(0,3e-9)]]))
         lengths=sf.DetermineImpulseResponseLength(allLengths=True)
         self.assertTrue(lengths==[[(0,0),(0,5e-9)],[(0,0),(0,3e-9)]],'limited impulse response lengths incorrect')
+    def testReciprocityEnforcement(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
+        sf.EnforceReciprocity()
+        self.CheckSParametersResult(sf, pefn, 'reciprocity enforced s-parameters incorrect')
 if __name__ == "__main__":
     unittest.main()
