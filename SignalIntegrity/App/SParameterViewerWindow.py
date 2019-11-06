@@ -1088,7 +1088,7 @@ class SParametersDialog(tk.Toplevel):
                 miny=self.bottomRightPlotProperties['MinY']
 
                 if self.properties['Plot.ShowImpedance']:
-                    self.bottomRightlabel.config(text='Impdedance Profile')
+                    self.bottomRightlabel.config(text='Impedance Profile')
                     self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 elif self.properties['Plot.ShowExcessInductance']:
                     maxy=(maxy-Z0)*Ts
