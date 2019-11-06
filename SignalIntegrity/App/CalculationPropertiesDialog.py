@@ -16,6 +16,11 @@ CalculationPropertiesDialog.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+import sys
+if sys.version_info.major < 3:
+    import Tkinter as tk
+else:
+    import tkinter as tk
 
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
 from SignalIntegrity.App.ToSI import nextHigher12458
@@ -33,6 +38,10 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriodFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePointsFrame=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
+        self.timeLimitsFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
+        self.timeLimitsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.negativeTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Negative Time Limit',self.onNegativeTimeLimitEntered,None,self.project,'TimeLimitNegative','s')
+        self.positiveTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Positive Time Limit',self.onPositiveTimeLimitEntered,None,self.project,'TimeLimitPositive','s')
         PropertiesDialog.bind(self,'<Return>',self.ok)
         PropertiesDialog.bind(self,'<Escape>',self.cancel)
         PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
@@ -85,6 +94,16 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
+    def onNegativeTimeLimitEntered(self,event):
+        if self.project['TimeLimitNegative']>0.:
+            self.project['TimeLimitNegative']=0.0
+        self.UpdateStrings()
+
+    def onPositiveTimeLimitEntered(self,event):
+        if self.project['TimeLimitPositive']<0.:
+            self.project['TimeLimitPositive']=0.
+        self.UpdateStrings()
+
     def UpdateStrings(self):
         self.project.CalculateOthersFromBaseInformation()
         self.endFrequencyFrame.UpdateStrings()
@@ -96,6 +115,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriodFrame.UpdateStrings()
         self.timePointsFrame.UpdateStrings()
         self.impulseResponseLengthFrame.UpdateStrings()
+        self.negativeTimeFrame.UpdateStrings()
+        self.positiveTimeFrame.UpdateStrings()
 
     def onClosing(self):
         self.ok(None)

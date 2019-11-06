@@ -128,6 +128,8 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
             self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
             self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
+            self.Add(XMLPropertyDefaultFloat('TimeLimitNegative',None))
+            self.Add(XMLPropertyDefaultFloat('TimeLimitPositive',None))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
