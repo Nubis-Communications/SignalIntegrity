@@ -79,3 +79,7 @@ class SignalIntegrityExceptionDeviceParser(SignalIntegrityException):
 class SignalIntegrityExceptionFitter(SignalIntegrityException):
     def __init__(self,message=''):
         SignalIntegrityException.__init__(self,'Fitter',message)
+
+class SignalIntegrityExceptionPostProcessing(SignalIntegrityException):
+    def __init__(self,message=''):
+        SignalIntegrityException.__init__(self,'PostProcessing',message)

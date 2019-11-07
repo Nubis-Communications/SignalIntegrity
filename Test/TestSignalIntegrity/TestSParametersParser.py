@@ -18,12 +18,16 @@ TestSParametersParser.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-
+import os
 import SignalIntegrity.Lib as si
 
-class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelper):
+class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):
+    def __init__(self, methodName='runTest'):
+        si.test.SParameterCompareHelper.__init__(self)
+        unittest.TestCase.__init__(self,methodName)
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     def id(self):
-        return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
+        return '_'.join(unittest.TestCase.id(self).split('.')[-2:])
     def testSParameterParserWithFiles(self):
         """
         The object of this test is to test whether known devices installed in the SParameter parser
@@ -52,7 +56,19 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
         sp2=sspnp2.SParameters()
 
         self.assertTrue(self.SParametersAreEqual(sp,sp2,0.001),self.id()+' result not same')
-
+    def testSParametersPostCausal(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        sspnp=si.p.SystemSParametersNumericParser(fd)
+        sspnp.AddLines(['device D1 2 file cable.s2p',
+                        'device D2 2 file filter.s2p',
+                        'port 1 D1 1',
+                        'port 2 D2 2',
+                        'connect D1 2 D2 1',
+                        'post enforce reciprocity',
+                        'post enforce passivity',
+                        'post enforce causality',])
+        sp=sspnp.SParameters()
+        self.SParameterRegressionChecker(sp,self.id()+'.s2p')
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

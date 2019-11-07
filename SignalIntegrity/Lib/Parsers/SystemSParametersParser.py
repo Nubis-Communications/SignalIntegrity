@@ -20,6 +20,7 @@
 
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
+from SignalIntegrity.Lib.Parsers.SParametersParser import SParametersParser
 from SignalIntegrity.Lib.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters
 from SignalIntegrity.Lib.CallBacker import CallBacker
@@ -87,6 +88,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         if hasattr(self, 'delayDict'):
             td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(self.sf.m_P)]
             self.sf=PeeledLaunches(self.sf,td,method='exact')
+        self.sf = SParametersParser(self.sf,self.m_ul)
         self.CacheResult()
         # pragma: include
         return self.sf

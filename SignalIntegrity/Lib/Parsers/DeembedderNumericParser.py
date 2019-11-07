@@ -19,6 +19,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Parsers.DeembedderParser import DeembedderParser
+from SignalIntegrity.Lib.Parsers.SParametersParser import SParametersParser
 from SignalIntegrity.Lib.SystemDescriptions.DeembedderNumeric import DeembedderNumeric
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeembedder
@@ -79,7 +80,7 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
                 if not self.CallBack(progress):
                     raise SignalIntegrityExceptionDeembedder('calculation aborted')
             # pragma: include
-        self.sf=[SParameters(self.m_f,r) for r in result]
+        self.sf=[SParametersParser(SParameters(self.m_f,r),self.m_ul) for r in result]
         if len(self.sf)==1: self.sf=self.sf[0]
         # pragma: silent exclude
         self.CacheResult()

@@ -53,6 +53,7 @@ from TestSimulator import *
 from TestSources import *
 from TestSParameterEnforcements import *
 from TestSParameterFile import *
+from TestSParametersParser import *
 from TestSplines import *
 from TestSubcircuit import *
 from TestSystemDescription import *

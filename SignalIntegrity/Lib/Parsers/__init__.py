@@ -27,3 +27,4 @@ from .VirtualProbeNumericParser import VirtualProbeNumericParser
 from .SimulatorParser import SimulatorParser
 from .SimulatorNumericParser import SimulatorNumericParser
 from . import Devices as dev
+from .SystemSParametersParser import SParametersParser
