@@ -230,6 +230,8 @@ class DeviceProperties(tk.Frame):
         tk.Radiobutton(self.rotationFrame,text='180',variable=self.rotationString,value='180',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         tk.Radiobutton(self.rotationFrame,text='270',variable=self.rotationString,value='270',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         tk.Button(self.rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        tk.Frame(self.rotationFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        tk.Button(self.rotationFrame,text='help',command=self.onHelp).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         self.mirrorFrame=tk.Frame(propertyListFrame)
         self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         mirrorLabel = tk.Label(self.mirrorFrame,text='mirror: ')
@@ -291,10 +293,19 @@ class DeviceProperties(tk.Frame):
                 propertyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+
     def onToggleRotation(self):
         self.device.partPicture.current.Rotate()
         self.rotationString.set(str(self.device.partPicture.current.orientation))
         self.onOrientationChange()
+
+    def onHelp(self):
+        from SignalIntegrity.App.MenuSystemHelpers import Doer
+        if not Doer.helpKeys is None:
+            try:
+                Doer.helpKeys.Open(self.device['help'].GetValue())
+            except:
+                pass
 
     def onOrientationChange(self):
         self.device.partPicture.current.ApplyOrientation(self.rotationString.get(),bool(self.mirrorHorizontallyVar.get()),bool(self.mirrorVerticallyVar.get()))
