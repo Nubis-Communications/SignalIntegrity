@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-10-24"/>
+<meta name="create-date" content="2019-11-06"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1081,7 +1081,7 @@ a:visited {
 <a class="toc" name="toc-Subsection-88"></a>stimdef<a class="Label" name="sub:stimdef"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>stimdef</i> specifies the relationship between defining and dependent stims in the schematic (see <a class="Reference" href="Help-Subsection-68.html#sub:Stim">Stim↑</a>).
+A netlist line beginning with the keyword <i>stimdef</i> specifies the relationship between defining and dependent stims in the schematic (see <a class="Reference" href="Help-Subsection-68.html#device:Stim">Stim↑</a>).
 </div>
 <div class="Standard">
 This should only appear in <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> applications.
@@ -1255,7 +1255,7 @@ The matrix is such that for a <span class="formula"><i>C</i></span> element vect
 </span>
 
 </span>
-</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span>), as listed in the netlist for the dependent stims and an <span class="formula"><i>R</i></span> element vector of defining stims <span class="formula"><b>d</b></span> (see <a class="Reference" href="Help-Subsection-87.html#sub:stim">stim↑</a> for the netlist statement for the stim and <a class="Reference" href="Help-Subsection-68.html#sub:Stim">Stim↑</a> for a description of dependent and defining stims), that the stimdef defines <span class="formula"><b>D</b></span> such that:
+</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span>), as listed in the netlist for the dependent stims and an <span class="formula"><i>R</i></span> element vector of defining stims <span class="formula"><b>d</b></span> (see <a class="Reference" href="Help-Subsection-87.html#sub:stim">stim↑</a> for the netlist statement for the stim and <a class="Reference" href="Help-Subsection-68.html#device:Stim">Stim↑</a> for a description of dependent and defining stims), that the stimdef defines <span class="formula"><b>D</b></span> such that:
 </div>
 <div class="Standard">
 <div class="formula">
@@ -1264,7 +1264,7 @@ The matrix is such that for a <span class="formula"><i>C</i></span> element vect
 
 </div>
 <div class="Standard">
-When no stimdef statement appears, there are <span class="formula"><i>C</i></span> unknowns (and there must be at least <span class="formula"><i>C</i></span> <a class="Reference" href="Help-Subsection-66.html#sub:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-85.html#sub:meas">meas↑</a> in the netlist). If a stimdef statement appears, there are <span class="formula"><i>R</i></span> unknowns (and there must be at least <span class="formula"><i>R</i></span> <a class="Reference" href="Help-Subsection-66.html#sub:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-85.html#sub:meas">meas↑</a> in the netlist).
+When no stimdef statement appears, there are <span class="formula"><i>C</i></span> unknowns (and there must be at least <span class="formula"><i>C</i></span> <a class="Reference" href="Help-Subsection-66.html#device:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-85.html#sub:meas">meas↑</a> in the netlist). If a stimdef statement appears, there are <span class="formula"><i>R</i></span> unknowns (and there must be at least <span class="formula"><i>R</i></span> <a class="Reference" href="Help-Subsection-66.html#device:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-85.html#sub:meas">meas↑</a> in the netlist).
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-87.html#next">Prev</a> stim</span>

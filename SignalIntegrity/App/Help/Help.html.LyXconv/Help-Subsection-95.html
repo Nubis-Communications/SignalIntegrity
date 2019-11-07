@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-10-24"/>
+<meta name="create-date" content="2019-11-06"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1102,7 +1102,7 @@ By looking at your schematic, you can see this, because unconnected output probe
 <b>No Sources</b>
 </div>
 <div class="Standard">
-There are no sources in the circuit. In the context of <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a class="Reference" href="Help-Subsection-68.html#sub:Stim">Stim↑</a> defined by a <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> line defining a <a class="Reference" href="Help-Subsection-87.html#sub:stim">stim↑</a> prior to enabling the <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> calculation, but it does not check whether the stim is actually connected to anything.
+There are no sources in the circuit. In the context of <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a class="Reference" href="Help-Subsection-68.html#device:Stim">Stim↑</a> defined by a <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> line defining a <a class="Reference" href="Help-Subsection-87.html#sub:stim">stim↑</a> prior to enabling the <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> calculation, but it does not check whether the stim is actually connected to anything.
 </div>
 <div class="Standard">
 By looking at your schematic, you can examine unconnected stims, because they will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a stim makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.

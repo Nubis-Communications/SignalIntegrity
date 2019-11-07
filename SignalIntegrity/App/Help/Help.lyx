@@ -689,7 +689,7 @@ name "subsec:Attaching-Ports-to-a-Schematic"
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -809,7 +809,7 @@ Note that calculation will not be possible at all (i.e.
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -991,7 +991,7 @@ reference "Control-Help:Add-Part"
 , opening the Files category, and selecting the Four Port 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -1071,7 +1071,7 @@ reference "Control-Help:Add-Part"
 , opening the Miscellaneous category, and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -1247,7 +1247,7 @@ reference "Control-Help:Add-Port"
  to add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -1564,7 +1564,7 @@ reference "subsec:Output-Probes-for Simulation"
  An 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1598,7 +1598,7 @@ Once a circuit is drawn containing at least one source or generator, and
  at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1755,7 +1755,7 @@ Sources:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
@@ -1765,7 +1765,7 @@ reference "subsec:Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
@@ -1779,7 +1779,7 @@ Generators:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -1789,7 +1789,7 @@ reference "subsec:Voltage-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Pulse-Generator"
+reference "device:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -1799,7 +1799,7 @@ reference "subsec:Voltage-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Sine-Generator"
+reference "device:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -1809,7 +1809,7 @@ reference "subsec:Voltage-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Step-Generator"
+reference "device:Current-Step-Generator"
 
 \end_inset
 
@@ -1819,7 +1819,7 @@ reference "subsec:Current-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Pulse-Generator"
+reference "device:Current-Pulse-Generator"
 
 \end_inset
 
@@ -1829,7 +1829,7 @@ reference "subsec:Current-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Sine-Generator"
+reference "device:Current-Sine-Generator"
 
 \end_inset
 
@@ -1851,7 +1851,7 @@ name "subsec:Output-Probes-for Simulation"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1883,7 +1883,7 @@ reference "Control-Help:Add-Part"
  and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1912,7 +1912,7 @@ reference "subsec:Output-Probe"
 Note that the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -2076,7 +2076,7 @@ reference "subsec:Sources-and-Generators"
 have at least one output 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -2171,7 +2171,7 @@ reference "subsec:Setting-Calculation-Properties-for-Simulation"
  If a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -2234,21 +2234,21 @@ In this example, we will step through the simulation of an RLC network.
 The circuit we will simulate will be a series 100 nH 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "device:Inductor"
 
 \end_inset
 
 , 1 pF 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "device:Capacitor"
 
 \end_inset
 
 , and 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -2257,14 +2257,14 @@ reference "subsec:Resistor"
  through a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
  and probe initially the voltage at the 50 ohm termination 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -2314,7 +2314,7 @@ reference "Control-Help:Add-Part"
 Select the Generators category, and select the One Port 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -2378,7 +2378,7 @@ reference "Control-Help:Add-Part"
  to add an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "device:Inductor"
 
 \end_inset
 
@@ -2435,14 +2435,14 @@ Press OK, click in the schematic and hold the left mouse button down to
 Repeat for a two-port, 1 pF 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "device:Capacitor"
 
 \end_inset
 
  and a one-port 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -2552,7 +2552,7 @@ reference "Control-Help:Add-Output-Probe"
 , we see the part properties dialog for the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -2641,7 +2641,7 @@ reference "Control-Help:Pan"
 Select the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -3107,14 +3107,14 @@ Drawing the schematic for deembedding is accomplished through the addition
  At least one part will need to be an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
  and there will need to be exactly one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -3251,7 +3251,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -3315,7 +3315,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -3500,7 +3500,7 @@ reference "Control-Help:Add-Port"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -3511,7 +3511,7 @@ reference "subsec:Unknown"
 have one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -4091,7 +4091,7 @@ reference "subsec:Measure-Probes"
 An 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4118,7 +4118,7 @@ For virtual probing to work correctly, all sources of stimuli (i.e.
  This identification of stimuli is achieved through the use of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4150,21 +4150,21 @@ reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
 Once a circuit is drawn containing at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
 , at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
  and at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4243,14 +4243,14 @@ reference "Control-Help:Add-Wire"
 To add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
  or an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4275,7 +4275,7 @@ reference "Control-Help:Add-Measure-Probe"
 To add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4402,7 +4402,7 @@ reference "Control-Help:Add-Part"
  and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4516,7 +4516,7 @@ reference "Control-Help:Add-Stim"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4525,7 +4525,7 @@ reference "subsec:Stim"
  them with a small bit of wire, and connect the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4591,7 +4591,7 @@ This is Wrong
 Remember, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4841,7 +4841,7 @@ Note that virtual probing will not be possible at all (i.e.
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -4852,7 +4852,7 @@ reference "subsec:Measure-Probe"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4863,7 +4863,7 @@ reference "subsec:Output-Probe"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -5036,7 +5036,7 @@ The circuit beneath the probe loading model is the circuit being measured.
  by a four-port s-parameter 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -5057,7 +5057,7 @@ In the probe loading model section where the probe is connected to the circuit,
  we have a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -5127,7 +5127,7 @@ reference "sec:Simulator-Dialog"
 Throughout the rest of the schematic, we see various 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -5144,7 +5144,7 @@ reference "subsec:Output-Probes-for-Virtual-Probing"
  These are in between two back-to-back 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -5172,7 +5172,7 @@ Note that these output probes have keyword/values of td -1.43ns and gain
  You can do that by selecting the four-port file
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -5237,7 +5237,7 @@ reference "subsec:Stimuli"
  The dependent stimuli are connected to the pin of each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Ground"
+reference "device:Ground"
 
 \end_inset
 
@@ -5260,7 +5260,7 @@ reference "subsec:Stimuli"
  A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -5673,7 +5673,7 @@ name "sec:RLGC-Fit"
 This calculates the s-parameters of a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
@@ -5705,7 +5705,7 @@ noprefix "false"
 Fit the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
@@ -5733,7 +5733,7 @@ noprefix "false"
 Place the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
@@ -5760,7 +5760,7 @@ Devices that fit automatically can be placed in the schematic using the
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RLGC-Fit"
+reference "device:RLGC-Fit"
 
 \end_inset
 
@@ -5874,7 +5874,7 @@ reference "Control-Help:Edit-Properties"
  commands, or the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -10030,21 +10030,21 @@ reference "sec:Waveform"
  associated with a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
  or 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
@@ -14171,7 +14171,7 @@ reference "Control-Help:Add-Port"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -14203,7 +14203,7 @@ reference "Control-Help:Add-Output-Probe"
  - Adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -14235,7 +14235,7 @@ reference "Control-Help:Add-Measure-Probe"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -14260,7 +14260,7 @@ reference "Control-Help:Add-Stim"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -14563,7 +14563,7 @@ reference "sec:Built-in-Devices"
 The most useful and generic type of part for s-parameter files is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -14977,7 +14977,7 @@ This command is used to add ports to a schematic.
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -15306,7 +15306,7 @@ Always
 This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -15576,7 +15576,7 @@ Always
 This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -15825,7 +15825,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -16037,7 +16037,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -16254,7 +16254,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -16826,35 +16826,35 @@ Some devices have file properties.
  For example, the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
  devices have s-parameter files and the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
@@ -21332,7 +21332,7 @@ reference "sec:RLGC-Fit"
  to fit the s-parameters of a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
@@ -22002,7 +22002,7 @@ SignalIntegrity
  through a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -22012,7 +22012,7 @@ reference "subsec:File-1"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -22022,7 +22022,7 @@ reference "subsec:File-1"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -22032,7 +22032,7 @@ reference "subsec:Resistor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "device:Capacitor"
 
 \end_inset
 
@@ -22042,7 +22042,7 @@ reference "subsec:Capacitor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "device:Inductor"
 
 \end_inset
 
@@ -22052,7 +22052,7 @@ reference "subsec:Inductor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Mutual"
+reference "device:Mutual"
 
 \end_inset
 
@@ -22062,7 +22062,7 @@ reference "subsec:Mutual"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:IdealTransformer"
+reference "device:IdealTransformer"
 
 \end_inset
 
@@ -22072,7 +22072,7 @@ reference "subsec:IdealTransformer"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Ground"
+reference "device:Ground"
 
 \end_inset
 
@@ -22082,7 +22082,7 @@ reference "subsec:Ground"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Open"
+reference "device:Open"
 
 \end_inset
 
@@ -22092,7 +22092,7 @@ reference "subsec:Open"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:DirectionalCoupler"
+reference "device:DirectionalCoupler"
 
 \end_inset
 
@@ -22102,7 +22102,7 @@ reference "subsec:DirectionalCoupler"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -22112,7 +22112,7 @@ reference "subsec:Power-Mixed-Mode-Converter"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -22122,7 +22122,7 @@ reference "subsec:Voltage-Mixed-Mode-Converter"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transmission-Line"
+reference "device:Transmission-Line"
 
 \end_inset
 
@@ -22132,7 +22132,7 @@ reference "subsec:Transmission-Line"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -22142,7 +22142,7 @@ reference "subsec:Telegrapher---Two-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Four-Port"
+reference "device:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -22152,7 +22152,7 @@ reference "subsec:Telegrapher---Four-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RLGC-Fit"
+reference "device:RLGC-Fit"
 
 \end_inset
 
@@ -22162,7 +22162,7 @@ reference "subsec:RLGC-Fit"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
@@ -22172,7 +22172,7 @@ reference "subsec:Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
@@ -22182,7 +22182,7 @@ reference "subsec:Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Noise-Generator"
+reference "device:Voltage-Noise-Generator"
 
 \end_inset
 
@@ -22192,7 +22192,7 @@ reference "subsec:Voltage-Noise-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -22202,7 +22202,7 @@ reference "subsec:Voltage-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Pulse-Generator"
+reference "device:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -22212,7 +22212,7 @@ reference "subsec:Voltage-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-PRBS-Generator"
+reference "device:Voltage-PRBS-Generator"
 
 \end_inset
 
@@ -22222,7 +22222,7 @@ reference "subsec:Voltage-PRBS-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Clock-Generator"
+reference "device:Voltage-Clock-Generator"
 
 \end_inset
 
@@ -22232,7 +22232,7 @@ reference "subsec:Voltage-Clock-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Sine-Generator"
+reference "device:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -22242,7 +22242,7 @@ reference "subsec:Voltage-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Step-Generator"
+reference "device:Current-Step-Generator"
 
 \end_inset
 
@@ -22252,7 +22252,7 @@ reference "subsec:Current-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Pulse-Generator"
+reference "device:Current-Pulse-Generator"
 
 \end_inset
 
@@ -22262,7 +22262,7 @@ reference "subsec:Current-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Sine-Generator"
+reference "device:Current-Sine-Generator"
 
 \end_inset
 
@@ -22272,7 +22272,7 @@ reference "subsec:Current-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -22282,7 +22282,7 @@ reference "subsec:Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -22292,7 +22292,7 @@ reference "subsec:Measure-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -22302,7 +22302,7 @@ reference "subsec:Output-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -22312,7 +22312,7 @@ reference "subsec:Stim"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Probe"
+reference "device:Current-Probe"
 
 \end_inset
 
@@ -22322,7 +22322,7 @@ reference "subsec:Current-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Diff-Probe"
+reference "device:Voltage-Diff-Probe"
 
 \end_inset
 
@@ -22332,7 +22332,7 @@ reference "subsec:Voltage-Diff-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -22342,7 +22342,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -22352,7 +22352,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Current-Source"
+reference "device:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -22362,7 +22362,7 @@ reference "subsec:Current-Controlled-Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Current-Source"
+reference "device:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -22372,7 +22372,7 @@ reference "subsec:Voltage-Controlled-Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Voltage-Source"
+reference "device:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -22382,7 +22382,7 @@ reference "subsec:Current-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Amplifier"
+reference "device:Voltage-Amplifier"
 
 \end_inset
 
@@ -22392,7 +22392,7 @@ reference "subsec:Voltage-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Amplifier"
+reference "device:Current-Amplifier"
 
 \end_inset
 
@@ -22402,7 +22402,7 @@ reference "subsec:Current-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transconductance-Amplifier"
+reference "device:Transconductance-Amplifier"
 
 \end_inset
 
@@ -22412,7 +22412,7 @@ reference "subsec:Transconductance-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transresistance-Amplifier"
+reference "device:Transresistance-Amplifier"
 
 \end_inset
 
@@ -22422,7 +22422,7 @@ reference "subsec:Transresistance-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -22432,7 +22432,7 @@ reference "subsec:Unknown"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -22443,7 +22443,7 @@ reference "subsec:System"
 File
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:File-1"
+name "device:File"
 
 \end_inset
 
@@ -22743,7 +22743,7 @@ er file is a project that produces s-parameters (i.e.
 Resistor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Resistor"
+name "device:Resistor"
 
 \end_inset
 
@@ -22977,7 +22977,7 @@ This is a one and two port resistor with the given resistance.
 Capacitor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Capacitor"
+name "device:Capacitor"
 
 \end_inset
 
@@ -23211,7 +23211,7 @@ This is a one and two port capacitor with the given capacitance.
 Inductor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Inductor"
+name "device:Inductor"
 
 \end_inset
 
@@ -23439,7 +23439,7 @@ This is a two port inductor with the given inductance.
 Mutual
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Mutual"
+name "device:Mutual"
 
 \end_inset
 
@@ -23675,7 +23675,7 @@ The sense of the self inductance is indicated by the arrows in the part
 IdealTransformer
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:IdealTransformer"
+name "device:IdealTransformer"
 
 \end_inset
 
@@ -23917,7 +23917,7 @@ The turns ratio is secondary relative to primary, so a higher number indicates
 Ground
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Ground"
+name "device:Ground"
 
 \end_inset
 
@@ -24099,7 +24099,7 @@ This is a one-port ground, which could also be considered as a one-port
 Open
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Open"
+name "device:Open"
 
 \end_inset
 
@@ -24280,7 +24280,7 @@ This is a one-port ideal open.
 Directional Coupler
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:DirectionalCoupler"
+name "device:DirectionalCoupler"
 
 \end_inset
 
@@ -24539,7 +24539,7 @@ sly passing waves between two ports.
 Power Mixed Mode Converter
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Power-Mixed-Mode-Converter"
+name "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -24750,7 +24750,7 @@ This is the standard definition for s-parameters and this device is used
 The other kind of mixed-mode converter is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -24772,7 +24772,7 @@ reference "subsec:S-parameter-Generation-Example"
 Voltage Mixed Mode Converter
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Mixed-Mode-Converter"
+name "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -24982,7 +24982,7 @@ This is the standard definition in industry for the time-domain and this
 The other kind of mixed-mode converter is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -25004,7 +25004,7 @@ reference "subsec:Virtual-Probing-Example"
 Transmission Line
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transmission-Line"
+name "device:Transmission-Line"
 
 \end_inset
 
@@ -25295,7 +25295,7 @@ A two-port ideal transmission line with zero delay is simply and ideal thru
 Telegrapher - Two Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Telegrapher---Two-Port"
+name "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -25966,7 +25966,7 @@ To facilitate per-unit values, the model can be scaled by the amount specified.
 Telegrapher - Four Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Telegrapher---Four-Port"
+name "device:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -27061,7 +27061,7 @@ If sections are specified as zero (the default), then an analytic solutions
  using two of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -27070,7 +27070,7 @@ reference "subsec:Telegrapher---Two-Port"
  is employed, again using two of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -27078,7 +27078,7 @@ reference "subsec:Telegrapher---Two-Port"
  two 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -27104,7 +27104,7 @@ To facilitate per-unit values, the model can be scaled by the amount specified.
 RLGC Fit
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:RLGC-Fit"
+name "device:RLGC-Fit"
 
 \end_inset
 
@@ -27376,7 +27376,7 @@ scale
 This device is a two-port transmission line as in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -27407,7 +27407,7 @@ g where a scale of 0.5 splits the model in half.
 Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Source"
+name "device:Voltage-Source"
 
 \end_inset
 
@@ -27674,7 +27674,7 @@ reference "Control-Help:Edit-Properties"
 Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Source"
+name "device:Current-Source"
 
 \end_inset
 
@@ -27941,7 +27941,7 @@ reference "Control-Help:Edit-Properties"
 Voltage Noise Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Noise-Generator"
+name "device:Voltage-Noise-Generator"
 
 \end_inset
 
@@ -28418,7 +28418,7 @@ The voltage noise generator generates random, normally distributed, zero-mean
 Voltage Step Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Step-Generator"
+name "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -28918,7 +28918,7 @@ If a nonzero risetime is specified, the edge crosses 50% at the start time.
 Voltage Pulse Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Pulse-Generator"
+name "device:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -29468,7 +29468,7 @@ If a nonzero risetime is specified, the first edge crosses 50% at the start
 Voltage PRBS Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-PRBS-Generator"
+name "device:Voltage-PRBS-Generator"
 
 \end_inset
 
@@ -30063,7 +30063,7 @@ Warning - longer PRBS patterns (a high prbs number) take longer to calculate.
 Voltage Clock Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Clock-Generator"
+name "device:Voltage-Clock-Generator"
 
 \end_inset
 
@@ -30602,7 +30602,7 @@ The maximum risetime is 59% of the clock period.
 Voltage Sine Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Sine-Generator"
+name "device:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -31096,7 +31096,7 @@ The waveform is such that it has the frequency specified and has the phase
 Current Step Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Step-Generator"
+name "device:Current-Step-Generator"
 
 \end_inset
 
@@ -31595,7 +31595,7 @@ If a nonzero risetime is specified, the first edge crosses 50% at the start
 Current Pulse Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Pulse-Generator"
+name "device:Current-Pulse-Generator"
 
 \end_inset
 
@@ -32141,7 +32141,7 @@ If a nonzero risetime is specified, the first edge crosses 50% at the start
 Current Sine Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Sine-Generator"
+name "device:Current-Sine-Generator"
 
 \end_inset
 
@@ -32635,7 +32635,7 @@ The waveform is such that it has the frequency specified and has the phase
 Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Port"
+name "device:Port"
 
 \end_inset
 
@@ -32858,7 +32858,7 @@ reference "sec:Deembedding"
 , they match the port numbers in the circuit with the ports on the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -32907,7 +32907,7 @@ noprefix "false"
 Voltage Measure Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Measure-Probe"
+name "device:Measure-Probe"
 
 \end_inset
 
@@ -33180,7 +33180,7 @@ reference "Control-Help:Edit-Properties"
 Voltage Output Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Output-Probe"
+name "device:Output-Probe"
 
 \end_inset
 
@@ -33537,7 +33537,7 @@ When the waveforms are produced as a result of the calculation, you have
 Stim
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Stim"
+name "device:Stim"
 
 \end_inset
 
@@ -33892,7 +33892,7 @@ constrain
  from each stim with respect to each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -33934,7 +33934,7 @@ reference "sec:Netlist"
 Current Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Probe"
+name "device:Current-Probe"
 
 \end_inset
 
@@ -34296,7 +34296,7 @@ Despite the fact that the probe measures current, it behaves like a scope
 Voltage Diff Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Diff-Probe"
+name "device:Voltage-Diff-Probe"
 
 \end_inset
 
@@ -34658,7 +34658,7 @@ When the waveforms are produced as a result of the calculation, you have
 Voltage Controlled Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Controlled-Voltage-Source"
+name "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -34901,7 +34901,7 @@ The output impedance of the voltage source is zero.
 Current Controlled Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Controlled-Current-Source"
+name "device:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -35144,7 +35144,7 @@ The output impedance of the current source is infinite.
 Voltage Controlled Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Controlled-Current-Source"
+name "device:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -35387,7 +35387,7 @@ The output impedance of the current source is infinite.
 Current Controlled Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Controlled-Voltage-Source"
+name "device:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -35630,7 +35630,7 @@ The output impedance of the voltage source is zero.
 Voltage Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Amplifier"
+name "device:Voltage-Amplifier"
 
 \end_inset
 
@@ -35954,7 +35954,7 @@ gain
 The voltage amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -35966,7 +35966,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 Current Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Amplifier"
+name "device:Current-Amplifier"
 
 \end_inset
 
@@ -36290,7 +36290,7 @@ gain
 The current amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Current-Source"
+reference "device:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -36302,7 +36302,7 @@ reference "subsec:Current-Controlled-Current-Source"
 Transconductance Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transconductance-Amplifier"
+name "device:Transconductance-Amplifier"
 
 \end_inset
 
@@ -36626,7 +36626,7 @@ gain
 The transconductance amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Current-Source"
+reference "device:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -36638,7 +36638,7 @@ reference "subsec:Voltage-Controlled-Current-Source"
 Transresistance Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transresistance-Amplifier"
+name "device:Transresistance-Amplifier"
 
 \end_inset
 
@@ -36962,7 +36962,7 @@ gain
 The transresistance amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Voltage-Source"
+reference "device:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -36974,7 +36974,7 @@ reference "subsec:Current-Controlled-Voltage-Source"
 Operational Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Operational-Amplifier-1"
+name "device:Operational-Amplifier"
 
 \end_inset
 
@@ -37318,7 +37318,7 @@ Despite the default value of 1.0, the gain is usually set to a very large
 Unknown
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Unknown"
+name "device:Unknown"
 
 \end_inset
 
@@ -37568,7 +37568,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -37594,7 +37594,7 @@ ers calculated.
 System
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:System"
+name "device:System"
 
 \end_inset
 
@@ -37862,7 +37862,7 @@ reference "sec:Deembedding"
  defined by each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -37898,7 +37898,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -37918,7 +37918,7 @@ reference "subsec:System"
 System devices are the same as 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -38003,7 +38003,7 @@ reference "subsec:port"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -38035,7 +38035,7 @@ reference "subsec:meas"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -38060,7 +38060,7 @@ reference "subsec:output"
 - specifies an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -38092,7 +38092,7 @@ reference "subsec:stim"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38117,7 +38117,7 @@ reference "subsec:stimdef"
 - specifies the relationship between defining and dependent stims (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38142,7 +38142,7 @@ reference "subsec:unknown"
 - specifies an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -38166,7 +38166,7 @@ reference "subsec:system"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -38233,7 +38233,7 @@ Sometimes the first argument is specified without a keyword (the keyword
  Usually this is for devices with only one argument, like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -38327,7 +38327,7 @@ port
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -38388,7 +38388,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -38423,7 +38423,7 @@ meas
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -38475,7 +38475,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -38503,7 +38503,7 @@ reference "sec:Waveform"
  associated with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -38531,7 +38531,7 @@ output
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -38591,7 +38591,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -38612,7 +38612,7 @@ Note that the reference designator (i.e.
  the name) associated with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -38640,7 +38640,7 @@ stim
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38726,7 +38726,7 @@ status open
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38769,7 +38769,7 @@ stimdef
  schematic (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38878,7 +38878,7 @@ reference "subsec:stim"
  for the netlist statement for the stim and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38913,7 +38913,7 @@ When no stimdef statement appears, there are
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -38936,7 +38936,7 @@ reference "subsec:meas"
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -38969,7 +38969,7 @@ unknown
  defines an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -39014,7 +39014,7 @@ system
  defines an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -39046,7 +39046,7 @@ file
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -39488,7 +39488,7 @@ reference "sec:Virtual-Probing"
  The application checks for the existence of at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
