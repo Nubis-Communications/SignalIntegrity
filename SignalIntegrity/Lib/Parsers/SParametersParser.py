@@ -19,7 +19,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.SParameters import SParameters
-
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
 class SParametersParser(SParameters):
     """parses a list of commands to process s-parameters"""
     def __init__(self,sp,lines):
@@ -49,6 +49,11 @@ class SParametersParser(SParameters):
                         self.EnforceReciprocity()
                     else:
                         raise IndexError
-            except IndexError:
+                elif tokens[1]=='limit':
+                    self.LimitImpulseResponseLength((float(tokens[2]) if tokens[2]!='none' else -1e15,
+                                                     float(tokens[3]) if tokens[3]!='none' else +1e15))
+                else:
+                    raise IndexError
+            except:
                 raise SignalIntegrityExceptionPostProcessing('not understood: '+line)
                     

@@ -66,7 +66,8 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
                         'connect D1 2 D2 1',
                         'post enforce reciprocity',
                         'post enforce passivity',
-                        'post enforce causality',])
+                        'post enforce causality',
+                        'post limit none none',])
         sp=sspnp.SParameters()
         self.SParameterRegressionChecker(sp,self.id()+'.s2p')
 if __name__ == "__main__":
