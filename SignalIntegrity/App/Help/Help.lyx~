@@ -20198,7 +20198,7 @@ Always
 This command opens a text notepad where the user can enter 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Post-Processing-Expained"
+reference "sec:Post-Processing"
 plural "false"
 caps "false"
 noprefix "false"
@@ -38364,7 +38364,7 @@ noprefix "false"
 - specifies 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Post-Processing-Expained"
+reference "sec:Post-Processing"
 plural "false"
 caps "false"
 noprefix "false"
@@ -39276,7 +39276,7 @@ name "subsec:post"
 A netlist line beginning with the keyword post defines 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Post-Processing-Expained"
+reference "sec:Post-Processing"
 plural "false"
 caps "false"
 noprefix "false"
@@ -39345,25 +39345,14 @@ post enforce reciprocity - enforces reciprocity on the final result.
 
 \begin_layout Itemize
 post limit <negative> <positive> - limits the impulse response lengths of
- the final result to be between the negative and positive time values specified
- (see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:S-Parameter-Properties"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
+ the final result to be between the negative and positive time values specified.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Post-Processing
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Post-Processing-Expained"
+name "sec:Post-Processing"
 
 \end_inset
 
@@ -39487,18 +39476,7 @@ enforce reciprocity - enforces reciprocity on the final result.
 
 \begin_layout Itemize
 limit <negative> <positive> - limits the impulse response lengths of the
- final result to be between the negative and positive time values specified
- (see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:S-Parameter-Properties"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
+ final result to be between the negative and positive time values specified.
 \end_layout
 
 \begin_layout Standard
@@ -39507,13 +39485,10 @@ If the post-processing commands are not recognized or cannot be parsed,
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:PostProcessing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
- error is raised.
+ exception is raised
 \end_layout
 
 \begin_layout Section
@@ -39626,6 +39601,26 @@ reference "subsec:VirtualProbe"
 
  - pertains to a problem specific to the Virtual Probe application and calculati
 on.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:PostProcessing"
+
+\end_inset
+
+ - pertains to a problem with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -40305,7 +40300,9 @@ name "subsec:PostProcessing"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 not understood
 \end_layout
 
@@ -40313,7 +40310,7 @@ not understood
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "sec:Post-Processing-Expained"
+reference "sec:Post-Processing"
 plural "false"
 caps "false"
 noprefix "false"

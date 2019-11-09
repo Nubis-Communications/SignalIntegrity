@@ -1,12 +1,16 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+155+31</Geometry>
+			<Geometry>711x363+491+289</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>226</Height>
-			<Width>529</Width>
-			<Grid>32.0</Grid>
+			<Height>234</Height>
+			<Width>527</Width>
+			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>
 			<Wires>
