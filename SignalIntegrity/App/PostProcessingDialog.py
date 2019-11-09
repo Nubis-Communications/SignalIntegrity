@@ -50,7 +50,7 @@ class PostProcessingDialog(tk.Toplevel):
         self.CopyDoer = Doer(self.onCopy)
         self.PasteDoer = Doer(self.onPaste)
 
-        self.AboutDoer = Doer(self.onAbout)
+        self.AboutDoer = Doer(self.onAbout).AddHelpElement('sec:Post-Processing')
 
         # The menu system
         TheMenu=tk.Menu(self)
@@ -89,7 +89,7 @@ class PostProcessingDialog(tk.Toplevel):
         self.__root.destroy()
 
     def onAbout(self): 
-        tk.showinfo("Notepad","Mrinal Verma") 
+        self.AboutDoer.OpenHelp()
 
     def onOpenFile(self): 
         

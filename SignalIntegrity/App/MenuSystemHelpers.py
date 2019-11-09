@@ -132,11 +132,13 @@ class Doer(object):
         return self
     def Execute(self,*args):
         if self.inHelp and self.helpEnabled:
-            if not self.helpKeys is None:
-                self.helpKeys.Open(self.controlHelpSectionString)
+            self.OpenHelp()
             return
         if self.active:
             return self.command()
+    def OpenHelp(self):
+        if not self.helpKeys is None:
+            self.helpKeys.Open(self.controlHelpSectionString)
     def Activate(self,active):
         if self.active==active:
             return self
