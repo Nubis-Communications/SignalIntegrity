@@ -162,11 +162,54 @@ class CalculationProperties(CalculationPropertiesBase):
     def __init__(self):
         CalculationPropertiesBase.__init__(self,'CalculationProperties')
 
+class PostProcessingLineConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'PostProcessingLine')
+        self.Add(XMLPropertyDefaultString('Line',''))
+
+class PostProcessingConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'PostProcessing')
+        self.Add(XMLProperty('Lines',[PostProcessingLineConfiguration() for _ in range(0)],'array',arrayType=PostProcessingLineConfiguration()))
+    def GetTextString(self):
+        try:
+            lines=[ppline['Line'] for ppline in self['Lines']]
+            goodlines=[]
+            for line in lines:
+                if not line is None:
+                    goodlines.append(line)
+            textstr='\n'.join(goodlines)
+        except:
+            textstr=''
+        return textstr
+    def PutTextString(self,textstr):
+        lines=textstr.split('\n')
+        lines=[str(line) for line in lines]
+        goodlines=[]
+        for line in lines:
+            if line != '':
+                goodlines.append(line)
+        pplines=[PostProcessingLineConfiguration() for line in goodlines]
+        for l in range(len(goodlines)):
+            pplines[l]['Line']=lines[l]
+        self['Lines']=pplines
+    def NetListLines(self):
+        try:
+            lines=[ppline['Line'] for ppline in self['Lines']]
+            goodlines=[]
+            for line in lines:
+                if not line is None:
+                    goodlines.append('post '+line)
+        except:
+            goodlines=[]
+        return goodlines
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
+        self.SubDir(PostProcessingConfiguration())
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 

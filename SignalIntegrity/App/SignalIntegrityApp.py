@@ -45,6 +45,7 @@ from SignalIntegrity.App.Schematic import Drawing
 from SignalIntegrity.App.Simulator import Simulator
 from SignalIntegrity.App.NetList import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
+from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 from SignalIntegrity.App.History import History
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
@@ -135,6 +136,7 @@ class SignalIntegrityApp(tk.Frame):
         self.PanDoer = Doer(self.onPan).AddHelpElement('Control-Help:Pan')
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
+        self.PostProcessingDoer = Doer(self.onPostProcessing).AddHelpElement('Control-Help:Post-Processing')
         self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('Control-Help:S-parameter-Viewer')
         self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Calculate-tk.Button')
         self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('Control-Help:Calculate-S-parameters')
@@ -220,6 +222,7 @@ class SignalIntegrityApp(tk.Frame):
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
+        self.PostProcessingDoer.AddMenuElement(CalcMenu,label='Post-Processing',underline=1)
         self.SParameterViewerDoer.AddMenuElement(CalcMenu,label='S-parameter Viewer',underline=12)
         CalcMenu.add_separator()
         self.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
@@ -491,9 +494,12 @@ class SignalIntegrityApp(tk.Frame):
             return False
         self.OpenProjectFile(SignalIntegrity.App.Preferences.GetLastFileOpened(3))
 
+    def NetListText(self):
+        return self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
-        NetListDialog(self,self.Drawing.schematic.NetList().Text())
+        NetListDialog(self,self.NetListText())
 
     def onExportTpX(self):
         from SignalIntegrity.App.TpX import TpX
@@ -635,7 +641,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def CalculateSParameters(self):
         self.Drawing.stateMachine.Nothing()
-        netList=self.Drawing.schematic.NetList().Text()
+        netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -660,6 +666,9 @@ class SignalIntegrityApp(tk.Frame):
         if sp is None:
             return
         SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+
+    def onPostProcessing(self):
+        PostProcessingDialog(self)
 
     def PrintProgress(self,iteration):
         self.statusbar.set('Fitting - iteration:'+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.m_mse))
@@ -732,7 +741,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def onDeembed(self):
         self.Drawing.stateMachine.Nothing()
-        netList=self.Drawing.schematic.NetList().Text()
+        netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
