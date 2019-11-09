@@ -1,11 +1,18 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>620x321+185+151</Geometry>
+			<Geometry>620x321+73+102</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>181</Height>
-			<Width>535</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>

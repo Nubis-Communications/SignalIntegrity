@@ -1,11 +1,15 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
+			<Geometry>711x363+28+57</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -24,7 +28,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>Port1Peeled.s4p</Value>
+							<Value>Port1Peeled.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>

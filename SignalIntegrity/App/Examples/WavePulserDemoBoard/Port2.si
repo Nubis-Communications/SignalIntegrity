@@ -1,4 +1,8 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+27+56</Geometry>
@@ -24,7 +28,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>Port2Peeled.s4p</Value>
+							<Value>Port2Peeled.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
