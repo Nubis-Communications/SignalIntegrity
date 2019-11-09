@@ -19138,6 +19138,19 @@ reference "Control-Help:Calculation-Properties"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "Control-Help:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for editing post-processing commands for the calculations.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "Control-Help:S-parameter-Viewer"
 
 \end_inset
@@ -20011,6 +20024,188 @@ reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsubsection
+Post-Processing
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Post-Processing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculate"
+
+\end_inset
+
+ ▸ Post-Processing
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command opens a text notepad where the user can enter 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ commands.
 \end_layout
 
 \begin_layout Subsubsection
@@ -35639,13 +35834,7 @@ name "device:Voltage-Amplifier"
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename VoltageAmplifierTwoPort.png
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename VoltageAmplifierFourPort.png
+	filename VoltageAmplifier.bmp
 
 \end_inset
 
@@ -35980,12 +36169,6 @@ name "device:Current-Amplifier"
 \end_inset
 
 
-\begin_inset Graphics
-	filename CurrentAmplifierAlt.bmp
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -36316,12 +36499,6 @@ name "device:Transconductance-Amplifier"
 \end_inset
 
 
-\begin_inset Graphics
-	filename TransconductanceAmplifierAlt.bmp
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -36648,12 +36825,6 @@ name "device:Transresistance-Amplifier"
 \begin_layout Standard
 \begin_inset Graphics
 	filename TransresistanceAmplifier.bmp
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename TransresistanceAmplifierAlt.bmp
 
 \end_inset
 
@@ -38180,6 +38351,43 @@ reference "sec:Deembedding"
  applications).
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:post"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+- specifies 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ of a resulting s-parameter file (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+
+\end_inset
+
+ applications).
+\end_layout
+
 \begin_layout Subsection
 device
 \begin_inset CommandInset label
@@ -39053,6 +39261,261 @@ reference "device:System"
 .
 \end_layout
 
+\begin_layout Subsection*
+post
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:post"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword post defines 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ of a resulting s-parameter file.
+\end_layout
+
+\begin_layout Standard
+This should appear only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+valid post processing lines are:
+\end_layout
+
+\begin_layout Itemize
+post enforce causality - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+post enforce passivity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+post enforce reciprocity - enforces reciprocity on the final result.
+\end_layout
+
+\begin_layout Itemize
+post limit <negative> <positive> - limits the impulse response lengths of
+ the final result to be between the negative and positive time values specified
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section*
+Post-Processing
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Post-Processing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Post-processing commands are commands to be executed after a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ calculation completes.
+\end_layout
+
+\begin_layout Standard
+These commands are entered as text in the order that they are to be executed
+ in a dialog opened by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ command.
+\end_layout
+
+\begin_layout Standard
+All of the post-processing commands are appended to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ generated for calculation and can be seen when you issue 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Export-Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, with the caveat that commands are entered directly in the post-processing
+ dialog, but have the keyword 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:post"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ added when putting the commands in the netlist.
+\end_layout
+
+\begin_layout Standard
+Because they are in the netlist, one is able to make scripted solutions
+ with post-processing, and the cache coherency of the calculated result
+ is maintained (i.e.
+ changes to the netlist change the validity of cached results).
+\end_layout
+
+\begin_layout Standard
+Valid post-processing commands are:
+\end_layout
+
+\begin_layout Itemize
+enforce causality - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce passivity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce reciprocity - enforces reciprocity on the final result.
+\end_layout
+
+\begin_layout Itemize
+limit <negative> <positive> - limits the impulse response lengths of the
+ final result to be between the negative and positive time values specified
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+If the post-processing commands are not recognized or cannot be parsed,
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:PostProcessing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ error is raised.
+\end_layout
+
 \begin_layout Section
 Errors and Exceptions
 \begin_inset CommandInset label
@@ -39829,6 +40292,55 @@ reference "sec:Built-in-Devices"
  was formed incorrectly and that the device name specified is unknown.
  This would be an internal error to the application because you cannot really
  control this.
+\end_layout
+
+\begin_layout Subsection*
+PostProcessing
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:PostProcessing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+not understood
+\end_layout
+
+\begin_layout Standard
+A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ command (a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ line preceded by the keyword 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:post"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is not understood or cannot be parsed.
 \end_layout
 
 \begin_layout Section

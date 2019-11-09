@@ -357,6 +357,77 @@ https://www.gnu.org/licenses/
 \end_layout
 
 \begin_layout Section
+On-line Video Examples
+\end_layout
+
+\begin_layout Standard
+The updated page of on-line video examples is 
+\begin_inset CommandInset href
+LatexCommand href
+name "HERE"
+target "https://github.com/TeledyneLeCroy/SignalIntegrity/wiki/Video-Examples"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Currently, there are two on-line video examples that demonstrate some of
+ the usage of 
+\series bold
+\emph on
+SignalIntegrity
+\series default
+\emph default
+:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "Mixed-mode s-parameter generation"
+target "http://teledynelecroy.github.io/SignalIntegrity/Videos/MixedMode.mp4"
+literal "false"
+
+\end_inset
+
+ - In this example video, a four-port differential s-parameter block is
+ converted to mixed-mode s-parameters using mode converters.
+ This example shows generally also how systems of interconnected s-parameter
+ blocks can be created in the schematic editor and how the s-parameters
+ of the interconnected system can be generated.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset href
+LatexCommand href
+name "TDR Simulation"
+target "http://teledynelecroy.github.io/SignalIntegrity/Videos/TDRSimulation.mp4"
+literal "false"
+
+\end_inset
+
+ - In this example video, a TDR simulation is performed with a mismatched
+ transmission line.
+ This example shows generally how sources and circuit elements are interconnecte
+d along with probes and time-domain simulations performed.
+ Additionally, it's educational regarding TDR, mismatched lines, and forward
+ and reverse wave propagation.
+\end_layout
+
+\begin_layout Standard
+They are slightly outdated, but convey proper information.
+ Note that originally, the tool was called PySI - user's should note the
+ change in name to SignalIntegrity.
+\end_layout
+
+\begin_layout Standard
+The intent is to update them and add more of them.
+\end_layout
+
+\begin_layout Section
 Introduction
 \begin_inset CommandInset label
 LatexCommand label
@@ -430,7 +501,20 @@ reference "sec:Deembedding"
 
 \end_inset
 
-s-parameters in systems.
+ s-parameters in systems.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:RLGC-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ of two-port transmission line models to a two-port system.
 \end_layout
 
 \begin_layout Standard
@@ -605,7 +689,7 @@ name "subsec:Attaching-Ports-to-a-Schematic"
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -725,7 +809,7 @@ Note that calculation will not be possible at all (i.e.
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -907,7 +991,7 @@ reference "Control-Help:Add-Part"
 , opening the Files category, and selecting the Four Port 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -987,7 +1071,7 @@ reference "Control-Help:Add-Part"
 , opening the Miscellaneous category, and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -1163,7 +1247,7 @@ reference "Control-Help:Add-Port"
  to add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -1480,7 +1564,7 @@ reference "subsec:Output-Probes-for Simulation"
  An 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1514,7 +1598,7 @@ Once a circuit is drawn containing at least one source or generator, and
  at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1671,7 +1755,7 @@ Sources:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
@@ -1681,7 +1765,7 @@ reference "subsec:Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
@@ -1695,7 +1779,7 @@ Generators:
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -1705,7 +1789,7 @@ reference "subsec:Voltage-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Pulse-Generator"
+reference "device:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -1715,7 +1799,7 @@ reference "subsec:Voltage-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Sine-Generator"
+reference "device:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -1725,7 +1809,7 @@ reference "subsec:Voltage-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Step-Generator"
+reference "device:Current-Step-Generator"
 
 \end_inset
 
@@ -1735,7 +1819,7 @@ reference "subsec:Current-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Pulse-Generator"
+reference "device:Current-Pulse-Generator"
 
 \end_inset
 
@@ -1745,7 +1829,7 @@ reference "subsec:Current-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Sine-Generator"
+reference "device:Current-Sine-Generator"
 
 \end_inset
 
@@ -1767,7 +1851,7 @@ name "subsec:Output-Probes-for Simulation"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1799,7 +1883,7 @@ reference "Control-Help:Add-Part"
  and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1828,7 +1912,7 @@ reference "subsec:Output-Probe"
 Note that the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -1992,7 +2076,7 @@ reference "subsec:Sources-and-Generators"
 have at least one output 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -2087,7 +2171,7 @@ reference "subsec:Setting-Calculation-Properties-for-Simulation"
  If a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -2150,21 +2234,21 @@ In this example, we will step through the simulation of an RLC network.
 The circuit we will simulate will be a series 100 nH 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "device:Inductor"
 
 \end_inset
 
 , 1 pF 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "device:Capacitor"
 
 \end_inset
 
-, and 50 Ohm 
+, and 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -2173,14 +2257,14 @@ reference "subsec:Resistor"
  through a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
- and probe initially the voltage at the 50 Ohm termination 
+ and probe initially the voltage at the 50 ohm termination 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -2230,7 +2314,7 @@ reference "Control-Help:Add-Part"
 Select the Generators category, and select the One Port 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -2294,7 +2378,7 @@ reference "Control-Help:Add-Part"
  to add an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "device:Inductor"
 
 \end_inset
 
@@ -2351,14 +2435,14 @@ Press OK, click in the schematic and hold the left mouse button down to
 Repeat for a two-port, 1 pF 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "device:Capacitor"
 
 \end_inset
 
- and a one-port 50 Ohm 
+ and a one-port 50 ohm 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -2468,7 +2552,7 @@ reference "Control-Help:Add-Output-Probe"
 , we see the part properties dialog for the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -2557,7 +2641,7 @@ reference "Control-Help:Pan"
 Select the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -3023,14 +3107,14 @@ Drawing the schematic for deembedding is accomplished through the addition
  At least one part will need to be an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
  and there will need to be exactly one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -3167,7 +3251,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -3231,7 +3315,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -3416,7 +3500,7 @@ reference "Control-Help:Add-Port"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -3427,7 +3511,7 @@ reference "subsec:Unknown"
 have one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -4007,7 +4091,7 @@ reference "subsec:Measure-Probes"
 An 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4034,7 +4118,7 @@ For virtual probing to work correctly, all sources of stimuli (i.e.
  This identification of stimuli is achieved through the use of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4066,21 +4150,21 @@ reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
 Once a circuit is drawn containing at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
 , at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
  and at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4159,14 +4243,14 @@ reference "Control-Help:Add-Wire"
 To add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
  or an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4191,7 +4275,7 @@ reference "Control-Help:Add-Measure-Probe"
 To add a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4318,7 +4402,7 @@ reference "Control-Help:Add-Part"
  and selecting the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4432,7 +4516,7 @@ reference "Control-Help:Add-Stim"
 The 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4441,7 +4525,7 @@ reference "subsec:Stim"
  them with a small bit of wire, and connect the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4507,7 +4591,7 @@ This is Wrong
 Remember, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4757,7 +4841,7 @@ Note that virtual probing will not be possible at all (i.e.
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -4768,7 +4852,7 @@ reference "subsec:Measure-Probe"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -4779,7 +4863,7 @@ reference "subsec:Output-Probe"
 have at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -4952,7 +5036,7 @@ The circuit beneath the probe loading model is the circuit being measured.
  by a four-port s-parameter 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -4973,7 +5057,7 @@ In the probe loading model section where the probe is connected to the circuit,
  we have a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -5043,7 +5127,7 @@ reference "sec:Simulator-Dialog"
 Throughout the rest of the schematic, we see various 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -5060,7 +5144,7 @@ reference "subsec:Output-Probes-for-Virtual-Probing"
  These are in between two back-to-back 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -5088,7 +5172,7 @@ Note that these output probes have keyword/values of td -1.43ns and gain
  You can do that by selecting the four-port file
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -5153,7 +5237,7 @@ reference "subsec:Stimuli"
  The dependent stimuli are connected to the pin of each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Ground"
+reference "device:Ground"
 
 \end_inset
 
@@ -5176,7 +5260,7 @@ reference "subsec:Stimuli"
  A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -5586,20 +5670,101 @@ name "sec:RLGC-Fit"
 \end_layout
 
 \begin_layout Standard
-This calculates the s-parameters of an RLGC two-port transmission line fitted
- to the s-parameters.
- The fit is a least-mean-squared-error fit to a transmission line with the
- parameters as provided in 
+This calculates the s-parameters of a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-.
+ device fitted to the s-parameters of the schematic.
+\end_layout
+
+\begin_layout Standard
+When invoked, the system will:
+\end_layout
+
+\begin_layout Itemize
+Calculate the s-parameters of the schematic (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+Fit the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Telegrapher---Two-Port"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ device to the s-parameters.
+\end_layout
+
+\begin_layout Itemize
+Open the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ showing the s-parameters of the resulting device.
+\end_layout
+
+\begin_layout Itemize
+Place the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Telegrapher---Two-Port"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ device on the clipboard.
+\end_layout
+
+\begin_layout Standard
+With the fitted device on the clipboard, pressing the right mouse button
+ anywhere on the schematic will place the new device.
+\end_layout
+
+\begin_layout Standard
+The fit is performed iteratively using the Levenberg-Marquardt algorithm.
+ The fit progress is shown in the status message area, which shows the iteration
+ number and the mean-squared error.
+ Convergence is determined automatically.
+\end_layout
+
+\begin_layout Standard
+Devices that fit automatically can be placed in the schematic using the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:RLGC-Fit"
+
+\end_inset
+
+ device.
 \end_layout
 
 \begin_layout Section
@@ -5709,7 +5874,7 @@ reference "Control-Help:Edit-Properties"
  commands, or the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -5947,6 +6112,16 @@ reference "subsec:S-Parameter-Viewer-View"
 \end_inset
 
  - various viewing options.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Zoom"
+
+\end_inset
+
+ - various zooming options.
 \end_layout
 
 \begin_layout Subsection
@@ -6342,9 +6517,6 @@ The Properties tasks are:
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:S-Parameter-Properties"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -6559,9 +6731,6 @@ The top third contains all of the things that end up affecting the end frequency
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Setting-Calculation-Properties"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -6982,7 +7151,10 @@ This removes any causality violations by zeroing the impulse response prior
 Causality violations are shown using 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:Show-Passivity-Violations"
+reference "Control-Help:Show-Causality-Violations"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -8160,6 +8332,10 @@ This calculation is an approximation because in systems with lots of or
 
 \begin_layout Standard
 Here is the step response:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8175,6 +8351,10 @@ Here is the step response:
 
 \begin_layout Standard
 And here is the impedance profile calculated from the step response:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8190,11 +8370,15 @@ And here is the impedance profile calculated from the step response:
 
 \begin_layout Standard
 Note that something unnatural had to be done about the step response going
- above unity, which was to clip it at 3000 Ohms.
+ above unity, which was to clip it at 3000 ohms.
 \end_layout
 
 \begin_layout Standard
 Here is a zoom of the impedance profile:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8210,7 +8394,7 @@ Here is a zoom of the impedance profile:
 
 \begin_layout Standard
 Thus, we see that the early part of the impedance profile shows a jump to
- 100 Ohms for 100 ps as expected, and then a large impedance jump (the open).
+ 100 ohms for 100 ps as expected, and then a large impedance jump (the open).
  What goes on beyond this zoomed portion is a result of the multiple reflections
  and is not correct.
 \end_layout
@@ -8779,6 +8963,10 @@ Always
 \end_inset
 
 
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -8819,6 +9007,929 @@ reference "Control-Help:Variable-Line-Width"
  with variable line width.
 \end_layout
 
+\begin_layout Subsection
+S-Parameter Viewer Zoom Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The zoom settings determine how zooming is performed and how zooms of various
+ plot elements are joined.
+\end_layout
+
+\begin_layout Standard
+The zoom settings are in three categories:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Frequency-Zoom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - how the frequency axis is zoomed.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Time-Zoom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - how the time axis is zoomed.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Vertical-Zoom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - how the vertical axis is zoomed.
+\end_layout
+
+\begin_layout Standard
+The default is that:
+\end_layout
+
+\begin_layout Itemize
+All frequencies zooms are joined for all s-parameter plots.
+\end_layout
+
+\begin_layout Itemize
+All reflect (on diagonal) s-parameter time zooms are joined.
+\end_layout
+
+\begin_layout Itemize
+All off-diagonal s-parameter time zooms are joined.
+\end_layout
+
+\begin_layout Itemize
+All reflect (on diagonal) s-parameter vertical zooms are joined for each
+ plot type.
+\end_layout
+
+\begin_layout Itemize
+All reciprocal (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ and 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+) s-parameter vertical zooms are joined for each plot type.
+\end_layout
+
+\begin_layout Subsubsection
+S-Parameter Viewer Frequency Zoom Options
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Frequency-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Frequency Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ Frequencies
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z,F
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This determines how the zooms of the horizontal axis of plots where the
+ axis is frequency are joined together.
+\end_layout
+
+\begin_layout Standard
+The default is that all frequency axes are joined.
+\end_layout
+
+\begin_layout Standard
+The options are:
+\end_layout
+
+\begin_layout Itemize
+Join within views (default) - this joins the phase and magnitude frequency
+ axis for a given s-parameter view.
+\end_layout
+
+\begin_layout Itemize
+Join with other views (default) - this joins the zoom to other s-parameters
+ not being viewed.
+ If this is set, then the rules for joining with the other plots are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join all views (default) - all s-parameter plots frequency axes are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join off-diagonal views - all s-parameter plots frequency axes that are
+ off the diagonal are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join reciprocal views - all reciprocal s-parameters (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Join reflect views - all s-parameter plots that are on the diagonal (i.e.
+ are reflect s-parameters 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+, 
+\begin_inset Formula $r==c$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection
+S-Parameter Viewer Time Zoom Options
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Time-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Times Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ Times
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z,T
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This determines how the zooms of the horizontal axis of plots where the
+ axis is time are joined together.
+\end_layout
+
+\begin_layout Standard
+The default is that time axes within a given view are joined, and that reflect
+ plots are joined with all others, and off-diagonal plots are joined with
+ all others.
+\end_layout
+
+\begin_layout Standard
+The options are:
+\end_layout
+
+\begin_layout Itemize
+Join within views (default) - this joins the impulse response, step response,
+ and impedance time axis for a given s-parameter view.
+\end_layout
+
+\begin_layout Itemize
+Join with other views (default) - this joins the zoom to other frequency-domain
+ s-parameters not being viewed.
+ If this is set, then the rules for joining with the other plots are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join all views - all s-parameter plots time axes are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join off-diagonal views (default) - all s-parameter plots time axes that
+ are off the diagonal are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join reciprocal views - all reciprocal s-parameters (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Join reflect views (default) - all time-domain s-parameter plots that are
+ on the diagonal (i.e.
+ are reflect s-parameters 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+, 
+\begin_inset Formula $r==c$
+\end_inset
+
+ are joined).
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection
+S-Parameter Viewer Vertical Zoom Options
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Vertical-Zoom"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Frequency Zoom
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Zoom ▸ Vertical
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+Z,V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This determines how the zooms of the vertical axis of plots are joined together.
+\end_layout
+
+\begin_layout Standard
+The default is that reflect and reciprocal s-parameters zooms are all joined
+ vertically.
+\end_layout
+
+\begin_layout Standard
+The options are:
+\end_layout
+
+\begin_layout Itemize
+Join magnitude response zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Itemize
+Join phase response zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Itemize
+Join impulse response zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Itemize
+Join step response/impedance profile zooms vertically.
+ (default)
+\end_layout
+
+\begin_layout Standard
+All plots that are joined vertically follow a common set of rules:
+\end_layout
+
+\begin_layout Itemize
+Join all views - all common vertical zooms are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join off-diagonal views - all common vertical zooms for s-parameter off
+ the diagonal are joined.
+ Otherwise, you can:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Join reciprocal views (default) - all common vertical zooms for reciprocal
+ s-parameters (i.e.
+ 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{c,r}$
+\end_inset
+
+) are joined.
+\end_layout
+
+\begin_layout Itemize
+Join reflect views (default) - all common vertical zooms for s-parameters
+ that are on the diagonal (i.e.
+ are reflect s-parameters 
+\begin_inset Formula $S_{r,c}$
+\end_inset
+
+, 
+\begin_inset Formula $r==c$
+\end_inset
+
+) are joined.
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Section
 Simulator Dialog
 \begin_inset CommandInset label
@@ -8919,21 +10030,21 @@ reference "sec:Waveform"
  associated with a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
  or 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
@@ -13060,7 +14171,7 @@ reference "Control-Help:Add-Port"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -13092,7 +14203,7 @@ reference "Control-Help:Add-Output-Probe"
  - Adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -13124,7 +14235,7 @@ reference "Control-Help:Add-Measure-Probe"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -13149,7 +14260,7 @@ reference "Control-Help:Add-Stim"
  - Adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -13452,7 +14563,7 @@ reference "sec:Built-in-Devices"
 The most useful and generic type of part for s-parameter files is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -13552,7 +14663,7 @@ The units never need to be entered (but can be).
 
 \begin_layout Standard
 Numbers can be entered with exponents or with the engineering notation suffix.
- For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or
  10e7.
 \end_layout
 
@@ -13866,7 +14977,7 @@ This command is used to add ports to a schematic.
 A 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -14195,7 +15306,7 @@ Always
 This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -14465,7 +15576,7 @@ Always
 This adds an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -14714,7 +15825,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -14926,7 +16037,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -15143,7 +16254,7 @@ Always
 This adds a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -15653,7 +16764,7 @@ The units never need to be entered (but can be).
 
 \begin_layout Standard
 Numbers can be entered with exponents or with the engineering notation suffix.
- For example, 100 MOhm can be entered as 100 MOhm, 100 M, 100M, 100e6, or
+ For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or
  10e7.
 \end_layout
 
@@ -15715,35 +16826,35 @@ Some devices have file properties.
  For example, the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
  devices have s-parameter files and the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
@@ -17560,8 +18671,32 @@ Always
 \end_layout
 
 \begin_layout Standard
-Zooms in on the schematic picture by doubling the number of pixels per grid
- point 
+Zooms in on the schematic picture by incrementing the number of pixels per
+ grid unit.
+\end_layout
+
+\begin_layout Standard
+The default number of pixels per grid unit are controlled by 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -17738,8 +18873,32 @@ Always
 \end_layout
 
 \begin_layout Standard
-Zooms out of the schematic picture by halving the number of pixels per grid
- point 
+Zooms out of the schematic picture by decrementing the number of pixels
+ per grid unit.
+\end_layout
+
+\begin_layout Standard
+The default number of pixels per grid unit are controlled by 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -17974,6 +19133,29 @@ reference "Control-Help:Calculation-Properties"
 \end_inset
 
  - for editing the properties for the calculations.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for editing post-processing commands for the calculations.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-parameter-Viewer"
+
+\end_inset
+
+ - for viewing s-parameters.
 \end_layout
 
 \begin_layout Itemize
@@ -18278,6 +19460,10 @@ SignalIntegrityApp
  applications and consist of virtually entirely interrelated properties.
  The base properties are the end frequency and the impulse response length.
  All other properties are based on one or both of these properties:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -18838,6 +20024,188 @@ reference "subsec:Setting-Calculation-Properties-for-Virtual-Probing"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsubsection
+Post-Processing
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Post-Processing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculate"
+
+\end_inset
+
+ ▸ Post-Processing
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command opens a text notepad where the user can enter 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing-Expained"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ commands.
 \end_layout
 
 \begin_layout Subsubsection
@@ -20113,12 +21481,7 @@ Toolbar
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename system-run-3.png
-
-\end_inset
-
-
+None
 \end_layout
 
 \end_inset
@@ -20158,20 +21521,27 @@ This invokes
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:RLGC-Fit"
+
+\end_inset
+
+ to fit the s-parameters of a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Telegrapher---Two-Port"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-.
- See 
+ device to schematic.
+\end_layout
+
+\begin_layout Standard
+See 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:RLGC-Fit"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -20827,7 +22197,7 @@ SignalIntegrity
  through a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -20837,7 +22207,7 @@ reference "subsec:File-1"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -20847,7 +22217,7 @@ reference "subsec:File-1"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -20857,7 +22227,7 @@ reference "subsec:Resistor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Capacitor"
+reference "device:Capacitor"
 
 \end_inset
 
@@ -20867,7 +22237,7 @@ reference "subsec:Capacitor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Inductor"
+reference "device:Inductor"
 
 \end_inset
 
@@ -20877,7 +22247,7 @@ reference "subsec:Inductor"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Mutual"
+reference "device:Mutual"
 
 \end_inset
 
@@ -20887,7 +22257,7 @@ reference "subsec:Mutual"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:IdealTransformer"
+reference "device:IdealTransformer"
 
 \end_inset
 
@@ -20897,7 +22267,7 @@ reference "subsec:IdealTransformer"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Ground"
+reference "device:Ground"
 
 \end_inset
 
@@ -20907,7 +22277,7 @@ reference "subsec:Ground"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Open"
+reference "device:Open"
 
 \end_inset
 
@@ -20917,7 +22287,7 @@ reference "subsec:Open"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:DirectionalCoupler"
+reference "device:DirectionalCoupler"
 
 \end_inset
 
@@ -20927,7 +22297,7 @@ reference "subsec:DirectionalCoupler"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -20937,7 +22307,7 @@ reference "subsec:Power-Mixed-Mode-Converter"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -20947,7 +22317,7 @@ reference "subsec:Voltage-Mixed-Mode-Converter"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transmission-Line"
+reference "device:Transmission-Line"
 
 \end_inset
 
@@ -20957,7 +22327,7 @@ reference "subsec:Transmission-Line"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -20967,7 +22337,7 @@ reference "subsec:Telegrapher---Two-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Four-Port"
+reference "device:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -20977,7 +22347,7 @@ reference "subsec:Telegrapher---Four-Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:RLGC-Fit"
+reference "device:RLGC-Fit"
 
 \end_inset
 
@@ -20987,7 +22357,7 @@ reference "subsec:RLGC-Fit"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Source"
+reference "device:Voltage-Source"
 
 \end_inset
 
@@ -20997,7 +22367,7 @@ reference "subsec:Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Source"
+reference "device:Current-Source"
 
 \end_inset
 
@@ -21007,7 +22377,7 @@ reference "subsec:Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Noise-Generator"
+reference "device:Voltage-Noise-Generator"
 
 \end_inset
 
@@ -21017,7 +22387,7 @@ reference "subsec:Voltage-Noise-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Step-Generator"
+reference "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -21027,7 +22397,7 @@ reference "subsec:Voltage-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Pulse-Generator"
+reference "device:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -21037,7 +22407,7 @@ reference "subsec:Voltage-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-PRBS-Generator"
+reference "device:Voltage-PRBS-Generator"
 
 \end_inset
 
@@ -21047,7 +22417,7 @@ reference "subsec:Voltage-PRBS-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Clock-Generator"
+reference "device:Voltage-Clock-Generator"
 
 \end_inset
 
@@ -21057,7 +22427,7 @@ reference "subsec:Voltage-Clock-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Sine-Generator"
+reference "device:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -21067,7 +22437,7 @@ reference "subsec:Voltage-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Step-Generator"
+reference "device:Current-Step-Generator"
 
 \end_inset
 
@@ -21077,7 +22447,7 @@ reference "subsec:Current-Step-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Pulse-Generator"
+reference "device:Current-Pulse-Generator"
 
 \end_inset
 
@@ -21087,7 +22457,7 @@ reference "subsec:Current-Pulse-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Sine-Generator"
+reference "device:Current-Sine-Generator"
 
 \end_inset
 
@@ -21097,7 +22467,7 @@ reference "subsec:Current-Sine-Generator"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -21107,7 +22477,7 @@ reference "subsec:Port"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -21117,7 +22487,7 @@ reference "subsec:Measure-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -21127,7 +22497,7 @@ reference "subsec:Output-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -21137,7 +22507,7 @@ reference "subsec:Stim"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Probe"
+reference "device:Current-Probe"
 
 \end_inset
 
@@ -21147,7 +22517,7 @@ reference "subsec:Current-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Diff-Probe"
+reference "device:Voltage-Diff-Probe"
 
 \end_inset
 
@@ -21157,7 +22527,7 @@ reference "subsec:Voltage-Diff-Probe"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -21167,7 +22537,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -21177,7 +22547,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Current-Source"
+reference "device:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -21187,7 +22557,7 @@ reference "subsec:Current-Controlled-Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Current-Source"
+reference "device:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -21197,7 +22567,7 @@ reference "subsec:Voltage-Controlled-Current-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Voltage-Source"
+reference "device:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -21207,7 +22577,7 @@ reference "subsec:Current-Controlled-Voltage-Source"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Amplifier"
+reference "device:Voltage-Amplifier"
 
 \end_inset
 
@@ -21217,7 +22587,7 @@ reference "subsec:Voltage-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Amplifier"
+reference "device:Current-Amplifier"
 
 \end_inset
 
@@ -21227,7 +22597,7 @@ reference "subsec:Current-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transconductance-Amplifier"
+reference "device:Transconductance-Amplifier"
 
 \end_inset
 
@@ -21237,7 +22607,7 @@ reference "subsec:Transconductance-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Transresistance-Amplifier"
+reference "device:Transresistance-Amplifier"
 
 \end_inset
 
@@ -21247,7 +22617,7 @@ reference "subsec:Transresistance-Amplifier"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -21257,7 +22627,7 @@ reference "subsec:Unknown"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -21268,7 +22638,7 @@ reference "subsec:System"
 File
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:File-1"
+name "device:File"
 
 \end_inset
 
@@ -21550,11 +22920,25 @@ reference "Control-Help:Calculation-Properties"
 .
 \end_layout
 
+\begin_layout Standard
+File names can be projects.
+ When browsing for file names, the default files type shown will be s-parameter
+ files, but you can click on the files type and the choice of project files
+ is shown.
+ Then other projects can be selected as the source of the s-parameters.
+ This allows nesting of projects.
+ When you do this, you must ensure that the project you select for the s-paramet
+er file is a project that produces s-parameters (i.e.
+ a de-embedding or s-parameter generation project) and that the number of
+ ports in the s-parameters produced matches the number of ports in your
+ file type.
+\end_layout
+
 \begin_layout Subsection
 Resistor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Resistor"
+name "device:Resistor"
 
 \end_inset
 
@@ -21758,7 +23142,7 @@ r
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohms
+ohms
 \end_layout
 
 \end_inset
@@ -21767,7 +23151,7 @@ Ohms
 \begin_inset Text
 
 \begin_layout Plain Layout
-50.0 Ohms
+50.0 ohms
 \end_layout
 
 \end_inset
@@ -21788,7 +23172,7 @@ This is a one and two port resistor with the given resistance.
 Capacitor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Capacitor"
+name "device:Capacitor"
 
 \end_inset
 
@@ -22022,7 +23406,7 @@ This is a one and two port capacitor with the given capacitance.
 Inductor
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Inductor"
+name "device:Inductor"
 
 \end_inset
 
@@ -22250,7 +23634,7 @@ This is a two port inductor with the given inductance.
 Mutual
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Mutual"
+name "device:Mutual"
 
 \end_inset
 
@@ -22486,7 +23870,7 @@ The sense of the self inductance is indicated by the arrows in the part
 IdealTransformer
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:IdealTransformer"
+name "device:IdealTransformer"
 
 \end_inset
 
@@ -22728,7 +24112,7 @@ The turns ratio is secondary relative to primary, so a higher number indicates
 Ground
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Ground"
+name "device:Ground"
 
 \end_inset
 
@@ -22910,7 +24294,7 @@ This is a one-port ground, which could also be considered as a one-port
 Open
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Open"
+name "device:Open"
 
 \end_inset
 
@@ -23091,7 +24475,7 @@ This is a one-port ideal open.
 Directional Coupler
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:DirectionalCoupler"
+name "device:DirectionalCoupler"
 
 \end_inset
 
@@ -23350,7 +24734,7 @@ sly passing waves between two ports.
 Power Mixed Mode Converter
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Power-Mixed-Mode-Converter"
+name "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -23561,7 +24945,7 @@ This is the standard definition for s-parameters and this device is used
 The other kind of mixed-mode converter is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Mixed-Mode-Converter"
+reference "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -23583,7 +24967,7 @@ reference "subsec:S-parameter-Generation-Example"
 Voltage Mixed Mode Converter
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Mixed-Mode-Converter"
+name "device:Voltage-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -23793,7 +25177,7 @@ This is the standard definition in industry for the time-domain and this
 The other kind of mixed-mode converter is the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -23815,7 +25199,7 @@ reference "subsec:Virtual-Probing-Example"
 Transmission Line
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transmission-Line"
+name "device:Transmission-Line"
 
 \end_inset
 
@@ -24019,7 +25403,7 @@ zc
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohms
+ohms
 \end_layout
 
 \end_inset
@@ -24106,7 +25490,7 @@ A two-port ideal transmission line with zero delay is simply and ideal thru
 Telegrapher - Two Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Telegrapher---Two-Port"
+name "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -24125,7 +25509,7 @@ name "subsec:Telegrapher---Two-Port"
 \begin_layout Standard
 \noindent
 \begin_inset Tabular
-<lyxtabular version="3" rows="11" columns="5">
+<lyxtabular version="3" rows="12" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -24362,6 +25746,53 @@ sect
 
 \begin_layout Plain Layout
 0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
 \end_layout
 
 \end_inset
@@ -24719,11 +26150,18 @@ If zero sections are specified (the default), an analytic solution is provided
  based on complete distribution of the parameters specified.
 \end_layout
 
+\begin_layout Standard
+To facilitate per-unit values, the model can be scaled by the amount specified.
+ In this way, half-size models can be made (such as for 2x thru situations),
+ or values can be considered as, for example, per meter, and the the scale
+ can be considered as the number of meters.
+\end_layout
+
 \begin_layout Subsection
 Telegrapher - Four Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Telegrapher---Four-Port"
+name "device:Telegrapher---Four-Port"
 
 \end_inset
 
@@ -24742,7 +26180,7 @@ name "subsec:Telegrapher---Four-Port"
 \begin_layout Standard
 \noindent
 \begin_inset Tabular
-<lyxtabular version="3" rows="20" columns="5">
+<lyxtabular version="3" rows="21" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -24942,6 +26380,53 @@ sect
 \begin_inset Text
 
 \begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 mutual capacitance
 \end_layout
 
@@ -25075,7 +26560,10 @@ H
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.0 fH
+\begin_inset Formula $1.0\,\mathrm{fH}$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -25768,7 +27256,7 @@ If sections are specified as zero (the default), then an analytic solutions
  using two of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -25777,7 +27265,7 @@ reference "subsec:Telegrapher---Two-Port"
  is employed, again using two of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -25785,7 +27273,7 @@ reference "subsec:Telegrapher---Two-Port"
  two 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Power-Mixed-Mode-Converter"
+reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
 
@@ -25800,11 +27288,18 @@ Otherwise, if zero sections are specified and the lines are neither uncoupled
  percent of the fastest possible risetime.
 \end_layout
 
+\begin_layout Standard
+To facilitate per-unit values, the model can be scaled by the amount specified.
+ In this way, half-size models can be made (such as for 2x thru situations),
+ or values can be considered as, for example, per meter, and the the scale
+ can be considered as the number of meters.
+\end_layout
+
 \begin_layout Subsection
 RLGC Fit
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:RLGC-Fit"
+name "device:RLGC-Fit"
 
 \end_inset
 
@@ -26076,7 +27571,7 @@ scale
 This device is a two-port transmission line as in 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Telegrapher---Two-Port"
+reference "device:Telegrapher---Two-Port"
 
 \end_inset
 
@@ -26107,7 +27602,7 @@ g where a scale of 0.5 splits the model in half.
 Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Source"
+name "device:Voltage-Source"
 
 \end_inset
 
@@ -26374,7 +27869,7 @@ reference "Control-Help:Edit-Properties"
 Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Source"
+name "device:Current-Source"
 
 \end_inset
 
@@ -26641,7 +28136,7 @@ reference "Control-Help:Edit-Properties"
 Voltage Noise Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Noise-Generator"
+name "device:Voltage-Noise-Generator"
 
 \end_inset
 
@@ -27118,7 +28613,7 @@ The voltage noise generator generates random, normally distributed, zero-mean
 Voltage Step Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Step-Generator"
+name "device:Voltage-Step-Generator"
 
 \end_inset
 
@@ -27604,19 +29099,21 @@ The waveform created has a sample rate as provided and extends in time from
 \end_layout
 
 \begin_layout Standard
-The waveform is 0 V until the start time, after which it jumps immediately
- to the amplitude specified for the remaining duration of the waveform.
+If zero risetime is specified, the waveform is 0 V until the start time,
+ after which it jumps immediately to the amplitude specified for the remaining
+ duration of the waveform.
 \end_layout
 
 \begin_layout Standard
 If a nonzero risetime is specified, the edge crosses 50% at the start time.
+ The risetime is implemented as a raised-cosine.
 \end_layout
 
 \begin_layout Subsection
 Voltage Pulse Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Pulse-Generator"
+name "device:Voltage-Pulse-Generator"
 
 \end_inset
 
@@ -28149,20 +29646,24 @@ The waveform created has a sample rate as provided and extends in time from
 \end_layout
 
 \begin_layout Standard
-The waveform is 0 V until the start time, after which it jumps immediately
- to the amplitude specified for the duration specified by the pulse width.
+If zero risetime is specified, the waveform is 0 V until the start time,
+ after which it jumps immediately to the amplitude specified for the duration
+ specified by the pulse width.
 \end_layout
 
 \begin_layout Standard
 If a nonzero risetime is specified, the first edge crosses 50% at the start
- time.
+ time and falls, crossing at 50% of the stop time (pulse width minus start
+ time).
+ In other words, the width of the pulse specified is the time between the
+ starting and ending 50% points.
 \end_layout
 
 \begin_layout Subsection
 Voltage PRBS Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-PRBS-Generator"
+name "device:Voltage-PRBS-Generator"
 
 \end_inset
 
@@ -28757,7 +30258,7 @@ Warning - longer PRBS patterns (a high prbs number) take longer to calculate.
 Voltage Clock Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Clock-Generator"
+name "device:Voltage-Clock-Generator"
 
 \end_inset
 
@@ -29296,7 +30797,7 @@ The maximum risetime is 59% of the clock period.
 Voltage Sine Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Sine-Generator"
+name "device:Voltage-Sine-Generator"
 
 \end_inset
 
@@ -29790,7 +31291,7 @@ The waveform is such that it has the frequency specified and has the phase
 Current Step Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Step-Generator"
+name "device:Current-Step-Generator"
 
 \end_inset
 
@@ -30289,7 +31790,7 @@ If a nonzero risetime is specified, the first edge crosses 50% at the start
 Current Pulse Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Pulse-Generator"
+name "device:Current-Pulse-Generator"
 
 \end_inset
 
@@ -30835,7 +32336,7 @@ If a nonzero risetime is specified, the first edge crosses 50% at the start
 Current Sine Generator
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Sine-Generator"
+name "device:Current-Sine-Generator"
 
 \end_inset
 
@@ -31329,7 +32830,7 @@ The waveform is such that it has the frequency specified and has the phase
 Port
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Port"
+name "device:Port"
 
 \end_inset
 
@@ -31347,7 +32848,7 @@ name "subsec:Port"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="5">
+<lyxtabular version="3" rows="3" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -31402,6 +32903,53 @@ Units
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+td
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -31424,7 +32972,7 @@ int
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+pn
 \end_layout
 
 \end_inset
@@ -31505,7 +33053,7 @@ reference "sec:Deembedding"
 , they match the port numbers in the circuit with the ports on the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -31531,11 +33079,30 @@ reference "Control-Help:Add-Port"
  command.
 \end_layout
 
+\begin_layout Standard
+Ports can be optionally specified with a delay value.
+ This is amount to peel from the port using impedance peeling techniques.
+ Peeling is performed by de-embedding a portion of the line from the port,
+ with the de-embedded device corresponding to an ideal transmission line
+ with the desired length, and characteristic impedance equal to the impedance
+ profile calculated for the length specified (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
 \begin_layout Subsection
 Voltage Measure Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Measure-Probe"
+name "device:Measure-Probe"
 
 \end_inset
 
@@ -31808,7 +33375,7 @@ reference "Control-Help:Edit-Properties"
 Voltage Output Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Output-Probe"
+name "device:Output-Probe"
 
 \end_inset
 
@@ -32165,7 +33732,7 @@ When the waveforms are produced as a result of the calculation, you have
 Stim
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Stim"
+name "device:Stim"
 
 \end_inset
 
@@ -32520,7 +34087,7 @@ constrain
  from each stim with respect to each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -32562,7 +34129,7 @@ reference "sec:Netlist"
 Current Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Probe"
+name "device:Current-Probe"
 
 \end_inset
 
@@ -32924,7 +34491,7 @@ Despite the fact that the probe measures current, it behaves like a scope
 Voltage Diff Probe
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Diff-Probe"
+name "device:Voltage-Diff-Probe"
 
 \end_inset
 
@@ -33286,7 +34853,7 @@ When the waveforms are produced as a result of the calculation, you have
 Voltage Controlled Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Controlled-Voltage-Source"
+name "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -33529,7 +35096,7 @@ The output impedance of the voltage source is zero.
 Current Controlled Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Controlled-Current-Source"
+name "device:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -33772,7 +35339,7 @@ The output impedance of the current source is infinite.
 Voltage Controlled Current Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Controlled-Current-Source"
+name "device:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -34015,7 +35582,7 @@ The output impedance of the current source is infinite.
 Current Controlled Voltage Source
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Controlled-Voltage-Source"
+name "device:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -34258,7 +35825,7 @@ The output impedance of the voltage source is zero.
 Voltage Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Voltage-Amplifier"
+name "device:Voltage-Amplifier"
 
 \end_inset
 
@@ -34267,13 +35834,7 @@ name "subsec:Voltage-Amplifier"
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename VoltageAmplifierTwoPort.png
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename VoltageAmplifierFourPort.png
+	filename VoltageAmplifier.bmp
 
 \end_inset
 
@@ -34462,7 +36023,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34471,7 +36032,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -34509,7 +36070,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34518,7 +36079,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -34582,7 +36143,7 @@ gain
 The voltage amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Voltage-Source"
+reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -34594,7 +36155,7 @@ reference "subsec:Voltage-Controlled-Voltage-Source"
 Current Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Current-Amplifier"
+name "device:Current-Amplifier"
 
 \end_inset
 
@@ -34604,12 +36165,6 @@ name "subsec:Current-Amplifier"
 \begin_layout Standard
 \begin_inset Graphics
 	filename CurrentAmplifier.bmp
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename CurrentAmplifierAlt.bmp
 
 \end_inset
 
@@ -34798,7 +36353,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34807,7 +36362,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -34845,7 +36400,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -34854,7 +36409,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -34918,7 +36473,7 @@ gain
 The current amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Current-Source"
+reference "device:Current-Controlled-Current-Source"
 
 \end_inset
 
@@ -34930,7 +36485,7 @@ reference "subsec:Current-Controlled-Current-Source"
 Transconductance Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transconductance-Amplifier"
+name "device:Transconductance-Amplifier"
 
 \end_inset
 
@@ -34940,12 +36495,6 @@ name "subsec:Transconductance-Amplifier"
 \begin_layout Standard
 \begin_inset Graphics
 	filename TransconductanceAmplifier.bmp
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename TransconductanceAmplifierAlt.bmp
 
 \end_inset
 
@@ -35134,7 +36683,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35143,7 +36692,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -35181,7 +36730,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35190,7 +36739,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-100 MOhm
+100 Mohm
 \end_layout
 
 \end_inset
@@ -35254,7 +36803,7 @@ gain
 The transconductance amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Voltage-Controlled-Current-Source"
+reference "device:Voltage-Controlled-Current-Source"
 
 \end_inset
 
@@ -35266,7 +36815,7 @@ reference "subsec:Voltage-Controlled-Current-Source"
 Transresistance Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Transresistance-Amplifier"
+name "device:Transresistance-Amplifier"
 
 \end_inset
 
@@ -35276,12 +36825,6 @@ name "subsec:Transresistance-Amplifier"
 \begin_layout Standard
 \begin_inset Graphics
 	filename TransresistanceAmplifier.bmp
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename TransresistanceAmplifierAlt.bmp
 
 \end_inset
 
@@ -35470,7 +37013,7 @@ zo
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35479,7 +37022,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -35517,7 +37060,7 @@ zi
 \begin_inset Text
 
 \begin_layout Plain Layout
-Ohm
+ohm
 \end_layout
 
 \end_inset
@@ -35526,7 +37069,7 @@ Ohm
 \begin_inset Text
 
 \begin_layout Plain Layout
-0 Ohm
+0 ohm
 \end_layout
 
 \end_inset
@@ -35590,7 +37133,7 @@ gain
 The transresistance amplifier is like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Current-Controlled-Voltage-Source"
+reference "device:Current-Controlled-Voltage-Source"
 
 \end_inset
 
@@ -35602,7 +37145,7 @@ reference "subsec:Current-Controlled-Voltage-Source"
 Operational Amplifier
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Operational-Amplifier-1"
+name "device:Operational-Amplifier"
 
 \end_inset
 
@@ -35946,7 +37489,7 @@ Despite the default value of 1.0, the gain is usually set to a very large
 Unknown
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Unknown"
+name "device:Unknown"
 
 \end_inset
 
@@ -36196,7 +37739,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -36222,7 +37765,7 @@ ers calculated.
 System
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:System"
+name "device:System"
 
 \end_inset
 
@@ -36490,7 +38033,7 @@ reference "sec:Deembedding"
  defined by each 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -36526,7 +38069,7 @@ reference "Control-Help:Add-Part"
  and selecting 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -36546,7 +38089,7 @@ reference "subsec:System"
 System devices are the same as 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:File-1"
+reference "device:File"
 
 \end_inset
 
@@ -36557,6 +38100,20 @@ reference "subsec:File-1"
 They take an s-parameter file name in the file name property.
  The in the Part Properties Dialog, you can browse to the file and view
  the file in the S-parameter Viewer if you want.
+\end_layout
+
+\begin_layout Standard
+File names can be projects.
+ When browsing for file names, the default files type shown will be s-parameter
+ files, but you can click on the files type and the choice of project files
+ is shown.
+ Then other projects can be selected as the source of the s-parameters.
+ This allows nesting of projects.
+ When you do this, you must ensure that the project you select for the s-paramet
+er file is a project that produces s-parameters (i.e.
+ a de-embedding or s-parameter generation project) and that the number of
+ ports in the s-parameters produced matches the number of ports in your
+ file type.
 \end_layout
 
 \begin_layout Section
@@ -36617,7 +38174,7 @@ reference "subsec:port"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -36649,7 +38206,7 @@ reference "subsec:meas"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -36674,7 +38231,7 @@ reference "subsec:output"
 - specifies an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -36706,7 +38263,7 @@ reference "subsec:stim"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -36731,7 +38288,7 @@ reference "subsec:stimdef"
 - specifies the relationship between defining and dependent stims (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -36756,7 +38313,7 @@ reference "subsec:unknown"
 - specifies an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -36780,7 +38337,7 @@ reference "subsec:system"
 - specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -36788,6 +38345,43 @@ reference "subsec:System"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Deembedding"
+
+\end_inset
+
+ applications).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:post"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+- specifies 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing-Expained"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ of a resulting s-parameter file (used only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
 
 \end_inset
 
@@ -36847,7 +38441,7 @@ Sometimes the first argument is specified without a keyword (the keyword
  Usually this is for devices with only one argument, like a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Resistor"
+reference "device:Resistor"
 
 \end_inset
 
@@ -36941,7 +38535,7 @@ port
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -37002,7 +38596,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Port"
+reference "device:Port"
 
 \end_inset
 
@@ -37037,7 +38631,7 @@ meas
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -37089,7 +38683,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -37117,7 +38711,7 @@ reference "sec:Waveform"
  associated with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -37145,7 +38739,7 @@ output
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -37205,7 +38799,7 @@ The pin numbers refer to a pin of the device.
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -37226,7 +38820,7 @@ Note that the reference designator (i.e.
  the name) associated with the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Probe"
+reference "device:Output-Probe"
 
 \end_inset
 
@@ -37254,7 +38848,7 @@ stim
  specifies a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -37340,7 +38934,7 @@ status open
 If in your schematic, a 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -37383,7 +38977,7 @@ stimdef
  schematic (see 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -37492,7 +39086,7 @@ reference "subsec:stim"
  for the netlist statement for the stim and 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -37527,7 +39121,7 @@ When no stimdef statement appears, there are
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -37550,7 +39144,7 @@ reference "subsec:meas"
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Measure-Probe"
+reference "device:Measure-Probe"
 
 \end_inset
 
@@ -37583,7 +39177,7 @@ unknown
  defines an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Unknown"
+reference "device:Unknown"
 
 \end_inset
 
@@ -37628,7 +39222,7 @@ system
  defines an 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
@@ -37660,11 +39254,266 @@ file
  
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:System"
+reference "device:System"
 
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsection*
+post
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:post"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A netlist line beginning with the keyword post defines 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing-Expained"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ of a resulting s-parameter file.
+\end_layout
+
+\begin_layout Standard
+This should appear only for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ applications.
+\end_layout
+
+\begin_layout Standard
+valid post processing lines are:
+\end_layout
+
+\begin_layout Itemize
+post enforce causality - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+post enforce passivity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+post enforce reciprocity - enforces reciprocity on the final result.
+\end_layout
+
+\begin_layout Itemize
+post limit <negative> <positive> - limits the impulse response lengths of
+ the final result to be between the negative and positive time values specified
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section*
+Post-Processing
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Post-Processing-Expained"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Post-processing commands are commands to be executed after a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Deembedding"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ calculation completes.
+\end_layout
+
+\begin_layout Standard
+These commands are entered as text in the order that they are to be executed
+ in a dialog opened by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ command.
+\end_layout
+
+\begin_layout Standard
+All of the post-processing commands are appended to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ generated for calculation and can be seen when you issue 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Export-Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, with the caveat that commands are entered directly in the post-processing
+ dialog, but have the keyword 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:post"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ added when putting the commands in the netlist.
+\end_layout
+
+\begin_layout Standard
+Because they are in the netlist, one is able to make scripted solutions
+ with post-processing, and the cache coherency of the calculated result
+ is maintained (i.e.
+ changes to the netlist change the validity of cached results).
+\end_layout
+
+\begin_layout Standard
+Valid post-processing commands are:
+\end_layout
+
+\begin_layout Itemize
+enforce causality - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce passivity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce reciprocity - enforces reciprocity on the final result.
+\end_layout
+
+\begin_layout Itemize
+limit <negative> <positive> - limits the impulse response lengths of the
+ final result to be between the negative and positive time values specified
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+If the post-processing commands are not recognized or cannot be parsed,
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:PostProcessing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ error is raised.
 \end_layout
 
 \begin_layout Section
@@ -38102,7 +39951,7 @@ reference "sec:Virtual-Probing"
  The application checks for the existence of at least one 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Stim"
+reference "device:Stim"
 
 \end_inset
 
@@ -38445,6 +40294,55 @@ reference "sec:Built-in-Devices"
  control this.
 \end_layout
 
+\begin_layout Subsection*
+PostProcessing
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:PostProcessing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+not understood
+\end_layout
+
+\begin_layout Standard
+A 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing-Expained"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ command (a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ line preceded by the keyword 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:post"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is not understood or cannot be parsed.
+\end_layout
+
 \begin_layout Section
 Waveform
 \begin_inset CommandInset label
@@ -38578,7 +40476,7 @@ The preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="15" columns="4">
+<lyxtabular version="3" rows="16" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -38664,13 +40562,60 @@ Int
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
 12
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+initial grid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
 \end_layout
 
 \end_inset
@@ -39408,6 +41353,161 @@ Unfortunately, changing the font generally does not take effect until the
 \begin_layout Standard
 Font sizes are not altered in any tikz or pgf plots outputs, which are geared
  to take the font of an enclosing document.
+\end_layout
+
+\begin_layout Subsection*
+Appearance.InitialGrid
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.InitialGrid"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+font size
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.InitialGrid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The grid size is the number of pixels per grid unit.
+ Smaller grid sizes make the objects in the drawing smaller and larger grid
+ sizes make them bigger.
+\end_layout
+
+\begin_layout Standard
+This grid size is affected by zooming (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Zoom-In"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Zoom-Out"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+The initial grid is the size of the grid for all new projects.
 \end_layout
 
 \begin_layout Subsection*
