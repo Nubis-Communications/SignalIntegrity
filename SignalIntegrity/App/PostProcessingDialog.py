@@ -81,9 +81,9 @@ class PostProcessingDialog(tk.Toplevel):
         self.TextArea.insert(1.0,SignalIntegrity.App.Project['PostProcessing'].GetTextString())
         self.protocol("WM_DELETE_WINDOW", self.onExit)
         self.deiconify()
-        
+
     def onExit(self):
-        SignalIntegrity.App.Project['PostProcessing'].PutTextString(self._PostProcessingDialog__thisTextArea.get(1.0,tk.END))
+        SignalIntegrity.App.Project['PostProcessing'].PutTextString(self.TextArea.get(1.0,tk.END))
         self.parent.statusbar.set('Post-Processing Modified')
         self.parent.history.Event('modify post-processing')
         self.__root.destroy()
