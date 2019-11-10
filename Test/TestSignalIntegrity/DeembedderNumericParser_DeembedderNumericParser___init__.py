@@ -16,6 +16,6 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
             unl=DeembedderNumeric(self.m_sd).CalculateUnknown(system)
             if NumUnknowns == 1: unl=[unl]
             for u in range(NumUnknowns): result[u].append(unl[u])
-        self.sf=[SParameters(self.m_f,r) for r in result]
+        self.sf=[SParametersParser(SParameters(self.m_f,r),self.m_ul) for r in result]
         if len(self.sf)==1: self.sf=self.sf[0]
         return self.sf
