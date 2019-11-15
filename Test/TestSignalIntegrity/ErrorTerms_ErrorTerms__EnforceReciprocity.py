@@ -1,8 +1,7 @@
 class ErrorTerms(object):
 ...
     def _EnforceReciprocity(self,A,B):
-        P=len(A); Pr=range(P)
-        M=[[None for _ in Pr] for _ in Pr]
+        P=len(A); Pr=range(P); M=[[None for _ in Pr] for _ in Pr]
         for c in Pr:
             for r in Pr:
                 M[r][c]=M[c][r] if r < c else r-c+(0 if c==0 else M[P-1][c-1]+1)

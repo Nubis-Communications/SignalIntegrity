@@ -38,8 +38,7 @@ class SParameterManipulation(object):
         """
         for n in range(len(self.m_d)):
             (u,s,vh)=linalg.svd(self.m_d[n],full_matrices=1,compute_uv=1)
-            for si in range(len(s)):
-                s[si]=min(maxSingularValue,s[si])
+            for si in range(len(s)): s[si]=min(maxSingularValue,s[si])
             self.m_d[n]=dot(u,dot(diag(s),vh)).tolist()
         return self
     def IsCausal(self,threshold=0.):
