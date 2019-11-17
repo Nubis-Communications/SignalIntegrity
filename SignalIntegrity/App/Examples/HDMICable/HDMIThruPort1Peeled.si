@@ -1,4 +1,11 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+104+104</Geometry>
@@ -72,7 +79,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -108,7 +115,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>

@@ -1,4 +1,13 @@
 <Project>
+	<CalculationProperties>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+		<FrequencyPoints>200</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+153+184</Geometry>
@@ -13,40 +22,30 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(10, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(15, 4)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(19, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(26, 4)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(30, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(35, 4)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
 							<Coord>(6, 4)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(3, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(10, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(20, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(23, 4)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -55,7 +54,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(32, 3)</Origin>
+						<Origin>(20, 3)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -155,15 +154,21 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceRLGCFitFromFile</ClassName>
+					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(15, 3)</Origin>
-						<Index>0</Index>
+						<Origin>(16, 3)</Origin>
+						<Index>1</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<Value>HDMIThruMiddleModel.si</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>2</Value>
@@ -171,56 +176,8 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruPortsPeeled.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>scale</Keyword>
-							<Value>0.5</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>T1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceRLGCFitFromFile</ClassName>
-					<PartPicture>
-						<Origin>(26, 3)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruPortsPeeled.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>scale</Keyword>
-							<Value>0.5</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>T2</Value>
+							<Value>D1</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -229,9 +186,4 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>200</FrequencyPoints>
-		<EndFrequency>20000000000.0</EndFrequency>
-	</CalculationProperties>
 </Project>

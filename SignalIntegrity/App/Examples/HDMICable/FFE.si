@@ -1,11 +1,15 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>587x425+85+114</Geometry>
+			<Geometry>587x425+3045+203</Geometry>
 			<Originy>-1</Originy>
 			<Originx>-16</Originx>
-			<Height>383</Height>
-			<Width>587</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>14.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -69,6 +73,12 @@
 							<Coord>(49, 8)</Coord>
 						</Vertex>
 						<Vertex>
+							<Coord>(53, 8)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(53, 14)</Coord>
+						</Vertex>
+						<Vertex>
 							<Coord>(49, 14)</Coord>
 						</Vertex>
 					</Vertices>
@@ -77,6 +87,12 @@
 					<Vertices>
 						<Vertex>
 							<Coord>(49, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(53, 16)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(53, 22)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(49, 22)</Coord>
@@ -335,6 +351,12 @@
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>pn</Keyword>
 							<Value>1</Value>
 							<Visible>True</Visible>
@@ -361,6 +383,12 @@
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<Value>0.0</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>

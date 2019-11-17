@@ -1,31 +1,25 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+52+52</Geometry>
+			<Geometry>711x363+27+56</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>178</Height>
-			<Width>200</Width>
-			<Grid>16.0</Grid>
+			<Height>318</Height>
+			<Width>711</Width>
+			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>
 			<Wires>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(11, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(13, 4)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
 			</Wires>
 			<Devices>
 				<Device>
-					<ClassName>DeviceFile</ClassName>
+					<ClassName>DeviceRLGCFitFromFile</ClassName>
 					<PartPicture>
-						<Origin>(13, 3)</Origin>
+						<Origin>(11, 2)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -33,20 +27,26 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruPort1Peeled.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
 							<Keyword>ports</Keyword>
 							<Value>2</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>file</Keyword>
+							<Value>HDMIThruMiddle.si</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>scale</Keyword>
+							<Value>1.0</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>D1</Value>
+							<Value>T1</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -55,7 +55,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(4, 3)</Origin>
+						<Origin>(8, 2)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -71,8 +71,8 @@
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<Value>0.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
@@ -82,7 +82,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>None</Value>
+							<Value></Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -91,7 +91,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(14, 3)</Origin>
+						<Origin>(12, 2)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -107,8 +107,8 @@
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<Value>0.0</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
@@ -118,61 +118,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>None</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceUnknown</ClassName>
-					<PartPicture>
-						<Origin>(7, 3)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>U1</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceSystem</ClassName>
-					<PartPicture>
-						<Origin>(10, 9)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIFixtureThru.s2p</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D2</Value>
+							<Value></Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -183,11 +129,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>200</FrequencyPoints>
+		<FrequencyPoints>2000</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>
