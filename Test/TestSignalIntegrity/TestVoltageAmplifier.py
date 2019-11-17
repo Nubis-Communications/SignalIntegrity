@@ -147,7 +147,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         symbolic=si.sd.Symbolic(size='small',eqprefix='$\\begin{alignedat}{1}',eqsuffix='\\end{alignedat}$')
         S=si.sy.VoltageAmplifierThreePortWithoutDenom('\\alpha','Z_i','Z_o')
         D=si.sy.VoltageAmplifierThreePortDenom('\\alpha','Z_i','Z_o')
-        symbolic._AddEq('\\mathbf{S}= & \\frac{1}{'+D+'}\\\\ & \\cdot '+symbolic._LaTeXMatrix(S))
+        symbolic._AddEq('\\mathbf{S}= & \\:\\frac{1}{'+D+'}\\\\ & \\:\\cdot '+symbolic._LaTeXMatrix(S))
         symbolic.Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Voltage Amplifier Three Port Symbolic 2')

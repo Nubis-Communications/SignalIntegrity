@@ -114,7 +114,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         symbolic=si.sd.Symbolic(size='small',eqprefix='$\\begin{alignedat}{1}',eqsuffix='\\end{alignedat}$')
         S=si.sy.CurrentAmplifierThreePortWithoutDenom('\\beta','Z_i','Z_o')
         D=si.sy.CurrentAmplifierThreePortDenom('\\beta','Z_i','Z_o')
-        symbolic._AddEq('\\mathbf{S}= & \\frac{1}{'+D+'}\\\\ & \\cdot '+symbolic._LaTeXMatrix(S))
+        symbolic._AddEq('\\mathbf{S}= & \\:\\frac{1}{'+D+'}\\\\ & \\:\\cdot '+symbolic._LaTeXMatrix(S))
         symbolic.Emit()
         # pragma: exclude
         self.CheckSymbolicResult(self.id(),symbolic,'Current Amplifier Three Port Symbolic 2')
