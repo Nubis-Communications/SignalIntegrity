@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.6</span>
+   &#160;<span id="projectnumber">1.1.7</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -88,9 +88,9 @@ Collaboration diagram for TLineTwoPortRLGCAnalytic:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a660446db3426ced0681cf136a367a8e5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml#a660446db3426ced0681cf136a367a8e5">__init__</a> (self, <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, R, Rse, L, G, C, df, Z0=50.)</td></tr>
-<tr class="memdesc:a660446db3426ced0681cf136a367a8e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a660446db3426ced0681cf136a367a8e5">More...</a><br /></td></tr>
-<tr class="separator:a660446db3426ced0681cf136a367a8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd6d8f7fe53e677fb826f5b216936791"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml#afd6d8f7fe53e677fb826f5b216936791">__init__</a> (self, <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, R, Rse, L, G, C, df, Z0=50., scale=1.)</td></tr>
+<tr class="memdesc:afd6d8f7fe53e677fb826f5b216936791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#afd6d8f7fe53e677fb826f5b216936791">More...</a><br /></td></tr>
+<tr class="separator:afd6d8f7fe53e677fb826f5b216936791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7a6da5139e0878b590d68292aaa70f2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCAnalytic_1_1TLineTwoPortRLGCAnalytic.xhtml#ab7a6da5139e0878b590d68292aaa70f2">__getitem__</a> (self, n)</td></tr>
 <tr class="memdesc:ab7a6da5139e0878b590d68292aaa70f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">overloads [n]  <a href="#ab7a6da5139e0878b590d68292aaa70f2">More...</a><br /></td></tr>
 <tr class="separator:ab7a6da5139e0878b590d68292aaa70f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,8 +157,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml#l00027">27</a> of file <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml">TLineTwoPortRLGCAnalytic.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a660446db3426ced0681cf136a367a8e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a660446db3426ced0681cf136a367a8e5">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="afd6d8f7fe53e677fb826f5b216936791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd6d8f7fe53e677fb826f5b216936791">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +215,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>scale</em> = <code>1.</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -236,11 +242,12 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">C</td><td>float capacitance to ground (F) </td></tr>
     <tr><td class="paramname">df</td><td>float dissipation factor (loss-tangent) of capacitance to ground </td></tr>
     <tr><td class="paramname">Z0</td><td>(optional) float reference impedance (defaults to 50 ohms) </td></tr>
+    <tr><td class="paramname">scale</td><td>(optional) float amount to scale the line by (assuming all other values are per unit) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml#l00039">39</a> of file <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml">TLineTwoPortRLGCAnalytic.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml#l00040">40</a> of file <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml">TLineTwoPortRLGCAnalytic.py</a>.</p>
 
 </div>
 </div>
@@ -274,7 +281,7 @@ Additional Inherited Members</h2></td></tr>
 <p>overloads [n] </p>
 <dl class="section return"><dt>Returns</dt><dd>list of list s-parameter matrix for the nth frequency element </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml#l00047">47</a> of file <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml">TLineTwoPortRLGCAnalytic.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml#l00048">48</a> of file <a class="el" href="TLineTwoPortRLGCAnalytic_8py_source.xhtml">TLineTwoPortRLGCAnalytic.py</a>.</p>
 
 </div>
 </div>

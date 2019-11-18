@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.6</span>
+   &#160;<span id="projectnumber">1.1.7</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -207,15 +207,18 @@ Public Attributes</h2></td></tr>
 <td align="center">tline </td><td align="center">2,4 </td><td align="center">False </td><td align="center">zc=50 td=0 </td><td align="center">True </td><td align="left">sp.dev.TLineLossless(f,ports,zc,td) </td></tr>
 <tr>
 <td align="center">telegrapher </td><td align="center">2 </td><td align="center">False </td><td align="center">r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0 </td><td align="center">True </td><td align="left">sp.dev.TLineTwoPortRLGC(<br />
- f,r,rse,l,g,c,df,z0,sect) </td></tr>
+ f,r,rse,l,g,c,df,z0,sect,scale) </td></tr>
 <tr>
 <td align="center">telegrapher </td><td align="center">4 </td><td align="center">False </td><td align="center">rp=0 rsep=0 lp=0 cp=0<br />
  dfp=0 gp=0 rn=0 rsen=0<br />
  ln=0 cn=0 dfn=0 gn=0<br />
- lm 0 gm=0 z0=50 sect=0 </td><td align="center">True </td><td align="left">sp.dev.TLineDifferentialRLGC(<br />
+ lm 0 gm=0 z0=50<br />
+ scale=1.0 sect=0 </td><td align="center">True </td><td align="left">sp.dev.TLineDifferentialRLGC(<br />
  f,rp,rsep,lp,gp,cp,dfp,<br />
  rn,rsen,ln,gn,cn,dfn,<br />
- cm,dfm,gm,lm,z0,sect) </td></tr>
+ cm,dfm,gm,lm,z0,sect,scale) </td></tr>
+<tr>
+<td align="center">rlgcfit </td><td align="center">2 </td><td align="center">False </td><td align="center">file=None scale=1.0 z0=50 </td><td align="center">True </td><td align="left">fit.RLGCFitFromFile(f,file,scale,Z0) </td></tr>
 <tr>
 <td align="center">shortstd </td><td align="center">1 </td><td align="center">False </td><td align="center">od=0 oz0=50 ol=0 l0=0<br />
  l1=0.0 l2=0 l3=0 </td><td align="center">True </td><td align="left">m.calkit.std.ShortStandard(f,od,oz0,ol,l0,l1,l2,l3) </td></tr>
@@ -235,7 +238,7 @@ frequency dependent devices usually come from 'sp.dev' meaning <a class="el" hre
 <dd>
 Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00102">102</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00103">103</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -296,7 +299,7 @@ Usually when an argument is defaulted to None, the device production will fail i
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00205">205</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00211">211</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -316,7 +319,7 @@ Usually when an argument is defaulted to None, the device production will fail i
 <p>boolean whether dev is frequency dependent. </p>
 <p>pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00301">301</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00308">308</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>

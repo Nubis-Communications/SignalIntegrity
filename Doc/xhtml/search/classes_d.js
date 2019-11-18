@@ -14,6 +14,7 @@ var searchData=
   ['sparameterfile',['SParameterFile',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml',1,'SignalIntegrity::Lib::SParameters::SParameterFile']]],
   ['sparametermanipulation',['SParameterManipulation',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation']]],
   ['sparameters',['SParameters',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml',1,'SignalIntegrity::Lib::SParameters::SParameters']]],
+  ['sparametersparser',['SParametersParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml',1,'SignalIntegrity::Lib::Parsers::SParametersParser']]],
   ['spline',['Spline',['../classSignalIntegrity_1_1Lib_1_1Splines_1_1Splines_1_1Spline.xhtml',1,'SignalIntegrity::Lib::Splines::Splines']]],
   ['stepwaveform',['StepWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::StepWaveform']]],
   ['symbolic',['Symbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Symbolic']]],

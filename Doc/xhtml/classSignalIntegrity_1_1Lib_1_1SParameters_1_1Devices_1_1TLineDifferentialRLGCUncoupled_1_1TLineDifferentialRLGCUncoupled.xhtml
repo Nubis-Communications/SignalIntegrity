@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.6</span>
+   &#160;<span id="projectnumber">1.1.7</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -88,9 +88,9 @@ Collaboration diagram for TLineDifferentialRLGCUncoupled:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a120fcfc35834aad65c0403d57eff31fc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled.xhtml#a120fcfc35834aad65c0403d57eff31fc">__init__</a> (self, <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, Rp, Rsep, Lp, Gp, Cp, dfp, Rn, Rsen, Ln, Gn, Cn, dfn, Z0=50., K=0)</td></tr>
-<tr class="memdesc:a120fcfc35834aad65c0403d57eff31fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a120fcfc35834aad65c0403d57eff31fc">More...</a><br /></td></tr>
-<tr class="separator:a120fcfc35834aad65c0403d57eff31fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acae40883ba5c42d4012a78b2ebe8ca1f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled.xhtml#acae40883ba5c42d4012a78b2ebe8ca1f">__init__</a> (self, <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, Rp, Rsep, Lp, Gp, Cp, dfp, Rn, Rsen, Ln, Gn, Cn, dfn, Z0=50., K=0, scale=1.)</td></tr>
+<tr class="memdesc:acae40883ba5c42d4012a78b2ebe8ca1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#acae40883ba5c42d4012a78b2ebe8ca1f">More...</a><br /></td></tr>
+<tr class="separator:acae40883ba5c42d4012a78b2ebe8ca1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7a6da5139e0878b590d68292aaa70f2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCUncoupled_1_1TLineDifferentialRLGCUncoupled.xhtml#ab7a6da5139e0878b590d68292aaa70f2">__getitem__</a> (self, n)</td></tr>
 <tr class="memdesc:ab7a6da5139e0878b590d68292aaa70f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">overloads [n]  <a href="#ab7a6da5139e0878b590d68292aaa70f2">More...</a><br /></td></tr>
 <tr class="separator:ab7a6da5139e0878b590d68292aaa70f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,8 +157,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml#l00026">26</a> of file <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml">TLineDifferentialRLGCUncoupled.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a120fcfc35834aad65c0403d57eff31fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a120fcfc35834aad65c0403d57eff31fc">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="acae40883ba5c42d4012a78b2ebe8ca1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acae40883ba5c42d4012a78b2ebe8ca1f">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,7 +257,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>K</em> = <code>0</code>&#160;</td>
+          <td class="paramname"><em>K</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>scale</em> = <code>1.</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -285,12 +291,13 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">Cn</td><td>float capacitance of negative leg to ground (F) </td></tr>
     <tr><td class="paramname">dfn</td><td>float dissipation factor (loss-tangent) of capacitance of negative leg to ground </td></tr>
     <tr><td class="paramname">Z0</td><td>(optional) float reference impedance (defaults to 50 ohms) </td></tr>
-    <tr><td class="paramname">K</td><td>(optional) integer number of sections (defaults to 0). If 0 is specified, then an analytic solution is provided otherwise an approximate solution is provided with all parametric values divided into the integer number of sections. </td></tr>
+    <tr><td class="paramname">K</td><td>(optional) integer number of sections (defaults to 0). </td></tr>
+    <tr><td class="paramname">scale</td><td>(optional) float amount to scale the line by (assuming all other values are per unit) If 0 is specified, then an analytic solution is provided otherwise an approximate solution is provided with all parametric values divided into the integer number of sections. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml#l00050">50</a> of file <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml">TLineDifferentialRLGCUncoupled.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml#l00051">51</a> of file <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml">TLineDifferentialRLGCUncoupled.py</a>.</p>
 
 </div>
 </div>
@@ -324,7 +331,7 @@ Additional Inherited Members</h2></td></tr>
 <p>overloads [n] </p>
 <dl class="section return"><dt>Returns</dt><dd>list of list s-parameter matrix for the nth frequency element </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml#l00067">67</a> of file <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml">TLineDifferentialRLGCUncoupled.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml#l00068">68</a> of file <a class="el" href="TLineDifferentialRLGCUncoupled_8py_source.xhtml">TLineDifferentialRLGCUncoupled.py</a>.</p>
 
 </div>
 </div>

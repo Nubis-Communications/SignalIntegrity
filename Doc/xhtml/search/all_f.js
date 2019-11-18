@@ -15,5 +15,6 @@ var searchData=
   ['resampleczt',['ResampleCZT',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml#af61ffacaaef319b5b0752778bfe522e6',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyResponse::FrequencyResponse']]],
   ['response',['Response',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml#ab4996cceccaa974296395d3039a9ca2a',1,'SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse.FrequencyResponse.Response()'],['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#ab43ea05f175742449365ff9a3abab7d7',1,'SignalIntegrity.Lib.SParameters.SParameters.SParameters.Response()']]],
   ['resultscache',['ResultsCache',['../classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml',1,'SignalIntegrity::Lib::ResultsCache']]],
-  ['rholimit',['rhoLimit',['../classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml#af4b2b57cd4fc83e3602f4e66957d81e3',1,'SignalIntegrity::Lib::ImpedanceProfile::ImpedanceProfile::ImpedanceProfile']]]
+  ['rholimit',['rhoLimit',['../classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml#af4b2b57cd4fc83e3602f4e66957d81e3',1,'SignalIntegrity::Lib::ImpedanceProfile::ImpedanceProfile::ImpedanceProfile']]],
+  ['rlgcfitfromfile',['RLGCFitFromFile',['../classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml',1,'SignalIntegrity::Lib::Fit::RLGCFitFromFile']]]
 ];
