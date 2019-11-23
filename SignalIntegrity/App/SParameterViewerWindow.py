@@ -1091,25 +1091,25 @@ class SParametersDialog(tk.Toplevel):
                     self.bottomRightlabel.config(text='Impedance Profile')
                     self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
                 elif self.properties['Plot.ShowExcessInductance']:
-                    maxy=(maxy-Z0)*Ts
-                    miny=(miny-Z0)*Ts
+                    maxy=(maxy-Z0)*Ts/2.
+                    miny=(miny-Z0)*Ts/2.
                     span=max(abs(maxy),abs(miny))
                     yLabel=ToSI(span,'H')[-2:]
                     yLabelDivisor=FromSI('1. '+yLabel,'H')
                     maxy=maxy/yLabelDivisor
                     miny=miny/yLabelDivisor
-                    y=[(yv-Z0)*Ts/yLabelDivisor for yv in y]
+                    y=[(yv-Z0)*Ts/2./yLabelDivisor for yv in y]
                     self.bottomRightlabel.config(text='Excess Inductance Profile')
                     self.bottomRightPlot.set_ylabel('Excess L ('+yLabel+')',fontsize=10)
                 elif self.properties['Plot.ShowExcessCapacitance']:
-                    maxy=(1./maxy-1./Z0)*Ts
-                    miny=(1./miny-1./Z0)*Ts
+                    maxy=(1./maxy-1./Z0)*Ts/2.
+                    miny=(1./miny-1./Z0)*Ts/2.
                     span=max(abs(maxy),abs(miny))
                     yLabel=ToSI(span,'F')[-2:]
                     yLabelDivisor=FromSI('1. '+yLabel,'F')
                     maxy=maxy/yLabelDivisor
                     miny=miny/yLabelDivisor
-                    y=[(1./yv-1./Z0)*Ts/yLabelDivisor for yv in y]
+                    y=[(1./yv-1./Z0)*Ts/2./yLabelDivisor for yv in y]
                     self.bottomRightlabel.config(text='Excess Capacitance Profile')
                     self.bottomRightPlot.set_ylabel('Excess C ('+yLabel+')',fontsize=10)
 
