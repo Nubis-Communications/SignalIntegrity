@@ -5,11 +5,11 @@
 	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
-			<Originy>4</Originy>
-			<Originx>1</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
+			<Geometry>528x202+609+433</Geometry>
+			<Originy>2</Originy>
+			<Originx>2</Originx>
+			<Height>162</Height>
+			<Width>528</Width>
 			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -82,7 +82,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -118,7 +118,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>

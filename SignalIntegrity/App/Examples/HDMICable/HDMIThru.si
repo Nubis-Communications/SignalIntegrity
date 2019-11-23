@@ -1,4 +1,11 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+104+104</Geometry>

@@ -1,9 +1,16 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>655x526+108+139</Geometry>
+			<Geometry>543x490+1336+105</Geometry>
 			<Originy>4</Originy>
-			<Originx>1</Originx>
+			<Originx>-1</Originx>
 			<Height>1</Height>
 			<Width>1</Width>
 			<Grid>22.0</Grid>
@@ -13,10 +20,10 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(7, 0)</Coord>
+							<Coord>(9, 0)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(7, 2)</Coord>
+							<Coord>(9, 2)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(11, 2)</Coord>
@@ -29,20 +36,20 @@
 							<Coord>(11, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(7, 4)</Coord>
+							<Coord>(9, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(7, 6)</Coord>
+							<Coord>(9, 6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(19, 0)</Coord>
+							<Coord>(17, 0)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(19, 2)</Coord>
+							<Coord>(17, 2)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(15, 2)</Coord>
@@ -55,10 +62,10 @@
 							<Coord>(15, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(19, 4)</Coord>
+							<Coord>(17, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(19, 6)</Coord>
+							<Coord>(17, 6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -67,7 +74,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(3, -1)</Origin>
+						<Origin>(5, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -97,7 +104,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(3, 5)</Origin>
+						<Origin>(5, 5)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -127,7 +134,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(19, -1)</Origin>
+						<Origin>(17, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -157,7 +164,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(19, 5)</Origin>
+						<Origin>(17, 5)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -187,7 +194,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(0, -1)</Origin>
+						<Origin>(2, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -223,7 +230,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(0, 5)</Origin>
+						<Origin>(2, 5)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -259,7 +266,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(20, 5)</Origin>
+						<Origin>(18, 5)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -295,7 +302,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(20, -1)</Origin>
+						<Origin>(18, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -331,7 +338,7 @@
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<Origin>(11, 12)</Origin>
+						<Origin>(11, 11)</Origin>
 						<Index>2</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
