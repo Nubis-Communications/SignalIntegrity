@@ -25,6 +25,7 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeembedder
 from SignalIntegrity.Lib.CallBacker import CallBacker
 from SignalIntegrity.Lib.ResultsCache import LinesCache
+from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 
 class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
     """generates deembedd s-parameters from a netlist"""
@@ -65,12 +66,21 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
         self.m_sd.CheckConnections()
         NumUnknowns=len(self.m_sd.UnknownNames())
         result=[[] for i in range(NumUnknowns)]
-        for n in range(len(self.m_f)):
-            system=None
+        systemSP=systemSParameters
+        if systemSP is None:
             for d in range(len(self.m_spc)):
-                if self.m_spc[d][0] == 'system': system=self.m_spc[d][1][n]
-                else: self.m_sd.AssignSParameters(self.m_spc[d][0],self.m_spc[d][1][n])
-            if not systemSParameters is None: system=systemSParameters[n]
+                if self.m_spc[d][0] == 'system': systemSP=self.m_spc[d][1]
+        # pragma: silent exclude
+        if not systemSP is None:
+            if hasattr(self, 'delayDict'):
+                td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(systemSP.m_P)]
+                systemSP=PeeledLaunches(systemSP,td,method='exact')
+        # pragma: include
+        for n in range(len(self.m_f)):
+            for d in range(len(self.m_spc)):
+                if self.m_spc[d][0] != 'system':
+                    self.m_sd.AssignSParameters(self.m_spc[d][0],self.m_spc[d][1][n])
+            system = systemSP[n] if not systemSP is None else None
             unl=DeembedderNumeric(self.m_sd).CalculateUnknown(system)
             if NumUnknowns == 1: unl=[unl]
             for u in range(NumUnknowns): result[u].append(unl[u])
