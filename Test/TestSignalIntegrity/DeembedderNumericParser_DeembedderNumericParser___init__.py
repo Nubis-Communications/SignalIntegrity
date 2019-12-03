@@ -15,7 +15,7 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
             for d in range(len(self.m_spc)):
                 if self.m_spc[d][0] != 'system':
                     self.m_sd.AssignSParameters(self.m_spc[d][0],self.m_spc[d][1][n])
-            system = systemSP[n] if not systemSP is None else None 
+            system = systemSP[n] if not systemSP is None else None
             unl=DeembedderNumeric(self.m_sd).CalculateUnknown(system)
             if NumUnknowns == 1: unl=[unl]
             for u in range(NumUnknowns): result[u].append(unl[u])
