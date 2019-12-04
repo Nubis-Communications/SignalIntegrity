@@ -1,11 +1,18 @@
 <Project>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>504x270+609+433</Geometry>
+			<Geometry>504x270+238+513</Geometry>
 			<Originy>3</Originy>
 			<Originx>2</Originx>
-			<Height>227</Height>
-			<Width>505</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -172,11 +179,4 @@
 		<FrequencyPoints>200</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
-	<PostProcessing>
-		<Lines>
-			<PostProcessingLine>
-				<Line>enforce causality</Line>
-			</PostProcessingLine>
-		</Lines>
-	</PostProcessing>
 </Project>

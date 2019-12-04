@@ -1,20 +1,11 @@
 <Project>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>2000</FrequencyPoints>
-		<EndFrequency>20000000000.0</EndFrequency>
-	</CalculationProperties>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
+			<Geometry>711x363+238+81</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
+			<Height>1</Height>
+			<Width>1</Width>
 			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -34,7 +25,7 @@
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<Origin>(18, 8)</Origin>
+						<Origin>(17, 7)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -145,7 +136,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -181,7 +172,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -190,4 +181,13 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
+	<CalculationProperties>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+		<FrequencyPoints>2000</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>
