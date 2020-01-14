@@ -941,8 +941,8 @@ class SParametersDialog(tk.Toplevel):
             self.topLeftPlotProperties['MaxX']=max(x)
             self.topLeftPlotProperties['XInitialized']=True
         if not self.topLeftPlotProperties['YInitialized']:
-            self.topLeftPlotProperties['MinY']=max(min(y)-1.,-60.0)
-            self.topLeftPlotProperties['MaxY']=max(y)+1.
+            self.topLeftPlotProperties['MinY']=min(max(min(y)-1.,-60.0),max(y)+1.)
+            self.topLeftPlotProperties['MaxY']=max(max(min(y)-1.,-60.0),max(y)+1.)
             self.topLeftPlotProperties['YInitialized']=True
 
         if self.properties['Plot.LogScale']:
