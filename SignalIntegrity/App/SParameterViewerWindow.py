@@ -78,8 +78,8 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.title(title+': '+self.fileparts.FileNameTitle())
 
-        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.tk.call('wm', 'iconphoto', self._w, img)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.variableLineWidth = tk.BooleanVar()

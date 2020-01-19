@@ -41,8 +41,8 @@ class PlotDialog(tk.Toplevel):
         self.parent=parent
         self.withdraw()
         self.title('Results')
-        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.tk.call('wm', 'iconphoto', self._w, img)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
 
         self.f = Figure(figsize=(5,4), dpi=100)

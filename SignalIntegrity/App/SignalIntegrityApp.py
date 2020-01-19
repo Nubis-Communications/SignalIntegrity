@@ -82,8 +82,8 @@ class SignalIntegrityApp(tk.Frame):
 
         self.root.title(__project__+' - '+__version__)
 
-        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', img)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.root.tk.call('wm', 'iconphoto', self.root._w, '-default', self.img)
 
         Doer.helpKeys = HelpSystemKeys(SignalIntegrity.App.Preferences['OnlineHelp.RebuildHelpKeys'])
 
@@ -663,7 +663,7 @@ class SignalIntegrityApp(tk.Frame):
         sp=self.CalculateSParameters()
         if sp is None:
             return
-        SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+        self.spd=SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
     def onPostProcessing(self):
         PostProcessingDialog(self)

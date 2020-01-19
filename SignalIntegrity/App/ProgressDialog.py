@@ -32,8 +32,8 @@ class ProgressDialog(tk.Toplevel):
         tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.title(title)
-        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.tk.call('wm', 'iconphoto', self._w, img)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.barFrame=tk.Frame(self)
         self.barFrame.pack(side=tk.TOP)

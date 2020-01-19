@@ -282,8 +282,8 @@ class PropertiesDialog(tk.Toplevel):
         self.top=top
         self.withdraw()
         self.title(title)
-        img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.tk.call('wm', 'iconphoto', self._w, img)
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.project=project
         self.propertyListFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
