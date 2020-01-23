@@ -302,16 +302,37 @@ class ProjectFileBase(object):
             self.dict[item].SetUnchanged()
         return self
 
-    def Write(self,filename):
-        if not filename.split('.')[-1] == self.ext:
-            filename=filename+'.'+self.ext
+    def LinesToWrite(self):
         lines=[]
         lines=lines+['<Project>']
         for item in self.dict:
             lines=lines+self.dict[item].OutputXML(self.indent)
         lines=lines+['</Project>']
+        lines=["%s\n" % l for l in lines]
+        return lines
+    
+    def LinesInFile(self,filename):
+        if not filename.split('.')[-1] == self.ext:
+            filename=filename+'.'+self.ext
+        with open(filename,'r') as f:
+            lines=f.readlines()
+        return lines
+
+    def CheckFileChanged(self,filename):
+        fileChanged=False
+        linesInFile=self.LinesInFile(filename)
+        try:
+            linesInProject=self.LinesToWrite()
+            fileChanged=not (linesInFile==linesInProject)
+        except:
+            fileChanged=True
+        return fileChanged
+
+    def Write(self,filename):
+        if not filename.split('.')[-1] == self.ext:
+            filename=filename+'.'+self.ext
         with open(filename,'w') as f:
-            f.writelines("%s\n" % l for l in lines)
+            f.writelines(self.LinesToWrite())
         self.SetUnchanged()
         return self
 

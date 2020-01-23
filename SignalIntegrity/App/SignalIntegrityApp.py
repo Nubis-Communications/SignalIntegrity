@@ -934,6 +934,10 @@ class SignalIntegrityApp(tk.Frame):
         if not SignalIntegrity.App.Preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
+        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
+        if not SignalIntegrity.App.Project.CheckFileChanged(filename):
+            return True
+
         doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
 
         if doit is None:
