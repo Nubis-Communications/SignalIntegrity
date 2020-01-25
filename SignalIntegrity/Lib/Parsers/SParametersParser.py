@@ -19,6 +19,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.SParameters import SParameters
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
 
 class SParametersParser(SParameters):
@@ -70,6 +71,8 @@ class SParametersParser(SParameters):
                 elif tokens[1]=='limit':
                     self.LimitImpulseResponseLength((float(tokens[2]) if tokens[2]!='none' else -1e15,
                                                      float(tokens[3]) if tokens[3]!='none' else +1e15))
+                elif tokens[1]=='resample':
+                    self.Resample(EvenlySpacedFrequencyList(float(tokens[2]),float(tokens[3])))
                 else:
                     raise IndexError
             except:
