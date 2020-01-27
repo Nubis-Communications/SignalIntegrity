@@ -1,205 +1,21 @@
 <Project>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>2000</FrequencyPoints>
-		<EndFrequency>20000000000.0</EndFrequency>
-	</CalculationProperties>
-	<PostProcessing>
-		<Lines>
-			<PostProcessingLine>
-				<Line>enforce causality</Line>
-			</PostProcessingLine>
-		</Lines>
-	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>543x490+28+57</Geometry>
+			<Geometry>507x244+368+348</Geometry>
 			<Originy>4</Originy>
-			<Originx>-1</Originx>
-			<Height>320</Height>
-			<Width>711</Width>
+			<Originx>2</Originx>
+			<Height>381</Height>
+			<Width>521</Width>
 			<Grid>22.0</Grid>
 		</DrawingProperties>
 		<Schematic>
 			<Wires>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(9, 0)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(9, 2)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(11, 2)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(11, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(9, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(9, 6)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(17, 0)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(17, 2)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(15, 2)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(15, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(17, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(17, 6)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
 			</Wires>
 			<Devices>
 				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(5, -1)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruDeembeddingStructure.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(5, 5)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>True</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruDeembeddingStructure.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D3</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(17, -1)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruDeembeddingStructure.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(17, 5)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
-						<MirroredVertically>True</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>HDMIThruDeembeddingStructure.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D5</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(2, -1)</Origin>
+						<Origin>(0, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -235,10 +51,10 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(2, 5)</Origin>
+						<Origin>(12, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -271,10 +87,10 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(18, 5)</Origin>
+						<Origin>(0, 1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 					</PartPicture>
 					<PartProperties>
@@ -307,7 +123,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(18, -1)</Origin>
+						<Origin>(12, 1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -341,9 +157,57 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceSystem</ClassName>
+					<ClassName>DevicePowerMixedModeConverter</ClassName>
 					<PartPicture>
-						<Origin>(11, 11)</Origin>
+						<Origin>(3, -1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>MM1</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DevicePowerMixedModeConverter</ClassName>
+					<PartPicture>
+						<Origin>(11, -1)</Origin>
+						<Index>0</Index>
+						<Orientation>0</Orientation>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>True</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>MM2</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Origin>(7, -1)</Origin>
 						<Index>2</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -364,31 +228,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value>D6</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceUnknown</ClassName>
-					<PartPicture>
-						<Origin>(11, 1)</Origin>
-						<Index>2</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>4</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>U1</Value>
+							<Value>D1</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -397,4 +237,13 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
+	<CalculationProperties>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+		<FrequencyPoints>4000</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>

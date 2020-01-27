@@ -1,4 +1,9 @@
 <Project>
+	<CalculationProperties>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+		<FrequencyPoints>200</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+	</CalculationProperties>
 	<PostProcessing>
 		<Lines>
 			<PostProcessingLine>
@@ -8,11 +13,11 @@
 	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>504x270+238+513</Geometry>
+			<Geometry>504x270+315+520</Geometry>
 			<Originy>3</Originy>
 			<Originx>2</Originx>
-			<Height>1</Height>
-			<Width>1</Width>
+			<Height>159</Height>
+			<Width>528</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -174,9 +179,4 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>200</FrequencyPoints>
-		<EndFrequency>20000000000.0</EndFrequency>
-	</CalculationProperties>
 </Project>

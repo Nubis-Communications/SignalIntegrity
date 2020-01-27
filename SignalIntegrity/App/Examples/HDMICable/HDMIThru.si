@@ -4,15 +4,18 @@
 			<PostProcessingLine>
 				<Line>enforce causality</Line>
 			</PostProcessingLine>
+			<PostProcessingLine>
+				<Line>enforce passivity</Line>
+			</PostProcessingLine>
 		</Lines>
 	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+104+104</Geometry>
+			<Geometry>517x179+105+625</Geometry>
 			<Originy>4</Originy>
 			<Originx>1</Originx>
-			<Height>178</Height>
-			<Width>200</Width>
+			<Height>133</Height>
+			<Width>506</Width>
 			<Grid>16.0</Grid>
 		</DrawingProperties>
 		<Schematic>
@@ -22,7 +25,7 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(11, 3)</Origin>
+						<Origin>(4, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -52,7 +55,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(8, 3)</Origin>
+						<Origin>(1, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -88,7 +91,7 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(12, 3)</Origin>
+						<Origin>(5, -1)</Origin>
 						<Index>0</Index>
 						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
@@ -126,7 +129,7 @@
 	</Drawing>
 	<CalculationProperties>
 		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>200</FrequencyPoints>
+		<FrequencyPoints>40</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
 	</CalculationProperties>
 </Project>

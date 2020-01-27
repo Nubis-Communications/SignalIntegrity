@@ -1,4 +1,13 @@
 <Project>
+	<CalculationProperties>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+		<FrequencyPoints>200</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+104+104</Geometry>
@@ -160,7 +169,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>HDMIFixtureThru.s2p</Value>
+							<Value>HDMIThru.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -181,9 +190,4 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>200</FrequencyPoints>
-		<EndFrequency>20000000000.0</EndFrequency>
-	</CalculationProperties>
 </Project>

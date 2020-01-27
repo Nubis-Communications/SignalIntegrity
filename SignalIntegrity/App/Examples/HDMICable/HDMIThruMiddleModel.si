@@ -5,11 +5,11 @@
 	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>528x202+609+433</Geometry>
+			<Geometry>528x202+315+520</Geometry>
 			<Originy>2</Originy>
 			<Originx>2</Originx>
-			<Height>162</Height>
-			<Width>528</Width>
+			<Height>320</Height>
+			<Width>711</Width>
 			<Grid>16</Grid>
 		</DrawingProperties>
 		<Schematic>

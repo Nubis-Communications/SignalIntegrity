@@ -160,7 +160,7 @@
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>HDMIFixtureThru.s2p</Value>
+							<Value>HDMIThru.si</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
