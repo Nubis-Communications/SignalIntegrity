@@ -263,7 +263,11 @@ class SParametersDialog(tk.Toplevel):
         self.bottomRightlabel = tk.Label(bottomRightFrame,fg='black')
         self.bottomRightlabel.pack(fill=tk.X)
 
-        self.topLeftFigure=Figure(figsize=(5,2), dpi=100)
+        plotWidth=SignalIntegrity.App.Preferences['Appearance.PlotWidth']
+        plotHeight=SignalIntegrity.App.Preferences['Appearance.PlotHeight']
+        plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
+
+        self.topLeftFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
         self.topLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -272,7 +276,7 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
         self.topLeftToolbar.pan()
 
-        self.topRightFigure=Figure(figsize=(5,2), dpi=100)
+        self.topRightFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
         self.topRightCanvas=FigureCanvasTkAgg(self.topRightFigure, master=topRightFrame)
         self.topRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -286,7 +290,7 @@ class SParametersDialog(tk.Toplevel):
         self.delayViewerProperty=CalculationPropertySI(self.topRightCanvasControlsFrame,'Delay',self.onDelayEntered,None,None,None,'s')
         self.delayViewerProperty.label.config(width=10)
 
-        self.bottomLeftFigure=Figure(figsize=(5,2), dpi=100)
+        self.bottomLeftFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
         self.bottomLeftCanvas=FigureCanvasTkAgg(self.bottomLeftFigure, master=bottomLeftFrame)
         self.bottomLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -295,7 +299,7 @@ class SParametersDialog(tk.Toplevel):
         self.bottomLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
         self.bottomLeftToolbar.pan()
 
-        self.bottomRightFigure=Figure(figsize=(5,2), dpi=100)
+        self.bottomRightFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
         self.bottomRightCanvas=FigureCanvasTkAgg(self.bottomRightFigure, master=bottomRightFrame)
         self.bottomRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)

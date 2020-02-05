@@ -16,7 +16,7 @@ PreferencesFile.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool
+from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultFloat
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
 import os
@@ -36,6 +36,9 @@ class Appearance(XMLConfiguration):
         XMLConfiguration.__init__(self,'Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
         self.Add(XMLPropertyDefaultInt('InitialGrid',16))
+        self.Add(XMLPropertyDefaultFloat('PlotWidth',5))
+        self.Add(XMLPropertyDefaultFloat('PlotHeight',2))
+        self.Add(XMLPropertyDefaultInt('PlotDPI',100))
         self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
         self.Add(XMLPropertyDefaultBool('AllPinNumbersVisible',False))
         self.SubDir(Color())
