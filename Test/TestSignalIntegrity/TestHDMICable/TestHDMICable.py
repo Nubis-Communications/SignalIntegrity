@@ -60,7 +60,40 @@ class TestHDMICableTest(unittest.TestCase,
         return '_'.join(self.id().split('.')[-2:])
     def testPRBSTest(self):
         self.SimulationResultsChecker('PRBSTest.si')
-
+    def testPRBSTestCompare(self):
+        self.SimulationResultsChecker('PRBSTestCompare.si')
+    def testFFE(self):
+        self.SParameterResultsChecker('FFE.si')
+    def testHDMIThru(self):
+        self.SParameterResultsChecker('HDMIThru.si')
+    def testHDMIThruPort1(self):
+        self.DeembeddingResultsChecker('HDMIThruPort1.si')
+    def testHDMIThruPort2(self):
+        self.DeembeddingResultsChecker('HDMIThruPort2.si')
+    def testHDMICableRawMM(self):
+        self.SParameterResultsChecker('HDMICableRawMM.si')
+    def testHDMIThruMiddle(self):
+        self.SParameterResultsChecker('HDMIThruMiddle.si')
+    def testHDMIThruMiddleModel(self):
+        self.SParameterResultsChecker('HDMIThruMiddleModel.si')
+    def testHDMIThruPort1Peeled(self):
+        self.SParameterResultsChecker('HDMIThruPort1Peeled.si')
+    def testHDMIThruPort2Peeled(self):
+        self.SParameterResultsChecker('HDMIThruPort2Peeled.si')
+    def testHDMIThruPortsPeeled(self):
+        self.SParameterResultsChecker('HDMIThruPortsPeeled.si')
+    def testHDMICableDeembeddedMM(self):
+        self.SParameterResultsChecker('HDMICableDeembeddedMM.si')
+    def testHDMICableDeembeddedSE(self):
+        self.DeembeddingResultsChecker('HDMICableDeembeddedSE.si')
+    def testHDMICableSENoDeembedding(self):
+        self.SParameterResultsChecker('HDMICableSENoDeembedding.si')
+    def testHDMICableDeembeddedSEPeeled(self):
+        self.DeembeddingResultsChecker('HDMICableDeembeddedSEPeeled.si')
+    def testHDMIThruDeembeddingStructure(self):
+        self.SParameterResultsChecker('HDMIThruDeembeddingStructure.si')
+    def testHDMIDeembeddingStructureEvaluation(self):
+        self.DeembeddingResultsChecker('HDMIDeembeddingStructureEvaluation.si')
 if __name__ == "__main__":
     runProfiler=False
     if runProfiler:

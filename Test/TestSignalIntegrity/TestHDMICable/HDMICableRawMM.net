@@ -1,0 +1,11 @@
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device D1 4 file HDMICableSENoDeembedding.si
+port 1 MM1 3
+port 2 MM2 3
+port 3 MM1 4
+port 4 MM2 4
+connect D1 1 MM1 1
+connect D1 2 MM1 2
+connect D1 4 MM2 1
+connect D1 3 MM2 2

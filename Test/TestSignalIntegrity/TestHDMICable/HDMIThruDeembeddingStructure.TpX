@@ -1,0 +1,45 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">102,-26 100,-28 102,-30</polyline>
+%  <polyline lc="black">96,-28 100,-28</polyline>
+%  <text x="102" y="-29" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">26,-26 28,-28 26,-30</polyline>
+%  <polyline lc="black">32,-28 28,-28</polyline>
+%  <text x="26" y="-29" t="1" h="3" halign="r" lc="black"/>
+%  <rect x="36" y="-24" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">32,-28 36,-28</polyline>
+%  <text x="35" y="-27" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">48,-28 44,-28</polyline>
+%  <text x="45" y="-27" t="2" h="3" halign="l" lc="black"/>
+%  <text x="40" y="-21" t="HDMIThruPort1.si" h="3" halign="c" lc="black"/>
+%  <rect x="76" y="-24" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">72,-28 76,-28</polyline>
+%  <text x="75" y="-27" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">88,-28 84,-28</polyline>
+%  <text x="85" y="-27" t="2" h="3" halign="l" lc="black"/>
+%  <text x="80" y="-21" t="HDMIThruMiddleModel.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">48,-28 72,-28</polyline>
+%  <polyline lc="black">88,-28 96,-28</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (102,-26) -- (100,-28) -- (102,-30);
+\path[line width=0.30mm, draw=black] (96,-28) -- (100,-28);
+\draw[black] (102,-29) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (26,-26) -- (28,-28) -- (26,-30);
+\path[line width=0.30mm, draw=black] (32,-28) -- (28,-28);
+\draw[black] (26,-29) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (36,-32) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (32,-28) -- (36,-28);
+\draw[black] (35,-27) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (48,-28) -- (44,-28);
+\draw[black] (45,-27) node[anchor=base west]{2};
+\draw[black] (40,-21) node[anchor=base]{HDMIThruPort1.si};
+\path[line width=0.30mm, draw=black] (76,-32) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (72,-28) -- (76,-28);
+\draw[black] (75,-27) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (88,-28) -- (84,-28);
+\draw[black] (85,-27) node[anchor=base west]{2};
+\draw[black] (80,-21) node[anchor=base]{HDMIThruMiddleModel.si};
+\path[line width=0.30mm, draw=black] (48,-28) -- (72,-28);
+\path[line width=0.30mm, draw=black] (88,-28) -- (96,-28);
+\end{tikzpicture}%

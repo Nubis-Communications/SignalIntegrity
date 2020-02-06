@@ -1,40 +1,28 @@
 <Project>
-	<PostProcessing>
-		<Lines>
-			<PostProcessingLine>
-				<Line>enforce causality</Line>
-			</PostProcessingLine>
-			<PostProcessingLine>
-				<Line>enforce passivity</Line>
-			</PostProcessingLine>
-		</Lines>
-	</PostProcessing>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>506x176+179+449</Geometry>
-			<Originy>4</Originy>
-			<Originx>1</Originx>
-			<Height>133</Height>
-			<Width>505</Width>
 			<Grid>16</Grid>
+			<Originx>1</Originx>
+			<Originy>4</Originy>
+			<Width>1160</Width>
+			<Height>490</Height>
+			<Geometry>506x176+18+47</Geometry>
 		</DrawingProperties>
 		<Schematic>
-			<Wires>
-			</Wires>
 			<Devices>
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(7, -1)</Origin>
 						<Index>0</Index>
+						<Origin>(7, -1)</Origin>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<MirroredHorizontally>False</MirroredHorizontally>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
-							<Value>HDMICableSENoDeembedding.s4p</Value>
+							<Value>HDMICableRawMeasurement.s4p</Value>
 							<Visible>True</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -55,11 +43,11 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(4, -1)</Origin>
 						<Index>0</Index>
+						<Origin>(4, -1)</Origin>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<MirroredHorizontally>False</MirroredHorizontally>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -82,7 +70,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -91,11 +79,11 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(4, 1)</Origin>
 						<Index>0</Index>
+						<Origin>(4, 1)</Origin>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<MirroredHorizontally>False</MirroredHorizontally>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -118,7 +106,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -127,11 +115,11 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(8, -1)</Origin>
 						<Index>0</Index>
+						<Origin>(8, -1)</Origin>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<MirroredHorizontally>True</MirroredHorizontally>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -154,7 +142,7 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
@@ -163,11 +151,11 @@
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(8, 1)</Origin>
 						<Index>0</Index>
+						<Origin>(8, 1)</Origin>
 						<Orientation>0</Orientation>
-						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<MirroredHorizontally>True</MirroredHorizontally>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -190,18 +178,30 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
+			<Wires>
+			</Wires>
 		</Schematic>
 	</Drawing>
 	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>2000</FrequencyPoints>
 		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>2000</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+			<PostProcessingLine>
+				<Line>enforce passivity</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 </Project>

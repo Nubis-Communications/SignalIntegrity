@@ -1,0 +1,21 @@
+device T2 2 tline zc 50.0 td 2e-10
+device T3 2 tline zc 50.0 td 2e-10
+device D1 4 voltageamplifier gain -0.199175765 zi 50.0 zo 0.0
+device G2 1 ground
+device G3 1 ground
+device G4 1 ground
+device G6 1 ground
+device D2 4 voltageamplifier gain 1.2447444896 zi 100000000.0 zo 0.0
+device D3 4 voltageamplifier gain -0.01902746 zi 100000000.0 zo 0.0
+device D6 2 voltageamplifier gain 2.0 zi 100000000.0 zo 50.0
+connect D3 1 T2 1 D6 2
+connect T2 2 T3 1 D2 1
+connect D1 1 T3 2
+connect G2 1 D1 2
+port 2 D1 3
+connect D2 3 D1 4
+connect D2 2 G3 1
+connect G4 1 D3 2
+connect D3 4 G6 1
+port 1 D6 1
+connect D2 4 D3 3

@@ -1,0 +1,6 @@
+system file HDMIThruPort2Peeled.si
+unknown U1 2
+device D2 2 file HDMIThruDeembeddingStructure.si
+port 1 U1 1
+connect D2 1 U1 2
+port 2 D2 2

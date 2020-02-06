@@ -1,0 +1,143 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="33" y="-22" w="11" h="-11" lc="black"/>
+%  <polyline lc="black">27.5,-27.5 33,-27.5</polyline>
+%  <text x="30.5" y="-26.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">49.5,-27.5 44,-27.5</polyline>
+%  <text x="46.5" y="-26.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="38.5" y="-18.25" t="HDMIThruMiddleModel.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">19.25,-24.75 22,-27.5 19.25,-30.25</polyline>
+%  <polyline lc="black">27.5,-27.5 22,-27.5</polyline>
+%  <text x="19.25" y="-31.5" t="td 50.0 ps" h="3" halign="r" lc="black"/>
+%  <text x="19.25" y="-28.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">19.25,-46.75 22,-49.5 19.25,-52.25</polyline>
+%  <polyline lc="black">27.5,-49.5 22,-49.5</polyline>
+%  <text x="19.25" y="-53.5" t="td 50.0 ps" h="3" halign="r" lc="black"/>
+%  <text x="19.25" y="-50.5" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">123.75,-46.75 121,-49.5 123.75,-52.25</polyline>
+%  <polyline lc="black">115.5,-49.5 121,-49.5</polyline>
+%  <text x="123.75" y="-53.5" t="td 50.0 ps" h="3" halign="l" lc="black"/>
+%  <text x="123.75" y="-50.5" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">123.75,-24.75 121,-27.5 123.75,-30.25</polyline>
+%  <polyline lc="black">115.5,-27.5 121,-27.5</polyline>
+%  <text x="123.75" y="-31.5" t="td 50.0 ps" h="3" halign="l" lc="black"/>
+%  <text x="123.75" y="-28.5" t="4" h="3" halign="l" lc="black"/>
+%  <text x="71.5" y="-83.5" t="S" h="3" halign="c" lc="black"/>
+%  <rect x="66" y="-71.5" w="11" h="-22" lc="black"/>
+%  <polyline lc="black">60.5,-77 66,-77</polyline>
+%  <text x="63.5" y="-76" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">60.5,-88 66,-88</polyline>
+%  <text x="63.5" y="-87" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">82.5,-77 77,-77</polyline>
+%  <text x="79.5" y="-76" t="4" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">82.5,-88 77,-88</polyline>
+%  <text x="79.5" y="-87" t="3" h="3" halign="l" lc="black"/>
+%  <text x="71.5" y="-67.75" t="HDMICableSENoDeembedding.si" h="3" halign="c" lc="black"/>
+%  <text x="71.5" y="-39.5" t="?" h="3" halign="c" lc="black"/>
+%  <rect x="66" y="-27.5" w="11" h="-22" lc="black"/>
+%  <polyline lc="black">60.5,-33 66,-33</polyline>
+%  <text x="63.5" y="-32" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">60.5,-44 66,-44</polyline>
+%  <text x="63.5" y="-43" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">82.5,-33 77,-33</polyline>
+%  <text x="79.5" y="-32" t="4" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">82.5,-44 77,-44</polyline>
+%  <text x="79.5" y="-43" t="3" h="3" halign="l" lc="black"/>
+%  <rect x="99" y="-22" w="11" h="-11" lc="black"/>
+%  <polyline lc="black">115.5,-27.5 110,-27.5</polyline>
+%  <text x="112.5" y="-26.5" t="1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">93.5,-27.5 99,-27.5</polyline>
+%  <text x="96.5" y="-26.5" t="2" h="3" halign="r" lc="black"/>
+%  <text x="104.5" y="-18.25" t="HDMIThruMiddleModel.si" h="3" halign="c" lc="black"/>
+%  <rect x="99" y="-44" w="11" h="-11" lc="black"/>
+%  <polyline lc="black">115.5,-49.5 110,-49.5</polyline>
+%  <text x="112.5" y="-48.5" t="1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">93.5,-49.5 99,-49.5</polyline>
+%  <text x="96.5" y="-48.5" t="2" h="3" halign="r" lc="black"/>
+%  <text x="104.5" y="-40.25" t="HDMIThruMiddleModel.si" h="3" halign="c" lc="black"/>
+%  <rect x="33" y="-44" w="11" h="-11" lc="black"/>
+%  <polyline lc="black">27.5,-49.5 33,-49.5</polyline>
+%  <text x="30.5" y="-48.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">49.5,-49.5 44,-49.5</polyline>
+%  <text x="46.5" y="-48.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="38.5" y="-40.25" t="HDMIThruMiddleModel.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">49.5,-27.5 49.5,-33</polyline>
+%  <polyline lc="black">49.5,-33 60.5,-33</polyline>
+%  <polyline lc="black">60.5,-44 49.5,-44</polyline>
+%  <polyline lc="black">49.5,-44 49.5,-49.5</polyline>
+%  <polyline lc="black">93.5,-27.5 93.5,-33</polyline>
+%  <polyline lc="black">93.5,-33 82.5,-33</polyline>
+%  <polyline lc="black">82.5,-44 93.5,-44</polyline>
+%  <polyline lc="black">93.5,-44 93.5,-49.5</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (33,-33) rectangle +(11,11);
+\path[line width=0.30mm, draw=black] (27.5,-27.5) -- (33,-27.5);
+\draw[black] (30.5,-26.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (49.5,-27.5) -- (44,-27.5);
+\draw[black] (46.5,-26.5) node[anchor=base west]{2};
+\draw[black] (38.5,-18.25) node[anchor=base]{HDMIThruMiddleModel.si};
+\path[line width=0.30mm, draw=black] (19.25,-24.75) -- (22,-27.5) -- (19.25,-30.25);
+\path[line width=0.30mm, draw=black] (27.5,-27.5) -- (22,-27.5);
+\draw[black] (19.25,-31.5) node[anchor=base east]{td 50.0 ps};
+\draw[black] (19.25,-28.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (19.25,-46.75) -- (22,-49.5) -- (19.25,-52.25);
+\path[line width=0.30mm, draw=black] (27.5,-49.5) -- (22,-49.5);
+\draw[black] (19.25,-53.5) node[anchor=base east]{td 50.0 ps};
+\draw[black] (19.25,-50.5) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (123.75,-46.75) -- (121,-49.5) -- (123.75,-52.25);
+\path[line width=0.30mm, draw=black] (115.5,-49.5) -- (121,-49.5);
+\draw[black] (123.75,-53.5) node[anchor=base west]{td 50.0 ps};
+\draw[black] (123.75,-50.5) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (123.75,-24.75) -- (121,-27.5) -- (123.75,-30.25);
+\path[line width=0.30mm, draw=black] (115.5,-27.5) -- (121,-27.5);
+\draw[black] (123.75,-31.5) node[anchor=base west]{td 50.0 ps};
+\draw[black] (123.75,-28.5) node[anchor=base west]{4};
+\draw[black] (71.5,-83.5) node[anchor=base]{S};
+\path[line width=0.30mm, draw=black] (66,-93.5) rectangle +(11,22);
+\path[line width=0.30mm, draw=black] (60.5,-77) -- (66,-77);
+\draw[black] (63.5,-76) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (60.5,-88) -- (66,-88);
+\draw[black] (63.5,-87) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (82.5,-77) -- (77,-77);
+\draw[black] (79.5,-76) node[anchor=base west]{4};
+\path[line width=0.30mm, draw=black] (82.5,-88) -- (77,-88);
+\draw[black] (79.5,-87) node[anchor=base west]{3};
+\draw[black] (71.5,-67.75) node[anchor=base]{HDMICableSENoDeembedding.si};
+\draw[black] (71.5,-39.5) node[anchor=base]{?};
+\path[line width=0.30mm, draw=black] (66,-49.5) rectangle +(11,22);
+\path[line width=0.30mm, draw=black] (60.5,-33) -- (66,-33);
+\draw[black] (63.5,-32) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (60.5,-44) -- (66,-44);
+\draw[black] (63.5,-43) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (82.5,-33) -- (77,-33);
+\draw[black] (79.5,-32) node[anchor=base west]{4};
+\path[line width=0.30mm, draw=black] (82.5,-44) -- (77,-44);
+\draw[black] (79.5,-43) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (99,-33) rectangle +(11,11);
+\path[line width=0.30mm, draw=black] (115.5,-27.5) -- (110,-27.5);
+\draw[black] (112.5,-26.5) node[anchor=base west]{1};
+\path[line width=0.30mm, draw=black] (93.5,-27.5) -- (99,-27.5);
+\draw[black] (96.5,-26.5) node[anchor=base east]{2};
+\draw[black] (104.5,-18.25) node[anchor=base]{HDMIThruMiddleModel.si};
+\path[line width=0.30mm, draw=black] (99,-55) rectangle +(11,11);
+\path[line width=0.30mm, draw=black] (115.5,-49.5) -- (110,-49.5);
+\draw[black] (112.5,-48.5) node[anchor=base west]{1};
+\path[line width=0.30mm, draw=black] (93.5,-49.5) -- (99,-49.5);
+\draw[black] (96.5,-48.5) node[anchor=base east]{2};
+\draw[black] (104.5,-40.25) node[anchor=base]{HDMIThruMiddleModel.si};
+\path[line width=0.30mm, draw=black] (33,-55) rectangle +(11,11);
+\path[line width=0.30mm, draw=black] (27.5,-49.5) -- (33,-49.5);
+\draw[black] (30.5,-48.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (49.5,-49.5) -- (44,-49.5);
+\draw[black] (46.5,-48.5) node[anchor=base west]{2};
+\draw[black] (38.5,-40.25) node[anchor=base]{HDMIThruMiddleModel.si};
+\path[line width=0.30mm, draw=black] (49.5,-27.5) -- (49.5,-33);
+\path[line width=0.30mm, draw=black] (49.5,-33) -- (60.5,-33);
+\path[line width=0.30mm, draw=black] (60.5,-44) -- (49.5,-44);
+\path[line width=0.30mm, draw=black] (49.5,-44) -- (49.5,-49.5);
+\path[line width=0.30mm, draw=black] (93.5,-27.5) -- (93.5,-33);
+\path[line width=0.30mm, draw=black] (93.5,-33) -- (82.5,-33);
+\path[line width=0.30mm, draw=black] (82.5,-44) -- (93.5,-44);
+\path[line width=0.30mm, draw=black] (93.5,-44) -- (93.5,-49.5);
+\end{tikzpicture}%
