@@ -35,6 +35,7 @@ from TestDescriptors import *
 from TestDeviceParser import *
 from TestExceptions import *
 from TestFrequencyList import *
+from TestHDMICable import *
 from TestHeaders import *
 from TestHiRes import *
 from TestImpedanceProfile import *

@@ -1,0 +1,73 @@
+"""
+TestHDMICable.py
+"""
+
+# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# All rights reserved worldwide.
+#
+# This file is part of SignalIntegrity.
+#
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>
+import unittest
+import SignalIntegrity.Lib as si
+
+import os
+
+from numpy import matrix
+import math
+
+#------------------------------------------------------------------------------ 
+# this class tries to speed things up a bit using a pickle containing the simulation
+# results from a simulation that is used for every test.  If the pickle 'simresults.p'
+# exists, it will load this pickle as the complete set of simulation results - you must
+# delete this pickle if you change any of the schematics and expect them to produce
+# different results.  This pickle will get rewritten by one of the classes as the simulation
+# results are produced only once by the first test to produce them so it doesn't really matter
+# who writes the pickle.
+# you must set usePickle to True for it to perform this caching.  It cuts the time from about
+# 1 minute to about 20 seconds
+#------------------------------------------------------------------------------ 
+class TestHDMICableTest(unittest.TestCase,
+        si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper,
+        si.test.RoutineWriterTesterHelper):
+    relearn=True
+    plot=False
+    debug=False
+    checkPictures=True
+    epsilon=50e-12
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #self.forceWritePictures=True
+    def tearDown(self):
+        os.chdir(self.cwd)
+        unittest.TestCase.tearDown(self)
+    def __init__(self, methodName='runTest'):
+        si.test.SParameterCompareHelper.__init__(self)
+        unittest.TestCase.__init__(self,methodName)
+        si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        si.test.RoutineWriterTesterHelper.__init__(self)
+    def NameForTest(self):
+        return '_'.join(self.id().split('.')[-2:])
+    def testPRBSTest(self):
+        self.SimulationResultsChecker('PRBSTest.si')
+
+if __name__ == "__main__":
+    runProfiler=False
+    if runProfiler:
+        import cProfile
+        cProfile.run('unittest.main()','stats')
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        unittest.main()
