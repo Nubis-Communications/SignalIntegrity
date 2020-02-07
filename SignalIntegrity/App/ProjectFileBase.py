@@ -319,14 +319,32 @@ class ProjectFileBase(object):
         return lines
 
     def CheckFileChanged(self,filename):
-        fileChanged=False
         linesInFile=self.LinesInFile(filename)
         try:
             linesInProject=self.LinesToWrite()
-            fileChanged=not (linesInFile==linesInProject)
+            if len(linesInProject)!=len(linesInFile):
+                return True
+            # this mess is for the geometry, which also contains the location on the screen which
+            # should not be compared
+            for (lineInProject,lineInFile) in zip(linesInProject,linesInFile):
+                if ('<Geometry>' in lineInProject)\
+                    and ('</Geometry>' in lineInProject)\
+                    and ('<Geometry>' in lineInFile)\
+                    and ('</Geometry>' in lineInFile):
+                    GeometryInProject=lineInProject.strip().replace('<Geometry>','').replace('</Geometry>','')
+                    GeometryInFile=lineInFile.strip().replace('<Geometry>','').replace('</Geometry>','')
+                    if '+' in GeometryInProject and '+' in GeometryInFile:
+                        DimInProject=GeometryInProject.split('+')[0]
+                        DimInFile=GeometryInFile.split('+')[0]
+                        if DimInProject != DimInFile:
+                            return True
+                    elif GeometryInProject != GeometryInFile:
+                        return True
+                elif lineInProject != lineInFile:
+                    return True
+            return False
         except:
-            fileChanged=True
-        return fileChanged
+            return True
 
     def Write(self,filename):
         if not filename.split('.')[-1] == self.ext:

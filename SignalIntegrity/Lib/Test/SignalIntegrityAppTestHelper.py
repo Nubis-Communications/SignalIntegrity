@@ -174,6 +174,7 @@ class SignalIntegrityAppTestHelper:
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         pysi=SignalIntegrityAppHeadless()
         self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
+        #pysi.SaveProject()
         if checkPicture:
             self.PictureChecker(pysi,filename)
         if checkNetlist:
