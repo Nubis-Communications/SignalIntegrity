@@ -201,7 +201,7 @@ class XMLConfiguration(object):
         lines=[]
         if self.write:
             lines=lines+[indent+'<'+self.name+'>']
-            for item in self.dict:
+            for item in [key for key in sorted(self.dict.keys())]:
                 lines=lines+self.dict[item].OutputXML(indent+ProjectFileBase.indent)
             lines=lines+[indent+'</'+self.name+'>']
         return lines
@@ -284,7 +284,7 @@ class ProjectFileBase(object):
     def OutputXML(self):
         lines=[]
         lines=lines+['<Project>']
-        for item in self.dict:
+        for item in [key for key in sorted(self.dict.keys())]:
             lines=lines+self.dict[item].OutputXML(self.indent)
         lines=lines+['</Project>']
         for line in lines:
@@ -305,7 +305,7 @@ class ProjectFileBase(object):
     def LinesToWrite(self):
         lines=[]
         lines=lines+['<Project>']
-        for item in self.dict:
+        for item in [key for key in sorted(self.dict.keys())]:
             lines=lines+self.dict[item].OutputXML(self.indent)
         lines=lines+['</Project>']
         lines=["%s\n" % l for l in lines]
