@@ -1,959 +1,961 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>400</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+27+56</Geometry>
-			<Originy>8</Originy>
-			<Originx>30</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
 			<Grid>8.0</Grid>
+			<Originx>30</Originx>
+			<Originy>8</Originy>
 		</DrawingProperties>
 		<Schematic>
-			<Wires>
-			</Wires>
 			<Devices>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorOnePort</ClassName>
-						<Origin>(-23, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorTwoPort</ClassName>
-						<Origin>(-23, 7)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorOnePort</ClassName>
-						<Origin>(-23, 12)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorTwoPort</ClassName>
-						<Origin>(-23, 21)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, 21)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceInductor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureInductorTwoPort</ClassName>
-						<Origin>(-23, 27)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>L1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceMutual</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureMutual</ClassName>
-						<Origin>(-23, 33)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, 33)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>M1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceIdealTransformer</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureIdealTransformer</ClassName>
-						<Origin>(-23, 41)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-23, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>tr</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorOnePort</ClassName>
-						<Origin>(-4, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorTwoPort</ClassName>
-						<Origin>(-4, 7)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorOnePort</ClassName>
-						<Origin>(-4, 12)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorTwoPort</ClassName>
-						<Origin>(-4, 21)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, 21)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceInductor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureInductorTwoPort</ClassName>
-						<Origin>(-4, 27)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>L2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceMutual</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureMutual</ClassName>
-						<Origin>(-4, 33)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, 33)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>M2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceIdealTransformer</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureIdealTransformer</ClassName>
-						<Origin>(-4, 41)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-4, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>tr</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorOnePort</ClassName>
-						<Origin>(13, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorTwoPort</ClassName>
-						<Origin>(13, 7)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorOnePort</ClassName>
-						<Origin>(13, 12)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorTwoPort</ClassName>
-						<Origin>(13, 21)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, 21)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceInductor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureInductorTwoPort</ClassName>
-						<Origin>(13, 27)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>L3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceMutual</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureMutual</ClassName>
-						<Origin>(13, 33)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, 33)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>M3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceIdealTransformer</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureIdealTransformer</ClassName>
-						<Origin>(13, 41)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(13, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>tr</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorOnePort</ClassName>
-						<Origin>(32, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R7</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureResistorTwoPort</ClassName>
-						<Origin>(32, 7)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>R8</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorOnePort</ClassName>
-						<Origin>(32, 12)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C7</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceCapacitor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureCapacitorTwoPort</ClassName>
-						<Origin>(32, 21)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, 21)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>c</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>df</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>esr</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>C8</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceInductor</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureInductorTwoPort</ClassName>
-						<Origin>(32, 27)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>L4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceMutual</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureMutual</ClassName>
-						<Origin>(32, 33)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, 33)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1e-09</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>M4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceIdealTransformer</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureIdealTransformer</ClassName>
-						<Origin>(32, 41)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(32, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>tr</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
+			<Wires>
+			</Wires>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<EndFrequency>20000000000.0</EndFrequency>
-		<FrequencyPoints>400</FrequencyPoints>
-	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>

@@ -1,383 +1,433 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>5000000.0</EndFrequency>
+		<FrequencyPoints>50</FrequencyPoints>
+		<UserSampleRate>10000000.0</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+27+56</Geometry>
-			<Originy>0</Originy>
-			<Originx>0</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
 			<Grid>16.0</Grid>
+			<Originx>0</Originx>
+			<Originy>0</Originy>
 		</DrawingProperties>
 		<Schematic>
-			<Wires>
-			</Wires>
 			<Devices>
 				<Device>
 					<ClassName>DeviceVoltageSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceOnePort</ClassName>
-						<Origin>(7, 10)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(7, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>wffile</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>TestVRM_Vout.txt</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>file</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
+							<Value></Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VS1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOpen</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOpen</ClassName>
-						<Origin>(6, 9)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(6, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>O1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureProbe</ClassName>
-						<Origin>(8, 9)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(8, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VO1</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceOnePort</ClassName>
-						<Origin>(20, 10)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(20, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>wffile</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>TestVRMModel_Vout.txt</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>file</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
+							<Value></Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VS2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOpen</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOpen</ClassName>
-						<Origin>(19, 9)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(19, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>O2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureProbe</ClassName>
-						<Origin>(21, 9)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VO2</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceOnePort</ClassName>
-						<Origin>(7, 19)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(7, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>wffile</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>TestVRM_Iout.txt</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>file</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
+							<Value></Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VS3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOpen</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOpen</ClassName>
-						<Origin>(6, 18)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(6, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>O3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureProbe</ClassName>
-						<Origin>(8, 18)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(8, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VO3</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageSource</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureVoltageSourceOnePort</ClassName>
-						<Origin>(20, 19)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(20, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>wffile</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>TestVRMModel_Iout.txt</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>file</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
+							<Value></Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VS4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOpen</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureOpen</ClassName>
-						<Origin>(19, 18)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(19, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>O4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureProbe</ClassName>
-						<Origin>(21, 18)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>VO4</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
+			<Wires>
+			</Wires>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>10000000.0</UserSampleRate>
-		<EndFrequency>5000000.0</EndFrequency>
-		<FrequencyPoints>50</FrequencyPoints>
-	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>

@@ -1,12 +1,15 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>2000</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
+			<Geometry>575x440+18+47</Geometry>
 			<Grid>22.0</Grid>
 			<Originx>0</Originx>
 			<Originy>4</Originy>
-			<Width>543</Width>
-			<Height>447</Height>
-			<Geometry>575x440+18+47</Geometry>
 		</DrawingProperties>
 		<Schematic>
 			<Devices>
@@ -14,29 +17,29 @@
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(5, 0)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(5, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMIThruMiddleModel.si</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -44,35 +47,35 @@
 					<ClassName>Port</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(2, 0)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(2, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>5e-11</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -80,35 +83,35 @@
 					<ClassName>Port</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(2, 4)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(2, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>5e-11</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -116,35 +119,35 @@
 					<ClassName>Port</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(18, 4)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(18, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>5e-11</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -152,35 +155,35 @@
 					<ClassName>Port</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(18, 0)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(18, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>5e-11</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -188,29 +191,29 @@
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
 						<Index>2</Index>
-						<Origin>(11, 9)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(11, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMICableSENoDeembedding.si</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -218,23 +221,23 @@
 					<ClassName>DeviceUnknown</ClassName>
 					<PartPicture>
 						<Index>2</Index>
-						<Origin>(11, 1)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(11, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Result</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -242,29 +245,29 @@
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(17, 0)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(17, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMIThruMiddleModel.si</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -272,29 +275,29 @@
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(17, 4)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(17, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMIThruMiddleModel.si</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -302,29 +305,29 @@
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<Origin>(5, 4)</Origin>
-						<Orientation>0</Orientation>
-						<MirroredVertically>False</MirroredVertically>
 						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(5, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMIThruMiddleModel.si</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -385,11 +388,6 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<EndFrequency>20000000000.0</EndFrequency>
-		<FrequencyPoints>2000</FrequencyPoints>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-	</CalculationProperties>
 	<PostProcessing>
 		<Lines>
 			<PostProcessingLine>

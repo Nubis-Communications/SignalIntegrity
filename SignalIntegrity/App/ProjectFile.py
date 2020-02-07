@@ -101,8 +101,6 @@ class DrawingPropertiesConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('Grid',16.))
         self.Add(XMLPropertyDefaultInt('Originx',1))
         self.Add(XMLPropertyDefaultInt('Originy',4))
-        self.Add(XMLPropertyDefaultInt('Width',711))
-        self.Add(XMLPropertyDefaultInt('Height',318))
         self.Add(XMLPropertyDefaultString('Geometry','711x363+27+56'))
 
 class SchematicConfiguration(XMLConfiguration):

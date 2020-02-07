@@ -1,2303 +1,2305 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>400</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>711x363+27+56</Geometry>
-			<Originy>8</Originy>
-			<Originx>30</Originx>
-			<Height>318</Height>
-			<Width>711</Width>
 			<Grid>8.0</Grid>
+			<Originx>30</Originx>
+			<Originy>8</Originy>
 		</DrawingProperties>
 		<Schematic>
-			<Wires>
-			</Wires>
 			<Devices>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-28, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D1</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-22, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-22, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D2</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-17, -2)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-17, -2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D3</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-14, -5)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(-14, -5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D4</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-28, 5)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D5</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-23, 5)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-23, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D6</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-18, 5)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-18, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D7</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-13, 5)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-13, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D8</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-28, 11)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D9</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-23, 11)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-23, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D10</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-18, 11)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-18, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D11</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-13, 11)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-13, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D12</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-28, 19)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D13</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-23, 19)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-23, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D14</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-18, 19)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-18, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D15</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-13, 19)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(-13, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D16</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(-28, 27)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D17</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(-23, 27)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-23, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D18</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(-18, 27)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-18, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D19</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(-13, 27)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(-13, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D20</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(-28, 34)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 34)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D21</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(-23, 34)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-23, 34)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D22</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(-18, 34)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-18, 34)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D23</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(-13, 34)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(-13, 34)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D24</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-28, 41)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D25</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-23, 41)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(-23, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D26</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-18, 41)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(-18, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D27</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-13, 41)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(-13, 41)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D28</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-6, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-6, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D29</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(2, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(2, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D30</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(8, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(8, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D31</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(15, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(15, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D32</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(-6, 4)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-6, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D33</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(2, 4)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(2, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D34</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(8, 4)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(8, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D35</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(15, 4)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(15, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D36</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(-6, 11)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-6, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D37</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(2, 11)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(2, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D38</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(8, 11)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(8, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D39</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(15, 11)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(15, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D40</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-6, 18)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-6, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D41</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(2, 18)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(2, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D42</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(8, 18)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(8, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D43</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(15, 18)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(15, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D44</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(-3, 29)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-3, 29)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D45</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(6, 29)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(6, 29)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D46</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(16, 29)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(16, 29)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D47</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(25, 29)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(25, 29)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D48</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(-3, 38)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-3, 38)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D49</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(6, 38)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(6, 38)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D50</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(16, 38)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(16, 38)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D51</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(25, 38)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(25, 38)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D52</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(-3, 47)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-3, 47)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D53</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(6, 47)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(6, 47)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D54</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(16, 47)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(16, 47)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D55</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(25, 47)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(25, 47)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D56</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(-3, 56)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-3, 56)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D57</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(6, 56)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(6, 56)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D58</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(16, 56)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(16, 56)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D59</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(25, 56)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(25, 56)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>5</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D60</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(34, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(34, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D61</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(43, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(43, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D62</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(53, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(53, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D63</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystem</ClassName>
-						<Origin>(62, -3)</Origin>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(62, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D64</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(34, 6)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(34, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D65</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(43, 6)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(43, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D66</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(53, 6)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(53, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D67</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemAcross</ClassName>
-						<Origin>(62, 6)</Origin>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(62, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D68</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(34, 15)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(34, 15)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D69</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(43, 15)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(43, 15)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D70</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(53, 15)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(53, 15)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D71</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemDownAndUp</ClassName>
-						<Origin>(62, 15)</Origin>
+						<Index>2</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(62, 15)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D72</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(34, 24)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>0</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(34, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D73</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(43, 24)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>90</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>90</Orientation>
+						<Origin>(43, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D74</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(53, 24)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>180</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(53, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D75</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceSystem</ClassName>
 					<PartPicture>
-						<ClassName>PartPictureSystemSide</ClassName>
-						<Origin>(62, 24)</Origin>
+						<Index>3</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<Orientation>270</Orientation>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(62, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>Test</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D76</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
+			<Wires>
+			</Wires>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<EndFrequency>20000000000.0</EndFrequency>
-		<FrequencyPoints>400</FrequencyPoints>
-	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>

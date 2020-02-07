@@ -325,8 +325,6 @@ class SignalIntegrityApp(tk.Frame):
 
         try:
             self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
-            SignalIntegrity.App.Project['Drawing.DrawingProperties.Width']=self.Drawing.canvas.winfo_width()
-            SignalIntegrity.App.Project['Drawing.DrawingProperties.Height']=self.Drawing.canvas.winfo_height()
             SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
         except tk.TclError:
             pass
