@@ -936,14 +936,17 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseButton1Release_Panning(self,event):
         if not self.Locked():
+            self.parent.parent.history.Event('Pan')
             self.Nothing()
             self.Unlock()
     def onMouseButton3Release_Panning(self,event):
         if not self.Locked():
+            self.parent.parent.history.Event('Pan')
             self.Nothing()
             self.Unlock()
     def onMouseButton1Double_Panning(self,event):
         if not self.Locked():
+            self.parent.parent.history.Event('Pan')
             self.Nothing()
             self.Unlock()
     def onMouseMotion_Panning(self,event):
@@ -966,6 +969,7 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onEscapeKey_Panning(self,event):
         if not self.Locked():
+            self.parent.parent.history.Event('Pan')
             self.Nothing()
             self.Unlock()
 
