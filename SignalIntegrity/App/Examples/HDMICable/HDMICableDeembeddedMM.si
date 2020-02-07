@@ -1,247 +1,245 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>4000</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>507x244+28+57</Geometry>
-			<Originy>4</Originy>
-			<Originx>2</Originx>
-			<Height>447</Height>
-			<Width>543</Width>
 			<Grid>22.0</Grid>
+			<Originx>2</Originx>
+			<Originy>4</Originy>
 		</DrawingProperties>
 		<Schematic>
-			<Wires>
-			</Wires>
 			<Devices>
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(0, -1)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(0, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(12, -1)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(12, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(0, 1)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(0, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(12, 1)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(12, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DevicePowerMixedModeConverter</ClassName>
 					<PartPicture>
-						<Origin>(3, -1)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(3, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>MM1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DevicePowerMixedModeConverter</ClassName>
 					<PartPicture>
-						<Origin>(11, -1)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(11, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>MM2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Origin>(7, -1)</Origin>
 						<Index>2</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(7, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMICableDeembeddedSE.si</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>4</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>D1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
+			<Wires>
+			</Wires>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>40000000000.0</UserSampleRate>
-		<FrequencyPoints>4000</FrequencyPoints>
-		<EndFrequency>20000000000.0</EndFrequency>
-	</CalculationProperties>
 	<PostProcessing>
 		<Lines>
 		</Lines>
