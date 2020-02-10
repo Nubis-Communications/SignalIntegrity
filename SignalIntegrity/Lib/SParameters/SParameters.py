@@ -126,12 +126,16 @@ class SParameters(SParameterManipulation):
             mat=self[n]
             if Z0 != self.m_Z0: mat=ReferenceImpedance(mat,Z0,self.m_Z0)
             if self.m_P == 2: mat=array(mat).transpose().tolist()
+            # pragma: silent exclude
             tokensOnLine=0
+            # pragma: include
             for r in range(self.m_P):
                 for c in range(self.m_P):
+                    # pragma: silent exclude
                     if tokensOnLine >= self.maxTokensOnLine:
                         pline = ' '.join(line)+'\n'; spfile.write(pline)
                         line=[]; tokensOnLine=0
+                    # pragma: include
                     val = mat[r][c]
                     if cpxType == 'MA':
                         line.append(str(round(abs(val),6)))
@@ -142,7 +146,9 @@ class SParameters(SParameterManipulation):
                     elif cpxType == 'DB':
                         line.append(str(round(20*math.log10(abs(val)),6)))
                         line.append(str(round(cmath.phase(val)*180./math.pi,6)))
+                    # pragma: silent exclude
                     tokensOnLine=tokensOnLine+1
+                    # pragma: include
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()
@@ -180,3 +186,6 @@ class SParameters(SParameterManipulation):
     # list of strings that form the default header written whenever files are written
     # the default is the project, version, and description and a link to the SignalIntegrity
     # website.
+    # @var maxTokensOnLine
+    # integer maximum number of network parameter pairs (magnitude and angle) allowed per line.
+    # Touchstone specification says 4 (the default).
