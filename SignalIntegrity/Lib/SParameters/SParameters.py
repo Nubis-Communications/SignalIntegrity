@@ -37,6 +37,7 @@ class SParameters(SParameterManipulation):
     """Class containing s-parameters"""
     header=['File created by '+__project__+' v'+ __version__+': '+__description__,
         __url__]
+    maxTokensOnLine=4
     def __init__(self,f,data,Z0=50.0):
         """Constructor
         @param f list of frequencies
@@ -125,8 +126,12 @@ class SParameters(SParameterManipulation):
             mat=self[n]
             if Z0 != self.m_Z0: mat=ReferenceImpedance(mat,Z0,self.m_Z0)
             if self.m_P == 2: mat=array(mat).transpose().tolist()
+            tokensOnLine=0
             for r in range(self.m_P):
                 for c in range(self.m_P):
+                    if tokensOnLine >= self.maxTokensOnLine:
+                        pline = ' '.join(line)+'\n'; spfile.write(pline)
+                        line=[]; tokensOnLine=0
                     val = mat[r][c]
                     if cpxType == 'MA':
                         line.append(str(round(abs(val),6)))
@@ -137,6 +142,7 @@ class SParameters(SParameterManipulation):
                     elif cpxType == 'DB':
                         line.append(str(round(20*math.log10(abs(val)),6)))
                         line.append(str(round(cmath.phase(val)*180./math.pi,6)))
+                    tokensOnLine=tokensOnLine+1
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()
