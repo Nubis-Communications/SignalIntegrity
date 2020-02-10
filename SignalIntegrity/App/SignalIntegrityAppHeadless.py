@@ -143,11 +143,14 @@ class SignalIntegrityAppHeadless(object):
         filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
         self.SaveProjectToFile(filename)
 
+    def NetListText(self):
+        return self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+
     def config(self,cursor=None):
         pass
 
     def CalculateSParameters(self):
-        netList=self.Drawing.schematic.NetList().Text()
+        netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -159,7 +162,7 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
                 cacheFileName=cacheFileName)
-        spnp.AddLines(netList)
+        spnp.AddLines(netListText)
         try:
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
@@ -168,7 +171,7 @@ class SignalIntegrityAppHeadless(object):
 
     def Simulate(self):
         netList=self.Drawing.schematic.NetList()
-        netListText=netList.Text()
+        netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
             SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -223,7 +226,7 @@ class SignalIntegrityAppHeadless(object):
 
     def VirtualProbe(self):
         netList=self.Drawing.schematic.NetList()
-        netListText=netList.Text()
+        netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -279,7 +282,7 @@ class SignalIntegrityAppHeadless(object):
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
     def Deembed(self):
-        netList=self.Drawing.schematic.NetList().Text()
+        netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -291,7 +294,7 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
                 cacheFileName=cacheFileName)
-        dnp.AddLines(netList)
+        dnp.AddLines(netListText)
 
         try:
             sp=dnp.Deembed()

@@ -154,7 +154,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         with open(reggressionFile,'rU' if sys.version_info.major < 3 else 'r') as f:
             fitRegression=[[float(e)] for e in f.readline().replace(']','').replace('[','').split(',')]
         for (res,reg) in zip(results,fitRegression):
-            self.assertAlmostEqual(res[0], reg[0], 7, 'equalizer fit failed')
+            self.assertAlmostEqual(res[0], reg[0], 5, 'equalizer fit failed')
     @staticmethod
     def EyePattern(project,waveform,delay,bitrate):
         import numpy as np
