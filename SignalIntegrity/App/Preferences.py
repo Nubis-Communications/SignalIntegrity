@@ -59,6 +59,7 @@ class Preferences(PreferencesFile):
     def SaveToFile(self):
         if self.fileExists:
             try:
+                self['Version']=__version__
                 self.Write(self.preferencesFileName)
             except:
                 pass
