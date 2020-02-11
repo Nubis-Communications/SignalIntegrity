@@ -18,6 +18,7 @@ PreferencesFile.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultFloat
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
+from SignalIntegrity.App.SParameterProperties import SParameterProperties
 
 import os
 
@@ -83,4 +84,5 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(Cache())
         self.SubDir(OnlineHelp())
         self.SubDir(Calculation())
+        self.SubDir(SParameterProperties(preferences=True))
 

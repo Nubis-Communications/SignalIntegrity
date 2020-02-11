@@ -116,18 +116,19 @@ class DrawingConfiguration(XMLConfiguration):
         self.SubDir(SchematicConfiguration())
 
 class CalculationPropertiesBase(XMLConfiguration):
-    def __init__(self,Name):
+    def __init__(self,Name,preferences=False):
         XMLConfiguration.__init__(self,Name)
-        self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
-        self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
-        self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
-        self.Add(XMLPropertyDefaultFloat('UserSamplePeriod',write=False))
-        self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))
-        self.Add(XMLPropertyDefaultFloat('BaseSamplePeriod',write=False))
-        self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
-        self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
-        self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
-        self.CalculateOthersFromBaseInformation()
+        if not preferences:
+            self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
+            self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
+            self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
+            self.Add(XMLPropertyDefaultFloat('UserSamplePeriod',write=False))
+            self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))
+            self.Add(XMLPropertyDefaultFloat('BaseSamplePeriod',write=False))
+            self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
+            self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
+            self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
+            self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
         self.CalculateOthersFromBaseInformation()
