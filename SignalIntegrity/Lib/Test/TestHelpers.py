@@ -258,7 +258,7 @@ class RoutineWriterTesterHelper(object):
     def EntireListOfClassFunctions(self,fileName,className):
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         defName=[]
-        inClass= className is ''
+        inClass= className == ''
         with open(fileName, 'rU' if sys.version_info.major < 3 else 'r') as inputFile:
             for line in inputFile:
                 if "class" == line.lstrip(' ').split(' ')[0]:
@@ -281,7 +281,7 @@ class RoutineWriterTesterHelper(object):
         if checkNames:
             allDefNames = self.EntireListOfClassFunctions(fileName,className)
             self.assertTrue(all([name in allDefNames for name in defName]), 'def names wrong for '+outputFileName)
-        inClass= className is ''
+        inClass= className == ''
         inDef=False
         addingLines=False
         strippingDoc=False
