@@ -1,0 +1,6 @@
+voltagesource VG1 1
+device R1 1 R 50.0
+device R2 2 R 50.0
+connect R2 1 VG1 1
+output R1 1
+connect R1 1 R2 2

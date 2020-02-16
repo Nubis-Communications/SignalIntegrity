@@ -183,6 +183,10 @@ class PartPropertyPartName(PartPropertyReadOnly):
     def __init__(self,partName=''):
         PartPropertyReadOnly.__init__(self,'type',type='string',unit=None,keyword='partname',description='part type',value=partName,hidden=True)
 
+class PartPropertyNetName(PartProperty):
+    def __init__(self,netName='???'):
+        PartProperty.__init__(self,'type',type='string',unit=None,keyword='netname',description='net name',value=netName,hidden=False,visible=True,keywordVisible=False)
+
 class PartPropertyHelp(PartPropertyReadOnly):
     def __init__(self,helpstr=''):
         PartPropertyReadOnly.__init__(self,'type',type='string',unit=None,keyword='help',description='help',value=helpstr,hidden=True)

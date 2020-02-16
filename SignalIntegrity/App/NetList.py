@@ -17,6 +17,8 @@ NetList.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import sys
+import copy
+
 if sys.version_info.major < 3:
     import Tkinter as tk
     import ScrolledText as scrolledtext
@@ -39,7 +41,7 @@ class NetList(object):
         equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
-            if not device['partname'].GetValue() in ['Port','Measure','Output','Stim']:
+            if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName']:
                 self.textToShow.append(device.NetListLine())
                 if device.netlist['DeviceName'] in ['voltagesource','currentsource']:
                     self.sourceNames.append(device['ref'].GetValue())
@@ -84,6 +86,75 @@ class NetList(object):
             for devicePinConnection in deviceConnection:
                 if len(devicePinConnection) > 1:
                     netList.append(devicePinConnection)
+        # netList is a list of lists of tuples where each list of tuples contains a device index and pin index
+        # where each device/pin index in a given list are all connected.
+        #
+        # at this point, net name part/pins may also be listed in there.  Here, the goal is to determine all
+        # of the net names that are common (i.e. join these lists).
+        #
+        # resolve net names
+        netNameDeviceIndexList=[]; netNames=[]
+        for deviceIndex in range(len(deviceList)):
+            thisDevice=deviceList[deviceIndex]
+            if thisDevice['partname'].GetValue()=='NetName':
+                netName=thisDevice['netname'].GetValue()
+                netNames.append(netName)
+                netNameDeviceIndexList.append((deviceIndex,netName))
+        netNames=list(set(netNames))
+        # netNames is a list of net names
+        # netNameDeviceIndexList is a list of tuples where each tuple contains a device index and a net name
+        #
+        # determine the net name devices that imply connection together
+        connectedNetNameDeviceIndexListList = []
+        for netName in netNames:
+            thisConnectedNetNameDeviceIndexList=[]
+            for (netNameDeviceIndex,deviceNetName) in netNameDeviceIndexList:
+                if netName == deviceNetName:
+                    thisConnectedNetNameDeviceIndexList.append(netNameDeviceIndex)
+            if len(thisConnectedNetNameDeviceIndexList)>1:
+                connectedNetNameDeviceIndexListList.append(thisConnectedNetNameDeviceIndexList)
+        # connectedNetNameDeviceIndexList is a list of lists where each list is a list of net list device
+        # names that are connected together (i.e. have the same net name)
+        #
+        # form a new net list the resolves the new device interconnections
+        for connectedNetNameDeviceIndexList in connectedNetNameDeviceIndexListList:
+            # connectedNetNameDeviceIndexList is a list of connected device indices (i.e. is a list of
+            # device indices representing net names with the same name).
+            thisNetConnectedList=[]
+            for connectedDevicePinsList in netList:
+                thisNetConnected=False
+                for (deviceIndex,pinIndex) in connectedDevicePinsList:
+                    for connectedNetNameDeviceIndex in connectedNetNameDeviceIndexList:
+                        if connectedNetNameDeviceIndex==deviceIndex:
+                            thisNetConnected=True
+                thisNetConnectedList.append(thisNetConnected)
+            if thisNetConnectedList.count(True) > 1:
+                # some nets in this netlist are connected and need to be joined
+                oldNetList=copy.deepcopy(netList); netList=[]
+                newlyconnectedDevicePinsList=[]
+                for connectedDevicePinsListIndex in range(len(oldNetList)):
+                    connectedDevicePinsList=oldNetList[connectedDevicePinsListIndex]
+                    if thisNetConnectedList[connectedDevicePinsListIndex] == False:
+                        netList.append(connectedDevicePinsList)
+                    else:
+                        newlyconnectedDevicePinsList=newlyconnectedDevicePinsList+connectedDevicePinsList
+                netList.append(newlyconnectedDevicePinsList)
+        # now that the netlist has resolved all net name connections, remove the net name devices from the
+        # net list
+        oldNetList=copy.deepcopy(netList); netList=[]
+        for oldConnectedDevicePinsList in oldNetList:
+            connectedDevicePinsList=[]
+            for (deviceIndex,pinIndex) in oldConnectedDevicePinsList:
+                isNetNameDevice=False
+                for (netNameDeviceIndex,netName) in netNameDeviceIndexList:
+                    if deviceIndex==netNameDeviceIndex:
+                        isNetNameDevice=True
+                        break
+                if not isNetNameDevice:
+                    connectedDevicePinsList.append((deviceIndex,pinIndex))
+            if len(connectedDevicePinsList)>0:
+                netList.append(connectedDevicePinsList)
+        # the net list should now be clear of net list devices
         for net in netList:
             measureList=[]
             outputList=[]

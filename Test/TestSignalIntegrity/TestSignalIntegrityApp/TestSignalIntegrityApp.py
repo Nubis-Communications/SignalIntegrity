@@ -112,6 +112,8 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest2.si')
     def testCommonModeProbe(self):
         self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/CommonModeProbe.si')
+    def testNet(self):
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/NetTest.si')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.si',

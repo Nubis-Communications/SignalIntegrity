@@ -30,7 +30,8 @@ class Device(object):
         self.propertiesList=propertiesList
         self.partPicture=partPicture
         self.selected=False
-        self.AddPartProperty(PartPropertyReferenceDesignator(''))
+        if self['defref'] != None:
+            self.AddPartProperty(PartPropertyReferenceDesignator(''))
     def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
         self.CreateVisiblePropertiesList()
         self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y),pinsConnectedList)
@@ -163,9 +164,10 @@ class DeviceFromProject(object):
             raise
         for partPropertyProject in deviceProject['PartProperties']:
             devicePartProperty=self.result[partPropertyProject['Keyword']]
-            for propertyItemName in partPropertyProject.dict:
-                if partPropertyProject.dict[propertyItemName].dict['write']:
-                    devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
+            if not devicePartProperty is None:
+                for propertyItemName in partPropertyProject.dict:
+                    if partPropertyProject.dict[propertyItemName].dict['write']:
+                        devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
 
@@ -301,6 +303,11 @@ class DeviceOutput(Device):
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
+
+class DeviceNetName(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(devicename='netname',showReference=False,showports=False)
+        Device.__init__(self,netlist,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('NetName'),PartPropertyHelp('device:Net-Name'),PartPropertyNetName('???'),PartPropertyDescription('Net Name')],PartPictureVariableNetName())
 
 class DeviceStim(Device):
     def __init__(self):
@@ -512,6 +519,7 @@ DeviceList = [
               Port(),
               DeviceMeasurement(),
               DeviceOutput(),
+              DeviceNetName(),
               DeviceStim(),
               DevicePowerMixedModeConverter(),
               DeviceVoltageMixedModeConverter(),

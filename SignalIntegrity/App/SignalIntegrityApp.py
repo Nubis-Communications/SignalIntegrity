@@ -38,7 +38,7 @@ from SignalIntegrity.App.ToSI import ToSI
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
 from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
-from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim
+from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim,DeviceNetName
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
 from SignalIntegrity.App.Schematic import Drawing
@@ -113,6 +113,7 @@ class SignalIntegrityApp(tk.Frame):
         self.CutSelectedDoer = Doer(self.onCutMultipleSelections).AddKeyBindElement(self.root,'<Control-x>').AddHelpElement('Control-Help:Cut-Selected')
         # ------
         self.AddPartDoer = Doer(self.onAddPart).AddHelpElement('Control-Help:Add-Part')
+        self.AddNetNameDoer = Doer(self.onAddNetName).AddHelpElement('Control-Help:Add-Net-Name')
         self.AddPortDoer = Doer(self.onAddPort).AddHelpElement('Control-Help:Add-Port')
         self.AddMeasureProbeDoer = Doer(self.onAddMeasureProbe).AddHelpElement('Control-Help:Add-Measure-Probe')
         self.AddOutputProbeDoer = Doer(self.onAddOutputProbe).AddHelpElement('Control-Help:Add-Output-Probe')
@@ -190,6 +191,7 @@ class SignalIntegrityApp(tk.Frame):
         PartsMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Parts',menu=PartsMenu,underline=0)
         self.AddPartDoer.AddMenuElement(PartsMenu,label='Add Part',underline=0)
+        self.AddNetNameDoer.AddMenuElement(PartsMenu, label='Add Net Name',underline=4)
         self.AddPortDoer.AddMenuElement(PartsMenu,label='Add Port',underline=6)
         self.AddOutputProbeDoer.AddMenuElement(PartsMenu,label='Add Output Probe',underline=4)
         self.AddMeasureProbeDoer.AddMenuElement(PartsMenu,label='Add Measure Probe',underline=4)
@@ -586,6 +588,9 @@ class SignalIntegrityApp(tk.Frame):
             self.Drawing.partLoaded = dpe.result
             self.Drawing.stateMachine.PartLoaded()
 
+    def onAddNetName(self):
+        self.AddSpecificPart(DeviceNetName())
+
     def onAddOutputProbe(self):
         self.AddSpecificPart(DeviceOutput())
 
@@ -598,12 +603,12 @@ class SignalIntegrityApp(tk.Frame):
     def AddSpecificPart(self,part,popDialog=True):
         self.Drawing.stateMachine.Nothing()
         devicePicked=part
-        devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
         defaultProperty = devicePicked['defref']
         if defaultProperty != None:
             defaultPropertyValue = defaultProperty.GetValue()
             uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
             if uniqueReferenceDesignator != None:
+                devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
                 devicePicked['ref'].SetValueFromString(uniqueReferenceDesignator)
         if popDialog:
             dpe=DevicePropertiesDialog(self,devicePicked)

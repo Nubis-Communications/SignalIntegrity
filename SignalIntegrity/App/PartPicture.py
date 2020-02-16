@@ -51,7 +51,7 @@ class CoordinateTranslater(object):
 
 class PartPicture(object):
     textSpacing=12
-    def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically,rotationPoint=None):
+    def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically,rotationPoint=None,textDirectionReversed=False):
         if rotationPoint==None:
             if len(pinList)==1:
                 self.rotationPointSupplied=pinList[0]['ConnectionPoint']
@@ -65,6 +65,7 @@ class PartPicture(object):
         self.boundingBoxSupplied = boundingBox
         self.propertiesLocationSupplied = propertiesLocation
         self.ApplyOrientation(orientation,mirroredHorizontally,mirroredVertically)
+        self.TextDirectionReversed=textDirectionReversed
     def ApplyOrientation(self,orientation,mirroredHorizontally,mirroredVertically):
         if orientation in ['0','180']:
             self.rotationPoint=(self.rotationPointSupplied[0],math.floor(self.rotationPointSupplied[1]+0.501))
@@ -169,10 +170,16 @@ class PartPicture(object):
         bottomside=max(self.innerBox[0][1],self.innerBox[1][1])
         locationx=self.propertiesLocation[0]
         locationy=self.propertiesLocation[1]
-        ToTheLeft = locationx <= leftside
-        ToTheRight = locationx >= rightside
-        Above = locationy <= topside
-        Below = locationy >= bottomside
+        if self.TextDirectionReversed:
+            ToTheLeft = locationx >= rightside
+            ToTheRight = locationx <= leftside
+            Above = locationy >= bottomside
+            Below = locationy <= topside
+        else:
+            ToTheLeft = locationx <= leftside
+            ToTheRight = locationx >= rightside
+            Above = locationy <= topside
+            Below = locationy >= bottomside
 ##        print 'properties are '+('Above' if Above else '')+('Below' if Below else '')+' and to the '+\
 ##            ('Right' if ToTheRight else '')+('Left' if ToTheLeft else '')+'\n'
 
@@ -1996,4 +2003,13 @@ class PartPictureVariableNPNTransister(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureTransistor'],2)
 
+class PartPictureNetName(PartPicture):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(1,(1,1),'b',False,False,False)],[(0,0),(2,1)],[(0,0),(2,1)],(1,1),orientation,mirroredHorizontally,mirroredVertically,(1,1),True)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableNetName(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureNetName'],1)
 
