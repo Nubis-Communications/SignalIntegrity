@@ -159,7 +159,7 @@ class Waveform(list):
         @return self+other
         @see Waveform.__add__()
         """
-        if other == 0:
+        if other is 0:
             return Waveform(self)
         else:
             return self.__add__(other)
