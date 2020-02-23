@@ -37,6 +37,8 @@ from SignalIntegrity.App.SParameterProperties import SParameterProperties,SParam
 from SignalIntegrity.App.SParameterPropertiesDialog import SParameterPropertiesDialog
 from SignalIntegrity.App.InformationMessage import InformationMessage
 from SignalIntegrity.App.CalculationPropertiesProject import CalculationPropertySI
+from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
+
 import SignalIntegrity.App.Project
 
 import SignalIntegrity.Lib as si
@@ -123,6 +125,7 @@ class SParametersDialog(tk.Toplevel):
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
+        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
         # ------
         self.VariableLineWidthDoer = Doer(self.onVariableLineWidth).AddHelpElement('Control-Help:Variable-Line-Width')
         self.ShowPassivityViolationsDoer = Doer(self.onShowPassivityViolations).AddHelpElement('Control-Help:Show-Passivity-Violations')
@@ -224,6 +227,7 @@ class SParametersDialog(tk.Toplevel):
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
+        self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
 
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
@@ -1403,6 +1407,15 @@ class SParametersDialog(tk.Toplevel):
         self.sp.WaveletDenoise()
         self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
+
+    def onPreferences(self):
+        if not hasattr(self, 'preferencesDialog'):
+            self.preferencesDialog = SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
+        if self.preferencesDialog == None:
+            self.preferencesDialog= SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
+        else:
+            if not self.preferencesDialog.winfo_exists():
+                self.preferencesDialog=SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
 
 
 
