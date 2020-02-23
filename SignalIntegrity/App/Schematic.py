@@ -1429,13 +1429,14 @@ class DrawingStateMachine(object):
                         referenceDesignatorProperty = existingDevice['ref']
                         if referenceDesignatorProperty != None:
                             existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
-                    if device['ref'].GetValue() in existingReferenceDesignators:
-                        defaultProperty = device['defref']
-                        if defaultProperty != None:
-                            defaultPropertyValue = defaultProperty.GetValue()
-                            uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                            if uniqueReferenceDesignator != None:
-                                device['ref'].SetValueFromString(uniqueReferenceDesignator)
+                    if device['ref'] != None:
+                        if device['ref'].GetValue() in existingReferenceDesignators:
+                            defaultProperty = device['defref']
+                            if defaultProperty != None:
+                                defaultPropertyValue = defaultProperty.GetValue()
+                                uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                                if uniqueReferenceDesignator != None:
+                                    device['ref'].SetValueFromString(uniqueReferenceDesignator)
                 device.partPicture.current.SetOrigin((device.partPicture.current.origin[0]+self.parent.Button1Coord[0],device.partPicture.current.origin[1]+self.parent.Button1Coord[1]))
                 device.selected=True
                 self.parent.schematic.deviceList.append(device)
