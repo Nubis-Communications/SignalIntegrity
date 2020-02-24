@@ -380,15 +380,24 @@ class SParametersDialog(tk.Toplevel):
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
+    def VariableLineWidth(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth'] and self.VariableLineWidthDoer.active)
+
     def onShowPassivityViolations(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']=bool(self.showPassivityViolations.get())
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
+    def ShowPassivityViolations(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations'] and self.ShowPassivityViolationsDoer.active)
+
     def onShowCausalityViolations(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations']=bool(self.showCausalityViolations.get())
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
+
+    def ShowCausalityViolations(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations'] and self.ShowCausalityViolationsDoer.active)
 
     def onShowImpedance(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance']=bool(self.showImpedance.get())
@@ -399,6 +408,9 @@ class SParametersDialog(tk.Toplevel):
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
+    def ShowImpedance(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] and self.ShowImpedanceDoer.active)
+
     def onShowExcessInductance(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance']=bool(self.showExcessInductance.get())
         self.showImpedance.set(False)
@@ -407,6 +419,9 @@ class SParametersDialog(tk.Toplevel):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
+
+    def ShowExcessInductance(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] and self.ShowExcessInductanceDoer.active)
 
     def onShowExcessCapacitance(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']=bool(self.showExcessCapacitance.get())
@@ -417,10 +432,16 @@ class SParametersDialog(tk.Toplevel):
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
+    def ShowExcessCapacitance(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'] and self.ShowExcessCapacitanceDoer.active)
+
     def onLogScale(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']=bool(self.logScale.get())
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
+
+    def LogScale(self):
+        return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale'] and self.LogScaleDoer.active)
 
     def ZoomJoinActivations(self):
         self.FrequenciesJoinAllDoer.Activate(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers'])
@@ -696,7 +717,7 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlotProperties['MinX']=xlim[0]
                 self.bottomRightPlotProperties['MaxX']=xlim[1]
                 if SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin']:
-                    if (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'])and (self.fromPort == self.toPort):
+                    if (self.ShowImpedance() or self.ShowExcessInductance() or self.ShowExcessCapacitance()) and (self.fromPort == self.toPort):
                         self.plotProperties['Impulse.MinX']=self.plotProperties['Impedance.MinX']*2.
                         self.plotProperties['Impulse.MaxX']=self.plotProperties['Impedance.MaxX']*2.
                         self.plotProperties['Impulse.Initialized']=True
@@ -719,7 +740,7 @@ class SParametersDialog(tk.Toplevel):
                         for thisFromPort in range(1,self.sp.m_P+1):
                             if self.JoinIt(thisToPort,thisFromPort,'Times'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
-                                if (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
+                                if (self.ShowImpedance() or self.ShowExcessInductance() or self.ShowExcessCapacitance()) and (self.fromPort == self.toPort):
                                     spPlotPropertiesToJoinTo['Impedance.XInitialized']=True
                                     spPlotPropertiesToJoinTo['Impedance.MinX']=spPlotPropertiesToJoinFrom['Impedance.MinX']
                                     spPlotPropertiesToJoinTo['Impedance.MaxX']=spPlotPropertiesToJoinFrom['Impedance.MaxX']
@@ -746,7 +767,7 @@ class SParametersDialog(tk.Toplevel):
                         for thisFromPort in range(1,self.sp.m_P+1):
                             if self.JoinIt(thisToPort,thisFromPort,'Vertical'):
                                 spPlotPropertiesToJoinTo=self.properties['Plot.S'][thisToPort-1][thisFromPort-1]
-                                if (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
+                                if (self.ShowImpedance() or self.ShowExcessInductance() or self.ShowExcessCapacitance()) and (self.fromPort == self.toPort):
                                     spPlotPropertiesToJoinTo['Impedance.YInitialized']=True
                                     spPlotPropertiesToJoinTo['Impedance.MinY']=spPlotPropertiesToJoinFrom['Impedance.MinY']
                                     spPlotPropertiesToJoinTo['Impedance.MaxY']=spPlotPropertiesToJoinFrom['Impedance.MaxY']
@@ -907,7 +928,7 @@ class SParametersDialog(tk.Toplevel):
 
         x=fr.Frequencies(freqLabelDivisor)
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']:
+        if self.ShowPassivityViolations():
             self.passivityViolations=[]
             s=self.sp._LargestSingularValues()
             for n in range(len(s)):
@@ -923,7 +944,7 @@ class SParametersDialog(tk.Toplevel):
 #         if self.logScale.get():
 #             fastway=False
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']:
+        if self.VariableLineWidth():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -931,17 +952,17 @@ class SParametersDialog(tk.Toplevel):
                 self.topLeftPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+                    if self.LogScale():
                         self.topLeftPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
                         self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+            if self.LogScale():
                 self.topLeftPlot.semilogx(x,y)
             else:
                 self.topLeftPlot.plot(x,y)
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']:
+        if self.ShowPassivityViolations():
             self.topLeftPlot.scatter(
                 [c[0] for c in self.passivityViolations],
                 [c[1] for c in self.passivityViolations],
@@ -960,7 +981,7 @@ class SParametersDialog(tk.Toplevel):
             self.topLeftPlotProperties['MaxY']=max(max(min(y)-1.,-60.0),max(y)+1.)
             self.topLeftPlotProperties['YInitialized']=True
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+        if self.LogScale():
             if max(x)>0:
                 for value in x:
                     if value>0.:
@@ -982,7 +1003,7 @@ class SParametersDialog(tk.Toplevel):
 
         x=frph.Frequencies(freqLabelDivisor)
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']:
+        if self.VariableLineWidth():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -990,12 +1011,12 @@ class SParametersDialog(tk.Toplevel):
                 self.topRightPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+                    if self.LogScale():
                         self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
                         self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+            if self.LogScale():
                 self.topRightPlot.semilogx(x,y)
             else:
                 self.topRightPlot.plot(x,y)
@@ -1012,7 +1033,7 @@ class SParametersDialog(tk.Toplevel):
             self.topRightPlotProperties['MaxY']=max(y)+1
             self.topRightPlotProperties['YInitialized']=True
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+        if self.LogScale():
             if max(x)>0:
                 for value in x:
                     if value>0:
@@ -1044,7 +1065,7 @@ class SParametersDialog(tk.Toplevel):
 
             self.bottomLeftPlot.plot(x,y)
 
-            if SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations']:
+            if self.ShowCausalityViolations():
                 self.causalityViolations=[]
                 Ts=1./ir.td.Fs/1e-9
                 for k in range(len(x)):
@@ -1087,7 +1108,7 @@ class SParametersDialog(tk.Toplevel):
 
             self.bottomRightToolbar.update()
 
-            if (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
+            if (self.ShowImpedance() or self.ShowExcessInductance() or self.ShowExcessCapacitance()) and (self.fromPort == self.toPort):
                 self.bottomRightPlotProperties=self.plotProperties['Impedance']
                 Z0=self.properties['ReferenceImpedance']
                 y=[3000. if (1-yv)<=.000001 else min(Z0*(1+yv)/(1-yv),3000) for yv in y]
@@ -1102,10 +1123,10 @@ class SParametersDialog(tk.Toplevel):
                 maxy=self.bottomRightPlotProperties['MaxY']
                 miny=self.bottomRightPlotProperties['MinY']
 
-                if SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance']:
+                if self.ShowImpedance():
                     self.bottomRightlabel.config(text='Impedance Profile')
                     self.bottomRightPlot.set_ylabel('impedance (Ohms)',fontsize=10)
-                elif SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance']:
+                elif self.ShowExcessInductance():
                     maxy=(maxy-Z0)*Ts/2.
                     miny=(miny-Z0)*Ts/2.
                     span=max(abs(maxy),abs(miny))
@@ -1116,7 +1137,7 @@ class SParametersDialog(tk.Toplevel):
                     y=[(yv-Z0)*Ts/2./yLabelDivisor for yv in y]
                     self.bottomRightlabel.config(text='Excess Inductance Profile')
                     self.bottomRightPlot.set_ylabel('Excess L ('+yLabel+')',fontsize=10)
-                elif SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']:
+                elif self.ShowExcessCapacitance():
                     maxy=(1./maxy-1./Z0)*Ts/2.
                     miny=(1./miny-1./Z0)*Ts/2.
                     span=max(abs(maxy),abs(miny))
@@ -1216,7 +1237,7 @@ class SParametersDialog(tk.Toplevel):
         y=fr.Response('deg')
         x=fr.Frequencies('GHz')
         fastway=True
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']:
+        if self.VariableLineWidth():
             if fastway:
                 segments = [[[x[i],y[i]],[x[i+1],y[i+1]]] for i in range(len(x)-1)]
                 slw=lw[:-1]
@@ -1224,12 +1245,12 @@ class SParametersDialog(tk.Toplevel):
                 self.topRightPlot.add_collection(lc)
             else:
                 for i in range(len(x)-1):
-                    if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+                    if self.LogScale():
                         self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
                         self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
-            if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+            if self.LogScale():
                 self.topRightPlot.semilogx(x,y)
             else:
                 self.topRightPlot.plot(x,y)
@@ -1243,7 +1264,7 @@ class SParametersDialog(tk.Toplevel):
             self.topRightPlotProperties['MaxY']=max(y)+1
             self.topRightPlotProperties['YInitialized']=True
 
-        if SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']:
+        if self.LogScale():
             if max(x)>0:
                 for value in x:
                     if value>0:
