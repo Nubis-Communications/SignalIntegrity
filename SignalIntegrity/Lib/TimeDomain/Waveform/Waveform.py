@@ -29,6 +29,7 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile,S
 class Waveform(list):
     """base class for all waveforms"""
     adaptionStrategy='SinX'
+    epsilon=1e-6
     def __init__(self,x=None,y=None):
         """constructor
         @param x instance of class Waveform or TimeDescriptor
@@ -270,7 +271,7 @@ class Waveform(list):
         if self.td != other.td:
             return False
         for k in range(len(self)):
-            if abs(self[k]-other[k])>1e-6:
+            if abs(self[k]-other[k])>self.epsilon:
                 return False
         return True
     def __ne__(self,other):
@@ -315,8 +316,8 @@ class Waveform(list):
             wf=wf*(InterpolatorSinX(upsampleFactor) if wf.adaptionStrategy=='SinX'
                 else InterpolatorLinear(upsampleFactor))
         ad=td/wf.td
-        f=ad.D-int(ad.D)
-        if not f==0.0:
+        f=ad.D-int(ad.D+self.epsilon)
+        if not f<self.epsilon:
             wf=wf*(FractionalDelayFilterSinX(f,True) if wf.adaptionStrategy=='SinX'
                 else FractionalDelayFilterLinear(f,True))
             ad=td/wf.td
