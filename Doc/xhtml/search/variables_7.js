@@ -11,5 +11,6 @@ var searchData=
   ['m_5fsp',['m_sp',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#aeca0e75de33f68cf0f94eb5c932037bd',1,'SignalIntegrity::Lib::Parsers::Devices::DeviceParser::DeviceParser']]],
   ['m_5fspf',['m_spf',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#a5bad8e400189aa634b24535daee44ee0',1,'SignalIntegrity::Lib::Parsers::Devices::DeviceParser::DeviceParser']]],
   ['m_5ftd',['m_Td',['../classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml#aa864b8f2f43cb1e0bb44354d655bcaf5',1,'SignalIntegrity::Lib::ImpedanceProfile::ImpedanceProfile::ImpedanceProfile']]],
-  ['m_5fz0',['m_Z0',['../classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml#a9034893a926dcf9c73e64fdf3fea83aa',1,'SignalIntegrity::Lib::ImpedanceProfile::ImpedanceProfile::ImpedanceProfile']]]
+  ['m_5fz0',['m_Z0',['../classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml#a9034893a926dcf9c73e64fdf3fea83aa',1,'SignalIntegrity::Lib::ImpedanceProfile::ImpedanceProfile::ImpedanceProfile']]],
+  ['maxtokensonline',['maxTokensOnLine',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#ae4c850366579231d566a9afcc7659b7e',1,'SignalIntegrity::Lib::SParameters::SParameters::SParameters']]]
 ];

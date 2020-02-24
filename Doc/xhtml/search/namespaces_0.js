@@ -139,6 +139,7 @@ var searchData=
   ['sparameterpropertiesdialog',['SParameterPropertiesDialog',['../namespaceSignalIntegrity_1_1App_1_1SParameterPropertiesDialog.xhtml',1,'SignalIntegrity::App']]],
   ['sparameters',['SParameters',['../namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml',1,'SignalIntegrity.Lib.SParameters'],['../namespaceSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters.xhtml',1,'SignalIntegrity.Lib.SParameters.SParameters']]],
   ['sparametersparser',['SParametersParser',['../namespaceSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser.xhtml',1,'SignalIntegrity::Lib::Parsers']]],
+  ['sparameterviewerpreferencesdialog',['SParameterViewerPreferencesDialog',['../namespaceSignalIntegrity_1_1App_1_1SParameterViewerPreferencesDialog.xhtml',1,'SignalIntegrity::App']]],
   ['sparameterviewerwindow',['SParameterViewerWindow',['../namespaceSignalIntegrity_1_1App_1_1SParameterViewerWindow.xhtml',1,'SignalIntegrity::App']]],
   ['splines',['Splines',['../namespaceSignalIntegrity_1_1Lib_1_1Splines.xhtml',1,'SignalIntegrity.Lib.Splines'],['../namespaceSignalIntegrity_1_1Lib_1_1Splines_1_1Splines.xhtml',1,'SignalIntegrity.Lib.Splines.Splines']]],
   ['standards',['Standards',['../namespaceSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards.xhtml',1,'SignalIntegrity::Lib::Measurement::CalKit']]],

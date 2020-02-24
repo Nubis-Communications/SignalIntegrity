@@ -1,19 +1,18 @@
 \form#0:$m\in 0 \ldots M$
-\form#1:$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m} {M}\cdot F_{e}}$
-\form#2:$\mathbf{A}^\dagger$
-\form#3:$\mathbf{L}\cdot\mathbf{A}^\dagger\cdot\mathbf{R}$
-\form#4:$\mathbf{A}$
-\form#5:$\mathbf{L}\cdot\mathbf{A}^{-1}\cdot\mathbf{R}$
-\form#6:$\mathbf{L}$
-\form#7:$\mathbf{R}$
-\form#8:$\mathbf{U}\cdot diag\left(\sigma\right)\cdot\mathbf{V}^H$
-\form#9:$\mathbf{U}$
-\form#10:$R\times C$
-\form#11:$diag\left(\sigma\right)$
-\form#12:$C\times C$
-\form#13:$\mathbf{V}$
-\form#14:$\mathbf{V}\cdot diag\left(\sigma\right)^{-1}\cdot\mathbf{U}^H$
-\form#15:$\mathbf{L}\cdot\mathbf{V}$
-\form#16:$\mathbf{U}^H\cdot\mathbf{R}$
-\form#17:$rc$
-\form#18:$\sigma\left[rc\right]$
+\form#1:$\mathbf{A}^\dagger$
+\form#2:$\mathbf{L}\cdot\mathbf{A}^\dagger\cdot\mathbf{R}$
+\form#3:$\mathbf{A}$
+\form#4:$\mathbf{L}\cdot\mathbf{A}^{-1}\cdot\mathbf{R}$
+\form#5:$\mathbf{L}$
+\form#6:$\mathbf{R}$
+\form#7:$\mathbf{U}\cdot diag\left(\sigma\right)\cdot\mathbf{V}^H$
+\form#8:$\mathbf{U}$
+\form#9:$R\times C$
+\form#10:$diag\left(\sigma\right)$
+\form#11:$C\times C$
+\form#12:$\mathbf{V}$
+\form#13:$\mathbf{V}\cdot diag\left(\sigma\right)^{-1}\cdot\mathbf{U}^H$
+\form#14:$\mathbf{L}\cdot\mathbf{V}$
+\form#15:$\mathbf{U}^H\cdot\mathbf{R}$
+\form#16:$rc$
+\form#17:$\sigma\left[rc\right]$
