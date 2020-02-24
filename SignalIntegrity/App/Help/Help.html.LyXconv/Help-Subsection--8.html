@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-11-09"/>
+<meta name="create-date" content="2020-02-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--7.html#next">Prev</a> Appearance.Color.Plot</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--7.html#next">Prev</a> Appearance.Color.Foreground</span>
 <span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Preferences</span>
-<span class="next">Appearance.ShowAllPinNumbers <a class="next" name="next" href="Help-Subsection--9.html#prev">Next</a></span>
+<span class="next">Calculation.UseSinX/X <a class="next" name="next" href="Help-Subsection--9.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--8"></a>Appearance.PlotCursorValues<a class="Label" name="sub:Appearance.PlotCursorValues"> </a>
+<a class="toc" name="toc-Subsection--8"></a>Appearance.ShowAllPinNumbers<a class="Label" name="sub:Appearance.ShowAllPinNumbers"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,19 +1099,16 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-show cursor values on plots
+show all pin numbers
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--8.html#sub:Appearance.PlotCursorValues">Appearance.PlotCursorValues↑</a>
+<a class="Reference" href="Help-Subsection--8.html#sub:Appearance.ShowAllPinNumbers">Appearance.ShowAllPinNumbers↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-<div class="left">
 False
-</div>
-
 </td>
 
 </tr>
@@ -1120,22 +1117,12 @@ False
 
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="PlotCursors.png" alt="figure PlotCursors.png" style="max-width: 611px; max-height: 556px;"/>
-
-</div>
-
-</div>
-<div class="Standard">
-In the embedded <i>matplotlib</i> plot dialogs, such as the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a> or the <a class="Reference" href="Help-Section-12.html#sec:Simulator-Dialog">Simulator Dialog↑</a> windows, if one hovers the mouse over the plots, the (x,y) coordinates within the plot are plotted in the lower right-hand corner of each. This can be useful and act as cursors, sort of. But they are also visually annoying and tend to cause constant, erratic changes to the plot size.
-</div>
-<div class="Standard">
-To remove the annoyance, this feature can be controlled by this preference.
+By default, pin numbers are shown only for devices that require them, namely all devices that take in a file. In these cases, the pin numbering must match the port numbering of the file being read. Otherwise, internal devices known by the application have their pin numbers inherent in the symbol and therefore it is not really necessary to know how the pins are numbered. That being said, when viewing the s-parameters of the device, or when simply checking the symbol versus the s-parameters, it is sometimes useful to see this numbering. Setting this preference to True causes almost all devices to show pin numbers. Devices that will not show pin numbers ever are devices that are perfectly symmetric.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--7.html#next">Prev</a> Appearance.Color.Plot</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--7.html#next">Prev</a> Appearance.Color.Foreground</span>
 <span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Preferences</span>
-<span class="next">Appearance.ShowAllPinNumbers <a class="next" name="next" href="Help-Subsection--9.html#prev">Next</a></span>
+<span class="next">Calculation.UseSinX/X <a class="next" name="next" href="Help-Subsection--9.html#prev">Next</a></span>
 </div>
 
 </div>

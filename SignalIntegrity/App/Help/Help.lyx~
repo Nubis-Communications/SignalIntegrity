@@ -8588,7 +8588,7 @@ reference "Control-Help:Show-Impedance"
 \end_inset
 
 , and a given impedance profile time per section 
-\begin_inset Formula $Ts$
+\begin_inset Formula $T$
 \end_inset
 
 , the excess inductance is given as:
@@ -8597,7 +8597,7 @@ reference "Control-Help:Show-Impedance"
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\Delta L=L-L0=\left(Z-Z0\right)\cdot2\cdot Ts
+\Delta L=L-L0=\left(Z-Z0\right)\cdot T
 \]
 
 \end_inset
@@ -8783,7 +8783,7 @@ reference "Control-Help:Show-Impedance"
 \end_inset
 
 , and a given impedance profile time per section 
-\begin_inset Formula $Ts$
+\begin_inset Formula $T$
 \end_inset
 
 , the excess capacitance is given as:
@@ -8792,7 +8792,7 @@ reference "Control-Help:Show-Impedance"
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\Delta C=C-C0=\left(\frac{1}{Z}-\frac{1}{Z0}\right)\cdot2\cdot Ts
+\Delta C=C-C0=\left(\frac{1}{Z}-\frac{1}{Z0}\right)\cdot T
 \]
 
 \end_inset
@@ -14145,7 +14145,7 @@ reference "Control-Help:Add-Part"
 
 \end_inset
 
-- Adds any part to the schematic.
+ – Adds any part to the schematic.
  These parts are cataloged in 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -14154,6 +14154,29 @@ reference "sec:Built-in-Devices"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Net-Name"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Adds a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Net-Name"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to the schematic.
 \end_layout
 
 \begin_layout Standard
@@ -14799,6 +14822,178 @@ reference "sec:Main-Schematic-Dialog"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsubsection
+Add Net Name
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Add-Net-Name"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Parts"
+
+\end_inset
+
+ ▸ Add Net Name
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+P,N
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command is used to add net names to a schematic.
 \end_layout
 
 \begin_layout Subsubsection
@@ -22297,6 +22492,19 @@ reference "device:DirectionalCoupler"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "device:Net-Name"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "device:Power-Mixed-Mode-Converter"
 
 \end_inset
@@ -24728,6 +24936,208 @@ A three port directional coupler picks off one wave, while a four port picks
 Note that these devices are not passive and are completely ideal.
  A real directional coupler could not pick a wave off entirely while simultaneou
 sly passing waves between two ports.
+\end_layout
+
+\begin_layout Subsection
+Net Name
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Net-Name"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+category
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Miscellaneous
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Net Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+netname
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+???
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Net names are devices with a single pin and are used to connect multiple
+ nets in a schematic together.
+\end_layout
+
+\begin_layout Standard
+Any Net Name device in a circuit with the same name are assumed that their
+ pins are connected together with a hidden wire.
+\end_layout
+
+\begin_layout Standard
+Net names have no effect on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ generated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename NetName.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -39638,7 +40048,9 @@ name "subsec:SParameterFile"
 An s-parameter file was specified for reading and it could not be read
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 incorrect extension in s-parameter file name
 \end_layout
 
@@ -39649,7 +40061,9 @@ All s-parameter files must have an extension '.s[x]p' where x is the number
 er file, so the files must have an extension like this.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 filename not found
 \end_layout
 
@@ -39679,7 +40093,9 @@ reference "sec:Waveform"
  file was specified for reading and it could not be read
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+
+\series bold
 filename not found
 \end_layout
 
@@ -40056,8 +40472,8 @@ Understanding this error involves understanding the theory in the accompanying
 
 \begin_layout Standard
 An example of a pathological case that cannot be worked around are attempts
- to deembed elements in systems where elements are present that do not pass
- anything (at a given frequency).
+ to de-embed elements in systems where elements are present that do not
+ pass anything (at a given frequency).
 \end_layout
 
 \begin_layout Standard
@@ -40468,12 +40884,55 @@ On Linux Machines - ~/.signalIntegrity/preferences.xml.
 \end_layout
 
 \begin_layout Standard
-The preferences are:
+Currently, the preferences are broken into two groups:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Standard-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - Preferences that govern the basic operation of the schematic editor,
+ file system, calculations, and help system.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - Preferences that govern the display of the s-parameters in the s-parameter
+ viewer.
+\end_layout
+
+\begin_layout Subsection*
+Standard Preferences
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Standard-Preferences"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The standard preferences are:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="16" columns="4">
+<lyxtabular version="3" rows="14" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -40705,98 +41164,6 @@ String
 \noindent
 \align left
 black
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-plot color
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Appearance.Color.Plot"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-String
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-gray
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-show cursor values on plots
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Appearance.PlotCursorValues"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Bool
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-False
 \end_layout
 
 \end_inset
@@ -41877,330 +42244,6 @@ reference "subsec:Color-Picker"
 \end_inset
 
  depends on the operating system.
-\end_layout
-
-\begin_layout Subsection*
-Appearance.Color.Plot
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Appearance.Color.Plot"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="2cm">
-<column alignment="left" valignment="top" width="18cm">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Name
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Type
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-(Default) Value
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-plot color
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Appearance.Color.Plot"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-String
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-gray
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The plot color controls the color in the 
-\emph on
-matplotlib
-\emph default
- plot dialogs, such as the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:S-parameter-Viewer"
-
-\end_inset
-
- or the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulator-Dialog"
-
-\end_inset
-
- windows.
- This should be chosen as a light color, and ideally the same as the background
- color (
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Appearance.Color.Background"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-Usually, right after picking the background color, if one chooses the plot
- color and presses okay, they will be exactly the same.
-\end_layout
-
-\begin_layout Standard
-The 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Color-Picker"
-
-\end_inset
-
- depends on the operating system.
-\end_layout
-
-\begin_layout Subsection*
-Appearance.PlotCursorValues
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Appearance.PlotCursorValues"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="8cm">
-<column alignment="center" valignment="top" width="2cm">
-<column alignment="left" valignment="top" width="18cm">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Preference Name
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Type
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-(Default) Value
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-show cursor values on plots
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Appearance.PlotCursorValues"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Bool
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-\align left
-False
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename PlotCursors.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In the embedded 
-\emph on
-matplotlib
-\emph default
- plot dialogs, such as the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:S-parameter-Viewer"
-
-\end_inset
-
- or the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulator-Dialog"
-
-\end_inset
-
- windows, if one hovers the mouse over the plots, the (x,y) coordinates
- within the plot are plotted in the lower right-hand corner of each.
- This can be useful and act as cursors, sort of.
- But they are also visually annoying and tend to cause constant, erratic
- changes to the plot size.
-\end_layout
-
-\begin_layout Standard
-To remove the annoyance, this feature can be controlled by this preference.
 \end_layout
 
 \begin_layout Subsection*
@@ -43635,6 +43678,1163 @@ rity/App'.
  Note that in this case the actual base of the help system will be at '/home/pet
 erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.\SpecialChar LyX
 conv/Help.html'.
+\end_layout
+
+\begin_layout Subsection*
+S-Parameter Viewer Preferences
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:S-Parameter-Viewer-Preferences"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The s-parameter viewer preferences are:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot width
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotWidth"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot height
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotHeight"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot dpi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotDPI"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot color
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.Color.Plot"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+gray
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+show cursor values on plots
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotCursorValues"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Additionally, the following parameters are saved in the preferences:
+\end_layout
+
+\begin_layout Itemize
+All of the zoom settings in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Zoom"
+
+\end_inset
+
+ are held in 
+\series bold
+SParameterProperties.Zoom
+\series default
+:
+\end_layout
+
+\begin_layout Itemize
+All of the view settings in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-View"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.LogScale
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Log-Scale"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowCausalityViolations
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Causality-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowExcessCapacitance
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Excess-Capacitance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowExcessInductance
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Excess-Inductance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowImpedance
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowPassivityViolations
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.VariableLineWidth
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection*
+Appearance.PlotWidth
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.PlotWidth"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot width
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotWidth"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The plot width is the width of each plot quadrant in the s-parameter viewer
+ (presumably sort of in inches).
+\end_layout
+
+\begin_layout Standard
+The default value of 5 is fine for most displays, but for small displays,
+ smaller numbers like 3 can be used so that the plots fit on the screen.
+ For larger displays, larger values like 7 can be used.
+\end_layout
+
+\begin_layout Standard
+Changes do not take effect until the viewer window is reopened.
+\end_layout
+
+\begin_layout Subsection*
+Appearance.PlotHeight
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.PlotHeight"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot height
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotHeight"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The plot height is the height of each plot quadrant in the s-parameter viewer
+ (presumably sort of in inches).
+\end_layout
+
+\begin_layout Standard
+The default value of 2 is fine for most displays, but for small displays,
+ smaller numbers like 1.8 can be used so that the plots fit on the screen.
+ For larger displays, larger values like 3 can be used.
+\end_layout
+
+\begin_layout Standard
+Changes do not take effect until the viewer window is reopened.
+\end_layout
+
+\begin_layout Subsection*
+Appearance.PlotDPI
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.PlotDPI"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot dpi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotDPI"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The plot dpi is the number of dots per inch in the plots in the s-parameter
+ viewer.
+\end_layout
+
+\begin_layout Standard
+Altering this number makes the plot fonts, lines, etc.
+ smaller.
+\end_layout
+
+\begin_layout Standard
+It is not recommended to change this setting.
+\end_layout
+
+\begin_layout Standard
+Changes do not take effect until the viewer window is reopened.
+\end_layout
+
+\begin_layout Subsection*
+Appearance.Color.Plot
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.Color.Plot"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+plot color
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.Color.Plot"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+String
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+gray
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The plot color controls the color in the 
+\emph on
+matplotlib
+\emph default
+ plot dialogs, such as the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ windows.
+ This should be chosen as a light color, and ideally the same as the background
+ color (
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.Color.Background"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Usually, right after picking the background color, if one chooses the plot
+ color and presses okay, they will be exactly the same.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Color-Picker"
+
+\end_inset
+
+ depends on the operating system.
+\end_layout
+
+\begin_layout Subsection*
+Appearance.PlotCursorValues
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Appearance.PlotCursorValues"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+show cursor values on plots
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Appearance.PlotCursorValues"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename PlotCursors.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the embedded 
+\emph on
+matplotlib
+\emph default
+ plot dialogs, such as the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ or the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ windows, if one hovers the mouse over the plots, the (x,y) coordinates
+ within the plot are plotted in the lower right-hand corner of each.
+ This can be useful and act as cursors, sort of.
+ But they are also visually annoying and tend to cause constant, erratic
+ changes to the plot size.
+\end_layout
+
+\begin_layout Standard
+To remove the annoyance, this feature can be controlled by this preference.
 \end_layout
 
 \end_body

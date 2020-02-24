@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-11-09"/>
+<meta name="create-date" content="2020-02-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,56 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> Numeric</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> VirtualProbe</span>
 <span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Errors and Exceptions</span>
-<span class="next">PostProcessing <a class="next" name="next" href="Help-Subsection--2.html#prev">Next</a></span>
+<span class="next">DeviceParser <a class="next" name="next" href="Help-Subsection-98.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-97"></a>DeviceParser<a class="Label" name="sub:DeviceParser"> </a>
+<a class="toc" name="toc-Subsection-97"></a>Numeric<a class="Label" name="sub:Numeric"> </a>
 </h2>
 <div class="Standard">
-This error class is for errors parsing <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> lines with the <a class="Reference" href="Help-Subsection-82.html#sub:device">device↑</a> keyword.
+<b>Cannot Invert I-W or I-Wxx </b>
 </div>
 <div class="Standard">
-<b>Mandatory Keywords Not Supplied</b>
+Understanding this error involves understanding the theory in the accompanying book. Suffice it to say that the problem is ill-determined in the sense that the system characteristics matrix is not invertible. This occurs under many pathological cases, some of which can be worked around and others cannot (i.e. there is simply no solution to the problem).
 </div>
 <div class="Standard">
-This error message states that mandatory keywords and values were not supplied to the device parser for a particular <a class="Reference" href="Help-Subsection-82.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>. This would be an internal error to the application because you cannot really control this.
+An example of a pathological case that cannot be worked around are attempts to de-embed elements in systems where elements are present that do not pass anything (at a given frequency).
 </div>
 <div class="Standard">
-The keyword error looks like: [’keyword1’,’keyword2’,…] for ’deviceName’ where ’keyword1’ and ’keyword2’ are representative of keywords that must be defined for the device and ’deviceName’ is representative of the name of the device.
+Examples of pathological cases that can be worked around are circuit nodes whose absolute voltage or current cannot be determined due to the construction of the circuit. Sometimes, these can be worked around through the insertion of large resistors to ground or tiny series resistors. A detailed examination of the circuit would be necessary.
 </div>
 <div class="Standard">
-If a keyword is ’’, then the device takes an argument without a keyword (the keyword is inherent - see <a class="Reference" href="Help-Subsection-82.html#sub:device">device↑</a>).
-</div>
-<div class="Standard">
-For example, an error message that says that the keywords not supplied are: [’’] for file, this means that the file name (which is not specified with a keyword) was not supplied.
-</div>
-<div class="Standard">
-When entering netlists by hand, it is easy to forget a mandatory keyword, but in <b><i>SignalIntegrityApp</i></b>, this is difficult since the application creates the netlist entry from the instantiated part in the schematic.
-</div>
-<div class="Standard">
-<b>Arguments Must Come in Keyword Pairs</b>
-</div>
-<div class="Standard">
-This error message states that the netlist <a class="Reference" href="Help-Subsection-82.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and that it was expecting the arguments to come in keyword/value pairs. This would be an internal error to the application because you cannot really control this.
-</div>
-<div class="Standard">
-<b>Device Could Not Be Instantiated</b>
-</div>
-<div class="Standard">
-This error message states that the netlist <a class="Reference" href="Help-Subsection-82.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and the result of trying to create a device with the given name and arguments failed. This would be an internal error to the application because you cannot really control this.
-</div>
-<div class="Standard">
-<b>Device Not Found</b>
-</div>
-<div class="Standard">
-This error message states that the netlist <a class="Reference" href="Help-Subsection-82.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and that the device name specified is unknown. This would be an internal error to the application because you cannot really control this.
+Also, in many cases this can be resolved using the <a class="Reference" href="Help-Subsection--10.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a> preference in the <a class="Reference" href="Help-Section-19.html#sec:Preferences">Preferences↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> Numeric</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> VirtualProbe</span>
 <span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Errors and Exceptions</span>
-<span class="next">PostProcessing <a class="next" name="next" href="Help-Subsection--2.html#prev">Next</a></span>
+<span class="next">DeviceParser <a class="next" name="next" href="Help-Subsection-98.html#prev">Next</a></span>
 </div>
 
 </div>

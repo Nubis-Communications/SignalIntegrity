@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2019-11-09"/>
+<meta name="create-date" content="2020-02-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,50 +1073,266 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--1.html#next">Prev</a> post</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-19.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-16.html#prev">Next</a></span>
+<span class="next">Appearance.FontSize <a class="next" name="next" href="Help-Subsection--3.html#prev">Next</a></span>
 </div>
 <h1 class="Section-">
-<a class="toc" name="toc-Section--1"></a>Post Processing<a class="Label" name="sec:PostProcessing"> </a>
+<a class="toc" name="toc-Section--1"></a>Standard Preferences<a class="Label" name="sec:Standard-Preferences"> </a>
 </h1>
 <div class="Standard">
-Post-processing commands are commands to be executed after a <a class="Reference" href="Help-Section-8.html#sec:Deembedding">Deembedding↑</a> or <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a> calculation completes.
+The standard preferences are:
 </div>
 <div class="Standard">
-These commands are entered as text in the order that they are to be executed in a dialog opened by the <a class="Reference" href="Help-Subsubsection-57.html#Control-Help:Post-Processing">Post-Processing↑</a>. command.
-</div>
-<div class="Standard">
-All of the post-processing commands are appended to the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> generated for calculation and can be seen when you issue <a class="Reference" href="Help-Subsubsection-28.html#Control-Help:Export-Netlist">Export Netlist↑</a>, with the caveat that commands are entered directly in the post-processing dialog, but have the keyword <a class="Reference" href="Help-Subsection--1.html#sub:post">post↑</a> added when putting the commands in the netlist.
-</div>
-<div class="Standard">
-Because they are in the netlist, one is able to make scripted solutions with post-processing, and the cache coherency of the calculated result is maintained (i.e. changes to the netlist change the validity of cached results).
-</div>
-<div class="Standard">
-Valid post-processing commands are:
-</div>
-<ul>
-<li>
-enforce causality - is the same as issuing <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> on the final result.
-</li>
-<li>
-enforce passivity - is the same as issuing <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> on the final result.
-</li>
-<li>
-enforce reciprocity - enforces reciprocity on the final result.
-</li>
-<li>
-limit &lt;negative&gt; &lt;positive&gt; - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
-</li>
+<table>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
+</td>
 
-</ul>
-<div class="Standard">
-If the post-processing commands are not recognized or cannot be parsed, the 
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+font size
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--3.html#sub:Appearance.FontSize">Appearance.FontSize↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Int
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+12
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+initial grid
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--4.html#sub:Appearance.InitialGrid">Appearance.InitialGrid↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Int
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+16
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+background color
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--5.html#sub:Appearance.Color.Background">Appearance.Color.Background↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+String
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+gray
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+foreground color
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--6.html#sub:Appearance.Color.Foreground">Appearance.Color.Foreground↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+String
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+black
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+show all pin numbers
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--7.html#sub:Appearance.ShowAllPinNumbers">Appearance.ShowAllPinNumbers↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+False
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+use SinX/X for resampling
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--8.html#sub:Calculation.UseSinX">Calculation.UseSinX/X↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+False
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+try SVD in calculations (experimental)
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--9.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+False
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+retain recent project files
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--10.html#sub:RetainLastFilesOpened">RetainLastFilesOpened↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+open last file on start
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--11.html#sub:OpenLastFile">OpenLastFile↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+ask to save current file
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--12.html#sub:AskToSaveCurrentFile">AskToSaveCurrentFile↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+cache results
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--13.html#sub:Cache.CacheResults">Cache.CacheResults↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+use online help
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--14.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+online help url
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--15.html#sub:OnlineHelp.URL">OnlineHelp.URL↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--1.html#next">Prev</a> post</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-19.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-16.html#prev">Next</a></span>
+<span class="next">Appearance.FontSize <a class="next" name="next" href="Help-Subsection--3.html#prev">Next</a></span>
 </div>
 
 </div>
