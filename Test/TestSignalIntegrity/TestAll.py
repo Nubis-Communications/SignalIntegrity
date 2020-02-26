@@ -34,6 +34,7 @@ from TestDeembedding import *
 from TestDescriptors import *
 from TestDeviceParser import *
 from TestExceptions import *
+from TestFrequencyContent import *
 from TestFrequencyList import *
 from TestHDMICable import *
 from TestHeaders import *

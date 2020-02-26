@@ -142,6 +142,25 @@ class FrequencyDomain(list):
         @return whether self != other
         """
         return not self == other
+    def LimitEndFrequency(self,endFrequency):
+        """limits the end frequency
+        @param endFrequency float end frequency to limit to
+        @return self
+        @remark if the end frequency is higher than the current end frequency,
+        the content is left unchanged.
+        @warning the end frequency might be slightly higher and this is not
+        a strict limit.  The goal is for the frequencies to potentially bracket
+        the desired end frequency.
+        """
+        frequencies=self.Frequencies()
+        deltaf=frequencies[-1]/(len(self)-1)
+        numPts=int(math.ceil(endFrequency/deltaf))
+        if numPts >= len(self):
+            return self
+        fl=FrequencyList(frequencies[0:numPts+1])
+        fl.CheckEvenlySpaced()
+        FrequencyDomain.__init__(self,fl,self[0:numPts+1])
+        return self
     ##
     # @var m_f
     # instance of class FrequencyList

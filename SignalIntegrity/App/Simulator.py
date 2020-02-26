@@ -192,7 +192,8 @@ class SimulatorDialog(tk.Toplevel):
         if not self.waveformList == None:
             self.plt.autoscale(False)
 
-        self.frequencyContentList=[wf.FrequencyContent(fd) for wf in self.waveformList]
+        self.frequencyContentList=[wf.FrequencyContent().LimitEndFrequency(SignalIntegrity.App.Project['CalculationProperties.EndFrequency'])
+            for wf in self.waveformList]
 
         minf=None
         maxf=None

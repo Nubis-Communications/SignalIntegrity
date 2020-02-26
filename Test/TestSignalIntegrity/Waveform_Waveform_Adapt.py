@@ -7,7 +7,7 @@ class Waveform(list):
                 else InterpolatorLinear(upsampleFactor))
         ad=td/wf.td
         f=ad.D-int(ad.D)
-        if not f==0.0:
+        if not ((f<self.epsilon) or ((1-f)<self.epsilon)):
             wf=wf*(FractionalDelayFilterSinX(f,True) if wf.adaptionStrategy=='SinX'
                 else FractionalDelayFilterLinear(f,True))
             ad=td/wf.td
