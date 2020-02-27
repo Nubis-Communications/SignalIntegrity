@@ -164,20 +164,20 @@ class FitConvergenceMgr(object):
         return not Stop
 
     def PlotConvergence(self):
-            iterations=range(len(self._LogMseTracker))
+        iterations=range(len(self._LogMseTracker))
 
-            import matplotlib.pyplot as plt
-            plt.clf()
-            plt.title('mse convergance')
-            plt.xlabel('iteration')
-            plt.ylabel('mse')
-            plt.plot(iterations,self._LogMseTracker,label='logmse')
-            plt.plot(iterations,self._LogLambdaTracker,label='loglambda')
-            plt.plot(iterations,self._FilteredLogLambdaTracker,label='floglambda')
-            plt.plot(iterations,self._FilteredLogMseTracker,label='flogmse')
-            plt.plot(iterations,self._FilteredLogDeltaMseTracker,label='flogdeltamse')
-            plt.plot(iterations,self._FilteredLogDeltaLambdaTracker,label='flogdeltalambda')
+        import matplotlib.pyplot as plt
+        plt.clf()
+        plt.title('mse convergance')
+        plt.xlabel('iteration')
+        plt.ylabel('mse')
+        plt.plot(iterations,self._LogMseTracker,label='logmse')
+        plt.plot(iterations,self._LogLambdaTracker,label='loglambda')
+        plt.plot(iterations,self._FilteredLogLambdaTracker,label='floglambda')
+        plt.plot(iterations,self._FilteredLogMseTracker,label='flogmse')
+        plt.plot(iterations,self._FilteredLogDeltaMseTracker,label='flogdeltamse')
+        plt.plot(iterations,self._FilteredLogDeltaLambdaTracker,label='flogdeltalambda')
 
-            plt.legend(loc='upper right')
-            plt.grid(True)
-            plt.show()
+        plt.legend(loc='upper right')
+        plt.grid(True)
+        return plt

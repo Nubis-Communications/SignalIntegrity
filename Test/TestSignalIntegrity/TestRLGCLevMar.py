@@ -73,8 +73,9 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
         fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
         #pragma: silent exclude
         printFitCurves=False
+        plt=self.m_fitter.ccm.PlotConvergence()
         if printFitCurves:
-            self.m_fitter.ccm.PlotConvergence()
+            plt.show()
 
         ccm=self.m_fitter.ccm
 
@@ -159,8 +160,9 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
         fitsp=si.sp.dev.TLineTwoPortRLGC(fList, R, Rse, L, G, C, df, Z0)
         SpAreEqual=self.SParametersAreEqual(self.sp, fitsp,1e-2)
         printFitCurves=False
+        plt=self.m_fitter.ccm.PlotConvergence()
         if printFitCurves:
-            self.m_fitter.ccm.PlotConvergence()
+            plt.show()
 
         if not SpAreEqual:
             if si.test.SignalIntegrityAppTestHelper.plotErrors:
@@ -358,8 +360,9 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
         fitsp=si.sp.dev.TLineTwoPortRLGC(self.sp.f(),R,Rse,L,G,C,df,self.sp.m_Z0)
         #pragma: silent exclude
         printFitCurves=False
+        plt=self.m_fitter.ccm.PlotConvergence()
         if printFitCurves:
-            self.m_fitter.ccm.PlotConvergence()
+            plt.show()
 
         ccm=self.m_fitter.ccm
 

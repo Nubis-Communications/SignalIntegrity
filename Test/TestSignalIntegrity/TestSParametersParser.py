@@ -70,6 +70,18 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
                         'post limit none none',])
         sp=sspnp.SParameters()
         self.SParameterRegressionChecker(sp,self.id()+'.s2p')
+    def testSParametersPostGarbage(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        sspnp=si.p.SystemSParametersNumericParser(fd)
+        sspnp.AddLines(['device D1 2 file cable.s2p',
+                        'device D2 2 file filter.s2p',
+                        'port 1 D1 1',
+                        'port 2 D2 2',
+                        'connect D1 2 D2 1',
+                        'post garbage',])
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            sspnp.SParameters()
+        self.assertEquals(cm.exception.parameter,si.SignalIntegrityExceptionPostProcessing().parameter)
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
