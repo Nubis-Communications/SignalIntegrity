@@ -73,7 +73,7 @@ class OnlineHelp(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'OnlineHelp')
         self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
-        self.Add(XMLPropertyDefaultString('URL','http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App'))
+        self.Add(XMLPropertyDefaultString('URL','https://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App'))
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
