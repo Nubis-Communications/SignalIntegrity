@@ -6,7 +6,7 @@
 [Download the latest release](https://github.com/TeledyneLeCroy/SignalIntegrity/releases)
 ***
 
-![](http://teledynelecroy.github.io/SignalIntegrity/Images/Screenshot.png)
+![](https://teledynelecroy.github.io/SignalIntegrity/Images/Screenshot.png)
 
 
 
