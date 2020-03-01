@@ -1,0 +1,57 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="80" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">76,-12 80,-12</polyline>
+%  <text x="79" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">92,-12 88,-12</polyline>
+%  <text x="89" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="84" y="-5" t="MiddleSParameterGenerator.si" h="3" halign="c" lc="black"/>
+%  <ellipse x="60" y="-20" dx="-8" dy="-8" lc="black"/>
+%  <polyline lc="black">60.75,-17.5 59.25,-17.5</polyline>
+%  <polyline lc="black">60,-16.75 60,-18.25</polyline>
+%  <polyline lc="black">60.75,-22.5 59.25,-22.5</polyline>
+%  <polyline lc="black">60,-24 60,-28</polyline>
+%  <polygon fill="black">62.667,-28 57.333,-28 60,-30.667 62.667,-28</polygon>
+%  <polyline lc="black">60,-12 60,-16</polyline>
+%  <text x="54" y="-24" t="MiddleWaveformGenerator.si" h="3" halign="r" lc="black"/>
+%  <text x="54" y="-21" t="Vout" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">112,-16 110,-17 114,-18 110,-19 114,-20 110,-21 114,-22 110,-23 112,-24</polyline>
+%  <polyline lc="black">112,-24 112,-28</polyline>
+%  <polygon fill="black">109.333,-28 114.667,-28 112,-30.667 109.333,-28</polygon>
+%  <polyline lc="black">112,-12 112,-16</polyline>
+%  <text x="116" y="-23" t="50.0 ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">116,-8 114,-10</polyline>
+%  <polyline lc="black">114,-10 112,-12</polyline>
+%  <text x="116" y="-7" t="Vout" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">92,-12 112,-12</polyline>
+%  <polyline lc="black">60,-12 76,-12</polyline>
+%  <ellipse x="112" y="-12" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (80,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (76,-12) -- (80,-12);
+\draw[black] (79,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (92,-12) -- (88,-12);
+\draw[black] (89,-11) node[anchor=base west]{2};
+\draw[black] (84,-5) node[anchor=base]{MiddleSParameterGenerator.si};
+\path[line width=0.30mm, draw=black] (60,-20) ellipse (-4mm and -4mm);
+\path[line width=0.30mm, draw=black] (60.75,-17.5) -- (59.25,-17.5);
+\path[line width=0.30mm, draw=black] (60,-16.75) -- (60,-18.25);
+\path[line width=0.30mm, draw=black] (60.75,-22.5) -- (59.25,-22.5);
+\path[line width=0.30mm, draw=black] (60,-24) -- (60,-28);
+\path[line width=0.30mm, fill=black] (62.667,-28) -- (57.333,-28) -- (60,-30.667) -- (62.667,-28) -- cycle;
+\path[line width=0.30mm, draw=black] (60,-12) -- (60,-16);
+\draw[black] (54,-24) node[anchor=base east]{MiddleWaveformGenerator.si};
+\draw[black] (54,-21) node[anchor=base east]{Vout};
+\path[line width=0.30mm, draw=black] (112,-16) -- (110,-17) -- (114,-18) -- (110,-19) -- (114,-20) -- (110,-21) -- (114,-22) -- (110,-23) -- (112,-24);
+\path[line width=0.30mm, draw=black] (112,-24) -- (112,-28);
+\path[line width=0.30mm, fill=black] (109.333,-28) -- (114.667,-28) -- (112,-30.667) -- (109.333,-28) -- cycle;
+\path[line width=0.30mm, draw=black] (112,-12) -- (112,-16);
+\draw[black] (116,-23) node[anchor=base west]{50.0 ohm};
+\path[line width=0.9mm, draw=black] (116,-8) -- (114,-10);
+\path[line width=0.30mm, draw=black] (114,-10) -- (112,-12);
+\draw[black] (116,-7) node[anchor=base west]{Vout};
+\path[line width=0.30mm, draw=black] (92,-12) -- (112,-12);
+\path[line width=0.30mm, draw=black] (60,-12) -- (76,-12);
+\path[line width=0.30mm, draw=black, fill=black] (112,-12) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

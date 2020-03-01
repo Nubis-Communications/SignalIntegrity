@@ -1,0 +1,6 @@
+device D1 2 file MiddleSParameterGenerator.si
+voltagesource VS1 1
+device R1 1 R 50.0
+connect VS1 1 D1 1
+output D1 2
+connect D1 2 R1 1
