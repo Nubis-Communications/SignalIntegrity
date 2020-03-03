@@ -265,7 +265,7 @@ class DeviceVoltageSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Sine Generator'),PartPropertyHelp('device:Voltage-Sine-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyFrequency(),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyFrequency(),PartPropertyStartTime(),PartPropertyStopTime(),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
 
 class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):

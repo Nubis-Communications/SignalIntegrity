@@ -239,6 +239,10 @@ class PartPropertyStartTime(PartProperty):
     def __init__(self,startTime=0.):
         PartProperty.__init__(self,'starttime',type='float',unit='s',keyword='t0',description='start time (s)',value=startTime,visible=True)
 
+class PartPropertyStopTime(PartProperty):
+    def __init__(self,stopTime=0.):
+        PartProperty.__init__(self,'stoptime',type='float',unit='s',keyword='tf',description='stop time (s)',value=stopTime,visible=True)
+
 class PartPropertyVoltageAmplitude(PartProperty):
     def __init__(self,voltageAmplitude=1.):
         PartProperty.__init__(self,'voltageamplitude',type='float',unit='V',keyword='a',description='voltage amplitude (V)',value=voltageAmplitude,visible=True)
