@@ -21,7 +21,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import os
 import shutil
-from App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
 
 class TestCachingTest(unittest.TestCase,
@@ -73,7 +73,7 @@ class TestCachingTest(unittest.TestCase,
             os.remove('./BottomSParameterGenerator_cachedSParameters.p')
         except FileNotFoundError:
             pass
-        
+
     def tearDown(self):
         os.remove('./TopWaveformGenerator.si')
         os.remove('./MiddleWaveformGenerator.si')
@@ -129,14 +129,14 @@ class TestCachingTest(unittest.TestCase,
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('TopWaveformGenerator.si')
         (sourceNames,outputNames,transferMatrices,outputWaveforms)=proj.Simulate()
-        
+
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('BottomSParameterGenerator.si')
         for part in proj.Drawing.schematic.deviceList:
             if part['partname'].GetValue() == 'Resistor':
                 part['r'].SetValueFromString('40')
         proj.SaveProject()
-        
+
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('TopWaveformGenerator.si')
         (sourceNames,outputNames,transferMatrices,outputWaveforms)=proj.Simulate()
@@ -149,7 +149,7 @@ class TestCachingTest(unittest.TestCase,
         This causes the expected failure that results from the already saved correct test result expecting 50.
         """
         #self.SimulationResultsChecker('TopWaveformGenerator.si')
-        
+
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('BottomSParameterGenerator.si')
         for part in proj.Drawing.schematic.deviceList:
