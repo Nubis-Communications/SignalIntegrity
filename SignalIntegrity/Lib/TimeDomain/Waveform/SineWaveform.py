@@ -21,10 +21,12 @@ SineWaveform.py
 import math
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.Lib.TimeDomain.Waveform.PulseWaveform import PulseWaveform
 
 class SineWaveform(Waveform):
     """sinewave waveform"""
-    def __init__(self,td,Amplitude=1.,Frequency=1e6,Phase=0.):
+    def __init__(self,td,Amplitude=1.,Frequency=1e6,Phase=0.,
+                 StartTime=-100.,StopTime=100.):
         """Constructor
 
         constructs a sinewave waveform.
@@ -33,7 +35,11 @@ class SineWaveform(Waveform):
         @param Amplitude (optional) float amplitude of sine wave (defaults to unity).
         @param Frequency (optional) float frequency of sine wave (defaults to 1 MHz).
         @param Phase (optional) float phase of sine wave in degrees (defaults to zero).
+        @param StartTime (optional) float start time of sine wave (defaults to -100 s).
+        @param StopTime (optional) float stop time of the sine wave (defaults to 100 s).
         """
         x=[Amplitude*math.sin(2.*math.pi*Frequency*t+Phase/180.*math.pi)
-                for t in td.Times()]
-        Waveform.__init__(self,td,x)
+           for t in td.Times()]
+        sw=Waveform(td,x)*PulseWaveform(td,Amplitude=1.,StartTime=StartTime,
+            PulseWidth=max(StartTime,StopTime)-min(StartTime,StopTime),Risetime=0.)
+        Waveform.__init__(self,sw.td,sw.Values())

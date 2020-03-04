@@ -120,7 +120,9 @@ class Device(object):
                 amplitude=float(self['a'].GetValue())
                 frequency=float(self['f'].GetValue())
                 phase=float(self['ph'].GetValue())
-                waveform = si.td.wf.SineWaveform(self.WaveformTimeDescriptor(),amplitude,frequency,phase)
+                start=float(self['t0'].GetValue())
+                stop=float(self['tf'].GetValue())
+                waveform = si.td.wf.SineWaveform(self.WaveformTimeDescriptor(),amplitude,frequency,phase,start,stop)
             elif wfType == 'noise':
                 sigma=float(self['vrms'].GetValue())
                 waveform = si.td.wf.NoiseWaveform(self.WaveformTimeDescriptor(),sigma)
@@ -265,7 +267,8 @@ class DeviceVoltageSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Sine Generator'),PartPropertyHelp('device:Voltage-Sine-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyFrequency(),PartPropertyStartTime(),PartPropertyStopTime(),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyFrequency(),PartPropertyStartTime(-100.),PartPropertyStopTime(100.),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        self['t0']['Visible']=False; self['tf']['Visible']=False
 
 class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):
@@ -288,7 +291,8 @@ class DeviceCurrentSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='currentsource')
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Sine Generator'),PartPropertyHelp('device:Current-Sine-Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyFrequency(),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyFrequency(),PartPropertyStartTime(-100.),PartPropertyStopTime(100.),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        self['t0']['Visible']=False; self['tf']['Visible']=False
 
 class DeviceMeasurement(Device):
     def __init__(self):
