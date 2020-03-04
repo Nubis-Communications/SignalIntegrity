@@ -30,7 +30,10 @@ from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
+from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
+
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
+
 import SignalIntegrity.App.Project
 
 import matplotlib
@@ -79,6 +82,7 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
+        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -109,6 +113,7 @@ class SimulatorDialog(tk.Toplevel):
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
+        self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
 
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
@@ -406,6 +411,15 @@ class SimulatorDialog(tk.Toplevel):
         Doer.inHelp=False
         self.config(cursor='left_ptr')
 
+    def onPreferences(self):
+        if not hasattr(self, 'preferencesDialog'):
+            self.preferencesDialog = SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
+        if self.preferencesDialog == None:
+            self.preferencesDialog= SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
+        else:
+            if not self.preferencesDialog.winfo_exists():
+                self.preferencesDialog=SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
+
 class Simulator(object):
     def __init__(self,parent):
         self.parent=parent
@@ -565,4 +579,3 @@ class Simulator(object):
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
-
