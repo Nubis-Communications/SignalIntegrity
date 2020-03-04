@@ -31,6 +31,7 @@ from TestClassWriter import *
 from TestCommonElements import *
 from TestConversions import *
 from TestDeembedding import *
+from TestDwellTime import *
 from TestDescriptors import *
 from TestDeviceParser import *
 from TestExceptions import *
