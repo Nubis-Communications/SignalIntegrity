@@ -6124,6 +6124,19 @@ reference "Control-Help:S-Parameter-Viewer-Zoom"
  - various zooming options.
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - help system.
+\end_layout
+
 \begin_layout Subsection
 S-Parameter Viewer File Menu
 \begin_inset CommandInset label
@@ -9930,6 +9943,629 @@ Join reflect views (default) - all common vertical zooms for s-parameters
 
 \end_deeper
 \end_deeper
+\begin_layout Subsection*
+S-Parameter Viewer Help
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:S-Parameter-Viewer-Help"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Help tasks are a category in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for dealing with the help system:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Open-Help-File"
+
+\end_inset
+
+ - opens the help file to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ section.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Control-Help"
+
+\end_inset
+
+ - for help on any menu elements or toolbar buttons.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for editing s-parameter viewer preferences.
+\end_layout
+
+\begin_layout Subsubsection
+S-Parameter Viewer Open Help File
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Open-Help-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Open Help File
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,O
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename help-contents-5.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command opens this file that you are currently viewing from the application.
+\end_layout
+
+\begin_layout Subsubsection
+S-Parameter Viewer Control Help
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Control-Help"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+▸ Control Help
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,C
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename help-3.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Control help allows you to get help on any command.
+\end_layout
+
+\begin_layout Standard
+When in control help, all of the commands are activated.
+ This includes key bindings, toolbar buttons, and menu elements.
+ However, issuing any of the possible commands takes you to a location in
+ the help system corresponding to the desired control instead of actually
+ issuing the command.
+\end_layout
+
+\begin_layout Standard
+Control help stays active until you either press the escape key, or touch
+ somewhere in the canvas.
+\end_layout
+
+\begin_layout Subsubsection
+S-Parameter Viewer Preferences
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:S-Parameter-Viewer-Preferences"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+▸ Preferences
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Preferences allows editing of any of the various 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for the application.
+\end_layout
+
 \begin_layout Section
 Simulator Dialog
 \begin_inset CommandInset label
@@ -10076,6 +10712,16 @@ reference "subsec:Simulator-File-Menu"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Simulator-Calculation-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Help"
 
 \end_inset
 
@@ -11137,6 +11783,626 @@ reference "sec:Virtual-Probing"
 \end_inset
 
  application.
+\end_layout
+
+\begin_layout Subsection
+Simulator Help
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Simulator-Help"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Help tasks are a category in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for dealing with the help system:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulator-Open-Help-File"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - opens the help system to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ page.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulator-Control-Help"
+
+\end_inset
+
+ - for help on any menu elements or toolbar buttons.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Simulator-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for editing any simulator preferences.
+\end_layout
+
+\begin_layout Subsubsection
+Simulator Open Help File
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Simulator-Open-Help-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Help"
+
+\end_inset
+
+ ▸ Open Help File
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,O
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename help-contents-5.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command opens this file that you are currently viewing from the application.
+\end_layout
+
+\begin_layout Subsubsection
+Simulator Control Help
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Simulator-Control-Help"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Help"
+
+\end_inset
+
+▸ Control Help
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,C
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename help-3.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Control help allows you to get help on any command.
+\end_layout
+
+\begin_layout Standard
+When in control help, all of the commands are activated.
+ This includes key bindings, toolbar buttons, and menu elements.
+ However, issuing any of the possible commands takes you to a location in
+ the help system corresponding to the desired control instead of actually
+ issuing the command.
+\end_layout
+
+\begin_layout Standard
+Control help stays active until you either press the escape key, or touch
+ somewhere in the canvas.
+\end_layout
+
+\begin_layout Subsubsection
+Simulator Preferences
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Simulator-Preferences"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Help"
+
+\end_inset
+
+▸ Preferences
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Preferences allows editing of any of the various global 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Dialog-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for the application.
 \end_layout
 
 \begin_layout Section
@@ -25119,13 +26385,16 @@ netname
 \end_layout
 
 \begin_layout Standard
-Net names are devices with a single pin and are used to connect multiple
- nets in a schematic together.
+A net name is shown with text and a single connection point.
+ When the connection point is joined to a device pin or wire in the same
+ manner any other device is joined, the net assumes that name.
+ Thus multiple connections of net names with the same name essentially joins
+ the nets.
 \end_layout
 
 \begin_layout Standard
-Any Net Name device in a circuit with the same name are assumed that their
- pins are connected together with a hidden wire.
+The net names do not appear in the netlist.
+ Only the fact that the device pins are connected together will be obvious.
 \end_layout
 
 \begin_layout Standard
@@ -31242,7 +32511,7 @@ name "device:Voltage-Sine-Generator"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="11" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -31626,11 +32895,105 @@ s
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 horizontal offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ho
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-100.0 ns
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+start time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+t0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-100 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+stop time
 \end_layout
 
 \end_inset
@@ -31648,7 +33011,7 @@ float
 \begin_inset Text
 
 \begin_layout Plain Layout
-ho
+tf
 \end_layout
 
 \end_inset
@@ -31666,7 +33029,7 @@ s
 \begin_inset Text
 
 \begin_layout Plain Layout
--100.0 ns
+100 s
 \end_layout
 
 \end_inset
@@ -31706,6 +33069,11 @@ The waveform created has a sample rate as provided and extends in time from
 \begin_layout Standard
 The waveform is such that it has the frequency specified and has the phase
  specified at time zero.
+\end_layout
+
+\begin_layout Standard
+When the sine wave is active can be controlled by the start and stop time.
+ Before the start time and after the stop time, the waveform is zero.
 \end_layout
 
 \begin_layout Subsection
@@ -32781,7 +34149,7 @@ name "device:Current-Sine-Generator"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="11" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -33165,11 +34533,105 @@ s
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 horizontal offset
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ho
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-100.0 ns
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+start time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+t0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-100 s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+stop time
 \end_layout
 
 \end_inset
@@ -33187,7 +34649,7 @@ float
 \begin_inset Text
 
 \begin_layout Plain Layout
-ho
+tf
 \end_layout
 
 \end_inset
@@ -33205,7 +34667,7 @@ s
 \begin_inset Text
 
 \begin_layout Plain Layout
--100.0 ns
+100 s
 \end_layout
 
 \end_inset
@@ -33245,6 +34707,11 @@ The waveform created has a sample rate as provided and extends in time from
 \begin_layout Standard
 The waveform is such that it has the frequency specified and has the phase
  specified at time zero.
+\end_layout
+
+\begin_layout Standard
+When the sine wave is active can be controlled by the start and stop time.
+ Before the start time and after the stop time, the waveform is zero.
 \end_layout
 
 \begin_layout Subsection
@@ -43706,6 +45173,191 @@ name "subsec:S-Parameter-Viewer-Preferences"
 The s-parameter viewer preferences are:
 \end_layout
 
+\begin_layout Itemize
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Plot-Window-Preferences"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+All of the zoom settings in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:S-Parameter-Viewer-Zoom"
+
+\end_inset
+
+ are held in 
+\series bold
+SParameterProperties.Zoom
+\series default
+:
+\end_layout
+
+\begin_layout Itemize
+All of the view settings in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-View"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.LogScale
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Log-Scale"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowCausalityViolations
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Causality-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowExcessCapacitance
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Excess-Capacitance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowExcessInductance
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Excess-Inductance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowImpedance
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Impedance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.ShowPassivityViolations
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Show-Passivity-Violations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SParameterProperties.Plot.VariableLineWidth
+\series default
+ - see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Variable-Line-Width"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection*
+Simulator Dialog Preferences
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Simulator-Dialog-Preferences"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The simulator dialog preferences are:
+\end_layout
+
+\begin_layout Itemize
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Plot-Window-Preferences"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Plot Window Preferences
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Plot-Window-Preferences"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The plot window preferences are:
+\end_layout
+
 \begin_layout Standard
 \begin_inset Tabular
 <lyxtabular version="3" rows="6" columns="4">
@@ -43992,142 +45644,30 @@ False
 \end_layout
 
 \begin_layout Standard
-Additionally, the following parameters are saved in the preferences:
-\end_layout
-
-\begin_layout Itemize
-All of the zoom settings in the 
+These preferences apply to the plot windows in both the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:S-Parameter-Viewer-Zoom"
+reference "sec:Simulator-Dialog"
 
 \end_inset
 
- are held in 
-\series bold
-SParameterProperties.Zoom
-\series default
-:
-\end_layout
-
-\begin_layout Itemize
-All of the view settings in the 
+ and those in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:S-Parameter-Viewer-View"
+reference "sec:S-parameter-Viewer"
 
 \end_inset
 
-.
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.LogScale
-\series default
- - see 
+, although in the 
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:Log-Scale"
+reference "sec:S-parameter-Viewer"
 
 \end_inset
 
-
+, the sizes are per window.
 \end_layout
 
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.ShowCausalityViolations
-\series default
- - see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Show-Causality-Violations"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.ShowExcessCapacitance
-\series default
- - see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Show-Excess-Capacitance"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.ShowExcessInductance
-\series default
- - see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Show-Excess-Inductance"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.ShowImpedance
-\series default
- - see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Show-Impedance"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.ShowPassivityViolations
-\series default
- - see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Show-Passivity-Violations"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-SParameterProperties.Plot.VariableLineWidth
-\series default
- - see 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Variable-Line-Width"
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \begin_layout Subsection*
 Appearance.PlotWidth
 \begin_inset CommandInset label
