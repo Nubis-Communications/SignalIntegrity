@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-02-23"/>
+<meta name="create-date" content="2020-03-05"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,29 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> device</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-15.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="Help-Section-15.html">Up</a> Netlist</span>
-<span class="next">port <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-84"></a>connect<a class="Label" name="sub:connect"> </a>
+<a class="toc" name="toc-Subsection-84"></a>device<a class="Label" name="sub:device"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>connect</i> specifies one or more device pin connections.
+A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
 </div>
 <div class="Standard">
-The syntax is the keyword <i>device</i> followed pairs of reference designators and pin numbers.
+The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
 </div>
 <div class="Standard">
-The reference designators refer to one of the <a class="Reference" href="Help-Section-14.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-83.html#sub:device">device↑</a> command elsewhere in the netlist.
+Following this is often optional keyword pairs specifying the arguments for the device.
 </div>
 <div class="Standard">
-The pin numbers refer to a pin of the device.
+Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-41.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
+</div>
+<div class="Standard">
+If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-17.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-99.html#sub:DeviceParser">DeviceParser↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> device</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-15.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="Help-Section-15.html">Up</a> Netlist</span>
-<span class="next">port <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
 </div>
 
 </div>

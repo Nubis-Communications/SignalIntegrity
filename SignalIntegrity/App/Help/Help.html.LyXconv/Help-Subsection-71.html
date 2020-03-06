@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-02-23"/>
+<meta name="create-date" content="2020-03-05"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Current Probe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Stim</span>
 <span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
+<span class="next">Voltage Diff Probe <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-71"></a>Voltage Diff Probe<a class="Label" name="device:Voltage-Diff-Probe"> </a>
+<a class="toc" name="toc-Subsection-71"></a>Current Probe<a class="Label" name="device:Current-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="DiffProbe.png" alt="figure DiffProbe.png" style="max-width: 110px; max-height: 127px;"/>
+<img class="embedded" src="CurrentProbe.png" alt="figure CurrentProbe.png" style="max-width: 105px; max-height: 123px;"/>
 
 </div>
 <div class="Standard">
@@ -1160,7 +1160,7 @@ s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-voltage offset
+offset
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1178,7 +1178,7 @@ V
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-voltage gain
+transconductance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1187,7 +1187,7 @@ float
 gain
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+V/A
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 1.0
@@ -1199,18 +1199,18 @@ gain
 
 </div>
 <div class="Standard">
-The voltage diff probe is used in <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Simulation">Simulation↑</a> applications to specify output waveforms to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>.
-</div>
-<div class="Standard">
-The voltage diff probe calculates the difference between the two voltages at the plus and minus labeled connection points.
+The current probe is used in <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Simulation">Simulation↑</a> applications to specify output current waveforms to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>.
 </div>
 <div class="Standard">
 When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
 </div>
+<div class="Standard">
+Despite the fact that the probe measures current, it behaves like a scope current probe, producing a voltage waveform.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Current Probe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Stim</span>
 <span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
+<span class="next">Voltage Diff Probe <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
 </div>
 
 </div>

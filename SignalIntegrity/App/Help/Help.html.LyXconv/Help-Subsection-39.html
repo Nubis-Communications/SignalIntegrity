@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-02-23"/>
+<meta name="create-date" content="2020-03-05"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,114 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-14.html#next">Prev</a> Built-in Devices (Parts)</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Resistor <a class="next" name="next" href="Help-Subsection-40.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-71.html#next">Prev</a> RLGC Fit</span>
+<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Main Schematic Dialog</span>
+<span class="next">Open Help File <a class="next" name="next" href="Help-Subsubsection-72.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-39"></a>File<a class="Label" name="device:File"> </a>
+<a class="toc" name="toc-Subsection-39"></a>Help<a class="Label" name="sub:Help"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="OnePort.png" alt="figure OnePort.png" style="max-width: 116px; max-height: 116px;"/>
-<img class="embedded" src="TwoPort.png" alt="figure TwoPort.png" style="max-width: 152px; max-height: 116px;"/>
-<img class="embedded" src="TwoPortAlt.png" alt="figure TwoPortAlt.png" style="max-width: 116px; max-height: 180px;"/>
-<img class="embedded" src="ThreePort.png" alt="figure ThreePort.png" style="max-width: 152px; max-height: 180px;"/>
-<img class="embedded" src="ThreePortAlt.png" alt="figure ThreePortAlt.png" style="max-width: 116px; max-height: 244px;"/>
-<img class="embedded" src="FourPort.png" alt="figure FourPort.png" style="max-width: 152px; max-height: 180px;"/>
-<img class="embedded" src="FourPortAlt.png" alt="figure FourPortAlt.png" style="max-width: 116px; max-height: 308px;"/>
-
+The Help tasks are a category in the <a class="Reference" href="Help-Section-13.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> for dealing with the help system:
 </div>
-<div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-Property Name
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Type
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Keyword
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Units
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-(Default) Value
-</td>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Open-Help-File">Open Help File↓</a>.
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-73.html#Control-Help:Control-Help">Control Help↓</a> - for help on any menu elements or toolbar buttons.
+</li>
+<li>
+<a class="Reference" href="Help-Section-19.html#sec:Preferences">Preferences↓</a> - for editing any global preferences.
+</li>
 
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-default reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-D?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-file name
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-None
-</td>
-
-</tr>
-
-</table>
-
-</div>
-<div class="Standard">
-File Devices are the most generic. They take an s-parameter file name in the file name property. The in the Part Properties Dialog, you can browse to the file and view the file in the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a> if you want.
-</div>
-<div class="Standard">
-When files read in during calculations, file devices are resampled according to the <a class="Reference" href="Help-Subsubsection-57.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>.
-</div>
-<div class="Standard">
-File names can be projects. When browsing for file names, the default files type shown will be s-parameter files, but you can click on the files type and the choice of project files is shown. Then other projects can be selected as the source of the s-parameters. This allows nesting of projects. When you do this, you must ensure that the project you select for the s-parameter file is a project that produces s-parameters (i.e. a de-embedding or s-parameter generation project) and that the number of ports in the s-parameters produced matches the number of ports in your file type.
-</div>
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-14.html#next">Prev</a> Built-in Devices (Parts)</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Resistor <a class="next" name="next" href="Help-Subsection-40.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-71.html#next">Prev</a> RLGC Fit</span>
+<span class="up"><a class="up" name="up" href="Help-Section-13.html">Up</a> Main Schematic Dialog</span>
+<span class="next">Open Help File <a class="next" name="next" href="Help-Subsubsection-72.html#prev">Next</a></span>
 </div>
 
 </div>

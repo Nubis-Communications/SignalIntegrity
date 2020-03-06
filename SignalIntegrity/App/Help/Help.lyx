@@ -9481,6 +9481,20 @@ Join reflect views - all s-parameter plots that are on the diagonal (i.e.
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+These options are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 S-Parameter Viewer Time Zoom Options
 \begin_inset CommandInset label
@@ -9707,6 +9721,20 @@ Join reflect views (default) - all time-domain s-parameter plots that are
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+These options are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 S-Parameter Viewer Vertical Zoom Options
 \begin_inset CommandInset label
@@ -9943,6 +9971,20 @@ Join reflect views (default) - all common vertical zooms for s-parameters
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+These options are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection*
 S-Parameter Viewer Help
 \begin_inset CommandInset label
@@ -10009,7 +10051,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Subsubsection
-S-Parameter Viewer Open Help File
+Open Help File
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:S-Parameter-Viewer-Open-Help-File"
@@ -10185,11 +10227,21 @@ Always
 \end_layout
 
 \begin_layout Standard
-This command opens this file that you are currently viewing from the application.
+This command opens the help system to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ section.
 \end_layout
 
 \begin_layout Subsubsection
-S-Parameter Viewer Control Help
+Control Help
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:S-Parameter-Viewer-Control-Help"
@@ -10553,7 +10605,7 @@ Always
 \end_layout
 
 \begin_layout Standard
-Preferences allows editing of any of the various 
+Preferences allows editing of the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Preferences"
@@ -11786,7 +11838,7 @@ reference "sec:Virtual-Probing"
 \end_layout
 
 \begin_layout Subsection
-Simulator Help
+Help
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Simulator-Help"
@@ -11857,7 +11909,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Subsubsection
-Simulator Open Help File
+Open Help File
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Simulator-Open-Help-File"
@@ -12030,11 +12082,21 @@ Always
 \end_layout
 
 \begin_layout Standard
-This command opens this file that you are currently viewing from the application.
+This command opens the help system to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ section.
 \end_layout
 
 \begin_layout Subsubsection
-Simulator Control Help
+Control Help
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Simulator-Control-Help"
@@ -12224,7 +12286,7 @@ Control help stays active until you either press the escape key, or touch
 \end_layout
 
 \begin_layout Subsubsection
-Simulator Preferences
+Preferences
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Simulator-Preferences"
@@ -12392,7 +12454,7 @@ Always
 \end_layout
 
 \begin_layout Standard
-Preferences allows editing of any of the various global 
+Preferences allows editing of any of the various 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Simulator-Dialog-Preferences"

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-02-23"/>
+<meta name="create-date" content="2020-03-05"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--8.html#next">Prev</a> Appearance.ShowAllPinNumbers</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--8.html#next">Prev</a> Appearance.Color.Foreground</span>
 <span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Preferences</span>
-<span class="next">Calculation.TrySVD <a class="next" name="next" href="Help-Subsection--10.html#prev">Next</a></span>
+<span class="next">Calculation.UseSinX/X <a class="next" name="next" href="Help-Subsection--10.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--9"></a>Calculation.UseSinX/X<a class="Label" name="sub:Calculation.UseSinX"> </a>
+<a class="toc" name="toc-Subsection--9"></a>Appearance.ShowAllPinNumbers<a class="Label" name="sub:Appearance.ShowAllPinNumbers"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,10 +1099,10 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-use SinX/X for resampling
+show all pin numbers
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--9.html#sub:Calculation.UseSinX">Calculation.UseSinX/X↑</a>
+<a class="Reference" href="Help-Subsection--9.html#sub:Appearance.ShowAllPinNumbers">Appearance.ShowAllPinNumbers↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1117,15 +1117,12 @@ False
 
 </div>
 <div class="Standard">
-By default, linear interpolation is used for waveform processing to upsample from the base sample rate to the user sample rate (see <a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↑</a>).
-</div>
-<div class="Standard">
-Setting this preference to True causes SinX/X interpolation to be used instead.
+By default, pin numbers are shown only for devices that require them, namely all devices that take in a file. In these cases, the pin numbering must match the port numbering of the file being read. Otherwise, internal devices known by the application have their pin numbers inherent in the symbol and therefore it is not really necessary to know how the pins are numbered. That being said, when viewing the s-parameters of the device, or when simply checking the symbol versus the s-parameters, it is sometimes useful to see this numbering. Setting this preference to True causes almost all devices to show pin numbers. Devices that will not show pin numbers ever are devices that are perfectly symmetric.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--8.html#next">Prev</a> Appearance.ShowAllPinNumbers</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--8.html#next">Prev</a> Appearance.Color.Foreground</span>
 <span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Preferences</span>
-<span class="next">Calculation.TrySVD <a class="next" name="next" href="Help-Subsection--10.html#prev">Next</a></span>
+<span class="next">Calculation.UseSinX/X <a class="next" name="next" href="Help-Subsection--10.html#prev">Next</a></span>
 </div>
 
 </div>
