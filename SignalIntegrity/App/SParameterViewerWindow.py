@@ -123,9 +123,9 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement('Control-Help:Enforce-Causality')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise')
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
-        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Open-Help-File')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Control-Help')
+        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:S-Parameter-Viewer-Preferences')
         # ------
         self.VariableLineWidthDoer = Doer(self.onVariableLineWidth).AddHelpElement('Control-Help:Variable-Line-Width')
         self.ShowPassivityViolationsDoer = Doer(self.onShowPassivityViolations).AddHelpElement('Control-Help:Show-Passivity-Violations')

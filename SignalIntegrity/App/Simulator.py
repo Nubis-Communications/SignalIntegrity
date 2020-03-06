@@ -80,9 +80,9 @@ class SimulatorDialog(tk.Toplevel):
         self.viewSpectralDensityDoer = Doer(self.onViewSpectralDensity)
 
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
-        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Simulator-Open-Help-File')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Simulator-Control-Help')
+        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Simulator-Preferences')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 

@@ -959,6 +959,8 @@ class SignalIntegrityApp(tk.Frame):
         if Doer.helpKeys:
             Doer.helpKeys.Build()
             Doer.helpKeys.SaveToFile()
+            self.statusbar.set('help keys updated')
+            
 
 def main():
     projectFileName = None
