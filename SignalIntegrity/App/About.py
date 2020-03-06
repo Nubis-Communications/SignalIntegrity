@@ -96,6 +96,7 @@ class LicenseDialog(tk.Toplevel):
 
 class AboutDialog(tk.Toplevel):
     def __init__(self,parent):
+        self.booklink='https://www.cambridge.org/core/books/sparameters-for-signal-integrity/2FD44B994CD054E4B844B358E8903A09#fndtn-information'
         self.parent = parent
 
         tk.Toplevel.__init__(self, parent)
@@ -118,6 +119,10 @@ class AboutDialog(tk.Toplevel):
         msg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
         hyperLink = tk.Button(self,text=__url__, command=self.onHyper, borderwidth=0)
         hyperLink.pack(side=tk.TOP,expand=tk.YES,fill=tk.X)
+        bookmsg = tk.Message(self,text='See the book:',justify=tk.CENTER, width=500)
+        bookmsg.pack(side=tk.TOP,expand=tk.YES,fill=tk.BOTH)
+        booklink = tk.Button(self,text='S-Parameters for Signal Integrity', command=self.onHyperBook, borderwidth=0)
+        booklink.pack(side=tk.TOP,expand=tk.YES,fill=tk.X)
         buttonsFrame = tk.Frame(self)
         buttonsFrame.pack(side=tk.TOP,expand=tk.YES,fill=tk.X,anchor='s')
         creditsButton = tk.Button(buttonsFrame,text='Credits', command=self.onCredits, width=10)
@@ -137,3 +142,6 @@ class AboutDialog(tk.Toplevel):
 
     def onHyper(self):
         webbrowser.open_new(__url__)
+    
+    def onHyperBook(self):
+        webbrowser.open_new(self.booklink)
