@@ -35678,6 +35678,32 @@ When the waveforms are produced as a result of the calculation, you have
  the capability of applying gain, offset and delay to the resulting waveform.
 \end_layout
 
+\begin_layout Standard
+When placing an output probe, the default reference other references prefixed
+ with 'VO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references VO1,
+ VO2, V08, then placing a probe will assign the value VO3 to the probe reference
+ designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+There are some special prefixes on the reference that cause the calculation
+ result to be special calculations:
+\end_layout
+
+\begin_layout Itemize
+'d/' – causes the derivative of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'i/' – causes the integral of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'di/' – causes the integral of the derivative to be calculated.
+\end_layout
+
 \begin_layout Subsection
 Stim
 \begin_inset CommandInset label
@@ -36192,7 +36218,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-VO?
+IO?
 \end_layout
 
 \end_inset
@@ -36435,6 +36461,80 @@ When the waveforms are produced as a result of the calculation, you have
 \begin_layout Standard
 Despite the fact that the probe measures current, it behaves like a scope
  current probe, producing a voltage waveform.
+\end_layout
+
+\begin_layout Standard
+When placing an current probe, the default reference other references prefixed
+ with 'IO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references IO1,
+ IO2, I08, then placing a probe will assign the value IO3 to the probe reference
+ designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+There are some special prefixes on the reference that cause the calculation
+ result to be special calculations:
+\end_layout
+
+\begin_layout Itemize
+'d/' – causes the derivative of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'i/' – causes the integral of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'di/' – causes the integral of the derivative to be calculated.
+\end_layout
+
+\begin_layout Standard
+When examining the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, you will not find a current probe in it.
+ Instead, during netlist creation, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Current-Controlled-Voltage-Source"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is created with the current sense aligned with the direction of current
+ in the current probe, and the voltage output connected with the minus pin
+ to ground and the plus pin connected to an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ A voltage 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Output-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ then probes the open.
 \end_layout
 
 \begin_layout Subsection
@@ -36797,6 +36897,80 @@ The voltage diff probe calculates the difference between the two voltages
 \begin_layout Standard
 When the waveforms are produced as a result of the calculation, you have
  the capability of applying gain, offset and delay to the resulting waveform.
+\end_layout
+
+\begin_layout Standard
+When placing an diff probe, the default reference other references prefixed
+ with 'VO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references VO1,
+ VO2, V08, then placing a probe will assign the value VO3 to the probe reference
+ designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+There are some special prefixes on the reference that cause the calculation
+ result to be special calculations:
+\end_layout
+
+\begin_layout Itemize
+'d/' – causes the derivative of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'i/' – causes the integral of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'di/' – causes the integral of the derivative to be calculated.
+\end_layout
+
+\begin_layout Standard
+When examining the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, you will not find a differential probe in it.
+ Instead, during netlist creation, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Voltage-Diff-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is created with the voltage sense aligned according to the diff probe,
+ and the voltage output connected with the minus pin to ground and the plus
+ pin connected to an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ A voltage 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Output-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ then probes the open.
 \end_layout
 
 \begin_layout Subsection
