@@ -461,7 +461,7 @@ class DeviceVoltageOutputProbe(Device):
 class DeviceCurrentOutputProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='currentoutput')
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyHelp('device:Current-Probe'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
+        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyHelp('device:Current-Probe'),PartPropertyDefaultReferenceDesignator('IO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
             PartPropertyTransresistance(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableCurrentProbe())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
