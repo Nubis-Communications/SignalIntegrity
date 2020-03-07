@@ -6,10 +6,10 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>733x620+948+-1212</Geometry>
+			<Geometry>905x345+44+93</Geometry>
 			<Grid>16</Grid>
-			<Originx>-3</Originx>
-			<Originy>5</Originy>
+			<Originx>0</Originx>
+			<Originy>1</Originy>
 		</DrawingProperties>
 		<Schematic>
 			<Devices>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 4)</Origin>
+						<Origin>(25, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -50,13 +50,13 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(28, 4)</Origin>
+						<Origin>(35, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>40000000000.0</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -74,8 +74,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>VO1</Value>
-							<Visible>False</Visible>
+							<Value>i/Vc</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -86,7 +86,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(42, 5)</Origin>
+						<Origin>(50, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -116,7 +116,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(8, 6)</Origin>
+						<Origin>(5, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -188,7 +188,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 3)</Origin>
+						<Origin>(19, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -230,7 +230,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(9, 5)</Origin>
+						<Origin>(6, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -260,7 +260,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 12)</Origin>
+						<Origin>(25, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -290,13 +290,13 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(28, 12)</Origin>
+						<Origin>(35, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>40000000000.0</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -314,8 +314,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>VO2</Value>
-							<Visible>False</Visible>
+							<Value>i/Vr</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -326,7 +326,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(42, 13)</Origin>
+						<Origin>(50, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -386,7 +386,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(30, 4)</Origin>
+						<Origin>(38, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -428,7 +428,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(35, 4)</Origin>
+						<Origin>(43, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -464,7 +464,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(35, 12)</Origin>
+						<Origin>(43, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -500,13 +500,13 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(14, 5)</Origin>
+						<Origin>(12, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1e-11</Value>
+							<Value>2.5e-11</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -529,58 +529,223 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(30, 4)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1e-10</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>T4</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(30, 10)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1e-10</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>T5</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 			<Wires>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(27, 5)</Coord>
+							<Coord>(29, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(28, 5)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(13, 6)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(13, 4)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(18, 4)</Coord>
+							<Coord>(30, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(13, 6)</Coord>
+							<Coord>(12, 6)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(14, 6)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(27, 13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(28, 13)</Coord>
+							<Coord>(11, 6)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(23, 5)</Coord>
+							<Coord>(29, 11)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(23, 13)</Coord>
+							<Coord>(30, 11)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(24, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(24, 11)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(25, 11)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(42, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(43, 5)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(47, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(51, 5)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(47, 11)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(51, 11)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(35, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(38, 5)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(35, 11)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(43, 11)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(18, 6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(19, 6)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(16, 6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(18, 6)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(24, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(25, 5)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(11, 6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 6)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(11, 6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(11, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(19, 4)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -597,40 +762,10 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(39, 5)</Coord>
+							<Coord>(34, 11)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(43, 5)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(39, 13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(43, 13)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(28, 5)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(30, 5)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(28, 13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(35, 13)</Coord>
+							<Coord>(35, 11)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
