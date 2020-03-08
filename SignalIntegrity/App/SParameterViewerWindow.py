@@ -1066,12 +1066,17 @@ class SParametersDialog(tk.Toplevel):
             self.bottomLeftPlot.plot(x,y)
 
             if self.ShowCausalityViolations():
+                minv=0.00001; maxv=0.1
+                minx=math.log10(minv); maxx=math.log10(maxv)
+                miny=0.; maxy=20.
+                m=(maxy-miny)/(maxx-minx); b=miny-m*minx
                 self.causalityViolations=[]
                 Ts=1./ir.td.Fs/1e-9
                 for k in range(len(x)):
                     if x[k]<=-Ts and abs(y[k])>0:
-                        dotsize=max(min(20.,abs(y[k])/0.1*20.),1e-15)
-                        self.causalityViolations.append([x[k],y[k],dotsize])
+                        dotsize=max(math.log10(min(maxv,max(minv,abs(y[k]))))*m+b,1e-15)
+                        if dotsize>2e-15:
+                            self.causalityViolations.append([x[k],y[k],dotsize])
                 self.bottomLeftPlot.scatter(
                     [c[0] for c in self.causalityViolations],
                     [c[1] for c in self.causalityViolations],
