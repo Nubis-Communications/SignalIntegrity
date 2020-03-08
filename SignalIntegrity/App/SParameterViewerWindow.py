@@ -121,6 +121,8 @@ class SParametersDialog(tk.Toplevel):
         self.SParameterPropertiesDoer = Doer(self.onSParameterProperties).AddHelpElement('Control-Help:S-Parameter-Properties')
         self.EnforcePassivityDoer = Doer(self.onEnforcePassivity).AddHelpElement('Control-Help:Enforce-Passivity')
         self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement('Control-Help:Enforce-Causality')
+        self.EnforceBothPassivityAndCausalityDoer = Doer(self.onEnforceBothPassivityAndCausality).AddHelpElement('Control-Help:Enforce-Both-Passivity-and-Reciprocity')
+        self.EnforceReciprocityDoer = Doer(self.onEnforceReciprocity).AddHelpElement('Control-Help:Enforce-Reciprocity')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Open-Help-File')
@@ -176,7 +178,9 @@ class SParametersDialog(tk.Toplevel):
         #PropertiesMenu.add_separator()
         #PropertiesMenu.add_separator()
         self.EnforcePassivityDoer.AddMenuElement(PropertiesMenu,label='Enforce Passivity',underline=8)
-        self.EnforceCausalityDoer.AddMenuElement(PropertiesMenu,label='Enforce Causality',underline=9)
+        self.EnforceCausalityDoer.AddMenuElement(PropertiesMenu,label='Enforce Causality',underline=8)
+        self.EnforceBothPassivityAndCausalityDoer.AddMenuElement(PropertiesMenu,label='Enforce Both Passivity and Causality',underline=8)
+        self.EnforceReciprocityDoer.AddMenuElement(PropertiesMenu,label='Enforce Reciprocity',underline=8)
         self.WaveletDenoiseDoer.AddMenuElement(PropertiesMenu,label='Wavelet Denoise',underline=0)
         # ------
         ViewMenu=tk.Menu(self)
@@ -336,6 +340,8 @@ class SParametersDialog(tk.Toplevel):
             #self.LogScaleDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
             self.EnforceCausalityDoer.Activate(False)
+            self.EnforceBothPassivityAndCausalityDoer(False)
+            self.EnforceReciprocityDoer(False)
             self.WaveletDenoiseDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
 
@@ -1426,6 +1432,18 @@ class SParametersDialog(tk.Toplevel):
 
     def onEnforceCausality(self):
         self.sp.EnforceCausality()
+        self.UpdatePropertiesFromSParameters()
+        self.PlotSParameter()
+        
+    def onEnforceBothPassivityAndCausality(self):
+        for _ in range(20):
+            self.sp.EnforcePassivity()
+            self.sp.EnforceCausality()
+        self.UpdatePropertiesFromSParameters()
+        self.PlotSParameter()
+
+    def onEnforceReciprocity(self):
+        self.sp.EnforceReciprocity()
         self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 
