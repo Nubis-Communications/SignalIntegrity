@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-05"/>
+<meta name="create-date" content="2020-03-08"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-11.html#next">Prev</a> Show Excess Inductance</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-11.html#next">Prev</a> Show Causality Violations</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Log Scale <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
+<span class="next">Show Excess Inductance <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-12"></a>Show Excess Capacitance<a class="Label" name="Control-Help:Show-Excess-Capacitance"> </a>
+<a class="toc" name="toc-Subsubsection-12"></a>Show Impedance<a class="Label" name="Control-Help:Show-Impedance"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Show Excess Capacitance
+View ▸ Show Impedance
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Show Excess Capacitance
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,C
+Alt+V,I
 </td>
 
 </tr>
@@ -1141,21 +1141,79 @@ When s-parameter files are being viewed
 
 </div>
 <div class="Standard">
-This setting causes the step responses (the lower right plot) to be displayed as excess capacitance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess capacitance is another way of plotting the impedance profile shown when setting <a class="Reference" href="Help-Subsubsection-10.html#Control-Help:Show-Impedance">Show Impedance↑</a>. For a given impedance <span class="formula"><i>Z</i></span>, a given reference impedance <span class="formula"><i>Z</i>0</span>, and a given impedance profile time per section <span class="formula"><i>T</i></span>, the excess capacitance is given as:
+This setting causes the step responses (the lower right plot) to be displayed as impedance for the diagonal element s-parameters (S11, S22, S33, etc.).
+</div>
+<div class="Standard">
+for a <span class="formula"><i>K</i></span> element step response, for <span class="formula"><i>k</i> ∈ 0…<i>K</i> − 1</span>, where <span class="formula"><i>s</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> represents a value of the step response at a time <span class="formula"><i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span>, the following formula approximates the line impedance at time <span class="formula"><i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span>/2:
 </div>
 <div class="Standard">
 <div class="formula">
-Δ<i>C</i> = <i>C</i> − <i>C</i>0 = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i></span><span class="ignored">)</span></span> − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i>0</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>⋅<i>T</i>
+<i>i</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span> ≈ <i>Z</i>0⋅<span class="fraction"><span class="ignored">(</span><span class="numerator">1 + <i>s</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span><span class="ignored">)/(</span><span class="denominator">1 − <i>s</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span><span class="ignored">)</span></span>
 </div>
 
 </div>
 <div class="Standard">
-Note that excess capacitance becomes more negative as the impedance rises above <span class="formula"><i>Z</i>0</span>.
+The factor of <span class="formula">1 ⁄ 2</span> on the time is because the reflection must go into and out of the system (i.e. go twice the time).
+</div>
+<div class="Standard">
+Generally, this is called the impedance profile. It is not really appropriate for lumped element systems and is really only appropriate for transmission lines and cables, etc. That being said, sometimes the launches into these systems have impedance discontinuities that look like lumped excess inductance (high impedance) or lumped excess capacitance (low impedance).
+</div>
+<div class="Standard">
+This calculation is an approximation because in systems with lots of or large reflections, the approximation of the impedance gets worse the further into the line you go. Here’s an example of a open transmission line:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="OpenStub.png" alt="figure OpenStub.png" style="width: 317px; max-width: 1270px; height: 104px; max-height: 417px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+Here is the step response:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="OpenStubStepResponse.png" alt="figure OpenStubStepResponse.png" style="max-width: 509px; max-height: 210px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+And here is the impedance profile calculated from the step response:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="OpenStubImpedance.png" alt="figure OpenStubImpedance.png" style="max-width: 509px; max-height: 210px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+Note that something unnatural had to be done about the step response going above unity, which was to clip it at 3000 ohms.
+</div>
+<div class="Standard">
+Here is a zoom of the impedance profile:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="OpenStubImpedanceZoomed.png" alt="figure OpenStubImpedanceZoomed.png" style="max-width: 509px; max-height: 210px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+Thus, we see that the early part of the impedance profile shows a jump to 100 ohms for 100 ps as expected, and then a large impedance jump (the open). What goes on beyond this zoomed portion is a result of the multiple reflections and is not correct.
+</div>
+<div class="Standard">
+There are more accurate methods possible (called peeling), but these are not implemented at this time.
+</div>
+<div class="Standard">
+This command is not available (and does not make sense) when viewing transfer parameters.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-11.html#next">Prev</a> Show Excess Inductance</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-11.html#next">Prev</a> Show Causality Violations</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Log Scale <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
+<span class="next">Show Excess Inductance <a class="next" name="next" href="Help-Subsubsection-13.html#prev">Next</a></span>
 </div>
 
 </div>

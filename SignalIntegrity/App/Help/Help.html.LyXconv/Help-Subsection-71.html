@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-05"/>
+<meta name="create-date" content="2020-03-08"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1118,7 +1118,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO?
+IO?
 </td>
 
 </tr>
@@ -1206,6 +1206,27 @@ When the waveforms are produced as a result of the calculation, you have the cap
 </div>
 <div class="Standard">
 Despite the fact that the probe measures current, it behaves like a scope current probe, producing a voltage waveform.
+</div>
+<div class="Standard">
+When placing an current probe, the default reference other references prefixed with ’IO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references IO1, IO2, I08, then placing a probe will assign the value IO3 to the probe reference designator. This, of course, can be changed by the user.
+</div>
+<div class="Standard">
+There are some special prefixes on the reference that cause the calculation result to be special calculations:
+</div>
+<ul>
+<li>
+’d/’ — causes the derivative of the waveform to be calculated.
+</li>
+<li>
+’i/’ — causes the integral of the waveform to be calculated.
+</li>
+<li>
+’di/’ — causes the integral of the derivative to be calculated.
+</li>
+
+</ul>
+<div class="Standard">
+When examining the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a>, you will not find a current probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-76.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a> is created with the current sense aligned with the direction of current in the current probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-47.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-69.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Stim</span>

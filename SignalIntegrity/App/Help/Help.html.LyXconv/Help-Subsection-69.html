@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-05"/>
+<meta name="create-date" content="2020-03-08"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1204,6 +1204,24 @@ The output probe is used in <a class="Reference" href="Help-Section-9.html#sec:V
 <div class="Standard">
 When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
 </div>
+<div class="Standard">
+When placing an output probe, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a probe will assign the value VO3 to the probe reference designator. This, of course, can be changed by the user.
+</div>
+<div class="Standard">
+There are some special prefixes on the reference that cause the calculation result to be special calculations:
+</div>
+<ul>
+<li>
+’d/’ — causes the derivative of the waveform to be calculated.
+</li>
+<li>
+’i/’ — causes the integral of the waveform to be calculated.
+</li>
+<li>
+’di/’ — causes the integral of the derivative to be calculated.
+</li>
+
+</ul>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-68.html#next">Prev</a> Voltage Measure Probe</span>
 <span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-05"/>
+<meta name="create-date" content="2020-03-08"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1075,10 +1075,10 @@ a:visited {
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-5.html#next">Prev</a> Enforce Causality</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
-<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="Help-Subsection-28.html#prev">Next</a></span>
+<span class="next">Enforce Reciprocity <a class="next" name="next" href="Help-Subsubsection-7.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-6"></a>Wavelet Denoise<a class="Label" name="Control-Help:Wavelet-Denoise"> </a>
+<a class="toc" name="toc-Subsubsection-6"></a>Enforce Both Passivity and Reciprocity<a class="Label" name="Control-Help:Enforce-Both-Passivity-and-Reciprocity"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-Properties ▸ Wavelet Denoise
+Properties ▸ Enforce Both Passivity and Causality
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ Properties ▸ Wavelet Denoise
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+C,W
+Alt+P,B
 </td>
 
 </tr>
@@ -1141,30 +1141,18 @@ When s-parameter files are being viewed
 
 </div>
 <div class="Standard">
-This denoises the s-parameters by performing the discrete wavelet transform (DWT) on the impulse response, removing any wavelet coefficients that are small and performing the IDWT to restore the impulse response.
+This command enforces both passivity and causality by repeatedly issuing the commands <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> and <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> up to thirty times. This is because each of these commands issued alone tends to cause violations of the other, but tends to converge if done repeatedly.
 </div>
 <div class="Standard">
-Wavelet denoising is inappropriate on:
-</div>
-<ul>
-<li>
-already clean s-parameters
-</li>
-<li>
-s-parameters for systems that produce oscillatory impulse responses (like many types of filters).
-</li>
-
-</ul>
-<div class="Standard">
-This command is not available (and does not make sense) when viewing transfer parameters.
+See <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> for passivity enforcement.
 </div>
 <div class="Standard">
-Note that sometimes wavelet denoising causes causality and/or passivity violations. See <a class="Reference" href="Help-Subsubsection-9.html#Control-Help:Show-Causality-Violations">Show Causality Violations↓</a> and <a class="Reference" href="Help-Subsubsection-8.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations↓</a>.
+See <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> for causality enforcement.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-5.html#next">Prev</a> Enforce Causality</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
-<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="Help-Subsection-28.html#prev">Next</a></span>
+<span class="next">Enforce Reciprocity <a class="next" name="next" href="Help-Subsubsection-7.html#prev">Next</a></span>
 </div>
 
 </div>

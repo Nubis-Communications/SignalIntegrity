@@ -6559,6 +6559,32 @@ reference "Control-Help:Enforce-Causality"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "Control-Help:Wavelet-Denoise"
 
 \end_inset
@@ -6877,7 +6903,7 @@ Navigation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Alt+C,P
+Alt+P,P
 \end_layout
 
 \end_inset
@@ -7076,7 +7102,7 @@ Navigation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Alt+C,A
+Alt+P,C
 \end_layout
 
 \end_inset
@@ -7198,6 +7224,393 @@ reference "Control-Help:Enforce-Passivity"
 
 \end_inset
 
+.
+\end_layout
+
+\begin_layout Standard
+Better yet, if you want to enforce both passivity and causality simultaneously,
+ use .
+\end_layout
+
+\begin_layout Subsubsection
+Enforce Both Passivity and Reciprocity
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Properties ▸ Enforce Both Passivity and Causality
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+P,B
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command enforces both passivity and causality by repeatedly issuing
+ the commands 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ up to thirty times.
+ This is because each of these commands issued alone tends to cause violations
+ of the other, but tends to converge if done repeatedly.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Passivity"
+
+\end_inset
+
+ for passivity enforcement.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Causality"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for causality enforcement.
+\end_layout
+
+\begin_layout Subsubsection
+Enforce Reciprocity
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Enforce-Reciprocity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Properties ▸ Enforce Reciprocity
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+P,R
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Most passive elements are reciprocal, meaning that they ought to have s-paramete
+rs such that 
+\begin_inset Formula $S_{xy}=S_{yx}$
+\end_inset
+
+.
+ This command makes the device reciprocal by setting:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+S_{xy}=S_{yx}=\frac{S_{xy}+S_{yx}}{2}\mbox{.}
+\]
+
+\end_inset
+
 
 \end_layout
 
@@ -7278,7 +7691,7 @@ Navigation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Alt+C,W
+Alt+P,W
 \end_layout
 
 \end_inset
@@ -9481,6 +9894,20 @@ Join reflect views - all s-parameter plots that are on the diagonal (i.e.
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+These options are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 S-Parameter Viewer Time Zoom Options
 \begin_inset CommandInset label
@@ -9707,6 +10134,20 @@ Join reflect views (default) - all time-domain s-parameter plots that are
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+These options are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 S-Parameter Viewer Vertical Zoom Options
 \begin_inset CommandInset label
@@ -9943,6 +10384,20 @@ Join reflect views (default) - all common vertical zooms for s-parameters
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+These options are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection*
 S-Parameter Viewer Help
 \begin_inset CommandInset label
@@ -35636,6 +36091,32 @@ When the waveforms are produced as a result of the calculation, you have
  the capability of applying gain, offset and delay to the resulting waveform.
 \end_layout
 
+\begin_layout Standard
+When placing an output probe, the default reference other references prefixed
+ with 'VO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references VO1,
+ VO2, V08, then placing a probe will assign the value VO3 to the probe reference
+ designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+There are some special prefixes on the reference that cause the calculation
+ result to be special calculations:
+\end_layout
+
+\begin_layout Itemize
+'d/' – causes the derivative of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'i/' – causes the integral of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'di/' – causes the integral of the derivative to be calculated.
+\end_layout
+
 \begin_layout Subsection
 Stim
 \begin_inset CommandInset label
@@ -36150,7 +36631,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-VO?
+IO?
 \end_layout
 
 \end_inset
@@ -36393,6 +36874,80 @@ When the waveforms are produced as a result of the calculation, you have
 \begin_layout Standard
 Despite the fact that the probe measures current, it behaves like a scope
  current probe, producing a voltage waveform.
+\end_layout
+
+\begin_layout Standard
+When placing an current probe, the default reference other references prefixed
+ with 'IO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references IO1,
+ IO2, I08, then placing a probe will assign the value IO3 to the probe reference
+ designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+There are some special prefixes on the reference that cause the calculation
+ result to be special calculations:
+\end_layout
+
+\begin_layout Itemize
+'d/' – causes the derivative of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'i/' – causes the integral of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'di/' – causes the integral of the derivative to be calculated.
+\end_layout
+
+\begin_layout Standard
+When examining the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, you will not find a current probe in it.
+ Instead, during netlist creation, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Current-Controlled-Voltage-Source"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is created with the current sense aligned with the direction of current
+ in the current probe, and the voltage output connected with the minus pin
+ to ground and the plus pin connected to an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ A voltage 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Output-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ then probes the open.
 \end_layout
 
 \begin_layout Subsection
@@ -36755,6 +37310,80 @@ The voltage diff probe calculates the difference between the two voltages
 \begin_layout Standard
 When the waveforms are produced as a result of the calculation, you have
  the capability of applying gain, offset and delay to the resulting waveform.
+\end_layout
+
+\begin_layout Standard
+When placing an diff probe, the default reference other references prefixed
+ with 'VO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references VO1,
+ VO2, V08, then placing a probe will assign the value VO3 to the probe reference
+ designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+There are some special prefixes on the reference that cause the calculation
+ result to be special calculations:
+\end_layout
+
+\begin_layout Itemize
+'d/' – causes the derivative of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'i/' – causes the integral of the waveform to be calculated.
+\end_layout
+
+\begin_layout Itemize
+'di/' – causes the integral of the derivative to be calculated.
+\end_layout
+
+\begin_layout Standard
+When examining the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, you will not find a differential probe in it.
+ Instead, during netlist creation, a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Voltage-Diff-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is created with the voltage sense aligned according to the diff probe,
+ and the voltage output connected with the minus pin to ground and the plus
+ pin connected to an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ A voltage 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Output-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ then probes the open.
 \end_layout
 
 \begin_layout Subsection
