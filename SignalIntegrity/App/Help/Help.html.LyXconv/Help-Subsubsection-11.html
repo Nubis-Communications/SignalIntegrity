@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-10.html#next">Prev</a> Show Passivity Violations</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-10.html#next">Prev</a> Variable Line Width</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Show Impedance <a class="next" name="next" href="Help-Subsubsection-12.html#prev">Next</a></span>
+<span class="next">Show Causality Violations <a class="next" name="next" href="Help-Subsubsection-12.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-11"></a>Show Causality Violations<a class="Label" name="Control-Help:Show-Causality-Violations"> </a>
+<a class="toc" name="toc-Subsubsection-11"></a>Show Passivity Violations<a class="Label" name="Control-Help:Show-Passivity-Violations"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Show Causality Violations
+View ▸ Show Passivity Violations
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Show Causality Violations
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,A
+Alt+V,P
 </td>
 
 </tr>
@@ -1141,24 +1141,34 @@ When s-parameter files are being viewed
 
 </div>
 <div class="Standard">
-Shows locations of causality violations. These are shown as red dots on the impulse response plot (the bottom left plot) of the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>.
+<div class="center">
+<img class="embedded" src="PassivityViolations.png" alt="figure PassivityViolations.png" style="max-width: 998px; max-height: 227px;"/>
+
+</div>
+
 </div>
 <div class="Standard">
-The dot sizes are large for relatively large causality violations and are smaller for smaller violations. Causality violations below <span class="formula">1<span class="unknown">\thinspace</span><span class="mathrm"> μ</span></span> (<span class="formula"> − 100<span class="unknown">\thinspace</span><span class="mathrm"> dB)</span></span> are not shown as violations, as they are so small to have negligible effect.
+Shows locations of passivity violations. These are shown as red dots on the magnitude response plot (the top left plot) of the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>.
 </div>
 <div class="Standard">
-Causality violations are sometimes caused by sampling effects.
+The dot sizes are large for relatively large passivity violations (singular values greater than 1.01) and are smaller for smaller violations.
 </div>
 <div class="Standard">
-Causality violations can be removed using <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a>.
+Passivity violation detection is subject to the numerical accuracy of the SVD algorithm used and sometimes leads to very small passivity violations due to numerical error. These are shown as very faint red dots.
+</div>
+<div class="Standard">
+Circuits that are passive are circuits that can never, under any circumstances, deliver power. They are either entirely reflective, and/or absorb or dissipate power under certain circumstances.
+</div>
+<div class="Standard">
+Passivity violations can be removed from known passive circuits using <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a>.
 </div>
 <div class="Standard">
 This command is not available (and does not make sense) when viewing transfer parameters.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-10.html#next">Prev</a> Show Passivity Violations</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-10.html#next">Prev</a> Variable Line Width</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Show Impedance <a class="next" name="next" href="Help-Subsubsection-12.html#prev">Next</a></span>
+<span class="next">Show Causality Violations <a class="next" name="next" href="Help-Subsubsection-12.html#prev">Next</a></span>
 </div>
 
 </div>

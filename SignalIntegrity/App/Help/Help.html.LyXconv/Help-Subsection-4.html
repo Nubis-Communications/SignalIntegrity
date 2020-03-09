@@ -1081,14 +1081,14 @@ a:visited {
 <a class="toc" name="toc-Subsection-4"></a>Calculating S-parameters<a class="Label" name="sub:Calculating-S-parameters"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters are calculated using either the <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a> command or the <a class="Reference" href="Help-Subsubsection-68.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters are calculated using either the <a class="Reference" href="Help-Subsubsection-70.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a> command or the <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for s-parameter calculation. This criteria for the schematic regarding elements are that the schematic must:
 </div>
 <ul>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-67.html#device:Port">Port↓</a> element (see <a class="Reference" href="Help-Subsubsection-46.html#Control-Help:Add-Port">Add Port↓</a>)
+have at least one <a class="Reference" href="Help-Subsection-67.html#device:Port">Port↓</a> element (see <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Add-Port">Add Port↓</a>)
 </li>
 <li>
 not have any other elements that don’t make sense for s-parameter generation including:<ul>
@@ -1114,13 +1114,13 @@ system devices
 
 </ul>
 <div class="Standard">
-In calculating the s-parameters, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-36.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In calculating the s-parameters, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>SystemSParametersNumericParser</b> class as described in software documentation after which the s-parameters are extracted.
 </div>
 <div class="Standard">
-During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-65.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
+During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
 </div>
 <div class="Standard">
 Then, for each frequency point, the s-parameters are generated of the schematic.

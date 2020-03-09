@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> Show Excess Capacitance</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> Show Excess Inductance</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">S-Parameter Viewer Zoom Menu <a class="next" name="next" href="Help-Subsection-29.html#prev">Next</a></span>
+<span class="next">Log Scale <a class="next" name="next" href="Help-Subsubsection-16.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-15"></a>Log Scale<a class="Label" name="Control-Help:Log-Scale"> </a>
+<a class="toc" name="toc-Subsubsection-15"></a>Show Excess Capacitance<a class="Label" name="Control-Help:Show-Excess-Capacitance"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Log Scale
+View ▸ Show Excess Capacitance
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Log Scale
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,S
+Alt+V,C
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+When s-parameter files are being viewed
 </td>
 
 </tr>
@@ -1141,28 +1141,21 @@ Always
 
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="LogScale.png" alt="figure LogScale.png" style="max-width: 1008px; max-height: 233px;"/>
+This setting causes the step responses (the lower right plot) to be displayed as excess capacitance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess capacitance is another way of plotting the impedance profile shown when setting <a class="Reference" href="Help-Subsubsection-13.html#Control-Help:Show-Impedance">Show Impedance↑</a>. For a given impedance <span class="formula"><i>Z</i></span>, a given reference impedance <span class="formula"><i>Z</i>0</span>, and a given impedance profile time per section <span class="formula"><i>T</i></span>, the excess capacitance is given as:
+</div>
+<div class="Standard">
+<div class="formula">
+Δ<i>C</i> = <i>C</i> − <i>C</i>0 = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i></span><span class="ignored">)</span></span> − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i>0</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>⋅<i>T</i>
+</div>
 
 </div>
-
-</div>
 <div class="Standard">
-Allows viewing magnitude and phase response on a logarithmic scale.
-</div>
-<div class="Standard">
-This view is like a Bode plot and is useful when viewing things with poles and zeros where Bode plots are useful.
-</div>
-<div class="Standard">
-It is also most useful in power integrity applications.
-</div>
-<div class="Standard">
-Unfortunately, Log Scale cannot operate properly along with <a class="Reference" href="Help-Subsubsection-9.html#Control-Help:Variable-Line-Width">Variable Line Width↑</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.
+Note that excess capacitance becomes more negative as the impedance rises above <span class="formula"><i>Z</i>0</span>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> Show Excess Capacitance</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-14.html#next">Prev</a> Show Excess Inductance</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">S-Parameter Viewer Zoom Menu <a class="next" name="next" href="Help-Subsection-29.html#prev">Next</a></span>
+<span class="next">Log Scale <a class="next" name="next" href="Help-Subsubsection-16.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -1081,14 +1081,14 @@ a:visited {
 <a class="toc" name="toc-Subsection-17"></a>Deembedding Calculation<a class="Label" name="sub:Deembedding-Calculation"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters of the unknowns are calculated using either the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Deembed">Deembed↓</a> command or the <a class="Reference" href="Help-Subsubsection-68.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters of the unknowns are calculated using either the <a class="Reference" href="Help-Subsubsection-73.html#Control-Help:Deembed">Deembed↓</a> command or the <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that deembedding will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for deembedding. This criteria for the schematic regarding elements are that the schematic must:
 </div>
 <ul>
 <li>
-have at least one port element (see <a class="Reference" href="Help-Subsubsection-46.html#Control-Help:Add-Port">Add Port↓</a>).
+have at least one port element (see <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Add-Port">Add Port↓</a>).
 </li>
 <li>
 have at least one <a class="Reference" href="Help-Subsection-82.html#device:Unknown">Unknown↓</a> device.
@@ -1114,7 +1114,7 @@ stims
 
 </ul>
 <div class="Standard">
-In the deembedding calculation, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a> for more information on the net list and see <a class="Reference" href="Help-Subsubsection-36.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In the deembedding calculation, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a> for more information on the net list and see <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>DeembedderNumericParser</b> class as described in the software documentation after which the s-parameters of the unknowns are extracted.

@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-31.html#next">Prev</a> Simulator Calculation Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-31.html">Up</a> Simulator Calculation Menu</span>
-<span class="next">Recalculate <a class="next" name="next" href="Help-Subsubsection-26.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-24.html#next">Prev</a> Read Waveforms</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-30.html">Up</a> Simulator File Menu</span>
+<span class="next">Simulator Calculation Menu <a class="next" name="next" href="Help-Subsection-31.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-25"></a>View Transfer Parameters<a class="Label" name="Control-Help:View-Transfer-Parameters"> </a>
+<a class="toc" name="toc-Subsubsection-25"></a>Output to LaTeX (TikZ)<a class="Label" name="Control-Help:Output-to-LaTeX"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ Simulator and Virtual Probe Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-File ▸ View Transfer Parameters
+File ▸ Output to LaTeX (TikZ)
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ File ▸ View Transfer Parameters
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+C,V
+Alt+F,L
 </td>
 
 </tr>
@@ -1141,12 +1141,24 @@ Always
 
 </div>
 <div class="Standard">
-In <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-7.html#sec:Simulation">Simulation↑</a> applications, transfer parameters are created during the calculation. See <a class="Reference" href="Help-Subsection-11.html#sub:Simulation-Example">Simulation Example↑</a> or <a class="Reference" href="Help-Subsection-25.html#sub:Virtual-Probing-Example">Virtual Probing Example↑</a> for examples of this. These transfer parameters can be viewed in the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>.
+This causes the current plot to be output in a graphical file format called <a class="URL" href="https://www.ctan.org/pkg/pgf?lang=en">TikZ</a> which is interpreted in TeX and LaTeX based documents (see <a class="URL" href="https://tug.org/">TeX Users Group (TUG)</a>.
+</div>
+<div class="Standard">
+The TikZ file is directly importable into a LaTeX based document.
+</div>
+<div class="Standard">
+This will only be available if matplotlib2tikz is installed in your Python installation. See <a class="URL" href="https://github.com/nschloe/matplotlib2tikz">https://github.com/nschloe/matplotlib2tikz</a>.
+</div>
+<div class="Standard">
+Because of differences between graphics drawing commands, the TikZ will vary slightly from the actual plot shown in <b><i>SignalIntegrityApp</i></b>.
+</div>
+<div class="Standard">
+For .png or other rasterized graphics use the disk button on the plot toolbar.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-31.html#next">Prev</a> Simulator Calculation Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-31.html">Up</a> Simulator Calculation Menu</span>
-<span class="next">Recalculate <a class="next" name="next" href="Help-Subsubsection-26.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-24.html#next">Prev</a> Read Waveforms</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-30.html">Up</a> Simulator File Menu</span>
+<span class="next">Simulator Calculation Menu <a class="next" name="next" href="Help-Subsection-31.html#prev">Next</a></span>
 </div>
 
 </div>

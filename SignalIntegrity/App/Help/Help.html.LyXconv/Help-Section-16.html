@@ -1084,10 +1084,10 @@ a:visited {
 Post-processing commands are commands to be executed after a <a class="Reference" href="Help-Section-8.html#sec:Deembedding">Deembedding↑</a> or <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a> calculation completes.
 </div>
 <div class="Standard">
-These commands are entered as text in the order that they are to be executed in a dialog opened by the <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Post-Processing">Post-Processing↑</a>. command.
+These commands are entered as text in the order that they are to be executed in a dialog opened by the <a class="Reference" href="Help-Subsubsection-67.html#Control-Help:Post-Processing">Post-Processing↑</a>. command.
 </div>
 <div class="Standard">
-All of the post-processing commands are appended to the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> generated for calculation and can be seen when you issue <a class="Reference" href="Help-Subsubsection-36.html#Control-Help:Export-Netlist">Export Netlist↑</a>, with the caveat that commands are entered directly in the post-processing dialog, but have the keyword <a class="Reference" href="Help-Subsection--2.html#sub:post">post↑</a> added when putting the commands in the netlist.
+All of the post-processing commands are appended to the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> generated for calculation and can be seen when you issue <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Export-Netlist">Export Netlist↑</a>, with the caveat that commands are entered directly in the post-processing dialog, but have the keyword <a class="Reference" href="Help-Subsection--2.html#sub:post">post↑</a> added when putting the commands in the netlist.
 </div>
 <div class="Standard">
 Because they are in the netlist, one is able to make scripted solutions with post-processing, and the cache coherency of the calculated result is maintained (i.e. changes to the netlist change the validity of cached results).
@@ -1103,7 +1103,13 @@ enforce causality - is the same as issuing <a class="Reference" href="Help-Subsu
 enforce passivity - is the same as issuing <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> on the final result.
 </li>
 <li>
-enforce reciprocity - enforces reciprocity on the final result.
+enforce both passivity and causality — is the same as issuing <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a> on the final result.
+</li>
+<li>
+enforce reciprocity - is the same as issuing <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↑</a> on the final result.
+</li>
+<li>
+enforce all — is the same as issuing <a class="Reference" href="Help-Subsubsection-8.html#Control-Help:Enforce-All">Enforce All↑</a> on the final result.
 </li>
 <li>
 limit &lt;negative&gt; &lt;positive&gt; - limits the impulse response lengths of the final result to be between the negative and positive time values specified.

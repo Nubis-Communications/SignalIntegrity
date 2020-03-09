@@ -6523,6 +6523,12 @@ name "subsec:S-Parameter-Viewer-Properties"
 \end_layout
 
 \begin_layout Standard
+The s-parameter properties menu allows viewing and editing of s-parameter
+ properties, allowing for editing of response limits, resampling, reference
+ impedance changes, and for enforcement of various physicality aspects.
+\end_layout
+
+\begin_layout Standard
 The Properties tasks are:
 \end_layout
 
@@ -6749,6 +6755,8 @@ Always
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align center
 \begin_inset Graphics
 	filename SParameterProperties.png
 
@@ -7612,6 +7620,198 @@ S_{xy}=S_{yx}=\frac{S_{xy}+S_{yx}}{2}\mbox{.}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsubsection
+Enforce All
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Enforce-All"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-parameter Viewer Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Properties ▸ Enforce All
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+P,A
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When s-parameter files are being viewed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Enforces all possible enforcements.
+ It first invokes 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and then invokes 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ If reciprocity is not appropriate, then use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -8496,11 +8696,11 @@ reference "sec:S-parameter-Viewer"
 The dot sizes are large for relatively large causality violations and are
  smaller for smaller violations.
  Causality violations below 
-\begin_inset Formula $1\thinspace\mathrm{\mu}$
+\begin_inset Formula $1\ \mu$
 \end_inset
 
  (
-\begin_inset Formula $-100\thinspace\mathrm{dB)}$
+\begin_inset Formula $-100\ \mathrm{dB)}$
 \end_inset
 
  are not shown as violations, as they are so small to have negligible effect.
@@ -41886,7 +42086,45 @@ noprefix "false"
 \end_layout
 
 \begin_layout Itemize
-post enforce reciprocity - enforces reciprocity on the final result.
+enforce both passivity and causality – is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce reciprocity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce all – is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-All"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
 \end_layout
 
 \begin_layout Itemize
@@ -42017,7 +42255,45 @@ noprefix "false"
 \end_layout
 
 \begin_layout Itemize
-enforce reciprocity - enforces reciprocity on the final result.
+enforce both passivity and causality – is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce reciprocity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Reciprocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce all – is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-All"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ on the final result.
 \end_layout
 
 \begin_layout Itemize

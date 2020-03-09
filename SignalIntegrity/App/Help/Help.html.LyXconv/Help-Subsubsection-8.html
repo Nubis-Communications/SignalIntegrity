@@ -1075,10 +1075,10 @@ a:visited {
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-7.html#next">Prev</a> Enforce Reciprocity</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
-<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="Help-Subsection-28.html#prev">Next</a></span>
+<span class="next">Wavelet Denoise <a class="next" name="next" href="Help-Subsubsection-9.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-8"></a>Wavelet Denoise<a class="Label" name="Control-Help:Wavelet-Denoise"> </a>
+<a class="toc" name="toc-Subsubsection-8"></a>Enforce All<a class="Label" name="Control-Help:Enforce-All"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-Properties ▸ Wavelet Denoise
+Properties ▸ Enforce All
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ Properties ▸ Wavelet Denoise
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+P,W
+Alt+P,A
 </td>
 
 </tr>
@@ -1141,30 +1141,12 @@ When s-parameter files are being viewed
 
 </div>
 <div class="Standard">
-This denoises the s-parameters by performing the discrete wavelet transform (DWT) on the impulse response, removing any wavelet coefficients that are small and performing the IDWT to restore the impulse response.
-</div>
-<div class="Standard">
-Wavelet denoising is inappropriate on:
-</div>
-<ul>
-<li>
-already clean s-parameters
-</li>
-<li>
-s-parameters for systems that produce oscillatory impulse responses (like many types of filters).
-</li>
-
-</ul>
-<div class="Standard">
-This command is not available (and does not make sense) when viewing transfer parameters.
-</div>
-<div class="Standard">
-Note that sometimes wavelet denoising causes causality and/or passivity violations. See <a class="Reference" href="Help-Subsubsection-11.html#Control-Help:Show-Causality-Violations">Show Causality Violations↓</a> and <a class="Reference" href="Help-Subsubsection-10.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations↓</a>.
+Enforces all possible enforcements. It first invokes <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↑</a>, and then invokes <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a>. If reciprocity is not appropriate, then use <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a>.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-7.html#next">Prev</a> Enforce Reciprocity</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
-<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="Help-Subsection-28.html#prev">Next</a></span>
+<span class="next">Wavelet Denoise <a class="next" name="next" href="Help-Subsubsection-9.html#prev">Next</a></span>
 </div>
 
 </div>

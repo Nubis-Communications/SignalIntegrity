@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-28.html#next">Prev</a> S-Parameter Viewer View Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Show Passivity Violations <a class="next" name="next" href="Help-Subsubsection-10.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-8.html#next">Prev</a> Enforce All</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
+<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="Help-Subsection-28.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-9"></a>Variable Line Width<a class="Label" name="Control-Help:Variable-Line-Width"> </a>
+<a class="toc" name="toc-Subsubsection-9"></a>Wavelet Denoise<a class="Label" name="Control-Help:Wavelet-Denoise"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Variable Line Width
+Properties ▸ Wavelet Denoise
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Variable Line Width
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,L
+Alt+P,W
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+When s-parameter files are being viewed
 </td>
 
 </tr>
@@ -1141,28 +1141,30 @@ Always
 
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="VariableLineWidth.png" alt="figure VariableLineWidth.png" style="max-width: 1003px; max-height: 228px;"/>
+This denoises the s-parameters by performing the discrete wavelet transform (DWT) on the impulse response, removing any wavelet coefficients that are small and performing the IDWT to restore the impulse response.
+</div>
+<div class="Standard">
+Wavelet denoising is inappropriate on:
+</div>
+<ul>
+<li>
+already clean s-parameters
+</li>
+<li>
+s-parameters for systems that produce oscillatory impulse responses (like many types of filters).
+</li>
 
-</div>
-
+</ul>
+<div class="Standard">
+This command is not available (and does not make sense) when viewing transfer parameters.
 </div>
 <div class="Standard">
-Allows viewing magnitude and phase response with a variable line width.
-</div>
-<div class="Standard">
-This is helpful in viewing the s-parameter with an intensity that depends on whether the value actually matters. This is especially helpful when looking at the phase response, which tends to vary wildly when the magnitude response is small. When the magnitude response is small, the phase response doesn’t matter anyway, and this setting helps the user ignore these frequency locations.
-</div>
-<div class="Standard">
-The line width of the magnitude response and phase response vary depending on the magnitude response of the s-parameter. If the magnitude is large, a large line width is used and if the magnitude is small, a small line width is used.
-</div>
-<div class="Standard">
-Unfortunately, variable line width cannot operate properly along with <a class="Reference" href="Help-Subsubsection-15.html#Control-Help:Log-Scale">Log Scale↓</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.
+Note that sometimes wavelet denoising causes causality and/or passivity violations. See <a class="Reference" href="Help-Subsubsection-12.html#Control-Help:Show-Causality-Violations">Show Causality Violations↓</a> and <a class="Reference" href="Help-Subsubsection-11.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-28.html#next">Prev</a> S-Parameter Viewer View Menu</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Show Passivity Violations <a class="next" name="next" href="Help-Subsubsection-10.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-8.html#next">Prev</a> Enforce All</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
+<span class="next">S-Parameter Viewer View Menu <a class="next" name="next" href="Help-Subsection-28.html#prev">Next</a></span>
 </div>
 
 </div>

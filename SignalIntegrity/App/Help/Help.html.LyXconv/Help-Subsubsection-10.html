@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-9.html#next">Prev</a> Variable Line Width</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-28.html#next">Prev</a> S-Parameter Viewer View Menu</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Show Causality Violations <a class="next" name="next" href="Help-Subsubsection-11.html#prev">Next</a></span>
+<span class="next">Show Passivity Violations <a class="next" name="next" href="Help-Subsubsection-11.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-10"></a>Show Passivity Violations<a class="Label" name="Control-Help:Show-Passivity-Violations"> </a>
+<a class="toc" name="toc-Subsubsection-10"></a>Variable Line Width<a class="Label" name="Control-Help:Variable-Line-Width"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Show Passivity Violations
+View ▸ Variable Line Width
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Show Passivity Violations
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,P
+Alt+V,L
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When s-parameter files are being viewed
+Always
 </td>
 
 </tr>
@@ -1142,33 +1142,27 @@ When s-parameter files are being viewed
 </div>
 <div class="Standard">
 <div class="center">
-<img class="embedded" src="PassivityViolations.png" alt="figure PassivityViolations.png" style="max-width: 998px; max-height: 227px;"/>
+<img class="embedded" src="VariableLineWidth.png" alt="figure VariableLineWidth.png" style="max-width: 1003px; max-height: 228px;"/>
 
 </div>
 
 </div>
 <div class="Standard">
-Shows locations of passivity violations. These are shown as red dots on the magnitude response plot (the top left plot) of the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>.
+Allows viewing magnitude and phase response with a variable line width.
 </div>
 <div class="Standard">
-The dot sizes are large for relatively large passivity violations (singular values greater than 1.01) and are smaller for smaller violations.
+This is helpful in viewing the s-parameter with an intensity that depends on whether the value actually matters. This is especially helpful when looking at the phase response, which tends to vary wildly when the magnitude response is small. When the magnitude response is small, the phase response doesn’t matter anyway, and this setting helps the user ignore these frequency locations.
 </div>
 <div class="Standard">
-Passivity violation detection is subject to the numerical accuracy of the SVD algorithm used and sometimes leads to very small passivity violations due to numerical error. These are shown as very faint red dots.
+The line width of the magnitude response and phase response vary depending on the magnitude response of the s-parameter. If the magnitude is large, a large line width is used and if the magnitude is small, a small line width is used.
 </div>
 <div class="Standard">
-Circuits that are passive are circuits that can never, under any circumstances, deliver power. They are either entirely reflective, and/or absorb or dissipate power under certain circumstances.
-</div>
-<div class="Standard">
-Passivity violations can be removed from known passive circuits using <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a>.
-</div>
-<div class="Standard">
-This command is not available (and does not make sense) when viewing transfer parameters.
+Unfortunately, variable line width cannot operate properly along with <a class="Reference" href="Help-Subsubsection-16.html#Control-Help:Log-Scale">Log Scale↓</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-9.html#next">Prev</a> Variable Line Width</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-28.html#next">Prev</a> S-Parameter Viewer View Menu</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-28.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">Show Causality Violations <a class="next" name="next" href="Help-Subsubsection-11.html#prev">Next</a></span>
+<span class="next">Show Passivity Violations <a class="next" name="next" href="Help-Subsubsection-11.html#prev">Next</a></span>
 </div>
 
 </div>
