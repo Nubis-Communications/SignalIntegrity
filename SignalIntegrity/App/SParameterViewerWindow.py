@@ -342,8 +342,9 @@ class SParametersDialog(tk.Toplevel):
             #self.LogScaleDoer.Activate(False)
             self.EnforcePassivityDoer.Activate(False)
             self.EnforceCausalityDoer.Activate(False)
-            self.EnforceBothPassivityAndCausalityDoer(False)
-            self.EnforceReciprocityDoer(False)
+            self.EnforceBothPassivityAndCausalityDoer.Activate(False)
+            self.EnforceReciprocityDoer.Activate(False)
+            self.EnforceAllDoer.Activate(False)
             self.WaveletDenoiseDoer.Activate(False)
             self.ReadSParametersFromFileDoer.Activate(False)
 
