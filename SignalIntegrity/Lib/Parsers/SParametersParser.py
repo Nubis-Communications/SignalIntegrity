@@ -20,6 +20,7 @@
 
 from SignalIntegrity.Lib.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
+
 class SParametersParser(SParameters):
     """parses a list of commands to process s-parameters"""
     def __init__(self,sp,lines):
@@ -30,6 +31,19 @@ class SParametersParser(SParameters):
 
         @param sp instance of SParameters to process
         @param lines list of lines with commands indicating the processing, in order
+        
+        For causality checks, the threshold for causality is 10e-6 (-100 dB).
+        
+        The maximum number of iterations is 30.
+        
+        the Largest singular value is 1.
+        
+        @see EnforceCausality
+        @see EnforcePassivity
+        @see EnforceReciprocity
+        @see EnforceBothPassivityAndReciprocity
+        @see EnforceAll
+        @see LimitImpulseResponseLength
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         for line in lines:
@@ -47,6 +61,10 @@ class SParametersParser(SParameters):
                         self.EnforcePassivity()
                     elif tokens[2]=='reciprocity':
                         self.EnforceReciprocity()
+                    elif tokens[2]=='both':
+                        self.EnforceBothPassivityAndCausality(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)
+                    elif tokens[2]=='all':
+                        self.EnforceAll(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)
                     else:
                         raise IndexError
                 elif tokens[1]=='limit':

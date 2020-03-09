@@ -30,7 +30,7 @@ class SParameterManipulation(object):
             for m in self.m_d]
     def EnforcePassivity(self,maxSingularValue=1.):
         """Enforces passivity on the s-parameters.
-        @param maxSingularValue (optional) float maximum singular value allowed
+        @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
         Enforces passivity by clipping all singular values to a maximum value.
 
         the optional maximum value allows for adjusting devices with gain to a maximum
@@ -43,7 +43,7 @@ class SParameterManipulation(object):
         return self
     def IsCausal(self,threshold=0.):
         """Checks whether the s-parameters are causal.
-        @param threshold positive float threshold for causality detection
+        @param threshold (optional, defaults to 0) positive float threshold for causality detection
         @return boolean True if the absolute value of all values in the impulse response
         of each s-parameter before time zero are less
         than the threshold provided otherwise returns False.
@@ -195,6 +195,10 @@ class SParameterManipulation(object):
                         self.m_d[n][toPort][fromPort]=frv[n]
         return self
     def EnforceReciprocity(self):
+        """ Enforces reciprocity on the s-parameters
+        affects self
+        @return self
+        """
         for n in range(len(self.m_d)):
             for r in range(len(self.m_d[n])):
                 for c in range(r,len(self.m_d[n])):
@@ -202,3 +206,49 @@ class SParameterManipulation(object):
                         self.m_d[n][r][c]=(self.m_d[n][r][c]+self.m_d[n][c][r])/2.
                         self.m_d[n][c][r]=self.m_d[n][r][c]
         return self
+    def EnforceBothPassivityAndCausality(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.):
+        """Enforces both passivity and causality on the s-parameters.
+        affects self.
+        
+        for up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and
+        enforces causality (because each causes violations of the other, but alternating this way generally
+        converges.  If causality is detected by being below the causalityThreshold, then iterations stop.
+
+        @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
+        @param maxIterations (optional, defaults to 30) maximum iterations
+        @param threshold (optional, defaults to 0) positive float threshold for causality detection
+        @return self
+        @see EnforcePassivity
+        @see EnforceCausality
+        """
+        iterationCount=0
+        keepGoing=True
+        while keepGoing:
+            self.EnforcePassivity(maxSingularValue)
+            self.EnforceCausality()
+            iterationCount=iterationCount+1
+            if iterationCount >= maxIterations: keepGoing=False
+            elif self.IsCausal(causalityThreshold): keepGoing=False
+            else: keepGoing = True
+        return self
+    def EnforceAll(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.):
+        """Enforces both reciprocity, passivity and causality on the s-parameters.
+        affects self.
+        
+        First enforces reciprocity, then...
+        for up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and
+        enforces causality (because each causes violations of the other, but alternating this way generally
+        converges.  If causality is detected by being below the causalityThreshold, then iterations stop.
+
+        @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
+        @param maxIterations (optional, defaults to 30) maximum iterations
+        @param threshold (optional, defaults to 0) positive float threshold for causality detection
+        @return self
+        @see EnforceReciprocity
+        @see EnforcePassivity
+        @see EnforceCausality
+        """
+        self.EnforceReciprocity()
+        self.EnforceBothPassivityAndCausality(causalityThreshold, maxIterations, maxSingularValue)
+        return self
+    

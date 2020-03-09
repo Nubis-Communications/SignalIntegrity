@@ -91,5 +91,17 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.EnforceReciprocity()
         self.CheckSParametersResult(sf, pefn, 'reciprocity enforced s-parameters incorrect')
+    def testBothPassivityAndCausalityEnforcement(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
+        sf.EnforceBothPassivityAndCausality()
+        self.CheckSParametersResult(sf, pefn, 'passivity and reciprocity enforced s-parameters incorrect')
+    def testAllEnforcement(self):
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        sf=si.sp.SParameterFile('filter.s2p')
+        pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
+        sf.EnforceAll()
+        self.CheckSParametersResult(sf, pefn, 'all enforced s-parameters incorrect')
 if __name__ == "__main__":
     unittest.main()

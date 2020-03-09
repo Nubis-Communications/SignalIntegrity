@@ -123,6 +123,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceCausalityDoer = Doer(self.onEnforceCausality).AddHelpElement('Control-Help:Enforce-Causality')
         self.EnforceBothPassivityAndCausalityDoer = Doer(self.onEnforceBothPassivityAndCausality).AddHelpElement('Control-Help:Enforce-Both-Passivity-and-Reciprocity')
         self.EnforceReciprocityDoer = Doer(self.onEnforceReciprocity).AddHelpElement('Control-Help:Enforce-Reciprocity')
+        self.EnforceAllDoer = Doer(self.onEnforceAll).AddHelpElement('Control-Help:Enforce-All')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Open-Help-File')
@@ -181,6 +182,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceCausalityDoer.AddMenuElement(PropertiesMenu,label='Enforce Causality',underline=8)
         self.EnforceBothPassivityAndCausalityDoer.AddMenuElement(PropertiesMenu,label='Enforce Both Passivity and Causality',underline=8)
         self.EnforceReciprocityDoer.AddMenuElement(PropertiesMenu,label='Enforce Reciprocity',underline=8)
+        self.EnforceAllDoer.AddMenuElement(PropertiesMenu,label='Enforce All',underline=8)
         self.WaveletDenoiseDoer.AddMenuElement(PropertiesMenu,label='Wavelet Denoise',underline=0)
         # ------
         ViewMenu=tk.Menu(self)
@@ -1436,14 +1438,17 @@ class SParametersDialog(tk.Toplevel):
         self.PlotSParameter()
         
     def onEnforceBothPassivityAndCausality(self):
-        for _ in range(20):
-            self.sp.EnforcePassivity()
-            self.sp.EnforceCausality()
+        self.sp.EnforceBothPassivityAndCausality(maxIterations=30,causalityThreshold=1e-5)
         self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 
     def onEnforceReciprocity(self):
         self.sp.EnforceReciprocity()
+        self.UpdatePropertiesFromSParameters()
+        self.PlotSParameter()
+
+    def onEnforceAll(self):
+        self.sp.EnforceAll(maxIterations=30,causalityThreshold=1e-5)
         self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 
