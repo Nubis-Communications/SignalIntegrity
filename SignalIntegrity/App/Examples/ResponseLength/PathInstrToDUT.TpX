@@ -1,0 +1,99 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">10,-10 12,-12 10,-14</polyline>
+%  <polyline lc="black">16,-12 12,-12</polyline>
+%  <text x="10" y="-13" t="1" h="3" halign="r" lc="black"/>
+%  <rect x="20" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">16,-12 20,-12</polyline>
+%  <text x="19" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">32,-12 28,-12</polyline>
+%  <text x="29" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="24" y="-5" t="Launch.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="48" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">44,-12 48,-12</polyline>
+%  <text x="47" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">60,-12 56,-12</polyline>
+%  <text x="57" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="52" y="-5" t="SemiRigidCable1.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="88" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">84,-12 88,-12</polyline>
+%  <text x="87" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">100,-12 96,-12</polyline>
+%  <text x="97" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="92" y="-5" t="RadiallRelayClosed.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="128" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">124,-12 128,-12</polyline>
+%  <text x="127" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">140,-12 136,-12</polyline>
+%  <text x="137" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="132" y="-5" t="SemiRigidCable2.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="160" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">156,-12 160,-12</polyline>
+%  <text x="159" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">172,-12 168,-12</polyline>
+%  <text x="169" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="164" y="-5" t="BulkHead.s2p" h="3" halign="c" lc="black"/>
+%  <rect x="184" y="-8" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">180,-12 184,-12</polyline>
+%  <text x="183" y="-11" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">196,-12 192,-12</polyline>
+%  <text x="193" y="-11" t="2" h="3" halign="l" lc="black"/>
+%  <text x="188" y="-5" t="Cable1.s2p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">202,-10 200,-12 202,-14</polyline>
+%  <polyline lc="black">196,-12 200,-12</polyline>
+%  <text x="202" y="-13" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">32,-12 44,-12</polyline>
+%  <polyline lc="black">60,-12 84,-12</polyline>
+%  <polyline lc="black">100,-12 124,-12</polyline>
+%  <polyline lc="black">140,-12 156,-12</polyline>
+%  <polyline lc="black">172,-12 180,-12</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (10,-10) -- (12,-12) -- (10,-14);
+\path[line width=0.30mm, draw=black] (16,-12) -- (12,-12);
+\draw[black] (10,-13) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (20,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (16,-12) -- (20,-12);
+\draw[black] (19,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (32,-12) -- (28,-12);
+\draw[black] (29,-11) node[anchor=base west]{2};
+\draw[black] (24,-5) node[anchor=base]{Launch.s2p};
+\path[line width=0.30mm, draw=black] (48,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (44,-12) -- (48,-12);
+\draw[black] (47,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (60,-12) -- (56,-12);
+\draw[black] (57,-11) node[anchor=base west]{2};
+\draw[black] (52,-5) node[anchor=base]{SemiRigidCable1.s2p};
+\path[line width=0.30mm, draw=black] (88,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (84,-12) -- (88,-12);
+\draw[black] (87,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (100,-12) -- (96,-12);
+\draw[black] (97,-11) node[anchor=base west]{2};
+\draw[black] (92,-5) node[anchor=base]{RadiallRelayClosed.s2p};
+\path[line width=0.30mm, draw=black] (128,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (124,-12) -- (128,-12);
+\draw[black] (127,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (140,-12) -- (136,-12);
+\draw[black] (137,-11) node[anchor=base west]{2};
+\draw[black] (132,-5) node[anchor=base]{SemiRigidCable2.s2p};
+\path[line width=0.30mm, draw=black] (160,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (156,-12) -- (160,-12);
+\draw[black] (159,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (172,-12) -- (168,-12);
+\draw[black] (169,-11) node[anchor=base west]{2};
+\draw[black] (164,-5) node[anchor=base]{BulkHead.s2p};
+\path[line width=0.30mm, draw=black] (184,-16) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (180,-12) -- (184,-12);
+\draw[black] (183,-11) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (196,-12) -- (192,-12);
+\draw[black] (193,-11) node[anchor=base west]{2};
+\draw[black] (188,-5) node[anchor=base]{Cable1.s2p};
+\path[line width=0.30mm, draw=black] (202,-10) -- (200,-12) -- (202,-14);
+\path[line width=0.30mm, draw=black] (196,-12) -- (200,-12);
+\draw[black] (202,-13) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (32,-12) -- (44,-12);
+\path[line width=0.30mm, draw=black] (60,-12) -- (84,-12);
+\path[line width=0.30mm, draw=black] (100,-12) -- (124,-12);
+\path[line width=0.30mm, draw=black] (140,-12) -- (156,-12);
+\path[line width=0.30mm, draw=black] (172,-12) -- (180,-12);
+\end{tikzpicture}%
