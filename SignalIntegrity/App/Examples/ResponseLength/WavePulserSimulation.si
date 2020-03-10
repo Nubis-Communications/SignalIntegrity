@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>977x328+35+64</Geometry>
+			<Geometry>977x328+461+104</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-12</Originx>
 			<Originy>-38</Originy>
@@ -368,73 +368,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceRLGCFitFromFile</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(39, 50)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>CableModel1ns.si</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>scale</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>7.5</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>T1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(48, 50)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>Adapter.s2p</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>D3</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceTransmissionLine</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -444,15 +378,9 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>td</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1.6000000000000003e-09</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zc</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>50.0</Value>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>Cable18in.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -464,7 +392,7 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>T2</Value>
+							<Value>D4</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
@@ -497,26 +425,6 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(35, 46)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(39, 46)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(43, 46)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(47, 46)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
 							<Coord>(51, 46)</Coord>
 						</Vertex>
 						<Vertex>
@@ -534,22 +442,6 @@
 						</Vertex>
 						<Vertex>
 							<Coord>(66, 46)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(39, 51)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(39, 53)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(43, 53)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(43, 51)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -576,16 +468,20 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(48, 51)</Coord>
+							<Coord>(35, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(48, 53)</Coord>
+							<Coord>(39, 46)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(43, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(52, 53)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(52, 51)</Coord>
+							<Coord>(47, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
