@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>977x328+461+104</Geometry>
+			<Geometry>977x328+28+57</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-12</Originx>
 			<Originy>-38</Originy>
@@ -448,26 +448,6 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(27, 46)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(31, 46)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(56, 46)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(61, 46)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
 							<Coord>(35, 46)</Coord>
 						</Vertex>
 						<Vertex>
@@ -482,6 +462,26 @@
 						</Vertex>
 						<Vertex>
 							<Coord>(47, 46)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(27, 46)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(31, 46)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(56, 46)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(61, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
