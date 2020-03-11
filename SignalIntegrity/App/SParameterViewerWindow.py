@@ -373,7 +373,13 @@ class SParametersDialog(tk.Toplevel):
         self.LimitChangeLock=False
 
         try:
-            from matplotlib2tikz import save as tikz_save
+            try:
+                from tikzplotlib import save as tikz_save
+            except:
+                try:
+                    from matplotlib2tikz import save as tikz_save
+                except:
+                    self.Matplotlib2tikzDoer.Activate(False)
         except:
             self.Matplotlib2tikzDoer.Activate(False)
 

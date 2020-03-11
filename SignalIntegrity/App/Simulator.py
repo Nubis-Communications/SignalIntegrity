@@ -18,6 +18,7 @@ Simulator.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import sys
+
 if sys.version_info.major < 3:
     import Tkinter as tk
     import tkMessageBox as messagebox
@@ -159,7 +160,13 @@ class SimulatorDialog(tk.Toplevel):
         controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
         try:
-            from matplotlib2tikz import save as tikz_save
+            try:
+                from tikzplotlib import save as tikz_save
+            except:
+                try:
+                    from matplotlib2tikz import save as tikz_save
+                except:
+                    self.Matplotlib2tikzDoer.Activate(False)
         except:
             self.Matplotlib2tikzDoer.Activate(False)
 
@@ -337,7 +344,14 @@ class SimulatorDialog(tk.Toplevel):
                 continue
             wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
-            self.plt.plot(wfTimes,wfValues,label=wfName)
+            plotlog=False
+            plotdB=False
+            if plotlog:
+                self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName)
+            elif plotdB:
+                self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName)
+            else:
+                self.plt.plot(wfTimes,wfValues,label=wfName)
             minv=min(wfValues) if minv is None else min(minv,min(wfValues))
             maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
 

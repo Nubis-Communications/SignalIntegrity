@@ -32,10 +32,16 @@ from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 
 def PlotTikZ(filename,plot2save,scale=None):
     try:
-        from matplotlib2tikz import save as tikz_save
         import matplotlib
     except:
         return
+    try:
+        from tikzplotlib import save as tikz_save
+    except:
+        try:
+            from matplotlib2tikz import save as tikz_save
+        except:
+            return
 
     if not isinstance(plot2save,matplotlib.figure.Figure):
         plot2save=plot2save.gcf()
