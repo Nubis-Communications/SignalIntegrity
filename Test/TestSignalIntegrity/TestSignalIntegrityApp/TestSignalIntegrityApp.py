@@ -128,7 +128,7 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
     def testPRBSTest2(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest2.si')
     def testDwellTime(self):
-        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/DwellTime.si')
+        self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/ResponseLength/DwellTime/DwellTime.si')
     def testCommonModeProbe(self):
         self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/CommonModeProbe.si')
     def testNet(self):

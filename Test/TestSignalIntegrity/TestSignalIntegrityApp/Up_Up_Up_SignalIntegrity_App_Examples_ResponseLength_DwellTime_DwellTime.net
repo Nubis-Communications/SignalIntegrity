@@ -1,8 +1,8 @@
 voltagesource VG1 1
-device T1 2 tline zc 50.0 td 2e-09
+device T1 2 tline zc 50.0 td 3.6000000000000004e-09
 device R1 2 R 20.0
-device T2 2 tline zc 50.0 td 2e-09
-device T3 2 tline zc 55.0 td 6.000000000000001e-09
+device T2 2 tline zc 50.0 td 3.6000000000000004e-09
+device T3 2 tline zc 55.0 td 3.0000000000000004e-09
 device R2 1 R 80.0
 voltagesource VG2 2
 voltagesource VG3 2
