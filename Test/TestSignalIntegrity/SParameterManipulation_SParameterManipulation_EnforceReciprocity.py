@@ -7,3 +7,4 @@ class SParameterManipulation(object):
                         self.m_d[n][r][c]=(self.m_d[n][r][c]+self.m_d[n][c][r])/2.
                         self.m_d[n][c][r]=self.m_d[n][r][c]
         return self
+...
