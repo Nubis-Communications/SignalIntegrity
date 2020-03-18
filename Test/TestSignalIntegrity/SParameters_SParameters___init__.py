@@ -28,7 +28,7 @@ class SParameters(SParameterManipulation):
                 if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
         spfile=open(name,'w')
         for lin in self.header: spfile.write(('! '+lin if lin[0] != '!' else lin)+'\n')
-        spfile.write('# '+fToken+' '+cpxType+' '+self.m_sToken+' R '+str(Z0)+'\n')
+        spfile.write('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
             mat=self[n]
