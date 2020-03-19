@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.8</span>
+   &#160;<span id="projectnumber">1.1.9</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -78,12 +78,14 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for SParameterManipulation:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph.svg" width="3946" height="875"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph.svg" width="3946" height="904"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for SParameterManipulation:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__coll__graph.svg" width="226" height="206"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__coll__graph.svg" width="258" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -109,6 +111,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1b686921bbdf34872a7a5080356eccc5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a1b686921bbdf34872a7a5080356eccc5">LimitImpulseResponseLength</a> (self, lengths)</td></tr>
 <tr class="memdesc:a1b686921bbdf34872a7a5080356eccc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">limits the impulse response length of the ports  <a href="#a1b686921bbdf34872a7a5080356eccc5">More...</a><br /></td></tr>
 <tr class="separator:a1b686921bbdf34872a7a5080356eccc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a966ad7b2c2e5ded9c2c34d146381a034"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a966ad7b2c2e5ded9c2c34d146381a034">EnforceReciprocity</a> (self)</td></tr>
+<tr class="memdesc:a966ad7b2c2e5ded9c2c34d146381a034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces reciprocity on the s-parameters affects self.  <a href="#a966ad7b2c2e5ded9c2c34d146381a034">More...</a><br /></td></tr>
+<tr class="separator:a966ad7b2c2e5ded9c2c34d146381a034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b218e8e7454681cb528837371433c9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#af5b218e8e7454681cb528837371433c9">EnforceBothPassivityAndCausality</a> (self, causalityThreshold=0., maxIterations=30, maxSingularValue=1.)</td></tr>
+<tr class="memdesc:af5b218e8e7454681cb528837371433c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces both passivity and causality on the s-parameters.  <a href="#af5b218e8e7454681cb528837371433c9">More...</a><br /></td></tr>
+<tr class="separator:af5b218e8e7454681cb528837371433c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03ec93ae9915311d87b800dd52b11f7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab03ec93ae9915311d87b800dd52b11f7">EnforceAll</a> (self, causalityThreshold=0., maxIterations=30, maxSingularValue=1.)</td></tr>
+<tr class="memdesc:ab03ec93ae9915311d87b800dd52b11f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces both reciprocity, passivity and causality on the s-parameters.  <a href="#ab03ec93ae9915311d87b800dd52b11f7">More...</a><br /></td></tr>
+<tr class="separator:ab03ec93ae9915311d87b800dd52b11f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for manipulations on s-parameters involving passivity, causality, etc. </p>
@@ -158,6 +169,124 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>returns a tuple containining (negativeTime,positiveTime) if allLengths is false (default) containing the most negative time and most positive time for all impulse responses, otherwise if allLengths is true, it returns a list of list of tuples as stated for each impulse response. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00140">140</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+
+</div>
+</div>
+<a id="ab03ec93ae9915311d87b800dd52b11f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab03ec93ae9915311d87b800dd52b11f7">&#9670;&nbsp;</a></span>EnforceAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def EnforceAll </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>causalityThreshold</em> = <code>0.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxIterations</em> = <code>30</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxSingularValue</em> = <code>1.</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enforces both reciprocity, passivity and causality on the s-parameters. </p>
+<p>affects self.</p>
+<p>First enforces reciprocity, then... for up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and enforces causality (because each causes violations of the other, but alternating this way generally converges. If causality is detected by being below the causalityThreshold, then iterations stop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxSingularValue</td><td>(optional, defaults to 1) float maximumum singular value allowed </td></tr>
+    <tr><td class="paramname">maxIterations</td><td>(optional, defaults to 30) maximum iterations </td></tr>
+    <tr><td class="paramname">threshold</td><td>(optional, defaults to 0) positive float threshold for causality detection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a966ad7b2c2e5ded9c2c34d146381a034" title="Enforces reciprocity on the s-parameters affects self. ">EnforceReciprocity</a> </dd>
+<dd>
+<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a39c856ddb77d77db3db1944a18fe6009" title="Enforces passivity on the s-parameters. ">EnforcePassivity</a> </dd>
+<dd>
+<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab0534e987c24d15ff3bcba7ef74ec1d1" title="Enforces causality by setting all of the values before time zero in the impulse responses of the s-pa...">EnforceCausality</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00263">263</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+
+</div>
+</div>
+<a id="af5b218e8e7454681cb528837371433c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b218e8e7454681cb528837371433c9">&#9670;&nbsp;</a></span>EnforceBothPassivityAndCausality()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def EnforceBothPassivityAndCausality </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>causalityThreshold</em> = <code>0.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxIterations</em> = <code>30</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxSingularValue</em> = <code>1.</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enforces both passivity and causality on the s-parameters. </p>
+<p>affects self.</p>
+<p>for up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and enforces causality (because each causes violations of the other, but alternating this way generally converges. If causality is detected by being below the causalityThreshold, then iterations stop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxSingularValue</td><td>(optional, defaults to 1) float maximumum singular value allowed </td></tr>
+    <tr><td class="paramname">maxIterations</td><td>(optional, defaults to 30) maximum iterations </td></tr>
+    <tr><td class="paramname">threshold</td><td>(optional, defaults to 0) positive float threshold for causality detection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a39c856ddb77d77db3db1944a18fe6009" title="Enforces passivity on the s-parameters. ">EnforcePassivity</a> </dd>
+<dd>
+<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab0534e987c24d15ff3bcba7ef74ec1d1" title="Enforces causality by setting all of the values before time zero in the impulse responses of the s-pa...">EnforceCausality</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00235">235</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -212,13 +341,36 @@ Public Member Functions</h2></td></tr>
 <p>Enforces passivity on the s-parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">maxSingularValue</td><td>(optional) float maximum singular value allowed Enforces passivity by clipping all singular values to a maximum value.</td></tr>
+    <tr><td class="paramname">maxSingularValue</td><td>(optional, defaults to 1) float maximumum singular value allowed Enforces passivity by clipping all singular values to a maximum value.</td></tr>
   </table>
   </dd>
 </dl>
 <p>the optional maximum value allows for adjusting devices with gain to a maximum value. For passive devices, the maximum singular value is the default value of 1. </p>
 
 <p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00042">42</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+
+</div>
+</div>
+<a id="a966ad7b2c2e5ded9c2c34d146381a034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a966ad7b2c2e5ded9c2c34d146381a034">&#9670;&nbsp;</a></span>EnforceReciprocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def EnforceReciprocity </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enforces reciprocity on the s-parameters affects self. </p>
+<dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00212">212</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -251,7 +403,7 @@ Public Member Functions</h2></td></tr>
 <p>Checks whether the s-parameters are causal. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">threshold</td><td>positive float threshold for causality detection </td></tr>
+    <tr><td class="paramname">threshold</td><td>(optional, defaults to 0) positive float threshold for causality detection </td></tr>
   </table>
   </dd>
 </dl>

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.8</span>
+   &#160;<span id="projectnumber">1.1.9</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -80,7 +80,8 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for SParametersParser:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser__coll__graph.svg" width="147" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser__coll__graph.svg" width="147" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -92,7 +93,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>parses a list of commands to process s-parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="SParametersParser_8py_source.xhtml#l00027">27</a> of file <a class="el" href="SParametersParser_8py_source.xhtml">SParametersParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParametersParser_8py_source.xhtml#l00028">28</a> of file <a class="el" href="SParametersParser_8py_source.xhtml">SParametersParser.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac41fd948191d746969f977664e441a73"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac41fd948191d746969f977664e441a73">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -131,12 +132,26 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sp</td><td>instance of <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> to process </td></tr>
-    <tr><td class="paramname">lines</td><td>list of lines with commands indicating the processing, in order </td></tr>
+    <tr><td class="paramname">lines</td><td>list of lines with commands indicating the processing, in order</td></tr>
   </table>
   </dd>
 </dl>
+<p>For causality checks, the threshold for causality is 10e-6 (-100 dB).</p>
+<p>The maximum number of iterations is 30.</p>
+<p>the Largest singular value is 1.</p>
+<dl class="section see"><dt>See also</dt><dd>EnforceCausality </dd>
+<dd>
+EnforcePassivity </dd>
+<dd>
+EnforceReciprocity </dd>
+<dd>
+EnforceBothPassivityAndReciprocity </dd>
+<dd>
+EnforceAll </dd>
+<dd>
+LimitImpulseResponseLength </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParametersParser_8py_source.xhtml#l00037">37</a> of file <a class="el" href="SParametersParser_8py_source.xhtml">SParametersParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParametersParser_8py_source.xhtml#l00051">51</a> of file <a class="el" href="SParametersParser_8py_source.xhtml">SParametersParser.py</a>.</p>
 
 </div>
 </div>
