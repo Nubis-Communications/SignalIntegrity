@@ -1091,11 +1091,11 @@ class SParametersDialog(tk.Toplevel):
                     if x[k]<=-Ts and abs(y[k])>0:
                         dotsize=max(math.log10(min(maxv,max(minv,abs(y[k]))))*m+b,1e-15)
                         if dotsize>2e-15:
-                            self.causalityViolations.append([x[k],y[k],dotsize])
+                            self.causalityViolations.append([k,dotsize])
                 self.bottomLeftPlot.scatter(
-                    [c[0] for c in self.causalityViolations],
-                    [c[1] for c in self.causalityViolations],
-                    s=[c[2] for c in self.causalityViolations],
+                    [x[c[0]] for c in self.causalityViolations],
+                    [y[c[0]] for c in self.causalityViolations],
+                    s=[c[1] for c in self.causalityViolations],
                     color='red')
 
             self.bottomLeftPlotProperties=self.plotProperties['Impulse']
@@ -1183,6 +1183,13 @@ class SParametersDialog(tk.Toplevel):
                     self.bottomRightPlotProperties['YInitialized']=True
 
             self.bottomRightPlot.plot(x,y)
+
+            if self.ShowCausalityViolations():
+                self.bottomRightPlot.scatter(
+                    [x[c[0]] for c in self.causalityViolations],
+                    [y[c[0]] for c in self.causalityViolations],
+                    s=[c[1] for c in self.causalityViolations],
+                    color='red')
 
             if not self.bottomRightPlotProperties['XInitialized']:
                 self.bottomRightPlotProperties['MinX']=min(x)
