@@ -83,10 +83,10 @@ class SParameters(SParameterManipulation):
         @param formatString (optional) string containing the  format
         Writes the file in the Touchstone 1.0 format using the format string provided.
 
-        If no format string is provided, uses '# MHz S MA R 50.0'
-        If a format string is provided, it ought to be in the following format according
-        to the Touchstone specification:
-        # <frequency unit> <parameter> <format> R <Z0>
+        If no format string is provided, uses '\# MHz S MA R 50.0'\n
+        If a format string is provided, it ought to be in the following format according\n
+        to the Touchstone specification:\n
+        \# \<frequency unit\> \<parameter\> \<format\> R \<Z0\>  
         """
         # pragma: silent exclude
         try:
