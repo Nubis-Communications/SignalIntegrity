@@ -1373,10 +1373,11 @@ class SParametersDialog(tk.Toplevel):
 
 
     def onMatplotlib2TikZ(self):
+        variableNameText='_'+'_'.join((self.buttonLabels[self.toPort-1][self.fromPort-1]).split(' '))
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
-                                   initialfile=self.fileparts.filename+'Magnitude.tex')
+                                   initialfile=self.fileparts.filename+variableNameText+'_Magnitude.tex')
         if filename is None:
             return
 
@@ -1384,13 +1385,13 @@ class SParametersDialog(tk.Toplevel):
             si.test.PlotTikZ(filename,self.topLeftFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
-        fp=FileParts(filename.replace('Magnitude.tex', ''))
+        fp=FileParts(filename.replace('_Magnitude.tex', '').replace('Magnitude.tex', ''))
         filename=fp.filename
 
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
-                                   initialfile=filename+'Phase.tex')
+                                   initialfile=filename+'_Phase.tex')
         if filename is None:
             return
 
@@ -1398,13 +1399,13 @@ class SParametersDialog(tk.Toplevel):
             si.test.PlotTikZ(filename,self.topRightFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
-        fp=FileParts(filename.replace('Phase.tex', ''))
+        fp=FileParts(filename.replace('_Phase.tex', '').replace('Phase.tex', ''))
         filename=fp.filename
 
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
-                                   initialfile=filename+'ImpulseResponse.tex')
+                                   initialfile=filename+'_ImpulseResponse.tex')
         if filename is None:
             return
 
@@ -1412,13 +1413,13 @@ class SParametersDialog(tk.Toplevel):
             si.test.PlotTikZ(filename,self.bottomLeftFigure)
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
-        fp=FileParts(filename.replace('ImpulseResponse.tex', ''))
+        fp=FileParts(filename.replace('_ImpulseResponse.tex', '').replace('ImpulseResponse.tex', ''))
         filename=fp.filename
 
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
-                                   initialfile=filename+'StepResponse.tex')
+                                   initialfile=filename+'_StepResponse.tex')
         if filename is None:
             return
 
