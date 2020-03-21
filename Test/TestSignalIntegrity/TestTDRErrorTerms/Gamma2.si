@@ -1,14 +1,103 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>40000000000.0</EndFrequency>
+		<FrequencyPoints>200</FrequencyPoints>
+		<UserSampleRate>5e-12</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>523x218+73+102</Geometry>
-			<Originy>4</Originy>
-			<Originx>-1</Originx>
-			<Height>361</Height>
-			<Width>1060</Width>
 			<Grid>15.0</Grid>
+			<Originx>-1</Originx>
+			<Originy>4</Originy>
 		</DrawingProperties>
 		<Schematic>
+			<Devices>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>180</Orientation>
+						<Origin>(14, 0)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>1</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceGround</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(9, 2)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>G1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(13, 0)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>Source2.si</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
 			<Wires>
 				<Wire>
 					<Vertices>
@@ -24,97 +113,10 @@
 					</Vertices>
 				</Wire>
 			</Wires>
-			<Devices>
-				<Device>
-					<ClassName>Port</ClassName>
-					<PartPicture>
-						<Origin>(14, 0)</Origin>
-						<Index>0</Index>
-						<Orientation>180</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>pn</Keyword>
-							<Value>1</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>None</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceGround</ClassName>
-					<PartPicture>
-						<Origin>(9, 2)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>G1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Origin>(13, 0)</Origin>
-						<Index>0</Index>
-						<Orientation>0</Orientation>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<Value>Source2.si</Value>
-							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<Value>2</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>D1</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-			</Devices>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>5e-12</UserSampleRate>
-		<FrequencyPoints>1000</FrequencyPoints>
-		<EndFrequency>1e+11</EndFrequency>
-	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>

@@ -1,119 +1,121 @@
 <Project>
+	<CalculationProperties>
+		<EndFrequency>40000000000.0</EndFrequency>
+		<FrequencyPoints>200</FrequencyPoints>
+		<UserSampleRate>5e-12</UserSampleRate>
+	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>505x204+2034+260</Geometry>
-			<Originy>3</Originy>
-			<Originx>-21</Originx>
-			<Height>160</Height>
-			<Width>505</Width>
 			<Grid>15.0</Grid>
+			<Originx>-21</Originx>
+			<Originy>3</Originy>
 		</DrawingProperties>
 		<Schematic>
-			<Wires>
-			</Wires>
 			<Devices>
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(25, 0)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(25, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>None</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>Port</ClassName>
 					<PartPicture>
-						<Origin>(29, 0)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(29, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>False</KeywordVisible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<Value>None</Value>
-							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
 					<ClassName>DeviceTransmissionLine</ClassName>
 					<PartPicture>
-						<Origin>(28, 0)</Origin>
 						<Index>0</Index>
-						<Orientation>0</Orientation>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(28, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>zc</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>50.0</Value>
 							<Visible>True</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>True</KeywordVisible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>T1</Value>
 							<Visible>False</Visible>
-							<KeywordVisible>False</KeywordVisible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
+			<Wires>
+			</Wires>
 		</Schematic>
 	</Drawing>
-	<CalculationProperties>
-		<UserSampleRate>5e-12</UserSampleRate>
-		<FrequencyPoints>1000</FrequencyPoints>
-		<EndFrequency>1e+11</EndFrequency>
-	</CalculationProperties>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
 </Project>

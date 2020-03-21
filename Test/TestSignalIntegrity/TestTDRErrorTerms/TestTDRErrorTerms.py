@@ -48,7 +48,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         self.g2=0.8
         self.V1=1.0
         self.V2=1.0
-        self.fd=si.fd.EvenlySpacedFrequencyList(100e9,1000)
+        self.fd=si.fd.EvenlySpacedFrequencyList(40e9,200)
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         self.DoSimulation()
@@ -59,58 +59,140 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         if os.path.exists('TDRSimulationThru1.si'): os.remove('TDRSimulationThru1.si')
         if os.path.exists('TDRSimulationThru2.si'): os.remove('TDRSimulationThru2.si')
     def buildSimulations(self):
+        # @todo: currently, I set the risetime on the pulse to a tiny number just to make
+        # sure it actually comes out, but the definition of the pulse source is that at
+        # time 0, it is at the 50% point, so when I do this, tiny pulses come out half
+        # the size.  so down below, you'll see the amplitude doubled if the size is not
+        # zero.  I should fix this by creating an impulse generator, and letting the
+        # pulse generator be the way it is.
+        risetime=1e-21
         print('Building Simulations')
         simName=projName='Short'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         self.setRefProperty(tdrsim,'V1','gain',self.g1)
         self.setRefProperty(tdrsim,'V2','gain',self.g2)
         self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2)
+        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG1', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG2', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Open'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         self.setRefProperty(tdrsim,'V1','gain',self.g1)
         self.setRefProperty(tdrsim,'V2','gain',self.g2)
         self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2)
+        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG1', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG2', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Load'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         self.setRefProperty(tdrsim,'V1','gain',self.g1)
         self.setRefProperty(tdrsim,'V2','gain',self.g2)
         self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2)
+        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG1', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG2', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName='Thru'
         projName=simName+'1'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         self.setRefProperty(tdrsim,'V1','gain',self.g1)
         self.setRefProperty(tdrsim,'V2','gain',self.g2)
         self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1)
+        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG1', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
         self.setRefProperty(tdrsim, 'VG2', 'a', 0.0)
+        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG2', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
         tdrsim.SaveProjectToFile('TDRSimulation'+projName+'.si')
         simName='Thru'
         projName=simName+'2'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         self.setRefProperty(tdrsim,'V1','gain',self.g1)
         self.setRefProperty(tdrsim,'V2','gain',self.g2)
         self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
         self.setRefProperty(tdrsim, 'VG1', 'a', 0.0)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2)
+        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG1', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
+        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
+        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        HorizontalOffset=-1e-9-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
+        self.setRefProperty(tdrsim, 'VG2', 'dur', 5e-9-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
         tdrsim.SaveProjectToFile('TDRSimulation'+projName+'.si')
     def DoSimulation(self):
         resDict=TestTDRErrorTermsTest.resDict
@@ -124,6 +206,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
         simName='Gamma2'
@@ -131,6 +217,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
         simName='Fixture1'
@@ -138,6 +228,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
         simName='Fixture2'
@@ -145,6 +239,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
         simName='Thru'
@@ -152,6 +250,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
         simName='Short'
@@ -159,6 +261,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
@@ -167,6 +273,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
@@ -175,6 +285,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
+        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
