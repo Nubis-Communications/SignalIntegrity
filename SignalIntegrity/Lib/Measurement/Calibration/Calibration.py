@@ -290,9 +290,6 @@ class Calibration(object):
         return self
     def DutCalculationAlternate(self,sRaw,portList=None,reciprocal=False):
         """Alternate Dut Calculation
-        @deprecated This provides a DUT calculation according to the Wittwer method,
-        but a better,simpler method has been found.
-
         converts the raw measured s-parameters of the DUT into calibrated s-parameter
         measurements.\n
         If the portList is None, then it assumed to be a list [0,1,2,P-1] where P is the
@@ -302,6 +299,8 @@ class Calibration(object):
         @param reciprocal (optional, defaults to False) whether to enforce reciprocity
         @return instance of class SParameters of the calibrated DUT measurement.
         @remark if reciprocity is True, the reciprocity is enforced in the calculation
+        @deprecated This provides a DUT calculation according to the Wittwer method,
+        but a better,simpler method has been found.
         """
         self.CalculateErrorTerms()
         return SParameters(self.f,[self[n].DutCalculationAlternate(sRaw[n],portList,reciprocal)
