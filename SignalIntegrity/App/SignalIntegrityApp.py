@@ -830,6 +830,7 @@ class SignalIntegrityApp(tk.Frame):
             self.RedoDoer.Activate(True)
             # ------
             self.AddPartDoer.Activate(True)
+            self.AddNetNameDoer.Activate(True)
             self.AddPortDoer.Activate(True)
             self.AddMeasureProbeDoer.Activate(True)
             self.AddOutputProbeDoer.Activate(True)
