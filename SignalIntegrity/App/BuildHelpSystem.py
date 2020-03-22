@@ -43,6 +43,7 @@ class HelpSystemKeys(object):
         HelpSystemKeys.keydict={}
     def Read(self,force=False):
         self.keydict={}
+        self.keydict['SoftwareDocumentation']='../../Doc/xhtml/index.xhtml'
         if force:
             raise ValueError
         try:

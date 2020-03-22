@@ -149,6 +149,7 @@ class SignalIntegrityApp(tk.Frame):
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
+        self.SoftwareDocumentationDoer = Doer(self.onSoftwareDocumentation).AddHelpElement('Control-Help:Software-Documentation')
         self.AboutDoer = Doer(self.onAbout).AddHelpElement('Control-Help:About')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self.root, '<Escape>').DisableHelp()
@@ -237,6 +238,8 @@ class SignalIntegrityApp(tk.Frame):
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
+        self.SoftwareDocumentationDoer.AddMenuElement(HelpMenu,label='Software Documentation',underline=0)
+        HelpMenu.add_separator()
         self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
 
@@ -796,9 +799,21 @@ class SignalIntegrityApp(tk.Frame):
 
     def onHelp(self):
         if Doer.helpKeys is None:
-            messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')
             return
         Doer.helpKeys.Open('sec:Introduction')
+
+    def onSoftwareDocumentation(self):
+        if Doer.helpKeys is None:
+            messagebox.showerror('Help System','Cannot find or open the software documentation')
+            return
+        try:
+            import webbrowser
+            url=Doer.helpKeys.controlHelpUrlBase+Doer.helpKeys['SoftwareDocumentation']
+            webbrowser.open(url)
+        except:
+            messagebox.showerror('Help System','Cannot find or open the software documentation')
+            return
 
     def onControlHelp(self):
         Doer.inHelp = not Doer.inHelp
