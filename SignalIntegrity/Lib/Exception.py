@@ -83,3 +83,7 @@ class SignalIntegrityExceptionFitter(SignalIntegrityException):
 class SignalIntegrityExceptionPostProcessing(SignalIntegrityException):
     def __init__(self,message=''):
         SignalIntegrityException.__init__(self,'PostProcessing',message)
+
+class SignalIntegrityExceptionMeasurement(SignalIntegrityException):
+    def __init__(self,message=''):
+        SignalIntegrityException.__init__(self,'Measurement',message)

@@ -8,15 +8,15 @@ class ErrorTerms(object):
                 for drivenPort in range(self.numPorts):
                     if (otherPort == drivenPort):
                         continue
-                    if ((self[otherPort][drivenPort][1]==0) and
-                        (self[otherPort][drivenPort][2]==0)):
+                    if ((self[otherPort][drivenPort][1]==None) and
+                        (self[otherPort][drivenPort][2]==None)):
                         for mid in range(self.numPorts):
                             if ((mid != otherPort) and
                                 (mid != drivenPort) and
-                                ((self[otherPort][mid][1]!=0) or
-                                 (self[otherPort][mid][2]!=0)) and
-                                ((self[mid][drivenPort][1]!=0) or
-                                 (self[mid][drivenPort][2]!=0))):
+                                ((self[otherPort][mid][1]!=None) or
+                                 (self[otherPort][mid][2]!=None)) and
+                                ((self[mid][drivenPort][1]!=None) or
+                                 (self[mid][drivenPort][2]!=None))):
                                 (_,Etl,_)=self[otherPort][mid]
                                 (_,Etr,_)=self[mid][drivenPort]
                                 (_,Erm,_)=self[mid][mid]

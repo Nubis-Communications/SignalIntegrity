@@ -22,6 +22,7 @@ from numpy import matrix,zeros,identity
 from numpy.linalg import det
 from numpy.linalg import norm
 import cmath
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionMeasurement
 
 class ErrorTerms(object):
     """Error terms for VNA and TDR based s-parameter calculations.
@@ -61,9 +62,15 @@ class ErrorTerms(object):
         @return self
         """
         self.numPorts=numPorts
-        self.ET=[[[0.,0.,0.] for _ in range(self.numPorts)]
+        self.ET=[[[None,None,None] for _ in range(self.numPorts)]
                  for _ in range(self.numPorts)]
         return self
+    def CheckErrorTerms(self):
+        for other in range(self.numPorts):
+            for driven in range(self.numPorts):
+                if any(self.ET[other][driven][t]==None
+                       for t in range(len(self.ET[other][driven]))):
+                    raise SignalIntegrityExceptionMeasurement('Not all error terms calculated')
     def InitializeFromFixtures(self,fixtureList):
         """Initialize from list of fixtures
 
@@ -104,6 +111,9 @@ class ErrorTerms(object):
         @param m integer index of port
         @return self
         """
+        # pragma: silent exclude
+        if len(Gamma)<3: raise SignalIntegrityExceptionMeasurement('Insufficient reflect measurements')
+        # pragma: include
         A=[[1.,Gamma[r]*hatGamma[r],-Gamma[r]] for r in range(len(Gamma))]
         B=[[hatGamma[r]] for r in range(len(Gamma))]
         EdEsDeltaS=(matrix(A).getI()*matrix(B)).tolist()
@@ -135,6 +145,10 @@ class ErrorTerms(object):
         # pragma: include
         [Ed,Er,Es]=self[m][m]
         Ex=self[n][m][0]
+        # pragma: silent exclude
+        if any(errorterm==None for errorterm in [Ed,Er,Es,Ex]):
+            raise SignalIntegrityExceptionMeasurement('Thru calibration with missing reflect terms')
+        # pragma: include
         A=zeros((2*len(b1a1),2)).tolist()
         B=zeros((2*len(b1a1),1)).tolist()
         for i in range(len(b1a1)):
@@ -180,6 +194,10 @@ class ErrorTerms(object):
         [ED2,ER2,ES2]=self[secondPort][secondPort]
         [EX12,ET12,EL12]=self[firstPort][secondPort]
         [EX21,ET21,EL21]=self[secondPort][firstPort]
+        # pragma: silent exclude
+        if any(errorterm==None for errorterm in [ED1,ER1,ES1,ED2,ER2,ES2,EX12,EX21]):
+            raise SignalIntegrityExceptionMeasurement('Unknown thru calibration with missing reflect terms')
+        # pragma: include
         p=cmath.sqrt((Sm[0][1]-EX12)/(Sm[1][0]-EX21))
         [EX12,ET12,EL12]=[EX12,cmath.sqrt(ER1)*cmath.sqrt(ER2)*p,ES1]
         [EX21,ET21,EL21]=[EX21,cmath.sqrt(ER1)*cmath.sqrt(ER2)/p,ES2]
@@ -191,6 +209,11 @@ class ErrorTerms(object):
             return DutCalc1
         else:
             return DutCalc2
+    def InitializeExCalibration(self):
+        for other in range(self.numPorts):
+            for driven in range(self.numPorts):
+                if other != driven:
+                    self[other][driven][0]=0.
     def ExCalibration(self,b2a1,n,m):
         """Computes the crosstalk term
 
@@ -220,15 +243,15 @@ class ErrorTerms(object):
                 for drivenPort in range(self.numPorts):
                     if (otherPort == drivenPort):
                         continue
-                    if ((self[otherPort][drivenPort][1]==0) and
-                        (self[otherPort][drivenPort][2]==0)):
+                    if ((self[otherPort][drivenPort][1]==None) and
+                        (self[otherPort][drivenPort][2]==None)):
                         for mid in range(self.numPorts):
                             if ((mid != otherPort) and
                                 (mid != drivenPort) and
-                                ((self[otherPort][mid][1]!=0) or
-                                 (self[otherPort][mid][2]!=0)) and
-                                ((self[mid][drivenPort][1]!=0) or
-                                 (self[mid][drivenPort][2]!=0))):
+                                ((self[otherPort][mid][1]!=None) or
+                                 (self[otherPort][mid][2]!=None)) and
+                                ((self[mid][drivenPort][1]!=None) or
+                                 (self[mid][drivenPort][2]!=None))):
                                 (_,Etl,_)=self[otherPort][mid]
                                 (_,Etr,_)=self[mid][drivenPort]
                                 (_,Erm,_)=self[mid][mid]

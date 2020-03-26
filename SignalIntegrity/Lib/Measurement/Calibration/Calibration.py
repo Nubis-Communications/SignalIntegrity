@@ -31,6 +31,7 @@ import copy
 class Calibration(object):
     """Generates calibrated s-parameter measurements"""
     FillInTransferThru=True
+    XtalkErrorTermsOptional=True
     def __init__(self,ports,f,calibrationList=[]):
         """Constructor
         @param ports number of ports in the calibration.
@@ -193,11 +194,20 @@ class Calibration(object):
                 hatGamma=[meas.gamma[n] for meas in measurementList]
                 Gamma=[meas.Gamma[n][0][0] for meas in measurementList]
                 self[n].ReflectCalibration(hatGamma,Gamma,port)
+    def _InitializeXtalkErrorTerms(self):
+        """initializes the xtalk error terms to zero to allow for non-calculation.
+        @return self
+        """
+        if not self.XtalkErrorTermsOptional:
+            return
+        for n in range(len(self.f)):
+            self[n].InitializeExCalibration()
     def _CalculateXtalkErrorTerms(self,measurements):
         """calculates the crosstalk error terms EX for all port combinations and frequencies.
         @param measurements list of list of calibration measurements where each column corresponds to
         a driven port and each row corresponds to a measured port.
         """
+        self._InitializeXtalkErrorTerms()
         for other in range(self.ports):
             for driven in range(self.ports):
                 if (other != driven):
@@ -266,6 +276,9 @@ class Calibration(object):
         """
         if Calibration.FillInTransferThru:
             for n in range(len(self.f)): self[n].TransferThruCalibration()
+    def _CheckErrorTerms(self):
+        for n in range(len(self.f)):
+            self[n].CheckErrorTerms()
     def CalculateErrorTerms(self,force=False):
         """Calculates the error terms
 
@@ -287,6 +300,7 @@ class Calibration(object):
         self._CalculateUnknownThruErrorTerms(measurements)
         self._CalculateThruErrorTerms(measurements)
         self._CalculateTransferThruErrorTerms()
+        self._CheckErrorTerms()
         return self
     def DutCalculationAlternate(self,sRaw,portList=None,reciprocal=False):
         """Alternate Dut Calculation

@@ -1437,6 +1437,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                 [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],0)
             et[n].ReflectCalibration([spDict['Short2'][n][0][0],spDict['Open2'][n][0][0],spDict['Load2'][n][0][0]],
                 [calStandards[0][n][0][0],calStandards[1][n][0][0],calStandards[2][n][0][0]],1)
+            et[n].InitializeExCalibration()
             et[n].ThruCalibration(spDict['Thru'][n][0][0],spDict['Thru'][n][1][0],calStandards[3][n],1,0)
             et[n].ThruCalibration(spDict['Thru'][n][1][1],spDict['Thru'][n][0][1],calStandards[3][n],0,1)
             DUT[n]=et[n].DutCalculation(spDict['Dut'][n])

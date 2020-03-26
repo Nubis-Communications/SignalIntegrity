@@ -6,7 +6,9 @@ class Calibration(object):
                 hatGamma=[meas.gamma[n] for meas in measurementList]
                 Gamma=[meas.Gamma[n][0][0] for meas in measurementList]
                 self[n].ReflectCalibration(hatGamma,Gamma,port)
+...
     def _CalculateXtalkErrorTerms(self,measurements):
+        self._InitializeXtalkErrorTerms()
         for other in range(self.ports):
             for driven in range(self.ports):
                 if (other != driven):

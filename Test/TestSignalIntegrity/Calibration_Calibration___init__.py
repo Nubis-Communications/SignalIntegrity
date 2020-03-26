@@ -33,6 +33,7 @@ class Calibration(object):
         self._CalculateUnknownThruErrorTerms(measurements)
         self._CalculateThruErrorTerms(measurements)
         self._CalculateTransferThruErrorTerms()
+        self._CheckErrorTerms()
         return self
 ...
     def DutCalculation(self,sRaw,portList=None,reciprocal=False):
