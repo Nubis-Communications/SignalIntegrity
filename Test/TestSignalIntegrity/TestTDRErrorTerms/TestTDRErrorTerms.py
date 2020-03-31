@@ -77,22 +77,22 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
-        self.setRefProperty(tdrsim,'V1','gain',self.g1)
-        self.setRefProperty(tdrsim,'V2','gain',self.g2)
-        self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        tdrsim.Device('V1')['gain']['Value']=self.g1
+        tdrsim.Device('V2')['gain']['Value']=self.g2
+        tdrsim.Device('DUT')['file']['Value']=simName+'.si'
+        tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG1')['rt']['Value']=risetime
+        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG1', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG2')['rt']['Value']=risetime
+        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG2', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Open'
         print(simName)
@@ -103,21 +103,21 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
-        self.setRefProperty(tdrsim,'V1','gain',self.g1)
-        self.setRefProperty(tdrsim,'V2','gain',self.g2)
-        self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('V1')['gain']['Value']=self.g1
+        tdrsim.Device('V2')['gain']['Value']=self.g2
+        tdrsim.Device('DUT')['file']['Value']=simName+'.si'
+        tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG1')['rt']['Value']=risetime
+        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG1', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG2')['rt']['Value']=risetime
+        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG2', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Load'
         print(simName)
@@ -128,21 +128,21 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
-        self.setRefProperty(tdrsim,'V1','gain',self.g1)
-        self.setRefProperty(tdrsim,'V2','gain',self.g2)
-        self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('V1')['gain']['Value']=self.g1
+        tdrsim.Device('V2')['gain']['Value']=self.g2
+        tdrsim.Device('DUT')['file']['Value']=simName+'.si'
+        tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG1')['rt']['Value']=risetime
+        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG1', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG2')['rt']['Value']=risetime
+        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG2', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName='Thru'
         projName=simName+'1'
@@ -154,21 +154,21 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
-        self.setRefProperty(tdrsim,'V1','gain',self.g1)
-        self.setRefProperty(tdrsim,'V2','gain',self.g2)
-        self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', self.V1 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('V1')['gain']['Value']=self.g1
+        tdrsim.Device('V2')['gain']['Value']=self.g2
+        tdrsim.Device('DUT')['file']['Value']=simName+'.si'
+        tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG1')['rt']['Value']=risetime
+        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG1', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
-        self.setRefProperty(tdrsim, 'VG2', 'a', 0.0)
-        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['a']['Value']=0.0
+        tdrsim.Device('VG2')['rt']['Value']=risetime
+        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG2', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+projName+'.si')
         simName='Thru'
         projName=simName+'2'
@@ -180,21 +180,21 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
         siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
-        self.setRefProperty(tdrsim,'V1','gain',self.g1)
-        self.setRefProperty(tdrsim,'V2','gain',self.g2)
-        self.setRefProperty(tdrsim,'DUT','file',simName+'.si')
-        self.setRefProperty(tdrsim, 'VG1', 'a', 0.0)
-        self.setRefProperty(tdrsim, 'VG1', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG1', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('V1')['gain']['Value']=self.g1
+        tdrsim.Device('V2')['gain']['Value']=self.g2
+        tdrsim.Device('DUT')['file']['Value']=simName+'.si'
+        tdrsim.Device('VG1')['a']['Value']=0.0
+        tdrsim.Device('VG1')['rt']['Value']=risetime
+        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG1', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG1', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
-        self.setRefProperty(tdrsim, 'VG2', 'a', self.V2 * (1. if risetime == 0.0 else 2.))
-        self.setRefProperty(tdrsim, 'VG2', 'rt', risetime)
-        self.setRefProperty(tdrsim, 'VG2', 'fs', siapp.Project['CalculationProperties.BaseSampleRate'])
+        tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
+        tdrsim.Device('VG2')['rt']['Value']=risetime
+        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
         HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
-        self.setRefProperty(tdrsim, 'VG2', 'ho', HorizontalOffset)
-        self.setRefProperty(tdrsim, 'VG2', 'dur', WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.)
+        tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+projName+'.si')
     def DoSimulation(self):
         resDict=TestTDRErrorTermsTest.resDict
@@ -349,22 +349,6 @@ class TestTDRErrorTermsTest(unittest.TestCase,
             ])
         TestTDRErrorTermsTest.resDict=resDict
         #resDict['CalibrationTDR'].WriteToFile('calibration.l12t').WriteFixturesToFiles('ErrorTermFixture')
-    def setRefProperty(self,project,ref,propertyname,value):
-        devices=project.Drawing.schematic.deviceList
-        for device in devices:
-            partproperties=device.propertiesList
-            for property in partproperties:
-                if property['Keyword']=='ref' and property['Value']==ref:
-                    for refproperty in partproperties:
-                        if refproperty['Keyword']==propertyname:
-                            #refproperty.SetValueFromString(str(value))
-                            refproperty['Value']=value
-                            return
-        raise ValueError
-    def setDevice(self,project,ref,name):
-        self.setRefProperty(project,ref,'file',name+'.si')
-    def setPulser(self,project,ref,value):
-        self.setRefProperty(project,ref,'a',value)
     def convertTDR(self,fd,wfList,incidentIndex=0):
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,fd=fd)
         tdr.Convert(wfList,incidentIndex)

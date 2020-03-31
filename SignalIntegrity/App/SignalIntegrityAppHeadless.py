@@ -315,6 +315,21 @@ class SignalIntegrityAppHeadless(object):
                 filename.append(self.fileparts.filename+'_'+filename)
         return (unknownNames,sp,filename)
 
+    def Device(self,ref):
+        """
+        accesses a device by it's reference string
+        @param ref string reference designator
+        @return device if found otherwise None
+
+        Some examples of how to use this (proj is a project name)
+        gain=proj.Device('U1')['gain']['Value']
+        proj.Device('U1')['gain']['Value']=gain
+        """
+        devices=self.Drawing.schematic.deviceList
+        for device in devices:
+            if device['ref']['Value']==ref:
+                return device
+        return None
 def ProjectSParameters(filename):
     import copy
     ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
@@ -361,3 +376,4 @@ def ProjectWaveform(filename,wfname):
     SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
     os.chdir(cwdCopy)
     return wf
+
