@@ -1908,6 +1908,15 @@ class PartPictureVariableUnknown(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureUnknown','PartPictureUnknownAcross','PartPictureUnknownDownAndUp','PartPictureUnknownSide'],ports)
 
+
+class PartPictureVoltageProbe(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False,True,True),PartPin(2,(1,0),'t',False,True,True)],[(0.5,1),(1.5,3)],[(0.5,0),(1.5,4)],(0,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        # arrow on the sensing port
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
+        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
 class PartPictureSystem(PartPictureSpecifiedPorts):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
@@ -1935,14 +1944,6 @@ class PartPictureSystemSide(PartPictureSpecifiedPortsSide):
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'S')
         PartPictureSpecifiedPortsSide.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
-
-class PartPictureVoltageProbe(PartPictureBox):
-    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False,True,True),PartPin(2,(1,0),'t',False,True,True)],[(0.5,1),(1.5,3)],[(0.5,0),(1.5,4)],(0,2),orientation,mirroredHorizontally,mirroredVertically)
-    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
-        # arrow on the sensing port
-        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
-        PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
 class PartPictureVariableSystem(PartPictureVariable):
     def __init__(self,ports=4):
@@ -2012,4 +2013,37 @@ class PartPictureNetName(PartPicture):
 class PartPictureVariableNetName(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureNetName'],1)
+
+class PartPictureNetworkAnalyzer(PartPictureSpecifiedPorts):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        PartPictureSpecifiedPorts.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+
+class PartPictureNetworkAnalyzerAcross(PartPictureSpecifiedPortsAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        PartPictureSpecifiedPortsAcross.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+
+class PartPictureNetworkAnalyzerDownAndUp(PartPictureSpecifiedPortsDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+
+class PartPictureNetworkAnalyzerSide(PartPictureSpecifiedPortsSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        PartPictureSpecifiedPortsSide.DrawDevice(self,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+
+class PartPictureVariableNetworkAnalyzer(PartPictureVariable):
+    def __init__(self,ports=4):
+        PartPictureVariable.__init__(self,['PartPictureNetworkAnalyzer','PartPictureNetworkAnalyzerAcross','PartPictureNetworkAnalyzerDownAndUp','PartPictureNetworkAnalyzerSide'],ports)
+
 

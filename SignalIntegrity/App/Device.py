@@ -188,6 +188,15 @@ class DeviceSystem(Device):
         netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True)])
         Device.__init__(self,netlist,[PartPropertyCategory('Systems'),PartPropertyPartName('System'),PartPropertyHelp('device:System'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName()]+propertiesList,partPicture)
 
+class DeviceNetworkAnalyzer(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='vna',values=[('file',True),('et',True),('pl',True)])
+        for property in propertiesList:
+            if property['Keyword']=='ports':
+                numPorts=int(property['Value'])
+        portList=','.join([str(p+1) for p in range(numPorts)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),PartPropertyPartName('NetworkAnalyzer'),PartPropertyHelp('device:Network-Analyzer'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName(),PartPropertyErrorTermsFileName(),PartPropertyPortsList(portList)]+propertiesList,partPicture)
+
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='R',values=[('r',False)])
@@ -543,7 +552,12 @@ DeviceList = [
               DeviceCurrentOutputProbe(),
               DeviceVoltageOutputProbe(),
               #DeviceNPNTransistor([PartPropertyDescription('NPN Transistor')])
-              DeviceRLGCFitFromFile()
+              DeviceRLGCFitFromFile(),
+              DeviceNetworkAnalyzer([PartPropertyDescription('One Port Network Analyzer'),PartPropertyPorts(1)],PartPictureVariableNetworkAnalyzer(1)),
+              DeviceNetworkAnalyzer([PartPropertyDescription('Two Port Network Analyzer'),PartPropertyPorts(2)],PartPictureVariableNetworkAnalyzer(2)),
+              DeviceNetworkAnalyzer([PartPropertyDescription('Three Port Network Analyzer'),PartPropertyPorts(3)],PartPictureVariableNetworkAnalyzer(3)),
+              DeviceNetworkAnalyzer([PartPropertyDescription('Four Port Network Analyzer'),PartPropertyPorts(4)],PartPictureVariableNetworkAnalyzer(4)),
+              DeviceNetworkAnalyzer([PartPropertyDescription('Variable Port Network Analyzer'),PartPropertyPorts(4,False)],PartPictureVariableNetworkAnalyzer()),
               ]
 
 DeviceListUnknown = [
@@ -561,3 +575,4 @@ DeviceListSystem = [
               DeviceSystem([PartPropertyDescription('Four Port System'),PartPropertyPorts(4)],PartPictureVariableSystem(4)),
               DeviceSystem([PartPropertyDescription('Variable Port System'),PartPropertyPorts(4,False)],PartPictureVariableSystem()),
               ]
+

@@ -147,6 +147,10 @@ class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'filename',type='file',unit=None,keyword='file',description='file name',value=fileName)
 
+class PartPropertyErrorTermsFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'errorterms',type='file',unit=None,keyword='et',description='error terms',value=fileName)
+
 class PartPropertyWaveformFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'waveformfilename',type='file',unit=None,keyword='wffile',description='file name',value=fileName)
@@ -330,3 +334,7 @@ class PartPropertyRisetime(PartProperty):
 class PartPropertyPRBSPolynomial(PartProperty):
     def __init__(self,poly=7):
         PartProperty.__init__(self,'prbs',type='int',unit='',keyword='prbs',description='prbs polynomial order',value=poly,visible=True,keywordVisible=True)
+
+class PartPropertyPortsList(PartProperty):
+    def __init__(self,portsList):
+        PartProperty.__init__(self,'portslist',type='string',unit=None,keyword='pl',description='port list',value=portsList,visible=False,keywordVisible=False)
