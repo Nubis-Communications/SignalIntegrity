@@ -367,10 +367,10 @@ class SignalIntegrityApp(tk.Frame):
         if filename=='':
             return
 
-        self.fileparts=FileParts(filename)
-        os.chdir(self.fileparts.AbsoluteFilePath())
-        self.fileparts=FileParts(filename)
         try:
+            self.fileparts=FileParts(filename)
+            os.chdir(self.fileparts.AbsoluteFilePath())
+            self.fileparts=FileParts(filename)
             SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
             self.Drawing.InitFromProject()
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))

@@ -319,8 +319,8 @@ class ProjectFileBase(object):
         return lines
 
     def CheckFileChanged(self,filename):
-        linesInFile=self.LinesInFile(filename)
         try:
+            linesInFile=self.LinesInFile(filename)
             linesInProject=self.LinesToWrite()
             if len(linesInProject)!=len(linesInFile):
                 return True
