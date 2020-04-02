@@ -190,7 +190,7 @@ class DeviceSystem(Device):
 
 class DeviceNetworkAnalyzer(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(devicename='vna',values=[('file',True),('et',True),('pl',True)])
+        netlist=DeviceNetListLine(partname='networkanalyzer',values=[('file',True),('et',True),('pl',True)])
         for property in propertiesList:
             if property['Keyword']=='ports':
                 numPorts=int(property['Value'])

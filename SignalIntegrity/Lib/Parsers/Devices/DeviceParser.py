@@ -88,6 +88,7 @@ class DeviceFactory(list):
         |openstd                                |1    |False    |od=0 oz0=50 ol=0 c0=0\n c1=0 c2=0 c3=0                                                         | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,c0,c1,c2,c3)                                               |
         |loadstd                                |1    |False    |od=0 oz0=50 ol=0 tz0=50                                                                        | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,tz0)                                                       |
         |thrustd                                |2    |False    |od=0 oz0=50 ol=0                                                                               | True                |m.calkit.std.ThruStandard(f,od,oz0,ol)                                                           |
+        |vna                                    |any  |False    |file=None, et=None, pl=None                                                                    | True                |m.cal.NetworkAnalyzer(f,file,et,pl)                                                              |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -186,6 +187,14 @@ class DeviceFactory(list):
         ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0},
             True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']))")
         ]))
+        # pragma: silent exclude
+        self.__init__Contd2()
+        # pragma: include
+    def __init__Contd2(self):
+        list.__init__(self,list(self+[
+        ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None},True,
+            "NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'])"),
+        ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
 
@@ -239,6 +248,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard import ThruStandard
         from SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset import Offset
         from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGC import TLineDifferentialRLGC
+        from SignalIntegrity.Lib.Measurement.Calibration.NetworkAnalyzer import NetworkAnalyzer
         # pragma: include
         self.dev=None
         if len(argsList) == 0:
