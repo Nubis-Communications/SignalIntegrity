@@ -38,6 +38,7 @@ class SParameters(SParameterManipulation):
     header=['File created by '+__project__+' v'+ __version__+': '+__description__,
         __url__]
     maxTokensOnLine=4
+    numDigits=6
     def __init__(self,f,data,Z0=50.0):
         """Constructor
         @param f list of frequencies
@@ -131,6 +132,7 @@ class SParameters(SParameterManipulation):
             if self.m_P == 2: mat=array(mat).transpose().tolist()
             # pragma: silent exclude
             tokensOnLine=0
+            digits=self.numDigits
             # pragma: include
             for r in range(self.m_P):
                 for c in range(self.m_P):
@@ -141,14 +143,14 @@ class SParameters(SParameterManipulation):
                     # pragma: include
                     val = mat[r][c]
                     if cpxType == 'MA':
-                        line.append(str(round(abs(val),6)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,6)))
+                        line.append(str(round(abs(val),digits)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
                     elif cpxType == 'RI':
-                        line.append(str(round(val.real,6)))
-                        line.append(str(round(val.imag,6)))
+                        line.append(str(round(val.real,digits)))
+                        line.append(str(round(val.imag,digits)))
                     elif cpxType == 'DB':
-                        line.append(str(round(20*math.log10(abs(val)),6)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,6)))
+                        line.append(str(round(20*math.log10(abs(val)),digits)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
                     # pragma: silent exclude
                     tokensOnLine=tokensOnLine+1
                     # pragma: include

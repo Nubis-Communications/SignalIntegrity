@@ -120,6 +120,7 @@ class SParameterManipulation(object):
                 for c in range(len(pr))]
                     for r in range(len(pr))]
                         for n in range(len(sp.m_d))]
+        sp.m_P=len(pr)
         return sp
     def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False):
         """determines the impulse response lengths of the ports by comparing impulse response to threshold.

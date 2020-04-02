@@ -17,7 +17,7 @@ SParameterProperties.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFile import CalculationPropertiesBase
-from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool
+from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool,XMLPropertyDefaultInt
 
 class PlotConfiguration(XMLConfiguration):
     def __init__(self,name):
@@ -111,6 +111,7 @@ class SParameterProperties(CalculationPropertiesBase):
             self.Add(XMLPropertyDefaultFloat('TimeLimitPositive',10e-9))
         else:
             self.SubDir(SParameterZoomProperties())
+            self.Add(XMLPropertyDefaultInt('SignificantDigits',6))
         self.SubDir(PlotProperties(preferences))
             
 class SParameterPropertiesProject(ProjectFileBase):

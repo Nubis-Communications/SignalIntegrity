@@ -38,14 +38,14 @@ class SParameters(SParameterManipulation):
                 for c in range(self.m_P):
                     val = mat[r][c]
                     if cpxType == 'MA':
-                        line.append(str(round(abs(val),6)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,6)))
+                        line.append(str(round(abs(val),digits)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
                     elif cpxType == 'RI':
-                        line.append(str(round(val.real,6)))
-                        line.append(str(round(val.imag,6)))
+                        line.append(str(round(val.real,digits)))
+                        line.append(str(round(val.imag,digits)))
                     elif cpxType == 'DB':
-                        line.append(str(round(20*math.log10(abs(val)),6)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,6)))
+                        line.append(str(round(20*math.log10(abs(val)),digits)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
             pline = ' '.join(line)+'\n'
             spfile.write(pline)
         spfile.close()

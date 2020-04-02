@@ -26,6 +26,7 @@ class SParameterViewerPreferencesDialog(PropertiesDialog):
         self.plotDPIFrame=CalculationProperty(self.propertyListFrame,'plot DPI',None,self.onUpdatePreferences,preferences,'Appearance.PlotDPI')
         self.matPlotLibColorFrame=CalculationPropertyColor(self.propertyListFrame,'plot color',None,self.onUpdateColors,preferences,'Appearance.Color.Plot')
         self.plotCursors=CalculationPropertyTrueFalseButton(self.propertyListFrame,'show cursor values on plots',None,self.onUpdatePreferences,preferences,'Appearance.PlotCursorValues')
+        self.significantDigits=CalculationProperty(self.propertyListFrame,'significant digits',None,self.onUpdatePreferences,preferences,'SParameterProperties.SignificantDigits')
         self.Finish()
     def onUpdatePreferences(self):
         self.project.SaveToFile()

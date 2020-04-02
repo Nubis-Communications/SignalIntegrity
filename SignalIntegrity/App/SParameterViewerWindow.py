@@ -1356,6 +1356,7 @@ class SParametersDialog(tk.Toplevel):
         if filename is None:
             return
         self.fileparts=FileParts(filename)
+        self.sp.numDigits=SignalIntegrity.App.Preferences['SParameterProperties.SignificantDigits']
         self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))
 
     def onCalculationProperties(self):
