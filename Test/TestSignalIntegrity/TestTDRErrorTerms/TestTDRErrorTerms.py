@@ -348,7 +348,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
             si.m.cal.ThruCalibrationMeasurement(resDict['ThruMeasurement'].FrequencyResponse(2,2),resDict['ThruMeasurement'].FrequencyResponse(1,2),cs.thruStandard,1,0,'Thru2'),
             ])
         TestTDRErrorTermsTest.resDict=resDict
-        resDict['CalibrationTDR'].WriteToFile('calibration.l12t').WriteFixturesToFiles('ErrorTermFixture')
+        #resDict['CalibrationTDR'].WriteToFile('calibration.l12t').WriteFixturesToFiles('ErrorTermFixture')
     def convertTDR(self,fd,wfList,incidentIndex=0):
         tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,fd=fd)
         tdr.Convert(wfList,incidentIndex)

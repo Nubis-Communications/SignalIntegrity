@@ -488,7 +488,7 @@ class DeviceNetworkAnalyzer(Device):
 
 class DeviceShortStandard(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(partname='shortstd',values=[('od',True),('oz0',True),('ol',True),('l0',True),('l1',True),('l2',True),('l3',True)])
+        netlist=DeviceNetListLine(partname='shortstd',values=[('od',True),('oz0',True),('ol',True),('f0',True),('l0',True),('l1',True),('l2',True),('l3',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('Short Standard'),
@@ -500,6 +500,7 @@ class DeviceShortStandard(Device):
                          PartPropertyOffsetDelay(0.0),
                          PartPropertyOffsetZ0(50.0),
                          PartPropertyOffsetLoss(0.0),
+                         PartPropertyF0(1e9),
                          PartPropertyL0(0.0),
                          PartPropertyL1(0.0),
                          PartPropertyL2(0.0),
@@ -508,7 +509,7 @@ class DeviceShortStandard(Device):
 
 class DeviceOpenStandard(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(partname='openstd',values=[('od',True),('oz0',True),('ol',True),('c0',True),('c1',True),('c2',True),('c3',True)])
+        netlist=DeviceNetListLine(partname='openstd',values=[('od',True),('oz0',True),('ol',True),('f0',True),('c0',True),('c1',True),('c2',True),('c3',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('Open Standard'),
@@ -520,6 +521,7 @@ class DeviceOpenStandard(Device):
                          PartPropertyOffsetDelay(0.0),
                          PartPropertyOffsetZ0(50.0),
                          PartPropertyOffsetLoss(0.0),
+                         PartPropertyF0(1e9),
                          PartPropertyC0(0.0),
                          PartPropertyC1(0.0),
                          PartPropertyC2(0.0),
@@ -528,7 +530,7 @@ class DeviceOpenStandard(Device):
 
 class DeviceLoadStandard(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(partname='loadstd',values=[('od',True),('oz0',True),('ol',True),('tz',True)])
+        netlist=DeviceNetListLine(partname='loadstd',values=[('od',True),('oz0',True),('ol',True),('f0',True),('tz',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('Load Standard'),
@@ -540,12 +542,13 @@ class DeviceLoadStandard(Device):
                          PartPropertyOffsetDelay(0.0),
                          PartPropertyOffsetZ0(50.0),
                          PartPropertyOffsetLoss(0.0),
+                         PartPropertyF0(1e9),
                          PartPropertyTerminationZ(50.0)],
                         PartPictureVariableStandard())
 
 class DeviceThruStandard(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(partname='thrustd',values=[('od',True),('oz0',True),('ol',True)])
+        netlist=DeviceNetListLine(partname='thrustd',values=[('od',True),('oz0',True),('ol',True),('f0',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('Thru Standard'),
@@ -556,7 +559,8 @@ class DeviceThruStandard(Device):
                          PartPropertyDefaultReferenceDesignator('D?'),
                          PartPropertyOffsetDelay(0.0),
                          PartPropertyOffsetZ0(50.0),
-                         PartPropertyOffsetLoss(0.0)],
+                         PartPropertyOffsetLoss(0.0),
+                         PartPropertyF0(1e9)],
                         PartPictureVariableTransmissionLineTwoPort())
 
 DeviceList = [

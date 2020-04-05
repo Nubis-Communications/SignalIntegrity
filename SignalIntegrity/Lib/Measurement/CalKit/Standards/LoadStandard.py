@@ -26,13 +26,14 @@ from SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset import Offset
 
 class LoadStandard(SParameters):
     """Class providing the s-parameters of a load standard as commonly defined for a calibration kit."""
-    def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,
+    def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,f0=1e9,
                  terminationZ=50.0):
         """Constructor
         @param f list of frequencies
         @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
         @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 ohms)
-        @param offsetLoss (optional) float loss due to skin-effect defined in Gohms/s at 1 GHz (defaults to 0).
+        @param offsetLoss (optional) float loss due to skin-effect defined in Gohms/s at f0 (defaults to 0).
+        @param f0 (optional) float frequency where the offset loss is defined (defaults to 1e9).
         @param terminationZ (optional) float real impedance of termination.
         The result is that the class becomes the base-class SParameters with the s-parameters
         of a load standard.
@@ -43,7 +44,7 @@ class LoadStandard(SParameters):
         sspn=SystemSParametersNumeric(SystemDescriptionParser().AddLines(
             ['device offset 2','device R 1','port 1 offset 1','connect offset 2 R 1']
             ).SystemDescription())
-        offsetSParameters=Offset(f,offsetDelay,offsetZ0,offsetLoss)
+        offsetSParameters=Offset(f,offsetDelay,offsetZ0,offsetLoss,f0)
         terminationSParameters=TerminationZ(terminationZ)
         sp=[]
         for n in range(len(f)):

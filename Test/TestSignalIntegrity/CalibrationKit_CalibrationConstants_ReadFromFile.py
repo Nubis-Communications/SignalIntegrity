@@ -49,5 +49,6 @@ class CalibrationConstants(object):
         self.thruOffsetZ0=float(actualLines[19])
         # % offset loss (Gohm/s) - THRU
         self.thruOffsetLoss=float(actualLines[20])*1e9
+        self.f0=1e9
         return self
 ...

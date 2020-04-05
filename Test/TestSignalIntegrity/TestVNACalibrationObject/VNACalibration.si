@@ -150,6 +150,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>f0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1000000000.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>l0</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
@@ -214,6 +220,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1000000000.0</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>c0</Keyword>
@@ -282,6 +294,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>f0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1000000000.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>tz</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>50.0</Value>
@@ -328,6 +346,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>0.0</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1000000000.0</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>

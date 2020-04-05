@@ -387,4 +387,8 @@ class PartPropertyTerminationZ(PartProperty):
     def __init__(self,Z=50.):
         PartProperty.__init__(self,'tz',type='float',unit='ohm',keyword='tz',description='termination impedance (ohms)',value=Z,visible=True,keywordVisible=True)
 
+class PartPropertyF0(PartProperty):
+    def __init__(self,f0=1e9):
+        PartProperty.__init__(self,'f0',type='float',unit='Hz',keyword='f0',description='loss frequency (Hz)',value=f0,visible=False,keywordVisible=True)
+
 
