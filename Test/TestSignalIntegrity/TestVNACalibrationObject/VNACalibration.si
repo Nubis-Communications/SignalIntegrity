@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x264+1948+30</Geometry>
+			<Geometry>504x547+1948+30</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(7, 2)</Origin>
+						<Origin>(6, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -62,7 +62,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(8, 2)</Origin>
+						<Origin>(7, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -92,7 +92,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(8, 4)</Origin>
+						<Origin>(7, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -115,8 +115,260 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
+				<Device>
+					<ClassName>DeviceShortStandard</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 3)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>od</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>oz0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ol</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>l0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>l1</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>l2</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>l3</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceOpenStandard</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 12)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>od</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>oz0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ol</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>c0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>c1</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>c2</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>c3</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D3</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceLoadStandard</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 18)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>od</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>oz0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ol</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>tz</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D4</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceThruStandard</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(23, 24)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>od</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>oz0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ol</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D5</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(21, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(21, 13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 13)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(21, 19)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
 			</Wires>
 		</Schematic>
 	</Drawing>

@@ -86,9 +86,9 @@ class DeviceFactory(list):
         |rlgcfit                                |2    |False    |file=None scale=1.0 z0=50                                                                      | True                |fit.RLGCFitFromFile(f,file,scale,Z0)                                                        |
         |shortstd                               |1    |False    |od=0 oz0=50 ol=0 l0=0\n l1=0.0 l2=0 l3=0                                                       | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,l0,l1,l2,l3)                                              |
         |openstd                                |1    |False    |od=0 oz0=50 ol=0 c0=0\n c1=0 c2=0 c3=0                                                         | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,c0,c1,c2,c3)                                               |
-        |loadstd                                |1    |False    |od=0 oz0=50 ol=0 tz0=50                                                                        | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,tz0)                                                       |
+        |loadstd                                |1    |False    |od=0 oz0=50 ol=0 tz=50                                                                        | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,tz0)                                                       |
         |thrustd                                |2    |False    |od=0 oz0=50 ol=0                                                                               | True                |m.calkit.std.ThruStandard(f,od,oz0,ol)                                                           |
-        |vna                                    |any  |False    |file=None, et=None, pl=None                                                                    | True                |m.cal.NetworkAnalyzer(f,file,et,pl)                                                              |
+        |networkanalyzer                        |any  |False    |file=None, et=None, pl=None                                                                    | True                |m.cal.NetworkAnalyzer(f,file,et,pl)                                                              |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -181,9 +181,9 @@ class DeviceFactory(list):
             'c0':0.0,'c1':0.0,'c2':0.0,'c3':0.0},True,
             "OpenStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
             float(arg['c0']),float(arg['c1']),float(arg['c2']),float(arg['c3']))"),
-        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'tz0':50.0},
+        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'tz':50.0},
             True,"LoadStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['tz0']))"),
+            float(arg['tz']))"),
         ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0},
             True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']))")
         ]))

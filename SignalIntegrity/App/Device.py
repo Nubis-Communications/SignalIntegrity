@@ -188,15 +188,6 @@ class DeviceSystem(Device):
         netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True)])
         Device.__init__(self,netlist,[PartPropertyCategory('Systems'),PartPropertyPartName('System'),PartPropertyHelp('device:System'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName()]+propertiesList,partPicture)
 
-class DeviceNetworkAnalyzer(Device):
-    def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(partname='networkanalyzer',values=[('file',True),('et',True),('pl',True)])
-        for property in propertiesList:
-            if property['Keyword']=='ports':
-                numPorts=int(property['Value'])
-        portList=','.join([str(p+1) for p in range(numPorts)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),PartPropertyPartName('NetworkAnalyzer'),PartPropertyHelp('device:Network-Analyzer'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName(),PartPropertyErrorTermsFileName(),PartPropertyPortsList(portList)]+propertiesList,partPicture)
-
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='R',values=[('r',False)])
@@ -486,6 +477,88 @@ class DeviceRLGCFitFromFile(Device):
         netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True),('scale',True)])
         Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('TransmissionLines'),PartPropertyPartName('RLGC Fit'),PartPropertyHelp('device:RLGC-Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName(),PartPropertyScale(scale=1)],PartPictureVariableTransmissionLineTwoPort())
 
+class DeviceNetworkAnalyzer(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(partname='networkanalyzer',values=[('file',True),('et',True),('pl',True)])
+        for property in propertiesList:
+            if property['Keyword']=='ports':
+                numPorts=int(property['Value'])
+        portList=','.join([str(p+1) for p in range(numPorts)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),PartPropertyPartName('NetworkAnalyzer'),PartPropertyHelp('device:Network-Analyzer'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName(),PartPropertyErrorTermsFileName(),PartPropertyPortsList(portList)]+propertiesList,partPicture)
+
+class DeviceShortStandard(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='shortstd',values=[('od',True),('oz0',True),('ol',True),('l0',True),('l1',True),('l2',True),('l3',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Short Standard'),
+                         PartPropertyPorts(1),
+                         PartPropertyCategory('Network Analysis'),
+                         PartPropertyPartName('ShortStandard'),
+                         PartPropertyHelp('device:Short-Standard'),
+                         PartPropertyDefaultReferenceDesignator('D?'),
+                         PartPropertyOffsetDelay(0.0),
+                         PartPropertyOffsetZ0(50.0),
+                         PartPropertyOffsetLoss(0.0),
+                         PartPropertyL0(0.0),
+                         PartPropertyL1(0.0),
+                         PartPropertyL2(0.0),
+                         PartPropertyL3(0.0)],
+                        PartPictureVariableStandard())
+
+class DeviceOpenStandard(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='openstd',values=[('od',True),('oz0',True),('ol',True),('c0',True),('c1',True),('c2',True),('c3',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Open Standard'),
+                         PartPropertyPorts(1),
+                         PartPropertyCategory('Network Analysis'),
+                         PartPropertyPartName('OpenStandard'),
+                         PartPropertyHelp('device:Open-Standard'),
+                         PartPropertyDefaultReferenceDesignator('D?'),
+                         PartPropertyOffsetDelay(0.0),
+                         PartPropertyOffsetZ0(50.0),
+                         PartPropertyOffsetLoss(0.0),
+                         PartPropertyC0(0.0),
+                         PartPropertyC1(0.0),
+                         PartPropertyC2(0.0),
+                         PartPropertyC3(0.0)],
+                        PartPictureVariableStandard())
+
+class DeviceLoadStandard(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='loadstd',values=[('od',True),('oz0',True),('ol',True),('tz',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Load Standard'),
+                         PartPropertyPorts(1),
+                         PartPropertyCategory('Network Analysis'),
+                         PartPropertyPartName('LoadStandard'),
+                         PartPropertyHelp('device:Load-Standard'),
+                         PartPropertyDefaultReferenceDesignator('D?'),
+                         PartPropertyOffsetDelay(0.0),
+                         PartPropertyOffsetZ0(50.0),
+                         PartPropertyOffsetLoss(0.0),
+                         PartPropertyTerminationZ(50.0)],
+                        PartPictureVariableStandard())
+
+class DeviceThruStandard(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='thrustd',values=[('od',True),('oz0',True),('ol',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Thru Standard'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Network Analysis'),
+                         PartPropertyPartName('ThruStandard'),
+                         PartPropertyHelp('device:Thru-Standard'),
+                         PartPropertyDefaultReferenceDesignator('D?'),
+                         PartPropertyOffsetDelay(0.0),
+                         PartPropertyOffsetZ0(50.0),
+                         PartPropertyOffsetLoss(0.0)],
+                        PartPictureVariableTransmissionLineTwoPort())
+
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),
               DeviceFile([PartPropertyDescription('Two Port File'),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),
@@ -558,7 +631,10 @@ DeviceList = [
               DeviceNetworkAnalyzer([PartPropertyDescription('Three Port Network Analyzer'),PartPropertyPorts(3)],PartPictureVariableNetworkAnalyzer(3)),
               DeviceNetworkAnalyzer([PartPropertyDescription('Four Port Network Analyzer'),PartPropertyPorts(4)],PartPictureVariableNetworkAnalyzer(4)),
               DeviceNetworkAnalyzer([PartPropertyDescription('Variable Port Network Analyzer'),PartPropertyPorts(4,False)],PartPictureVariableNetworkAnalyzer()),
-              ]
+              DeviceShortStandard(),
+              DeviceOpenStandard(),
+              DeviceLoadStandard(),
+              DeviceThruStandard()]
 
 DeviceListUnknown = [
               DeviceUnknown([PartPropertyDescription('One Port Unknown'),PartPropertyPorts(1)],PartPictureVariableUnknown(1)),

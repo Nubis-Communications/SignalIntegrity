@@ -338,3 +338,53 @@ class PartPropertyPRBSPolynomial(PartProperty):
 class PartPropertyPortsList(PartProperty):
     def __init__(self,portsList):
         PartProperty.__init__(self,'portslist',type='string',unit=None,keyword='pl',description='port list',value=portsList,visible=False,keywordVisible=False)
+
+class PartPropertyOffsetDelay(PartProperty):
+    def __init__(self,delay=0.0):
+        PartProperty.__init__(self,'od',type='float',unit='s',keyword='od',description='offset delay (s)',value=delay,visible=True)
+
+class PartPropertyOffsetZ0(PartProperty):
+    def __init__(self,Z0=50.):
+        PartProperty.__init__(self,'oz0',type='float',unit='ohm',keyword='oz0',description='offset characteristic impedance (ohms)',value=Z0,visible=True,keywordVisible=True)
+
+class PartPropertyOffsetLoss(PartProperty):
+    def __init__(self,ol=0.):
+        PartProperty.__init__(self,'ol',type='float',unit='ohm/s',keyword='ol',description='offset loss (ohm/s)',value=ol,visible=True,keywordVisible=True)
+
+class PartPropertyL0(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l0',type='float',unit='H',keyword='l0',description=' inductance (H)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyL1(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l1',type='float',unit='H/Hz',keyword='l1',description=' inductance (H/Hz)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyL2(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l2',type='float',unit='H/Hz^2',keyword='l2',description=' inductance (H/Hz^2)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyL3(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l3',type='float',unit='H/Hz^3',keyword='l3',description=' inductance (H/Hz^3)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyC0(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c0',type='float',unit='F',keyword='c0',description=' capacitance (F)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyC1(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c1',type='float',unit='F/Hz',keyword='c1',description=' capacitance (F/Hz)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyC2(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c2',type='float',unit='F/Hz^2',keyword='c2',description=' capacitance (F/Hz^2)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyC3(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c3',type='float',unit='F/Hz^3',keyword='c3',description=' capacitance (F/Hz^3)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyTerminationZ(PartProperty):
+    def __init__(self,Z=50.):
+        PartProperty.__init__(self,'tz',type='float',unit='ohm',keyword='tz',description='termination impedance (ohms)',value=Z,visible=True,keywordVisible=True)
+
+

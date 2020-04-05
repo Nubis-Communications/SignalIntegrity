@@ -29,9 +29,9 @@ class DeviceFactory(list):
             'c0':0.0,'c1':0.0,'c2':0.0,'c3':0.0},True,
             "OpenStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
             float(arg['c0']),float(arg['c1']),float(arg['c2']),float(arg['c3']))"),
-        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'tz0':50.0},
+        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'tz':50.0},
             True,"LoadStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['tz0']))"),
+            float(arg['tz']))"),
         ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0},
             True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']))")
         ]))
