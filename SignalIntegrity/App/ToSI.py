@@ -107,7 +107,12 @@ def ToSI(d,sa='',letterPrefixes=True):
 
     prefix = ''
 
-    if degree!=0:
+    exponentInUnit=False
+    if len(sa)>=2:
+        if sa[0:2]=='e-':
+            exponentInUnit=True
+
+    if degree!=0 and not exponentInUnit:
         ds = degree/math.fabs(degree)
         if ds == 1:
             if degree - 1 < len(incPrefixes):

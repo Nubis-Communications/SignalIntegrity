@@ -59,7 +59,14 @@ class PartProperty(PartPropertyConfiguration):
             elif self.GetValue('Type')=='int':
                 value = self.GetValue('Value')
             elif self.GetValue('Type')=='float':
-                value = str(float(self.GetValue('Value')))
+                unitstr=self.GetValue('Unit')
+                # check for scaling of units (indicated by an exponent on the front of the units)
+                factor=''
+                if len(unitstr)>=2:
+                    if unitstr[0:2]=='e-':
+                        # this number is scaled - extract the scaling factor
+                        factor=unitstr.split(' ')[0] # this will be something like 'e-34'
+                value = str(float(self.GetValue('Value')+factor))
             else:
                 value = str(self.GetValue('Value'))
             return value
@@ -357,15 +364,15 @@ class PartPropertyL0(PartProperty):
 
 class PartPropertyL1(PartProperty):
     def __init__(self,inductance=0.):
-        PartProperty.__init__(self,'l1',type='float',unit='H/Hz',keyword='l1',description=' inductance (H/Hz)',value=inductance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'l1',type='float',unit='e-24 H/Hz',keyword='l1',description=' inductance (1e-24 H/Hz)',value=inductance,visible=True,keywordVisible=True)
 
 class PartPropertyL2(PartProperty):
     def __init__(self,inductance=0.):
-        PartProperty.__init__(self,'l2',type='float',unit='H/Hz^2',keyword='l2',description=' inductance (H/Hz^2)',value=inductance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'l2',type='float',unit='e-33 H/Hz^2',keyword='l2',description=' inductance (1e-33 H/Hz^2)',value=inductance,visible=True,keywordVisible=True)
 
 class PartPropertyL3(PartProperty):
     def __init__(self,inductance=0.):
-        PartProperty.__init__(self,'l3',type='float',unit='H/Hz^3',keyword='l3',description=' inductance (H/Hz^3)',value=inductance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'l3',type='float',unit='e-42 H/Hz^3',keyword='l3',description=' inductance (1e-42 H/Hz^3)',value=inductance,visible=True,keywordVisible=True)
 
 class PartPropertyC0(PartProperty):
     def __init__(self,capacitance=0.):
@@ -373,15 +380,15 @@ class PartPropertyC0(PartProperty):
 
 class PartPropertyC1(PartProperty):
     def __init__(self,capacitance=0.):
-        PartProperty.__init__(self,'c1',type='float',unit='F/Hz',keyword='c1',description=' capacitance (F/Hz)',value=capacitance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'c1',type='float',unit='e-27 F/Hz',keyword='c1',description=' capacitance (1e-27 F/Hz)',value=capacitance,visible=True,keywordVisible=True)
 
 class PartPropertyC2(PartProperty):
     def __init__(self,capacitance=0.):
-        PartProperty.__init__(self,'c2',type='float',unit='F/Hz^2',keyword='c2',description=' capacitance (F/Hz^2)',value=capacitance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'c2',type='float',unit='e-36 F/Hz^2',keyword='c2',description=' capacitance (1e-36 F/Hz^2)',value=capacitance,visible=True,keywordVisible=True)
 
 class PartPropertyC3(PartProperty):
     def __init__(self,capacitance=0.):
-        PartProperty.__init__(self,'c3',type='float',unit='F/Hz^3',keyword='c3',description=' capacitance (F/Hz^3)',value=capacitance,visible=True,keywordVisible=True)
+        PartProperty.__init__(self,'c3',type='float',unit='e-45 F/Hz^3',keyword='c3',description=' capacitance (1e-45 F/Hz^3)',value=capacitance,visible=True,keywordVisible=True)
 
 class PartPropertyTerminationZ(PartProperty):
     def __init__(self,Z=50.):

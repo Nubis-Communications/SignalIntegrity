@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>752x547+2065+152</Geometry>
+			<Geometry>752x547+40+69</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -164,19 +164,19 @@
 						<PartProperty>
 							<Keyword>l1</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-1.0854e-22</Value>
+							<Value>-108.54</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l2</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>2.1704999999999998e-33</Value>
+							<Value>2.1705</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l3</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-1.001e-43</Value>
+							<Value>-0.1001</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -236,19 +236,19 @@
 						<PartProperty>
 							<Keyword>c1</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-3.1013e-25</Value>
+							<Value>-310.13</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>c2</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>2.31682e-35</Value>
+							<Value>23.1682</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>c3</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.5965999999999997e-46</Value>
+							<Value>0.15966</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
