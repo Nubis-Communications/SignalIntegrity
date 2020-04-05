@@ -22,7 +22,7 @@ from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 from SignalIntegrity.Lib.Measurement.Calibration.Calibration import Calibration
 
 class NetworkAnalyzer(SParameters):
-    def __init__(self,f,filename,etfilename,portListstring=None,forward=False):
+    def __init__(self,f,filename,etfilename,portListstring=None,calculate=True):
         if portListstring!=None:
             portlist=[int(p)-1 for p in portListstring.split(',')]
         else: portlist=None
@@ -31,7 +31,7 @@ class NetworkAnalyzer(SParameters):
         fixtures=calibration.Fixtures()
         fixtures=[fixture.resample(f) for fixture in fixtures]
         calibration.InitializeFromFixtures(fixtures)
-        if forward:
+        if calculate:
             dut=calibration.DutCalculation(spraw,portlist)
         else:
             dut=calibration.DutUnCalculations(spraw,portlist)

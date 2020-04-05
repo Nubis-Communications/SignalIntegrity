@@ -101,7 +101,7 @@ class PartProperty(PartPropertyConfiguration):
             raise ValueError
             return str(self['Value'])
     def SetValueFromString(self,string):
-        if self['Type']=='string':
+        if self['Type']=='string' or self['Type']=='enum':
             self['Value']=str(string)
         elif self.GetValue('Type')=='file':
             self['Value']=str(string)
@@ -398,4 +398,7 @@ class PartPropertyF0(PartProperty):
     def __init__(self,f0=1e9):
         PartProperty.__init__(self,'f0',type='float',unit='Hz',keyword='f0',description='loss frequency (Hz)',value=f0,visible=False,keywordVisible=True)
 
-
+class PartPropertyCalculationDirection(PartProperty):
+    validEntries=['calculate','uncalculate']
+    def __init__(self,dir='forward'):
+        PartProperty.__init__(self,'cd',type='enum',keyword='cd',description='calculation direction',value=dir,visible=False,keywordVisible=False)

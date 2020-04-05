@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>752x547+40+69</Geometry>
+			<Geometry>752x547+1948+30</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -23,6 +23,12 @@
 						<Origin>(6, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>cd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>calculate</Value>
+							<Visible>True</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>

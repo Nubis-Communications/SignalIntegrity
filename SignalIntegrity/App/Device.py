@@ -479,12 +479,20 @@ class DeviceRLGCFitFromFile(Device):
 
 class DeviceNetworkAnalyzer(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(partname='networkanalyzer',values=[('file',True),('et',True),('pl',True)])
+        netlist=DeviceNetListLine(partname='networkanalyzer',values=[('file',True),('et',True),('pl',True),('cd',True)])
         for property in propertiesList:
             if property['Keyword']=='ports':
                 numPorts=int(property['Value'])
         portList=','.join([str(p+1) for p in range(numPorts)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),PartPropertyPartName('NetworkAnalyzer'),PartPropertyHelp('device:Network-Analyzer'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName(),PartPropertyErrorTermsFileName(),PartPropertyPortsList(portList)]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),
+                                      PartPropertyPartName('NetworkAnalyzer'),
+                                      PartPropertyHelp('device:Network-Analyzer'),
+                                      PartPropertyDefaultReferenceDesignator('D?'),
+                                      PartPropertyCalculationDirection(),
+                                      PartPropertyFileName(),
+                                      PartPropertyErrorTermsFileName(),
+                                      PartPropertyPortsList(portList)]+propertiesList,
+                                partPicture)
 
 class DeviceShortStandard(Device):
     def __init__(self):

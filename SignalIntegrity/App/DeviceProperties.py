@@ -53,7 +53,10 @@ class DeviceProperty(tk.Frame):
         keywordVisibleCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         propertyLabel = tk.Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
-        self.propertyEntry = tk.Entry(self,textvariable=self.propertyString)
+        if self.partProperty['Type']=='enum':
+            self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries)
+        else:
+            self.propertyEntry = tk.Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)
         self.propertyEntry.bind('<Return>',self.onEntered)
         self.propertyEntry.bind('<Tab>',self.onEntered)

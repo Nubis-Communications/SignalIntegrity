@@ -88,7 +88,7 @@ class DeviceFactory(list):
         |openstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n c0=0 c1=0 c2=0 c3=0                                                  | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,f0,c0,c1,c2,c3)                                            |
         |loadstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9 tz=50                                                                  | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,f0,tz0)                                                    |
         |thrustd                                |2    |False    |od=0 oz0=50 ol=0 f0=1e9                                                                        | True                |m.calkit.std.ThruStandard(f,od,oz0,ol,f0)                                                        |
-        |networkanalyzer                        |any  |False    |file=None, et=None, pl=None                                                                    | True                |m.cal.NetworkAnalyzer(f,file,et,pl)                                                              |
+        |networkanalyzer                        |any  |False    |file=None, et=None, pl=None, cd=calculate                                                      | True                |m.cal.NetworkAnalyzer(f,file,et,pl,not cd=='uncalculate')                                                              |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -195,8 +195,8 @@ class DeviceFactory(list):
         # pragma: include
     def __init__Contd2(self):
         list.__init__(self,list(self+[
-        ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None},True,
-            "NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'])"),
+        ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,'cd':'calculate'},True,
+            "NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],not arg['cd']=='uncalculate')"),
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
