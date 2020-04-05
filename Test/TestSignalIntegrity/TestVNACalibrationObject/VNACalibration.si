@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>20000000000.0</EndFrequency>
-		<FrequencyPoints>2000</FrequencyPoints>
+		<EndFrequency>40000000000.0</EndFrequency>
+		<FrequencyPoints>4000</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>504x547+1948+30</Geometry>
+			<Geometry>752x547+2065+152</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -134,7 +134,7 @@
 						<PartProperty>
 							<Keyword>od</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>3.1784999999999997e-11</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -146,7 +146,7 @@
 						<PartProperty>
 							<Keyword>ol</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2360000000.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -158,25 +158,25 @@
 						<PartProperty>
 							<Keyword>l0</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2.0765e-12</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l1</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>-1.0854e-22</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l2</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2.1704999999999998e-33</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>l3</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>-1.001e-43</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -206,7 +206,7 @@
 						<PartProperty>
 							<Keyword>od</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2.9243e-11</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -218,7 +218,7 @@
 						<PartProperty>
 							<Keyword>ol</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2200000000.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -230,25 +230,25 @@
 						<PartProperty>
 							<Keyword>c0</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>4.9430000000000004e-14</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>c1</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>-3.1013e-25</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>c2</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2.31682e-35</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>c3</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>1.5965999999999997e-46</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -332,7 +332,7 @@
 						<PartProperty>
 							<Keyword>od</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>9.475e-11</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -344,7 +344,7 @@
 						<PartProperty>
 							<Keyword>ol</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
+							<Value>2520000000.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
