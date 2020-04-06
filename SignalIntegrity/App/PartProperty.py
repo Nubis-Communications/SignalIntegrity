@@ -410,3 +410,9 @@ class PartPropertyStandardFileName(PartProperty):
 class PartPropertyOtherPortNumber(PartProperty):
     def __init__(self,portNumber):
         PartProperty.__init__(self,'otherportnumber',type='int',unit=None,keyword='opn',description='other port number',value=portNumber,visible=True, keywordVisible=False)
+
+class PartPropertyThruCalculationType(PartProperty):
+    validEntries=['SOLT','SOLR']
+    def __init__(self,dir='SOLT'):
+        PartProperty.__init__(self,'ct',type='enum',keyword='ct',description='calculation type',value=dir,visible=True,keywordVisible=True)
+

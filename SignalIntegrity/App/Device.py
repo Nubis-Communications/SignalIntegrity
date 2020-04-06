@@ -573,7 +573,7 @@ class DeviceThruStandard(Device):
 
 class DeviceReflectCalibrationMeasurement(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(devicename='calibration',partname='reflect',showports=False,values=[('file',True),('std',True),('pn',True)])
+        netlist=DeviceNetListLine(devicename='calibration',partname='reflect',showReference=False,showports=False,values=[('file',True),('std',True),('pn',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('reflect calibration measurement'),
@@ -581,7 +581,6 @@ class DeviceReflectCalibrationMeasurement(Device):
                          PartPropertyCategory('Network Analysis'),
                          PartPropertyPartName('ReflectMeasurement'),
                          PartPropertyHelp('device:Reflect-Measurement'),
-                         PartPropertyDefaultReferenceDesignator('M?'),
                          PartPropertyFileName(),
                          PartPropertyStandardFileName(),
                          PartPropertyPortNumber(1)],
@@ -589,19 +588,19 @@ class DeviceReflectCalibrationMeasurement(Device):
 
 class DeviceThruCalibrationMeasurement(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(devicename='calibration',partname='thru',showports=False,values=[('file',True),('std',True),('pn',True),('opn',True)])
+        netlist=DeviceNetListLine(devicename='calibration',partname='thru',showReference=False,showports=False,values=[('file',True),('std',True),('pn',True),('opn',True)])
         Device.__init__(self,
                         netlist,
-                        [PartPropertyDescription('reflect calibration measurement'),
+                        [PartPropertyDescription('thru calibration measurement'),
                          PartPropertyPorts(2),
                          PartPropertyCategory('Network Analysis'),
                          PartPropertyPartName('ThruMeasurement'),
                          PartPropertyHelp('device:Thru-Measurement'),
-                         PartPropertyDefaultReferenceDesignator('M?'),
                          PartPropertyFileName(),
                          PartPropertyStandardFileName(),
                          PartPropertyPortNumber(1),
-                         PartPropertyOtherPortNumber(2)],
+                         PartPropertyOtherPortNumber(2),
+                         PartPropertyThruCalculationType()],
                         PartPictureVariableMeasurementTwoPort())
 
 DeviceList = [
