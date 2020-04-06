@@ -402,3 +402,11 @@ class PartPropertyCalculationDirection(PartProperty):
     validEntries=['calculate','uncalculate']
     def __init__(self,dir='forward'):
         PartProperty.__init__(self,'cd',type='enum',keyword='cd',description='calculation direction',value=dir,visible=False,keywordVisible=False)
+
+class PartPropertyStandardFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'std',type='file',unit=None,keyword='std',description='cal standard file name',value=fileName)
+
+class PartPropertyOtherPortNumber(PartProperty):
+    def __init__(self,portNumber):
+        PartProperty.__init__(self,'otherportnumber',type='int',unit=None,keyword='opn',description='other port number',value=portNumber,visible=True, keywordVisible=False)
