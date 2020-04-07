@@ -66,7 +66,7 @@ class CalibrationParser(SystemDescriptionParser):
                 for i in range(2,len(lineList),2):
                     tokenName,tokenValue = lineList[i],lineList[i+1]
                     if tokenName == 'file':
-                        measDict['raw']=SParameterFile(tokenValue)
+                        measDict['raw']=SParameterFile(tokenValue).Resample(self.m_f)
                     elif tokenName == 'std':
                         if not tokenValue in self.m_spc:
                             self.m_spc[tokenValue] = SParameterFile(tokenValue)
@@ -98,7 +98,7 @@ class CalibrationParser(SystemDescriptionParser):
         @see _ProcessLine() for explanation of parameters and functionality.
         """
         SystemDescriptionParser._ProcessLines(self)
-        self.m_spc={key:value for (key,value) in self.m_spc}
+        self.m_spc={key:value.Resample(self.m_f) for (key,value) in self.m_spc}
         lines=copy.deepcopy(self.m_ul); self.m_ul=[]
         for i in range(len(lines)):
             line=lines[i]

@@ -6,10 +6,10 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>752x547+1948+30</Geometry>
+			<Geometry>752x547+197+164</Geometry>
 			<Grid>16</Grid>
-			<Originx>0</Originx>
-			<Originy>5</Originy>
+			<Originx>-2</Originx>
+			<Originy>7</Originy>
 		</DrawingProperties>
 		<Schematic>
 			<Devices>

@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>40000000000.0</EndFrequency>
-		<FrequencyPoints>4000</FrequencyPoints>
+		<FrequencyPoints>400</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>509x276+1984+235</Geometry>
+			<Geometry>509x276+949+164</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>4</Originy>
