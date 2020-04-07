@@ -155,7 +155,7 @@ class Calibration(object):
                 self.f=calibration.f
                 self.calibrationMatrix=calibration.calibrationMatrix
                 self.ET=calibration.ET
-                return
+                return self
             else:
                 raise SignalIntegrityExceptionCalibration('error terms could not be produced by '+filename)
         else:

@@ -55,6 +55,7 @@ class DrawingHeadless(object):
         foundAStim=False
         foundAnUnknown=False
         foundASystem=False
+        foundACalibration=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -75,6 +76,8 @@ class DrawingHeadless(object):
                 foundAnUnknown = True
             elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
                 foundASource = True
+            elif device.netlist['DeviceName'] == 'calibration':
+                foundACalibration=True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
@@ -84,11 +87,12 @@ class DrawingHeadless(object):
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
         self.foundSomething=foundSomething
-        self.canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
-        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
-        self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
-        self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
-        self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed
+        self.canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration
+        self.canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
+        self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed or self.canCalculateErrorTerms
         return canvas
     def InitFromProject(self):
         self.schematic = Schematic()
@@ -330,7 +334,7 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=cacheFileName)
         etnp.AddLines(netListText)
         try:
-            cal=etnp.CalculateCalibration
+            cal=etnp.CalculateCalibration()
         except si.SignalIntegrityException as e:
             return None
         return cal
@@ -398,7 +402,7 @@ def ProjectWaveform(filename,wfname):
     os.chdir(cwdCopy)
     return wf
 
-def ProjectErrorTerms(filename):
+def ProjectCalibration(filename):
     import copy
     ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
     cwdCopy=os.getcwd()

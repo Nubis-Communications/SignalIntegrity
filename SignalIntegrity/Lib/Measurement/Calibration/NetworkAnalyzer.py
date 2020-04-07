@@ -26,13 +26,13 @@ class NetworkAnalyzer(SParameters):
         if portListstring!=None:
             portlist=[int(p)-1 for p in portListstring.split(',')]
         else: portlist=None
-        spraw=SParameterFile(filename).resample(f)
-        calibration=Calibration().ReadFromFile(etfilename)
+        spraw=SParameterFile(filename).Resample(f)
+        calibration=Calibration(0,0).ReadFromFile(etfilename)
         fixtures=calibration.Fixtures()
-        fixtures=[fixture.resample(f) for fixture in fixtures]
+        fixtures=[fixture.Resample(f) for fixture in fixtures]
         calibration.InitializeFromFixtures(fixtures)
         if calculate:
             dut=calibration.DutCalculation(spraw,portlist)
         else:
-            dut=calibration.DutUnCalculations(spraw,portlist)
+            dut=calibration.DutUnCalculation(spraw,portlist)
         SParameters.__init__(self,f,dut)

@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>516x252+1948+30</Geometry>
+			<Geometry>516x252+40+69</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -26,13 +26,13 @@
 						<PartProperty>
 							<Keyword>cd</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>calculate</Value>
+							<Value>uncalculate</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>RawMeasuredSParameters.si</Value>
+							<Value>DUT.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
