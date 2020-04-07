@@ -22,7 +22,6 @@ from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import Syst
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
 from SignalIntegrity.Lib.Parsers.CalibrationParser import CalibrationParser
 from SignalIntegrity.Lib.SParameters import SParameters
-from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters
 from SignalIntegrity.Lib.CallBacker import CallBacker
 from SignalIntegrity.Lib.ResultsCache import LinesCache
 

@@ -22,6 +22,7 @@ from SignalIntegrity.Lib.Measurement.Calibration.Calibration import Calibration
 from SignalIntegrity.Lib.Measurement.Calibration.CalibrationMeasurements import *
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
 from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionCalibration
 import copy
 
 class CalibrationParser(SystemDescriptionParser):
@@ -99,7 +100,15 @@ class CalibrationParser(SystemDescriptionParser):
         SystemDescriptionParser._ProcessLines(self)
         self.m_spc={key:value for (key,value) in self.m_spc}
         lines=copy.deepcopy(self.m_ul); self.m_ul=[]
-        for line in lines: self._ProcessCalibrationLine(line)
+        for i in range(len(lines)):
+            line=lines[i]
+            self._ProcessCalibrationLine(line)
+            # pragma: silent exclude
+            if self.HasACallBack():
+                progress=(float(i)+1)/len(lines)*100.0
+                if not self.CallBack(progress):
+                    raise SignalIntegrityExceptionCalibration('calculation aborted')
+            # pragma: include
         self.calibration = Calibration(self.ports,self.m_f)
         self.calibration.AddMeasurements(self.calibrationMeasurementList)
         return self
