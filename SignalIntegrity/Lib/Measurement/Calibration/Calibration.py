@@ -25,6 +25,7 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFreque
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 from SignalIntegrity.Lib.Measurement.Calibration.CalibrationMeasurements import ThruCalibrationMeasurement
 from SignalIntegrity.Lib.Devices.Thru import Thru
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionCalibration
 import sys
 import copy
 
@@ -145,25 +146,38 @@ class Calibration(object):
         the first line of the file contains three numbers, the number of ports, the number of frequency
         points (-1) and the end frequency.
         """
-        with open(filename,'rU' if sys.version_info.major < 3 else 'r') as f:
-            lines=f.readlines()
-        tokens=lines[0].split(' ')
-        self.ports=int(tokens[0])
-        numPoints=int(tokens[1])
-        endFrequency=float(tokens[2])
-        self.f=EvenlySpacedFrequencyList(endFrequency,numPoints)
-        self.calibrationMatrix=[[[] for _ in range(self.ports)]
-                                for _ in range(self.ports)]
-        self.ET=[ErrorTerms().Initialize(self.ports) for n in range(numPoints+1)]
-        lineIndex=1
-        for r in range(self.ports):
-            for c in range(self.ports):
-                for t in range(3):
-                    for n in range(numPoints+1):
-                        lineStrings=lines[lineIndex].split(' ')
-                        lineIndex=lineIndex+1
-                        self[n].ET[r][c][t]=float(lineStrings[0])+1j*float(lineStrings[1])
-        return self
+        ext=str.lower(filename).split('.')[-1]
+        if ext == 'si':
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectCalibration
+            calibration=ProjectCalibration(filename)
+            if not calibration is None:
+                self.ports=calibration.ports
+                self.f=calibration.f
+                self.calibrationMatrix=calibration.calibrationMatrix
+                self.ET=calibration.ET
+                return
+            else:
+                raise SignalIntegrityExceptionCalibration('error terms could not be produced by '+filename)
+        else:
+            with open(filename,'rU' if sys.version_info.major < 3 else 'r') as f:
+                lines=f.readlines()
+            tokens=lines[0].split(' ')
+            self.ports=int(tokens[0])
+            numPoints=int(tokens[1])
+            endFrequency=float(tokens[2])
+            self.f=EvenlySpacedFrequencyList(endFrequency,numPoints)
+            self.calibrationMatrix=[[[] for _ in range(self.ports)]
+                                    for _ in range(self.ports)]
+            self.ET=[ErrorTerms().Initialize(self.ports) for n in range(numPoints+1)]
+            lineIndex=1
+            for r in range(self.ports):
+                for c in range(self.ports):
+                    for t in range(3):
+                        for n in range(numPoints+1):
+                            lineStrings=lines[lineIndex].split(' ')
+                            lineIndex=lineIndex+1
+                            self[n].ET[r][c][t]=float(lineStrings[0])+1j*float(lineStrings[1])
+            return self
     def AddMeasurements(self,calibrationList=[]):
         """Adds calibration measurements
         @param calibrationList list of instances of class CalibrationMeasurement.

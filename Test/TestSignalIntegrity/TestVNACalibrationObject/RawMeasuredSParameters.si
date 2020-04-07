@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>40000000000.0</EndFrequency>
-		<FrequencyPoints>4000</FrequencyPoints>
+		<FrequencyPoints>400</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>516x252+1948+30</Geometry>
+			<Geometry>711x363+27+56</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -14,37 +14,49 @@
 		<Schematic>
 			<Devices>
 				<Device>
-					<ClassName>DeviceNetworkAnalyzer</ClassName>
+					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Index>3</Index>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>True</MirroredVertically>
-						<Orientation>180</Orientation>
-						<Origin>(6, 2)</Origin>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(5, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>cd</Keyword>
+							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>calculate</Value>
+							<Value>VNAPath.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>4</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Index>3</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(13, 3)</Origin>
+					</PartPicture>
+					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>RawMeasuredSParameters.si</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>et</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>VNACalibration.si</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>pl</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1,2</Value>
+							<Value>DUT.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -56,8 +68,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>D1</Value>
-							<Visible>True</Visible>
+							<Value>D2</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -67,8 +79,8 @@
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
-						<Orientation>180</Orientation>
-						<Origin>(7, 2)</Origin>
+						<Orientation>0</Orientation>
+						<Origin>(0, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -97,8 +109,8 @@
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
-						<Orientation>180</Orientation>
-						<Origin>(7, 4)</Origin>
+						<Orientation>0</Orientation>
+						<Origin>(0, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -123,6 +135,46 @@
 				</Device>
 			</Devices>
 			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(9, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(13, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(9, 6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(13, 6)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(5, 4)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(3, 4)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(3, 6)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(5, 6)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
 			</Wires>
 		</Schematic>
 	</Drawing>

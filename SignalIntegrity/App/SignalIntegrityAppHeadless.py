@@ -315,6 +315,26 @@ class SignalIntegrityAppHeadless(object):
                 filename.append(self.fileparts.filename+'_'+filename)
         return (unknownNames,sp,filename)
 
+    def CalculateErrorTerms(self):
+        netList=self.Drawing.schematic.NetList()
+        netListText=self.NetListText()
+        import SignalIntegrity.Lib as si
+        cacheFileName=None
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
+            cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        etnp=si.p.CalibrationNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            cacheFileName=cacheFileName)
+        etnp.AddLines(netListText)
+        try:
+            cal=etnp.CalculateCalibration
+        except si.SignalIntegrityException as e:
+            return None
+        return cal
+
     def Device(self,ref):
         """
         accesses a device by it's reference string
@@ -330,6 +350,7 @@ class SignalIntegrityAppHeadless(object):
             if device['ref']['Value']==ref:
                 return device
         return None
+
 def ProjectSParameters(filename):
     import copy
     ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
@@ -376,4 +397,21 @@ def ProjectWaveform(filename,wfname):
     SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
     os.chdir(cwdCopy)
     return wf
+
+def ProjectErrorTerms(filename):
+    import copy
+    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+    cwdCopy=os.getcwd()
+    result=None
+    try:
+        app=SignalIntegrityAppHeadless()
+        if app.OpenProjectFile(os.path.realpath(filename)):
+            app.Drawing.DrawSchematic()
+            if app.Drawing.canCalculateErrorTerms:
+                result=app.CalculateErrorTerms()
+    except:
+        pass
+    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+    os.chdir(cwdCopy)
+    return result
 
