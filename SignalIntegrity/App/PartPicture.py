@@ -2090,7 +2090,7 @@ class PartPictureMeasurementTwoPort(PartPicture):
         PartPicture.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,False),PartPin(2,(4,1),'r',False,True,False)],[(1.0,0.5),(3.0,1.5)],[(0,0),(4,2)],(2,0),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
         self.DrawTransmissionLine(canvas,grid,drawingOrigin)
-        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,connected)
+        PartPicture.DrawDevice(self,canvas,grid,drawingOrigin,False,None if connected is None else [True for ele in connected])
 
 class PartPictureVariableMeasurementTwoPort(PartPictureVariable):
     def __init__(self):
