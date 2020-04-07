@@ -1570,6 +1570,7 @@ class Drawing(tk.Frame):
         foundAStim=False
         foundAnUnknown=False
         foundASystem=False
+        foundACalibration=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -1591,6 +1592,8 @@ class Drawing(tk.Frame):
                 foundAnUnknown = True
             elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
                 foundASource = True
+            elif device.netlist['DeviceName'] == 'calibration':
+                foundACalibration=True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
@@ -1599,18 +1602,20 @@ class Drawing(tk.Frame):
             canvas.create_oval((dot[0]+originx)*grid-size,(dot[1]+originy)*grid-size,
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
-        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
-        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
+        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundACalibration
+        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
         canRLGC=canCalculateSParameters and (numPortsFound == 2)
-        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
-        canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
-        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed
+        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
+        canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration
+        canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
+        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms
         self.parent.SimulateDoer.Activate(canSimulate)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
         self.parent.RLGCDoer.Activate(canRLGC)
         self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.DeembedDoer.Activate(canDeembed)
+        self.parent.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
         self.parent.ClearProjectDoer.Activate(foundSomething)
         self.parent.ExportNetListDoer.Activate(foundSomething)
         self.parent.ExportTpXDoer.Activate(foundSomething)

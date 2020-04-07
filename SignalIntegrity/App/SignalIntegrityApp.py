@@ -145,6 +145,7 @@ class SignalIntegrityApp(tk.Frame):
         self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('Control-Help:Virtual-Probe')
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed')
         self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC-Fit')
+        self.CalculateErrorTermsDoer = Doer(self.onCalculateErrorTerms).AddHelpElement('Control-Help:Calculate-Error-Terms')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
@@ -233,6 +234,7 @@ class SignalIntegrityApp(tk.Frame):
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
         self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
+        self.CalculateErrorTermsDoer.AddMenuElement(CalcMenu,label='Calculate Error Terms',underline=10)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -783,6 +785,7 @@ class SignalIntegrityApp(tk.Frame):
         self.CalculateSParametersDoer.Execute()
         self.VirtualProbeDoer.Execute()
         self.DeembedDoer.Execute()
+        self.CalculateErrorTermsDoer.Execute()
 
     def onSParameterViewer(self):
         import SignalIntegrity.Lib as si
@@ -976,7 +979,36 @@ class SignalIntegrityApp(tk.Frame):
             Doer.helpKeys.Build()
             Doer.helpKeys.SaveToFile()
             self.statusbar.set('help keys updated')
-            
+
+    def CalculateErrorTerms(self):
+        self.Drawing.stateMachine.Nothing()
+        netList=self.Drawing.schematic.NetList().Text()
+        import SignalIntegrity.Lib as si
+        cacheFileName=None
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
+            cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        etnp=si.p.CalibrationNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            cacheFileName=cacheFileName)
+        etnp.AddLines(netList)
+        progressDialog = ProgressDialog(self,"Calculating Error Terms",etnp,etnp.CalculateCalibration,granularity=1.0)
+        try:
+            cal=progressDialog.GetResult()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('Error Terms Calculator',e.parameter+': '+e.message)
+            return None
+        return cal
+
+    def onCalculateErrorTerms(self):
+        cal=self.CalculateErrorTerms()
+        if cal is None:
+            return
+        fixtureList=cal.Fixtures()
+        for i in range(len(fixtureList)):
+            self.spd=SParametersDialog(self,fixtureList[i],title='ET'+str(i+1),filename=self.fileparts.FullFilePathExtension('s'+str(fixtureList[i].m_P)+'p'))
 
 def main():
     projectFileName = None

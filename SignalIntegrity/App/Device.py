@@ -588,7 +588,7 @@ class DeviceReflectCalibrationMeasurement(Device):
 
 class DeviceThruCalibrationMeasurement(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(devicename='calibration',partname='thru',showReference=False,showports=False,values=[('file',True),('std',True),('pn',True),('opn',True)])
+        netlist=DeviceNetListLine(devicename='calibration',partname='thru',showReference=False,showports=False,values=[('file',True),('std',True),('pn',True),('opn',True),('ct',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('thru calibration measurement'),

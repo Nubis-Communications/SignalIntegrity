@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>506x226+1984+235</Geometry>
+			<Geometry>506x226+1993+75</Geometry>
 			<Grid>16</Grid>
 			<Originx>6</Originx>
 			<Originy>0</Originy>
@@ -128,7 +128,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(2, 5)</Origin>
+						<Origin>(2, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -158,7 +158,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(3, 7)</Origin>
+						<Origin>(3, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>

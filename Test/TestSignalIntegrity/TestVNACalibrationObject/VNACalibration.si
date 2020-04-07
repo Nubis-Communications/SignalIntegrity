@@ -1,7 +1,7 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>40000000000.0</EndFrequency>
-		<FrequencyPoints>4000</FrequencyPoints>
+		<FrequencyPoints>400</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(22, 3)</Origin>
+						<Origin>(23, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
