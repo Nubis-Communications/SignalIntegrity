@@ -1007,8 +1007,15 @@ class SignalIntegrityApp(tk.Frame):
         if cal is None:
             return
         fixtureList=cal.Fixtures()
+        ports=len(fixtureList)
         for i in range(len(fixtureList)):
-            self.spd=SParametersDialog(self,fixtureList[i],title='ET'+str(i+1),filename=self.fileparts.FullFilePathExtension('s'+str(fixtureList[i].m_P)+'p'))
+            buttonLabels=[[' 0  ' for _ in range(2*ports)] for _ in range(2*ports)]
+            for r in range(ports):
+                buttonLabels[i+ports][i]=' 1  '
+                buttonLabels[i][i] = 'ED'+str(i+1)+' ' if r==i else 'EX'+str(r+1)+str(i+1)
+                buttonLabels[r][ports+r]='ER'+str(i+1)+' ' if r==i else 'ET'+str(r+1)+str(i+1)
+                buttonLabels[r+ports][ports+r]='ES'+str(i+1)+' ' if r==i else 'EL'+str(r+1)+str(i+1)
+            self.spd=SParametersDialog(self,fixtureList[i],title='ET'+str(i+1),filename=self.fileparts.FullFilePathExtension('s'+str(fixtureList[i].m_P)+'p'),buttonLabels=buttonLabels)
 
 def main():
     projectFileName = None
