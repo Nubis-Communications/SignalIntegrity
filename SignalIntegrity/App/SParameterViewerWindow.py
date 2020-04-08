@@ -68,28 +68,6 @@ class SParametersDialog(tk.Toplevel):
         tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
-        # handle lists of s-parameters
-        if isinstance(sp,list):
-            self.spList=sp
-            sp=self.spList[0][0]
-            filename=self.spList[0][1]
-            title=self.spList[0][2]
-            buttonLabels=self.spList[0][3]
-        else:
-            self.spList=[(sp,filename,'this' if title == None else title,buttonLabels)]
-        self.current=0
-
-        self.fileparts=FileParts(filename)
-        if title is None:
-            if self.fileparts.filename =='':
-                self.title('S-parameters')
-            else:
-                self.title('S-parameters: '+self.fileparts.FileNameTitle())
-        else:
-            if filename is None:
-                self.title(title)
-            else:
-                self.title(title+': '+self.fileparts.FileNameTitle())
 
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
@@ -127,8 +105,6 @@ class SParametersDialog(tk.Toplevel):
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement('Control-Help:Save-S-parameter-File')
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
-        # ------
-        self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.spList))]
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
         self.SParameterPropertiesDoer = Doer(self.onSParameterProperties).AddHelpElement('Control-Help:S-Parameter-Properties')
@@ -185,11 +161,8 @@ class SParametersDialog(tk.Toplevel):
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
-        if len(self.spList)>1:
-            SelectionMenu=tk.Menu(self)
-            TheMenu.add_cascade(label='Selection',menu=SelectionMenu,underline=0)
-            for s in range(len(self.spList)):
-                self.SelectionDoerList[s].AddMenuElement(SelectionMenu,label=self.spList[s][2])
+        self.SelectionMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='Selection',menu=self.SelectionMenu,underline=0)
         # ------
         PropertiesMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Properties',menu=PropertiesMenu,underline=0)
@@ -253,6 +226,7 @@ class SParametersDialog(tk.Toplevel):
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
         self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
+        self.TheMenu=TheMenu
 
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
@@ -342,6 +316,73 @@ class SParametersDialog(tk.Toplevel):
         self.sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
         self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
 
+        try:
+            try:
+                from tikzplotlib import save as tikz_save
+            except:
+                try:
+                    from matplotlib2tikz import save as tikz_save
+                except:
+                    self.Matplotlib2tikzDoer.Activate(False)
+        except:
+            self.Matplotlib2tikzDoer.Activate(False)
+
+        self.NewSParameters(sp,filename,title,buttonLabels)
+        self.deiconify()
+
+    def NewSParameters(self,sp,filename=None,title=None,buttonLabels=None):
+        self.calibration=None
+        if isinstance(sp,si.m.cal.Calibration):
+            self.calibration=sp
+            fixtureList=self.calibration.Fixtures()
+            ports=len(fixtureList)
+            buttonLabelsList=[None for _ in range(ports)]
+            titleList=['ET'+str(p+1) for p in range(ports)]
+            fileNameList=[filename for _ in range(ports)]
+            for i in range(ports):
+                buttonLabels=[[' 0  ' for _ in range(2*ports)] for _ in range(2*ports)]
+                for r in range(ports):
+                    buttonLabels[i+ports][i]=' 1  '
+                    buttonLabels[r][i] = 'ED'+str(i+1)+' ' if r==i else 'EX'+str(r+1)+str(i+1)
+                    buttonLabels[r][ports+r]='ER'+str(i+1)+' ' if r==i else 'ET'+str(r+1)+str(i+1)
+                    buttonLabels[r+ports][ports+r]='ES'+str(i+1)+' ' if r==i else 'EL'+str(r+1)+str(i+1)
+                buttonLabelsList[i]=buttonLabels
+            sp = [(fixture,filename,title,buttonlabel) for (fixture,filename,title,buttonlabel) in zip(fixtureList,fileNameList,titleList,buttonLabelsList)]
+
+        # handle lists of s-parameters
+        if isinstance(sp,list):
+            self.spList=sp
+            sp=self.spList[0][0]
+            filename=self.spList[0][1]
+            title=self.spList[0][2]
+            buttonLabels=self.spList[0][3]
+        else:
+            self.spList=[[sp,filename,'this' if title == None else title,buttonLabels]]
+        self.current=0
+
+        self.fileparts=FileParts(filename)
+        if title is None:
+            if self.fileparts.filename =='':
+                self.title('S-parameters')
+            else:
+                self.title('S-parameters: '+self.fileparts.FileNameTitle())
+        else:
+            if filename is None:
+                self.title(title)
+            else:
+                self.title(title+': '+self.fileparts.FileNameTitle())
+
+        # ------
+        self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.spList))]
+        # ------
+
+        # ------
+        self.SelectionMenu.delete(0, tk.END)
+        for s in range(len(self.spList)):
+            self.SelectionDoerList[s].AddMenuElement(self.SelectionMenu,label=self.spList[s][2])
+        self.TheMenu.entryconfigure('Selection', state= tk.DISABLED if len(self.spList) <= 1 else tk.ACTIVE)
+        # ------
+
         self.sp=sp
         self.properties=SParameterProperties()
         self.UpdatePropertiesFromSParameters(new=True)
@@ -349,6 +390,7 @@ class SParametersDialog(tk.Toplevel):
         if buttonLabels is None:
             numPorts=self.sp.m_P
             buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
+            self.spList[0][3]=buttonLabels
         else:
             # button labels are a proxy for transfer parameters (until I do something better)
             SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']=False
@@ -365,49 +407,22 @@ class SParametersDialog(tk.Toplevel):
             self.EnforceReciprocityDoer.Activate(False)
             self.EnforceAllDoer.Activate(False)
             self.WaveletDenoiseDoer.Activate(False)
-            self.ReadSParametersFromFileDoer.Activate(False)
 
-            SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All']=True
-            SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All']=True
-            SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All']=True
-            self.UpdatePropertiesFromSParameters()
-            self.ZoomJoinActivations()
+            if self.calibration == None:
+                self.ReadSParametersFromFileDoer.Activate(False)
+
+                SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All']=True
+                SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All']=True
+                SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All']=True
+                self.UpdatePropertiesFromSParameters()
+                self.ZoomJoinActivations()
 
         self.buttonLabels=buttonLabels
 
-        self.buttons=[]
-        for toP in range(len(buttonLabels)):
-            buttonrow=[]
-            rowFrame=tk.Frame(self.sButtonsFrame)
-            rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
-            for fromP in range(len(buttonLabels[0])):
-                thisButton=tk.Button(rowFrame,text=buttonLabels[toP][fromP],width=len(buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
-                thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
-                buttonrow.append(thisButton)
-            self.buttons.append(buttonrow)
-
         self.fromPort = 1
         self.toPort = 1
-
         self.LimitChangeLock=False
-
-        try:
-            try:
-                from tikzplotlib import save as tikz_save
-            except:
-                try:
-                    from matplotlib2tikz import save as tikz_save
-                except:
-                    self.Matplotlib2tikzDoer.Activate(False)
-        except:
-            self.Matplotlib2tikzDoer.Activate(False)
-
-        self.onSelectSParameter(self.toPort, self.fromPort)
-#         self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
-#         self.PlotSParameter()
-        self.deiconify()
-#         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
-#             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
+        self.onSelection(0)
 
     def onVariableLineWidth(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']=bool(self.variableLineWidth.get())
@@ -1329,7 +1344,7 @@ class SParametersDialog(tk.Toplevel):
 
 
     def onReadSParametersFromFile(self):
-        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension(),
                                  parent=self)
@@ -1339,35 +1354,26 @@ class SParametersDialog(tk.Toplevel):
         if self.fileparts.fileext=='':
             return
 
-        self.title('S-parameters: '+self.fileparts.FileNameTitle())
+        if self.fileparts.fileext=='.cal':
+            sp=si.m.cal.Calibration(0,0)
+            try:
+                sp.ReadFromFile(filename)
+            except:
+                messagebox.showerror('Calibration File','could not be read ')
+                return
+        else:
+            sp=si.sp.SParameterFile(filename)
 
-        self.sp=si.sp.SParameterFile(filename)
-        self.UpdatePropertiesFromSParameters(new=True)
-        for widget in self.sButtonsFrame.winfo_children():
-            widget.destroy()
-        numPorts=self.sp.m_P
-        self.buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
-        self.buttons=[]
-        for toP in range(numPorts):
-            buttonrow=[]
-            rowFrame=tk.Frame(self.sButtonsFrame)
-            rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
-            for fromP in range(numPorts):
-                thisButton=tk.Button(rowFrame,text=self.buttonLabels[toP][fromP],command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
-                thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
-                buttonrow.append(thisButton)
-            self.buttons.append(buttonrow)
-        self.fromPort = 1
-        self.toPort = 1
-        self.buttons[self.toPort-1][self.fromPort-1].config(relief=tk.SUNKEN)
-        self.plotProperties=self.properties['Plot.S'][self.toPort-1][self.fromPort-1]
-        self.delayViewerProperty.SetString(self.plotProperties['Delay'])
-        self.PlotSParameter()
+        self.NewSParameters(sp, filename)
 
     def onWriteSParametersToFile(self):
         ports=self.sp.m_P
         extension='.s'+str(ports)+'p'
-        filename=AskSaveAsFilename(filetypes=[('s-parameters', extension)],
+        filetypes=[('s-parameters', extension)]
+        if self.calibration != None:
+            extension='.cal'
+            filetypes=[('calibration file', '.cal')]+filetypes
+        filename=AskSaveAsFilename(filetypes=filetypes,
                     defaultextension=extension,
                     initialdir=self.fileparts.AbsoluteFilePath(),
                     initialfile=self.fileparts.FileNameWithExtension(extension),
@@ -1375,8 +1381,11 @@ class SParametersDialog(tk.Toplevel):
         if filename is None:
             return
         self.fileparts=FileParts(filename)
-        self.sp.numDigits=SignalIntegrity.App.Preferences['SParameterProperties.SignificantDigits']
-        self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))
+        if self.fileparts.fileext=='.cal':
+            self.calibration.WriteToFile(filename)
+        else:
+            self.sp.numDigits=SignalIntegrity.App.Preferences['SParameterProperties.SignificantDigits']
+            self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))
 
     def onCalculationProperties(self):
         self.parent.onCalculationProperties()
@@ -1506,24 +1515,19 @@ class SParametersDialog(tk.Toplevel):
         self.properties=SParameterProperties()
         self.UpdatePropertiesFromSParameters(new=True)
         self.filename=self.spList[x][1]
-        self.title=self.spList[x][2]
-        self.buttonLabels=buttonLabels=self.spList[x][3]
+        #self.title(self.spList[x][2])
+        self.buttonLabels=self.spList[x][3]
         self.sButtonsFrame.pack_forget()
         self.sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
         self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
         self.buttons=[]
-        for toP in range(len(buttonLabels)):
+        for toP in range(len(self.buttonLabels)):
             buttonrow=[]
             rowFrame=tk.Frame(self.sButtonsFrame)
             rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
-            for fromP in range(len(buttonLabels[0])):
-                thisButton=tk.Button(rowFrame,text=buttonLabels[toP][fromP],width=len(buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+            for fromP in range(len(self.buttonLabels[0])):
+                thisButton=tk.Button(rowFrame,text=self.buttonLabels[toP][fromP],width=len(self.buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
                 thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
         self.onSelectSParameter(self.toPort, self.fromPort)
-
-
-
-
-
