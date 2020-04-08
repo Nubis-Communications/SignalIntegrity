@@ -70,8 +70,7 @@ class DeviceProperty(tk.Frame):
         if self.partProperty['Type'] == 'file':
             self.propertyFileBrowseButton = tk.Button(self,text='browse',command=self.onFileBrowse)
             self.propertyFileBrowseButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-            if self.partProperty['PropertyName'] == 'filename' or\
-                self.partProperty['PropertyName'] == 'waveformfilename':
+            if self.partProperty['PropertyName'] in ['filename','waveformfilename','errorterms']:
                 self.propertyFileViewButton = tk.Button(self,text='view',command=self.onFileView)
                 self.propertyFileViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
     def onFileBrowse(self):
@@ -92,6 +91,9 @@ class DeviceProperty(tk.Frame):
         elif self.partProperty['PropertyName'] == 'waveformfilename':
             extension='.txt'
             filetypename='waveforms'
+        elif self.partProperty['PropertyName'] == 'errorterms':
+            extension='.cal'
+            filetypename='calibration file'
         else:
             extension=''
             filetypename='all'
@@ -132,41 +134,40 @@ class DeviceProperty(tk.Frame):
         filename=self.partProperty.GetValue()
         if filename != '':
             import SignalIntegrity.Lib as si
-            if self.partProperty['PropertyName'] == 'filename':
-                fp=FileParts(filename)
-                if fp.fileext == '.si':
-                    result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
-                    if result != 0:
-                        messagebox.showerror('ProjectFile','could not be opened')
-                        return
-                else:
-                    try:
-                        sp=si.sp.SParameterFile(filename)
-                    except si.SignalIntegrityException as e:
-                        messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
-                        return
-                    spd=SParametersDialog(self.parent.parent.parent,sp,filename)
-                    spd.grab_set()
+            if FileParts(filename).fileext == '.si':
+                result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
+                if result != 0:
+                    messagebox.showerror('ProjectFile','could not be opened')
+                    return
+            elif self.partProperty['PropertyName'] == 'filename':
+                try:
+                    sp=si.sp.SParameterFile(filename)
+                except si.SignalIntegrityException as e:
+                    messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+                    return
+                spd=SParametersDialog(self.parent.parent.parent,sp,filename)
+                spd.grab_set()
             elif self.partProperty['PropertyName'] == 'waveformfilename':
-                if FileParts(filename).fileext == '.si':
-                    result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
-                    if result != 0:
-                        messagebox.showerror('ProjectFile','could not be opened')
-                        return
+                filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
+                if filenametoshow is None:
+                    filenametoshow=''
+                try:
+                    wf=self.parent.device.Waveform()
+                except si.SignalIntegrityException as e:
+                    messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+                    return
+                sd=SimulatorDialog(self.parent.parent)
+                sd.title(filenametoshow)
+                sd.UpdateWaveforms([wf],[filenametoshow])
+                sd.state('normal')
+                sd.grab_set()
+            elif self.partProperty['PropertyName'] == 'errorterms':
+                calibration=self.parent.parent.parent.OpenCalibrationFile(os.path.abspath(filename))
+                if calibration is None:
+                    messagebox.showerror('Calibration File','could not be opened')
+                    return
                 else:
-                    filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
-                    if filenametoshow is None:
-                        filenametoshow=''
-                    try:
-                        wf=self.parent.device.Waveform()
-                    except si.SignalIntegrityException as e:
-                        messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
-                        return
-                    sd=SimulatorDialog(self.parent.parent)
-                    sd.title(filenametoshow)
-                    sd.UpdateWaveforms([wf],[filenametoshow])
-                    sd.state('normal')
-                    sd.grab_set()
+                    self.parent.parent.parent.ViewCalibration(calibration)
     def onPropertyVisible(self):
         self.partProperty['Visible']=bool(self.propertyVisible.get())
         self.callBack()

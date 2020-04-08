@@ -68,6 +68,17 @@ class SParametersDialog(tk.Toplevel):
         tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
+        # handle lists of s-parameters
+        if isinstance(sp,list):
+            self.spList=sp
+            sp=self.spList[0][0]
+            filename=self.spList[0][1]
+            title=self.spList[0][2]
+            buttonLabels=self.spList[0][3]
+        else:
+            self.spList=[(sp,filename,'this' if title == None else title,buttonLabels)]
+        self.current=0
+
         self.fileparts=FileParts(filename)
         if title is None:
             if self.fileparts.filename =='':
@@ -116,6 +127,8 @@ class SParametersDialog(tk.Toplevel):
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement('Control-Help:Save-S-parameter-File')
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ)
+        # ------
+        self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.spList))]
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
         self.SParameterPropertiesDoer = Doer(self.onSParameterProperties).AddHelpElement('Control-Help:S-Parameter-Properties')
@@ -171,6 +184,12 @@ class SParametersDialog(tk.Toplevel):
         self.ReadSParametersFromFileDoer.AddMenuElement(FileMenu,label="Open File",accelerator='Ctrl+O',underline=0)
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
+        # ------
+        if len(self.spList)>1:
+            SelectionMenu=tk.Menu(self)
+            TheMenu.add_cascade(label='Selection',menu=SelectionMenu,underline=0)
+            for s in range(len(self.spList)):
+                self.SelectionDoerList[s].AddMenuElement(SelectionMenu,label=self.spList[s][2])
         # ------
         PropertiesMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Properties',menu=PropertiesMenu,underline=0)
@@ -318,9 +337,9 @@ class SParametersDialog(tk.Toplevel):
         self.bottomRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
         self.bottomRightToolbar.pan()
 
-        controlsFrame = tk.Frame(self.dialogFrame)
-        controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.sButtonsFrame = tk.Frame(controlsFrame, bd=1, relief=tk.SUNKEN)
+        self.controlsFrame = tk.Frame(self.dialogFrame)
+        self.controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
         self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
 
         self.sp=sp
@@ -1481,6 +1500,30 @@ class SParametersDialog(tk.Toplevel):
         else:
             if not self.preferencesDialog.winfo_exists():
                 self.preferencesDialog=SParameterViewerPreferencesDialog(self,SignalIntegrity.App.Preferences)
+
+    def onSelection(self,x):
+        self.sp=self.spList[x][0]
+        self.properties=SParameterProperties()
+        self.UpdatePropertiesFromSParameters(new=True)
+        self.filename=self.spList[x][1]
+        self.title=self.spList[x][2]
+        self.buttonLabels=buttonLabels=self.spList[x][3]
+        self.sButtonsFrame.pack_forget()
+        self.sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
+        self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        self.buttons=[]
+        for toP in range(len(buttonLabels)):
+            buttonrow=[]
+            rowFrame=tk.Frame(self.sButtonsFrame)
+            rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
+            for fromP in range(len(buttonLabels[0])):
+                thisButton=tk.Button(rowFrame,text=buttonLabels[toP][fromP],width=len(buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
+                thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+                buttonrow.append(thisButton)
+            self.buttons.append(buttonrow)
+        self.onSelectSParameter(self.toPort, self.fromPort)
+
+
 
 
 

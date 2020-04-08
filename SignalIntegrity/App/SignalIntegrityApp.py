@@ -147,6 +147,10 @@ class SignalIntegrityApp(tk.Frame):
         self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC-Fit')
         self.CalculateErrorTermsDoer = Doer(self.onCalculateErrorTerms).AddHelpElement('Control-Help:Calculate-Error-Terms')
         # ------
+        self.OpenCalibrationFileDoer = Doer(self.onOpenCalibrationFile).AddHelpElement('Control-Help:Open-Calibration-File')
+        self.SaveCalibrationFileDoer = Doer(self.onSaveCalibrationFile,active=False).AddHelpElement('Control-Help:Save-Calibration-File')
+        self.ViewCalibrationFixturesDoer = Doer(self.onViewCalibrationFile,active=False).AddHelpElement('Control-Help:View-Calibration-Fixtures')
+        # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help')
@@ -236,6 +240,12 @@ class SignalIntegrityApp(tk.Frame):
         self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
         self.CalculateErrorTermsDoer.AddMenuElement(CalcMenu,label='Calculate Error Terms',underline=10)
         # ------
+        CalibrationMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='Calibration',menu=CalibrationMenu,underline=4)
+        self.OpenCalibrationFileDoer.AddMenuElement(CalibrationMenu,label='Open File',underline=0)
+        self.SaveCalibrationFileDoer.AddMenuElement(CalibrationMenu,label='Save File',underline=0)
+        self.ViewCalibrationFixturesDoer.AddMenuElement(CalibrationMenu,label='View Fixtures',underline=0)
+        # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
@@ -244,7 +254,6 @@ class SignalIntegrityApp(tk.Frame):
         HelpMenu.add_separator()
         self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
-
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -789,7 +798,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def onSParameterViewer(self):
         import SignalIntegrity.Lib as si
-        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
                                  parent=self,
                                  initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
@@ -797,8 +806,12 @@ class SignalIntegrityApp(tk.Frame):
         fileparts=FileParts(filename)
         if fileparts.fileext is None or fileparts.fileext == '':
             return
-        sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
-        SParametersDialog(self,sp,fileparts.FullFilePathExtension())
+        elif fileparts.fileext == '.cal':
+            self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
+            self.ViewCalibration(self.calibration)
+        else:
+            sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+            SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
     def onHelp(self):
         if Doer.helpKeys is None:
@@ -980,6 +993,66 @@ class SignalIntegrityApp(tk.Frame):
             Doer.helpKeys.SaveToFile()
             self.statusbar.set('help keys updated')
 
+    def OpenCalibrationFile(self,filename):
+        import SignalIntegrity.Lib as si
+        calibration=si.m.cal.Calibration(0,0)
+        try:
+            calibration.ReadFromFile(filename)
+        except:
+            calibration=None
+        return calibration
+
+    def onOpenCalibrationFile(self):
+        self.calibration=None
+        filename=AskOpenFileName(filetypes=[('calibration files', ('*.cal'))],
+                                 parent=self,
+                                 initialdir=self.fileparts.AbsoluteFilePath())
+        if filename is None:
+            self.SaveCalibrationFileDoer.Activate(self.calibration != None)
+            self.ViewCalibrationFixturesDoer.Activate(self.calibration != None)
+            return
+        fileparts=FileParts(filename)
+        if fileparts.fileext is None or fileparts.fileext == '':
+            self.SaveCalibrationFileDoer.Activate(self.calibration != None)
+            self.ViewCalibrationFixturesDoer.Activate(self.calibration != None)
+            return
+        self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
+        self.SaveCalibrationFileDoer.Activate(self.calibration != None)
+        self.ViewCalibrationFixturesDoer.Activate(self.calibration != None)
+    
+    def onSaveCalibrationFile(self):
+        extension='.cal'
+        filename=AskSaveAsFilename(filetypes=[('calibration file', '.cal')],
+                    defaultextension=extension,
+                    initialdir=self.fileparts.AbsoluteFilePath(),
+                    initialfile=self.fileparts.FileNameWithExtension(extension),
+                    parent=self)
+        if filename is None:
+            return
+        self.fileparts=FileParts(filename)
+        self.calibration.WriteToFile(filename)
+    
+    def ViewCalibration(self,calibration):
+        fixtureList=calibration.Fixtures()
+        ports=len(fixtureList)
+        buttonLabelsList=[None for _ in range(ports)]
+        titleList=['ET'+str(p+1) for p in range(ports)]
+        filename=self.fileparts.FullFilePathExtension('s'+str(ports)+'p')
+        fileNameList=[filename for _ in range(ports)]
+        for i in range(ports):
+            buttonLabels=[[' 0  ' for _ in range(2*ports)] for _ in range(2*ports)]
+            for r in range(ports):
+                buttonLabels[i+ports][i]=' 1  '
+                buttonLabels[r][i] = 'ED'+str(i+1)+' ' if r==i else 'EX'+str(r+1)+str(i+1)
+                buttonLabels[r][ports+r]='ER'+str(i+1)+' ' if r==i else 'ET'+str(r+1)+str(i+1)
+                buttonLabels[r+ports][ports+r]='ES'+str(i+1)+' ' if r==i else 'EL'+str(r+1)+str(i+1)
+            buttonLabelsList[i]=buttonLabels
+        spList = [(sp,filename,title,buttonlabel) for (sp,filename,title,buttonlabel) in zip(fixtureList,fileNameList,titleList,buttonLabelsList)]
+        self.spd=SParametersDialog(self,spList)
+
+    def onViewCalibrationFile(self):
+        self.ViewCalibration(self.calibration)
+
     def CalculateErrorTerms(self):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
@@ -1003,19 +1076,10 @@ class SignalIntegrityApp(tk.Frame):
         return cal
 
     def onCalculateErrorTerms(self):
-        cal=self.CalculateErrorTerms()
-        if cal is None:
-            return
-        fixtureList=cal.Fixtures()
-        ports=len(fixtureList)
-        for i in range(len(fixtureList)):
-            buttonLabels=[[' 0  ' for _ in range(2*ports)] for _ in range(2*ports)]
-            for r in range(ports):
-                buttonLabels[i+ports][i]=' 1  '
-                buttonLabels[i][i] = 'ED'+str(i+1)+' ' if r==i else 'EX'+str(r+1)+str(i+1)
-                buttonLabels[r][ports+r]='ER'+str(i+1)+' ' if r==i else 'ET'+str(r+1)+str(i+1)
-                buttonLabels[r+ports][ports+r]='ES'+str(i+1)+' ' if r==i else 'EL'+str(r+1)+str(i+1)
-            self.spd=SParametersDialog(self,fixtureList[i],title='ET'+str(i+1),filename=self.fileparts.FullFilePathExtension('s'+str(fixtureList[i].m_P)+'p'),buttonLabels=buttonLabels)
+        self.calibration=self.CalculateErrorTerms()
+        self.SaveCalibrationFileDoer.Activate(self.calibration != None)
+        self.ViewCalibrationFixturesDoer.Activate(self.calibration != None)
+        self.onViewCalibrationFile()
 
 def main():
     projectFileName = None
