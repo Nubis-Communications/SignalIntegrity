@@ -337,7 +337,7 @@ class SParametersDialog(tk.Toplevel):
             fixtureList=self.calibration.Fixtures()
             ports=len(fixtureList)
             buttonLabelsList=[None for _ in range(ports)]
-            titleList=['ET'+str(p+1) for p in range(ports)]
+            titleList=['Error Terms - Port '+str(p+1) for p in range(ports)]
             fileNameList=[filename for _ in range(ports)]
             for i in range(ports):
                 buttonLabels=[[' 0  ' for _ in range(2*ports)] for _ in range(2*ports)]
@@ -357,8 +357,7 @@ class SParametersDialog(tk.Toplevel):
             title=self.spList[0][2]
             buttonLabels=self.spList[0][3]
         else:
-            self.spList=[[sp,filename,'this' if title == None else title,buttonLabels]]
-        self.current=0
+            self.spList=[[sp,filename,'S-Parameters' if title == None else title,buttonLabels]]
 
         self.fileparts=FileParts(filename)
         if title is None:
@@ -1514,9 +1513,23 @@ class SParametersDialog(tk.Toplevel):
         self.sp=self.spList[x][0]
         self.properties=SParameterProperties()
         self.UpdatePropertiesFromSParameters(new=True)
-        self.filename=self.spList[x][1]
-        #self.title(self.spList[x][2])
+        filename=self.spList[x][1]
+        title=self.spList[x][2]
         self.buttonLabels=self.spList[x][3]
+        
+        self.filename=self.spList[x][1]
+        self.fileparts=FileParts(filename)
+        if title is None:
+            if self.fileparts.filename =='':
+                self.title('S-parameters')
+            else:
+                self.title('S-parameters: '+self.fileparts.FileNameTitle())
+        else:
+            if filename is None:
+                self.title(title)
+            else:
+                self.title(title+': '+self.fileparts.FileNameTitle())
+
         sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
         self.buttons=[]
         for toP in range(len(self.buttonLabels)):
