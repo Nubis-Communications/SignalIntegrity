@@ -85,7 +85,7 @@ class DeviceProperty(tk.Frame):
                 self.parent.propertyFrameList[pp].onUntouched(None)
         # end of ugly workaround
         self.callBack()
-        if self.partProperty['PropertyName'] == 'filename':
+        if self.partProperty['PropertyName'] in ['filename','std']:
             extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
             filetypename='s-parameters'
         elif self.partProperty['PropertyName'] == 'waveformfilename':
