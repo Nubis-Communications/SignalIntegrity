@@ -387,30 +387,30 @@ class SParametersDialog(tk.Toplevel):
         self.properties=SParameterProperties()
         self.UpdatePropertiesFromSParameters(new=True)
 
-        if buttonLabels is None:
+        # button labels are a proxy for transfer parameters (until I do something better)
+        areSParameters=(buttonLabels == None)
+        isCalibration=(self.calibration != None)
+        self.ShowPassivityViolationsDoer.Activate(areSParameters)
+        self.ShowCausalityViolationsDoer.Activate(areSParameters)
+        self.ShowImpedanceDoer.Activate(areSParameters)
+        self.ShowExcessInductanceDoer.Activate(areSParameters)
+        self.ShowExcessCapacitanceDoer.Activate(areSParameters)
+        #self.LogScaleDoer.Activate(False)
+        self.EnforcePassivityDoer.Activate(areSParameters)
+        self.EnforceCausalityDoer.Activate(areSParameters)
+        self.EnforceBothPassivityAndCausalityDoer.Activate(areSParameters)
+        self.EnforceReciprocityDoer.Activate(areSParameters)
+        self.EnforceAllDoer.Activate(areSParameters)
+        self.WaveletDenoiseDoer.Activate(areSParameters)
+        self.ReadSParametersFromFileDoer.Activate(areSParameters or isCalibration)
+        if buttonLabels == None:
             numPorts=self.sp.m_P
             buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
             self.spList[0][3]=buttonLabels
         else:
-            # button labels are a proxy for transfer parameters (until I do something better)
-            SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']=False
-            self.showPassivityViolations.set(False)
-            self.ShowPassivityViolationsDoer.Activate(False)
-            self.ShowCausalityViolationsDoer.Activate(False)
-            self.ShowImpedanceDoer.Activate(False)
-            self.ShowExcessInductanceDoer.Activate(False)
-            self.ShowExcessCapacitanceDoer.Activate(False)
-            #self.LogScaleDoer.Activate(False)
-            self.EnforcePassivityDoer.Activate(False)
-            self.EnforceCausalityDoer.Activate(False)
-            self.EnforceBothPassivityAndCausalityDoer.Activate(False)
-            self.EnforceReciprocityDoer.Activate(False)
-            self.EnforceAllDoer.Activate(False)
-            self.WaveletDenoiseDoer.Activate(False)
-
             if self.calibration == None:
-                self.ReadSParametersFromFileDoer.Activate(False)
-
+                # @todo:  This is totally wrong to directly write the preferences to enforce this.  It ends up updating the preferences
+                # behind the user's back
                 SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All']=True
                 SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All']=True
                 SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All']=True
