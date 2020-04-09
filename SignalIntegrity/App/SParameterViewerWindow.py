@@ -1229,7 +1229,7 @@ class SParametersDialog(tk.Toplevel):
                 self.bottomRightPlotProperties['MinX']=min(x)
                 self.bottomRightPlotProperties['MaxX']=max(x)
                 self.bottomRightPlotProperties['XInitialized']=True
-                if (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] or SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']) and (self.fromPort == self.toPort):
+                if (self.ShowImpedance() or self.ShowExcessInductance() or self.ShowExcessCapacitance()) and (self.fromPort == self.toPort):
                     self.plotProperties['Step.MinX']=self.bottomRightPlotProperties['MinX']*2.0
                     self.plotProperties['Step.MaxX']=self.bottomRightPlotProperties['MaxX']*2.0
                     self.plotProperties['Step.XInitialized']=True
