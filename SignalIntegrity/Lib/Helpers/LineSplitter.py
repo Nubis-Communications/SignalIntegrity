@@ -28,7 +28,8 @@ def LineSplitter(line):
         if sline[i]==' ':
             if intoken:
                 if not inquote:
-                    tokenList.append(acc)
+                    if acc != '':
+                        tokenList.append(acc)
                     acc=''
                 else:
                     acc=acc+sline[i]
