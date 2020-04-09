@@ -83,16 +83,25 @@ def nextHigherInteger(v):
 def nextLowerInteger(v):
     return nextLower(v,[1.+float(m)/100. for m in range(1000)])
 
-def ToSI(d,sa=''):
+incexpPrefixes=['e'+str(int(p*3)) for p in range(1,110)]
+decexpPrefixes = ['e-'+str(int(p*3)) for p in range(1,110)]
+
+def ToSI(d,sa='',letterPrefixes=True):
 
     if sa is None:
         sa=''
 
-    if d==0.:
-        return '0 '+sa
+    if letterPrefixes:
+        incPrefixes = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
+        decPrefixes = ['m', 'u', 'n', 'p', 'f', 'a', 'z', 'y']
+        spacer=' '
+    else:
+        incPrefixes = incexpPrefixes
+        decPrefixes = decexpPrefixes
+        spacer=''
 
-    incPrefixes = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
-    decPrefixes = ['m', 'u', 'n', 'p', 'f', 'a', 'z', 'y']
+    if d==0.:
+        return '0'+spacer+sa
 
     degree = int(math.floor(math.log10(math.fabs(d)) / 3))
 
@@ -114,14 +123,14 @@ def ToSI(d,sa=''):
                 degree = -len(decPrefixes)
 
         scaled = float(d * math.pow(1000, -degree))
-        s = "{:.12g} {}".format(scaled,prefix)
+        s = ("{:.12g}"+spacer+"{}").format(scaled,prefix)
         if not '.' in s:
-            s="{:.12g}.0 {}".format(scaled,prefix)
+            s=("{:.12g}.0"+spacer+"{}").format(scaled,prefix)
         #s = "{:.1f} {}".format(scaled,prefix)
     else:
-        s = "{:.12g} ".format(d)
+        s = ("{:.12g}"+spacer).format(d)
         if not '.' in s:
-            s = "{:.12g}.0 ".format(d)
+            s = ("{:.12g}.0"+spacer).format(d)
         #s = "{:.1f} ".format(d)
 
     return s+sa

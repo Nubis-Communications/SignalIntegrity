@@ -86,7 +86,7 @@ class PartProperty(PartPropertyConfiguration):
             elif self.GetValue('Type')=='int':
                 value = self.GetValue('Value')
             elif self.GetValue('Type')=='float':
-                value = str(float(self.GetValue('Value')))
+                value = str(ToSI(float(self.GetValue('Value')),letterPrefixes=False))
             else:
                 value = str(self.GetValue('Value'))
             return value
