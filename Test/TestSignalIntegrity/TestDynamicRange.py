@@ -50,7 +50,7 @@ class TestDynamicRangeTest(unittest.TestCase):
         NF=100
         fr=[(n+1.)/NF*Fe for n in range(NF)]
         CM=[-0.133*sqrt(f/1e9)-.00404*f/1e9 for f in fr]
-        P=[f/Fe*-3 for f in fr]
+        P=[f/Fe*-1 for f in fr]
         snrWpPreview=[self.SNR(fbw,Fse,N,A,Fsa,Tw,Td,frac,P[n],(F+C)*CM[n],False,fr[n]) for n in range(len(fr))]
         snrWpNormal=[self.SNR(fbw,Fse,N,A,Fsa,Tw*10,Td,frac,P[n],(F+C)*CM[n],False,fr[n]) for n in range(len(fr))]
         snrWpExtra=[self.SNR(fbw,Fse,N,A,Fsa,Tw*100,Td,frac,P[n],(F+C)*CM[n],False,fr[n]) for n in range(len(fr))]
@@ -89,7 +89,7 @@ class TestDynamicRangeTest(unittest.TestCase):
         ax1.set_xticks([1, 10, 20, 30, 40])
         ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
         plt.grid(True)
-        #si.test.PlotTikZ('WavePulserDynamicRange.tex', plt)
+        si.test.PlotTikZ('WavePulserDynamicRangeLog.tex', plt)
         #plt.show()
         
         plt.semilogx(frGHz,snrSpPreview,linestyle='--',color='black',label='preview mode (0:12)')
@@ -104,9 +104,39 @@ class TestDynamicRangeTest(unittest.TestCase):
         ax1.set_xticks([1, 10, 20, 30, 40])
         ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
         plt.grid(True)
-        #si.test.PlotTikZ('SPARQDynamicRange.tex', plt)
+        si.test.PlotTikZ('SPARQDynamicRangeLog.tex', plt)
+        #plt.show()
+
+        plt.plot(frGHz,snrWpPreview,linestyle='--',color='black',label='preview mode (0:04)')
+        plt.plot(frGHz,snrWpNormal,linewidth=1,color='black',label='normal mode (0:40)')
+        plt.plot(frGHz,snrWpExtra,linewidth=2,color='black',label='extra mode (6:40)')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('dynamic range (dB)')
+        plt.legend(loc='upper right')
+        plt.gca().set_xlim(left=1,right=40)
+        plt.gca().set_ylim(bottom=30,top=90)
+        ax1=plt.gca()
+        ax1.set_xticks([1, 10, 20, 30, 40])
+        ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+        plt.grid(True)
+        si.test.PlotTikZ('WavePulserDynamicRangeLinear.tex', plt)
         #plt.show()
         
+        plt.plot(frGHz,snrSpPreview,linestyle='--',color='black',label='preview mode (0:12)')
+        plt.plot(frGHz,snrSpNormal,linewidth=1,color='black',label='normal mode (2:00)')
+        plt.plot(frGHz,snrSpExtra,linewidth=2,color='black',label='extra mode (20:00)')
+        plt.xlabel('frequency (GHz)')
+        plt.ylabel('dynamic range (dB)')
+        plt.legend(loc='upper right')
+        plt.gca().set_xlim(left=1,right=40)
+        plt.gca().set_ylim(bottom=30,top=90)
+        ax1=plt.gca()
+        ax1.set_xticks([1, 10, 20, 30, 40])
+        ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+        plt.grid(True)
+        si.test.PlotTikZ('SPARQDynamicRangeLinear.tex', plt)
+        #plt.show()
+
 
 
 if __name__ == "__main__":
