@@ -1517,17 +1517,19 @@ class SParametersDialog(tk.Toplevel):
         self.filename=self.spList[x][1]
         #self.title(self.spList[x][2])
         self.buttonLabels=self.spList[x][3]
-        self.sButtonsFrame.pack_forget()
-        self.sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
-        self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
         self.buttons=[]
         for toP in range(len(self.buttonLabels)):
             buttonrow=[]
-            rowFrame=tk.Frame(self.sButtonsFrame)
+            rowFrame=tk.Frame(sButtonsFrame)
             rowFrame.pack(side=tk.TOP,expand=tk.NO,fill=tk.NONE)
             for fromP in range(len(self.buttonLabels[0])):
                 thisButton=tk.Button(rowFrame,text=self.buttonLabels[toP][fromP],width=len(self.buttonLabels[toP][fromP]),command=lambda x=toP+1,y=fromP+1: self.onSelectSParameter(x,y))
                 thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
+        self.sButtonsFrame.pack_forget()
+        self.sButtonsFrame=sButtonsFrame
+        self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        self.update_idletasks()
         self.onSelectSParameter(self.toPort, self.fromPort)
