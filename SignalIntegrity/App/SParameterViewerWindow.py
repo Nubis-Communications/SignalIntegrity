@@ -84,34 +84,6 @@ class SParametersDialog(tk.Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
-        self.variableLineWidth = tk.BooleanVar()
-        self.showPassivityViolations = tk.BooleanVar()
-        self.showCausalityViolations = tk.BooleanVar()
-        self.showImpedance = tk.BooleanVar()
-        self.showExcessInductance = tk.BooleanVar()
-        self.showExcessCapacitance = tk.BooleanVar()
-        self.logScale =  tk.BooleanVar()
-
-        self.JoinFrequenciesWithin = tk.BooleanVar()
-        self.JoinTimesWithin = tk.BooleanVar()
-        self.JoinFrequenciesWithOthers = tk.BooleanVar()
-        self.JoinTimesWithOthers = tk.BooleanVar()
-        self.JoinMagnitudeWithOthers = tk.BooleanVar()
-        self.JoinPhaseWithOthers = tk.BooleanVar()
-        self.JoinImpulseWithOthers = tk.BooleanVar()
-        self.JoinStepImpedanceWithOthers = tk.BooleanVar()
-        self.FrequenciesJoinAll = tk.BooleanVar()
-        self.FrequenciesJoinOffDiagonal = tk.BooleanVar()
-        self.FrequenciesJoinReciprocals = tk.BooleanVar()
-        self.FrequenciesJoinReflects = tk.BooleanVar()
-        self.TimesJoinAll = tk.BooleanVar()
-        self.TimesJoinOffDiagonal = tk.BooleanVar()
-        self.TimesJoinReciprocals = tk.BooleanVar()
-        self.TimesJoinReflects = tk.BooleanVar()
-        self.VerticalJoinAll = tk.BooleanVar()
-        self.VerticalJoinOffDiagonal = tk.BooleanVar()
-        self.VerticalJoinReciprocals = tk.BooleanVar()
-        self.VerticalJoinReflects = tk.BooleanVar()
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement('Control-Help:Save-S-parameter-File')
@@ -187,47 +159,47 @@ class SParametersDialog(tk.Toplevel):
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
-        self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9,onvalue=True,offvalue=False,variable=self.variableLineWidth)
-        self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5,onvalue=True,offvalue=False,variable=self.showPassivityViolations)
-        self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6,onvalue=True,offvalue=False,variable=self.showCausalityViolations)
-        self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5,onvalue=True,offvalue=False,variable=self.showImpedance)
-        self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=13,onvalue=True,offvalue=False,variable=self.showExcessInductance)
-        self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=12,onvalue=True,offvalue=False,variable=self.showExcessCapacitance)
-        self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4,onvalue=True,offvalue=False,variable=self.logScale)
+        self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9)
+        self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5)
+        self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6)
+        self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5)
+        self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=13)
+        self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=12)
+        self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4)
         #-------
         ZoomMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Zoom',menu=ZoomMenu,underline=0)
         ZoomFrequenciesMenu=tk.Menu(self)
         ZoomMenu.add_cascade(label='Frequencies',menu=ZoomFrequenciesMenu,underline=0)
-        self.JoinFrequenciesWithinDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Within Views',underline=5,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithin)
+        self.JoinFrequenciesWithinDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Within Views',underline=5)
         ZoomFrequenciesMenu.add_separator()
-        self.JoinFrequenciesWithOthersDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join With Other Views',underline=10,onvalue=True,offvalue=False,variable=self.JoinFrequenciesWithOthers)
+        self.JoinFrequenciesWithOthersDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join With Other Views',underline=10)
         ZoomFrequenciesMenu.add_separator()
-        self.FrequenciesJoinAllDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join All Views',underline=5,onvalue=True,offvalue=False,variable=self.FrequenciesJoinAll)
-        self.FrequenciesJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Off-Diagnonal Views',underline=9,onvalue=True,offvalue=False,variable=self.FrequenciesJoinOffDiagonal)
-        self.FrequenciesJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Reciprocal Views',underline=5,onvalue=True,offvalue=False,variable=self.FrequenciesJoinReciprocals)
-        self.FrequenciesJoinReflectsDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Reflect Views',underline=7,onvalue=True,offvalue=False,variable=self.FrequenciesJoinReflects)
+        self.FrequenciesJoinAllDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join All Views',underline=5)
+        self.FrequenciesJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Off-Diagnonal Views',underline=9)
+        self.FrequenciesJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Reciprocal Views',underline=5)
+        self.FrequenciesJoinReflectsDoer.AddCheckButtonMenuElement(ZoomFrequenciesMenu,label='Join Reflect Views',underline=7)
         ZoomTimesMenu=tk.Menu(self)
         ZoomMenu.add_cascade(label='Times',menu=ZoomTimesMenu,underline=0)
-        self.JoinTimesWithinDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Within Views',underline=5,onvalue=True,offvalue=False,variable=self.JoinTimesWithin)
+        self.JoinTimesWithinDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Within Views',underline=5)
         ZoomTimesMenu.add_separator()
-        self.JoinTimesWithOthersDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join With Other Views',underline=10,onvalue=True,offvalue=False,variable=self.JoinTimesWithOthers)
+        self.JoinTimesWithOthersDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join With Other Views',underline=10)
         ZoomTimesMenu.add_separator()
-        self.TimesJoinAllDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join All Views',underline=5,onvalue=True,offvalue=False,variable=self.TimesJoinAll)
-        self.TimesJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Off-Diagnonal Views',underline=9,onvalue=True,offvalue=False,variable=self.TimesJoinOffDiagonal)
-        self.TimesJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Reciprocal Views',underline=5,onvalue=True,offvalue=False,variable=self.TimesJoinReciprocals)
-        self.TimesJoinReflectsDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Reflect Views',underline=7,onvalue=True,offvalue=False,variable=self.TimesJoinReflects)
+        self.TimesJoinAllDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join All Views',underline=5)
+        self.TimesJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Off-Diagnonal Views',underline=9)
+        self.TimesJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Reciprocal Views',underline=5)
+        self.TimesJoinReflectsDoer.AddCheckButtonMenuElement(ZoomTimesMenu,label='Join Reflect Views',underline=7)
         ZoomVerticalMenu=tk.Menu(self)
         ZoomMenu.add_cascade(label='Vertical',menu=ZoomVerticalMenu,underline=0)
-        self.JoinMagnitudeWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Magnitude Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinMagnitudeWithOthers)
-        self.JoinPhaseWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Phase Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinPhaseWithOthers)
-        self.JoinImpulseWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Impulse Response Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinImpulseWithOthers)
-        self.JoinStepImpedanceWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Step Response/Impedance Zooms With Other Views',underline=None,onvalue=True,offvalue=False,variable=self.JoinStepImpedanceWithOthers)
+        self.JoinMagnitudeWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Magnitude Zooms With Other Views',underline=None)
+        self.JoinPhaseWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Phase Zooms With Other Views',underline=None)
+        self.JoinImpulseWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Impulse Response Zooms With Other Views',underline=None)
+        self.JoinStepImpedanceWithOthersDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Step Response/Impedance Zooms With Other Views',underline=None)
         ZoomVerticalMenu.add_separator()
-        self.VerticalJoinAllDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join All Views',underline=5,onvalue=True,offvalue=False,variable=self.VerticalJoinAll)
-        self.VerticalJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Off-Diagnonal Views',underline=9,onvalue=True,offvalue=False,variable=self.VerticalJoinOffDiagonal)
-        self.VerticalJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Reciprocal Views',underline=5,onvalue=True,offvalue=False,variable=self.VerticalJoinReciprocals)
-        self.VerticalJoinReflectsDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Reflect Views',underline=7,onvalue=True,offvalue=False,variable=self.VerticalJoinReflects)
+        self.VerticalJoinAllDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join All Views',underline=5)
+        self.VerticalJoinOffDiagonalDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Off-Diagnonal Views',underline=9)
+        self.VerticalJoinReciprocalsDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Reciprocal Views',underline=5)
+        self.VerticalJoinReflectsDoer.AddCheckButtonMenuElement(ZoomVerticalMenu,label='Join Reflect Views',underline=7)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -391,7 +363,7 @@ class SParametersDialog(tk.Toplevel):
 #             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
 
     def onVariableLineWidth(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']=bool(self.variableLineWidth.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']=self.VariableLineWidthDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
@@ -399,7 +371,7 @@ class SParametersDialog(tk.Toplevel):
         return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth'] and self.VariableLineWidthDoer.active)
 
     def onShowPassivityViolations(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']=bool(self.showPassivityViolations.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations']=self.ShowPassivityViolationsDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
@@ -407,7 +379,7 @@ class SParametersDialog(tk.Toplevel):
         return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations'] and self.ShowPassivityViolationsDoer.active)
 
     def onShowCausalityViolations(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations']=bool(self.showCausalityViolations.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations']=self.ShowCausalityViolationsDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
@@ -415,10 +387,10 @@ class SParametersDialog(tk.Toplevel):
         return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations'] and self.ShowCausalityViolationsDoer.active)
 
     def onShowImpedance(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance']=bool(self.showImpedance.get())
-        self.showExcessInductance.set(False)
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance']=self.ShowImpedanceDoer.Bool()
+        self.ShowExcessInductanceDoer.Set(False)
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance']=False
-        self.showExcessCapacitance.set(False)
+        self.ShowExcessCapacitanceDoer.Set(False)
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
@@ -427,10 +399,10 @@ class SParametersDialog(tk.Toplevel):
         return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'] and self.ShowImpedanceDoer.active)
 
     def onShowExcessInductance(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance']=bool(self.showExcessInductance.get())
-        self.showImpedance.set(False)
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance']=self.ShowExcessInductanceDoer.Bool()
+        self.ShowImpedanceDoer.Set(False)
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance']=False
-        self.showExcessCapacitance.set(False)
+        self.ShowExcessCapacitanceDoer.Set(False)
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
@@ -439,10 +411,10 @@ class SParametersDialog(tk.Toplevel):
         return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'] and self.ShowExcessInductanceDoer.active)
 
     def onShowExcessCapacitance(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']=bool(self.showExcessCapacitance.get())
-        self.showImpedance.set(False)
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance']=self.ShowExcessCapacitanceDoer.Bool()
+        self.ShowImpedanceDoer.Set(False)
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance']=False
-        self.showExcessInductance.set(False)
+        self.ShowExcessInductanceDoer.Set(False)
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
@@ -451,7 +423,7 @@ class SParametersDialog(tk.Toplevel):
         return (SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'] and self.ShowExcessCapacitanceDoer.active)
 
     def onLogScale(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']=bool(self.logScale.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']=self.LogScaleDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
@@ -487,83 +459,83 @@ class SParametersDialog(tk.Toplevel):
         SignalIntegrity.App.Preferences.SaveToFile()
 
     def onJoinFrequenciesWithin(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithin']=bool(self.JoinFrequenciesWithin.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithin']=self.JoinFrequenciesWithinDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinTimesWithin(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin']=bool(self.JoinTimesWithin.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin']=self.JoinTimesWithinDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinFrequenciesWithOthers(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers']=bool(self.JoinFrequenciesWithOthers.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers']=self.JoinFrequenciesWithOthersDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinTimesWithOthers(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithOthers']=bool(self.JoinTimesWithOthers.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithOthers']=self.JoinTimesWithOthersDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinMagnitudeWithOthers(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinMagnitudeWithOthers']=bool(self.JoinMagnitudeWithOthers.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinMagnitudeWithOthers']=self.JoinMagnitudeWithOthersDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinPhaseWithOthers(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinPhaseWithOthers']=bool(self.JoinPhaseWithOthers.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinPhaseWithOthers']=self.JoinPhaseWithOthersDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinImpulseWithOthers(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinImpulseWithOthers']=bool(self.JoinImpulseWithOthers.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinImpulseWithOthers']=self.JoinImpulseWithOthersDoer.Bool()
         self.ZoomJoinActivations()
 
     def onJoinStepImpedanceWithOthers(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinStepImpedanceWithOthers']=bool(self.JoinStepImpedanceWithOthers.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinStepImpedanceWithOthers']=self.JoinStepImpedanceWithOthersDoer.Bool()
         self.ZoomJoinActivations()
 
     def onFrequenciesJoinAll(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All']=bool(self.FrequenciesJoinAll.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All']=self.FrequenciesJoinAllDoer.Bool()
         self.ZoomJoinActivations()
 
     def onFrequenciesJoinOffDiagonal(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.OffDiagonal']=bool(self.FrequenciesJoinOffDiagonal.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.OffDiagonal']=self.FrequenciesJoinOffDiagonalDoer.Bool()
         self.ZoomJoinActivations()
 
     def onFrequenciesJoinReciprocals(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reciprocals']=bool(self.FrequenciesJoinReciprocals.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reciprocals']=self.FrequenciesJoinReciprocalsDoer.Bool()
         self.ZoomJoinActivations()
 
     def onFrequenciesJoinReflects(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reflects']=bool(self.FrequenciesJoinReflects.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reflects']=self.FrequenciesJoinReflectsDoer.Bool()
         self.ZoomJoinActivations()
 
     def onTimesJoinAll(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All']=bool(self.TimesJoinAll.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All']=self.TimesJoinAllDoer.Bool()
         self.ZoomJoinActivations()
 
     def onTimesJoinOffDiagonal(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.OffDiagonal']=bool(self.TimesJoinOffDiagonal.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.OffDiagonal']=self.TimesJoinOffDiagonalDoer.Bool()
         self.ZoomJoinActivations()
 
     def onTimesJoinReciprocals(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reciprocals']=bool(self.TimesJoinReciprocals.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reciprocals']=self.TimesJoinReciprocalsDoer.Bool()
         self.ZoomJoinActivations()
 
     def onTimesJoinReflects(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reflects']=bool(self.TimesJoinReflects.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reflects']=self.TimesJoinReflectsDoer.Bool()
         self.ZoomJoinActivations()
 
     def onVerticalJoinAll(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All']=bool(self.VerticalJoinAll.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All']=self.VerticalJoinAllDoer.Bool()
         self.ZoomJoinActivations()
 
     def onVerticalJoinOffDiagonal(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.OffDiagonal']=bool(self.VerticalJoinOffDiagonal.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.OffDiagonal']=self.VerticalJoinOffDiagonalDoer.Bool()
         self.ZoomJoinActivations()
 
     def onVerticalJoinReciprocals(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reciprocals']=bool(self.VerticalJoinReciprocals.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reciprocals']=self.VerticalJoinReciprocalsDoer.Bool()
         self.ZoomJoinActivations()
 
     def onVerticalJoinReflects(self):
-        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reflects']=bool(self.VerticalJoinReflects.get())
+        SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reflects']=self.VerticalJoinReflectsDoer.Bool()
         self.ZoomJoinActivations()
 
     def JoinIt(self,thisToPortToJoin,thisFromPortToJoin,category):
@@ -843,33 +815,33 @@ class SParametersDialog(tk.Toplevel):
             self.properties['TimeLimitPositive']=None
         if new:
             self.properties['Plot.S']=[[SParameterPlotsConfiguration() for _ in range(self.sp.m_P)] for _ in range(self.sp.m_P)]
-        self.variableLineWidth.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth'])
-        self.showPassivityViolations.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations'])
-        self.showCausalityViolations.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations'])
-        self.showImpedance.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'])
-        self.showExcessInductance.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'])
-        self.showExcessCapacitance.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'])
-        self.logScale.set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale'])
-        self.JoinFrequenciesWithin.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithin'])
-        self.JoinTimesWithin.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin'])
-        self.JoinFrequenciesWithOthers.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers'])
-        self.JoinTimesWithOthers.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithOthers'])
-        self.JoinMagnitudeWithOthers.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinMagnitudeWithOthers'])
-        self.JoinPhaseWithOthers.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinPhaseWithOthers'])
-        self.JoinImpulseWithOthers.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinImpulseWithOthers'])
-        self.JoinStepImpedanceWithOthers.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinStepImpedanceWithOthers'])
-        self.FrequenciesJoinAll.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All'])
-        self.FrequenciesJoinOffDiagonal.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.OffDiagonal'])
-        self.FrequenciesJoinReciprocals.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reciprocals'])
-        self.FrequenciesJoinReflects.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reflects'])
-        self.TimesJoinAll.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All'])
-        self.TimesJoinOffDiagonal.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.OffDiagonal'])
-        self.TimesJoinReciprocals.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reciprocals'])
-        self.TimesJoinReflects.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reflects'])
-        self.VerticalJoinAll.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All'])
-        self.VerticalJoinOffDiagonal.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.OffDiagonal'])
-        self.VerticalJoinReciprocals.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reciprocals'])
-        self.VerticalJoinReflects.set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reflects'])
+        self.VariableLineWidthDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth'])
+        self.ShowPassivityViolationsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations'])
+        self.ShowCausalityViolationsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations'])
+        self.ShowImpedanceDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowImpedance'])
+        self.ShowExcessInductanceDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'])
+        self.ShowExcessCapacitanceDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'])
+        self.LogScaleDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale'])
+        self.JoinFrequenciesWithinDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithin'])
+        self.JoinTimesWithinDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin'])
+        self.JoinFrequenciesWithOthersDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers'])
+        self.JoinTimesWithOthersDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithOthers'])
+        self.JoinMagnitudeWithOthersDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinMagnitudeWithOthers'])
+        self.JoinPhaseWithOthersDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinPhaseWithOthers'])
+        self.JoinImpulseWithOthersDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinImpulseWithOthers'])
+        self.JoinStepImpedanceWithOthersDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.JoinStepImpedanceWithOthers'])
+        self.FrequenciesJoinAllDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.All'])
+        self.FrequenciesJoinOffDiagonalDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.OffDiagonal'])
+        self.FrequenciesJoinReciprocalsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reciprocals'])
+        self.FrequenciesJoinReflectsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.Join.Reflects'])
+        self.TimesJoinAllDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.All'])
+        self.TimesJoinOffDiagonalDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.OffDiagonal'])
+        self.TimesJoinReciprocalsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reciprocals'])
+        self.TimesJoinReflectsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.Join.Reflects'])
+        self.VerticalJoinAllDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.All'])
+        self.VerticalJoinOffDiagonalDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.OffDiagonal'])
+        self.VerticalJoinReciprocalsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reciprocals'])
+        self.VerticalJoinReflectsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Vertical.Join.Reflects'])
         self.ZoomJoinActivations()
 
     def UpdateSParametersFromProperties(self):

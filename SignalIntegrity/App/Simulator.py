@@ -70,16 +70,9 @@ class SimulatorDialog(tk.Toplevel):
         self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement('Control-Help:View-Transfer-Parameters')
         self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement('Control-Help:Recalculate')
         # ------
-        self.viewTimeDomain = tk.BooleanVar()
-        self.viewTimeDomain.set(True)
-        self.viewTimeDomainDoer = Doer(self.onViewTimeDomain)
-
-        self.viewSpectralContent = tk.BooleanVar()
-        self.viewSpectralContentDoer = Doer(self.onViewSpectralContent)
-
-        self.viewSpectralDensity = tk.BooleanVar()
-        self.viewSpectralDensityDoer = Doer(self.onViewSpectralDensity)
-
+        self.ViewTimeDomainDoer = Doer(self.onViewTimeDomain)
+        self.ViewSpectralContentDoer = Doer(self.onViewSpectralContent)
+        self.ViewSpectralDensityDoer = Doer(self.onViewSpectralDensity)
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Simulator-Open-Help-File')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Simulator-Control-Help')
@@ -106,9 +99,10 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
-        self.viewTimeDomainDoer.AddCheckButtonMenuElement(ViewMenu,label='View Time-domain',underline=5,onvalue=True,offvalue=False,variable=self.viewTimeDomain)
-        self.viewSpectralContentDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Content',underline=14,onvalue=True,offvalue=False,variable=self.viewSpectralContent)
-        self.viewSpectralDensityDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Density',underline=14,onvalue=True,offvalue=False,variable=self.viewSpectralDensity)
+        self.ViewTimeDomainDoer.AddCheckButtonMenuElement(ViewMenu,label='View Time-domain',underline=5)
+        self.ViewTimeDomainDoer.Set(True)
+        self.ViewSpectralContentDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Content',underline=14)
+        self.ViewSpectralDensityDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Density',underline=14)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -274,27 +268,27 @@ class SimulatorDialog(tk.Toplevel):
     def UpdateWaveforms(self,waveformList, waveformNamesList):
         self.waveformList=waveformList
         self.waveformNamesList=waveformNamesList
-        if self.viewTimeDomain.get():
+        if self.ViewTimeDomainDoer.Bool():
             self.PlotWaveformsTimeDomain()
-        elif self.viewSpectralContent.get():
+        elif self.ViewSpectralContentDoer.Bool():
             self.PlotWaveformsFrequencyContent(density=False)
-        elif self.viewSpectralDensity.get():
+        elif self.ViewSpectralDensityDoer.Bool():
             self.PlotWaveformsFrequencyContent(density=True)
         return self
 
     def onViewTimeDomain(self):
-        self.viewSpectralDensity.set(False)
-        self.viewSpectralContent.set(False)
+        self.ViewSpectralDensityDoer.Set(False)
+        self.ViewSpectralContentDoer.Set(False)
         self.PlotWaveformsTimeDomain()
 
     def onViewSpectralContent(self):
-        self.viewTimeDomain.set(False)
-        self.viewSpectralDensity.set(False)
+        self.ViewTimeDomainDoer.Set(False)
+        self.ViewSpectralDensityDoer.Set(False)
         self.PlotWaveformsFrequencyContent(density=False)
 
     def onViewSpectralDensity(self):
-        self.viewTimeDomain.set(False)
-        self.viewSpectralContent.set(False)
+        self.ViewTimeDomainDoer.Set(False)
+        self.ViewSpectralContentDoer.Set(False)
         self.PlotWaveformsFrequencyContent(density=True)
 
     def PlotWaveformsTimeDomain(self):
@@ -395,11 +389,11 @@ class SimulatorDialog(tk.Toplevel):
                           'Transfer Parameters',buttonLabelList)
 
     def onMatplotlib2TikZ(self):
-        if self.viewTimeDomain.get():
+        if self.ViewTimeDomainDoer.Bool():
             suffix='Waveforms'
-        elif self.viewSpectralContent.get():
+        elif self.ViewSpectralContentDoer.Bool():
             suffix='SpectralContent'
-        elif self.viewSpectralDensity.get():
+        elif self.ViewSpectralDensityDoer.Bool():
             suffix='SpectralDensity'
         filename=AskSaveAsFilename(parent=self,filetypes=[('tex', '.tex')],
                                    defaultextension='.tex',

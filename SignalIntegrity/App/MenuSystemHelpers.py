@@ -111,6 +111,10 @@ class Doer(object):
         self.menuElement.Activate(self.active)
         return self.menuElement
     def AddCheckButtonMenuElement(self,menu,**kw):
+        self.variable=tk.BooleanVar()
+        kw['variable']=self.variable
+        kw['onvalue']=True
+        kw['offvalue']=False
         kw['command']=self.Execute
         self.menuElement=CheckButtonMenuElement(menu,**kw)
         self.menuElement.Activate(self.active)
@@ -150,6 +154,10 @@ class Doer(object):
         if self.keyBindElement is not None:
             self.keyBindElement.Activate(active)
         return self
+    def Set(self,value):
+        self.variable.set(value)
+    def Bool(self):
+        return bool(self.variable.get())
 
 class StatusBar(tk.Frame):
     def __init__(self, master):
