@@ -157,7 +157,10 @@ class Doer(object):
     def Set(self,value):
         self.variable.set(value)
     def Bool(self):
-        return bool(self.variable.get())
+        if self.active:
+            return bool(self.variable.get())
+        else:
+            return False
 
 class StatusBar(tk.Frame):
     def __init__(self, master):
