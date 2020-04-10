@@ -2095,3 +2095,8 @@ class PartPictureMeasurementTwoPort(PartPicture):
 class PartPictureVariableMeasurementTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureMeasurementTwoPort'],2)
+
+class PartPictureVariableNetworkAnalyzerStimulusOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceSineGeneratorOnePort','PartPictureVoltageSourceStepGeneratorOnePort','PartPictureVoltageSourcePulseGeneratorOnePort'],1)
+

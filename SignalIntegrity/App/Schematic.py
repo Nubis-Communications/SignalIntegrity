@@ -1425,20 +1425,29 @@ class DrawingStateMachine(object):
                         while portNumber in portNumberList:
                             portNumber=portNumber+1
                         device['pn'].SetValueFromString(str(portNumber))
-                else:
-                    existingReferenceDesignators=[]
+                elif device['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                    portNumberList=[]
                     for existingDevice in self.parent.schematic.deviceList:
-                        referenceDesignatorProperty = existingDevice['ref']
-                        if referenceDesignatorProperty != None:
-                            existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
-                    if device['ref'] != None:
-                        if device['ref'].GetValue() in existingReferenceDesignators:
-                            defaultProperty = device['defref']
-                            if defaultProperty != None:
-                                defaultPropertyValue = defaultProperty.GetValue()
-                                uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                                if uniqueReferenceDesignator != None:
-                                    device['ref'].SetValueFromString(uniqueReferenceDesignator)
+                        if existingDevice['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                            portNumberList.append(int(existingDevice['pn'].GetValue()))
+                    if device['pn'].GetValue() in portNumberList:
+                        portNumber=1
+                        while portNumber in portNumberList:
+                            portNumber=portNumber+1
+                        device['pn'].SetValueFromString(str(portNumber))
+                existingReferenceDesignators=[]
+                for existingDevice in self.parent.schematic.deviceList:
+                    referenceDesignatorProperty = existingDevice['ref']
+                    if referenceDesignatorProperty != None:
+                        existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
+                if device['ref'] != None:
+                    if device['ref'].GetValue() in existingReferenceDesignators:
+                        defaultProperty = device['defref']
+                        if defaultProperty != None:
+                            defaultPropertyValue = defaultProperty.GetValue()
+                            uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                            if uniqueReferenceDesignator != None:
+                                device['ref'].SetValueFromString(uniqueReferenceDesignator)
                 device.partPicture.current.SetOrigin((device.partPicture.current.origin[0]+self.parent.Button1Coord[0],device.partPicture.current.origin[1]+self.parent.Button1Coord[1]))
                 device.selected=True
                 self.parent.schematic.deviceList.append(device)
@@ -1644,13 +1653,21 @@ class Drawing(tk.Frame):
                 while portNumber in portNumberList:
                     portNumber=portNumber+1
                 self.partLoaded['pn'].SetValueFromString(str(portNumber))
-            else:
-                defaultProperty = self.partLoaded['defref']
-                if defaultProperty != None:
-                    defaultPropertyValue = defaultProperty.GetValue()
-                    uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                    if uniqueReferenceDesignator != None:
-                        self.partLoaded['ref'].SetValueFromString(uniqueReferenceDesignator)
+            elif self.partLoaded['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                portNumberList=[]
+                for device in self.schematic.deviceList:
+                    if device['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                        portNumberList.append(int(device['pn'].GetValue()))
+                portNumber=1
+                while portNumber in portNumberList:
+                    portNumber=portNumber+1
+                self.partLoaded['pn'].SetValueFromString(str(portNumber))
+            defaultProperty = self.partLoaded['defref']
+            if defaultProperty != None:
+                defaultPropertyValue = defaultProperty.GetValue()
+                uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                if uniqueReferenceDesignator != None:
+                    self.partLoaded['ref'].SetValueFromString(uniqueReferenceDesignator)
             self.stateMachine.PartLoaded()
     def DeleteSelected(self):
         if self.stateMachine.state=='WireSelected':
