@@ -1580,6 +1580,7 @@ class Drawing(tk.Frame):
         foundAnUnknown=False
         foundASystem=False
         foundACalibration=False
+        foundANetworkAnalyzerModel=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -1599,10 +1600,12 @@ class Drawing(tk.Frame):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+            elif device.netlist['DeviceName'] in ['voltagesource','currentsource','networkanalyzerstimulus']:
                 foundASource = True
             elif device.netlist['DeviceName'] == 'calibration':
                 foundACalibration=True
+            elif deviceType == 'NetworkAnalyzerModel':
+                foundANetworkAnalyzerModel=True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
@@ -1617,7 +1620,9 @@ class Drawing(tk.Frame):
         canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
         canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration
         canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
-        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms
+        canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
+        canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
+        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         self.parent.SimulateDoer.Activate(canSimulate)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
@@ -1625,6 +1630,8 @@ class Drawing(tk.Frame):
         self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.DeembedDoer.Activate(canDeembed)
         self.parent.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
+        self.parent.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(canCalculateSParametersFromNetworkAnalyzerModel)
+        self.parent.SimulateNetworkAnalyzerModelDoer.Activate(canSimulateNetworkAnalyzerModel)
         self.parent.ClearProjectDoer.Activate(foundSomething)
         self.parent.ExportNetListDoer.Activate(foundSomething)
         self.parent.ExportTpXDoer.Activate(foundSomething)

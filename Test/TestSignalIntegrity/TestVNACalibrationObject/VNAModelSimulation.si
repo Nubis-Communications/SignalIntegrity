@@ -139,8 +139,51 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
+				<Device>
+					<ClassName>DeviceResistor</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(6, 0)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>r</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>1000000.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>R1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(7, 0)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(9, 0)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(9, 6)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
 			</Wires>
 		</Schematic>
 	</Drawing>

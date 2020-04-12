@@ -47,6 +47,7 @@ class SimulatorParser(SystemDescriptionParser):
 
         netlist lines that are handled at this level are:
         - 'output' - addition of an output probe
+        - 'voltageoutput' - addition of a voltage output probe with a name.
         - 'voltagesource' - addition of a voltage source.
         - 'currentsource' - addition of a current source.
 
@@ -60,6 +61,12 @@ class SimulatorParser(SystemDescriptionParser):
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
             for i in range(1,len(lineList),2):
                 self.m_sd.pOutputList.append((lineList[i],int(lineList[i+1])))
+        # pragma: silent exclude
+        elif lineList[0] == 'voltageoutput':
+            if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
+            for i in range(1,len(lineList),3):
+                self.m_sd.pOutputList.append((lineList[i+1],int(lineList[i+2]),lineList[i]))
+        # pragma: include
         elif lineList[0] == 'voltagesource':
             self.m_sd.AddVoltageSource(lineList[1],int(lineList[2]))
         elif lineList[0] == 'currentsource':

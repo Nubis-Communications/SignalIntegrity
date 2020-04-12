@@ -126,6 +126,11 @@ class Device(object):
             elif wfType == 'noise':
                 sigma=float(self['vrms'].GetValue())
                 waveform = si.td.wf.NoiseWaveform(self.WaveformTimeDescriptor(),sigma)
+            elif wfType == 'networkanalyzerport':
+                td=self.WaveformTimeDescriptor()
+                waveform =  si.td.wf.Waveform(td)
+                if self['state'].GetValue() == 'on':
+                    waveform[td.IndexOfTime(0.0)]=1.0
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity as si
@@ -252,8 +257,20 @@ class DeviceVoltageStepGenerator(Device):
 class DeviceVoltagePulseGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Pulse Generator'),PartPropertyHelp('device:Voltage-Pulse-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertyPulseWidth(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('pulse')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Pulse Generator'),
+            PartPropertyHelp('device:Voltage-Pulse-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyRisetime(),
+            PartPropertyPulseWidth(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('pulse')]+propertiesList,
+            partPicture)
 
 class DeviceVoltagePRBSGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -305,7 +322,7 @@ class DeviceMeasurement(Device):
 
 class DeviceOutput(Device):
     def __init__(self):
-        netlist=DeviceNetListLine(devicename='output',showReference=False,showports=False)
+        netlist=DeviceNetListLine(devicename='voltageoutput',showReference=True,showports=False)
         Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Output'),PartPropertyHelp('device:Output-Probe'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output'),
             PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableProbe())
         self['gain']['Visible']=False
@@ -619,7 +636,7 @@ class DeviceThruCalibrationMeasurement(Device):
 
 class DeviceNetworkAnalyzerStimulus(Device):
     def __init__(self,portNumber=1):
-        netlist=DeviceNetListLine(devicename='networkanalyzerstimulus',values=[('pn',False)])
+        netlist=DeviceNetListLine(devicename='voltagesource',values=[('pn',False)])
         Device.__init__(self,netlist,
                         [PartPropertyDescription('Network Analyzer Stimulus'),
                          PartPropertyPorts(1),
@@ -627,7 +644,12 @@ class DeviceNetworkAnalyzerStimulus(Device):
                          PartPropertyPartName('NetworkAnalyzerStimulus'),
                          PartPropertyHelp('device:Network-Analyzer-Stimulus'),
                          PartPropertyPortNumber(portNumber),
-                         PartPropertyDefaultReferenceDesignator('D?')],
+                         PartPropertyDefaultReferenceDesignator('D?'),
+                         PartPropertyWaveformType('networkanalyzerport'),
+                         PartPropertyHorizontalOffset(),
+                         PartPropertyDuration(),
+                         PartPropertySampleRate(),
+                         PartPropertyOnOff()],
                         partPicture=PartPictureVariableNetworkAnalyzerStimulusOnePort())
 
 DeviceList = [

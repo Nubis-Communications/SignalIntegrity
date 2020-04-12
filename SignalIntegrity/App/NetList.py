@@ -291,7 +291,7 @@ class NetList(object):
                 endinglines.append('device '+tokens[1]+'_3 1 open')
                 endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_2 1')
                 endinglines.append('connect '+tokens[1]+' 4 '+tokens[1]+'_3 1')
-                endinglines.append('output '+tokens[1]+' 4')
+                endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
             textToShow.append(line)
         self.textToShow=textToShow+endinglines
     def Text(self):

@@ -57,6 +57,8 @@ from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
@@ -146,6 +148,8 @@ class SignalIntegrityApp(tk.Frame):
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed')
         self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC-Fit')
         self.CalculateErrorTermsDoer = Doer(self.onCalculateErrorTerms).AddHelpElement('Control-Help:Calculate-Error-Terms')
+        self.SimulateNetworkAnalyzerModelDoer = Doer(self.onSimulateNetworkAnalyzerModel).AddHelpElement('Control-Help:Simulate-Network-Analyzer-Model')
+        self.CalculateSParametersFromNetworkAnalyzerModelDoer = Doer(self.onCalculateSParametersFromNetworkAnalyzerModel).AddHelpElement('Control-Help:Calculate-S-Parameters-From-Network-Analyzer-Model')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
@@ -235,6 +239,8 @@ class SignalIntegrityApp(tk.Frame):
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
         self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
         self.CalculateErrorTermsDoer.AddMenuElement(CalcMenu,label='Calculate Error Terms',underline=10)
+        self.CalculateSParametersFromNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters from VNA Model')
+        self.SimulateNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Simulate VNA Model')
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -646,9 +652,10 @@ class SignalIntegrityApp(tk.Frame):
     def onDeleteSelectedWire(self):
         self.Drawing.DeleteSelectedWire()
 
-    def CalculateSParameters(self):
-        self.Drawing.stateMachine.Nothing()
-        netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+    def CalculateSParameters(self,netList=None):
+        if netList==None:
+            self.Drawing.stateMachine.Nothing()
+            netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -870,6 +877,8 @@ class SignalIntegrityApp(tk.Frame):
             self.SimulateDoer.Activate(True)
             self.DeembedDoer.Activate(True)
             self.RLGCDoer.Activate(True)
+            self.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(True)
+            self.SimulateNetworkAnalyzerModelDoer.Activate(True)
             # ------
             self.HelpDoer.Activate(True)
             self.ControlHelpDoer.Activate(True)
@@ -1048,6 +1057,77 @@ class SignalIntegrityApp(tk.Frame):
         self.calibration=self.CalculateErrorTerms()
         self.onViewCalibrationFile()
 
+    def onSimulateNetworkAnalyzerModel(self):
+        pass
+
+    def onCalculateSParametersFromNetworkAnalyzerModel(self):
+        self.Drawing.stateMachine.Nothing()
+        netList=self.Drawing.schematic.NetList().Text()
+        import SignalIntegrity.Lib as si
+        numPorts=0
+        # first find the network analyzer model device
+        spNetList=[]
+        for line in netList:
+            token=si.helper.LineSplitter(line)
+            if token[0]=='device':
+                if token[3]=='networkanalyzermodel':
+                    naRefDeg=token[1]
+                    numPorts=int(token[2])
+                    for tokenIndex in range(len(token)):
+                        if token[tokenIndex]=='file':
+                            naProjFile=token[tokenIndex+1] 
+                else: spNetList.append(line)
+            else: spNetList.append(line)
+        if numPorts==0:
+            return
+        # the network analyzer model has been removed from the netlist
+        # find all of the device ports connected to the network analyzer model device ports
+        naPortConnections=[[] for _ in range(numPorts)]
+        spNetList2=[]
+        for line in spNetList:
+            token=si.helper.LineSplitter(line)
+            if token[0]=='connect':
+                theseConnections=[(token[2*i+1],token[2*i+2]) for i in range(0,(len(token)-1)//2)]
+                if any([device==naRefDeg for (device,port) in theseConnections]):
+                    for (device,port) in theseConnections:
+                        if device==naRefDeg:
+                            devicePortIndex=int(port)-1
+                            for (d,p) in theseConnections:
+                                if d!=naRefDeg:
+                                    naPortConnections[devicePortIndex].append((d,p))
+                            break
+                else: spNetList2.append(line)
+            else: spNetList2.append(line)
+        # all of the connections to network analyzer model have been removed
+        # add back connections of other devices that are connected together
+        for pci in range(len(naPortConnections)):
+            if len(naPortConnections[pci]) > 1:
+                spNetList2.append('connect '+' '.join([' '.join(dp) for dp in naPortConnections[pci]]))
+        # connect ports to the system that was connected to the network analyzer model
+        for pci in range(len(naPortConnections)):
+            spNetList2.append('port '+str(pci+1)+' '+' '.join(naPortConnections[pci][0]))
+        # calculate the s-parameters of the DUT to use and save it to a file
+        spDevice=self.CalculateSParameters(spNetList2)
+        fileparts=copy.copy(self.fileparts)
+        fileparts.filename=fileparts.filename+'_DUT'
+        spDevice.WriteToFile(fileparts.FullFilePathExtension('s'+str(numPorts)+'p'))
+        # open the project file and find the DUT and the network analyzer PartPictureSpecifiedPorts
+        self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+        self.cwdCopy=os.getcwd()
+        result=None
+        try:
+            app=SignalIntegrityAppHeadless()
+            if app.OpenProjectFile(os.path.realpath(naProjFile)):
+                app.Drawing.DrawSchematic()
+                pass
+                #if app.Drawing.canSimulate:
+                #    result=app.Simulate()
+        except:
+            pass
+        SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
+        os.chdir(self.cwdCopy)
+        return result
+        
 def main():
     projectFileName = None
     external=False

@@ -416,3 +416,7 @@ class PartPropertyThruCalculationType(PartProperty):
     def __init__(self,dir='SOLT'):
         PartProperty.__init__(self,'ct',type='enum',keyword='ct',description='calculation type',value=dir,visible=True,keywordVisible=True)
 
+class PartPropertyOnOff(PartProperty):
+    validEntries=['on','off']
+    def __init__(self,state='Off'):
+        PartProperty.__init__(self,'state',type='enum',keyword='state',description='state',value=state,visible=True,keywordVisible=True)
