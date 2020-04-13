@@ -33,6 +33,7 @@ class DevicePicker(tk.Frame):
     def __init__(self,parent,deviceList):
         tk.Frame.__init__(self,parent)
         self.config()
+        self.parent=parent
         self.tree = ttk.Treeview(self)
         self.tree.pack(fill=tk.BOTH,expand=tk.YES)
         self.tree["columns"]=("description")
@@ -51,16 +52,19 @@ class DevicePicker(tk.Frame):
             indexIntoDeviceList=indexIntoDeviceList+1
         self.selected=None
         self.tree.bind('<<TreeviewSelect>>',self.onPartSelection)
+        self.tree.bind('<Double-1>',self.onDoubleClick)
 
     def onPartSelection(self,event):
         item = self.tree.selection()[0]
         self.selected=self.tree.item(item,'tags')[0]
 
+    def onDoubleClick(self,event):
+        self.parent.ok()
+
 class DevicePickerDialog(tk.Toplevel):
     def __init__(self,parent,deviceList):
         tk.Toplevel.__init__(self, parent)
         self.transient(parent)
-
         self.title('Add Part')
 
         self.parent = parent
