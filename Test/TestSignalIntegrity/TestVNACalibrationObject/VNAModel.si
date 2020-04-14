@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1060x464+-10+19</Geometry>
+			<Geometry>1060x464+1948+30</Geometry>
 			<Grid>16</Grid>
 			<Originx>-4</Originx>
 			<Originy>9</Originy>
@@ -444,6 +444,12 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>st</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>CW</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>state</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>on</Value>
@@ -502,6 +508,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>40000000000.0</Value>
 							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>st</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>CW</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>state</Keyword>
@@ -609,36 +621,6 @@
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>O4</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceFile</ClassName>
-					<PartPicture>
-						<Index>1</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(32, 4)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>file</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>../filter.s2p</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>D6</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
@@ -1011,6 +993,36 @@
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>T4</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceNetworkAnalyzerDeviceUnderTest</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(32, 4)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>../filter.s2p</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D8</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>

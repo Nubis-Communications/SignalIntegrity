@@ -158,6 +158,8 @@ class DeviceFromProject(object):
             self.result=DeviceNetworkAnalyzerModel(ports)
         elif className=='DeviceNetworkAnalyzer':
             self.result=DeviceNetworkAnalyzer(ports)
+        elif className=='DeviceNetworkAnalyzerDeviceUnderTest':
+            self.result=DeviceNetworkAnalyzerDeviceUnderTest(ports)
         else:
             for device in DeviceList+DeviceListSystem+DeviceListUnknown:
                 if (str(device.__class__).split('.')[-1].strip('\'>') == className):
@@ -525,6 +527,18 @@ class DeviceNetworkAnalyzerModel(Device):
                                       PartPropertyPorts(ports,False)],
                                       PartPictureVariableNetworkAnalyzer())
 
+class DeviceNetworkAnalyzerDeviceUnderTest(Device):
+    def __init__(self,ports=4):
+        netlist=DeviceNetListLine(partname='dut',values=[('file',False)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),
+                                      PartPropertyPartName('DeviceUnderTest'),
+                                      PartPropertyHelp('device:Device-Under-Test'),
+                                      PartPropertyDefaultReferenceDesignator('D?'),
+                                      PartPropertyFileName(),
+                                      PartPropertyDescription('Network Analyzer Device-Under-Test'),
+                                      PartPropertyPorts(ports,False)],
+                                      PartPictureVariableDeviceUnderTest())
+
 class DeviceShortStandard(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='shortstd',values=[('od',True),('oz0',True),('ol',True),('f0',True),('l0',True),('l1',True),('l2',True),('l3',True)])
@@ -636,7 +650,7 @@ class DeviceThruCalibrationMeasurement(Device):
 
 class DeviceNetworkAnalyzerStimulus(Device):
     def __init__(self,portNumber=1):
-        netlist=DeviceNetListLine(devicename='voltagesource',values=[('pn',False)])
+        netlist=DeviceNetListLine(devicename='voltagesource',values=[('wftype',True),('pn',True),('st',True)])
         Device.__init__(self,netlist,
                         [PartPropertyDescription('Network Analyzer Stimulus'),
                          PartPropertyPorts(1),
@@ -649,6 +663,7 @@ class DeviceNetworkAnalyzerStimulus(Device):
                          PartPropertyHorizontalOffset(),
                          PartPropertyDuration(),
                          PartPropertySampleRate(),
+                         PartPropertyStimulusType(),
                          PartPropertyOnOff()],
                         partPicture=PartPictureVariableNetworkAnalyzerStimulusOnePort())
 
@@ -727,7 +742,8 @@ DeviceList = [
               DeviceThruStandard(),
               DeviceReflectCalibrationMeasurement(),
               DeviceThruCalibrationMeasurement(),
-              DeviceNetworkAnalyzerStimulus()]
+              DeviceNetworkAnalyzerStimulus(),
+              DeviceNetworkAnalyzerDeviceUnderTest()]
 
 DeviceListUnknown = [
               DeviceUnknown([PartPropertyDescription('One Port Unknown'),PartPropertyPorts(1)],PartPictureVariableUnknown(1)),

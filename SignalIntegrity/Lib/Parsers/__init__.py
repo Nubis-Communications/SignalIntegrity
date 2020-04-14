@@ -30,3 +30,5 @@ from . import Devices as dev
 from .SystemSParametersParser import SParametersParser
 from .CalibrationParser import CalibrationParser
 from .CalibrationNumericParser import CalibrationNumericParser
+from .DUTSParametersNumericParser import DUTSParametersNumericParser
+from .NetworkAnalyzerSimulationNumericParser import NetworkAnalyzerSimulationNumericParser

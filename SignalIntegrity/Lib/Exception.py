@@ -92,3 +92,6 @@ class SignalIntegrityExceptionCalibration(SignalIntegrityException):
     def __init__(self,message=''):
         SignalIntegrityException.__init__(self,'Calibration',message)
 
+class SignalIntegrityExceptionNetworkAnalyzer(SignalIntegrityException):
+    def __init__(self,message=''):
+        SignalIntegrityException.__init__(self,'NetworkAnalyzer',message)

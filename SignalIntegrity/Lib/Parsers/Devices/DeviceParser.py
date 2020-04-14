@@ -197,6 +197,7 @@ class DeviceFactory(list):
         list.__init__(self,list(self+[
         ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,'cd':'calculate'},True,
             "NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],not arg['cd']=='uncalculate')"),
+        ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],50.).Resample(f)")
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments

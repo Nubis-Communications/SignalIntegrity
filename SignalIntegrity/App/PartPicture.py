@@ -2031,33 +2031,54 @@ class PartPictureVariableNetName(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureNetName'],1)
 
-class PartPictureNetworkAnalyzer(PartPictureSpecifiedPorts):
-    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+class PartPictureSpecifiedPortsText(PartPictureSpecifiedPorts):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='???'):
         PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+        self.text=text
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
-        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,self.text)
         PartPictureSpecifiedPorts.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
-class PartPictureNetworkAnalyzerAcross(PartPictureSpecifiedPortsAcross):
-    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+class PartPictureSpecifiedPortsTextAcross(PartPictureSpecifiedPortsAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='???'):
+        self.text=text
         PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
-        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,self.text)
         PartPictureSpecifiedPortsAcross.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
-class PartPictureNetworkAnalyzerDownAndUp(PartPictureSpecifiedPortsDownAndUp):
-    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+class PartPictureSpecifiedPortsTextDownAndUp(PartPictureSpecifiedPortsDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='???'):
+        self.text=text
         PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
-        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,self.text)
         PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,canvas,grid,drawingOrigin,connected)
 
-class PartPictureNetworkAnalyzerSide(PartPictureSpecifiedPortsSide):
-    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+class PartPictureSpecifiedPortsTextSide(PartPictureSpecifiedPortsSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='???'):
+        self.text=text
         PartPictureSpecifiedPortsSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,canvas,grid,drawingOrigin,connected=None):
-        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'VNA')
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,self.text)
         PartPictureSpecifiedPortsSide.DrawDevice(self,canvas,grid,drawingOrigin,connected)
+
+
+class PartPictureNetworkAnalyzer(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='VNA')
+
+class PartPictureNetworkAnalyzerAcross(PartPictureSpecifiedPortsTextAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='VNA')
+
+class PartPictureNetworkAnalyzerDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='VNA')
+
+class PartPictureNetworkAnalyzerSide(PartPictureSpecifiedPortsTextSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='VNA')
 
 class PartPictureVariableNetworkAnalyzer(PartPictureVariable):
     def __init__(self,ports=4):
@@ -2100,3 +2121,22 @@ class PartPictureVariableNetworkAnalyzerStimulusOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceSineGeneratorOnePort','PartPictureVoltageSourceStepGeneratorOnePort','PartPictureVoltageSourcePulseGeneratorOnePort'],1)
 
+class PartPictureDeviceUnderTest(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='DUT')
+
+class PartPictureDeviceUnderTestAcross(PartPictureSpecifiedPortsTextAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='DUT')
+
+class PartPictureDeviceUnderTestDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='DUT')
+
+class PartPictureDeviceUnderTestSide(PartPictureSpecifiedPortsTextSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='DUT')
+
+class PartPictureVariableDeviceUnderTest(PartPictureVariable):
+    def __init__(self,ports=4):
+        PartPictureVariable.__init__(self,['PartPictureDeviceUnderTest','PartPictureDeviceUnderTestAcross','PartPictureDeviceUnderTestDownAndUp','PartPictureDeviceUnderTestSide'],ports)
