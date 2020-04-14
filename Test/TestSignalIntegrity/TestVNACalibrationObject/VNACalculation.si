@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>40000000000.0</EndFrequency>
-		<FrequencyPoints>400</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>1000</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>516x252+1948+30</Geometry>
+			<Geometry>516x252+581+245</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -32,7 +32,7 @@
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>RawMeasuredSParameters.si</Value>
+							<Value>VNAModelSimulation.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>

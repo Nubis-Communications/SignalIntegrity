@@ -40,12 +40,16 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
         # pragma: include
-    def ProcessWaveforms(self,wfl,td=None):
+    def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False):
         """processes input waveforms and produces output waveforms
         @param wfl list of Waveform input waveforms to process.
         @param td (optional) instance of class TimeDescriptor.  If this is included,
         all final waveforms are adapted to this descriptor.  Otherwise, the sample rates of
         each waveform are used in the computeation of the impulse responses.
+        @param adaptToLargest bool (optional, defaults to False) causes waveform adaption
+        during summation to choose the waveform with the largest absolute value of a point.
+        This helps when models have frequency responses near the end frequency and causes
+        the adaption to resample the smaller waveforms, which have less effect.
         @remark
         Externally, the order of the input and output waveforms are known.  The
         input waveforms must be provided in that order and the output waveforms are
@@ -64,6 +68,13 @@ class TransferMatricesProcessor(CallBacker):
                     progress=(float(o)/len(ir)+float(i)/(len(ir)*len(ir[o])))*100.0
                     if not self.CallBack(progress):
                         raise SignalIntegrityExceptionSimulator('calculation aborted')
+            if adaptToLargest and len(acc)>1:
+                largestValue=0.0; largestIndex=0
+                for wfi in range(len(acc)):
+                    absMax=max(acc[wfi].Values('abs'))
+                    if absMax>=largestValue:
+                        largestIndex=wfi; largestValue=absMax
+                acc=[acc[largestIndex]]+acc[0:largestIndex]+acc[largestIndex+1:]
                 # pragma: include
             result.append(sum(acc))
         return result

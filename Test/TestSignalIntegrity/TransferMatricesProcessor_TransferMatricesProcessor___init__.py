@@ -1,7 +1,7 @@
 class TransferMatricesProcessor(CallBacker):
     def __init__(self,transferMatrices,callback=None):
         self.TransferMatrices=transferMatrices
-    def ProcessWaveforms(self,wfl,td=None):
+    def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False):
         if td is None:
             td = [wflm.td.Fs for wflm in wfl]
         ir = self.TransferMatrices.ImpulseResponses(td)

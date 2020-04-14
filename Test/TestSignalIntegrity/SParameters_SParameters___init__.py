@@ -13,8 +13,8 @@ class SParameters(SParameterManipulation):
     def Response(self,ToP,FromP): return [mat[ToP-1][FromP-1] for mat in self]
     def FrequencyResponse(self,ToP,FromP):
         return FrequencyResponse(self.f(),self.Response(ToP,FromP))
-    def WriteToFile(self,name,formatString=None):
-        freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
+    def Text(self,formatString=None):
+        lines=[]; freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
         if not formatString is None:
             lineList = str.lower(formatString).split('!')[0].split()
             if len(lineList)>0:
@@ -26,9 +26,8 @@ class SParameters(SParameterManipulation):
                 if 'ri' in lineList: cpxType = 'RI'
                 if 'db' in lineList: cpxType = 'DB'
                 if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
-        spfile=open(name,'w')
-        for lin in self.header: spfile.write(('! '+lin if lin[0] != '!' else lin)+'\n')
-        spfile.write('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
+        for lin in self.header: lines.append(('! '+lin if lin[0] != '!' else lin)+'\n')
+        lines.append('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
             mat=self[n]
@@ -47,7 +46,11 @@ class SParameters(SParameterManipulation):
                         line.append(str(round(20*math.log10(abs(val)),digits)))
                         line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
             pline = ' '.join(line)+'\n'
-            spfile.write(pline)
-        spfile.close()
+            lines.append(pline)
+        return lines
+    def WriteToFile(self,name,formatString=None):
+        lines=self.Text(formatString)
+        with open(name,'w') as f:
+            f.writelines(lines)
         return self
 ...

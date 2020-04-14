@@ -43,6 +43,7 @@ from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
 from SignalIntegrity.App.Schematic import Drawing
 from SignalIntegrity.App.Simulator import Simulator
+from SignalIntegrity.App.NetworkAnalyzer import NetworkAnalyzerSimulator
 from SignalIntegrity.App.NetList import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
@@ -239,8 +240,8 @@ class SignalIntegrityApp(tk.Frame):
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
         self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
         self.CalculateErrorTermsDoer.AddMenuElement(CalcMenu,label='Calculate Error Terms',underline=10)
-        self.CalculateSParametersFromNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters from VNA Model')
-        self.SimulateNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Simulate VNA Model')
+        #self.CalculateSParametersFromNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters from VNA Model')
+        #self.SimulateNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Simulate VNA Model')
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -295,6 +296,7 @@ class SignalIntegrityApp(tk.Frame):
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
+        self.networkanalyzersimulator = NetworkAnalyzerSimulator(self)
         self.fileparts=FileParts()
 
         # The edit history (for undo)
@@ -676,7 +678,11 @@ class SignalIntegrityApp(tk.Frame):
         return sp
 
     def onCalculateSParameters(self):
-        sp=self.CalculateSParameters()
+        self.Drawing.stateMachine.Nothing()
+        if self.CalculateSParametersFromNetworkAnalyzerModelDoer.active:
+            sp=self.networkanalyzersimulator.Simulate(SParameters=True)
+        else:
+            sp=self.CalculateSParameters()
         if sp is None:
             return
         self.spd=SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
@@ -692,6 +698,7 @@ class SignalIntegrityApp(tk.Frame):
         return
 
     def onRLGC(self):
+        self.Drawing.stateMachine.Nothing()
         import SignalIntegrity.Lib as si
         sp=self.CalculateSParameters()
         if sp is None:
@@ -747,7 +754,10 @@ class SignalIntegrityApp(tk.Frame):
 
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()
-        self.simulator.Simulate()
+        if self.SimulateNetworkAnalyzerModelDoer.active:
+            self.networkanalyzersimulator.Simulate()
+        else:
+            self.simulator.Simulate()
 
     def onVirtualProbe(self):
         self.Drawing.stateMachine.Nothing()
@@ -1058,119 +1068,11 @@ class SignalIntegrityApp(tk.Frame):
         self.onViewCalibrationFile()
 
     def onSimulateNetworkAnalyzerModel(self):
-        pass
+        self.onSimulate()
 
     def onCalculateSParametersFromNetworkAnalyzerModel(self):
-        self.Drawing.stateMachine.Nothing()
-        netList=self.Drawing.schematic.NetList().Text()
-        import SignalIntegrity.Lib as si
-        fd=si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
-        cacheFileName=None
-        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()+'_DUTSParameters'
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
-        spnp.AddLines(netList)
-        progressDialog = ProgressDialog(self,"Calculating DUT S-parameters",spnp,spnp.SParameters,granularity=1.0)
-        try:
-            (DUTSp,NetworkAnalyzerProjectFile)=progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('DUT S-parameter Calculator',e.parameter+': '+e.message)                
-            return None
-        netListText=None
-        if NetworkAnalyzerProjectFile != None:
-            self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-            self.cwdCopy=os.getcwd()
-            try:
-                app=SignalIntegrityAppHeadless()
-                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
-                    app.Drawing.DrawSchematic()
-                    netList=app.Drawing.schematic.NetList()
-                    netListText=netList.Text()
-                else:
-                    raise SignalIntegrityExceptionNetworkAnalyzer('file could not be opened: '+NetworkAnalyzerProjectFile)
-            except SignalIntegrityException as e:
-                messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)                
-            finally:
-                SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
-                os.chdir(self.cwdCopy)
-        else:
-            netList=self.Drawing.schematic.NetList()
-            netListText=self.NetListText()
-            
-        if netListText==None:
-            return
-        cacheFileName=None
-        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()+'_TransferMatrices'
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,cacheFileName=cacheFileName)
-        snp.AddLines(netListText)
-        progressDialog = ProgressDialog(self,"Calculating Transfer Matrices",snp,snp.TransferMatrices,granularity=1.0)
-        try:
-            transferMatrices=progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Transfer Matrices Calculation: ',e.parameter+': '+e.message)                
-            return None
+        self.onCalculateSParameters()
 
-        snp.m_sd.pOutputList
-        snp.m_sd.SourceVector()
-        
-        if NetworkAnalyzerProjectFile != None:
-            self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-            self.cwdCopy=os.getcwd()
-            try:
-                app=SignalIntegrityAppHeadless()
-                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
-                    app.Drawing.DrawSchematic()
-                    stateList=[app.Device(snp.m_sd.SourceVector()[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
-                    self.wflist=[]
-                    for driven in range(snp.simulationNumPorts):
-                        thiswflist=[]
-                        for port in range(snp.simulationNumPorts):
-                            app.Device(snp.m_sd.SourceVector()[port])['state']['Value']='on' if port==driven else 'off'
-                        for wfIndex in range(len(snp.m_sd.SourceVector())):
-                            thiswflist.append(app.Device(snp.m_sd.SourceVector()[wfIndex]).Waveform())
-                        self.wflist.append(thiswflist)
-                    for port in range(snp.simulationNumPorts):
-                        app.Device(snp.m_sd.SourceVector()[port])['state']['Value']=stateList[port]
-                else:
-                    raise SignalIntegrityExceptionNetworkAnalyzer('file could not be opened: '+NetworkAnalyzerProjectFile)
-            except SignalIntegrityException as e:
-                messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)                
-            finally:
-                SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
-                os.chdir(self.cwdCopy)
-        else:
-            stateList=[app.Device(snp.m_sd.SourceVector()[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
-            self.wflist=[]
-            for driven in range(snp.simulationNumPorts):
-                thiswflist=[]
-                for port in range(snp.simulationNumPorts):
-                    app.Device(snp.m_sd.SourceVector()[port])['state']['Value']='on' if port==driven else 'off'
-                for wfIndex in range(len(snp.m_sd.SourceVector())):
-                    thiswflist.append(app.Device(snp.m_sd.SourceVector()[wfIndex]).Waveform())
-                self.wflist.append(thiswflist)
-            for port in range(snp.simulationNumPorts):
-                app.Device(snp.m_sd.SourceVector()[port])['state']['Value']=stateList[port]
-
-        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-
-        progressDialog=ProgressDialog(self,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
-        try:
-            outputWaveformList = progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
-            return
-        pass
-
-    def _ProcessWaveforms(self,callback=None):
-        self.outputwflist=[]
-        for port in range(len(self.wflist)):
-            self.outputwflist.append(self.transferMatriceProcessor.ProcessWaveforms(self.wflist[port]))
 def main():
     projectFileName = None
     external=False

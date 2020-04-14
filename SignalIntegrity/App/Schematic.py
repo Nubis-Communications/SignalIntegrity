@@ -1623,9 +1623,9 @@ class Drawing(tk.Frame):
         canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
-        self.parent.SimulateDoer.Activate(canSimulate)
+        self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
         self.parent.CalculateDoer.Activate(canCalculate)
-        self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
+        self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)
         self.parent.RLGCDoer.Activate(canRLGC)
         self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.DeembedDoer.Activate(canDeembed)

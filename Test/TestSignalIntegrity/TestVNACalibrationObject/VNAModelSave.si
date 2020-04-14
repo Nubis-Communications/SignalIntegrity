@@ -974,7 +974,7 @@
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>7.5e-11</Value>
+							<Value>1.1e-10</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>

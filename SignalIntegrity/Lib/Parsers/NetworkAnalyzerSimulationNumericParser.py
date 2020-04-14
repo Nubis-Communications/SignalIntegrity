@@ -20,6 +20,7 @@ transfer matrix generation from network analyzer model netlists
 
 from SignalIntegrity.Lib.Parsers.SimulatorNumericParser import SimulatorNumericParser
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionNetworkAnalyzer
+from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
     """performs numeric simulations from netlists"""
@@ -40,8 +41,16 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         The use of the cacheFileName is described in the class LineCache
 
         """
-        self.DutSParameters=DUTSParameters
+        self.DutSParameters=SParameters(DUTSParameters.m_f,DUTSParameters.m_d)
         SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName)
+    def HashValue(self):
+        """
+        Generates the hash for a definition\n
+        It is formed by hashing a combination of the netlist lines, the frequencies, and the arguments provided.
+        @return integer hash value
+        """
+        import hashlib
+        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+repr(self.DutSParameters.Text())).encode()).hexdigest()
     def ArrangeSimulation(self):
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         self.simulationType=None

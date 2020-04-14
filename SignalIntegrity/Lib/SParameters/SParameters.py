@@ -78,6 +78,62 @@ class SParameters(SParameterManipulation):
         @return instance of class FrequencyResponse as the frequency response at port ToP due to waves driven at FromP.
         """
         return FrequencyResponse(self.f(),self.Response(ToP,FromP))
+    def Text(self,formatString=None):
+        """returns text for the s-parameters file
+        @param formatString (optional) string containing the  format
+        Creates the file in the Touchstone 1.0 format using the format string provided.
+
+        If no format string is provided, uses '\# MHz S MA R 50.0'\n
+        If a format string is provided, it ought to be in the following format according\n
+        to the Touchstone specification:\n
+        \# \<frequency unit\> \<parameter\> \<format\> R \<Z0\>  
+        """
+        lines=[]; freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
+        if not formatString is None:
+            lineList = str.lower(formatString).split('!')[0].split()
+            if len(lineList)>0:
+                if 'hz' in lineList: fToken = 'Hz'; freqMul = 1.0
+                if 'khz' in lineList: fToken = 'KHz'; freqMul = 1e3
+                if 'mhz' in lineList: fToken = 'MHz'; freqMul = 1e6
+                if 'ghz' in lineList: fToken = 'GHz'; freqMul = 1e9
+                if 'ma' in lineList: cpxType = 'MA'
+                if 'ri' in lineList: cpxType = 'RI'
+                if 'db' in lineList: cpxType = 'DB'
+                if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
+        for lin in self.header: lines.append(('! '+lin if lin[0] != '!' else lin)+'\n')
+        lines.append('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
+        for n in range(len(self.m_f)):
+            line=[str(self.m_f[n]/freqMul)]
+            mat=self[n]
+            if Z0 != self.m_Z0: mat=ReferenceImpedance(mat,Z0,self.m_Z0)
+            if self.m_P == 2: mat=array(mat).transpose().tolist()
+            # pragma: silent exclude
+            tokensOnLine=0
+            digits=self.numDigits
+            # pragma: include
+            for r in range(self.m_P):
+                for c in range(self.m_P):
+                    # pragma: silent exclude
+                    if tokensOnLine >= self.maxTokensOnLine:
+                        pline = ' '.join(line)+'\n'; lines.append(pline)
+                        line=[]; tokensOnLine=0
+                    # pragma: include
+                    val = mat[r][c]
+                    if cpxType == 'MA':
+                        line.append(str(round(abs(val),digits)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
+                    elif cpxType == 'RI':
+                        line.append(str(round(val.real,digits)))
+                        line.append(str(round(val.imag,digits)))
+                    elif cpxType == 'DB':
+                        line.append(str(round(20*math.log10(abs(val)),digits)))
+                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
+                    # pragma: silent exclude
+                    tokensOnLine=tokensOnLine+1
+                    # pragma: include
+            pline = ' '.join(line)+'\n'
+            lines.append(pline)
+        return lines
     def WriteToFile(self,name,formatString=None):
         """Writes the s-parameters to a file
         @param name string filename to write to
@@ -97,12 +153,9 @@ class SParameters(SParameterManipulation):
                 name=name+'.s'+str(self.m_P)+'p'
             else:
                 file_extension=file_extension.lower()
-                if len(file_extension)<4:
-                    extensionCorrect=False
-                elif file_extension[1]!='s':
-                    extensionCorrect=False
-                elif file_extension[-1]!='p':
-                    extensionCorrect=False
+                if len(file_extension)<4: extensionCorrect=False
+                elif file_extension[1]!='s': extensionCorrect=False
+                elif file_extension[-1]!='p': extensionCorrect=False
                 elif int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0]) != self.m_P:
                     extensionCorrect=False
             if not extensionCorrect:
@@ -110,53 +163,9 @@ class SParameters(SParameterManipulation):
         except:
             raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
         # pragma: include
-        freqMul = 1e6; fToken = 'MHz'; cpxType = 'MA'; Z0 = 50.0
-        if not formatString is None:
-            lineList = str.lower(formatString).split('!')[0].split()
-            if len(lineList)>0:
-                if 'hz' in lineList: fToken = 'Hz'; freqMul = 1.0
-                if 'khz' in lineList: fToken = 'KHz'; freqMul = 1e3
-                if 'mhz' in lineList: fToken = 'MHz'; freqMul = 1e6
-                if 'ghz' in lineList: fToken = 'GHz'; freqMul = 1e9
-                if 'ma' in lineList: cpxType = 'MA'
-                if 'ri' in lineList: cpxType = 'RI'
-                if 'db' in lineList: cpxType = 'DB'
-                if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
-        spfile=open(name,'w')
-        for lin in self.header: spfile.write(('! '+lin if lin[0] != '!' else lin)+'\n')
-        spfile.write('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
-        for n in range(len(self.m_f)):
-            line=[str(self.m_f[n]/freqMul)]
-            mat=self[n]
-            if Z0 != self.m_Z0: mat=ReferenceImpedance(mat,Z0,self.m_Z0)
-            if self.m_P == 2: mat=array(mat).transpose().tolist()
-            # pragma: silent exclude
-            tokensOnLine=0
-            digits=self.numDigits
-            # pragma: include
-            for r in range(self.m_P):
-                for c in range(self.m_P):
-                    # pragma: silent exclude
-                    if tokensOnLine >= self.maxTokensOnLine:
-                        pline = ' '.join(line)+'\n'; spfile.write(pline)
-                        line=[]; tokensOnLine=0
-                    # pragma: include
-                    val = mat[r][c]
-                    if cpxType == 'MA':
-                        line.append(str(round(abs(val),digits)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
-                    elif cpxType == 'RI':
-                        line.append(str(round(val.real,digits)))
-                        line.append(str(round(val.imag,digits)))
-                    elif cpxType == 'DB':
-                        line.append(str(round(20*math.log10(abs(val)),digits)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
-                    # pragma: silent exclude
-                    tokensOnLine=tokensOnLine+1
-                    # pragma: include
-            pline = ' '.join(line)+'\n'
-            spfile.write(pline)
-        spfile.close()
+        lines=self.Text(formatString)
+        with open(name,'w') as f:
+            f.writelines(lines)
         return self
     def Resample(self,fl):
         """Resamples the s-parameters onto a new frequency scale
