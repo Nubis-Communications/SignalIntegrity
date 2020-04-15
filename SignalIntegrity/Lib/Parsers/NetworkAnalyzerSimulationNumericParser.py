@@ -24,12 +24,18 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
     """performs numeric simulations from netlists"""
-    def __init__(self, f=None, DUTSParameters=None, args=None,  callback=None, cacheFileName=None):
+    def __init__(self, f=None, DUTSParameters=None, PortConnectionList=None ,args=None,  callback=None, cacheFileName=None):
         """constructor
 
         frequencies may be provided at construction time (or not for symbolic solutions).
 
         @param f (optional) list of frequencies
+        @param DUTSParameters (optional) instance of class SParameters containing the DUT.
+        If None is supplied, the file already in the schematic will be used, otherwise these
+        will replace the DUT s-parameters.
+        @param PortConnectionList (optional) list of True or False for each port in the
+        network analyzer indicating a DUT port connection.  If None is supplied, then all
+        network analyzer ports are used.
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
         @param cacheFileName (optional) string name of file used to cache results
@@ -41,6 +47,7 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         The use of the cacheFileName is described in the class LineCache
 
         """
+        self.PortConnectionList=PortConnectionList
         self.DutSParameters=SParameters(DUTSParameters.m_f,DUTSParameters.m_d)
         SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName)
     def HashValue(self):
@@ -50,7 +57,7 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         @return integer hash value
         """
         import hashlib
-        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+repr(self.DutSParameters.Text())).encode()).hexdigest()
+        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+repr(self.DutSParameters.Text())+repr(self.PortConnectionList)).encode()).hexdigest()
     def ArrangeSimulation(self):
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         self.simulationType=None
@@ -59,6 +66,7 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         otherSourceList=[]
         dutList=[]
         newNetList=[]
+        dutFound=False
         for line in self.m_lines:
             tokens=LineSplitter(line)
             if tokens[0]=='voltagesource':
@@ -78,10 +86,43 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
             elif tokens[0]=='device':
                 if len(tokens)>=3:
                     if tokens[3]=='dut':
-                        dutList.append(line)
-                        self.simulationNumPorts=int(tokens[2])
-                        self.dutknown={' '.join(tokens[2:4]):self.DutSParameters}
-                        newNetList.append(' '.join(tokens[0:4]))
+                        if dutFound:
+                            raise SignalIntegrityExceptionNetworkAnalyzer('multiple DUTs found')
+                        dutFound=True
+                        if self.DutSParameters == None:
+                            self.dutknown={}
+                            newNetList.append(line)
+                            self.simulationNumPorts=int(tokens[2])
+                            if self.PortConnectionList == None:
+                                self.PortConnectionList = [True for _ in range(self.simulationNumPorts)]
+                            if self.PortConnectionList != [True for _ in range(self.simulationNumPorts)]:
+                                raise SignalIntegrityExceptionNetworkAnalyzer('port connection list inconsistent with DUT')
+                        else:
+                            self.simulationNumPorts=self.DutSParameters.m_P
+                            if self.PortConnectionList == None:
+                                self.PortConnectionList = [True for _ in range(self.simulationNumPorts)]
+                            schematicDutPorts=int(tokens[2])
+                            if self.PortConnectionList.count(True) != self.simulationNumPorts:
+                                raise SignalIntegrityExceptionNetworkAnalyzer('port connection list inconsistent with DUT')
+                            if schematicDutPorts < self.simulationNumPorts:
+                                raise SignalIntegrityExceptionNetworkAnalyzer('DUT ports supplied ('+str(self.simulationNumPorts)+') are too large for the DUT, which has '+str(schematicDutPorts)+' ports')
+                            elif schematicDutPorts > self.simulationNumPorts:
+                                # DUT s-parameters supplied to the schematic need to be adjusted based on
+                                # the actual s-parameters supplied and their connection
+                                from numpy import identity
+                                data=[identity(schematicDutPorts).tolist() for _ in range(len(self.DutSParameters))]
+                                dutmap=[]
+                                for p in range(len(self.PortConnectionList)):
+                                    if self.PortConnectionList[p]:
+                                        dutmap.append(p)
+                                for n in range(len(data)):
+                                    for r in range(len(dutmap)):
+                                        for c in range(len(dutmap)):
+                                            data[n][dutmap[r]][dutmap[c]]=self.DutSParameters[n][r][c]
+                                self.dutknown={' '.join(tokens[2:4]):SParameters(self.DutSParameters.m_f,data)}
+                            else:
+                                self.dutknown={' '.join(tokens[2:4]):self.DutSParameters}
+                            newNetList.append(' '.join(tokens[0:4]))
                     else: newNetList.append(line)
                 else: newNetList.append(line)
             elif tokens[0]=='voltageoutput':
@@ -99,10 +140,8 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         # to keep.
         #
         # determine the simulation type
-        if len(dutList)==0:
+        if not dutFound:
             raise SignalIntegrityExceptionNetworkAnalyzer('no DUT found')
-        elif len(dutList)>1:
-            raise SignalIntegrityExceptionNetworkAnalyzer('multiple DUTs found')
         if len(naPortDictList)==0:
             raise SignalIntegrityExceptionNetworkAnalyzer('no network analyzer ports found')
         simulationTypesFound=[]
@@ -123,38 +162,45 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         self.simulationType=simulationTypesFound[0]
         if sorted(simulationPortsFound) != [i for i in range(1,len(simulationPortsFound)+1)]:
             raise SignalIntegrityExceptionNetworkAnalyzer('incorrect port number assignment')
-        if self.simulationNumPorts != len(simulationPortsFound):
+        if len(self.PortConnectionList) != len(simulationPortsFound):
             raise SignalIntegrityExceptionNetworkAnalyzer('DUT ports do not match network analyzer ports')
         #
         # at this point, we know the simulation type and the number of ports
         #
         # append the output lines
         if self.simulationType == 'CW':
-            for p in range(1,self.simulationNumPorts+1):
-                name='A'+str(p)
+            for p in range(len(self.PortConnectionList)):
+                name='A'+str(p+1)
                 if not name in outputDict:
                     raise SignalIntegrityExceptionNetworkAnalyzer('missing network analyzer output: '+name)
                 else:
-                    newNetList.append('voltageoutput '+name+' '+outputDict[name]['ref']+' '+outputDict[name]['port'])
-            for p in range(1,self.simulationNumPorts+1):
-                name='B'+str(p)
+                    if self.PortConnectionList[p]:
+                        newNetList.append('voltageoutput '+name+' '+outputDict[name]['ref']+' '+outputDict[name]['port'])
+            for p in range(len(self.PortConnectionList)):
+                name='B'+str(p+1)
                 if not name in outputDict:
                     raise SignalIntegrityExceptionNetworkAnalyzer('missing network analyzer output: '+name)
                 else:
-                    newNetList.append('voltageoutput '+name+' '+outputDict[name]['ref']+' '+outputDict[name]['port'])
+                    if self.PortConnectionList[p]:
+                        newNetList.append('voltageoutput '+name+' '+outputDict[name]['ref']+' '+outputDict[name]['port'])
+
         else:
-            for p in range(1,self.simulationNumPorts+1):
-                name='V'+str(p)
+            for p in range(len(self.PortConnectionList)):
+                name='V'+str(p+1)
                 if not name in outputDict:
                     raise SignalIntegrityExceptionNetworkAnalyzer('missing network analyzer output: '+name)
                 else:
-                    newNetList.append('voltageoutput '+name+' '+outputDict[name]['ref']+' '+outputDict[name]['port'])
+                    if self.PortConnectionList[p]:
+                        newNetList.append('voltageoutput '+name+' '+outputDict[name]['ref']+' '+outputDict[name]['port'])
         # append the network analyzer sources in port order followed by the remaining ones.
-        for p in range(1,self.simulationNumPorts+1):
-            portStr=str(p)
+        for p in range(len(self.PortConnectionList)):
+            portStr=str(p+1)
             for naPortDict in naPortDictList:
                 if naPortDict['pn']==portStr:
-                    newNetList.append(' '.join(LineSplitter(naPortDict['line'])[0:3]))
+                    if self.PortConnectionList[p]:
+                        newNetList.append(' '.join(LineSplitter(naPortDict['line'])[0:3]))
+                    else:
+                        newNetList.append('device '+naPortDict['ref']+' '+naPortDict['port']+' ground')
                     break
         newNetList.extend(otherSourceList)
         self.m_lines=newNetList

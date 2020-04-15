@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>509x276+571+558</Geometry>
+			<Geometry>509x208+45+236</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>4</Originy>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(5, 5)</Origin>
+						<Origin>(5, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -50,7 +50,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, 5)</Origin>
+						<Origin>(12, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -78,20 +78,20 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(9, 6)</Coord>
+							<Coord>(9, 1)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(12, 6)</Coord>
+							<Coord>(12, 1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(12, 8)</Coord>
+							<Coord>(12, 3)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(9, 8)</Coord>
+							<Coord>(9, 3)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>

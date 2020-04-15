@@ -1036,7 +1036,8 @@ class SignalIntegrityApp(tk.Frame):
         self.calibration.WriteToFile(filename)
     
     def ViewCalibration(self,calibration):
-        self.spd=SParametersDialog(self,self.calibration,title='Calibration',filename=self.fileparts.FullFilePathExtension('s'+str(self.calibration.ports)+'p'))
+        if self.calibration != None:
+            self.spd=SParametersDialog(self,self.calibration,title='Calibration',filename=self.fileparts.FullFilePathExtension('s'+str(self.calibration.ports)+'p'))
 
     def onViewCalibrationFile(self):
         self.ViewCalibration(self.calibration)

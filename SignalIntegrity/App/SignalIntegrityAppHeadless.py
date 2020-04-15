@@ -404,7 +404,7 @@ class SignalIntegrityAppHeadless(object):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()+'_TransferMatrices'
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,cacheFileName=cacheFileName)
+        snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
@@ -462,6 +462,10 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return None
 
+        portConnections=[]
+        for pci in range(len(snp.PortConnectionList)):
+            if snp.PortConnectionList[pci]: portConnections.append(pci)
+
         outputWaveformList=[]
         outputWaveformLabels=[]
         for r in range(len(outputwflist)):
@@ -469,7 +473,7 @@ class SignalIntegrityAppHeadless(object):
             for c in range(len(wflist)):
                 wf=wflist[c]
                 outputWaveformList.append(wf)
-                outputWaveformLabels.append(snp.m_sd.pOutputList[c][2]+str(r+1))
+                outputWaveformLabels.append(snp.m_sd.pOutputList[c][2]+str(portConnections[r]+1))
 #         
 #             
 #             
@@ -506,13 +510,13 @@ class SignalIntegrityAppHeadless(object):
                 td.H=wf.TimeDescriptor()[wf.TimeDescriptor().IndexOfTime(td.H)]
                 fc=wf.Adapt(td).FrequencyContent()
                 frequencyContentList.append(fc)
-
-            Afc=[[frequencyContentList[outputWaveformLabels.index('A'+str(r+1)+str(c+1))]
-                for c in range(snp.simulationNumPorts)] 
-                    for r in range(snp.simulationNumPorts)]
-            Bfc=[[frequencyContentList[outputWaveformLabels.index('B'+str(r+1)+str(c+1))]
-                for c in range(snp.simulationNumPorts)] 
-                    for r in range(snp.simulationNumPorts)]
+            
+            Afc=[[frequencyContentList[outputWaveformLabels.index('A'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for c in range(len(portConnections))] 
+                    for r in range(len(portConnections))]
+            Bfc=[[frequencyContentList[outputWaveformLabels.index('B'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for c in range(len(portConnections))] 
+                    for r in range(len(portConnections))]
 
             from numpy import matrix
 
@@ -524,7 +528,6 @@ class SignalIntegrityAppHeadless(object):
                 data[n]=(matrix(B)*matrix(A).getI()).tolist()
             sp=si.sp.SParameters(frequencyList,data)
             return sp
-
 
 def ProjectSParameters(filename):
     import copy

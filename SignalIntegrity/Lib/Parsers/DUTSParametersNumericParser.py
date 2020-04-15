@@ -83,8 +83,13 @@ class DUTSParametersNumericParser(SystemSParametersNumericParser):
             if len(naPortConnections[pci]) > 1:
                 spNetList2.append('connect '+' '.join([' '.join(dp) for dp in naPortConnections[pci]]))
         # connect ports to the system that was connected to the network analyzer model
+        portNumber=1
+        self.NetworkAnalyzerPortConnectionList=[False for _ in range(len(naPortConnections))]
         for pci in range(len(naPortConnections)):
-            spNetList2.append('port '+str(pci+1)+' '+' '.join(naPortConnections[pci][0]))
+            if len(naPortConnections[pci])>0:
+                spNetList2.append('port '+str(portNumber)+' '+' '.join(naPortConnections[pci][0]))
+                self.NetworkAnalyzerPortConnectionList[pci]=True
+                portNumber=portNumber+1
         self.m_lines=spNetList2
     def SParameters(self,solvetype='block'):
         """compute the s-parameters of the DUT in a network analyzer simulation netlist.

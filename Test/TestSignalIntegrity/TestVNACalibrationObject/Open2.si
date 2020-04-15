@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>514x276+581+245</Geometry>
+			<Geometry>514x276+429+95</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>4</Originy>
@@ -92,19 +92,19 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(7, 5)</Origin>
+						<Origin>(3, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>VNAModelPort2.si</Value>
+							<Value>VNAModel.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
+							<Value>2</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

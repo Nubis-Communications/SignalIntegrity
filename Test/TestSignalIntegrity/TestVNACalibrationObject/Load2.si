@@ -74,19 +74,19 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(7, 5)</Origin>
+						<Origin>(3, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>VNAModelPort2.si</Value>
+							<Value>VNAModel.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
+							<Value>2</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

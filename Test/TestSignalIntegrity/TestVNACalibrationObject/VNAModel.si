@@ -6,85 +6,13 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1060x464+581+245</Geometry>
+			<Geometry>1060x464+260+330</Geometry>
 			<Grid>16</Grid>
 			<Originx>-4</Originx>
 			<Originy>9</Originy>
 		</DrawingProperties>
 		<Schematic>
 			<Devices>
-				<Device>
-					<ClassName>DeviceTransmissionLine</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(26, 4)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>td</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1e-10</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zc</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>48.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>T1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceTransmissionLine</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(38, 4)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>td</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1.25e-10</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zc</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>52.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>T2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
 				<Device>
 					<ClassName>DeviceDirectionalCoupler</ClassName>
 					<PartPicture>
@@ -1010,7 +938,7 @@
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>../filter.s2p</Value>
+							<Value>filter.s2p</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -1023,6 +951,66 @@
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>D8</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(26, 4)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>cable.s2p</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D3</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFile</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(38, 4)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>cable.s2p</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D4</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>

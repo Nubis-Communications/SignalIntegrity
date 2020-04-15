@@ -68,6 +68,10 @@ class NetworkAnalyzerSimulator(object):
         progressDialog = ProgressDialog(self.parent,"Calculating DUT S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             (DUTSp,NetworkAnalyzerProjectFile)=progressDialog.GetResult()
+            showDutsp=False
+            if showDutsp:
+                from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
+                self.spd=self.spd=SParametersDialog(self.parent,DUTSp,filename=self.parent.fileparts.FullFilePathExtension('s'+str(DUTSp.m_P)+'p'))
         except si.SignalIntegrityException as e:
             messagebox.showerror('DUT S-parameter Calculator',e.parameter+': '+e.message)                
             return None
@@ -98,7 +102,7 @@ class NetworkAnalyzerSimulator(object):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()+'_TransferMatrices'
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,cacheFileName=cacheFileName)
+        snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog = ProgressDialog(self.parent,"Calculating Transfer Matrices",snp,snp.TransferMatrices,granularity=1.0)
         try:
@@ -158,6 +162,10 @@ class NetworkAnalyzerSimulator(object):
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
+        portConnections=[]
+        for pci in range(len(snp.PortConnectionList)):
+            if snp.PortConnectionList[pci]: portConnections.append(pci)
+
         outputWaveformList=[]
         self.outputWaveformLabels=[]
         for r in range(len(self.outputwflist)):
@@ -165,7 +173,7 @@ class NetworkAnalyzerSimulator(object):
             for c in range(len(wflist)):
                 wf=wflist[c]
                 outputWaveformList.append(wf)
-                self.outputWaveformLabels.append(snp.m_sd.pOutputList[c][2]+str(r+1))
+                self.outputWaveformLabels.append(snp.m_sd.pOutputList[c][2]+str(portConnections[r]+1))
 #         
 #             
 #             
@@ -209,13 +217,13 @@ class NetworkAnalyzerSimulator(object):
                 td.H=wf.TimeDescriptor()[wf.TimeDescriptor().IndexOfTime(td.H)]
                 fc=wf.Adapt(td).FrequencyContent()
                 frequencyContentList.append(fc)
-
-            Afc=[[frequencyContentList[self.outputWaveformLabels.index('A'+str(r+1)+str(c+1))]
-                for c in range(snp.simulationNumPorts)] 
-                    for r in range(snp.simulationNumPorts)]
-            Bfc=[[frequencyContentList[self.outputWaveformLabels.index('B'+str(r+1)+str(c+1))]
-                for c in range(snp.simulationNumPorts)] 
-                    for r in range(snp.simulationNumPorts)]
+            
+            Afc=[[frequencyContentList[self.outputWaveformLabels.index('A'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for c in range(len(portConnections))] 
+                    for r in range(len(portConnections))]
+            Bfc=[[frequencyContentList[self.outputWaveformLabels.index('B'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for c in range(len(portConnections))] 
+                    for r in range(len(portConnections))]
 
             from numpy import matrix
 
