@@ -66,6 +66,10 @@ class SimulatorDialog(tk.Toplevel):
         self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile).AddHelpElement('Control-Help:Read-Waveforms').Activate(False)
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddHelpElement('Control-Help:Output-to-LaTeX')
         # ------
+        self.SelectionsDisplayAllDoer = Doer(self.onSelectionsDisplayAll).AddHelpElement('Control-Help:Display-All')
+        self.SelectionsDisplayNoneDoer = Doer(self.onSelectionsDisplayNone).AddHelpElement('Control-Help:Display-None')
+        self.SelectionsToggleAllDoer = Doer(self.onSelectionsToggle).AddHelpElement('Control-Help:Toggle-Selections')
+        # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
         self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement('Control-Help:View-Transfer-Parameters')
         self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement('Control-Help:Recalculate')
@@ -93,6 +97,10 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         self.SelectionMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Selection',menu=self.SelectionMenu,underline=0)
+        self.SelectionsDisplayAllDoer.AddMenuElement(self.SelectionMenu,label='Display All',underline=8)
+        self.SelectionsDisplayNoneDoer.AddMenuElement(self.SelectionMenu,label='Dispay None',underline=8)
+        self.SelectionsToggleAllDoer.AddMenuElement(self.SelectionMenu,label='Toggle All',underline=0)
+        self.SelectionMenu.add_separator()
         # ------
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
@@ -157,8 +165,6 @@ class SimulatorDialog(tk.Toplevel):
         tk.Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
-
-
         try:
             try:
                 from tikzplotlib import save as tikz_save
@@ -172,6 +178,7 @@ class SimulatorDialog(tk.Toplevel):
 
         self.ExamineTransferMatricesDoer.Activate(False)
         self.SimulateDoer.Activate(False)
+        self.ZoomsInitialized=False
 
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
@@ -228,10 +235,16 @@ class SimulatorDialog(tk.Toplevel):
                 freqLabelDivisor=FromSI('1. '+freqLabel,'Hz')
                 minf=minf/freqLabelDivisor
                 maxf=maxf/freqLabelDivisor
-            if not minf is None:
-                self.plt.set_xlim(left=minf)
-            if not maxf is None:
-                self.plt.set_xlim(right=maxf)
+
+            if not self.ZoomsInitialized:
+                self.minf=minf
+                self.maxf=maxf
+
+            if self.minf != None:
+                self.plt.set_xlim(left=self.minf)
+
+            if self.maxf != None:
+                self.plt.set_xlim(right=self.maxf)
 
         if density:
             self.plotLabel.config(text='Spectral Density')
@@ -258,16 +271,26 @@ class SimulatorDialog(tk.Toplevel):
             minvStd=mean(fcValues)-0.5*std(fcValues) if minvStd is None else min(minvStd,mean(fcValues)-0.5*std(fcValues))
 
             fcName=str(self.waveformNamesList[wfi])
-            self.plt.plot(fcFrequencies,fcValues,label=fcName)
+            fcColor=self.waveformColorIndexList[wfi]
 
-        minv = max(minv,minvStd)
+            self.plt.plot(fcFrequencies,fcValues,label=fcName,c=fcColor)
+
+        if minv != None or minvStd != None:
+            minv = max(minv,minvStd)
 
         self.plt.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
         self.plt.legend(loc='upper right',labelspacing=0.1)
 
-        self.plt.set_ylim(bottom=minv)
-        self.plt.set_ylim(top=maxv)
+        if not self.ZoomsInitialized:
+            self.minv=minv
+            self.maxv=maxv
 
+        if self.minv != None:
+            self.plt.set_ylim(bottom=self.minv)
+        if self.maxv != None:
+            self.plt.set_ylim(top=self.maxv)
+
+        self.ZoomsInitialized=True
         self.f.canvas.draw()
         return self
 
@@ -277,9 +300,8 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.totalwaveformNamesList))]
         # ------
-
         # ------
-        self.SelectionMenu.delete(0, tk.END)
+        self.SelectionMenu.delete(5, tk.END)
         for s in range(len(self.totalwaveformNamesList)):
             self.SelectionDoerList[s].AddCheckButtonMenuElement(self.SelectionMenu,label=self.totalwaveformNamesList[s])
             self.SelectionDoerList[s].Set(True)
@@ -289,13 +311,30 @@ class SimulatorDialog(tk.Toplevel):
         self.onSelection()
         return self
 
+    def onSelectionsDisplayAll(self):
+        for sd in self.SelectionDoerList:
+            sd.Set(True)
+        self.onSelection()
+
+    def onSelectionsDisplayNone(self):
+        for sd in self.SelectionDoerList:
+            sd.Set(False)
+        self.onSelection()
+
+    def onSelectionsToggle(self):
+        for sd in self.SelectionDoerList:
+            sd.Set(not sd.Bool())
+        self.onSelection()
+
     def onSelection(self,x=None):
         self.waveformList=[]
         self.waveformNamesList=[]
+        self.waveformColorIndexList=[]
         for si in range(len(self.SelectionDoerList)):
             if self.SelectionDoerList[si].Bool():
                 self.waveformList.append(self.totalwaveformList[si])
                 self.waveformNamesList.append(self.totalwaveformNamesList[si])
+                self.waveformColorIndexList.append(matplotlib.pyplot.rcParams['axes.prop_cycle'].by_key()['color'][si])
 
 #         if self.waveformList == []:
 #             self.waveformList = None
@@ -310,16 +349,19 @@ class SimulatorDialog(tk.Toplevel):
         return self
 
     def onViewTimeDomain(self):
+        self.ZoomsInitialized=False
         self.ViewSpectralDensityDoer.Set(False)
         self.ViewSpectralContentDoer.Set(False)
         self.PlotWaveformsTimeDomain()
 
     def onViewSpectralContent(self):
+        self.ZoomsInitialized=False
         self.ViewTimeDomainDoer.Set(False)
         self.ViewSpectralDensityDoer.Set(False)
         self.PlotWaveformsFrequencyContent(density=False)
 
     def onViewSpectralDensity(self):
+        self.ZoomsInitialized=False
         self.ViewTimeDomainDoer.Set(False)
         self.ViewSpectralContentDoer.Set(False)
         self.PlotWaveformsFrequencyContent(density=True)
@@ -357,10 +399,16 @@ class SimulatorDialog(tk.Toplevel):
                 timeLabelDivisor=FromSI('1. '+timeLabel,'s')
                 mint=mint/timeLabelDivisor
                 maxt=maxt/timeLabelDivisor
-            if not mint is None:
-                self.plt.set_xlim(left=mint)
-            if not maxt is None:
-                self.plt.set_xlim(right=maxt)
+
+        if not self.ZoomsInitialized:
+            self.mint=mint
+            self.maxt=maxt
+
+        if self.mint != None:
+            self.plt.set_xlim(left=self.mint)
+
+        if self.maxt != None:
+            self.plt.set_xlim(right=self.maxt)
 
         minv=None
         maxv=None
@@ -371,22 +419,32 @@ class SimulatorDialog(tk.Toplevel):
                 continue
             wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
+            wfColor=self.waveformColorIndexList[wfi]
             plotlog=False
             plotdB=False
             if plotlog:
-                self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName)
+                self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName,c=wfColor)
             elif plotdB:
-                self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName)
+                self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName,c=wfColor)
             else:
-                self.plt.plot(wfTimes,wfValues,label=wfName)
+                self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor)
             minv=min(wfValues) if minv is None else min(minv,min(wfValues))
             maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
 
         self.plt.set_xlabel('time ('+timeLabel+')',fontsize=10)
         self.plt.legend(loc='upper right',labelspacing=0.1)
 
-        self.plt.set_ylim(bottom=minv)
-        self.plt.set_ylim(top=maxv)
+        if not self.ZoomsInitialized:
+            self.minv=minv
+            self.maxv=maxv
+
+        if self.minv != None:
+            self.plt.set_ylim(bottom=self.minv)
+
+        if self.maxv != None:
+            self.plt.set_ylim(top=self.maxv)
+
+        self.ZoomsInitialized=True
 
         self.f.canvas.draw()
         return self
