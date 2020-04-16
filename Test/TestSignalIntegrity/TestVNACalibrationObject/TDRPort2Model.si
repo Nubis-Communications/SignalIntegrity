@@ -26,7 +26,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>1.05</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -38,7 +38,7 @@
 						<PartProperty>
 							<Keyword>zo</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>50.0</Value>
+							<Value>52.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -74,7 +74,7 @@
 						<PartProperty>
 							<Keyword>zc</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>50.0</Value>
+							<Value>48.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -224,7 +224,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>1.03</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
