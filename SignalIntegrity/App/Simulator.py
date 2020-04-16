@@ -82,6 +82,7 @@ class SimulatorDialog(tk.Toplevel):
 
         # The menu system
         TheMenu=tk.Menu(self)
+        self.TheMenu=TheMenu
         self.config(menu=TheMenu)
         FileMenu=tk.Menu(self)
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
@@ -89,6 +90,9 @@ class SimulatorDialog(tk.Toplevel):
         self.WaveformReadDoer.AddMenuElement(FileMenu,label="Read Waveforms",underline=0)
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
+        # ------
+        self.SelectionMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='Selection',menu=self.SelectionMenu,underline=0)
         # ------
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
@@ -152,6 +156,8 @@ class SimulatorDialog(tk.Toplevel):
         controlsFrame = tk.Frame(self)
         tk.Button(controlsFrame,text='autoscale',command=self.onAutoscale).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+
+
 
         try:
             try:
@@ -266,8 +272,35 @@ class SimulatorDialog(tk.Toplevel):
         return self
 
     def UpdateWaveforms(self,waveformList, waveformNamesList):
-        self.waveformList=waveformList
-        self.waveformNamesList=waveformNamesList
+        self.totalwaveformList=waveformList
+        self.totalwaveformNamesList=waveformNamesList
+        # ------
+        self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.totalwaveformNamesList))]
+        # ------
+
+        # ------
+        self.SelectionMenu.delete(0, tk.END)
+        for s in range(len(self.totalwaveformNamesList)):
+            self.SelectionDoerList[s].AddCheckButtonMenuElement(self.SelectionMenu,label=self.totalwaveformNamesList[s])
+            self.SelectionDoerList[s].Set(True)
+        self.TheMenu.entryconfigure('Selection', state= tk.DISABLED if len(self.totalwaveformNamesList) <= 1 else tk.ACTIVE)
+        # ------
+
+        self.onSelection()
+        return self
+
+    def onSelection(self,x=None):
+        self.waveformList=[]
+        self.waveformNamesList=[]
+        for si in range(len(self.SelectionDoerList)):
+            if self.SelectionDoerList[si].Bool():
+                self.waveformList.append(self.totalwaveformList[si])
+                self.waveformNamesList.append(self.totalwaveformNamesList[si])
+
+#         if self.waveformList == []:
+#             self.waveformList = None
+#             self.waveformNamesList = None
+
         if self.ViewTimeDomainDoer.Bool():
             self.PlotWaveformsTimeDomain()
         elif self.ViewSpectralContentDoer.Bool():
