@@ -75,6 +75,7 @@ class SParametersDialog(tk.Toplevel):
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.ReadSParametersFromFileDoer = Doer(self.onReadSParametersFromFile).AddKeyBindElement(self,'<Control-o>').AddHelpElement('Control-Help:Open-S-parameter-File').AddToolTip('Open s-parameter file')
+        self.AddSParametersFromFileDoer = Doer(self.onAddSParameterFromFile).AddKeyBindElement(self,'<Control-a>').AddHelpElement('Control-Help:Add-S-parameter-File')
         self.WriteSParametersToFileDoer = Doer(self.onWriteSParametersToFile).AddKeyBindElement(self,'<Control-s>').AddHelpElement('Control-Help:Save-S-parameter-File').AddToolTip('Save s-parameters to file')
         self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddToolTip('Output plots to LaTeX files')
         # ------
@@ -146,6 +147,7 @@ class SParametersDialog(tk.Toplevel):
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
         self.WriteSParametersToFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
         self.ReadSParametersFromFileDoer.AddMenuElement(FileMenu,label="Open File",accelerator='Ctrl+O',underline=0)
+        self.AddSParametersFromFileDoer.AddMenuElement(FileMenu,label="Add File",accelerator='Ctrl+A',underline=0)
         FileMenu.add_separator()
         self.Matplotlib2tikzDoer.AddMenuElement(FileMenu,label='Output to LaTeX (TikZ)',underline=10)
         # ------
@@ -1385,6 +1387,31 @@ class SParametersDialog(tk.Toplevel):
             sp=si.sp.SParameterFile(filename)
 
         self.NewSParameters(sp, filename)
+
+    def onAddSParameterFromFile(self):
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),
+                                 initialfile=self.fileparts.FileNameWithExtension(),
+                                 parent=self)
+        if filename is None:
+            return
+        self.fileparts=FileParts(filename)
+        if self.fileparts.fileext=='':
+            return
+
+        if self.fileparts.fileext=='.cal':
+            sp=si.m.cal.Calibration(0,0)
+            try:
+                sp.ReadFromFile(filename)
+            except:
+                messagebox.showerror('Calibration File','could not be read ')
+                return
+        else:
+            sp=si.sp.SParameterFile(filename)
+
+        buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(sp.m_P)] for toP in range(sp.m_P)]
+        spList=self.spList+[[sp,filename,'S-Parameters',buttonLabels]]
+        self.NewSParameters(spList)
 
     def onWriteSParametersToFile(self):
         ports=self.sp.m_P
