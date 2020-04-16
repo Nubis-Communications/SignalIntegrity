@@ -128,9 +128,15 @@ class Device(object):
                 waveform = si.td.wf.NoiseWaveform(self.WaveformTimeDescriptor(),sigma)
             elif wfType == 'networkanalyzerport':
                 td=self.WaveformTimeDescriptor()
-                waveform =  si.td.wf.Waveform(td)
-                if self['state'].GetValue() == 'on':
-                    waveform[td.IndexOfTime(0.0)]=1.0
+                if self['state']['Value'] == 'off':
+                    waveform =  si.td.wf.Waveform(td)
+                else:
+                    if self['st']['Value'] in ['CW','TDRImpulse']:
+                        waveform =  si.td.wf.Waveform(td)
+                        if self['state']['Value'] == 'on':
+                            waveform[td.IndexOfTime(0.0)]=1.0
+                    else:
+                        waveform = si.td.wf.StepWaveform(td,1.0,0.0,0.0)
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity as si

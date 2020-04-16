@@ -197,6 +197,38 @@ class NetworkAnalyzerSimulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
+
+        td=si.td.wf.TimeDescriptor(-5e-9,
+           SignalIntegrity.App.Project['CalculationProperties.TimePoints'],
+           SignalIntegrity.App.Project['CalculationProperties.BaseSampleRate'])
+
+        if snp.simulationType != 'CW':
+            # note this matrix is transposed from what is normally expected
+            Vmat=[[outputWaveformList[self.outputWaveformLabels.index('V'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for r in range(len(portConnections))]
+                    for c in range(len(portConnections))]
+
+            for vli in range(len(Vmat)):
+                tdr=si.m.tdr.TDRWaveformToSParameterConverter(
+                    WindowForwardHalfWidthTime=200e-12,
+                    WindowReverseHalfWidthTime=200e-12,
+                    WindowRaisedCosineDuration=50e-12,
+                    Step=(snp.simulationType=='TDRStep'),
+                    Length=0,
+                    Denoise=True,
+                    DenoisePercent=20.,
+                    Inverted=False,
+                    fd=td.FrequencyList()
+                 )
+
+                tdr.Convert(Vmat[vli],vli)
+                for r in range(len(portConnections)):
+                    outputWaveformList.append(tdr.IncidentWaveform if r==vli else si.td.wf.Waveform(td))
+                    self.outputWaveformLabels.append('A'+str(portConnections[r]+1)+str(portConnections[vli]+1))
+                for r in range(len(portConnections)):
+                    outputWaveformList.append(tdr.ReflectWaveforms[r])
+                    self.outputWaveformLabels.append('B'+str(portConnections[r]+1)+str(portConnections[vli]+1))
+
         if not SParameters:
             self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
             self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
@@ -211,18 +243,15 @@ class NetworkAnalyzerSimulator(object):
             #-5 ns, with the correct number of points without resampling the waveform in any way.
             frequencyContentList=[]
             for wf in outputWaveformList:
-                td=si.td.wf.TimeDescriptor(-5e-9,
-                                       SignalIntegrity.App.Project['CalculationProperties.TimePoints'],
-                                       SignalIntegrity.App.Project['CalculationProperties.BaseSampleRate'])
                 td.H=wf.TimeDescriptor()[wf.TimeDescriptor().IndexOfTime(td.H)]
                 fc=wf.Adapt(td).FrequencyContent()
                 frequencyContentList.append(fc)
-            
+
             Afc=[[frequencyContentList[self.outputWaveformLabels.index('A'+str(portConnections[r]+1)+str(portConnections[c]+1))]
-                for c in range(len(portConnections))] 
+                for c in range(len(portConnections))]
                     for r in range(len(portConnections))]
             Bfc=[[frequencyContentList[self.outputWaveformLabels.index('B'+str(portConnections[r]+1)+str(portConnections[c]+1))]
-                for c in range(len(portConnections))] 
+                for c in range(len(portConnections))]
                     for r in range(len(portConnections))]
 
             from numpy import matrix
