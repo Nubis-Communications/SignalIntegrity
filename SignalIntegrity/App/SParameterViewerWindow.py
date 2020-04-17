@@ -377,7 +377,7 @@ class SParametersDialog(tk.Toplevel):
         # ------
         self.SelectionMenu.delete(0, tk.END)
         for s in range(len(self.spList)):
-            self.SelectionDoerList[s].AddMenuElement(self.SelectionMenu,label=self.spList[s][2])
+            self.SelectionDoerList[s].AddMenuElement(self.SelectionMenu,label=FileParts(self.spList[s][1]).FileNameTitle())
         self.TheMenu.entryconfigure('Selection', state= tk.DISABLED if len(self.spList) <= 1 else tk.ACTIVE)
         # ------
 
@@ -387,7 +387,7 @@ class SParametersDialog(tk.Toplevel):
         self.UpdatePropertiesFromSParameters(new=True)
 
         # button labels are a proxy for transfer parameters (until I do something better)
-        areSParameters=(buttonLabels == None)
+        areSParameters=(buttonLabels == [['s'+str(toP+1)+str(fromP+1) for fromP in range(sp.m_P)] for toP in range(sp.m_P)])
         isCalibration=(self.calibration != None)
         self.ShowPassivityViolationsDoer.Activate(areSParameters)
         self.ShowCausalityViolationsDoer.Activate(areSParameters)
@@ -936,6 +936,7 @@ class SParametersDialog(tk.Toplevel):
 
         if spChanged:
             self.UpdatePropertiesFromSParameters()
+            self.spList[self.currentlySelected][0]=self.sp
         if not msg is None:
             msg.destroy()
         if spChanged:
@@ -1410,7 +1411,7 @@ class SParametersDialog(tk.Toplevel):
             sp=si.sp.SParameterFile(filename)
 
         buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(sp.m_P)] for toP in range(sp.m_P)]
-        spList=self.spList+[[sp,filename,'S-Parameters',buttonLabels]]
+        spList=self.spList+[[sp,self.fileparts.FileNameTitle(),'S-Parameters',buttonLabels]]
         self.NewSParameters(spList)
 
     def onWriteSParametersToFile(self):
@@ -1573,6 +1574,7 @@ class SParametersDialog(tk.Toplevel):
 
     def onSelection(self,x):
         self.sp=self.spList[x][0]
+        self.currentlySelected=x
         self.properties=SParameterProperties()
         self.UpdatePropertiesFromSParameters(new=True)
         filename=self.spList[x][1]
