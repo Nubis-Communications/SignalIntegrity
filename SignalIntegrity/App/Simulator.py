@@ -38,6 +38,7 @@ from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
 import SignalIntegrity.App.Project
 
 import matplotlib
+import matplotlib.pyplot
 
 if not 'matplotlib.backends' in sys.modules:
     matplotlib.use('TkAgg')
