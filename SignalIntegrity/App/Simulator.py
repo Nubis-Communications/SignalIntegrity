@@ -183,6 +183,16 @@ class SimulatorDialog(tk.Toplevel):
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
 
+    def onXLimitChange(self,ax):
+        xlim=ax.get_xlim()
+        self.minx=xlim[0]
+        self.maxx=xlim[1]
+
+    def onYLimitChange(self,ax):
+        ylim=ax.get_ylim()
+        self.miny=ylim[0]
+        self.maxy=ylim[1]
+
     def onClosing(self):
         self.withdraw()
         self.destroy()
@@ -237,14 +247,14 @@ class SimulatorDialog(tk.Toplevel):
                 maxf=maxf/freqLabelDivisor
 
             if not self.ZoomsInitialized:
-                self.minf=minf
-                self.maxf=maxf
+                self.minx=minf
+                self.maxx=maxf
 
-            if self.minf != None:
-                self.plt.set_xlim(left=self.minf)
+            if self.minx != None:
+                self.plt.set_xlim(left=self.minx)
 
-            if self.maxf != None:
-                self.plt.set_xlim(right=self.maxf)
+            if self.maxx != None:
+                self.plt.set_xlim(right=self.maxx)
 
         if density:
             self.plotLabel.config(text='Spectral Density')
@@ -282,16 +292,20 @@ class SimulatorDialog(tk.Toplevel):
         self.plt.legend(loc='upper right',labelspacing=0.1)
 
         if not self.ZoomsInitialized:
-            self.minv=minv
-            self.maxv=maxv
+            self.miny=minv
+            self.maxy=maxv
 
-        if self.minv != None:
-            self.plt.set_ylim(bottom=self.minv)
-        if self.maxv != None:
-            self.plt.set_ylim(top=self.maxv)
+        if self.miny != None:
+            self.plt.set_ylim(bottom=self.miny)
+        if self.maxy != None:
+            self.plt.set_ylim(top=self.maxy)
 
         self.ZoomsInitialized=True
         self.f.canvas.draw()
+
+        self.plt.callbacks.connect('xlim_changed', self.onXLimitChange)
+        self.plt.callbacks.connect('ylim_changed', self.onYLimitChange)
+
         return self
 
     def UpdateWaveforms(self,waveformList, waveformNamesList):
@@ -330,11 +344,12 @@ class SimulatorDialog(tk.Toplevel):
         self.waveformList=[]
         self.waveformNamesList=[]
         self.waveformColorIndexList=[]
+        colors=matplotlib.pyplot.rcParams['axes.prop_cycle'].by_key()['color']
         for si in range(len(self.SelectionDoerList)):
             if self.SelectionDoerList[si].Bool():
                 self.waveformList.append(self.totalwaveformList[si])
                 self.waveformNamesList.append(self.totalwaveformNamesList[si])
-                self.waveformColorIndexList.append(matplotlib.pyplot.rcParams['axes.prop_cycle'].by_key()['color'][si])
+                self.waveformColorIndexList.append(colors[si%len(colors)])
 
 #         if self.waveformList == []:
 #             self.waveformList = None
@@ -401,14 +416,14 @@ class SimulatorDialog(tk.Toplevel):
                 maxt=maxt/timeLabelDivisor
 
         if not self.ZoomsInitialized:
-            self.mint=mint
-            self.maxt=maxt
+            self.minx=mint
+            self.maxx=maxt
 
-        if self.mint != None:
-            self.plt.set_xlim(left=self.mint)
+        if self.minx != None:
+            self.plt.set_xlim(left=self.minx)
 
-        if self.maxt != None:
-            self.plt.set_xlim(right=self.maxt)
+        if self.maxx != None:
+            self.plt.set_xlim(right=self.maxx)
 
         minv=None
         maxv=None
@@ -435,18 +450,21 @@ class SimulatorDialog(tk.Toplevel):
         self.plt.legend(loc='upper right',labelspacing=0.1)
 
         if not self.ZoomsInitialized:
-            self.minv=minv
-            self.maxv=maxv
+            self.miny=minv
+            self.maxy=maxv
 
-        if self.minv != None:
-            self.plt.set_ylim(bottom=self.minv)
+        if self.miny != None:
+            self.plt.set_ylim(bottom=self.miny)
 
-        if self.maxv != None:
-            self.plt.set_ylim(top=self.maxv)
+        if self.maxy != None:
+            self.plt.set_ylim(top=self.maxy)
 
         self.ZoomsInitialized=True
-
         self.f.canvas.draw()
+
+        self.plt.callbacks.connect('xlim_changed', self.onXLimitChange)
+        self.plt.callbacks.connect('ylim_changed', self.onYLimitChange)
+
         return self
 
     def onWriteSimulatorToFile(self):
