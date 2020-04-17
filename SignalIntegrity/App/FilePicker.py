@@ -24,6 +24,8 @@ if sys.version_info.major < 3:
 else:
     from tkinter import filedialog
 
+from SignalIntegrity.App.Files import FileParts
+
 def _FileNameChecker(filename):
     if filename is None:
         return None
@@ -39,5 +41,14 @@ def AskSaveAsFilename(**kw):
     return _FileNameChecker(filename)
 
 def AskOpenFileName(**kw):
+    if 'filetypes' in kw:
+        if 'initialfile' in kw:
+            ext=FileParts(kw['initialfile']).fileext
+            filetypes=kw['filetypes']
+            filetypeext=[ext for (filetype,ext) in filetypes]
+            if ext in filetypeext:
+                extindex=filetypeext.index(ext)
+                if extindex != 0:
+                    kw['filetypes']=[filetypes[extindex]]+filetypes[0:extindex]+filetypes[extindex+1:]
     filename=filedialog.askopenfilename(**kw)
     return _FileNameChecker(filename)
