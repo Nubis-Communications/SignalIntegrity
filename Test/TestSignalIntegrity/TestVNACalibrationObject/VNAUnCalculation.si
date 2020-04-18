@@ -1,7 +1,7 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>40000000000.0</EndFrequency>
-		<FrequencyPoints>400</FrequencyPoints>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>1000</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>

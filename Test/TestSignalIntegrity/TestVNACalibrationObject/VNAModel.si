@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>773x311+1035+290</Geometry>
+			<Geometry>773x311+1576+60</Geometry>
 			<Grid>16</Grid>
 			<Originx>-4</Originx>
 			<Originy>9</Originy>
@@ -614,7 +614,7 @@
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>filter.s2p</Value>
+							<Value>DUT.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
