@@ -1,14 +1,14 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>20000000000.0</EndFrequency>
-		<FrequencyPoints>200</FrequencyPoints>
+		<FrequencyPoints>400</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
 			<Geometry>545x326+118+147</Geometry>
 			<Grid>16</Grid>
-			<Originx>-2</Originx>
+			<Originx>-8</Originx>
 			<Originy>12</Originy>
 		</DrawingProperties>
 		<Schematic>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(10, -1)</Origin>
+						<Origin>(14, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -62,13 +62,13 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(15, 0)</Origin>
+						<Origin>(23, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1e-10</Value>
+							<Value>5e-10</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -98,7 +98,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 0)</Origin>
+						<Origin>(29, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -128,7 +128,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(6, 0)</Origin>
+						<Origin>(11, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -230,7 +230,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(24, 0)</Origin>
+						<Origin>(30, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -258,16 +258,6 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(10, 1)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(9, 1)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
 							<Coord>(21, -3)</Coord>
 						</Vertex>
 						<Vertex>
@@ -292,6 +282,16 @@
 						</Vertex>
 						<Vertex>
 							<Coord>(23, 1)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(27, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(29, 1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>

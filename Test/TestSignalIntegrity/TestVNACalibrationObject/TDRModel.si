@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>868x231+73+102</Geometry>
+			<Geometry>868x231+-10+19</Geometry>
 			<Grid>16</Grid>
 			<Originx>0</Originx>
 			<Originy>10</Originy>
@@ -134,7 +134,7 @@
 						<PartProperty>
 							<Keyword>st</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>TDRStep</Value>
+							<Value>TDRImpulse</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -200,7 +200,7 @@
 						<PartProperty>
 							<Keyword>st</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>TDRStep</Value>
+							<Value>TDRImpulse</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
