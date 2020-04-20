@@ -201,6 +201,7 @@ class NetworkAnalyzerSimulator(object):
         td=si.td.wf.TimeDescriptor(-5e-9,
            SignalIntegrity.App.Project['CalculationProperties.TimePoints'],
            SignalIntegrity.App.Project['CalculationProperties.BaseSampleRate'])
+        frequencyList=td.FrequencyList()
 
         if snp.simulationType != 'CW':
             # note this matrix is transposed from what is normally expected
@@ -210,15 +211,15 @@ class NetworkAnalyzerSimulator(object):
 
             for vli in range(len(Vmat)):
                 tdr=si.m.tdr.TDRWaveformToSParameterConverter(
-                    WindowForwardHalfWidthTime=200e-12,
-                    WindowReverseHalfWidthTime=200e-12,
-                    WindowRaisedCosineDuration=50e-12,
+                    WindowForwardHalfWidthTime=500e-12,
+                    WindowReverseHalfWidthTime=500e-12,
+                    WindowRaisedCosineDuration=10e-12,
                     Step=(snp.simulationType=='TDRStep'),
                     Length=0,
-                    Denoise=True,
+                    Denoise=(snp.simulationType !='TDRStep'),
                     DenoisePercent=20.,
                     Inverted=False,
-                    fd=td.FrequencyList()
+                    fd=frequencyList
                  )
 
                 tdr.Convert(Vmat[vli],vli)
@@ -228,6 +229,7 @@ class NetworkAnalyzerSimulator(object):
                 for r in range(len(portConnections)):
                     outputWaveformList.append(tdr.ReflectWaveforms[r])
                     self.outputWaveformLabels.append('B'+str(portConnections[r]+1)+str(portConnections[vli]+1))
+
 
         if not SParameters:
             self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
@@ -239,13 +241,7 @@ class NetworkAnalyzerSimulator(object):
             self.SimulatorDialog().ViewSpectralDensityDoer.Set(False)
             self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
         else:
-            # waveforms are adapted this way to give the horizontal offset that it already has closest to
-            #-5 ns, with the correct number of points without resampling the waveform in any way.
-            frequencyContentList=[]
-            for wf in outputWaveformList:
-                td.H=wf.TimeDescriptor()[wf.TimeDescriptor().IndexOfTime(td.H)]
-                fc=wf.Adapt(td).FrequencyContent()
-                frequencyContentList.append(fc)
+            frequencyContentList=[wf.FrequencyContent(fd) for wf in outputWaveformList]
 
             Afc=[[frequencyContentList[self.outputWaveformLabels.index('A'+str(portConnections[r]+1)+str(portConnections[c]+1))]
                 for c in range(len(portConnections))]
@@ -256,7 +252,6 @@ class NetworkAnalyzerSimulator(object):
 
             from numpy import matrix
 
-            frequencyList=td.FrequencyList()
             data=[None for _ in range(len(frequencyList))]
             for n in range(len(frequencyList)):
                 B=[[Bfc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
