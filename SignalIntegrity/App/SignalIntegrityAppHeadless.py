@@ -17,6 +17,7 @@ SignalIntegrityAppHeadless.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import sys
+
 if sys.version_info.major < 3:
     import Tkinter as tk
 else:
@@ -31,6 +32,25 @@ from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 from SignalIntegrity.App.TikZ import TikZ
 
 import SignalIntegrity.App.Project
+
+class ProjectStack(object):
+    def __init__(self):
+        self.stack=[]
+    def Push(self):
+        import copy
+        ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+        cwdCopy=os.getcwd()
+        self.stack.append((ProjectCopy,cwdCopy))
+        #print('pushed - stack depth: ',len(self.stack))
+        return len(self.stack)
+    def Pull(self,level=0):
+        import copy
+        ProjectCopy,cwdCopy=self.stack[level-1]
+        SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+        os.chdir(cwdCopy)
+        self.stack=self.stack[:level-1]
+        #print('pulled - stack depth: ',len(self.stack))
+        return self
 
 class DrawingHeadless(object):
     def __init__(self,parent):
@@ -104,6 +124,7 @@ class DrawingHeadless(object):
         self.schematic.InitFromProject()
 
 class SignalIntegrityAppHeadless(object):
+    projectStack = ProjectStack()
     def __init__(self):
         # make absolutely sure the directory of this file is the first in the
         # python path
@@ -363,7 +384,6 @@ class SignalIntegrityAppHeadless(object):
     def SimulateNetworkAnalyzerModel(self,SParameters=False):
         netList=self.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
-        import copy
         fd=si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
@@ -379,8 +399,7 @@ class SignalIntegrityAppHeadless(object):
             return None
         netListText=None
         if NetworkAnalyzerProjectFile != None:
-            self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-            self.cwdCopy=os.getcwd()
+            level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
                 if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
@@ -392,8 +411,7 @@ class SignalIntegrityAppHeadless(object):
             except:
                 pass
             finally:
-                SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
-                os.chdir(self.cwdCopy)
+                SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
             netList=self.Drawing.schematic.NetList()
             netListText=self.NetListText()
@@ -415,8 +433,7 @@ class SignalIntegrityAppHeadless(object):
         sourceNames=snp.m_sd.SourceVector()
         
         if NetworkAnalyzerProjectFile != None:
-            self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-            self.cwdCopy=os.getcwd()
+            level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
                 if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
@@ -437,8 +454,7 @@ class SignalIntegrityAppHeadless(object):
             except:
                 pass                
             finally:
-                SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
-                os.chdir(self.cwdCopy)
+                SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
             stateList=[app.Device(sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
             self.wflist=[]
@@ -562,9 +578,7 @@ class SignalIntegrityAppHeadless(object):
             return sp
 
 def ProjectSParameters(filename):
-    import copy
-    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-    cwdCopy=os.getcwd()
+    level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
@@ -584,14 +598,11 @@ def ProjectSParameters(filename):
                     sp=result[1][0]
     except:
         pass
-    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
-    os.chdir(cwdCopy)
+    SignalIntegrityAppHeadless.projectStack.Pull(level)
     return sp
 
 def ProjectWaveform(filename,wfname):
-    import copy
-    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-    cwdCopy=os.getcwd()
+    level=SignalIntegrityAppHeadless.projectStack.Push()
     wf=None
     try:
         app=SignalIntegrityAppHeadless()
@@ -608,14 +619,11 @@ def ProjectWaveform(filename,wfname):
                     wf=outputWaveformList[outputWaveformLabels.index(wfname)]
     except:
         pass
-    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
-    os.chdir(cwdCopy)
+    SignalIntegrityAppHeadless.projectStack.Pull(level)
     return wf
 
 def ProjectCalibration(filename):
-    import copy
-    ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-    cwdCopy=os.getcwd()
+    level=SignalIntegrityAppHeadless.projectStack.Push()
     result=None
     try:
         app=SignalIntegrityAppHeadless()
@@ -625,7 +633,52 @@ def ProjectCalibration(filename):
                 result=app.CalculateErrorTerms()
     except:
         pass
-    SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
-    os.chdir(cwdCopy)
+    SignalIntegrityAppHeadless.projectStack.Pull(level)
     return result
+
+def ProjectModificationTime(modificationTimeDict,fileName):
+    #print(os.path.abspath(fileName))
+    if modificationTimeDict == None:
+        return None
+    if os.path.abspath(fileName) in [file['name'] for file in modificationTimeDict]:
+        if modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']==False:
+            # this is a recursion problem
+            return None
+        else:
+            return(modificationTimeDict)
+    elif not fileName.endswith('.si'):
+        modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':True})
+    else:
+        modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':False})
+        level=SignalIntegrityAppHeadless.projectStack.Push()
+        result=0
+        try:
+            app=SignalIntegrityAppHeadless()
+            if not app.OpenProjectFile(os.path.realpath(fileName)):
+                raise ValueError
+            app.Drawing.DrawSchematic()
+            if not app.Drawing.canCalculate:
+                raise ValueError
+            deviceList=app.Drawing.schematic.deviceList
+            for device in deviceList:
+                propertiesList = device.propertiesList
+                for property in propertiesList:
+                    if property['Type']=='file':
+                        filename=property['Value']
+                        if filename.endswith('.si'):
+                            modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename)
+                        else:
+                            if '.' in filename:
+                                modificationTimeDict.append({'name':os.path.abspath(filename),
+                                                             'time':os.path.getmtime(os.path.abspath(filename)),
+                                                             'traversed':True})
+                        if modificationTimeDict==None:
+                            raise ValueError
+        except:
+            result=None
+        SignalIntegrityAppHeadless.projectStack.Pull(level)
+        if result==None:
+            return result
+    modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']=True
+    return modificationTimeDict
 
