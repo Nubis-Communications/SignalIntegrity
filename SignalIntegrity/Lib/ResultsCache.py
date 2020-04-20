@@ -139,20 +139,36 @@ class LinesCache(ResultsCache):
             if len(lineList) == 0: # pragma: no cover
                 pass
             elif lineList[0] == 'device':
+                # todo:  this is wrong - must parse tokens
                 if len(lineList)>=5:
                     if lineList[3]=='file':
                         fileList.append(lineList[4])
+                    elif lineList[3] == 'networkanalyzer':
+                        fileList.append(lineList[5])
+                        fileList.append(lineList[7])
+                    elif lineList[3]=='networkanalyzermodel':
+                        fileList.append(lineList[5])
+            elif lineList[0] == 'calibration':
+                fileList.append(lineList[3])
+                if '.' in lineList[5]:
+                    fileList.append(lineList[5])
             elif lineList[0] == 'system':
                 fileList.append(lineList[2])
         try:
             cacheFileTime = os.path.getmtime(cacheFilename)
         except:
             return False
+        modificationTimeDict=[]
         for fileName in fileList:
             try:
-                modificationTime = os.path.getmtime(fileName)
-                if modificationTime > cacheFileTime:
+                from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime
+                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName)
+                if modificationTimeDict == None:
                     return False
             except:
                 return False
+        if len(modificationTimeDict)==0:
+            return True
+        if max([file['time'] for file in modificationTimeDict]) > cacheFileTime:
+           return False
         return True

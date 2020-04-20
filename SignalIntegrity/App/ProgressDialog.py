@@ -52,8 +52,6 @@ class ProgressDialog(tk.Toplevel):
         self.granularity = granularity
         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
-        self.after(1000,self.show)
-    def show(self):
         self.deiconify()
         self.grab_set()
     def onStop(self):
