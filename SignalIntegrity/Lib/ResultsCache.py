@@ -36,6 +36,14 @@ class ResultsCache(object):
         """
         self.filename=filename
         self.extra='_cached'+name+'.p'
+    def HashValue(self,stuffToHash=''):
+        """
+        @param stuffToHash repr of stuff to hash
+        Generates the hash for a definition\n
+        @remark derived classes should override this method and call the base class HashValue with their stuff added
+        @return integer hash value
+        """
+        return hashlib.sha256(stuffToHash.encode()).hexdigest()
     def CheckCache(self):
         """
         Called to see if the cache has results that can be used instead of processing the result.\n
@@ -115,13 +123,15 @@ class LinesCache(ResultsCache):
         @param filename string base filename of project being processed.
         """
         ResultsCache.__init__(self,name,filename)
-    def HashValue(self):
+    def HashValue(self,stuffToHash=''):
         """
+        @param stuffToHash repr of stuff to hash
         Generates the hash for a definition\n
         It is formed by hashing a combination of the netlist lines, the frequencies, and the arguments provided.
+        @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
-        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)).encode()).hexdigest()
+        return ResultsCache.HashValue(self,repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+stuffToHash)
     def CheckTimes(self,cacheFilename):
         """
         Checks the times for files associated with a netlist.\n

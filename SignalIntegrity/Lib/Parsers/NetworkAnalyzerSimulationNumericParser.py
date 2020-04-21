@@ -50,14 +50,15 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         self.PortConnectionList=PortConnectionList
         self.DutSParameters=SParameters(DUTSParameters.m_f,DUTSParameters.m_d)
         SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName)
-    def HashValue(self):
+    def HashValue(self,stuffToHash=''):
         """
+        @param stuffToHash repr of stuff to hash
         Generates the hash for a definition\n
-        It is formed by hashing a combination of the netlist lines, the frequencies, and the arguments provided.
+        It is formed by hashing the port connection with whatever else is hashed..
+        @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
-        import hashlib
-        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+repr(self.DutSParameters.Text())+repr(self.PortConnectionList)).encode()).hexdigest()
+        return SimulatorNumericParser.HashValue(self,repr(self.m_args)+repr(self.DutSParameters.Text())+repr(self.PortConnectionList)+stuffToHash)
     def ArrangeSimulation(self):
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         self.simulationType=None
