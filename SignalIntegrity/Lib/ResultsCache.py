@@ -170,5 +170,5 @@ class LinesCache(ResultsCache):
         if len(modificationTimeDict)==0:
             return True
         if max([file['time'] for file in modificationTimeDict]) > cacheFileTime:
-           return False
+            return False
         return True

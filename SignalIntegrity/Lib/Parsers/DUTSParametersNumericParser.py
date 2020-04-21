@@ -40,7 +40,16 @@ class DUTSParametersNumericParser(SystemSParametersNumericParser):
         The use of the cacheFileName is described in the class LineCache
         """
         self.NetworkAnalyzerProjectFile=None
+        self.NetworkAnalyzerPortConnectionList=None
         SystemSParametersNumericParser.__init__(self, f, args, callback, cacheFileName)
+    def HashValue(self):
+        """
+        Generates the hash for a definition\n
+        It is formed by hashing a combination of the netlist lines, the frequencies, and the arguments provided.
+        @return integer hash value
+        """
+        import hashlib
+        return hashlib.sha256((repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+repr(self.NetworkAnalyzerPortConnectionList)).encode()).hexdigest()
     def ConfigureForDUTCalculation(self):
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         numPorts=0

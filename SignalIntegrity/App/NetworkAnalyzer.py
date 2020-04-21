@@ -77,8 +77,7 @@ class NetworkAnalyzerSimulator(object):
             return None
         netListText=None
         if NetworkAnalyzerProjectFile != None:
-            self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-            self.cwdCopy=os.getcwd()
+            level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
                 if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
@@ -90,8 +89,7 @@ class NetworkAnalyzerSimulator(object):
             except SignalIntegrityException as e:
                 messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)                
             finally:
-                SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
-                os.chdir(self.cwdCopy)
+                SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
             netList=self.parent.Drawing.schematic.NetList()
             netListText=self.parent.NetListText()
@@ -115,8 +113,7 @@ class NetworkAnalyzerSimulator(object):
         self.sourceNames=snp.m_sd.SourceVector()
         
         if NetworkAnalyzerProjectFile != None:
-            self.ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
-            self.cwdCopy=os.getcwd()
+            level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
                 if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
@@ -137,8 +134,7 @@ class NetworkAnalyzerSimulator(object):
             except SignalIntegrityException as e:
                 messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)                
             finally:
-                SignalIntegrity.App.Project=copy.deepcopy(self.ProjectCopy)
-                os.chdir(self.cwdCopy)
+                SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
             stateList=[app.Device(self.sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
             self.wflist=[]
