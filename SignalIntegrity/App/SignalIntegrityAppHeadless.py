@@ -420,6 +420,12 @@ def ProjectModificationTime(modificationTimeDict,fileName):
         modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':True})
     else:
         modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':False})
+        filenamenoext=FileParts(fileName).FileNameTitle()
+        for postfix in ['','_DUTSParameters','_TransferMatrices']:
+            for cacheName in ['SParameters','TransferMatrices','Calibration']:
+                cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                if os.path.exists(cacheFileName):
+                    modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
         level=SignalIntegrityAppHeadless.projectStack.Push()
         result=0
         try:
@@ -437,6 +443,12 @@ def ProjectModificationTime(modificationTimeDict,fileName):
                         filename=property['Value']
                         if filename.endswith('.si'):
                             modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename)
+                            filenamenoext=FileParts(filename).FileNameTitle()
+                            for postfix in ['','_DUTSParameters','_TransferMatrices']:
+                                for cacheName in ['SParameters','TransferMatrices','Calibration']:
+                                    cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                                    if os.path.exists(cacheFileName):
+                                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
                         else:
                             if '.' in filename:
                                 modificationTimeDict.append({'name':os.path.abspath(filename),
