@@ -209,7 +209,7 @@ class NetworkAnalyzerSimulator(object):
                 tdr=si.m.tdr.TDRWaveformToSParameterConverter(
                     WindowForwardHalfWidthTime=500e-12,
                     WindowReverseHalfWidthTime=500e-12,
-                    WindowRaisedCosineDuration=10e-12,
+                    WindowRaisedCosineDuration=250e-12,
                     Step=(snp.simulationType=='TDRStep'),
                     Length=0,
                     Denoise=(snp.simulationType !='TDRStep'),
