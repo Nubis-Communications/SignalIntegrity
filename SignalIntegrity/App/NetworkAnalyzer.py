@@ -109,15 +109,20 @@ class NetworkAnalyzerSimulator(object):
             messagebox.showerror('Transfer Matrices Calculation: ',e.parameter+': '+e.message)                
             return None
 
-        snp.m_sd.pOutputList
         self.sourceNames=snp.m_sd.SourceVector()
         
+        gdoDict={}
+
         if NetworkAnalyzerProjectFile != None:
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
                 if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
                     app.Drawing.DrawSchematic()
+                    # get output gain, offset, delay
+                    for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:
+                        gdoDict[name]={'gain':float(app.Device(name)['gain']['Value']),
+                            'offset':float(app.Device(name)['offset']['Value']),'delay':float(app.Device(name)['td']['Value'])}
                     stateList=[app.Device(self.sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
                     self.wflist=[]
                     for driven in range(snp.simulationNumPorts):
@@ -138,6 +143,9 @@ class NetworkAnalyzerSimulator(object):
         else:
             stateList=[app.Device(self.sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
             self.wflist=[]
+            for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:
+                gdoDict[name]={'gain':float(app.Device()[name]['gain']['Value']),
+                    'offset':float(app.Device()[name]['offset']['Value']),'delay':float(app.Device()[name]['td']['Value'])}
             for driven in range(snp.simulationNumPorts):
                 thiswflist=[]
                 for port in range(snp.simulationNumPorts):
@@ -167,28 +175,13 @@ class NetworkAnalyzerSimulator(object):
         for r in range(len(self.outputwflist)):
             wflist=self.outputwflist[r]
             for c in range(len(wflist)):
-                wf=wflist[c]
+                wf=wflist[c]; wfName=snp.m_sd.pOutputList[c][2]
+                gain=gdoDict[wfName]['gain']; offset=gdoDict[wfName]['offset']; delay=gdoDict[wfName]['delay']
+                if gain != 1.0 or offset != 0.0 or delay != 0.0:
+                    wf = wf.DelayBy(delay)*gain+offset
                 outputWaveformList.append(wf)
-                self.outputWaveformLabels.append(snp.m_sd.pOutputList[c][2]+str(portConnections[r]+1))
-#         
-#             
-#             
-# 
-#         for outputWaveformIndex in range(len(outputWaveformList)):
-#             outputWaveform=outputWaveformList[outputWaveformIndex]
-#             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
-#             for device in self.parent.Drawing.schematic.deviceList:
-#                 if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
-#                     if device['ref'].GetValue() == outputWaveformLabel:
-#                         # probes may have different kinds of gain specified
-#                         gainProperty = device['gain']
-#                         gain=gainProperty.GetValue()
-#                         offset=device['offset'].GetValue()
-#                         delay=device['td'].GetValue()
-#                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
-#                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
-#                         outputWaveformList[outputWaveformIndex]=outputWaveform
-#                         break
+                self.outputWaveformLabels.append(wfName+str(portConnections[r]+1))
+
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
