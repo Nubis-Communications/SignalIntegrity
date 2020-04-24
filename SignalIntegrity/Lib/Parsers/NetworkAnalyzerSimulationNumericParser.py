@@ -70,16 +70,15 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         dutFound=False
         for line in self.m_lines:
             tokens=LineSplitter(line)
-            if tokens[0]=='voltagesource':
+            if tokens[0] in ['voltagesource','networkanalyzerport']:
                 isNetworkAnalyzerPort=False
                 if len(tokens)>3:
                     sourceDict={'ref':tokens[1],'port':tokens[2],'line':line}
                     for tokenIndex in range(3,len(tokens),2):
                         sourceDict[tokens[tokenIndex]]=tokens[tokenIndex+1]
-                    if 'wftype' in sourceDict:
-                        if sourceDict['wftype']=='networkanalyzerport':
-                            naPortDictList.append(sourceDict)
-                            isNetworkAnalyzerPort=True
+                    if tokens[0]:
+                        naPortDictList.append(sourceDict)
+                        isNetworkAnalyzerPort=True
                 if not isNetworkAnalyzerPort:
                     otherSourceList.append(line)
             elif tokens[0]=='currentsource':

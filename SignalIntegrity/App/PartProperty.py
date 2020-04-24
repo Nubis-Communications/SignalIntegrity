@@ -258,6 +258,10 @@ class PartPropertyVoltageAmplitude(PartProperty):
     def __init__(self,voltageAmplitude=1.):
         PartProperty.__init__(self,'voltageamplitude',type='float',unit='V',keyword='a',description='voltage amplitude (V)',value=voltageAmplitude,visible=True)
 
+class PartPropertyImpulseVoltageAmplitude(PartProperty):
+    def __init__(self,a=0.2):
+        PartProperty.__init__(self,'voltageamplitude',type='float',unit='Vs',keyword='ia',description='impulse voltage amplitude (Vs)',value=a,visible=True)
+
 class PartPropertyVoltageRms(PartProperty):
     def __init__(self,voltagerms=0.):
         PartProperty.__init__(self,'voltagerms',type='float',unit='Vrms',keyword='vrms',description='voltage (Vrms)',value=voltagerms,visible=True)
@@ -425,3 +429,7 @@ class PartPropertyStimulusType(PartProperty):
     validEntries=['CW','TDRStep','TDRImpulse']
     def __init__(self,type='CW'):
         PartProperty.__init__(self,'stimulustype',type='enum',keyword='st',description='stimulus type',value=type,visible=True,keywordVisible=True)
+
+class PartPropertyPowerLevel(PartProperty):
+    def __init__(self,dBm=0.):
+        PartProperty.__init__(self,'pow',type='float',unit='dBm',keyword='pow',description='power level (dBm)',value=dBm,visible=False,keywordVisible=False)

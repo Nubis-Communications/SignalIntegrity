@@ -92,7 +92,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(1, 5)</Origin>
+						<Origin>(1, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>

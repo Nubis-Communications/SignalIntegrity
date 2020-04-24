@@ -131,12 +131,14 @@ class Device(object):
                 if self['state']['Value'] == 'off':
                     waveform =  si.td.wf.Waveform(td)
                 else:
-                    if self['st']['Value'] in ['CW','TDRImpulse']:
+                    if self['st']['Value'] == 'CW':
                         waveform =  si.td.wf.Waveform(td)
-                        if self['state']['Value'] == 'on':
-                            waveform[td.IndexOfTime(0.0)]=1.0
-                    else:
-                        waveform = si.td.wf.StepWaveform(td,1.0,0.0,0.0)
+                        dbm=float(self['pow']['Value'])
+                        waveform[td.IndexOfTime(0.0)]=pow(10.,(float(self['pow']['Value'])-13.010)/20.0)*math.sqrt(td.K)
+                    elif self['st']['Value'] == 'TDRImpulse':
+                        waveform = si.td.wf.StepWaveform(td,2.*float(self['ia']['Value'])/td.Fs,0.0,float(self['rt']['Value'])).Derivative(removePoint=True,scale=True)
+                    elif self['st']['Value'] == 'TDRStep':
+                        waveform = si.td.wf.StepWaveform(td,2.*float(self['a']['Value']),0.0,float(self['rt']['Value']))
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity as si
@@ -656,7 +658,7 @@ class DeviceThruCalibrationMeasurement(Device):
 
 class DeviceNetworkAnalyzerStimulus(Device):
     def __init__(self,portNumber=1):
-        netlist=DeviceNetListLine(devicename='voltagesource',values=[('wftype',True),('pn',True),('st',True)])
+        netlist=DeviceNetListLine(devicename='networkanalyzerport',values=[('pn',True),('state',True),('st',True),('pow',True),('rt',True),('a',True),('ia',True)])
         Device.__init__(self,netlist,
                         [PartPropertyDescription('Network Analyzer Stimulus'),
                          PartPropertyPorts(1),
@@ -670,8 +672,22 @@ class DeviceNetworkAnalyzerStimulus(Device):
                          PartPropertyDuration(),
                          PartPropertySampleRate(),
                          PartPropertyStimulusType(),
+                         PartPropertyPowerLevel(-10),
+                         PartPropertyImpulseVoltageAmplitude(0.2),
+                         PartPropertyVoltageAmplitude(0.2),
+                         PartPropertyRisetime(0.),
                          PartPropertyOnOff()],
                         partPicture=PartPictureVariableNetworkAnalyzerStimulusOnePort())
+    def CreateVisiblePropertiesList(self):
+        stimulusType = self['st']['Value']
+        if self.partPicture.partPictureSelected != self['st'].validEntries.index(stimulusType):
+            self.partPicture.SwitchPartPicture(self['st'].validEntries.index(stimulusType))
+        self['pow']['Hidden'] = (stimulusType != 'CW')
+        self['rt']['Hidden'] = (stimulusType == 'CW')
+        self['a']['Hidden'] = (stimulusType != 'TDRStep')
+        self['ia']['Hidden']= (stimulusType != 'TDRImpulse')
+        Device.CreateVisiblePropertiesList(self)
+
 
 DeviceList = [
               DeviceFile([PartPropertyDescription('One Port File'),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),

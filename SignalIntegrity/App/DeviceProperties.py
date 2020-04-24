@@ -54,13 +54,12 @@ class DeviceProperty(tk.Frame):
         propertyLabel = tk.Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         if self.partProperty['Type']=='enum':
-            self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries)
+            self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries,command=self.onEntered)
         else:
             self.propertyEntry = tk.Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)
         self.propertyEntry.bind('<Return>',self.onEntered)
         self.propertyEntry.bind('<Tab>',self.onEntered)
-        self.propertyEntry.bind('<Button-1>',self.onTouched)
         self.propertyEntry.bind('<Button-1>',self.onTouched)
         self.propertyEntry.bind('<Double-Button-1>',self.onCleared)
         self.propertyEntry.bind('<Button-3>',self.onUntouchedLoseFocus)
@@ -208,7 +207,7 @@ class DeviceProperties(tk.Frame):
                     partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
                     self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-                elif self.device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+                elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     partViewFrame=tk.Frame(self)
                     partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
                     self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)

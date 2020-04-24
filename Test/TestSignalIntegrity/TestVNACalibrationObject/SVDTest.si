@@ -1,0 +1,25 @@
+<Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>2000</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>711x363+78+107</Geometry>
+			<Grid>16</Grid>
+			<Originx>1</Originx>
+			<Originy>4</Originy>
+		</DrawingProperties>
+		<Schematic>
+			<Devices>
+			</Devices>
+			<Wires>
+			</Wires>
+		</Schematic>
+	</Drawing>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
+</Project>

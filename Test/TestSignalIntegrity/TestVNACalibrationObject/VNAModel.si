@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>773x311+35+64</Geometry>
+			<Geometry>773x311+78+107</Geometry>
 			<Grid>16</Grid>
 			<Originx>-4</Originx>
 			<Originy>9</Originy>
@@ -205,9 +205,33 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>st</Keyword>
-							<KeywordVisible>True</KeywordVisible>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>CW</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pow</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>-10.0</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ia</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.2</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.2</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>state</Keyword>
@@ -276,10 +300,34 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>state</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>off</Value>
+							<Keyword>pow</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>-10.0</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ia</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.2</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>a</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.2</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>rt</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>off</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>

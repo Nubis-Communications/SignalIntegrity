@@ -51,8 +51,17 @@ class NetworkAnalyzerSimulator(object):
     def UpdateWaveforms(self,outputWaveformList,outputWaveformLabels):
         self.SimulatorDialog().UpdateWaveforms(outputWaveformList,outputWaveformLabels).state('normal')
     def _ProcessWaveforms(self,callback=None):
-        return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList,adaptToLargest=True)
+        self.outputwflist=[]
+        for port in range(len(self.wflist)):
+            self.outputwflist.append(self.transferMatriceProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
     def Simulate(self,SParameters=False):
+        """
+        simulates with a network analyzer model
+        """
+        #
+        # the first step is to calculate the s-parameters of a DUT connected to the ports
+        # of the network analyzer.
+        #
         self.parent.Drawing.stateMachine.Nothing()
         netList=self.parent.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
@@ -75,6 +84,12 @@ class NetworkAnalyzerSimulator(object):
         except si.SignalIntegrityException as e:
             messagebox.showerror('DUT S-parameter Calculator',e.parameter+': '+e.message)                
             return None
+        #
+        # DUTSp now contains the s-parameters of the DUT.  The DUT has a number of ports dictated by how many ports were actually connected
+        # to the network analzyer, and the port connections are in spnp.NetworkAnalyzerPortConnectionList
+        #
+        # The next step is to get the netlist from the network analyzer model's project
+        #
         netListText=None
         if NetworkAnalyzerProjectFile != None:
             level=SignalIntegrityAppHeadless.projectStack.Push()
@@ -93,12 +108,13 @@ class NetworkAnalyzerSimulator(object):
         else:
             netList=self.parent.Drawing.schematic.NetList()
             netListText=self.parent.NetListText()
-            
         if netListText==None:
             return
-        cacheFileName=None
-        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.parent.fileparts.FileNameTitle()+'_TransferMatrices'
+        #
+        # Now, with the dut s-parameters and the netlist of the network analyzer model, get the transfer matrices for a simulation with the DUT
+        # using the network analyzer model.
+        #
+        cacheFileName=self.parent.fileparts.FileNameTitle()+'_TransferMatrices' if SignalIntegrity.App.Preferences['Cache.CacheResults'] else None
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
@@ -108,11 +124,24 @@ class NetworkAnalyzerSimulator(object):
         except si.SignalIntegrityException as e:
             messagebox.showerror('Transfer Matrices Calculation: ',e.parameter+': '+e.message)                
             return None
-
         self.sourceNames=snp.m_sd.SourceVector()
-        
+        #
+        # to clear up any confusion, if the DUT was not connected to all of the network analyzer ports, a multi-port DUT with
+        # opens on the unconnected ports was constructed and connected as the DUT, but it was remembered which network
+        # analyzer ports are actually driven.  The driven ports, in order, are the first names in self.sourceNames with
+        # snp.simulationNumPorts containing the number of them.
+        #
+        # In other words, if a single-port reflect calibration is performed on port 2 of the network analyzer, a two-port
+        # DUT was installed, with an open on port 1, and the transfer parameters were computed for only the outputs needed
+        # (the superfluous probe outputs were removed).  self.sourceNames would contain only the reference designator for
+        # the transmitter that is on port 2, followed by any other waveforms supplied to the system (usuaully noise).
+        #
+        # Now, we loop over all of the transmitters that are driven and create a list of lists, where each element in the list
+        # is a list of input waveforms to be used in the simulation under that driven condition.  We do this by first, setting
+        # all of the transmitters in the appropriate on/off state, and then gathering all of the waveforms.
+        #
         gdoDict={}
-
+        self.wflist=[]
         if NetworkAnalyzerProjectFile != None:
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
@@ -123,17 +152,10 @@ class NetworkAnalyzerSimulator(object):
                     for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:
                         gdoDict[name]={'gain':float(app.Device(name)['gain']['Value']),
                             'offset':float(app.Device(name)['offset']['Value']),'delay':float(app.Device(name)['td']['Value'])}
-                    stateList=[app.Device(self.sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
-                    self.wflist=[]
                     for driven in range(snp.simulationNumPorts):
-                        thiswflist=[]
                         for port in range(snp.simulationNumPorts):
                             app.Device(self.sourceNames[port])['state']['Value']='on' if port==driven else 'off'
-                        for wfIndex in range(len(self.sourceNames)):
-                            thiswflist.append(app.Device(self.sourceNames[wfIndex]).Waveform())
-                        self.wflist.append(thiswflist)
-                    for port in range(snp.simulationNumPorts):
-                        app.Device(self.sourceNames[port])['state']['Value']=stateList[port]
+                        self.wflist.append([app.Device(self.sourceNames[wfIndex]).Waveform() for wfIndex in range(len(self.sourceNames))])
                 else:
                     raise SignalIntegrityExceptionNetworkAnalyzer('file could not be opened: '+NetworkAnalyzerProjectFile)
             except SignalIntegrityException as e:
@@ -141,35 +163,46 @@ class NetworkAnalyzerSimulator(object):
             finally:
                 SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
+            # since we're modifying the current schematic, keep the state for restoring
             stateList=[app.Device(self.sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
-            self.wflist=[]
             for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:
-                gdoDict[name]={'gain':float(app.Device()[name]['gain']['Value']),
-                    'offset':float(app.Device()[name]['offset']['Value']),'delay':float(app.Device()[name]['td']['Value'])}
+                gdoDict[name]={'gain':float(app.Device()[name]['gain']['Value']),'offset':float(app.Device()[name]['offset']['Value']),
+                               'delay':float(app.Device()[name]['td']['Value'])}
             for driven in range(snp.simulationNumPorts):
-                thiswflist=[]
                 for port in range(snp.simulationNumPorts):
                     app.Device(self.sourceNames[port])['state']['Value']='on' if port==driven else 'off'
-                for wfIndex in range(len(self.sourceNames)):
-                    thiswflist.append(app.Device(self.sourceNames[wfIndex]).Waveform())
-                self.wflist.append(thiswflist)
+                self.wflist.append([app.Device(self.sourceNames[wfIndex]).Waveform() for wfIndex in range(len(self.sourceNames))])
+            # restore the states
             for port in range(snp.simulationNumPorts):
                 app.Device(self.sourceNames[port])['state']['Value']=stateList[port]
-
+        #
+        # Now, the list of list of input waveforms are processed, generating a list of list of output waveforms in 
+        # self.outputwflist.
+        #
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-
         progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
+        #
+        # The list of list of input waveforms have been processed processed, generating a list of list of output waveforms in 
+        # self.outputwflist.  The names of the output waveforms are in snp.m_sd.pOutputList.
+        #
+        self.outputwflist = [[wf.Adapt(si.td.wf.TimeDescriptor(wf.td[wf.td.IndexOfTime(-5e-9)],fd.TimeDescriptor().K,wf.td.Fs)) for wf in driven] for driven in self.outputwflist]
+            
 
+        # The port connection list, which is a list of True or False for each port on the network analyzer, is
+        # converted to a list of network port indices corresponding to the driven ports.
+        #
         portConnections=[]
         for pci in range(len(snp.PortConnectionList)):
             if snp.PortConnectionList[pci]: portConnections.append(pci)
 
+        # Here, the output waveforms are refined by applying any probe gain, offset, and delay, and the
+        # waveform labels are converted to a list of list of waveform labels, with the driven port appended.
         outputWaveformList=[]
         self.outputWaveformLabels=[]
         for r in range(len(self.outputwflist)):
@@ -219,13 +252,12 @@ class NetworkAnalyzerSimulator(object):
                     outputWaveformList.append(tdr.ReflectWaveforms[r])
                     self.outputWaveformLabels.append('B'+str(portConnections[r]+1)+str(portConnections[vli]+1))
 
-
         if not SParameters:
             self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
             self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
             self.SimulatorDialog().SimulateDoer.Activate(True)
             self.SimulatorDialog().ViewTimeDomainDoer.Set(snp.simulationType != 'CW')
-            #self.SimulatorDialog().ViewTimeDomainDoer.Activate(snp.simulationType != 'CW')
+            self.SimulatorDialog().ViewTimeDomainDoer.Activate(snp.simulationType != 'CW')
             self.SimulatorDialog().ViewSpectralContentDoer.Set(snp.simulationType == 'CW')
             self.SimulatorDialog().ViewSpectralDensityDoer.Set(False)
             self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
@@ -248,9 +280,3 @@ class NetworkAnalyzerSimulator(object):
                 data[n]=(matrix(B)*matrix(A).getI()).tolist()
             sp=si.sp.SParameters(frequencyList,data)
             return sp
-
-    def _ProcessWaveforms(self,callback=None):
-        self.outputwflist=[]
-        for port in range(len(self.wflist)):
-            self.outputwflist.append(self.transferMatriceProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
-

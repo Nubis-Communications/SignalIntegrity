@@ -1600,7 +1600,7 @@ class Drawing(tk.Frame):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['voltagesource','currentsource','networkanalyzerstimulus']:
+            elif device.netlist['DeviceName'] in ['voltagesource','currentsource','networkanalyzerport']:
                 foundASource = True
             elif device.netlist['DeviceName'] == 'calibration':
                 foundACalibration=True

@@ -95,7 +95,7 @@ class DrawingHeadless(object):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+            elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                 foundASource = True
             elif device.netlist['DeviceName'] == 'calibration':
                 foundACalibration=True

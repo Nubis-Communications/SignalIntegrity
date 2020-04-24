@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>511x238+28+57</Geometry>
+			<Geometry>511x238+78+107</Geometry>
 			<Grid>16</Grid>
 			<Originx>6</Originx>
 			<Originy>1</Originy>
@@ -86,7 +86,7 @@
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
+							<Value>4</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
