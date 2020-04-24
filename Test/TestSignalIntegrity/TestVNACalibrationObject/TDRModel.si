@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>868x448+28+57</Geometry>
+			<Geometry>868x448+688+62</Geometry>
 			<Grid>16</Grid>
 			<Originx>0</Originx>
 			<Originy>10</Originy>
@@ -728,7 +728,7 @@
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>TDRPort1Model.si</Value>
+							<Value>TDRPort3Model.si</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>

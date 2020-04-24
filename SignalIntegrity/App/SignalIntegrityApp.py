@@ -333,7 +333,7 @@ class SignalIntegrityApp(tk.Frame):
             self.deltaHeight=event.height-600
             self.knowDelta=True
         #print 'width: '+str(event.width)+', height'+str(event.height)
-        
+
         self.deltaWidth=4
         self.deltaHeight=50
 
@@ -731,7 +731,7 @@ class SignalIntegrityApp(tk.Frame):
                 if deviceToCheck['ports'].GetValue()==2:
                     device=copy.deepcopy(deviceToCheck)
                     break
-        
+
         device['r'].SetValueFromString(str(R)); device['r']['KeywordVisible']=True; device['r']['Visible']=True
         device['l'].SetValueFromString(str(L)); device['l']['KeywordVisible']=True; device['l']['Visible']=True
         device['g'].SetValueFromString(str(G)); device['g']['KeywordVisible']=True; device['g']['Visible']=True
@@ -1022,7 +1022,7 @@ class SignalIntegrityApp(tk.Frame):
         if fileparts.fileext is None or fileparts.fileext == '':
             return
         self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
-    
+
     def onSaveCalibrationFile(self):
         extension='.cal'
         filename=AskSaveAsFilename(filetypes=[('calibration file', '.cal')],
@@ -1034,7 +1034,7 @@ class SignalIntegrityApp(tk.Frame):
             return
         self.fileparts=FileParts(filename)
         self.calibration.WriteToFile(filename)
-    
+
     def ViewCalibration(self,calibration):
         if self.calibration != None:
             self.spd=SParametersDialog(self,self.calibration,title='Calibration',filename=self.fileparts.FullFilePathExtension('s'+str(self.calibration.ports)+'p'))

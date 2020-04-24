@@ -180,8 +180,18 @@ class SignalIntegrityAppHeadless(object):
         pass
 
     def CalculateSParameters(self):
-        netListText=self.NetListText()
         import SignalIntegrity.Lib as si
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
+        if self.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
+            try:
+                sp=self.SimulateNetworkAnalyzerModel(SParameters=True)
+            except si.SignalIntegrityException as e:
+                return None
+            return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+        elif not self.Drawing.canCalculateSParameters:
+            return None
+        netListText=self.NetListText()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
@@ -200,6 +210,12 @@ class SignalIntegrityAppHeadless(object):
         return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
     def Simulate(self):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
+        if self.Drawing.canSimulateNetworkAnalyzerModel:
+            return self.SimulateNetworkAnalyzerModel(SParameters=False)
+        elif not self.Drawing.canSimulate:
+            return None
         netList=self.Drawing.schematic.NetList()
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
@@ -268,7 +284,7 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
             cacheFileName=cacheFileName)
-        snp.AddLines(netListText)       
+        snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
@@ -395,7 +411,7 @@ class SignalIntegrityAppHeadless(object):
         spnp.AddLines(netList)
         try:
             (DUTSp,NetworkAnalyzerProjectFile)=spnp.SParameters()
-        except si.SignalIntegrityException as e:             
+        except si.SignalIntegrityException as e:
             return None
         netListText=None
         if NetworkAnalyzerProjectFile != None:
@@ -415,7 +431,7 @@ class SignalIntegrityAppHeadless(object):
         else:
             netList=self.Drawing.schematic.NetList()
             netListText=self.NetListText()
-            
+
         if netListText==None:
             return None
         cacheFileName=None
@@ -426,13 +442,13 @@ class SignalIntegrityAppHeadless(object):
         snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
-        except si.SignalIntegrityException as e:               
+        except si.SignalIntegrityException as e:
             return None
 
         sourceNames=snp.m_sd.SourceVector()
 
         gdoDict={}
-        
+
         if NetworkAnalyzerProjectFile != None:
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
@@ -457,7 +473,7 @@ class SignalIntegrityAppHeadless(object):
                 else:
                     pass
             except:
-                pass                
+                pass
             finally:
                 SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
@@ -485,7 +501,15 @@ class SignalIntegrityAppHeadless(object):
                 outputwflist.append(self.transferMatriceProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
         except si.SignalIntegrityException as e:
             return None
+        #
+        # The list of list of input waveforms have been processed processed, generating a list of list of output waveforms in 
+        # self.outputwflist.  The names of the output waveforms are in snp.m_sd.pOutputList.
+        #
+        outputwflist = [[wf.Adapt(si.td.wf.TimeDescriptor(wf.td[wf.td.IndexOfTime(-5e-9)],fd.TimeDescriptor().K,wf.td.Fs)) for wf in driven] for driven in outputwflist]
 
+        # The port connection list, which is a list of True or False for each port on the network analyzer, is
+        # converted to a list of network port indices corresponding to the driven ports.
+        #
         portConnections=[]
         for pci in range(len(snp.PortConnectionList)):
             if snp.PortConnectionList[pci]: portConnections.append(pci)
@@ -551,7 +575,7 @@ class SignalIntegrityAppHeadless(object):
                 td.H=wf.TimeDescriptor()[wf.TimeDescriptor().IndexOfTime(td.H)]
                 fc=wf.Adapt(td).FrequencyContent()
                 frequencyContentList.append(fc)
-            
+
             Afc=[[frequencyContentList[outputWaveformLabels.index('A'+str(portConnections[r]+1)+str(portConnections[c]+1))]
                 for c in range(len(portConnections))] 
                     for r in range(len(portConnections))]

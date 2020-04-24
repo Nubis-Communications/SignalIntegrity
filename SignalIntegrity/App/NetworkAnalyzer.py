@@ -82,7 +82,7 @@ class NetworkAnalyzerSimulator(object):
                 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
                 self.spd=self.spd=SParametersDialog(self.parent,DUTSp,filename=self.parent.fileparts.FullFilePathExtension('s'+str(DUTSp.m_P)+'p'))
         except si.SignalIntegrityException as e:
-            messagebox.showerror('DUT S-parameter Calculator',e.parameter+': '+e.message)                
+            messagebox.showerror('DUT S-parameter Calculator',e.parameter+': '+e.message)
             return None
         #
         # DUTSp now contains the s-parameters of the DUT.  The DUT has a number of ports dictated by how many ports were actually connected
@@ -192,7 +192,6 @@ class NetworkAnalyzerSimulator(object):
         # self.outputwflist.  The names of the output waveforms are in snp.m_sd.pOutputList.
         #
         self.outputwflist = [[wf.Adapt(si.td.wf.TimeDescriptor(wf.td[wf.td.IndexOfTime(-5e-9)],fd.TimeDescriptor().K,wf.td.Fs)) for wf in driven] for driven in self.outputwflist]
-            
 
         # The port connection list, which is a list of True or False for each port on the network analyzer, is
         # converted to a list of network port indices corresponding to the driven ports.
