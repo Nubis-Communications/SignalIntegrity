@@ -362,6 +362,10 @@ class SignalIntegrityAppHeadless(object):
         return (unknownNames,sp,filename)
 
     def CalculateErrorTerms(self):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
+        if not self.Drawing.canCalculateErrorTerms:
+            return None
         netList=self.Drawing.schematic.NetList()
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
@@ -379,7 +383,7 @@ class SignalIntegrityAppHeadless(object):
             cal=etnp.CalculateCalibration()
         except si.SignalIntegrityException as e:
             return None
-        return cal
+        return (cal,self.fileparts.FullFilePathExtension('cal'))
 
     def Device(self,ref):
         """
@@ -647,7 +651,7 @@ def ProjectCalibration(filename):
         if app.OpenProjectFile(os.path.realpath(filename)):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateErrorTerms:
-                result=app.CalculateErrorTerms()
+                result=app.CalculateErrorTerms()[0]
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)

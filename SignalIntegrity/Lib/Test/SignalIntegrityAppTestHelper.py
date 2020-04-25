@@ -23,6 +23,7 @@ class SignalIntegrityAppTestHelper:
     relearn=True
     plotErrors=False
     forceWritePictures=False
+    SPCompareResolution=1e-3
     def __init__(self,path):
         self.path=path
     def FileNameForTest(self,filename):
@@ -118,7 +119,7 @@ class SignalIntegrityAppTestHelper:
             if not self.relearn:
                 self.assertTrue(False, spfilename + ' not found')
         regression=SParameterFile(spfilename)
-        SpAreEqual=self.SParametersAreEqual(sp, regression,1e-3)
+        SpAreEqual=self.SParametersAreEqual(sp, regression,self.SPCompareResolution)
         if not SpAreEqual:
             if SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
@@ -157,7 +158,22 @@ class SignalIntegrityAppTestHelper:
 
         self.assertTrue(SpAreEqual,spfilename + ' incorrect')
         os.chdir(currentDirectory)
+    def CalibrationRegressionChecker(self,cal,calfilename):
+        from SignalIntegrity.Lib.Measurement.Calibration.Calibration import Calibration
+        currentDirectory=os.getcwd()
+        os.chdir(self.path)
+        if not os.path.exists(calfilename):
+            cal.WriteToFile(calfilename)
+            if not self.relearn:
+                self.assertTrue(False, calfilename + ' not found')
+        regression=Calibration(0,0).ReadFromFile(calfilename)
 
+        regressionFixtures=regression.Fixtures()
+        calFixtures=cal.Fixtures()
+        SpAreEqual=all([self.SParametersAreEqual(calFixture, regressionFixture, 1e-3)
+                            for calFixture,regressionFixture in zip(calFixtures,regressionFixtures)])
+        self.assertTrue(SpAreEqual,calfilename + ' incorrect')
+        os.chdir(currentDirectory)
     def WaveformRegressionChecker(self,wf,wffilename):
         from SignalIntegrity.Lib.TimeDomain.Waveform import Waveform
         currentDirectory=os.getcwd()
@@ -189,6 +205,16 @@ class SignalIntegrityAppTestHelper:
         spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
         sp=result[0]
         self.SParameterRegressionChecker(sp, spfilename)
+        return result
+    def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+        result=pysi.CalculateErrorTerms()
+        self.assertIsNotNone(result, filename+' produced none')
+        os.chdir(self.path)
+        calfilename=result[1]
+        calfilename=self.FileNameForTest(filename)+'.'+calfilename.split('.')[-1]
+        cal=result[0]
+        self.CalibrationRegressionChecker(cal,calfilename)
         return result
     def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)

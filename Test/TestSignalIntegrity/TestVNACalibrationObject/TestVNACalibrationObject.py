@@ -32,10 +32,12 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
     debug=False
     checkPictures=True
     keepNewFormats=False
+    deleteCache=True
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+        self.SPCompareResolution=1e-2
         self.deleted=False
         #si.test.SignalIntegrityAppTestHelper.plotErrors=True
     def setUp(self):
@@ -48,6 +50,16 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         proj.Device('N3')['vrms']['Value']=0.0
         proj.Device('N4')['vrms']['Value']=0.0
         proj.SaveProjectToFile('TDRModel.si')
+        if self.deleteCache:
+            import glob
+            # Get a list of all the file paths that ends with .txt from in specified directory
+            fileList = glob.glob('*_cache*')
+            # Iterate over the list of filepaths & remove each file.
+            for filePath in fileList:
+                try:
+                    os.remove(filePath)
+                except:
+                    print("Error while deleting file : ", filePath)
     def testZZZZDoThisLast(self):
         proj=siapp.SignalIntegrityAppHeadless()
         self.assertTrue(proj.OpenProjectFile('TDRModel.si'))
@@ -61,7 +73,13 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         number=-310.13
         self.assertEqual(number,siapp.ToSI.FromSI(siapp.ToSI.ToSI(number,unit),unit),'si with exponent converted incorrectly')
     def TestCal(self,id):
-        self.SParameterResultsChecker(id.split('.')[-1].replace('test','')+'.si')
+        filename=id.split('.')[-1].replace('test','')+'.si'
+        self.SParameterResultsChecker(filename)
+        self.SimulationResultsChecker(filename)
+        if self.deleteCache:
+            # checks caching
+            self.SParameterResultsChecker(filename)
+            self.SimulationResultsChecker(filename)
     def testTDRShort1(self):
         self.TestCal(self.id())
     def testTDROpen1(self):
@@ -98,6 +116,10 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         self.TestCal(self.id())
     def testTDRThru34(self):
         self.TestCal(self.id())
+    def testTDRCalibration(self):
+        self.CalibrationResultsChecker('TDRCalibration.si')
+    def testTDRCalculation(self):
+        self.SParameterResultsChecker('TDRCalculation.si')
 
 
 
